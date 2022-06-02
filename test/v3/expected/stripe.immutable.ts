@@ -1703,7 +1703,7 @@ export interface components {
      */
     readonly account: {
       /** @description Business information about the account. */
-      readonly business_profile?: Partial<components['schemas']['account_business_profile']> | null
+      readonly business_profile?: components['schemas']['account_business_profile'] | null
       /**
        * @description The business type.
        * @enum {string|null}
@@ -1733,7 +1733,7 @@ export interface components {
        */
       readonly external_accounts?: {
         /** @description The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards. */
-        readonly data: readonly (Partial<components['schemas']['bank_account']> & Partial<components['schemas']['card']>)[]
+        readonly data: readonly (components['schemas']['bank_account'] | components['schemas']['card'])[]
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean
         /**
@@ -1759,7 +1759,7 @@ export interface components {
       readonly payouts_enabled?: boolean
       readonly requirements?: components['schemas']['account_requirements']
       /** @description Options for customizing how the account functions within Stripe. */
-      readonly settings?: Partial<components['schemas']['account_settings']> | null
+      readonly settings?: components['schemas']['account_settings'] | null
       readonly tos_acceptance?: components['schemas']['account_tos_acceptance']
       /**
        * @description The Stripe account type. Can be `standard`, `express`, or `custom`.
@@ -1775,9 +1775,9 @@ export interface components {
     /** AccountBrandingSettings */
     readonly account_branding_settings: {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) An icon for the account. Must be square and at least 128px x 128px. */
-      readonly icon?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly icon?: (string | components['schemas']['file']) | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A logo for the account that will be used in Checkout instead of the icon and without the account's name next to it if provided. Must be at least 128px x 128px. */
-      readonly logo?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly logo?: (string | components['schemas']['file']) | null
       /** @description A CSS hex color value representing the primary branding color for this account */
       readonly primary_color?: string | null
       /** @description A CSS hex color value representing the secondary branding color for this account */
@@ -1792,7 +1792,7 @@ export interface components {
       /** @description Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes. */
       readonly product_description?: string | null
       /** @description A publicly available mailing address for sending support issues to. */
-      readonly support_address?: Partial<components['schemas']['address']> | null
+      readonly support_address?: components['schemas']['address'] | null
       /** @description A publicly available email address for sending support issues to. */
       readonly support_email?: string | null
       /** @description A publicly available phone number to call with support issues. */
@@ -2215,7 +2215,7 @@ export interface components {
        */
       readonly created: number
       /** @description The ID of the customer associated with this Alipay Account. */
-      readonly customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      readonly customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description Uniquely identifies the account and will be the same across all Alipay account objects that are linked to the same Alipay account. */
       readonly fingerprint: string
       /** @description Unique identifier for the object. */
@@ -2260,9 +2260,7 @@ export interface components {
       readonly payment_method_type?: string
       readonly setup_intent?: components['schemas']['setup_intent']
       /** @description The source object for errors returned on a request involving a source. */
-      readonly source?: Partial<components['schemas']['bank_account']> &
-        Partial<components['schemas']['card']> &
-        Partial<components['schemas']['source']>
+      readonly source?: components['schemas']['bank_account'] | components['schemas']['card'] | components['schemas']['source']
       /**
        * @description The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
        * @enum {string}
@@ -2302,17 +2300,17 @@ export interface components {
     /** PlatformFee */
     readonly application_fee: {
       /** @description ID of the Stripe account this fee was taken from. */
-      readonly account: Partial<string> & Partial<components['schemas']['account']>
+      readonly account: string | components['schemas']['account']
       /** @description Amount earned, in %s. */
       readonly amount: number
       /** @description Amount in %s refunded (can be less than the amount attribute on the fee if a partial refund was issued) */
       readonly amount_refunded: number
       /** @description ID of the Connect application that earned the fee. */
-      readonly application: Partial<string> & Partial<components['schemas']['application']>
+      readonly application: string | components['schemas']['application']
       /** @description Balance transaction that describes the impact of this collected application fee on your account balance (not including refunds). */
-      readonly balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      readonly balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /** @description ID of the charge that the application fee was taken from. */
-      readonly charge: Partial<string> & Partial<components['schemas']['charge']>
+      readonly charge: string | components['schemas']['charge']
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -2330,7 +2328,7 @@ export interface components {
        */
       readonly object: 'application_fee'
       /** @description ID of the corresponding charge on the platform account, if this fee was the result of a charge using the `destination` parameter. */
-      readonly originating_transaction?: (Partial<string> & Partial<components['schemas']['charge']>) | null
+      readonly originating_transaction?: (string | components['schemas']['charge']) | null
       /** @description Whether the fee has been fully refunded. If the fee is only partially refunded, this attribute will still be false. */
       readonly refunded: boolean
       /**
@@ -2458,23 +2456,25 @@ export interface components {
       readonly reporting_category: string
       /** @description The Stripe object to which this transaction is related. */
       readonly source?:
-        | (Partial<string> &
-            Partial<components['schemas']['application_fee']> &
-            Partial<components['schemas']['charge']> &
-            Partial<components['schemas']['connect_collection_transfer']> &
-            Partial<components['schemas']['dispute']> &
-            Partial<components['schemas']['fee_refund']> &
-            Partial<components['schemas']['issuing.authorization']> &
-            Partial<components['schemas']['issuing.dispute']> &
-            Partial<components['schemas']['issuing.transaction']> &
-            Partial<components['schemas']['payout']> &
-            Partial<components['schemas']['platform_tax_fee']> &
-            Partial<components['schemas']['refund']> &
-            Partial<components['schemas']['reserve_transaction']> &
-            Partial<components['schemas']['tax_deducted_at_source']> &
-            Partial<components['schemas']['topup']> &
-            Partial<components['schemas']['transfer']> &
-            Partial<components['schemas']['transfer_reversal']>)
+        | (
+            | string
+            | components['schemas']['application_fee']
+            | components['schemas']['charge']
+            | components['schemas']['connect_collection_transfer']
+            | components['schemas']['dispute']
+            | components['schemas']['fee_refund']
+            | components['schemas']['issuing.authorization']
+            | components['schemas']['issuing.dispute']
+            | components['schemas']['issuing.transaction']
+            | components['schemas']['payout']
+            | components['schemas']['platform_tax_fee']
+            | components['schemas']['refund']
+            | components['schemas']['reserve_transaction']
+            | components['schemas']['tax_deducted_at_source']
+            | components['schemas']['topup']
+            | components['schemas']['transfer']
+            | components['schemas']['transfer_reversal']
+          )
         | null
       /** @description If the transaction's net funds are available in the Stripe balance yet. Either `available` or `pending`. */
       readonly status: string
@@ -2528,7 +2528,7 @@ export interface components {
      */
     readonly bank_account: {
       /** @description The ID of the account that the bank account is associated with. */
-      readonly account?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      readonly account?: (string | components['schemas']['account']) | null
       /** @description The name of the person or business that owns the bank account. */
       readonly account_holder_name?: string | null
       /** @description The type of entity that holds the account. This can be either `individual` or `company`. */
@@ -2544,7 +2544,7 @@ export interface components {
       /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account. */
       readonly currency: string
       /** @description The ID of the customer that the bank account is associated with. */
-      readonly customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      readonly customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description Whether this bank account is the default external account for its currency. */
       readonly default_for_currency?: boolean | null
       /** @description Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same. */
@@ -2572,7 +2572,7 @@ export interface components {
     /** billing_details */
     readonly billing_details: {
       /** @description Billing address. */
-      readonly address?: Partial<components['schemas']['address']> | null
+      readonly address?: components['schemas']['address'] | null
       /** @description Email address. */
       readonly email?: string | null
       /** @description Full name. */
@@ -2636,7 +2636,7 @@ export interface components {
      */
     readonly 'billing_portal.session': {
       /** @description The configuration used by this session, describing the features available. */
-      readonly configuration: Partial<string> & Partial<components['schemas']['billing_portal.configuration']>
+      readonly configuration: string | components['schemas']['billing_portal.configuration']
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -2814,7 +2814,7 @@ export interface components {
      */
     readonly capability: {
       /** @description The account for which the capability enables functionality. */
-      readonly account: Partial<string> & Partial<components['schemas']['account']>
+      readonly account: string | components['schemas']['account']
       readonly future_requirements?: components['schemas']['account_capability_future_requirements']
       /** @description The identifier for the capability. */
       readonly id: string
@@ -2847,7 +2847,7 @@ export interface components {
      */
     readonly card: {
       /** @description The account this card belongs to. This attribute will not be in the card object if the card belongs to a customer or recipient instead. */
-      readonly account?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      readonly account?: (string | components['schemas']['account']) | null
       /** @description City/District/Suburb/Town/Village. */
       readonly address_city?: string | null
       /** @description Billing address country, if provided when creating card. */
@@ -2873,7 +2873,7 @@ export interface components {
       /** @description Three-letter [ISO code for currency](https://stripe.com/docs/payouts). Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency. */
       readonly currency?: string | null
       /** @description The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead. */
-      readonly customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      readonly customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description If a CVC was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`. A result of unchecked indicates that CVC was provided but hasn't been checked yet. Checks are typically performed when attaching a card to a Customer object, or when creating a charge. For more details, see [Check if a card is valid without a charge](https://support.stripe.com/questions/check-if-a-card-is-valid-without-a-charge). */
       readonly cvc_check?: string | null
       /** @description Whether this card is the default external account for its currency. */
@@ -2906,7 +2906,7 @@ export interface components {
        */
       readonly object: 'card'
       /** @description The recipient that this card belongs to. This attribute will not be in the card object if the card belongs to a customer or account instead. */
-      readonly recipient?: (Partial<string> & Partial<components['schemas']['recipient']>) | null
+      readonly recipient?: (string | components['schemas']['recipient']) | null
       /** @description If the card number is tokenized, this is the method that was used. Can be `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null. */
       readonly tokenization_method?: string | null
     }
@@ -2943,13 +2943,13 @@ export interface components {
       /** @description Amount in %s refunded (can be less than the amount attribute on the charge if a partial refund was issued). */
       readonly amount_refunded: number
       /** @description ID of the Connect application that created the charge. */
-      readonly application?: (Partial<string> & Partial<components['schemas']['application']>) | null
+      readonly application?: (string | components['schemas']['application']) | null
       /** @description The application fee (if any) for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees) for details. */
-      readonly application_fee?: (Partial<string> & Partial<components['schemas']['application_fee']>) | null
+      readonly application_fee?: (string | components['schemas']['application_fee']) | null
       /** @description The amount of the application fee (if any) requested for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees) for details. */
       readonly application_fee_amount?: number | null
       /** @description ID of the balance transaction that describes the impact of this charge on your account balance (not including refunds or disputes). */
-      readonly balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      readonly balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       readonly billing_details: components['schemas']['billing_details']
       /** @description The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined. */
       readonly calculated_statement_descriptor?: string | null
@@ -2963,7 +2963,7 @@ export interface components {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       readonly currency: string
       /** @description ID of the customer this charge is for if one exists. */
-      readonly customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      readonly customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       readonly description?: string | null
       /** @description Whether the charge has been disputed. */
@@ -2973,11 +2973,11 @@ export interface components {
       /** @description Message to user further explaining reason for charge failure if available. */
       readonly failure_message?: string | null
       /** @description Information on fraud assessments for the charge. */
-      readonly fraud_details?: Partial<components['schemas']['charge_fraud_details']> | null
+      readonly fraud_details?: components['schemas']['charge_fraud_details'] | null
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description ID of the invoice this charge is for if one exists. */
-      readonly invoice?: (Partial<string> & Partial<components['schemas']['invoice']>) | null
+      readonly invoice?: (string | components['schemas']['invoice']) | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -2988,19 +2988,19 @@ export interface components {
        */
       readonly object: 'charge'
       /** @description The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers) for details. */
-      readonly on_behalf_of?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      readonly on_behalf_of?: (string | components['schemas']['account']) | null
       /** @description ID of the order this charge is for if one exists. */
-      readonly order?: (Partial<string> & Partial<components['schemas']['order']>) | null
+      readonly order?: (string | components['schemas']['order']) | null
       /** @description Details about whether the payment was accepted, and why. See [understanding declines](https://stripe.com/docs/declines) for details. */
-      readonly outcome?: Partial<components['schemas']['charge_outcome']> | null
+      readonly outcome?: components['schemas']['charge_outcome'] | null
       /** @description `true` if the charge succeeded, or was successfully authorized for later capture. */
       readonly paid: boolean
       /** @description ID of the PaymentIntent associated with this charge, if one exists. */
-      readonly payment_intent?: (Partial<string> & Partial<components['schemas']['payment_intent']>) | null
+      readonly payment_intent?: (string | components['schemas']['payment_intent']) | null
       /** @description ID of the payment method used in this charge. */
       readonly payment_method?: string | null
       /** @description Details about the payment method at the time of the transaction. */
-      readonly payment_method_details?: Partial<components['schemas']['payment_method_details']> | null
+      readonly payment_method_details?: components['schemas']['payment_method_details'] | null
       /** @description This is the email address that the receipt for this charge was sent to. */
       readonly receipt_email?: string | null
       /** @description This is the transaction number that appears on email receipts sent for this charge. This attribute will be `null` until a receipt has been sent. */
@@ -3027,11 +3027,11 @@ export interface components {
         readonly url: string
       }
       /** @description ID of the review associated with this charge if one exists. */
-      readonly review?: (Partial<string> & Partial<components['schemas']['review']>) | null
+      readonly review?: (string | components['schemas']['review']) | null
       /** @description Shipping information for the charge. */
-      readonly shipping?: Partial<components['schemas']['shipping']> | null
+      readonly shipping?: components['schemas']['shipping'] | null
       /** @description The transfer ID which created this charge. Only present if the charge came from another Stripe account. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
-      readonly source_transfer?: (Partial<string> & Partial<components['schemas']['transfer']>) | null
+      readonly source_transfer?: (string | components['schemas']['transfer']) | null
       /** @description For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
       readonly statement_descriptor?: string | null
       /** @description Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
@@ -3042,9 +3042,9 @@ export interface components {
        */
       readonly status: 'failed' | 'pending' | 'succeeded'
       /** @description ID of the transfer to the `destination` account (only applicable if the charge was created using the `destination` parameter). */
-      readonly transfer?: Partial<string> & Partial<components['schemas']['transfer']>
+      readonly transfer?: string | components['schemas']['transfer']
       /** @description An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
-      readonly transfer_data?: Partial<components['schemas']['charge_transfer_data']> | null
+      readonly transfer_data?: components['schemas']['charge_transfer_data'] | null
       /** @description A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
       readonly transfer_group?: string | null
     }
@@ -3066,7 +3066,7 @@ export interface components {
       /** @description Stripe Radar's evaluation of the riskiness of the payment. Possible values for evaluated payments are between 0 and 100. For non-card payments, card-based payments predating the public assignment of risk scores, or in the event of an error during evaluation, this field will not be present. This field is only available with Radar for Fraud Teams. */
       readonly risk_score?: number
       /** @description The ID of the Radar rule that matched the payment, if applicable. */
-      readonly rule?: Partial<string> & Partial<components['schemas']['rule']>
+      readonly rule?: string | components['schemas']['rule']
       /** @description A human-readable description of the outcome type and reason, designed for you (the recipient of the payment), not your customer. */
       readonly seller_message?: string | null
       /** @description Possible values are `authorized`, `manual_review`, `issuer_declined`, `blocked`, and `invalid`. See [understanding declines](https://stripe.com/docs/declines) and [Radar reviews](https://stripe.com/docs/radar/reviews) for details. */
@@ -3077,7 +3077,7 @@ export interface components {
       /** @description The amount transferred to the destination account, if specified. By default, the entire charge amount is transferred to the destination account. */
       readonly amount?: number | null
       /** @description ID of an existing, connected Stripe account to transfer funds to if `transfer_data` was specified in the charge request. */
-      readonly destination: Partial<string> & Partial<components['schemas']['account']>
+      readonly destination: string | components['schemas']['account']
     }
     /**
      * Session
@@ -3098,7 +3098,7 @@ export interface components {
      */
     readonly 'checkout.session': {
       /** @description When set, provides configuration for actions to take if this Checkout Session expires. */
-      readonly after_expiration?: Partial<components['schemas']['payment_pages_checkout_session_after_expiration']> | null
+      readonly after_expiration?: components['schemas']['payment_pages_checkout_session_after_expiration'] | null
       /** @description Enables user redeemable promotion codes. */
       readonly allow_promotion_codes?: boolean | null
       /** @description Total of all items before discounts or taxes are applied. */
@@ -3120,9 +3120,9 @@ export interface components {
        */
       readonly client_reference_id?: string | null
       /** @description Results of `consent_collection` for this session. */
-      readonly consent?: Partial<components['schemas']['payment_pages_checkout_session_consent']> | null
+      readonly consent?: components['schemas']['payment_pages_checkout_session_consent'] | null
       /** @description When set, provides configuration for the Checkout Session to gather active consent from customers. */
-      readonly consent_collection?: Partial<components['schemas']['payment_pages_checkout_session_consent_collection']> | null
+      readonly consent_collection?: components['schemas']['payment_pages_checkout_session_consent_collection'] | null
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       readonly currency?: string | null
       /**
@@ -3132,14 +3132,14 @@ export interface components {
        * during the payment flow unless an existing customer was provided when
        * the Session was created.
        */
-      readonly customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      readonly customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /**
        * @description Configure whether a Checkout Session creates a Customer when the Checkout Session completes.
        * @enum {string|null}
        */
       readonly customer_creation?: ('always' | 'if_required') | null
       /** @description The customer details including the customer's tax exempt status and the customer's tax IDs. Only present on Sessions in `payment` or `subscription` mode. */
-      readonly customer_details?: Partial<components['schemas']['payment_pages_checkout_session_customer_details']> | null
+      readonly customer_details?: components['schemas']['payment_pages_checkout_session_customer_details'] | null
       /**
        * @description If provided, this value will be used when the Customer object is created.
        * If not provided, customers will be asked to enter their email address.
@@ -3239,11 +3239,11 @@ export interface components {
        */
       readonly object: 'checkout.session'
       /** @description The ID of the PaymentIntent for Checkout Sessions in `payment` mode. */
-      readonly payment_intent?: (Partial<string> & Partial<components['schemas']['payment_intent']>) | null
+      readonly payment_intent?: (string | components['schemas']['payment_intent']) | null
       /** @description The ID of the Payment Link that created this Session. */
-      readonly payment_link?: (Partial<string> & Partial<components['schemas']['payment_link']>) | null
+      readonly payment_link?: (string | components['schemas']['payment_link']) | null
       /** @description Payment-method-specific configuration for the PaymentIntent or SetupIntent of this CheckoutSession. */
-      readonly payment_method_options?: Partial<components['schemas']['checkout_session_payment_method_options']> | null
+      readonly payment_method_options?: components['schemas']['checkout_session_payment_method_options'] | null
       /**
        * @description A list of the types of payment methods (e.g. card) this Checkout
        * Session is allowed to accept.
@@ -3259,15 +3259,15 @@ export interface components {
       /** @description The ID of the original expired Checkout Session that triggered the recovery flow. */
       readonly recovered_from?: string | null
       /** @description The ID of the SetupIntent for Checkout Sessions in `setup` mode. */
-      readonly setup_intent?: (Partial<string> & Partial<components['schemas']['setup_intent']>) | null
+      readonly setup_intent?: (string | components['schemas']['setup_intent']) | null
       /** @description Shipping information for this Checkout Session. */
-      readonly shipping?: Partial<components['schemas']['shipping']> | null
+      readonly shipping?: components['schemas']['shipping'] | null
       /** @description When set, provides configuration for Checkout to collect a shipping address from a customer. */
-      readonly shipping_address_collection?: Partial<components['schemas']['payment_pages_checkout_session_shipping_address_collection']> | null
+      readonly shipping_address_collection?: components['schemas']['payment_pages_checkout_session_shipping_address_collection'] | null
       /** @description The shipping rate options applied to this Session. */
       readonly shipping_options: readonly components['schemas']['payment_pages_checkout_session_shipping_option'][]
       /** @description The ID of the ShippingRate for Checkout Sessions in `payment` mode. */
-      readonly shipping_rate?: (Partial<string> & Partial<components['schemas']['shipping_rate']>) | null
+      readonly shipping_rate?: (string | components['schemas']['shipping_rate']) | null
       /**
        * @description The status of the Checkout Session, one of `open`, `complete`, or `expired`.
        * @enum {string|null}
@@ -3282,7 +3282,7 @@ export interface components {
        */
       readonly submit_type?: ('auto' | 'book' | 'donate' | 'pay') | null
       /** @description The ID of the subscription for Checkout Sessions in `subscription` mode. */
-      readonly subscription?: (Partial<string> & Partial<components['schemas']['subscription']>) | null
+      readonly subscription?: (string | components['schemas']['subscription']) | null
       /**
        * @description The URL the customer will be directed to after the payment or
        * subscription creation is successful.
@@ -3290,7 +3290,7 @@ export interface components {
       readonly success_url: string
       readonly tax_id_collection?: components['schemas']['payment_pages_checkout_session_tax_id_collection']
       /** @description Tax and discount details for the computed total amount. */
-      readonly total_details?: Partial<components['schemas']['payment_pages_checkout_session_total_details']> | null
+      readonly total_details?: components['schemas']['payment_pages_checkout_session_total_details'] | null
       /** @description The URL to the Checkout Session. */
       readonly url?: string | null
     }
@@ -3350,7 +3350,7 @@ export interface components {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       readonly currency: string
       /** @description ID of the account that funds are being collected for. */
-      readonly destination: Partial<string> & Partial<components['schemas']['account']>
+      readonly destination: string | components['schemas']['account']
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -3475,9 +3475,9 @@ export interface components {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       readonly currency: string
       /** @description ID of the customer. */
-      readonly customer: Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>
+      readonly customer: string | components['schemas']['customer'] | components['schemas']['deleted_customer']
       /** @description Customer balance transaction related to this credit note. */
-      readonly customer_balance_transaction?: (Partial<string> & Partial<components['schemas']['customer_balance_transaction']>) | null
+      readonly customer_balance_transaction?: (string | components['schemas']['customer_balance_transaction']) | null
       /** @description The integer amount in %s representing the total amount of discount that was credited. */
       readonly discount_amount: number
       /** @description The aggregate amounts calculated per discount for all line items. */
@@ -3485,7 +3485,7 @@ export interface components {
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description ID of the invoice. */
-      readonly invoice: Partial<string> & Partial<components['schemas']['invoice']>
+      readonly invoice: string | components['schemas']['invoice']
       /**
        * CreditNoteLinesList
        * @description Line items that make up the credit note
@@ -3526,7 +3526,7 @@ export interface components {
        */
       readonly reason?: ('duplicate' | 'fraudulent' | 'order_change' | 'product_unsatisfactory') | null
       /** @description Refund related to this credit note. */
-      readonly refund?: (Partial<string> & Partial<components['schemas']['refund']>) | null
+      readonly refund?: (string | components['schemas']['refund']) | null
       /**
        * @description Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
        * @enum {string}
@@ -3596,7 +3596,7 @@ export interface components {
       /** @description Whether this tax amount is inclusive or exclusive. */
       readonly inclusive: boolean
       /** @description The tax rate that was applied to get this tax amount. */
-      readonly tax_rate: Partial<string> & Partial<components['schemas']['tax_rate']>
+      readonly tax_rate: string | components['schemas']['tax_rate']
     }
     /**
      * Customer
@@ -3606,7 +3606,7 @@ export interface components {
      */
     readonly customer: {
       /** @description The customer's address. */
-      readonly address?: Partial<components['schemas']['address']> | null
+      readonly address?: components['schemas']['address'] | null
       /** @description Current balance, if any, being stored on the customer. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that will be added to their next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account as invoices are finalized. */
       readonly balance?: number
       /**
@@ -3622,12 +3622,14 @@ export interface components {
        * If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.
        */
       readonly default_source?:
-        | (Partial<string> &
-            Partial<components['schemas']['alipay_account']> &
-            Partial<components['schemas']['bank_account']> &
-            Partial<components['schemas']['bitcoin_receiver']> &
-            Partial<components['schemas']['card']> &
-            Partial<components['schemas']['source']>)
+        | (
+            | string
+            | components['schemas']['alipay_account']
+            | components['schemas']['bank_account']
+            | components['schemas']['bitcoin_receiver']
+            | components['schemas']['card']
+            | components['schemas']['source']
+          )
         | null
       /**
        * @description When the customer's latest invoice is billed by charging automatically, `delinquent` is `true` if the invoice's latest charge failed. When the customer's latest invoice is billed by sending an invoice, `delinquent` is `true` if the invoice isn't paid by its due date.
@@ -3638,7 +3640,7 @@ export interface components {
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       readonly description?: string | null
       /** @description Describes the current discount active on the customer, if there is one. */
-      readonly discount?: Partial<components['schemas']['discount']> | null
+      readonly discount?: components['schemas']['discount'] | null
       /** @description The customer's email address. */
       readonly email?: string | null
       /** @description Unique identifier for the object. */
@@ -3664,18 +3666,20 @@ export interface components {
       /** @description The customer's preferred locales (languages), ordered by preference. */
       readonly preferred_locales?: readonly string[] | null
       /** @description Mailing and shipping address for the customer. Appears on invoices emailed to this customer. */
-      readonly shipping?: Partial<components['schemas']['shipping']> | null
+      readonly shipping?: components['schemas']['shipping'] | null
       /**
        * ApmsSourcesSourceList
        * @description The customer's payment sources, if any.
        */
       readonly sources?: {
         /** @description Details about each object. */
-        readonly data: readonly (Partial<components['schemas']['alipay_account']> &
-          Partial<components['schemas']['bank_account']> &
-          Partial<components['schemas']['bitcoin_receiver']> &
-          Partial<components['schemas']['card']> &
-          Partial<components['schemas']['source']>)[]
+        readonly data: readonly (
+          | components['schemas']['alipay_account']
+          | components['schemas']['bank_account']
+          | components['schemas']['bitcoin_receiver']
+          | components['schemas']['card']
+          | components['schemas']['source']
+        )[]
         /** @description True if this list has another page of items after this one that can be fetched. */
         readonly has_more: boolean
         /**
@@ -3760,11 +3764,11 @@ export interface components {
        */
       readonly created: number
       /** @description The ID of the credit note (if any) related to the transaction. */
-      readonly credit_note?: (Partial<string> & Partial<components['schemas']['credit_note']>) | null
+      readonly credit_note?: (string | components['schemas']['credit_note']) | null
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       readonly currency: string
       /** @description The ID of the customer the transaction belongs to. */
-      readonly customer: Partial<string> & Partial<components['schemas']['customer']>
+      readonly customer: string | components['schemas']['customer']
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       readonly description?: string | null
       /** @description The customer's `balance` after the transaction was applied. A negative value decreases the amount due on the customer's next invoice. A positive value increases the amount due on the customer's next invoice. */
@@ -3772,7 +3776,7 @@ export interface components {
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description The ID of the invoice (if any) related to the transaction. */
-      readonly invoice?: (Partial<string> & Partial<components['schemas']['invoice']>) | null
+      readonly invoice?: (string | components['schemas']['invoice']) | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -3807,7 +3811,7 @@ export interface components {
       /** @description A recent IP address of the customer used for tax reporting and tax location inference. */
       readonly ip_address?: string | null
       /** @description The customer's location as identified by Stripe Tax. */
-      readonly location?: Partial<components['schemas']['customer_tax_location']> | null
+      readonly location?: components['schemas']['customer_tax_location'] | null
     }
     /** CustomerTaxLocation */
     readonly customer_tax_location: {
@@ -3951,7 +3955,7 @@ export interface components {
       readonly checkout_session?: string | null
       readonly coupon: components['schemas']['coupon']
       /** @description The ID of the customer associated with this discount. */
-      readonly customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      readonly customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /**
        * @description Always true for a deleted object
        * @enum {boolean}
@@ -3969,7 +3973,7 @@ export interface components {
        */
       readonly object: 'discount'
       /** @description The promotion code applied to create this discount. */
-      readonly promotion_code?: (Partial<string> & Partial<components['schemas']['promotion_code']>) | null
+      readonly promotion_code?: (string | components['schemas']['promotion_code']) | null
       /**
        * Format: unix-time
        * @description Date that the coupon was applied.
@@ -3979,7 +3983,7 @@ export interface components {
       readonly subscription?: string | null
     }
     /** Polymorphic */
-    readonly deleted_external_account: Partial<components['schemas']['deleted_bank_account']> & Partial<components['schemas']['deleted_card']>
+    readonly deleted_external_account: components['schemas']['deleted_bank_account'] | components['schemas']['deleted_card']
     /** DeletedInvoice */
     readonly deleted_invoice: {
       /**
@@ -4011,10 +4015,11 @@ export interface components {
       readonly object: 'invoiceitem'
     }
     /** Polymorphic */
-    readonly deleted_payment_source: Partial<components['schemas']['deleted_alipay_account']> &
-      Partial<components['schemas']['deleted_bank_account']> &
-      Partial<components['schemas']['deleted_bitcoin_receiver']> &
-      Partial<components['schemas']['deleted_card']>
+    readonly deleted_payment_source:
+      | components['schemas']['deleted_alipay_account']
+      | components['schemas']['deleted_bank_account']
+      | components['schemas']['deleted_bitcoin_receiver']
+      | components['schemas']['deleted_card']
     /** DeletedPerson */
     readonly deleted_person: {
       /**
@@ -4234,7 +4239,7 @@ export interface components {
       readonly checkout_session?: string | null
       readonly coupon: components['schemas']['coupon']
       /** @description The ID of the customer associated with this discount. */
-      readonly customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      readonly customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /**
        * Format: unix-time
        * @description If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.
@@ -4252,7 +4257,7 @@ export interface components {
        */
       readonly object: 'discount'
       /** @description The promotion code applied to create this discount. */
-      readonly promotion_code?: (Partial<string> & Partial<components['schemas']['promotion_code']>) | null
+      readonly promotion_code?: (string | components['schemas']['promotion_code']) | null
       /**
        * Format: unix-time
        * @description Date that the coupon was applied.
@@ -4266,7 +4271,7 @@ export interface components {
       /** @description The amount, in %s, of the discount. */
       readonly amount: number
       /** @description The discount that was applied to get this discount amount. */
-      readonly discount: Partial<string> & Partial<components['schemas']['discount']> & Partial<components['schemas']['deleted_discount']>
+      readonly discount: string | components['schemas']['discount'] | components['schemas']['deleted_discount']
     }
     /**
      * Dispute
@@ -4284,7 +4289,7 @@ export interface components {
       /** @description List of zero, one, or two balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute. */
       readonly balance_transactions: readonly components['schemas']['balance_transaction'][]
       /** @description ID of the charge that was disputed. */
-      readonly charge: Partial<string> & Partial<components['schemas']['charge']>
+      readonly charge: string | components['schemas']['charge']
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -4308,7 +4313,7 @@ export interface components {
        */
       readonly object: 'dispute'
       /** @description ID of the PaymentIntent that was disputed. */
-      readonly payment_intent?: (Partial<string> & Partial<components['schemas']['payment_intent']>) | null
+      readonly payment_intent?: (string | components['schemas']['payment_intent']) | null
       /** @description Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Read more about [dispute reasons](https://stripe.com/docs/disputes/categories). */
       readonly reason: string
       /**
@@ -4332,13 +4337,13 @@ export interface components {
       /** @description The billing address provided by the customer. */
       readonly billing_address?: string | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your subscription cancellation policy, as shown to the customer. */
-      readonly cancellation_policy?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly cancellation_policy?: (string | components['schemas']['file']) | null
       /** @description An explanation of how and when the customer was shown your refund policy prior to purchase. */
       readonly cancellation_policy_disclosure?: string | null
       /** @description A justification for why the customer's subscription was not canceled. */
       readonly cancellation_rebuttal?: string | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any communication with the customer that you feel is relevant to your case. Examples include emails proving that the customer received the product or service, or demonstrating their use of or satisfaction with the product or service. */
-      readonly customer_communication?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly customer_communication?: (string | components['schemas']['file']) | null
       /** @description The email address of the customer. */
       readonly customer_email_address?: string | null
       /** @description The name of the customer. */
@@ -4346,9 +4351,9 @@ export interface components {
       /** @description The IP address that the customer used when making the purchase. */
       readonly customer_purchase_ip?: string | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A relevant document or contract showing the customer's signature. */
-      readonly customer_signature?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly customer_signature?: (string | components['schemas']['file']) | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation for the prior charge that can uniquely identify the charge, such as a receipt, shipping label, work order, etc. This document should be paired with a similar document from the disputed payment that proves the two payments are separate. */
-      readonly duplicate_charge_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly duplicate_charge_documentation?: (string | components['schemas']['file']) | null
       /** @description An explanation of the difference between the disputed charge versus the prior charge that appears to be a duplicate. */
       readonly duplicate_charge_explanation?: string | null
       /** @description The Stripe ID for the prior charge which appears to be a duplicate of the disputed charge. */
@@ -4356,9 +4361,9 @@ export interface components {
       /** @description A description of the product or service that was sold. */
       readonly product_description?: string | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any receipt or message sent to the customer notifying them of the charge. */
-      readonly receipt?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly receipt?: (string | components['schemas']['file']) | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your refund policy, as shown to the customer. */
-      readonly refund_policy?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly refund_policy?: (string | components['schemas']['file']) | null
       /** @description Documentation demonstrating that the customer was shown your refund policy prior to purchase. */
       readonly refund_policy_disclosure?: string | null
       /** @description A justification for why the customer is not entitled to a refund. */
@@ -4366,7 +4371,7 @@ export interface components {
       /** @description The date on which the customer received or began receiving the purchased service, in a clear human-readable format. */
       readonly service_date?: string | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a service was provided to the customer. This could include a copy of a signed contract, work order, or other form of written agreement. */
-      readonly service_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly service_documentation?: (string | components['schemas']['file']) | null
       /** @description The address to which a physical product was shipped. You should try to include as complete address information as possible. */
       readonly shipping_address?: string | null
       /** @description The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc. If multiple carriers were used for this purchase, please separate them with commas. */
@@ -4374,11 +4379,11 @@ export interface components {
       /** @description The date on which a physical product began its route to the shipping address, in a clear human-readable format. */
       readonly shipping_date?: string | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a product was shipped to the customer at the same address the customer provided to you. This could include a copy of the shipment receipt, shipping label, etc. It should show the customer's full shipping address, if possible. */
-      readonly shipping_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly shipping_documentation?: (string | components['schemas']['file']) | null
       /** @description The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas. */
       readonly shipping_tracking_number?: string | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any additional evidence or statements. */
-      readonly uncategorized_file?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly uncategorized_file?: (string | components['schemas']['file']) | null
       /** @description Any additional evidence or statements. */
       readonly uncategorized_text?: string | null
     }
@@ -4479,7 +4484,7 @@ export interface components {
       /** @description Number of webhooks that have yet to be successfully delivered (i.e., to return a 20x response) to the URLs you've specified. */
       readonly pending_webhooks: number
       /** @description Information on the API request that instigated the event. */
-      readonly request?: Partial<components['schemas']['notification_event_request']> | null
+      readonly request?: components['schemas']['notification_event_request'] | null
       /** @description Description of the event (e.g., `invoice.created` or `charge.refunded`). */
       readonly type: string
     }
@@ -4509,7 +4514,7 @@ export interface components {
       readonly rates: { readonly [key: string]: number }
     }
     /** Polymorphic */
-    readonly external_account: Partial<components['schemas']['bank_account']> & Partial<components['schemas']['card']>
+    readonly external_account: components['schemas']['bank_account'] | components['schemas']['card']
     /** Fee */
     readonly fee: {
       /** @description Amount of the fee, in cents. */
@@ -4535,7 +4540,7 @@ export interface components {
       /** @description Amount, in %s. */
       readonly amount: number
       /** @description Balance transaction that describes the impact on your account balance. */
-      readonly balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      readonly balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -4544,7 +4549,7 @@ export interface components {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       readonly currency: string
       /** @description ID of the application fee that was refunded. */
-      readonly fee: Partial<string> & Partial<components['schemas']['application_fee']>
+      readonly fee: string | components['schemas']['application_fee']
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -4650,7 +4655,7 @@ export interface components {
        */
       readonly expires_at?: number | null
       /** @description The file object this link points to. */
-      readonly file: Partial<string> & Partial<components['schemas']['file']>
+      readonly file: string | components['schemas']['file']
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -4756,19 +4761,19 @@ export interface components {
      */
     readonly gelato_document_report: {
       /** @description Address as it appears in the document. */
-      readonly address?: Partial<components['schemas']['address']> | null
+      readonly address?: components['schemas']['address'] | null
       /** @description Date of birth as it appears in the document. */
-      readonly dob?: Partial<components['schemas']['gelato_data_document_report_date_of_birth']> | null
+      readonly dob?: components['schemas']['gelato_data_document_report_date_of_birth'] | null
       /** @description Details on the verification error. Present when status is `unverified`. */
-      readonly error?: Partial<components['schemas']['gelato_document_report_error']> | null
+      readonly error?: components['schemas']['gelato_document_report_error'] | null
       /** @description Expiration date of the document. */
-      readonly expiration_date?: Partial<components['schemas']['gelato_data_document_report_expiration_date']> | null
+      readonly expiration_date?: components['schemas']['gelato_data_document_report_expiration_date'] | null
       /** @description Array of [File](https://stripe.com/docs/api/files) ids containing images for this document. */
       readonly files?: readonly string[] | null
       /** @description First name as it appears in the document. */
       readonly first_name?: string | null
       /** @description Issued date of the document. */
-      readonly issued_date?: Partial<components['schemas']['gelato_data_document_report_issued_date']> | null
+      readonly issued_date?: components['schemas']['gelato_data_document_report_issued_date'] | null
       /** @description Issuing country of the document. */
       readonly issuing_country?: string | null
       /** @description Last name as it appears in the document. */
@@ -4802,9 +4807,9 @@ export interface components {
      */
     readonly gelato_id_number_report: {
       /** @description Date of birth. */
-      readonly dob?: Partial<components['schemas']['gelato_data_id_number_report_date']> | null
+      readonly dob?: components['schemas']['gelato_data_id_number_report_date'] | null
       /** @description Details on the verification error. Present when status is `unverified`. */
-      readonly error?: Partial<components['schemas']['gelato_id_number_report_error']> | null
+      readonly error?: components['schemas']['gelato_id_number_report_error'] | null
       /** @description First name. */
       readonly first_name?: string | null
       /** @description ID number. */
@@ -4853,7 +4858,7 @@ export interface components {
       /** @description ID of the [File](https://stripe.com/docs/api/files) holding the image of the identity document used in this check. */
       readonly document?: string | null
       /** @description Details on the verification error. Present when status is `unverified`. */
-      readonly error?: Partial<components['schemas']['gelato_selfie_report_error']> | null
+      readonly error?: components['schemas']['gelato_selfie_report_error'] | null
       /** @description ID of the [File](https://stripe.com/docs/api/files) holding the image of the selfie used in this check. */
       readonly selfie?: string | null
       /**
@@ -4929,9 +4934,9 @@ export interface components {
     /** GelatoVerifiedOutputs */
     readonly gelato_verified_outputs: {
       /** @description The user's verified address. */
-      readonly address?: Partial<components['schemas']['address']> | null
+      readonly address?: components['schemas']['address'] | null
       /** @description The user’s verified date of birth. */
-      readonly dob?: Partial<components['schemas']['gelato_data_verified_outputs_date']> | null
+      readonly dob?: components['schemas']['gelato_data_verified_outputs_date'] | null
       /** @description The user's verified first name. */
       readonly first_name?: string | null
       /** @description The user's verified id number. */
@@ -5010,9 +5015,9 @@ export interface components {
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description If present, this property tells you the last error encountered when processing the verification. */
-      readonly last_error?: Partial<components['schemas']['gelato_session_last_error']> | null
+      readonly last_error?: components['schemas']['gelato_session_last_error'] | null
       /** @description ID of the most recent VerificationReport. [Learn more about accessing detailed verification results.](https://stripe.com/docs/identity/verification-sessions#results) */
-      readonly last_verification_report?: (Partial<string> & Partial<components['schemas']['identity.verification_report']>) | null
+      readonly last_verification_report?: (string | components['schemas']['identity.verification_report']) | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -5024,7 +5029,7 @@ export interface components {
       readonly object: 'identity.verification_session'
       readonly options: components['schemas']['gelato_verification_session_options']
       /** @description Redaction status of this VerificationSession. If the VerificationSession is not redacted, this field will be null. */
-      readonly redaction?: Partial<components['schemas']['verification_session_redaction']> | null
+      readonly redaction?: components['schemas']['verification_session_redaction'] | null
       /**
        * @description Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
        * @enum {string}
@@ -5038,7 +5043,7 @@ export interface components {
       /** @description The short-lived URL that you use to redirect a user to Stripe to submit their identity information. This URL expires after 48 hours and can only be used once. Don’t store it, log it, send it in emails or expose it to anyone other than the user. Refer to our docs on [verifying identity documents](https://stripe.com/docs/identity/verify-identity-documents?platform=web&type=redirect) to learn how to redirect users to Stripe. */
       readonly url?: string | null
       /** @description The user’s verified data. */
-      readonly verified_outputs?: Partial<components['schemas']['gelato_verified_outputs']> | null
+      readonly verified_outputs?: components['schemas']['gelato_verified_outputs'] | null
     }
     /**
      * Invoice
@@ -5081,9 +5086,7 @@ export interface components {
       /** @description The public name of the business associated with this invoice, most often the business creating the invoice. */
       readonly account_name?: string | null
       /** @description The account tax IDs associated with the invoice. Only editable when the invoice is a draft. */
-      readonly account_tax_ids?:
-        | readonly (Partial<string> & Partial<components['schemas']['tax_id']> & Partial<components['schemas']['deleted_tax_id']>)[]
-        | null
+      readonly account_tax_ids?: readonly (string | components['schemas']['tax_id'] | components['schemas']['deleted_tax_id'])[] | null
       /** @description Final amount due at this time for this invoice. If the invoice's total is smaller than the minimum charge amount, for example, or if there is account credit that can be applied to the invoice, the `amount_due` may be 0. If there is a positive `starting_balance` for the invoice (the customer owes money), the `amount_due` will also take that into account. The charge that gets generated for the invoice will be for the amount specified in `amount_due`. */
       readonly amount_due: number
       /** @description The amount, in %s, that was paid. */
@@ -5117,7 +5120,7 @@ export interface components {
           )
         | null
       /** @description ID of the latest charge generated for this invoice, if any. */
-      readonly charge?: (Partial<string> & Partial<components['schemas']['charge']>) | null
+      readonly charge?: (string | components['schemas']['charge']) | null
       /**
        * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
        * @enum {string}
@@ -5133,9 +5136,9 @@ export interface components {
       /** @description Custom fields displayed on the invoice. */
       readonly custom_fields?: readonly components['schemas']['invoice_setting_custom_field'][] | null
       /** @description The ID of the customer who will be billed. */
-      readonly customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      readonly customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated. */
-      readonly customer_address?: Partial<components['schemas']['address']> | null
+      readonly customer_address?: components['schemas']['address'] | null
       /** @description The customer's email. Until the invoice is finalized, this field will equal `customer.email`. Once the invoice is finalized, this field will no longer be updated. */
       readonly customer_email?: string | null
       /** @description The customer's name. Until the invoice is finalized, this field will equal `customer.name`. Once the invoice is finalized, this field will no longer be updated. */
@@ -5143,7 +5146,7 @@ export interface components {
       /** @description The customer's phone number. Until the invoice is finalized, this field will equal `customer.phone`. Once the invoice is finalized, this field will no longer be updated. */
       readonly customer_phone?: string | null
       /** @description The customer's shipping information. Until the invoice is finalized, this field will equal `customer.shipping`. Once the invoice is finalized, this field will no longer be updated. */
-      readonly customer_shipping?: Partial<components['schemas']['shipping']> | null
+      readonly customer_shipping?: components['schemas']['shipping'] | null
       /**
        * @description The customer's tax exempt status. Until the invoice is finalized, this field will equal `customer.tax_exempt`. Once the invoice is finalized, this field will no longer be updated.
        * @enum {string|null}
@@ -5152,26 +5155,26 @@ export interface components {
       /** @description The customer's tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as `customer.tax_ids`. Once the invoice is finalized, this field will no longer be updated. */
       readonly customer_tax_ids?: readonly components['schemas']['invoices_resource_invoice_tax_id'][] | null
       /** @description ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings. */
-      readonly default_payment_method?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      readonly default_payment_method?: (string | components['schemas']['payment_method']) | null
       /** @description ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source. */
       readonly default_source?:
-        | (Partial<string> &
-            Partial<components['schemas']['alipay_account']> &
-            Partial<components['schemas']['bank_account']> &
-            Partial<components['schemas']['bitcoin_receiver']> &
-            Partial<components['schemas']['card']> &
-            Partial<components['schemas']['source']>)
+        | (
+            | string
+            | components['schemas']['alipay_account']
+            | components['schemas']['bank_account']
+            | components['schemas']['bitcoin_receiver']
+            | components['schemas']['card']
+            | components['schemas']['source']
+          )
         | null
       /** @description The tax rates applied to this invoice, if any. */
       readonly default_tax_rates: readonly components['schemas']['tax_rate'][]
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard. */
       readonly description?: string | null
       /** @description Describes the current discount applied to this invoice, if there is one. Not populated if there are multiple discounts. */
-      readonly discount?: Partial<components['schemas']['discount']> | null
+      readonly discount?: components['schemas']['discount'] | null
       /** @description The discounts applied to the invoice. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount. */
-      readonly discounts?:
-        | readonly (Partial<string> & Partial<components['schemas']['discount']> & Partial<components['schemas']['deleted_discount']>)[]
-        | null
+      readonly discounts?: readonly (string | components['schemas']['discount'] | components['schemas']['deleted_discount'])[] | null
       /**
        * Format: unix-time
        * @description The date on which payment for this invoice is due. This value will be `null` for invoices where `collection_method=charge_automatically`.
@@ -5188,7 +5191,7 @@ export interface components {
       /** @description The link to download the PDF for the invoice. If the invoice has not been finalized yet, this will be null. */
       readonly invoice_pdf?: string | null
       /** @description The error encountered during the previous attempt to finalize the invoice. This field is cleared when the invoice is successfully finalized. */
-      readonly last_finalization_error?: Partial<components['schemas']['api_errors']> | null
+      readonly last_finalization_error?: components['schemas']['api_errors'] | null
       /**
        * InvoiceLinesList
        * @description The individual line items that make up the invoice. `lines` is sorted as follows: invoice items in reverse chronological order, followed by the subscription, if any.
@@ -5223,13 +5226,13 @@ export interface components {
        */
       readonly object: 'invoice'
       /** @description The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details. */
-      readonly on_behalf_of?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      readonly on_behalf_of?: (string | components['schemas']['account']) | null
       /** @description Whether payment was successfully collected for this invoice. An invoice can be paid (most commonly) with a charge or with credit from the customer's account balance. */
       readonly paid: boolean
       /** @description Returns true if the invoice was manually marked paid, returns false if the invoice hasn't been paid yet or was paid on Stripe. */
       readonly paid_out_of_band: boolean
       /** @description The PaymentIntent associated with this invoice. The PaymentIntent is generated when the invoice is finalized, and can then be used to pay the invoice. Note that voiding an invoice will cancel the PaymentIntent. */
-      readonly payment_intent?: (Partial<string> & Partial<components['schemas']['payment_intent']>) | null
+      readonly payment_intent?: (string | components['schemas']['payment_intent']) | null
       readonly payment_settings: components['schemas']['invoices_payment_settings']
       /**
        * Format: unix-time
@@ -5246,7 +5249,7 @@ export interface components {
       /** @description Total amount of all pre-payment credit notes issued for this invoice. */
       readonly pre_payment_credit_notes_amount: number
       /** @description The quote this invoice was generated from. */
-      readonly quote?: (Partial<string> & Partial<components['schemas']['quote']>) | null
+      readonly quote?: (string | components['schemas']['quote']) | null
       /** @description This is the transaction number that appears on email receipts sent for this invoice. */
       readonly receipt_number?: string | null
       /** @description Starting customer balance before the invoice is finalized. If the invoice has not been finalized yet, this will be the current customer balance. */
@@ -5260,7 +5263,7 @@ export interface components {
       readonly status?: ('deleted' | 'draft' | 'open' | 'paid' | 'uncollectible' | 'void') | null
       readonly status_transitions: components['schemas']['invoices_status_transitions']
       /** @description The subscription that this invoice was prepared for, if any. */
-      readonly subscription?: (Partial<string> & Partial<components['schemas']['subscription']>) | null
+      readonly subscription?: (string | components['schemas']['subscription']) | null
       /** @description Only set for upcoming invoices that preview prorations. The time used to calculate prorations. */
       readonly subscription_proration_date?: number
       /** @description Total of all subscriptions, invoice items, and prorations on the invoice before any invoice level discount or tax is applied. Item discounts are already incorporated */
@@ -5275,7 +5278,7 @@ export interface components {
       /** @description The aggregate amounts calculated per tax rate for all line items. */
       readonly total_tax_amounts: readonly components['schemas']['invoice_tax_amount'][]
       /** @description The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to for the invoice. */
-      readonly transfer_data?: Partial<components['schemas']['invoice_transfer_data']> | null
+      readonly transfer_data?: components['schemas']['invoice_transfer_data'] | null
       /**
        * Format: unix-time
        * @description Invoices are automatically paid or sent 1 hour after webhooks are delivered, or until all webhook delivery attempts have [been exhausted](https://stripe.com/docs/billing/webhooks#understand). This field tracks the time when webhooks for this invoice were successfully delivered. If the invoice had no webhooks to deliver, this will be set while the invoice is being created.
@@ -5359,7 +5362,7 @@ export interface components {
       /** @description Default custom fields to be displayed on invoices for this customer. */
       readonly custom_fields?: readonly components['schemas']['invoice_setting_custom_field'][] | null
       /** @description ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices. */
-      readonly default_payment_method?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      readonly default_payment_method?: (string | components['schemas']['payment_method']) | null
       /** @description Default footer to be displayed on invoices for this customer. */
       readonly footer?: string | null
     }
@@ -5380,7 +5383,7 @@ export interface components {
       /** @description Whether this tax amount is inclusive or exclusive. */
       readonly inclusive: boolean
       /** @description The tax rate that was applied to get this tax amount. */
-      readonly tax_rate: Partial<string> & Partial<components['schemas']['tax_rate']>
+      readonly tax_rate: string | components['schemas']['tax_rate']
     }
     /** InvoiceThresholdReason */
     readonly invoice_threshold_reason: {
@@ -5394,7 +5397,7 @@ export interface components {
       /** @description The amount in %s that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination. */
       readonly amount?: number | null
       /** @description The account where funds from the payment will be transferred to upon payment success. */
-      readonly destination: Partial<string> & Partial<components['schemas']['account']>
+      readonly destination: string | components['schemas']['account']
     }
     /**
      * InvoiceItem
@@ -5412,7 +5415,7 @@ export interface components {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       readonly currency: string
       /** @description The ID of the customer who will be billed when this invoice item is billed. */
-      readonly customer: Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>
+      readonly customer: string | components['schemas']['customer'] | components['schemas']['deleted_customer']
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -5423,11 +5426,11 @@ export interface components {
       /** @description If true, discounts will apply to this invoice item. Always false for prorations. */
       readonly discountable: boolean
       /** @description The discounts which apply to the invoice item. Item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount. */
-      readonly discounts?: readonly (Partial<string> & Partial<components['schemas']['discount']>)[] | null
+      readonly discounts?: readonly (string | components['schemas']['discount'])[] | null
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description The ID of the invoice this invoice item belongs to. */
-      readonly invoice?: (Partial<string> & Partial<components['schemas']['invoice']>) | null
+      readonly invoice?: (string | components['schemas']['invoice']) | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -5439,13 +5442,13 @@ export interface components {
       readonly object: 'invoiceitem'
       readonly period: components['schemas']['invoice_line_item_period']
       /** @description The price of the invoice item. */
-      readonly price?: Partial<components['schemas']['price']> | null
+      readonly price?: components['schemas']['price'] | null
       /** @description Whether the invoice item was created automatically as a proration adjustment when the customer switched plans. */
       readonly proration: boolean
       /** @description Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for. */
       readonly quantity: number
       /** @description The subscription that this invoice item has been created for, if any. */
-      readonly subscription?: (Partial<string> & Partial<components['schemas']['subscription']>) | null
+      readonly subscription?: (string | components['schemas']['subscription']) | null
       /** @description The subscription item that this invoice item has been created for, if any. */
       readonly subscription_item?: string
       /** @description The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. */
@@ -5461,16 +5464,16 @@ export interface components {
     /** InvoicesPaymentMethodOptions */
     readonly invoices_payment_method_options: {
       /** @description If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent. */
-      readonly acss_debit?: Partial<components['schemas']['invoice_payment_method_options_acss_debit']> | null
+      readonly acss_debit?: components['schemas']['invoice_payment_method_options_acss_debit'] | null
       /** @description If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent. */
-      readonly bancontact?: Partial<components['schemas']['invoice_payment_method_options_bancontact']> | null
+      readonly bancontact?: components['schemas']['invoice_payment_method_options_bancontact'] | null
       /** @description If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent. */
-      readonly card?: Partial<components['schemas']['invoice_payment_method_options_card']> | null
+      readonly card?: components['schemas']['invoice_payment_method_options_card'] | null
     }
     /** InvoicesPaymentSettings */
     readonly invoices_payment_settings: {
       /** @description Payment-method-specific configuration to provide to the invoice’s PaymentIntent. */
-      readonly payment_method_options?: Partial<components['schemas']['invoices_payment_method_options']> | null
+      readonly payment_method_options?: components['schemas']['invoices_payment_method_options'] | null
       /** @description The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). */
       readonly payment_method_types?:
         | readonly (
@@ -5578,7 +5581,7 @@ export interface components {
       /** @description An IFR is actionable if it has not received a dispute and has not been fully refunded. You may wish to proactively refund a charge that receives an IFR, in order to avoid receiving a dispute later. */
       readonly actionable: boolean
       /** @description ID of the charge this issuer fraud record is for, optionally expanded. */
-      readonly charge: Partial<string> & Partial<components['schemas']['charge']>
+      readonly charge: string | components['schemas']['charge']
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -5612,7 +5615,7 @@ export interface components {
       /** @description The total amount that was authorized or rejected. This amount is in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
       readonly amount: number
       /** @description Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
-      readonly amount_details?: Partial<components['schemas']['issuing_authorization_amount_details']> | null
+      readonly amount_details?: components['schemas']['issuing_authorization_amount_details'] | null
       /** @description Whether the authorization has been approved. */
       readonly approved: boolean
       /**
@@ -5624,7 +5627,7 @@ export interface components {
       readonly balance_transactions: readonly components['schemas']['balance_transaction'][]
       readonly card: components['schemas']['issuing.card']
       /** @description The cardholder to whom this authorization belongs. */
-      readonly cardholder?: (Partial<string> & Partial<components['schemas']['issuing.cardholder']>) | null
+      readonly cardholder?: (string | components['schemas']['issuing.cardholder']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -5649,7 +5652,7 @@ export interface components {
        */
       readonly object: 'issuing.authorization'
       /** @description The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook. */
-      readonly pending_request?: Partial<components['schemas']['issuing_authorization_pending_request']> | null
+      readonly pending_request?: components['schemas']['issuing_authorization_pending_request'] | null
       /** @description History of every time `pending_request` was approved/denied, either by you directly or by Stripe (e.g. based on your `spending_controls`). If the merchant changes the authorization by performing an [incremental authorization](https://stripe.com/docs/issuing/purchases/authorizations), you can look at this field to see the previous requests for the authorization. */
       readonly request_history: readonly components['schemas']['issuing_authorization_request'][]
       /**
@@ -5705,16 +5708,16 @@ export interface components {
        */
       readonly object: 'issuing.card'
       /** @description The latest card that replaces this card, if any. */
-      readonly replaced_by?: (Partial<string> & Partial<components['schemas']['issuing.card']>) | null
+      readonly replaced_by?: (string | components['schemas']['issuing.card']) | null
       /** @description The card this card replaces, if any. */
-      readonly replacement_for?: (Partial<string> & Partial<components['schemas']['issuing.card']>) | null
+      readonly replacement_for?: (string | components['schemas']['issuing.card']) | null
       /**
        * @description The reason why the previous card needed to be replaced.
        * @enum {string|null}
        */
       readonly replacement_reason?: ('damaged' | 'expired' | 'lost' | 'stolen') | null
       /** @description Where and how the card will be shipped. */
-      readonly shipping?: Partial<components['schemas']['issuing_card_shipping']> | null
+      readonly shipping?: components['schemas']['issuing_card_shipping'] | null
       readonly spending_controls: components['schemas']['issuing_card_authorization_controls']
       /**
        * @description Whether authorizations can be approved on this card.
@@ -5727,7 +5730,7 @@ export interface components {
        */
       readonly type: 'physical' | 'virtual'
       /** @description Information relating to digital wallets (like Apple Pay and Google Pay). */
-      readonly wallets?: Partial<components['schemas']['issuing_card_wallets']> | null
+      readonly wallets?: components['schemas']['issuing_card_wallets'] | null
     }
     /**
      * IssuingCardholder
@@ -5738,7 +5741,7 @@ export interface components {
     readonly 'issuing.cardholder': {
       readonly billing: components['schemas']['issuing_cardholder_address']
       /** @description Additional information about a `company` cardholder. */
-      readonly company?: Partial<components['schemas']['issuing_cardholder_company']> | null
+      readonly company?: components['schemas']['issuing_cardholder_company'] | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -5749,7 +5752,7 @@ export interface components {
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description Additional information about an `individual` cardholder. */
-      readonly individual?: Partial<components['schemas']['issuing_cardholder_individual']> | null
+      readonly individual?: components['schemas']['issuing_cardholder_individual'] | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -5765,7 +5768,7 @@ export interface components {
       readonly phone_number?: string | null
       readonly requirements: components['schemas']['issuing_cardholder_requirements']
       /** @description Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details. */
-      readonly spending_controls?: Partial<components['schemas']['issuing_cardholder_authorization_controls']> | null
+      readonly spending_controls?: components['schemas']['issuing_cardholder_authorization_controls'] | null
       /**
        * @description Specifies whether to permit authorizations on this cardholder's cards.
        * @enum {string}
@@ -5813,7 +5816,7 @@ export interface components {
        */
       readonly status: 'expired' | 'lost' | 'submitted' | 'unsubmitted' | 'won'
       /** @description The transaction being disputed. */
-      readonly transaction: Partial<string> & Partial<components['schemas']['issuing.transaction']>
+      readonly transaction: string | components['schemas']['issuing.transaction']
     }
     /**
      * IssuingSettlement
@@ -5874,15 +5877,15 @@ export interface components {
       /** @description The transaction amount, which will be reflected in your balance. This amount is in your currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
       readonly amount: number
       /** @description Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
-      readonly amount_details?: Partial<components['schemas']['issuing_transaction_amount_details']> | null
+      readonly amount_details?: components['schemas']['issuing_transaction_amount_details'] | null
       /** @description The `Authorization` object that led to this transaction. */
-      readonly authorization?: (Partial<string> & Partial<components['schemas']['issuing.authorization']>) | null
+      readonly authorization?: (string | components['schemas']['issuing.authorization']) | null
       /** @description ID of the [balance transaction](https://stripe.com/docs/api/balance_transactions) associated with this transaction. */
-      readonly balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      readonly balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /** @description The card used to make this transaction. */
-      readonly card: Partial<string> & Partial<components['schemas']['issuing.card']>
+      readonly card: string | components['schemas']['issuing.card']
       /** @description The cardholder to whom this transaction belongs. */
-      readonly cardholder?: (Partial<string> & Partial<components['schemas']['issuing.cardholder']>) | null
+      readonly cardholder?: (string | components['schemas']['issuing.cardholder']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -5891,7 +5894,7 @@ export interface components {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       readonly currency: string
       /** @description If you've disputed the transaction, the ID of the dispute. */
-      readonly dispute?: (Partial<string> & Partial<components['schemas']['issuing.dispute']>) | null
+      readonly dispute?: (string | components['schemas']['issuing.dispute']) | null
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -5909,7 +5912,7 @@ export interface components {
        */
       readonly object: 'issuing.transaction'
       /** @description Additional purchase information that is optionally provided by the merchant. */
-      readonly purchase_details?: Partial<components['schemas']['issuing_transaction_purchase_details']> | null
+      readonly purchase_details?: components['schemas']['issuing_transaction_purchase_details'] | null
       /**
        * @description The nature of the transaction.
        * @enum {string}
@@ -5950,7 +5953,7 @@ export interface components {
       /** @description The additional amount Stripe will hold if the authorization is approved, in the card's [currency](https://stripe.com/docs/api#issuing_authorization_object-pending-request-currency) and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
       readonly amount: number
       /** @description Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
-      readonly amount_details?: Partial<components['schemas']['issuing_authorization_amount_details']> | null
+      readonly amount_details?: components['schemas']['issuing_authorization_amount_details'] | null
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       readonly currency: string
       /** @description If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization. */
@@ -5965,7 +5968,7 @@ export interface components {
       /** @description The `pending_request.amount` at the time of the request, presented in your card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Stripe held this amount from your account to fund the authorization if the request was approved. */
       readonly amount: number
       /** @description Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
-      readonly amount_details?: Partial<components['schemas']['issuing_authorization_amount_details']> | null
+      readonly amount_details?: components['schemas']['issuing_authorization_amount_details'] | null
       /** @description Whether this request was approved. */
       readonly approved: boolean
       /**
@@ -7584,20 +7587,20 @@ export interface components {
     /** IssuingCardholderIdDocument */
     readonly issuing_cardholder_id_document: {
       /** @description The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
-      readonly back?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly back?: (string | components['schemas']['file']) | null
       /** @description The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
-      readonly front?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly front?: (string | components['schemas']['file']) | null
     }
     /** IssuingCardholderIndividual */
     readonly issuing_cardholder_individual: {
       /** @description The date of birth of this cardholder. */
-      readonly dob?: Partial<components['schemas']['issuing_cardholder_individual_dob']> | null
+      readonly dob?: components['schemas']['issuing_cardholder_individual_dob'] | null
       /** @description The first name of this cardholder. */
       readonly first_name: string
       /** @description The last name of this cardholder. */
       readonly last_name: string
       /** @description Government-issued ID document for this cardholder. */
-      readonly verification?: Partial<components['schemas']['issuing_cardholder_verification']> | null
+      readonly verification?: components['schemas']['issuing_cardholder_verification'] | null
     }
     /** IssuingCardholderIndividualDOB */
     readonly issuing_cardholder_individual_dob: {
@@ -7934,12 +7937,12 @@ export interface components {
     /** IssuingCardholderVerification */
     readonly issuing_cardholder_verification: {
       /** @description An identifying document, either a passport or local ID card. */
-      readonly document?: Partial<components['schemas']['issuing_cardholder_id_document']> | null
+      readonly document?: components['schemas']['issuing_cardholder_id_document'] | null
     }
     /** IssuingDisputeCanceledEvidence */
     readonly issuing_dispute_canceled_evidence: {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
-      readonly additional_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly additional_documentation?: (string | components['schemas']['file']) | null
       /**
        * Format: unix-time
        * @description Date when order was canceled.
@@ -7977,13 +7980,13 @@ export interface components {
     /** IssuingDisputeDuplicateEvidence */
     readonly issuing_dispute_duplicate_evidence: {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
-      readonly additional_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly additional_documentation?: (string | components['schemas']['file']) | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the card statement showing that the product had already been paid for. */
-      readonly card_statement?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly card_statement?: (string | components['schemas']['file']) | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the receipt showing that the product had been paid for in cash. */
-      readonly cash_receipt?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly cash_receipt?: (string | components['schemas']['file']) | null
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Image of the front and back of the check that was used to pay for the product. */
-      readonly check_image?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly check_image?: (string | components['schemas']['file']) | null
       /** @description Explanation of why the cardholder is disputing this transaction. */
       readonly explanation?: string | null
       /** @description Transaction (e.g., ipi_...) that the disputed transaction is a duplicate of. Of the two or more transactions that are copies of each other, this is original undisputed one. */
@@ -8014,14 +8017,14 @@ export interface components {
     /** IssuingDisputeFraudulentEvidence */
     readonly issuing_dispute_fraudulent_evidence: {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
-      readonly additional_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly additional_documentation?: (string | components['schemas']['file']) | null
       /** @description Explanation of why the cardholder is disputing this transaction. */
       readonly explanation?: string | null
     }
     /** IssuingDisputeMerchandiseNotAsDescribedEvidence */
     readonly issuing_dispute_merchandise_not_as_described_evidence: {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
-      readonly additional_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly additional_documentation?: (string | components['schemas']['file']) | null
       /** @description Explanation of why the cardholder is disputing this transaction. */
       readonly explanation?: string | null
       /**
@@ -8045,7 +8048,7 @@ export interface components {
     /** IssuingDisputeNotReceivedEvidence */
     readonly issuing_dispute_not_received_evidence: {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
-      readonly additional_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly additional_documentation?: (string | components['schemas']['file']) | null
       /**
        * Format: unix-time
        * @description Date when the cardholder expected to receive the product.
@@ -8064,7 +8067,7 @@ export interface components {
     /** IssuingDisputeOtherEvidence */
     readonly issuing_dispute_other_evidence: {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
-      readonly additional_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly additional_documentation?: (string | components['schemas']['file']) | null
       /** @description Explanation of why the cardholder is disputing this transaction. */
       readonly explanation?: string | null
       /** @description Description of the merchandise or service that was purchased. */
@@ -8078,7 +8081,7 @@ export interface components {
     /** IssuingDisputeServiceNotAsDescribedEvidence */
     readonly issuing_dispute_service_not_as_described_evidence: {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
-      readonly additional_documentation?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly additional_documentation?: (string | components['schemas']['file']) | null
       /**
        * Format: unix-time
        * @description Date when order was canceled.
@@ -8154,11 +8157,11 @@ export interface components {
     /** IssuingTransactionPurchaseDetails */
     readonly issuing_transaction_purchase_details: {
       /** @description Information about the flight that was purchased with this transaction. */
-      readonly flight?: Partial<components['schemas']['issuing_transaction_flight_data']> | null
+      readonly flight?: components['schemas']['issuing_transaction_flight_data'] | null
       /** @description Information about fuel that was purchased with this transaction. */
-      readonly fuel?: Partial<components['schemas']['issuing_transaction_fuel_data']> | null
+      readonly fuel?: components['schemas']['issuing_transaction_fuel_data'] | null
       /** @description Information about lodging that was purchased with this transaction. */
-      readonly lodging?: Partial<components['schemas']['issuing_transaction_lodging_data']> | null
+      readonly lodging?: components['schemas']['issuing_transaction_lodging_data'] | null
       /** @description The line items in the purchase. */
       readonly receipt?: readonly components['schemas']['issuing_transaction_receipt_data'][] | null
       /** @description A merchant-specific order number. */
@@ -8198,7 +8201,7 @@ export interface components {
        */
       readonly object: 'item'
       /** @description The price used to generate the line item. */
-      readonly price?: Partial<components['schemas']['price']> | null
+      readonly price?: components['schemas']['price'] | null
       /** @description The quantity of products being purchased. */
       readonly quantity?: number | null
       /** @description The taxes applied to the line item. */
@@ -8208,9 +8211,9 @@ export interface components {
     readonly legal_entity_company: {
       readonly address?: components['schemas']['address']
       /** @description The Kana variation of the company's primary address (Japan only). */
-      readonly address_kana?: Partial<components['schemas']['legal_entity_japan_address']> | null
+      readonly address_kana?: components['schemas']['legal_entity_japan_address'] | null
       /** @description The Kanji variation of the company's primary address (Japan only). */
-      readonly address_kanji?: Partial<components['schemas']['legal_entity_japan_address']> | null
+      readonly address_kanji?: components['schemas']['legal_entity_japan_address'] | null
       /** @description Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-directors_provided). */
       readonly directors_provided?: boolean
       /** @description Whether the company's executives have been provided. This Boolean will be `true` if you've manually indicated that all executives are provided via [the `executives_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-executives_provided), or if Stripe determined that sufficient executives were provided. */
@@ -8224,7 +8227,7 @@ export interface components {
       /** @description Whether the company's owners have been provided. This Boolean will be `true` if you've manually indicated that all owners are provided via [the `owners_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-owners_provided), or if Stripe determined that sufficient owners were provided. Stripe determines ownership requirements using both the number of owners provided and their total percent ownership (calculated by adding the `percent_ownership` of each owner together). */
       readonly owners_provided?: boolean
       /** @description This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct. */
-      readonly ownership_declaration?: Partial<components['schemas']['legal_entity_ubo_declaration']> | null
+      readonly ownership_declaration?: components['schemas']['legal_entity_ubo_declaration'] | null
       /** @description The company's phone number (used for verification). */
       readonly phone?: string | null
       /**
@@ -8259,7 +8262,7 @@ export interface components {
       /** @description Whether the company's business VAT number was provided. */
       readonly vat_id_provided?: boolean
       /** @description Information on the verification state of the company. */
-      readonly verification?: Partial<components['schemas']['legal_entity_company_verification']> | null
+      readonly verification?: components['schemas']['legal_entity_company_verification'] | null
     }
     /** LegalEntityCompanyVerification */
     readonly legal_entity_company_verification: {
@@ -8268,13 +8271,13 @@ export interface components {
     /** LegalEntityCompanyVerificationDocument */
     readonly legal_entity_company_verification_document: {
       /** @description The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. */
-      readonly back?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly back?: (string | components['schemas']['file']) | null
       /** @description A user-displayable string describing the verification state of this document. */
       readonly details?: string | null
       /** @description One of `document_corrupt`, `document_expired`, `document_failed_copy`, `document_failed_greyscale`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_not_readable`, `document_not_uploaded`, `document_type_not_supported`, or `document_too_large`. A machine-readable code specifying the verification state for this document. */
       readonly details_code?: string | null
       /** @description The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. */
-      readonly front?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly front?: (string | components['schemas']['file']) | null
     }
     /** LegalEntityDOB */
     readonly legal_entity_dob: {
@@ -8305,7 +8308,7 @@ export interface components {
     /** LegalEntityPersonVerification */
     readonly legal_entity_person_verification: {
       /** @description A document showing address, either a passport, local ID card, or utility bill from a well-known utility company. */
-      readonly additional_document?: Partial<components['schemas']['legal_entity_person_verification_document']> | null
+      readonly additional_document?: components['schemas']['legal_entity_person_verification_document'] | null
       /** @description A user-displayable string describing the verification state for the person. For example, this may say "Provided identity information could not be verified". */
       readonly details?: string | null
       /** @description One of `document_address_mismatch`, `document_dob_mismatch`, `document_duplicate_type`, `document_id_number_mismatch`, `document_name_mismatch`, `document_nationality_mismatch`, `failed_keyed_identity`, or `failed_other`. A machine-readable code specifying the verification state for the person. */
@@ -8317,13 +8320,13 @@ export interface components {
     /** LegalEntityPersonVerificationDocument */
     readonly legal_entity_person_verification_document: {
       /** @description The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
-      readonly back?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly back?: (string | components['schemas']['file']) | null
       /** @description A user-displayable string describing the verification state of this document. For example, if a document is uploaded and the picture is too fuzzy, this may say "Identity document is too unclear to read". */
       readonly details?: string | null
       /** @description One of `document_corrupt`, `document_country_not_supported`, `document_expired`, `document_failed_copy`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_failed_greyscale`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_missing_back`, `document_missing_front`, `document_not_readable`, `document_not_uploaded`, `document_photo_mismatch`, `document_too_large`, or `document_type_not_supported`. A machine-readable code specifying the verification state for this document. */
       readonly details_code?: string | null
       /** @description The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. */
-      readonly front?: (Partial<string> & Partial<components['schemas']['file']>) | null
+      readonly front?: (string | components['schemas']['file']) | null
     }
     /** LegalEntityUBODeclaration */
     readonly legal_entity_ubo_declaration: {
@@ -8350,7 +8353,7 @@ export interface components {
       /** @description If true, discounts will apply to this line item. Always false for prorations. */
       readonly discountable: boolean
       /** @description The discounts applied to the invoice line item. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount. */
-      readonly discounts?: readonly (Partial<string> & Partial<components['schemas']['discount']>)[] | null
+      readonly discounts?: readonly (string | components['schemas']['discount'])[] | null
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description The ID of the [invoice item](https://stripe.com/docs/api/invoiceitems) associated with this line item if any. */
@@ -8366,7 +8369,7 @@ export interface components {
       readonly object: 'line_item'
       readonly period: components['schemas']['invoice_line_item_period']
       /** @description The price of the line item. */
-      readonly price?: Partial<components['schemas']['price']> | null
+      readonly price?: components['schemas']['price'] | null
       /** @description Whether this is a proration. */
       readonly proration: boolean
       /** @description The quantity of the subscription, if the line item is a subscription or a proration. */
@@ -8429,7 +8432,7 @@ export interface components {
        */
       readonly object: 'mandate'
       /** @description ID of the payment method associated with this mandate. */
-      readonly payment_method: Partial<string> & Partial<components['schemas']['payment_method']>
+      readonly payment_method: string | components['schemas']['payment_method']
       readonly payment_method_details: components['schemas']['mandate_payment_method_details']
       readonly single_use?: components['schemas']['mandate_single_use']
       /**
@@ -8551,7 +8554,7 @@ export interface components {
       /** @description A fee in cents that will be applied to the order and transferred to the application owner’s Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees documentation. */
       readonly application_fee?: number | null
       /** @description The ID of the payment used to pay for the order. Present if the order status is `paid`, `fulfilled`, or `refunded`. */
-      readonly charge?: (Partial<string> & Partial<components['schemas']['charge']>) | null
+      readonly charge?: (string | components['schemas']['charge']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -8560,7 +8563,7 @@ export interface components {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       readonly currency: string
       /** @description The customer used for the order. */
-      readonly customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      readonly customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description The email address of the customer placing the order. */
       readonly email?: string | null
       /** @description External coupon code to load for this order. */
@@ -8598,13 +8601,13 @@ export interface components {
       /** @description The shipping method that is currently selected for this order, if any. If present, it is equal to one of the `id`s of shipping methods in the `shipping_methods` array. At order creation time, if there are multiple shipping methods, Stripe will automatically selected the first method. */
       readonly selected_shipping_method?: string | null
       /** @description The shipping address for the order. Present if the order is for goods to be shipped. */
-      readonly shipping?: Partial<components['schemas']['shipping']> | null
+      readonly shipping?: components['schemas']['shipping'] | null
       /** @description A list of supported shipping methods for this order. The desired shipping method can be specified either by updating the order, or when paying it. */
       readonly shipping_methods?: readonly components['schemas']['shipping_method'][] | null
       /** @description Current order status. One of `created`, `paid`, `canceled`, `fulfilled`, or `returned`. More details in the [Orders Guide](https://stripe.com/docs/orders/guide#understanding-order-statuses). */
       readonly status: string
       /** @description The timestamps at which the order status was updated. */
-      readonly status_transitions?: Partial<components['schemas']['status_transitions']> | null
+      readonly status_transitions?: components['schemas']['status_transitions'] | null
       /**
        * Format: unix-time
        * @description Time at which the object was last updated. Measured in seconds since the Unix epoch.
@@ -8633,7 +8636,7 @@ export interface components {
        */
       readonly object: 'order_item'
       /** @description The ID of the associated object for this line item. Expandable if not null (e.g., expandable to a SKU). */
-      readonly parent?: (Partial<string> & Partial<components['schemas']['sku']>) | null
+      readonly parent?: (string | components['schemas']['sku']) | null
       /** @description A positive integer representing the number of instances of `parent` that are included in this order item. Applicable/present only if `type` is `sku`. */
       readonly quantity?: number | null
       /** @description The type of line item. One of `sku`, `tax`, `shipping`, or `discount`. */
@@ -8668,9 +8671,9 @@ export interface components {
        */
       readonly object: 'order_return'
       /** @description The order that this return includes items from. */
-      readonly order?: (Partial<string> & Partial<components['schemas']['order']>) | null
+      readonly order?: (string | components['schemas']['order']) | null
       /** @description The ID of the refund issued for this return. */
-      readonly refund?: (Partial<string> & Partial<components['schemas']['refund']>) | null
+      readonly refund?: (string | components['schemas']['refund']) | null
     }
     /** PackageDimensions */
     readonly package_dimensions: {
@@ -8730,11 +8733,11 @@ export interface components {
       /** @description Amount that was collected by this PaymentIntent. */
       readonly amount_received?: number
       /** @description ID of the Connect application that created the PaymentIntent. */
-      readonly application?: (Partial<string> & Partial<components['schemas']['application']>) | null
+      readonly application?: (string | components['schemas']['application']) | null
       /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
       readonly application_fee_amount?: number | null
       /** @description Settings to configure compatible payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods) */
-      readonly automatic_payment_methods?: Partial<components['schemas']['payment_flows_automatic_payment_methods_payment_intent']> | null
+      readonly automatic_payment_methods?: components['schemas']['payment_flows_automatic_payment_methods_payment_intent'] | null
       /**
        * Format: unix-time
        * @description Populated when `status` is `canceled`, this is the time at which the PaymentIntent was canceled. Measured in seconds since the Unix epoch.
@@ -8793,40 +8796,40 @@ export interface components {
        *
        * If present in combination with [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage), this PaymentIntent's payment method will be attached to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete.
        */
-      readonly customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      readonly customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       readonly description?: string | null
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description ID of the invoice that created this PaymentIntent, if it exists. */
-      readonly invoice?: (Partial<string> & Partial<components['schemas']['invoice']>) | null
+      readonly invoice?: (string | components['schemas']['invoice']) | null
       /** @description The payment error encountered in the previous PaymentIntent confirmation. It will be cleared if the PaymentIntent is later updated for any reason. */
-      readonly last_payment_error?: Partial<components['schemas']['api_errors']> | null
+      readonly last_payment_error?: components['schemas']['api_errors'] | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. For more information, see the [documentation](https://stripe.com/docs/payments/payment-intents/creating-payment-intents#storing-information-in-metadata). */
       readonly metadata?: { readonly [key: string]: string }
       /** @description If present, this property tells you what actions you need to take in order for your customer to fulfill a payment using the provided source. */
-      readonly next_action?: Partial<components['schemas']['payment_intent_next_action']> | null
+      readonly next_action?: components['schemas']['payment_intent_next_action'] | null
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       readonly object: 'payment_intent'
       /** @description The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
-      readonly on_behalf_of?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      readonly on_behalf_of?: (string | components['schemas']['account']) | null
       /** @description ID of the payment method used in this PaymentIntent. */
-      readonly payment_method?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      readonly payment_method?: (string | components['schemas']['payment_method']) | null
       /** @description Payment-method-specific configuration for this PaymentIntent. */
-      readonly payment_method_options?: Partial<components['schemas']['payment_intent_payment_method_options']> | null
+      readonly payment_method_options?: components['schemas']['payment_intent_payment_method_options'] | null
       /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
       readonly payment_method_types: readonly string[]
       /** @description If present, this property tells you about the processing state of the payment. */
-      readonly processing?: Partial<components['schemas']['payment_intent_processing']> | null
+      readonly processing?: components['schemas']['payment_intent_processing'] | null
       /** @description Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
       readonly receipt_email?: string | null
       /** @description ID of the review associated with this PaymentIntent, if any. */
-      readonly review?: (Partial<string> & Partial<components['schemas']['review']>) | null
+      readonly review?: (string | components['schemas']['review']) | null
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
        *
@@ -8837,7 +8840,7 @@ export interface components {
        */
       readonly setup_future_usage?: ('off_session' | 'on_session') | null
       /** @description Shipping information for this PaymentIntent. */
-      readonly shipping?: Partial<components['schemas']['shipping']> | null
+      readonly shipping?: components['schemas']['shipping'] | null
       /** @description For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
       readonly statement_descriptor?: string | null
       /** @description Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
@@ -8855,7 +8858,7 @@ export interface components {
         | 'requires_payment_method'
         | 'succeeded'
       /** @description The data with which to automatically create a Transfer when the payment is finalized. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
-      readonly transfer_data?: Partial<components['schemas']['transfer_data']> | null
+      readonly transfer_data?: components['schemas']['transfer_data'] | null
       /** @description A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
       readonly transfer_group?: string | null
     }
@@ -8965,48 +8968,69 @@ export interface components {
     }
     /** PaymentIntentPaymentMethodOptions */
     readonly payment_intent_payment_method_options: {
-      readonly acss_debit?: Partial<components['schemas']['payment_intent_payment_method_options_acss_debit']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly afterpay_clearpay?: Partial<components['schemas']['payment_method_options_afterpay_clearpay']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly alipay?: Partial<components['schemas']['payment_method_options_alipay']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly au_becs_debit?: Partial<components['schemas']['payment_intent_payment_method_options_au_becs_debit']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly bacs_debit?: Partial<components['schemas']['payment_method_options_bacs_debit']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly bancontact?: Partial<components['schemas']['payment_method_options_bancontact']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly boleto?: Partial<components['schemas']['payment_method_options_boleto']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly card?: Partial<components['schemas']['payment_intent_payment_method_options_card']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly card_present?: Partial<components['schemas']['payment_method_options_card_present']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly eps?: Partial<components['schemas']['payment_intent_payment_method_options_eps']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly fpx?: Partial<components['schemas']['payment_method_options_fpx']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly giropay?: Partial<components['schemas']['payment_method_options_giropay']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly grabpay?: Partial<components['schemas']['payment_method_options_grabpay']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly ideal?: Partial<components['schemas']['payment_method_options_ideal']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly interac_present?: Partial<components['schemas']['payment_method_options_interac_present']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly klarna?: Partial<components['schemas']['payment_method_options_klarna']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly oxxo?: Partial<components['schemas']['payment_method_options_oxxo']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly p24?: Partial<components['schemas']['payment_method_options_p24']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly sepa_debit?: Partial<components['schemas']['payment_intent_payment_method_options_sepa_debit']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly sofort?: Partial<components['schemas']['payment_method_options_sofort']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
-      readonly wechat_pay?: Partial<components['schemas']['payment_method_options_wechat_pay']> &
-        Partial<components['schemas']['payment_intent_type_specific_payment_method_options_client']>
+      readonly acss_debit?:
+        | components['schemas']['payment_intent_payment_method_options_acss_debit']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly afterpay_clearpay?:
+        | components['schemas']['payment_method_options_afterpay_clearpay']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly alipay?:
+        | components['schemas']['payment_method_options_alipay']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly au_becs_debit?:
+        | components['schemas']['payment_intent_payment_method_options_au_becs_debit']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly bacs_debit?:
+        | components['schemas']['payment_method_options_bacs_debit']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly bancontact?:
+        | components['schemas']['payment_method_options_bancontact']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly boleto?:
+        | components['schemas']['payment_method_options_boleto']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly card?:
+        | components['schemas']['payment_intent_payment_method_options_card']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly card_present?:
+        | components['schemas']['payment_method_options_card_present']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly eps?:
+        | components['schemas']['payment_intent_payment_method_options_eps']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly fpx?:
+        | components['schemas']['payment_method_options_fpx']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly giropay?:
+        | components['schemas']['payment_method_options_giropay']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly grabpay?:
+        | components['schemas']['payment_method_options_grabpay']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly ideal?:
+        | components['schemas']['payment_method_options_ideal']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly interac_present?:
+        | components['schemas']['payment_method_options_interac_present']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly klarna?:
+        | components['schemas']['payment_method_options_klarna']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly oxxo?:
+        | components['schemas']['payment_method_options_oxxo']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly p24?:
+        | components['schemas']['payment_method_options_p24']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly sepa_debit?:
+        | components['schemas']['payment_intent_payment_method_options_sepa_debit']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly sofort?:
+        | components['schemas']['payment_method_options_sofort']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
+      readonly wechat_pay?:
+        | components['schemas']['payment_method_options_wechat_pay']
+        | components['schemas']['payment_intent_type_specific_payment_method_options_client']
     }
     /** payment_intent_payment_method_options_acss_debit */
     readonly payment_intent_payment_method_options_acss_debit: {
@@ -9026,7 +9050,7 @@ export interface components {
        *
        * For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
        */
-      readonly installments?: Partial<components['schemas']['payment_method_options_card_installments']> | null
+      readonly installments?: components['schemas']['payment_method_options_card_installments'] | null
       /**
        * @description Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
        * @enum {string|null}
@@ -9148,16 +9172,16 @@ export interface components {
        */
       readonly object: 'payment_link'
       /** @description The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details. */
-      readonly on_behalf_of?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      readonly on_behalf_of?: (string | components['schemas']['account']) | null
       /** @description The list of payment method types that customers can use. When `null`, Stripe will dynamically show relevant payment methods you've enabled in your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
       readonly payment_method_types?: readonly 'card'[] | null
       readonly phone_number_collection: components['schemas']['payment_links_resource_phone_number_collection']
       /** @description Configuration for collecting the customer's shipping address. */
-      readonly shipping_address_collection?: Partial<components['schemas']['payment_links_resource_shipping_address_collection']> | null
+      readonly shipping_address_collection?: components['schemas']['payment_links_resource_shipping_address_collection'] | null
       /** @description When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`. */
-      readonly subscription_data?: Partial<components['schemas']['payment_links_resource_subscription_data']> | null
+      readonly subscription_data?: components['schemas']['payment_links_resource_subscription_data'] | null
       /** @description The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to. */
-      readonly transfer_data?: Partial<components['schemas']['payment_links_resource_transfer_data']> | null
+      readonly transfer_data?: components['schemas']['payment_links_resource_transfer_data'] | null
       /** @description The public URL that can be shared with customers. */
       readonly url: string
     }
@@ -9444,7 +9468,7 @@ export interface components {
       /** @description The amount in %s that will be transferred to the destination account. By default, the entire amount is transferred to the destination. */
       readonly amount?: number | null
       /** @description The connected account receiving the transfer. */
-      readonly destination: Partial<string> & Partial<components['schemas']['account']>
+      readonly destination: string | components['schemas']['account']
     }
     /**
      * PaymentMethod
@@ -9471,7 +9495,7 @@ export interface components {
        */
       readonly created: number
       /** @description The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer. */
-      readonly customer?: (Partial<string> & Partial<components['schemas']['customer']>) | null
+      readonly customer?: (string | components['schemas']['customer']) | null
       readonly eps?: components['schemas']['payment_method_eps']
       readonly fpx?: components['schemas']['payment_method_fpx']
       readonly giropay?: components['schemas']['payment_method_giropay']
@@ -9567,7 +9591,7 @@ export interface components {
       /** @description Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       readonly brand: string
       /** @description Checks on Card address and CVC if provided. */
-      readonly checks?: Partial<components['schemas']['payment_method_card_checks']> | null
+      readonly checks?: components['schemas']['payment_method_card_checks'] | null
       /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
       readonly country?: string | null
       /** @description Two-digit number representing the card's expiration month. */
@@ -9583,15 +9607,15 @@ export interface components {
       /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
       readonly funding: string
       /** @description Details of the original PaymentMethod that created this object. */
-      readonly generated_from?: Partial<components['schemas']['payment_method_card_generated_card']> | null
+      readonly generated_from?: components['schemas']['payment_method_card_generated_card'] | null
       /** @description The last four digits of the card. */
       readonly last4: string
       /** @description Contains information about card networks that can be used to process the payment. */
-      readonly networks?: Partial<components['schemas']['networks']> | null
+      readonly networks?: components['schemas']['networks'] | null
       /** @description Contains details on how this Card maybe be used for 3D Secure authentication. */
-      readonly three_d_secure_usage?: Partial<components['schemas']['three_d_secure_usage']> | null
+      readonly three_d_secure_usage?: components['schemas']['three_d_secure_usage'] | null
       /** @description If this Card is part of a card wallet, this contains the details of the card wallet. */
-      readonly wallet?: Partial<components['schemas']['payment_method_card_wallet']> | null
+      readonly wallet?: components['schemas']['payment_method_card_wallet'] | null
     }
     /** payment_method_card_checks */
     readonly payment_method_card_checks: {
@@ -9607,9 +9631,9 @@ export interface components {
       /** @description The charge that created this object. */
       readonly charge?: string | null
       /** @description Transaction-specific details of the payment method used in the payment. */
-      readonly payment_method_details?: Partial<components['schemas']['card_generated_from_payment_method_details']> | null
+      readonly payment_method_details?: components['schemas']['card_generated_from_payment_method_details'] | null
       /** @description The ID of the SetupAttempt that generated this PaymentMethod, if any. */
-      readonly setup_attempt?: (Partial<string> & Partial<components['schemas']['setup_attempt']>) | null
+      readonly setup_attempt?: (string | components['schemas']['setup_attempt']) | null
     }
     /** payment_method_card_present */
     readonly payment_method_card_present: { readonly [key: string]: unknown }
@@ -9638,26 +9662,26 @@ export interface components {
     /** payment_method_card_wallet_masterpass */
     readonly payment_method_card_wallet_masterpass: {
       /** @description Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      readonly billing_address?: Partial<components['schemas']['address']> | null
+      readonly billing_address?: components['schemas']['address'] | null
       /** @description Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly email?: string | null
       /** @description Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly name?: string | null
       /** @description Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      readonly shipping_address?: Partial<components['schemas']['address']> | null
+      readonly shipping_address?: components['schemas']['address'] | null
     }
     /** payment_method_card_wallet_samsung_pay */
     readonly payment_method_card_wallet_samsung_pay: { readonly [key: string]: unknown }
     /** payment_method_card_wallet_visa_checkout */
     readonly payment_method_card_wallet_visa_checkout: {
       /** @description Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      readonly billing_address?: Partial<components['schemas']['address']> | null
+      readonly billing_address?: components['schemas']['address'] | null
       /** @description Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly email?: string | null
       /** @description Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly name?: string | null
       /** @description Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      readonly shipping_address?: Partial<components['schemas']['address']> | null
+      readonly shipping_address?: components['schemas']['address'] | null
     }
     /** payment_method_details */
     readonly payment_method_details: {
@@ -9774,9 +9798,9 @@ export interface components {
       /** @description Bank Identifier Code of the bank associated with the bank account. */
       readonly bic?: string | null
       /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
-      readonly generated_sepa_debit?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      readonly generated_sepa_debit?: (string | components['schemas']['payment_method']) | null
       /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
-      readonly generated_sepa_debit_mandate?: (Partial<string> & Partial<components['schemas']['mandate']>) | null
+      readonly generated_sepa_debit_mandate?: (string | components['schemas']['mandate']) | null
       /** @description Last four characters of the IBAN. */
       readonly iban_last4?: string | null
       /**
@@ -9801,7 +9825,7 @@ export interface components {
       /** @description Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       readonly brand?: string | null
       /** @description Check results by Card networks on Card address and CVC at time of payment. */
-      readonly checks?: Partial<components['schemas']['payment_method_details_card_checks']> | null
+      readonly checks?: components['schemas']['payment_method_details_card_checks'] | null
       /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
       readonly country?: string | null
       /** @description Two-digit number representing the card's expiration month. */
@@ -9821,15 +9845,15 @@ export interface components {
        *
        * For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
        */
-      readonly installments?: Partial<components['schemas']['payment_method_details_card_installments']> | null
+      readonly installments?: components['schemas']['payment_method_details_card_installments'] | null
       /** @description The last four digits of the card. */
       readonly last4?: string | null
       /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       readonly network?: string | null
       /** @description Populated if this transaction used 3D Secure authentication. */
-      readonly three_d_secure?: Partial<components['schemas']['three_d_secure_details']> | null
+      readonly three_d_secure?: components['schemas']['three_d_secure_details'] | null
       /** @description If this Card is part of a card wallet, this contains the details of the card wallet. */
-      readonly wallet?: Partial<components['schemas']['payment_method_details_card_wallet']> | null
+      readonly wallet?: components['schemas']['payment_method_details_card_wallet'] | null
     }
     /** payment_method_details_card_checks */
     readonly payment_method_details_card_checks: {
@@ -9843,7 +9867,7 @@ export interface components {
     /** payment_method_details_card_installments */
     readonly payment_method_details_card_installments: {
       /** @description Installment plan selected for the payment. */
-      readonly plan?: Partial<components['schemas']['payment_method_details_card_installments_plan']> | null
+      readonly plan?: components['schemas']['payment_method_details_card_installments_plan'] | null
     }
     /** payment_method_details_card_installments_plan */
     readonly payment_method_details_card_installments_plan: {
@@ -9901,7 +9925,7 @@ export interface components {
         | ('contact_emv' | 'contactless_emv' | 'contactless_magstripe_mode' | 'magnetic_stripe_fallback' | 'magnetic_stripe_track2')
         | null
       /** @description A collection of fields required to be displayed on receipts. Only required for EMV transactions. */
-      readonly receipt?: Partial<components['schemas']['payment_method_details_card_present_receipt']> | null
+      readonly receipt?: components['schemas']['payment_method_details_card_present_receipt'] | null
     }
     /** payment_method_details_card_present_receipt */
     readonly payment_method_details_card_present_receipt: {
@@ -9952,26 +9976,26 @@ export interface components {
     /** payment_method_details_card_wallet_masterpass */
     readonly payment_method_details_card_wallet_masterpass: {
       /** @description Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      readonly billing_address?: Partial<components['schemas']['address']> | null
+      readonly billing_address?: components['schemas']['address'] | null
       /** @description Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly email?: string | null
       /** @description Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly name?: string | null
       /** @description Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      readonly shipping_address?: Partial<components['schemas']['address']> | null
+      readonly shipping_address?: components['schemas']['address'] | null
     }
     /** payment_method_details_card_wallet_samsung_pay */
     readonly payment_method_details_card_wallet_samsung_pay: { readonly [key: string]: unknown }
     /** payment_method_details_card_wallet_visa_checkout */
     readonly payment_method_details_card_wallet_visa_checkout: {
       /** @description Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      readonly billing_address?: Partial<components['schemas']['address']> | null
+      readonly billing_address?: components['schemas']['address'] | null
       /** @description Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly email?: string | null
       /** @description Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly name?: string | null
       /** @description Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      readonly shipping_address?: Partial<components['schemas']['address']> | null
+      readonly shipping_address?: components['schemas']['address'] | null
     }
     /** payment_method_details_eps */
     readonly payment_method_details_eps: {
@@ -10113,9 +10137,9 @@ export interface components {
           )
         | null
       /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
-      readonly generated_sepa_debit?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      readonly generated_sepa_debit?: (string | components['schemas']['payment_method']) | null
       /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
-      readonly generated_sepa_debit_mandate?: (Partial<string> & Partial<components['schemas']['mandate']>) | null
+      readonly generated_sepa_debit_mandate?: (string | components['schemas']['mandate']) | null
       /** @description Last four characters of the IBAN. */
       readonly iban_last4?: string | null
       /**
@@ -10162,7 +10186,7 @@ export interface components {
         | ('contact_emv' | 'contactless_emv' | 'contactless_magstripe_mode' | 'magnetic_stripe_fallback' | 'magnetic_stripe_track2')
         | null
       /** @description A collection of fields required to be displayed on receipts. Only required for EMV transactions. */
-      readonly receipt?: Partial<components['schemas']['payment_method_details_interac_present_receipt']> | null
+      readonly receipt?: components['schemas']['payment_method_details_interac_present_receipt'] | null
     }
     /** payment_method_details_interac_present_receipt */
     readonly payment_method_details_interac_present_receipt: {
@@ -10283,9 +10307,9 @@ export interface components {
       /** @description Two-letter ISO code representing the country the bank account is located in. */
       readonly country?: string | null
       /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
-      readonly generated_sepa_debit?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      readonly generated_sepa_debit?: (string | components['schemas']['payment_method']) | null
       /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
-      readonly generated_sepa_debit_mandate?: (Partial<string> & Partial<components['schemas']['mandate']>) | null
+      readonly generated_sepa_debit_mandate?: (string | components['schemas']['mandate']) | null
       /** @description Last four characters of the IBAN. */
       readonly iban_last4?: string | null
       /**
@@ -10432,7 +10456,7 @@ export interface components {
     /** payment_method_klarna */
     readonly payment_method_klarna: {
       /** @description The customer's date of birth, if provided. */
-      readonly dob?: Partial<components['schemas']['payment_flows_private_payment_methods_klarna_dob']> | null
+      readonly dob?: components['schemas']['payment_flows_private_payment_methods_klarna_dob'] | null
     }
     /** payment_method_options_afterpay_clearpay */
     readonly payment_method_options_afterpay_clearpay: {
@@ -10466,7 +10490,7 @@ export interface components {
       /** @description Whether Installments are enabled for this PaymentIntent. */
       readonly enabled: boolean
       /** @description Installment plan selected for this PaymentIntent. */
-      readonly plan?: Partial<components['schemas']['payment_method_details_card_installments_plan']> | null
+      readonly plan?: components['schemas']['payment_method_details_card_installments_plan'] | null
     }
     /** payment_method_options_card_present */
     readonly payment_method_options_card_present: { readonly [key: string]: unknown }
@@ -10559,7 +10583,7 @@ export interface components {
       /** @description Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same. */
       readonly fingerprint?: string | null
       /** @description Information about the object that generated this PaymentMethod. */
-      readonly generated_from?: Partial<components['schemas']['sepa_debit_generated_from']> | null
+      readonly generated_from?: components['schemas']['sepa_debit_generated_from'] | null
       /** @description Last four characters of the IBAN. */
       readonly last4?: string | null
     }
@@ -10573,7 +10597,7 @@ export interface components {
     /** PaymentPagesCheckoutSessionAfterExpiration */
     readonly payment_pages_checkout_session_after_expiration: {
       /** @description When set, configuration used to recover the Checkout Session on expiry. */
-      readonly recovery?: Partial<components['schemas']['payment_pages_checkout_session_after_expiration_recovery']> | null
+      readonly recovery?: components['schemas']['payment_pages_checkout_session_after_expiration_recovery'] | null
     }
     /** PaymentPagesCheckoutSessionAfterExpirationRecovery */
     readonly payment_pages_checkout_session_after_expiration_recovery: {
@@ -10895,7 +10919,7 @@ export interface components {
       /** @description A non-negative integer in cents representing how much to charge. */
       readonly shipping_amount: number
       /** @description The shipping rate. */
-      readonly shipping_rate: Partial<string> & Partial<components['schemas']['shipping_rate']>
+      readonly shipping_rate: string | components['schemas']['shipping_rate']
     }
     /** PaymentPagesCheckoutSessionTaxID */
     readonly payment_pages_checkout_session_tax_id: {
@@ -10973,12 +10997,13 @@ export interface components {
       readonly taxes: readonly components['schemas']['line_items_tax_amount'][]
     }
     /** Polymorphic */
-    readonly payment_source: Partial<components['schemas']['account']> &
-      Partial<components['schemas']['alipay_account']> &
-      Partial<components['schemas']['bank_account']> &
-      Partial<components['schemas']['bitcoin_receiver']> &
-      Partial<components['schemas']['card']> &
-      Partial<components['schemas']['source']>
+    readonly payment_source:
+      | components['schemas']['account']
+      | components['schemas']['alipay_account']
+      | components['schemas']['bank_account']
+      | components['schemas']['bitcoin_receiver']
+      | components['schemas']['card']
+      | components['schemas']['source']
     /**
      * Payout
      * @description A `Payout` object is created when you receive funds from Stripe, or when you
@@ -11001,7 +11026,7 @@ export interface components {
       /** @description Returns `true` if the payout was created by an [automated payout schedule](https://stripe.com/docs/payouts#payout-schedule), and `false` if it was [requested manually](https://stripe.com/docs/payouts#manual-payouts). */
       readonly automatic: boolean
       /** @description ID of the balance transaction that describes the impact of this payout on your account balance. */
-      readonly balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      readonly balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -11013,14 +11038,16 @@ export interface components {
       readonly description?: string | null
       /** @description ID of the bank account or card the payout was sent to. */
       readonly destination?:
-        | (Partial<string> &
-            Partial<components['schemas']['bank_account']> &
-            Partial<components['schemas']['card']> &
-            Partial<components['schemas']['deleted_bank_account']> &
-            Partial<components['schemas']['deleted_card']>)
+        | (
+            | string
+            | components['schemas']['bank_account']
+            | components['schemas']['card']
+            | components['schemas']['deleted_bank_account']
+            | components['schemas']['deleted_card']
+          )
         | null
       /** @description If the payout failed or was canceled, this will be the ID of the balance transaction that reversed the initial balance transaction, and puts the funds from the failed payout back in your balance. */
-      readonly failure_balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      readonly failure_balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /** @description Error code explaining reason for payout failure if available. See [Types of payout failures](https://stripe.com/docs/api#payout_failures) for a list of failure codes. */
       readonly failure_code?: string | null
       /** @description Message to user further explaining reason for payout failure if available. */
@@ -11039,9 +11066,9 @@ export interface components {
        */
       readonly object: 'payout'
       /** @description If the payout reverses another, this is the ID of the original payout. */
-      readonly original_payout?: (Partial<string> & Partial<components['schemas']['payout']>) | null
+      readonly original_payout?: (string | components['schemas']['payout']) | null
       /** @description If the payout was reversed, this is the ID of the payout that reverses this payout. */
-      readonly reversed_by?: (Partial<string> & Partial<components['schemas']['payout']>) | null
+      readonly reversed_by?: (string | components['schemas']['payout']) | null
       /** @description The source balance this payout came from. One of `card`, `fpx`, or `bank_account`. */
       readonly source_type: string
       /** @description Extra information about a payout to be displayed on the user's bank statement. */
@@ -11080,8 +11107,8 @@ export interface components {
       /** @description The account the person is associated with. */
       readonly account: string
       readonly address?: components['schemas']['address']
-      readonly address_kana?: Partial<components['schemas']['legal_entity_japan_address']> | null
-      readonly address_kanji?: Partial<components['schemas']['legal_entity_japan_address']> | null
+      readonly address_kana?: components['schemas']['legal_entity_japan_address'] | null
+      readonly address_kanji?: components['schemas']['legal_entity_japan_address'] | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -11098,7 +11125,7 @@ export interface components {
       readonly first_name_kanji?: string | null
       /** @description A list of alternate names or aliases that the person is known by. */
       readonly full_name_aliases?: readonly string[]
-      readonly future_requirements?: Partial<components['schemas']['person_future_requirements']> | null
+      readonly future_requirements?: components['schemas']['person_future_requirements'] | null
       /** @description The person's gender (International regulations require either "male" or "female"). */
       readonly gender?: string | null
       /** @description Unique identifier for the object. */
@@ -11130,7 +11157,7 @@ export interface components {
        */
       readonly political_exposure?: 'existing' | 'none'
       readonly relationship?: components['schemas']['person_relationship']
-      readonly requirements?: Partial<components['schemas']['person_requirements']> | null
+      readonly requirements?: components['schemas']['person_requirements'] | null
       /** @description Whether the last four digits of the person's Social Security number have been provided (U.S. only). */
       readonly ssn_last_4_provided?: boolean
       readonly verification?: components['schemas']['legal_entity_person_verification']
@@ -11239,7 +11266,7 @@ export interface components {
        */
       readonly object: 'plan'
       /** @description The product whose pricing this plan determines. */
-      readonly product?: (Partial<string> & Partial<components['schemas']['product']> & Partial<components['schemas']['deleted_product']>) | null
+      readonly product?: (string | components['schemas']['product'] | components['schemas']['deleted_product']) | null
       /** @description Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
       readonly tiers?: readonly components['schemas']['plan_tier'][]
       /**
@@ -11248,7 +11275,7 @@ export interface components {
        */
       readonly tiers_mode?: ('graduated' | 'volume') | null
       /** @description Apply a transformation to the reported usage or set quantity before computing the amount billed. Cannot be combined with `tiers`. */
-      readonly transform_usage?: Partial<components['schemas']['transform_usage']> | null
+      readonly transform_usage?: components['schemas']['transform_usage'] | null
       /** @description Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
       readonly trial_period_days?: number | null
       /**
@@ -11425,9 +11452,9 @@ export interface components {
        */
       readonly object: 'price'
       /** @description The ID of the product this price is associated with. */
-      readonly product: Partial<string> & Partial<components['schemas']['product']> & Partial<components['schemas']['deleted_product']>
+      readonly product: string | components['schemas']['product'] | components['schemas']['deleted_product']
       /** @description The recurring components of a price such as `interval` and `usage_type`. */
-      readonly recurring?: Partial<components['schemas']['recurring']> | null
+      readonly recurring?: components['schemas']['recurring'] | null
       /**
        * @description Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
        * @enum {string|null}
@@ -11441,7 +11468,7 @@ export interface components {
        */
       readonly tiers_mode?: ('graduated' | 'volume') | null
       /** @description Apply a transformation to the reported usage or set quantity before computing the amount billed. Cannot be combined with `tiers`. */
-      readonly transform_quantity?: Partial<components['schemas']['transform_quantity']> | null
+      readonly transform_quantity?: components['schemas']['transform_quantity'] | null
       /**
        * @description One of `one_time` or `recurring` depending on whether the price is for a one-time purchase or a recurring (subscription) purchase.
        * @enum {string}
@@ -11511,13 +11538,13 @@ export interface components {
        */
       readonly object: 'product'
       /** @description The dimensions of this product for shipping purposes. */
-      readonly package_dimensions?: Partial<components['schemas']['package_dimensions']> | null
+      readonly package_dimensions?: components['schemas']['package_dimensions'] | null
       /** @description Whether this product is shipped (i.e., physical goods). */
       readonly shippable?: boolean | null
       /** @description Extra information about a product which will appear on your customer's credit card statement. In the case that multiple products are billed at once, the first statement descriptor will be used. */
       readonly statement_descriptor?: string | null
       /** @description A [tax code](https://stripe.com/docs/tax/tax-codes) ID. */
-      readonly tax_code?: (Partial<string> & Partial<components['schemas']['tax_code']>) | null
+      readonly tax_code?: (string | components['schemas']['tax_code']) | null
       /** @description A label that represents units of this product in Stripe and on customers’ receipts and invoices. When set, this will be included in associated invoice line item descriptions. */
       readonly unit_label?: string | null
       /**
@@ -11545,7 +11572,7 @@ export interface components {
        */
       readonly created: number
       /** @description The customer that this promotion code can be used by. */
-      readonly customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      readonly customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /**
        * Format: unix-time
        * @description Date at which the promotion code can no longer be redeemed.
@@ -11606,13 +11633,13 @@ export interface components {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       readonly currency?: string | null
       /** @description The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed. */
-      readonly customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      readonly customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description The tax rates applied to this quote. */
-      readonly default_tax_rates?: readonly (Partial<string> & Partial<components['schemas']['tax_rate']>)[]
+      readonly default_tax_rates?: readonly (string | components['schemas']['tax_rate'])[]
       /** @description A description that will be displayed on the quote PDF. */
       readonly description?: string | null
       /** @description The discounts applied to this quote. */
-      readonly discounts: readonly (Partial<string> & Partial<components['schemas']['discount']>)[]
+      readonly discounts: readonly (string | components['schemas']['discount'])[]
       /**
        * Format: unix-time
        * @description The date on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.
@@ -11621,15 +11648,15 @@ export interface components {
       /** @description A footer that will be displayed on the quote PDF. */
       readonly footer?: string | null
       /** @description Details of the quote that was cloned. See the [cloning documentation](https://stripe.com/docs/quotes/clone) for more details. */
-      readonly from_quote?: Partial<components['schemas']['quotes_resource_from_quote']> | null
+      readonly from_quote?: components['schemas']['quotes_resource_from_quote'] | null
       /** @description A header that will be displayed on the quote PDF. */
       readonly header?: string | null
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description The invoice that was created from this quote. */
-      readonly invoice?: (Partial<string> & Partial<components['schemas']['invoice']> & Partial<components['schemas']['deleted_invoice']>) | null
+      readonly invoice?: (string | components['schemas']['invoice'] | components['schemas']['deleted_invoice']) | null
       /** @description All invoices will be billed using the specified settings. */
-      readonly invoice_settings?: Partial<components['schemas']['invoice_setting_quote_setting']> | null
+      readonly invoice_settings?: components['schemas']['invoice_setting_quote_setting'] | null
       /**
        * QuotesResourceListLineItems
        * @description A list of items the customer is being quoted for.
@@ -11659,7 +11686,7 @@ export interface components {
        */
       readonly object: 'quote'
       /** @description The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details. */
-      readonly on_behalf_of?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      readonly on_behalf_of?: (string | components['schemas']['account']) | null
       /**
        * @description The status of the quote.
        * @enum {string}
@@ -11667,13 +11694,13 @@ export interface components {
       readonly status: 'accepted' | 'canceled' | 'draft' | 'open'
       readonly status_transitions: components['schemas']['quotes_resource_status_transitions']
       /** @description The subscription that was created or updated from this quote. */
-      readonly subscription?: (Partial<string> & Partial<components['schemas']['subscription']>) | null
+      readonly subscription?: (string | components['schemas']['subscription']) | null
       readonly subscription_data: components['schemas']['quotes_resource_subscription_data']
       /** @description The subscription schedule that was created or updated from this quote. */
-      readonly subscription_schedule?: (Partial<string> & Partial<components['schemas']['subscription_schedule']>) | null
+      readonly subscription_schedule?: (string | components['schemas']['subscription_schedule']) | null
       readonly total_details: components['schemas']['quotes_resource_total_details']
       /** @description The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the invoices. */
-      readonly transfer_data?: Partial<components['schemas']['quotes_resource_transfer_data']> | null
+      readonly transfer_data?: components['schemas']['quotes_resource_transfer_data'] | null
     }
     /** QuotesResourceAutomaticTax */
     readonly quotes_resource_automatic_tax: {
@@ -11688,7 +11715,7 @@ export interface components {
     /** QuotesResourceComputed */
     readonly quotes_resource_computed: {
       /** @description The definitive totals and line items the customer will be charged on a recurring basis. Takes into account the line items with recurring prices and discounts with `duration=forever` coupons only. Defaults to `null` if no inputted line items with recurring prices. */
-      readonly recurring?: Partial<components['schemas']['quotes_resource_recurring']> | null
+      readonly recurring?: components['schemas']['quotes_resource_recurring'] | null
       readonly upfront: components['schemas']['quotes_resource_upfront']
     }
     /** QuotesResourceFromQuote */
@@ -11696,7 +11723,7 @@ export interface components {
       /** @description Whether this quote is a revision of a different quote. */
       readonly is_revision: boolean
       /** @description The quote that was cloned. */
-      readonly quote: Partial<string> & Partial<components['schemas']['quote']>
+      readonly quote: string | components['schemas']['quote']
     }
     /** QuotesResourceRecurring */
     readonly quotes_resource_recurring: {
@@ -11765,7 +11792,7 @@ export interface components {
       /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the destination account. By default, the entire amount will be transferred to the destination. */
       readonly amount_percent?: number | null
       /** @description The account where funds from the payment will be transferred to upon payment success. */
-      readonly destination: Partial<string> & Partial<components['schemas']['account']>
+      readonly destination: string | components['schemas']['account']
     }
     /** QuotesResourceUpfront */
     readonly quotes_resource_upfront: {
@@ -11803,7 +11830,7 @@ export interface components {
       /** @description An EFW is actionable if it has not received a dispute and has not been fully refunded. You may wish to proactively refund a charge that receives an EFW, in order to avoid receiving a dispute later. */
       readonly actionable: boolean
       /** @description ID of the charge this early fraud warning is for, optionally expanded. */
-      readonly charge: Partial<string> & Partial<components['schemas']['charge']>
+      readonly charge: string | components['schemas']['charge']
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -11821,7 +11848,7 @@ export interface components {
        */
       readonly object: 'radar.early_fraud_warning'
       /** @description ID of the Payment Intent this early fraud warning is for, optionally expanded. */
-      readonly payment_intent?: Partial<string> & Partial<components['schemas']['payment_intent']>
+      readonly payment_intent?: string | components['schemas']['payment_intent']
     }
     /**
      * RadarListList
@@ -11942,7 +11969,7 @@ export interface components {
      */
     readonly recipient: {
       /** @description Hash describing the current account on the recipient, if there is one. */
-      readonly active_account?: Partial<components['schemas']['bank_account']> | null
+      readonly active_account?: components['schemas']['bank_account'] | null
       /** CardList */
       readonly cards?: {
         readonly data: readonly components['schemas']['card'][]
@@ -11962,7 +11989,7 @@ export interface components {
        */
       readonly created: number
       /** @description The default card to use for creating transfers to this recipient. */
-      readonly default_card?: (Partial<string> & Partial<components['schemas']['card']>) | null
+      readonly default_card?: (string | components['schemas']['card']) | null
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       readonly description?: string | null
       readonly email?: string | null
@@ -11973,7 +12000,7 @@ export interface components {
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string }
       /** @description The ID of the [Custom account](https://stripe.com/docs/connect/custom-accounts) this recipient was migrated to. If set, the recipient can no longer be updated, nor can transfers be made to it: use the Custom account instead. */
-      readonly migrated_to?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      readonly migrated_to?: (string | components['schemas']['account']) | null
       /** @description Full, legal name of the recipient. */
       readonly name?: string | null
       /**
@@ -11981,7 +12008,7 @@ export interface components {
        * @enum {string}
        */
       readonly object: 'recipient'
-      readonly rolled_back_from?: Partial<string> & Partial<components['schemas']['account']>
+      readonly rolled_back_from?: string | components['schemas']['account']
       /** @description Type of the recipient, one of `individual` or `corporation`. */
       readonly type: string
     }
@@ -12017,9 +12044,9 @@ export interface components {
       /** @description Amount, in %s. */
       readonly amount: number
       /** @description Balance transaction that describes the impact on your account balance. */
-      readonly balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      readonly balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /** @description ID of the charge that was refunded. */
-      readonly charge?: (Partial<string> & Partial<components['schemas']['charge']>) | null
+      readonly charge?: (string | components['schemas']['charge']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -12030,7 +12057,7 @@ export interface components {
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. (Available on non-card refunds only) */
       readonly description?: string
       /** @description If the refund failed, this balance transaction describes the adjustment made on your account balance that reverses the initial balance transaction. */
-      readonly failure_balance_transaction?: Partial<string> & Partial<components['schemas']['balance_transaction']>
+      readonly failure_balance_transaction?: string | components['schemas']['balance_transaction']
       /** @description If the refund failed, the reason for refund failure if known. Possible values are `lost_or_stolen_card`, `expired_or_canceled_card`, or `unknown`. */
       readonly failure_reason?: string
       /** @description Unique identifier for the object. */
@@ -12043,7 +12070,7 @@ export interface components {
        */
       readonly object: 'refund'
       /** @description ID of the PaymentIntent that was refunded. */
-      readonly payment_intent?: (Partial<string> & Partial<components['schemas']['payment_intent']>) | null
+      readonly payment_intent?: (string | components['schemas']['payment_intent']) | null
       /**
        * @description Reason for the refund, either user-provided (`duplicate`, `fraudulent`, or `requested_by_customer`) or generated by Stripe internally (`expired_uncaptured_charge`).
        * @enum {string|null}
@@ -12052,11 +12079,11 @@ export interface components {
       /** @description This is the transaction number that appears on email receipts sent for this refund. */
       readonly receipt_number?: string | null
       /** @description The transfer reversal that is associated with the refund. Only present if the charge came from another Stripe account. See the Connect documentation for details. */
-      readonly source_transfer_reversal?: (Partial<string> & Partial<components['schemas']['transfer_reversal']>) | null
+      readonly source_transfer_reversal?: (string | components['schemas']['transfer_reversal']) | null
       /** @description Status of the refund. For credit card refunds, this can be `pending`, `succeeded`, or `failed`. For other types of refunds, it can be `pending`, `succeeded`, `failed`, or `canceled`. Refer to our [refunds](https://stripe.com/docs/refunds#failed-refunds) documentation for more details. */
       readonly status?: string | null
       /** @description If the accompanying transfer was reversed, the transfer reversal object. Only applicable if the charge was created using the destination parameter. */
-      readonly transfer_reversal?: (Partial<string> & Partial<components['schemas']['transfer_reversal']>) | null
+      readonly transfer_reversal?: (string | components['schemas']['transfer_reversal']) | null
     }
     /**
      * reporting_report_run
@@ -12096,7 +12123,7 @@ export interface components {
        * @description The file object representing the result of the report run (populated when
        *  `status=succeeded`).
        */
-      readonly result?: Partial<components['schemas']['file']> | null
+      readonly result?: components['schemas']['file'] | null
       /**
        * @description Status of this report run. This will be `pending` when the run is initially created.
        *  When the run finishes, this will be set to `succeeded` and the `result` field will be populated.
@@ -12179,7 +12206,7 @@ export interface components {
       /** @description The ZIP or postal code of the card used, if applicable. */
       readonly billing_zip?: string | null
       /** @description The charge associated with this review. */
-      readonly charge?: (Partial<string> & Partial<components['schemas']['charge']>) | null
+      readonly charge?: (string | components['schemas']['charge']) | null
       /**
        * @description The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, `disputed`, or `redacted`.
        * @enum {string|null}
@@ -12195,7 +12222,7 @@ export interface components {
       /** @description The IP address where the payment originated. */
       readonly ip_address?: string | null
       /** @description Information related to the location of the payment. Note that this information is an approximation and attempts to locate the nearest population center - it should not be used to determine a specific address. */
-      readonly ip_address_location?: Partial<components['schemas']['radar_review_resource_location']> | null
+      readonly ip_address_location?: components['schemas']['radar_review_resource_location'] | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean
       /**
@@ -12211,11 +12238,11 @@ export interface components {
        */
       readonly opened_reason: 'manual' | 'rule'
       /** @description The PaymentIntent ID associated with this review, if one exists. */
-      readonly payment_intent?: Partial<string> & Partial<components['schemas']['payment_intent']>
+      readonly payment_intent?: string | components['schemas']['payment_intent']
       /** @description The reason the review is currently open or closed. One of `rule`, `manual`, `approved`, `refunded`, `refunded_as_fraud`, `disputed`, or `redacted`. */
       readonly reason: string
       /** @description Information related to the browsing session of the user who initiated the payment. */
-      readonly session?: Partial<components['schemas']['radar_review_resource_session']> | null
+      readonly session?: components['schemas']['radar_review_resource_session'] | null
     }
     /** RadarRule */
     readonly rule: {
@@ -12246,7 +12273,7 @@ export interface components {
       readonly data_load_time: number
       readonly error?: components['schemas']['sigma_scheduled_query_run_error']
       /** @description The file object representing the results of the query. */
-      readonly file?: Partial<components['schemas']['file']> | null
+      readonly file?: components['schemas']['file'] | null
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -12276,9 +12303,9 @@ export interface components {
     /** sepa_debit_generated_from */
     readonly sepa_debit_generated_from: {
       /** @description The ID of the Charge that generated this PaymentMethod, if any. */
-      readonly charge?: (Partial<string> & Partial<components['schemas']['charge']>) | null
+      readonly charge?: (string | components['schemas']['charge']) | null
       /** @description The ID of the SetupAttempt that generated this PaymentMethod, if any. */
-      readonly setup_attempt?: (Partial<string> & Partial<components['schemas']['setup_attempt']>) | null
+      readonly setup_attempt?: (string | components['schemas']['setup_attempt']) | null
     }
     /**
      * PaymentFlowsSetupIntentSetupAttempt
@@ -12289,14 +12316,14 @@ export interface components {
      */
     readonly setup_attempt: {
       /** @description The value of [application](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-application) on the SetupIntent at the time of this confirmation. */
-      readonly application?: (Partial<string> & Partial<components['schemas']['application']>) | null
+      readonly application?: (string | components['schemas']['application']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       readonly created: number
       /** @description The value of [customer](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-customer) on the SetupIntent at the time of this confirmation. */
-      readonly customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      readonly customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -12307,14 +12334,14 @@ export interface components {
        */
       readonly object: 'setup_attempt'
       /** @description The value of [on_behalf_of](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-on_behalf_of) on the SetupIntent at the time of this confirmation. */
-      readonly on_behalf_of?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      readonly on_behalf_of?: (string | components['schemas']['account']) | null
       /** @description ID of the payment method used with this SetupAttempt. */
-      readonly payment_method: Partial<string> & Partial<components['schemas']['payment_method']>
+      readonly payment_method: string | components['schemas']['payment_method']
       readonly payment_method_details: components['schemas']['setup_attempt_payment_method_details']
       /** @description The error encountered during this attempt to confirm the SetupIntent, if any. */
-      readonly setup_error?: Partial<components['schemas']['api_errors']> | null
+      readonly setup_error?: components['schemas']['api_errors'] | null
       /** @description ID of the SetupIntent that this attempt belongs to. */
-      readonly setup_intent: Partial<string> & Partial<components['schemas']['setup_intent']>
+      readonly setup_intent: string | components['schemas']['setup_intent']
       /** @description Status of this SetupAttempt, one of `requires_confirmation`, `requires_action`, `processing`, `succeeded`, `failed`, or `abandoned`. */
       readonly status: string
       /** @description The value of [usage](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-usage) on the SetupIntent at the time of this confirmation, one of `off_session` or `on_session`. */
@@ -12350,9 +12377,9 @@ export interface components {
       /** @description Bank Identifier Code of the bank associated with the bank account. */
       readonly bic?: string | null
       /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
-      readonly generated_sepa_debit?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      readonly generated_sepa_debit?: (string | components['schemas']['payment_method']) | null
       /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
-      readonly generated_sepa_debit_mandate?: (Partial<string> & Partial<components['schemas']['mandate']>) | null
+      readonly generated_sepa_debit_mandate?: (string | components['schemas']['mandate']) | null
       /** @description Last four characters of the IBAN. */
       readonly iban_last4?: string | null
       /**
@@ -12372,12 +12399,12 @@ export interface components {
     /** setup_attempt_payment_method_details_card */
     readonly setup_attempt_payment_method_details_card: {
       /** @description Populated if this authorization used 3D Secure authentication. */
-      readonly three_d_secure?: Partial<components['schemas']['three_d_secure_details']> | null
+      readonly three_d_secure?: components['schemas']['three_d_secure_details'] | null
     }
     /** setup_attempt_payment_method_details_card_present */
     readonly setup_attempt_payment_method_details_card_present: {
       /** @description The ID of the Card PaymentMethod which was generated by this SetupAttempt. */
-      readonly generated_card?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      readonly generated_card?: (string | components['schemas']['payment_method']) | null
     }
     /** setup_attempt_payment_method_details_ideal */
     readonly setup_attempt_payment_method_details_ideal: {
@@ -12424,9 +12451,9 @@ export interface components {
           )
         | null
       /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
-      readonly generated_sepa_debit?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      readonly generated_sepa_debit?: (string | components['schemas']['payment_method']) | null
       /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
-      readonly generated_sepa_debit_mandate?: (Partial<string> & Partial<components['schemas']['mandate']>) | null
+      readonly generated_sepa_debit_mandate?: (string | components['schemas']['mandate']) | null
       /** @description Last four characters of the IBAN. */
       readonly iban_last4?: string | null
       /**
@@ -12446,9 +12473,9 @@ export interface components {
       /** @description Bank Identifier Code of the bank associated with the bank account. */
       readonly bic?: string | null
       /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
-      readonly generated_sepa_debit?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      readonly generated_sepa_debit?: (string | components['schemas']['payment_method']) | null
       /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
-      readonly generated_sepa_debit_mandate?: (Partial<string> & Partial<components['schemas']['mandate']>) | null
+      readonly generated_sepa_debit_mandate?: (string | components['schemas']['mandate']) | null
       /** @description Last four characters of the IBAN. */
       readonly iban_last4?: string | null
       /**
@@ -12490,7 +12517,7 @@ export interface components {
      */
     readonly setup_intent: {
       /** @description ID of the Connect application that created the SetupIntent. */
-      readonly application?: (Partial<string> & Partial<components['schemas']['application']>) | null
+      readonly application?: (string | components['schemas']['application']) | null
       /**
        * @description Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`.
        * @enum {string|null}
@@ -12512,38 +12539,38 @@ export interface components {
        *
        * If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
        */
-      readonly customer?: (Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>) | null
+      readonly customer?: (string | components['schemas']['customer'] | components['schemas']['deleted_customer']) | null
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       readonly description?: string | null
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description The error encountered in the previous SetupIntent confirmation. */
-      readonly last_setup_error?: Partial<components['schemas']['api_errors']> | null
+      readonly last_setup_error?: components['schemas']['api_errors'] | null
       /** @description The most recent SetupAttempt for this SetupIntent. */
-      readonly latest_attempt?: (Partial<string> & Partial<components['schemas']['setup_attempt']>) | null
+      readonly latest_attempt?: (string | components['schemas']['setup_attempt']) | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean
       /** @description ID of the multi use Mandate generated by the SetupIntent. */
-      readonly mandate?: (Partial<string> & Partial<components['schemas']['mandate']>) | null
+      readonly mandate?: (string | components['schemas']['mandate']) | null
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata?: { readonly [key: string]: string } | null
       /** @description If present, this property tells you what actions you need to take in order for your customer to continue payment setup. */
-      readonly next_action?: Partial<components['schemas']['setup_intent_next_action']> | null
+      readonly next_action?: components['schemas']['setup_intent_next_action'] | null
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       readonly object: 'setup_intent'
       /** @description The account (if any) for which the setup is intended. */
-      readonly on_behalf_of?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      readonly on_behalf_of?: (string | components['schemas']['account']) | null
       /** @description ID of the payment method used with this SetupIntent. */
-      readonly payment_method?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      readonly payment_method?: (string | components['schemas']['payment_method']) | null
       /** @description Payment-method-specific configuration for this SetupIntent. */
-      readonly payment_method_options?: Partial<components['schemas']['setup_intent_payment_method_options']> | null
+      readonly payment_method_options?: components['schemas']['setup_intent_payment_method_options'] | null
       /** @description The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. */
       readonly payment_method_types: readonly string[]
       /** @description ID of the single_use Mandate generated by the SetupIntent. */
-      readonly single_use_mandate?: (Partial<string> & Partial<components['schemas']['mandate']>) | null
+      readonly single_use_mandate?: (string | components['schemas']['mandate']) | null
       /**
        * @description [Status](https://stripe.com/docs/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`.
        * @enum {string}
@@ -12654,7 +12681,7 @@ export interface components {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       readonly currency: string
       /** @description The estimated delivery date for the given shipping method. Can be either a specific date or a range. */
-      readonly delivery_estimate?: Partial<components['schemas']['delivery_estimate']> | null
+      readonly delivery_estimate?: components['schemas']['delivery_estimate'] | null
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       readonly description: string
       /** @description Unique identifier for the object. */
@@ -12674,7 +12701,7 @@ export interface components {
        */
       readonly created: number
       /** @description The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions. */
-      readonly delivery_estimate?: Partial<components['schemas']['shipping_rate_delivery_estimate']> | null
+      readonly delivery_estimate?: components['schemas']['shipping_rate_delivery_estimate'] | null
       /** @description The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions. */
       readonly display_name?: string | null
       readonly fixed_amount?: components['schemas']['shipping_rate_fixed_amount']
@@ -12695,7 +12722,7 @@ export interface components {
        */
       readonly tax_behavior?: ('exclusive' | 'inclusive' | 'unspecified') | null
       /** @description A [tax code](https://stripe.com/docs/tax/tax-codes) ID. The Shipping tax code is `txcd_92010001`. */
-      readonly tax_code?: (Partial<string> & Partial<components['schemas']['tax_code']>) | null
+      readonly tax_code?: (string | components['schemas']['tax_code']) | null
       /**
        * @description The type of calculation to use on the shipping rate. Can only be `fixed_amount` for now.
        * @enum {string}
@@ -12705,9 +12732,9 @@ export interface components {
     /** ShippingRateDeliveryEstimate */
     readonly shipping_rate_delivery_estimate: {
       /** @description The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite. */
-      readonly maximum?: Partial<components['schemas']['shipping_rate_delivery_estimate_bound']> | null
+      readonly maximum?: components['schemas']['shipping_rate_delivery_estimate_bound'] | null
       /** @description The lower bound of the estimated range. If empty, represents no lower bound. */
-      readonly minimum?: Partial<components['schemas']['shipping_rate_delivery_estimate_bound']> | null
+      readonly minimum?: components['schemas']['shipping_rate_delivery_estimate_bound'] | null
     }
     /** ShippingRateDeliveryEstimateBound */
     readonly shipping_rate_delivery_estimate_bound: {
@@ -12769,11 +12796,11 @@ export interface components {
        */
       readonly object: 'sku'
       /** @description The dimensions of this SKU for shipping purposes. */
-      readonly package_dimensions?: Partial<components['schemas']['package_dimensions']> | null
+      readonly package_dimensions?: components['schemas']['package_dimensions'] | null
       /** @description The cost of the item as a positive integer in the smallest currency unit (that is, 100 cents to charge $1.00, or 100 to charge ¥100, Japanese Yen being a zero-decimal currency). */
       readonly price: number
       /** @description The ID of the product this SKU is associated with. The product must be currently active. */
-      readonly product: Partial<string> & Partial<components['schemas']['product']>
+      readonly product: string | components['schemas']['product']
       /**
        * Format: unix-time
        * @description Time at which the object was last updated. Measured in seconds since the Unix epoch.
@@ -12840,7 +12867,7 @@ export interface components {
        */
       readonly object: 'source'
       /** @description Information about the owner of the payment instrument that may be used or required by particular source types. */
-      readonly owner?: Partial<components['schemas']['source_owner']> | null
+      readonly owner?: components['schemas']['source_owner'] | null
       readonly p24?: components['schemas']['source_type_p24']
       readonly receiver?: components['schemas']['source_receiver_flow']
       readonly redirect?: components['schemas']['source_redirect_flow']
@@ -12969,7 +12996,7 @@ export interface components {
     /** SourceOwner */
     readonly source_owner: {
       /** @description Owner's address. */
-      readonly address?: Partial<components['schemas']['address']> | null
+      readonly address?: components['schemas']['address'] | null
       /** @description Owner's email address. */
       readonly email?: string | null
       /** @description Owner's full name. */
@@ -12977,7 +13004,7 @@ export interface components {
       /** @description Owner's phone number (including extension). */
       readonly phone?: string | null
       /** @description Verified owner's address. Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated. */
-      readonly verified_address?: Partial<components['schemas']['address']> | null
+      readonly verified_address?: components['schemas']['address'] | null
       /** @description Verified owner's email address. Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated. */
       readonly verified_email?: string | null
       /** @description Verified owner's full name. Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated. */
@@ -13354,7 +13381,7 @@ export interface components {
        */
       readonly billing_cycle_anchor: number
       /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
-      readonly billing_thresholds?: Partial<components['schemas']['subscription_billing_thresholds']> | null
+      readonly billing_thresholds?: components['schemas']['subscription_billing_thresholds'] | null
       /**
        * Format: unix-time
        * @description A date in the future at which the subscription will automatically get canceled
@@ -13388,24 +13415,26 @@ export interface components {
        */
       readonly current_period_start: number
       /** @description ID of the customer who owns the subscription. */
-      readonly customer: Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>
+      readonly customer: string | components['schemas']['customer'] | components['schemas']['deleted_customer']
       /** @description Number of days a customer has to pay invoices generated by this subscription. This value will be `null` for subscriptions where `collection_method=charge_automatically`. */
       readonly days_until_due?: number | null
       /** @description ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. This takes precedence over `default_source`. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
-      readonly default_payment_method?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      readonly default_payment_method?: (string | components['schemas']['payment_method']) | null
       /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
       readonly default_source?:
-        | (Partial<string> &
-            Partial<components['schemas']['alipay_account']> &
-            Partial<components['schemas']['bank_account']> &
-            Partial<components['schemas']['bitcoin_receiver']> &
-            Partial<components['schemas']['card']> &
-            Partial<components['schemas']['source']>)
+        | (
+            | string
+            | components['schemas']['alipay_account']
+            | components['schemas']['bank_account']
+            | components['schemas']['bitcoin_receiver']
+            | components['schemas']['card']
+            | components['schemas']['source']
+          )
         | null
       /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. */
       readonly default_tax_rates?: readonly components['schemas']['tax_rate'][] | null
       /** @description Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a subscription overrides a discount applied on a customer-wide basis. */
-      readonly discount?: Partial<components['schemas']['discount']> | null
+      readonly discount?: components['schemas']['discount'] | null
       /**
        * Format: unix-time
        * @description If the subscription has ended, the date the subscription ended.
@@ -13431,7 +13460,7 @@ export interface components {
         readonly url: string
       }
       /** @description The most recent invoice this subscription has generated. */
-      readonly latest_invoice?: (Partial<string> & Partial<components['schemas']['invoice']>) | null
+      readonly latest_invoice?: (string | components['schemas']['invoice']) | null
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -13447,17 +13476,17 @@ export interface components {
        */
       readonly object: 'subscription'
       /** @description If specified, payment collection for this subscription will be paused. */
-      readonly pause_collection?: Partial<components['schemas']['subscriptions_resource_pause_collection']> | null
+      readonly pause_collection?: components['schemas']['subscriptions_resource_pause_collection'] | null
       /** @description Payment settings passed on to invoices created by the subscription. */
-      readonly payment_settings?: Partial<components['schemas']['subscriptions_resource_payment_settings']> | null
+      readonly payment_settings?: components['schemas']['subscriptions_resource_payment_settings'] | null
       /** @description Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-      readonly pending_invoice_item_interval?: Partial<components['schemas']['subscription_pending_invoice_item_interval']> | null
+      readonly pending_invoice_item_interval?: components['schemas']['subscription_pending_invoice_item_interval'] | null
       /** @description You can use this [SetupIntent](https://stripe.com/docs/api/setup_intents) to collect user authentication when creating a subscription without immediate payment or updating a subscription's payment method, allowing you to optimize for off-session payments. Learn more in the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication#scenario-2). */
-      readonly pending_setup_intent?: (Partial<string> & Partial<components['schemas']['setup_intent']>) | null
+      readonly pending_setup_intent?: (string | components['schemas']['setup_intent']) | null
       /** @description If specified, [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates) that will be applied to the subscription once the `latest_invoice` has been paid. */
-      readonly pending_update?: Partial<components['schemas']['subscriptions_resource_pending_update']> | null
+      readonly pending_update?: components['schemas']['subscriptions_resource_pending_update'] | null
       /** @description The schedule attached to the subscription */
-      readonly schedule?: (Partial<string> & Partial<components['schemas']['subscription_schedule']>) | null
+      readonly schedule?: (string | components['schemas']['subscription_schedule']) | null
       /**
        * Format: unix-time
        * @description Date when the subscription was first created. The date might differ from the `created` date due to backdating.
@@ -13477,7 +13506,7 @@ export interface components {
        */
       readonly status: 'active' | 'canceled' | 'incomplete' | 'incomplete_expired' | 'past_due' | 'trialing' | 'unpaid'
       /** @description The account (if any) the subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices. */
-      readonly transfer_data?: Partial<components['schemas']['subscription_transfer_data']> | null
+      readonly transfer_data?: components['schemas']['subscription_transfer_data'] | null
       /**
        * Format: unix-time
        * @description If the subscription has a trial, the end of that trial.
@@ -13508,7 +13537,7 @@ export interface components {
      */
     readonly subscription_item: {
       /** @description Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period */
-      readonly billing_thresholds?: Partial<components['schemas']['subscription_item_billing_thresholds']> | null
+      readonly billing_thresholds?: components['schemas']['subscription_item_billing_thresholds'] | null
       /** @description Time at which the object was created. Measured in seconds since the Unix epoch. */
       readonly created: number
       /** @description Unique identifier for the object. */
@@ -13575,9 +13604,9 @@ export interface components {
        */
       readonly created: number
       /** @description Object representing the start and end dates for the current phase of the subscription schedule, if it is `active`. */
-      readonly current_phase?: Partial<components['schemas']['subscription_schedule_current_phase']> | null
+      readonly current_phase?: components['schemas']['subscription_schedule_current_phase'] | null
       /** @description ID of the customer who owns the subscription schedule. */
-      readonly customer: Partial<string> & Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>
+      readonly customer: string | components['schemas']['customer'] | components['schemas']['deleted_customer']
       readonly default_settings: components['schemas']['subscription_schedules_resource_default_settings']
       /**
        * @description Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` and `cancel`.
@@ -13610,7 +13639,7 @@ export interface components {
        */
       readonly status: 'active' | 'canceled' | 'completed' | 'not_started' | 'released'
       /** @description ID of the subscription managed by the subscription schedule. */
-      readonly subscription?: (Partial<string> & Partial<components['schemas']['subscription']>) | null
+      readonly subscription?: (string | components['schemas']['subscription']) | null
     }
     /**
      * SubscriptionScheduleAddInvoiceItem
@@ -13618,7 +13647,7 @@ export interface components {
      */
     readonly subscription_schedule_add_invoice_item: {
       /** @description ID of the price used to generate the invoice item. */
-      readonly price: Partial<string> & Partial<components['schemas']['price']> & Partial<components['schemas']['deleted_price']>
+      readonly price: string | components['schemas']['price'] | components['schemas']['deleted_price']
       /** @description The quantity of the invoice item. */
       readonly quantity?: number | null
       /** @description The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item. */
@@ -13630,9 +13659,9 @@ export interface components {
      */
     readonly subscription_schedule_configuration_item: {
       /** @description Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period */
-      readonly billing_thresholds?: Partial<components['schemas']['subscription_item_billing_thresholds']> | null
+      readonly billing_thresholds?: components['schemas']['subscription_item_billing_thresholds'] | null
       /** @description ID of the price to which the customer should be subscribed. */
-      readonly price: Partial<string> & Partial<components['schemas']['price']> & Partial<components['schemas']['deleted_price']>
+      readonly price: string | components['schemas']['price'] | components['schemas']['deleted_price']
       /** @description Quantity of the plan to which the customer should be subscribed. */
       readonly quantity?: number
       /** @description The tax rates which apply to this `phase_item`. When set, the `default_tax_rates` on the phase do not apply to this `phase_item`. */
@@ -13667,16 +13696,16 @@ export interface components {
        */
       readonly billing_cycle_anchor?: ('automatic' | 'phase_start') | null
       /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
-      readonly billing_thresholds?: Partial<components['schemas']['subscription_billing_thresholds']> | null
+      readonly billing_thresholds?: components['schemas']['subscription_billing_thresholds'] | null
       /**
        * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions.
        * @enum {string|null}
        */
       readonly collection_method?: ('charge_automatically' | 'send_invoice') | null
       /** @description ID of the coupon to use during this phase of the subscription schedule. */
-      readonly coupon?: (Partial<string> & Partial<components['schemas']['coupon']> & Partial<components['schemas']['deleted_coupon']>) | null
+      readonly coupon?: (string | components['schemas']['coupon'] | components['schemas']['deleted_coupon']) | null
       /** @description ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings. */
-      readonly default_payment_method?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      readonly default_payment_method?: (string | components['schemas']['payment_method']) | null
       /** @description The default tax rates to apply to the subscription during this phase of the subscription schedule. */
       readonly default_tax_rates?: readonly components['schemas']['tax_rate'][] | null
       /**
@@ -13685,7 +13714,7 @@ export interface components {
        */
       readonly end_date: number
       /** @description The invoice settings applicable during this phase. */
-      readonly invoice_settings?: Partial<components['schemas']['invoice_setting_subscription_schedule_setting']> | null
+      readonly invoice_settings?: components['schemas']['invoice_setting_subscription_schedule_setting'] | null
       /** @description Subscription items to configure the subscription to during this phase of the subscription schedule. */
       readonly items: readonly components['schemas']['subscription_schedule_configuration_item'][]
       /**
@@ -13699,7 +13728,7 @@ export interface components {
        */
       readonly start_date: number
       /** @description The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices. */
-      readonly transfer_data?: Partial<components['schemas']['subscription_transfer_data']> | null
+      readonly transfer_data?: components['schemas']['subscription_transfer_data'] | null
       /**
        * Format: unix-time
        * @description When the trial ends within the phase.
@@ -13717,18 +13746,18 @@ export interface components {
        */
       readonly billing_cycle_anchor: 'automatic' | 'phase_start'
       /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
-      readonly billing_thresholds?: Partial<components['schemas']['subscription_billing_thresholds']> | null
+      readonly billing_thresholds?: components['schemas']['subscription_billing_thresholds'] | null
       /**
        * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions.
        * @enum {string|null}
        */
       readonly collection_method?: ('charge_automatically' | 'send_invoice') | null
       /** @description ID of the default payment method for the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings. */
-      readonly default_payment_method?: (Partial<string> & Partial<components['schemas']['payment_method']>) | null
+      readonly default_payment_method?: (string | components['schemas']['payment_method']) | null
       /** @description The subscription schedule's default invoice settings. */
-      readonly invoice_settings?: Partial<components['schemas']['invoice_setting_subscription_schedule_setting']> | null
+      readonly invoice_settings?: components['schemas']['invoice_setting_subscription_schedule_setting'] | null
       /** @description The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices. */
-      readonly transfer_data?: Partial<components['schemas']['subscription_transfer_data']> | null
+      readonly transfer_data?: components['schemas']['subscription_transfer_data'] | null
     }
     /** SubscriptionSchedulesResourceDefaultSettingsAutomaticTax */
     readonly subscription_schedules_resource_default_settings_automatic_tax: {
@@ -13740,7 +13769,7 @@ export interface components {
       /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the destination account. By default, the entire amount is transferred to the destination. */
       readonly amount_percent?: number | null
       /** @description The account where funds from the payment will be transferred to upon payment success. */
-      readonly destination: Partial<string> & Partial<components['schemas']['account']>
+      readonly destination: string | components['schemas']['account']
     }
     /**
      * SubscriptionsResourcePauseCollection
@@ -13762,16 +13791,16 @@ export interface components {
     /** SubscriptionsResourcePaymentMethodOptions */
     readonly subscriptions_resource_payment_method_options: {
       /** @description This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to invoices created by the subscription. */
-      readonly acss_debit?: Partial<components['schemas']['invoice_payment_method_options_acss_debit']> | null
+      readonly acss_debit?: components['schemas']['invoice_payment_method_options_acss_debit'] | null
       /** @description This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription. */
-      readonly bancontact?: Partial<components['schemas']['invoice_payment_method_options_bancontact']> | null
+      readonly bancontact?: components['schemas']['invoice_payment_method_options_bancontact'] | null
       /** @description This sub-hash contains details about the Card payment method options to pass to invoices created by the subscription. */
-      readonly card?: Partial<components['schemas']['subscription_payment_method_options_card']> | null
+      readonly card?: components['schemas']['subscription_payment_method_options_card'] | null
     }
     /** SubscriptionsResourcePaymentSettings */
     readonly subscriptions_resource_payment_settings: {
       /** @description Payment-method-specific configuration to provide to invoices created by the subscription. */
-      readonly payment_method_options?: Partial<components['schemas']['subscriptions_resource_payment_method_options']> | null
+      readonly payment_method_options?: components['schemas']['subscriptions_resource_payment_method_options'] | null
       /** @description The list of payment method types to provide to every invoice created by the subscription. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). */
       readonly payment_method_types?:
         | readonly (
@@ -13874,7 +13903,7 @@ export interface components {
        */
       readonly created: number
       /** @description ID of the customer. */
-      readonly customer?: (Partial<string> & Partial<components['schemas']['customer']>) | null
+      readonly customer?: (string | components['schemas']['customer']) | null
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -13935,7 +13964,7 @@ export interface components {
       /** @description Value of the tax ID. */
       readonly value: string
       /** @description Tax ID verification information. */
-      readonly verification?: Partial<components['schemas']['tax_id_verification']> | null
+      readonly verification?: components['schemas']['tax_id_verification'] | null
     }
     /** tax_id_verification */
     readonly tax_id_verification: {
@@ -14056,7 +14085,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       readonly livemode: boolean
       /** @description The location identifier of the reader. */
-      readonly location?: (Partial<string> & Partial<components['schemas']['terminal.location']>) | null
+      readonly location?: (string | components['schemas']['terminal.location']) | null
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       readonly metadata: { readonly [key: string]: string }
       /**
@@ -14195,7 +14224,7 @@ export interface components {
       /** @description Amount transferred. */
       readonly amount: number
       /** @description ID of the balance transaction that describes the impact of this top-up on your account balance. May not be specified depending on status of top-up. */
-      readonly balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      readonly balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -14252,7 +14281,7 @@ export interface components {
       /** @description Amount in %s reversed (can be less than the amount attribute on the transfer if a partial reversal was issued). */
       readonly amount_reversed: number
       /** @description Balance transaction that describes the impact of this transfer on your account balance. */
-      readonly balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      readonly balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /**
        * Format: unix-time
        * @description Time that this record of the transfer was first created.
@@ -14263,9 +14292,9 @@ export interface components {
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       readonly description?: string | null
       /** @description ID of the Stripe account the transfer was sent to. */
-      readonly destination?: (Partial<string> & Partial<components['schemas']['account']>) | null
+      readonly destination?: (string | components['schemas']['account']) | null
       /** @description If the destination is a Stripe account, this will be the ID of the payment that the destination account received for the transfer. */
-      readonly destination_payment?: Partial<string> & Partial<components['schemas']['charge']>
+      readonly destination_payment?: string | components['schemas']['charge']
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -14297,7 +14326,7 @@ export interface components {
       /** @description Whether the transfer has been fully reversed. If the transfer is only partially reversed, this attribute will still be false. */
       readonly reversed: boolean
       /** @description ID of the charge or payment that was used to fund the transfer. If null, the transfer was funded from the available balance. */
-      readonly source_transaction?: (Partial<string> & Partial<components['schemas']['charge']>) | null
+      readonly source_transaction?: (string | components['schemas']['charge']) | null
       /** @description The source balance this transfer came from. One of `card`, `fpx`, or `bank_account`. */
       readonly source_type?: string | null
       /** @description A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
@@ -14312,7 +14341,7 @@ export interface components {
        * reporting, and where funds from the payment will be transferred to upon
        * payment success.
        */
-      readonly destination: Partial<string> & Partial<components['schemas']['account']>
+      readonly destination: string | components['schemas']['account']
     }
     /**
      * TransferReversal
@@ -14334,7 +14363,7 @@ export interface components {
       /** @description Amount, in %s. */
       readonly amount: number
       /** @description Balance transaction that describes the impact on your account balance. */
-      readonly balance_transaction?: (Partial<string> & Partial<components['schemas']['balance_transaction']>) | null
+      readonly balance_transaction?: (string | components['schemas']['balance_transaction']) | null
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -14343,7 +14372,7 @@ export interface components {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       readonly currency: string
       /** @description Linked payment refund for the transfer reversal. */
-      readonly destination_payment_refund?: (Partial<string> & Partial<components['schemas']['refund']>) | null
+      readonly destination_payment_refund?: (string | components['schemas']['refund']) | null
       /** @description Unique identifier for the object. */
       readonly id: string
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -14354,9 +14383,9 @@ export interface components {
        */
       readonly object: 'transfer_reversal'
       /** @description ID of the refund responsible for the transfer reversal. */
-      readonly source_refund?: (Partial<string> & Partial<components['schemas']['refund']>) | null
+      readonly source_refund?: (string | components['schemas']['refund']) | null
       /** @description ID of the transfer that was reversed. */
-      readonly transfer: Partial<string> & Partial<components['schemas']['transfer']>
+      readonly transfer: string | components['schemas']['transfer']
     }
     /** TransferSchedule */
     readonly transfer_schedule: {
@@ -14609,20 +14638,21 @@ export interface operations {
           /** @description An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
           readonly account_token?: string
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          readonly bank_account?: Partial<{
-            readonly account_holder_name?: string
-            /** @enum {string} */
-            readonly account_holder_type?: 'company' | 'individual'
-            readonly account_number: string
-            /** @enum {string} */
-            readonly account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
-            readonly country: string
-            readonly currency?: string
-            /** @enum {string} */
-            readonly object?: 'bank_account'
-            readonly routing_number?: string
-          }> &
-            Partial<string>
+          readonly bank_account?:
+            | {
+                readonly account_holder_name?: string
+                /** @enum {string} */
+                readonly account_holder_type?: 'company' | 'individual'
+                readonly account_number: string
+                /** @enum {string} */
+                readonly account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
+                readonly country: string
+                readonly currency?: string
+                /** @enum {string} */
+                readonly object?: 'bank_account'
+                readonly routing_number?: string
+              }
+            | string
           /**
            * business_profile_specs
            * @description Business information about the account.
@@ -14642,7 +14672,7 @@ export interface operations {
             }
             readonly support_email?: string
             readonly support_phone?: string
-            readonly support_url?: Partial<string> & Partial<''>
+            readonly support_url?: string | ''
             readonly url?: string
           }
           /**
@@ -14912,24 +14942,25 @@ export interface operations {
               readonly state?: string
               readonly town?: string
             }
-            readonly dob?: Partial<{
-              readonly day: number
-              readonly month: number
-              readonly year: number
-            }> &
-              Partial<''>
+            readonly dob?:
+              | {
+                  readonly day: number
+                  readonly month: number
+                  readonly year: number
+                }
+              | ''
             readonly email?: string
             readonly first_name?: string
             readonly first_name_kana?: string
             readonly first_name_kanji?: string
-            readonly full_name_aliases?: Partial<readonly string[]> & Partial<''>
+            readonly full_name_aliases?: readonly string[] | ''
             readonly gender?: string
             readonly id_number?: string
             readonly last_name?: string
             readonly last_name_kana?: string
             readonly last_name_kanji?: string
             readonly maiden_name?: string
-            readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+            readonly metadata?: { readonly [key: string]: string } | ''
             readonly phone?: string
             /** @enum {string} */
             readonly political_exposure?: 'existing' | 'none'
@@ -14949,7 +14980,7 @@ export interface operations {
             }
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /**
            * settings_specs_update
            * @description Options for customizing how the account functions within Stripe.
@@ -14992,7 +15023,7 @@ export interface operations {
               readonly debit_negative_balances?: boolean
               /** transfer_schedule_specs */
               readonly schedule?: {
-                readonly delay_days?: Partial<'minimum'> & Partial<number>
+                readonly delay_days?: 'minimum' | number
                 /** @enum {string} */
                 readonly interval?: 'daily' | 'manual' | 'monthly' | 'weekly'
                 readonly monthly_anchor?: number
@@ -15067,20 +15098,21 @@ export interface operations {
       readonly content: {
         readonly 'application/x-www-form-urlencoded': {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          readonly bank_account?: Partial<{
-            readonly account_holder_name?: string
-            /** @enum {string} */
-            readonly account_holder_type?: 'company' | 'individual'
-            readonly account_number: string
-            /** @enum {string} */
-            readonly account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
-            readonly country: string
-            readonly currency?: string
-            /** @enum {string} */
-            readonly object?: 'bank_account'
-            readonly routing_number?: string
-          }> &
-            Partial<string>
+          readonly bank_account?:
+            | {
+                readonly account_holder_name?: string
+                /** @enum {string} */
+                readonly account_holder_type?: 'company' | 'individual'
+                readonly account_number: string
+                /** @enum {string} */
+                readonly account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
+                readonly country: string
+                readonly currency?: string
+                /** @enum {string} */
+                readonly object?: 'bank_account'
+                readonly routing_number?: string
+              }
+            | string
           /** @description When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           readonly default_for_currency?: boolean
           /** @description Specifies which fields in the response should be expanded. */
@@ -15185,7 +15217,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Cardholder name. */
           readonly name?: string
         }
@@ -15341,7 +15373,7 @@ export interface operations {
         readonly content: {
           readonly 'application/json': {
             /** @description The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards. */
-            readonly data: readonly (Partial<components['schemas']['bank_account']> & Partial<components['schemas']['card']>)[]
+            readonly data: readonly (components['schemas']['bank_account'] | components['schemas']['card'])[]
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean
             /**
@@ -15387,20 +15419,21 @@ export interface operations {
       readonly content: {
         readonly 'application/x-www-form-urlencoded': {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          readonly bank_account?: Partial<{
-            readonly account_holder_name?: string
-            /** @enum {string} */
-            readonly account_holder_type?: 'company' | 'individual'
-            readonly account_number: string
-            /** @enum {string} */
-            readonly account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
-            readonly country: string
-            readonly currency?: string
-            /** @enum {string} */
-            readonly object?: 'bank_account'
-            readonly routing_number?: string
-          }> &
-            Partial<string>
+          readonly bank_account?:
+            | {
+                readonly account_holder_name?: string
+                /** @enum {string} */
+                readonly account_holder_type?: 'company' | 'individual'
+                readonly account_number: string
+                /** @enum {string} */
+                readonly account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
+                readonly country: string
+                readonly currency?: string
+                /** @enum {string} */
+                readonly object?: 'bank_account'
+                readonly routing_number?: string
+              }
+            | string
           /** @description When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           readonly default_for_currency?: boolean
           /** @description Specifies which fields in the response should be expanded. */
@@ -15505,7 +15538,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Cardholder name. */
           readonly name?: string
         }
@@ -15682,12 +15715,13 @@ export interface operations {
             readonly town?: string
           }
           /** @description The person's date of birth. */
-          readonly dob?: Partial<{
-            readonly day: number
-            readonly month: number
-            readonly year: number
-          }> &
-            Partial<''>
+          readonly dob?:
+            | {
+                readonly day: number
+                readonly month: number
+                readonly year: number
+              }
+            | ''
           /**
            * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
@@ -15717,7 +15751,7 @@ export interface operations {
           /** @description The Kanji variation of the person's first name (Japan only). */
           readonly first_name_kanji?: string
           /** @description A list of alternate names or aliases that the person is known by. */
-          readonly full_name_aliases?: Partial<readonly string[]> & Partial<''>
+          readonly full_name_aliases?: readonly string[] | ''
           /** @description The person's gender (International regulations require either "male" or "female"). */
           readonly gender?: string
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -15731,7 +15765,7 @@ export interface operations {
           /** @description The person's maiden name. */
           readonly maiden_name?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           readonly nationality?: string
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -15748,7 +15782,7 @@ export interface operations {
             readonly director?: boolean
             readonly executive?: boolean
             readonly owner?: boolean
-            readonly percent_ownership?: Partial<number> & Partial<''>
+            readonly percent_ownership?: number | ''
             readonly representative?: boolean
             readonly title?: string
           }
@@ -15869,12 +15903,13 @@ export interface operations {
             readonly town?: string
           }
           /** @description The person's date of birth. */
-          readonly dob?: Partial<{
-            readonly day: number
-            readonly month: number
-            readonly year: number
-          }> &
-            Partial<''>
+          readonly dob?:
+            | {
+                readonly day: number
+                readonly month: number
+                readonly year: number
+              }
+            | ''
           /**
            * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
@@ -15904,7 +15939,7 @@ export interface operations {
           /** @description The Kanji variation of the person's first name (Japan only). */
           readonly first_name_kanji?: string
           /** @description A list of alternate names or aliases that the person is known by. */
-          readonly full_name_aliases?: Partial<readonly string[]> & Partial<''>
+          readonly full_name_aliases?: readonly string[] | ''
           /** @description The person's gender (International regulations require either "male" or "female"). */
           readonly gender?: string
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -15918,7 +15953,7 @@ export interface operations {
           /** @description The person's maiden name. */
           readonly maiden_name?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           readonly nationality?: string
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -15935,7 +15970,7 @@ export interface operations {
             readonly director?: boolean
             readonly executive?: boolean
             readonly owner?: boolean
-            readonly percent_ownership?: Partial<number> & Partial<''>
+            readonly percent_ownership?: number | ''
             readonly representative?: boolean
             readonly title?: string
           }
@@ -16099,12 +16134,13 @@ export interface operations {
             readonly town?: string
           }
           /** @description The person's date of birth. */
-          readonly dob?: Partial<{
-            readonly day: number
-            readonly month: number
-            readonly year: number
-          }> &
-            Partial<''>
+          readonly dob?:
+            | {
+                readonly day: number
+                readonly month: number
+                readonly year: number
+              }
+            | ''
           /**
            * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
@@ -16134,7 +16170,7 @@ export interface operations {
           /** @description The Kanji variation of the person's first name (Japan only). */
           readonly first_name_kanji?: string
           /** @description A list of alternate names or aliases that the person is known by. */
-          readonly full_name_aliases?: Partial<readonly string[]> & Partial<''>
+          readonly full_name_aliases?: readonly string[] | ''
           /** @description The person's gender (International regulations require either "male" or "female"). */
           readonly gender?: string
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -16148,7 +16184,7 @@ export interface operations {
           /** @description The person's maiden name. */
           readonly maiden_name?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           readonly nationality?: string
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -16165,7 +16201,7 @@ export interface operations {
             readonly director?: boolean
             readonly executive?: boolean
             readonly owner?: boolean
-            readonly percent_ownership?: Partial<number> & Partial<''>
+            readonly percent_ownership?: number | ''
             readonly representative?: boolean
             readonly title?: string
           }
@@ -16286,12 +16322,13 @@ export interface operations {
             readonly town?: string
           }
           /** @description The person's date of birth. */
-          readonly dob?: Partial<{
-            readonly day: number
-            readonly month: number
-            readonly year: number
-          }> &
-            Partial<''>
+          readonly dob?:
+            | {
+                readonly day: number
+                readonly month: number
+                readonly year: number
+              }
+            | ''
           /**
            * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
@@ -16321,7 +16358,7 @@ export interface operations {
           /** @description The Kanji variation of the person's first name (Japan only). */
           readonly first_name_kanji?: string
           /** @description A list of alternate names or aliases that the person is known by. */
-          readonly full_name_aliases?: Partial<readonly string[]> & Partial<''>
+          readonly full_name_aliases?: readonly string[] | ''
           /** @description The person's gender (International regulations require either "male" or "female"). */
           readonly gender?: string
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -16335,7 +16372,7 @@ export interface operations {
           /** @description The person's maiden name. */
           readonly maiden_name?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           readonly nationality?: string
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -16352,7 +16389,7 @@ export interface operations {
             readonly director?: boolean
             readonly executive?: boolean
             readonly owner?: boolean
-            readonly percent_ownership?: Partial<number> & Partial<''>
+            readonly percent_ownership?: number | ''
             readonly representative?: boolean
             readonly title?: string
           }
@@ -16450,13 +16487,14 @@ export interface operations {
   readonly GetAccounts: {
     readonly parameters: {
       readonly query: {
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -16523,20 +16561,21 @@ export interface operations {
           /** @description An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
           readonly account_token?: string
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          readonly bank_account?: Partial<{
-            readonly account_holder_name?: string
-            /** @enum {string} */
-            readonly account_holder_type?: 'company' | 'individual'
-            readonly account_number: string
-            /** @enum {string} */
-            readonly account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
-            readonly country: string
-            readonly currency?: string
-            /** @enum {string} */
-            readonly object?: 'bank_account'
-            readonly routing_number?: string
-          }> &
-            Partial<string>
+          readonly bank_account?:
+            | {
+                readonly account_holder_name?: string
+                /** @enum {string} */
+                readonly account_holder_type?: 'company' | 'individual'
+                readonly account_number: string
+                /** @enum {string} */
+                readonly account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
+                readonly country: string
+                readonly currency?: string
+                /** @enum {string} */
+                readonly object?: 'bank_account'
+                readonly routing_number?: string
+              }
+            | string
           /**
            * business_profile_specs
            * @description Business information about the account.
@@ -16556,7 +16595,7 @@ export interface operations {
             }
             readonly support_email?: string
             readonly support_phone?: string
-            readonly support_url?: Partial<string> & Partial<''>
+            readonly support_url?: string | ''
             readonly url?: string
           }
           /**
@@ -16828,24 +16867,25 @@ export interface operations {
               readonly state?: string
               readonly town?: string
             }
-            readonly dob?: Partial<{
-              readonly day: number
-              readonly month: number
-              readonly year: number
-            }> &
-              Partial<''>
+            readonly dob?:
+              | {
+                  readonly day: number
+                  readonly month: number
+                  readonly year: number
+                }
+              | ''
             readonly email?: string
             readonly first_name?: string
             readonly first_name_kana?: string
             readonly first_name_kanji?: string
-            readonly full_name_aliases?: Partial<readonly string[]> & Partial<''>
+            readonly full_name_aliases?: readonly string[] | ''
             readonly gender?: string
             readonly id_number?: string
             readonly last_name?: string
             readonly last_name_kana?: string
             readonly last_name_kanji?: string
             readonly maiden_name?: string
-            readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+            readonly metadata?: { readonly [key: string]: string } | ''
             readonly phone?: string
             /** @enum {string} */
             readonly political_exposure?: 'existing' | 'none'
@@ -16865,7 +16905,7 @@ export interface operations {
             }
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /**
            * settings_specs
            * @description Options for customizing how the account functions within Stripe.
@@ -16908,7 +16948,7 @@ export interface operations {
               readonly debit_negative_balances?: boolean
               /** transfer_schedule_specs */
               readonly schedule?: {
-                readonly delay_days?: Partial<'minimum'> & Partial<number>
+                readonly delay_days?: 'minimum' | number
                 /** @enum {string} */
                 readonly interval?: 'daily' | 'manual' | 'monthly' | 'weekly'
                 readonly monthly_anchor?: number
@@ -17000,20 +17040,21 @@ export interface operations {
           /** @description An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
           readonly account_token?: string
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          readonly bank_account?: Partial<{
-            readonly account_holder_name?: string
-            /** @enum {string} */
-            readonly account_holder_type?: 'company' | 'individual'
-            readonly account_number: string
-            /** @enum {string} */
-            readonly account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
-            readonly country: string
-            readonly currency?: string
-            /** @enum {string} */
-            readonly object?: 'bank_account'
-            readonly routing_number?: string
-          }> &
-            Partial<string>
+          readonly bank_account?:
+            | {
+                readonly account_holder_name?: string
+                /** @enum {string} */
+                readonly account_holder_type?: 'company' | 'individual'
+                readonly account_number: string
+                /** @enum {string} */
+                readonly account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
+                readonly country: string
+                readonly currency?: string
+                /** @enum {string} */
+                readonly object?: 'bank_account'
+                readonly routing_number?: string
+              }
+            | string
           /**
            * business_profile_specs
            * @description Business information about the account.
@@ -17033,7 +17074,7 @@ export interface operations {
             }
             readonly support_email?: string
             readonly support_phone?: string
-            readonly support_url?: Partial<string> & Partial<''>
+            readonly support_url?: string | ''
             readonly url?: string
           }
           /**
@@ -17303,24 +17344,25 @@ export interface operations {
               readonly state?: string
               readonly town?: string
             }
-            readonly dob?: Partial<{
-              readonly day: number
-              readonly month: number
-              readonly year: number
-            }> &
-              Partial<''>
+            readonly dob?:
+              | {
+                  readonly day: number
+                  readonly month: number
+                  readonly year: number
+                }
+              | ''
             readonly email?: string
             readonly first_name?: string
             readonly first_name_kana?: string
             readonly first_name_kanji?: string
-            readonly full_name_aliases?: Partial<readonly string[]> & Partial<''>
+            readonly full_name_aliases?: readonly string[] | ''
             readonly gender?: string
             readonly id_number?: string
             readonly last_name?: string
             readonly last_name_kana?: string
             readonly last_name_kanji?: string
             readonly maiden_name?: string
-            readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+            readonly metadata?: { readonly [key: string]: string } | ''
             readonly phone?: string
             /** @enum {string} */
             readonly political_exposure?: 'existing' | 'none'
@@ -17340,7 +17382,7 @@ export interface operations {
             }
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /**
            * settings_specs_update
            * @description Options for customizing how the account functions within Stripe.
@@ -17383,7 +17425,7 @@ export interface operations {
               readonly debit_negative_balances?: boolean
               /** transfer_schedule_specs */
               readonly schedule?: {
-                readonly delay_days?: Partial<'minimum'> & Partial<number>
+                readonly delay_days?: 'minimum' | number
                 /** @enum {string} */
                 readonly interval?: 'daily' | 'manual' | 'monthly' | 'weekly'
                 readonly monthly_anchor?: number
@@ -17466,20 +17508,21 @@ export interface operations {
       readonly content: {
         readonly 'application/x-www-form-urlencoded': {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          readonly bank_account?: Partial<{
-            readonly account_holder_name?: string
-            /** @enum {string} */
-            readonly account_holder_type?: 'company' | 'individual'
-            readonly account_number: string
-            /** @enum {string} */
-            readonly account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
-            readonly country: string
-            readonly currency?: string
-            /** @enum {string} */
-            readonly object?: 'bank_account'
-            readonly routing_number?: string
-          }> &
-            Partial<string>
+          readonly bank_account?:
+            | {
+                readonly account_holder_name?: string
+                /** @enum {string} */
+                readonly account_holder_type?: 'company' | 'individual'
+                readonly account_number: string
+                /** @enum {string} */
+                readonly account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
+                readonly country: string
+                readonly currency?: string
+                /** @enum {string} */
+                readonly object?: 'bank_account'
+                readonly routing_number?: string
+              }
+            | string
           /** @description When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           readonly default_for_currency?: boolean
           /** @description Specifies which fields in the response should be expanded. */
@@ -17586,7 +17629,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Cardholder name. */
           readonly name?: string
         }
@@ -17751,7 +17794,7 @@ export interface operations {
         readonly content: {
           readonly 'application/json': {
             /** @description The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards. */
-            readonly data: readonly (Partial<components['schemas']['bank_account']> & Partial<components['schemas']['card']>)[]
+            readonly data: readonly (components['schemas']['bank_account'] | components['schemas']['card'])[]
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean
             /**
@@ -17802,20 +17845,21 @@ export interface operations {
       readonly content: {
         readonly 'application/x-www-form-urlencoded': {
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          readonly bank_account?: Partial<{
-            readonly account_holder_name?: string
-            /** @enum {string} */
-            readonly account_holder_type?: 'company' | 'individual'
-            readonly account_number: string
-            /** @enum {string} */
-            readonly account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
-            readonly country: string
-            readonly currency?: string
-            /** @enum {string} */
-            readonly object?: 'bank_account'
-            readonly routing_number?: string
-          }> &
-            Partial<string>
+          readonly bank_account?:
+            | {
+                readonly account_holder_name?: string
+                /** @enum {string} */
+                readonly account_holder_type?: 'company' | 'individual'
+                readonly account_number: string
+                /** @enum {string} */
+                readonly account_type?: 'checking' | 'futsu' | 'savings' | 'toza'
+                readonly country: string
+                readonly currency?: string
+                /** @enum {string} */
+                readonly object?: 'bank_account'
+                readonly routing_number?: string
+              }
+            | string
           /** @description When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           readonly default_for_currency?: boolean
           /** @description Specifies which fields in the response should be expanded. */
@@ -17922,7 +17966,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Cardholder name. */
           readonly name?: string
         }
@@ -18111,12 +18155,13 @@ export interface operations {
             readonly town?: string
           }
           /** @description The person's date of birth. */
-          readonly dob?: Partial<{
-            readonly day: number
-            readonly month: number
-            readonly year: number
-          }> &
-            Partial<''>
+          readonly dob?:
+            | {
+                readonly day: number
+                readonly month: number
+                readonly year: number
+              }
+            | ''
           /**
            * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
@@ -18146,7 +18191,7 @@ export interface operations {
           /** @description The Kanji variation of the person's first name (Japan only). */
           readonly first_name_kanji?: string
           /** @description A list of alternate names or aliases that the person is known by. */
-          readonly full_name_aliases?: Partial<readonly string[]> & Partial<''>
+          readonly full_name_aliases?: readonly string[] | ''
           /** @description The person's gender (International regulations require either "male" or "female"). */
           readonly gender?: string
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -18160,7 +18205,7 @@ export interface operations {
           /** @description The person's maiden name. */
           readonly maiden_name?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           readonly nationality?: string
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -18177,7 +18222,7 @@ export interface operations {
             readonly director?: boolean
             readonly executive?: boolean
             readonly owner?: boolean
-            readonly percent_ownership?: Partial<number> & Partial<''>
+            readonly percent_ownership?: number | ''
             readonly representative?: boolean
             readonly title?: string
           }
@@ -18299,12 +18344,13 @@ export interface operations {
             readonly town?: string
           }
           /** @description The person's date of birth. */
-          readonly dob?: Partial<{
-            readonly day: number
-            readonly month: number
-            readonly year: number
-          }> &
-            Partial<''>
+          readonly dob?:
+            | {
+                readonly day: number
+                readonly month: number
+                readonly year: number
+              }
+            | ''
           /**
            * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
@@ -18334,7 +18380,7 @@ export interface operations {
           /** @description The Kanji variation of the person's first name (Japan only). */
           readonly first_name_kanji?: string
           /** @description A list of alternate names or aliases that the person is known by. */
-          readonly full_name_aliases?: Partial<readonly string[]> & Partial<''>
+          readonly full_name_aliases?: readonly string[] | ''
           /** @description The person's gender (International regulations require either "male" or "female"). */
           readonly gender?: string
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -18348,7 +18394,7 @@ export interface operations {
           /** @description The person's maiden name. */
           readonly maiden_name?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           readonly nationality?: string
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -18365,7 +18411,7 @@ export interface operations {
             readonly director?: boolean
             readonly executive?: boolean
             readonly owner?: boolean
-            readonly percent_ownership?: Partial<number> & Partial<''>
+            readonly percent_ownership?: number | ''
             readonly representative?: boolean
             readonly title?: string
           }
@@ -18537,12 +18583,13 @@ export interface operations {
             readonly town?: string
           }
           /** @description The person's date of birth. */
-          readonly dob?: Partial<{
-            readonly day: number
-            readonly month: number
-            readonly year: number
-          }> &
-            Partial<''>
+          readonly dob?:
+            | {
+                readonly day: number
+                readonly month: number
+                readonly year: number
+              }
+            | ''
           /**
            * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
@@ -18572,7 +18619,7 @@ export interface operations {
           /** @description The Kanji variation of the person's first name (Japan only). */
           readonly first_name_kanji?: string
           /** @description A list of alternate names or aliases that the person is known by. */
-          readonly full_name_aliases?: Partial<readonly string[]> & Partial<''>
+          readonly full_name_aliases?: readonly string[] | ''
           /** @description The person's gender (International regulations require either "male" or "female"). */
           readonly gender?: string
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -18586,7 +18633,7 @@ export interface operations {
           /** @description The person's maiden name. */
           readonly maiden_name?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           readonly nationality?: string
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -18603,7 +18650,7 @@ export interface operations {
             readonly director?: boolean
             readonly executive?: boolean
             readonly owner?: boolean
-            readonly percent_ownership?: Partial<number> & Partial<''>
+            readonly percent_ownership?: number | ''
             readonly representative?: boolean
             readonly title?: string
           }
@@ -18725,12 +18772,13 @@ export interface operations {
             readonly town?: string
           }
           /** @description The person's date of birth. */
-          readonly dob?: Partial<{
-            readonly day: number
-            readonly month: number
-            readonly year: number
-          }> &
-            Partial<''>
+          readonly dob?:
+            | {
+                readonly day: number
+                readonly month: number
+                readonly year: number
+              }
+            | ''
           /**
            * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
@@ -18760,7 +18808,7 @@ export interface operations {
           /** @description The Kanji variation of the person's first name (Japan only). */
           readonly first_name_kanji?: string
           /** @description A list of alternate names or aliases that the person is known by. */
-          readonly full_name_aliases?: Partial<readonly string[]> & Partial<''>
+          readonly full_name_aliases?: readonly string[] | ''
           /** @description The person's gender (International regulations require either "male" or "female"). */
           readonly gender?: string
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -18774,7 +18822,7 @@ export interface operations {
           /** @description The person's maiden name. */
           readonly maiden_name?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           readonly nationality?: string
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -18791,7 +18839,7 @@ export interface operations {
             readonly director?: boolean
             readonly executive?: boolean
             readonly owner?: boolean
-            readonly percent_ownership?: Partial<number> & Partial<''>
+            readonly percent_ownership?: number | ''
             readonly representative?: boolean
             readonly title?: string
           }
@@ -19017,13 +19065,14 @@ export interface operations {
       readonly query: {
         /** Only return application fees for the charge specified by this charge ID. */
         readonly charge?: string
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -19129,7 +19178,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -19328,13 +19377,14 @@ export interface operations {
   readonly GetBalanceHistory: {
     readonly parameters: {
       readonly query: {
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
         readonly currency?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -19427,13 +19477,14 @@ export interface operations {
   readonly GetBalanceTransactions: {
     readonly parameters: {
       readonly query: {
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
         readonly currency?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -19596,7 +19647,7 @@ export interface operations {
             readonly terms_of_service_url: string
           }
           /** @description The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session. */
-          readonly default_return_url?: Partial<string> & Partial<''>
+          readonly default_return_url?: string | ''
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /**
@@ -19606,7 +19657,7 @@ export interface operations {
           readonly features: {
             /** customer_update_creation_param */
             readonly customer_update?: {
-              readonly allowed_updates: Partial<readonly ('address' | 'email' | 'phone' | 'shipping' | 'tax_id')[]> & Partial<''>
+              readonly allowed_updates: readonly ('address' | 'email' | 'phone' | 'shipping' | 'tax_id')[] | ''
               readonly enabled: boolean
             }
             /** invoice_list_param */
@@ -19622,19 +19673,18 @@ export interface operations {
               /** subscription_cancellation_reason_creation_param */
               readonly cancellation_reason?: {
                 readonly enabled: boolean
-                readonly options: Partial<
-                  readonly (
-                    | 'customer_service'
-                    | 'low_quality'
-                    | 'missing_features'
-                    | 'other'
-                    | 'switched_service'
-                    | 'too_complex'
-                    | 'too_expensive'
-                    | 'unused'
-                  )[]
-                > &
-                  Partial<''>
+                readonly options:
+                  | readonly (
+                      | 'customer_service'
+                      | 'low_quality'
+                      | 'missing_features'
+                      | 'other'
+                      | 'switched_service'
+                      | 'too_complex'
+                      | 'too_expensive'
+                      | 'unused'
+                    )[]
+                  | ''
               }
               readonly enabled: boolean
               /** @enum {string} */
@@ -19648,15 +19698,14 @@ export interface operations {
             }
             /** subscription_update_creation_param */
             readonly subscription_update?: {
-              readonly default_allowed_updates: Partial<readonly ('price' | 'promotion_code' | 'quantity')[]> & Partial<''>
+              readonly default_allowed_updates: readonly ('price' | 'promotion_code' | 'quantity')[] | ''
               readonly enabled: boolean
-              readonly products: Partial<
-                readonly {
-                  readonly prices: readonly string[]
-                  readonly product: string
-                }[]
-              > &
-                Partial<''>
+              readonly products:
+                | readonly {
+                    readonly prices: readonly string[]
+                    readonly product: string
+                  }[]
+                | ''
               /** @enum {string} */
               readonly proration_behavior?: 'always_invoice' | 'create_prorations' | 'none'
             }
@@ -19734,7 +19783,7 @@ export interface operations {
             readonly terms_of_service_url?: string
           }
           /** @description The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session. */
-          readonly default_return_url?: Partial<string> & Partial<''>
+          readonly default_return_url?: string | ''
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /**
@@ -19744,7 +19793,7 @@ export interface operations {
           readonly features?: {
             /** customer_update_updating_param */
             readonly customer_update?: {
-              readonly allowed_updates?: Partial<readonly ('address' | 'email' | 'phone' | 'shipping' | 'tax_id')[]> & Partial<''>
+              readonly allowed_updates?: readonly ('address' | 'email' | 'phone' | 'shipping' | 'tax_id')[] | ''
               readonly enabled?: boolean
             }
             /** invoice_list_param */
@@ -19760,19 +19809,18 @@ export interface operations {
               /** subscription_cancellation_reason_updating_param */
               readonly cancellation_reason?: {
                 readonly enabled: boolean
-                readonly options?: Partial<
-                  readonly (
-                    | 'customer_service'
-                    | 'low_quality'
-                    | 'missing_features'
-                    | 'other'
-                    | 'switched_service'
-                    | 'too_complex'
-                    | 'too_expensive'
-                    | 'unused'
-                  )[]
-                > &
-                  Partial<''>
+                readonly options?:
+                  | readonly (
+                      | 'customer_service'
+                      | 'low_quality'
+                      | 'missing_features'
+                      | 'other'
+                      | 'switched_service'
+                      | 'too_complex'
+                      | 'too_expensive'
+                      | 'unused'
+                    )[]
+                  | ''
               }
               readonly enabled?: boolean
               /** @enum {string} */
@@ -19786,21 +19834,20 @@ export interface operations {
             }
             /** subscription_update_updating_param */
             readonly subscription_update?: {
-              readonly default_allowed_updates?: Partial<readonly ('price' | 'promotion_code' | 'quantity')[]> & Partial<''>
+              readonly default_allowed_updates?: readonly ('price' | 'promotion_code' | 'quantity')[] | ''
               readonly enabled?: boolean
-              readonly products?: Partial<
-                readonly {
-                  readonly prices: readonly string[]
-                  readonly product: string
-                }[]
-              > &
-                Partial<''>
+              readonly products?:
+                | readonly {
+                    readonly prices: readonly string[]
+                    readonly product: string
+                  }[]
+                | ''
               /** @enum {string} */
               readonly proration_behavior?: 'always_invoice' | 'create_prorations' | 'none'
             }
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -20076,13 +20123,14 @@ export interface operations {
   readonly GetCharges: {
     readonly parameters: {
       readonly query: {
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Only return charges for the customer specified by this customer ID. */
         readonly customer?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -20157,38 +20205,40 @@ export interface operations {
           /** @description Whether to immediately capture the charge. Defaults to `true`. When `false`, the charge issues an authorization (or pre-authorization), and will need to be [captured](https://stripe.com/docs/api#capture_charge) later. Uncaptured charges expire after a set number of days (7 by default). For more information, see the [authorizing charges and settling later](https://stripe.com/docs/charges/placing-a-hold) documentation. */
           readonly capture?: boolean
           /** @description A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js). */
-          readonly card?: Partial<{
-            readonly address_city?: string
-            readonly address_country?: string
-            readonly address_line1?: string
-            readonly address_line2?: string
-            readonly address_state?: string
-            readonly address_zip?: string
-            readonly cvc?: string
-            readonly exp_month: number
-            readonly exp_year: number
-            readonly metadata?: { readonly [key: string]: string }
-            readonly name?: string
-            readonly number: string
-            /** @enum {string} */
-            readonly object?: 'card'
-          }> &
-            Partial<string>
+          readonly card?:
+            | {
+                readonly address_city?: string
+                readonly address_country?: string
+                readonly address_line1?: string
+                readonly address_line2?: string
+                readonly address_state?: string
+                readonly address_zip?: string
+                readonly cvc?: string
+                readonly exp_month: number
+                readonly exp_year: number
+                readonly metadata?: { readonly [key: string]: string }
+                readonly name?: string
+                readonly number: string
+                /** @enum {string} */
+                readonly object?: 'card'
+              }
+            | string
           /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           readonly currency?: string
           /** @description The ID of an existing customer that will be charged in this request. */
           readonly customer?: string
           /** @description An arbitrary string which you can attach to a `Charge` object. It is displayed when in the web interface alongside the charge. Note that if you use Stripe to send automatic email receipts to your customers, your receipt emails will include the `description` of the charge(s) that they are describing. */
           readonly description?: string
-          readonly destination?: Partial<{
-            readonly account: string
-            readonly amount?: number
-          }> &
-            Partial<string>
+          readonly destination?:
+            | {
+                readonly account: string
+                readonly amount?: number
+              }
+            | string
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/charges-transfers#on-behalf-of). */
           readonly on_behalf_of?: string
           /** @description The email address to which this charge's [receipt](https://stripe.com/docs/dashboard/receipts) will be sent. The receipt will not be sent until the charge is paid, and no receipts will be sent for test mode charges. If this charge is for a [Customer](https://stripe.com/docs/api/customers/object), the email address specified here will override the customer's email address. If `receipt_email` is specified for a charge in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
@@ -20302,7 +20352,7 @@ export interface operations {
             readonly user_report: '' | 'fraudulent' | 'safe'
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description This is the email address that the receipt for this charge will be sent to. If this field is updated, then a new email receipt will be sent to the updated address. */
           readonly receipt_email?: string
           /**
@@ -20475,7 +20525,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
           readonly submit?: boolean
         }
@@ -20551,7 +20601,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           readonly payment_intent?: string
           /** @enum {string} */
           readonly reason?: 'duplicate' | 'fraudulent' | 'requested_by_customer'
@@ -20638,7 +20688,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           readonly payment_intent?: string
           /** @enum {string} */
           readonly reason?: 'duplicate' | 'fraudulent' | 'requested_by_customer'
@@ -20707,7 +20757,7 @@ export interface operations {
         readonly 'application/x-www-form-urlencoded': {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -21026,7 +21076,7 @@ export interface operations {
               readonly currency?: 'cad' | 'usd'
               /** mandate_options_param */
               readonly mandate_options?: {
-                readonly custom_mandate_url?: Partial<string> & Partial<''>
+                readonly custom_mandate_url?: string | ''
                 readonly default_for?: readonly ('invoice' | 'subscription')[]
                 readonly interval_description?: string
                 /** @enum {string} */
@@ -21624,13 +21674,14 @@ export interface operations {
     readonly parameters: {
       readonly query: {
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -21720,7 +21771,7 @@ export interface operations {
           /** @description A positive integer specifying the number of times the coupon can be redeemed before it's no longer valid. For example, you might have a 50% off coupon that the first 20 readers of your blog can use. */
           readonly max_redemptions?: number
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
           readonly name?: string
           /** @description A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed). */
@@ -21792,7 +21843,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
           readonly name?: string
         }
@@ -21923,7 +21974,7 @@ export interface operations {
             readonly description?: string
             readonly invoice_line_item?: string
             readonly quantity?: number
-            readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+            readonly tax_rates?: readonly string[] | ''
             /** @enum {string} */
             readonly type: 'custom_line_item' | 'invoice_line_item'
             readonly unit_amount?: number
@@ -21967,7 +22018,7 @@ export interface operations {
           readonly description?: string
           readonly invoice_line_item?: string
           readonly quantity?: number
-          readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+          readonly tax_rates?: readonly string[] | ''
           /** @enum {string} */
           readonly type: 'custom_line_item' | 'invoice_line_item'
           readonly unit_amount?: number
@@ -22030,7 +22081,7 @@ export interface operations {
           readonly description?: string
           readonly invoice_line_item?: string
           readonly quantity?: number
-          readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+          readonly tax_rates?: readonly string[] | ''
           /** @enum {string} */
           readonly type: 'custom_line_item' | 'invoice_line_item'
           readonly unit_amount?: number
@@ -22233,13 +22284,14 @@ export interface operations {
   readonly GetCustomers: {
     readonly parameters: {
       readonly query: {
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A case-sensitive filter on the list based on the customer's `email` field. The value must be a string. */
         readonly email?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -22303,15 +22355,16 @@ export interface operations {
       readonly content: {
         readonly 'application/x-www-form-urlencoded': {
           /** @description The customer's address. */
-          readonly address?: Partial<{
-            readonly city?: string
-            readonly country?: string
-            readonly line1?: string
-            readonly line2?: string
-            readonly postal_code?: string
-            readonly state?: string
-          }> &
-            Partial<''>
+          readonly address?:
+            | {
+                readonly city?: string
+                readonly country?: string
+                readonly line1?: string
+                readonly line2?: string
+                readonly postal_code?: string
+                readonly state?: string
+              }
+            | ''
           /** @description An integer amount in %s that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice. */
           readonly balance?: number
           readonly coupon?: string
@@ -22328,18 +22381,17 @@ export interface operations {
            * @description Default invoice settings for this customer.
            */
           readonly invoice_settings?: {
-            readonly custom_fields?: Partial<
-              readonly {
-                readonly name: string
-                readonly value: string
-              }[]
-            > &
-              Partial<''>
+            readonly custom_fields?:
+              | readonly {
+                  readonly name: string
+                  readonly value: string
+                }[]
+              | ''
             readonly default_payment_method?: string
             readonly footer?: string
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The customer's full name or business name. */
           readonly name?: string
           /** @description The sequence to be used on the customer's next invoice. Defaults to 1. */
@@ -22352,27 +22404,28 @@ export interface operations {
           /** @description The API ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount. */
           readonly promotion_code?: string
           /** @description The customer's shipping information. Appears on invoices emailed to this customer. */
-          readonly shipping?: Partial<{
-            /** optional_fields_address */
-            readonly address: {
-              readonly city?: string
-              readonly country?: string
-              readonly line1?: string
-              readonly line2?: string
-              readonly postal_code?: string
-              readonly state?: string
-            }
-            readonly name: string
-            readonly phone?: string
-          }> &
-            Partial<''>
+          readonly shipping?:
+            | {
+                /** optional_fields_address */
+                readonly address: {
+                  readonly city?: string
+                  readonly country?: string
+                  readonly line1?: string
+                  readonly line2?: string
+                  readonly postal_code?: string
+                  readonly state?: string
+                }
+                readonly name: string
+                readonly phone?: string
+              }
+            | ''
           readonly source?: string
           /**
            * tax_param
            * @description Tax details about the customer.
            */
           readonly tax?: {
-            readonly ip_address?: Partial<string> & Partial<''>
+            readonly ip_address?: string | ''
           }
           /**
            * @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
@@ -22446,7 +22499,7 @@ export interface operations {
       /** Successful response. */
       readonly 200: {
         readonly content: {
-          readonly 'application/json': Partial<components['schemas']['customer']> & Partial<components['schemas']['deleted_customer']>
+          readonly 'application/json': components['schemas']['customer'] | components['schemas']['deleted_customer']
         }
       }
       /** Error response. */
@@ -22491,48 +22544,51 @@ export interface operations {
       readonly content: {
         readonly 'application/x-www-form-urlencoded': {
           /** @description The customer's address. */
-          readonly address?: Partial<{
-            readonly city?: string
-            readonly country?: string
-            readonly line1?: string
-            readonly line2?: string
-            readonly postal_code?: string
-            readonly state?: string
-          }> &
-            Partial<''>
+          readonly address?:
+            | {
+                readonly city?: string
+                readonly country?: string
+                readonly line1?: string
+                readonly line2?: string
+                readonly postal_code?: string
+                readonly state?: string
+              }
+            | ''
           /** @description An integer amount in %s that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice. */
           readonly balance?: number
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          readonly bank_account?: Partial<{
-            readonly account_holder_name?: string
-            /** @enum {string} */
-            readonly account_holder_type?: 'company' | 'individual'
-            readonly account_number: string
-            readonly country: string
-            readonly currency?: string
-            /** @enum {string} */
-            readonly object?: 'bank_account'
-            readonly routing_number?: string
-          }> &
-            Partial<string>
+          readonly bank_account?:
+            | {
+                readonly account_holder_name?: string
+                /** @enum {string} */
+                readonly account_holder_type?: 'company' | 'individual'
+                readonly account_number: string
+                readonly country: string
+                readonly currency?: string
+                /** @enum {string} */
+                readonly object?: 'bank_account'
+                readonly routing_number?: string
+              }
+            | string
           /** @description A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js). */
-          readonly card?: Partial<{
-            readonly address_city?: string
-            readonly address_country?: string
-            readonly address_line1?: string
-            readonly address_line2?: string
-            readonly address_state?: string
-            readonly address_zip?: string
-            readonly cvc?: string
-            readonly exp_month: number
-            readonly exp_year: number
-            readonly metadata?: { readonly [key: string]: string }
-            readonly name?: string
-            readonly number: string
-            /** @enum {string} */
-            readonly object?: 'card'
-          }> &
-            Partial<string>
+          readonly card?:
+            | {
+                readonly address_city?: string
+                readonly address_country?: string
+                readonly address_line1?: string
+                readonly address_line2?: string
+                readonly address_state?: string
+                readonly address_zip?: string
+                readonly cvc?: string
+                readonly exp_month: number
+                readonly exp_year: number
+                readonly metadata?: { readonly [key: string]: string }
+                readonly name?: string
+                readonly number: string
+                /** @enum {string} */
+                readonly object?: 'card'
+              }
+            | string
           readonly coupon?: string
           /** @description ID of Alipay account to make the customer's new default for invoice payments. */
           readonly default_alipay_account?: string
@@ -22561,18 +22617,17 @@ export interface operations {
            * @description Default invoice settings for this customer.
            */
           readonly invoice_settings?: {
-            readonly custom_fields?: Partial<
-              readonly {
-                readonly name: string
-                readonly value: string
-              }[]
-            > &
-              Partial<''>
+            readonly custom_fields?:
+              | readonly {
+                  readonly name: string
+                  readonly value: string
+                }[]
+              | ''
             readonly default_payment_method?: string
             readonly footer?: string
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The customer's full name or business name. */
           readonly name?: string
           /** @description The sequence to be used on the customer's next invoice. Defaults to 1. */
@@ -22584,27 +22639,28 @@ export interface operations {
           /** @description The API ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount. */
           readonly promotion_code?: string
           /** @description The customer's shipping information. Appears on invoices emailed to this customer. */
-          readonly shipping?: Partial<{
-            /** optional_fields_address */
-            readonly address: {
-              readonly city?: string
-              readonly country?: string
-              readonly line1?: string
-              readonly line2?: string
-              readonly postal_code?: string
-              readonly state?: string
-            }
-            readonly name: string
-            readonly phone?: string
-          }> &
-            Partial<''>
+          readonly shipping?:
+            | {
+                /** optional_fields_address */
+                readonly address: {
+                  readonly city?: string
+                  readonly country?: string
+                  readonly line1?: string
+                  readonly line2?: string
+                  readonly postal_code?: string
+                  readonly state?: string
+                }
+                readonly name: string
+                readonly phone?: string
+              }
+            | ''
           readonly source?: string
           /**
            * tax_param
            * @description Tax details about the customer.
            */
           readonly tax?: {
-            readonly ip_address?: Partial<string> & Partial<''>
+            readonly ip_address?: string | ''
           }
           /**
            * @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
@@ -22612,7 +22668,7 @@ export interface operations {
            */
           readonly tax_exempt?: '' | 'exempt' | 'none' | 'reverse'
           /** @description Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          readonly trial_end?: Partial<'now'> & Partial<number>
+          readonly trial_end?: 'now' | number
         }
       }
     }
@@ -22726,7 +22782,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -22793,7 +22849,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -22880,36 +22936,38 @@ export interface operations {
           /** @description A token returned by [Stripe.js](https://stripe.com/docs/js) representing the user’s Alipay account details. */
           readonly alipay_account?: string
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          readonly bank_account?: Partial<{
-            readonly account_holder_name?: string
-            /** @enum {string} */
-            readonly account_holder_type?: 'company' | 'individual'
-            readonly account_number: string
-            readonly country: string
-            readonly currency?: string
-            /** @enum {string} */
-            readonly object?: 'bank_account'
-            readonly routing_number?: string
-          }> &
-            Partial<string>
+          readonly bank_account?:
+            | {
+                readonly account_holder_name?: string
+                /** @enum {string} */
+                readonly account_holder_type?: 'company' | 'individual'
+                readonly account_number: string
+                readonly country: string
+                readonly currency?: string
+                /** @enum {string} */
+                readonly object?: 'bank_account'
+                readonly routing_number?: string
+              }
+            | string
           /** @description A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js). */
-          readonly card?: Partial<{
-            readonly address_city?: string
-            readonly address_country?: string
-            readonly address_line1?: string
-            readonly address_line2?: string
-            readonly address_state?: string
-            readonly address_zip?: string
-            readonly cvc?: string
-            readonly exp_month: number
-            readonly exp_year: number
-            readonly metadata?: { readonly [key: string]: string }
-            readonly name?: string
-            readonly number: string
-            /** @enum {string} */
-            readonly object?: 'card'
-          }> &
-            Partial<string>
+          readonly card?:
+            | {
+                readonly address_city?: string
+                readonly address_country?: string
+                readonly address_line1?: string
+                readonly address_line2?: string
+                readonly address_state?: string
+                readonly address_zip?: string
+                readonly cvc?: string
+                readonly exp_month: number
+                readonly exp_year: number
+                readonly metadata?: { readonly [key: string]: string }
+                readonly name?: string
+                readonly number: string
+                /** @enum {string} */
+                readonly object?: 'card'
+              }
+            | string
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -22964,9 +23022,7 @@ export interface operations {
       /** Successful response. */
       readonly 200: {
         readonly content: {
-          readonly 'application/json': Partial<components['schemas']['card']> &
-            Partial<components['schemas']['bank_account']> &
-            Partial<components['schemas']['source']>
+          readonly 'application/json': components['schemas']['card'] | components['schemas']['bank_account'] | components['schemas']['source']
         }
       }
       /** Error response. */
@@ -23005,7 +23061,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Cardholder name. */
           readonly name?: string
           /** owner */
@@ -23039,7 +23095,7 @@ export interface operations {
       /** Successful response. */
       readonly 200: {
         readonly content: {
-          readonly 'application/json': Partial<components['schemas']['payment_source']> & Partial<components['schemas']['deleted_payment_source']>
+          readonly 'application/json': components['schemas']['payment_source'] | components['schemas']['deleted_payment_source']
         }
       }
       /** Error response. */
@@ -23176,36 +23232,38 @@ export interface operations {
           /** @description A token returned by [Stripe.js](https://stripe.com/docs/js) representing the user’s Alipay account details. */
           readonly alipay_account?: string
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          readonly bank_account?: Partial<{
-            readonly account_holder_name?: string
-            /** @enum {string} */
-            readonly account_holder_type?: 'company' | 'individual'
-            readonly account_number: string
-            readonly country: string
-            readonly currency?: string
-            /** @enum {string} */
-            readonly object?: 'bank_account'
-            readonly routing_number?: string
-          }> &
-            Partial<string>
+          readonly bank_account?:
+            | {
+                readonly account_holder_name?: string
+                /** @enum {string} */
+                readonly account_holder_type?: 'company' | 'individual'
+                readonly account_number: string
+                readonly country: string
+                readonly currency?: string
+                /** @enum {string} */
+                readonly object?: 'bank_account'
+                readonly routing_number?: string
+              }
+            | string
           /** @description A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js). */
-          readonly card?: Partial<{
-            readonly address_city?: string
-            readonly address_country?: string
-            readonly address_line1?: string
-            readonly address_line2?: string
-            readonly address_state?: string
-            readonly address_zip?: string
-            readonly cvc?: string
-            readonly exp_month: number
-            readonly exp_year: number
-            readonly metadata?: { readonly [key: string]: string }
-            readonly name?: string
-            readonly number: string
-            /** @enum {string} */
-            readonly object?: 'card'
-          }> &
-            Partial<string>
+          readonly card?:
+            | {
+                readonly address_city?: string
+                readonly address_country?: string
+                readonly address_line1?: string
+                readonly address_line2?: string
+                readonly address_state?: string
+                readonly address_zip?: string
+                readonly cvc?: string
+                readonly exp_month: number
+                readonly exp_year: number
+                readonly metadata?: { readonly [key: string]: string }
+                readonly name?: string
+                readonly number: string
+                /** @enum {string} */
+                readonly object?: 'card'
+              }
+            | string
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -23260,9 +23318,7 @@ export interface operations {
       /** Successful response. */
       readonly 200: {
         readonly content: {
-          readonly 'application/json': Partial<components['schemas']['card']> &
-            Partial<components['schemas']['bank_account']> &
-            Partial<components['schemas']['source']>
+          readonly 'application/json': components['schemas']['card'] | components['schemas']['bank_account'] | components['schemas']['source']
         }
       }
       /** Error response. */
@@ -23301,7 +23357,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Cardholder name. */
           readonly name?: string
           /** owner */
@@ -23335,7 +23391,7 @@ export interface operations {
       /** Successful response. */
       readonly 200: {
         readonly content: {
-          readonly 'application/json': Partial<components['schemas']['payment_source']> & Partial<components['schemas']['deleted_payment_source']>
+          readonly 'application/json': components['schemas']['payment_source'] | components['schemas']['deleted_payment_source']
         }
       }
       /** Error response. */
@@ -23505,11 +23561,13 @@ export interface operations {
         readonly content: {
           readonly 'application/json': {
             /** @description Details about each object. */
-            readonly data: readonly (Partial<components['schemas']['alipay_account']> &
-              Partial<components['schemas']['bank_account']> &
-              Partial<components['schemas']['bitcoin_receiver']> &
-              Partial<components['schemas']['card']> &
-              Partial<components['schemas']['source']>)[]
+            readonly data: readonly (
+              | components['schemas']['alipay_account']
+              | components['schemas']['bank_account']
+              | components['schemas']['bitcoin_receiver']
+              | components['schemas']['card']
+              | components['schemas']['source']
+            )[]
             /** @description True if this list has another page of items after this one that can be fetched. */
             readonly has_more: boolean
             /**
@@ -23568,36 +23626,38 @@ export interface operations {
           /** @description A token returned by [Stripe.js](https://stripe.com/docs/js) representing the user’s Alipay account details. */
           readonly alipay_account?: string
           /** @description Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details. */
-          readonly bank_account?: Partial<{
-            readonly account_holder_name?: string
-            /** @enum {string} */
-            readonly account_holder_type?: 'company' | 'individual'
-            readonly account_number: string
-            readonly country: string
-            readonly currency?: string
-            /** @enum {string} */
-            readonly object?: 'bank_account'
-            readonly routing_number?: string
-          }> &
-            Partial<string>
+          readonly bank_account?:
+            | {
+                readonly account_holder_name?: string
+                /** @enum {string} */
+                readonly account_holder_type?: 'company' | 'individual'
+                readonly account_number: string
+                readonly country: string
+                readonly currency?: string
+                /** @enum {string} */
+                readonly object?: 'bank_account'
+                readonly routing_number?: string
+              }
+            | string
           /** @description A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js). */
-          readonly card?: Partial<{
-            readonly address_city?: string
-            readonly address_country?: string
-            readonly address_line1?: string
-            readonly address_line2?: string
-            readonly address_state?: string
-            readonly address_zip?: string
-            readonly cvc?: string
-            readonly exp_month: number
-            readonly exp_year: number
-            readonly metadata?: { readonly [key: string]: string }
-            readonly name?: string
-            readonly number: string
-            /** @enum {string} */
-            readonly object?: 'card'
-          }> &
-            Partial<string>
+          readonly card?:
+            | {
+                readonly address_city?: string
+                readonly address_country?: string
+                readonly address_line1?: string
+                readonly address_line2?: string
+                readonly address_state?: string
+                readonly address_zip?: string
+                readonly cvc?: string
+                readonly exp_month: number
+                readonly exp_year: number
+                readonly metadata?: { readonly [key: string]: string }
+                readonly name?: string
+                readonly number: string
+                /** @enum {string} */
+                readonly object?: 'card'
+              }
+            | string
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -23652,9 +23712,7 @@ export interface operations {
       /** Successful response. */
       readonly 200: {
         readonly content: {
-          readonly 'application/json': Partial<components['schemas']['card']> &
-            Partial<components['schemas']['bank_account']> &
-            Partial<components['schemas']['source']>
+          readonly 'application/json': components['schemas']['card'] | components['schemas']['bank_account'] | components['schemas']['source']
         }
       }
       /** Error response. */
@@ -23693,7 +23751,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Cardholder name. */
           readonly name?: string
           /** owner */
@@ -23727,7 +23785,7 @@ export interface operations {
       /** Successful response. */
       readonly 200: {
         readonly content: {
-          readonly 'application/json': Partial<components['schemas']['payment_source']> & Partial<components['schemas']['deleted_payment_source']>
+          readonly 'application/json': components['schemas']['payment_source'] | components['schemas']['deleted_payment_source']
         }
       }
       /** Error response. */
@@ -23866,7 +23924,7 @@ export interface operations {
               readonly unit_amount_decimal?: string
             }
             readonly quantity?: number
-            readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+            readonly tax_rates?: readonly string[] | ''
           }[]
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           readonly application_fee_percent?: number
@@ -23888,11 +23946,12 @@ export interface operations {
            */
           readonly billing_cycle_anchor?: number
           /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-          readonly billing_thresholds?: Partial<{
-            readonly amount_gte?: number
-            readonly reset_billing_cycle_anchor?: boolean
-          }> &
-            Partial<''>
+          readonly billing_thresholds?:
+            | {
+                readonly amount_gte?: number
+                readonly reset_billing_cycle_anchor?: boolean
+              }
+            | ''
           /**
            * Format: unix-time
            * @description A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
@@ -23914,15 +23973,16 @@ export interface operations {
           /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
           readonly default_source?: string
           /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. */
-          readonly default_tax_rates?: Partial<readonly string[]> & Partial<''>
+          readonly default_tax_rates?: readonly string[] | ''
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description A list of up to 20 subscription items, each with an attached price. */
           readonly items?: readonly {
-            readonly billing_thresholds?: Partial<{
-              readonly usage_gte: number
-            }> &
-              Partial<''>
+            readonly billing_thresholds?:
+              | {
+                  readonly usage_gte: number
+                }
+              | ''
             readonly metadata?: { readonly [key: string]: string }
             readonly price?: string
             /** recurring_price_data */
@@ -23942,10 +24002,10 @@ export interface operations {
               readonly unit_amount_decimal?: string
             }
             readonly quantity?: number
-            readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+            readonly tax_rates?: readonly string[] | ''
           }[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
           readonly off_session?: boolean
           /**
@@ -23966,62 +24026,65 @@ export interface operations {
           readonly payment_settings?: {
             /** payment_method_options */
             readonly payment_method_options?: {
-              readonly acss_debit?: Partial<{
-                /** mandate_options_param */
-                readonly mandate_options?: {
-                  /** @enum {string} */
-                  readonly transaction_type?: 'business' | 'personal'
-                }
-                /** @enum {string} */
-                readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
-              }> &
-                Partial<''>
-              readonly bancontact?: Partial<{
-                /** @enum {string} */
-                readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-              }> &
-                Partial<''>
-              readonly card?: Partial<{
-                /** mandate_options_param */
-                readonly mandate_options?: {
-                  readonly amount?: number
-                  /** @enum {string} */
-                  readonly amount_type?: 'fixed' | 'maximum'
-                  readonly description?: string
-                }
-                /** @enum {string} */
-                readonly request_three_d_secure?: 'any' | 'automatic'
-              }> &
-                Partial<''>
+              readonly acss_debit?:
+                | {
+                    /** mandate_options_param */
+                    readonly mandate_options?: {
+                      /** @enum {string} */
+                      readonly transaction_type?: 'business' | 'personal'
+                    }
+                    /** @enum {string} */
+                    readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                  }
+                | ''
+              readonly bancontact?:
+                | {
+                    /** @enum {string} */
+                    readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                  }
+                | ''
+              readonly card?:
+                | {
+                    /** mandate_options_param */
+                    readonly mandate_options?: {
+                      readonly amount?: number
+                      /** @enum {string} */
+                      readonly amount_type?: 'fixed' | 'maximum'
+                      readonly description?: string
+                    }
+                    /** @enum {string} */
+                    readonly request_three_d_secure?: 'any' | 'automatic'
+                  }
+                | ''
             }
-            readonly payment_method_types?: Partial<
-              readonly (
-                | 'ach_credit_transfer'
-                | 'ach_debit'
-                | 'acss_debit'
-                | 'au_becs_debit'
-                | 'bacs_debit'
-                | 'bancontact'
-                | 'boleto'
-                | 'card'
-                | 'fpx'
-                | 'giropay'
-                | 'grabpay'
-                | 'ideal'
-                | 'sepa_debit'
-                | 'sofort'
-                | 'wechat_pay'
-              )[]
-            > &
-              Partial<''>
+            readonly payment_method_types?:
+              | readonly (
+                  | 'ach_credit_transfer'
+                  | 'ach_debit'
+                  | 'acss_debit'
+                  | 'au_becs_debit'
+                  | 'bacs_debit'
+                  | 'bancontact'
+                  | 'boleto'
+                  | 'card'
+                  | 'fpx'
+                  | 'giropay'
+                  | 'grabpay'
+                  | 'ideal'
+                  | 'sepa_debit'
+                  | 'sofort'
+                  | 'wechat_pay'
+                )[]
+              | ''
           }
           /** @description Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-          readonly pending_invoice_item_interval?: Partial<{
-            /** @enum {string} */
-            readonly interval: 'day' | 'month' | 'week' | 'year'
-            readonly interval_count?: number
-          }> &
-            Partial<''>
+          readonly pending_invoice_item_interval?:
+            | {
+                /** @enum {string} */
+                readonly interval: 'day' | 'month' | 'week' | 'year'
+                readonly interval_count?: number
+              }
+            | ''
           /** @description The API ID of a promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. */
           readonly promotion_code?: string
           /**
@@ -24040,7 +24103,7 @@ export interface operations {
             readonly destination: string
           }
           /** @description Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
-          readonly trial_end?: Partial<'now'> & Partial<number>
+          readonly trial_end?: 'now' | number
           /** @description Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
           readonly trial_from_plan?: boolean
           /** @description Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
@@ -24120,7 +24183,7 @@ export interface operations {
               readonly unit_amount_decimal?: string
             }
             readonly quantity?: number
-            readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+            readonly tax_rates?: readonly string[] | ''
           }[]
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           readonly application_fee_percent?: number
@@ -24137,13 +24200,14 @@ export interface operations {
            */
           readonly billing_cycle_anchor?: 'now' | 'unchanged'
           /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-          readonly billing_thresholds?: Partial<{
-            readonly amount_gte?: number
-            readonly reset_billing_cycle_anchor?: boolean
-          }> &
-            Partial<''>
+          readonly billing_thresholds?:
+            | {
+                readonly amount_gte?: number
+                readonly reset_billing_cycle_anchor?: boolean
+              }
+            | ''
           /** @description A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
-          readonly cancel_at?: Partial<number> & Partial<''>
+          readonly cancel_at?: number | ''
           /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
           readonly cancel_at_period_end?: boolean
           /**
@@ -24160,19 +24224,20 @@ export interface operations {
           /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
           readonly default_source?: string
           /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. Pass an empty string to remove previously-defined tax rates. */
-          readonly default_tax_rates?: Partial<readonly string[]> & Partial<''>
+          readonly default_tax_rates?: readonly string[] | ''
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description A list of up to 20 subscription items, each with an attached price. */
           readonly items?: readonly {
-            readonly billing_thresholds?: Partial<{
-              readonly usage_gte: number
-            }> &
-              Partial<''>
+            readonly billing_thresholds?:
+              | {
+                  readonly usage_gte: number
+                }
+              | ''
             readonly clear_usage?: boolean
             readonly deleted?: boolean
             readonly id?: string
-            readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+            readonly metadata?: { readonly [key: string]: string } | ''
             readonly price?: string
             /** recurring_price_data */
             readonly price_data?: {
@@ -24191,20 +24256,21 @@ export interface operations {
               readonly unit_amount_decimal?: string
             }
             readonly quantity?: number
-            readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+            readonly tax_rates?: readonly string[] | ''
           }[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
           readonly off_session?: boolean
           /** @description If specified, payment collection for this subscription will be paused. */
-          readonly pause_collection?: Partial<{
-            /** @enum {string} */
-            readonly behavior: 'keep_as_draft' | 'mark_uncollectible' | 'void'
-            /** Format: unix-time */
-            readonly resumes_at?: number
-          }> &
-            Partial<''>
+          readonly pause_collection?:
+            | {
+                /** @enum {string} */
+                readonly behavior: 'keep_as_draft' | 'mark_uncollectible' | 'void'
+                /** Format: unix-time */
+                readonly resumes_at?: number
+              }
+            | ''
           /**
            * @description Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
            *
@@ -24223,62 +24289,65 @@ export interface operations {
           readonly payment_settings?: {
             /** payment_method_options */
             readonly payment_method_options?: {
-              readonly acss_debit?: Partial<{
-                /** mandate_options_param */
-                readonly mandate_options?: {
-                  /** @enum {string} */
-                  readonly transaction_type?: 'business' | 'personal'
-                }
-                /** @enum {string} */
-                readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
-              }> &
-                Partial<''>
-              readonly bancontact?: Partial<{
-                /** @enum {string} */
-                readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-              }> &
-                Partial<''>
-              readonly card?: Partial<{
-                /** mandate_options_param */
-                readonly mandate_options?: {
-                  readonly amount?: number
-                  /** @enum {string} */
-                  readonly amount_type?: 'fixed' | 'maximum'
-                  readonly description?: string
-                }
-                /** @enum {string} */
-                readonly request_three_d_secure?: 'any' | 'automatic'
-              }> &
-                Partial<''>
+              readonly acss_debit?:
+                | {
+                    /** mandate_options_param */
+                    readonly mandate_options?: {
+                      /** @enum {string} */
+                      readonly transaction_type?: 'business' | 'personal'
+                    }
+                    /** @enum {string} */
+                    readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                  }
+                | ''
+              readonly bancontact?:
+                | {
+                    /** @enum {string} */
+                    readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                  }
+                | ''
+              readonly card?:
+                | {
+                    /** mandate_options_param */
+                    readonly mandate_options?: {
+                      readonly amount?: number
+                      /** @enum {string} */
+                      readonly amount_type?: 'fixed' | 'maximum'
+                      readonly description?: string
+                    }
+                    /** @enum {string} */
+                    readonly request_three_d_secure?: 'any' | 'automatic'
+                  }
+                | ''
             }
-            readonly payment_method_types?: Partial<
-              readonly (
-                | 'ach_credit_transfer'
-                | 'ach_debit'
-                | 'acss_debit'
-                | 'au_becs_debit'
-                | 'bacs_debit'
-                | 'bancontact'
-                | 'boleto'
-                | 'card'
-                | 'fpx'
-                | 'giropay'
-                | 'grabpay'
-                | 'ideal'
-                | 'sepa_debit'
-                | 'sofort'
-                | 'wechat_pay'
-              )[]
-            > &
-              Partial<''>
+            readonly payment_method_types?:
+              | readonly (
+                  | 'ach_credit_transfer'
+                  | 'ach_debit'
+                  | 'acss_debit'
+                  | 'au_becs_debit'
+                  | 'bacs_debit'
+                  | 'bancontact'
+                  | 'boleto'
+                  | 'card'
+                  | 'fpx'
+                  | 'giropay'
+                  | 'grabpay'
+                  | 'ideal'
+                  | 'sepa_debit'
+                  | 'sofort'
+                  | 'wechat_pay'
+                )[]
+              | ''
           }
           /** @description Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-          readonly pending_invoice_item_interval?: Partial<{
-            /** @enum {string} */
-            readonly interval: 'day' | 'month' | 'week' | 'year'
-            readonly interval_count?: number
-          }> &
-            Partial<''>
+          readonly pending_invoice_item_interval?:
+            | {
+                /** @enum {string} */
+                readonly interval: 'day' | 'month' | 'week' | 'year'
+                readonly interval_count?: number
+              }
+            | ''
           /** @description The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. */
           readonly promotion_code?: string
           /**
@@ -24296,13 +24365,14 @@ export interface operations {
            */
           readonly proration_date?: number
           /** @description If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges. This will be unset if you POST an empty value. */
-          readonly transfer_data?: Partial<{
-            readonly amount_percent?: number
-            readonly destination: string
-          }> &
-            Partial<''>
+          readonly transfer_data?:
+            | {
+                readonly amount_percent?: number
+                readonly destination: string
+              }
+            | ''
           /** @description Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          readonly trial_end?: Partial<'now'> & Partial<number>
+          readonly trial_end?: 'now' | number
           /** @description Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
           readonly trial_from_plan?: boolean
         }
@@ -24603,13 +24673,14 @@ export interface operations {
       readonly query: {
         /** Only return disputes associated to the charge specified by this charge ID. */
         readonly charge?: string
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -24748,7 +24819,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
           readonly submit?: boolean
         }
@@ -24852,13 +24923,14 @@ export interface operations {
   readonly GetEvents: {
     readonly parameters: {
       readonly query: {
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Filter events by whether all webhooks were successfully delivered. If false, events which are still pending or have failed all delivery attempts to a webhook endpoint will be returned. */
         readonly delivery_success?: boolean
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -25017,13 +25089,14 @@ export interface operations {
   readonly GetFileLinks: {
     readonly parameters: {
       readonly query: {
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -25098,7 +25171,7 @@ export interface operations {
           /** @description The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `identity_document_downloadable`, `pci_document`, `selfie`, `sigma_scheduled_query`, or `tax_document_user_upload`. */
           readonly file: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -25161,9 +25234,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description A future timestamp after which the link will no longer be usable, or `now` to expire the link immediately. */
-          readonly expires_at?: Partial<'now'> & Partial<number> & Partial<''>
+          readonly expires_at?: 'now' | number | ''
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -25172,13 +25245,14 @@ export interface operations {
   readonly GetFiles: {
     readonly parameters: {
       readonly query: {
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -25271,7 +25345,7 @@ export interface operations {
             readonly create: boolean
             /** Format: unix-time */
             readonly expires_at?: number
-            readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+            readonly metadata?: { readonly [key: string]: string } | ''
           }
           /**
            * @description The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
@@ -25326,13 +25400,14 @@ export interface operations {
   readonly GetIdentityVerificationReports: {
     readonly parameters: {
       readonly query: {
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -25413,13 +25488,14 @@ export interface operations {
   readonly GetIdentityVerificationSessions: {
     readonly parameters: {
       readonly query: {
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -25499,13 +25575,14 @@ export interface operations {
            * @description A set of options for the session’s verification checks.
            */
           readonly options?: {
-            readonly document?: Partial<{
-              readonly allowed_types?: readonly ('driving_license' | 'id_card' | 'passport')[]
-              readonly require_id_number?: boolean
-              readonly require_live_capture?: boolean
-              readonly require_matching_selfie?: boolean
-            }> &
-              Partial<''>
+            readonly document?:
+              | {
+                  readonly allowed_types?: readonly ('driving_license' | 'id_card' | 'passport')[]
+                  readonly require_id_number?: boolean
+                  readonly require_live_capture?: boolean
+                  readonly require_matching_selfie?: boolean
+                }
+              | ''
           }
           /** @description The URL that the user will be redirected to upon completing the verification flow. */
           readonly return_url?: string
@@ -25592,13 +25669,14 @@ export interface operations {
            * @description A set of options for the session’s verification checks.
            */
           readonly options?: {
-            readonly document?: Partial<{
-              readonly allowed_types?: readonly ('driving_license' | 'id_card' | 'passport')[]
-              readonly require_id_number?: boolean
-              readonly require_live_capture?: boolean
-              readonly require_matching_selfie?: boolean
-            }> &
-              Partial<''>
+            readonly document?:
+              | {
+                  readonly allowed_types?: readonly ('driving_license' | 'id_card' | 'passport')[]
+                  readonly require_id_number?: boolean
+                  readonly require_live_capture?: boolean
+                  readonly require_matching_selfie?: boolean
+                }
+              | ''
           }
           /**
            * @description The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
@@ -25697,13 +25775,14 @@ export interface operations {
   readonly GetInvoiceitems: {
     readonly parameters: {
       readonly query: {
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned. */
         readonly customer?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -25781,19 +25860,18 @@ export interface operations {
           /** @description Controls whether discounts apply to this invoice item. Defaults to false for prorations or negative invoice items, and true for all other invoice items. */
           readonly discountable?: boolean
           /** @description The coupons to redeem into discounts for the invoice item or invoice line item. */
-          readonly discounts?: Partial<
-            readonly {
-              readonly coupon?: string
-              readonly discount?: string
-            }[]
-          > &
-            Partial<''>
+          readonly discounts?:
+            | readonly {
+                readonly coupon?: string
+                readonly discount?: string
+              }[]
+            | ''
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description The ID of an existing invoice to add this invoice item to. When left blank, the invoice item will be added to the next upcoming scheduled invoice. This is useful when adding invoice items in response to an invoice.created webhook. You can only add invoice items to draft invoices and there is a maximum of 250 items per invoice. */
           readonly invoice?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /**
            * period
            * @description The period associated with this invoice item.
@@ -25898,17 +25976,16 @@ export interface operations {
           /** @description Controls whether discounts apply to this invoice item. Defaults to false for prorations or negative invoice items, and true for all other invoice items. Cannot be set to true for prorations. */
           readonly discountable?: boolean
           /** @description The coupons & existing discounts which apply to the invoice item or invoice line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts. */
-          readonly discounts?: Partial<
-            readonly {
-              readonly coupon?: string
-              readonly discount?: string
-            }[]
-          > &
-            Partial<''>
+          readonly discounts?:
+            | readonly {
+                readonly coupon?: string
+                readonly discount?: string
+              }[]
+            | ''
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /**
            * period
            * @description The period associated with this invoice item.
@@ -25937,7 +26014,7 @@ export interface operations {
           /** @description Non-negative integer. The quantity of units for the invoice item. */
           readonly quantity?: number
           /** @description The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. Pass an empty string to remove previously-defined tax rates. */
-          readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+          readonly tax_rates?: readonly string[] | ''
           /** @description The integer unit amount in %s of the charge to be applied to the upcoming invoice. This unit_amount will be multiplied by the quantity to get the full amount. If you want to apply a credit to the customer's account, pass a negative unit_amount. */
           readonly unit_amount?: number
           /**
@@ -25982,22 +26059,24 @@ export interface operations {
       readonly query: {
         /** The collection method of the invoice to retrieve. Either `charge_automatically` or `send_invoice`. */
         readonly collection_method?: 'charge_automatically' | 'send_invoice'
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Only return invoices for the customer specified by this customer ID. */
         readonly customer?: string
-        readonly due_date?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly due_date?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -26063,7 +26142,7 @@ export interface operations {
       readonly content: {
         readonly 'application/x-www-form-urlencoded': {
           /** @description The account tax IDs associated with the invoice. Only editable when the invoice is a draft. */
-          readonly account_tax_ids?: Partial<readonly string[]> & Partial<''>
+          readonly account_tax_ids?: readonly string[] | ''
           /** @description A fee in %s that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees). */
           readonly application_fee_amount?: number
           /** @description Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. When `false`, the invoice's state will not automatically advance without an explicit action. */
@@ -26081,13 +26160,12 @@ export interface operations {
            */
           readonly collection_method?: 'charge_automatically' | 'send_invoice'
           /** @description A list of up to 4 custom fields to be displayed on the invoice. */
-          readonly custom_fields?: Partial<
-            readonly {
-              readonly name: string
-              readonly value: string
-            }[]
-          > &
-            Partial<''>
+          readonly custom_fields?:
+            | readonly {
+                readonly name: string
+                readonly value: string
+              }[]
+            | ''
           /** @description The ID of the customer who will be billed. */
           readonly customer: string
           /** @description The number of days from when the invoice is created until it is due. Valid only for invoices where `collection_method=send_invoice`. */
@@ -26101,13 +26179,12 @@ export interface operations {
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard. */
           readonly description?: string
           /** @description The coupons to redeem into discounts for the invoice. If not specified, inherits the discount from the invoice's customer. Pass an empty string to avoid inheriting any discounts. */
-          readonly discounts?: Partial<
-            readonly {
-              readonly coupon?: string
-              readonly discount?: string
-            }[]
-          > &
-            Partial<''>
+          readonly discounts?:
+            | readonly {
+                readonly coupon?: string
+                readonly discount?: string
+              }[]
+            | ''
           /**
            * Format: unix-time
            * @description The date on which payment for this invoice is due. Valid only for invoices where `collection_method=send_invoice`.
@@ -26118,7 +26195,7 @@ export interface operations {
           /** @description Footer to be displayed on the invoice. */
           readonly footer?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details. */
           readonly on_behalf_of?: string
           /**
@@ -26128,47 +26205,49 @@ export interface operations {
           readonly payment_settings?: {
             /** payment_method_options */
             readonly payment_method_options?: {
-              readonly acss_debit?: Partial<{
-                /** mandate_options_param */
-                readonly mandate_options?: {
-                  /** @enum {string} */
-                  readonly transaction_type?: 'business' | 'personal'
-                }
-                /** @enum {string} */
-                readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
-              }> &
-                Partial<''>
-              readonly bancontact?: Partial<{
-                /** @enum {string} */
-                readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-              }> &
-                Partial<''>
-              readonly card?: Partial<{
-                /** @enum {string} */
-                readonly request_three_d_secure?: 'any' | 'automatic'
-              }> &
-                Partial<''>
+              readonly acss_debit?:
+                | {
+                    /** mandate_options_param */
+                    readonly mandate_options?: {
+                      /** @enum {string} */
+                      readonly transaction_type?: 'business' | 'personal'
+                    }
+                    /** @enum {string} */
+                    readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                  }
+                | ''
+              readonly bancontact?:
+                | {
+                    /** @enum {string} */
+                    readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                  }
+                | ''
+              readonly card?:
+                | {
+                    /** @enum {string} */
+                    readonly request_three_d_secure?: 'any' | 'automatic'
+                  }
+                | ''
             }
-            readonly payment_method_types?: Partial<
-              readonly (
-                | 'ach_credit_transfer'
-                | 'ach_debit'
-                | 'acss_debit'
-                | 'au_becs_debit'
-                | 'bacs_debit'
-                | 'bancontact'
-                | 'boleto'
-                | 'card'
-                | 'fpx'
-                | 'giropay'
-                | 'grabpay'
-                | 'ideal'
-                | 'sepa_debit'
-                | 'sofort'
-                | 'wechat_pay'
-              )[]
-            > &
-              Partial<''>
+            readonly payment_method_types?:
+              | readonly (
+                  | 'ach_credit_transfer'
+                  | 'ach_debit'
+                  | 'acss_debit'
+                  | 'au_becs_debit'
+                  | 'bacs_debit'
+                  | 'bancontact'
+                  | 'boleto'
+                  | 'card'
+                  | 'fpx'
+                  | 'giropay'
+                  | 'grabpay'
+                  | 'ideal'
+                  | 'sepa_debit'
+                  | 'sofort'
+                  | 'wechat_pay'
+                )[]
+              | ''
           }
           /** @description Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`. */
           readonly statement_descriptor?: string
@@ -26206,32 +26285,34 @@ export interface operations {
         readonly customer?: string
         /** Details about the customer you want to invoice or overrides for an existing customer. */
         readonly customer_details?: {
-          readonly address?: Partial<{
-            readonly city?: string
-            readonly country?: string
-            readonly line1?: string
-            readonly line2?: string
-            readonly postal_code?: string
-            readonly state?: string
-          }> &
-            Partial<''>
-          readonly shipping?: Partial<{
-            /** optional_fields_address */
-            readonly address: {
-              readonly city?: string
-              readonly country?: string
-              readonly line1?: string
-              readonly line2?: string
-              readonly postal_code?: string
-              readonly state?: string
-            }
-            readonly name: string
-            readonly phone?: string
-          }> &
-            Partial<''>
+          readonly address?:
+            | {
+                readonly city?: string
+                readonly country?: string
+                readonly line1?: string
+                readonly line2?: string
+                readonly postal_code?: string
+                readonly state?: string
+              }
+            | ''
+          readonly shipping?:
+            | {
+                /** optional_fields_address */
+                readonly address: {
+                  readonly city?: string
+                  readonly country?: string
+                  readonly line1?: string
+                  readonly line2?: string
+                  readonly postal_code?: string
+                  readonly state?: string
+                }
+                readonly name: string
+                readonly phone?: string
+              }
+            | ''
           /** tax_param */
           readonly tax?: {
-            readonly ip_address?: Partial<string> & Partial<''>
+            readonly ip_address?: string | ''
           }
           /** @enum {string} */
           readonly tax_exempt?: '' | 'exempt' | 'none' | 'reverse'
@@ -26284,13 +26365,12 @@ export interface operations {
           }[]
         }
         /** The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the customer or subscription. This only works for coupons directly applied to the invoice. To apply a coupon to a subscription, you must use the `coupon` parameter instead. Pass an empty string to avoid inheriting any discounts. To preview the upcoming invoice for a subscription that hasn't been created, use `coupon` instead. */
-        readonly discounts?: Partial<
-          readonly {
-            readonly coupon?: string
-            readonly discount?: string
-          }[]
-        > &
-          Partial<''>
+        readonly discounts?:
+          | readonly {
+              readonly coupon?: string
+              readonly discount?: string
+            }[]
+          | ''
         /** Specifies which fields in the response should be expanded. */
         readonly expand?: readonly string[]
         /** List of invoice items to add or update in the upcoming invoice preview. */
@@ -26299,15 +26379,14 @@ export interface operations {
           readonly currency?: string
           readonly description?: string
           readonly discountable?: boolean
-          readonly discounts?: Partial<
-            readonly {
-              readonly coupon?: string
-              readonly discount?: string
-            }[]
-          > &
-            Partial<''>
+          readonly discounts?:
+            | readonly {
+                readonly coupon?: string
+                readonly discount?: string
+              }[]
+            | ''
           readonly invoiceitem?: string
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** period */
           readonly period?: {
             /** Format: unix-time */
@@ -26327,7 +26406,7 @@ export interface operations {
             readonly unit_amount_decimal?: string
           }
           readonly quantity?: number
-          readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+          readonly tax_rates?: readonly string[] | ''
           readonly unit_amount?: number
           /** Format: decimal */
           readonly unit_amount_decimal?: string
@@ -26337,25 +26416,26 @@ export interface operations {
         /** The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions. */
         readonly subscription?: string
         /** For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. */
-        readonly subscription_billing_cycle_anchor?: Partial<'now' | 'unchanged'> & Partial<number>
+        readonly subscription_billing_cycle_anchor?: ('now' | 'unchanged') | number
         /** Timestamp indicating when the subscription should be scheduled to cancel. Will prorate if within the current period and prorations have been enabled using `proration_behavior`. */
-        readonly subscription_cancel_at?: Partial<number> & Partial<''>
+        readonly subscription_cancel_at?: number | ''
         /** Boolean indicating whether this subscription should cancel at the end of the current period. */
         readonly subscription_cancel_at_period_end?: boolean
         /** This simulates the subscription being canceled or expired immediately. */
         readonly subscription_cancel_now?: boolean
         /** If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. */
-        readonly subscription_default_tax_rates?: Partial<readonly string[]> & Partial<''>
+        readonly subscription_default_tax_rates?: readonly string[] | ''
         /** A list of up to 20 subscription items, each with an attached price. */
         readonly subscription_items?: readonly {
-          readonly billing_thresholds?: Partial<{
-            readonly usage_gte: number
-          }> &
-            Partial<''>
+          readonly billing_thresholds?:
+            | {
+                readonly usage_gte: number
+              }
+            | ''
           readonly clear_usage?: boolean
           readonly deleted?: boolean
           readonly id?: string
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           readonly price?: string
           /** recurring_price_data */
           readonly price_data?: {
@@ -26374,7 +26454,7 @@ export interface operations {
             readonly unit_amount_decimal?: string
           }
           readonly quantity?: number
-          readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+          readonly tax_rates?: readonly string[] | ''
         }[]
         /**
          * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
@@ -26389,7 +26469,7 @@ export interface operations {
         /** Date a subscription is intended to start (can be future or past) */
         readonly subscription_start_date?: number
         /** If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. */
-        readonly subscription_trial_end?: Partial<'now'> & Partial<number>
+        readonly subscription_trial_end?: 'now' | number
         /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
         readonly subscription_trial_from_plan?: boolean
       }
@@ -26428,32 +26508,34 @@ export interface operations {
         readonly customer?: string
         /** Details about the customer you want to invoice or overrides for an existing customer. */
         readonly customer_details?: {
-          readonly address?: Partial<{
-            readonly city?: string
-            readonly country?: string
-            readonly line1?: string
-            readonly line2?: string
-            readonly postal_code?: string
-            readonly state?: string
-          }> &
-            Partial<''>
-          readonly shipping?: Partial<{
-            /** optional_fields_address */
-            readonly address: {
-              readonly city?: string
-              readonly country?: string
-              readonly line1?: string
-              readonly line2?: string
-              readonly postal_code?: string
-              readonly state?: string
-            }
-            readonly name: string
-            readonly phone?: string
-          }> &
-            Partial<''>
+          readonly address?:
+            | {
+                readonly city?: string
+                readonly country?: string
+                readonly line1?: string
+                readonly line2?: string
+                readonly postal_code?: string
+                readonly state?: string
+              }
+            | ''
+          readonly shipping?:
+            | {
+                /** optional_fields_address */
+                readonly address: {
+                  readonly city?: string
+                  readonly country?: string
+                  readonly line1?: string
+                  readonly line2?: string
+                  readonly postal_code?: string
+                  readonly state?: string
+                }
+                readonly name: string
+                readonly phone?: string
+              }
+            | ''
           /** tax_param */
           readonly tax?: {
-            readonly ip_address?: Partial<string> & Partial<''>
+            readonly ip_address?: string | ''
           }
           /** @enum {string} */
           readonly tax_exempt?: '' | 'exempt' | 'none' | 'reverse'
@@ -26506,13 +26588,12 @@ export interface operations {
           }[]
         }
         /** The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the customer or subscription. This only works for coupons directly applied to the invoice. To apply a coupon to a subscription, you must use the `coupon` parameter instead. Pass an empty string to avoid inheriting any discounts. To preview the upcoming invoice for a subscription that hasn't been created, use `coupon` instead. */
-        readonly discounts?: Partial<
-          readonly {
-            readonly coupon?: string
-            readonly discount?: string
-          }[]
-        > &
-          Partial<''>
+        readonly discounts?:
+          | readonly {
+              readonly coupon?: string
+              readonly discount?: string
+            }[]
+          | ''
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -26523,15 +26604,14 @@ export interface operations {
           readonly currency?: string
           readonly description?: string
           readonly discountable?: boolean
-          readonly discounts?: Partial<
-            readonly {
-              readonly coupon?: string
-              readonly discount?: string
-            }[]
-          > &
-            Partial<''>
+          readonly discounts?:
+            | readonly {
+                readonly coupon?: string
+                readonly discount?: string
+              }[]
+            | ''
           readonly invoiceitem?: string
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** period */
           readonly period?: {
             /** Format: unix-time */
@@ -26551,7 +26631,7 @@ export interface operations {
             readonly unit_amount_decimal?: string
           }
           readonly quantity?: number
-          readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+          readonly tax_rates?: readonly string[] | ''
           readonly unit_amount?: number
           /** Format: decimal */
           readonly unit_amount_decimal?: string
@@ -26565,25 +26645,26 @@ export interface operations {
         /** The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions. */
         readonly subscription?: string
         /** For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. */
-        readonly subscription_billing_cycle_anchor?: Partial<'now' | 'unchanged'> & Partial<number>
+        readonly subscription_billing_cycle_anchor?: ('now' | 'unchanged') | number
         /** Timestamp indicating when the subscription should be scheduled to cancel. Will prorate if within the current period and prorations have been enabled using `proration_behavior`. */
-        readonly subscription_cancel_at?: Partial<number> & Partial<''>
+        readonly subscription_cancel_at?: number | ''
         /** Boolean indicating whether this subscription should cancel at the end of the current period. */
         readonly subscription_cancel_at_period_end?: boolean
         /** This simulates the subscription being canceled or expired immediately. */
         readonly subscription_cancel_now?: boolean
         /** If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. */
-        readonly subscription_default_tax_rates?: Partial<readonly string[]> & Partial<''>
+        readonly subscription_default_tax_rates?: readonly string[] | ''
         /** A list of up to 20 subscription items, each with an attached price. */
         readonly subscription_items?: readonly {
-          readonly billing_thresholds?: Partial<{
-            readonly usage_gte: number
-          }> &
-            Partial<''>
+          readonly billing_thresholds?:
+            | {
+                readonly usage_gte: number
+              }
+            | ''
           readonly clear_usage?: boolean
           readonly deleted?: boolean
           readonly id?: string
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           readonly price?: string
           /** recurring_price_data */
           readonly price_data?: {
@@ -26602,7 +26683,7 @@ export interface operations {
             readonly unit_amount_decimal?: string
           }
           readonly quantity?: number
-          readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+          readonly tax_rates?: readonly string[] | ''
         }[]
         /**
          * Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
@@ -26617,7 +26698,7 @@ export interface operations {
         /** Date a subscription is intended to start (can be future or past) */
         readonly subscription_start_date?: number
         /** If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. */
-        readonly subscription_trial_end?: Partial<'now'> & Partial<number>
+        readonly subscription_trial_end?: 'now' | number
         /** Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
         readonly subscription_trial_from_plan?: boolean
       }
@@ -26717,7 +26798,7 @@ export interface operations {
       readonly content: {
         readonly 'application/x-www-form-urlencoded': {
           /** @description The account tax IDs associated with the invoice. Only editable when the invoice is a draft. */
-          readonly account_tax_ids?: Partial<readonly string[]> & Partial<''>
+          readonly account_tax_ids?: readonly string[] | ''
           /** @description A fee in %s that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees). */
           readonly application_fee_amount?: number
           /** @description Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. */
@@ -26735,13 +26816,12 @@ export interface operations {
            */
           readonly collection_method?: 'charge_automatically' | 'send_invoice'
           /** @description A list of up to 4 custom fields to be displayed on the invoice. If a value for `custom_fields` is specified, the list specified will replace the existing custom field list on this invoice. Pass an empty string to remove previously-defined fields. */
-          readonly custom_fields?: Partial<
-            readonly {
-              readonly name: string
-              readonly value: string
-            }[]
-          > &
-            Partial<''>
+          readonly custom_fields?:
+            | readonly {
+                readonly name: string
+                readonly value: string
+              }[]
+            | ''
           /** @description The number of days from which the invoice is created until it is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices. */
           readonly days_until_due?: number
           /** @description ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings. */
@@ -26749,17 +26829,16 @@ export interface operations {
           /** @description ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source. */
           readonly default_source?: string
           /** @description The tax rates that will apply to any line item that does not have `tax_rates` set. Pass an empty string to remove previously-defined tax rates. */
-          readonly default_tax_rates?: Partial<readonly string[]> & Partial<''>
+          readonly default_tax_rates?: readonly string[] | ''
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard. */
           readonly description?: string
           /** @description The discounts that will apply to the invoice. Pass an empty string to remove previously-defined discounts. */
-          readonly discounts?: Partial<
-            readonly {
-              readonly coupon?: string
-              readonly discount?: string
-            }[]
-          > &
-            Partial<''>
+          readonly discounts?:
+            | readonly {
+                readonly coupon?: string
+                readonly discount?: string
+              }[]
+            | ''
           /**
            * Format: unix-time
            * @description The date on which payment for this invoice is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices.
@@ -26770,9 +26849,9 @@ export interface operations {
           /** @description Footer to be displayed on the invoice. */
           readonly footer?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details. */
-          readonly on_behalf_of?: Partial<string> & Partial<''>
+          readonly on_behalf_of?: string | ''
           /**
            * payment_settings
            * @description Configuration settings for the PaymentIntent that is generated when the invoice is finalized.
@@ -26780,56 +26859,59 @@ export interface operations {
           readonly payment_settings?: {
             /** payment_method_options */
             readonly payment_method_options?: {
-              readonly acss_debit?: Partial<{
-                /** mandate_options_param */
-                readonly mandate_options?: {
-                  /** @enum {string} */
-                  readonly transaction_type?: 'business' | 'personal'
-                }
-                /** @enum {string} */
-                readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
-              }> &
-                Partial<''>
-              readonly bancontact?: Partial<{
-                /** @enum {string} */
-                readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-              }> &
-                Partial<''>
-              readonly card?: Partial<{
-                /** @enum {string} */
-                readonly request_three_d_secure?: 'any' | 'automatic'
-              }> &
-                Partial<''>
+              readonly acss_debit?:
+                | {
+                    /** mandate_options_param */
+                    readonly mandate_options?: {
+                      /** @enum {string} */
+                      readonly transaction_type?: 'business' | 'personal'
+                    }
+                    /** @enum {string} */
+                    readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                  }
+                | ''
+              readonly bancontact?:
+                | {
+                    /** @enum {string} */
+                    readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                  }
+                | ''
+              readonly card?:
+                | {
+                    /** @enum {string} */
+                    readonly request_three_d_secure?: 'any' | 'automatic'
+                  }
+                | ''
             }
-            readonly payment_method_types?: Partial<
-              readonly (
-                | 'ach_credit_transfer'
-                | 'ach_debit'
-                | 'acss_debit'
-                | 'au_becs_debit'
-                | 'bacs_debit'
-                | 'bancontact'
-                | 'boleto'
-                | 'card'
-                | 'fpx'
-                | 'giropay'
-                | 'grabpay'
-                | 'ideal'
-                | 'sepa_debit'
-                | 'sofort'
-                | 'wechat_pay'
-              )[]
-            > &
-              Partial<''>
+            readonly payment_method_types?:
+              | readonly (
+                  | 'ach_credit_transfer'
+                  | 'ach_debit'
+                  | 'acss_debit'
+                  | 'au_becs_debit'
+                  | 'bacs_debit'
+                  | 'bancontact'
+                  | 'boleto'
+                  | 'card'
+                  | 'fpx'
+                  | 'giropay'
+                  | 'grabpay'
+                  | 'ideal'
+                  | 'sepa_debit'
+                  | 'sofort'
+                  | 'wechat_pay'
+                )[]
+              | ''
           }
           /** @description Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`. */
           readonly statement_descriptor?: string
           /** @description If specified, the funds from the invoice will be transferred to the destination and the ID of the resulting transfer will be found on the invoice's charge. This will be unset if you POST an empty value. */
-          readonly transfer_data?: Partial<{
-            readonly amount?: number
-            readonly destination: string
-          }> &
-            Partial<''>
+          readonly transfer_data?:
+            | {
+                readonly amount?: number
+                readonly destination: string
+              }
+            | ''
         }
       }
     }
@@ -27171,13 +27253,14 @@ export interface operations {
         /** Only return authorizations that belong to the given cardholder. */
         readonly cardholder?: string
         /** Only return authorizations that were created during the given date interval. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -27279,7 +27362,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -27313,7 +27396,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -27345,7 +27428,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -27355,13 +27438,14 @@ export interface operations {
     readonly parameters: {
       readonly query: {
         /** Only return cardholders that were created during the given date interval. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Only return cardholders that have the given email address. */
         readonly email?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -29385,13 +29469,14 @@ export interface operations {
         /** Only return cards belonging to the Cardholder with the provided ID. */
         readonly cardholder?: string
         /** Only return cards that were issued during the given date interval. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Only return cards that have the given expiration month. */
@@ -30455,7 +30540,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /**
            * encrypted_pin_param
            * @description The desired new PIN for this card.
@@ -31358,13 +31443,14 @@ export interface operations {
     readonly parameters: {
       readonly query: {
         /** Select Issuing disputes that were created during the given date interval. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -31434,62 +31520,68 @@ export interface operations {
            * @description Evidence provided for the dispute.
            */
           readonly evidence?: {
-            readonly canceled?: Partial<{
-              readonly additional_documentation?: Partial<string> & Partial<''>
-              readonly canceled_at?: Partial<number> & Partial<''>
-              readonly cancellation_policy_provided?: Partial<boolean> & Partial<''>
-              readonly cancellation_reason?: string
-              readonly expected_at?: Partial<number> & Partial<''>
-              readonly explanation?: string
-              readonly product_description?: string
-              /** @enum {string} */
-              readonly product_type?: '' | 'merchandise' | 'service'
-              /** @enum {string} */
-              readonly return_status?: '' | 'merchant_rejected' | 'successful'
-              readonly returned_at?: Partial<number> & Partial<''>
-            }> &
-              Partial<''>
-            readonly duplicate?: Partial<{
-              readonly additional_documentation?: Partial<string> & Partial<''>
-              readonly card_statement?: Partial<string> & Partial<''>
-              readonly cash_receipt?: Partial<string> & Partial<''>
-              readonly check_image?: Partial<string> & Partial<''>
-              readonly explanation?: string
-              readonly original_transaction?: string
-            }> &
-              Partial<''>
-            readonly fraudulent?: Partial<{
-              readonly additional_documentation?: Partial<string> & Partial<''>
-              readonly explanation?: string
-            }> &
-              Partial<''>
-            readonly merchandise_not_as_described?: Partial<{
-              readonly additional_documentation?: Partial<string> & Partial<''>
-              readonly explanation?: string
-              readonly received_at?: Partial<number> & Partial<''>
-              readonly return_description?: string
-              /** @enum {string} */
-              readonly return_status?: '' | 'merchant_rejected' | 'successful'
-              readonly returned_at?: Partial<number> & Partial<''>
-            }> &
-              Partial<''>
-            readonly not_received?: Partial<{
-              readonly additional_documentation?: Partial<string> & Partial<''>
-              readonly expected_at?: Partial<number> & Partial<''>
-              readonly explanation?: string
-              readonly product_description?: string
-              /** @enum {string} */
-              readonly product_type?: '' | 'merchandise' | 'service'
-            }> &
-              Partial<''>
-            readonly other?: Partial<{
-              readonly additional_documentation?: Partial<string> & Partial<''>
-              readonly explanation?: string
-              readonly product_description?: string
-              /** @enum {string} */
-              readonly product_type?: '' | 'merchandise' | 'service'
-            }> &
-              Partial<''>
+            readonly canceled?:
+              | {
+                  readonly additional_documentation?: string | ''
+                  readonly canceled_at?: number | ''
+                  readonly cancellation_policy_provided?: boolean | ''
+                  readonly cancellation_reason?: string
+                  readonly expected_at?: number | ''
+                  readonly explanation?: string
+                  readonly product_description?: string
+                  /** @enum {string} */
+                  readonly product_type?: '' | 'merchandise' | 'service'
+                  /** @enum {string} */
+                  readonly return_status?: '' | 'merchant_rejected' | 'successful'
+                  readonly returned_at?: number | ''
+                }
+              | ''
+            readonly duplicate?:
+              | {
+                  readonly additional_documentation?: string | ''
+                  readonly card_statement?: string | ''
+                  readonly cash_receipt?: string | ''
+                  readonly check_image?: string | ''
+                  readonly explanation?: string
+                  readonly original_transaction?: string
+                }
+              | ''
+            readonly fraudulent?:
+              | {
+                  readonly additional_documentation?: string | ''
+                  readonly explanation?: string
+                }
+              | ''
+            readonly merchandise_not_as_described?:
+              | {
+                  readonly additional_documentation?: string | ''
+                  readonly explanation?: string
+                  readonly received_at?: number | ''
+                  readonly return_description?: string
+                  /** @enum {string} */
+                  readonly return_status?: '' | 'merchant_rejected' | 'successful'
+                  readonly returned_at?: number | ''
+                }
+              | ''
+            readonly not_received?:
+              | {
+                  readonly additional_documentation?: string | ''
+                  readonly expected_at?: number | ''
+                  readonly explanation?: string
+                  readonly product_description?: string
+                  /** @enum {string} */
+                  readonly product_type?: '' | 'merchandise' | 'service'
+                }
+              | ''
+            readonly other?:
+              | {
+                  readonly additional_documentation?: string | ''
+                  readonly explanation?: string
+                  readonly product_description?: string
+                  /** @enum {string} */
+                  readonly product_type?: '' | 'merchandise' | 'service'
+                }
+              | ''
             /** @enum {string} */
             readonly reason?:
               | 'canceled'
@@ -31499,14 +31591,15 @@ export interface operations {
               | 'not_received'
               | 'other'
               | 'service_not_as_described'
-            readonly service_not_as_described?: Partial<{
-              readonly additional_documentation?: Partial<string> & Partial<''>
-              readonly canceled_at?: Partial<number> & Partial<''>
-              readonly cancellation_reason?: string
-              readonly explanation?: string
-              readonly received_at?: Partial<number> & Partial<''>
-            }> &
-              Partial<''>
+            readonly service_not_as_described?:
+              | {
+                  readonly additional_documentation?: string | ''
+                  readonly canceled_at?: number | ''
+                  readonly cancellation_reason?: string
+                  readonly explanation?: string
+                  readonly received_at?: number | ''
+                }
+              | ''
           }
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
@@ -31578,62 +31671,68 @@ export interface operations {
            * @description Evidence provided for the dispute.
            */
           readonly evidence?: {
-            readonly canceled?: Partial<{
-              readonly additional_documentation?: Partial<string> & Partial<''>
-              readonly canceled_at?: Partial<number> & Partial<''>
-              readonly cancellation_policy_provided?: Partial<boolean> & Partial<''>
-              readonly cancellation_reason?: string
-              readonly expected_at?: Partial<number> & Partial<''>
-              readonly explanation?: string
-              readonly product_description?: string
-              /** @enum {string} */
-              readonly product_type?: '' | 'merchandise' | 'service'
-              /** @enum {string} */
-              readonly return_status?: '' | 'merchant_rejected' | 'successful'
-              readonly returned_at?: Partial<number> & Partial<''>
-            }> &
-              Partial<''>
-            readonly duplicate?: Partial<{
-              readonly additional_documentation?: Partial<string> & Partial<''>
-              readonly card_statement?: Partial<string> & Partial<''>
-              readonly cash_receipt?: Partial<string> & Partial<''>
-              readonly check_image?: Partial<string> & Partial<''>
-              readonly explanation?: string
-              readonly original_transaction?: string
-            }> &
-              Partial<''>
-            readonly fraudulent?: Partial<{
-              readonly additional_documentation?: Partial<string> & Partial<''>
-              readonly explanation?: string
-            }> &
-              Partial<''>
-            readonly merchandise_not_as_described?: Partial<{
-              readonly additional_documentation?: Partial<string> & Partial<''>
-              readonly explanation?: string
-              readonly received_at?: Partial<number> & Partial<''>
-              readonly return_description?: string
-              /** @enum {string} */
-              readonly return_status?: '' | 'merchant_rejected' | 'successful'
-              readonly returned_at?: Partial<number> & Partial<''>
-            }> &
-              Partial<''>
-            readonly not_received?: Partial<{
-              readonly additional_documentation?: Partial<string> & Partial<''>
-              readonly expected_at?: Partial<number> & Partial<''>
-              readonly explanation?: string
-              readonly product_description?: string
-              /** @enum {string} */
-              readonly product_type?: '' | 'merchandise' | 'service'
-            }> &
-              Partial<''>
-            readonly other?: Partial<{
-              readonly additional_documentation?: Partial<string> & Partial<''>
-              readonly explanation?: string
-              readonly product_description?: string
-              /** @enum {string} */
-              readonly product_type?: '' | 'merchandise' | 'service'
-            }> &
-              Partial<''>
+            readonly canceled?:
+              | {
+                  readonly additional_documentation?: string | ''
+                  readonly canceled_at?: number | ''
+                  readonly cancellation_policy_provided?: boolean | ''
+                  readonly cancellation_reason?: string
+                  readonly expected_at?: number | ''
+                  readonly explanation?: string
+                  readonly product_description?: string
+                  /** @enum {string} */
+                  readonly product_type?: '' | 'merchandise' | 'service'
+                  /** @enum {string} */
+                  readonly return_status?: '' | 'merchant_rejected' | 'successful'
+                  readonly returned_at?: number | ''
+                }
+              | ''
+            readonly duplicate?:
+              | {
+                  readonly additional_documentation?: string | ''
+                  readonly card_statement?: string | ''
+                  readonly cash_receipt?: string | ''
+                  readonly check_image?: string | ''
+                  readonly explanation?: string
+                  readonly original_transaction?: string
+                }
+              | ''
+            readonly fraudulent?:
+              | {
+                  readonly additional_documentation?: string | ''
+                  readonly explanation?: string
+                }
+              | ''
+            readonly merchandise_not_as_described?:
+              | {
+                  readonly additional_documentation?: string | ''
+                  readonly explanation?: string
+                  readonly received_at?: number | ''
+                  readonly return_description?: string
+                  /** @enum {string} */
+                  readonly return_status?: '' | 'merchant_rejected' | 'successful'
+                  readonly returned_at?: number | ''
+                }
+              | ''
+            readonly not_received?:
+              | {
+                  readonly additional_documentation?: string | ''
+                  readonly expected_at?: number | ''
+                  readonly explanation?: string
+                  readonly product_description?: string
+                  /** @enum {string} */
+                  readonly product_type?: '' | 'merchandise' | 'service'
+                }
+              | ''
+            readonly other?:
+              | {
+                  readonly additional_documentation?: string | ''
+                  readonly explanation?: string
+                  readonly product_description?: string
+                  /** @enum {string} */
+                  readonly product_type?: '' | 'merchandise' | 'service'
+                }
+              | ''
             /** @enum {string} */
             readonly reason?:
               | 'canceled'
@@ -31643,19 +31742,20 @@ export interface operations {
               | 'not_received'
               | 'other'
               | 'service_not_as_described'
-            readonly service_not_as_described?: Partial<{
-              readonly additional_documentation?: Partial<string> & Partial<''>
-              readonly canceled_at?: Partial<number> & Partial<''>
-              readonly cancellation_reason?: string
-              readonly explanation?: string
-              readonly received_at?: Partial<number> & Partial<''>
-            }> &
-              Partial<''>
+            readonly service_not_as_described?:
+              | {
+                  readonly additional_documentation?: string | ''
+                  readonly canceled_at?: number | ''
+                  readonly cancellation_reason?: string
+                  readonly explanation?: string
+                  readonly received_at?: number | ''
+                }
+              | ''
           }
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -31687,7 +31787,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -31697,13 +31797,14 @@ export interface operations {
     readonly parameters: {
       readonly query: {
         /** Only return issuing settlements that were created during the given date interval. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -31817,13 +31918,14 @@ export interface operations {
         /** Only return transactions that belong to the given cardholder. */
         readonly cardholder?: string
         /** Only return transactions that were created during the given date interval. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -31925,7 +32027,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -31966,13 +32068,14 @@ export interface operations {
     readonly parameters: {
       readonly query: {
         /** Date this return was created. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -32052,13 +32155,14 @@ export interface operations {
     readonly parameters: {
       readonly query: {
         /** Date this order was created. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Only return orders for the given customer. */
         readonly customer?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -32075,34 +32179,38 @@ export interface operations {
         readonly status?: string
         /** Filter orders based on when they were paid, fulfilled, canceled, or returned. */
         readonly status_transitions?: {
-          readonly canceled?: Partial<{
-            readonly gt?: number
-            readonly gte?: number
-            readonly lt?: number
-            readonly lte?: number
-          }> &
-            Partial<number>
-          readonly fulfilled?: Partial<{
-            readonly gt?: number
-            readonly gte?: number
-            readonly lt?: number
-            readonly lte?: number
-          }> &
-            Partial<number>
-          readonly paid?: Partial<{
-            readonly gt?: number
-            readonly gte?: number
-            readonly lt?: number
-            readonly lte?: number
-          }> &
-            Partial<number>
-          readonly returned?: Partial<{
-            readonly gt?: number
-            readonly gte?: number
-            readonly lt?: number
-            readonly lte?: number
-          }> &
-            Partial<number>
+          readonly canceled?:
+            | {
+                readonly gt?: number
+                readonly gte?: number
+                readonly lt?: number
+                readonly lte?: number
+              }
+            | number
+          readonly fulfilled?:
+            | {
+                readonly gt?: number
+                readonly gte?: number
+                readonly lt?: number
+                readonly lte?: number
+              }
+            | number
+          readonly paid?:
+            | {
+                readonly gt?: number
+                readonly gte?: number
+                readonly lt?: number
+                readonly lte?: number
+              }
+            | number
+          readonly returned?:
+            | {
+                readonly gt?: number
+                readonly gte?: number
+                readonly lt?: number
+                readonly lte?: number
+              }
+            | number
         }
         /** Only return orders with the given upstream order IDs. */
         readonly upstream_ids?: readonly string[]
@@ -32261,7 +32369,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The shipping method to select for fulfilling this order. If specified, must be one of the `id`s of a shipping method in the `shipping_methods` array. If specified, will overwrite the existing selected shipping method, updating `items` as necessary. */
           readonly selected_shipping_method?: string
           /**
@@ -32348,17 +32456,16 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description List of items to return. */
-          readonly items?: Partial<
-            readonly {
-              readonly amount?: number
-              readonly description?: string
-              readonly parent?: string
-              readonly quantity?: number
-              /** @enum {string} */
-              readonly type?: 'discount' | 'shipping' | 'sku' | 'tax'
-            }[]
-          > &
-            Partial<''>
+          readonly items?:
+            | readonly {
+                readonly amount?: number
+                readonly description?: string
+                readonly parent?: string
+                readonly quantity?: number
+                /** @enum {string} */
+                readonly type?: 'discount' | 'shipping' | 'sku' | 'tax'
+              }[]
+            | ''
         }
       }
     }
@@ -32368,13 +32475,14 @@ export interface operations {
     readonly parameters: {
       readonly query: {
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Only return PaymentIntents for the customer specified by this customer ID. */
         readonly customer?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -32509,7 +32617,7 @@ export interface operations {
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           readonly metadata?: { readonly [key: string]: string }
           /** @description Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
-          readonly off_session?: Partial<boolean> & Partial<'one_off' | 'recurring'>
+          readonly off_session?: boolean | ('one_off' | 'recurring')
           /** @description The Stripe account ID for which these funds are intended. For details, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
           readonly on_behalf_of?: string
           /**
@@ -32549,16 +32657,17 @@ export interface operations {
             readonly bancontact?: { readonly [key: string]: unknown }
             /** billing_details_inner_params */
             readonly billing_details?: {
-              readonly address?: Partial<{
-                readonly city?: string
-                readonly country?: string
-                readonly line1?: string
-                readonly line2?: string
-                readonly postal_code?: string
-                readonly state?: string
-              }> &
-                Partial<''>
-              readonly email?: Partial<string> & Partial<''>
+              readonly address?:
+                | {
+                    readonly city?: string
+                    readonly country?: string
+                    readonly line1?: string
+                    readonly line2?: string
+                    readonly postal_code?: string
+                    readonly state?: string
+                  }
+                | ''
+              readonly email?: string | ''
               readonly name?: string
               readonly phone?: string
             }
@@ -32727,132 +32836,144 @@ export interface operations {
            * @description Payment-method-specific configuration for this PaymentIntent.
            */
           readonly payment_method_options?: {
-            readonly acss_debit?: Partial<{
-              /** payment_intent_payment_method_options_mandate_options_param */
-              readonly mandate_options?: {
-                readonly custom_mandate_url?: Partial<string> & Partial<''>
-                readonly interval_description?: string
-                /** @enum {string} */
-                readonly payment_schedule?: 'combined' | 'interval' | 'sporadic'
-                /** @enum {string} */
-                readonly transaction_type?: 'business' | 'personal'
-              }
-              /** @enum {string} */
-              readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
-            }> &
-              Partial<''>
-            readonly afterpay_clearpay?: Partial<{
-              readonly reference?: string
-            }> &
-              Partial<''>
-            readonly alipay?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly au_becs_debit?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly bacs_debit?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly bancontact?: Partial<{
-              /** @enum {string} */
-              readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-            }> &
-              Partial<''>
-            readonly boleto?: Partial<{
-              readonly expires_after_days?: number
-            }> &
-              Partial<''>
-            readonly card?: Partial<{
-              readonly cvc_token?: string
-              /** installments_param */
-              readonly installments?: {
-                readonly enabled?: boolean
-                readonly plan?: Partial<{
-                  readonly count: number
+            readonly acss_debit?:
+              | {
+                  /** payment_intent_payment_method_options_mandate_options_param */
+                  readonly mandate_options?: {
+                    readonly custom_mandate_url?: string | ''
+                    readonly interval_description?: string
+                    /** @enum {string} */
+                    readonly payment_schedule?: 'combined' | 'interval' | 'sporadic'
+                    /** @enum {string} */
+                    readonly transaction_type?: 'business' | 'personal'
+                  }
                   /** @enum {string} */
-                  readonly interval: 'month'
+                  readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                }
+              | ''
+            readonly afterpay_clearpay?:
+              | {
+                  readonly reference?: string
+                }
+              | ''
+            readonly alipay?: { readonly [key: string]: unknown } | ''
+            readonly au_becs_debit?: { readonly [key: string]: unknown } | ''
+            readonly bacs_debit?: { readonly [key: string]: unknown } | ''
+            readonly bancontact?:
+              | {
                   /** @enum {string} */
-                  readonly type: 'fixed_count'
-                }> &
-                  Partial<''>
-              }
-              /** @enum {string} */
-              readonly network?:
-                | 'amex'
-                | 'cartes_bancaires'
-                | 'diners'
-                | 'discover'
-                | 'interac'
-                | 'jcb'
-                | 'mastercard'
-                | 'unionpay'
-                | 'unknown'
-                | 'visa'
-              /** @enum {string} */
-              readonly request_three_d_secure?: 'any' | 'automatic'
-              /** @enum {string} */
-              readonly setup_future_usage?: '' | 'none' | 'off_session' | 'on_session'
-            }> &
-              Partial<''>
-            readonly card_present?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly eps?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly fpx?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly giropay?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly grabpay?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly ideal?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly interac_present?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly klarna?: Partial<{
-              /** @enum {string} */
-              readonly preferred_locale?:
-                | 'da-DK'
-                | 'de-AT'
-                | 'de-DE'
-                | 'en-AT'
-                | 'en-BE'
-                | 'en-DE'
-                | 'en-DK'
-                | 'en-ES'
-                | 'en-FI'
-                | 'en-FR'
-                | 'en-GB'
-                | 'en-IE'
-                | 'en-IT'
-                | 'en-NL'
-                | 'en-NO'
-                | 'en-SE'
-                | 'en-US'
-                | 'es-ES'
-                | 'es-US'
-                | 'fi-FI'
-                | 'fr-BE'
-                | 'fr-FR'
-                | 'it-IT'
-                | 'nb-NO'
-                | 'nl-BE'
-                | 'nl-NL'
-                | 'sv-FI'
-                | 'sv-SE'
-            }> &
-              Partial<''>
-            readonly oxxo?: Partial<{
-              readonly expires_after_days?: number
-            }> &
-              Partial<''>
-            readonly p24?: Partial<{
-              readonly tos_shown_and_accepted?: boolean
-            }> &
-              Partial<''>
-            readonly sepa_debit?: Partial<{
-              /** payment_method_options_mandate_options_param */
-              readonly mandate_options?: { readonly [key: string]: unknown }
-            }> &
-              Partial<''>
-            readonly sofort?: Partial<{
-              /** @enum {string} */
-              readonly preferred_language?: '' | 'de' | 'en' | 'es' | 'fr' | 'it' | 'nl' | 'pl'
-            }> &
-              Partial<''>
-            readonly wechat_pay?: Partial<{
-              readonly app_id?: string
-              /** @enum {string} */
-              readonly client: 'android' | 'ios' | 'web'
-            }> &
-              Partial<''>
+                  readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                }
+              | ''
+            readonly boleto?:
+              | {
+                  readonly expires_after_days?: number
+                }
+              | ''
+            readonly card?:
+              | {
+                  readonly cvc_token?: string
+                  /** installments_param */
+                  readonly installments?: {
+                    readonly enabled?: boolean
+                    readonly plan?:
+                      | {
+                          readonly count: number
+                          /** @enum {string} */
+                          readonly interval: 'month'
+                          /** @enum {string} */
+                          readonly type: 'fixed_count'
+                        }
+                      | ''
+                  }
+                  /** @enum {string} */
+                  readonly network?:
+                    | 'amex'
+                    | 'cartes_bancaires'
+                    | 'diners'
+                    | 'discover'
+                    | 'interac'
+                    | 'jcb'
+                    | 'mastercard'
+                    | 'unionpay'
+                    | 'unknown'
+                    | 'visa'
+                  /** @enum {string} */
+                  readonly request_three_d_secure?: 'any' | 'automatic'
+                  /** @enum {string} */
+                  readonly setup_future_usage?: '' | 'none' | 'off_session' | 'on_session'
+                }
+              | ''
+            readonly card_present?: { readonly [key: string]: unknown } | ''
+            readonly eps?: { readonly [key: string]: unknown } | ''
+            readonly fpx?: { readonly [key: string]: unknown } | ''
+            readonly giropay?: { readonly [key: string]: unknown } | ''
+            readonly grabpay?: { readonly [key: string]: unknown } | ''
+            readonly ideal?: { readonly [key: string]: unknown } | ''
+            readonly interac_present?: { readonly [key: string]: unknown } | ''
+            readonly klarna?:
+              | {
+                  /** @enum {string} */
+                  readonly preferred_locale?:
+                    | 'da-DK'
+                    | 'de-AT'
+                    | 'de-DE'
+                    | 'en-AT'
+                    | 'en-BE'
+                    | 'en-DE'
+                    | 'en-DK'
+                    | 'en-ES'
+                    | 'en-FI'
+                    | 'en-FR'
+                    | 'en-GB'
+                    | 'en-IE'
+                    | 'en-IT'
+                    | 'en-NL'
+                    | 'en-NO'
+                    | 'en-SE'
+                    | 'en-US'
+                    | 'es-ES'
+                    | 'es-US'
+                    | 'fi-FI'
+                    | 'fr-BE'
+                    | 'fr-FR'
+                    | 'it-IT'
+                    | 'nb-NO'
+                    | 'nl-BE'
+                    | 'nl-NL'
+                    | 'sv-FI'
+                    | 'sv-SE'
+                }
+              | ''
+            readonly oxxo?:
+              | {
+                  readonly expires_after_days?: number
+                }
+              | ''
+            readonly p24?:
+              | {
+                  readonly tos_shown_and_accepted?: boolean
+                }
+              | ''
+            readonly sepa_debit?:
+              | {
+                  /** payment_method_options_mandate_options_param */
+                  readonly mandate_options?: { readonly [key: string]: unknown }
+                }
+              | ''
+            readonly sofort?:
+              | {
+                  /** @enum {string} */
+                  readonly preferred_language?: '' | 'de' | 'en' | 'es' | 'fr' | 'it' | 'nl' | 'pl'
+                }
+              | ''
+            readonly wechat_pay?:
+              | {
+                  readonly app_id?: string
+                  /** @enum {string} */
+                  readonly client: 'android' | 'ios' | 'web'
+                }
+              | ''
           }
           /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. If this is not provided, defaults to ["card"]. */
           readonly payment_method_types?: readonly string[]
@@ -32983,7 +33104,7 @@ export interface operations {
           /** @description Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99). */
           readonly amount?: number
           /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
-          readonly application_fee_amount?: Partial<number> & Partial<''>
+          readonly application_fee_amount?: number | ''
           /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           readonly currency?: string
           /**
@@ -32999,7 +33120,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. */
           readonly payment_method?: string
           /**
@@ -33033,16 +33154,17 @@ export interface operations {
             readonly bancontact?: { readonly [key: string]: unknown }
             /** billing_details_inner_params */
             readonly billing_details?: {
-              readonly address?: Partial<{
-                readonly city?: string
-                readonly country?: string
-                readonly line1?: string
-                readonly line2?: string
-                readonly postal_code?: string
-                readonly state?: string
-              }> &
-                Partial<''>
-              readonly email?: Partial<string> & Partial<''>
+              readonly address?:
+                | {
+                    readonly city?: string
+                    readonly country?: string
+                    readonly line1?: string
+                    readonly line2?: string
+                    readonly postal_code?: string
+                    readonly state?: string
+                  }
+                | ''
+              readonly email?: string | ''
               readonly name?: string
               readonly phone?: string
             }
@@ -33211,137 +33333,149 @@ export interface operations {
            * @description Payment-method-specific configuration for this PaymentIntent.
            */
           readonly payment_method_options?: {
-            readonly acss_debit?: Partial<{
-              /** payment_intent_payment_method_options_mandate_options_param */
-              readonly mandate_options?: {
-                readonly custom_mandate_url?: Partial<string> & Partial<''>
-                readonly interval_description?: string
-                /** @enum {string} */
-                readonly payment_schedule?: 'combined' | 'interval' | 'sporadic'
-                /** @enum {string} */
-                readonly transaction_type?: 'business' | 'personal'
-              }
-              /** @enum {string} */
-              readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
-            }> &
-              Partial<''>
-            readonly afterpay_clearpay?: Partial<{
-              readonly reference?: string
-            }> &
-              Partial<''>
-            readonly alipay?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly au_becs_debit?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly bacs_debit?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly bancontact?: Partial<{
-              /** @enum {string} */
-              readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-            }> &
-              Partial<''>
-            readonly boleto?: Partial<{
-              readonly expires_after_days?: number
-            }> &
-              Partial<''>
-            readonly card?: Partial<{
-              readonly cvc_token?: string
-              /** installments_param */
-              readonly installments?: {
-                readonly enabled?: boolean
-                readonly plan?: Partial<{
-                  readonly count: number
+            readonly acss_debit?:
+              | {
+                  /** payment_intent_payment_method_options_mandate_options_param */
+                  readonly mandate_options?: {
+                    readonly custom_mandate_url?: string | ''
+                    readonly interval_description?: string
+                    /** @enum {string} */
+                    readonly payment_schedule?: 'combined' | 'interval' | 'sporadic'
+                    /** @enum {string} */
+                    readonly transaction_type?: 'business' | 'personal'
+                  }
                   /** @enum {string} */
-                  readonly interval: 'month'
+                  readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                }
+              | ''
+            readonly afterpay_clearpay?:
+              | {
+                  readonly reference?: string
+                }
+              | ''
+            readonly alipay?: { readonly [key: string]: unknown } | ''
+            readonly au_becs_debit?: { readonly [key: string]: unknown } | ''
+            readonly bacs_debit?: { readonly [key: string]: unknown } | ''
+            readonly bancontact?:
+              | {
                   /** @enum {string} */
-                  readonly type: 'fixed_count'
-                }> &
-                  Partial<''>
-              }
-              /** @enum {string} */
-              readonly network?:
-                | 'amex'
-                | 'cartes_bancaires'
-                | 'diners'
-                | 'discover'
-                | 'interac'
-                | 'jcb'
-                | 'mastercard'
-                | 'unionpay'
-                | 'unknown'
-                | 'visa'
-              /** @enum {string} */
-              readonly request_three_d_secure?: 'any' | 'automatic'
-              /** @enum {string} */
-              readonly setup_future_usage?: '' | 'none' | 'off_session' | 'on_session'
-            }> &
-              Partial<''>
-            readonly card_present?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly eps?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly fpx?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly giropay?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly grabpay?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly ideal?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly interac_present?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly klarna?: Partial<{
-              /** @enum {string} */
-              readonly preferred_locale?:
-                | 'da-DK'
-                | 'de-AT'
-                | 'de-DE'
-                | 'en-AT'
-                | 'en-BE'
-                | 'en-DE'
-                | 'en-DK'
-                | 'en-ES'
-                | 'en-FI'
-                | 'en-FR'
-                | 'en-GB'
-                | 'en-IE'
-                | 'en-IT'
-                | 'en-NL'
-                | 'en-NO'
-                | 'en-SE'
-                | 'en-US'
-                | 'es-ES'
-                | 'es-US'
-                | 'fi-FI'
-                | 'fr-BE'
-                | 'fr-FR'
-                | 'it-IT'
-                | 'nb-NO'
-                | 'nl-BE'
-                | 'nl-NL'
-                | 'sv-FI'
-                | 'sv-SE'
-            }> &
-              Partial<''>
-            readonly oxxo?: Partial<{
-              readonly expires_after_days?: number
-            }> &
-              Partial<''>
-            readonly p24?: Partial<{
-              readonly tos_shown_and_accepted?: boolean
-            }> &
-              Partial<''>
-            readonly sepa_debit?: Partial<{
-              /** payment_method_options_mandate_options_param */
-              readonly mandate_options?: { readonly [key: string]: unknown }
-            }> &
-              Partial<''>
-            readonly sofort?: Partial<{
-              /** @enum {string} */
-              readonly preferred_language?: '' | 'de' | 'en' | 'es' | 'fr' | 'it' | 'nl' | 'pl'
-            }> &
-              Partial<''>
-            readonly wechat_pay?: Partial<{
-              readonly app_id?: string
-              /** @enum {string} */
-              readonly client: 'android' | 'ios' | 'web'
-            }> &
-              Partial<''>
+                  readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                }
+              | ''
+            readonly boleto?:
+              | {
+                  readonly expires_after_days?: number
+                }
+              | ''
+            readonly card?:
+              | {
+                  readonly cvc_token?: string
+                  /** installments_param */
+                  readonly installments?: {
+                    readonly enabled?: boolean
+                    readonly plan?:
+                      | {
+                          readonly count: number
+                          /** @enum {string} */
+                          readonly interval: 'month'
+                          /** @enum {string} */
+                          readonly type: 'fixed_count'
+                        }
+                      | ''
+                  }
+                  /** @enum {string} */
+                  readonly network?:
+                    | 'amex'
+                    | 'cartes_bancaires'
+                    | 'diners'
+                    | 'discover'
+                    | 'interac'
+                    | 'jcb'
+                    | 'mastercard'
+                    | 'unionpay'
+                    | 'unknown'
+                    | 'visa'
+                  /** @enum {string} */
+                  readonly request_three_d_secure?: 'any' | 'automatic'
+                  /** @enum {string} */
+                  readonly setup_future_usage?: '' | 'none' | 'off_session' | 'on_session'
+                }
+              | ''
+            readonly card_present?: { readonly [key: string]: unknown } | ''
+            readonly eps?: { readonly [key: string]: unknown } | ''
+            readonly fpx?: { readonly [key: string]: unknown } | ''
+            readonly giropay?: { readonly [key: string]: unknown } | ''
+            readonly grabpay?: { readonly [key: string]: unknown } | ''
+            readonly ideal?: { readonly [key: string]: unknown } | ''
+            readonly interac_present?: { readonly [key: string]: unknown } | ''
+            readonly klarna?:
+              | {
+                  /** @enum {string} */
+                  readonly preferred_locale?:
+                    | 'da-DK'
+                    | 'de-AT'
+                    | 'de-DE'
+                    | 'en-AT'
+                    | 'en-BE'
+                    | 'en-DE'
+                    | 'en-DK'
+                    | 'en-ES'
+                    | 'en-FI'
+                    | 'en-FR'
+                    | 'en-GB'
+                    | 'en-IE'
+                    | 'en-IT'
+                    | 'en-NL'
+                    | 'en-NO'
+                    | 'en-SE'
+                    | 'en-US'
+                    | 'es-ES'
+                    | 'es-US'
+                    | 'fi-FI'
+                    | 'fr-BE'
+                    | 'fr-FR'
+                    | 'it-IT'
+                    | 'nb-NO'
+                    | 'nl-BE'
+                    | 'nl-NL'
+                    | 'sv-FI'
+                    | 'sv-SE'
+                }
+              | ''
+            readonly oxxo?:
+              | {
+                  readonly expires_after_days?: number
+                }
+              | ''
+            readonly p24?:
+              | {
+                  readonly tos_shown_and_accepted?: boolean
+                }
+              | ''
+            readonly sepa_debit?:
+              | {
+                  /** payment_method_options_mandate_options_param */
+                  readonly mandate_options?: { readonly [key: string]: unknown }
+                }
+              | ''
+            readonly sofort?:
+              | {
+                  /** @enum {string} */
+                  readonly preferred_language?: '' | 'de' | 'en' | 'es' | 'fr' | 'it' | 'nl' | 'pl'
+                }
+              | ''
+            readonly wechat_pay?:
+              | {
+                  readonly app_id?: string
+                  /** @enum {string} */
+                  readonly client: 'android' | 'ios' | 'web'
+                }
+              | ''
           }
           /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
           readonly payment_method_types?: readonly string[]
           /** @description Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
-          readonly receipt_email?: Partial<string> & Partial<''>
+          readonly receipt_email?: string | ''
           /**
            * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
            *
@@ -33354,22 +33488,23 @@ export interface operations {
            */
           readonly setup_future_usage?: '' | 'off_session' | 'on_session'
           /** @description Shipping information for this PaymentIntent. */
-          readonly shipping?: Partial<{
-            /** optional_fields_address */
-            readonly address: {
-              readonly city?: string
-              readonly country?: string
-              readonly line1?: string
-              readonly line2?: string
-              readonly postal_code?: string
-              readonly state?: string
-            }
-            readonly carrier?: string
-            readonly name: string
-            readonly phone?: string
-            readonly tracking_number?: string
-          }> &
-            Partial<''>
+          readonly shipping?:
+            | {
+                /** optional_fields_address */
+                readonly address: {
+                  readonly city?: string
+                  readonly country?: string
+                  readonly line1?: string
+                  readonly line2?: string
+                  readonly postal_code?: string
+                  readonly state?: string
+                }
+                readonly carrier?: string
+                readonly name: string
+                readonly phone?: string
+                readonly tracking_number?: string
+              }
+            | ''
           /** @description For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
           readonly statement_descriptor?: string
           /** @description Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
@@ -33537,36 +33672,37 @@ export interface operations {
           /** @description ID of the mandate to be used for this payment. */
           readonly mandate?: string
           /** @description This hash contains details about the Mandate to create */
-          readonly mandate_data?: Partial<{
-            /** customer_acceptance_param */
-            readonly customer_acceptance: {
-              /** Format: unix-time */
-              readonly accepted_at?: number
-              /** offline_param */
-              readonly offline?: { readonly [key: string]: unknown }
-              /** online_param */
-              readonly online?: {
-                readonly ip_address: string
-                readonly user_agent: string
-              }
-              /** @enum {string} */
-              readonly type: 'offline' | 'online'
-            }
-          }> &
-            Partial<{
-              /** customer_acceptance_param */
-              readonly customer_acceptance: {
-                /** online_param */
-                readonly online: {
-                  readonly ip_address?: string
-                  readonly user_agent?: string
+          readonly mandate_data?:
+            | {
+                /** customer_acceptance_param */
+                readonly customer_acceptance: {
+                  /** Format: unix-time */
+                  readonly accepted_at?: number
+                  /** offline_param */
+                  readonly offline?: { readonly [key: string]: unknown }
+                  /** online_param */
+                  readonly online?: {
+                    readonly ip_address: string
+                    readonly user_agent: string
+                  }
+                  /** @enum {string} */
+                  readonly type: 'offline' | 'online'
                 }
-                /** @enum {string} */
-                readonly type: 'online'
               }
-            }>
+            | {
+                /** customer_acceptance_param */
+                readonly customer_acceptance: {
+                  /** online_param */
+                  readonly online: {
+                    readonly ip_address?: string
+                    readonly user_agent?: string
+                  }
+                  /** @enum {string} */
+                  readonly type: 'online'
+                }
+              }
           /** @description Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). */
-          readonly off_session?: Partial<boolean> & Partial<'one_off' | 'recurring'>
+          readonly off_session?: boolean | ('one_off' | 'recurring')
           /** @description ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. */
           readonly payment_method?: string
           /**
@@ -33600,16 +33736,17 @@ export interface operations {
             readonly bancontact?: { readonly [key: string]: unknown }
             /** billing_details_inner_params */
             readonly billing_details?: {
-              readonly address?: Partial<{
-                readonly city?: string
-                readonly country?: string
-                readonly line1?: string
-                readonly line2?: string
-                readonly postal_code?: string
-                readonly state?: string
-              }> &
-                Partial<''>
-              readonly email?: Partial<string> & Partial<''>
+              readonly address?:
+                | {
+                    readonly city?: string
+                    readonly country?: string
+                    readonly line1?: string
+                    readonly line2?: string
+                    readonly postal_code?: string
+                    readonly state?: string
+                  }
+                | ''
+              readonly email?: string | ''
               readonly name?: string
               readonly phone?: string
             }
@@ -33778,137 +33915,149 @@ export interface operations {
            * @description Payment-method-specific configuration for this PaymentIntent.
            */
           readonly payment_method_options?: {
-            readonly acss_debit?: Partial<{
-              /** payment_intent_payment_method_options_mandate_options_param */
-              readonly mandate_options?: {
-                readonly custom_mandate_url?: Partial<string> & Partial<''>
-                readonly interval_description?: string
-                /** @enum {string} */
-                readonly payment_schedule?: 'combined' | 'interval' | 'sporadic'
-                /** @enum {string} */
-                readonly transaction_type?: 'business' | 'personal'
-              }
-              /** @enum {string} */
-              readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
-            }> &
-              Partial<''>
-            readonly afterpay_clearpay?: Partial<{
-              readonly reference?: string
-            }> &
-              Partial<''>
-            readonly alipay?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly au_becs_debit?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly bacs_debit?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly bancontact?: Partial<{
-              /** @enum {string} */
-              readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-            }> &
-              Partial<''>
-            readonly boleto?: Partial<{
-              readonly expires_after_days?: number
-            }> &
-              Partial<''>
-            readonly card?: Partial<{
-              readonly cvc_token?: string
-              /** installments_param */
-              readonly installments?: {
-                readonly enabled?: boolean
-                readonly plan?: Partial<{
-                  readonly count: number
+            readonly acss_debit?:
+              | {
+                  /** payment_intent_payment_method_options_mandate_options_param */
+                  readonly mandate_options?: {
+                    readonly custom_mandate_url?: string | ''
+                    readonly interval_description?: string
+                    /** @enum {string} */
+                    readonly payment_schedule?: 'combined' | 'interval' | 'sporadic'
+                    /** @enum {string} */
+                    readonly transaction_type?: 'business' | 'personal'
+                  }
                   /** @enum {string} */
-                  readonly interval: 'month'
+                  readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                }
+              | ''
+            readonly afterpay_clearpay?:
+              | {
+                  readonly reference?: string
+                }
+              | ''
+            readonly alipay?: { readonly [key: string]: unknown } | ''
+            readonly au_becs_debit?: { readonly [key: string]: unknown } | ''
+            readonly bacs_debit?: { readonly [key: string]: unknown } | ''
+            readonly bancontact?:
+              | {
                   /** @enum {string} */
-                  readonly type: 'fixed_count'
-                }> &
-                  Partial<''>
-              }
-              /** @enum {string} */
-              readonly network?:
-                | 'amex'
-                | 'cartes_bancaires'
-                | 'diners'
-                | 'discover'
-                | 'interac'
-                | 'jcb'
-                | 'mastercard'
-                | 'unionpay'
-                | 'unknown'
-                | 'visa'
-              /** @enum {string} */
-              readonly request_three_d_secure?: 'any' | 'automatic'
-              /** @enum {string} */
-              readonly setup_future_usage?: '' | 'none' | 'off_session' | 'on_session'
-            }> &
-              Partial<''>
-            readonly card_present?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly eps?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly fpx?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly giropay?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly grabpay?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly ideal?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly interac_present?: Partial<{ readonly [key: string]: unknown }> & Partial<''>
-            readonly klarna?: Partial<{
-              /** @enum {string} */
-              readonly preferred_locale?:
-                | 'da-DK'
-                | 'de-AT'
-                | 'de-DE'
-                | 'en-AT'
-                | 'en-BE'
-                | 'en-DE'
-                | 'en-DK'
-                | 'en-ES'
-                | 'en-FI'
-                | 'en-FR'
-                | 'en-GB'
-                | 'en-IE'
-                | 'en-IT'
-                | 'en-NL'
-                | 'en-NO'
-                | 'en-SE'
-                | 'en-US'
-                | 'es-ES'
-                | 'es-US'
-                | 'fi-FI'
-                | 'fr-BE'
-                | 'fr-FR'
-                | 'it-IT'
-                | 'nb-NO'
-                | 'nl-BE'
-                | 'nl-NL'
-                | 'sv-FI'
-                | 'sv-SE'
-            }> &
-              Partial<''>
-            readonly oxxo?: Partial<{
-              readonly expires_after_days?: number
-            }> &
-              Partial<''>
-            readonly p24?: Partial<{
-              readonly tos_shown_and_accepted?: boolean
-            }> &
-              Partial<''>
-            readonly sepa_debit?: Partial<{
-              /** payment_method_options_mandate_options_param */
-              readonly mandate_options?: { readonly [key: string]: unknown }
-            }> &
-              Partial<''>
-            readonly sofort?: Partial<{
-              /** @enum {string} */
-              readonly preferred_language?: '' | 'de' | 'en' | 'es' | 'fr' | 'it' | 'nl' | 'pl'
-            }> &
-              Partial<''>
-            readonly wechat_pay?: Partial<{
-              readonly app_id?: string
-              /** @enum {string} */
-              readonly client: 'android' | 'ios' | 'web'
-            }> &
-              Partial<''>
+                  readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                }
+              | ''
+            readonly boleto?:
+              | {
+                  readonly expires_after_days?: number
+                }
+              | ''
+            readonly card?:
+              | {
+                  readonly cvc_token?: string
+                  /** installments_param */
+                  readonly installments?: {
+                    readonly enabled?: boolean
+                    readonly plan?:
+                      | {
+                          readonly count: number
+                          /** @enum {string} */
+                          readonly interval: 'month'
+                          /** @enum {string} */
+                          readonly type: 'fixed_count'
+                        }
+                      | ''
+                  }
+                  /** @enum {string} */
+                  readonly network?:
+                    | 'amex'
+                    | 'cartes_bancaires'
+                    | 'diners'
+                    | 'discover'
+                    | 'interac'
+                    | 'jcb'
+                    | 'mastercard'
+                    | 'unionpay'
+                    | 'unknown'
+                    | 'visa'
+                  /** @enum {string} */
+                  readonly request_three_d_secure?: 'any' | 'automatic'
+                  /** @enum {string} */
+                  readonly setup_future_usage?: '' | 'none' | 'off_session' | 'on_session'
+                }
+              | ''
+            readonly card_present?: { readonly [key: string]: unknown } | ''
+            readonly eps?: { readonly [key: string]: unknown } | ''
+            readonly fpx?: { readonly [key: string]: unknown } | ''
+            readonly giropay?: { readonly [key: string]: unknown } | ''
+            readonly grabpay?: { readonly [key: string]: unknown } | ''
+            readonly ideal?: { readonly [key: string]: unknown } | ''
+            readonly interac_present?: { readonly [key: string]: unknown } | ''
+            readonly klarna?:
+              | {
+                  /** @enum {string} */
+                  readonly preferred_locale?:
+                    | 'da-DK'
+                    | 'de-AT'
+                    | 'de-DE'
+                    | 'en-AT'
+                    | 'en-BE'
+                    | 'en-DE'
+                    | 'en-DK'
+                    | 'en-ES'
+                    | 'en-FI'
+                    | 'en-FR'
+                    | 'en-GB'
+                    | 'en-IE'
+                    | 'en-IT'
+                    | 'en-NL'
+                    | 'en-NO'
+                    | 'en-SE'
+                    | 'en-US'
+                    | 'es-ES'
+                    | 'es-US'
+                    | 'fi-FI'
+                    | 'fr-BE'
+                    | 'fr-FR'
+                    | 'it-IT'
+                    | 'nb-NO'
+                    | 'nl-BE'
+                    | 'nl-NL'
+                    | 'sv-FI'
+                    | 'sv-SE'
+                }
+              | ''
+            readonly oxxo?:
+              | {
+                  readonly expires_after_days?: number
+                }
+              | ''
+            readonly p24?:
+              | {
+                  readonly tos_shown_and_accepted?: boolean
+                }
+              | ''
+            readonly sepa_debit?:
+              | {
+                  /** payment_method_options_mandate_options_param */
+                  readonly mandate_options?: { readonly [key: string]: unknown }
+                }
+              | ''
+            readonly sofort?:
+              | {
+                  /** @enum {string} */
+                  readonly preferred_language?: '' | 'de' | 'en' | 'es' | 'fr' | 'it' | 'nl' | 'pl'
+                }
+              | ''
+            readonly wechat_pay?:
+              | {
+                  readonly app_id?: string
+                  /** @enum {string} */
+                  readonly client: 'android' | 'ios' | 'web'
+                }
+              | ''
           }
           /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
           readonly payment_method_types?: readonly string[]
           /** @description Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
-          readonly receipt_email?: Partial<string> & Partial<''>
+          readonly receipt_email?: string | ''
           /**
            * @description The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
            * If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
@@ -33927,22 +34076,23 @@ export interface operations {
            */
           readonly setup_future_usage?: '' | 'off_session' | 'on_session'
           /** @description Shipping information for this PaymentIntent. */
-          readonly shipping?: Partial<{
-            /** optional_fields_address */
-            readonly address: {
-              readonly city?: string
-              readonly country?: string
-              readonly line1?: string
-              readonly line2?: string
-              readonly postal_code?: string
-              readonly state?: string
-            }
-            readonly carrier?: string
-            readonly name: string
-            readonly phone?: string
-            readonly tracking_number?: string
-          }> &
-            Partial<''>
+          readonly shipping?:
+            | {
+                /** optional_fields_address */
+                readonly address: {
+                  readonly city?: string
+                  readonly country?: string
+                  readonly line1?: string
+                  readonly line2?: string
+                  readonly postal_code?: string
+                  readonly state?: string
+                }
+                readonly carrier?: string
+                readonly name: string
+                readonly phone?: string
+                readonly tracking_number?: string
+              }
+            | ''
           /** @description Set to `true` only when using manual confirmation and the iOS or Android SDKs to handle additional authentication steps. */
           readonly use_stripe_sdk?: boolean
         }
@@ -34478,250 +34628,251 @@ export interface operations {
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link. */
           readonly metadata?: { readonly [key: string]: string }
           /** @description The list of payment method types that customers can use. Only `card` is supported. Pass an empty string to enable automatic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
-          readonly payment_method_types?: Partial<readonly 'card'[]> & Partial<''>
+          readonly payment_method_types?: readonly 'card'[] | ''
           /** @description Configuration for collecting the customer's shipping address. */
-          readonly shipping_address_collection?: Partial<{
-            readonly allowed_countries: readonly (
-              | 'AC'
-              | 'AD'
-              | 'AE'
-              | 'AF'
-              | 'AG'
-              | 'AI'
-              | 'AL'
-              | 'AM'
-              | 'AO'
-              | 'AQ'
-              | 'AR'
-              | 'AT'
-              | 'AU'
-              | 'AW'
-              | 'AX'
-              | 'AZ'
-              | 'BA'
-              | 'BB'
-              | 'BD'
-              | 'BE'
-              | 'BF'
-              | 'BG'
-              | 'BH'
-              | 'BI'
-              | 'BJ'
-              | 'BL'
-              | 'BM'
-              | 'BN'
-              | 'BO'
-              | 'BQ'
-              | 'BR'
-              | 'BS'
-              | 'BT'
-              | 'BV'
-              | 'BW'
-              | 'BY'
-              | 'BZ'
-              | 'CA'
-              | 'CD'
-              | 'CF'
-              | 'CG'
-              | 'CH'
-              | 'CI'
-              | 'CK'
-              | 'CL'
-              | 'CM'
-              | 'CN'
-              | 'CO'
-              | 'CR'
-              | 'CV'
-              | 'CW'
-              | 'CY'
-              | 'CZ'
-              | 'DE'
-              | 'DJ'
-              | 'DK'
-              | 'DM'
-              | 'DO'
-              | 'DZ'
-              | 'EC'
-              | 'EE'
-              | 'EG'
-              | 'EH'
-              | 'ER'
-              | 'ES'
-              | 'ET'
-              | 'FI'
-              | 'FJ'
-              | 'FK'
-              | 'FO'
-              | 'FR'
-              | 'GA'
-              | 'GB'
-              | 'GD'
-              | 'GE'
-              | 'GF'
-              | 'GG'
-              | 'GH'
-              | 'GI'
-              | 'GL'
-              | 'GM'
-              | 'GN'
-              | 'GP'
-              | 'GQ'
-              | 'GR'
-              | 'GS'
-              | 'GT'
-              | 'GU'
-              | 'GW'
-              | 'GY'
-              | 'HK'
-              | 'HN'
-              | 'HR'
-              | 'HT'
-              | 'HU'
-              | 'ID'
-              | 'IE'
-              | 'IL'
-              | 'IM'
-              | 'IN'
-              | 'IO'
-              | 'IQ'
-              | 'IS'
-              | 'IT'
-              | 'JE'
-              | 'JM'
-              | 'JO'
-              | 'JP'
-              | 'KE'
-              | 'KG'
-              | 'KH'
-              | 'KI'
-              | 'KM'
-              | 'KN'
-              | 'KR'
-              | 'KW'
-              | 'KY'
-              | 'KZ'
-              | 'LA'
-              | 'LB'
-              | 'LC'
-              | 'LI'
-              | 'LK'
-              | 'LR'
-              | 'LS'
-              | 'LT'
-              | 'LU'
-              | 'LV'
-              | 'LY'
-              | 'MA'
-              | 'MC'
-              | 'MD'
-              | 'ME'
-              | 'MF'
-              | 'MG'
-              | 'MK'
-              | 'ML'
-              | 'MM'
-              | 'MN'
-              | 'MO'
-              | 'MQ'
-              | 'MR'
-              | 'MS'
-              | 'MT'
-              | 'MU'
-              | 'MV'
-              | 'MW'
-              | 'MX'
-              | 'MY'
-              | 'MZ'
-              | 'NA'
-              | 'NC'
-              | 'NE'
-              | 'NG'
-              | 'NI'
-              | 'NL'
-              | 'NO'
-              | 'NP'
-              | 'NR'
-              | 'NU'
-              | 'NZ'
-              | 'OM'
-              | 'PA'
-              | 'PE'
-              | 'PF'
-              | 'PG'
-              | 'PH'
-              | 'PK'
-              | 'PL'
-              | 'PM'
-              | 'PN'
-              | 'PR'
-              | 'PS'
-              | 'PT'
-              | 'PY'
-              | 'QA'
-              | 'RE'
-              | 'RO'
-              | 'RS'
-              | 'RU'
-              | 'RW'
-              | 'SA'
-              | 'SB'
-              | 'SC'
-              | 'SE'
-              | 'SG'
-              | 'SH'
-              | 'SI'
-              | 'SJ'
-              | 'SK'
-              | 'SL'
-              | 'SM'
-              | 'SN'
-              | 'SO'
-              | 'SR'
-              | 'SS'
-              | 'ST'
-              | 'SV'
-              | 'SX'
-              | 'SZ'
-              | 'TA'
-              | 'TC'
-              | 'TD'
-              | 'TF'
-              | 'TG'
-              | 'TH'
-              | 'TJ'
-              | 'TK'
-              | 'TL'
-              | 'TM'
-              | 'TN'
-              | 'TO'
-              | 'TR'
-              | 'TT'
-              | 'TV'
-              | 'TW'
-              | 'TZ'
-              | 'UA'
-              | 'UG'
-              | 'US'
-              | 'UY'
-              | 'UZ'
-              | 'VA'
-              | 'VC'
-              | 'VE'
-              | 'VG'
-              | 'VN'
-              | 'VU'
-              | 'WF'
-              | 'WS'
-              | 'XK'
-              | 'YE'
-              | 'YT'
-              | 'ZA'
-              | 'ZM'
-              | 'ZW'
-              | 'ZZ'
-            )[]
-          }> &
-            Partial<''>
+          readonly shipping_address_collection?:
+            | {
+                readonly allowed_countries: readonly (
+                  | 'AC'
+                  | 'AD'
+                  | 'AE'
+                  | 'AF'
+                  | 'AG'
+                  | 'AI'
+                  | 'AL'
+                  | 'AM'
+                  | 'AO'
+                  | 'AQ'
+                  | 'AR'
+                  | 'AT'
+                  | 'AU'
+                  | 'AW'
+                  | 'AX'
+                  | 'AZ'
+                  | 'BA'
+                  | 'BB'
+                  | 'BD'
+                  | 'BE'
+                  | 'BF'
+                  | 'BG'
+                  | 'BH'
+                  | 'BI'
+                  | 'BJ'
+                  | 'BL'
+                  | 'BM'
+                  | 'BN'
+                  | 'BO'
+                  | 'BQ'
+                  | 'BR'
+                  | 'BS'
+                  | 'BT'
+                  | 'BV'
+                  | 'BW'
+                  | 'BY'
+                  | 'BZ'
+                  | 'CA'
+                  | 'CD'
+                  | 'CF'
+                  | 'CG'
+                  | 'CH'
+                  | 'CI'
+                  | 'CK'
+                  | 'CL'
+                  | 'CM'
+                  | 'CN'
+                  | 'CO'
+                  | 'CR'
+                  | 'CV'
+                  | 'CW'
+                  | 'CY'
+                  | 'CZ'
+                  | 'DE'
+                  | 'DJ'
+                  | 'DK'
+                  | 'DM'
+                  | 'DO'
+                  | 'DZ'
+                  | 'EC'
+                  | 'EE'
+                  | 'EG'
+                  | 'EH'
+                  | 'ER'
+                  | 'ES'
+                  | 'ET'
+                  | 'FI'
+                  | 'FJ'
+                  | 'FK'
+                  | 'FO'
+                  | 'FR'
+                  | 'GA'
+                  | 'GB'
+                  | 'GD'
+                  | 'GE'
+                  | 'GF'
+                  | 'GG'
+                  | 'GH'
+                  | 'GI'
+                  | 'GL'
+                  | 'GM'
+                  | 'GN'
+                  | 'GP'
+                  | 'GQ'
+                  | 'GR'
+                  | 'GS'
+                  | 'GT'
+                  | 'GU'
+                  | 'GW'
+                  | 'GY'
+                  | 'HK'
+                  | 'HN'
+                  | 'HR'
+                  | 'HT'
+                  | 'HU'
+                  | 'ID'
+                  | 'IE'
+                  | 'IL'
+                  | 'IM'
+                  | 'IN'
+                  | 'IO'
+                  | 'IQ'
+                  | 'IS'
+                  | 'IT'
+                  | 'JE'
+                  | 'JM'
+                  | 'JO'
+                  | 'JP'
+                  | 'KE'
+                  | 'KG'
+                  | 'KH'
+                  | 'KI'
+                  | 'KM'
+                  | 'KN'
+                  | 'KR'
+                  | 'KW'
+                  | 'KY'
+                  | 'KZ'
+                  | 'LA'
+                  | 'LB'
+                  | 'LC'
+                  | 'LI'
+                  | 'LK'
+                  | 'LR'
+                  | 'LS'
+                  | 'LT'
+                  | 'LU'
+                  | 'LV'
+                  | 'LY'
+                  | 'MA'
+                  | 'MC'
+                  | 'MD'
+                  | 'ME'
+                  | 'MF'
+                  | 'MG'
+                  | 'MK'
+                  | 'ML'
+                  | 'MM'
+                  | 'MN'
+                  | 'MO'
+                  | 'MQ'
+                  | 'MR'
+                  | 'MS'
+                  | 'MT'
+                  | 'MU'
+                  | 'MV'
+                  | 'MW'
+                  | 'MX'
+                  | 'MY'
+                  | 'MZ'
+                  | 'NA'
+                  | 'NC'
+                  | 'NE'
+                  | 'NG'
+                  | 'NI'
+                  | 'NL'
+                  | 'NO'
+                  | 'NP'
+                  | 'NR'
+                  | 'NU'
+                  | 'NZ'
+                  | 'OM'
+                  | 'PA'
+                  | 'PE'
+                  | 'PF'
+                  | 'PG'
+                  | 'PH'
+                  | 'PK'
+                  | 'PL'
+                  | 'PM'
+                  | 'PN'
+                  | 'PR'
+                  | 'PS'
+                  | 'PT'
+                  | 'PY'
+                  | 'QA'
+                  | 'RE'
+                  | 'RO'
+                  | 'RS'
+                  | 'RU'
+                  | 'RW'
+                  | 'SA'
+                  | 'SB'
+                  | 'SC'
+                  | 'SE'
+                  | 'SG'
+                  | 'SH'
+                  | 'SI'
+                  | 'SJ'
+                  | 'SK'
+                  | 'SL'
+                  | 'SM'
+                  | 'SN'
+                  | 'SO'
+                  | 'SR'
+                  | 'SS'
+                  | 'ST'
+                  | 'SV'
+                  | 'SX'
+                  | 'SZ'
+                  | 'TA'
+                  | 'TC'
+                  | 'TD'
+                  | 'TF'
+                  | 'TG'
+                  | 'TH'
+                  | 'TJ'
+                  | 'TK'
+                  | 'TL'
+                  | 'TM'
+                  | 'TN'
+                  | 'TO'
+                  | 'TR'
+                  | 'TT'
+                  | 'TV'
+                  | 'TW'
+                  | 'TZ'
+                  | 'UA'
+                  | 'UG'
+                  | 'US'
+                  | 'UY'
+                  | 'UZ'
+                  | 'VA'
+                  | 'VC'
+                  | 'VE'
+                  | 'VG'
+                  | 'VN'
+                  | 'VU'
+                  | 'WF'
+                  | 'WS'
+                  | 'XK'
+                  | 'YE'
+                  | 'YT'
+                  | 'ZA'
+                  | 'ZM'
+                  | 'ZW'
+                  | 'ZZ'
+                )[]
+              }
+            | ''
         }
       }
     }
@@ -34911,16 +35062,17 @@ export interface operations {
            * @description Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
            */
           readonly billing_details?: {
-            readonly address?: Partial<{
-              readonly city?: string
-              readonly country?: string
-              readonly line1?: string
-              readonly line2?: string
-              readonly postal_code?: string
-              readonly state?: string
-            }> &
-              Partial<''>
-            readonly email?: Partial<string> & Partial<''>
+            readonly address?:
+              | {
+                  readonly city?: string
+                  readonly country?: string
+                  readonly line1?: string
+                  readonly line2?: string
+                  readonly postal_code?: string
+                  readonly state?: string
+                }
+              | ''
+            readonly email?: string | ''
             readonly name?: string
             readonly phone?: string
           }
@@ -34932,15 +35084,16 @@ export interface operations {
             readonly tax_id: string
           }
           /** @description If this is a `card` PaymentMethod, this hash contains the user's card details. For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format `card: {token: "tok_visa"}`. When providing a card number, you must meet the requirements for [PCI compliance](https://stripe.com/docs/security#validating-pci-compliance). We strongly recommend using Stripe.js instead of interacting with this API directly. */
-          readonly card?: Partial<{
-            readonly cvc?: string
-            readonly exp_month: number
-            readonly exp_year: number
-            readonly number: string
-          }> &
-            Partial<{
-              readonly token: string
-            }>
+          readonly card?:
+            | {
+                readonly cvc?: string
+                readonly exp_month: number
+                readonly exp_year: number
+                readonly number: string
+              }
+            | {
+                readonly token: string
+              }
           /** @description The `Customer` to whom the original PaymentMethod is attached. */
           readonly customer?: string
           /**
@@ -35207,16 +35360,17 @@ export interface operations {
            * @description Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
            */
           readonly billing_details?: {
-            readonly address?: Partial<{
-              readonly city?: string
-              readonly country?: string
-              readonly line1?: string
-              readonly line2?: string
-              readonly postal_code?: string
-              readonly state?: string
-            }> &
-              Partial<''>
-            readonly email?: Partial<string> & Partial<''>
+            readonly address?:
+              | {
+                  readonly city?: string
+                  readonly country?: string
+                  readonly line1?: string
+                  readonly line2?: string
+                  readonly postal_code?: string
+                  readonly state?: string
+                }
+              | ''
+            readonly email?: string | ''
             readonly name?: string
             readonly phone?: string
           }
@@ -35231,7 +35385,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -35314,20 +35468,22 @@ export interface operations {
   readonly GetPayouts: {
     readonly parameters: {
       readonly query: {
-        readonly arrival_date?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly arrival_date?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** The ID of an external account - only return payouts sent to this external account. */
         readonly destination?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -35484,7 +35640,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -35562,13 +35718,14 @@ export interface operations {
         /** Only return plans that are active or inactive (e.g., pass `false` to list all inactive plans). */
         readonly active?: boolean
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -35665,19 +35822,20 @@ export interface operations {
           /** @description The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). */
           readonly interval_count?: number
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description A brief description of the plan, hidden from customers. */
           readonly nickname?: string
-          readonly product?: Partial<{
-            readonly active?: boolean
-            readonly id?: string
-            readonly metadata?: { readonly [key: string]: string }
-            readonly name: string
-            readonly statement_descriptor?: string
-            readonly tax_code?: string
-            readonly unit_label?: string
-          }> &
-            Partial<string>
+          readonly product?:
+            | {
+                readonly active?: boolean
+                readonly id?: string
+                readonly metadata?: { readonly [key: string]: string }
+                readonly name: string
+                readonly statement_descriptor?: string
+                readonly tax_code?: string
+                readonly unit_label?: string
+              }
+            | string
           /** @description Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
           readonly tiers?: readonly {
             readonly flat_amount?: number
@@ -35686,7 +35844,7 @@ export interface operations {
             readonly unit_amount?: number
             /** Format: decimal */
             readonly unit_amount_decimal?: string
-            readonly up_to: Partial<'inf'> & Partial<number>
+            readonly up_to: 'inf' | number
           }[]
           /**
            * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows.
@@ -35773,7 +35931,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description A brief description of the plan, hidden from customers. */
           readonly nickname?: string
           /** @description The product the plan belongs to. This cannot be changed once it has been used in a subscription or subscription schedule. */
@@ -35818,13 +35976,14 @@ export interface operations {
         /** Only return prices that are active or inactive (e.g., pass `false` to list all inactive prices). */
         readonly active?: boolean
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Only return prices for the given currency. */
         readonly currency?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -35959,7 +36118,7 @@ export interface operations {
             readonly unit_amount?: number
             /** Format: decimal */
             readonly unit_amount_decimal?: string
-            readonly up_to: Partial<'inf'> & Partial<number>
+            readonly up_to: 'inf' | number
           }[]
           /**
            * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows.
@@ -36050,7 +36209,7 @@ export interface operations {
           /** @description A lookup key used to retrieve prices dynamically from a static string. This may be up to 200 characters. */
           readonly lookup_key?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description A brief description of the price, hidden from customers. */
           readonly nickname?: string
           /**
@@ -36071,13 +36230,14 @@ export interface operations {
         /** Only return products that are active or inactive (e.g., pass `false` to list all inactive products). */
         readonly active?: boolean
         /** Only return products that were created during the given date interval. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -36250,19 +36410,20 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
-          readonly images?: Partial<readonly string[]> & Partial<''>
+          readonly images?: readonly string[] | ''
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The product's name, meant to be displayable to the customer. Whenever this product is sold via a subscription, name will show up on associated invoice line item descriptions. */
           readonly name?: string
           /** @description The dimensions of this product for shipping purposes. */
-          readonly package_dimensions?: Partial<{
-            readonly height: number
-            readonly length: number
-            readonly weight: number
-            readonly width: number
-          }> &
-            Partial<''>
+          readonly package_dimensions?:
+            | {
+                readonly height: number
+                readonly length: number
+                readonly weight: number
+                readonly width: number
+              }
+            | ''
           /** @description Whether this product is shipped (i.e., physical goods). */
           readonly shippable?: boolean
           /**
@@ -36273,7 +36434,7 @@ export interface operations {
            */
           readonly statement_descriptor?: string
           /** @description A [tax code](https://stripe.com/docs/tax/tax-codes) ID. */
-          readonly tax_code?: Partial<string> & Partial<''>
+          readonly tax_code?: string | ''
           /** @description A label that represents units of this product in Stripe and on customers’ receipts and invoices. When set, this will be included in associated invoice line item descriptions. May only be set if `type=service`. */
           readonly unit_label?: string
           /** @description A URL of a publicly-accessible webpage for this product. */
@@ -36320,13 +36481,14 @@ export interface operations {
         /** Only return promotion codes for this coupon. */
         readonly coupon?: string
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Only return promotion codes that are restricted to this customer. */
         readonly customer?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -36481,7 +36643,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -36555,9 +36717,9 @@ export interface operations {
       readonly content: {
         readonly 'application/x-www-form-urlencoded': {
           /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field. */
-          readonly application_fee_amount?: Partial<number> & Partial<''>
+          readonly application_fee_amount?: number | ''
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field. */
-          readonly application_fee_percent?: Partial<number> & Partial<''>
+          readonly application_fee_percent?: number | ''
           /**
            * automatic_tax_param
            * @description Settings for automatic tax lookup for this quote and resulting invoices and subscriptions.
@@ -36573,17 +36735,16 @@ export interface operations {
           /** @description The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed. */
           readonly customer?: string
           /** @description The tax rates that will apply to any line item that does not have `tax_rates` set. */
-          readonly default_tax_rates?: Partial<readonly string[]> & Partial<''>
+          readonly default_tax_rates?: readonly string[] | ''
           /** @description A description that will be displayed on the quote PDF. If no value is passed, the default description configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used. */
           readonly description?: string
           /** @description The discounts applied to the quote. You can only set up to one discount. */
-          readonly discounts?: Partial<
-            readonly {
-              readonly coupon?: string
-              readonly discount?: string
-            }[]
-          > &
-            Partial<''>
+          readonly discounts?:
+            | readonly {
+                readonly coupon?: string
+                readonly discount?: string
+              }[]
+            | ''
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /**
@@ -36630,27 +36791,28 @@ export interface operations {
               readonly unit_amount_decimal?: string
             }
             readonly quantity?: number
-            readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+            readonly tax_rates?: readonly string[] | ''
           }[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           readonly metadata?: { readonly [key: string]: string }
           /** @description The account on behalf of which to charge. */
-          readonly on_behalf_of?: Partial<string> & Partial<''>
+          readonly on_behalf_of?: string | ''
           /**
            * subscription_data_create_params
            * @description When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
            */
           readonly subscription_data?: {
-            readonly effective_date?: Partial<'current_period_end'> & Partial<number> & Partial<''>
-            readonly trial_period_days?: Partial<number> & Partial<''>
+            readonly effective_date?: 'current_period_end' | number | ''
+            readonly trial_period_days?: number | ''
           }
           /** @description The data with which to automatically create a Transfer for each of the invoices. */
-          readonly transfer_data?: Partial<{
-            readonly amount?: number
-            readonly amount_percent?: number
-            readonly destination: string
-          }> &
-            Partial<''>
+          readonly transfer_data?:
+            | {
+                readonly amount?: number
+                readonly amount_percent?: number
+                readonly destination: string
+              }
+            | ''
         }
       }
     }
@@ -36711,9 +36873,9 @@ export interface operations {
       readonly content: {
         readonly 'application/x-www-form-urlencoded': {
           /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field. */
-          readonly application_fee_amount?: Partial<number> & Partial<''>
+          readonly application_fee_amount?: number | ''
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field. */
-          readonly application_fee_percent?: Partial<number> & Partial<''>
+          readonly application_fee_percent?: number | ''
           /**
            * automatic_tax_param
            * @description Settings for automatic tax lookup for this quote and resulting invoices and subscriptions.
@@ -36729,17 +36891,16 @@ export interface operations {
           /** @description The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed. */
           readonly customer?: string
           /** @description The tax rates that will apply to any line item that does not have `tax_rates` set. */
-          readonly default_tax_rates?: Partial<readonly string[]> & Partial<''>
+          readonly default_tax_rates?: readonly string[] | ''
           /** @description A description that will be displayed on the quote PDF. */
           readonly description?: string
           /** @description The discounts applied to the quote. You can only set up to one discount. */
-          readonly discounts?: Partial<
-            readonly {
-              readonly coupon?: string
-              readonly discount?: string
-            }[]
-          > &
-            Partial<''>
+          readonly discounts?:
+            | readonly {
+                readonly coupon?: string
+                readonly discount?: string
+              }[]
+            | ''
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /**
@@ -36779,27 +36940,28 @@ export interface operations {
               readonly unit_amount_decimal?: string
             }
             readonly quantity?: number
-            readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+            readonly tax_rates?: readonly string[] | ''
           }[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           readonly metadata?: { readonly [key: string]: string }
           /** @description The account on behalf of which to charge. */
-          readonly on_behalf_of?: Partial<string> & Partial<''>
+          readonly on_behalf_of?: string | ''
           /**
            * subscription_data_update_params
            * @description When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
            */
           readonly subscription_data?: {
-            readonly effective_date?: Partial<'current_period_end'> & Partial<number> & Partial<''>
-            readonly trial_period_days?: Partial<number> & Partial<''>
+            readonly effective_date?: 'current_period_end' | number | ''
+            readonly trial_period_days?: number | ''
           }
           /** @description The data with which to automatically create a Transfer for each of the invoices. */
-          readonly transfer_data?: Partial<{
-            readonly amount?: number
-            readonly amount_percent?: number
-            readonly destination: string
-          }> &
-            Partial<''>
+          readonly transfer_data?:
+            | {
+                readonly amount?: number
+                readonly amount_percent?: number
+                readonly destination: string
+              }
+            | ''
         }
       }
     }
@@ -37116,13 +37278,14 @@ export interface operations {
   readonly GetRadarValueListItems: {
     readonly parameters: {
       readonly query: {
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -37263,13 +37426,14 @@ export interface operations {
         readonly alias?: string
         /** A value contained within a value list - returns all value lists containing this value. */
         readonly contains?: string
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -37453,13 +37617,14 @@ export interface operations {
   readonly GetRecipients: {
     readonly parameters: {
       readonly query: {
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -37537,7 +37702,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The recipient's full, legal name. For type `individual`, should be in the format `First Last`, `First Middle Last`, or `First M Last` (no prefixes or suffixes). For `corporation`, the full, incorporated name. */
           readonly name: string
           /** @description The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN. */
@@ -37563,7 +37728,7 @@ export interface operations {
       /** Successful response. */
       readonly 200: {
         readonly content: {
-          readonly 'application/json': Partial<components['schemas']['recipient']> & Partial<components['schemas']['deleted_recipient']>
+          readonly 'application/json': components['schemas']['recipient'] | components['schemas']['deleted_recipient']
         }
       }
       /** Error response. */
@@ -37622,7 +37787,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The recipient's full, legal name. For type `individual`, should be in the format `First Last`, `First Middle Last`, or `First M Last` (no prefixes or suffixes). For `corporation`, the full, incorporated name. */
           readonly name?: string
           /** @description The recipient's tax ID, as a string. For type `individual`, the full SSN; for type `corporation`, the full EIN. */
@@ -37664,13 +37829,14 @@ export interface operations {
       readonly query: {
         /** Only return refunds for the charge specified by this charge ID. */
         readonly charge?: string
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -37738,7 +37904,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           readonly payment_intent?: string
           /** @enum {string} */
           readonly reason?: 'duplicate' | 'fraudulent' | 'requested_by_customer'
@@ -37810,7 +37976,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -37819,13 +37985,14 @@ export interface operations {
   readonly GetReportingReportRuns: {
     readonly parameters: {
       readonly query: {
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -38645,13 +38812,14 @@ export interface operations {
   readonly GetReviews: {
     readonly parameters: {
       readonly query: {
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -38763,13 +38931,14 @@ export interface operations {
          * can be a string with an integer Unix timestamp, or it can be a
          * dictionary with a number of different query options.
          */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -38821,13 +38990,14 @@ export interface operations {
     readonly parameters: {
       readonly query: {
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Only return SetupIntents for the customer specified by this customer ID. */
         readonly customer?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -38946,7 +39116,7 @@ export interface operations {
               readonly currency?: 'cad' | 'usd'
               /** setup_intent_payment_method_options_mandate_options_param */
               readonly mandate_options?: {
-                readonly custom_mandate_url?: Partial<string> & Partial<''>
+                readonly custom_mandate_url?: string | ''
                 readonly default_for?: readonly ('invoice' | 'subscription')[]
                 readonly interval_description?: string
                 /** @enum {string} */
@@ -39063,7 +39233,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
           readonly payment_method?: string
           /**
@@ -39077,7 +39247,7 @@ export interface operations {
               readonly currency?: 'cad' | 'usd'
               /** setup_intent_payment_method_options_mandate_options_param */
               readonly mandate_options?: {
-                readonly custom_mandate_url?: Partial<string> & Partial<''>
+                readonly custom_mandate_url?: string | ''
                 readonly default_for?: readonly ('invoice' | 'subscription')[]
                 readonly interval_description?: string
                 /** @enum {string} */
@@ -39187,34 +39357,35 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description This hash contains details about the Mandate to create */
-          readonly mandate_data?: Partial<{
-            /** customer_acceptance_param */
-            readonly customer_acceptance: {
-              /** Format: unix-time */
-              readonly accepted_at?: number
-              /** offline_param */
-              readonly offline?: { readonly [key: string]: unknown }
-              /** online_param */
-              readonly online?: {
-                readonly ip_address: string
-                readonly user_agent: string
-              }
-              /** @enum {string} */
-              readonly type: 'offline' | 'online'
-            }
-          }> &
-            Partial<{
-              /** customer_acceptance_param */
-              readonly customer_acceptance: {
-                /** online_param */
-                readonly online: {
-                  readonly ip_address?: string
-                  readonly user_agent?: string
+          readonly mandate_data?:
+            | {
+                /** customer_acceptance_param */
+                readonly customer_acceptance: {
+                  /** Format: unix-time */
+                  readonly accepted_at?: number
+                  /** offline_param */
+                  readonly offline?: { readonly [key: string]: unknown }
+                  /** online_param */
+                  readonly online?: {
+                    readonly ip_address: string
+                    readonly user_agent: string
+                  }
+                  /** @enum {string} */
+                  readonly type: 'offline' | 'online'
                 }
-                /** @enum {string} */
-                readonly type: 'online'
               }
-            }>
+            | {
+                /** customer_acceptance_param */
+                readonly customer_acceptance: {
+                  /** online_param */
+                  readonly online: {
+                    readonly ip_address?: string
+                    readonly user_agent?: string
+                  }
+                  /** @enum {string} */
+                  readonly type: 'online'
+                }
+              }
           /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
           readonly payment_method?: string
           /**
@@ -39228,7 +39399,7 @@ export interface operations {
               readonly currency?: 'cad' | 'usd'
               /** setup_intent_payment_method_options_mandate_options_param */
               readonly mandate_options?: {
-                readonly custom_mandate_url?: Partial<string> & Partial<''>
+                readonly custom_mandate_url?: string | ''
                 readonly default_for?: readonly ('invoice' | 'subscription')[]
                 readonly interval_description?: string
                 /** @enum {string} */
@@ -39301,13 +39472,14 @@ export interface operations {
         /** Only return shipping rates that are active or inactive. */
         readonly active?: boolean
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Only return shipping rates for the given currency. */
         readonly currency?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -39478,7 +39650,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -39691,7 +39863,7 @@ export interface operations {
       /** Successful response. */
       readonly 200: {
         readonly content: {
-          readonly 'application/json': Partial<components['schemas']['sku']> & Partial<components['schemas']['deleted_sku']>
+          readonly 'application/json': components['schemas']['sku'] | components['schemas']['deleted_sku']
         }
       }
       /** Error response. */
@@ -39757,15 +39929,16 @@ export interface operations {
             readonly value?: '' | 'in_stock' | 'limited' | 'out_of_stock'
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The dimensions of this SKU for shipping purposes. */
-          readonly package_dimensions?: Partial<{
-            readonly height: number
-            readonly length: number
-            readonly weight: number
-            readonly width: number
-          }> &
-            Partial<''>
+          readonly package_dimensions?:
+            | {
+                readonly height: number
+                readonly length: number
+                readonly weight: number
+                readonly width: number
+              }
+            | ''
           /** @description The cost of the item as a positive integer in the smallest currency unit (that is, 100 cents to charge $1.00, or 100 to charge ¥100, Japanese Yen being a zero-decimal currency). */
           readonly price?: number
           /** @description The ID of the product that this SKU should belong to. The product must exist, have the same set of attribute names as the SKU's current product, and be of type `good`. */
@@ -39860,7 +40033,7 @@ export interface operations {
               readonly type?: 'offline' | 'online'
               readonly user_agent?: string
             }
-            readonly amount?: Partial<number> & Partial<''>
+            readonly amount?: number | ''
             readonly currency?: string
             /** @enum {string} */
             readonly interval?: 'one_time' | 'scheduled' | 'variable'
@@ -40038,7 +40211,7 @@ export interface operations {
               readonly type?: 'offline' | 'online'
               readonly user_agent?: string
             }
-            readonly amount?: Partial<number> & Partial<''>
+            readonly amount?: number | ''
             readonly currency?: string
             /** @enum {string} */
             readonly interval?: 'one_time' | 'scheduled' | 'variable'
@@ -40046,7 +40219,7 @@ export interface operations {
             readonly notification_method?: 'deprecated_none' | 'email' | 'manual' | 'none' | 'stripe_email'
           }
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /**
            * owner
            * @description Information about the owner of the payment instrument that may be used or required by particular source types.
@@ -40311,10 +40484,11 @@ export interface operations {
       readonly content: {
         readonly 'application/x-www-form-urlencoded': {
           /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds. */
-          readonly billing_thresholds?: Partial<{
-            readonly usage_gte: number
-          }> &
-            Partial<''>
+          readonly billing_thresholds?:
+            | {
+                readonly usage_gte: number
+              }
+            | ''
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -40370,7 +40544,7 @@ export interface operations {
           /** @description The identifier of the subscription to modify. */
           readonly subscription: string
           /** @description A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates. */
-          readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+          readonly tax_rates?: readonly string[] | ''
         }
       }
     }
@@ -40431,14 +40605,15 @@ export interface operations {
       readonly content: {
         readonly 'application/x-www-form-urlencoded': {
           /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds. */
-          readonly billing_thresholds?: Partial<{
-            readonly usage_gte: number
-          }> &
-            Partial<''>
+          readonly billing_thresholds?:
+            | {
+                readonly usage_gte: number
+              }
+            | ''
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
           readonly off_session?: boolean
           /**
@@ -40490,7 +40665,7 @@ export interface operations {
           /** @description The quantity you'd like to apply to the subscription item you're creating. */
           readonly quantity?: number
           /** @description A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates. */
-          readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+          readonly tax_rates?: readonly string[] | ''
         }
       }
     }
@@ -40633,7 +40808,7 @@ export interface operations {
           /** @description The usage quantity for the specified timestamp. */
           readonly quantity: number
           /** @description The timestamp for the usage event. This timestamp must be within the current billing period of the subscription of the provided `subscription_item`, and must not be in the future. When passing `"now"`, Stripe records usage for the current time. Default is `"now"` if a value is not provided. */
-          readonly timestamp?: Partial<'now'> & Partial<number>
+          readonly timestamp?: 'now' | number
         }
       }
     }
@@ -40643,29 +40818,32 @@ export interface operations {
     readonly parameters: {
       readonly query: {
         /** Only return subscription schedules that were created canceled the given date interval. */
-        readonly canceled_at?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly canceled_at?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Only return subscription schedules that completed during the given date interval. */
-        readonly completed_at?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly completed_at?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Only return subscription schedules that were created during the given date interval. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Only return subscription schedules for the given customer. */
         readonly customer?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -40675,13 +40853,14 @@ export interface operations {
         /** A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         readonly limit?: number
         /** Only return subscription schedules that were released during the given date interval. */
-        readonly released_at?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly released_at?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Only return subscription schedules that have not started yet. */
         readonly scheduled?: boolean
         /** A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -40752,11 +40931,12 @@ export interface operations {
             }
             /** @enum {string} */
             readonly billing_cycle_anchor?: 'automatic' | 'phase_start'
-            readonly billing_thresholds?: Partial<{
-              readonly amount_gte?: number
-              readonly reset_billing_cycle_anchor?: boolean
-            }> &
-              Partial<''>
+            readonly billing_thresholds?:
+              | {
+                  readonly amount_gte?: number
+                  readonly reset_billing_cycle_anchor?: boolean
+                }
+              | ''
             /** @enum {string} */
             readonly collection_method?: 'charge_automatically' | 'send_invoice'
             readonly default_payment_method?: string
@@ -40764,11 +40944,12 @@ export interface operations {
             readonly invoice_settings?: {
               readonly days_until_due?: number
             }
-            readonly transfer_data?: Partial<{
-              readonly amount_percent?: number
-              readonly destination: string
-            }> &
-              Partial<''>
+            readonly transfer_data?:
+              | {
+                  readonly amount_percent?: number
+                  readonly destination: string
+                }
+              | ''
           }
           /**
            * @description Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
@@ -40780,7 +40961,7 @@ export interface operations {
           /** @description Migrate an existing subscription to be managed by a subscription schedule. If this parameter is set, a subscription schedule will be created using the subscription's item(s), set to auto-renew using the subscription's interval. When using this parameter, other parameters (such as phase values) cannot be set. To create a subscription schedule with other modifications, we recommend making two separate API calls. */
           readonly from_subscription?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. */
           readonly phases?: readonly {
             readonly add_invoice_items?: readonly {
@@ -40796,7 +40977,7 @@ export interface operations {
                 readonly unit_amount_decimal?: string
               }
               readonly quantity?: number
-              readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+              readonly tax_rates?: readonly string[] | ''
             }[]
             readonly application_fee_percent?: number
             /** automatic_tax_config */
@@ -40805,16 +40986,17 @@ export interface operations {
             }
             /** @enum {string} */
             readonly billing_cycle_anchor?: 'automatic' | 'phase_start'
-            readonly billing_thresholds?: Partial<{
-              readonly amount_gte?: number
-              readonly reset_billing_cycle_anchor?: boolean
-            }> &
-              Partial<''>
+            readonly billing_thresholds?:
+              | {
+                  readonly amount_gte?: number
+                  readonly reset_billing_cycle_anchor?: boolean
+                }
+              | ''
             /** @enum {string} */
             readonly collection_method?: 'charge_automatically' | 'send_invoice'
             readonly coupon?: string
             readonly default_payment_method?: string
-            readonly default_tax_rates?: Partial<readonly string[]> & Partial<''>
+            readonly default_tax_rates?: readonly string[] | ''
             /** Format: unix-time */
             readonly end_date?: number
             /** subscription_schedules_param */
@@ -40822,10 +41004,11 @@ export interface operations {
               readonly days_until_due?: number
             }
             readonly items: readonly {
-              readonly billing_thresholds?: Partial<{
-                readonly usage_gte: number
-              }> &
-                Partial<''>
+              readonly billing_thresholds?:
+                | {
+                    readonly usage_gte: number
+                  }
+                | ''
               readonly price?: string
               /** recurring_price_data */
               readonly price_data?: {
@@ -40844,7 +41027,7 @@ export interface operations {
                 readonly unit_amount_decimal?: string
               }
               readonly quantity?: number
-              readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+              readonly tax_rates?: readonly string[] | ''
             }[]
             readonly iterations?: number
             /** @enum {string} */
@@ -40859,7 +41042,7 @@ export interface operations {
             readonly trial_end?: number
           }[]
           /** @description When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on. */
-          readonly start_date?: Partial<number> & Partial<'now'>
+          readonly start_date?: number | 'now'
         }
       }
     }
@@ -40931,11 +41114,12 @@ export interface operations {
             }
             /** @enum {string} */
             readonly billing_cycle_anchor?: 'automatic' | 'phase_start'
-            readonly billing_thresholds?: Partial<{
-              readonly amount_gte?: number
-              readonly reset_billing_cycle_anchor?: boolean
-            }> &
-              Partial<''>
+            readonly billing_thresholds?:
+              | {
+                  readonly amount_gte?: number
+                  readonly reset_billing_cycle_anchor?: boolean
+                }
+              | ''
             /** @enum {string} */
             readonly collection_method?: 'charge_automatically' | 'send_invoice'
             readonly default_payment_method?: string
@@ -40943,11 +41127,12 @@ export interface operations {
             readonly invoice_settings?: {
               readonly days_until_due?: number
             }
-            readonly transfer_data?: Partial<{
-              readonly amount_percent?: number
-              readonly destination: string
-            }> &
-              Partial<''>
+            readonly transfer_data?:
+              | {
+                  readonly amount_percent?: number
+                  readonly destination: string
+                }
+              | ''
           }
           /**
            * @description Configures how the subscription schedule behaves when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
@@ -40957,7 +41142,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted. */
           readonly phases?: readonly {
             readonly add_invoice_items?: readonly {
@@ -40973,7 +41158,7 @@ export interface operations {
                 readonly unit_amount_decimal?: string
               }
               readonly quantity?: number
-              readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+              readonly tax_rates?: readonly string[] | ''
             }[]
             readonly application_fee_percent?: number
             /** automatic_tax_config */
@@ -40982,26 +41167,28 @@ export interface operations {
             }
             /** @enum {string} */
             readonly billing_cycle_anchor?: 'automatic' | 'phase_start'
-            readonly billing_thresholds?: Partial<{
-              readonly amount_gte?: number
-              readonly reset_billing_cycle_anchor?: boolean
-            }> &
-              Partial<''>
+            readonly billing_thresholds?:
+              | {
+                  readonly amount_gte?: number
+                  readonly reset_billing_cycle_anchor?: boolean
+                }
+              | ''
             /** @enum {string} */
             readonly collection_method?: 'charge_automatically' | 'send_invoice'
             readonly coupon?: string
             readonly default_payment_method?: string
-            readonly default_tax_rates?: Partial<readonly string[]> & Partial<''>
-            readonly end_date?: Partial<number> & Partial<'now'>
+            readonly default_tax_rates?: readonly string[] | ''
+            readonly end_date?: number | 'now'
             /** subscription_schedules_param */
             readonly invoice_settings?: {
               readonly days_until_due?: number
             }
             readonly items: readonly {
-              readonly billing_thresholds?: Partial<{
-                readonly usage_gte: number
-              }> &
-                Partial<''>
+              readonly billing_thresholds?:
+                | {
+                    readonly usage_gte: number
+                  }
+                | ''
               readonly price?: string
               /** recurring_price_data */
               readonly price_data?: {
@@ -41020,19 +41207,19 @@ export interface operations {
                 readonly unit_amount_decimal?: string
               }
               readonly quantity?: number
-              readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+              readonly tax_rates?: readonly string[] | ''
             }[]
             readonly iterations?: number
             /** @enum {string} */
             readonly proration_behavior?: 'always_invoice' | 'create_prorations' | 'none'
-            readonly start_date?: Partial<number> & Partial<'now'>
+            readonly start_date?: number | 'now'
             /** transfer_data_specs */
             readonly transfer_data?: {
               readonly amount_percent?: number
               readonly destination: string
             }
             readonly trial?: boolean
-            readonly trial_end?: Partial<number> & Partial<'now'>
+            readonly trial_end?: number | 'now'
           }[]
           /**
            * @description If the update changes the current phase, indicates if the changes should be prorated. Possible values are `create_prorations` or `none`, and the default value is `create_prorations`.
@@ -41115,27 +41302,30 @@ export interface operations {
       readonly query: {
         /** The collection method of the subscriptions to retrieve. Either `charge_automatically` or `send_invoice`. */
         readonly collection_method?: 'charge_automatically' | 'send_invoice'
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
-        readonly current_period_end?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
-        readonly current_period_start?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
+        readonly current_period_end?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
+        readonly current_period_start?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** The ID of the customer whose subscriptions will be retrieved. */
         readonly customer?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -41216,7 +41406,7 @@ export interface operations {
               readonly unit_amount_decimal?: string
             }
             readonly quantity?: number
-            readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+            readonly tax_rates?: readonly string[] | ''
           }[]
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           readonly application_fee_percent?: number
@@ -41238,11 +41428,12 @@ export interface operations {
            */
           readonly billing_cycle_anchor?: number
           /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-          readonly billing_thresholds?: Partial<{
-            readonly amount_gte?: number
-            readonly reset_billing_cycle_anchor?: boolean
-          }> &
-            Partial<''>
+          readonly billing_thresholds?:
+            | {
+                readonly amount_gte?: number
+                readonly reset_billing_cycle_anchor?: boolean
+              }
+            | ''
           /**
            * Format: unix-time
            * @description A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
@@ -41266,15 +41457,16 @@ export interface operations {
           /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
           readonly default_source?: string
           /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. */
-          readonly default_tax_rates?: Partial<readonly string[]> & Partial<''>
+          readonly default_tax_rates?: readonly string[] | ''
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description A list of up to 20 subscription items, each with an attached price. */
           readonly items?: readonly {
-            readonly billing_thresholds?: Partial<{
-              readonly usage_gte: number
-            }> &
-              Partial<''>
+            readonly billing_thresholds?:
+              | {
+                  readonly usage_gte: number
+                }
+              | ''
             readonly metadata?: { readonly [key: string]: string }
             readonly price?: string
             /** recurring_price_data */
@@ -41294,10 +41486,10 @@ export interface operations {
               readonly unit_amount_decimal?: string
             }
             readonly quantity?: number
-            readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+            readonly tax_rates?: readonly string[] | ''
           }[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
           readonly off_session?: boolean
           /**
@@ -41318,62 +41510,65 @@ export interface operations {
           readonly payment_settings?: {
             /** payment_method_options */
             readonly payment_method_options?: {
-              readonly acss_debit?: Partial<{
-                /** mandate_options_param */
-                readonly mandate_options?: {
-                  /** @enum {string} */
-                  readonly transaction_type?: 'business' | 'personal'
-                }
-                /** @enum {string} */
-                readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
-              }> &
-                Partial<''>
-              readonly bancontact?: Partial<{
-                /** @enum {string} */
-                readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-              }> &
-                Partial<''>
-              readonly card?: Partial<{
-                /** mandate_options_param */
-                readonly mandate_options?: {
-                  readonly amount?: number
-                  /** @enum {string} */
-                  readonly amount_type?: 'fixed' | 'maximum'
-                  readonly description?: string
-                }
-                /** @enum {string} */
-                readonly request_three_d_secure?: 'any' | 'automatic'
-              }> &
-                Partial<''>
+              readonly acss_debit?:
+                | {
+                    /** mandate_options_param */
+                    readonly mandate_options?: {
+                      /** @enum {string} */
+                      readonly transaction_type?: 'business' | 'personal'
+                    }
+                    /** @enum {string} */
+                    readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                  }
+                | ''
+              readonly bancontact?:
+                | {
+                    /** @enum {string} */
+                    readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                  }
+                | ''
+              readonly card?:
+                | {
+                    /** mandate_options_param */
+                    readonly mandate_options?: {
+                      readonly amount?: number
+                      /** @enum {string} */
+                      readonly amount_type?: 'fixed' | 'maximum'
+                      readonly description?: string
+                    }
+                    /** @enum {string} */
+                    readonly request_three_d_secure?: 'any' | 'automatic'
+                  }
+                | ''
             }
-            readonly payment_method_types?: Partial<
-              readonly (
-                | 'ach_credit_transfer'
-                | 'ach_debit'
-                | 'acss_debit'
-                | 'au_becs_debit'
-                | 'bacs_debit'
-                | 'bancontact'
-                | 'boleto'
-                | 'card'
-                | 'fpx'
-                | 'giropay'
-                | 'grabpay'
-                | 'ideal'
-                | 'sepa_debit'
-                | 'sofort'
-                | 'wechat_pay'
-              )[]
-            > &
-              Partial<''>
+            readonly payment_method_types?:
+              | readonly (
+                  | 'ach_credit_transfer'
+                  | 'ach_debit'
+                  | 'acss_debit'
+                  | 'au_becs_debit'
+                  | 'bacs_debit'
+                  | 'bancontact'
+                  | 'boleto'
+                  | 'card'
+                  | 'fpx'
+                  | 'giropay'
+                  | 'grabpay'
+                  | 'ideal'
+                  | 'sepa_debit'
+                  | 'sofort'
+                  | 'wechat_pay'
+                )[]
+              | ''
           }
           /** @description Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-          readonly pending_invoice_item_interval?: Partial<{
-            /** @enum {string} */
-            readonly interval: 'day' | 'month' | 'week' | 'year'
-            readonly interval_count?: number
-          }> &
-            Partial<''>
+          readonly pending_invoice_item_interval?:
+            | {
+                /** @enum {string} */
+                readonly interval: 'day' | 'month' | 'week' | 'year'
+                readonly interval_count?: number
+              }
+            | ''
           /** @description The API ID of a promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. */
           readonly promotion_code?: string
           /**
@@ -41392,7 +41587,7 @@ export interface operations {
             readonly destination: string
           }
           /** @description Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
-          readonly trial_end?: Partial<'now'> & Partial<number>
+          readonly trial_end?: 'now' | number
           /** @description Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
           readonly trial_from_plan?: boolean
           /** @description Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
@@ -41470,7 +41665,7 @@ export interface operations {
               readonly unit_amount_decimal?: string
             }
             readonly quantity?: number
-            readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+            readonly tax_rates?: readonly string[] | ''
           }[]
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           readonly application_fee_percent?: number
@@ -41487,13 +41682,14 @@ export interface operations {
            */
           readonly billing_cycle_anchor?: 'now' | 'unchanged'
           /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds. */
-          readonly billing_thresholds?: Partial<{
-            readonly amount_gte?: number
-            readonly reset_billing_cycle_anchor?: boolean
-          }> &
-            Partial<''>
+          readonly billing_thresholds?:
+            | {
+                readonly amount_gte?: number
+                readonly reset_billing_cycle_anchor?: boolean
+              }
+            | ''
           /** @description A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
-          readonly cancel_at?: Partial<number> & Partial<''>
+          readonly cancel_at?: number | ''
           /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
           readonly cancel_at_period_end?: boolean
           /**
@@ -41510,19 +41706,20 @@ export interface operations {
           /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
           readonly default_source?: string
           /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. Pass an empty string to remove previously-defined tax rates. */
-          readonly default_tax_rates?: Partial<readonly string[]> & Partial<''>
+          readonly default_tax_rates?: readonly string[] | ''
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description A list of up to 20 subscription items, each with an attached price. */
           readonly items?: readonly {
-            readonly billing_thresholds?: Partial<{
-              readonly usage_gte: number
-            }> &
-              Partial<''>
+            readonly billing_thresholds?:
+              | {
+                  readonly usage_gte: number
+                }
+              | ''
             readonly clear_usage?: boolean
             readonly deleted?: boolean
             readonly id?: string
-            readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+            readonly metadata?: { readonly [key: string]: string } | ''
             readonly price?: string
             /** recurring_price_data */
             readonly price_data?: {
@@ -41541,20 +41738,21 @@ export interface operations {
               readonly unit_amount_decimal?: string
             }
             readonly quantity?: number
-            readonly tax_rates?: Partial<readonly string[]> & Partial<''>
+            readonly tax_rates?: readonly string[] | ''
           }[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
           readonly off_session?: boolean
           /** @description If specified, payment collection for this subscription will be paused. */
-          readonly pause_collection?: Partial<{
-            /** @enum {string} */
-            readonly behavior: 'keep_as_draft' | 'mark_uncollectible' | 'void'
-            /** Format: unix-time */
-            readonly resumes_at?: number
-          }> &
-            Partial<''>
+          readonly pause_collection?:
+            | {
+                /** @enum {string} */
+                readonly behavior: 'keep_as_draft' | 'mark_uncollectible' | 'void'
+                /** Format: unix-time */
+                readonly resumes_at?: number
+              }
+            | ''
           /**
            * @description Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
            *
@@ -41573,62 +41771,65 @@ export interface operations {
           readonly payment_settings?: {
             /** payment_method_options */
             readonly payment_method_options?: {
-              readonly acss_debit?: Partial<{
-                /** mandate_options_param */
-                readonly mandate_options?: {
-                  /** @enum {string} */
-                  readonly transaction_type?: 'business' | 'personal'
-                }
-                /** @enum {string} */
-                readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
-              }> &
-                Partial<''>
-              readonly bancontact?: Partial<{
-                /** @enum {string} */
-                readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
-              }> &
-                Partial<''>
-              readonly card?: Partial<{
-                /** mandate_options_param */
-                readonly mandate_options?: {
-                  readonly amount?: number
-                  /** @enum {string} */
-                  readonly amount_type?: 'fixed' | 'maximum'
-                  readonly description?: string
-                }
-                /** @enum {string} */
-                readonly request_three_d_secure?: 'any' | 'automatic'
-              }> &
-                Partial<''>
+              readonly acss_debit?:
+                | {
+                    /** mandate_options_param */
+                    readonly mandate_options?: {
+                      /** @enum {string} */
+                      readonly transaction_type?: 'business' | 'personal'
+                    }
+                    /** @enum {string} */
+                    readonly verification_method?: 'automatic' | 'instant' | 'microdeposits'
+                  }
+                | ''
+              readonly bancontact?:
+                | {
+                    /** @enum {string} */
+                    readonly preferred_language?: 'de' | 'en' | 'fr' | 'nl'
+                  }
+                | ''
+              readonly card?:
+                | {
+                    /** mandate_options_param */
+                    readonly mandate_options?: {
+                      readonly amount?: number
+                      /** @enum {string} */
+                      readonly amount_type?: 'fixed' | 'maximum'
+                      readonly description?: string
+                    }
+                    /** @enum {string} */
+                    readonly request_three_d_secure?: 'any' | 'automatic'
+                  }
+                | ''
             }
-            readonly payment_method_types?: Partial<
-              readonly (
-                | 'ach_credit_transfer'
-                | 'ach_debit'
-                | 'acss_debit'
-                | 'au_becs_debit'
-                | 'bacs_debit'
-                | 'bancontact'
-                | 'boleto'
-                | 'card'
-                | 'fpx'
-                | 'giropay'
-                | 'grabpay'
-                | 'ideal'
-                | 'sepa_debit'
-                | 'sofort'
-                | 'wechat_pay'
-              )[]
-            > &
-              Partial<''>
+            readonly payment_method_types?:
+              | readonly (
+                  | 'ach_credit_transfer'
+                  | 'ach_debit'
+                  | 'acss_debit'
+                  | 'au_becs_debit'
+                  | 'bacs_debit'
+                  | 'bancontact'
+                  | 'boleto'
+                  | 'card'
+                  | 'fpx'
+                  | 'giropay'
+                  | 'grabpay'
+                  | 'ideal'
+                  | 'sepa_debit'
+                  | 'sofort'
+                  | 'wechat_pay'
+                )[]
+              | ''
           }
           /** @description Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval. */
-          readonly pending_invoice_item_interval?: Partial<{
-            /** @enum {string} */
-            readonly interval: 'day' | 'month' | 'week' | 'year'
-            readonly interval_count?: number
-          }> &
-            Partial<''>
+          readonly pending_invoice_item_interval?:
+            | {
+                /** @enum {string} */
+                readonly interval: 'day' | 'month' | 'week' | 'year'
+                readonly interval_count?: number
+              }
+            | ''
           /** @description The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. */
           readonly promotion_code?: string
           /**
@@ -41646,13 +41847,14 @@ export interface operations {
            */
           readonly proration_date?: number
           /** @description If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges. This will be unset if you POST an empty value. */
-          readonly transfer_data?: Partial<{
-            readonly amount_percent?: number
-            readonly destination: string
-          }> &
-            Partial<''>
+          readonly transfer_data?:
+            | {
+                readonly amount_percent?: number
+                readonly destination: string
+              }
+            | ''
           /** @description Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. */
-          readonly trial_end?: Partial<'now'> & Partial<number>
+          readonly trial_end?: 'now' | number
           /** @description Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
           readonly trial_from_plan?: boolean
         }
@@ -41809,13 +42011,14 @@ export interface operations {
         /** Optional flag to filter by tax rates that are either active or inactive (archived). */
         readonly active?: boolean
         /** Optional range for filtering created date. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -41975,7 +42178,7 @@ export interface operations {
           /** @description The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer’s invoice. */
           readonly jurisdiction?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States. */
           readonly state?: string
           /**
@@ -42098,7 +42301,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -42175,7 +42378,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -42285,7 +42488,7 @@ export interface operations {
           /** @description The location to assign the reader to. */
           readonly location?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description A code generated by the reader used for registering to an account. */
           readonly registration_code: string
         }
@@ -42307,7 +42510,7 @@ export interface operations {
       /** Successful response. */
       readonly 200: {
         readonly content: {
-          readonly 'application/json': Partial<components['schemas']['terminal.reader']> & Partial<components['schemas']['deleted_terminal.reader']>
+          readonly 'application/json': components['schemas']['terminal.reader'] | components['schemas']['deleted_terminal.reader']
         }
       }
       /** Error response. */
@@ -42334,7 +42537,7 @@ export interface operations {
       /** Successful response. */
       readonly 200: {
         readonly content: {
-          readonly 'application/json': Partial<components['schemas']['terminal.reader']> & Partial<components['schemas']['deleted_terminal.reader']>
+          readonly 'application/json': components['schemas']['terminal.reader'] | components['schemas']['deleted_terminal.reader']
         }
       }
       /** Error response. */
@@ -42352,7 +42555,7 @@ export interface operations {
           /** @description The new label of the reader. */
           readonly label?: string
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -42526,24 +42729,25 @@ export interface operations {
                 readonly state?: string
                 readonly town?: string
               }
-              readonly dob?: Partial<{
-                readonly day: number
-                readonly month: number
-                readonly year: number
-              }> &
-                Partial<''>
+              readonly dob?:
+                | {
+                    readonly day: number
+                    readonly month: number
+                    readonly year: number
+                  }
+                | ''
               readonly email?: string
               readonly first_name?: string
               readonly first_name_kana?: string
               readonly first_name_kanji?: string
-              readonly full_name_aliases?: Partial<readonly string[]> & Partial<''>
+              readonly full_name_aliases?: readonly string[] | ''
               readonly gender?: string
               readonly id_number?: string
               readonly last_name?: string
               readonly last_name_kana?: string
               readonly last_name_kanji?: string
               readonly maiden_name?: string
-              readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+              readonly metadata?: { readonly [key: string]: string } | ''
               readonly phone?: string
               /** @enum {string} */
               readonly political_exposure?: 'existing' | 'none'
@@ -42579,21 +42783,22 @@ export interface operations {
             readonly currency?: string
             readonly routing_number?: string
           }
-          readonly card?: Partial<{
-            readonly address_city?: string
-            readonly address_country?: string
-            readonly address_line1?: string
-            readonly address_line2?: string
-            readonly address_state?: string
-            readonly address_zip?: string
-            readonly currency?: string
-            readonly cvc?: string
-            readonly exp_month: string
-            readonly exp_year: string
-            readonly name?: string
-            readonly number: string
-          }> &
-            Partial<string>
+          readonly card?:
+            | {
+                readonly address_city?: string
+                readonly address_country?: string
+                readonly address_line1?: string
+                readonly address_line2?: string
+                readonly address_state?: string
+                readonly address_zip?: string
+                readonly currency?: string
+                readonly cvc?: string
+                readonly exp_month: string
+                readonly exp_year: string
+                readonly name?: string
+                readonly number: string
+              }
+            | string
           /** @description The customer (owned by the application's account) for which to create a token. This can be used only with an [OAuth access token](https://stripe.com/docs/connect/standard-accounts) or [Stripe-Account header](https://stripe.com/docs/connect/authentication). For more details, see [Cloning Saved Payment Methods](https://stripe.com/docs/connect/cloning-saved-payment-methods). */
           readonly customer?: string
           /**
@@ -42639,12 +42844,13 @@ export interface operations {
               readonly state?: string
               readonly town?: string
             }
-            readonly dob?: Partial<{
-              readonly day: number
-              readonly month: number
-              readonly year: number
-            }> &
-              Partial<''>
+            readonly dob?:
+              | {
+                  readonly day: number
+                  readonly month: number
+                  readonly year: number
+                }
+              | ''
             /** person_documents_specs */
             readonly documents?: {
               /** documents_param */
@@ -42664,14 +42870,14 @@ export interface operations {
             readonly first_name?: string
             readonly first_name_kana?: string
             readonly first_name_kanji?: string
-            readonly full_name_aliases?: Partial<readonly string[]> & Partial<''>
+            readonly full_name_aliases?: readonly string[] | ''
             readonly gender?: string
             readonly id_number?: string
             readonly last_name?: string
             readonly last_name_kana?: string
             readonly last_name_kanji?: string
             readonly maiden_name?: string
-            readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+            readonly metadata?: { readonly [key: string]: string } | ''
             readonly nationality?: string
             readonly phone?: string
             readonly political_exposure?: string
@@ -42680,7 +42886,7 @@ export interface operations {
               readonly director?: boolean
               readonly executive?: boolean
               readonly owner?: boolean
-              readonly percent_ownership?: Partial<number> & Partial<''>
+              readonly percent_ownership?: number | ''
               readonly representative?: boolean
               readonly title?: string
             }
@@ -42746,21 +42952,23 @@ export interface operations {
     readonly parameters: {
       readonly query: {
         /** A positive integer representing how much to transfer. */
-        readonly amount?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly amount?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         readonly ending_before?: string
         /** Specifies which fields in the response should be expanded. */
@@ -42832,7 +43040,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard for the specified currency. In test mode, this can be a test bank token (see [Testing Top-ups](https://stripe.com/docs/connect/testing#testing-top-ups)). */
           readonly source?: string
           /** @description Extra information about a top-up for the source's bank statement. Limited to 15 ASCII characters. */
@@ -42903,7 +43111,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -42942,13 +43150,14 @@ export interface operations {
   readonly GetTransfers: {
     readonly parameters: {
       readonly query: {
-        readonly created?: Partial<{
-          readonly gt?: number
-          readonly gte?: number
-          readonly lt?: number
-          readonly lte?: number
-        }> &
-          Partial<number>
+        readonly created?:
+          | {
+              readonly gt?: number
+              readonly gte?: number
+              readonly lt?: number
+              readonly lte?: number
+            }
+          | number
         /** Only return transfers for the destination specified by this account ID. */
         readonly destination?: string
         /** A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -43125,7 +43334,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description Boolean indicating whether the application fee should be refunded when reversing this transfer. If a full transfer reversal is given, the full application fee will be refunded. Otherwise, the application fee will be refunded with an amount proportional to the amount of the transfer reversed. */
           readonly refund_application_fee?: boolean
         }
@@ -43196,7 +43405,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -43265,7 +43474,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
         }
       }
     }
@@ -43625,7 +43834,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The URL of the webhook endpoint. */
           readonly url: string
         }
@@ -43877,7 +44086,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           readonly expand?: readonly string[]
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          readonly metadata?: Partial<{ readonly [key: string]: string }> & Partial<''>
+          readonly metadata?: { readonly [key: string]: string } | ''
           /** @description The URL of the webhook endpoint. */
           readonly url?: string
         }

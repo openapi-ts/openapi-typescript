@@ -6624,7 +6624,7 @@ export interface components {
        * @example 1
        */
       id: number
-      account: ((Partial<components['schemas']['simple-user']> & Partial<components['schemas']['enterprise']>) & { [key: string]: unknown }) | null
+      account: ((components['schemas']['simple-user'] | components['schemas']['enterprise']) & { [key: string]: unknown }) | null
       /**
        * @description Describe whether all repositories have been selected or there's a selection involved
        * @enum {string}
@@ -11946,7 +11946,7 @@ export interface components {
       /** @description The people or teams that may approve jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed. */
       reviewers: ({
         type?: components['schemas']['deployment-reviewer-type']
-        reviewer?: (Partial<components['schemas']['simple-user']> & Partial<components['schemas']['team']>) & { [key: string]: unknown }
+        reviewer?: (components['schemas']['simple-user'] | components['schemas']['team']) & { [key: string]: unknown }
       } & { [key: string]: unknown })[]
     } & { [key: string]: unknown }
     /**
@@ -14151,19 +14151,17 @@ export interface components {
        * @example 2020-11-23T22:00:40Z
        */
       updated_at: string
-      protection_rules?: ((Partial<
-        {
-          /** @example 3515 */
-          id: number
-          /** @example MDQ6R2F0ZTM1MTU= */
-          node_id: string
-          /** @example wait_timer */
-          type: string
-          wait_timer?: components['schemas']['wait-timer']
-        } & { [key: string]: unknown }
-      > &
-        Partial<
-          {
+      protection_rules?: ((
+        | ({
+            /** @example 3515 */
+            id: number
+            /** @example MDQ6R2F0ZTM1MTU= */
+            node_id: string
+            /** @example wait_timer */
+            type: string
+            wait_timer?: components['schemas']['wait-timer']
+          } & { [key: string]: unknown })
+        | ({
             /** @example 3755 */
             id: number
             /** @example MDQ6R2F0ZTM3NTU= */
@@ -14173,20 +14171,18 @@ export interface components {
             /** @description The people or teams that may approve jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed. */
             reviewers?: ({
               type?: components['schemas']['deployment-reviewer-type']
-              reviewer?: (Partial<components['schemas']['simple-user']> & Partial<components['schemas']['team']>) & { [key: string]: unknown }
+              reviewer?: (components['schemas']['simple-user'] | components['schemas']['team']) & { [key: string]: unknown }
             } & { [key: string]: unknown })[]
-          } & { [key: string]: unknown }
-        > &
-        Partial<
-          {
+          } & { [key: string]: unknown })
+        | ({
             /** @example 3515 */
             id: number
             /** @example MDQ6R2F0ZTM1MTU= */
             node_id: string
             /** @example branch_policy */
             type: string
-          } & { [key: string]: unknown }
-        >) & { [key: string]: unknown })[]
+          } & { [key: string]: unknown })
+      ) & { [key: string]: unknown })[]
       deployment_branch_policy?: components['schemas']['deployment_branch_policy']
     } & { [key: string]: unknown }
     /**
@@ -15075,21 +15071,23 @@ export interface components {
      * Issue Event for Issue
      * @description Issue Event for Issue
      */
-    'issue-event-for-issue': (Partial<components['schemas']['labeled-issue-event']> &
-      Partial<components['schemas']['unlabeled-issue-event']> &
-      Partial<components['schemas']['assigned-issue-event']> &
-      Partial<components['schemas']['unassigned-issue-event']> &
-      Partial<components['schemas']['milestoned-issue-event']> &
-      Partial<components['schemas']['demilestoned-issue-event']> &
-      Partial<components['schemas']['renamed-issue-event']> &
-      Partial<components['schemas']['review-requested-issue-event']> &
-      Partial<components['schemas']['review-request-removed-issue-event']> &
-      Partial<components['schemas']['review-dismissed-issue-event']> &
-      Partial<components['schemas']['locked-issue-event']> &
-      Partial<components['schemas']['added-to-project-issue-event']> &
-      Partial<components['schemas']['moved-column-in-project-issue-event']> &
-      Partial<components['schemas']['removed-from-project-issue-event']> &
-      Partial<components['schemas']['converted-note-to-issue-issue-event']>) & { [key: string]: unknown }
+    'issue-event-for-issue': (
+      | components['schemas']['labeled-issue-event']
+      | components['schemas']['unlabeled-issue-event']
+      | components['schemas']['assigned-issue-event']
+      | components['schemas']['unassigned-issue-event']
+      | components['schemas']['milestoned-issue-event']
+      | components['schemas']['demilestoned-issue-event']
+      | components['schemas']['renamed-issue-event']
+      | components['schemas']['review-requested-issue-event']
+      | components['schemas']['review-request-removed-issue-event']
+      | components['schemas']['review-dismissed-issue-event']
+      | components['schemas']['locked-issue-event']
+      | components['schemas']['added-to-project-issue-event']
+      | components['schemas']['moved-column-in-project-issue-event']
+      | components['schemas']['removed-from-project-issue-event']
+      | components['schemas']['converted-note-to-issue-issue-event']
+    ) & { [key: string]: unknown }
     /**
      * Label
      * @description Color-coded labels help you categorize and filter your issues (just like labels in Gmail).
@@ -15525,27 +15523,29 @@ export interface components {
      * Timeline Event
      * @description Timeline Event
      */
-    'timeline-issue-events': (Partial<components['schemas']['labeled-issue-event']> &
-      Partial<components['schemas']['unlabeled-issue-event']> &
-      Partial<components['schemas']['milestoned-issue-event']> &
-      Partial<components['schemas']['demilestoned-issue-event']> &
-      Partial<components['schemas']['renamed-issue-event']> &
-      Partial<components['schemas']['review-requested-issue-event']> &
-      Partial<components['schemas']['review-request-removed-issue-event']> &
-      Partial<components['schemas']['review-dismissed-issue-event']> &
-      Partial<components['schemas']['locked-issue-event']> &
-      Partial<components['schemas']['added-to-project-issue-event']> &
-      Partial<components['schemas']['moved-column-in-project-issue-event']> &
-      Partial<components['schemas']['removed-from-project-issue-event']> &
-      Partial<components['schemas']['converted-note-to-issue-issue-event']> &
-      Partial<components['schemas']['timeline-comment-event']> &
-      Partial<components['schemas']['timeline-cross-referenced-event']> &
-      Partial<components['schemas']['timeline-committed-event']> &
-      Partial<components['schemas']['timeline-reviewed-event']> &
-      Partial<components['schemas']['timeline-line-commented-event']> &
-      Partial<components['schemas']['timeline-commit-commented-event']> &
-      Partial<components['schemas']['timeline-assigned-issue-event']> &
-      Partial<components['schemas']['timeline-unassigned-issue-event']>) & { [key: string]: unknown }
+    'timeline-issue-events': (
+      | components['schemas']['labeled-issue-event']
+      | components['schemas']['unlabeled-issue-event']
+      | components['schemas']['milestoned-issue-event']
+      | components['schemas']['demilestoned-issue-event']
+      | components['schemas']['renamed-issue-event']
+      | components['schemas']['review-requested-issue-event']
+      | components['schemas']['review-request-removed-issue-event']
+      | components['schemas']['review-dismissed-issue-event']
+      | components['schemas']['locked-issue-event']
+      | components['schemas']['added-to-project-issue-event']
+      | components['schemas']['moved-column-in-project-issue-event']
+      | components['schemas']['removed-from-project-issue-event']
+      | components['schemas']['converted-note-to-issue-issue-event']
+      | components['schemas']['timeline-comment-event']
+      | components['schemas']['timeline-cross-referenced-event']
+      | components['schemas']['timeline-committed-event']
+      | components['schemas']['timeline-reviewed-event']
+      | components['schemas']['timeline-line-commented-event']
+      | components['schemas']['timeline-commit-commented-event']
+      | components['schemas']['timeline-assigned-issue-event']
+      | components['schemas']['timeline-unassigned-issue-event']
+    ) & { [key: string]: unknown }
     /**
      * Deploy Key
      * @description An SSH key granting access to a single repository.
@@ -20541,7 +20541,7 @@ export interface operations {
                *   }
                * }
                */
-              files?: { [key: string]: Partial<{ [key: string]: unknown }> }
+              files?: { [key: string]: { [key: string]: unknown } }
             } & { [key: string]: unknown })
           | null
       }
@@ -23718,9 +23718,7 @@ export interface operations {
       /** Response */
       200: {
         content: {
-          'application/json': (Partial<components['schemas']['interaction-limit-response']> & Partial<{ [key: string]: unknown }>) & {
-            [key: string]: unknown
-          }
+          'application/json': (components['schemas']['interaction-limit-response'] | { [key: string]: unknown }) & { [key: string]: unknown }
         }
       }
     }
@@ -29777,20 +29775,18 @@ export interface operations {
     }
     requestBody: {
       content: {
-        'application/json': (Partial<
-          {
-            /** @enum {undefined} */
-            status?: 'completed'
-          } & {
-            conclusion: unknown
-          } & { [key: string]: unknown }
-        > &
-          Partial<
-            {
+        'application/json': (
+          | ({
+              /** @enum {undefined} */
+              status?: 'completed'
+            } & {
+              conclusion: unknown
+            } & { [key: string]: unknown })
+          | ({
               /** @enum {undefined} */
               status?: 'queued' | 'in_progress'
-            } & { [key: string]: unknown }
-          >) & {
+            } & { [key: string]: unknown })
+        ) & {
           /** @description The name of the check. For example, "code-coverage". */
           name?: string
           /** @description The URL of the integrator's site that has the full details of the check. */
@@ -33540,9 +33536,7 @@ export interface operations {
       /** Response */
       200: {
         content: {
-          'application/json': (Partial<components['schemas']['interaction-limit-response']> & Partial<{ [key: string]: unknown }>) & {
-            [key: string]: unknown
-          }
+          'application/json': (components['schemas']['interaction-limit-response'] | { [key: string]: unknown }) & { [key: string]: unknown }
         }
       }
     }
@@ -35150,9 +35144,9 @@ export interface operations {
           https_enforced?: boolean
           /** @description Configures access controls for the GitHub Pages site. If public is set to `true`, the site is accessible to anyone on the internet. If set to `false`, the site will only be accessible to users who have at least `read` access to the repository that published the site. This includes anyone in your Enterprise if the repository is set to `internal` visibility. This feature is only available to repositories in an organization on an Enterprise plan. */
           public?: boolean
-          source?: (Partial<'gh-pages' | 'master' | 'master /docs'> &
-            Partial<
-              {
+          source?: (
+            | ('gh-pages' | 'master' | 'master /docs')
+            | ({
                 /** @description The repository branch used to publish your site's source files. */
                 branch: string
                 /**
@@ -35160,8 +35154,8 @@ export interface operations {
                  * @enum {string}
                  */
                 path: '/' | '/docs'
-              } & { [key: string]: unknown }
-            >) & { [key: string]: unknown }
+              } & { [key: string]: unknown })
+          ) & { [key: string]: unknown }
         } & { [key: string]: unknown }
       }
     }
@@ -37040,9 +37034,7 @@ export interface operations {
       200: {
         headers: {}
         content: {
-          'application/json': (Partial<components['schemas']['simple-user'][]> & Partial<components['schemas']['stargazer'][]>) & {
-            [key: string]: unknown
-          }
+          'application/json': (components['schemas']['simple-user'][] | components['schemas']['stargazer'][]) & { [key: string]: unknown }
         }
       }
       422: components['responses']['validation_failed']
@@ -41093,9 +41085,7 @@ export interface operations {
       /** Default response */
       200: {
         content: {
-          'application/json': (Partial<components['schemas']['interaction-limit-response']> & Partial<{ [key: string]: unknown }>) & {
-            [key: string]: unknown
-          }
+          'application/json': (components['schemas']['interaction-limit-response'] | { [key: string]: unknown }) & { [key: string]: unknown }
         }
       }
       /** Response when there are no restrictions */
@@ -42996,9 +42986,7 @@ export interface operations {
       200: {
         headers: {}
         content: {
-          'application/json': (Partial<components['schemas']['starred-repository'][]> & Partial<components['schemas']['repository'][]>) & {
-            [key: string]: unknown
-          }
+          'application/json': (components['schemas']['starred-repository'][] | components['schemas']['repository'][]) & { [key: string]: unknown }
         }
       }
     }

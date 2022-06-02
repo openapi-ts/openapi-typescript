@@ -78,7 +78,7 @@ export function transformAnyOf(anyOf: any, options: TransformSchemaObjOptions): 
   if (schemas.length === 0) {
     return "";
   }
-  return tsIntersectionOf(schemas.map((s: any) => tsPartial(transformSchemaObj(s, options))));
+  return tsUnionOf(schemas.map((s: any) => transformSchemaObj(s, options)));
 }
 
 /** transform oneOf */
