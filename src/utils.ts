@@ -130,7 +130,10 @@ type SchemaObjectType =
   | "object"
   | "oneOf"
   | "ref"
+  | "null"
   | "string"
+  // Special type so the parent function knows to recursively evaluate each entry
+  | "multiple-types"
   | "unknown";
 export function nodeType(obj: any): SchemaObjectType {
   if (!obj || typeof obj !== "object") {
@@ -140,6 +143,7 @@ export function nodeType(obj: any): SchemaObjectType {
   if (obj.$ref) {
     return "ref";
   }
+  
 
   // const
   if (obj.const) {
@@ -161,6 +165,10 @@ export function nodeType(obj: any): SchemaObjectType {
     return "boolean";
   }
 
+  // null
+  if (obj.type === "null") { 
+    return "null"
+  }
   // string
   if (
     obj.type === "string" ||
@@ -187,6 +195,11 @@ export function nodeType(obj: any): SchemaObjectType {
   if (obj.type === "object" || obj.hasOwnProperty("properties") || obj.hasOwnProperty("additionalProperties")) {
     return "object";
   }
+
+  // Type array
+  if (Array.isArray(obj.type)) {
+    return "multiple-types";
+}
 
   // return unknown by default
   return "unknown";
