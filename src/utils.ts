@@ -133,7 +133,7 @@ type SchemaObjectType =
   | "null"
   | "string"
   // Special type so the parent function knows to recursively evaluate each entry
-  | "multiple-types"
+  | "type-array"
   | "unknown";
 export function nodeType(obj: any): SchemaObjectType {
   if (!obj || typeof obj !== "object") {
@@ -143,7 +143,6 @@ export function nodeType(obj: any): SchemaObjectType {
   if (obj.$ref) {
     return "ref";
   }
-  
 
   // const
   if (obj.const) {
@@ -160,14 +159,19 @@ export function nodeType(obj: any): SchemaObjectType {
     return "object";
   }
 
+  // Type array from the 3.1 specification
+  if (Array.isArray(obj.type)) {
+    return "type-array";
+  }
+
   // boolean
   if (obj.type === "boolean") {
     return "boolean";
   }
 
   // null
-  if (obj.type === "null") { 
-    return "null"
+  if (obj.type === "null") {
+    return "null";
   }
   // string
   if (
@@ -195,11 +199,6 @@ export function nodeType(obj: any): SchemaObjectType {
   if (obj.type === "object" || obj.hasOwnProperty("properties") || obj.hasOwnProperty("additionalProperties")) {
     return "object";
   }
-
-  // Type array
-  if (Array.isArray(obj.type)) {
-    return "multiple-types";
-}
 
   // return unknown by default
   return "unknown";

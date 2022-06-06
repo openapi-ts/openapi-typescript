@@ -105,8 +105,9 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
   } else {
     // transform core type
     switch (nodeType(node)) {
-      case "multiple-types":
-        output += tsUnionOf((node.type as any[]).map(type => transformSchemaObj({ ...node, type }, options)))
+      case "type-array":
+        // This is an array of types as of the 3.1 specification - we should recursively evaluate them
+        output += tsUnionOf((node.type as any[]).map((type) => transformSchemaObj({ ...node, type }, options)));
         break;
       case "ref": {
         output += node.$ref; // these were transformed at load time when remote schemas were resolved; return as-is
