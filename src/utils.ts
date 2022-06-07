@@ -141,6 +141,11 @@ export function nodeType(obj: any): SchemaObjectType {
     return "enum";
   }
 
+  // Treat any node with allOf/ anyOf/ oneOf as object
+  if (obj.hasOwnProperty("allOf") || obj.hasOwnProperty("anyOf") || obj.hasOwnProperty("oneOf")) {
+    return "object";
+  }
+
   // boolean
   if (obj.type === "boolean") {
     return "boolean";
@@ -169,14 +174,7 @@ export function nodeType(obj: any): SchemaObjectType {
   }
 
   // object
-  if (
-    obj.type === "object" ||
-    obj.hasOwnProperty("allOf") ||
-    obj.hasOwnProperty("anyOf") ||
-    obj.hasOwnProperty("oneOf") ||
-    obj.hasOwnProperty("properties") ||
-    obj.hasOwnProperty("additionalProperties")
-  ) {
+  if (obj.type === "object" || obj.hasOwnProperty("properties") || obj.hasOwnProperty("additionalProperties")) {
     return "object";
   }
 
