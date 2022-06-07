@@ -24,6 +24,10 @@ function hasDefaultValue(node: any): boolean {
   return false;
 }
 
+function isAnyOfOrOneOfOrAllOf(node: any): boolean {
+  return "anyOf" in node || "oneOf" in node || "allOf" in node;
+}
+
 /** Take object keys and convert to TypeScript interface */
 export function transformSchemaObjMap(obj: Record<string, any>, options: TransformSchemaObjOptions): string {
   let output = "";
@@ -113,6 +117,16 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
       case "number":
       case "boolean":
       case "unknown": {
+        // Support primitive types that use anyOf, oneOf, or allOf
+        if (isAnyOfOrOneOfOrAllOf(node)) {
+          output += tsIntersectionOf([
+            ...(node.allOf ? (node.allOf as any[]).map((node) => transformSchemaObj(node, options)) : []),
+            ...(node.anyOf ? [transformAnyOf(node.anyOf, options)] : []),
+            ...(node.oneOf ? [transformOneOf(node.oneOf, options)] : []),
+          ]);
+          break;
+        }
+
         output += nodeType(node);
         break;
       }
@@ -130,11 +144,10 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
         break;
       }
       case "object": {
-        const isAnyOfOrOneOfOrAllOf = "anyOf" in node || "oneOf" in node || "allOf" in node;
         const missingRequired = addRequiredProps(node.properties || {}, node.required || []);
         // if empty object, then return generic map type
         if (
-          !isAnyOfOrOneOfOrAllOf &&
+          !isAnyOfOrOneOfOrAllOf(node) &&
           (!node.properties || !Object.keys(node.properties).length) &&
           !node.additionalProperties
         ) {
