@@ -3,10 +3,15 @@ import { comment, tsReadonly } from "../utils.js";
 import { transformHeaderObjMap } from "./headers.js";
 import { transformSchemaObj } from "./schema.js";
 
-const resType = (res: string | number) => (res === 204 || (res >= 300 && res < 400) ? "never" : "unknown");
-
 export function transformResponsesObj(responsesObj: Record<string, any>, ctx: GlobalContext): string {
   const readonly = tsReadonly(ctx.immutableTypes);
+  const resType = (res: string | number) => {
+    if (tsReadonly(ctx.contentNever)) {
+      return "never";
+    } else {
+      return res === 204 || (res >= 300 && res < 400) ? "never" : "unknown";
+    }
+  };
 
   let output = "";
 

@@ -304,7 +304,7 @@ describe("SchemaObject", () => {
           { ...defaults }
         )
       ).to.equal(
-        `(Partial<components["schemas"]["StringType"]>) & (Partial<components["schemas"]["NumberType"]>) & (Partial<components["schemas"]["BooleanType"]>)`
+        `(components["schemas"]["StringType"]) | (components["schemas"]["NumberType"]) | (components["schemas"]["BooleanType"])`
       );
     });
 
@@ -374,13 +374,13 @@ describe("SchemaObject", () => {
           },
           { ...defaults }
         )
-      ).to.equal(`((Partial<{
+      ).to.equal(`(({
 "b": string;
 
-}>) & (Partial<{
+}) | ({
 "c": string;
 
-}>)) & ({
+})) & ({
 "a"?: string;
 
 })`);

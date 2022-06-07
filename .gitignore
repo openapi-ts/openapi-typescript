@@ -1,6 +1,7 @@
 .dccache
 .cache
 .DS_Store
+.idea/
 .nyc_output/
 **/generated/
 **/__snapshots__/

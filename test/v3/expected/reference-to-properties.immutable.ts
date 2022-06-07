@@ -4,32 +4,32 @@
  */
 
 export interface paths {
-  readonly "/pet": {
-    readonly put: operations["updatePet"];
-  };
+  readonly '/pet': {
+    readonly put: operations['updatePet']
+  }
 }
 
 export interface components {
   readonly schemas: {
     readonly Pet: {
-      readonly name: string;
-    };
-  };
+      readonly name: string
+    }
+  }
 }
 
 export interface operations {
   readonly updatePet: {
     readonly responses: {
-      readonly 200: unknown;
-    };
+      readonly 200: unknown
+    }
     readonly requestBody: {
       readonly content: {
-        readonly "application/json": {
-          readonly name?: components["schemas"]["Pet"]["name"];
-        };
-      };
-    };
-  };
+        readonly 'application/json': {
+          readonly name?: components['schemas']['Pet']['name']
+        }
+      }
+    }
+  }
 }
 
 export interface external {}

@@ -20,7 +20,7 @@ describe("cli", () => {
   });
 
   it("--prettier-config (.js)", async () => {
-    execSync(`${cmd} specs/petstore.yaml -o generated/prettier-js.ts --prettier-config fixtures/prettier.config.js`, {
+    execSync(`${cmd} specs/petstore.yaml -o generated/prettier-js.ts --prettier-config fixtures/prettier.config.cjs`, {
       cwd,
     });
     const generated = fs.readFileSync(new URL("./generated/prettier-js.ts", cwd), "utf8");
@@ -28,10 +28,25 @@ describe("cli", () => {
     expect(generated).to.equal(expected);
   });
 
+  it("--prettier-config (missing)", async () => {
+    expect(() =>
+      execSync(`${cmd} specs/petstore.yaml -o generated/prettier-missing.ts --prettier-config NO_SUCH_FILE`, { cwd })
+    ).to.throw("NO_SUCH_FILE");
+  });
+
   it("stdout", async () => {
     const generated = execSync(`${cmd} specs/petstore.yaml`, { cwd });
     const expected = eol.lf(fs.readFileSync(new URL("./expected/stdout.ts", cwd), "utf8"));
     expect(generated.toString("utf8")).to.equal(expected);
+  });
+
+  it("stdin", async () => {
+    execSync(`${cmd} - -o generated/stdin.ts < ./specs/petstore.yaml`, {
+      cwd,
+    });
+    const generated = fs.readFileSync(new URL("./generated/stdin.ts", cwd), "utf8");
+    const expected = eol.lf(fs.readFileSync(new URL("./expected/stdin.ts", cwd), "utf8"));
+    expect(generated).to.equal(expected);
   });
 
   it("supports glob paths", async () => {
@@ -63,5 +78,25 @@ describe("cli", () => {
         { cwd }
       );
     }).not.to.throw();
+  });
+
+  it("generates a paths enum when run with --make-paths-enum", () => {
+    const generatedPath = "generated/paths-enum.ts";
+    execSync(`${cmd} specs/petstore.yaml -o ${generatedPath} --make-paths-enum`, {
+      cwd,
+    });
+    const generated = fs.readFileSync(new URL(`./${generatedPath}`, cwd), "utf8");
+    const expected = eol.lf(fs.readFileSync(new URL("./expected/paths-enum.ts", cwd), "utf8"));
+    expect(generated).to.equal(expected);
+  });
+
+  it("generates the `never` type for omitted response `content` with --content-never", () => {
+    const generatedPath = "generated/content-never.ts";
+    execSync(`${cmd} specs/no-response.yaml -o ${generatedPath} --content-never`, {
+      cwd,
+    });
+    const generated = fs.readFileSync(new URL(`./${generatedPath}`, cwd), "utf8");
+    const expected = eol.lf(fs.readFileSync(new URL("./expected/content-never.ts", cwd), "utf8"));
+    expect(generated).to.equal(expected);
   });
 });

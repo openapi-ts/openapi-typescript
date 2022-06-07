@@ -4,224 +4,224 @@
  */
 
 export interface paths {
-  readonly "/regions/": {
+  readonly '/regions/': {
     readonly get: {
       readonly parameters: {
         readonly query: {
           /** Filter results to only include the regions that have this location. */
-          readonly location?: string;
+          readonly location?: string
           /**
            * Filter results to only include the regions that are on this
            * platform.
            */
-          readonly platform?: string;
-        };
-      };
+          readonly platform?: string
+        }
+      }
       readonly responses: {
         /** A list of regions. */
         readonly 200: {
-          readonly schema: readonly definitions["Region"][];
-        };
+          readonly schema: readonly definitions['Region'][]
+        }
         /** Unexpected Error */
         readonly 500: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
+          readonly schema: definitions['Error']
+        }
+      }
+    }
     readonly post: {
       readonly parameters: {
         readonly body: {
           /** Region create request */
-          readonly body: definitions["CreateRegion"];
-        };
-      };
+          readonly body: definitions['CreateRegion']
+        }
+      }
       readonly responses: {
         /** Complete region object */
         readonly 201: {
-          readonly schema: definitions["Region"];
-        };
+          readonly schema: definitions['Region']
+        }
         /** Invalid request provided */
         readonly 400: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Region already exists for that platform and location */
         readonly 409: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Unexpected Error */
         readonly 500: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
-  };
-  readonly "/regions/{id}": {
+          readonly schema: definitions['Error']
+        }
+      }
+    }
+  }
+  readonly '/regions/{id}': {
     readonly get: {
       readonly parameters: {
         readonly path: {
           /** ID of the region to lookup, stored as a base32 encoded 18 byte identifier. */
-          readonly id: string;
-        };
-      };
+          readonly id: string
+        }
+      }
       readonly responses: {
         /** A region. */
         readonly 200: {
-          readonly schema: definitions["Region"];
-        };
+          readonly schema: definitions['Region']
+        }
         /** Provided Region ID is Invalid */
         readonly 400: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Region could not be found */
         readonly 404: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Unexpected Error */
         readonly 500: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
+          readonly schema: definitions['Error']
+        }
+      }
+    }
     readonly patch: {
       readonly parameters: {
         readonly path: {
           /** ID of the region to lookup, stored as a base32 encoded 18 byte identifier. */
-          readonly id: string;
-        };
+          readonly id: string
+        }
         readonly body: {
           /** Region update request */
-          readonly body: definitions["UpdateRegion"];
-        };
-      };
+          readonly body: definitions['UpdateRegion']
+        }
+      }
       readonly responses: {
         /** Complete region object */
         readonly 200: {
-          readonly schema: definitions["Region"];
-        };
+          readonly schema: definitions['Region']
+        }
         /** Invalid request provided */
         readonly 400: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Unexpected Error */
         readonly 500: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
-  };
-  readonly "/providers/": {
+          readonly schema: definitions['Error']
+        }
+      }
+    }
+  }
+  readonly '/providers/': {
     readonly get: {
       readonly parameters: {
         readonly query: {
           /** Filter results to only include those that have this label. */
-          readonly label?: parameters["LabelFilter"];
-        };
-      };
+          readonly label?: parameters['LabelFilter']
+        }
+      }
       readonly responses: {
         /** A list of providers. */
         readonly 200: {
-          readonly schema: readonly definitions["Provider"][];
-        };
+          readonly schema: readonly definitions['Provider'][]
+        }
         /** Unexpected Error */
         readonly 500: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
+          readonly schema: definitions['Error']
+        }
+      }
+    }
     readonly post: {
       readonly parameters: {
         readonly body: {
           /** Provider create request */
-          readonly body: definitions["CreateProvider"];
-        };
-      };
+          readonly body: definitions['CreateProvider']
+        }
+      }
       readonly responses: {
         /** Complete provider object */
         readonly 201: {
-          readonly schema: definitions["Provider"];
-        };
+          readonly schema: definitions['Provider']
+        }
         /** Invalid request provided */
         readonly 400: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Forbidden */
         readonly 403: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Provider already exists with that label */
         readonly 409: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Unexpected Error */
         readonly 500: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
-  };
-  readonly "/providers/{id}": {
+          readonly schema: definitions['Error']
+        }
+      }
+    }
+  }
+  readonly '/providers/{id}': {
     readonly get: {
       readonly parameters: {
         readonly path: {
           /** ID of the provider to lookup, stored as a base32 encoded 18 byte identifier. */
-          readonly id: string;
-        };
-      };
+          readonly id: string
+        }
+      }
       readonly responses: {
         /** A provider. */
         readonly 200: {
-          readonly schema: definitions["Provider"];
-        };
+          readonly schema: definitions['Provider']
+        }
         /** Unknown provider error */
         readonly 404: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Unexpected Error */
         readonly 500: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
+          readonly schema: definitions['Error']
+        }
+      }
+    }
     readonly patch: {
       readonly parameters: {
         readonly path: {
           /** ID of the provider to update, stored as a base32 encoded 18 byte identifier. */
-          readonly id: string;
-        };
+          readonly id: string
+        }
         readonly body: {
           /** Provider update request */
-          readonly body: definitions["UpdateProvider"];
-        };
-      };
+          readonly body: definitions['UpdateProvider']
+        }
+      }
       readonly responses: {
         /** Complete provider object */
         readonly 200: {
-          readonly schema: definitions["Provider"];
-        };
+          readonly schema: definitions['Provider']
+        }
         /** Invalid request provided */
         readonly 400: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Forbidden */
         readonly 403: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Provider not found */
         readonly 404: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Provider already exists with that label */
         readonly 409: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Unexpected Error */
         readonly 500: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
-  };
-  readonly "/products/": {
+          readonly schema: definitions['Error']
+        }
+      }
+    }
+  }
+  readonly '/products/': {
     readonly get: {
       readonly parameters: {
         readonly query: {
@@ -229,60 +229,60 @@ export interface paths {
            * Base32 encoded 18 byte identifier of the provider that these
            * products must belong to.
            */
-          readonly provider_id?: string;
+          readonly provider_id?: string
           /** Filter results to only include those that have this label. */
-          readonly label?: parameters["LabelFilter"];
+          readonly label?: parameters['LabelFilter']
           /** Return only products matching at least one of the tags. */
-          readonly tags?: readonly string[];
-        };
-      };
+          readonly tags?: readonly string[]
+        }
+      }
       readonly responses: {
         /** A product. */
         readonly 200: {
-          readonly schema: readonly definitions["Product"][];
-        };
+          readonly schema: readonly definitions['Product'][]
+        }
         /** Invalid provider_id supplied */
         readonly 400: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Unexpected Error */
         readonly 500: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
+          readonly schema: definitions['Error']
+        }
+      }
+    }
     readonly post: {
       readonly parameters: {
         readonly body: {
           /** Product create request */
-          readonly body: definitions["CreateProduct"];
-        };
-      };
+          readonly body: definitions['CreateProduct']
+        }
+      }
       readonly responses: {
         /** Complete product object */
         readonly 201: {
-          readonly schema: definitions["Product"];
-        };
+          readonly schema: definitions['Product']
+        }
         /** Invalid request provided */
         readonly 400: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Forbidden */
         readonly 403: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Product already exists with that label */
         readonly 409: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Unexpected Error */
         readonly 500: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
-  };
-  readonly "/internal/products": {
+          readonly schema: definitions['Error']
+        }
+      }
+    }
+  }
+  readonly '/internal/products': {
     readonly get: {
       readonly parameters: {
         readonly query: {
@@ -290,32 +290,32 @@ export interface paths {
            * Base32 encoded 18 byte identifier of the provider that these
            * products must belong to.
            */
-          readonly provider_id?: string;
+          readonly provider_id?: string
           /** Filter results to only include those that have this label. */
-          readonly label?: parameters["LabelFilter"];
+          readonly label?: parameters['LabelFilter']
           /** Return only products matching at least one of the tags. */
-          readonly tags?: readonly string[];
+          readonly tags?: readonly string[]
           /** Return product listings without plan information */
-          readonly include_plans?: boolean;
-        };
-      };
+          readonly include_plans?: boolean
+        }
+      }
       readonly responses: {
         /** A product. */
         readonly 200: {
-          readonly schema: readonly definitions["ExpandedProduct"][];
-        };
+          readonly schema: readonly definitions['ExpandedProduct'][]
+        }
         /** Invalid provider_id supplied */
         readonly 400: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Unexpected Error */
         readonly 500: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
-  };
-  readonly "/products/{id}": {
+          readonly schema: definitions['Error']
+        }
+      }
+    }
+  }
+  readonly '/products/{id}': {
     readonly get: {
       readonly parameters: {
         readonly path: {
@@ -323,28 +323,28 @@ export interface paths {
            * ID of the product to lookup, stored as a base32 encoded 18 byte
            * identifier.
            */
-          readonly id: string;
-        };
-      };
+          readonly id: string
+        }
+      }
       readonly responses: {
         /** A product. */
         readonly 200: {
-          readonly schema: definitions["Product"];
-        };
+          readonly schema: definitions['Product']
+        }
         /** Invalid Product ID */
         readonly 400: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Product not found error */
         readonly 404: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Unexpected error */
         readonly 500: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
+          readonly schema: definitions['Error']
+        }
+      }
+    }
     readonly patch: {
       readonly parameters: {
         readonly path: {
@@ -352,34 +352,34 @@ export interface paths {
            * ID of the product to lookup, stored as a base32 encoded 18 byte
            * identifier.
            */
-          readonly id: string;
-        };
+          readonly id: string
+        }
         readonly body: {
           /** Product update request */
-          readonly body: definitions["UpdateProduct"];
-        };
-      };
+          readonly body: definitions['UpdateProduct']
+        }
+      }
       readonly responses: {
         /** Complete product object */
         readonly 200: {
-          readonly schema: definitions["Product"];
-        };
+          readonly schema: definitions['Product']
+        }
         /** Invalid Product ID */
         readonly 400: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Product not found error */
         readonly 404: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Unexpected error */
         readonly 500: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
-  };
-  readonly "/plans/{id}": {
+          readonly schema: definitions['Error']
+        }
+      }
+    }
+  }
+  readonly '/plans/{id}': {
     readonly get: {
       readonly parameters: {
         readonly path: {
@@ -387,28 +387,28 @@ export interface paths {
            * ID of the plan to lookup, stored as a base32 encoded 18 byte
            * identifier.
            */
-          readonly id: string;
-        };
-      };
+          readonly id: string
+        }
+      }
       readonly responses: {
         /** A plan. */
         readonly 200: {
-          readonly schema: definitions["ExpandedPlan"];
-        };
+          readonly schema: definitions['ExpandedPlan']
+        }
         /** Invalid Plan ID Provided */
         readonly 400: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Unknown plan error */
         readonly 404: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Unexpected error */
         readonly default: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
+          readonly schema: definitions['Error']
+        }
+      }
+    }
     readonly patch: {
       readonly parameters: {
         readonly path: {
@@ -416,93 +416,93 @@ export interface paths {
            * ID of the plan to lookup, stored as a base32 encoded 18 byte
            * identifier.
            */
-          readonly id: string;
-        };
+          readonly id: string
+        }
         readonly body: {
           /** Plan update request */
-          readonly body: definitions["UpdatePlan"];
-        };
-      };
+          readonly body: definitions['UpdatePlan']
+        }
+      }
       readonly responses: {
         /** Complete product plan */
         readonly 200: {
-          readonly schema: definitions["Plan"];
-        };
+          readonly schema: definitions['Plan']
+        }
         /** Invalid Plan ID */
         readonly 400: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Plan not found error */
         readonly 404: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Unexpected error */
         readonly 500: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
-  };
-  readonly "/plans/": {
+          readonly schema: definitions['Error']
+        }
+      }
+    }
+  }
+  readonly '/plans/': {
     readonly get: {
       readonly parameters: {
         readonly query: {
           /** Return the plans that are associated with this product. */
-          readonly product_id: readonly string[];
+          readonly product_id: readonly string[]
           /** Filter results to only include those that have this label. */
-          readonly label?: parameters["LabelFilter"];
-        };
-      };
+          readonly label?: parameters['LabelFilter']
+        }
+      }
       readonly responses: {
         /** A list of plans for the given product. */
         readonly 200: {
-          readonly schema: readonly definitions["ExpandedPlan"][];
-        };
+          readonly schema: readonly definitions['ExpandedPlan'][]
+        }
         /** Invalid Parameters Provided */
         readonly 400: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Could not find product */
         readonly 404: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Unexpected error */
         readonly 500: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
+          readonly schema: definitions['Error']
+        }
+      }
+    }
     readonly post: {
       readonly parameters: {
         readonly body: {
           /** Plan create request */
-          readonly body: definitions["CreatePlan"];
-        };
-      };
+          readonly body: definitions['CreatePlan']
+        }
+      }
       readonly responses: {
         /** Complete plan object */
         readonly 201: {
-          readonly schema: definitions["Plan"];
-        };
+          readonly schema: definitions['Plan']
+        }
         /** Invalid request provided */
         readonly 400: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Forbidden */
         readonly 403: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Plan already exists with that label */
         readonly 409: {
-          readonly schema: definitions["Error"];
-        };
+          readonly schema: definitions['Error']
+        }
         /** Unexpected Error */
         readonly 500: {
-          readonly schema: definitions["Error"];
-        };
-      };
-    };
-  };
+          readonly schema: definitions['Error']
+        }
+      }
+    }
+  }
 }
 
 export interface definitions {
@@ -510,205 +510,214 @@ export interface definitions {
    * Format: base32ID
    * @description A base32 encoded 18 byte identifier.
    */
-  readonly ID: string;
+  readonly ID: string
   /**
    * Format: base32ID
    * @description A base32 encoded 18 byte identifier.
    */
-  readonly OptionalID: string;
+  readonly OptionalID: string
   /** @description A flexible identifier for internal or external entities. */
-  readonly FlexID: string;
+  readonly FlexID: string
   /** @description A flexible identifier for internal or external entities. */
-  readonly OptionalFlexID: string;
+  readonly OptionalFlexID: string
   /** @description A machine readable unique label, which is url safe. */
-  readonly Label: string;
+  readonly Label: string
   /** @description A machine readable unique label, which is url safe. */
-  readonly OptionalLabel: string;
+  readonly OptionalLabel: string
   /** @description A machine readable unique label, which is url safe. */
-  readonly FeatureValueLabel: string;
+  readonly FeatureValueLabel: string
   /** @description A location of where a potential resource can be provisioned. */
-  readonly Location: string;
+  readonly Location: string
   /** @description A name of a platform which is used to provision resources. */
-  readonly Platform: string;
+  readonly Platform: string
   /** @description A name of an entity which is displayed to a human. */
-  readonly Name: string;
+  readonly Name: string
   /** @description A name of an entity which is displayed to a human. */
-  readonly OptionalName: string;
+  readonly OptionalName: string
   /**
    * Format: url
    * @description Logo used for Provider and Product listings.
    *
    * Must be square (same width and height) and minimum 400px. Maximum of 800px.
    */
-  readonly LogoURL: string;
+  readonly LogoURL: string
   /**
    * Format: url
    * @description Logo used for Provider and Product listings.
    *
    * Must be square (same width and height) and minimum 400px. Maximum of 800px.
    */
-  readonly OptionalLogoURL: string;
+  readonly OptionalLogoURL: string
   readonly RegionBody: {
-    readonly platform: definitions["Platform"];
-    readonly location: definitions["Location"];
-    readonly name: string;
-    readonly priority: number;
-  };
+    readonly platform: definitions['Platform']
+    readonly location: definitions['Location']
+    readonly name: string
+    readonly priority: number
+  }
   readonly Region: {
-    readonly id: definitions["ID"];
+    readonly id: definitions['ID']
     /** @enum {string} */
-    readonly type: "region";
+    readonly type: 'region'
     /** @enum {integer} */
-    readonly version: 1;
-    readonly body: definitions["RegionBody"];
-  };
+    readonly version: 1
+    readonly body: definitions['RegionBody']
+  }
   readonly CreateRegion: {
-    readonly body: definitions["RegionBody"];
-  };
+    readonly body: definitions['RegionBody']
+  }
   readonly UpdateRegion: {
-    readonly name: string;
-  };
+    readonly name: string
+  }
   readonly ProviderBody: {
-    readonly owner_id?: definitions["OptionalFlexID"];
-    readonly team_id?: definitions["OptionalID"];
-    readonly label: definitions["Label"];
-    readonly name: definitions["Name"];
-    readonly logo_url?: definitions["LogoURL"];
+    readonly owner_id?: definitions['OptionalFlexID']
+    readonly team_id?: definitions['OptionalID']
+    readonly label: definitions['Label']
+    readonly name: definitions['Name']
+    readonly logo_url?: definitions['LogoURL']
     /** Format: email */
-    readonly support_email?: string;
+    readonly support_email?: string
     /** Format: url */
-    readonly documentation_url?: string;
-  };
+    readonly documentation_url?: string
+  }
   readonly UpdateProviderBody: {
-    readonly owner_id?: definitions["OptionalFlexID"];
-    readonly team_id?: definitions["OptionalID"];
-    readonly label?: definitions["OptionalLabel"];
-    readonly name?: definitions["OptionalName"];
-    readonly logo_url?: definitions["OptionalLogoURL"];
+    readonly owner_id?: definitions['OptionalFlexID']
+    readonly team_id?: definitions['OptionalID']
+    readonly label?: definitions['OptionalLabel']
+    readonly name?: definitions['OptionalName']
+    readonly logo_url?: definitions['OptionalLogoURL']
     /** Format: email */
-    readonly support_email?: string;
+    readonly support_email?: string
     /** Format: url */
-    readonly documentation_url?: string;
-  };
+    readonly documentation_url?: string
+  }
   readonly Provider: {
-    readonly id: definitions["ID"];
+    readonly id: definitions['ID']
     /** @enum {integer} */
-    readonly version: 1;
+    readonly version: 1
     /** @enum {string} */
-    readonly type: "provider";
-    readonly body: definitions["ProviderBody"];
-  };
+    readonly type: 'provider'
+    readonly body: definitions['ProviderBody']
+  }
   readonly CreateProvider: {
-    readonly body: definitions["ProviderBody"];
-  };
+    readonly body: definitions['ProviderBody']
+  }
   readonly UpdateProvider: {
-    readonly id: definitions["ID"];
-    readonly body: definitions["UpdateProviderBody"];
-  };
+    readonly id: definitions['ID']
+    readonly body: definitions['UpdateProviderBody']
+  }
   readonly UpdateProduct: {
-    readonly id: definitions["ID"];
-    readonly body: definitions["UpdateProductBody"];
-  };
+    readonly id: definitions['ID']
+    readonly body: definitions['UpdateProductBody']
+  }
   readonly UpdateProductBody: {
-    readonly name?: definitions["Name"];
-    readonly label?: definitions["Label"];
-    readonly logo_url?: definitions["LogoURL"];
-    readonly listing?: definitions["ProductListing"];
+    readonly name?: definitions['Name']
+    readonly label?: definitions['Label']
+    readonly logo_url?: definitions['LogoURL']
+    readonly listing?: definitions['ProductListing']
     /** @description 140 character sentence positioning the product. */
-    readonly tagline?: string;
+    readonly tagline?: string
     /** @description A list of value propositions of the product. */
-    readonly value_props?: readonly definitions["ValueProp"][];
+    readonly value_props?: readonly definitions['ValueProp'][]
     /** @description A list of getting started steps for the product */
-    readonly setup_steps?: readonly string[];
-    readonly images?: readonly definitions["ProductImageURL"][];
+    readonly setup_steps?: readonly string[]
+    readonly images?: readonly definitions['ProductImageURL'][]
     /** Format: email */
-    readonly support_email?: string;
+    readonly support_email?: string
     /** Format: url */
-    readonly documentation_url?: string;
+    readonly documentation_url?: string
     /**
      * @description URL to this Product's Terms of Service. If provided is true, then
      * a url must be set. Otherwise, provided is false.
      */
-    readonly terms_url?: string;
-    readonly feature_types?: readonly definitions["FeatureType"][];
+    readonly terms_url?: string
+    readonly feature_types?: readonly definitions['FeatureType'][]
     readonly integration?: {
-      readonly provisioning?: definitions["ProductProvisioning"];
+      readonly provisioning?: definitions['ProductProvisioning']
       /** Format: url */
-      readonly base_url?: string;
+      readonly base_url?: string
       /** Format: url */
-      readonly sso_url?: string;
+      readonly sso_url?: string
       /** @enum {string} */
-      readonly version?: "v1";
-      /** @default [object Object] */
+      readonly version?: 'v1'
+      /** @default {} */
       readonly features?: {
-        readonly access_code?: boolean;
-        readonly sso?: boolean;
-        readonly plan_change?: boolean;
+        readonly access_code?: boolean
+        readonly sso?: boolean
+        readonly plan_change?: boolean
         /**
          * @default multiple
          * @enum {string}
          */
-        readonly credential?: "none" | "single" | "multiple" | "unknown";
-      };
-    };
+        readonly credential?: 'none' | 'single' | 'multiple' | 'unknown'
+      }
+    }
     /** @description An array of platform ids to restrict this product for. */
-    readonly platform_ids?: readonly definitions["ID"][];
-    readonly tags?: definitions["ProductTags"];
-  };
+    readonly platform_ids?: readonly definitions['ID'][]
+    readonly tags?: definitions['ProductTags']
+  }
   readonly UpdatePlan: {
-    readonly id: definitions["ID"];
-    readonly body: definitions["UpdatePlanBody"];
-  };
+    readonly id: definitions['ID']
+    readonly body: definitions['UpdatePlanBody']
+  }
   readonly UpdatePlanBody: {
-    readonly name?: definitions["Name"];
-    readonly label?: definitions["Label"];
-    readonly state?: definitions["PlanState"];
+    readonly name?: definitions['Name']
+    readonly label?: definitions['Label']
+    readonly state?: definitions['PlanState']
     /** @description Used in conjuction with resizable_to to set or unset the list */
-    readonly has_resize_constraints?: boolean;
-    readonly resizable_to?: definitions["PlanResizeList"];
+    readonly has_resize_constraints?: boolean
+    readonly resizable_to?: definitions['PlanResizeList']
     /** @description Array of Region IDs */
-    readonly regions?: readonly definitions["ID"][];
+    readonly regions?: readonly definitions['ID'][]
     /** @description Array of Feature Values */
-    readonly features?: readonly definitions["FeatureValue"][];
+    readonly features?: readonly definitions['FeatureValue'][]
     /**
      * @description The number of days a user gets as a free trial when subscribing to
      * this plan. Trials are valid only once per product; changing plans
      * or adding an additional subscription will not start a new trial.
      */
-    readonly trial_days?: number;
+    readonly trial_days?: number
     /** @description Dollar value in cents */
-    readonly cost?: number;
-  };
+    readonly cost?: number
+  }
   /**
    * @description A feature type represents the different aspects of a product that are
    * offered, these features can manifest differently depending on the plan.
    */
   readonly FeatureType: {
-    readonly label: definitions["Label"];
-    readonly name: definitions["Name"];
+    readonly label: definitions['Label']
+    readonly name: definitions['Name']
     /** @enum {string} */
-    readonly type: "boolean" | "string" | "number";
-    /** @description This sets whether or not the feature can be customized by a consumer. */
-    readonly customizable?: boolean;
+    readonly type: 'boolean' | 'string' | 'number'
+    /**
+     * @description This sets whether or not the feature can be customized by a consumer.
+     * @default false
+     */
+    readonly customizable?: boolean
     /**
      * @description This sets whether or not the feature can be upgraded by the consumer after the
      * resource has provisioned. Upgrading means setting a higher value or selecting a
      * higher element in the list.
+     *
+     * @default false
      */
-    readonly upgradable?: boolean;
+    readonly upgradable?: boolean
     /**
      * @description This sets whether or not the feature can be downgraded by the consumer after the
      * resource has provisioned. Downgrading means setting a lower value or selecting a
      * lower element in the list.
+     *
+     * @default false
      */
-    readonly downgradable?: boolean;
+    readonly downgradable?: boolean
     /**
      * @description Sets if this feature’s value is trackable from the provider,
      * this only really affects numeric constraints.
+     *
+     * @default false
      */
-    readonly measurable?: boolean;
-    readonly values?: definitions["FeatureValuesList"];
-  };
+    readonly measurable?: boolean
+    readonly values?: definitions['FeatureValuesList']
+  }
   /**
    * @description A list of allowable values for the feature.
    * To define values for a boolean feature type, only `true` is required,
@@ -717,16 +726,18 @@ export interface definitions {
    * `numeric_details` definition, and the plan will determine which
    * `numeric_details` set is used based on it's setting.
    */
-  readonly FeatureValuesList: readonly definitions["FeatureValueDetails"][];
+  readonly FeatureValuesList: readonly definitions['FeatureValueDetails'][]
   readonly FeatureValueDetails: {
-    readonly label: definitions["FeatureValueLabel"];
-    readonly name: definitions["Name"];
+    readonly label: definitions['FeatureValueLabel']
+    readonly name: definitions['Name']
     /**
      * @description The cost that will be added to the monthly plan cost when this value
      * is selected or is default for the plan.
      * Cost is deprecated in favor of the `price.cost` field.
+     *
+     * @default 0
      */
-    readonly cost?: number;
+    readonly cost?: number
     /**
      * @description Price describes the cost of a feature. It should be preferred over
      * the `cost` property.
@@ -736,25 +747,35 @@ export interface definitions {
        * @description Cost is the price in cents that will be added to plan's base cost
        * when this value is selected or is default for the plan.
        * Number features should use the cost range instead.
+       *
+       * @default 0
        */
-      readonly cost?: number;
+      readonly cost?: number
       /**
        * @description When a feature is used to multiply the cost of the plan or of
        * another feature, multiply factor is used for calculation.
        * A feature cannot have both a cost and a multiply factor.
+       *
+       * @default 0
        */
-      readonly multiply_factor?: number;
+      readonly multiply_factor?: number
       /**
        * @description Price describes how the feature cost should be calculated.
        *
-       * @example [object Object]
+       * @example {
+       *   "feature_multiplies_base_cost": "(* plan#base_cost feature-a#multiply_factor)",
+       *   "feature_multiplies_feature_cost": "(* feature-b#cost feature-a#multiply_factor)",
+       *   "feature_multiplies_numeric_value": "(* feature-c#number feature-a#multiply_factor)",
+       *   "feature_multiplies_total_cost": "(* plan#total_cost feature-a#multiply_factor)",
+       *   "feature_nested_formulas": "(+ (- (* feature-a#cost feature-b#multiply_factor) 500) plan#partial_cost)"
+       * }
        */
-      readonly formula?: definitions["PriceFormula"];
+      readonly formula?: definitions['PriceFormula']
       /** @description Description explains how a feature is calculated to the user. */
-      readonly description?: string;
-    };
-    readonly numeric_details?: definitions["FeatureNumericDetails"];
-  };
+      readonly description?: string
+    }
+    readonly numeric_details?: definitions['FeatureNumericDetails']
+  }
   /**
    * @description Optional container for additional details relating to numeric features.
    * This is required if the feature is measurable and numeric.
@@ -770,15 +791,18 @@ export interface definitions {
      *
      * @default 1
      */
-    readonly increment?: number;
-    /** @description Minimum value that can be set by a user if customizable */
-    readonly min?: number;
+    readonly increment?: number
+    /**
+     * @description Minimum value that can be set by a user if customizable
+     * @default 0
+     */
+    readonly min?: number
     /** @description Maximum value that can be set by a user if customizable */
-    readonly max?: number;
+    readonly max?: number
     /** @description Applied to the end of the number for display, for example the ‘GB’ in ‘20 GB’. */
-    readonly suffix?: string;
-    readonly cost_ranges?: readonly definitions["FeatureNumericRange"][];
-  };
+    readonly suffix?: string
+    readonly cost_ranges?: readonly definitions['FeatureNumericRange'][]
+  }
   readonly FeatureNumericRange: {
     /**
      * @description Defines the end of the range ( inclusive ), from the previous, or 0;
@@ -786,78 +810,90 @@ export interface definitions {
      * range to infinity, or the maximum integer the system can handle
      * ( whichever comes first ).
      */
-    readonly limit?: number;
+    readonly limit?: number
     /**
      * @description An integer in 10,000,000ths of cents, will be multiplied by the
      * numeric value set in the feature to determine the cost.
+     *
+     * @default 0
      */
-    readonly cost_multiple?: number;
-  };
+    readonly cost_multiple?: number
+  }
   readonly FeatureValue: {
-    readonly feature: definitions["Label"];
-    readonly value: definitions["FeatureValueLabel"];
-  };
+    readonly feature: definitions['Label']
+    readonly value: definitions['FeatureValueLabel']
+  }
   readonly ValueProp: {
     /** @description Heading of a value proposition. */
-    readonly header: string;
+    readonly header: string
     /** @description Body of a value proposition. */
-    readonly body: string;
-  };
+    readonly body: string
+  }
   /**
    * Format: url
    * @description Image URL used for Product listings.
    *
    * Minimum 660px wide, 400px high.
    */
-  readonly ProductImageURL: string;
+  readonly ProductImageURL: string
   /** @description List of tags for product categorization and search */
-  readonly ProductTags: readonly definitions["Label"][];
+  readonly ProductTags: readonly definitions['Label'][]
   /** @enum {string} */
-  readonly ProductState: "available" | "hidden" | "grandfathered" | "new" | "upcoming";
-  /** @default [object Object] */
+  readonly ProductState: 'available' | 'hidden' | 'grandfathered' | 'new' | 'upcoming'
+  /** @default {} */
   readonly ProductListing: {
     /**
      * @description When true, everyone can see the product when requested. When false it will
      * not be visible to anyone except those on the provider team.
+     *
+     * @default false
      */
-    readonly public?: boolean;
+    readonly public?: boolean
     /**
      * @description When true, the product will be displayed in product listings alongside
      * other products. When false the product will be excluded from listings,
      * but can still be provisioned directly if it's label is known.
      * Any pages that display information about the product when not listed,
      * should indicate to webcrawlers that the content should not be indexed.
+     *
+     * @default false
      */
-    readonly listed?: boolean;
+    readonly listed?: boolean
     /**
      * @description Object to hold various flags for marketing purposes only. These are values
      * that need to be stored, but should not affect decision making in code. If
      * we find ourselves in a position where we think they should, we should
      * consider refactoring our listing definition.
      *
-     * @default [object Object]
+     * @default {}
      */
     readonly marketing?: {
       /**
        * @description Indicates whether or not the product is in `Beta` and should be
        * advertised as such. This does not have any impact on who can access the
        * product, it is just used to inform consumers through our clients.
+       *
+       * @default false
        */
-      readonly beta?: boolean;
+      readonly beta?: boolean
       /**
        * @description Indicates whether or not the product is in `New` and should be
        * advertised as such. This does not have any impact on who can access the
        * product, it is just used to inform consumers through our clients.
+       *
+       * @default false
        */
-      readonly new?: boolean;
+      readonly new?: boolean
       /**
        * @description Indicates whether or not the product is in `New` and should be
        * advertised as such. This does not have any impact on who can access the
        * product, it is just used to inform consumers through our clients.
+       *
+       * @default false
        */
-      readonly featured?: boolean;
-    };
-  };
+      readonly featured?: boolean
+    }
+  }
   /**
    * @description Provider Only, implies that the product should only be provisionable by the
    *   provider; so members of the provider team, no one else should be allowed.
@@ -867,24 +903,24 @@ export interface definitions {
    *
    * @enum {string}
    */
-  readonly ProductProvisioning: "provider-only" | "pre-order" | "public";
-  /** @default [object Object] */
+  readonly ProductProvisioning: 'provider-only' | 'pre-order' | 'public'
+  /** @default {} */
   readonly ProductIntegrationFeatures: {
     /**
      * @description Indicates whether or not this product supports resource transitions to
      * manifold by access_code.
      */
-    readonly access_code?: boolean;
+    readonly access_code?: boolean
     /**
      * @description Represents whether or not this product supports Single
      * Sign On
      */
-    readonly sso?: boolean;
+    readonly sso?: boolean
     /**
      * @description Represents whether or not this product supports changing
      * the plan of a resource.
      */
-    readonly plan_change?: boolean;
+    readonly plan_change?: boolean
     /**
      * @description Describes how the region for a resource is specified, if
      * unspecified, then regions have no impact on this
@@ -892,7 +928,7 @@ export interface definitions {
      *
      * @enum {string}
      */
-    readonly region?: "user-specified" | "unspecified";
+    readonly region?: 'user-specified' | 'unspecified'
     /**
      * @description Describes the credential type that is supported by this product.
      *
@@ -904,131 +940,131 @@ export interface definitions {
      * @default multiple
      * @enum {string}
      */
-    readonly credential?: "none" | "single" | "multiple" | "unknown";
-  };
+    readonly credential?: 'none' | 'single' | 'multiple' | 'unknown'
+  }
   readonly ProductBody: {
-    readonly provider_id: definitions["ID"];
+    readonly provider_id: definitions['ID']
     /** @description Product labels are globally unique and contain the provider name. */
-    readonly label: definitions["Label"];
-    readonly name: definitions["Name"];
-    readonly state: definitions["ProductState"];
-    readonly listing: definitions["ProductListing"];
-    readonly logo_url: definitions["LogoURL"];
+    readonly label: definitions['Label']
+    readonly name: definitions['Name']
+    readonly state: definitions['ProductState']
+    readonly listing: definitions['ProductListing']
+    readonly logo_url: definitions['LogoURL']
     /** @description 140 character sentence positioning the product. */
-    readonly tagline: string;
+    readonly tagline: string
     /** @description A list of value propositions of the product. */
-    readonly value_props: readonly definitions["ValueProp"][];
+    readonly value_props: readonly definitions['ValueProp'][]
     /** @description A list of getting started steps for the product */
-    readonly setup_steps?: readonly string[];
-    readonly images: readonly definitions["ProductImageURL"][];
+    readonly setup_steps?: readonly string[]
+    readonly images: readonly definitions['ProductImageURL'][]
     /** Format: email */
-    readonly support_email: string;
+    readonly support_email: string
     /** Format: url */
-    readonly documentation_url: string;
+    readonly documentation_url: string
     /**
      * @description URL to this Product's Terms of Service. If provided is true, then
      * a url must be set. Otherwise, provided is false.
      */
     readonly terms: {
       /** Format: url */
-      readonly url?: string;
-      readonly provided: boolean;
-    };
-    readonly feature_types: readonly definitions["FeatureType"][];
+      readonly url?: string
+      readonly provided: boolean
+    }
+    readonly feature_types: readonly definitions['FeatureType'][]
     readonly billing: {
       /** @enum {string} */
-      readonly type: "monthly-prorated" | "monthly-anniversary" | "annual-anniversary";
+      readonly type: 'monthly-prorated' | 'monthly-anniversary' | 'annual-anniversary'
       /** @enum {string} */
-      readonly currency: "usd";
-    };
+      readonly currency: 'usd'
+    }
     readonly integration: {
-      readonly provisioning: definitions["ProductProvisioning"];
+      readonly provisioning: definitions['ProductProvisioning']
       /** Format: url */
-      readonly base_url: string;
+      readonly base_url: string
       /** Format: url */
-      readonly sso_url?: string;
+      readonly sso_url?: string
       /** @enum {string} */
-      readonly version: "v1";
-      readonly features: definitions["ProductIntegrationFeatures"];
-    };
-    readonly tags?: definitions["ProductTags"];
-  };
+      readonly version: 'v1'
+      readonly features: definitions['ProductIntegrationFeatures']
+    }
+    readonly tags?: definitions['ProductTags']
+  }
   readonly Product: {
-    readonly id: definitions["ID"];
+    readonly id: definitions['ID']
     /** @enum {integer} */
-    readonly version: 1;
+    readonly version: 1
     /** @enum {string} */
-    readonly type: "product";
-    readonly body: definitions["ProductBody"];
-  };
+    readonly type: 'product'
+    readonly body: definitions['ProductBody']
+  }
   readonly CreateProduct: {
-    readonly body: definitions["ProductBody"];
-  };
+    readonly body: definitions['ProductBody']
+  }
   /** @description Array of Plan IDs that this Plan can be resized to, if null all will be assumed */
-  readonly PlanResizeList: readonly definitions["ID"][];
+  readonly PlanResizeList: readonly definitions['ID'][]
   readonly PlanBody: {
-    readonly provider_id: definitions["ID"];
-    readonly product_id: definitions["ID"];
-    readonly name: definitions["Name"];
-    readonly label: definitions["Label"];
-    readonly state: definitions["PlanState"];
-    readonly resizable_to?: definitions["PlanResizeList"];
+    readonly provider_id: definitions['ID']
+    readonly product_id: definitions['ID']
+    readonly name: definitions['Name']
+    readonly label: definitions['Label']
+    readonly state: definitions['PlanState']
+    readonly resizable_to?: definitions['PlanResizeList']
     /** @description Array of Region IDs */
-    readonly regions: readonly definitions["ID"][];
+    readonly regions: readonly definitions['ID'][]
     /** @description Array of Feature Values */
-    readonly features: readonly definitions["FeatureValue"][];
+    readonly features: readonly definitions['FeatureValue'][]
     /**
      * @description The number of days a user gets as a free trial when subscribing to
      * this plan. Trials are valid only once per product; changing plans
      * or adding an additional subscription will not start a new trial.
      */
-    readonly trial_days?: number;
+    readonly trial_days?: number
     /** @description Dollar value in cents. */
-    readonly cost: number;
-  };
+    readonly cost: number
+  }
   /** @enum {string} */
-  readonly PlanState: "hidden" | "available" | "grandfathered" | "unlisted";
-  readonly ExpandedPlanBody: definitions["PlanBody"] & {
+  readonly PlanState: 'hidden' | 'available' | 'grandfathered' | 'unlisted'
+  readonly ExpandedPlanBody: definitions['PlanBody'] & {
     /** @description An array of feature definitions for the plan, as defined on the Product. */
-    readonly expanded_features: readonly definitions["ExpandedFeature"][];
+    readonly expanded_features: readonly definitions['ExpandedFeature'][]
     /** @description A boolean flag that indicates if a plan is free or not based on it's cost and features. */
-    readonly free: boolean;
+    readonly free: boolean
     /** @description Plan cost using its default features plus base cost. */
-    readonly defaultCost?: number;
+    readonly defaultCost?: number
     /** @description A boolean flag that indicates if a plan has customizable features. */
-    readonly customizable?: boolean;
-  };
-  readonly ExpandedFeature: definitions["FeatureType"] & {
+    readonly customizable?: boolean
+  }
+  readonly ExpandedFeature: definitions['FeatureType'] & {
     /** @description The string value set for the feature on the plan, this should only be used if the value property is null. */
-    readonly value_string: string;
-    readonly value: definitions["FeatureValueDetails"];
-  };
+    readonly value_string: string
+    readonly value: definitions['FeatureValueDetails']
+  }
   readonly Plan: {
-    readonly id: definitions["ID"];
+    readonly id: definitions['ID']
     /** @enum {integer} */
-    readonly version: 1;
+    readonly version: 1
     /** @enum {string} */
-    readonly type: "plan";
-    readonly body: definitions["PlanBody"];
-  };
+    readonly type: 'plan'
+    readonly body: definitions['PlanBody']
+  }
   readonly ExpandedPlan: {
-    readonly id: definitions["ID"];
+    readonly id: definitions['ID']
     /** @enum {integer} */
-    readonly version: 1;
+    readonly version: 1
     /** @enum {string} */
-    readonly type: "plan";
-    readonly body: definitions["ExpandedPlanBody"];
-  };
+    readonly type: 'plan'
+    readonly body: definitions['ExpandedPlanBody']
+  }
   readonly CreatePlan: {
-    readonly body: definitions["PlanBody"];
-  };
+    readonly body: definitions['PlanBody']
+  }
   /** @description Unexpected error */
   readonly Error: {
     /** @description The error type */
-    readonly type: string;
+    readonly type: string
     /** @description Explanation of the errors */
-    readonly message: readonly string[];
-  };
+    readonly message: readonly string[]
+  }
   /**
    * @description Describes how a feature cost should be calculated. An empty
    * string defaults to the normal price calculation using the value cost.
@@ -1052,17 +1088,17 @@ export interface definitions {
    *   - `another-feature-label#number` is the numeric value of a number feature
    * In a feature formula, plan base cost and total cost cannot be used
    */
-  readonly PriceFormula: string;
+  readonly PriceFormula: string
   readonly ExpandedProduct: {
-    readonly id: definitions["ID"];
+    readonly id: definitions['ID']
     /** @enum {integer} */
-    readonly version: 1;
+    readonly version: 1
     /** @enum {string} */
-    readonly type: "product";
-    readonly body: definitions["ProductBody"];
-    readonly plans?: readonly definitions["ExpandedPlan"][];
-    readonly provider: definitions["Provider"];
-  };
+    readonly type: 'product'
+    readonly body: definitions['ProductBody']
+    readonly plans?: readonly definitions['ExpandedPlan'][]
+    readonly provider: definitions['Provider']
+  }
 }
 
 export interface parameters {
@@ -1070,7 +1106,7 @@ export interface parameters {
    * Format: label
    * @description Filter results to only include those that have this label.
    */
-  readonly LabelFilter: string;
+  readonly LabelFilter: string
 }
 
 export interface operations {}

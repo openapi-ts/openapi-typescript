@@ -21,12 +21,15 @@ Options
   --header, -x                 (optional) Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the key: value pattern
   --httpMethod, -m             (optional) Provide the HTTP Verb/Method for fetching a schema from a remote URL
   --immutable-types, -it       (optional) Generates immutable types (readonly properties and readonly array)
+  --content-never              (optional) If supplied, an omitted reponse \`content\` property will be generated as \`never\` instead of \`unknown\`
   --additional-properties, -ap (optional) Allow arbitrary properties for all schema objects without "additionalProperties: false"
   --default-non-nullable       (optional) If a schema object has a default value set, don’t mark it as nullable
   --prettier-config, -c        (optional) specify path to Prettier config file
   --raw-schema                 (optional) Parse as partial schema (raw components)
+  --paths-enum, -pe            (optional) Generate an enum containing all API paths.
   --export-type                (optional) Export type instead of interface
   --support-array-length       (optional) Generate tuples using array minItems / maxItems
+  --path-params-as-types       (optional) Substitute path parameter names with their respective types
   --version                    (optional) Force schema parsing version
 `;
 
@@ -43,7 +46,16 @@ function errorAndExit(errorMessage) {
 const [, , input, ...args] = process.argv;
 const flags = parser(args, {
   array: ["header"],
-  boolean: ["defaultNonNullable", "immutableTypes", "rawSchema", "exportType", "supportArrayLength"],
+  boolean: [
+    "defaultNonNullable",
+    "immutableTypes",
+    "contentNever",
+    "rawSchema",
+    "exportType",
+    "supportArrayLength",
+    "makePathsEnum",
+    "pathParamsAsTypes",
+  ],
   number: ["version"],
   string: ["auth", "header", "headersObject", "httpMethod", "prettierConfig"],
   alias: {
@@ -54,6 +66,7 @@ const flags = parser(args, {
     immutableTypes: ["it"],
     output: ["o"],
     prettierConfig: ["c"],
+    makePathsEnum: ["pe"],
   },
   default: {
     httpMethod: "GET",
@@ -88,12 +101,15 @@ async function generateSchema(pathToSpec) {
     immutableTypes: flags.immutableTypes,
     prettierConfig: flags.prettierConfig,
     rawSchema: flags.rawSchema,
+    makePathsEnum: flags.makePathsEnum,
+    contentNever: flags.contentNever,
     silent: output === OUTPUT_STDOUT,
     version: flags.version,
     httpHeaders,
     httpMethod: flags.httpMethod,
     exportType: flags.exportType,
     supportArrayLength: flags.supportArrayLength,
+    pathParamsAsTypes: flags.pathParamsAsTypes,
   });
 
   // output
@@ -141,6 +157,13 @@ async function main() {
   if (/^https?:\/\//.test(pathToSpec)) {
     if (output !== "." && output === OUTPUT_FILE) fs.mkdirSync(path.dirname(flags.output), { recursive: true });
     await generateSchema(pathToSpec);
+    return;
+  }
+
+  // handle stdin schema, exit
+  if (pathToSpec === "-") {
+    if (output !== "." && output === OUTPUT_FILE) fs.mkdirSync(path.dirname(flags.output), { recursive: true });
+    await generateSchema(process.stdin);
     return;
   }
 

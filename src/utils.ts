@@ -42,7 +42,15 @@ export function prepareComment(v: CommentObject): string | void {
   const supportedJsDocTags: Array<keyof CommentObject> = ["description", "default", "example"];
   for (let index = 0; index < supportedJsDocTags.length; index++) {
     const field = supportedJsDocTags[index];
-    if (v[field]) commentsArray.push(`@${field} ${v[field]} `);
+    const allowEmptyString = field === "default" || field === "example";
+    if (v[field] === undefined) {
+      continue;
+    }
+    if (v[field] === "" && !allowEmptyString) {
+      continue;
+    }
+    const serialized = typeof v[field] === "object" ? JSON.stringify(v[field], null, 2) : v[field];
+    commentsArray.push(`@${field} ${serialized} `);
   }
 
   // * JSDOC 'Constant' without value
@@ -102,6 +110,8 @@ export function parseSingleSimpleValue(value: unknown, isNodeNullable = false): 
   if (typeof value === "string") return `'${value.replace(SINGLE_QUOTE_RE, "\\'")}'`;
 
   if (typeof value === "number" || typeof value === "boolean") return value;
+
+  if (typeof value === "object") return JSON.stringify(value);
 
   if (value === null && !isNodeNullable) return "null";
 

@@ -93,6 +93,7 @@ export interface external {
            * @enum {string}
            */
           status?: "placed" | "approved" | "delivered";
+          /** @default false */
           complete?: boolean;
         };
         Category: {

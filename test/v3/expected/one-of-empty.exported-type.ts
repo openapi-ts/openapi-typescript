@@ -4,27 +4,27 @@
  */
 
 export type paths = {
-  "/test": {
+  '/test': {
     get: {
       responses: {
         /** A list of types. */
-        200: unknown;
-      };
-    };
-  };
-};
+        200: unknown
+      }
+    }
+  }
+}
 
 export type components = {
   schemas: {
     /** @description Enum with null and nullable */
     Example: {
-      emptyAllOf?: undefined;
-      emptyOneOf?: undefined;
-      emptyAnyOf?: undefined;
-    };
-  };
-};
+      emptyAllOf?: undefined
+      emptyOneOf?: undefined
+      emptyAnyOf?: undefined
+    }
+  }
+}
 
-export type operations = {};
+export type operations = {}
 
-export type external = {};
+export type external = {}

@@ -500,6 +500,50 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "berzi",
+      "name": "berzi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32619123?v=4",
+      "profile": "https://github.com/berzi",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
+    },
+    {
+      "login": "PhilipTrauner",
+      "name": "Philip Trauner",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9287847?v=4",
+      "profile": "https://philip-trauner.me",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
+    },
+    {
+      "login": "Powell-v2",
+      "name": "Pavel Yermolin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25308326?v=4",
+      "profile": "https://powell-v2.github.io/",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
+    },
+    {
+      "login": "duncanbeevers",
+      "name": "Duncan Beevers",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7367?v=4",
+      "profile": "http://www.duncanbeevers.com",
+      "contributions": [
+        "code",
+        "bug",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,

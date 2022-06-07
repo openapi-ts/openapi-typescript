@@ -4,18 +4,18 @@
  */
 
 export interface paths {
-  readonly "/pet": {
-    readonly post: operations["addPet"];
-  };
+  readonly '/pet': {
+    readonly post: operations['addPet']
+  }
 }
 
 export interface definitions {
   readonly Pet: {
     /** Format: int64 */
-    readonly id?: number;
+    readonly id?: number
     /** @example doggie */
-    readonly name: string;
-  };
+    readonly name: string
+  }
 }
 
 export interface operations {
@@ -23,14 +23,14 @@ export interface operations {
     readonly parameters: {
       readonly body: {
         readonly body: {
-          readonly name?: definitions["Pet"]["name"];
-        };
-      };
-    };
+          readonly name?: definitions['Pet']['name']
+        }
+      }
+    }
     readonly responses: {
-      readonly 200: unknown;
-    };
-  };
+      readonly 200: unknown
+    }
+  }
 }
 
 export interface external {}

@@ -126,12 +126,16 @@ export interface SwaggerToTSOptions {
   formatter?: SchemaFormatter;
   /** Generates immutable types (readonly properties and readonly array) */
   immutableTypes?: boolean;
+  /** (optional) If supplied, an omitted reponse \`content\` property will be generated as \`never\` instead of \`unknown\` */
+  contentNever?: boolean;
   /** (optional) Treat schema objects with default values as non-nullable */
   defaultNonNullable?: boolean;
   /** (optional) Path to Prettier config */
   prettierConfig?: string;
   /** (optional) Parsing input document as raw schema rather than OpenAPI document */
   rawSchema?: boolean;
+  /** (optional) Generate an enum containing all API paths. **/
+  makePathsEnum?: boolean;
   /** (optional) Should logging be suppressed? (necessary for STDOUT) */
   silent?: boolean;
   /** (optional) OpenAPI version. Must be present if parsing raw schema */
@@ -159,19 +163,31 @@ export interface SwaggerToTSOptions {
    * (optional) Generate tuples using array minItems / maxItems
    */
   supportArrayLength?: boolean;
+  /**
+   * (optional) Substitute path parameter names with their respective types.
+   */
+  pathParamsAsTypes?: boolean;
+  /**
+   * (optional) Provide your own comment header that prefixes the generated file.
+   * Note this isn’t validated, so any string entered will be accepted as-is.
+   */
+  commentHeader?: string;
 }
 
 /** Context passed to all submodules */
 export interface GlobalContext {
   additionalProperties: boolean;
   auth?: string;
+  commentHeader: string;
+  defaultNonNullable: boolean;
   formatter?: SchemaFormatter;
   immutableTypes: boolean;
-  defaultNonNullable: boolean;
-  /** (optional) Should logging be suppressed? (necessary for STDOUT) */
-  silent?: boolean;
+  contentNever: boolean;
+  makePathsEnum: boolean;
   namespace?: string;
+  pathParamsAsTypes?: boolean;
   rawSchema: boolean;
-  version: number;
+  silent?: boolean;
   supportArrayLength?: boolean;
+  version: number;
 }

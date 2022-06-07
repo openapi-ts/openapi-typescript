@@ -4,14 +4,14 @@
  */
 
 export interface paths {
-  readonly "/test": {
+  readonly '/test': {
     readonly get: {
       readonly responses: {
         /** A list of types. */
-        readonly 200: unknown;
-      };
-    };
-  };
+        readonly 200: unknown
+      }
+    }
+  }
 }
 
 export interface components {
@@ -19,15 +19,15 @@ export interface components {
     /** @description Enum with null and nullable */
     readonly MyType: {
       /** @enum {string|null} */
-      readonly myEnumTestFieldNullable?: ("foo" | "bar" | null) | null;
+      readonly myEnumTestFieldNullable?: ('foo' | 'bar' | null) | null
       /** @enum {string|null} */
-      readonly myEnumTestField?: ("foo" | "bar" | null) | null;
+      readonly myEnumTestField?: ('foo' | 'bar' | null) | null
       /** @constant */
-      readonly myConstTestField?: "constant-value";
+      readonly myConstTestField?: 'constant-value'
       /** @constant */
-      readonly myConstTestFieldNullable?: 4 | null;
-    };
-  };
+      readonly myConstTestFieldNullable?: 4 | null
+    }
+  }
 }
 
 export interface operations {}

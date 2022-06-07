@@ -4,23 +4,23 @@
  */
 
 export type paths = {
-  "/contacts": {
-    get: operations["getContacts"];
-  };
-  "/contacts/{userUid}": {
-    get: operations["getContactInfo"];
-  };
-  "/contacts/{userUid}/icon": {
-    get: operations["getContactIcon"];
-  };
-  "/contacts/me": {
-    get: operations["getMyInfo"];
-  };
-  "/contacts/me/icon": {
-    get: operations["getMyIcon"];
-    delete: operations["deleteMyIcon"];
-  };
-};
+  '/contacts': {
+    get: operations['getContacts']
+  }
+  '/contacts/{userUid}': {
+    get: operations['getContactInfo']
+  }
+  '/contacts/{userUid}/icon': {
+    get: operations['getContactIcon']
+  }
+  '/contacts/me': {
+    get: operations['getMyInfo']
+  }
+  '/contacts/me/icon': {
+    get: operations['getMyIcon']
+    delete: operations['deleteMyIcon']
+  }
+}
 
 export type components = {
   schemas: {
@@ -32,51 +32,52 @@ export type components = {
        * @description Test description with deprecated
        * @example njbusD52k6YoRG346tPgD
        */
-      uid?: string;
+      uid?: string
       /**
        * Format: date-time
        * @description It's date example
        * @example 1999-03-31 15:00:00.000
        */
-      created_at?: string;
+      created_at?: string
       /**
        * Format: date-time
        * @example 2020-07-10 10:10:00.000
        */
-      updated_at?: string;
-      deleted?: boolean;
-    };
+      updated_at?: string
+      /** @example false */
+      deleted?: boolean
+    }
     /** Image for preview */
     Image: {
       /** @example https://shantichat.com/data/V1StGXR8_Z5jdHi6B-myT/white-rabbit.png */
-      url: string;
+      url: string
       /** @example 128 */
-      width: unknown;
+      width: unknown
       /** @example 128 */
-      height: unknown;
+      height: unknown
       /** @example LEHV6nWB2yk8pyo0adR*.7kCMdnj */
-      blurhash?: string;
-    };
+      blurhash?: string
+    }
     /** User object */
-    User: components["schemas"]["BaseEntity"] & {
+    User: components['schemas']['BaseEntity'] & {
       /** @example Thomas A. Anderson */
-      name?: string;
+      name?: string
       /**
        * @default test
        * @example The One
        */
-      description?: string;
-      icon?: components["schemas"]["Image"];
+      description?: string
+      icon?: components['schemas']['Image']
       /** @example America/Chicago */
-      timezone?: string;
+      timezone?: string
       /**
        * Format: date-time
        * @example 2020-07-10 15:00:00.000
        */
-      last_online_at?: string;
-    };
-  };
-};
+      last_online_at?: string
+    }
+  }
+}
 
 export type operations = {
   getContacts: {
@@ -84,67 +85,67 @@ export type operations = {
       /** OK */
       200: {
         content: {
-          "application/json": components["schemas"]["User"][];
-        };
-      };
-    };
-  };
+          'application/json': components['schemas']['User'][]
+        }
+      }
+    }
+  }
   getContactInfo: {
     parameters: {
       path: {
-        userUid: string;
-      };
-    };
+        userUid: string
+      }
+    }
     responses: {
       /** OK */
       200: {
         content: {
-          "application/json": components["schemas"]["User"];
-        };
-      };
-    };
-  };
+          'application/json': components['schemas']['User']
+        }
+      }
+    }
+  }
   getContactIcon: {
     parameters: {
       path: {
-        userUid: string;
-      };
-    };
+        userUid: string
+      }
+    }
     responses: {
       /** OK */
       200: {
         content: {
-          "application/json": components["schemas"]["Image"];
-        };
-      };
-    };
-  };
+          'application/json': components['schemas']['Image']
+        }
+      }
+    }
+  }
   getMyInfo: {
     responses: {
       /** OK */
       200: {
         content: {
-          "application/json": components["schemas"]["User"];
-        };
-      };
-    };
-  };
+          'application/json': components['schemas']['User']
+        }
+      }
+    }
+  }
   getMyIcon: {
     responses: {
       /** OK */
       200: {
         content: {
-          "application/json": components["schemas"]["Image"];
-        };
-      };
-    };
-  };
+          'application/json': components['schemas']['Image']
+        }
+      }
+    }
+  }
   deleteMyIcon: {
     responses: {
       /** OK */
-      200: unknown;
-    };
-  };
-};
+      200: unknown
+    }
+  }
+}
 
-export type external = {};
+export type external = {}

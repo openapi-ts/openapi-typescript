@@ -4,14 +4,14 @@
  */
 
 export interface paths {
-  "/test": {
+  '/test': {
     get: {
       responses: {
         /** A list of types. */
-        200: unknown;
-      };
-    };
-  };
+        200: unknown
+      }
+    }
+  }
 }
 
 export interface components {
@@ -19,15 +19,15 @@ export interface components {
     /** @description Enum with null and nullable */
     MyType: {
       /** @enum {string|null} */
-      myEnumTestFieldNullable?: ("foo" | "bar" | null) | null;
+      myEnumTestFieldNullable?: ('foo' | 'bar' | null) | null
       /** @enum {string|null} */
-      myEnumTestField?: ("foo" | "bar" | null) | null;
+      myEnumTestField?: ('foo' | 'bar' | null) | null
       /** @constant */
-      myConstTestField?: "constant-value";
+      myConstTestField?: 'constant-value'
       /** @constant */
-      myConstTestFieldNullable?: 4 | null;
-    } & { [key: string]: unknown };
-  };
+      myConstTestFieldNullable?: 4 | null
+    } & { [key: string]: unknown }
+  }
 }
 
 export interface operations {}

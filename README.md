@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/main/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-48-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-52-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -160,6 +160,8 @@ npx openapi-typescript schema.yaml
 | `--prettier-config [location]` | `-c`  |          | (optional) Path to your custom Prettier configuration for output                                                                        |
 | `--export-type`                |       | `false`  | (optional) Export `type` instead of `interface`                                                                                         |
 | `--support-array-length`       |       | `false`  | (optional) Generate tuples using array minItems / maxItems                                                                              |
+| `--make-paths-enum`            | `-pe` | `false`  | (optional) Generate an enum of endpoint paths                                                                                           |
+| `--path-params-as-types`       |       | `false`  | (optional) Substitute path parameter names with their respective types                                                                  |
 | `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level)                                                |
 | `--version`                    |       |          | Force OpenAPI version with `--version 3` or `--version 2` (required for `--raw-schema` when version is unknown)                         |
 
@@ -310,6 +312,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/ajaishankar"><img src="https://avatars.githubusercontent.com/u/328008?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ajaishankar</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=ajaishankar" title="Documentation">📖</a></td>
     <td align="center"><a href="http://www.dominikdosoudil.cz"><img src="https://avatars.githubusercontent.com/u/15929942?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dominik Dosoudil</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=dominikdosoudil" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=dominikdosoudil" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://kgtkr.net/"><img src="https://avatars.githubusercontent.com/u/17868838?v=4?s=100" width="100px;" alt=""/><br /><sub><b>tkr</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=kgtkr" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=kgtkr" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/berzi"><img src="https://avatars.githubusercontent.com/u/32619123?v=4?s=100" width="100px;" alt=""/><br /><sub><b>berzi</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=berzi" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=berzi" title="Documentation">📖</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=berzi" title="Tests">⚠️</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://philip-trauner.me"><img src="https://avatars.githubusercontent.com/u/9287847?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Philip Trauner</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=PhilipTrauner" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=PhilipTrauner" title="Documentation">📖</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=PhilipTrauner" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://powell-v2.github.io/"><img src="https://avatars.githubusercontent.com/u/25308326?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pavel Yermolin</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=Powell-v2" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Powell-v2" title="Documentation">📖</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Powell-v2" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://www.duncanbeevers.com"><img src="https://avatars.githubusercontent.com/u/7367?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Duncan Beevers</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=duncanbeevers" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aduncanbeevers" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=duncanbeevers" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
