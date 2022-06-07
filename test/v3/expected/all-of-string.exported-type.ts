@@ -4,27 +4,27 @@
  */
 
 export type paths = {
-  "/test": {
+  '/test': {
     get: {
       responses: {
         /** A list of types. */
-        200: unknown;
-      };
-    };
-  };
-};
+        200: unknown
+      }
+    }
+  }
+}
 
 export type components = {
   schemas: {
     /** @description Object with one property that is a string enum */
     Example: {
-      status?: components["schemas"]["ExampleStatus"];
-    };
+      status?: components['schemas']['ExampleStatus']
+    }
     /** @enum {string} */
-    ExampleStatus: "ACTIVE" | "INACTIVE";
-  };
-};
+    ExampleStatus: 'ACTIVE' | 'INACTIVE'
+  }
+}
 
-export type operations = {};
+export type operations = {}
 
-export type external = {};
+export type external = {}

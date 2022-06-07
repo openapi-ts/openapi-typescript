@@ -4,25 +4,25 @@
  */
 
 export interface paths {
-  readonly "/test": {
+  readonly '/test': {
     readonly get: {
       readonly responses: {
         /** A list of types. */
-        readonly 200: unknown;
-      };
-    };
-  };
+        readonly 200: unknown
+      }
+    }
+  }
 }
 
 export interface components {
   readonly schemas: {
     /** @description Object with one property that is a string enum */
     readonly Example: {
-      readonly status?: components["schemas"]["ExampleStatus"];
-    };
+      readonly status?: components['schemas']['ExampleStatus']
+    }
     /** @enum {string} */
-    readonly ExampleStatus: "ACTIVE" | "INACTIVE";
-  };
+    readonly ExampleStatus: 'ACTIVE' | 'INACTIVE'
+  }
 }
 
 export interface operations {}

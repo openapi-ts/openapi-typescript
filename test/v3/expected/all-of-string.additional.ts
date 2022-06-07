@@ -4,25 +4,25 @@
  */
 
 export interface paths {
-  "/test": {
+  '/test': {
     get: {
       responses: {
         /** A list of types. */
-        200: unknown;
-      };
-    };
-  };
+        200: unknown
+      }
+    }
+  }
 }
 
 export interface components {
   schemas: {
     /** @description Object with one property that is a string enum */
     Example: {
-      status?: components["schemas"]["ExampleStatus"] & { [key: string]: unknown };
-    } & { [key: string]: unknown };
+      status?: components['schemas']['ExampleStatus'] & { [key: string]: unknown }
+    } & { [key: string]: unknown }
     /** @enum {string} */
-    ExampleStatus: "ACTIVE" | "INACTIVE";
-  };
+    ExampleStatus: 'ACTIVE' | 'INACTIVE'
+  }
 }
 
 export interface operations {}
