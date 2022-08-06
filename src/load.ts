@@ -7,7 +7,7 @@ import path from "path";
 import { Readable } from "stream";
 import { request } from "undici";
 import { URL } from "url";
-import { parseRef } from "./utils.js";
+import { parseRef, replaceKeys } from "./utils.js";
 
 type PartialSchema = Record<string, any>; // not a very accurate type, but this is easier to deal with before we know we’re dealing with a valid spec
 type SchemaMap = { [url: string]: PartialSchema };
@@ -183,6 +183,9 @@ export default async function load(
       }
     }
   }
+
+  // schemas key double quote replace
+  schemas[schemaID] = replaceKeys(schemas[schemaID]);
 
   // scan $refs, but don’t transform (load everything in parallel)
   const refPromises: Promise<any>[] = [];

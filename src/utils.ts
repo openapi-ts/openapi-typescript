@@ -266,3 +266,24 @@ export function tsUnionOf(types: Array<string | number | boolean>): string {
   if (types.length === 1) return `${types[0]}`; // don’t add parentheses around one thing
   return `(${types.join(") | (")})`;
 }
+
+export function replaceKeys(obj: Record<string, any>): Record<string, any> {
+  if (typeof obj === "object" && obj !== undefined && obj !== null) {
+    if (Array.isArray(obj)) {
+      return obj.map((item) => replaceKeys(item));
+    } else {
+      const keyValues = Object.keys(obj).map((key) => {
+        const newKey = key.replace(DOUBLE_QUOTE_RE, '\\"');
+        const newValue = obj[key];
+        if (typeof newValue === "object") {
+          return { [newKey]: replaceKeys(newValue) };
+        } else {
+          return { [newKey]: newValue };
+        }
+      });
+      return Object.assign({}, ...keyValues);
+    }
+  } else {
+    return obj;
+  }
+}
