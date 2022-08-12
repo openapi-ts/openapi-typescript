@@ -256,6 +256,27 @@ describe("SchemaObject", () => {
     });
   });
 
+  describe("(3.1) type arrays", () => {
+    it("nullable type array", () => {
+      expect(transform({ type: ["string", "null"] }, { ...defaults })).to.equal("(string) | (null)");
+    });
+
+    it("nullable type array within an object", () => {
+      const objectWithNullableTypeArray = {
+        type: "object",
+        properties: {
+          object: {
+            properties: { nullableNumber: { type: ["number", "null"] }, string: { type: "string" } },
+            type: "object",
+          },
+        },
+      };
+      expect(transform(objectWithNullableTypeArray, { ...defaults })).to.equal(
+        `{\n"object"?: {\n"nullableNumber"?: (number) | (null);\n"string"?: string;\n\n};\n\n}`
+      );
+    });
+  });
+
   describe("advanced", () => {
     it("additionalProperties", () => {
       // boolean

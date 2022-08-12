@@ -113,6 +113,7 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
         output += node.$ref; // these were transformed at load time when remote schemas were resolved; return as-is
         break;
       }
+      case "null":
       case "string":
       case "number":
       case "boolean":
