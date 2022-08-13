@@ -63,8 +63,11 @@ export function addRequiredProps(
     return [];
   }
   let output = "";
+
+  const valueType = additionalProperties ? transformSchemaObj(additionalProperties, options) : "unknown";
+
   for (const r of missingRequired) {
-    output += `${r}: ${additionalProperties ? transformSchemaObj(additionalProperties, options) : "unknown"};\n`;
+    output += `${r}: ${valueType};\n`;
   }
   return [`{\n${output}}`];
 }
