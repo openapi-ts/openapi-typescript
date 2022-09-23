@@ -12,8 +12,8 @@ export function transformHeaderObjMap(
 ): string {
   let output = "";
 
-  for (const k of Object.keys(headerMap)) {
-    const v = headerMap[k];
+  const sortedEntries = Object.entries(headerMap).sort(([a], [b]) => a.localeCompare(b, "en"));
+  for (const [k, v] of sortedEntries) {
     if (!v.schema) continue;
 
     if (v.description) output += comment(v.description);

@@ -19,11 +19,16 @@ export function transformParametersArray(
 
   // sort into map
   const mappedParams: Record<string, Record<string, ParameterObject>> = {};
-  for (const paramObj of parameters as any[]) {
-    if (paramObj.$ref && globalParameters) {
-      const paramName = paramObj.$ref.split('["').pop().replace(PARAM_END_RE, ""); // take last segment
+  for (const paramObj of parameters) {
+    if ("$ref" in paramObj && paramObj.$ref && globalParameters) {
+      // take last segment
+      let paramName = paramObj.$ref.split('["').pop();
+      paramName = String(paramName).replace(PARAM_END_RE, "");
+
       if (globalParameters[paramName]) {
-        const reference = globalParameters[paramName] as any;
+        const reference = globalParameters[paramName];
+        if (!reference.in) continue;
+
         if (!mappedParams[reference.in]) mappedParams[reference.in] = {};
         switch (ctx.version) {
           case 3: {
@@ -36,7 +41,7 @@ export function transformParametersArray(
           case 2: {
             mappedParams[reference.in][reference.name || paramName] = {
               ...reference,
-              $ref: paramObj.$ref,
+              ...("$ref" in paramObj ? { $ref: paramObj.$ref } : null),
             };
             break;
           }
@@ -45,6 +50,7 @@ export function transformParametersArray(
       continue;
     }
 
+    if (!("in" in paramObj)) continue;
     if (!paramObj.in || !paramObj.name) continue;
     if (!mappedParams[paramObj.in]) mappedParams[paramObj.in] = {};
     mappedParams[paramObj.in][paramObj.name] = paramObj;

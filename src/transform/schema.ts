@@ -27,9 +27,8 @@ function hasDefaultValue(node: any): boolean {
 export function transformSchemaObjMap(obj: Record<string, any>, options: TransformSchemaObjOptions): string {
   let output = "";
 
-  for (const k of Object.keys(obj)) {
-    const v = obj[k];
-
+  const sortedEntries = Object.entries(obj).sort(([a], [b]) => a.localeCompare(b, "en"));
+  for (const [k, v] of sortedEntries) {
     // 1. Add comment in jsdoc notation
     const comment = prepareComment(v);
     if (comment) output += comment;

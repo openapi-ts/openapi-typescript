@@ -15,9 +15,9 @@ export function transformResponsesObj(responsesObj: Record<string, any>, ctx: Gl
 
   let output = "";
 
-  for (const httpStatusCode of Object.keys(responsesObj)) {
+  const sortedEntries = Object.entries(responsesObj).sort(([a], [b]) => a.localeCompare(b, "en"));
+  for (const [httpStatusCode, response] of sortedEntries) {
     const statusCode = Number(httpStatusCode) || `"${httpStatusCode}"`; // don’t surround w/ quotes if numeric status code
-    const response = responsesObj[httpStatusCode];
     if (response.description) output += comment(response.description);
 
     if (response.$ref) {
