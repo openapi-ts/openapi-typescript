@@ -33,7 +33,8 @@ export function transformPathsObj(paths: Record<string, PathItemObject>, options
 
   let output = "";
 
-  for (const [url, pathItem] of Object.entries(paths)) {
+  const sortedEntries = Object.entries(paths).sort(([a], [b]) => a.localeCompare(b, "en"));
+  for (const [url, pathItem] of sortedEntries) {
     if (pathItem.description) output += comment(pathItem.description); // add comment
 
     if (pathItem.$ref) {

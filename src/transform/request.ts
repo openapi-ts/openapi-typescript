@@ -5,7 +5,8 @@ import { transformSchemaObj } from "./schema.js";
 export function transformRequestBodies(requestBodies: Record<string, RequestBody>, ctx: GlobalContext) {
   let output = "";
 
-  for (const [name, requestBody] of Object.entries(requestBodies)) {
+  const sortedEntries = Object.entries(requestBodies).sort(([a], [b]) => a.localeCompare(b, "en"));
+  for (const [name, requestBody] of sortedEntries) {
     if (requestBody && requestBody.description) output += `  ${comment(requestBody.description)}`;
     output += `  "${name}": {\n    ${transformRequestBodyObj(requestBody, ctx)}\n  }\n`;
   }
