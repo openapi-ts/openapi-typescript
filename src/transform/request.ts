@@ -1,12 +1,11 @@
 import type { GlobalContext, RequestBody } from "../types.js";
-import { comment, tsReadonly } from "../utils.js";
+import { comment, getEntries, tsReadonly } from "../utils.js";
 import { transformSchemaObj } from "./schema.js";
 
 export function transformRequestBodies(requestBodies: Record<string, RequestBody>, ctx: GlobalContext) {
   let output = "";
 
-  const sortedEntries = Object.entries(requestBodies).sort(([a], [b]) => a.localeCompare(b, "en"));
-  for (const [name, requestBody] of sortedEntries) {
+  for (const [name, requestBody] of getEntries(requestBodies, ctx)) {
     if (requestBody && requestBody.description) output += `  ${comment(requestBody.description)}`;
     output += `  "${name}": {\n    ${transformRequestBodyObj(requestBody, ctx)}\n  }\n`;
   }

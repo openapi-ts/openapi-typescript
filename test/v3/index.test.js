@@ -71,6 +71,17 @@ describe("cli", () => {
       const expected = eol.lf(fs.readFileSync(new URL(`./expected/${filename}`, cwd), "utf8"));
       expect(generated).to.equal(expected);
     });
+
+    it(`reads ${schema} spec (v3) from file (alphabetize)`, async () => {
+      const filename = schema.replace(/\.(json|yaml)/, ".alphabetized.ts");
+
+      execSync(`${cmd} specs/${schema} -o generated/${filename} --prettier-config fixtures/.prettierrc --alphabetize`, {
+        cwd,
+      });
+      const generated = fs.readFileSync(new URL(`./generated/${filename}`, cwd), "utf8");
+      const expected = eol.lf(fs.readFileSync(new URL(`./expected/${filename}`, cwd), "utf8"));
+      expect(generated).to.equal(expected);
+    });
   });
 
   it("reads spec (v3) from remote resource", async () => {

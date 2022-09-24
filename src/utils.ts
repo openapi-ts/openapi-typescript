@@ -1,4 +1,4 @@
-import type { OpenAPI2, OpenAPI3, ReferenceObject } from "./types.js";
+import type { GlobalContext, OpenAPI2, OpenAPI3, ReferenceObject } from "./types.js";
 
 type CommentObject = {
   const?: boolean; // jsdoc without value
@@ -284,4 +284,10 @@ export function replaceKeys(obj: Record<string, any>): Record<string, any> {
   } else {
     return obj;
   }
+}
+
+export function getEntries<Item>(obj: ArrayLike<Item> | Record<string, Item>, options: GlobalContext) {
+  const entries = Object.entries(obj);
+  if (options.alphabetize) entries.sort(([a], [b]) => a.localeCompare(b, "en"));
+  return entries;
 }

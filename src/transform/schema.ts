@@ -9,6 +9,7 @@ import {
   tsUnionOf,
   parseSingleSimpleValue,
   ParsedSimpleValue,
+  getEntries,
 } from "../utils.js";
 
 interface TransformSchemaObjOptions extends GlobalContext {
@@ -27,8 +28,7 @@ function hasDefaultValue(node: any): boolean {
 export function transformSchemaObjMap(obj: Record<string, any>, options: TransformSchemaObjOptions): string {
   let output = "";
 
-  const sortedEntries = Object.entries(obj).sort(([a], [b]) => a.localeCompare(b, "en"));
-  for (const [k, v] of sortedEntries) {
+  for (const [k, v] of getEntries(obj, options)) {
     // 1. Add comment in jsdoc notation
     const comment = prepareComment(v);
     if (comment) output += comment;

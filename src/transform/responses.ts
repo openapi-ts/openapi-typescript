@@ -1,5 +1,5 @@
 import type { GlobalContext } from "../types.js";
-import { comment, tsReadonly } from "../utils.js";
+import { comment, getEntries, tsReadonly } from "../utils.js";
 import { transformHeaderObjMap } from "./headers.js";
 import { transformSchemaObj } from "./schema.js";
 
@@ -15,8 +15,7 @@ export function transformResponsesObj(responsesObj: Record<string, any>, ctx: Gl
 
   let output = "";
 
-  const sortedEntries = Object.entries(responsesObj).sort(([a], [b]) => a.localeCompare(b, "en"));
-  for (const [httpStatusCode, response] of sortedEntries) {
+  for (const [httpStatusCode, response] of getEntries(responsesObj, ctx)) {
     const statusCode = Number(httpStatusCode) || `"${httpStatusCode}"`; // don’t surround w/ quotes if numeric status code
     if (response.description) output += comment(response.description);
 
