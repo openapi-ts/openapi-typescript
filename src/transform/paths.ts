@@ -1,5 +1,5 @@
 import type { GlobalContext, OperationObject, ParameterObject, PathItemObject } from "../types.js";
-import { comment, tsReadonly, nodeType } from "../utils.js";
+import { comment, tsReadonly, nodeType, getEntries } from "../utils.js";
 import { transformOperationObj } from "./operation.js";
 import { transformParametersArray } from "./parameters.js";
 
@@ -33,8 +33,7 @@ export function transformPathsObj(paths: Record<string, PathItemObject>, options
 
   let output = "";
 
-  const sortedEntries = Object.entries(paths).sort(([a], [b]) => a.localeCompare(b, "en"));
-  for (const [url, pathItem] of sortedEntries) {
+  for (const [url, pathItem] of getEntries(paths, options)) {
     if (pathItem.description) output += comment(pathItem.description); // add comment
 
     if (pathItem.$ref) {

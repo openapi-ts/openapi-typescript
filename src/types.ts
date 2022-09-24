@@ -136,6 +136,8 @@ export interface SwaggerToTSOptions {
   rawSchema?: boolean;
   /** (optional) Generate an enum containing all API paths. **/
   makePathsEnum?: boolean;
+  /** (optional) Sort types alphabetically. */
+  alphabetize?: boolean;
   /** (optional) Should logging be suppressed? (necessary for STDOUT) */
   silent?: boolean;
   /** (optional) OpenAPI version. Must be present if parsing raw schema */
@@ -186,6 +188,7 @@ export interface GlobalContext {
   makePathsEnum: boolean;
   namespace?: string;
   pathParamsAsTypes?: boolean;
+  alphabetize?: boolean;
   rawSchema: boolean;
   silent?: boolean;
   supportArrayLength?: boolean;

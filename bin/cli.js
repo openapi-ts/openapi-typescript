@@ -30,6 +30,7 @@ Options
   --export-type                (optional) Export type instead of interface
   --support-array-length       (optional) Generate tuples using array minItems / maxItems
   --path-params-as-types       (optional) Substitute path parameter names with their respective types
+  --alphabetize                (optional) Sort types alphabetically
   --version                    (optional) Force schema parsing version
 `;
 
@@ -57,6 +58,7 @@ const flags = parser(args, {
     "supportArrayLength",
     "makePathsEnum",
     "pathParamsAsTypes",
+    "alphabetize",
   ],
   number: ["version"],
   string: ["auth", "header", "headersObject", "httpMethod", "prettierConfig"],
@@ -112,6 +114,7 @@ async function generateSchema(pathToSpec) {
     exportType: flags.exportType,
     supportArrayLength: flags.supportArrayLength,
     pathParamsAsTypes: flags.pathParamsAsTypes,
+    alphabetize: flags.alphabetize,
   });
 
   // output
