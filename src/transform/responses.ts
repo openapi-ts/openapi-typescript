@@ -74,3 +74,9 @@ export function transformResponsesObj(responsesObj: Record<string, any>, ctx: Gl
 
   return output;
 }
+
+export function getResponseTypes(operationId: string, responsesObj: Record<string, any>): string {
+  return Object.keys(responsesObj)
+    .map((httpStatusCode) => `operations["${operationId}"]["responses"]["${httpStatusCode}"]`)
+    .join(" | ");
+}

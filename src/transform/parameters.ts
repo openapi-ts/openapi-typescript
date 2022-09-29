@@ -86,3 +86,47 @@ export function transformParametersArray(
 
   return output;
 }
+
+export function getParameterLocations(
+  parameters: (ReferenceObject | ParameterObject)[],
+  options: TransformParametersOptions
+): string[] {
+  const { globalParameters = {}, ...ctx } = options;
+  const types: string[] = [];
+
+  // sort into map
+  let mappedParams: Record<string, Record<string, ParameterObject>> = {};
+  for (const paramObj of parameters as any[]) {
+    if (paramObj.$ref && globalParameters) {
+      const paramName = paramObj.$ref.split('["').pop().replace(PARAM_END_RE, ""); // take last segment
+      if (globalParameters[paramName]) {
+        const reference = globalParameters[paramName] as any;
+        if (!mappedParams[reference.in]) mappedParams[reference.in] = {};
+        switch (ctx.version) {
+          case 3: {
+            mappedParams[reference.in][reference.name || paramName] = {
+              ...reference,
+              schema: { $ref: paramObj.$ref },
+            };
+            break;
+          }
+          case 2: {
+            mappedParams[reference.in][reference.name || paramName] = {
+              ...reference,
+              $ref: paramObj.$ref,
+            };
+            break;
+          }
+        }
+      }
+      continue;
+    }
+
+    if (!paramObj.in || !paramObj.name) continue;
+    if (!types.includes(paramObj.in)) {
+      types.push(paramObj.in);
+    }
+  }
+
+  return types;
+}

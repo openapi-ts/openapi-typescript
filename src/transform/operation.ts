@@ -1,6 +1,6 @@
 import type { GlobalContext, OperationObject, ParameterObject, PathItemObject } from "../types.js";
 import { comment, isRef, tsReadonly } from "../utils.js";
-import { transformParametersArray } from "./parameters.js";
+import { getParameterLocations, transformParametersArray } from "./parameters.js";
 import { transformRequestBodyObj } from "./request.js";
 import { transformResponsesObj } from "./responses.js";
 
@@ -37,4 +37,22 @@ export function transformOperationObj(operation: OperationObject, options: Trans
   }
 
   return output;
+}
+
+export function operationRequestType(
+  operationId: string,
+  operation: OperationObject,
+  options: TransformOperationOptions
+): string {
+  const { pathItem = {}, globalParameters, ...ctx } = options;
+  const parameters = (pathItem.parameters || []).concat(operation.parameters || []);
+  const types = getParameterLocations(parameters, { ...ctx, globalParameters });
+
+  const opType = `operations["${operationId}"]`;
+  const opParams = `${opType}["parameters"]`;
+  const paramType = types.includes("path") ? `${opParams}["path"]` : "never";
+  const bodyType = operation.requestBody ? `${opType}["requestBody"]["content"]["application/json"]` : "never";
+  const queryType = types.includes("query") ? `${opParams}["query"]` : "never";
+
+  return `${paramType}, express["${operationId}"]["responses"], ${bodyType}, ${queryType}, Locals`;
 }

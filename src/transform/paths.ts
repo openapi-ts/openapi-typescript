@@ -26,6 +26,13 @@ function replacePathParamsWithTypes(url: string, params: NonNullable<PathItemObj
   return result;
 }
 
+function getOperationId(operation: { operationId?: any }, method: string, path: string) {
+  if (operation.operationId) {
+    return operation.operationId;
+  }
+  return `${method}${path.replace(/\//g, "_").replace(/[{}]/g, "")}`;
+}
+
 /** Note: this needs to mutate objects passed in */
 export function transformPathsObj(paths: Record<string, PathItemObject>, options: TransformPathsObjOption): string {
   const { globalParameters, operations, ...ctx } = options;
@@ -68,11 +75,12 @@ export function transformPathsObj(paths: Record<string, PathItemObject>, options
       const operation = (pathItem as any)[method];
       if (!operation) continue; // only allow valid methods
       if (operation.description) output += comment(operation.description); // add comment
-      if (operation.operationId) {
+      const finalOperationId = getOperationId(operation, method, url);
+      if (finalOperationId) {
         // if operation has operationId, abstract into top-level operations object
-        operations[operation.operationId] = { operation, pathItem };
+        operations[finalOperationId] = { operation, pathItem };
         const namespace = ctx.namespace ? `external["${ctx.namespace}"]["operations"]` : `operations`;
-        output += `    ${readonly}"${method}": ${namespace}["${operation.operationId}"];\n`;
+        output += `    ${readonly}"${method}": ${namespace}["${finalOperationId}"];\n`;
       } else {
         // otherwise, inline operation
         output += `    ${readonly}"${method}": {\n      ${transformOperationObj(operation, {

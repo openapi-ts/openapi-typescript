@@ -1,10 +1,10 @@
 import type { GlobalContext, OperationObject, PathItemObject } from "../types.js";
 import { comment, tsReadonly } from "../utils.js";
 import { transformHeaderObjMap } from "./headers.js";
-import { transformOperationObj } from "./operation.js";
+import { operationRequestType, transformOperationObj } from "./operation.js";
 import { transformPathsObj } from "./paths.js";
 import { transformRequestBodies } from "./request.js";
-import { transformResponsesObj } from "./responses.js";
+import { getResponseTypes, transformResponsesObj } from "./responses.js";
 import { transformSchemaObjMap } from "./schema.js";
 
 export function transformAll(schema: any, ctx: GlobalContext): Record<string, string> {
@@ -123,6 +123,24 @@ export function transformAll(schema: any, ctx: GlobalContext): Record<string, st
         pathItem,
         globalParameters: (schema.components && schema.components.parameters) || schema.parameters,
       })}\n  }\n`;
+    }
+  }
+
+  // Express type definitions
+  output.express = "";
+  if (Object.keys(operations).length) {
+    for (const id of Object.keys(operations)) {
+      const { operation, pathItem } = operations[id];
+      output.express += ` "${id}": {
+    responses: ${operation.responses ? getResponseTypes(id, operation.responses) : "never"};
+    request: Request<${operationRequestType(id, operation, {
+      ...ctx,
+      pathItem,
+      globalParameters: (schema.components && schema.components.parameters) || schema.parameters,
+    })}>;
+    response: Response<express["${id}"]["responses"]>;
+    handler: (req: express["${id}"]["request"], res: express["${id}"]["response"]) => void | Promise<void>;
+}\n`;
     }
   }
 

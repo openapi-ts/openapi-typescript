@@ -4,7 +4,6 @@ import {
   nodeType,
   tsArrayOf,
   tsIntersectionOf,
-  tsPartial,
   tsReadonly,
   tsTupleOf,
   tsUnionOf,

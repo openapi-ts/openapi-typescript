@@ -1,14 +1,26 @@
-[![version(scoped)](https://img.shields.io/npm/v/openapi-typescript.svg)](https://www.npmjs.com/package/openapi-typescript)
-[![npm downloads (weekly)](https://img.shields.io/npm/dw/openapi-typescript)](https://www.npmjs.com/package/openapi-typescript)
-[![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/main/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
+[![version(scoped)](https://img.shields.io/npm/v/openapi-typescript-express.svg)](https://www.npmjs.com/package/openapi-typescript-express)
+[![npm downloads (weekly)](https://img.shields.io/npm/dw/openapi-typescript-express)](https://www.npmjs.com/package/openapi-typescript-express)
+[![codecov](https://codecov.io/gh/gas-buddy/openapi-typescript-express/branch/main/graph/badge.svg)](https://codecov.io/gh/gas-buddy/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-52-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-# 📘️ openapi-typescript
+# 📘️ openapi-typescript-express
 
-🚀 Convert [OpenAPI 3.0][openapi3] and [2.0 (Swagger)][openapi2] schemas to TypeScript interfaces using Node.js.
+🚀 Convert [OpenAPI 3.0][openapi3] and [2.0 (Swagger)][openapi2] schemas to TypeScript interfaces for use in Express services
+in Node.js. This is a fork of [openapi-typescript](https://github.com/drwpow/openapi-typescript) with another type for all the requests,
+responses and handler types for easy access. This allows you to define
+route handlers like so:
+
+```
+import type { ExpressLocals } from '../locals.js';
+import type { express } from '../generated/service.js';
+
+export const post: express['get_some_resource']['handler']<ExpressLocals> = (req, res) => {
+  // In here, req and res are fully typed
+}
+```
 
 **Features**
 
@@ -318,6 +330,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://philip-trauner.me"><img src="https://avatars.githubusercontent.com/u/9287847?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Philip Trauner</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=PhilipTrauner" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=PhilipTrauner" title="Documentation">📖</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=PhilipTrauner" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://powell-v2.github.io/"><img src="https://avatars.githubusercontent.com/u/25308326?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pavel Yermolin</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=Powell-v2" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Powell-v2" title="Documentation">📖</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Powell-v2" title="Tests">⚠️</a></td>
     <td align="center"><a href="http://www.duncanbeevers.com"><img src="https://avatars.githubusercontent.com/u/7367?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Duncan Beevers</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=duncanbeevers" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aduncanbeevers" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=duncanbeevers" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://www.gasbuddy.com"><img src="https://avatars.githubusercontent.com/u/240684?s=100&v=4" width="100px;" alt=""/><br /><sub><b>Max Metral</b></sub></a><br /><a href="https://github.com/gas-buddy/openapi-typescript-express/commits?author=djMax" title="Code">💻</a> <a href="https://github.com/gas-buddy/openapi-typescript-express/issues?q=author%3AdjMax" title="Bug reports">🐛</a> <a href="https://github.com/gas-buddy/openapi-typescript-express/commits?author=djMax" title="Tests">⚠️</a></td>
   </tr>
 </table>
 

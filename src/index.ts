@@ -19,6 +19,10 @@ export const COMMENT_HEADER = `/**
 
 `;
 
+const TYPE_ARGUMENTS: Record<string, any> = {
+  express: "<Locals extends Record<string, any>>",
+};
+
 /**
  * This function is the entry to the program and allows the user to pass in a remote schema and/or local schema.
  * The URL or schema and headers can be passed in either programmatically and/or via the CLI.
@@ -81,6 +85,9 @@ async function openapiTS(
   // 2. generate raw output
   let output = ctx.commentHeader;
 
+  // 2a-1. import express
+  output += `import { Request, Response } from 'express';\n\n`;
+
   // 2a. root schema
   if (!options?.version && !ctx.rawSchema) ctx.version = swaggerVersion(rootSchema as any); // note: root version cascades down to all subschemas
   const rootTypes = transformAll(rootSchema, { ...ctx });
@@ -89,7 +96,8 @@ async function openapiTS(
   const exportedKindSemicolon = options.exportType === true ? ";" : "";
   for (const k of Object.keys(rootTypes)) {
     if (typeof rootTypes[k] === "string") {
-      output += `export ${exportedKind} ${k}${exportedKindOperator} {\n  ${rootTypes[k]}\n}\n\n`;
+      const typeArguments = TYPE_ARGUMENTS[k] || "";
+      output += `export ${exportedKind} ${k}${typeArguments}${exportedKindOperator} {\n  ${rootTypes[k]}\n}\n\n`;
     }
   }
 
