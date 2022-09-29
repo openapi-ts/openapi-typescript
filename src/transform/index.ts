@@ -138,8 +138,8 @@ export function transformAll(schema: any, ctx: GlobalContext): Record<string, st
       pathItem,
       globalParameters: (schema.components && schema.components.parameters) || schema.parameters,
     })}>;
-    response: Response<express["${id}"]["responses"]>;
-    handler: (req: express["${id}"]["request"], res: express["${id}"]["response"]) => void | Promise<void>;
+    response: Response<express<Locals>["${id}"]["responses"]>;
+    handler: (req: express<Locals>["${id}"]["request"], res: express<Locals>["${id}"]["response"]) => void | Promise<void>;
 }\n`;
     }
   }
