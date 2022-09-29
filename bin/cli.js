@@ -145,7 +145,7 @@ async function main() {
 
   if (output === OUTPUT_FILE) {
     const packageJSON = JSON.parse(fs.readFileSync(new URL("../package.json", import.meta.url), "utf8"));
-    console.info(`✨ ${BOLD}openapi-typescript ${packageJSON.version}${RESET}`); // only log if we’re NOT writing to stdout
+    console.info(`✨ ${BOLD}openapi-typescript-express ${packageJSON.version}${RESET}`); // only log if we’re NOT writing to stdout
   }
 
   // error: --raw-schema
