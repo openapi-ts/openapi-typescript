@@ -1,23 +1,22 @@
-import type { GlobalContext, Headers } from "./types.js";
-import type { Dispatcher } from "undici";
-import fs from "fs";
+import type { DiscriminatorObject, GlobalContext, SchemaObject } from "./types";
+import fs from "node:fs";
+import path from "node:path";
+import { Readable } from "node:stream";
+import { URL } from "node:url";
 import yaml from "js-yaml";
 import mime from "mime";
-import path from "path";
-import { Readable } from "stream";
-import { request } from "undici";
-import { URL } from "url";
-import { parseRef, replaceKeys } from "./utils.js";
+import { request, type Dispatcher } from "undici";
+import { parseRef, DOUBLE_QUOTE_RE, makeTSIndex } from "./utils.js";
 
 type PartialSchema = Record<string, any>; // not a very accurate type, but this is easier to deal with before we know we’re dealing with a valid spec
 type SchemaMap = { [url: string]: PartialSchema };
 
 const RED = "\u001b[31m";
 const RESET = "\u001b[0m";
-
+const HTTP_RE = /^https?:\/\//;
 export const VIRTUAL_JSON_URL = `file:///_json`; // fake URL reserved for dynamic JSON
 
-function parseSchema(schema: any, type: "YAML" | "JSON") {
+function parseSchema(schema: any, type: "YAML" | "JSON"): any {
   if (type === "YAML") {
     try {
       return yaml.load(schema);
@@ -39,9 +38,7 @@ function isFile(url: URL): boolean {
 
 export function resolveSchema(url: string): URL {
   // option 1: remote
-  if (url.startsWith("http://") || url.startsWith("https://")) {
-    return new URL(url);
-  }
+  if (HTTP_RE.test(url)) return new URL(url);
 
   // option 2: local
   const localPath = path.isAbsolute(url) ? new URL("", `file://${url}`) : new URL(url, `file://${process.cwd()}/`); // if absolute path is provided use that; otherwise search cwd\
@@ -62,7 +59,7 @@ export function resolveSchema(url: string): URL {
  * @param {HTTPHeaderMap} httpHeaders
  * @return {Record<string, string>}  {Record<string, string>} Final HTTP headers outcome.
  */
-function parseHttpHeaders(httpHeaders: Record<string, any>): Headers {
+function parseHttpHeaders(httpHeaders: Record<string, any>): Record<string, any> {
   const finalHeaders: Record<string, string> = {};
 
   // Obtain the header key
@@ -87,10 +84,11 @@ function parseHttpHeaders(httpHeaders: Record<string, any>): Headers {
 }
 
 interface LoadOptions extends GlobalContext {
+  auth?: string;
   rootURL: URL;
   schemas: SchemaMap;
   urlCache?: Set<string>; // URL cache (prevent URLs from being loaded over and over)
-  httpHeaders?: Headers;
+  httpHeaders?: Record<string, any>;
   httpMethod?: string;
 }
 
@@ -104,7 +102,6 @@ export default async function load(
   // if this is dynamically-passed-in JSON, we’ll have to change a few things
   const isJSON = schema instanceof URL == false && schema instanceof Readable == false;
   const schemaID = isJSON || schema instanceof Readable ? new URL(VIRTUAL_JSON_URL).href : (schema.href as string);
-
   const schemas = options.schemas;
 
   // scenario 1: load schema from dynamic JSON
@@ -142,7 +139,7 @@ export default async function load(
       contentType = mime.getType(schemaID) || "";
     } else {
       // load remote
-      const headers: Headers = {
+      const headers: Record<string, any> = {
         "User-Agent": "openapi-typescript",
       };
       if (options.auth) headers.Authorization = options.auth;
@@ -246,8 +243,9 @@ export default async function load(
         // requires the components to be wrapped in a `properties` object. But to keep
         // backwards compatibility we should instead just remove the `properties` part.
         // For us to recognize the `properties` part it simply has to be the second last.
-        if (parts[parts.length - 2] === "properties") {
-          parts.splice(parts.length - 2, 1);
+        const propertiesI = parts.indexOf("properties");
+        if (propertiesI > 0 && propertiesI !== parts.length - 1) {
+          parts.splice(propertiesI, 1);
         }
 
         // scenario 3: transform all $refs pointing back to root schema
@@ -270,5 +268,56 @@ export default async function load(
     }
   }
 
+  // scan for discriminators
+  for (const k of Object.keys(schemas)) {
+    // lazy stringification check is much faster than always crawling for discriminators,
+    // and since most schemas don’t use them, this saves a decent amount of work (and
+    // is fast enough that schemas that do aren’t significantly impacted)
+    if (JSON.stringify(schemas[k]).includes("discriminator")) {
+      for (const [id, discriminator] of Object.entries(
+        getDiscriminators(schemas[k], k === options.rootURL.href ? [] : ["external", "k"])
+      )) {
+        options.discriminators[id] = discriminator;
+      }
+    }
+  }
+
   return schemas;
+}
+
+/** (internal) res */
+export function replaceKeys(obj: Record<string, any>): Record<string, any> {
+  if (typeof obj === "object" && obj !== undefined && obj !== null) {
+    if (Array.isArray(obj)) {
+      return obj.map((item) => replaceKeys(item));
+    } else {
+      const keyValues: Record<string, any> = {};
+      for (const key of Object.keys(obj)) {
+        const newKey = key.replace(DOUBLE_QUOTE_RE, '\\"');
+        const newValue = obj[key];
+        keyValues[newKey] = replaceKeys(newValue);
+      }
+      return keyValues;
+    }
+  } else {
+    return obj;
+  }
+}
+
+/** Scan any object for discriminators */
+function getDiscriminators(schema: Record<string, unknown>, root: string[] = []): Record<string, DiscriminatorObject> {
+  const discriminators: Record<string, DiscriminatorObject> = {};
+
+  /** crawl an object top-to-bottom, building path along the way */
+  function crawlObj(obj: unknown, path: string[] = root): void {
+    if (!obj || typeof obj !== "object" || Array.isArray(obj)) return;
+    if ("discriminator" in obj)
+      discriminators[makeTSIndex(path)] = (obj as SchemaObject).discriminator as DiscriminatorObject;
+    for (const [k, v] of Object.entries(obj)) {
+      crawlObj(v, path.concat(k));
+    }
+  }
+  crawlObj(schema);
+
+  return discriminators;
 }

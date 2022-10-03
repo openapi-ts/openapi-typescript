@@ -1,42 +1,44 @@
-import type { GlobalContext, OpenAPI2, OpenAPI3, ReferenceObject } from "./types.js";
-
 type CommentObject = {
-  const?: boolean; // jsdoc without value
-  default?: string; // jsdoc with value
+  const?: unknown; // jsdoc without value
+  default?: unknown; // jsdoc with value
   deprecated?: boolean; // jsdoc without value
   description?: string; // jsdoc with value
-  enum?: boolean; // jsdoc without value
+  enum?: unknown[]; // jsdoc without value
   example?: string; // jsdoc with value
   format?: string; // not jsdoc
   nullable?: boolean; // Node information
+  summary?: string; // not jsdoc
   title?: string; // not jsdoc
-  type: string; // Type of node
+  type?: string | string[]; // Type of node
 };
 
 const COMMENT_RE = /\*\//g;
-const LB_RE = /\r?\n/g;
-const DOUBLE_QUOTE_RE = /"/g;
-const SINGLE_QUOTE_RE = /'/g;
+export const LB_RE = /\r?\n/g;
+export const DOUBLE_QUOTE_RE = /"/g;
 const ESC_0_RE = /~0/g;
 const ESC_1_RE = /~1/g;
 const TILDE_RE = /~/g;
 const FS_RE = /\//g;
+const TS_UNION_INTERSECTION_RE = /[&|]/;
+const JS_OBJ_KEY = /^[A-Za-z0-9_$]+$/;
 
 /**
  * Preparing comments from fields
  * @see {comment} for output examples
  * @returns void if not comments or jsdoc format comment string
  */
-export function prepareComment(v: CommentObject): string | void {
-  const commentsArray: Array<string> = [];
+export function getSchemaObjectComment(v: CommentObject, indentLv?: number): string | undefined {
+  if (!v || typeof v !== "object") return;
+  const output: string[] = [];
 
   // * Not JSDOC tags: [title, format]
-  if (v.title) commentsArray.push(`${v.title} `);
-  if (v.format) commentsArray.push(`Format: ${v.format} `);
+  if (v.title) output.push(`${v.title} `);
+  if (v.summary) output.push(`${v.summary} `);
+  if (v.format) output.push(`Format: ${v.format} `);
 
   // * JSDOC tags without value
   // 'Deprecated' without value
-  if (v.deprecated) commentsArray.push(`@deprecated `);
+  if (v.deprecated) output.push(`@deprecated `);
 
   // * JSDOC tags with value
   const supportedJsDocTags: Array<keyof CommentObject> = ["description", "default", "example"];
@@ -50,37 +52,36 @@ export function prepareComment(v: CommentObject): string | void {
       continue;
     }
     const serialized = typeof v[field] === "object" ? JSON.stringify(v[field], null, 2) : v[field];
-    commentsArray.push(`@${field} ${serialized} `);
+    output.push(`@${field} ${serialized} `);
   }
 
   // * JSDOC 'Constant' without value
-  if (v.const) commentsArray.push(`@constant `);
+  if ("const" in v) output.push(`@constant `);
 
   // * JSDOC 'Enum' with type
   if (v.enum) {
-    const canBeNull = v.nullable ? `|${null}` : "";
-    commentsArray.push(`@enum {${v.type}${canBeNull}}`);
+    let type = "unknown";
+    if (Array.isArray(v.type)) type = v.type.join("|");
+    else if (typeof v.type === "string") type = v.type;
+    output.push(`@enum {${type}${v.nullable ? `|null` : ""}}`);
   }
 
-  if (!commentsArray.length) return;
-
-  return comment(commentsArray.join("\n"));
+  return output.length ? comment(output.join("\n"), indentLv) : undefined;
 }
 
-export function comment(text: string): string {
+/** wrap any string in a JSDoc-style comment wrapper */
+export function comment(text: string, indentLv?: number): string {
   const commentText = text.trim().replace(COMMENT_RE, "*\\/");
 
   // if single-line comment
-  if (commentText.indexOf("\n") === -1) {
-    return `/** ${commentText} */\n`;
-  }
+  if (commentText.indexOf("\n") === -1) return `/** ${commentText} */`;
 
   // if multi-line comment
-  return `/**
-  * ${commentText.replace(LB_RE, "\n  * ")}
-  */\n`;
+  const ln = indent(" * ", indentLv || 0);
+  return ["/**", `${ln}${commentText.replace(LB_RE, `\n${ln}`)}`, indent(" */", indentLv || 0)].join("\n");
 }
 
+/** handle any valid $ref */
 export function parseRef(ref: string): { url?: string; parts: string[] } {
   if (typeof ref !== "string" || !ref.includes("#")) return { parts: [] };
   const [url, parts] = ref.split("#");
@@ -93,208 +94,122 @@ export function parseRef(ref: string): { url?: string; parts: string[] } {
   };
 }
 
-/** Is this a ReferenceObject? (note: this is just a TypeScript helper for nodeType() below) */
-export function isRef(obj: any): obj is ReferenceObject {
-  return !!obj.$ref;
+const INDEX_PARTS_RE = /\[("(\\"|[^"])+"|'(\\'|[^'])+')]/g;
+
+/** Parse TS index */
+export function parseTSIndex(type: string): string[] {
+  const parts: string[] = [];
+  const bracketI = type.indexOf("[");
+  if (bracketI === -1) return [type];
+
+  parts.push(type.substring(0, bracketI));
+  const matches = type.match(INDEX_PARTS_RE);
+  if (matches) {
+    for (const m of matches) parts.push(m.substring('["'.length, m.length - '"]'.length));
+  }
+  return parts;
+}
+
+/** Make TS index */
+export function makeTSIndex(parts: string[]): string {
+  return `${parts[0]}[${parts.slice(1).map(escStr).join("][")}]`;
 }
 
 export type ParsedSimpleValue = string | number | boolean;
 
-/**
- * For parsing CONST / ENUM single values
- * @param value - node.const or node.enum[I] for parsing
- * @param isNodeNullable  - node.nullable
- * @returns parsed value
- */
-export function parseSingleSimpleValue(value: unknown, isNodeNullable = false): ParsedSimpleValue {
-  if (typeof value === "string") return `'${value.replace(SINGLE_QUOTE_RE, "\\'")}'`;
-
-  if (typeof value === "number" || typeof value === "boolean") return value;
-
-  if (typeof value === "object") return JSON.stringify(value);
-
-  if (value === null && !isNodeNullable) return "null";
-
-  // Edge case
-  return `${value}`;
-}
-
-/** Return type of node (works for v2 or v3, as there are no conflicting types) */
-type SchemaObjectType =
-  | "anyOf"
-  | "array"
-  | "boolean"
-  | "const"
-  | "enum"
-  | "number"
-  | "object"
-  | "oneOf"
-  | "ref"
-  | "null"
-  | "string"
-  // Special type so the parent function knows to recursively evaluate each entry
-  | "type-array"
-  | "unknown";
-export function nodeType(obj: any): SchemaObjectType {
-  if (!obj || typeof obj !== "object") {
-    return "unknown";
-  }
-
-  if (obj.$ref) {
-    return "ref";
-  }
-
-  // const
-  if (obj.const) {
-    return "const";
-  }
-
-  // enum
-  if (Array.isArray(obj.enum) && obj.enum.length) {
-    return "enum";
-  }
-
-  // Treat any node with allOf/ anyOf/ oneOf as object
-  if ("allOf" in obj || "anyOf" in obj || "oneOf" in obj) {
-    return "object";
-  }
-
-  // Type array from the 3.1 specification
-  if (Array.isArray(obj.type)) {
-    return "type-array";
-  }
-
-  // boolean
-  if (obj.type === "boolean") {
-    return "boolean";
-  }
-
-  // null
-  if (obj.type === "null") {
-    return "null";
-  }
-  // string
-  if (
-    obj.type === "string" ||
-    obj.type === "binary" ||
-    obj.type === "byte" ||
-    obj.type === "date" ||
-    obj.type === "dateTime" ||
-    obj.type === "password"
-  ) {
-    return "string";
-  }
-
-  // number
-  if (obj.type === "integer" || obj.type === "number" || obj.type === "float" || obj.type === "double") {
-    return "number";
-  }
-
-  // array
-  if (obj.type === "array" || obj.items) {
-    return "array";
-  }
-
-  // object
-  if (obj.type === "object" || "properties" in obj || "additionalProperties" in obj) {
-    return "object";
-  }
-
-  // return unknown by default
-  return "unknown";
-}
-
-/** Return OpenAPI version from definition */
-export function swaggerVersion(definition: OpenAPI2 | OpenAPI3): 2 | 3 {
-  // OpenAPI 3
-  if ("openapi" in definition) {
-    // OpenAPI version requires semver, therefore will always be string
-    if (parseInt(definition.openapi, 10) === 3) {
-      return 3;
-    }
-  }
-
-  // OpenAPI 2
-  if ("swagger" in definition) {
-    // note: swagger 2.0 may be parsed as a number
-    if (typeof definition.swagger === "number" && Math.round(definition.swagger as number) === 2) {
-      return 2;
-    }
-    if (parseInt(definition.swagger, 10) === 2) {
-      return 2;
-    }
-  }
-
-  throw new Error(
-    `✘  version missing from schema; specify whether this is OpenAPI v3 or v2 https://swagger.io/specification`
-  );
-}
-
-/** Decode $ref (https://swagger.io/docs/specification/using-ref/#escape) */
+/** decode $ref (https://swagger.io/docs/specification/using-ref/#escape) */
 export function decodeRef(ref: string): string {
   return ref.replace(ESC_0_RE, "~").replace(ESC_1_RE, "/").replace(DOUBLE_QUOTE_RE, '\\"');
 }
 
-/** Encode $ref (https://swagger.io/docs/specification/using-ref/#escape) */
+/** encode $ref (https://swagger.io/docs/specification/using-ref/#escape) */
 export function encodeRef(ref: string): string {
   return ref.replace(TILDE_RE, "~0").replace(FS_RE, "~1");
 }
 
-/** Convert T into T[]; */
+/** T[] */
 export function tsArrayOf(type: string): string {
   return `(${type})[]`;
 }
 
-/** Convert array of types into [T, A, B, ...] */
-export function tsTupleOf(types: string[]): string {
+/** X & Y & Z; */
+export function tsIntersectionOf(...types: string[]): string {
+  if (types.length === 1) return String(types[0]); // don’t add parentheses around one thing
+  return types.map((t) => (TS_UNION_INTERSECTION_RE.test(t) ? `(${t})` : t)).join(" & ");
+}
+
+/** NonNullable<T> */
+export function tsNonNullable(type: string): string {
+  return `NonNullable<${type}>`;
+}
+
+/** OneOf<T> (custom) */
+export function tsOneOf(...types: string[]): string {
+  if (types.length === 1) return types[0];
+  return `OneOf<[${types.join(", ")}]>`;
+}
+
+/** Pick<T> */
+export function tsPick(root: string, keys: string[]): string {
+  return `Pick<${root}, ${tsUnionOf(...keys.map(escStr))}>`;
+}
+
+/** Omit<T> */
+export function tsOmit(root: string, keys: string[]): string {
+  return `Omit<${root}, ${tsUnionOf(...keys.map(escStr))}>`;
+}
+
+/** make a given property key optional */
+export function tsOptionalProperty(key: string): string {
+  return `${key}?`;
+}
+
+/** make a given type readonly */
+export function tsReadonly(type: string): string {
+  return `readonly ${type}`;
+}
+
+/** [T, A, B, ...] */
+export function tsTupleOf(...types: string[]): string {
   return `[${types.join(", ")}]`;
 }
 
-/** Convert T, U into T & U; */
-export function tsIntersectionOf(types: string[]): string {
-  const typesWithValues = types.filter(Boolean);
-
-  if (!typesWithValues.length) return "undefined"; // usually allOf/anyOf with empty input - so it's undefined
-
-  if (typesWithValues.length === 1) return typesWithValues[0]; // don’t add parentheses around one thing
-  return `(${typesWithValues.join(") & (")})`;
+/** X | Y | Z */
+export function tsUnionOf(...types: Array<string | number | boolean>): string {
+  if (types.length === 1) return String(types[0]); // don’t add parentheses around one thing
+  return types.map((t) => (TS_UNION_INTERSECTION_RE.test(String(t)) ? `(${t})` : t)).join(" | ");
 }
 
-export function tsReadonly(immutable: boolean): string {
-  return immutable ? "readonly " : "";
+/** escape string value */
+export function escStr(input: string): string {
+  if (typeof input !== "string") return input;
+  return `"${input.trim().replace(DOUBLE_QUOTE_RE, '\\"')}"`;
 }
 
-/** Convert [X, Y, Z] into X | Y | Z */
-export function tsUnionOf(types: Array<string | number | boolean>): string {
-  if (!types.length) return "undefined"; // usually oneOf with empty input - so it's undefined
-
-  if (types.length === 1) return `${types[0]}`; // don’t add parentheses around one thing
-  return `(${types.join(") | (")})`;
+/** surround a JS object key with quotes, if needed */
+export function escObjKey(input: string): string {
+  return JS_OBJ_KEY.test(input) ? input : escStr(input);
 }
 
-export function replaceKeys(obj: Record<string, any>): Record<string, any> {
-  if (typeof obj === "object" && obj !== undefined && obj !== null) {
-    if (Array.isArray(obj)) {
-      return obj.map((item) => replaceKeys(item));
-    } else {
-      const keyValues = Object.keys(obj).map((key) => {
-        const newKey = key.replace(DOUBLE_QUOTE_RE, '\\"');
-        const newValue = obj[key];
-        if (typeof newValue === "object") {
-          return { [newKey]: replaceKeys(newValue) };
-        } else {
-          return { [newKey]: newValue };
-        }
-      });
-      return Object.assign({}, ...keyValues);
-    }
-  } else {
-    return obj;
-  }
+/** Indent a string */
+export function indent(input: string, level: number) {
+  return "  ".repeat(level).concat(input);
 }
 
-export function getEntries<Item>(obj: ArrayLike<Item> | Record<string, Item>, options: GlobalContext) {
+/** call Object.entries() and optionally sort */
+export function getEntries<T>(obj: ArrayLike<T> | Record<string, T>, alphabetize?: boolean) {
   const entries = Object.entries(obj);
-  if (options.alphabetize) entries.sort(([a], [b]) => a.localeCompare(b, "en", { numeric: true }));
+  if (alphabetize) entries.sort(([a], [b]) => a.localeCompare(b, "en", { numeric: true }));
   return entries;
+}
+
+/** verify OpenAPI version of an unknown schema */
+export function checkOpenAPIVersion(schema: Record<string, unknown | undefined>): void {
+  if ("swagger" in schema && typeof schema.swagger === "string")
+    throw new Error("Swagger 2.0 and older no longer supported. Please use v5.");
+  if ("openapi" in schema && typeof schema.openapi === "string") {
+    const version = parseInt(schema.openapi);
+    if (version <= 2 || version >= 4)
+      throw new Error(`Unknown OpenAPI version "${schema.version}". Only 3.x is supported.`);
+  }
 }

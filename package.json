@@ -35,39 +35,39 @@
   },
   "homepage": "https://github.com/drwpow/openapi-typescript#readme",
   "scripts": {
-    "build": "del dist && tsc",
-    "dev": "tsc --watch",
+    "build": "del dist && tsc -p tsconfig.build.json",
+    "dev": "tsc -p tsconfig.build.json --watch",
+    "download:schemas": "node ./scripts/download-schemas.js",
     "format": "npm run prettier -w .",
     "lint": "eslint .",
-    "prepare": "npm run build",
     "pregenerate": "npm run build",
-    "update:examples": "node ./scripts/update-examples.js",
+    "prepare": "npm run build && npm run download:schemas",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
+    "update:examples": "node ./scripts/update-examples.js",
     "version": "npm run build"
   },
   "dependencies": {
     "fast-glob": "^3.2.12",
     "js-yaml": "^4.1.0",
     "mime": "^3.0.0",
-    "prettier": "^2.7.1",
     "undici": "^5.12.0",
     "yargs-parser": "^21.1.1"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.5",
     "@types/mime": "^2.0.3",
-    "@types/node": "^18.11.7",
-    "@types/prettier": "^2.7.1",
-    "@typescript-eslint/eslint-plugin": "^5.41.0",
-    "@typescript-eslint/parser": "^5.41.0",
-    "@vitest/coverage-c8": "^0.24.3",
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "@vitest/coverage-c8": "^0.24.5",
     "del-cli": "^5.0.0",
     "eol": "^0.9.1",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1",
     "typescript": "^4.8.4",
-    "vitest": "^0.24.3"
+    "vitest": "^0.24.5"
   }
 }
