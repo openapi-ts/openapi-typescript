@@ -1,7 +1,7 @@
 {
   "name": "openapi-typescript-express",
   "description": "Generate TypeScript types from Swagger OpenAPI specs suitable for an Express server",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "engines": {
     "node": ">= 14.0.0",
     "npm": ">= 7.0.0"

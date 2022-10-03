@@ -76,7 +76,14 @@ export function transformResponsesObj(responsesObj: Record<string, any>, ctx: Gl
 }
 
 export function getResponseTypes(operationId: string, responsesObj: Record<string, any>): string {
-  return Object.keys(responsesObj)
-    .map((httpStatusCode) => `operations["${operationId}"]["responses"]["${httpStatusCode}"]`)
-    .join(" | ");
+  const responses = Object.keys(responsesObj)
+    .filter((httpStatusCode) => responsesObj[httpStatusCode]?.content?.["application/json"])
+    .map(
+      (httpStatusCode) =>
+        `operations["${operationId}"]["responses"]["${httpStatusCode}"]["content"]["application/json"]`
+    );
+  if (responses?.length) {
+    return responses.join(" | ");
+  }
+  return "never";
 }
