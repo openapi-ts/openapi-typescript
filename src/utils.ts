@@ -130,7 +130,10 @@ type SchemaObjectType =
   | "object"
   | "oneOf"
   | "ref"
+  | "null"
   | "string"
+  // Special type so the parent function knows to recursively evaluate each entry
+  | "type-array"
   | "unknown";
 export function nodeType(obj: any): SchemaObjectType {
   if (!obj || typeof obj !== "object") {
@@ -156,11 +159,20 @@ export function nodeType(obj: any): SchemaObjectType {
     return "object";
   }
 
+  // Type array from the 3.1 specification
+  if (Array.isArray(obj.type)) {
+    return "type-array";
+  }
+
   // boolean
   if (obj.type === "boolean") {
     return "boolean";
   }
 
+  // null
+  if (obj.type === "null") {
+    return "null";
+  }
   // string
   if (
     obj.type === "string" ||
