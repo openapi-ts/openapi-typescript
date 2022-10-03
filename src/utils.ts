@@ -260,11 +260,6 @@ export function tsIntersectionOf(types: string[]): string {
   return `(${typesWithValues.join(") & (")})`;
 }
 
-/** Convert T into Partial<T> */
-export function tsPartial(type: string): string {
-  return `Partial<${type}>`;
-}
-
 export function tsReadonly(immutable: boolean): string {
   return immutable ? "readonly " : "";
 }
