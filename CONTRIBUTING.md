@@ -62,9 +62,25 @@ _Also if this appears in `examples/` feel free to update that, too!_
 
 ## Testing
 
+Tests use [Vitest](https://vitest.dev), a modern test-runner based on Jest. To run the tests locally, run:
+
 ```
 npm test
 ```
+
+To run an individual test:
+
+```
+npx vitest [part of filename]
+```
+
+Or to start all tests in watch mode:
+
+```
+npx vitest
+```
+
+[See docs](https://vitest.dev)
 
 ## Help needed
 

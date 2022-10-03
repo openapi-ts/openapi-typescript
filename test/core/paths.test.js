@@ -1,6 +1,5 @@
-import { expect } from "chai";
-import { describe, it } from "mocha";
 import prettier from "prettier";
+import { describe, expect, it } from "vitest";
 import { transformPathsObj as transform } from "../../dist/transform/paths.js";
 
 function format(source) {
