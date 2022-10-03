@@ -34,4 +34,4 @@ jobs:
       - run: npm run test:coverage
         if: matrix.os == 'macos-12' && matrix.node-version == '18.x'
       - uses: codecov/codecov-action@v3
-        if: matrix.os == 'macos-16' && matrix.node-version == '18.x'
+        if: matrix.os == 'macos-12' && matrix.node-version == '18.x'

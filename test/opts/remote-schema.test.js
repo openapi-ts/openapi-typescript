@@ -1,8 +1,7 @@
-import { expect } from "chai";
 import fs from "fs";
 import eol from "eol";
-import { describe, it } from "mocha";
 import { URL } from "url";
+import { describe, expect, it } from "vitest";
 import openapiTS from "../../dist/index.js";
 
 describe("remote $refs", () => {

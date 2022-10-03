@@ -1,8 +1,7 @@
 /**
  * Tests raw generation, pre-Prettier
  */
-import { expect } from "chai";
-import { describe, it } from "mocha";
+import { describe, expect, it } from "vitest";
 import { transformSchemaObj as transform } from "../../dist/transform/schema.js";
 
 const defaults = {
@@ -489,6 +488,15 @@ abc: number;
 }) & ({ [key: string]: number; })`);
   });
 
+  it("deprecated", () => {
+    expect(transform({ type: "object", properties: { userId: { type: "string", deprecated: true } } }, { ...defaults }))
+      .to.equal(`{
+/** @deprecated */
+"userId"?: string;
+
+}`);
+  });
+
   describe("comments", () => {
     it("basic", () => {
       expect(
@@ -538,14 +546,5 @@ abc: number;
 
 }`);
     });
-  });
-
-  describe("deprecated", () => {
-    expect(transform({ type: "object", properties: { userId: { type: "string", deprecated: true } } }, { ...defaults }))
-      .to.equal(`{
-/** @deprecated */
-"userId"?: string;
-
-}`);
   });
 });
