@@ -9,10 +9,8 @@ import { transformSchemaObjMap } from "./schema.js";
 
 export function transformAll(schema: any, ctx: GlobalContext): Record<string, string> {
   const readonly = tsReadonly(ctx.immutableTypes);
-
-  let output: Record<string, string> = {};
-
-  let operations: Record<string, { operation: OperationObject; pathItem: PathItemObject }> = {};
+  const output: Record<string, string> = {};
+  const operations: Record<string, { operation: OperationObject; pathItem: PathItemObject }> = {};
 
   // --raw-schema mode
   if (ctx.rawSchema) {

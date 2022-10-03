@@ -3,7 +3,8 @@ import { execSync } from "child_process";
 import eol from "eol";
 import fs from "fs";
 import yaml from "js-yaml";
-import { fileURLToPath } from "url";
+import { describe, it } from "mocha";
+import { fileURLToPath, URL } from "url";
 import openapiTS from "../../dist/index.js";
 
 const cmd = `node ../../bin/cli.js`;

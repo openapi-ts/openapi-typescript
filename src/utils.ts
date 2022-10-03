@@ -17,9 +17,9 @@ const COMMENT_RE = /\*\//g;
 const LB_RE = /\r?\n/g;
 const DOUBLE_QUOTE_RE = /"/g;
 const SINGLE_QUOTE_RE = /'/g;
-const ESC_0_RE = /\~0/g;
-const ESC_1_RE = /\~1/g;
-const TILDE_RE = /\~/g;
+const ESC_0_RE = /~0/g;
+const ESC_1_RE = /~1/g;
+const TILDE_RE = /~/g;
 const FS_RE = /\//g;
 
 /**
@@ -155,7 +155,7 @@ export function nodeType(obj: any): SchemaObjectType {
   }
 
   // Treat any node with allOf/ anyOf/ oneOf as object
-  if (obj.hasOwnProperty("allOf") || obj.hasOwnProperty("anyOf") || obj.hasOwnProperty("oneOf")) {
+  if ("allOf" in obj || "anyOf" in obj || "oneOf" in obj) {
     return "object";
   }
 
@@ -196,7 +196,7 @@ export function nodeType(obj: any): SchemaObjectType {
   }
 
   // object
-  if (obj.type === "object" || obj.hasOwnProperty("properties") || obj.hasOwnProperty("additionalProperties")) {
+  if (obj.type === "object" || "properties" in obj || "additionalProperties" in obj) {
     return "object";
   }
 

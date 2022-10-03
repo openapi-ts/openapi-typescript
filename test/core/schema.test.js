@@ -2,6 +2,7 @@
  * Tests raw generation, pre-Prettier
  */
 import { expect } from "chai";
+import { describe, it } from "mocha";
 import { transformSchemaObj as transform } from "../../dist/transform/schema.js";
 
 const defaults = {
@@ -242,8 +243,6 @@ describe("SchemaObject", () => {
 }`
       );
     });
-
-    console.log("ASD LAST");
 
     it("$ref", () => {
       expect(transform({ $ref: 'components["parameters"]["ReferenceObject"]' }, { ...defaults })).to.equal(

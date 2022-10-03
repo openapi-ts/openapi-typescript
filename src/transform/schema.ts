@@ -18,7 +18,7 @@ interface TransformSchemaObjOptions extends GlobalContext {
 const EOF_RE = /\n+$/;
 
 function hasDefaultValue(node: any): boolean {
-  if (node.hasOwnProperty("default")) return true;
+  if ("default" in node) return true;
   // if (node.hasOwnProperty("$ref")) return true; // TODO: resolve remote $refs?
   return false;
 }
@@ -161,7 +161,7 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
           break;
         }
 
-        let properties = transformSchemaObjMap(node.properties || {}, {
+        const properties = transformSchemaObjMap(node.properties || {}, {
           ...options,
           required: new Set(node.required || []),
         });
