@@ -5,7 +5,7 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x, 18.x]
-        os: [macos-12, ubuntu-latest, windows-latest]
+        os: [macos-12, ubuntu-22.04, windows-2022]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
