@@ -446,6 +446,29 @@ abc: unknown;
 })`);
   });
 
+  it("object with missing required field but with additionalProperties", () => {
+    expect(
+      transform(
+        {
+          type: "object",
+          required: ["abc", "email"],
+          properties: {
+            email: { type: "string" },
+          },
+          additionalProperties: {
+            type: "integer",
+          },
+        },
+        { ...defaults }
+      )
+    ).to.equal(`({
+"email": string;
+
+}) & ({
+abc: number;
+}) & ({ [key: string]: number; })`);
+  });
+
   describe("comments", () => {
     it("basic", () => {
       expect(

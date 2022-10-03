@@ -52,14 +52,22 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
 }
 
 /** make sure all required fields exist **/
-export function addRequiredProps(properties: Record<string, any>, required: Set<string>): string[] {
+export function addRequiredProps(
+  properties: Record<string, any>,
+  required: Set<string>,
+  additionalProperties: any,
+  options: TransformSchemaObjOptions
+): string[] {
   const missingRequired = [...required].filter((r: string) => !(r in properties));
   if (missingRequired.length == 0) {
     return [];
   }
   let output = "";
+
+  const valueType = additionalProperties ? transformSchemaObj(additionalProperties, options) : "unknown";
+
   for (const r of missingRequired) {
-    output += `${r}: unknown;\n`;
+    output += `${r}: ${valueType};\n`;
   }
   return [`{\n${output}}`];
 }
@@ -131,7 +139,12 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
       }
       case "object": {
         const isAnyOfOrOneOfOrAllOf = "anyOf" in node || "oneOf" in node || "allOf" in node;
-        const missingRequired = addRequiredProps(node.properties || {}, node.required || []);
+        const missingRequired = addRequiredProps(
+          node.properties || {},
+          node.required || [],
+          node.additionalProperties,
+          options
+        );
         // if empty object, then return generic map type
         if (
           !isAnyOfOrOneOfOrAllOf &&
