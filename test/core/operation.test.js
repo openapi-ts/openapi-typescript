@@ -188,9 +188,9 @@ describe("parameters", () => {
   }`);
   });
 
-  describe("with alphabetize", () => {
-    function createOperationTransform(schema) {
-      return transformOperationObj(schema, {
+  describe("alphabetize", () => {
+    function assertSchema(actual, expected) {
+      const result = transformOperationObj(actual, {
         ...defaults,
         alphabetize: true,
         version: 3,
@@ -213,10 +213,11 @@ describe("parameters", () => {
           ],
         },
       });
+      expect(result.trim()).to.equal(expected.trim());
     }
 
-    it("sorts content types", () => {
-      const actual = createOperationTransform({
+    it("content types", () => {
+      const actual = {
         requestBody: {
           content: {
             "font/woff2": {
@@ -236,8 +237,9 @@ describe("parameters", () => {
             },
           },
         },
-      });
-      expect(actual.trim()).to.equal(`parameters: {
+      };
+
+      const expected = `parameters: {
       path: {
     "p2"?: string;
     "p3"?: string;
@@ -252,11 +254,13 @@ describe("parameters", () => {
       "font/woff": string;
       "font/woff2": string;
     }
-  }`);
+  }`;
+
+      assertSchema(actual, expected);
     });
 
-    it("sorts operation parameters", () => {
-      const actual = createOperationTransform({
+    it("operation parameters", () => {
+      const actual = {
         parameters: [
           {
             in: "path",
@@ -273,15 +277,18 @@ describe("parameters", () => {
             },
           },
         ],
-      });
-      expect(actual.trim()).to.equal(`parameters: {
+      };
+
+      const expected = `parameters: {
       path: {
     "p1"?: string;
     "p2"?: number;
     "p3"?: string;
   }
 
-  }`);
+  }`;
+
+      assertSchema(actual, expected);
     });
   });
 });

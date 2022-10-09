@@ -535,6 +535,32 @@ describe("transformPathsObj", () => {
       expect(result).to.equal(format(expected));
     }
 
+    it("operations", () => {
+      const actual = {
+        "/pies": { get: {} },
+        "/cakes": { get: {} },
+        "/donuts": { get: {} },
+        "/cookies": { get: {} },
+      };
+
+      const expected = `
+      "/cakes": {
+        get: {};
+      };
+      "/cookies": {
+        get: {};
+      };
+      "/donuts": {
+        get: {};
+      };
+      "/pies": {
+        get: {};
+      };
+`;
+
+      assertSchema(actual, expected);
+    });
+
     it("parameters", () => {
       const actual = {
         "/contact": {
