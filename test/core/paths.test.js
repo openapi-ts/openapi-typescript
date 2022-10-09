@@ -14,6 +14,9 @@ const defaults = {
   operations: {},
   rawSchema: false,
   version: 3, // both 2 and 3 should generate the same
+  commentHeader: "",
+  contentNever: false,
+  makePathsEnum: false,
 };
 
 describe("transformPathsObj", () => {
@@ -524,5 +527,116 @@ describe("transformPathsObj", () => {
           };
         };`)
     );
+  });
+
+  describe("alphabetize", () => {
+    function assertSchema(actual, expected) {
+      const result = format(transform(actual, { ...defaults, alphabetize: true }));
+      expect(result).to.equal(format(expected));
+    }
+
+    it("parameters", () => {
+      const actual = {
+        "/contact": {
+          post: {
+            parameters: [
+              { name: "q", in: "query", required: true, schema: { type: "string" } },
+              { name: "p", in: "query", schema: { type: "integer" } },
+            ],
+          },
+        },
+      };
+
+      const expected = `
+      "/contact": {
+        post: {
+          parameters: {
+            query: {
+              p?: number;
+              q: string;
+            };
+          };
+        };
+      };
+    `;
+
+      assertSchema(actual, expected);
+    });
+
+    it("response codes", () => {
+      const actual = {
+        "/contact": {
+          post: {
+            responses: {
+              500: {},
+              200: {},
+              400: {},
+              40: {},
+            },
+          },
+        },
+      };
+
+      const expected = `
+      "/contact": {
+        post: {
+          responses: {
+            40: unknown;
+            200: unknown;
+            400: unknown;
+            500: unknown;
+          };
+        };
+      };
+     `;
+
+      assertSchema(actual, expected);
+    });
+
+    it("response properties", () => {
+      const actual = {
+        "/contact": {
+          post: {
+            responses: {
+              200: {
+                content: {
+                  "application/json": {
+                    schema: {
+                      type: "object",
+                      properties: {
+                        lastName: { type: "string" },
+                        firstName: { type: "string" },
+                        age: { type: "integer" },
+                      },
+                      additionalProperties: false,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      };
+
+      const expected = `
+      "/contact": {
+        post: {
+          responses: {
+            200: {
+              content: {
+                "application/json": {
+                  age?: number;
+                  firstName?: string;
+                  lastName?: string;
+                };
+              };
+            };
+           }
+         }
+       }
+     `;
+
+      assertSchema(actual, expected);
+    });
   });
 });

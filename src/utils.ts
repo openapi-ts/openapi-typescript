@@ -295,6 +295,6 @@ export function replaceKeys(obj: Record<string, any>): Record<string, any> {
 
 export function getEntries<Item>(obj: ArrayLike<Item> | Record<string, Item>, options: GlobalContext) {
   const entries = Object.entries(obj);
-  if (options.alphabetize) entries.sort(([a], [b]) => a.localeCompare(b, "en"));
+  if (options.alphabetize) entries.sort(([a], [b]) => a.localeCompare(b, "en", { numeric: true }));
   return entries;
 }

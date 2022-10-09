@@ -1,5 +1,5 @@
 import type { GlobalContext, ParameterObject, ReferenceObject } from "../types.js";
-import { comment, tsReadonly } from "../utils.js";
+import { comment, getEntries, tsReadonly } from "../utils.js";
 import { transformSchemaObj } from "./schema.js";
 
 interface TransformParametersOptions extends GlobalContext {
@@ -57,9 +57,9 @@ export function transformParametersArray(
   }
 
   // transform output
-  for (const [paramIn, paramGroup] of Object.entries(mappedParams)) {
+  for (const [paramIn, paramGroup] of getEntries(mappedParams, ctx)) {
     output += `  ${readonly}${paramIn}: {\n`; // open in
-    for (const [paramName, paramObj] of Object.entries(paramGroup)) {
+    for (const [paramName, paramObj] of getEntries(paramGroup, ctx)) {
       let paramComment = "";
       if (paramObj.deprecated) paramComment += `@deprecated `;
       if (paramObj.description) paramComment += paramObj.description;
