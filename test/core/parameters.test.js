@@ -67,6 +67,58 @@ describe("transformParametersArray()", () => {
       );
     });
 
+    it("basic (alphabetize)", () => {
+      const schema = [
+        { in: "query", name: "delta", required: true, type: "string" },
+        { in: "query", name: "charlie", required: true, type: "string" },
+        { in: "query", name: "alpha", required: true, type: "string" },
+        { in: "query", name: "bravo", required: true, type: "string" },
+      ];
+
+      const actual = transformParametersArray(schema, {
+        ...defaults,
+        version: 2,
+        alphabetize: true,
+        globalParameters: {
+          per_page: { in: "query", name: "per_page", required: true, type: "number" },
+          page: { in: "query", name: "page", type: "number" },
+          since: { in: "query", name: "since", type: "string" },
+        },
+      }).trim();
+      expect(actual).to.equal(`query: {
+    "alpha": string;
+    "bravo": string;
+    "charlie": string;
+    "delta": string;
+  }`);
+    });
+
+    it("numeric (alphabetize)", () => {
+      const schema = [
+        { in: "query", name: "1000", required: true, type: "string" },
+        { in: "query", name: "123", required: true, type: "string" },
+        { in: "query", name: "1001", required: true, type: "string" },
+        { in: "query", name: "111", required: true, type: "string" },
+      ];
+
+      const actual = transformParametersArray(schema, {
+        ...defaults,
+        version: 2,
+        alphabetize: true,
+        globalParameters: {
+          per_page: { in: "query", name: "per_page", required: true, type: "number" },
+          page: { in: "query", name: "page", type: "number" },
+          since: { in: "query", name: "since", type: "string" },
+        },
+      }).trim();
+      expect(actual).to.equal(`query: {
+    "111": string;
+    "123": string;
+    "1000": string;
+    "1001": string;
+  }`);
+    });
+
     const refSchema = [
       { $ref: 'parameters["per_page"]' },
       { $ref: 'parameters["page"]' },
@@ -107,6 +159,24 @@ describe("transformParametersArray()", () => {
     readonly "per_page": parameters["per_page"];
     readonly "page"?: parameters["page"];
     readonly "since"?: parameters["since"];
+  }`);
+    });
+
+    it("$ref (alphabetize)", () => {
+      const actual = transformParametersArray(refSchema, {
+        ...defaults,
+        version: 2,
+        alphabetize: true,
+        globalParameters: {
+          per_page: { in: "query", name: "per_page", required: true, type: "number" },
+          page: { in: "query", name: "page", type: "number" },
+          since: { in: "query", name: "since", type: "string" },
+        },
+      }).trim();
+      expect(actual).to.equal(`query: {
+    "page"?: parameters["page"];
+    "per_page": parameters["per_page"];
+    "since"?: parameters["since"];
   }`);
     });
   });
@@ -171,6 +241,58 @@ describe("transformParametersArray()", () => {
       );
     });
 
+    it("basic (alphabetize)", () => {
+      const schema = [
+        { in: "query", name: "delta", required: true, schema: { type: "string" } },
+        { in: "query", name: "charlie", required: true, schema: { type: "string" } },
+        { in: "query", name: "alpha", required: true, schema: { type: "string" } },
+        { in: "query", name: "bravo", required: true, schema: { type: "string" } },
+      ];
+
+      const actual = transformParametersArray(schema, {
+        ...defaults,
+        version: 3,
+        alphabetize: true,
+        globalParameters: {
+          per_page: { in: "query", name: "per_page", required: true, type: "number" },
+          page: { in: "query", name: "page", type: "number" },
+          since: { in: "query", name: "since", type: "string" },
+        },
+      }).trim();
+      expect(actual).to.equal(`query: {
+    "alpha": string;
+    "bravo": string;
+    "charlie": string;
+    "delta": string;
+  }`);
+    });
+
+    it("numeric (alphabetize)", () => {
+      const schema = [
+        { in: "query", name: "1000", required: true, schema: { type: "string" } },
+        { in: "query", name: "123", required: true, schema: { type: "string" } },
+        { in: "query", name: "1001", required: true, schema: { type: "string" } },
+        { in: "query", name: "111", required: true, schema: { type: "string" } },
+      ];
+
+      const actual = transformParametersArray(schema, {
+        ...defaults,
+        version: 3,
+        alphabetize: true,
+        globalParameters: {
+          per_page: { in: "query", name: "per_page", required: true, type: "number" },
+          page: { in: "query", name: "page", type: "number" },
+          since: { in: "query", name: "since", type: "string" },
+        },
+      }).trim();
+      expect(actual).to.equal(`query: {
+    "111": string;
+    "123": string;
+    "1000": string;
+    "1001": string;
+  }`);
+    });
+
     const refSchema = [
       { $ref: 'components["parameters"]["per_page"]' },
       { $ref: 'components["parameters"]["page"]' },
@@ -211,6 +333,24 @@ describe("transformParametersArray()", () => {
     readonly "per_page": components["parameters"]["per_page"];
     readonly "page"?: components["parameters"]["page"];
     readonly "since"?: components["parameters"]["since"];
+  }`);
+    });
+
+    it("$ref (alphabetize)", () => {
+      const actual = transformParametersArray(refSchema, {
+        ...defaults,
+        version: 3,
+        alphabetize: true,
+        globalParameters: {
+          per_page: { in: "query", name: "per_page", required: true, type: "number" },
+          page: { in: "query", name: "page", type: "number" },
+          since: { in: "query", name: "since", type: "string" },
+        },
+      }).trim();
+      expect(actual).to.equal(`query: {
+    "page"?: components["parameters"]["page"];
+    "per_page": components["parameters"]["per_page"];
+    "since"?: components["parameters"]["since"];
   }`);
     });
 

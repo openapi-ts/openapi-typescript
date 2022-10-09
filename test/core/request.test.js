@@ -56,6 +56,63 @@ describe("requestBodies", () => {
     );
   });
 
+  it("basic (alphabetize)", () => {
+    const schema = {
+      SupportAnimal: {
+        description: "Support Animal request body",
+        content: {
+          "application/json": {
+            schema: {
+              type: "string",
+            },
+          },
+        },
+      },
+      Pet: {
+        description: "Pet request body",
+        content: {
+          "application/json": {
+            schema: {
+              type: "string",
+            },
+          },
+        },
+      },
+      Mount: {
+        description: "Mount request body",
+        content: {
+          "application/json": {
+            schema: {
+              type: "string",
+            },
+          },
+        },
+      },
+    };
+
+    const actual = format(transformRequestBodies(schema, { ...defaults, alphabetize: true, version: 2 }));
+    expect(actual).to.equal(
+      format(`/** Mount request body */
+          Mount: {
+            content: {
+              "application/json": string;
+            };
+          };
+          /** Pet request body */
+          Pet: {
+            content: {
+              "application/json": string;
+            };
+          };
+          /** Support Animal request body */
+          SupportAnimal: {
+            content: {
+              "application/json": string;
+            };
+          };`)
+    );
+  });
+
   const schemaHyphen = {
     "Pet-example": {
       description: "Pet-example request body",

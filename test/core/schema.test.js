@@ -179,6 +179,57 @@ describe("SchemaObject", () => {
       );
     });
 
+    describe("alphabetize", () => {
+      it("object", () => {
+        const opts = { ...defaults, alphabetize: true };
+        expect(transform(objStd, opts)).to.equal(
+          `{\n"object"?: {\n"number"?: components["schemas"]["object_ref"];\n"string"?: string;\n\n};\n\n}`
+        );
+        expect(transform(objUnknown, opts)).to.equal(`{ [key: string]: unknown }`);
+        expect(transform({}, opts)).to.equal(`unknown`);
+        expect(transform(objNullable, opts)).to.equal(`({\n"string"?: string;\n\n}) | null`);
+        expect(transform(objRequired, opts)).to.equal(`{\n"optional"?: boolean;\n"required": string;\n\n}`);
+      });
+
+      it("array", () => {
+        const opts = { ...defaults, alphabetize: true };
+        expect(transform({ type: "array", items: { type: "string" } }, opts)).to.equal(`(string)[]`);
+        expect(transform({ type: "array", items: { type: "number" } }, opts)).to.equal(`(number)[]`);
+        expect(transform({ type: "array", items: { type: "boolean" } }, opts)).to.equal(`(boolean)[]`);
+        expect(
+          transform(
+            { type: "array", items: { type: "array", items: { type: "array", items: { type: "number" } } } },
+            opts
+          )
+        ).to.equal(`(((number)[])[])[]`);
+        expect(transform({ type: "array", items: { $ref: 'components["schemas"]["ArrayItem"]' } }, opts)).to.equal(
+          `(components["schemas"]["ArrayItem"])[]`
+        );
+        expect(transform({ items: { $ref: 'components["schemas"]["ArrayItem"]' } }, opts)).to.equal(
+          `(components["schemas"]["ArrayItem"])[]`
+        );
+        expect(transform({ type: "array", items: { type: "string" }, nullable: true }, opts)).to.equal(
+          `((string)[]) | null`
+        );
+        // enums should not be alphabetized, because the implicit order of the
+        // values can be significant.
+        expect(transform({ type: "array", items: { enum: ["vanilla", "chocolate"] } }, opts)).to.equal(
+          `(('vanilla') | ('chocolate'))[]`
+        );
+        // non-enum arrays probably should be alphabetized but are not. It
+        // would take a more significant rewrite of schema.ts to make that
+        // possible, and I'm not sure that it makes much difference. Primary
+        // use-case for alphabetize is to ensure types are stable when checked
+        // into git. I doubt array declarations will shuffle positions, even
+        // when the docs are generated dynamically.
+        /*
+        expect(transform({ type: "array", items: [{ type: "string" }, { type: "number" }] }, opts)).to.equal(
+          `[number, string]`
+        );
+        */
+      });
+    });
+
     it("enum", () => {
       const enumBasic = ["Totoro", "Sats'uki", "Mei"]; // note: also tests quotes in enum
       expect(

@@ -20,7 +20,7 @@ export function transformRequestBodyObj(requestBody: RequestBody, ctx: GlobalCon
 
   if (requestBody.content && Object.keys(requestBody.content).length) {
     output += `  ${readonly}content: {\n`; // open content
-    for (const [k, v] of Object.entries(requestBody.content)) {
+    for (const [k, v] of getEntries(requestBody.content, ctx)) {
       output += `      ${readonly}"${k}": ${transformSchemaObj(v.schema, { ...ctx, required: new Set<string>() })};\n`;
     }
     output += `    }\n`; // close content

@@ -187,4 +187,101 @@ describe("parameters", () => {
 
   }`);
   });
+
+  describe("with alphabetize", () => {
+    function createOperationTransform(schema) {
+      return transformOperationObj(schema, {
+        ...defaults,
+        alphabetize: true,
+        version: 3,
+        pathItem: {
+          parameters: [
+            {
+              in: "path",
+              name: "p2",
+              schema: {
+                type: "string",
+              },
+            },
+            {
+              in: "path",
+              name: "p3",
+              schema: {
+                type: "string",
+              },
+            },
+          ],
+        },
+      });
+    }
+
+    it("sorts content types", () => {
+      const actual = createOperationTransform({
+        requestBody: {
+          content: {
+            "font/woff2": {
+              schema: { type: "string" },
+            },
+            "font/otf": {
+              schema: { type: "string" },
+            },
+            "font/sfnt": {
+              schema: { type: "string" },
+            },
+            "font/ttf": {
+              schema: { type: "string" },
+            },
+            "font/woff": {
+              schema: { type: "string" },
+            },
+          },
+        },
+      });
+      expect(actual.trim()).to.equal(`parameters: {
+      path: {
+    "p2"?: string;
+    "p3"?: string;
+  }
+
+  }
+  requestBody: {
+    content: {
+      "font/otf": string;
+      "font/sfnt": string;
+      "font/ttf": string;
+      "font/woff": string;
+      "font/woff2": string;
+    }
+  }`);
+    });
+
+    it("sorts operation parameters", () => {
+      const actual = createOperationTransform({
+        parameters: [
+          {
+            in: "path",
+            name: "p2",
+            schema: {
+              type: "number",
+            },
+          },
+          {
+            in: "path",
+            name: "p1",
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+      });
+      expect(actual.trim()).to.equal(`parameters: {
+      path: {
+    "p1"?: string;
+    "p2"?: number;
+    "p3"?: string;
+  }
+
+  }`);
+    });
+  });
 });

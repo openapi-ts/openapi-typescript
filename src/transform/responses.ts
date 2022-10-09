@@ -47,10 +47,10 @@ export function transformResponsesObj(responsesObj: Record<string, any>, ctx: Gl
     switch (ctx.version) {
       case 3: {
         output += `    ${readonly}content: {\n`; // open content
-        for (const contentType of Object.keys(response.content)) {
-          const contentResponse = response.content[contentType] as any;
+        // TODO: proper type definitions for this
+        for (const [contentType, contentResponse] of getEntries<any>(response.content, ctx)) {
           const responseType =
-            contentResponse && contentResponse?.schema
+            "schema" in contentResponse
               ? transformSchemaObj(contentResponse.schema, { ...ctx, required: new Set<string>() })
               : "unknown";
           output += `      ${readonly}"${contentType}": ${responseType};\n`;
