@@ -54,5 +54,5 @@ export function operationRequestType(
   const bodyType = operation.requestBody ? `${opType}["requestBody"]["content"]["application/json"]` : "never";
   const queryType = types.includes("query") ? `${opParams}["query"]` : "never";
 
-  return `${paramType}, express<Locals>["${operationId}"]["responses"], ${bodyType}, ${queryType}, Locals`;
+  return `${paramType}, express<SLocals, RLocals>["${operationId}"]["responses"], ${bodyType}, ${queryType}, RLocals`;
 }

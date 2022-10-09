@@ -133,13 +133,13 @@ export function transformAll(schema: any, ctx: GlobalContext): Record<string, st
       const { operation, pathItem } = operations[id];
       output.express += ` "${id}": {
     responses: ${operation.responses ? getResponseTypes(id, operation.responses) : "never"};
-    request: Request<${operationRequestType(id, operation, {
+    request: expressRequest<Request<${operationRequestType(id, operation, {
       ...ctx,
       pathItem,
       globalParameters: (schema.components && schema.components.parameters) || schema.parameters,
-    })}>;
-    response: Response<express<Locals>["${id}"]["responses"]>;
-    handler: (req: express<Locals>["${id}"]["request"], res: express<Locals>["${id}"]["response"]) => void | Promise<void>;
+    })}>, SLocals>;
+    response: Response<express<SLocals, RLocals>["${id}"]["responses"]>;
+    handler: (req: express<SLocals, RLocals>["${id}"]["request"], res: express<SLocals, RLocals>["${id}"]["response"]) => void | Promise<void>;
 }\n`;
     }
   }

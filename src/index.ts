@@ -20,7 +20,7 @@ export const COMMENT_HEADER = `/**
 `;
 
 const TYPE_ARGUMENTS: Record<string, any> = {
-  express: "<Locals extends Record<string, any>>",
+  express: "<SLocals extends Record<string, any>, RLocals extends Record<string, any>>",
 };
 
 /**
@@ -85,8 +85,9 @@ async function openapiTS(
   // 2. generate raw output
   let output = ctx.commentHeader;
 
-  // 2a-1. import express
-  output += `import { Request, Response } from 'express';\n\n`;
+  // 2a-1. import express and make a helper type
+  output += `import type { Application } from 'express-serve-static-core';\nimport type { Request, Response } from 'express';\n\n`;
+  output += `export type expressRequest<RType extends Request, Locals extends Record<string, any>> =  Omit<RType, 'app'> & { app: Application<Locals> };\n\n`;
 
   // 2a. root schema
   if (!options?.version && !ctx.rawSchema) ctx.version = swaggerVersion(rootSchema as any); // note: root version cascades down to all subschemas
