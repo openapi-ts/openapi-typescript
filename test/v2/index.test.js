@@ -1,9 +1,9 @@
-import { expect } from "chai";
 import { execSync } from "child_process";
 import eol from "eol";
 import fs from "fs";
 import yaml from "js-yaml";
-import { fileURLToPath } from "url";
+import { fileURLToPath, URL } from "url";
+import { describe, expect, it } from "vitest";
 import openapiTS from "../../dist/index.js";
 
 const cmd = `node ../../bin/cli.js`;

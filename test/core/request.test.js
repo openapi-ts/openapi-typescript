@@ -1,5 +1,5 @@
-import { expect } from "chai";
 import prettier from "prettier";
+import { describe, expect, it } from "vitest";
 import { transformRequestBodies } from "../../dist/transform/request.js";
 
 const defaults = {

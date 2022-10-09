@@ -17,9 +17,9 @@ const COMMENT_RE = /\*\//g;
 const LB_RE = /\r?\n/g;
 const DOUBLE_QUOTE_RE = /"/g;
 const SINGLE_QUOTE_RE = /'/g;
-const ESC_0_RE = /\~0/g;
-const ESC_1_RE = /\~1/g;
-const TILDE_RE = /\~/g;
+const ESC_0_RE = /~0/g;
+const ESC_1_RE = /~1/g;
+const TILDE_RE = /~/g;
 const FS_RE = /\//g;
 
 /**
@@ -130,7 +130,10 @@ type SchemaObjectType =
   | "object"
   | "oneOf"
   | "ref"
+  | "null"
   | "string"
+  // Special type so the parent function knows to recursively evaluate each entry
+  | "type-array"
   | "unknown";
 export function nodeType(obj: any): SchemaObjectType {
   if (!obj || typeof obj !== "object") {
@@ -152,8 +155,13 @@ export function nodeType(obj: any): SchemaObjectType {
   }
 
   // Treat any node with allOf/ anyOf/ oneOf as object
-  if (obj.hasOwnProperty("allOf") || obj.hasOwnProperty("anyOf") || obj.hasOwnProperty("oneOf")) {
+  if ("allOf" in obj || "anyOf" in obj || "oneOf" in obj) {
     return "object";
+  }
+
+  // Type array from the 3.1 specification
+  if (Array.isArray(obj.type)) {
+    return "type-array";
   }
 
   // boolean
@@ -161,6 +169,10 @@ export function nodeType(obj: any): SchemaObjectType {
     return "boolean";
   }
 
+  // null
+  if (obj.type === "null") {
+    return "null";
+  }
   // string
   if (
     obj.type === "string" ||
@@ -184,7 +196,7 @@ export function nodeType(obj: any): SchemaObjectType {
   }
 
   // object
-  if (obj.type === "object" || obj.hasOwnProperty("properties") || obj.hasOwnProperty("additionalProperties")) {
+  if (obj.type === "object" || "properties" in obj || "additionalProperties" in obj) {
     return "object";
   }
 
@@ -246,11 +258,6 @@ export function tsIntersectionOf(types: string[]): string {
 
   if (typesWithValues.length === 1) return typesWithValues[0]; // don’t add parentheses around one thing
   return `(${typesWithValues.join(") & (")})`;
-}
-
-/** Convert T into Partial<T> */
-export function tsPartial(type: string): string {
-  return `Partial<${type}>`;
 }
 
 export function tsReadonly(immutable: boolean): string {

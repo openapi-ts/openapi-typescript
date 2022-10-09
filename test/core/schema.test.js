@@ -1,7 +1,7 @@
 /**
  * Tests raw generation, pre-Prettier
  */
-import { expect } from "chai";
+import { describe, expect, it } from "vitest";
 import { transformSchemaObj as transform } from "../../dist/transform/schema.js";
 
 const defaults = {
@@ -294,8 +294,6 @@ describe("SchemaObject", () => {
       );
     });
 
-    console.log("ASD LAST");
-
     it("$ref", () => {
       expect(transform({ $ref: 'components["parameters"]["ReferenceObject"]' }, { ...defaults })).to.equal(
         `components["parameters"]["ReferenceObject"]`
@@ -304,6 +302,27 @@ describe("SchemaObject", () => {
 
     it("file", () => {
       expect(transform({ type: "file" }, { ...defaults })).to.equal("unknown");
+    });
+  });
+
+  describe("(3.1) type arrays", () => {
+    it("nullable type array", () => {
+      expect(transform({ type: ["string", "null"] }, { ...defaults })).to.equal("(string) | (null)");
+    });
+
+    it("nullable type array within an object", () => {
+      const objectWithNullableTypeArray = {
+        type: "object",
+        properties: {
+          object: {
+            properties: { nullableNumber: { type: ["number", "null"] }, string: { type: "string" } },
+            type: "object",
+          },
+        },
+      };
+      expect(transform(objectWithNullableTypeArray, { ...defaults })).to.equal(
+        `{\n"object"?: {\n"nullableNumber"?: (number) | (null);\n"string"?: string;\n\n};\n\n}`
+      );
     });
   });
 
@@ -497,6 +516,38 @@ abc: unknown;
 })`);
   });
 
+  it("object with missing required field but with additionalProperties", () => {
+    expect(
+      transform(
+        {
+          type: "object",
+          required: ["abc", "email"],
+          properties: {
+            email: { type: "string" },
+          },
+          additionalProperties: {
+            type: "integer",
+          },
+        },
+        { ...defaults }
+      )
+    ).to.equal(`({
+"email": string;
+
+}) & ({
+abc: number;
+}) & ({ [key: string]: number; })`);
+  });
+
+  it("deprecated", () => {
+    expect(transform({ type: "object", properties: { userId: { type: "string", deprecated: true } } }, { ...defaults }))
+      .to.equal(`{
+/** @deprecated */
+"userId"?: string;
+
+}`);
+  });
+
   describe("comments", () => {
     it("basic", () => {
       expect(
@@ -546,14 +597,5 @@ abc: unknown;
 
 }`);
     });
-  });
-
-  describe("deprecated", () => {
-    expect(transform({ type: "object", properties: { userId: { type: "string", deprecated: true } } }, { ...defaults }))
-      .to.equal(`{
-/** @deprecated */
-"userId"?: string;
-
-}`);
   });
 });

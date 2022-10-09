@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - uses: actions/setup-node@v3
+      - run: pnpm i
+      - run: npm run lint
+  test:
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+        os: [macos-12, ubuntu-22.04, windows-2022]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: pnpm i
+      - run: npm test
+        if: matrix.os != 'macos-12' || matrix.node-version != '18.x'
+      - run: npm run test:coverage
+        if: matrix.os == 'macos-12' && matrix.node-version == '18.x'
+      - uses: codecov/codecov-action@v3
+        if: matrix.os == 'macos-12' && matrix.node-version == '18.x'
