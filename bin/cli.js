@@ -121,11 +121,18 @@ async function generateSchema(pathToSpec) {
       outputFilePath = path.join(outputFilePath, filename);
     }
 
-    fs.writeFileSync(outputFilePath, result, "utf8");
+    const existingContent = fs.existsSync(outputFilePath) ? fs.readFileSync(outputFilePath, "utf8") : "";
+    if (existingContent !== result) {
+      fs.writeFileSync(outputFilePath, result, "utf8");
 
-    const timeEnd = process.hrtime(timeStart);
-    const time = timeEnd[0] + Math.round(timeEnd[1] / 1e6);
-    console.log(`🚀 ${GREEN}${pathToSpec} -> ${BOLD}${outputFilePath}${RESET}${GREEN} [${time}ms]${RESET}`);
+      const timeEnd = process.hrtime(timeStart);
+      const time = timeEnd[0] + Math.round(timeEnd[1] / 1e6);
+      console.log(`🚀 ${GREEN}${pathToSpec} -> ${BOLD}${outputFilePath}${RESET}${GREEN} [${time}ms]${RESET}`);
+    } else {
+      const timeEnd = process.hrtime(timeStart);
+      const time = timeEnd[0] + Math.round(timeEnd[1] / 1e6);
+      console.log(`🚀 ${GREEN}${pathToSpec} == ${BOLD}${outputFilePath}${RESET}${GREEN} [${time}ms]${RESET}`);
+    }
   } else {
     process.stdout.write(result);
     // if stdout, (still) don’t log anything to console!
