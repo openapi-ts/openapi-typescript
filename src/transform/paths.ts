@@ -26,11 +26,15 @@ function replacePathParamsWithTypes(url: string, params: NonNullable<PathItemObj
   return result;
 }
 
-function getOperationId(operation: { operationId?: any }, method: string, path: string) {
+export function getOperationIdFromPath(path: string) {
+  return `${path.substring(1).replace(/\//g, "_").replace(/[{}]/g, "").replace(/-/g, "_")}`;
+}
+
+export function getOperationId(operation: { operationId?: any }, method: string, path: string) {
   if (operation.operationId) {
     return operation.operationId;
   }
-  return `${method}${path.replace(/\//g, "_").replace(/[{}]/g, "")}`;
+  return `${method}_${getOperationIdFromPath(path)}`;
 }
 
 /** Note: this needs to mutate objects passed in */

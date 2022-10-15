@@ -2,7 +2,7 @@ import type { GlobalContext, OperationObject, PathItemObject } from "../types.js
 import { comment, tsReadonly } from "../utils.js";
 import { transformHeaderObjMap } from "./headers.js";
 import { operationRequestType, transformOperationObj } from "./operation.js";
-import { transformPathsObj } from "./paths.js";
+import { getOperationId, getOperationIdFromPath, transformPathsObj } from "./paths.js";
 import { transformRequestBodies } from "./request.js";
 import { getResponseTypes, transformResponsesObj } from "./responses.js";
 import { transformSchemaObjMap } from "./schema.js";
@@ -141,6 +141,17 @@ export function transformAll(schema: any, ctx: GlobalContext): Record<string, st
     response: Response<express<SLocals, RLocals>["${id}"]["responses"]>;
     handler: (req: express<SLocals, RLocals>["${id}"]["request"], res: express<SLocals, RLocals>["${id}"]["response"]) => void | Promise<void>;
 }\n`;
+    }
+    // Now write one that is purely path based that points to express so that handlers
+    // have an easier time mapping their types (I don't generally like operationIds for this reason,
+    // but I see the argument for callers)
+    output.handlers = "";
+    for (const [path, methods] of Object.entries(schema.paths)) {
+      output.handlers += ` ${getOperationIdFromPath(path)}: {\n`;
+      for (const [method, op] of Object.entries(methods as Record<string, { operationId?: string }>)) {
+        output.handlers += ` ${method}: express<SLocals, RLocals>["${getOperationId(op, method, path)}"]["handler"]\n`;
+      }
+      output.handlers += ` }\n`;
     }
   }
 

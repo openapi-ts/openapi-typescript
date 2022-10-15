@@ -21,6 +21,7 @@ export const COMMENT_HEADER = `/**
 
 const TYPE_ARGUMENTS: Record<string, any> = {
   express: "<SLocals extends Record<string, any>, RLocals extends Record<string, any>>",
+  handlers: "<SLocals extends Record<string, any>, RLocals extends Record<string, any>>",
 };
 
 /**
