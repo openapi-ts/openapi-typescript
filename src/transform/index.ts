@@ -132,7 +132,7 @@ export function transformAll(schema: any, ctx: GlobalContext): Record<string, st
     for (const id of Object.keys(operations)) {
       const { operation, pathItem } = operations[id];
       output.express += ` "${id}": {
-    responses: ${operation.responses ? getResponseTypes(id, operation.responses) : "never"};
+    responses: ${operation.responses ? getResponseTypes(id, operation.responses) : "void"};
     request: expressRequest<Request<${operationRequestType(id, operation, {
       ...ctx,
       pathItem,
