@@ -103,7 +103,7 @@ export default async function load(
 
   // if this is dynamically-passed-in JSON, we’ll have to change a few things
   const isJSON = schema instanceof URL == false && schema instanceof Readable == false;
-  let schemaID = isJSON || schema instanceof Readable ? new URL(VIRTUAL_JSON_URL).href : (schema.href as string);
+  const schemaID = isJSON || schema instanceof Readable ? new URL(VIRTUAL_JSON_URL).href : (schema.href as string);
 
   const schemas = options.schemas;
 

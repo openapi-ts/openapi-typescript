@@ -62,7 +62,7 @@ async function openapiTS(
 
   // 1. load schema
   let rootSchema: Record<string, any> = {};
-  let external: Record<string, Record<string, any>> = {};
+  const external: Record<string, Record<string, any>> = {};
   const allSchemas: Record<string, Record<string, any>> = {};
   const schemaURL: URL = typeof schema === "string" ? resolveSchema(schema) : (schema as URL);
 

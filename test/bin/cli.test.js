@@ -1,7 +1,7 @@
-import { expect } from "chai";
 import { execSync } from "child_process";
 import eol from "eol";
 import fs from "fs";
+import { describe, expect, it } from "vitest";
 
 // Note(drew): OpenAPI support is already well-tested in v2/index.test.ts and
 // v3/index.test.ts. Only use these tests for testing CLI flags.

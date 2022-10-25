@@ -18,7 +18,7 @@ export function transformParametersArray(
   let output = "";
 
   // sort into map
-  let mappedParams: Record<string, Record<string, ParameterObject>> = {};
+  const mappedParams: Record<string, Record<string, ParameterObject>> = {};
   for (const paramObj of parameters as any[]) {
     if (paramObj.$ref && globalParameters) {
       const paramName = paramObj.$ref.split('["').pop().replace(PARAM_END_RE, ""); // take last segment

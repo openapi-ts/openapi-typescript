@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { describe, expect, it } from "vitest";
 import openapiTS from "../../dist/index.js";
 
 describe("rawSchema", () => {

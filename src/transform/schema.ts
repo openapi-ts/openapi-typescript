@@ -18,7 +18,7 @@ interface TransformSchemaObjOptions extends GlobalContext {
 const EOF_RE = /\n+$/;
 
 function hasDefaultValue(node: any): boolean {
-  if (node.hasOwnProperty("default")) return true;
+  if ("default" in node) return true;
   // if (node.hasOwnProperty("$ref")) return true; // TODO: resolve remote $refs?
   return false;
 }
@@ -51,14 +51,22 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
 }
 
 /** make sure all required fields exist **/
-export function addRequiredProps(properties: Record<string, any>, required: Set<string>): string[] {
+export function addRequiredProps(
+  properties: Record<string, any>,
+  required: Set<string>,
+  additionalProperties: any,
+  options: TransformSchemaObjOptions
+): string[] {
   const missingRequired = [...required].filter((r: string) => !(r in properties));
   if (missingRequired.length == 0) {
     return [];
   }
   let output = "";
+
+  const valueType = additionalProperties ? transformSchemaObj(additionalProperties, options) : "unknown";
+
   for (const r of missingRequired) {
-    output += `${r}: unknown;\n`;
+    output += `${r}: ${valueType};\n`;
   }
   return [`{\n${output}}`];
 }
@@ -104,10 +112,15 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
   } else {
     // transform core type
     switch (nodeType(node)) {
+      case "type-array":
+        // This is an array of types as of the 3.1 specification - we should recursively evaluate them
+        output += tsUnionOf((node.type as any[]).map((type) => transformSchemaObj({ ...node, type }, options)));
+        break;
       case "ref": {
         output += node.$ref; // these were transformed at load time when remote schemas were resolved; return as-is
         break;
       }
+      case "null":
       case "string":
       case "number":
       case "boolean":
@@ -130,7 +143,12 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
       }
       case "object": {
         const isAnyOfOrOneOfOrAllOf = "anyOf" in node || "oneOf" in node || "allOf" in node;
-        const missingRequired = addRequiredProps(node.properties || {}, node.required || []);
+        const missingRequired = addRequiredProps(
+          node.properties || {},
+          node.required || [],
+          node.additionalProperties,
+          options
+        );
         // if empty object, then return generic map type
         if (
           !isAnyOfOrOneOfOrAllOf &&
@@ -143,7 +161,7 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
           break;
         }
 
-        let properties = transformSchemaObjMap(node.properties || {}, {
+        const properties = transformSchemaObjMap(node.properties || {}, {
           ...options,
           required: new Set(node.required || []),
         });

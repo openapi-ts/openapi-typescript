@@ -1,6 +1,7 @@
-import { expect } from "chai";
 import eol from "eol";
 import fs from "fs";
+import { URL } from "url";
+import { describe, expect, it } from "vitest";
 import openapiTS from "../../dist/index.js";
 
 describe("allow empty definitions", () => {

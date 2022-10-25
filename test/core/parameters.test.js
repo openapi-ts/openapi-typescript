@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { describe, expect, it } from "vitest";
 import { transformParametersArray } from "../../dist/transform/parameters.js";
 
 const defaults = {
