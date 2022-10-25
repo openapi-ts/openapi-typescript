@@ -85,5 +85,5 @@ export function getResponseTypes(operationId: string, responsesObj: Record<strin
   if (responses?.length) {
     return responses.join(" | ");
   }
-  return "never";
+  return "void";
 }
