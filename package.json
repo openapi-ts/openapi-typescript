@@ -41,6 +41,7 @@
     "lint": "eslint .",
     "prepare": "npm run build",
     "pregenerate": "npm run build",
+    "update:examples": "node ./scripts/update-examples.js",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "version": "npm run build"
