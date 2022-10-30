@@ -36,6 +36,7 @@
   "homepage": "https://github.com/drwpow/openapi-typescript#readme",
   "scripts": {
     "build": "del dist && tsc",
+    "dev": "tsc --watch",
     "format": "npm run prettier -w .",
     "lint": "eslint .",
     "prepare": "npm run build",

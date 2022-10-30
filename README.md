@@ -8,22 +8,18 @@
 
 # 📘️ openapi-typescript
 
-🚀 Convert [OpenAPI 3.0][openapi3] and [2.0 (Swagger)][openapi2] schemas to TypeScript interfaces using Node.js.
+🚀 Convert [OpenAPI](https://spec.openapis.org/oas/latest.html) schemas to TypeScript interfaces painlessly using pure Node.js. No Java, node-gyp, or running OpenAPI servers necessary. Uses [Prettier](https://npmjs.com/prettier) to format the output.
 
 **Features**
 
-- ✅ [OpenAPI 3.0][openapi3]
-- ✅ [Swagger 2.0][openapi2]
-- ✅ Supports YAML and JSON schema formats
+- ✅ Supports YAML and JSON
 - ✅ Supports loading via remote URL (simple authentication supported with the `--auth` flag)
 - ✅ Supports remote references: `$ref: "external.yaml#components/schemas/User"`
-- ✅ Formats using [Prettier][prettier]
-- ✅ TypeScript 4.0 features
+- ✅ Prettier formatting is fully customizable to match your existing code style.
 
 **Examples**
 
-- [Stripe, OpenAPI 2.0](./examples/stripe-openapi2.ts)
-- [Stripe, OpenAPI 3.0](./examples/stripe-openapi3.ts)
+[See examples](./examples/)
 
 ## Usage
 
@@ -54,13 +50,11 @@ _Thanks to [@sharmarajdaksh](https://github.com/sharmarajdaksh) for the glob fea
 #### ☁️ Reading specs from remote resource
 
 ```bash
-npx openapi-typescript https://petstore.swagger.io/v2/swagger.json --output petstore.ts
+npx openapi-typescript https://petstore3.swagger.io/api/v3/openapi.yaml --output petstore.d.ts
 
-# 🔭 Loading spec from https://petstore.swagger.io/v2/swagger.json…
-# 🚀 https://petstore.swagger.io/v2/swagger.json -> petstore.ts [650ms]
+# 🔭 Loading spec from https://petstore3.swagger.io/api/v3/openapi.yaml…
+# 🚀 https://petstore3.swagger.io/api/v3/openapi.yaml -> petstore.d.ts [650ms]
 ```
-
-_Note: globbing doesn’t work for remote schemas because there is no reliable way to determine a list of files to select from a remote file system._
 
 _Thanks to [@psmyrdek](https://github.com/psmyrdek) for the remote spec feature!_
 
@@ -76,15 +70,15 @@ type APIResponse = components["schemas"]["APIResponse"];
 
 Because OpenAPI schemas may have invalid TypeScript characters as names, the square brackets are a safe way to access every property.
 
-Also note that there’s a special `operations` interface that you can import `OperationObjects` by their [operationId][openapi-operationid]:
+##### Operations
+
+Operations can be imported directly by their [operationId](https://spec.openapis.org/oas/latest.html#operation-object):
 
 ```ts
 import { operations } from "./generated-schema.ts";
 
 type getUsersById = operations["getUsersById"];
 ```
-
-Even though `operations` isn’t present in your original schema, it’s a simple convenience and won’t disrupt any of your other types.
 
 _Thanks to [@gr2m](https://github.com/gr2m) for the operations feature!_
 
@@ -94,7 +88,6 @@ The generated spec can also be used with [openapi-typescript-fetch](https://www.
 
 ```ts
 import { paths } from "./petstore";
-
 import { Fetcher } from "openapi-typescript-fetch";
 
 // declare fetcher for paths
@@ -163,7 +156,6 @@ npx openapi-typescript schema.yaml
 | `--make-paths-enum`            | `-pe` | `false`  | (optional) Generate an enum of endpoint paths                                                                                           |
 | `--path-params-as-types`       |       | `false`  | (optional) Substitute path parameter names with their respective types                                                                  |
 | `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level)                                                |
-| `--version`                    |       |          | Force OpenAPI version with `--version 3` or `--version 2` (required for `--raw-schema` when version is unknown)                         |
 
 ### 🐢 Node
 
@@ -172,7 +164,7 @@ npm i --save-dev openapi-typescript
 ```
 
 ```js
-import fs from "fs";
+import fs from "node:fs";
 import openapiTS from "openapi-typescript";
 
 // example 1: load [object] as schema (JSON only)
@@ -187,9 +179,7 @@ const output = await openapiTS(localPath);
 const output = await openapiTS("https://myurl.com/v1/openapi.yaml");
 ```
 
-The Node API may be useful if dealing with dynamically-created schemas, or you’re using within context of a larger application. Pass in either a JSON-friendly object to load a schema from memory, or a string to load a schema from a local file or remote URL (it will load the file quickly using built-in Node methods). Note that a YAML string isn’t supported in the Node.js API; either use the CLI or convert to JSON using [js-yaml][js-yaml] first.
-
-⚠️ As of `v4.0`, `openapiTS()` is an async function.
+The Node API may be useful if dealing with dynamically-created schemas, or you’re using within context of a larger application. Pass in either a JSON-friendly object to load a schema from memory, or a string to load a schema from a local file or remote URL (it will load the file quickly using built-in Node methods). Note that a YAML string isn’t supported in the Node.js API; either use the CLI or convert to JSON using [js-yaml](https://www.npmjs.com/package/js-yaml) first.
 
 #### Custom Formatter
 
@@ -222,26 +212,16 @@ _Note: you don’t have to use `.format`—this is just an example! You can use 
 
 ## 🏅 Project Goals
 
-1. Support converting any OpenAPI 3.0 or 2.0 (Swagger) schema to TypeScript types, no matter how complicated
-1. The generated TypeScript types **must** match your schema as closely as possible (i.e. don’t convert names to
-   `PascalCase` or follow any TypeScript-isms; faithfully reproduce your schema as closely as possible, capitalization
-   and all)
-1. This library is a TypeScript generator, not a schema validator.
+1. Support converting any valid OpenAPI schema to TypeScript types, no matter how complicated.
+1. This library does **NOT** validate your schema, there are other libraries for that.
+1. The generated TypeScript types **must** match your schema as closely as possible (e.g. no renaming to
+   `PascalCase`)
+1. This library should never require Java, node-gyp, or some other complex environment to work. This should require Node.js and nothing else.
+1. This library will never require a running OpenAPI server to work.
 
 ## 🤝 Contributing
 
-PRs are welcome! Please see our [CONTRIBUTING.md](./CONTRIBUTING.md) guide. Opening an issue beforehand to discuss is
-encouraged but not required.
-
-[glob]: https://www.npmjs.com/package/glob
-[js-yaml]: https://www.npmjs.com/package/js-yaml
-[namespace]: https://www.typescriptlang.org/docs/handbook/namespaces.html
-[npm-run-all]: https://www.npmjs.com/package/npm-run-all
-[openapi-format]: https://swagger.io/specification/#data-types
-[openapi-operationid]: https://swagger.io/specification/#operation-object
-[openapi2]: https://swagger.io/specification/v2/
-[openapi3]: https://swagger.io/specification
-[prettier]: https://npmjs.com/prettier
+PRs are welcome! Please see our [CONTRIBUTING.md](./CONTRIBUTING.md) guide.
 
 ### Contributors ✨
 
@@ -323,7 +303,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
   </tbody>
   <tfoot>
-    
+
   </tfoot>
 </table>
 
