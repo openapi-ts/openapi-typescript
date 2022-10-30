@@ -555,6 +555,16 @@
         "test",
         "bug"
       ]
+    },
+    {
+      "login": "Semigradsky",
+      "name": "Dmitry Semigradsky",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1198848?v=4",
+      "profile": "https://semigradsky.dev/",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -562,5 +572,6 @@
   "projectOwner": "drwpow",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "angular"
 }
