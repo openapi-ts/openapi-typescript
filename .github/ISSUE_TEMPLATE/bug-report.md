@@ -15,11 +15,11 @@ _A brief description of the bug._
 Paste full error message
 ```
 
-| Name | Version |
-|:------|:---------|
-| `openapi-typescript` | `x.x.x` |
-| Node.js                   | `x.x.x` |
-| OS + version               | `macOS 13, Windows 11, etc.` |
+| Name                 | Version                      |
+|:---------------------|:-----------------------------|
+| `openapi-typescript` | `x.x.x`                      |
+| Node.js              | `x.x.x`                      |
+| OS + version         | `macOS 13, Windows 11, etc.` |
 
 **Reproduction**
 
