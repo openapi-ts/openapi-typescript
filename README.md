@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/main/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-53-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-54-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -300,11 +300,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center"><a href="https://powell-v2.github.io/"><img src="https://avatars.githubusercontent.com/u/25308326?v=4?s=100" width="100px;" alt="Pavel Yermolin"/><br /><sub><b>Pavel Yermolin</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=Powell-v2" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Powell-v2" title="Documentation">📖</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Powell-v2" title="Tests">⚠️</a></td>
       <td align="center"><a href="http://www.duncanbeevers.com"><img src="https://avatars.githubusercontent.com/u/7367?v=4?s=100" width="100px;" alt="Duncan Beevers"/><br /><sub><b>Duncan Beevers</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=duncanbeevers" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aduncanbeevers" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=duncanbeevers" title="Tests">⚠️</a></td>
       <td align="center"><a href="https://t.me/tkukushkin"><img src="https://avatars.githubusercontent.com/u/1482516?v=4?s=100" width="100px;" alt="Timofey Kukushkin"/><br /><sub><b>Timofey Kukushkin</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=tkukushkin" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=tkukushkin" title="Tests">⚠️</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Atkukushkin" title="Bug reports">🐛</a></td>
+      <td align="center"><a href="https://semigradsky.dev/"><img src="https://avatars.githubusercontent.com/u/1198848?v=4?s=100" width="100px;" alt="Dmitry Semigradsky"/><br /><sub><b>Dmitry Semigradsky</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3ASemigradsky" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Semigradsky" title="Code">💻</a></td>
     </tr>
   </tbody>
-  <tfoot>
-
-  </tfoot>
 </table>
 
 <!-- markdownlint-restore -->
