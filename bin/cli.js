@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import fs from "fs";
-import path from "path";
-import glob from "tiny-glob";
+import fs from "node:fs";
+import { URL } from "node:url";
+import glob from "fast-glob";
 import parser from "yargs-parser";
 import openapiTS from "../dist/index.js";
 
@@ -35,6 +35,8 @@ Options
 
 const OUTPUT_FILE = "FILE";
 const OUTPUT_STDOUT = "STDOUT";
+const CWD = new URL(`file://${process.cwd()}/`);
+const EXT_RE = /\.[^.]+$/i;
 
 const timeStart = process.hrtime();
 
@@ -114,11 +116,11 @@ async function generateSchema(pathToSpec) {
 
   // output
   if (output === OUTPUT_FILE) {
-    let outputFilePath = path.resolve(process.cwd(), flags.output); // note: may be directory
+    let outputFilePath = new URL(flags.output, CWD); // note: may be directory
     const isDir = fs.existsSync(outputFilePath) && fs.lstatSync(outputFilePath).isDirectory();
     if (isDir) {
-      const filename = pathToSpec.replace(new RegExp(`${path.extname(pathToSpec)}$`), ".ts");
-      outputFilePath = path.join(outputFilePath, filename);
+      const filename = pathToSpec.replace(EXT_RE, ".ts");
+      outputFilePath = new URL(filename, outputFilePath);
     }
 
     fs.writeFileSync(outputFilePath, result, "utf8");
@@ -141,6 +143,9 @@ async function main() {
   }
 
   let output = flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
+  let outputFile = new URL(flags.output, CWD);
+  let outputDir = new URL(".", outputFile);
+
   const pathToSpec = input;
 
   if (output === OUTPUT_FILE) {
@@ -155,20 +160,20 @@ async function main() {
 
   // handle remote schema, exit
   if (/^https?:\/\//.test(pathToSpec)) {
-    if (output !== "." && output === OUTPUT_FILE) fs.mkdirSync(path.dirname(flags.output), { recursive: true });
+    if (output !== "." && output === OUTPUT_FILE) fs.mkdirSync(outputDir, { recursive: true });
     await generateSchema(pathToSpec);
     return;
   }
 
   // handle stdin schema, exit
   if (pathToSpec === "-") {
-    if (output !== "." && output === OUTPUT_FILE) fs.mkdirSync(path.dirname(flags.output), { recursive: true });
+    if (output !== "." && output === OUTPUT_FILE) fs.mkdirSync(outputDir, { recursive: true });
     await generateSchema(process.stdin);
     return;
   }
 
   // handle local schema(s)
-  const inputSpecPaths = await glob(pathToSpec, { filesOnly: true });
+  const inputSpecPaths = await glob(pathToSpec);
   const isGlob = inputSpecPaths.length > 1;
 
   // error: no matches for glob
@@ -177,7 +182,7 @@ async function main() {
   }
 
   // error: tried to glob output to single file
-  if (isGlob && output === OUTPUT_FILE && fs.existsSync(flags.output) && fs.lstatSync(flags.output).isFile()) {
+  if (isGlob && output === OUTPUT_FILE && fs.existsSync(outputDir) && fs.lstatSync(outputDir).isFile()) {
     errorAndExit(`❌ Expected directory for --output if using glob patterns. Received "${flags.output}".`);
   }
 
@@ -185,12 +190,7 @@ async function main() {
   await Promise.all(
     inputSpecPaths.map(async (specPath) => {
       if (flags.output !== "." && output === OUTPUT_FILE) {
-        let outputDir = path.resolve(process.cwd(), flags.output);
-        if (isGlob) {
-          outputDir = path.resolve(outputDir, path.dirname(specPath)); // globs: use output dir + spec dir
-        } else {
-          outputDir = path.dirname(outputDir); // single files: just use output parent dir
-        }
+        if (isGlob) outputDir = new URL(specPath, outputDir);
         fs.mkdirSync(outputDir, { recursive: true }); // recursively make parent dirs
       }
       await generateSchema(specPath);
