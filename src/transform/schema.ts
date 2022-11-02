@@ -9,6 +9,7 @@ import {
   tsUnionOf,
   parseSingleSimpleValue,
   ParsedSimpleValue,
+  getEntries,
 } from "../utils.js";
 
 interface TransformSchemaObjOptions extends GlobalContext {
@@ -27,9 +28,7 @@ function hasDefaultValue(node: any): boolean {
 export function transformSchemaObjMap(obj: Record<string, any>, options: TransformSchemaObjOptions): string {
   let output = "";
 
-  for (const k of Object.keys(obj)) {
-    const v = obj[k];
-
+  for (const [k, v] of getEntries(obj, options)) {
     // 1. Add comment in jsdoc notation
     const comment = prepareComment(v);
     if (comment) output += comment;

@@ -1,5 +1,5 @@
 import type { GlobalContext } from "../types.js";
-import { comment, tsReadonly } from "../utils.js";
+import { comment, getEntries, tsReadonly } from "../utils.js";
 import { transformHeaderObjMap } from "./headers.js";
 import { transformSchemaObj } from "./schema.js";
 
@@ -15,9 +15,8 @@ export function transformResponsesObj(responsesObj: Record<string, any>, ctx: Gl
 
   let output = "";
 
-  for (const httpStatusCode of Object.keys(responsesObj)) {
+  for (const [httpStatusCode, response] of getEntries(responsesObj, ctx)) {
     const statusCode = Number(httpStatusCode) || `"${httpStatusCode}"`; // don’t surround w/ quotes if numeric status code
-    const response = responsesObj[httpStatusCode];
     if (response.description) output += comment(response.description);
 
     if (response.$ref) {
@@ -48,10 +47,10 @@ export function transformResponsesObj(responsesObj: Record<string, any>, ctx: Gl
     switch (ctx.version) {
       case 3: {
         output += `    ${readonly}content: {\n`; // open content
-        for (const contentType of Object.keys(response.content)) {
-          const contentResponse = response.content[contentType] as any;
+        // TODO: proper type definitions for this
+        for (const [contentType, contentResponse] of getEntries<any>(response.content, ctx)) {
           const responseType =
-            contentResponse && contentResponse?.schema
+            "schema" in contentResponse
               ? transformSchemaObj(contentResponse.schema, { ...ctx, required: new Set<string>() })
               : "unknown";
           output += `      ${readonly}"${contentType}": ${responseType};\n`;

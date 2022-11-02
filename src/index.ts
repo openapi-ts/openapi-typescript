@@ -46,6 +46,7 @@ async function openapiTS(
     contentNever: options.contentNever || false,
     makePathsEnum: options.makePathsEnum || false,
     pathParamsAsTypes: options.pathParamsAsTypes,
+    alphabetize: options.alphabetize || false,
     rawSchema: options.rawSchema || false,
     supportArrayLength: options.supportArrayLength,
     version: options.version || 3,

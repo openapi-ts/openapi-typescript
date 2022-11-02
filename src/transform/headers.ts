@@ -1,5 +1,5 @@
 import type { GlobalContext, HeaderObject } from "../types.js";
-import { comment, tsReadonly } from "../utils.js";
+import { comment, getEntries, tsReadonly } from "../utils.js";
 import { transformSchemaObj } from "./schema.js";
 
 interface TransformHeadersOptions extends GlobalContext {
@@ -12,8 +12,7 @@ export function transformHeaderObjMap(
 ): string {
   let output = "";
 
-  for (const k of Object.keys(headerMap)) {
-    const v = headerMap[k];
+  for (const [k, v] of getEntries(headerMap, options)) {
     if (!v.schema) continue;
 
     if (v.description) output += comment(v.description);

@@ -187,4 +187,108 @@ describe("parameters", () => {
 
   }`);
   });
+
+  describe("alphabetize", () => {
+    function assertSchema(actual, expected) {
+      const result = transformOperationObj(actual, {
+        ...defaults,
+        alphabetize: true,
+        version: 3,
+        pathItem: {
+          parameters: [
+            {
+              in: "path",
+              name: "p2",
+              schema: {
+                type: "string",
+              },
+            },
+            {
+              in: "path",
+              name: "p3",
+              schema: {
+                type: "string",
+              },
+            },
+          ],
+        },
+      });
+      expect(result.trim()).to.equal(expected.trim());
+    }
+
+    it("content types", () => {
+      const actual = {
+        requestBody: {
+          content: {
+            "font/woff2": {
+              schema: { type: "string" },
+            },
+            "font/otf": {
+              schema: { type: "string" },
+            },
+            "font/sfnt": {
+              schema: { type: "string" },
+            },
+            "font/ttf": {
+              schema: { type: "string" },
+            },
+            "font/woff": {
+              schema: { type: "string" },
+            },
+          },
+        },
+      };
+
+      const expected = `parameters: {
+      path: {
+    "p2"?: string;
+    "p3"?: string;
+  }
+
+  }
+  requestBody: {
+    content: {
+      "font/otf": string;
+      "font/sfnt": string;
+      "font/ttf": string;
+      "font/woff": string;
+      "font/woff2": string;
+    }
+  }`;
+
+      assertSchema(actual, expected);
+    });
+
+    it("operation parameters", () => {
+      const actual = {
+        parameters: [
+          {
+            in: "path",
+            name: "p2",
+            schema: {
+              type: "number",
+            },
+          },
+          {
+            in: "path",
+            name: "p1",
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+      };
+
+      const expected = `parameters: {
+      path: {
+    "p1"?: string;
+    "p2"?: number;
+    "p3"?: string;
+  }
+
+  }`;
+
+      assertSchema(actual, expected);
+    });
+  });
 });
