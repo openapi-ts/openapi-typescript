@@ -566,6 +566,16 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "MrLeebo",
+      "name": "Jeremy Liberman",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2754163?v=4",
+      "profile": "http://jeremyliberman.com/",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
