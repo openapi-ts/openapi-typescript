@@ -140,6 +140,8 @@ The following flags can be appended to the CLI command.
 
 | Option                         | Alias | Default  | Description                                                                                                                  |
 | :----------------------------- | :---- | :------: | :--------------------------------------------------------------------------------------------------------------------------- |
+| `--help`                       |       |          | Display inline help message and exit                                                                                         |
+| `--version`                    |       |          | Display this library’s version and exit                                                                                      |
 | `--output [location]`          | `-o`  | (stdout) | Where should the output file be saved?                                                                                       |
 | `--auth [token]`               |       |          | Provide an auth token to be passed along in the request (only if accessing a private schema)                                 |
 | `--header`                     | `-x`  |          | Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the `key: value` pattern |
@@ -271,16 +273,10 @@ By default, openapiTS will generate `updated_at?: string;` because it’s not su
 
 ```js
 const types = openapiTS(mySchema, {
-  /** transform: runs before Schema Object is converted into a TypeScript type */
   transform(node: SchemaObject, options): string {
     if ("format" in node && node.format === "date-time") {
-      return "Date"; // return the TypeScript “Date” type, as a string
+      return "Date";
     }
-    // if no string returned, handle it normally
-  },
-  /** post-transform: runs after TypeScript type has been transformed */
-  postTransform(type: string, options): string {
-    // if no string returned, keep TypeScript type as-is
   },
 });
 ```
@@ -288,6 +284,8 @@ const types = openapiTS(mySchema, {
 This will generate `updated_at?: Date` instead. Note that you will still have to do the parsing of your data yourself, but this will save you from having to manually override certain types in your schema. Also be sure to check the `options` parameter for additional context that may be helpful.
 
 There are many other uses for this besides checking `format`. Because this must return a **string** you can produce any arbitrary TypeScript code you’d like (even your own custom types).
+
+✨ Don’t forget about `postTransform()` as well! It works the same way, but runs _after_ the TypeScript transformation so you can extend/modify types as-needed.
 
 ## 🏅 Project Goals
 

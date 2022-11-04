@@ -1,7 +1,7 @@
 {
   "name": "openapi-typescript",
   "description": "Generate TypeScript types from Swagger OpenAPI specs",
-  "version": "5.4.0",
+  "version": "6.0.0",
   "author": "drew@pow.rs",
   "license": "MIT",
   "bin": {
@@ -66,6 +66,7 @@
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "execa": "^6.1.0",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4",
     "vitest": "^0.24.5"
