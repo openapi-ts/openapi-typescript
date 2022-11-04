@@ -37,38 +37,41 @@
   "scripts": {
     "build": "del dist && tsc -p tsconfig.build.json",
     "dev": "tsc -p tsconfig.build.json --watch",
-    "download:schemas": "node ./scripts/download-schemas.js",
+    "download:schemas": "vite-node ./scripts/download-schemas.ts",
     "format": "npm run prettier -w .",
     "lint": "eslint .",
     "pregenerate": "npm run build",
-    "prepare": "npm run build && npm run download:schemas",
+    "prepare": "npm run build",
+    "postinstall": "npm run download:schemas",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "update:examples": "node ./scripts/update-examples.js",
+    "update:examples": "vite-node ./scripts/update-examples.ts",
     "version": "npm run build"
   },
   "dependencies": {
+    "ansi-colors": "^4.1.3",
     "fast-glob": "^3.2.12",
     "js-yaml": "^4.1.0",
-    "mime": "^3.0.0",
+    "supports-color": "^9.2.3",
     "undici": "^5.12.0",
     "yargs-parser": "^21.1.1"
   },
   "devDependencies": {
+    "@types/degit": "^2.8.3",
     "@types/js-yaml": "^4.0.5",
-    "@types/mime": "^2.0.3",
     "@types/node": "^18.11.9",
-    "@typescript-eslint/eslint-plugin": "^5.42.0",
-    "@typescript-eslint/parser": "^5.42.0",
-    "@vitest/coverage-c8": "^0.24.5",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
+    "@vitest/coverage-c8": "^0.25.1",
+    "degit": "^2.8.4",
     "del-cli": "^5.0.0",
-    "eol": "^0.9.1",
-    "eslint": "^8.26.0",
+    "eslint": "^8.27.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "execa": "^6.1.0",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4",
-    "vitest": "^0.24.5"
+    "vite-node": "^0.25.1",
+    "vitest": "^0.25.1"
   }
 }

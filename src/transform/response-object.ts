@@ -1,6 +1,5 @@
 import type { GlobalContext, ResponseObject } from "../types";
 import {
-  comment,
   escObjKey,
   escStr,
   getEntries,
@@ -10,7 +9,6 @@ import {
   tsReadonly,
 } from "../utils.js";
 import transformHeaderObject from "./header-object.js";
-import transformLinkObject from "./link-object.js";
 import transformMediaTypeObject from "./media-type-object.js";
 
 export interface TransformResponseObjectOptions {
@@ -70,32 +68,13 @@ export default function transformResponseObject(
       if (ctx.immutableTypes) key = tsReadonly(key);
       output.push(
         indent(
-          `${key}: ${transformMediaTypeObject(mediaTypeObject, { path: "", ctx: { ...ctx, indentLv: indentLv } })};`,
+          `${key}: ${transformMediaTypeObject(mediaTypeObject, {
+            path: `${path}/content/${contentType}`,
+            ctx: { ...ctx, indentLv: indentLv },
+          })};`,
           indentLv
         )
       );
-    }
-    indentLv--;
-    output.push(indent("};", indentLv));
-    indentLv--;
-  }
-
-  // links
-  if (responseObject.links) {
-    indentLv++;
-    output.push(indent("links: {", indentLv));
-    indentLv++;
-    for (const [name, linkObject] of getEntries(responseObject.links, ctx.alphabetize)) {
-      const c = getSchemaObjectComment(linkObject, indentLv);
-      if (c) output.push(indent(c, indentLv));
-      let key = escObjKey(name);
-      if (ctx.immutableTypes) key = tsReadonly(key);
-      if ("$ref" in linkObject) {
-        output.push(indent(`${key}: ${linkObject.$ref};`, indentLv));
-      } else {
-        if (linkObject.description) output.push(indent(comment(linkObject.description), indentLv));
-        output.push(indent(`${key}: ${transformLinkObject(linkObject, { ...ctx, indentLv })};`, indentLv));
-      }
     }
     indentLv--;
     output.push(indent("};", indentLv));

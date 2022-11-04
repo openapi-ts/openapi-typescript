@@ -56,7 +56,10 @@ export default function transformOperationObject(
             }
             const c = getSchemaObjectComment(p, indentLv);
             if (c) parameterOutput.push(indent(c, indentLv));
-            const parameterType = transformParameterObject(p, { path, ctx: { ...ctx, indentLv } });
+            const parameterType = transformParameterObject(p, {
+              path: `${path}/parameters/${p.name}`,
+              ctx: { ...ctx, indentLv },
+            });
             inlineOutput.push(indent(`${key}: ${parameterType};`, indentLv));
           }
           // handle $ref’d params
@@ -130,12 +133,18 @@ export default function transformOperationObject(
         if ("$ref" in responseObject) {
           output.push(
             indent(
-              `${responseCode}: ${transformSchemaObject(responseObject, { path: `${path}/${responseCode}`, ctx })};`,
+              `${responseCode}: ${transformSchemaObject(responseObject, {
+                path: `${path}/responses/${responseCode}`,
+                ctx,
+              })};`,
               indentLv
             )
           );
         } else {
-          const responseType = transformResponseObject(responseObject, { path, ctx: { ...ctx, indentLv } });
+          const responseType = transformResponseObject(responseObject, {
+            path: `${path}/responses/${responseCode}`,
+            ctx: { ...ctx, indentLv },
+          });
           output.push(indent(`${responseCode}: ${responseType};`, indentLv));
         }
       }

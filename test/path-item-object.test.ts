@@ -2,7 +2,6 @@ import type { PathItemObject } from "../src/types";
 import transformPathItemObject, { TransformPathItemObjectOptions } from "../src/transform/path-item-object.js";
 
 const options: TransformPathItemObjectOptions = {
-  operations: {},
   path: "#/test/path-item",
   ctx: {
     additionalProperties: false,
@@ -11,6 +10,7 @@ const options: TransformPathItemObjectOptions = {
     discriminators: {},
     immutableTypes: false,
     indentLv: 0,
+    operations: {},
     pathParamsAsTypes: false,
     postTransform: undefined,
     silent: true,
@@ -24,7 +24,20 @@ describe("Path Item Object", () => {
     const schema: PathItemObject = {
       get: {
         responses: {
-          200: { $ref: 'components["responses"]["AllGood"]' },
+          200: {
+            description: "OK",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    success: { type: "boolean" },
+                  },
+                  required: ["success"],
+                },
+              },
+            },
+          },
           404: { $ref: 'components["responses"]["NotFound"]' },
         },
       },
@@ -44,13 +57,22 @@ describe("Path Item Object", () => {
     expect(generated).toBe(`{
   get: {
     responses: {
-      200: components["responses"]["AllGood"];
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": {
+            success: boolean;
+          };
+        };
+      };
       404: components["responses"]["NotFound"];
     };
   };
   post: {
     requestBody?: {
-      "application/json": components["schemas"]["User"];
+      content: {
+        "application/json": components["schemas"]["User"];
+      };
     };
     responses: {
       200: components["responses"]["AllGood"];
@@ -58,5 +80,50 @@ describe("Path Item Object", () => {
     };
   };
 }`);
+  });
+
+  test("operations", () => {
+    const operations: Record<string, string> = {};
+    const schema: PathItemObject = {
+      get: {
+        operationId: "getUser",
+        responses: {
+          200: {
+            description: "Get User",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    url: { type: "string" },
+                    "content-type": { type: "string" },
+                  },
+                  required: ["url"],
+                },
+              },
+            },
+          },
+        },
+      },
+    };
+    const generated = transformPathItemObject(schema, { ...options, ctx: { ...options.ctx, operations } });
+    expect(generated).toBe(`{
+  get: operations["getUser"];
+}`);
+    expect(operations).toEqual({
+      getUser: `{
+    responses: {
+      /** @description Get User */
+      200: {
+        content: {
+          "application/json": {
+            url: string;
+            "content-type"?: string;
+          };
+        };
+      };
+    };
+  }`,
+    });
   });
 });

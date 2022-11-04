@@ -1,9 +1,15 @@
-import type { GlobalContext, OpenAPI3, OpenAPITSOptions } from "./types.js";
+import type { GlobalContext, OpenAPI3, OpenAPITSOptions, Subschema } from "./types";
 import type { Readable } from "node:stream";
 import { URL } from "node:url";
 import load, { resolveSchema, VIRTUAL_JSON_URL } from "./load.js";
-import transformSchema from "./transform/index.js";
-import { checkOpenAPIVersion, escObjKey, indent } from "./utils.js";
+import { transformSchema } from "./transform/index.js";
+import transformMediaTypeObject from "./transform/media-type-object.js";
+import transformOperationObject from "./transform/operation-object.js";
+import transformParameterObject from "./transform/parameter-object.js";
+import transformRequestBodyObject from "./transform/request-body-object.js";
+import transformResponseObject from "./transform/response-object.js";
+import transformSchemaObject from "./transform/schema-object.js";
+import { error, escObjKey, getEntries, indent } from "./utils.js";
 export * from "./types.js"; // expose all types to consumers
 
 const EMPTY_OBJECT_RE = /^\s*\{?\s*\}?\s*$/;
@@ -41,6 +47,7 @@ async function openapiTS(
     postTransform: options && typeof options.postTransform === "function" ? options.postTransform : undefined,
     immutableTypes: options.immutableTypes || false,
     indentLv: 0,
+    operations: {},
     pathParamsAsTypes: options.pathParamsAsTypes || false,
     silent: options.silent || false,
     supportArrayLength: options.supportArrayLength || false,
@@ -50,9 +57,7 @@ async function openapiTS(
   const isInlineSchema = typeof schema !== "string" && schema instanceof URL == false;
 
   // 1. load schema (and subschemas)
-  let rootSchema = {} as OpenAPI3;
-  const external: { [id: string]: OpenAPI3 } = {};
-  const allSchemas: { [id: string]: OpenAPI3 } = {};
+  const allSchemas: { [id: string]: Subschema } = {};
   const schemaURL: URL = typeof schema === "string" ? resolveSchema(schema) : (schema as URL);
 
   await load(schemaURL, {
@@ -60,24 +65,24 @@ async function openapiTS(
     auth: options.auth,
     schemas: allSchemas,
     rootURL: isInlineSchema ? new URL(VIRTUAL_JSON_URL) : schemaURL, // if an inline schema is passed, use virtual URL
+    urlCache: new Set(),
     httpHeaders: options.httpHeaders,
     httpMethod: options.httpMethod,
   });
 
-  // 1a. identify root schema
+  // 1. basic validation
   for (const k of Object.keys(allSchemas)) {
-    const rootSchemaID = isInlineSchema ? VIRTUAL_JSON_URL : schemaURL.href;
-    if (k === rootSchemaID) {
-      rootSchema = allSchemas[k];
-    } else {
-      external[k] = allSchemas[k];
+    const subschema = allSchemas[k];
+    if (typeof (subschema.schema as any).swagger === "string") {
+      error("Swagger 2.0 and older no longer supported. Please use v5.");
+      process.exit(1);
     }
-
-    // 1b. make sure schema version is valid
-    checkOpenAPIVersion(allSchemas[k] as any);
-
-    // 1c. garbage collect things we no longer need
-    delete allSchemas[k];
+    if (subschema.hint === "OpenAPI3" && typeof subschema.schema.openapi === "string") {
+      if (parseInt(subschema.schema.openapi) !== 3) {
+        error(`Unsupported OpenAPI version "${subschema.schema.openapi}". Only 3.x is supported.`);
+        process.exit(1);
+      }
+    }
   }
 
   // 2. generate raw output
@@ -103,7 +108,7 @@ async function openapiTS(
   if (options.inject) output.push(options.inject);
 
   // 2d. root schema
-  const rootTypes = transformSchema(rootSchema, { ...ctx });
+  const rootTypes = transformSchema(allSchemas["."].schema as OpenAPI3, ctx);
   for (const k of Object.keys(rootTypes)) {
     if (rootTypes[k] && !EMPTY_OBJECT_RE.test(rootTypes[k])) {
       output.push(
@@ -113,28 +118,85 @@ async function openapiTS(
     } else {
       output.push(`export type ${k} = Record<string, never>;`, "");
     }
+    delete rootTypes[k];
+    delete allSchemas["."]; // garbage collect, but also remove from next step (external)
   }
 
   // 2e. external schemas (subschemas)
-  const externalKeys = Object.keys(external);
+  const externalKeys = Object.keys(allSchemas); // root schema (".") should already be removed
   if (externalKeys.length) {
+    let indentLv = 0;
     output.push(options.exportType ? "export type external = {" : "export interface external {", "");
     externalKeys.sort((a, b) => a.localeCompare(b, "en", { numeric: true })); // sort external keys because they may have resolved in a different order each time
-    for (const subschemaURL of externalKeys) {
-      output.push(indent(`${escObjKey(subschemaURL)}: {`, 1), "");
-      const subschemaTypes = transformSchema(external[subschemaURL], {
-        ...ctx,
-        indentLv: 1,
-        subschemaID: subschemaURL,
-      });
-      for (const k of Object.keys(subschemaTypes)) {
-        output.push(indent(`${escObjKey(k)}: ${subschemaTypes[k]}`, 2));
+    indentLv++;
+    for (const subschemaID of externalKeys) {
+      const subschema = allSchemas[subschemaID];
+      const key = escObjKey(subschemaID);
+      const path = `${subschemaID}#`;
+      let subschemaOutput = "";
+      switch (subschema.hint) {
+        case "OpenAPI3": {
+          const subschemaTypes = transformSchema(subschema.schema, { ...ctx, indentLv });
+          if (!Object.keys(subschemaTypes).length) break;
+          output.push(indent(`${key}: {`, 1), "");
+          indentLv++;
+          for (const [k, v] of getEntries(subschemaTypes, options.alphabetize)) {
+            if (EMPTY_OBJECT_RE.test(v)) output.push(indent(`${escObjKey(k)}: Record<string, never>;`, indentLv));
+            else output.push(indent(`${escObjKey(k)}: {${v};`, indentLv), indent("};", indentLv));
+          }
+          indentLv--;
+          output.push(indent("}", 1));
+          break;
+        }
+        case "MediaTypeObject": {
+          subschemaOutput = transformMediaTypeObject(subschema.schema, { path, ctx: { ...ctx, indentLv } });
+          break;
+        }
+        case "OperationObject": {
+          subschemaOutput = transformOperationObject(subschema.schema, { path, ctx: { ...ctx, indentLv } });
+          break;
+        }
+        case "ParameterObject": {
+          subschemaOutput = transformParameterObject(subschema.schema, { path, ctx: { ...ctx, indentLv } });
+          break;
+        }
+        case "RequestBodyObject": {
+          subschemaOutput = transformRequestBodyObject(subschema.schema, { path, ctx: { ...ctx, indentLv } });
+          break;
+        }
+        case "ResponseObject": {
+          subschemaOutput = transformResponseObject(subschema.schema, { path, ctx: { ...ctx, indentLv } });
+          break;
+        }
+        case "SchemaObject": {
+          subschemaOutput = transformSchemaObject(subschema.schema, { path, ctx: { ...ctx, indentLv } });
+          break;
+        }
+        default: {
+          error(`Could not resolve subschema ${subschemaID}. Unknown type "${(subschema as any).hint}".`);
+          process.exit(1);
+        }
       }
-      output.push(indent("}", 1));
+      if (subschemaOutput && !EMPTY_OBJECT_RE.test(subschemaOutput)) {
+        output.push(indent(`${key}: ${subschemaOutput}`, indentLv));
+      }
+      delete allSchemas[subschemaID];
+    }
+    indentLv--;
+    output.push(indent(`}${options.exportType ? ";" : ""}`, indentLv), "");
+  } else {
+    output.push(`export type external = Record<string, never>;`, "");
+  }
+
+  // 3. operations (only get fully built after all external schemas transformed)
+  if (Object.keys(ctx.operations).length) {
+    output.push(options.exportType ? "export type operations = {" : "export interface operations {", "");
+    for (const k of Object.keys(ctx.operations)) {
+      output.push(indent(`${escObjKey(k)}: ${ctx.operations[k]};`, 1));
     }
     output.push(`}${options.exportType ? ";" : ""}`, "");
   } else {
-    output.push(`export type external = Record<string, never>;`, "");
+    output.push(`export type operations = Record<string, never>;`, "");
   }
 
   return output.join("\n");

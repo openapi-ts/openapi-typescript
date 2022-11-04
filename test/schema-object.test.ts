@@ -10,6 +10,7 @@ const options: TransformSchemaObjectOptions = {
     discriminators: {},
     immutableTypes: false,
     indentLv: 0,
+    operations: {},
     pathParamsAsTypes: false,
     postTransform: undefined,
     silent: true,
@@ -138,6 +139,14 @@ describe("Schema Object", () => {
         const generated = transformSchemaObject({ type: ["string", "boolean", "number", "null"] }, options);
         expect(generated).toBe("OneOf<[string, boolean, number, null]>");
       });
+
+      test("enum + polymorphism + nullable", () => {
+        const generated = transformSchemaObject(
+          { type: ["string", "null"], enum: ["", "false positive", "won't fix", "used in tests"] },
+          options
+        );
+        expect(generated).toBe(`"" | "false positive" | "won't fix" | "used in tests" | null`);
+      });
     });
   });
 
@@ -264,17 +273,32 @@ describe("Schema Object", () => {
     describe("supportArrayLength", () => {
       test("true", () => {
         const opts = { ...options, ctx: { ...options.ctx, supportArrayLength: true } };
-        expect(transformSchemaObject({ type: "array", items: { type: "string" } }, options)).to.equal(`(string)[]`);
-        expect(transformSchemaObject({ type: "array", items: { type: "string" }, minItems: 1 }, opts)).to.equal(
+        expect(transformSchemaObject({ type: "array", items: { type: "string" } }, options)).toBe(`(string)[]`);
+        expect(transformSchemaObject({ type: "array", items: { type: "string" }, minItems: 1 }, opts)).toBe(
           `[string, ...(string)[]]`
         );
-        expect(transformSchemaObject({ type: "array", items: { type: "string" }, maxItems: 2 }, opts)).to.equal(
+        expect(transformSchemaObject({ type: "array", items: { type: "string" }, maxItems: 2 }, opts)).toBe(
           `[] | [string] | [string, string]`
         );
-        expect(transformSchemaObject({ type: "array", items: { type: "string" }, maxItems: 20 }, opts)).to.equal(
+        expect(transformSchemaObject({ type: "array", items: { type: "string" }, maxItems: 20 }, opts)).toBe(
           `(string)[]`
         );
       });
     });
+  });
+});
+
+describe("ReferenceObject", () => {
+  it("x-* properties are ignored", () => {
+    expect(
+      transformSchemaObject(
+        {
+          type: "object",
+          properties: { string: { type: "string" } },
+          "x-extension": true,
+        },
+        options
+      )
+    ).toBe("{\n  string?: string;\n}");
   });
 });

@@ -1,5 +1,5 @@
 .DS_Store
-test/fixtures/*.yaml
 coverage/
 dist
 node_modules
+test/fixtures/**/*

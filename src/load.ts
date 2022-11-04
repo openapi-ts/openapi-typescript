@@ -1,54 +1,61 @@
-import type { DiscriminatorObject, GlobalContext, SchemaObject } from "./types";
+import type {
+  ComponentsObject,
+  GlobalContext,
+  OpenAPI3,
+  OperationObject,
+  PathItemObject,
+  ReferenceObject,
+  RequestBodyObject,
+  ResponseObject,
+  SchemaObject,
+  Subschema,
+} from "./types";
 import fs from "node:fs";
 import path from "node:path";
 import { Readable } from "node:stream";
 import { URL } from "node:url";
 import yaml from "js-yaml";
-import mime from "mime";
 import { request, type Dispatcher } from "undici";
-import { parseRef, DOUBLE_QUOTE_RE, makeTSIndex } from "./utils.js";
+import { parseRef, error, makeTSIndex, walk, isRemoteURL, isFilepath } from "./utils.js";
 
-type PartialSchema = Record<string, any>; // not a very accurate type, but this is easier to deal with before we know we’re dealing with a valid spec
-type SchemaMap = { [url: string]: PartialSchema };
+type SchemaMap = { [id: string]: Subschema };
 
-const RED = "\u001b[31m";
-const RESET = "\u001b[0m";
-const HTTP_RE = /^https?:\/\//;
 export const VIRTUAL_JSON_URL = `file:///_json`; // fake URL reserved for dynamic JSON
 
-function parseSchema(schema: any, type: "YAML" | "JSON"): any {
-  if (type === "YAML") {
-    try {
-      return yaml.load(schema);
-    } catch (err: any) {
-      throw new Error(`YAML: ${err.toString()}`);
-    }
-  } else {
-    try {
-      return JSON.parse(schema);
-    } catch (err: any) {
-      throw new Error(`JSON: ${err.toString()}`);
-    }
+function parseYAML(schema: any): any {
+  try {
+    return yaml.load(schema);
+  } catch (err: any) {
+    error(`YAML: ${err.toString()}`);
+    process.exit(1);
   }
 }
 
-function isFile(url: URL): boolean {
-  return url.protocol === "file:";
+function parseJSON(schema: any): any {
+  try {
+    return JSON.parse(schema);
+  } catch (err: any) {
+    error(`JSON: ${err.toString()}`);
+    process.exit(1);
+  }
 }
 
-export function resolveSchema(url: string): URL {
+export function resolveSchema(filename: string): URL {
   // option 1: remote
-  if (HTTP_RE.test(url)) return new URL(url);
+  if (isRemoteURL(filename)) return new URL(filename.startsWith("//") ? `https:${filename}` : filename);
 
   // option 2: local
-  const localPath = path.isAbsolute(url) ? new URL("", `file://${url}`) : new URL(url, `file://${process.cwd()}/`); // if absolute path is provided use that; otherwise search cwd\
+  const localPath = path.isAbsolute(filename)
+    ? new URL(`file://${filename}`)
+    : new URL(filename, `file://${process.cwd()}/`);
 
   if (!fs.existsSync(localPath)) {
-    throw new Error(`Could not locate ${url}`);
+    error(`Could not locate ${filename}`);
+    process.exit(1);
   } else if (fs.statSync(localPath).isDirectory()) {
-    throw new Error(`${localPath} is a directory not a file`);
+    error(`${localPath} is a directory not a file`);
+    process.exit(1);
   }
-
   return localPath;
 }
 
@@ -72,10 +79,7 @@ function parseHttpHeaders(httpHeaders: Record<string, any>): Record<string, any>
         const stringVal = JSON.stringify(v);
         finalHeaders[k] = stringVal;
       } catch (err) {
-        /* istanbul ignore next */
-        console.error(
-          `${RED}Cannot parse key: ${k} into JSON format. Continuing with the next HTTP header that is specified${RESET}`
-        );
+        error(`Cannot parse key: ${k} into JSON format. Continuing with the next HTTP header that is specified`);
       }
     }
   }
@@ -84,64 +88,39 @@ function parseHttpHeaders(httpHeaders: Record<string, any>): Record<string, any>
 }
 
 interface LoadOptions extends GlobalContext {
+  /** Subschemas may be any type; this helps transform correctly */
+  hint?: Subschema["hint"];
   auth?: string;
   rootURL: URL;
   schemas: SchemaMap;
-  urlCache?: Set<string>; // URL cache (prevent URLs from being loaded over and over)
+  urlCache: Set<string>;
   httpHeaders?: Record<string, any>;
   httpMethod?: string;
 }
 
 /** Load a schema from local path or remote URL */
 export default async function load(
-  schema: URL | PartialSchema | Readable,
+  schema: URL | Subschema | Readable,
   options: LoadOptions
-): Promise<{ [url: string]: PartialSchema }> {
-  const urlCache = options.urlCache || new Set<string>();
+): Promise<{ [url: string]: Subschema }> {
+  let schemaID = ".";
 
-  // if this is dynamically-passed-in JSON, we’ll have to change a few things
-  const isJSON = schema instanceof URL == false && schema instanceof Readable == false;
-  const schemaID = isJSON || schema instanceof Readable ? new URL(VIRTUAL_JSON_URL).href : (schema.href as string);
-  const schemas = options.schemas;
+  // 1. load contents
+  // 1a. URL
+  if (schema instanceof URL) {
+    const hint = options.hint || "OpenAPI3";
 
-  // scenario 1: load schema from dynamic JSON
-  if (isJSON) {
-    schemas[schemaID] = schema;
-  }
-  // scenario 2: fetch schema from URL (local or remote)
-  else {
-    if (urlCache.has(schemaID)) return options.schemas; // exit early if this has already been scanned
-    urlCache.add(schemaID); // add URL to cache
+    // normalize ID
+    if (schema.href !== options.rootURL.href) schemaID = relativePath(options.rootURL, schema);
 
-    let contents = "";
-    let contentType = "";
-    const schemaURL = schema instanceof Readable ? new URL(VIRTUAL_JSON_URL) : (schema as URL); // helps TypeScript
+    if (options.urlCache.has(schemaID)) return options.schemas; // exit early if already indexed
+    options.urlCache.add(schemaID);
 
-    if (schema instanceof Readable) {
-      const readable = schema;
-      contents = await new Promise<string>((resolve) => {
-        readable.resume();
-        readable.setEncoding("utf8");
+    const ext = path.extname(schema.pathname).toLowerCase();
 
-        let content = "";
-        readable.on("data", (chunk: string) => {
-          content += chunk;
-        });
-
-        readable.on("end", () => {
-          resolve(content);
-        });
-      });
-      contentType = "text/yaml";
-    } else if (isFile(schemaURL)) {
-      // load local
-      contents = fs.readFileSync(schemaURL, "utf8");
-      contentType = mime.getType(schemaID) || "";
-    } else {
-      // load remote
-      const headers: Record<string, any> = {
-        "User-Agent": "openapi-typescript",
-      };
+    // remote
+    if (schema.protocol.startsWith("http")) {
+      const headers: Record<string, any> = { "User-Agent": "openapi-typescript" };
       if (options.auth) headers.Authorization = options.auth;
 
       // Add custom parsed HTTP headers
@@ -151,173 +130,270 @@ export default async function load(
           headers[k] = v;
         }
       }
-
-      const res = await request(schemaID, { method: (options.httpMethod as Dispatcher.HttpMethod) || "GET", headers });
-      if (Array.isArray(res.headers["Content-Type"])) contentType = res.headers["Content-Type"][0];
-      else if (res.headers["Content-Type"]) contentType = res.headers["Content-Type"];
-      contents = await res.body.text();
-    }
-
-    const isYAML = contentType === "application/openapi+yaml" || contentType === "text/yaml";
-    const isJSON =
-      contentType === "application/json" ||
-      contentType === "application/json5" ||
-      contentType === "application/openapi+json";
-    if (isYAML) {
-      schemas[schemaID] = parseSchema(contents, "YAML");
-    } else if (isJSON) {
-      schemas[schemaID] = parseSchema(contents, "JSON");
-    } else {
-      // if contentType is unknown, guess
-      try {
-        schemas[schemaID] = parseSchema(contents, "JSON");
-      } catch (err1) {
-        try {
-          schemas[schemaID] = parseSchema(contents, "YAML");
-        } catch (err2) {
-          throw new Error(`Unknown format${contentType ? `: "${contentType}"` : ""}. Only YAML or JSON supported.`); // give up: unknown type
-        }
+      const res = await request(schema, { method: (options.httpMethod as Dispatcher.HttpMethod) || "GET", headers });
+      const contentType = Array.isArray(res.headers["Content-Type"])
+        ? res.headers["Content-Type"][0]
+        : res.headers["Content-Type"];
+      if (ext === ".json" || (contentType && contentType.includes("json"))) {
+        options.schemas[schemaID] = {
+          hint,
+          schema: parseJSON(await res.body.text()),
+        };
+      } else if (ext === ".yaml" || ext === ".yml" || (contentType && contentType.includes("yaml"))) {
+        options.schemas[schemaID] = {
+          hint,
+          schema: parseYAML(await res.body.text()),
+        };
       }
+    }
+    // local file
+    else {
+      const contents = fs.readFileSync(schema, "utf8");
+      if (ext === ".yaml" || ext === ".yml")
+        options.schemas[schemaID] = {
+          hint,
+          schema: parseYAML(contents),
+        };
+      else if (ext === ".json")
+        options.schemas[schemaID] = {
+          hint,
+          schema: parseJSON(contents),
+        };
     }
   }
+  // 1b. Readable stream
+  else if (schema instanceof Readable) {
+    const readable = schema;
+    const contents = await new Promise<string>((resolve) => {
+      readable.resume();
+      readable.setEncoding("utf8");
+      let content = "";
+      readable.on("data", (chunk: string) => {
+        content += chunk;
+      });
+      readable.on("end", () => {
+        resolve(content.trim());
+      });
+    });
+    // if file starts with '{' assume JSON
+    options.schemas[schemaID] = {
+      hint: "OpenAPI3",
+      schema: contents.charAt(0) === "{" ? parseJSON(contents) : parseYAML(contents),
+    };
+  }
+  // 1c. inline
+  else if (typeof schema === "object") {
+    options.schemas[schemaID] = {
+      hint: "OpenAPI3",
+      schema: schema as any,
+    };
+  }
+  // 1d. failsafe
+  else {
+    error(`Invalid schema`);
+    process.exit(1);
+  }
 
-  // schemas key double quote replace
-  schemas[schemaID] = replaceKeys(schemas[schemaID]);
-
-  // scan $refs, but don’t transform (load everything in parallel)
+  // 2. resolve $refs
   const refPromises: Promise<any>[] = [];
-  schemas[schemaID] = JSON.parse(JSON.stringify(schemas[schemaID]), (k, v) => {
-    if (k !== "$ref" || typeof v !== "string") return v;
-
-    const { url: refURL } = parseRef(v);
-    if (refURL) {
-      // load $refs (only if new) and merge subschemas with top-level schema
-      const isRemoteURL = refURL.startsWith("http://") || refURL.startsWith("https://");
-
-      // if this is dynamic JSON, we have no idea how to resolve relative URLs, so throw here
-      if (isJSON && !isRemoteURL) {
-        throw new Error(`Can’t load URL "${refURL}" from dynamic JSON. Load this schema from a URL instead.`);
+  walk(options.schemas[schemaID].schema, (rawNode, nodePath) => {
+    // filter custom properties from allOf, anyOf, oneOf
+    for (const k of ["allOf", "anyOf", "oneOf"]) {
+      if (Array.isArray(rawNode[k])) {
+        rawNode[k] = (rawNode as any)[k].filter((o: SchemaObject | ReferenceObject) => {
+          if (!("$ref" in o)) return true;
+          const ref = parseRef(o.$ref);
+          return !ref.path.some((i) => i.startsWith("x-")); // ignore all custom "x-*" properties
+        });
       }
-
-      const nextURL = isRemoteURL ? new URL(refURL) : new URL(refURL, schema as URL);
-      refPromises.push(
-        load(nextURL, { ...options, urlCache }).then((subschemas) => {
-          for (const subschemaURL of Object.keys(subschemas)) {
-            schemas[subschemaURL] = subschemas[subschemaURL];
-          }
-        })
-      );
-      return v.replace(refURL, nextURL.href); // resolve relative URLs to absolute URLs so the schema can be flattened
     }
-    return v;
+
+    if (!("$ref" in rawNode)) return;
+    const node = rawNode as unknown as ReferenceObject;
+
+    const ref = parseRef(node.$ref);
+    if (ref.filename === ".") return; // local $ref; ignore
+    // $ref with custom "x-*" property
+    if (ref.path.some((i) => i.startsWith("x-"))) {
+      delete (node as any).$ref;
+      return;
+    }
+
+    // hints help external schemas pick up where the root left off
+    const hint = getHint([...nodePath, ...ref.path], options.hint);
+
+    // if root schema is remote and this is a relative reference, treat as remote
+    if (schema instanceof URL) {
+      const nextURL = new URL(ref.filename, schema);
+      const nextID = relativePath(schema, nextURL);
+      if (options.urlCache.has(nextID)) return;
+      refPromises.push(load(nextURL, { ...options, hint }));
+      node.$ref = node.$ref.replace(ref.filename, nextID);
+      return;
+    }
+    // otherwise, if $ref is remote use that
+    if (isRemoteURL(ref.filename) || isFilepath(ref.filename)) {
+      const nextURL = new URL(ref.filename.startsWith("//") ? `https://${ref.filename}` : ref.filename);
+      if (options.urlCache.has(nextURL.href)) return;
+      refPromises.push(load(nextURL, { ...options, hint }));
+      node.$ref = node.$ref.replace(ref.filename, nextURL.href);
+      return;
+    }
+    // if this is dynamic JSON, we have no idea how to resolve external URLs, so throw here
+    if (options.rootURL.href === VIRTUAL_JSON_URL) {
+      error(`Can’t resolve "${ref.filename}" from dynamic JSON. Load this schema from a URL instead.`);
+      process.exit(1);
+    }
+    error(`Can’t resolve "${ref.filename}"`);
+    process.exit(1);
   });
   await Promise.all(refPromises);
 
-  // transform $refs once, at the root schema, after all have been scanned & downloaded (much easier to do here when we have the context)
-  if (schemaID === options.rootURL.href) {
-    for (const subschemaURL of Object.keys(schemas)) {
-      // transform $refs in schema
-      schemas[subschemaURL] = JSON.parse(JSON.stringify(schemas[subschemaURL]), (k, v) => {
-        if (k !== "$ref" || typeof v !== "string") return v;
-        if (!v.includes("#")) return v; // already transformed; skip
+  // 3. transform $refs once, at the root schema, after all have been scanned & downloaded (much easier to do here when we have the context)
+  if (schemaID === ".") {
+    for (const subschemaID of Object.keys(options.schemas)) {
+      walk(options.schemas[subschemaID].schema, (rawNode) => {
+        if (!("$ref" in rawNode)) return;
+        const node = rawNode as unknown as ReferenceObject;
 
-        const { url, parts } = parseRef(v);
-        // scenario 1: resolve all external URLs so long as they don’t point back to root schema
-        if (url && new URL(url).href !== options.rootURL.href) {
-          const relativeURL =
-            isFile(new URL(url)) && isFile(options.rootURL)
-              ? path.posix.relative(path.posix.dirname(options.rootURL.href), url)
-              : url;
-          return `external["${relativeURL}"]["${parts.join('"]["')}"]`; // export external ref
+        const ref = parseRef(node.$ref);
+
+        // local $ref: convert into TS path
+        if (ref.filename === ".") {
+          node.$ref = makeTSIndex(ref.path);
         }
-        // scenario 2: treat all $refs in external schemas as external
-        if (!url && subschemaURL !== options.rootURL.href) {
-          const relativeURL =
-            isFile(new URL(subschemaURL)) && isFile(options.rootURL)
-              ? path.posix.relative(path.posix.dirname(options.rootURL.href), subschemaURL)
-              : subschemaURL;
-          return `external["${relativeURL}"]["${parts.join('"]["')}"]`; // export external ref
+        // external $ref
+        else {
+          const refURL = new URL(ref.filename, new URL(subschemaID, options.rootURL));
+          node.$ref = makeTSIndex(["external", relativePath(options.rootURL, refURL), ...ref.path]);
         }
-
-        // References to properties of schemas like `#/components/schemas/Pet/properties/name`
-        // requires the components to be wrapped in a `properties` object. But to keep
-        // backwards compatibility we should instead just remove the `properties` part.
-        // For us to recognize the `properties` part it simply has to be the second last.
-        const propertiesI = parts.indexOf("properties");
-        if (propertiesI > 0 && propertiesI !== parts.length - 1) {
-          parts.splice(propertiesI, 1);
-        }
-
-        // scenario 3: transform all $refs pointing back to root schema
-        const [base, ...rest] = parts;
-
-        return `${base}["${rest.join('"]["')}"]`; // transform other $refs to the root schema (including external refs that point back to the root schema)
       });
-
-      // use relative keys for external schemas (schemas generated on different machines should have the same namespace)
-      if (subschemaURL !== options.rootURL.href) {
-        const relativeURL =
-          isFile(new URL(subschemaURL)) && isFile(options.rootURL)
-            ? path.posix.relative(path.posix.dirname(options.rootURL.href), subschemaURL)
-            : subschemaURL;
-        if (relativeURL !== subschemaURL) {
-          schemas[relativeURL] = schemas[subschemaURL];
-          delete schemas[subschemaURL];
-        }
-      }
     }
   }
 
-  // scan for discriminators
-  for (const k of Object.keys(schemas)) {
-    // lazy stringification check is much faster than always crawling for discriminators,
-    // and since most schemas don’t use them, this saves a decent amount of work (and
-    // is fast enough that schemas that do aren’t significantly impacted)
-    if (JSON.stringify(schemas[k]).includes("discriminator")) {
-      for (const [id, discriminator] of Object.entries(
-        getDiscriminators(schemas[k], k === options.rootURL.href ? [] : ["external", "k"])
-      )) {
-        options.discriminators[id] = discriminator;
-      }
+  // 4. scan for discriminators (after everything’s resolved in one file)
+  for (const k of Object.keys(options.schemas)) {
+    // 4a. lazy stringification check is faster than deep-scanning a giant object for discriminators
+    // since most schemas don’t use them
+    if (JSON.stringify(options.schemas[k].schema).includes('"discriminator"')) {
+      walk(options.schemas[k].schema, (rawNode, nodePath) => {
+        const node = rawNode as unknown as SchemaObject;
+        if (!node.discriminator) return;
+        options.discriminators[schemaID === "." ? makeTSIndex(nodePath) : makeTSIndex(["external", k, ...nodePath])] =
+          node.discriminator;
+      });
     }
   }
 
-  return schemas;
+  return options.schemas;
 }
 
-/** (internal) res */
-export function replaceKeys(obj: Record<string, any>): Record<string, any> {
-  if (typeof obj === "object" && obj !== undefined && obj !== null) {
-    if (Array.isArray(obj)) {
-      return obj.map((item) => replaceKeys(item));
-    } else {
-      const keyValues: Record<string, any> = {};
-      for (const key of Object.keys(obj)) {
-        const newKey = key.replace(DOUBLE_QUOTE_RE, '\\"');
-        const newValue = obj[key];
-        keyValues[newKey] = replaceKeys(newValue);
-      }
-      return keyValues;
-    }
-  } else {
-    return obj;
+/** relative path from 2 URLs */
+function relativePath(src: URL, dest: URL): string {
+  const isSameOrigin =
+    dest.protocol.startsWith("http") && src.protocol.startsWith("http") && dest.origin === src.origin;
+  const isSameDisk = dest.protocol === "file:" && src.protocol === "file:";
+  if (isSameOrigin || isSameDisk) {
+    return path.posix.relative(path.posix.dirname(src.pathname), dest.pathname);
   }
+  return dest.href;
 }
 
-/** Scan any object for discriminators */
-function getDiscriminators(schema: Record<string, unknown>, root: string[] = []): Record<string, DiscriminatorObject> {
-  const discriminators: Record<string, DiscriminatorObject> = {};
-
-  /** crawl an object top-to-bottom, building path along the way */
-  function crawlObj(obj: unknown, path: string[] = root): void {
-    if (!obj || typeof obj !== "object" || Array.isArray(obj)) return;
-    if ("discriminator" in obj)
-      discriminators[makeTSIndex(path)] = (obj as SchemaObject).discriminator as DiscriminatorObject;
-    for (const [k, v] of Object.entries(obj)) {
-      crawlObj(v, path.concat(k));
+/** given a path array (an array of indices), what type of object is this? */
+export function getHint(path: (string | number)[], startFrom?: Subschema["hint"]): Subschema["hint"] | undefined {
+  if (startFrom && startFrom !== "OpenAPI3") {
+    switch (startFrom) {
+      case "OperationObject":
+        return getHintFromOperationObject(path);
+      case "RequestBodyObject":
+        return getHintFromRequestBodyObject(path);
+      case "ResponseObject":
+        return getHintFromResponseObject(path);
+      default:
+        return startFrom;
     }
   }
-  crawlObj(schema);
-
-  return discriminators;
+  switch (path[0] as keyof OpenAPI3) {
+    case "paths":
+      return getHintFromPathItemObject(path.slice(2)); // skip URL at [1]
+    case "components":
+      return getHintFromComponentsObject(path.slice(1));
+  }
+  return undefined;
+}
+function getHintFromComponentsObject(path: (string | number)[]): Subschema["hint"] | undefined {
+  switch (path[0] as keyof ComponentsObject) {
+    case "schemas":
+    case "headers":
+      return getHintFromSchemaObject(path.slice(2));
+    case "parameters":
+      return getHintFromParameterObject(path.slice(2));
+    case "responses":
+      return getHintFromResponseObject(path.slice(2));
+    case "requestBodies":
+      return getHintFromRequestBodyObject(path.slice(2));
+    case "pathItems":
+      return getHintFromPathItemObject(path.slice(2));
+  }
+  return "SchemaObject";
+}
+function getHintFromMediaTypeObject(path: (string | number)[]): Subschema["hint"] {
+  switch (path[0]) {
+    case "schema":
+      return getHintFromSchemaObject(path.slice(1));
+  }
+  return "MediaTypeObject";
+}
+function getHintFromOperationObject(path: (string | number)[]): Subschema["hint"] {
+  switch (path[0] as keyof OperationObject) {
+    case "parameters":
+      return getHintFromParameterObject(path.slice(1));
+    case "requestBody":
+      return getHintFromRequestBodyObject(path.slice(1));
+    case "responses":
+      return getHintFromResponseObject(path.slice(2)); // skip the response code at [1]
+  }
+  return "OperationObject";
+}
+function getHintFromParameterObject(path: (string | number)[]): Subschema["hint"] {
+  switch (path[0]) {
+    case "content":
+      return getHintFromMediaTypeObject(path.slice(2)); // skip content type at [1]
+    case "schema":
+      return getHintFromSchemaObject(path.slice(1));
+  }
+  return "ParameterObject";
+}
+function getHintFromPathItemObject(path: (string | number)[]): Subschema["hint"] | undefined {
+  switch (path[0] as keyof PathItemObject) {
+    case "parameters":
+      return getHintFromParameterObject(path.slice(1));
+    default:
+      return getHintFromOperationObject(path.slice(1));
+  }
+}
+function getHintFromRequestBodyObject(path: (string | number)[]): Subschema["hint"] {
+  switch (path[0] as keyof RequestBodyObject) {
+    case "content":
+      return getHintFromMediaTypeObject(path.slice(2)); // skip content type at [1]
+  }
+  return "RequestBodyObject";
+}
+function getHintFromResponseObject(path: (string | number)[]): Subschema["hint"] {
+  switch (path[0] as keyof ResponseObject) {
+    case "headers":
+      return getHintFromSchemaObject(path.slice(2)); // skip name at [1]
+    case "content":
+      return getHintFromMediaTypeObject(path.slice(2)); // skip content type at [1]
+  }
+  return "ResponseObject";
+}
+function getHintFromSchemaObject(path: (string | number)[]): Subschema["hint"] {
+  switch (path[0]) {
+    case "allOf":
+    case "anyOf":
+    case "oneOf":
+      return getHintFromSchemaObject(path.slice(2)); // skip array index at [1]
+  }
+  return "SchemaObject";
 }

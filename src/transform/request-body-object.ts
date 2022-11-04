@@ -12,9 +12,11 @@ export default function transformRequestBodyObject(
   requestBodyObject: RequestBodyObject,
   { path, ctx }: TransformRequestBodyObjectOptions
 ): string {
-  if (!Object.keys(requestBodyObject.content).length) return `${escStr("*/*")}: null`;
   let { indentLv } = ctx;
   const output: string[] = ["{"];
+  indentLv++;
+  output.push(indent(ctx.immutableTypes ? tsReadonly("content: {") : "content: {", indentLv));
+  if (!Object.keys(requestBodyObject.content).length) return `${escStr("*/*")}: never`;
   indentLv++;
   for (const [contentType, mediaTypeObject] of getEntries(requestBodyObject.content, ctx.alphabetize)) {
     const c = getSchemaObjectComment(mediaTypeObject, indentLv);
@@ -39,6 +41,8 @@ export default function transformRequestBodyObject(
       output.push(indent(`${key}: ${mediaType};`, indentLv));
     }
   }
+  indentLv--;
+  output.push(indent("};", indentLv));
   indentLv--;
   output.push(indent("}", indentLv));
   return output.join("\n");

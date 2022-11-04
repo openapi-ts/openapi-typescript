@@ -6,6 +6,10 @@ on:
       - main
   pull_request:
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     runs-on: ubuntu-22.04
@@ -18,11 +22,22 @@ jobs:
       - run: pnpm i
       - run: npm run lint
   test:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: pnpm i
+      - run: npm run test:coverage
+  test-node-versions:
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [16.x, 18.x]
-        os: [macos-12, ubuntu-22.04, windows-2022]
-    runs-on: ${{ matrix.os }}
+        node-version: [16.x, 19.x]
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
@@ -33,8 +48,15 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: pnpm i
       - run: npm test
-        if: matrix.os != 'macos-12' || matrix.node-version != '18.x'
-      - run: npm run test:coverage
-        if: matrix.os == 'macos-12' && matrix.node-version == '18.x'
-      - uses: codecov/codecov-action@v3
-        if: matrix.os == 'macos-12' && matrix.node-version == '18.x'
+  test-macos:
+    runs-on: macos-12
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - uses: actions/setup-node@v3
+        with:
+          version: 18
+      - run: pnpm i
+      - run: npm test

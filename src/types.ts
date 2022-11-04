@@ -1,11 +1,15 @@
 import type { URL } from "node:url";
 import type { TransformSchemaObjectOptions } from "./transform/schema-object";
 
+export interface Extensable {
+  [key: `x-${string}`]: any;
+}
+
 /**
  * [4.8] Schema
  * @see https://spec.openapis.org/oas/v3.1.0#schema
  */
-export interface OpenAPI3 {
+export interface OpenAPI3 extends Extensable {
   /** REQUIRED. This string MUST be the version number of the OpenAPI Specification that the OpenAPI document uses. The openapi field SHOULD be used by tooling to interpret the OpenAPI document. This is not related to the API info.version string. */
   openapi: string;
   /** REQUIRED. Provides metadata about the API. The metadata MAY be used by tooling as required. */
@@ -32,7 +36,7 @@ export interface OpenAPI3 {
  * [4.8.2] Info Object
  * The object provides metadata about the API.
  */
-export interface InfoObject {
+export interface InfoObject extends Extensable {
   /** REQUIRED. The title of the API. */
   title: string;
   /** A short summary of the API. */
@@ -53,7 +57,7 @@ export interface InfoObject {
  * [4.8.3] Contact Object
  * Contact information for the exposed API.
  */
-export interface ContactObject {
+export interface ContactObject extends Extensable {
   /** The identifying name of the contact person/organization. */
   name?: string;
   /** The URL pointing to the contact information. This MUST be in the form of a URL. */
@@ -66,7 +70,7 @@ export interface ContactObject {
  * [4.8.4] License object
  * License information for the exposed API.
  */
-export interface LicenseObject {
+export interface LicenseObject extends Extensable {
   /** REQUIRED. The license name used for the API. */
   name: string;
   /** An SPDX license expression for the API. The identifier field is mutually exclusive of the url field. */
@@ -79,7 +83,7 @@ export interface LicenseObject {
  * [4.8.5] Server Object
  * An object representing a Server.
  */
-export interface ServerObject {
+export interface ServerObject extends Extensable {
   /** REQUIRED. A URL to the target host. This URL supports Server Variables and MAY be relative, to indicate that the host location is relative to the location where the OpenAPI document is being served. Variable substitutions will be made when a variable is named in {brackets}. */
   url: string;
   /** An optional string describing the host designated by the URL. CommonMark syntax MAY be used for rich text representation. */
@@ -92,7 +96,7 @@ export interface ServerObject {
  * [4.8.6] Server Variable Object
  * An object representing a Server Variable for server URL template substitution.
  */
-export interface ServerVariableObject {
+export interface ServerVariableObject extends Extensable {
   /** An enumeration of string values to be used if the substitution options are from a limited set. The array MUST NOT be empty. */
   enum?: string[];
   /** REQUIRED. The default value to use for substitution, which SHALL be sent if an alternate value is not supplied. Note this behavior is different than the Schema Object’s treatment of default values, because in those cases parameter values are optional. If the enum is defined, the value MUST exist in the enum’s values. */
@@ -105,7 +109,7 @@ export interface ServerVariableObject {
  * [4.8.7] Components Object
  * Holds a set of reusable objects for different aspects of the OAS.
  */
-export interface ComponentsObject {
+export interface ComponentsObject extends Extensable {
   /** An object to hold reusable Schema Objects.*/
   schemas?: Record<string, SchemaObject>;
   /** An object to hold reusable Response Objects. */
@@ -138,23 +142,23 @@ export type PathsObject = { [pathname: string]: PathItemObject };
  * [4.8.9] Path Item Object
  * Describes the operations available on a single path. A Path Item MAY be empty, due to ACL constraints. The path itself is still exposed to the documentation viewer but they will not know which operations and parameters are available.
  */
-export interface PathItemObject {
+export interface PathItemObject extends Extensable {
   /** A definition of a GET operation on this path. */
-  get?: OperationObject;
+  get?: OperationObject | ReferenceObject;
   /** A definition of a PUT operation on this path. */
-  put?: OperationObject;
+  put?: OperationObject | ReferenceObject;
   /** A definition of a POST operation on this path. */
-  post?: OperationObject;
+  post?: OperationObject | ReferenceObject;
   /** A definition of a DELETE operation on this path. */
-  delete?: OperationObject;
+  delete?: OperationObject | ReferenceObject;
   /** A definition of a OPTIONS operation on this path. */
-  options?: OperationObject;
+  options?: OperationObject | ReferenceObject;
   /** A definition of a HEAD operation on this path. */
-  head?: OperationObject;
+  head?: OperationObject | ReferenceObject;
   /** A definition of a PATCH operation on this path. */
-  patch?: OperationObject;
+  patch?: OperationObject | ReferenceObject;
   /** A definition of a TRACE operation on this path. */
-  trace?: OperationObject;
+  trace?: OperationObject | ReferenceObject;
   /** An alternative server array to service all operations in this path. */
   servers?: ServerObject[];
   /** A list of parameters that are applicable for all the operations described under this path. These parameters can be overridden at the operation level, but cannot be removed there. The list MUST NOT include duplicated parameters. A unique parameter is defined by a combination of a name and location. The list can use the Reference Object to link to parameters that are defined at the OpenAPI Object’s components/parameters. */
@@ -165,7 +169,7 @@ export interface PathItemObject {
  * [4.8.10] Operation Object
  * Describes a single API operation on a path.
  */
-export interface OperationObject {
+export interface OperationObject extends Extensable {
   /** A list of tags for API documentation control. Tags can be used for logical grouping of operations by resources or any other qualifier. */
   tags?: string[];
   /** A short summary of what the operation does. */
@@ -196,7 +200,7 @@ export interface OperationObject {
  * [4.8.11] External Documentation Object
  * Allows referencing an external resource for extended documentation.
  */
-export interface ExternalDocumentationObject {
+export interface ExternalDocumentationObject extends Extensable {
   /** A description of the target documentation. CommonMark syntax MAY be used for rich text representation. */
   description?: string;
   /** REQUIRED. The URL for the target documentation. This MUST be in the form of a URL. */
@@ -208,7 +212,7 @@ export interface ExternalDocumentationObject {
  * Describes a single operation parameter.
  * A unique parameter is defined by a combination of a name and location.
  */
-export interface ParameterObject {
+export interface ParameterObject extends Extensable {
   /**
    * REQUIRED. The name of the parameter. Parameter names are case sensitive.
    *
@@ -247,7 +251,7 @@ export interface ParameterObject {
  * [4.8.13] Request Body Object
  * Describes a single request body.
  */
-export interface RequestBodyObject {
+export interface RequestBodyObject extends Extensable {
   /** A brief description of the request body. This could contain examples of use. CommonMark syntax MAY be used for rich text representation. */
   description?: string;
   /** REQUIRED. The content of the request body. The key is a media type or media type range and the value describes it. For requests that match multiple keys, only the most specific key is applicable. e.g. text/plain overrides text */
@@ -259,7 +263,7 @@ export interface RequestBodyObject {
 /**
  * [4.8.14] Media Type Object
  */
-export interface MediaTypeObject {
+export interface MediaTypeObject extends Extensable {
   /** The schema defining the content of the request, response, or parameter. */
   schema?: SchemaObject;
   /** Example of the media type. The example object SHOULD be in the correct format as specified by the media type. The example field is mutually exclusive of the examples field. Furthermore, if referencing a schema which contains an example, the example value SHALL override the example provided by the schema. */
@@ -274,7 +278,7 @@ export interface MediaTypeObject {
  * [4.8.15] Encoding Object
  * A single encoding definition applied to a single schema property.
  */
-export interface EncodingObject {
+export interface EncodingObject extends Extensable {
   /** The Content-Type for encoding a specific property. Default value depends on the property type: for object - application/json; for array – the default is defined based on the inner type; for all other cases the default is application/octet-stream. The value can be a specific media type (e.g. application/json), a wildcard media type (e.g. image/*), or a comma-separated list of the two types. */
   contentType?: string;
   /** A map allowing additional information to be provided as headers, for example Content-Disposition. Content-Type is described separately and SHALL be ignored in this section. This property SHALL be ignored if the request body media type is not a multipart. */
@@ -302,7 +306,7 @@ export type ResponsesObject = {
  * [4.8.17] Response Object
  * Describes a single response from an API Operation, including design-time, static links to operations based on the response.
  */
-export interface ResponseObject {
+export interface ResponseObject extends Extensable {
   /** REQUIRED. A description of the response. CommonMark syntax MAY be used for rich text representation. */
   description: string;
   /** Maps a header name to its definition. [RFC7230] states header names are case insensitive. If a response header is defined with the name "Content-Type", it SHALL be ignored. */
@@ -322,7 +326,7 @@ export type CallbackObject = Record<string, PathItemObject>;
 /**
  * [4.8.19[ Example Object
  */
-export interface ExampleObject {
+export interface ExampleObject extends Extensable {
   /** Short description for the example. */
   summary?: string;
   /** Long description for the example. CommonMark syntax MAY be used for rich text representation. */
@@ -337,15 +341,15 @@ export interface ExampleObject {
  * [4.8.20] Link Object
  * The Link object represents a possible design-time link for a response. The presence of a link does not guarantee the caller’s ability to successfully invoke it, rather it provides a known relationship and traversal mechanism between responses and other operations.
  */
-export interface LinkObject {
+export interface LinkObject extends Extensable {
   /** A relative or absolute URI reference to an OAS operation. This field is mutually exclusive of the operationId field, and MUST point to an Operation Object. Relative operationRef values MAY be used to locate an existing Operation Object in the OpenAPI definition. See the rules for resolving Relative References. */
   operationRef?: string;
   /** The name of an existing, resolvable OAS operation, as defined with a unique operationId. This field is mutually exclusive of the operationRef field. */
   operationId?: string;
   /** A map representing parameters to pass to an operation as specified with operationId or identified via operationRef. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked operation. The parameter name can be qualified using the parameter location [{in}.]{name} for operations that use the same parameter name in different locations (e.g. path.id). */
-  parameters?: { [name: string]: any };
+  parameters?: { [name: string]: `$${string}` };
   /** A literal value or {expression} to use as a request body when calling the target operation. */
-  requestBody?: any;
+  requestBody?: `$${string}`;
   /** A description of the link. CommonMark syntax MAY be used for rich text representation. */
   description?: string;
   /** A server object to be used by the target operation. */
@@ -366,7 +370,7 @@ export type HeaderObject = Omit<ParameterObject, "name" | "in">;
  * [4.8.22] Tag Object
  * Adds metadata to a single tag that is used by the Operation Object. It is not mandatory to have a Tag Object per tag defined in the Operation Object instances.
  */
-export interface TagObject {
+export interface TagObject extends Extensable {
   /** REQUIRED. The name of the tag. */
   name: string;
   /** A description for the tag. CommonMark syntax MAY be used for rich text representation. */
@@ -379,7 +383,7 @@ export interface TagObject {
  * [4.8.23] Reference Object
  * A simple object to allow referencing other components in the OpenAPI document, internally and externally. The $ref string value contains a URI [RFC3986], which identifies the location of the value being referenced. See the rules for resolving Relative References.
  */
-export interface ReferenceObject {
+export interface ReferenceObject extends Extensable {
   /** REQUIRED. The reference identifier. This MUST be in the form of a URI. */
   $ref: string;
   /** A short summary which by default SHOULD override that of the referenced component. If the referenced object-type does not allow a summary field, then this field has no effect. */
@@ -414,6 +418,7 @@ export type SchemaObject = {
   format?: string;
   /** @deprecated in 3.1 (still valid for 3.0) */
   nullable?: boolean;
+  [key: `x-${string}`]: any;
 } & (
   | { oneOf: (SchemaObject | ReferenceObject)[] }
   | { type: ("string" | "number" | "integer" | "array" | "boolean" | "null" | "object")[] }
@@ -456,7 +461,7 @@ export interface DiscriminatorObject {
  * [4.8.26] XML Object
  * A metadata object that allows for more fine-tuned XML model definitions. When using arrays, XML element names are not inferred (for singular/plural forms) and the `name` property SHOULD be used to add that information. See examples for expected behavior.
  */
-export interface XMLObject {
+export interface XMLObject extends Extensable {
   /** Replaces the name of the element/attribute used for the described schema property. When defined within `items`, it will affect the name of the individual XML elements within the list. When defined alongside `type` being `array` (outside the `items`), it will affect the wrapping element and only if `wrapped` is `true`. If `wrapped` is `false`, it will be ignored. */
   name?: string;
   /** The URI of the namespace definition. This MUST be in the form of an absolute URI. */
@@ -476,6 +481,7 @@ export interface XMLObject {
 export type SecuritySchemeObject = {
   /** A description for security scheme. CommonMark syntax MAY be used for rich text representation. */
   description?: string;
+  [key: `x-${string}`]: any;
 } & (
   | {
       /** REQUIRED. The type of the security scheme. */
@@ -515,7 +521,7 @@ export type SecuritySchemeObject = {
  * [4.8.26] OAuth Flows Object
  * Allows configuration of the supported OAuth Flows.
  */
-export interface OAuthFlowsObject {
+export interface OAuthFlowsObject extends Extensable {
   /** Configuration for the OAuth Implicit flow */
   implicit?: OAuthFlowObject;
   /** Configuration for the OAuth Resource Owner Password flow */
@@ -530,7 +536,7 @@ export interface OAuthFlowsObject {
  * [4.8.29] OAuth Flow Object
  * Configuration details for a supported OAuth Flow
  */
-export interface OAuthFlowObject {
+export interface OAuthFlowObject extends Extensable {
   /** REQUIRED. The authorization URL to be used for this flow. This MUST be in the form of a URL. The OAuth2 standard requires the use of TLS. */
   authorizationUrl: string;
   /** REQUIRED. The token URL to be used for this flow. This MUST be in the form of a URL. The OAuth2 standard requires the use of TLS. */
@@ -598,6 +604,18 @@ export interface OpenAPITSOptions {
   inject?: string;
 }
 
+/** Subschema discriminator (note: only valid $ref types accepted here) */
+export type Subschema =
+  | { hint: "LinkObject"; schema: LinkObject }
+  | { hint: "HeaderObject"; schema: HeaderObject }
+  | { hint: "MediaTypeObject"; schema: MediaTypeObject }
+  | { hint: "OpenAPI3"; schema: OpenAPI3 }
+  | { hint: "OperationObject"; schema: OperationObject }
+  | { hint: "ParameterObject"; schema: ParameterObject }
+  | { hint: "RequestBodyObject"; schema: RequestBodyObject }
+  | { hint: "ResponseObject"; schema: ResponseObject }
+  | { hint: "SchemaObject"; schema: SchemaObject };
+
 /** Context passed to all submodules */
 export interface GlobalContext {
   additionalProperties: boolean;
@@ -608,8 +626,8 @@ export interface GlobalContext {
   postTransform: OpenAPITSOptions["postTransform"];
   immutableTypes: boolean;
   indentLv: number;
+  operations: Record<string, string>;
   pathParamsAsTypes: boolean;
   silent: boolean;
-  subschemaID?: string;
   supportArrayLength: boolean;
 }

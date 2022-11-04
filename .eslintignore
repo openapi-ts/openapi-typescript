@@ -1,8 +1,5 @@
 bin
 coverage
 dist
-example/*.ts
 examples
-**/generated/*
-**/expected/*
-**/specs/*
+test/fixtures

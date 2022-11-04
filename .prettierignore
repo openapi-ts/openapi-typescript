@@ -1,4 +1,5 @@
 examples/**/*.ts
+test/fixtures/**/*
 *.md
 *.yaml
 *.yml
