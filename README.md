@@ -273,15 +273,22 @@ By default, openapiTS will generate `updated_at?: string;` because it’s not su
 
 ```js
 const types = openapiTS(mySchema, {
-  transform(node: SchemaObject, options): string {
-    if ("format" in node && node.format === "date-time") {
+  transform(schemaObject, metadata): string {
+    if ("format" in schemaObject && schemaObject.format === "date-time") {
       return "Date";
     }
   },
 });
 ```
 
-This will generate `updated_at?: Date` instead. Note that you will still have to do the parsing of your data yourself, but this will save you from having to manually override certain types in your schema. Also be sure to check the `options` parameter for additional context that may be helpful.
+That would result in the following change:
+
+```diff
+-  updated_at?: string;
++  updated_at?: Date;
+```
+
+Any [Schema Object](https://spec.openapis.org/oas/latest.html#schema-object) present in your schema will be run through this formatter (even remote ones!). Also be sure to check the `metadata` parameter for additional context that may be helpful.
 
 There are many other uses for this besides checking `format`. Because this must return a **string** you can produce any arbitrary TypeScript code you’d like (even your own custom types).
 
@@ -291,8 +298,7 @@ There are many other uses for this besides checking `format`. Because this must 
 
 1. Support converting any valid OpenAPI schema to TypeScript types, no matter how complicated.
 1. This library does **NOT** validate your schema, there are other libraries for that.
-1. The generated TypeScript types **must** match your schema as closely as possible (e.g. no renaming to
-   `PascalCase`)
+1. The generated TypeScript types **must** match your schema as closely as possible (e.g. no renaming to `PascalCase`)
 1. This library should never require Java, node-gyp, or some other complex environment to work. This should require Node.js and nothing else.
 1. This library will never require a running OpenAPI server to work.
 
