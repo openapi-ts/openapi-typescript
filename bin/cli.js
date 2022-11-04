@@ -14,7 +14,8 @@ const HELP = `Usage
   $ openapi-typescript [input] [options]
 
 Options
-  --help                       display this
+  --help                       Display this
+  --version                    Display the version
   --output, -o                 Specify output file (default: stdout)
   --auth                       (optional) Provide an authentication token for private URL
   --headersObject, -h          (optional) Provide a JSON object as string of HTTP headers for remote schema request
@@ -42,13 +43,15 @@ function errorAndExit(errorMessage) {
   throw new Error(errorMessage);
 }
 
-const [, , input, ...args] = process.argv;
+const [, , ...args] = process.argv;
 if (args.includes("-ap")) errorAndExit(`The -ap alias has been deprecated. Use "--additional-properties" instead.`);
 if (args.includes("-it")) errorAndExit(`The -it alias has been deprecated. Use "--immutable-types" instead.`);
 
 const flags = parser(args, {
   array: ["header"],
   boolean: [
+    "help",
+    "version",
     "defaultNonNullable",
     "immutableTypes",
     "contentNever",
@@ -57,7 +60,6 @@ const flags = parser(args, {
     "pathParamsAsTypes",
     "alphabetize",
   ],
-  number: ["version"],
   string: ["auth", "header", "headersObject", "httpMethod"],
   alias: {
     header: ["x"],
@@ -131,8 +133,13 @@ async function generateSchema(pathToSpec) {
 }
 
 async function main() {
-  if (flags.help) {
+  if ("help" in flags) {
     console.info(HELP);
+    process.exit(0);
+  }
+  const packageJSON = JSON.parse(fs.readFileSync(new URL("../package.json", import.meta.url), "utf8"));
+  if ("version" in flags) {
+    console.info(`v${packageJSON.version}`);
     process.exit(0);
   }
 
@@ -140,11 +147,17 @@ async function main() {
   let outputFile = new URL(flags.output, CWD);
   let outputDir = new URL(".", outputFile);
 
-  const pathToSpec = input;
-
   if (output === OUTPUT_FILE) {
-    const packageJSON = JSON.parse(fs.readFileSync(new URL("../package.json", import.meta.url), "utf8"));
     console.info(`✨ ${BOLD}openapi-typescript ${packageJSON.version}${RESET}`); // only log if we’re NOT writing to stdout
+  }
+
+  const pathToSpec = flags._[0];
+
+  // handle stdin schema, exit
+  if (!pathToSpec) {
+    if (output !== "." && output === OUTPUT_FILE) fs.mkdirSync(outputDir, { recursive: true });
+    await generateSchema(process.stdin);
+    return;
   }
 
   // handle remote schema, exit
@@ -154,25 +167,18 @@ async function main() {
     return;
   }
 
-  // handle stdin schema, exit
-  if (pathToSpec === "-") {
-    if (output !== "." && output === OUTPUT_FILE) fs.mkdirSync(outputDir, { recursive: true });
-    await generateSchema(process.stdin);
-    return;
-  }
-
   // handle local schema(s)
   const inputSpecPaths = await glob(pathToSpec);
   const isGlob = inputSpecPaths.length > 1;
 
   // error: no matches for glob
   if (inputSpecPaths.length === 0) {
-    errorAndExit(`❌ Could not find any specs matching "${pathToSpec}". Please check that the path is correct.`);
+    errorAndExit(`✘ Could not find any specs matching "${pathToSpec}". Please check that the path is correct.`);
   }
 
   // error: tried to glob output to single file
   if (isGlob && output === OUTPUT_FILE && fs.existsSync(outputDir) && fs.lstatSync(outputDir).isFile()) {
-    errorAndExit(`❌ Expected directory for --output if using glob patterns. Received "${flags.output}".`);
+    errorAndExit(`✘ Expected directory for --output if using glob patterns. Received "${flags.output}".`);
   }
 
   // generate schema(s) in parallel
