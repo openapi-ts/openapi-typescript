@@ -8,31 +8,38 @@
 
 # 📘️ openapi-typescript
 
-🚀 Convert [OpenAPI](https://spec.openapis.org/oas/latest.html) schemas to TypeScript interfaces painlessly using pure Node.js. No Java, node-gyp, or running OpenAPI servers necessary. Uses [Prettier](https://npmjs.com/prettier) to format the output.
+🚀 Convert static [OpenAPI](https://spec.openapis.org/oas/latest.html) schemas to TypeScript types quickly using pure Node.js. Fast, lightweight, (almost) dependency-free, and no Java/node-gyp/running OpenAPI servers necessary.
 
 **Features**
 
-- ✅ Supports YAML and JSON
+- ✅ Supports YAML and JSON formats
+- ✅ Supports advanced OpenAPI 3.1 features like [discriminators](https://spec.openapis.org/oas/v3.1.0#discriminator-object)
 - ✅ Supports loading via remote URL (simple authentication supported with the `--auth` flag)
 - ✅ Supports remote references: `$ref: "external.yaml#components/schemas/User"`
-- ✅ Prettier formatting is fully customizable to match your existing code style.
+- ✅ Fetches remote schemas quickly using [undici](https://www.npmjs.com/package/undici)
 
 **Examples**
 
-[See examples](./examples/)
+👀 [See examples](./examples/)
 
 ## Usage
 
+Note:️ openapiTS requires **VALID** OpenAPI 3.x schemas to work, and this library does not handle validation. There are several quality tools that handle this like [@apidevtools/swagger-parser](https://www.npmjs.com/package/@apidevtools/swagger-parser). Make sure to validate your schemas first!
+
 ### 🖥️ CLI
 
-#### 🗄️ Reading specs from file system
+#### 🗄️ Reading a local schema
 
 ```bash
 npx openapi-typescript schema.yaml --output schema.ts
 
 # 🔭 Loading spec from schema.yaml…
 # 🚀 schema.yaml -> schema.ts [250ms]
+```
 
+##### 🦠 Globbing local schemas
+
+```bash
 npx openapi-typescript "specs/**/*.yaml" --output schemas/
 
 # 🔭 Loading spec from specs/one.yaml…
@@ -43,11 +50,10 @@ npx openapi-typescript "specs/**/*.yaml" --output schemas/
 # 🚀 specs/three.yaml -> schemas/specs/three.ts [250ms]
 ```
 
-_Note: if generating a single schema, `--output` must be a file (preferably `*.ts`). If using globs, `--output` must be a directory._
+_Thanks, [@sharmarajdaksh](https://github.com/sharmarajdaksh)!_
 
-_Thanks to [@sharmarajdaksh](https://github.com/sharmarajdaksh) for the glob feature!_
 
-#### ☁️ Reading specs from remote resource
+#### ☁️ Reading remote schemas
 
 ```bash
 npx openapi-typescript https://petstore3.swagger.io/api/v3/openapi.yaml --output petstore.d.ts
@@ -56,9 +62,9 @@ npx openapi-typescript https://petstore3.swagger.io/api/v3/openapi.yaml --output
 # 🚀 https://petstore3.swagger.io/api/v3/openapi.yaml -> petstore.d.ts [650ms]
 ```
 
-_Thanks to [@psmyrdek](https://github.com/psmyrdek) for the remote spec feature!_
+_Thanks, [@psmyrdek](https://github.com/psmyrdek)!_
 
-#### Using in TypeScript
+#### 🟦 Using in TypeScript
 
 Import any top-level item from the generated spec to use it. It works best if you also alias types to save on typing:
 
@@ -70,7 +76,7 @@ type APIResponse = components["schemas"]["APIResponse"];
 
 Because OpenAPI schemas may have invalid TypeScript characters as names, the square brackets are a safe way to access every property.
 
-##### Operations
+##### 🏗️ Operations
 
 Operations can be imported directly by their [operationId](https://spec.openapis.org/oas/latest.html#operation-object):
 
@@ -80,83 +86,138 @@ import { operations } from "./generated-schema.ts";
 type getUsersById = operations["getUsersById"];
 ```
 
-_Thanks to [@gr2m](https://github.com/gr2m) for the operations feature!_
+_Thanks, [@gr2m](https://github.com/gr2m)!_
 
-#### openapi-typescript-fetch
+#### ⚾ Fetching data
 
-The generated spec can also be used with [openapi-typescript-fetch](https://www.npmjs.com/package/openapi-typescript-fetch) which implements a typed fetch client for openapi-typescript.
+##### Simple example
+
+Any fetch call can be typed from the `paths` like so:
+
+```ts
+import { paths } from './my-types';
+
+const response: paths["/api/v1/user/{user_id}"]["get"][200 | 500] = await fetch(`/api/v1/user/${user_id}`).then((res) => res.json());
+```
+
+Or if you add the `--path-params-as-types` CLI flag, you can take advantage of more automatic inference:
+
+```ts
+import { paths } from './my-types';
+
+const url = `/api/v1/user/${user_id}`;
+const response: paths[url]["get"][200 | 500] = await fetch(url).then((res) => res.json());
+```
+
+##### openapi-typescript-fetch
+
+You can generate a fully-typed [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) client from openapiTS types with the [openapi-typescript-fetch](https://www.npmjs.com/package/openapi-typescript-fetch) package:
 
 ```ts
 import { paths } from "./petstore";
 import { Fetcher } from "openapi-typescript-fetch";
 
-// declare fetcher for paths
-const fetcher = Fetcher.for<paths>()
+const fetcher = Fetcher.for<paths>();
 
-// global configuration
-fetcher.configure({
-  baseUrl: "https://petstore.swagger.io/v2",
-  init: {
-    headers: {
-      ...
-    },
-  },
-  use: [...] // middlewares
-})
+// GET
+const findPetsByStatus = fetcher.path("/pet/findByStatus").method("get").create();
+const { status, data: pets } = await findPetsByStatus({
+  status: ["available", "pending"],
+});
 
-// create fetch operations
-const findPetsByStatus = fetcher.path("/pet/findByStatus").method("get").create()
-const addPet = fetcher.path("/pet").method("post").create()
+// POST
+const addPet = fetcher.path("/pet").method("post").create();
+await addPet({ ... })
+```
 
-// fetch
-try {
-  const { status, data: pets } = await findPetsByStatus({
-    status: ["available", "pending"],
-  })
-  await addPet({ ... })
-} catch(e) {
-  // check which operation threw the exception
-  if (e instanceof addPet.Error) {
-    // get discriminated union { status, data }
-    const error = e.getActualType()
-    if (error.status === 400) {
-      error.data.validationErrors // 400 response data
-    } else if (error.status === 500) {
-      error.data.errorMessage // 500 response data
-    } else {
-      ...
-    }
-  }
+[See docs](https://www.npmjs.com/package/openapi-typescript-fetch)
+
+_Thanks, [@ajaishankar](https://github.com/ajaishankar)!_
+
+### 📖 Options
+
+The following flags can be appended to the CLI command.
+
+| Option                         | Alias | Default  | Description                                                                                                                  |
+| :----------------------------- | :---- | :------: | :--------------------------------------------------------------------------------------------------------------------------- |
+| `--output [location]`          | `-o`  | (stdout) | Where should the output file be saved?                                                                                       |
+| `--auth [token]`               |       |          | Provide an auth token to be passed along in the request (only if accessing a private schema)                                 |
+| `--header`                     | `-x`  |          | Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the `key: value` pattern |
+| `--headers-object="{…}"`       | `-h`  |          | Provide a JSON object as string of HTTP headers for remote schema request. This will take priority over `--header`           |
+| `--http-method`                | `-m`  | `GET`    | Provide the HTTP Verb/Method for fetching a schema from a remote URL                                                         |
+| `--immutable-types`            |       | `false`  | Generates immutable types (readonly properties and readonly array)                                                           |
+| `--additional-properties`      |       | `false`  | Allow arbitrary properties for all schema objects without `additionalProperties: false`                                      |
+| `--default-non-nullable`       |       | `false`  | Treat schema objects with default values as non-nullable                                                                     |
+| `--export-type`                | `-t`  | `false`  | Export `type` instead of `interface`                                                                                         |
+| `--path-params-as-types`       |       | `false`  | Allow dynamic string lookups on the `paths` object                                                                           |
+| `--support-array-length`       |       | `false`  | Generate tuples using array `minItems` / `maxItems`                                                                          |
+| `--alphabetize`                |       | `false`  | Sort types alphabetically                                                                                                    |
+
+#### 🚩 `--path-params-as-types`
+
+By default, your URLs are preserved exactly as-written in your schema:
+
+```ts
+export interface paths {
+  '/user/{user_id}': components["schemas"]["User"];
 }
 ```
 
-#### Outputting to stdout
+Which means your type lookups also have to match the exact URL:
 
-Simply omit the `--output` flag to return to stdout:
+```ts
+import { paths } from './my-schema';
 
-```bash
-npx openapi-typescript schema.yaml
+const url = `/user/${id}`;
+type UserResponses = paths['/user/{user_id}']['responses'];
 ```
 
-#### CLI Options
+But when `--path-params-as-types` is enabled, you can take advantage of dynamic lookups like so:
 
-| Option                         | Alias | Default  | Description                                                                                                                             |
-| :----------------------------- | :---- | :------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-| `--output [location]`          | `-o`  | (stdout) | Where should the output file be saved?                                                                                                  |
-| `--auth [token]`               |       |          | (optional) Provide an auth token to be passed along in the request (only if accessing a private schema)                                 |
-| `--header`                     | `-x`  |          | (optional) Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the `key: value` pattern |
-| `--headersObject`              | `-h`  |          | (optional) Provide a JSON object as string of HTTP headers for remote schema request. This will take priority over `--header`           |
-| `--httpMethod`                 | `-m`  | `GET`    | (optional) Provide the HTTP Verb/Method for fetching a schema from a remote URL                                                         |
-| `--immutable-types`            | `-it` | `false`  | (optional) Generates immutable types (readonly properties and readonly array)                                                           |
-| `--additional-properties`      | `-ap` | `false`  | (optional) Allow arbitrary properties for all schema objects without `additionalProperties: false`                                      |
-| `--default-non-nullable`       |       | `false`  | (optional) Treat schema objects with default values as non-nullable                                                                     |
-| `--prettier-config [location]` | `-c`  |          | (optional) Path to your custom Prettier configuration for output                                                                        |
-| `--export-type`                |       | `false`  | (optional) Export `type` instead of `interface`                                                                                         |
-| `--support-array-length`       |       | `false`  | (optional) Generate tuples using array minItems / maxItems                                                                              |
-| `--make-paths-enum`            | `-pe` | `false`  | (optional) Generate an enum of endpoint paths                                                                                           |
-| `--path-params-as-types`       |       | `false`  | (optional) Substitute path parameter names with their respective types                                                                  |
-| `--alphabetize`                |       | `false`  | (optional) Sort types alphabetically                                                                                                    |
-| `--raw-schema`                 |       | `false`  | Generate TS types from partial schema (e.g. having `components.schema` at the top level)                                                |
+```ts
+import { paths } from './my-schema';
+
+const url = `/user/${id}`;
+type UserResponses = paths[url]['responses']; // automatically matches `paths['/user/{user_id}']`
+```
+
+Though this is a contrived example, you could use this feature to automatically infer typing based on the URL in a fetch client or in some other useful place in your application.
+
+_Thanks, [@Powell-v2](https://github.com/Powell-v2)!_
+
+#### 🚩 `--support-array-length`
+
+This option is useful for generating tuples if an array type specifies `minItems` or `maxItems`.
+
+For example, given the following schema:
+
+```yaml
+components:
+  schemas:
+    TupleType
+      type: array
+      items:
+        type: string
+      minItems: 1
+      maxItems: 2
+```
+
+Enabling `--support-array-length` would change the typing like so:
+
+```diff
+  export interface components {
+    schemas: {
+-     TupleType: string[];
++     TupleType: [string] | [string, string];
+    };
+  }
+```
+
+This results in more explicit typechecking of array lengths.
+
+_Note: this has a reasonable limit, so for example `maxItems: 100` would simply flatten back down to `string[];`_
+
+_Thanks, [@kgtkr](https://github.com/kgtkr)!_
 
 ### 🐢 Node
 
@@ -182,9 +243,20 @@ const output = await openapiTS("https://myurl.com/v1/openapi.yaml");
 
 The Node API may be useful if dealing with dynamically-created schemas, or you’re using within context of a larger application. Pass in either a JSON-friendly object to load a schema from memory, or a string to load a schema from a local file or remote URL (it will load the file quickly using built-in Node methods). Note that a YAML string isn’t supported in the Node.js API; either use the CLI or convert to JSON using [js-yaml](https://www.npmjs.com/package/js-yaml) first.
 
-#### Custom Formatter
+#### 📖 Node options
 
-If using the Node.js API, you can optionally pass a **formatter** to openapi-typescript. This is useful if you want to override the default types and substitute your own.
+The Node API supports all the [CLI flags](#--options) above in `camelCase` format, plus the following additional options:
+
+| Name            |    Type    | Default | Description                                                                      |
+|:----------------|:----------:|:--------|:---------------------------------------------------------------------------------|
+| `commentHeader` |  `string`  |         | Override the default “This file was auto-generated …” file heading               |
+| `inject`        |  `string`  |         | Inject arbitrary TypeScript types into the start of the file                     |
+| `transform`     | `Function` |         | Override the default Schema Object ➝ TypeScript transformer in certain scenarios |
+| `postTransform` | `Function` |         | Same as `transform` but runs _after_ the TypeScript transformation               |
+
+#### 🤖 transform / postTransform
+
+If using the Node.js API, you can override the normal Schema Object transformer with your own. This is useful for providing enhanced functionality for specific parts of your schema.
 
 For example, say your schema has the following property:
 
@@ -195,21 +267,27 @@ properties:
     format: date-time
 ```
 
-By default, this will generate a type `updated_at?: string;`. But we can override this by passing a formatter to the Node API, like so:
+By default, openapiTS will generate `updated_at?: string;` because it’s not sure which format you want by `"date-time"` (formats are nonstandard and can be whatever you’d like). But we can enhance this by providing our own custom formatter, like so:
 
 ```js
 const types = openapiTS(mySchema, {
-  formatter(node: SchemaObject) {
-    if (node.format === "date-time") {
+  /** transform: runs before Schema Object is converted into a TypeScript type */
+  transform(node: SchemaObject, options): string {
+    if ("format" in node && node.format === "date-time") {
       return "Date"; // return the TypeScript “Date” type, as a string
     }
-  // for all other schema objects, let openapi-typescript decide (return undefined)
+    // if no string returned, handle it normally
+  },
+  /** post-transform: runs after TypeScript type has been transformed */
+  postTransform(type: string, options): string {
+    // if no string returned, keep TypeScript type as-is
+  },
 });
 ```
 
-This will generate `updated_at?: Date` instead. Note that you will still have to do the parsing of your data yourself. But this will save you from having to also update all your types.
+This will generate `updated_at?: Date` instead. Note that you will still have to do the parsing of your data yourself, but this will save you from having to manually override certain types in your schema. Also be sure to check the `options` parameter for additional context that may be helpful.
 
-_Note: you don’t have to use `.format`—this is just an example! You can use any property on a schema object to overwrite its generated type if desired._
+There are many other uses for this besides checking `format`. Because this must return a **string** you can produce any arbitrary TypeScript code you’d like (even your own custom types).
 
 ## 🏅 Project Goals
 

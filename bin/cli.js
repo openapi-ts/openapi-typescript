@@ -20,24 +20,20 @@ Options
   --headersObject, -h          (optional) Provide a JSON object as string of HTTP headers for remote schema request
   --header, -x                 (optional) Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the key: value pattern
   --httpMethod, -m             (optional) Provide the HTTP Verb/Method for fetching a schema from a remote URL
-  --immutable-types, -it       (optional) Generates immutable types (readonly properties and readonly array)
-  --content-never              (optional) If supplied, an omitted reponse \`content\` property will be generated as \`never\` instead of \`unknown\`
-  --additional-properties, -ap (optional) Allow arbitrary properties for all schema objects without "additionalProperties: false"
+  --export-type, -t            (optional) Export "type" instead of "interface"
+  --immutable-types            (optional) Generates immutable types (readonly properties and readonly array)
+  --additional-properties      (optional) Allow arbitrary properties for all schema objects without "additionalProperties: false"
   --default-non-nullable       (optional) If a schema object has a default value set, don’t mark it as nullable
-  --prettier-config, -c        (optional) specify path to Prettier config file
-  --raw-schema                 (optional) Parse as partial schema (raw components)
-  --paths-enum, -pe            (optional) Generate an enum containing all API paths.
-  --export-type                (optional) Export type instead of interface
   --support-array-length       (optional) Generate tuples using array minItems / maxItems
   --path-params-as-types       (optional) Substitute path parameter names with their respective types
   --alphabetize                (optional) Sort types alphabetically
-  --version                    (optional) Force schema parsing version
 `;
 
 const OUTPUT_FILE = "FILE";
 const OUTPUT_STDOUT = "STDOUT";
 const CWD = new URL(`file://${process.cwd()}/`);
 const EXT_RE = /\.[^.]+$/i;
+const HTTP_RE = /^https?:\/\//;
 
 const timeStart = process.hrtime();
 
@@ -47,30 +43,28 @@ function errorAndExit(errorMessage) {
 }
 
 const [, , input, ...args] = process.argv;
+if (args.includes("-ap")) errorAndExit(`The -ap alias has been deprecated. Use "--additional-properties" instead.`);
+if (args.includes("-it")) errorAndExit(`The -it alias has been deprecated. Use "--immutable-types" instead.`);
+
 const flags = parser(args, {
   array: ["header"],
   boolean: [
     "defaultNonNullable",
     "immutableTypes",
     "contentNever",
-    "rawSchema",
     "exportType",
     "supportArrayLength",
-    "makePathsEnum",
     "pathParamsAsTypes",
     "alphabetize",
   ],
   number: ["version"],
-  string: ["auth", "header", "headersObject", "httpMethod", "prettierConfig"],
+  string: ["auth", "header", "headersObject", "httpMethod"],
   alias: {
-    additionalProperties: ["ap"],
     header: ["x"],
+    exportType: ["t"],
     headersObject: ["h"],
     httpMethod: ["m"],
-    immutableTypes: ["it"],
     output: ["o"],
-    prettierConfig: ["c"],
-    makePathsEnum: ["pe"],
   },
   default: {
     httpMethod: "GET",
@@ -103,9 +97,6 @@ async function generateSchema(pathToSpec) {
     auth: flags.auth,
     defaultNonNullable: flags.defaultNonNullable,
     immutableTypes: flags.immutableTypes,
-    prettierConfig: flags.prettierConfig,
-    rawSchema: flags.rawSchema,
-    makePathsEnum: flags.makePathsEnum,
     contentNever: flags.contentNever,
     silent: output === OUTPUT_STDOUT,
     version: flags.version,
@@ -156,13 +147,8 @@ async function main() {
     console.info(`✨ ${BOLD}openapi-typescript ${packageJSON.version}${RESET}`); // only log if we’re NOT writing to stdout
   }
 
-  // error: --raw-schema
-  if (flags.rawSchema && !flags.version) {
-    throw new Error(`--raw-schema requires --version flag`);
-  }
-
   // handle remote schema, exit
-  if (/^https?:\/\//.test(pathToSpec)) {
+  if (HTTP_RE.test(pathToSpec)) {
     if (output !== "." && output === OUTPUT_FILE) fs.mkdirSync(outputDir, { recursive: true });
     await generateSchema(pathToSpec);
     return;

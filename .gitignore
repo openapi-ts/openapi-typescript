@@ -1,12 +1,5 @@
-.dccache
-.cache
 .DS_Store
-.idea/
-.nyc_output/
-**/generated/
-**/__snapshots__/
+test/fixtures/*.yaml
 coverage/
 dist
 node_modules
-yarn.lock
-yarn-error.log

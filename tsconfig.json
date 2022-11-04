@@ -5,6 +5,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["ESNext"],
+    "module": "ESNext",
     "moduleResolution": "Node",
     "noImplicitReturns": true,
     "outDir": "./dist",
@@ -13,8 +14,9 @@
     "sourceMap": true,
     "strict": true,
     "target": "ESNext",
+    "types": ["vitest/globals"],
     "useDefineForClassFields": true
   },
-  "exclude": ["examples", "node_modules", "**/generated/*", "**/expected/*"],
-  "include": ["scripts", "src", "test"]
+  "include": ["scripts", "src", "test", "*.ts"],
+  "exclude": ["examples", "node_modules"]
 }
