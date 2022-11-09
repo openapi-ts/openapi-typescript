@@ -40,7 +40,6 @@
     "download:schemas": "vite-node ./scripts/download-schemas.ts",
     "format": "npm run prettier -w .",
     "lint": "eslint .",
-    "pregenerate": "npm run build",
     "prepare": "npm run build",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
