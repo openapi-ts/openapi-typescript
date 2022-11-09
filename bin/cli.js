@@ -5,10 +5,7 @@ import { URL } from "node:url";
 import glob from "fast-glob";
 import parser from "yargs-parser";
 import openapiTS from "../dist/index.js";
-
-const GREEN = "\u001b[32m";
-const BOLD = "\u001b[1m";
-const RESET = "\u001b[0m";
+import { c, error } from "../dist/utils.js";
 
 const HELP = `Usage
   $ openapi-typescript [input] [options]
@@ -37,11 +34,6 @@ const EXT_RE = /\.[^.]+$/i;
 const HTTP_RE = /^https?:\/\//;
 
 const timeStart = process.hrtime();
-
-function errorAndExit(errorMessage) {
-  process.exitCode = 1; // needed for async functions
-  throw new Error(errorMessage);
-}
 
 const [, , ...args] = process.argv;
 if (args.includes("-ap")) errorAndExit(`The -ap alias has been deprecated. Use "--additional-properties" instead.`);
@@ -123,7 +115,7 @@ async function generateSchema(pathToSpec) {
 
     const timeEnd = process.hrtime(timeStart);
     const time = timeEnd[0] + Math.round(timeEnd[1] / 1e6);
-    console.log(`🚀 ${GREEN}${pathToSpec} -> ${BOLD}${outputFilePath}${RESET}${GREEN} [${time}ms]${RESET}`);
+    console.log(`🚀 ${c.green(`${pathToSpec} → ${c.bold(outputFilePath)}`)} ${c.dim(`[${time}ms]`)}`);
   } else {
     process.stdout.write(result);
     // if stdout, (still) don’t log anything to console!
@@ -147,9 +139,7 @@ async function main() {
   let outputFile = new URL(flags.output, CWD);
   let outputDir = new URL(".", outputFile);
 
-  if (output === OUTPUT_FILE) {
-    console.info(`✨ ${BOLD}openapi-typescript ${packageJSON.version}${RESET}`); // only log if we’re NOT writing to stdout
-  }
+  if (output === OUTPUT_FILE) console.info(`✨ ${c.bold(`openapi-typescript ${packageJSON.version}`)}`); // only log if we’re NOT writing to stdout
 
   const pathToSpec = flags._[0];
 
@@ -173,12 +163,14 @@ async function main() {
 
   // error: no matches for glob
   if (inputSpecPaths.length === 0) {
-    errorAndExit(`✘ Could not find any specs matching "${pathToSpec}". Please check that the path is correct.`);
+    error(`Could not find any specs matching "${pathToSpec}". Please check that the path is correct.`);
+    process.exit(1);
   }
 
   // error: tried to glob output to single file
   if (isGlob && output === OUTPUT_FILE && fs.existsSync(outputDir) && fs.lstatSync(outputDir).isFile()) {
-    errorAndExit(`✘ Expected directory for --output if using glob patterns. Received "${flags.output}".`);
+    error(`Expected directory for --output if using glob patterns. Received "${flags.output}".`);
+    process.exit(1);
   }
 
   // generate schema(s) in parallel

@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { OpenAPI3 } from "types.js";
+import { OpenAPI3 } from "../src/types";
 import openapiTS from "../dist/index.js";
 
 const BOILERPLATE = `/**
@@ -14,12 +14,63 @@ type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> &
 type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
 `;
 
+beforeAll(() => {
+  vi.spyOn(process, "exit").mockImplementation(((code: number) => {
+    throw new Error(`Process exited with error code ${code}`);
+  }) as any);
+});
+
 describe("openapiTS", () => {
+  beforeAll(() => {
+    vi.spyOn(process, "exit").mockImplementation((() => {}) as any);
+  });
+
+  describe("3.0", () => {
+    test("custom properties", async () => {
+      const generated = await openapiTS({
+        openapi: "3.0",
+        info: { title: "Test", version: "1.0" },
+        components: {
+          schemas: {
+            Base: {
+              type: "object",
+              additionalProperties: { type: "string" },
+            },
+            SchemaType: {
+              oneOf: [{ $ref: "#/components/schemas/Base" }, { $ref: "#/x-swagger-bake/components/schemas/Extension" }],
+            },
+          },
+        },
+      });
+      expect(generated).toBe(`${BOILERPLATE}
+export type paths = Record<string, never>;
+
+export interface components {
+  schemas: {
+    Base: {
+      [key: string]: string | undefined;
+    };
+    SchemaType: components["schemas"]["Base"];
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}
+
+export type external = Record<string, never>;
+
+export type operations = Record<string, never>;
+`);
+    });
+  });
+
   describe("3.1", () => {
     test("discriminator", async () => {
       const schema: OpenAPI3 = {
         openapi: "3.1",
-        info: { title: "test", version: "3.1" },
+        info: { title: "test", version: "1.0" },
         components: {
           schemas: {
             Pet: {
@@ -30,7 +81,7 @@ describe("openapiTS", () => {
             },
             Cat: {
               allOf: [
-                { $ref: 'components["schemas"]["Pet"]' },
+                { $ref: "#/components/schemas/Pet" },
                 {
                   type: "object",
                   properties: { name: { type: "string" } },
@@ -39,7 +90,7 @@ describe("openapiTS", () => {
             },
             Dog: {
               allOf: [
-                { $ref: 'components["schemas"]["Pet"]' },
+                { $ref: "#/components/schemas/Pet" },
                 {
                   type: "object",
                   properties: { bark: { type: "string" } },
@@ -48,7 +99,7 @@ describe("openapiTS", () => {
             },
             Lizard: {
               allOf: [
-                { $ref: 'components["schemas"]["Pet"]' },
+                { $ref: "#/components/schemas/Pet" },
                 {
                   type: "object",
                   properties: { lovesRocks: { type: "boolean" } },
@@ -90,9 +141,54 @@ export interface components {
   pathItems: never;
 }
 
+export type external = Record<string, never>;
+
 export type operations = Record<string, never>;
+`);
+    });
+
+    test("$ref properties", async () => {
+      const schema: OpenAPI3 = {
+        openapi: "3.1",
+        info: { title: "Test", version: "1.0" },
+        components: {
+          schemas: {
+            ObjRef: {
+              type: "object",
+              properties: {
+                base: { $ref: "#/components/schemas/Entity/properties/foo" },
+              },
+            },
+            AllOf: {
+              allOf: [
+                { $ref: "#/components/schemas/Entity/properties/foo" },
+                { $ref: "#/components/schemas/Thingy/properties/bar" },
+              ],
+            },
+          },
+        },
+      };
+      const generated = await openapiTS(schema);
+      expect(generated).toBe(`${BOILERPLATE}
+export type paths = Record<string, never>;
+
+export interface components {
+  schemas: {
+    ObjRef: {
+      base?: components["schemas"]["Entity"]["foo"];
+    };
+    AllOf: components["schemas"]["Entity"]["foo"] & components["schemas"]["Thingy"]["bar"];
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}
 
 export type external = Record<string, never>;
+
+export type operations = Record<string, never>;
 `);
     });
   });
@@ -100,24 +196,23 @@ export type external = Record<string, never>;
   describe("options", () => {
     describe("exportTypes", () => {
       test("false", async () => {
-        expect(
-          await openapiTS(
-            {
-              openapi: "3.1",
-              info: { title: "Test", version: "3.1" },
-              components: {
-                schemas: {
-                  User: {
-                    type: "object",
-                    properties: { name: { type: "string" }, email: { type: "string" } },
-                    required: ["name", "email"],
-                  },
+        const generated = await openapiTS(
+          {
+            openapi: "3.1",
+            info: { title: "Test", version: "1.0" },
+            components: {
+              schemas: {
+                User: {
+                  type: "object",
+                  properties: { name: { type: "string" }, email: { type: "string" } },
+                  required: ["name", "email"],
                 },
               },
             },
-            { exportType: false }
-          )
-        ).toBe(`${BOILERPLATE}
+          },
+          { exportType: false }
+        );
+        expect(generated).toBe(`${BOILERPLATE}
 export type paths = Record<string, never>;
 
 export interface components {
@@ -134,31 +229,30 @@ export interface components {
   pathItems: never;
 }
 
-export type operations = Record<string, never>;
-
 export type external = Record<string, never>;
+
+export type operations = Record<string, never>;
 `);
       });
 
       test("true", async () => {
-        expect(
-          await openapiTS(
-            {
-              openapi: "3.1",
-              info: { title: "Test", version: "3.1" },
-              components: {
-                schemas: {
-                  User: {
-                    type: "object",
-                    properties: { name: { type: "string" }, email: { type: "string" } },
-                    required: ["name", "email"],
-                  },
+        const generated = await openapiTS(
+          {
+            openapi: "3.1",
+            info: { title: "Test", version: "1.0" },
+            components: {
+              schemas: {
+                User: {
+                  type: "object",
+                  properties: { name: { type: "string" }, email: { type: "string" } },
+                  required: ["name", "email"],
                 },
               },
             },
-            { exportType: true }
-          )
-        ).toBe(`${BOILERPLATE}
+          },
+          { exportType: true }
+        );
+        expect(generated).toBe(`${BOILERPLATE}
 export type paths = Record<string, never>;
 
 export type components = {
@@ -175,9 +269,9 @@ export type components = {
   pathItems: never;
 };
 
-export type operations = Record<string, never>;
-
 export type external = Record<string, never>;
+
+export type operations = Record<string, never>;
 `);
       });
     });
@@ -185,7 +279,7 @@ export type external = Record<string, never>;
     describe("pathParamsAsTypes", () => {
       const schema: OpenAPI3 = {
         openapi: "3.1",
-        info: { title: "Test", version: "3.1" },
+        info: { title: "Test", version: "1.0" },
         paths: {
           "/user/{user_id}": {
             parameters: [{ name: "user_id", in: "path" }],
@@ -194,7 +288,8 @@ export type external = Record<string, never>;
       };
 
       test("false", async () => {
-        expect(await openapiTS(schema, { pathParamsAsTypes: false })).toBe(`${BOILERPLATE}
+        const generated = await openapiTS(schema, { pathParamsAsTypes: false });
+        expect(generated).toBe(`${BOILERPLATE}
 export interface paths {
   "/user/{user_id}": {
     parameters: {
@@ -207,14 +302,15 @@ export interface paths {
 
 export type components = Record<string, never>;
 
-export type operations = Record<string, never>;
-
 export type external = Record<string, never>;
+
+export type operations = Record<string, never>;
 `);
       });
 
       test("true", async () => {
-        expect(await openapiTS(schema, { pathParamsAsTypes: true })).toBe(`${BOILERPLATE}
+        const generated = await openapiTS(schema, { pathParamsAsTypes: true });
+        expect(generated).toBe(`${BOILERPLATE}
 export interface paths {
   [path: \`/user/\${string}\`]: {
     parameters: {
@@ -227,9 +323,9 @@ export interface paths {
 
 export type components = Record<string, never>;
 
-export type operations = Record<string, never>;
-
 export type external = Record<string, never>;
+
+export type operations = Record<string, never>;
 `);
       });
     });
@@ -237,7 +333,7 @@ export type external = Record<string, never>;
     describe("transform/postTransform", () => {
       const schema: OpenAPI3 = {
         openapi: "3.1",
-        info: { title: "Test", version: "3.1" },
+        info: { title: "Test", version: "1.0" },
         components: {
           schemas: {
             Date: { type: "string", format: "date-time" },
@@ -246,13 +342,12 @@ export type external = Record<string, never>;
       };
 
       test("transform", async () => {
-        expect(
-          await openapiTS(schema, {
-            transform(node) {
-              if ("format" in node && node.format === "date-time") return "Date";
-            },
-          })
-        ).toBe(`${BOILERPLATE}
+        const generated = await openapiTS(schema, {
+          transform(node) {
+            if ("format" in node && node.format === "date-time") return "Date";
+          },
+        });
+        expect(generated).toBe(`${BOILERPLATE}
 export type paths = Record<string, never>;
 
 export interface components {
@@ -267,22 +362,21 @@ export interface components {
   pathItems: never;
 }
 
-export type operations = Record<string, never>;
-
 export type external = Record<string, never>;
+
+export type operations = Record<string, never>;
 `);
       });
 
       test("postTransform (with inject)", async () => {
         const inject = `type DateOrTime = Date | number;\n`;
-        expect(
-          await openapiTS(schema, {
-            postTransform(type, options) {
-              if (options.path.includes("Date")) return "DateOrTime";
-            },
-            inject,
-          })
-        ).toBe(`${BOILERPLATE}
+        const generated = await openapiTS(schema, {
+          postTransform(type, options) {
+            if (options.path.includes("Date")) return "DateOrTime";
+          },
+          inject,
+        });
+        expect(generated).toBe(`${BOILERPLATE}
 ${inject}
 export type paths = Record<string, never>;
 
@@ -298,27 +392,44 @@ export interface components {
   pathItems: never;
 }
 
-export type operations = Record<string, never>;
-
 export type external = Record<string, never>;
+
+export type operations = Record<string, never>;
 `);
       });
     });
   });
 
+  // note: this tests the Node API; the snapshots in cli.test.ts test the CLI
   describe("snapshots", () => {
+    const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
+    const FIXTURES_DIR = new URL("./fixtures/", import.meta.url);
+
     describe("GitHub", () => {
       test("default options", async () => {
-        const generated = await openapiTS(new URL("./fixtures/github-api.yaml", import.meta.url));
-        expect(generated).toBe(fs.readFileSync(new URL("../examples/github-api.ts", import.meta.url), "utf8"));
-      });
+        const generated = await openapiTS(new URL("./github-api.yaml", FIXTURES_DIR));
+        expect(generated).toBe(fs.readFileSync(new URL("./github-api.ts", EXAMPLES_DIR), "utf8"));
+      }, 30000);
     });
-
+    describe("GitHub (next)", () => {
+      test("default options", async () => {
+        const generated = await openapiTS(new URL("./github-api-next.yaml", FIXTURES_DIR));
+        expect(generated).toBe(fs.readFileSync(new URL("./github-api-next.ts", EXAMPLES_DIR), "utf8"));
+      }, 30000);
+    });
     describe("Stripe", () => {
       test("default options", async () => {
-        const generated = await openapiTS(new URL("./fixtures/stripe-api.yaml", import.meta.url));
-        expect(generated).toBe(fs.readFileSync(new URL("../examples/stripe-api.ts", import.meta.url), "utf8"));
-      });
+        const generated = await openapiTS(new URL("./stripe-api.yaml", FIXTURES_DIR));
+        expect(generated).toBe(fs.readFileSync(new URL("./stripe-api.ts", EXAMPLES_DIR), "utf8"));
+      }, 30000);
+    });
+    describe("DigitalOcean", () => {
+      test("default options", async () => {
+        const generated = await openapiTS(
+          new URL("./digital-ocean-api/specification/DigitalOcean-public.v2.yaml", FIXTURES_DIR)
+        );
+        expect(generated).toBe(fs.readFileSync(new URL("./digital-ocean-api.ts", EXAMPLES_DIR), "utf8"));
+      }, 60000);
     });
   });
 });

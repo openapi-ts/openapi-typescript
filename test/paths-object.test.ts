@@ -1,19 +1,19 @@
-import type { PathsObject } from "../src/types";
-import transformPathsObject, { TransformPathsObjectOptions } from "../src/transform/paths-object.js";
+import type { GlobalContext, PathsObject } from "../src/types";
+import transformPathsObject from "../src/transform/paths-object.js";
 
-const options: TransformPathsObjectOptions = {
+const options: GlobalContext = {
+  additionalProperties: false,
+  alphabetize: false,
+  defaultNonNullable: false,
+  discriminators: {},
+  immutableTypes: false,
+  indentLv: 0,
   operations: {},
-  ctx: {
-    additionalProperties: false,
-    alphabetize: false,
-    defaultNonNullable: false,
-    discriminators: {},
-    immutableTypes: false,
-    indentLv: 0,
-    pathParamsAsTypes: false,
-    silent: true,
-    supportArrayLength: false,
-  },
+  pathParamsAsTypes: false,
+  postTransform: undefined,
+  silent: true,
+  supportArrayLength: false,
+  transform: undefined,
 };
 
 describe("Paths Object", () => {

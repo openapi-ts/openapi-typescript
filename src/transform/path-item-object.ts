@@ -3,7 +3,6 @@ import { escStr, getSchemaObjectComment, indent } from "../utils.js";
 import transformOperationObject from "./operation-object.js";
 
 export interface TransformPathItemObjectOptions {
-  operations: Record<string, string>;
   path: string;
   ctx: GlobalContext;
 }
@@ -14,7 +13,7 @@ const UNWRAP_OBJ_RE = /^\s*{\s*([^.]+)\s*}\s*$/;
 
 export default function transformPathItemObject(
   pathItem: PathItemObject,
-  { operations, path, ctx }: TransformPathItemObjectOptions
+  { path, ctx }: TransformPathItemObjectOptions
 ): string {
   let { indentLv } = ctx;
   const output: string[] = [];
@@ -27,10 +26,13 @@ export default function transformPathItemObject(
     if (!operationObject) continue;
     const c = getSchemaObjectComment(operationObject, indentLv);
     if (c) output.push(indent(c, indentLv));
+    if ("$ref" in operationObject) {
+      output.push(indent(`${method}: ${operationObject.$ref}`, indentLv));
+    }
     // if operationId exists, move into an `operations` export and pass the reference in here
-    if (operationObject.operationId) {
+    else if (operationObject.operationId) {
       const operationType = transformOperationObject(operationObject, { path, ctx: { ...ctx, indentLv: 1 } });
-      operations[operationObject.operationId] = operationType;
+      ctx.operations[operationObject.operationId] = operationType;
       output.push(indent(`${method}: operations[${escStr(operationObject.operationId)}];`, indentLv));
     } else {
       const operationType = transformOperationObject(operationObject, { path, ctx: { ...ctx, indentLv } });

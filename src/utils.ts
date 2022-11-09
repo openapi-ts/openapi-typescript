@@ -1,3 +1,11 @@
+import c from "ansi-colors";
+import { isAbsolute } from "node:path";
+import supportsColor from "supports-color";
+
+if (!supportsColor.stdout || supportsColor.stdout.hasBasic === false) c.enabled = false;
+
+export { c };
+
 type CommentObject = {
   const?: unknown; // jsdoc without value
   default?: unknown; // jsdoc with value
@@ -19,8 +27,24 @@ const ESC_0_RE = /~0/g;
 const ESC_1_RE = /~1/g;
 const TILDE_RE = /~/g;
 const FS_RE = /\//g;
+export const TS_INDEX_RE = /\[("(\\"|[^"])+"|'(\\'|[^'])+')]/g; // splits apart TS indexes (and allows for escaped quotes)
 const TS_UNION_INTERSECTION_RE = /[&|]/;
-const JS_OBJ_KEY = /^[A-Za-z0-9_$]+$/;
+const JS_OBJ_KEY = /^(\d+|[A-Za-z_$][A-Za-z0-9_$]*)$/;
+
+/** Walk through any JSON-serializable object */
+export function walk(
+  obj: unknown,
+  cb: (value: Record<string, unknown>, path: (string | number)[]) => void,
+  path: (string | number)[] = []
+): void {
+  if (!obj || typeof obj !== "object") return;
+  if (Array.isArray(obj)) {
+    for (let i = 0; i < obj.length; i++) walk(obj[i], cb, path.concat(i));
+    return;
+  }
+  cb(obj as any, path);
+  for (const k of Object.keys(obj)) walk((obj as any)[k], cb, path.concat(k));
+}
 
 /**
  * Preparing comments from fields
@@ -82,19 +106,18 @@ export function comment(text: string, indentLv?: number): string {
 }
 
 /** handle any valid $ref */
-export function parseRef(ref: string): { url?: string; parts: string[] } {
-  if (typeof ref !== "string" || !ref.includes("#")) return { parts: [] };
-  const [url, parts] = ref.split("#");
+export function parseRef(ref: string): { filename: string; path: string[] } {
+  if (typeof ref !== "string") return { filename: ".", path: [] };
+  if (!ref.includes("#")) return { filename: ref, path: [] };
+  const [filename, path] = ref.split("#");
   return {
-    url: url || undefined,
-    parts: parts
+    filename: filename || ".",
+    path: path
       .split("/") // split by special character
-      .filter((p) => !!p) // remove empty parts
+      .filter((p) => !!p && p !== "properties") // remove empty parts and "properties" (gets flattened by TS)
       .map(decodeRef), // decode encoded chars
   };
 }
-
-const INDEX_PARTS_RE = /\[("(\\"|[^"])+"|'(\\'|[^'])+')]/g;
 
 /** Parse TS index */
 export function parseTSIndex(type: string): string[] {
@@ -103,7 +126,7 @@ export function parseTSIndex(type: string): string[] {
   if (bracketI === -1) return [type];
 
   parts.push(type.substring(0, bracketI));
-  const matches = type.match(INDEX_PARTS_RE);
+  const matches = type.match(TS_INDEX_RE);
   if (matches) {
     for (const m of matches) parts.push(m.substring('["'.length, m.length - '"]'.length));
   }
@@ -111,11 +134,9 @@ export function parseTSIndex(type: string): string[] {
 }
 
 /** Make TS index */
-export function makeTSIndex(parts: string[]): string {
+export function makeTSIndex(parts: (string | number)[]): string {
   return `${parts[0]}[${parts.slice(1).map(escStr).join("][")}]`;
 }
-
-export type ParsedSimpleValue = string | number | boolean;
 
 /** decode $ref (https://swagger.io/docs/specification/using-ref/#escape) */
 export function decodeRef(ref: string): string {
@@ -181,7 +202,7 @@ export function tsUnionOf(...types: Array<string | number | boolean>): string {
 }
 
 /** escape string value */
-export function escStr(input: string): string {
+export function escStr(input: any): string {
   if (typeof input !== "string") return input;
   return `"${input.trim().replace(DOUBLE_QUOTE_RE, '\\"')}"`;
 }
@@ -203,13 +224,18 @@ export function getEntries<T>(obj: ArrayLike<T> | Record<string, T>, alphabetize
   return entries;
 }
 
-/** verify OpenAPI version of an unknown schema */
-export function checkOpenAPIVersion(schema: Record<string, unknown | undefined>): void {
-  if ("swagger" in schema && typeof schema.swagger === "string")
-    throw new Error("Swagger 2.0 and older no longer supported. Please use v5.");
-  if ("openapi" in schema && typeof schema.openapi === "string") {
-    const version = parseInt(schema.openapi);
-    if (version <= 2 || version >= 4)
-      throw new Error(`Unknown OpenAPI version "${schema.version}". Only 3.x is supported.`);
-  }
+/** print error message */
+export function error(msg: string) {
+  console.error(c.red(` ✘  ${msg}`));
+}
+
+/** is the given string a remote URL */
+export function isRemoteURL(url: string): boolean {
+  // believe it or not, this is faster than RegEx
+  return url.startsWith("https://") || url.startsWith("//") || url.startsWith("http://");
+}
+
+/** is the given string a filepath? */
+export function isFilepath(url: string): boolean {
+  return url.startsWith("file://") || isAbsolute(url);
 }

@@ -1,21 +1,19 @@
-import type { ComponentsObject } from "../src/types";
-import transformComponentsObject, { TransformComponentsObjectOptions } from "../src/transform/components-object.js";
+import type { ComponentsObject, GlobalContext } from "../src/types";
+import transformComponentsObject from "../src/transform/components-object.js";
 
-const options: TransformComponentsObjectOptions = {
+const options: GlobalContext = {
+  additionalProperties: false,
+  alphabetize: false,
+  defaultNonNullable: false,
+  discriminators: {},
+  immutableTypes: false,
+  indentLv: 0,
   operations: {},
-  ctx: {
-    additionalProperties: false,
-    alphabetize: false,
-    defaultNonNullable: false,
-    discriminators: {},
-    immutableTypes: false,
-    indentLv: 0,
-    pathParamsAsTypes: false,
-    postTransform: undefined,
-    silent: true,
-    supportArrayLength: false,
-    transform: undefined,
-  },
+  pathParamsAsTypes: false,
+  postTransform: undefined,
+  silent: true,
+  supportArrayLength: false,
+  transform: undefined,
 };
 
 const basicSchema: ComponentsObject = {
@@ -90,9 +88,11 @@ describe("Components Object", () => {
     Search: string;
   };
   requestBodies: {
-    UploadUser: {
-      "application/json": {
-        email: string;
+    UploadUser?: {
+      content: {
+        "application/json": {
+          email: string;
+        };
       };
     };
   };
@@ -139,7 +139,7 @@ describe("Components Object", () => {
             },
           },
         };
-        const generated = transformComponentsObject(schema, { ...options, ctx: { ...options.ctx, alphabetize: true } });
+        const generated = transformComponentsObject(schema, { ...options, alphabetize: true });
         expect(generated).toBe(`{
   schemas: {
     Alpha: {
@@ -167,10 +167,7 @@ describe("Components Object", () => {
     });
     describe("immutableTypes", () => {
       test("true", () => {
-        const generated = transformComponentsObject(basicSchema, {
-          ...options,
-          ctx: { ...options.ctx, immutableTypes: true },
-        });
+        const generated = transformComponentsObject(basicSchema, { ...options, immutableTypes: true });
         expect(generated).toBe(`{
   schemas: {
     readonly String: string;
@@ -189,9 +186,11 @@ describe("Components Object", () => {
     readonly Search: string;
   };
   requestBodies: {
-    readonly UploadUser: {
-      readonly "application/json": {
-        readonly email: string;
+    readonly UploadUser?: {
+      readonly content: {
+        readonly "application/json": {
+          readonly email: string;
+        };
       };
     };
   };

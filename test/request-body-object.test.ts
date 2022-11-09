@@ -10,6 +10,7 @@ const options: TransformRequestBodyObjectOptions = {
     discriminators: {},
     immutableTypes: false,
     indentLv: 0,
+    operations: {},
     pathParamsAsTypes: false,
     postTransform: undefined,
     silent: true,
@@ -36,9 +37,11 @@ describe("Request Body Object", () => {
     };
     const generated = transformRequestBodyObject(schema, options);
     expect(generated).toBe(`{
-  "application/json": {
-    url: string;
-    "content-type"?: string;
+  content: {
+    "application/json": {
+      url: string;
+      "content-type"?: string;
+    };
   };
 }`);
   });

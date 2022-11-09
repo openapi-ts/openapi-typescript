@@ -44,7 +44,10 @@ export function defaultSchemaObjectTransform(
   // const fallback (primitives) return passed value
   if (!schemaObject || typeof schemaObject !== "object") return schemaObject;
   // const fallback (array) return tuple
-  if (Array.isArray(schemaObject)) return tsTupleOf(...schemaObject);
+  if (Array.isArray(schemaObject)) {
+    const finalType = tsTupleOf(...schemaObject);
+    return ctx.immutableTypes ? tsReadonly(finalType) : finalType;
+  }
 
   // $ref
   if ("$ref" in schemaObject) {
@@ -69,13 +72,20 @@ export function defaultSchemaObjectTransform(
   if (schemaObject.enum) {
     let items = schemaObject.enum as any[];
     if ("type" in schemaObject) {
-      if (schemaObject.type === "string") items = items.map((t) => escStr(t || "")); // empty/missing values are empty strings
+      if (schemaObject.type === "string" || (Array.isArray(schemaObject.type) && schemaObject.type.includes("string")))
+        items = items.map((t) => escStr(t || "")); // empty/missing values are empty strings
     }
     // if no type, assume "string"
     else {
       items = items.map((t) => escStr(t || ""));
     }
-    return tsUnionOf(...items);
+    return tsUnionOf(
+      ...items,
+      ...(schemaObject.nullable ||
+      ("type" in schemaObject && Array.isArray(schemaObject.type) && schemaObject.type.includes("null"))
+        ? ["null"]
+        : [])
+    );
   }
 
   // oneOf (no discriminator)
@@ -175,7 +185,7 @@ export function defaultSchemaObjectTransform(
     );
     if (discriminatorRef) {
       const discriminator = ctx.discriminators[discriminatorRef.$ref];
-      let value = parseRef(path).parts.pop() as string;
+      let value = parseRef(path).path.pop() as string;
       if (discriminator.mapping) {
         const matchedValue = Object.entries(discriminator.mapping).find(([_, v]) => v === value);
         if (matchedValue) value = matchedValue[0]; // why was this designed backwards!?
@@ -190,12 +200,16 @@ export function defaultSchemaObjectTransform(
 
   /** collect oneOf/allOf/anyOf with Omit<> for discriminators */
   function collectCompositions(items: (SchemaObject | ReferenceObject)[]): string[] {
-    return items.map((item) => {
+    const output: string[] = [];
+    for (const item of items) {
       const itemType = transformSchemaObject(item, { path, ctx: { ...ctx, indentLv } });
-      if ("$ref" in item && ctx.discriminators[item.$ref])
-        return tsOmit(itemType, [ctx.discriminators[item.$ref].propertyName]);
-      return itemType;
-    });
+      if ("$ref" in item && ctx.discriminators[item.$ref]) {
+        output.push(tsOmit(itemType, [ctx.discriminators[item.$ref].propertyName]));
+        continue;
+      }
+      output.push(itemType);
+    }
+    return output;
   }
   // oneOf (discriminator)
   if ("oneOf" in schemaObject && Array.isArray(schemaObject.oneOf)) {

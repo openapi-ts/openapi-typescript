@@ -3,15 +3,7 @@ import { escStr, getEntries, indent } from "../utils.js";
 import transformParameterObject from "./parameter-object.js";
 import transformPathItemObject from "./path-item-object.js";
 
-export interface TransformPathsObjectOptions {
-  operations: Record<string, string>;
-  ctx: GlobalContext;
-}
-
-export default function transformPathsObject(
-  pathsObject: PathsObject,
-  { operations, ctx }: TransformPathsObjectOptions
-): string {
+export default function transformPathsObject(pathsObject: PathsObject, ctx: GlobalContext): string {
   let { indentLv } = ctx;
   const output: string[] = ["{"];
   indentLv++;
@@ -34,7 +26,6 @@ export default function transformPathsObject(
     output.push(
       indent(
         `${path}: ${transformPathItemObject(pathItemObject, {
-          operations,
           path: `#/paths/${url}`,
           ctx: { ...ctx, indentLv },
         })};`,

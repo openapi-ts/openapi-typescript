@@ -1,5 +1,5 @@
 import type { ComponentsObject, GlobalContext } from "../types";
-import { escObjKey, getEntries, getSchemaObjectComment, indent, tsReadonly } from "../utils.js";
+import { escObjKey, getEntries, getSchemaObjectComment, indent, tsOptionalProperty, tsReadonly } from "../utils.js";
 import transformHeaderObject from "./header-object.js";
 import transformParameterObject from "./parameter-object.js";
 import transformPathItemObject from "./path-item-object.js";
@@ -7,15 +7,7 @@ import transformRequestBodyObject from "./request-body-object.js";
 import transformResponseObject from "./response-object.js";
 import transformSchemaObject from "./schema-object.js";
 
-export interface TransformComponentsObjectOptions {
-  operations: Record<string, string>;
-  ctx: GlobalContext;
-}
-
-export default function transformComponentsObject(
-  components: ComponentsObject,
-  { operations, ctx }: TransformComponentsObjectOptions
-): string {
+export default function transformComponentsObject(components: ComponentsObject, ctx: GlobalContext): string {
   let { indentLv } = ctx;
   const output: string[] = ["{"];
   indentLv++;
@@ -109,8 +101,8 @@ export default function transformComponentsObject(
       const c = getSchemaObjectComment(requestBodyObject, indentLv);
       if (c) output.push(indent(c, indentLv));
       let key = escObjKey(name);
-      if (ctx.immutableTypes) key = tsReadonly(key);
       if ("$ref" in requestBodyObject) {
+        if (ctx.immutableTypes) key = tsReadonly(key);
         output.push(
           indent(
             `${key}: ${transformSchemaObject(requestBodyObject, {
@@ -121,6 +113,8 @@ export default function transformComponentsObject(
           )
         );
       } else {
+        if (!requestBodyObject.required) key = tsOptionalProperty(key);
+        if (ctx.immutableTypes) key = tsReadonly(key);
         const requestBodyType = transformRequestBodyObject(requestBodyObject, {
           path: `#/components/requestBodies/${name}`,
           ctx: { ...ctx, indentLv },
@@ -184,7 +178,6 @@ export default function transformComponentsObject(
         output.push(
           indent(
             `${key}: ${transformPathItemObject(pathItemObject, {
-              operations,
               path: `#/components/pathItems/${name}`,
               ctx: { ...ctx, indentLv },
             })};`,

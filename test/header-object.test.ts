@@ -10,6 +10,7 @@ const options: TransformHeaderObjectOptions = {
     discriminators: {},
     immutableTypes: false,
     indentLv: 0,
+    operations: {},
     pathParamsAsTypes: false,
     postTransform: undefined,
     silent: true,
