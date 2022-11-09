@@ -42,7 +42,6 @@
     "lint": "eslint .",
     "pregenerate": "npm run build",
     "prepare": "npm run build",
-    "postinstall": "npm run download:schemas",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "update:examples": "vite-node ./scripts/update-examples.ts",

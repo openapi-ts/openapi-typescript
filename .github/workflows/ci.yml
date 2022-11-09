@@ -32,6 +32,7 @@ jobs:
         with:
           node-version: 18
       - run: pnpm i
+      - run: npm run download:schemas
       - run: npm run test:coverage
   test-node-versions:
     runs-on: ubuntu-22.04
@@ -47,6 +48,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: pnpm i
+      - run: npm run download:schemas
       - run: npm test
   test-macos:
     runs-on: macos-12
@@ -59,4 +61,5 @@ jobs:
         with:
           version: 18
       - run: pnpm i
+      - run: npm run download:schemas
       - run: npm test
