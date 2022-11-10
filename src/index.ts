@@ -59,7 +59,6 @@ async function openapiTS(
   // 1. load schema (and subschemas)
   const allSchemas: { [id: string]: Subschema } = {};
   const schemaURL: URL = typeof schema === "string" ? resolveSchema(schema) : (schema as URL);
-
   await load(schemaURL, {
     ...ctx,
     auth: options.auth,

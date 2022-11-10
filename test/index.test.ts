@@ -64,6 +64,54 @@ export type external = Record<string, never>;
 export type operations = Record<string, never>;
 `);
     });
+
+    test("components.examples are skipped", async () => {
+      const generated = await openapiTS({
+        openapi: "3.0",
+        info: { title: "Test", version: "1.0" },
+        components: {
+          schemas: {
+            Example: {
+              type: "object",
+              properties: {
+                name: { type: "string" },
+                $ref: { type: "string" },
+              },
+              required: ["name", "$ref"],
+            },
+          },
+          examples: {
+            Example: {
+              value: {
+                name: "Test",
+                $ref: "fake.yml#/components/schemas/Example",
+              },
+            },
+          },
+        },
+      });
+      expect(generated).toBe(`${BOILERPLATE}
+export type paths = Record<string, never>;
+
+export interface components {
+  schemas: {
+    Example: {
+      name: string;
+      $ref: string;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}
+
+export type external = Record<string, never>;
+
+export type operations = Record<string, never>;
+`);
+    });
   });
 
   describe("3.1", () => {
@@ -415,6 +463,12 @@ export type operations = Record<string, never>;
       test("default options", async () => {
         const generated = await openapiTS(new URL("./github-api-next.yaml", FIXTURES_DIR));
         expect(generated).toBe(fs.readFileSync(new URL("./github-api-next.ts", EXAMPLES_DIR), "utf8"));
+      }, 30000);
+    });
+    describe("Octokit GHES 3.6 Diff to API", () => {
+      test("default options", async () => {
+        const generated = await openapiTS(new URL("./octokit-ghes-3.6-diff-to-api.yaml", FIXTURES_DIR));
+        expect(generated).toBe(fs.readFileSync(new URL("./octokit-ghes-3.6-diff-to-api.ts", EXAMPLES_DIR), "utf8"));
       }, 30000);
     });
     describe("Stripe", () => {
