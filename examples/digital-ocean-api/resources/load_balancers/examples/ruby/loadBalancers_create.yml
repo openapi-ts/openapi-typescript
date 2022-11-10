@@ -1,0 +1,49 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  load_balancer = DropletKit::LoadBalancer.new(
+    name: 'example-lb-01',
+    size_unit: '1',
+    algorithm: 'round_robin',
+  # Create new load balancer with Droplet tag
+  # tag: 'web:prod',
+    droplet_ids: [ 3164444, 3164445],
+    redirect_http_to_https: true,
+    region: 'nyc3',
+    forwarding_rules: [
+      DropletKit::ForwardingRule.new(
+        entry_protocol: 'http',
+        entry_port: 80,
+        target_protocol: 'http',
+        target_port: 80,
+        certificate_id: '',
+        tls_passthrough: false
+      ),
+      DropletKit::ForwardingRule.new(
+        entry_protocol: 'https',
+        entry_port: 443,
+        target_protocol: 'https',
+        target_port: 443,
+        certificate_id: '',
+        tls_passthrough: true
+      )
+    ],
+    sticky_sessions: DropletKit::StickySession.new(
+      type: 'cookies',
+      cookie_name: 'DO-LB',
+      cookie_ttl_seconds: 5
+    ),
+    health_check: DropletKit::HealthCheck.new(
+      protocol: 'http',
+      port: 80,
+      path: '/',
+      check_interval_seconds: 10,
+      response_timeout_seconds: 5,
+      healthy_threshold: 5,
+      unhealthy_threshold: 3
+    )
+  )
+  client.load_balancers.create(load_balancer)

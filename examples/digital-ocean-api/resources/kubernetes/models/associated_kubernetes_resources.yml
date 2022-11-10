@@ -1,0 +1,78 @@
+associated_kubernetes_resources:
+  type: object
+  description: An object containing the IDs of resources associated with a
+    Kubernetes cluster.
+  properties:
+    load_balancers:
+      type: array
+      items:
+        $ref: '#/associated_kubernetes_resource'
+      example:
+      - id: 4de7ac8b-495b-4884-9a69-1050c6793cd6
+        name: lb-001
+      description: A list of names and IDs for associated load balancers that can
+        be destroyed along with the cluster.
+
+    volumes:
+      type: array
+      items:
+        $ref: '#/associated_kubernetes_resource'
+      example:
+      - id: ba49449a-7435-11ea-b89e-0a58ac14480f
+        name: volume-001
+      description: A list of names and IDs for associated volumes that can be
+        destroyed along with the cluster.
+
+    volume_snapshots:
+      type: array
+      items:
+        $ref: '#/associated_kubernetes_resource'
+      example:
+      - id: edb0478d-7436-11ea-86e6-0a58ac144b91
+        name: snapshot-001
+      description: A list of names and IDs for associated volume snapshots that
+        can be destroyed along with the cluster.
+
+associated_kubernetes_resource:
+  type: object
+  properties:
+    id:
+      type: string
+      description: The ID of a resource associated with a Kubernetes cluster.
+      example: edb0478d-7436-11ea-86e6-0a58ac144b91
+    name:
+      type: string
+      description: The name of a resource associated with a Kubernetes cluster.
+      example: volume-001
+
+destroy_associated_kubernetes_resources:
+  type: object
+  description: An object containing the IDs of resources to be destroyed along
+    with their associated with a Kubernetes cluster.
+  properties:
+    load_balancers:
+      type: array
+      items:
+        type: string
+      example:
+      - 4de7ac8b-495b-4884-9a69-1050c6793cd6
+      description: A list of IDs for associated load balancers to destroy along
+        with the cluster.
+
+    volumes:
+      type: array
+      items:
+        type: string
+      example:
+      - ba49449a-7435-11ea-b89e-0a58ac14480f
+      description: A list of IDs for associated volumes to destroy along
+        with the cluster.
+
+    volume_snapshots:
+      type: array
+      items:
+        type: string
+      example:
+      - edb0478d-7436-11ea-86e6-0a58ac144b91
+      description: A list of IDs for associated volume snapshots to destroy along
+        with the cluster.

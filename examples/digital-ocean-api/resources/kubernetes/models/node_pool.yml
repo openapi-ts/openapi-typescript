@@ -1,0 +1,134 @@
+kubernetes_node_pool:
+  type: object
+  allOf:
+  - $ref: "#/kubernetes_node_pool_size"
+  - $ref: "#/kubernetes_node_pool_base"
+
+  required:
+  - name
+  - size
+  - count
+
+kubernetes_node_pool_update:
+  type: object
+  allOf:
+  - $ref: "#/kubernetes_node_pool_base"
+
+  required:
+  - name
+  - count
+
+kubernetes_node_pool_size:
+  type: object
+  properties:
+    size:
+      type: string
+      example: s-1vcpu-2gb
+      description: The slug identifier for the type of Droplet used as workers in
+        the node pool.
+
+kubernetes_node_pool_base:
+  type: object
+  properties:
+    id:
+      type: string
+      format: uuid
+      readOnly: true
+      example: cdda885e-7663-40c8-bc74-3a036c66545d
+      description: A unique ID that can be used to identify and reference a
+        specific node pool.
+
+    name:
+      type: string
+      example: frontend-pool
+      description: A human-readable name for the node pool.
+
+    count:
+      type: integer
+      example: 3
+      description: The number of Droplet instances in the node pool.
+
+    tags:
+      type: array
+      items:
+        type: string
+      example:
+      - k8s
+      - k8s:bd5f5959-5e1e-4205-a714-a914373942af
+      - k8s-worker
+      - production
+      - web-team
+      description: An array containing the tags applied to the node pool. All
+        node pools are automatically tagged `k8s`, `k8s-worker`, and
+        `k8s:$K8S_CLUSTER_ID`.
+
+    labels:
+      type: object
+      nullable: true
+      example: null
+      description: An object containing a set of Kubernetes labels. The keys and
+        are values are both user-defined.
+
+    taints:
+      type: array
+      items:
+        $ref: "#/kubernetes_node_pool_taint"
+      description: An array of taints to apply to all nodes in a pool. Taints
+        will automatically be applied to all existing nodes and any subsequent
+        nodes added to the pool. When a taint is removed, it is removed from
+        all nodes in the pool.
+
+    auto_scale:
+      type: boolean
+      example: true
+      description: A boolean value indicating whether auto-scaling is enabled for
+        this node pool.
+
+    min_nodes:
+      type: integer
+      example: 3
+      description: The minimum number of nodes that this node pool can be
+        auto-scaled to. The value will be `0` if `auto_scale` is set to `false`.
+
+    max_nodes:
+      type: integer
+      example: 6
+      description: The maximum number of nodes that this node pool can be
+        auto-scaled to. The value will be `0` if `auto_scale` is set to `false`.
+
+    nodes:
+      type: array
+      readOnly: true
+      description: An object specifying the details of a specific worker node in
+        a node pool.
+      items:
+        $ref: 'node.yml'
+
+kubernetes_node_pool_taint:
+  type: object
+  properties:
+    key:
+      type: string
+      example: priority
+      description: An arbitrary string. The `key` and `value` fields of the
+        `taint` object form a key-value pair. For example, if the value of the
+        `key` field is "special" and the value of the `value` field is "gpu", the
+        key value pair would be `special=gpu`.
+
+    value:
+      type: string
+      example: high
+      description: An arbitrary string. The `key` and `value` fields of the
+        `taint` object form a key-value pair. For example, if the value of the
+        `key` field is "special" and the value of the `value` field is "gpu", the
+        key value pair would be `special=gpu`.
+
+    effect:
+      type: string
+      enum:
+      - NoSchedule
+      - PreferNoSchedule
+      - NoExecute
+      example: NoSchedule
+      description: How the node reacts to pods that it won't tolerate. Available
+        effect values are `NoSchedule`, `PreferNoSchedule`, and `NoExecute`.

@@ -1,0 +1,78 @@
+type: object
+description: PGBouncer connection pooling settings
+
+properties:
+  server_reset_query_always:
+    description: Run server_reset_query (DISCARD ALL) in all pooling modes.
+    type: boolean
+    example: false
+  ignore_startup_parameters:
+    description: List of parameters to ignore when given in startup packet.
+    type: array
+    example:
+      - extra_float_digits
+      - search_path
+    items:
+      description: Enum of parameters to ignore when given in startup packet.
+      type: string
+      enum:
+        - extra_float_digits
+        - search_path
+    maxItems: 32
+  min_pool_size:
+    description: >-
+      If current server connections are below this number, adds more. Improves
+      behavior when usual load comes suddenly back after period of total
+      inactivity. The value is effectively capped at the pool size.
+    type: integer
+    minimum: 0
+    maximum: 10000
+    example: 1
+  server_lifetime:
+    description: >-
+      The pooler closes any unused server connection that has been
+      connected longer than this amount of seconds.
+    type: integer
+    minimum: 60
+    maximum: 86400
+    example: 3600
+  server_idle_timeout:
+    description: >-
+      Drops server connections if they have been idle more than this many seconds. 
+      If 0, timeout is disabled. 
+    type: integer
+    minimum: 0
+    maximum: 86400
+    example: 600
+  autodb_pool_size:
+    description: >-
+      If non-zero, automatically creates a pool of that size per user when
+      a pool doesn't exist.
+    type: integer
+    minimum: 0
+    maximum: 10000
+    example: 1
+  autodb_pool_mode:
+    enum:
+      - session
+      - transaction
+      - statement
+    example: session
+    description: PGBouncer pool mode
+    type: string
+  autodb_max_db_connections:
+    description: >-
+      Only allows a maximum this many server connections per database
+      (regardless of user). If 0, allows unlimited connections.
+    type: integer
+    minimum: 0
+    maximum: 2147483647
+    example: 1
+  autodb_idle_timeout:
+    description: >-
+      If the automatically-created database pools have been unused this many
+      seconds, they are freed. If 0, timeout is disabled.
+    type: integer
+    minimum: 0
+    maximum: 86400
+    example: 3600

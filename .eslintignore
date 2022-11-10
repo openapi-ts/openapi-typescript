@@ -2,4 +2,3 @@ bin
 coverage
 dist
 examples
-test/fixtures

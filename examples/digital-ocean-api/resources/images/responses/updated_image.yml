@@ -1,0 +1,38 @@
+description: >-
+  The response will be a JSON object with a key set to `image`. 
+  The value of this will be an image object containing the standard image attributes.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        image: 
+          $ref: '../models/image.yml'
+      required:
+        - image
+    example:
+      image:
+        id: 7938391
+        name: new-image-name
+        distribution: Ubuntu
+        slug: 
+        public: false
+        regions:
+        - nyc3
+        - nyc3
+        created_at: '2014-11-14T16:44:03Z'
+        min_disk_size: 20
+        size_gigabytes: 2.34
+        description: ''
+        tags: []
+        status: available
+        error_message: ''

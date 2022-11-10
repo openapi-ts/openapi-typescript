@@ -1,0 +1,33 @@
+type: object
+
+nullable: true
+
+properties:
+  day:
+    type: string
+    example: tuesday
+    description: The day of the week on which to apply maintenance updates.
+  hour:
+    type: string
+    example: "14:00"
+    description: The hour in UTC at which maintenance updates will be applied in 24 hour format.
+  pending:
+    type: boolean
+    example: true
+    description: >-
+      A boolean value indicating whether any maintenance is scheduled to be performed in the
+      next window.
+    readOnly: true
+  description:
+    type: array
+    items:
+      type: string
+    description: A list of strings, each containing information about a pending maintenance update.
+    example:
+      - Update TimescaleDB to version 1.2.1
+      - Upgrade to PostgreSQL 11.2 and 10.7 bugfix releases
+    readOnly: true
+
+required:
+  - day
+  - hour

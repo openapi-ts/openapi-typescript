@@ -1,0 +1,62 @@
+# Attributes shared across all app components
+type: object
+properties:
+  name:
+    type: string
+    maxLength: 32
+    minLength: 2
+    pattern: ^[a-z][a-z0-9-]{0,30}[a-z0-9]$
+    description: The name. Must be unique across all components within the same app.
+    example: api
+
+  git:
+    $ref: apps_git_source_spec.yml
+
+  github:
+    $ref: apps_github_source_spec.yml
+
+  gitlab:
+    $ref: apps_gitlab_source_spec.yml
+
+  image:
+    $ref: apps_image_source_spec.yml
+
+  dockerfile_path:
+    type: string
+    description: The path to the Dockerfile relative to the root of the repo. If set,
+      it will be used to build this component. Otherwise, App Platform will attempt
+      to build it using buildpacks.
+    example: path/to/Dockerfile
+
+  build_command:
+    type: string
+    description: An optional build command to run while building this component from
+      source.
+    example: npm run build
+
+  run_command:
+    type: string
+    description: An optional run command to override the component's default.
+    example: bin/api
+
+  source_dir:
+    type: string
+    description: An optional path to the working directory to use for the build. For
+      Dockerfile builds, this will be used as the build context. Must be relative
+      to the root of the repo.
+    example: path/to/dir
+
+  envs:
+    type: array
+    items:
+      $ref: app_variable_definition.yml
+    description: A list of environment variables made available to the component.
+
+  environment_slug:
+    type: string
+    description: An environment slug describing the type of this app. For a full list,
+      please refer to [the product documentation](https://www.digitalocean.com/docs/app-platform/).
+    example: node-js
+
+  log_destinations:
+    $ref: app_log_destination_definition.yml

@@ -1,0 +1,44 @@
+type: object
+
+properties:
+  uuid:
+    type: string
+    pattern: '^$|[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}'
+    example: 79f26d28-ea8a-41f2-8ad8-8cfcdd020095
+    description: A unique ID for the firewall rule itself.
+  cluster_uuid:
+    type: string
+    pattern: '^$|[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}'
+    example: 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+    description: A unique ID for the database cluster to which the rule is applied.
+  type:
+    type: string
+    enum:
+      - droplet
+      - k8s
+      - ip_addr
+      - tag
+      - app
+    example: droplet
+    description: >-
+      The type of resource that the firewall rule allows to access the database
+      cluster.
+  value:
+    type: string
+    example: ff2a6c52-5a44-4b63-b99c-0e98e7a63d61
+    description: >-
+      The ID of the specific resource, the name of a tag applied to a group of
+      resources, or the IP address that the firewall rule allows to access the
+      database cluster.
+  created_at:
+    type: string
+    format: date-time
+    example: 2019-01-11T18:37:36Z
+    description: >-
+      A time value given in ISO8601 combined date and time format that
+      represents when the firewall rule was created.
+    readOnly: true
+
+required:
+  - type
+  - value

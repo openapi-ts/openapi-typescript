@@ -1,0 +1,57 @@
+operationId: apps_validate_appSpec
+
+summary: Propose an App Spec
+
+description: To propose and validate a spec for a new or existing app, send a POST
+  request to the `/v2/apps/propose` endpoint. The request returns some
+  information about the proposed app, including app cost and upgrade cost. If
+  an existing app ID is specified, the app spec is treated as a proposed update
+  to the existing app.
+
+tags:
+- Apps
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        $ref: models/app_propose.yml
+      example:
+        spec:
+          name: web-app
+          region: nyc
+          services:
+            - name: api
+              github:
+                branch: main
+                deploy_on_push: true
+                repo: digitalocean/sample-golang
+              run_command: bin/api
+              environment_slug: node-js
+              instance_count: 2
+              instance_size_slug: basic-xxs
+              routes:
+                - path: /api
+        app_id: b6bdf840-2854-4f87-a36c-5f231c617c84
+  required: true
+
+responses:
+  "200":
+    $ref: responses/propose_app.yml
+
+  "401":
+    $ref: ../../shared/responses/unauthorized.yml
+
+  "429":
+    $ref: "../../shared/responses/too_many_requests.yml"
+
+  "500":
+    $ref: ../../shared/responses/server_error.yml
+
+  default:
+    $ref: ../../shared/responses/unexpected_error.yml
+
+security:
+  - bearer_auth:
+    - 'read'
+

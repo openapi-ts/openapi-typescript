@@ -1,0 +1,21 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+    // Assign a Reserved IP to a Droplet
+      action, _, err := client.ReservedIPActions.Assign(ctx, "45.55.96.47", 8219222)
+
+    // Unassign a Reserved IP
+    // action, _, err := client.ReservedIPActions.Unassign(ctx, "45.55.96.47")  
+  }

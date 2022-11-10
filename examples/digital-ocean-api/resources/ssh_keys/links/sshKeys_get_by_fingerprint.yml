@@ -1,0 +1,9 @@
+operationId: sshKeys_get_by_fingerprint
+
+parameters:
+  ssh_key_identifier: '$response.body#/ssh_key/fingerprint'
+
+description: >-
+  The `fingerprint` value returned in the response can be used as the
+  `ssh_key_identifier` parameter in `GET /v2/account/keys/{ssh_key_identifier}`.
+

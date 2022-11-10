@@ -1,0 +1,19 @@
+
+description: Bad Request.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../../../shared/models/error.yml'
+    example:
+      id: bad_request
+      message: 'Invalid request payload: missing label field'
+      request_id: 4851a473-1621-42ea-b2f9-5071c0ea8414

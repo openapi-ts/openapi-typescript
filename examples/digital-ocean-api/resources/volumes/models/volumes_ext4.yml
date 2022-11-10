@@ -1,0 +1,16 @@
+type: object
+allOf:
+  - $ref: 'volume_base.yml'
+  - $ref: 'attributes.yml#/volume_snapshot_id'
+  - $ref: 'attributes.yml#/volume_write_file_system_type'
+  - properties:
+      region:
+        $ref: '../../../shared/attributes/region_slug.yml'
+      filesystem_label:
+        allOf:
+          - $ref: 'attributes.yml#/volume_write_file_system_label'
+          - maxLength: 16
+    required:
+      - name
+      - size_gigabytes
+      - region

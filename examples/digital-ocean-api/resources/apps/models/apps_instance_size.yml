@@ -1,0 +1,42 @@
+properties:
+  cpu_type:
+    $ref: instance_size_cpu_type.yml
+  cpus:
+    format: int64
+    title: The number of allotted vCPU cores
+    type: string
+    example: "3"
+  memory_bytes:
+    format: int64
+    title: The allotted memory in bytes
+    type: string
+    example: "1048"
+  name:
+    title: A human-readable name of the instance size
+    type: string
+    example: name
+  slug:
+    title: The slug of the instance size
+    type: string
+    example: basic
+  tier_downgrade_to:
+    title: The slug of the corresponding downgradable instance size on the lower tier
+    type: string
+    example: basic
+  tier_slug:
+    title: The slug of the tier to which this instance size belongs
+    type: string
+    example: basic
+  tier_upgrade_to:
+    title: The slug of the corresponding upgradable instance size on the higher tier
+    type: string
+    example: basic
+  usd_per_month:
+    title: The cost of this instance size in USD per month
+    type: string
+    example: "23" 
+  usd_per_second:
+    title: The cost of this instance size in USD per second
+    type: string
+    example: "0.00000001232"
+type: object

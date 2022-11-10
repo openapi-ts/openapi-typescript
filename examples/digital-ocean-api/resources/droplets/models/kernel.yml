@@ -1,0 +1,31 @@
+type: object
+
+description: |
+  **Note**: All Droplets created after March 2017 use internal kernels by default.
+  These Droplets will have this attribute set to `null`.
+
+  The current [kernel](https://www.digitalocean.com/docs/droplets/how-to/kernel/)
+  for Droplets with externally managed kernels. This will initially be set to
+  the kernel of the base image when the Droplet is created.
+
+nullable: true
+
+deprecated: true
+
+properties:
+  id:
+    type: integer
+    example: 7515
+    description: A unique number used to identify and reference a specific kernel.
+
+  name:
+    type: string
+    example: DigitalOcean GrubLoader v0.2 (20160714)
+    description: The display name of the kernel. This is shown in the web UI
+      and is generally a descriptive title for the kernel in question.
+
+  version:
+    type: string
+    example: 2016.07.13-DigitalOcean_loader_Ubuntu
+    description: A standard kernel version string representing the version,
+      patch, and release information.

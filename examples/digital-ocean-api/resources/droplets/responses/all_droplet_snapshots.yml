@@ -1,0 +1,37 @@
+description: A JSON object with an `snapshots` key.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            snapshots:
+              type: array
+              items:
+                $ref: '../models/droplet_snapshot.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+    example:
+      snapshots:
+      - id: 6372321
+        name: web-01-1595954862243
+        created_at: '2020-07-28T16:47:44Z'
+        regions:
+        - nyc3
+        - sfo3
+        min_disk_size: 25
+        size_gigabytes: 2.34
+        type: snapshot
+      links: {}
+      meta:
+        total: 1

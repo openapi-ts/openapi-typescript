@@ -1,0 +1,73 @@
+operationId: databases_update_firewall_rules
+
+summary: Update Firewall Rules (Trusted Sources) for a Database
+
+description: >-
+  To update a database cluster's firewall rules (known as "trusted sources" in
+  the control panel), send a PUT request to
+  `/v2/databases/$DATABASE_ID/firewall` specifying which resources should be
+  able to open connections to the database. You may limit connections to
+  specific Droplets, Kubernetes clusters, or IP addresses. When a tag is
+  provided, any Droplet or Kubernetes node with that tag applied to it will
+  have access. The firewall is limited to 100 rules (or trusted sources). When
+  possible, we recommend
+  [placing your databases into a VPC network](https://www.digitalocean.com/docs/networking/vpc/)
+  to limit access to them instead of using a firewall.
+
+  A successful
+
+tags:
+  - Databases
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          rules:
+            type: array
+            items:
+              $ref: 'models/firewall_rule.yml'
+      example:
+        rules:
+        - type: ip_addr
+          value: '192.168.1.1'
+        - type: k8s
+          value: ff2a6c52-5a44-4b63-b99c-0e98e7a63d61
+        - type: droplet
+          value: '163973392'
+        - type: tag
+          value: backend
+
+parameters:
+  - $ref: 'parameters.yml#/database_cluster_uuid'
+
+responses:
+  '204':
+    $ref: '../../shared/responses/no_content.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/databases_update_firewall_rules.yml'
+  - $ref: 'examples/go/databases_update_firewall_rules.yml'
+
+security:
+  - bearer_auth:
+    - 'write'

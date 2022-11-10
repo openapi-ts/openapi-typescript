@@ -1,0 +1,164 @@
+type: object
+
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+    example: bd5f5959-5e1e-4205-a714-a914373942af
+    description: A unique ID that can be used to identify and reference a
+      Kubernetes cluster.
+
+  name:
+    type: string
+    example: prod-cluster-01
+    description: A human-readable name for a Kubernetes cluster.
+
+  region:
+    type: string
+    example: nyc1
+    description: The slug identifier for the region where the Kubernetes
+      cluster is located.
+
+  version:
+    type: string
+    example: 1.18.6-do.0
+    description: The slug identifier for the version of Kubernetes used for the
+      cluster. If set to a minor version (e.g. "1.14"), the latest version within
+      it will be used (e.g. "1.14.6-do.1"); if set to "latest", the latest
+      published version will be used. See the `/v2/kubernetes/options` endpoint
+      to find all currently available versions.
+
+  cluster_subnet:
+    type: string
+    format: cidr
+    readOnly: true
+    example: 10.244.0.0/16
+    description: The range of IP addresses in the overlay network of the
+      Kubernetes cluster in CIDR notation.
+
+  service_subnet:
+    type: string
+    readOnly: true
+    example: 10.245.0.0/16
+    description: The range of assignable IP addresses for services running in
+      the Kubernetes cluster in CIDR notation.
+
+  vpc_uuid:
+    type: string
+    format: uuid
+    example: c33931f2-a26a-4e61-b85c-4e95a2ec431b
+    description: A string specifying the UUID of the VPC to which the
+      Kubernetes cluster is assigned.
+
+  ipv4:
+    type: string
+    readOnly: true
+    example: "68.183.121.157"
+    description: The public IPv4 address of the Kubernetes master node. This will not be set if high availability is configured on the cluster (v1.21+)
+
+  endpoint:
+    type: string
+    readOnly: true
+    example: https://bd5f5959-5e1e-4205-a714-a914373942af.k8s.ondigitalocean.com
+    description: The base URL of the API server on the Kubernetes master node.
+
+  tags:
+    type: array
+    items:
+      type: string
+    example:
+    - k8s
+    - k8s:bd5f5959-5e1e-4205-a714-a914373942af
+    - production
+    - web-team
+    description: An array of tags applied to the Kubernetes cluster. All
+      clusters are automatically tagged `k8s` and `k8s:$K8S_CLUSTER_ID`.
+
+  node_pools:
+    type: array
+    description: An object specifying the details of the worker nodes available
+      to the Kubernetes cluster.
+    items:
+      $ref: 'node_pool.yml#/kubernetes_node_pool'
+
+  maintenance_policy:
+    $ref: 'maintenance_policy.yml'
+
+  auto_upgrade:
+    type: boolean
+    default: false
+    example: true
+    description: A boolean value indicating whether the cluster will be
+      automatically upgraded to new patch releases during its maintenance window.
+
+  status:
+    type: object
+    readOnly: true
+    description: An object containing a `state` attribute whose value is set to
+      a string indicating the current status of the cluster.
+    properties:
+      state:
+        type: string
+        enum:
+        - running
+        - provisioning
+        - degraded
+        - error
+        - deleted
+        - upgrading
+        - deleting
+        example: provisioning
+        description: A string indicating the current status of the cluster.
+      message:
+        type: string
+        example: provisioning
+        description: An optional message providing additional information about
+          the current cluster state.
+
+  created_at:
+    type: string
+    format: date-time
+    readOnly: true
+    example: "2018-11-15T16:00:11Z"
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the Kubernetes cluster was created.
+
+  updated_at:
+    type: string
+    format: date-time
+    example: "2018-11-15T16:00:11Z"
+    readOnly: true
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the Kubernetes cluster was last updated.
+
+  surge_upgrade:
+    type: boolean
+    default: false
+    example: true
+    description: A boolean value indicating whether surge upgrade is
+      enabled/disabled for the cluster. Surge upgrade makes cluster upgrades
+      fast and reliable by bringing up new nodes before destroying the outdated
+      nodes.
+
+  ha:
+    type: boolean
+    default: false
+    example: true
+    description: A boolean value indicating whether the control plane
+      is run in a highly available configuration in the cluster. Highly available
+      control planes incur less downtime. 
+
+  registry_enabled:
+    type: boolean
+    readOnly: true
+    example: true
+    description: A read-only boolean value indicating if a container registry is
+      integrated with the cluster.
+
+
+required:
+  - name
+  - region
+  - version
+  - node_pools

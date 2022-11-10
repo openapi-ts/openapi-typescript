@@ -1,0 +1,19 @@
+vpc_id:
+  in: path
+  name: vpc_id
+  description: A unique identifier for a VPC.
+  required: true
+  schema:
+    type: string
+    format: uuid
+    minimum: 1
+  example: 4de7ac8b-495b-4884-9a69-1050c6793cd6
+
+vpc_resource_type:
+  in: query
+  name: resource_type
+  description: Used to filter VPC members by a resource type.
+  required: false
+  schema:
+    type: string
+  example: droplet

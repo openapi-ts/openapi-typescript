@@ -1,0 +1,4 @@
+properties:
+  instance_size:
+    $ref: apps_instance_size.yml
+type: object

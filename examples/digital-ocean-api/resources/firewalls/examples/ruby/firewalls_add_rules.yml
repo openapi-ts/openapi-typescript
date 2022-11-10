@@ -1,0 +1,23 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  inbound_rule = DropletKit::FirewallInboundRule.new(
+    protocol: 'tcp',
+    ports: '3306',
+    sources: {
+      droplet_ids: [49696269]
+    }
+  )
+
+  outbound_rule = DropletKit::FirewallOutboundRule.new(
+    protocol: 'tcp',
+    ports: '3306',
+    destinations: {
+      droplet_ids: [49696269]
+    }
+  )
+
+  client.firewalls.add_rules(inbound_rules: [inbound_rule], outbound_rules: [outbound_rule], id: 'bb4b2611-3d72-467b-8602-280330ecd65c')

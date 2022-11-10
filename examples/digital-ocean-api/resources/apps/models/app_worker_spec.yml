@@ -1,0 +1,6 @@
+allOf:
+- $ref: app_component_base.yml
+- $ref: app_component_instance_base.yml
+
+required:
+  - name

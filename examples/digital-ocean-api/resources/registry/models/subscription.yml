@@ -1,0 +1,19 @@
+type: object
+
+properties:
+  tier:
+    $ref: 'subscription_tier.yml#/subscription_tier_base'
+
+  created_at:
+    type: string
+    format: date-time
+    readOnly: true
+    example: '2020-01-23T21:19:12Z'
+    description: The time at which the subscription was created.
+
+  updated_at:
+    type: string
+    format: date-time
+    readOnly: true
+    example: '2020-11-05T15:53:24Z'
+    description: The time at which the subscription was last updated.

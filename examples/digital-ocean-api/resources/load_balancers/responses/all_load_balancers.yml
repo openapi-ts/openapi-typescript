@@ -1,0 +1,27 @@
+description: A JSON object with a key of `load_balancers`. This will be set to
+  an array of objects, each of which will contain the standard load balancer
+  attributes.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            load_balancers:
+              type: array
+              items:
+                $ref: '../models/load_balancer.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+    examples:
+      All Load Balancers:
+        $ref: 'examples.yml#/load_balancers_all'

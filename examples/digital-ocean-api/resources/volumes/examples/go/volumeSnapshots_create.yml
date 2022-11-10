@@ -1,0 +1,22 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      snapshot, _, err := client.Storage.CreateSnapshot(ctx, &godo.SnapshotCreateRequest{
+        VolumeID:    "82a48a18-873f-11e6-96bf-000f53315a41",
+        Name:        "my snapshot",
+        Description: "my description",
+        Tags:        []string{"one", "two"},
+      })
+  }

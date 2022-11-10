@@ -1,0 +1,94 @@
+description: A JSON string with a key of `options`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../models/options.yml'
+    example:
+      options:
+        mongodb:
+          regions:
+            - ams3
+            - blr1
+          versions:
+            - '4.4'
+            - '5.0'
+          layouts:
+            - num_nodes: 1
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+            - num_nodes: 3
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+                - db-s-2vcpu-4gb
+                - db-s-4vcpu-8gb
+        mysql:
+          regions:
+            - ams3
+            - blr1
+          versions:
+            - '8'
+          layouts:
+            - num_nodes: 1
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+            - num_nodes: 2
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+                - db-s-2vcpu-4gb
+                - db-s-4vcpu-8gb
+            - num_nodes: 3
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+                - db-s-2vcpu-4gb
+                - db-s-4vcpu-8gb
+        pg:
+          regions:
+            - ams3
+            - blr1
+          versions:
+            - '11'
+            - '12'
+            - '13'
+            - '14'
+          layouts:
+            - num_nodes: 1
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+            - num_nodes: 2
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+                - db-s-2vcpu-4gb
+                - db-s-4vcpu-8gb
+        redis:
+          regions:
+            - ams3
+            - blr1
+          versions:
+            - '6'
+          layouts:
+            - num_nodes: 1
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+            - num_nodes: 2
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+                - db-s-2vcpu-4gb
+                - db-s-4vcpu-8gb

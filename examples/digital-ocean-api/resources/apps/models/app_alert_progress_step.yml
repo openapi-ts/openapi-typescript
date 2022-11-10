@@ -1,0 +1,20 @@
+properties:
+  name:
+    title: The name of this step
+    type: string
+    example: example_step
+  status:
+    $ref: app_alert_progress_step_status.yml
+  started_at:
+    format: date-time
+    title: The start time of this step
+    type: string
+    example: 2020-11-19T20:27:18Z
+  ended_at:
+    format: date-time
+    title: The start time of this step
+    type: string
+    example: 2020-11-19T20:27:18Z
+  reason:
+    $ref: app_alert_progress_step_reason.yml
+type: object

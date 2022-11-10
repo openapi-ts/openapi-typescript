@@ -55,6 +55,10 @@ This library has both unit tests (tests that test a tiny part of a schema) and s
 
 For most PRs, **snapshot tests can be avoided.** But for scenarios similar to the ones mentioned, they can ensure everything is working as expected.
 
+#### Updating snapshot tests
+
+To add a schema as a snapshot test, modify the [/scripts/download-schemas.ts](/scripts/download-schemas.ts) script with a path to download. There are both single-file schemas as well as multi-file schemas.
+
 ### Generating types
 
 It may be surprising to hear, but _generating TypeScript types from OpenAPI is opinionated!_ Even though TypeScript and OpenAPI are very close relatives, both being JavaScript/JSON-based, they are nonetheless 2 different languages and thus there is always some room for interpretation. Likewise, some parts of the OpenAPI specification can be ambiguous on how they’re used, and what the expected type outcomes may be (though this is generally for more advanced usecasees, such as specific implementations of `anyOf` as well as [discriminator](https://spec.openapis.org/oas/latest.html#discriminatorObject) and complex polymorphism).
@@ -82,7 +86,6 @@ This library uses [Vitest](https://vitest.dev/) for testing. There’s a great [
 
 To run the entire test suite once, run:
 
-
 ```bash
 npm test
 ```
@@ -105,4 +108,12 @@ To run ESLint on the project:
 
 ```bash
 npm run lint
+```
+
+### Updating snapshot examples
+
+⚠️ This may break tests if schemas have been updated
+
+```bash
+npm run update:examples
 ```

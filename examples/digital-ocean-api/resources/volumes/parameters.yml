@@ -1,0 +1,26 @@
+volume_id:
+  name: volume_id
+  in: path
+  required: true
+  description: The ID of the block storage volume.
+  schema:
+    type: string
+    format: uuid
+  example: 7724db7c-e098-11e5-b522-000f53304e51
+
+volume_name:
+  name: name
+  in: query
+  description: The block storage volume's name.
+  schema:
+    type: string
+  example: example
+
+volume_snapshot_id:
+  name: snapshot_id
+  in: path
+  description: The unique identifier for the snapshot.
+  schema:
+    type: string
+  required: true
+  example: fbe805e8-866b-11e6-96bf-000f53315a41

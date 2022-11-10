@@ -1,0 +1,9 @@
+type: object
+
+properties:
+  pools:
+    type: array
+    readOnly: true
+    description: An array of connection pool objects.
+    items:
+      $ref: connection_pool.yml

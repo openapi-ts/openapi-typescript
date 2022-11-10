@@ -1,0 +1,42 @@
+description: >-
+  The response will be a JSON object that contains the following attributes
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            billing_history:
+              type: array
+              items:
+                $ref: '../models/billing_history.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta_optional_total.yml'
+
+      example:
+        billing_history:
+          - description: Invoice for May 2018
+            amount: '12.34'
+            invoice_id: '123'
+            invoice_uuid: example-uuid
+            date: '2018-06-01T08:44:38Z'
+            type: Invoice
+          - description: Payment (MC 2018)
+            amount: '-12.34'
+            date: '2018-06-02T08:44:38Z'
+            type: Payment
+        links:
+          pages:
+            next: https://api.digitalocean.com/v2/customers/my/billing_history?page=2&per_page=2
+            last: https://api.digitalocean.com/v2/customers/my/billing_history?page=3&per_page=2
+        meta:
+          total: 5

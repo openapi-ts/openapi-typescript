@@ -1,0 +1,9 @@
+properties:
+  spec:
+    $ref: app_spec.yml
+  project_id:
+    type: string
+    description: The ID of the project the app should be assigned to. If omitted, it will be assigned to your default project.
+required:
+- spec
+type: object

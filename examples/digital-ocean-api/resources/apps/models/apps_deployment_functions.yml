@@ -1,0 +1,16 @@
+type: object
+properties:
+  name:
+    type: string
+    title: The name of this functions component
+    example: my-functions-component
+  source_commit_hash:
+    type: string
+    description: >-
+      The commit hash of the repository that was used to build this
+      functions component.
+    example: 54d4a727f457231062439895000d45437c7bb405
+  namespace:
+    type: string
+    description: The namespace where the functions are deployed.
+    example: ap-b2a93513-8d9b-4223-9d61-5e7272c81c32

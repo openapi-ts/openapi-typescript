@@ -1,0 +1,40 @@
+allOf:
+- $ref: app_component_base.yml
+- $ref: app_component_instance_base.yml
+
+- type: object
+  properties:
+    cors:
+      $ref: apps_cors_policy.yml
+
+    health_check:
+      $ref: app_service_spec_health_check.yml
+
+    http_port:
+      type: integer
+      description: |-
+        The internal port on which this service's run command will listen. Default: 8080
+        If there is not an environment variable with the name `PORT`, one will be automatically added with its value set to the value of this field.
+      format: int64
+      maximum: 65535
+      minimum: 1
+      example: 3000
+
+    internal_ports:
+      type: array
+      description: The ports on which this service will listen for internal traffic.
+      items:
+        format: int64
+        type: integer
+      example:
+      - 80
+      - 443
+
+    routes:
+      type: array
+      description: A list of HTTP routes that should be routed to this component.
+      items:
+        $ref: app_route_spec.yml
+
+  required:
+  - name

@@ -1,0 +1,18 @@
+description: A JSON object with a `deployments` key. This will be a list
+  of all app deployments
+ 
+content:
+  application/json:
+    schema:
+      $ref: ../models/apps_deployments_response.yml
+    examples:
+      deployments:
+        $ref: examples.yml#/deployments
+        
+headers:
+  ratelimit-limit:
+    $ref: ../../../shared/headers.yml#/ratelimit-limit
+  ratelimit-remaining:
+    $ref: ../../../shared/headers.yml#/ratelimit-remaining
+  ratelimit-reset:
+    $ref: ../../../shared/headers.yml#/ratelimit-reset

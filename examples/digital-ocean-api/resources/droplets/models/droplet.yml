@@ -1,0 +1,182 @@
+type: object
+
+properties:
+  id:
+    type: integer
+    example: 3164444
+    description: A unique identifier for each Droplet instance. This is
+      automatically generated upon Droplet creation.
+
+  name:
+    type: string
+    example: example.com
+    description: The human-readable name set for the Droplet instance.
+
+  memory:
+    type: integer
+    multipleOf: 8
+    example: 1024
+    description: Memory of the Droplet in megabytes.
+
+  vcpus:
+    type: integer
+    example: 1
+    description: The number of virtual CPUs.
+
+  disk:
+    type: integer
+    example: 25
+    description: The size of the Droplet's disk in gigabytes.
+
+  locked:
+    type: boolean
+    example: false
+    description: A boolean value indicating whether the Droplet has been locked,
+      preventing actions by users.
+
+  status:
+    type: string
+    enum:
+      - new
+      - active
+      - off
+      - archive
+    example: active
+    description: A status string indicating the state of the Droplet instance.
+      This may be "new", "active", "off", or "archive".
+
+  kernel:
+    $ref: './kernel.yml'
+
+  created_at:
+    type: string
+    format: date-time
+    example: '2020-07-21T18:37:44Z'
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the Droplet was created.
+
+  features:
+    type: array
+    items:
+      type: string
+    example:
+      - backups
+      - private_networking
+      - ipv6
+    description: An array of features enabled on this Droplet.
+
+  backup_ids:
+    type: array
+    items:
+      type: integer
+    example:
+      - 53893572
+    description: An array of backup IDs of any backups that have been taken
+      of the Droplet instance.  Droplet backups are enabled at the time of the
+      instance creation.
+
+  next_backup_window:
+    type: object
+    description: The details of the Droplet's backups feature, if backups are
+      configured for the Droplet. This object contains keys for the start and
+      end times of the window during which the backup will start.
+    nullable: true
+    properties:
+      start:
+        type: string
+        format: date-time
+        example: '2019-12-04T00:00:00Z'
+        description: A time value given in ISO8601 combined date and time format
+          specifying the start of the Droplet's backup window.
+      end:
+        type: string
+        format: date-time
+        example: '2019-12-04T23:00:00Z'
+        description: A time value given in ISO8601 combined date and time format
+          specifying the end of the Droplet's backup window.
+
+  snapshot_ids:
+    type: array
+    items:
+      type: integer
+    example:
+      - 67512819
+    description: An array of snapshot IDs of any snapshots created from the
+      Droplet instance.
+
+  image:
+    $ref: '../../images/models/image.yml'
+
+  volume_ids:
+    type: array
+    items:
+      type: string
+    example:
+      - '506f78a4-e098-11e5-ad9f-000f53306ae1'
+    description: A flat array including the unique identifier for each Block
+      Storage volume attached to the Droplet.
+
+  size:
+    $ref: '../../sizes/models/size.yml'
+
+  size_slug:
+    type: string
+    example: s-1vcpu-1gb
+    description: The unique slug identifier for the size of this Droplet.
+
+  networks:
+    type: object
+    description: The details of the network that are configured for the Droplet
+      instance.  This is an object that contains keys for IPv4 and IPv6.  The
+      value of each of these is an array that contains objects describing an
+      individual IP resource allocated to the Droplet.  These will define attributes
+      like the IP address, netmask, and gateway of the specific network depending
+      on the type of network it is.
+    properties:
+      v4:
+        type: array
+        items:
+          $ref: 'network_v4.yml'
+      v6:
+        type: array
+        items:
+          $ref: 'network_v6.yml'
+
+  region:
+    $ref: '../../regions/models/region.yml'
+
+  tags:
+    type: array
+    items:
+      type: string
+    example:
+      - web
+      - env:prod
+    description: An array of Tags the Droplet has been tagged with.
+
+  vpc_uuid:
+    type: string
+    example: '760e09ef-dc84-11e8-981e-3cfdfeaae000'
+    description: A string specifying the UUID of the VPC to which the Droplet
+      is assigned.
+
+required:
+  - id
+  - name
+  - memory
+  - vcpus
+  - disk
+  - locked
+  - status
+  - created_at
+  - features
+  - backup_ids
+  - next_backup_window
+  - snapshot_ids
+  - image
+  - volume_ids
+  - size
+  - size_slug
+  - networks
+  - region
+  - tags

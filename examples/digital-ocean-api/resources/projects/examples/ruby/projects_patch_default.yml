@@ -1,0 +1,9 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  project = client.projects.find_default
+  project.environment = 'Staging'
+  client.projects.update(project, id: 'default')

@@ -1,0 +1,16 @@
+type: object
+
+properties:
+  name:
+    type: string
+    example: nyc1-load-balancer-01
+    description: The name of the resource.
+
+  urn:
+    $ref: '../../../shared/attributes/urn.yml'
+
+  created_at:
+    type: string
+    example: '2020-03-13T19:30:48Z'
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the resource was created.

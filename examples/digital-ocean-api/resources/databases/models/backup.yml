@@ -1,0 +1,18 @@
+type: object
+
+properties:
+  created_at:
+    type: string
+    format: date-time
+    example: 2019-01-31T19:25:22Z
+    description: >-
+      A time value given in ISO8601 combined date and time format at which the
+      backup was created.
+  size_gigabytes:
+    type: number
+    example: 0.03364864
+    description: The size of the database backup in GBs.
+
+required:
+  - created_at
+  - size_gigabytes

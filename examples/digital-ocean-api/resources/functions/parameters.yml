@@ -1,0 +1,8 @@
+namespace_id:
+  name: namespace_id
+  description: The ID of the namespace to be managed.
+  in: path
+  schema:
+    type: string
+  example: fn-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+  required: true

@@ -1,0 +1,37 @@
+type: object
+
+properties:
+  resources:
+    description: >-
+      An array of objects containing resource_id and resource_type 
+      attributes.
+    
+    type: array
+    
+    items:
+      properties:
+        resource_id:
+          type: string
+          description: The identifier of a resource.
+          example: 3d80cb72-342b-4aaa-b92e-4e4abb24a933
+        
+        resource_type:
+          type: string
+          description: The type of the resource.
+          example: volume
+          enum:
+            - droplet
+            - image
+            - volume
+            - volume_snapshot
+    
+    example:
+      - resource_id: '9569411'
+        resource_type: droplet
+      - resource_id: '7555620'
+        resource_type: image
+      - resource_id: 3d80cb72-342b-4aaa-b92e-4e4abb24a933
+        resource_type: volume
+
+required:
+  - resources

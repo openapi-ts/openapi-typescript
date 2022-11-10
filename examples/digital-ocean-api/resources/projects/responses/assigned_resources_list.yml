@@ -1,0 +1,33 @@
+description: The response will be a JSON object with a key called `resources`.
+  The value of this will be an object with the standard resource attributes.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        resources:
+          type: array
+          items:
+            $ref: '../models/resource.yml'
+
+      example:
+        resources:
+        - urn: do:droplet:13457723
+          assigned_at: '2018-09-28T19:26:37Z'
+          links:
+            self: https://api.digitalocean.com/v2/droplets/13457723
+          status: ok
+        - urn: do:domain:example.com
+          assigned_at: '2019-03-31T16:24:14Z'
+          links:
+            self: https://api.digitalocean.com/v2/domains/example.com
+          status: ok

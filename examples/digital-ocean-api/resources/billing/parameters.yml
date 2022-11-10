@@ -1,0 +1,8 @@
+invoice_uuid:
+  name: invoice_uuid
+  description: UUID of the invoice
+  in: path
+  schema:
+    type: string
+  example: 22737513-0ea7-4206-8ceb-98a575af7681
+  required: true

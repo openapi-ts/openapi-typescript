@@ -1,0 +1,74 @@
+type: object
+
+properties:
+  id:
+    type: string
+    format: uuid
+    example: 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+    description: A unique ID that can be used to identify and reference a database replica.
+    readOnly: true
+  name:
+    type: string
+    example: read-nyc3-01
+    description: The name to give the read-only replicating
+  region:
+    type: string
+    example: nyc3
+    description: >-
+      A slug identifier for the region where the read-only replica will be
+      located. If excluded, the replica will be placed in the same region as
+      the cluster.
+  size:
+    type: string
+    writeOnly: true
+    example: db-s-2vcpu-4gb
+    description: >-
+      A slug identifier representing the size of the node for the read-only
+      replica. The size of the replica must be at least as large as the node
+      size for the database cluster from which it is replicating.
+  status:
+    type: string
+    enum:
+      - creating
+      - online
+      - resizing
+      - migrating
+      - forking
+    example: creating
+    description: A string representing the current status of the database cluster.
+    readOnly: true
+  tags:
+    type: array
+    items:
+      type: string
+    example:
+      - production
+    description: >-
+      A flat array of tag names as strings to apply to the read-only replica
+      after it is created. Tag names can either be existing or new tags.
+  created_at:
+    type: string
+    format: date-time
+    example: 2019-01-11T18:37:36Z
+    description:  >-
+      A time value given in ISO8601 combined date and time format that represents
+      when the database cluster was created.
+    readOnly: true
+  private_network_uuid:
+    type: string
+    example: 9423cbad-9211-442f-820b-ef6915e99b5f
+    description: >-
+      A string specifying the UUID of the VPC to which the read-only replica
+      will be assigned. If excluded, the replica will be assigned to your
+      account's default VPC for the region.
+  connection:
+    allOf:
+    - readOnly: true
+    - $ref: './database_connection.yml'
+  private_connection:
+    allOf:
+    - readOnly: true
+    - $ref: './database_connection.yml'
+
+required:
+  - name

@@ -1,0 +1,15 @@
+type: object
+
+properties:
+  spec:
+    $ref: app_spec.yml
+
+  app_id:
+    type: string
+    description: An optional ID of an existing app. If set, the spec will be
+      treated as a proposed update to the specified app. The existing app is not
+      modified using this method.
+    example: b6bdf840-2854-4f87-a36c-5f231c617c84
+
+required:
+  - spec

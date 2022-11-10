@@ -1,0 +1,42 @@
+type: object
+
+properties:
+  ip:
+    type: string
+    format: ipv4
+    example: 45.55.96.47
+    description: The public IP address of the reserved IP. It also serves as its
+      identifier.
+
+  region:
+    allOf:
+      - $ref: '../../regions/models/region.yml'
+      - type: object
+        description: The region that the reserved IP is reserved to. When you
+          query a reserved IP, the entire region object will be returned.
+
+  droplet:
+    description: The Droplet that the reserved IP has been assigned to. When
+      you query a reserved IP, if it is assigned to a Droplet, the entire
+      Droplet object will be returned. If it is not assigned, the value will
+      be null.
+    anyOf:
+      - title: 'null'
+        type: object
+        nullable: true
+        description: If the reserved IP is not assigned to a Droplet, the
+          value will be null.
+      - $ref: '../../droplets/models/droplet.yml'
+    example: null
+
+  locked:
+    type: boolean
+    example: true
+    description: A boolean value indicating whether or not the reserved IP has
+      pending actions preventing new ones from being submitted.
+
+  project_id:
+    type: string
+    format: uuid
+    example: 746c6152-2fa2-11ed-92d3-27aaa54e4988
+    description: The UUID of the project to which the reserved IP currently belongs.

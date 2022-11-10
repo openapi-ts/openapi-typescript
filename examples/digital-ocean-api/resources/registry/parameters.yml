@@ -1,0 +1,88 @@
+registry_expiry_seconds:
+  in: query
+  name: expiry_seconds
+  required: false
+  description: The duration in seconds that the returned registry credentials
+   will be valid. If not set or 0, the credentials will not expire.
+  schema:
+    type: integer
+    minimum: 0
+    default: 0
+  example: 3600
+
+registry_read_write:
+  in: query
+  name: read_write
+  required: false
+  description: By default, the registry credentials allow for read-only access.
+    Set this query parameter to `true` to obtain read-write credentials.
+  schema:
+    type: boolean
+    default: false
+  example: true
+
+registry_name:
+  in: path
+  name: registry_name
+  description: The name of a container registry.
+  required: true
+  schema:
+    type: string
+  example: example
+
+registry_repository_name:
+  in: path
+  name: repository_name
+  description: The name of a container registry repository. If the name contains
+    `/` characters, they must be URL-encoded, e.g. `%2F`.
+  required: true
+  schema:
+    type: string
+  example: repo-1
+
+registry_repository_tag:
+  in: path
+  name: repository_tag
+  description: The name of a container registry repository tag.
+  required: true
+  schema:
+    type: string
+  example: 06a447a
+
+registry_manifest_digest:
+  in: path
+  name: manifest_digest
+  description: The manifest digest of a container registry repository tag.
+  required: true
+  schema:
+    type: string
+  example: sha256:cb8a924afdf0229ef7515d9e5b3024e23b3eb03ddbba287f4a19c6ac90b8d221
+
+garbage_collection_uuid:
+  in: path
+  name: garbage_collection_uuid
+  description: The UUID of a garbage collection run.
+  required: true
+  schema:
+    type: string
+  example: eff0feee-49c7-4e8f-ba5c-a320c109c8a8
+
+token_pagination_page:
+  in: query
+  name: page
+  required: false
+  description: Which 'page' of paginated results to return. Ignored when 'page_token' is provided.
+  schema:
+    type: integer
+    minimum: 1
+    default: 1
+  example: 1
+
+token_pagination_page_token:
+  in: query
+  name: page_token
+  required: false
+  description: Token to retrieve of the next or previous set of results more quickly than using 'page'.
+  schema:
+    type: string
+  example: eyJUb2tlbiI6IkNnZGpiMjlz

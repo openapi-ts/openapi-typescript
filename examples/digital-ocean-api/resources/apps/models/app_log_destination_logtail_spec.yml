@@ -1,0 +1,9 @@
+type: object
+properties:
+  token:
+    type: string
+    description: Logtail token.
+    example: abcdefghijklmnopqrstuvwxyz0123456789
+description: Logtail configuration.
+required:
+  - endpoint

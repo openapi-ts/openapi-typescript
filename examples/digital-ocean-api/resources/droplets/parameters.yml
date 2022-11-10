@@ -1,0 +1,48 @@
+droplet_id:
+  in: path
+  name: droplet_id
+  description: A unique identifier for a Droplet instance.
+  required: true
+  schema:
+    type: integer
+    minimum: 1
+  example: 3164444
+
+droplet_tag_name:
+  in: query
+  name: tag_name
+  description: Used to filter Droplets by a specific tag. Can not be combined
+    with `name`.
+  required: false
+  schema:
+    type: string
+  example: env:prod
+
+droplet_delete_tag_name:
+  in: query
+  name: tag_name
+  description: Specifies Droplets to be deleted by tag.
+  required: true
+  schema:
+    type: string
+  example: env:test
+
+droplet_name:
+  in: query
+  name: name
+  description: Used to filter list response by Droplet name returning only exact
+    matches. It is case-insensitive and can not be combined with `tag_name`.
+  required: false
+  schema:
+    type: string
+  example: web-01
+
+x_dangerous:
+  in: header
+  name: X-Dangerous
+  description: Acknowledge this action will destroy the Droplet and all
+    associated resources and _can not_ be reversed.
+  schema:
+    type: boolean
+  example: true
+  required: true

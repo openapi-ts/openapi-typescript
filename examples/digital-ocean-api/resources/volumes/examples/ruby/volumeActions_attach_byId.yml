@@ -1,0 +1,12 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  # Attach a Volume to a Droplet by ID
+  client.volume_actions.attach(volume_id:'7724db7c-e098-11e5-b522-000f53304e51', droplet_id: 11612190, region: 'nyc1'
+
+
+  # Remove a Volume from a Droplet by ID
+  # client.volume_actions.detach(volume_id:'7724db7c-e098-11e5-b522-000f53304e51', droplet_id: 11612190, region: 'nyc1'

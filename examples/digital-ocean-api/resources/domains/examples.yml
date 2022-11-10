@@ -1,0 +1,63 @@
+domain_records_all:
+  value:
+    domain_records:
+      - id: 28448429
+        type: NS
+        name: "@"
+        data: ns1.digitalocean.com
+        priority: null
+        port: null
+        ttl: 1800
+        weight: null
+        flags: null
+        tag: null
+
+      - id: 28448430
+        type: NS
+        name: "@"
+        data: ns2.digitalocean.com
+        priority: null
+        port: null
+        ttl: 1800
+        weight: null
+        flags: null
+        tag: null
+
+      - id: 28448431
+        type: NS
+        name: "@"
+        data: ns3.digitalocean.com
+        priority: null
+        port: null
+        ttl: 1800
+        weight: null
+        flags: null
+        tag: null
+
+      - id: 28448432
+        type: A
+        name: "@"
+        data: 1.2.3.4
+        priority: null
+        port: null
+        ttl: 1800
+        weight: null
+        flags: null
+        tag: null
+    links: {}
+    meta:
+      total: 4
+
+domain_record_created:
+  value:
+    domain_record:
+      id: 28448433
+      type: A
+      name: www
+      data: 162.10.66.0
+      priority: null
+      port: null
+      ttl: 1800
+      weight: null
+      flags: null
+      tag: null

@@ -1,0 +1,66 @@
+type: object
+
+properties:
+  run_id:
+    type: string
+    example: 50c2f44c-011d-493e-aee5-361a4a0d1844
+    description: Id of the clusterlint run that can be used later to fetch the
+      diagnostics.
+
+  requested_at:
+    type: string
+    format: date-time
+    example: '2019-10-30T05:34:07Z'
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the schedule clusterlint run request was made.
+
+  completed_at:
+    type: string
+    format: date-time
+    example: '2019-10-30T05:34:11Z'
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the schedule clusterlint run request was completed.
+
+  diagnostics:
+    description: An array of diagnostics reporting potential problems for the
+      given cluster.
+    type: array
+    items:
+      type: object
+      properties:
+
+        check_name:
+          type: string
+          example: unused-config-map
+          description: The clusterlint check that resulted in the diagnostic.
+
+        severity:
+          type: string
+          example: warning
+          description: Can be one of error, warning or suggestion.
+
+        message:
+          type: string
+          example: Unused config map
+          description: Feedback about the object for users to fix.
+
+        object:
+          type: object
+          description: Metadata about the Kubernetes API object the diagnostic
+            is reported on.
+          properties:
+
+            name:
+              type: string
+              example: foo
+              description: Name of the object
+
+            kind:
+              type: string
+              example: config map
+              description: The kind of Kubernetes API object
+
+            namespace:
+              type: string
+              example: kube-system
+              description: The namespace the object resides in the cluster.

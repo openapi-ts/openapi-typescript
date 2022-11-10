@@ -1,0 +1,17 @@
+description: The response will be a JSON object with a key called `project`. The
+  value of this will be an object with the standard project attributes
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        project:
+          $ref: '../models/project.yml#/project'

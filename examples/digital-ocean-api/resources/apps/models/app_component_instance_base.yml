@@ -1,0 +1,27 @@
+# Attributes shared across app components that use compute (i.e. not static sites)
+type: object
+properties:
+  instance_count:
+    type: integer
+    format: int64
+    minimum: 1
+    description: 'The amount of instances that this component should be scaled to. Default: 1'
+    default: 1
+    example: 2
+
+  instance_size_slug:
+    description: 'The instance size to use for this component. Default: `basic-xxs`'
+    type: string
+    enum:
+    - basic-xxs
+    - basic-xs
+    - basic-s
+    - basic-m
+    - professional-xs
+    - professional-s
+    - professional-m
+    - professional-1l
+    - professional-l
+    - professional-xl
+    default: basic-xxs
+    example: basic-xxs

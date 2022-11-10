@@ -1,0 +1,16 @@
+type: object
+
+properties:
+  type:
+    type: string
+    description: The volume action to initiate.
+    enum:
+      - attach
+      - detach
+      - resize
+    example: attach
+  region:
+    $ref: '../../../shared/attributes/region_slug.yml'
+
+required:
+  - type

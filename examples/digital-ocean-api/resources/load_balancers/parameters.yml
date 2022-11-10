@@ -1,0 +1,9 @@
+load_balancer_id:
+  in: path
+  name: lb_id
+  description: A unique identifier for a load balancer.
+  required: true
+  schema:
+    type: string
+    minimum: 1
+  example: 4de7ac8b-495b-4884-9a69-1050c6793cd6

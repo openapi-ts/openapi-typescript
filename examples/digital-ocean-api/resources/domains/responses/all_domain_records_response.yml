@@ -1,0 +1,33 @@
+description: >-
+  The response will be a JSON object with a key called `domain_records`. The
+  value of this will be an array of domain record objects, each of which
+  contains the standard domain record attributes. For attributes that are not
+  used by a specific record type, a value of `null` will be returned. For
+  instance, all records other than SRV will have `null` for the `weight` and
+  `port` attributes.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            domain_records:
+              type: array
+              items:
+                $ref: '../models/domain_record.yml'
+
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+    examples:
+      All Domain Records:
+        $ref: '../examples.yml#/domain_records_all'

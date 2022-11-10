@@ -1,0 +1,12 @@
+default: UNSPECIFIED
+enum:
+- UNSPECIFIED
+- BUILD
+- DEPLOY
+- RUN
+title: |-
+  - BUILD: Build-time logs
+   - DEPLOY: Deploy-time logs
+   - RUN: Live run-time logs
+type: string
+example: RUN

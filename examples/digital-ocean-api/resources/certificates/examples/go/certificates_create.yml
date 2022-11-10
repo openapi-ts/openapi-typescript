@@ -1,0 +1,40 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      key, err := ioutil.ReadFile("/path/to/privkey1.pem")
+      if err != nil {
+          fmt.Print(err)
+      }
+
+      cert, err := ioutil.ReadFile("/path/to/cert1.pem")
+      if err != nil {
+          fmt.Print(err)
+      }
+
+      chain, err := ioutil.ReadFile("/path/to/fullchain1.pem")
+      if err != nil {
+          fmt.Print(err)
+      }
+
+      createRequest := &godo.CertificateRequest{
+          Name:             "web-cert-01",
+          PrivateKey:       string(key),
+          LeafCertificate:  string(cert),
+          CertificateChain: string(chain),
+          Type:             "custom",
+      }
+
+      certObj, _, err := client.Certificates.Create(ctx, createRequest)
+  }

@@ -1,0 +1,57 @@
+droplet_id:
+  in: query
+  name: host_id
+  description: The droplet ID.
+  example: "17209102"
+  required: true
+  schema:
+    type: string
+
+network_interface:
+  in: query
+  name: interface
+  description: The network interface.
+  required: true
+  example: "private"
+  schema:
+    type: string
+    enum:
+      - private
+      - public
+network_direction:
+  in: query
+  name: direction
+  description: The traffic direction.
+  required: true
+  example: "inbound"
+  schema:
+    type: string
+    enum:
+      - inbound
+      - outbound
+metric_timestamp_start:
+  in: query
+  name: start
+  description: Timestamp to start metric window.
+  example: "1620683817"
+  required: true
+  schema:
+    type: string
+
+metric_timestamp_end:
+  in: query
+  name: end
+  description: Timestamp to end metric window.
+  example: "1620705417"
+  required: true
+  schema:
+    type: string
+
+alert_uuid:
+  in: path
+  name: alert_uuid
+  description: A unique identifier for an alert policy.
+  required: true
+  schema:
+    type: string
+  example: 4de7ac8b-495b-4884-9a69-1050c6793cd6

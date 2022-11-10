@@ -1,0 +1,29 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      createRequest := &godo.DropletCreateRequest{
+          Name:   "example.com",
+          Region: "nyc3",
+          Size:   "s-1vcpu-1gb",
+          Image: godo.DropletCreateImage{
+              Slug: "ubuntu-16-04-x64",
+          },
+          SSHKeys: []godo.DropletCreateSSHKey{
+              godo.DropletCreateSSHKey{ID: 107149},
+          },
+          IPv6: true,
+          Tags: []string{"web"},
+      }
+  }

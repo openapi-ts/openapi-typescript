@@ -1,0 +1,46 @@
+domain_name:
+  name: domain_name
+  description: The name of the domain itself.
+  in: path
+  schema:
+    type: string
+  example: example.com
+  required: true
+
+domain_record_id:
+  name: domain_record_id
+  description: The unique identifier of the domain record.
+  in: path
+  schema:
+    type: integer
+  example: 3352896
+  required: true
+
+domain_name_query:
+  name: name
+  description: >-
+    A fully qualified record name. For example, to only include records matching
+    sub.example.com, send a GET request to
+    `/v2/domains/$DOMAIN_NAME/records?name=sub.example.com`.
+  in: query
+  schema:
+    type: string
+  example: sub.example.com
+
+domain_type_query:
+  name: type
+  description: 'The type of the DNS record. For example: A, CNAME, TXT, ...'
+  in: query
+  schema:
+    type: string
+    enum:
+      - A
+      - AAAA
+      - CAA
+      - CNAME
+      - MX
+      - NS
+      - SOA
+      - SRV
+      - TXT
+  example: A

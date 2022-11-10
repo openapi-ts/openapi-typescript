@@ -1,0 +1,28 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      opt := &godo.ListOptions{
+          Page:    1,
+          PerPage: 200,
+      }
+  // List all snapshots
+      snapshots, _, err := client.Snapshots.List(ctx, opt)
+
+  // List all Droplet snapshots
+  //  snapshots, _, err := client.Snapshots.ListDroplet(ctx, opt)
+
+  // List all volume snapshots
+  //  snapshots, _, err := client.Snapshots.ListVolume(ctx, opt)
+  }

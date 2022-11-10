@@ -1,0 +1,27 @@
+type: object
+required:
+  - metric
+  - values
+properties:
+  metric:
+    type: object
+    description: >-
+      An object containing the metric labels.
+    additionalProperties:
+      type: string
+    example:
+      host_id: "19201920"
+  values:
+    type: array
+    example:
+      - - 1435781430
+        - "1"
+      - - 1435781445
+        - "1"
+
+    items:
+      type: array
+      items:
+        oneOf:
+          - type: integer
+          - type: string
