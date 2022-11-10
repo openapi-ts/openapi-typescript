@@ -1,7 +1,7 @@
 {
   "name": "openapi-typescript",
   "description": "Generate TypeScript types from Swagger OpenAPI specs",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "author": "drew@pow.rs",
   "license": "MIT",
   "bin": {
