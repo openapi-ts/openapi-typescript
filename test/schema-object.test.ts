@@ -46,6 +46,12 @@ describe("Schema Object", () => {
   status?: "complete" | "incomplete";
 }`);
       });
+
+      test("nullable", () => {
+        const schema: SchemaObject = { type: "string", nullable: true };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe("string | null");
+      });
     });
 
     describe("number", () => {
@@ -66,6 +72,12 @@ describe("Schema Object", () => {
         const generated = transformSchemaObject(schema, options);
         expect(generated).toBe("number");
       });
+
+      test("nullable", () => {
+        const schema: SchemaObject = { type: "number", nullable: true };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe("number | null");
+      });
     });
 
     describe("boolean", () => {
@@ -80,6 +92,12 @@ describe("Schema Object", () => {
         const generated = transformSchemaObject(schema, options);
         expect(generated).toBe("true");
       });
+
+      test("nullable", () => {
+        const schema: SchemaObject = { type: "boolean", nullable: true };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe("boolean | null");
+      });
     });
 
     describe("array", () => {
@@ -93,6 +111,12 @@ describe("Schema Object", () => {
         const schema: SchemaObject = { type: "array", items: { $ref: 'components["schemas"]["ArrayItem"]' } };
         const generated = transformSchemaObject(schema, options);
         expect(generated).toBe('(components["schemas"]["ArrayItem"])[]');
+      });
+
+      test("nullable", () => {
+        const schema: SchemaObject = { type: "array", items: { type: "string" }, nullable: true };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe("(string)[] | null");
       });
     });
 
@@ -110,6 +134,19 @@ describe("Schema Object", () => {
 }`);
       });
 
+      test("additionalProperties with properties", () => {
+        const schema: SchemaObject = {
+          type: "object",
+          properties: { property: { type: "boolean" } },
+          additionalProperties: { type: "string" },
+        };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe(`{
+  property?: boolean;
+  [key: string]: string | undefined;
+}`);
+      });
+
       test("additionalProperties: true", () => {
         const schema: SchemaObject = { type: "object", additionalProperties: true };
         const generated = transformSchemaObject(schema, options);
@@ -118,12 +155,31 @@ describe("Schema Object", () => {
 }`);
       });
 
-      test("additionalProperties: value", () => {
-        const schema: SchemaObject = { type: "object", additionalProperties: { type: "string" } };
+      test("additionalProperties: SchemaObject", () => {
+        const schema: SchemaObject = {
+          type: "object",
+          additionalProperties: { type: "string" },
+        };
         const generated = transformSchemaObject(schema, options);
         expect(generated).toBe(`{
   [key: string]: string | undefined;
 }`);
+      });
+
+      test("additionalProperties: {}", () => {
+        const schema: SchemaObject = { type: "object", additionalProperties: {} };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe(`{
+  [key: string]: unknown | undefined;
+}`);
+      });
+
+      test("nullable", () => {
+        const schema: SchemaObject = { type: "object", properties: { string: { type: "string" } }, nullable: true };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe(`{
+  string?: string;
+} | null`);
       });
     });
 

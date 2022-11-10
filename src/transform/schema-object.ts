@@ -103,14 +103,17 @@ export function defaultSchemaObjectTransform(
       );
     }
 
+    // "type": "null"
+    if (schemaObject.type === "null") return schemaObject.type;
+
     // "type": "string" / "type": "null"
-    if (schemaObject.type === "string" || schemaObject.type === "null" || schemaObject.type === "boolean") {
-      return schemaObject.type;
+    if (schemaObject.type === "string" || schemaObject.type === "boolean") {
+      return schemaObject.nullable ? tsUnionOf(schemaObject.type, "null") : schemaObject.type;
     }
 
-    // "type": "null"
+    // "type": "number" / "type": "integer"
     if (schemaObject.type === "number" || schemaObject.type === "integer") {
-      return "number";
+      return schemaObject.nullable ? tsUnionOf("number", "null") : "number";
     }
 
     // "type": "array"
@@ -144,6 +147,7 @@ export function defaultSchemaObjectTransform(
         }
       }
       itemType = tsArrayOf(itemType);
+      if (schemaObject.nullable) itemType = tsUnionOf(itemType, "null");
       return ctx.immutableTypes || schemaObject.readOnly ? tsReadonly(itemType) : itemType;
     }
   }
@@ -170,8 +174,16 @@ export function defaultSchemaObjectTransform(
     }
     if (schemaObject.additionalProperties || ctx.additionalProperties) {
       let addlType = "unknown";
-      if (typeof schemaObject.additionalProperties === "object")
-        addlType = transformSchemaObject(schemaObject.additionalProperties, { path, ctx: { ...ctx, indentLv } });
+      if (typeof schemaObject.additionalProperties === "object") {
+        if (!Object.keys(schemaObject.additionalProperties).length) {
+          addlType = "unknown";
+        } else {
+          addlType = transformSchemaObject(schemaObject.additionalProperties as SchemaObject, {
+            path,
+            ctx: { ...ctx, indentLv },
+          });
+        }
+      }
       coreType.push(indent(`[key: string]: ${tsUnionOf(addlType ? addlType : "unknown", "undefined")};`, indentLv)); // note: `| undefined` is required to mesh with possibly-undefined keys
     }
     indentLv--;

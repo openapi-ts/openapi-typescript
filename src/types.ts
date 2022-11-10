@@ -423,8 +423,8 @@ export type SchemaObject = {
   | { oneOf: (SchemaObject | ReferenceObject)[] }
   | { type: ("string" | "number" | "integer" | "array" | "boolean" | "null" | "object")[] }
   | { type: "string" }
-  | { type: "number" }
-  | { type: "integer" }
+  | { type: "number"; minimum?: number; maximum?: number }
+  | { type: "integer"; minimum?: number; maximum?: number }
   | {
       type: "array";
       prefixItems?: SchemaObject | ReferenceObject;
@@ -437,7 +437,7 @@ export type SchemaObject = {
   | {
       type: "object";
       properties?: { [name: string]: SchemaObject | ReferenceObject };
-      additionalProperties?: boolean | SchemaObject | ReferenceObject;
+      additionalProperties?: boolean | Record<string, never> | SchemaObject | ReferenceObject;
       required?: string[];
       allOf?: (SchemaObject | ReferenceObject)[];
       anyOf?: (SchemaObject | ReferenceObject)[];

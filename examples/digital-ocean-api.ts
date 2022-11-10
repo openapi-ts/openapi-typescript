@@ -890,19 +890,19 @@ export interface external {
      * @description A time value given in ISO8601 combined date and time format that represents when the action was completed. 
      * @example "2020-11-14T16:30:06.000Z"
      */
-    completed_at?: string;
+    completed_at?: string | null;
     /**
      * @description A unique identifier for the resource that the action is associated with. 
      * @example 3164444
      */
-    resource_id?: number;
+    resource_id?: number | null;
     /**
      * @description The type of resource that the action is associated with. 
      * @example droplet
      */
     resource_type?: string;
     region?: external["resources/regions/models/region.yml"];
-    region_slug?: external["resources/regions/models/region.yml"]["slug"] & string;
+    region_slug?: external["resources/regions/models/region.yml"]["slug"] & (string | null);
   }
   "resources/actions/parameters.yml": string
   "resources/actions/responses/action.yml": {
@@ -4526,17 +4526,17 @@ export interface external {
      *   "production"
      * ]
      */
-    tags?: (string)[];
+    tags?: (string)[] | null;
     /**
      * @description An array of strings containing the names of databases created in the database cluster. 
      * @example [
      *   "doadmin"
      * ]
      */
-    db_names?: readonly (string)[];
+    db_names?: readonly (string)[] | null;
     connection?: external["resources/databases/models/database_connection.yml"] & Record<string, never>;
     private_connection?: external["resources/databases/models/database_connection.yml"] & Record<string, never>;
-    users?: readonly (external["resources/databases/models/database_user.yml"])[];
+    users?: readonly (external["resources/databases/models/database_user.yml"])[] | null;
     maintenance_window?: external["resources/databases/models/database_maintenance_window.yml"] & Record<string, never>;
     /**
      * Format: uuid 
@@ -5780,12 +5780,12 @@ export interface external {
      * @description The priority for SRV and MX records. 
      * @example null
      */
-    priority?: number;
+    priority?: number | null;
     /**
      * @description The port for SRV records. 
      * @example null
      */
-    port?: number;
+    port?: number | null;
     /**
      * @description This value is the time to live for the record, in seconds. This defines the time frame that clients can cache queried information before a refresh should be requested. 
      * @example 1800
@@ -5795,17 +5795,17 @@ export interface external {
      * @description The weight for SRV records. 
      * @example null
      */
-    weight?: number;
+    weight?: number | null;
     /**
      * @description An unsigned integer between 0-255 used for CAA records. 
      * @example null
      */
-    flags?: number;
+    flags?: number | null;
     /**
      * @description The parameter tag for CAA records. Valid values are "issue", "issuewild", or "iodef" 
      * @example null
      */
-    tag?: string;
+    tag?: string | null;
   }
   "resources/domains/models/domain.yml": {
     /**
@@ -5822,7 +5822,7 @@ export interface external {
      * @description This value is the time to live for the records on this domain, in seconds. This defines the time frame that clients can cache queried information before a refresh should be requested. 
      * @example 1800
      */
-    ttl?: number;
+    ttl?: number | null;
     /**
      * @description This attribute contains the complete contents of the zone file for the selected domain. Individual domain record resources should be used to get more granular control over records. However, this attribute can also be used to get information about the SOA record, which is created automatically and is not accessible as an individual record resource. 
      * @example $ORIGIN example.com.
@@ -5833,7 +5833,7 @@ export interface external {
      * example.com. 1800 IN NS ns3.digitalocean.com.
      * example.com. 1800 IN A 1.2.3.4
      */
-    zone_file?: string;
+    zone_file?: string | null;
   }
   "resources/domains/parameters.yml": string
   "resources/domains/responses/all_domain_records_response.yml": {
@@ -6486,7 +6486,7 @@ export interface external {
      *   "web"
      * ]
      */
-    tags?: (string)[];
+    tags?: (string)[] | null;
     /**
      * @description A string containing 'user data' which may be used to configure the Droplet on first boot, often a 'cloud-config' file or Bash script. It must be plain text and may not exceed 64 KiB in size. 
      * @example #cloud-config
@@ -7449,7 +7449,7 @@ export interface external {
      *   8043964
      * ]
      */
-    droplet_ids?: (number)[];
+    droplet_ids?: (number)[] | null;
     tags?: external["shared/attributes/tags_array.yml"] & Record<string, never>;
   }) & external["resources/firewalls/models/firewall_rule.yml"]["firewall_rules"]
   "resources/firewalls/parameters.yml": string
@@ -8146,7 +8146,7 @@ export interface external {
      * @description A uniquely identifying string that is associated with each of the DigitalOcean-provided public images. These can be used to reference a public image as an alternative to the numeric id. 
      * @example nifty1
      */
-    slug?: string;
+    slug?: string | null;
     /**
      * @description This is a boolean value that indicates whether the image in question is public or not. An image that is public is available to all accounts. A non-public image is only accessible from your account. 
      * @example true
@@ -8163,13 +8163,13 @@ export interface external {
      * @description The minimum disk size in GB required for a Droplet to use this image. 
      * @example 20
      */
-    min_disk_size?: number;
+    min_disk_size?: number | null;
     /**
      * Format: float 
      * @description The size of the image in gigabytes. 
      * @example 2.34
      */
-    size_gigabytes?: number;
+    size_gigabytes?: number | null;
     description?: external["resources/images/attributes.yml"]["image_description"];
     tags?: external["shared/attributes/tags_array.yml"];
     /**
@@ -9063,7 +9063,7 @@ export interface external {
      *  
      * @example null
      */
-    client_certificate_data?: string;
+    client_certificate_data?: string | null;
     /**
      * Format: byte 
      * @deprecated 
@@ -9077,7 +9077,7 @@ export interface external {
      *  
      * @example null
      */
-    client_key_data?: string;
+    client_key_data?: string | null;
     /**
      * @description An access token used to authenticate with the cluster. This is only returned for clusters with support for token-based authentication. 
      * @example $DIGITALOCEAN_TOKEN
@@ -9219,7 +9219,7 @@ export interface external {
     };
     content: {
       "application/json": {
-        available_upgrade_versions?: (external["resources/kubernetes/models/options.yml"]["kubernetes_version"])[];
+        available_upgrade_versions?: (external["resources/kubernetes/models/options.yml"]["kubernetes_version"])[] | null;
       };
     };
   }
@@ -11878,7 +11878,7 @@ export interface external {
      *   "env:prod"
      * ]
      */
-    tags: (string)[];
+    tags: (string)[] | null;
   })
   "resources/snapshots/parameters.yml": string
   "resources/snapshots/responses/examples.yml": unknown
@@ -12662,7 +12662,7 @@ export interface external {
      * @description An array containing the IDs of the Droplets the volume is attached to. Note that at this time, a volume can only be attached to a single Droplet. 
      * @example []
      */
-    droplet_ids?: readonly (number)[];
+    droplet_ids?: readonly (number)[] | null;
     /**
      * @description A human-readable name for the block storage volume. Must be lowercase and be composed only of numbers, letters and "-", up to a limit of 64 characters. The name must begin with a letter. 
      * @example example
@@ -12727,15 +12727,15 @@ export interface external {
      */
     filesystem_label?: string;
   })
-  "resources/volumes/models/volumeAction.yml": {
+  "resources/volumes/models/volumeAction.yml": ({
     /**
      * @description This is the type of action that the object represents. For example, this could be "attach_volume" to represent the state of a volume attach action. 
      * @example attach_volume
      */
     type?: string;
     /** @example null */
-    resource_id?: number;
-  } & external["resources/actions/models/action.yml"]
+    resource_id?: number | null;
+  }) & external["resources/actions/models/action.yml"]
   "resources/volumes/models/volumes_ext4.yml": external["resources/volumes/models/volume_base.yml"] & external["resources/volumes/models/attributes.yml"]["volume_snapshot_id"] & external["resources/volumes/models/attributes.yml"]["volume_write_file_system_type"] & ({
     region: external["shared/attributes/region_slug.yml"];
     filesystem_label?: external["resources/volumes/models/attributes.yml"]["volume_write_file_system_label"] & Record<string, never>;
@@ -13292,7 +13292,7 @@ export interface external {
   "shared/attributes/distribution.yml": "Arch Linux" | "CentOS" | "CoreOS" | "Debian" | "Fedora" | "Fedora Atomic" | "FreeBSD" | "Gentoo" | "openSUSE" | "RancherOS" | "Rocky Linux" | "Ubuntu" | "Unknown"
   "shared/attributes/region_slug.yml": string
   "shared/attributes/regions_array.yml": (external["shared/attributes/region_slug.yml"])[]
-  "shared/attributes/tags_array.yml": (string)[]
+  "shared/attributes/tags_array.yml": (string)[] | null
   "shared/attributes/urn.yml": string
   "shared/headers.yml": Record<string, never>
   "shared/meta_optional_total.yml": {
@@ -13329,7 +13329,7 @@ export interface external {
      * @description A list of error messages. 
      * @example null
      */
-    messages?: (string)[];
+    messages?: (string)[] | null;
     /**
      * @description A list of underlying causes for the error, including details to help  resolve it when possible. 
      * @example []
