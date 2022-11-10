@@ -1,0 +1,30 @@
+type: object
+
+properties:
+  name:
+    type: string
+    example: app-01
+    description: The name of a database user.
+
+  role:
+    type: string
+    enum:
+      - primary
+      - normal
+    example: normal
+    description: |
+      A string representing the database user's role. The value will be either
+      "primary" or "normal".
+    readOnly: true
+
+  password:
+    type: string
+    example: jge5lfxtzhx42iff
+    description: A randomly generated password for the database user.
+    readOnly: true
+
+  mysql_settings:
+    $ref: './mysql_settings.yml'
+
+required:
+  - name

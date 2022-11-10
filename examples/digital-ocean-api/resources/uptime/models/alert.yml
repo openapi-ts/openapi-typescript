@@ -1,0 +1,68 @@
+alert:
+  type: object
+  allOf:
+    - $ref: '#/alert_base'
+    - $ref: '#/alert_updatable'
+
+
+alert_base:
+  type: object
+  properties:
+    id:
+      type: string
+      format: uuid
+      readOnly: true
+      example: 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+      description: A unique ID that can be used to identify and reference the alert.
+
+
+alert_updatable:
+  type: object
+  properties:
+    name:
+      type: string
+      example: Landing page degraded performance
+      description: A human-friendly display name.
+
+    type:
+      type: string
+      example: latency
+      enum:
+        - latency
+        - down
+        - down_global
+        - ssl_expiry
+      description: The type of alert.
+
+    threshold:
+      type: integer
+      example: 300
+      description: The threshold at which the alert will enter a trigger state. The specific threshold is dependent on the alert type.
+
+    comparison:
+      type: string
+      example: "greater_than"
+      description: The comparison operator used against the alert's threshold.
+      enum:
+        - "greater_than"
+        - "less_than"
+
+    notifications:
+      $ref: './notification.yml'
+
+    period:
+      type: string
+      example: "2m"
+      description: Period of time the threshold must be exceeded to trigger the alert.
+      enum:
+        - 2m
+        - 3m
+        - 5m
+        - 10m
+        - 15m
+        - 30m
+        - 1h
+
+
+
+

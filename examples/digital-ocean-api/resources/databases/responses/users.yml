@@ -1,0 +1,26 @@
+description: A JSON object with a key of `users`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '../models/database_user.yml'
+    example:
+      users:
+        - name: app-01
+          role: normal
+          password: jge5lfxtzhx42iff
+        - name: doadmin
+          role: primary
+          password: wv78n3zpz42xezd

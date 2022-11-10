@@ -1,0 +1,41 @@
+type: object
+
+properties:
+  name:
+    type: string
+    example: prod-cluster-01
+    description: A human-readable name for a Kubernetes cluster.
+
+  tags:
+    type: array
+    items:
+      type: string
+    example:
+    - k8s
+    - k8s:bd5f5959-5e1e-4205-a714-a914373942af
+    - production
+    - web-team
+    description: An array of tags applied to the Kubernetes cluster. All
+      clusters are automatically tagged `k8s` and `k8s:$K8S_CLUSTER_ID`.
+
+  maintenance_policy:
+    $ref: 'maintenance_policy.yml'
+
+  auto_upgrade:
+    type: boolean
+    default: false
+    example: true
+    description: A boolean value indicating whether the cluster will be
+      automatically upgraded to new patch releases during its maintenance window.
+
+  surge_upgrade:
+    type: boolean
+    default: false
+    example: true
+    description: A boolean value indicating whether surge upgrade is
+      enabled/disabled for the cluster. Surge upgrade makes cluster upgrades
+      fast and reliable by bringing up new nodes before destroying the outdated
+      nodes.
+
+required:
+  - name

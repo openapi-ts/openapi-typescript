@@ -1,0 +1,42 @@
+type: object
+
+properties:
+  address_line1: 
+    type: string
+    description: Street address line 1
+    example: 101 Shark Row
+  
+  address_line2: 
+    type: string
+    description: Street address line 2
+    example: ' '
+  
+  city: 
+    type: string
+    description:  City
+    example: Atlantis
+  
+  region: 
+    type: string
+    description: Region
+    example: OC
+  
+  postal_code: 
+    type: string
+    description: Postal code
+    example: '12345'
+  
+  country_iso2_code: 
+    type: string
+    description: Country (ISO2) code
+    example: US
+  
+  created_at: 
+    type: string
+    description: Timestamp billing address was created
+    example: 2019-09-03T16:34:46.000+00:00
+  
+  updated_at: 
+    type: string
+    description: Timestamp billing address was updated
+    example: 2019-09-03T16:34:46.000+00:00

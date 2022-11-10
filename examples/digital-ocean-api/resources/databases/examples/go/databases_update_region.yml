@@ -1,0 +1,21 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      migrateRequest := &godo.DatabaseMigrateRequest{
+          Region: "lon1",
+      }
+
+      _, err := client.Databases.Migrate(ctx, "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30", migrateRequest)
+  }

@@ -1,0 +1,24 @@
+description: >-
+  The response will be an object with a key called `action`. The value of this
+  will be an object that contains the standard volume action attributes
+
+headers:
+  ratelimit-limit:
+    $ref: "../../../shared/headers.yml#/ratelimit-limit"
+  ratelimit-remaining:
+    $ref: "../../../shared/headers.yml#/ratelimit-remaining"
+  ratelimit-reset:
+    $ref: "../../../shared/headers.yml#/ratelimit-reset"
+
+content:
+  application/json:
+    schema:
+      properties:
+        action:
+          $ref: "../models/volumeAction.yml"
+
+    examples:
+      volume_action_attach_response:
+        $ref: "../examples.yml#/volume_action_attach_response"
+      VolumeActionDetachResponse:
+        $ref: "../examples.yml#/volume_action_detach_response"

@@ -1,0 +1,11 @@
+type: object
+properties:
+  branch:
+    type: string
+    description: The name of the branch to use
+    example: main
+
+  repo_clone_url:
+    type: string
+    description: 'The clone URL of the repo. Example: `https://github.com/digitalocean/sample-golang.git`'
+    example: https://github.com/digitalocean/sample-golang.git

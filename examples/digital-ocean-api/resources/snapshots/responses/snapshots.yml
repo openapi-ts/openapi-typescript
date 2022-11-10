@@ -1,0 +1,30 @@
+description: A JSON object with a key of `snapshots`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            snapshots:
+              type: array
+              items:
+                $ref: '../models/snapshots.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+    examples:
+      All Snapshots:
+        $ref: 'examples.yml#/snapshots_all'
+      Droplets Snapshots:
+        $ref: 'examples.yml#/snapshots_droplets_only'
+      Volume Snapshots:
+        $ref: 'examples.yml#/snapshots_volumes_only'

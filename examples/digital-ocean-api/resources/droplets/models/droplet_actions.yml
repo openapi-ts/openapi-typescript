@@ -1,0 +1,99 @@
+droplet_action:
+  required:
+    - type
+  type: object
+  description: Specifies the action that will be taken on the Droplet.
+  properties:
+    type:
+      type: string
+      enum:
+      - enable_backups
+      - disable_backups
+      - reboot
+      - power_cycle
+      - shutdown
+      - power_off
+      - power_on
+      - restore
+      - password_reset
+      - resize
+      - rebuild
+      - rename
+      - change_kernel
+      - enable_ipv6
+      - snapshot
+      example: reboot
+      description: The type of action to initiate for the Droplet.
+
+droplet_action_restore:
+  allOf:
+  - $ref: '#/droplet_action'
+  - type: object
+    properties:
+      image:
+        type: integer
+        example: 12389723
+        description: The ID of a backup of the current Droplet instance to
+          restore from.
+
+droplet_action_resize:
+  allOf:
+  - $ref: '#/droplet_action'
+  - type: object
+    properties:
+      disk:
+        type: boolean
+        example: true
+        description: When `true`, the Droplet's disk will be resized in addition
+          to its RAM and CPU. This is a permanent change and cannot be reversed
+          as a Droplet's disk size cannot be decreased.
+      size:
+        type: string
+        example: s-2vcpu-2gb
+        description: The slug identifier for the size to which you wish to
+          resize the Droplet.
+
+droplet_action_rebuild:
+  allOf:
+  - $ref: '#/droplet_action'
+  - type: object
+    properties:
+      image:
+        oneOf:
+        - type: string
+        - type: integer
+        example: ubuntu-20-04-x64
+        description: The image ID of a public or private image or the slug
+          identifier for a public image. The Droplet will be rebuilt using this
+          image as its base.
+
+droplet_action_rename:
+  allOf:
+  - $ref: '#/droplet_action'
+  - type: object
+    properties:
+      name:
+        type: string
+        example: "nifty-new-name"
+        description: The new name for the Droplet.
+
+droplet_action_change_kernel:
+  allOf:
+  - $ref: '#/droplet_action'
+  - type: object
+    properties:
+      kernel:
+        type: integer
+        example: 12389723
+        description: A unique number used to identify and reference a
+          specific kernel.
+
+droplet_action_snapshot:
+  allOf:
+  - $ref: '#/droplet_action'
+  - type: object
+    properties:
+      name:
+        type: string
+        example: Nifty New Snapshot
+        description: The name to give the new snapshot of the Droplet.

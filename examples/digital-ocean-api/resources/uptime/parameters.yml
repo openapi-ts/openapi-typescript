@@ -1,0 +1,19 @@
+check_id:
+  in: path
+  name: check_id
+  description: A unique identifier for a check.
+  required: true
+  schema:
+    type: string
+    format: uuid
+  example: 4de7ac8b-495b-4884-9a69-1050c6793cd6
+
+alert_id:
+  in: path
+  name: alert_id
+  description: A unique identifier for an alert.
+  required: true
+  schema:
+    type: string
+    format: uuid
+  example: 17f0f0ae-b7e5-4ef6-86e3-aa569db58284

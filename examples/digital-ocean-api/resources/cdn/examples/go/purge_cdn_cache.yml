@@ -1,0 +1,21 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      flushRequest := &godo.CDNFlushCacheRequest{
+          Files: []string{"assets/img/hero.png","assets/css/*"},
+      }
+
+      _, err := client.CDNs.FlushCache(ctx, "19f06b6a-3ace-4315-b086-499a0e521b76", flushRequest)
+  }

@@ -1,0 +1,18 @@
+type: object
+required:
+  - resultType
+  - result
+properties:
+  result:
+    type: array
+    description: >-
+      Result of query.
+    items:
+      $ref: "metrics_result.yml"
+
+  resultType:
+    type: string
+    enum:
+      - matrix
+
+    example: "matrix"

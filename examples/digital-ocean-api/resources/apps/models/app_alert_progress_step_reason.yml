@@ -1,0 +1,10 @@
+properties:
+  code:
+    title: The error code
+    type: string
+    example: Title of Error
+  message:
+    title: The error message
+    type: string
+    example: This is an error
+type: object

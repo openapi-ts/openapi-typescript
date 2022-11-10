@@ -1,0 +1,41 @@
+type: object
+properties:
+  key:
+    type: string
+    pattern: ^[_A-Za-z][_A-Za-z0-9]*$
+    description: The variable name
+    example: BASE_URL
+
+  scope:
+    type: string
+    enum:
+    - UNSET
+    - RUN_TIME
+    - BUILD_TIME
+    - RUN_AND_BUILD_TIME
+    description: |-
+      - RUN_TIME: Made available only at run-time
+      - BUILD_TIME: Made available only at build-time
+      - RUN_AND_BUILD_TIME: Made available at both build and run-time
+    default: RUN_AND_BUILD_TIME
+    example: BUILD_TIME
+
+  type:
+    type: string
+    enum:
+    - GENERAL
+    - SECRET
+    description: |-
+      - GENERAL: A plain-text environment variable
+      - SECRET: A secret encrypted environment variable
+    default: GENERAL
+    example: GENERAL
+
+  value:
+    description: The value. If the type is `SECRET`, the value will be encrypted on
+      first submission. On following submissions, the encrypted value should be used.
+    type: string
+    example: http://example.com
+
+required:
+- key

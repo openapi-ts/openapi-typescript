@@ -1,0 +1,12 @@
+properties:
+  emails:
+    type: array
+    items:
+      $ref: app_alert_email.yml
+    example:
+    - sammy@digitalocean.com
+  slack_webhooks:
+    type: array
+    items:
+      $ref: app_alert_slack_webhook.yml
+type: object

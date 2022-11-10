@@ -1,0 +1,27 @@
+type: object
+properties:
+  registry:
+    type: string
+    description: The registry name. Must be left empty for the `DOCR` registry type.
+    example: registry.hub.docker.com
+
+  registry_type:
+    type: string
+    enum:
+    - DOCKER_HUB
+    - DOCR
+    description: |2-
+      - DOCKER_HUB: The DockerHub container registry type.
+      - DOCR: The DigitalOcean container registry type.
+    example: DOCR
+
+  repository:
+    type: string
+    description: The repository name.
+    example: origin/master
+
+  tag:
+    type: string
+    description: The repository tag. Defaults to `latest` if not provided.
+    example: latest
+    default: latest

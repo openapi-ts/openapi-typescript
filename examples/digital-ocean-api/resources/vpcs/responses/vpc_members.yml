@@ -1,0 +1,43 @@
+description: >-
+  The response will be a JSON object with a key called members. This will be set
+  to an array of objects, each of which will contain the standard attributes
+  associated with a VPC member.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            members:
+              type: array
+              items:
+                $ref: '../models/vpc_member.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+      example:
+        members:
+        - urn: do:loadbalancer:fb294d78-d193-4cb2-8737-ea620993591b
+          name: nyc1-load-balancer-01
+          created_at: '2020-03-13T19:30:48Z'
+        - urn: do:dbaas:13f7a2f6-43df-4c4a-8129-8733267ddeea
+          name: db-postgresql-nyc1-55986
+          created_at: '2020-03-13T19:30:18Z'
+        - urn: do:kubernetes:da39d893-96e1-4e4d-971d-1fdda33a46b1
+          name: k8s-nyc1-1584127772221
+          created_at: '2020-03-13T19:30:16Z'
+        - urn: do:droplet:86e29982-03a7-4946-8a07-a0114dff8754
+          name: ubuntu-s-1vcpu-1gb-nyc1-01
+          created_at: '2020-03-13T19:29:20Z'
+        links: {}
+        meta:
+          total: 4

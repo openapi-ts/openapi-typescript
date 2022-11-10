@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X PUT \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name":"firewall","inbound_rules":[{"protocol":"tcp","ports":"8080","sources":{"load_balancer_uids": ["4de7ac8b-495b-4884-9a69-1050c6793cd6"]}},{"protocol": "tcp","ports": "22","sources":{"tags": ["gateway"],"addresses": ["18.0.0.0/8"]}}],"outbound_rules":[{"protocol":"tcp","ports":"8080","destinations":{"addresses":["0.0.0.0/0","::/0"]}}],"droplet_ids":[8043964],"tags":["frontend"]}' \
+    "https://api.digitalocean.com/v2/firewalls/bb4b2611-3d72-467b-8602-280330ecd65c"

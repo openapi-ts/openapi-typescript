@@ -1,0 +1,22 @@
+allOf:
+- $ref: 'load_balancer_base.yml'
+
+- type: object
+  properties:
+    region:
+      type: object
+      allOf:
+        - description: >-
+            The region where the load balancer instance is located. When
+            setting a region, the value should be the slug identifier for the
+            region. When you query a load balancer, an entire region object will
+            be returned.
+        - $ref: '../../regions/models/region.yml'
+
+- type: object
+  properties:
+    $ref: 'attributes.yml#/load_balancer_droplet_ids'
+
+- type: object
+  properties:
+    $ref: 'attributes.yml#/load_balancer_droplet_tag'

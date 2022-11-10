@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"cluster_uuids": ["bd5f5959-5e1e-4205-a714-a914373942af", "50c2f44c-011d-493e-aee5-361a4a0d1844"]}' \
+    "https://api.digitalocean.com/v2/kubernetes/registry"

@@ -1,0 +1,54 @@
+description: The response body will be a JSON object with a key of
+  `repositories`. This will be set to an array containing objects each
+  representing a repository.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            repositories:
+              type: array
+              items:
+                $ref: '../models/repository_v2.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+      example:
+        repositories:
+        - registry_name: example
+          name: repo-1
+          tag_count: 57
+          manifest_count: 82
+          latest_manifest:
+            digest: sha256:cb8a924afdf0229ef7515d9e5b3024e23b3eb03ddbba287f4a19c6ac90b8d221
+            registry_name: example
+            repository: repo-1
+            compressed_size_bytes: 1972332
+            size_bytes: 2816445
+            updated_at: '2021-04-09T23:54:25Z'
+            tags:
+              - v1
+              - v2
+            blobs:
+              - digest: sha256:14119a10abf4669e8cdbdff324a9f9605d99697215a0d21c360fe8dfa8471bab
+                compressed_size_bytes: 1471
+              - digest: sha256:a0d0a0d46f8b52473982a3c466318f479767577551a53ffc9074c9fa7035982e
+                compressed_size_byte: 2814446
+              - digest: sha256:69704ef328d05a9f806b6b8502915e6a0a4faa4d72018dc42343f511490daf8a
+                compressed_size_bytes: 528
+        meta:
+          total: 5
+        links:
+          pages:
+            next: https://api.digitalocean.com/v2/registry/example/repositoriesV2?page=2&page_token=JPZmZzZXQiOjB9&per_page=1
+            last: https://api.digitalocean.com/v2/registry/example/repositoriesV2?page=5&per_page=1

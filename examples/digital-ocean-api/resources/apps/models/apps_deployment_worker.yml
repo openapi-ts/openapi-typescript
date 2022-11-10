@@ -1,0 +1,10 @@
+properties:
+  name:
+    title: The name of this worker
+    type: string
+    example: queue-runner
+  source_commit_hash:
+    title: The commit hash of the repository that was used to build this worker
+    type: string
+    example: 54d4a727f457231062439895000d45437c7bb405
+type: object

@@ -1,0 +1,24 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      updateRequest := &godo.KubernetesNodePoolUpdateRequest{
+              Name:  "frontend",
+              Count: 1,
+              Tags:  []string{"frontend"},
+          Labels:  map[string]string{"service": "frontend", "priority": "high"},
+          }
+
+      nodePool, _, err := client.Kubernetes.UpdateNodePool(ctx, "9b729d1c-730c-42e1-b136-59326fb1b3bb", "e7ed8f7c-6c1e-472f-adfb-4a9a1688b999", updateRequest)
+  }

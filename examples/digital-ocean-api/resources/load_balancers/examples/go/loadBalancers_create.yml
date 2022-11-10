@@ -1,0 +1,55 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      createRequest := &godo.LoadBalancerRequest{
+          Name:      "example-01",
+          SizeUnit: "1",
+          Algorithm: "round_robin",
+          Region:    "nyc3",
+          ForwardingRules: []godo.ForwardingRule{
+              {
+                  EntryProtocol:  "http",
+                  EntryPort:      80,
+                  TargetProtocol: "http",
+                  TargetPort:     80,
+              },
+              {
+                  EntryProtocol:  "https",
+                  EntryPort:      443,
+                  TargetProtocol: "https",
+                  TargetPort:     443,
+                  TlsPassthrough: true,
+              },
+          },
+          HealthCheck: &godo.HealthCheck{
+              Protocol:               "http",
+              Port:                   80,
+              Path:                   "/",
+              CheckIntervalSeconds:   10,
+              ResponseTimeoutSeconds: 5,
+              HealthyThreshold:       5,
+              UnhealthyThreshold:     3,
+          },
+          StickySessions: &godo.StickySessions{
+              Type: "none",
+          },
+          DropletIDs:          []int{3164444, 3164445},
+          RedirectHttpToHttps: false,
+    // Create new load balancer with Droplet tag
+    //     Tag:                 "web:prod",
+    //     RedirectHttpToHttps: false,
+      }
+
+      lb, _, err := client.LoadBalancers.Create(ctx, createRequest)

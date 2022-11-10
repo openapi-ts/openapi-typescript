@@ -1,0 +1,13 @@
+lang: cURL
+source: |-
+  # Get existing image by ID
+  curl -X GET \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/images/7555620"
+
+  # Get existing image by slug
+  curl -X GET \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/images/ubuntu-16-04-x64"

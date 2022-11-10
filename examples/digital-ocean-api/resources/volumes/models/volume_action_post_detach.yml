@@ -1,0 +1,10 @@
+type: object
+
+allOf:
+  - $ref: 'volume_action_post_base.yml'
+  - properties:
+      droplet_id:
+        $ref: 'attributes.yml#/volume_action_droplet_id'
+
+    required:
+      - droplet_id

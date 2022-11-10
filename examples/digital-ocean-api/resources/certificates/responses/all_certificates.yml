@@ -1,0 +1,28 @@
+description: The result will be a JSON object with a `certificates` key. This
+  will be set to an array of certificate objects, each of which will contain the
+  standard certificate attributes.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            certificates:
+              type: array
+              items:
+                $ref: '../models/certificate.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+    examples:
+      AllCertificates:
+        $ref: 'examples.yml#/certificates_all'

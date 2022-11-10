@@ -1,0 +1,39 @@
+description: >-
+  The response will be a JSON object with a key called `images`. 
+  This will be set to an array of image objects, each of which will contain the standard image attributes.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            images: 
+              type: array
+              items:
+                $ref: '../models/image.yml'
+          required:
+            - images
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+    examples:
+      All:
+        $ref: 'examples.yml#/images_all'
+      Snapshots:
+        $ref: 'examples.yml#/images_snapshots'
+      Distribution:
+        $ref: 'examples.yml#/images_distribution'
+      Custom: 
+        $ref: 'examples.yml#/images_custom'
+      Application: 
+        $ref: 'examples.yml#/images_application'
+      Tagged: 
+        $ref: 'examples.yml#/images_tagged'

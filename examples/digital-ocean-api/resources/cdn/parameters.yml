@@ -1,0 +1,10 @@
+cdn_endpoint_id:
+  in: path
+  name: cdn_id
+  description: A unique identifier for a CDN endpoint.
+  required: true
+  schema:
+    type: string
+    format: uuid
+    minimum: 1
+  example: 19f06b6a-3ace-4315-b086-499a0e521b76

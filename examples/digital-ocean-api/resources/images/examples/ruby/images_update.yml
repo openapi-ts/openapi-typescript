@@ -1,0 +1,8 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  image = DropletKit::Image.new(name: 'new-image-name')
+  client.images.update(image, id: 7938391)

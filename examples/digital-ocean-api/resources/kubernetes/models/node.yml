@@ -1,0 +1,47 @@
+type: object
+
+properties:
+  id:
+    type: string
+    format: uuid
+    example: e78247f8-b1bb-4f7a-8db9-2a5f8d4b8f8f
+    description: A unique ID that can be used to identify and reference the node.
+
+  name:
+    type: string
+    example: adoring-newton-3niq
+    description: An automatically generated, human-readable name for the node.
+
+  status:
+    type: object
+    description: An object containing a `state` attribute whose value is set
+      to a string indicating the current status of the node.
+    properties:
+      state:
+        type: string
+        enum:
+        - provisioning
+        - running
+        - draining
+        - deleting
+        example: provisioning
+        description: A string indicating the current status of the node.
+
+  droplet_id:
+    type: string
+    example: "205545370"
+    description: The ID of the Droplet used for the worker node.
+
+  created_at:
+    type: string
+    format: date-time
+    example: "2018-11-15T16:00:11Z"
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the node was created.
+
+  updated_at:
+    type: string
+    format: date-time
+    example: "2018-11-15T16:00:11Z"
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the node was last updated.

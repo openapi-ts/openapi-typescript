@@ -1,0 +1,12 @@
+type: object
+
+allOf:
+  - $ref: 'volume_action_post_base.yml'
+  - properties:
+      size_gigabytes:
+        type: integer
+        description: The new size of the block storage volume in GiB (1024^3).
+        maximum: 16384
+
+    required:
+      - size_gigabytes

@@ -1,0 +1,17 @@
+type: object
+
+properties:
+  database_name:
+    type: string
+    example: backend
+    description: The name of an existing database cluster from which the backup will be restored.
+  backup_created_at:
+    type: string
+    format: date-time
+    example: 2019-01-31T19:25:22Z
+    description: >-
+      The timestamp of an existing database cluster backup in ISO8601 combined date and time
+      format. The most recent backup will be used if excluded.
+
+required:
+  - database_name

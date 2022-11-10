@@ -1,0 +1,15 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      pat := "mytoken"
+
+      client := godo.NewFromToken(pat)
+      ctx := context.TODO()
+
+      pool, _, err := client.Databases.GetPool(ctx, "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30", "backend-pool")
+  }

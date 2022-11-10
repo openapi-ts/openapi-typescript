@@ -1,0 +1,38 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+  ruleRequest := &godo.FirewallRulesRequest{
+      InboundRules: []godo.InboundRule{
+          {
+              Protocol:      'tcp',
+              PortRange:     '3306',
+              Sources: &godo.Sources{
+                  DropletIDs: []int{49696269},
+              },
+          },
+      },
+      OutboundRules: []godo.OutboundRule{
+          {
+              Protocol:      'tcp',
+              PortRange:     '3306',
+              Destinations: &godo.Destinations{
+                  DropletIDs: []int{49696269},
+              },
+          },
+      },
+  }
+
+  _, err := c.Firewalls.AddRules(ctx, 'bb4b2611-3d72-467b-8602-280330ecd65c', ruleRequest)
+  }

@@ -1,0 +1,62 @@
+description: The results will be returned as a JSON object with an `actions`
+  key. This will be set to an array filled with action objects containing the
+  standard reserved IP action attributes.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            actions:
+              type: array
+              items:
+                $ref: '../../actions/models/action.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+      example:
+        actions:
+        - id: 72531856
+          status: completed
+          type: reserve_ip
+          started_at: '2015-11-21T21:51:09Z'
+          completed_at: '2015-11-21T21:51:09Z'
+          resource_id: 758604197
+          resource_type: reserved_ip
+          region:
+            name: New York 3
+            slug: nyc3
+            sizes:
+            - s-1vcpu-1gb
+            - s-1vcpu-2gb
+            - s-1vcpu-3gb
+            - s-2vcpu-2gb
+            - s-3vcpu-1gb
+            - s-2vcpu-4gb
+            - s-4vcpu-8gb
+            - s-6vcpu-16gb
+            - s-8vcpu-32gb
+            - s-12vcpu-48gb
+            - s-16vcpu-64gb
+            - s-20vcpu-96gb
+            - s-24vcpu-128gb
+            - s-32vcpu-192gb
+            features:
+            - private_networking
+            - backups
+            - ipv6
+            - metadata
+            available: true
+          region_slug: nyc3
+        links: {}
+        meta:
+          total: 1

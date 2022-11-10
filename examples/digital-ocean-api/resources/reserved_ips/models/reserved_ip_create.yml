@@ -1,0 +1,25 @@
+oneOf:
+- title: Assign to Droplet
+  type: object
+  properties:
+    droplet_id:
+      type: integer
+      example: 2457247
+      description: The ID of the Droplet that the reserved IP will be assigned to.
+  required:
+  - droplet_id
+
+- title: Reserve to Region
+  type: object
+  properties:
+    region:
+      type: string
+      example: nyc3
+      description: The slug identifier for the region the reserved IP will be reserved to.
+    project_id:
+      type: string
+      format: uuid
+      example: 746c6152-2fa2-11ed-92d3-27aaa54e4988
+      description: The UUID of the project to which the reserved IP will be assigned.
+  required:
+  - region

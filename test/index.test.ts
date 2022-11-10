@@ -451,37 +451,34 @@ export type operations = Record<string, never>;
   // note: this tests the Node API; the snapshots in cli.test.ts test the CLI
   describe("snapshots", () => {
     const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
-    const FIXTURES_DIR = new URL("./fixtures/", import.meta.url);
 
     describe("GitHub", () => {
       test("default options", async () => {
-        const generated = await openapiTS(new URL("./github-api.yaml", FIXTURES_DIR));
+        const generated = await openapiTS(new URL("./github-api.yaml", EXAMPLES_DIR));
         expect(generated).toBe(fs.readFileSync(new URL("./github-api.ts", EXAMPLES_DIR), "utf8"));
       }, 30000);
     });
     describe("GitHub (next)", () => {
       test("default options", async () => {
-        const generated = await openapiTS(new URL("./github-api-next.yaml", FIXTURES_DIR));
+        const generated = await openapiTS(new URL("./github-api-next.yaml", EXAMPLES_DIR));
         expect(generated).toBe(fs.readFileSync(new URL("./github-api-next.ts", EXAMPLES_DIR), "utf8"));
       }, 30000);
     });
     describe("Octokit GHES 3.6 Diff to API", () => {
       test("default options", async () => {
-        const generated = await openapiTS(new URL("./octokit-ghes-3.6-diff-to-api.yaml", FIXTURES_DIR));
+        const generated = await openapiTS(new URL("./octokit-ghes-3.6-diff-to-api.yaml", EXAMPLES_DIR));
         expect(generated).toBe(fs.readFileSync(new URL("./octokit-ghes-3.6-diff-to-api.ts", EXAMPLES_DIR), "utf8"));
       }, 30000);
     });
     describe("Stripe", () => {
       test("default options", async () => {
-        const generated = await openapiTS(new URL("./stripe-api.yaml", FIXTURES_DIR));
+        const generated = await openapiTS(new URL("./stripe-api.yaml", EXAMPLES_DIR));
         expect(generated).toBe(fs.readFileSync(new URL("./stripe-api.ts", EXAMPLES_DIR), "utf8"));
       }, 30000);
     });
     describe("DigitalOcean", () => {
       test("default options", async () => {
-        const generated = await openapiTS(
-          new URL("./digital-ocean-api/specification/DigitalOcean-public.v2.yaml", FIXTURES_DIR)
-        );
+        const generated = await openapiTS(new URL("./digital-ocean-api/DigitalOcean-public.v2.yaml", EXAMPLES_DIR));
         expect(generated).toBe(fs.readFileSync(new URL("./digital-ocean-api.ts", EXAMPLES_DIR), "utf8"));
       }, 60000);
     });

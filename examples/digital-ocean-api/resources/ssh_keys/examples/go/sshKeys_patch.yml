@@ -1,0 +1,21 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      updateRequest := &godo.KeyUpdateRequest{
+          Name:      "Renamed SSH Key",
+      }
+
+      key, _, err := client.Keys.UpdateByID(ctx, 512190, updateRequest)
+  }

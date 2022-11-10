@@ -15,18 +15,18 @@ export const singleFile = {
 };
 export const multiFile = {
   "digital-ocean-api": {
-    repo: "https://github.com/digitalocean/openapi",
-    entry: "./specification/DigitalOcean-public.v2.yaml",
+    repo: "https://github.com/digitalocean/openapi/specification",
+    entry: "./DigitalOcean-public.v2.yaml",
   },
 };
 
 const ONE_DAY = 1000 * 60 * 60 * 24;
-const FIXTURES_DIR = new URL("../test/fixtures/", import.meta.url);
+const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
 
 export async function download() {
   await Promise.all([
     ...Object.entries(singleFile).map(async ([k, url]) => {
-      const dest = new URL(`${k}.yaml`, FIXTURES_DIR);
+      const dest = new URL(`${k}.yaml`, EXAMPLES_DIR);
       if (fs.existsSync(dest)) {
         const { mtime } = fs.statSync(dest);
         if (Date.now() - mtime.getTime() < ONE_DAY) return; // only update every 24 hours at most
@@ -40,7 +40,7 @@ export async function download() {
       fs.writeFileSync(dest, await result.text());
     }),
     ...Object.entries(multiFile).map(async ([k, meta]) => {
-      const dest = new URL(k, FIXTURES_DIR);
+      const dest = new URL(k, EXAMPLES_DIR);
       if (fs.existsSync(dest)) {
         const { mtime } = fs.statSync(dest);
         if (Date.now() - mtime.getTime() < ONE_DAY) return; // only update every 24 hours at most
@@ -48,7 +48,7 @@ export async function download() {
       const emitter = degit(meta.repo, {
         force: true,
       });
-      await emitter.clone(fileURLToPath(new URL(k, FIXTURES_DIR)));
+      await emitter.clone(fileURLToPath(new URL(k, EXAMPLES_DIR)));
     }),
   ]);
 }

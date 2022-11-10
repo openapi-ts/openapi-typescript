@@ -1,0 +1,17 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      nodePool, _, err := client.Kubernetes.GetNodePool(ctx, "bd5f5959-5e1e-4205-a714-a914373942af", "cdda885e-7663-40c8-bc74-3a036c66545d")
+  }

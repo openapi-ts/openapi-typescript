@@ -1,0 +1,25 @@
+type: object
+
+properties:
+  month_to_date_balance:
+    type: string
+    description: >-
+      Balance as of the `generated_at` time. 
+      This value includes the `account_balance` and `month_to_date_usage`.
+    example: '23.44'
+  account_balance:
+    type: string
+    description: >-
+      Current balance of the customer's most recent billing activity. 
+      Does not reflect `month_to_date_usage`.
+    example: '12.23'
+  month_to_date_usage:
+    type: string
+    description: >-
+      Amount used in the current billing period as of the `generated_at` time.
+    example: '11.21'
+  generated_at:
+    type: string
+    format: date-time
+    description: The time at which balances were most recently generated.
+    example: 2019-07-09T15:01:12Z

@@ -1,0 +1,76 @@
+vpc:
+  type: object
+  allOf:
+  - $ref: '#/vpc_updatable'
+  - $ref: '#/vpc_create'
+  - $ref: '#/vpc_default'
+  - $ref: '#/vpc_base'
+
+vpc_base:
+  type: object
+  properties:
+    id:
+      type: string
+      format: uuid
+      readOnly: true
+      example: 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+      description: A unique ID that can be used to identify and reference the VPC.
+
+    urn:
+      $ref: '../../../shared/attributes/urn.yml'
+
+    created_at:
+      type: string
+      format: date-time
+      readOnly: true
+      example: "2020-03-13T19:20:47.442049222Z"
+      description: A time value given in ISO8601 combined date and time format.
+
+vpc_updatable:
+  type: object
+  properties:
+    name:
+      type: string
+      pattern: '^[a-zA-Z0-9\-\.]+$'
+      example: env.prod-vpc
+      description: The name of the VPC. Must be unique and may only contain
+        alphanumeric characters, dashes, and periods.
+
+    description:
+      type: string
+      maxLength: 255
+      example: VPC for production environment
+      description: A free-form text field for describing the VPC's purpose. It
+        may be a maximum of 255 characters.
+
+vpc_default:
+  type: object
+  properties:
+    default:
+      type: boolean
+      example: true
+      description: A boolean value indicating whether or not the VPC is the
+        default network for the region. All applicable resources are placed
+        into the default VPC network unless otherwise specified during their
+        creation. The `default` field cannot be unset from `true`. If you want
+        to set a new default VPC network, update the `default` field of another
+        VPC network in the same region. The previous network's `default` field
+        will be set to `false` when a new default VPC has been defined.
+
+vpc_create:
+  type: object
+  properties:
+    region:
+      type: string
+      example: nyc1
+      description: The slug identifier for the region where the VPC will be created.
+
+    ip_range:
+      type: string
+      example: 10.10.10.0/24
+      description: The range of IP addresses in the VPC in CIDR notation.
+        Network ranges cannot overlap with other networks in the same account
+          and must be in range of private addresses as defined in RFC1918. It
+          may not be smaller than `/28` nor larger than `/16`. If no IP range
+          is specified, a `/20` network range is generated that won't conflict
+          with other VPC networks in your account.

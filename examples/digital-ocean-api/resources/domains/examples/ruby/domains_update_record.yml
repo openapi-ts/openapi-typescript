@@ -1,0 +1,8 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  record = DropletKit::DomainRecord.new(name: 'blog')
+  client.domain_records.update(record, for_domain: 'example.com', id: 3352896)

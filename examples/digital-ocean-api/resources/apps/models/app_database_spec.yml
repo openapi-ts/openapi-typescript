@@ -1,0 +1,53 @@
+type: object
+properties:
+  cluster_name:
+    description: The name of the underlying DigitalOcean DBaaS cluster. This is required
+      for production databases. For dev databases, if cluster_name is not set, a new
+      cluster will be provisioned.
+    type: string
+    example: cluster_name
+
+  db_name:
+    description: The name of the MySQL or PostgreSQL database to configure.
+    type: string
+    example: my_db
+
+  db_user:
+    description: The name of the MySQL or PostgreSQL user to configure.
+    type: string
+    example: superuser
+
+  engine:
+    type: string
+    default: UNSET
+    enum:
+    - UNSET
+    - MYSQL
+    - PG
+    - REDIS
+    description: |-
+      - MYSQL: MySQL
+      - PG: PostgreSQL
+      - REDIS: Redis
+    example: PG
+
+  name:
+    description: The name. Must be unique across all components within the same app.
+    maxLength: 32
+    minLength: 2
+    pattern: ^[a-z][a-z0-9-]{0,30}[a-z0-9]$
+    type: string
+    example: prod-db
+
+  production:
+    description: Whether this is a production or dev database.
+    type: boolean
+    example: true
+
+  version:
+    description: The version of the database engine
+    type: string
+    example: "12"
+
+required:
+- name

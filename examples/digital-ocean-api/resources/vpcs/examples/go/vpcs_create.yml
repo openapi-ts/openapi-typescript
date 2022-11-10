@@ -1,0 +1,23 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      createRequest := &godo.VPCCreateRequest{
+       Name:       "my-new-vpc",
+       RegionSlug: "nyc1",
+       IPRange:    "10.10.10.0/24",
+      }
+
+      vpc, _, err := client.VPCs.Create(ctx, createRequest)
+  }

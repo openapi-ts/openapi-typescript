@@ -1,0 +1,15 @@
+lang: cURL
+source: |-
+  # Assign a Reserved IP to a Droplet
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"assign","droplet_id":8219222}' \
+    "https://api.digitalocean.com/v2/reserved_ips/45.55.96.47/actions"
+
+  # Unassign a Reserved IP
+  # curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"unassign"}' \
+    "https://api.digitalocean.com/v2/reserved_ips/45.55.96.47/actions"

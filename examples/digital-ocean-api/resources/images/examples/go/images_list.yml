@@ -1,0 +1,31 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      opt := &godo.ListOptions{
+          Page:    1,
+          PerPage: 200,
+      }
+
+      // List all images
+      images, _, err := client.Images.List(ctx, opt)
+
+      // List all application images
+      opt := &godo.ListOptions{
+          Page:    1,
+          PerPage: 200,
+      }
+
+      images, _, err := client.Images.ListApplication(ctx, opt) 
+  }

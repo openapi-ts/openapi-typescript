@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"size_gigabytes":10, "name": "example", "description": "Block store for examples", "region": "nyc1", "filesystem_type": "ext4", "filesystem_label": "example"}' \
+    "https://api.digitalocean.com/v2/volumes"

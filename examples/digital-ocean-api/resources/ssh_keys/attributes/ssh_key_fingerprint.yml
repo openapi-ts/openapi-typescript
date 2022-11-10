@@ -1,0 +1,10 @@
+type: string
+
+description: >-
+  A unique identifier that differentiates this key from other keys using 
+  a format that SSH recognizes. The fingerprint is created when the key
+  is added to your account.
+
+readOnly: true
+
+example: 3b:16:bf:e4:8b:00:8b:b8:59:8c:a9:d3:f0:19:45:fa

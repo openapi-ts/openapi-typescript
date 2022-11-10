@@ -1,0 +1,25 @@
+type: object
+properties:
+  exact:
+    type: string
+    description: Exact string match. Only 1 of `exact`, `prefix`, or
+      `regex` must be set.
+    maxLength: 256
+    minLength: 1
+    example: https://www.example.com
+
+  prefix:
+    type: string
+    description: Prefix-based match. Only 1 of `exact`, `prefix`, or
+      `regex` must be set.
+    maxLength: 256
+    minLength: 1
+    example: https://www.example.com
+
+  regex:
+    type: string
+    maxLength: 256
+    minLength: 1
+    description: 'RE2 style regex-based match. Only 1 of `exact`, `prefix`, or `regex` must
+      be set. For more information about RE2 syntax, see: https://github.com/google/re2/wiki/Syntax'
+    example: ^.*example.com

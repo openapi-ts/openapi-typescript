@@ -1,0 +1,5 @@
+lang: cURL
+source: |-
+  curl -X DELETE -H "X-Dangerous: true" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/droplets/187000742/destroy_with_associated_resources/dangerous"

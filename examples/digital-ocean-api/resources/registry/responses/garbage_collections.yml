@@ -1,0 +1,33 @@
+description: The response will be a JSON object with a key of `garbage_collections`.
+  This will be set to an array containing objects representing each past garbage
+  collection. Each will contain the standard Garbage Collection attributes.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        garbage_collections:
+          type: array
+          items:
+            $ref: '../models/garbage_collection.yml'
+
+    example:
+      garbage_collections:
+      - uuid: eff0feee-49c7-4e8f-ba5c-a320c109c8a8
+        registry_name: example
+        status: requested
+        created_at: '2020-10-30T21:03:24.000Z'
+        updated_at: '2020-10-30T21:03:44.000Z'
+        blobs_deleted: 42
+        freed_bytes: 667
+      meta:
+        total: 1

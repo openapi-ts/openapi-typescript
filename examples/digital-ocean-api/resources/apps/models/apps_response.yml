@@ -1,0 +1,10 @@
+allOf:
+  - type: object
+    properties:
+      apps:
+        title: A list of apps
+        type: array
+        items:
+          $ref: app.yml
+  - $ref: ../../../shared/pages.yml#/pagination
+  - $ref: ../../../shared/meta.yml

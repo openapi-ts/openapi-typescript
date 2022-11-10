@@ -1,0 +1,126 @@
+lang: cURL
+source: |-
+  # Enable Backups
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"enable_backups"}' \
+    "https://api.digitalocean.com/v2/droplets/3164450/actions"
+
+  # Disable Backups
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"disable_backups"}' \
+    "https://api.digitalocean.com/v2/droplets/3164450/actions"
+
+  # Reboot a Droplet
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"reboot"}' \
+    "https://api.digitalocean.com/v2/droplets/3164450/actions"
+
+  # Power cycle a Droplet
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"power_cycle"}' \
+    "https://api.digitalocean.com/v2/droplets/3164450/actions"
+
+  # Shutdown and Droplet
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"shutdown"}' \
+    "https://api.digitalocean.com/v2/droplets/3067649/actions"
+
+  # Power off a Droplet
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"power_off"}' \
+    "https://api.digitalocean.com/v2/droplets/3164450/actions"
+
+  # Power on a Droplet
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"power_on"}' \
+    "https://api.digitalocean.com/v2/droplets/3164450/actions"
+
+  # Restore a Droplet
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"restore", "image": 12389723 }' \
+    "https://api.digitalocean.com/v2/droplets/3067649/actions"
+
+  # Password Reset a Droplet
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"password_reset"}' \
+    "https://api.digitalocean.com/v2/droplets/3164450/actions"
+
+  # Resize a Droplet
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"resize","size":"1gb"}' \
+    "https://api.digitalocean.com/v2/droplets/3164450/actions"
+
+  # Rebuild a Droplet
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"rebuild","image":"ubuntu-16-04-x64"}' \
+    "https://api.digitalocean.com/v2/droplets/3164450/actions"
+
+  # Rename a Droplet
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"rename","name":"nifty-new-name"}' \
+    "https://api.digitalocean.com/v2/droplets/3164450/actions"
+
+  # Change the Kernel
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"change_kernel","kernel":991}' \
+    "https://api.digitalocean.com/v2/droplets/3164450/actions"
+
+  # Enable IPv6
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"enable_ipv6"}' \
+    "https://api.digitalocean.com/v2/droplets/3164450/actions"
+
+  # Enable Private Networking
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"enable_private_networking"}' \
+    "https://api.digitalocean.com/v2/droplets/3164450/actions"
+
+  # Snapshot a Droplet
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"snapshot","name":"Nifty New Snapshot"}' \
+    "https://api.digitalocean.com/v2/droplets/3164450/actions"
+
+  # Acting on Tagged Droplets
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"enable_backups"}' \
+    "https://api.digitalocean.com/v2/droplets/actions?tag_name=awesome"
+
+  # Retrieve a Droplet Action
+  curl -X GET \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/droplets/3164444/actions/36804807"

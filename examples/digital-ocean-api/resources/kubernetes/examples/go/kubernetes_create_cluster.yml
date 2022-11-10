@@ -1,0 +1,38 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      createRequest := &godo.KubernetesClusterCreateRequest{
+          Name:        "prod-cluster-01",
+          RegionSlug:  "nyc1",
+          VersionSlug: "1.14.1-do.4",
+          Tags:        []string{"production", "web-team"},
+          NodePools: []*godo.KubernetesNodePoolCreateRequest{
+              &godo.KubernetesNodePoolCreateRequest{
+                  Name:  "frontend-pool",
+                  Size:  "s-2vcpu-2gb",
+                  Count: 3,
+                  Tags:  []string{"frontend"},
+                  Labels:  map[string]string{"service": "frontend", "priority": "high"},
+              },
+              &godo.KubernetesNodePoolCreateRequest{
+                  Name:  "backend-pool",
+                  Size:  "c-4",
+                  Count: 2,
+              },
+          },
+      }
+
+      cluster, _, err := client.Kubernetes.Create(ctx, createRequest)
+  }

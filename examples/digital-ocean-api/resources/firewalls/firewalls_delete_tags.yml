@@ -1,0 +1,68 @@
+operationId: firewalls_delete_tags
+
+summary: Remove Tags from a Firewall
+
+description: |
+  To remove a tag representing a group of Droplets from a firewall, send a
+  DELETE request to `/v2/firewalls/$FIREWALL_ID/tags`. In the body of the
+  request, there should be a `tags` attribute containing a list of tag names.
+
+  No response body will be sent back, but the response code will indicate
+  success. Specifically, the response code will be a 204, which means that the
+  action was successful with no returned body data.
+
+tags:
+  - Firewalls
+
+parameters:
+  - $ref: 'parameters.yml#/firewall_id'
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        properties:
+          tags:
+            allOf:
+              - $ref: '../../shared/attributes/tags_array.yml'
+              - description: >-
+                  An array containing the names of the Tags to be removed from
+                  the firewall.
+
+        required:
+          - tags
+
+      example:
+        tags:
+          - frontend
+
+responses:
+  '204':
+    $ref: '../../shared/responses/no_content.yml'
+
+  '400':
+    $ref: '../../shared/responses/bad_request.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/firewalls_delete_tags.yml'
+  - $ref: 'examples/go/firewalls_delete_tags.yml'
+  - $ref: 'examples/ruby/firewalls_delete_tags.yml'
+
+security:
+  - bearer_auth:
+    - 'write'

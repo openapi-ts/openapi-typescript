@@ -1,0 +1,10 @@
+firewall_id:
+  name: firewall_id
+  description: >-
+    A unique ID that can be used to identify and reference a firewall.
+  in: path
+  schema:
+    type: string
+    format: uuid
+  example: bb4b2611-3d72-467b-8602-280330ecd65c
+  required: true
