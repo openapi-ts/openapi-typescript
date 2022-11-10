@@ -7922,9 +7922,9 @@ export interface components {
      * Simple User 
      * @description A GitHub user.
      */
-    "nullable-simple-user": {
-      name?: string;
-      email?: string;
+    "nullable-simple-user": ({
+      name?: string | null;
+      email?: string | null;
       /** @example octocat */
       login: string;
       /** @example 1 */
@@ -7937,7 +7937,7 @@ export interface components {
        */
       avatar_url: string;
       /** @example 41d064eb2195891e12d0413f63227ea7 */
-      gravatar_id: string;
+      gravatar_id: string | null;
       /**
        * Format: uri 
        * @example https://api.github.com/users/octocat
@@ -7986,7 +7986,7 @@ export interface components {
       site_admin: boolean;
       /** @example "2020-07-09T00:17:55Z" */
       starred_at?: string;
-    } | null;
+    }) | null;
     /**
      * GitHub app 
      * @description GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
@@ -8011,7 +8011,7 @@ export interface components {
        */
       name: string;
       /** @example The description of the app. */
-      description: string;
+      description: string | null;
       /**
        * Format: uri 
        * @example https://example.com
@@ -8065,7 +8065,7 @@ export interface components {
       /** @example "1d4b2097ac622ba702d19de498f005747a8b21d3" */
       client_secret?: string;
       /** @example "6fba8f2fc8a7e8f2cca5577eddd82ca7586b3b6b" */
-      webhook_secret?: string;
+      webhook_secret?: string | null;
       /** @example "-----BEGIN RSA PRIVATE KEY-----\nMIIEogIBAAKCAQEArYxrNYD/iT5CZVpRJu4rBKmmze3PVmT/gCo2ATUvDvZTPTey\nxcGJ3vvrJXazKk06pN05TN29o98jrYz4cengG3YGsXPNEpKsIrEl8NhbnxapEnM9\nJCMRe0P5JcPsfZlX6hmiT7136GRWiGOUba2X9+HKh8QJVLG5rM007TBER9/z9mWm\nrJuNh+m5l320oBQY/Qq3A7wzdEfZw8qm/mIN0FCeoXH1L6B8xXWaAYBwhTEh6SSn\nZHlO1Xu1JWDmAvBCi0RO5aRSKM8q9QEkvvHP4yweAtK3N8+aAbZ7ovaDhyGz8r6r\nzhU1b8Uo0Z2ysf503WqzQgIajr7Fry7/kUwpgQIDAQABAoIBADwJp80Ko1xHPZDy\nfcCKBDfIuPvkmSW6KumbsLMaQv1aGdHDwwTGv3t0ixSay8CGlxMRtRDyZPib6SvQ\n6OH/lpfpbMdW2ErkksgtoIKBVrDilfrcAvrNZu7NxRNbhCSvN8q0s4ICecjbbVQh\nnueSdlA6vGXbW58BHMq68uRbHkP+k+mM9U0mDJ1HMch67wlg5GbayVRt63H7R2+r\nVxcna7B80J/lCEjIYZznawgiTvp3MSanTglqAYi+m1EcSsP14bJIB9vgaxS79kTu\noiSo93leJbBvuGo8QEiUqTwMw4tDksmkLsoqNKQ1q9P7LZ9DGcujtPy4EZsamSJT\ny8OJt0ECgYEA2lxOxJsQk2kI325JgKFjo92mQeUObIvPfSNWUIZQDTjniOI6Gv63\nGLWVFrZcvQBWjMEQraJA9xjPbblV8PtfO87MiJGLWCHFxmPz2dzoedN+2Coxom8m\nV95CLz8QUShuao6u/RYcvUaZEoYs5bHcTmy5sBK80JyEmafJPtCQVxMCgYEAy3ar\nZr3yv4xRPEPMat4rseswmuMooSaK3SKub19WFI5IAtB/e7qR1Rj9JhOGcZz+OQrl\nT78O2OFYlgOIkJPvRMrPpK5V9lslc7tz1FSh3BZMRGq5jSyD7ETSOQ0c8T2O/s7v\nbeEPbVbDe4mwvM24XByH0GnWveVxaDl51ABD65sCgYB3ZAspUkOA5egVCh8kNpnd\nSd6SnuQBE3ySRlT2WEnCwP9Ph6oPgn+oAfiPX4xbRqkL8q/k0BdHQ4h+zNwhk7+h\nWtPYRAP1Xxnc/F+jGjb+DVaIaKGU18MWPg7f+FI6nampl3Q0KvfxwX0GdNhtio8T\nTj1E+SnFwh56SRQuxSh2gwKBgHKjlIO5NtNSflsUYFM+hyQiPiqnHzddfhSG+/3o\nm5nNaSmczJesUYreH5San7/YEy2UxAugvP7aSY2MxB+iGsiJ9WD2kZzTUlDZJ7RV\nUzWsoqBR+eZfVJ2FUWWvy8TpSG6trh4dFxImNtKejCR1TREpSiTV3Zb1dmahK9GV\nrK9NAoGAbBxRLoC01xfxCTgt5BDiBcFVh4fp5yYKwavJPLzHSpuDOrrI9jDn1oKN\nonq5sDU1i391zfQvdrbX4Ova48BN+B7p63FocP/MK5tyyBoT8zQEk2+vWDOw7H/Z\nu5dTCPxTIsoIwUw1I+7yIxqJzLPFgR2gVBwY1ra/8iAqCj+zeBw=\n-----END RSA PRIVATE KEY-----\n" */
       pem?: string;
     };
@@ -8165,28 +8165,28 @@ export interface components {
        * @description The type of activity for the event that triggered the delivery. 
        * @example opened
        */
-      action: string;
+      action: string | null;
       /**
        * @description The id of the GitHub App installation associated with this event. 
        * @example 123
        */
-      installation_id: number;
+      installation_id: number | null;
       /**
        * @description The id of the repository associated with this event. 
        * @example 123
        */
-      repository_id: number;
+      repository_id: number | null;
     };
     /**
      * Scim Error 
      * @description Scim Error
      */
     "scim-error": {
-      message?: string;
-      documentation_url?: string;
-      detail?: string;
+      message?: string | null;
+      documentation_url?: string | null;
+      detail?: string | null;
       status?: number;
-      scimType?: string;
+      scimType?: string | null;
       schemas?: (string)[];
     };
     /**
@@ -8202,7 +8202,7 @@ export interface components {
           message?: string;
           code: string;
           index?: number;
-          value?: string | number | (string)[];
+          value?: (string | null) | (number | null) | ((string)[] | null);
         })[];
     };
     /**
@@ -8255,17 +8255,17 @@ export interface components {
        * @description The type of activity for the event that triggered the delivery. 
        * @example opened
        */
-      action: string;
+      action: string | null;
       /**
        * @description The id of the GitHub App installation associated with this event. 
        * @example 123
        */
-      installation_id: number;
+      installation_id: number | null;
       /**
        * @description The id of the repository associated with this event. 
        * @example 123
        */
-      repository_id: number;
+      repository_id: number | null;
       /**
        * @description The URL target of the delivery. 
        * @example https://www.example.com
@@ -8287,7 +8287,7 @@ export interface components {
           [key: string]: unknown | undefined;
         }) | null;
         /** @description The response payload received. */
-        payload: string;
+        payload: string | null;
       };
     };
     /**
@@ -8295,8 +8295,8 @@ export interface components {
      * @description A GitHub user.
      */
     "simple-user": {
-      name?: string;
-      email?: string;
+      name?: string | null;
+      email?: string | null;
       /** @example octocat */
       login: string;
       /** @example 1 */
@@ -8309,7 +8309,7 @@ export interface components {
        */
       avatar_url: string;
       /** @example 41d064eb2195891e12d0413f63227ea7 */
-      gravatar_id: string;
+      gravatar_id: string | null;
       /**
        * Format: uri 
        * @example https://api.github.com/users/octocat
@@ -8365,7 +8365,7 @@ export interface components {
      */
     enterprise: {
       /** @description A short description of the enterprise. */
-      description?: string;
+      description?: string | null;
       /**
        * Format: uri 
        * @example https://github.com/enterprises/octo-business
@@ -8375,7 +8375,7 @@ export interface components {
        * Format: uri 
        * @description The enterprise's website URL.
        */
-      website_url?: string;
+      website_url?: string | null;
       /**
        * @description Unique identifier of the enterprise 
        * @example 42
@@ -8397,12 +8397,12 @@ export interface components {
        * Format: date-time 
        * @example 2019-01-26T19:01:12Z
        */
-      created_at: string;
+      created_at: string | null;
       /**
        * Format: date-time 
        * @example 2019-01-26T19:14:43Z
        */
-      updated_at: string;
+      updated_at: string | null;
       /** Format: uri */
       avatar_url: string;
     };
@@ -8627,7 +8627,7 @@ export interface components {
       /** Format: date-time */
       updated_at: string;
       /** @example config.yaml */
-      single_file_name: string;
+      single_file_name: string | null;
       /** @example true */
       has_multiple_single_files?: boolean;
       /**
@@ -8641,15 +8641,15 @@ export interface components {
       app_slug: string;
       suspended_by: components["schemas"]["nullable-simple-user"];
       /** Format: date-time */
-      suspended_at: string;
+      suspended_at: string | null;
       /** @example "test_13f1e99741e3e004@d7e1eb0bc0a1ba12.com" */
-      contact_email?: string;
+      contact_email?: string | null;
     };
     /**
      * License Simple 
      * @description License Simple
      */
-    "nullable-license-simple": {
+    "nullable-license-simple": ({
       /** @example mit */
       key: string;
       /** @example MIT License */
@@ -8658,14 +8658,14 @@ export interface components {
        * Format: uri 
        * @example https://api.github.com/licenses/mit
        */
-      url: string;
+      url: string | null;
       /** @example MIT */
-      spdx_id: string;
+      spdx_id: string | null;
       /** @example MDc6TGljZW5zZW1pdA== */
       node_id: string;
       /** Format: uri */
       html_url?: string;
-    } | null;
+    }) | null;
     /**
      * Repository 
      * @description A repository on GitHub.
@@ -8707,7 +8707,7 @@ export interface components {
        */
       html_url: string;
       /** @example This your first repo! */
-      description: string;
+      description: string | null;
       fork: boolean;
       /**
        * Format: uri 
@@ -8830,7 +8830,7 @@ export interface components {
        * Format: uri 
        * @example git:git.example.com/octocat/Hello-World
        */
-      mirror_url: string;
+      mirror_url: string | null;
       /**
        * Format: uri 
        * @example http://api.github.com/repos/octocat/Hello-World/hooks
@@ -8845,8 +8845,8 @@ export interface components {
        * Format: uri 
        * @example https://github.com
        */
-      homepage: string;
-      language: string;
+      homepage: string | null;
+      language: string | null;
       /** @example 9 */
       forks_count: number;
       /** @example 80 */
@@ -8919,17 +8919,17 @@ export interface components {
        * Format: date-time 
        * @example 2011-01-26T19:06:43Z
        */
-      pushed_at: string;
+      pushed_at: string | null;
       /**
        * Format: date-time 
        * @example 2011-01-26T19:01:12Z
        */
-      created_at: string;
+      created_at: string | null;
       /**
        * Format: date-time 
        * @example 2011-01-26T19:14:43Z
        */
-      updated_at: string;
+      updated_at: string | null;
       /**
        * @description Whether to allow rebase merges for pull requests. 
        * @default true 
@@ -9200,7 +9200,7 @@ export interface components {
        */
       repository_selection: "all" | "selected";
       /** @example config.yaml */
-      single_file_name: string;
+      single_file_name: string | null;
       /** @example true */
       has_multiple_single_files?: boolean;
       /**
@@ -9226,28 +9226,28 @@ export interface components {
       /** Format: uri */
       url: string;
       /** @description A list of scopes that this authorization is in. */
-      scopes: (string)[];
+      scopes: (string)[] | null;
       token: string;
-      token_last_eight: string;
-      hashed_token: string;
+      token_last_eight: string | null;
+      hashed_token: string | null;
       app: {
         client_id: string;
         name: string;
         /** Format: uri */
         url: string;
       };
-      note: string;
+      note: string | null;
       /** Format: uri */
-      note_url: string;
+      note_url: string | null;
       /** Format: date-time */
       updated_at: string;
       /** Format: date-time */
       created_at: string;
-      fingerprint: string;
+      fingerprint: string | null;
       user?: components["schemas"]["nullable-simple-user"];
       installation?: components["schemas"]["nullable-scoped-installation"];
       /** Format: date-time */
-      expires_at: string;
+      expires_at: string | null;
     };
     /**
      * Code Of Conduct 
@@ -9315,7 +9315,7 @@ export interface components {
        */
       body?: string;
       /** Format: uri */
-      html_url: string;
+      html_url: string | null;
     };
     /**
      * Server Statistics Proxy Endpoint 
@@ -9453,7 +9453,7 @@ export interface components {
       /** @example https://github.com/images/error/octocat_happy.gif */
       avatar_url: string;
       /** @example A great organization */
-      description: string;
+      description: string | null;
     };
     "selected-actions": {
       /** @description Whether GitHub-owned actions are allowed. For example, this includes the actions in the `actions` organization. */
@@ -9581,7 +9581,7 @@ export interface components {
       /** @description The repositories this token has access to */
       repositories?: (components["schemas"]["repository"])[];
       /** @example config.yaml */
-      single_file?: string;
+      single_file?: string | null;
       /**
        * @description Describe whether all repositories have been selected or there's a selection involved 
        * @enum {string}
@@ -9591,7 +9591,7 @@ export interface components {
     /** @description The name of the tool used to generate the code scanning analysis. */
     "code-scanning-analysis-tool-name": string;
     /** @description The GUID of the tool used to generate the code scanning analysis, if provided in the uploaded SARIF data. */
-    "code-scanning-analysis-tool-guid": string;
+    "code-scanning-analysis-tool-guid": string | null;
     /**
      * @description State of a code scanning alert. 
      * @enum {string}
@@ -9628,22 +9628,22 @@ export interface components {
      * Format: date-time 
      * @description The time that the alert was no longer detected and was considered fixed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
      */
-    readonly "alert-fixed-at": string;
+    readonly "alert-fixed-at": string | null;
     /**
      * Format: date-time 
      * @description The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
      */
-    readonly "alert-dismissed-at": string;
+    readonly "alert-dismissed-at": string | null;
     /**
      * @description **Required when the state is dismissed.** The reason for dismissing or closing the alert. 
      * @enum {string|null}
      */
     "code-scanning-alert-dismissed-reason": "" | "false positive" | "won't fix" | "used in tests" | null;
     /** @description The dismissal comment associated with the dismissal of the alert. */
-    "code-scanning-alert-dismissed-comment": string;
+    "code-scanning-alert-dismissed-comment": string | null;
     "code-scanning-alert-rule": {
       /** @description A unique identifier for the rule used to detect the alert. */
-      id?: string;
+      id?: string | null;
       /** @description The name of the rule used to detect the alert. */
       name?: string;
       /**
@@ -9661,14 +9661,14 @@ export interface components {
       /** @description description of the rule used to detect the alert. */
       full_description?: string;
       /** @description A set of tags applicable for the rule. */
-      tags?: (string)[];
+      tags?: (string)[] | null;
       /** @description Detailed documentation for the rule as GitHub Flavored Markdown. */
-      help?: string;
+      help?: string | null;
       /** @description A link to the documentation for the rule used to detect the alert. */
-      help_uri?: string;
+      help_uri?: string | null;
     };
     /** @description The version of the tool used to generate the code scanning analysis. */
-    "code-scanning-analysis-tool-version": string;
+    "code-scanning-analysis-tool-version": string | null;
     "code-scanning-analysis-tool": {
       name?: components["schemas"]["code-scanning-analysis-tool-name"];
       version?: components["schemas"]["code-scanning-analysis-tool-version"];
@@ -9754,7 +9754,7 @@ export interface components {
        * @description The repository description. 
        * @example This your first repo!
        */
-      description: string;
+      description: string | null;
       /** @description Whether the repository is a fork. */
       fork: boolean;
       /**
@@ -10003,7 +10003,7 @@ export interface components {
       /** @description The unique GitHub Security Advisory ID assigned to the advisory. */
       readonly ghsa_id: string;
       /** @description The unique CVE ID assigned to the advisory. */
-      readonly cve_id: string;
+      readonly cve_id: string | null;
       /** @description A short, plain text summary of the advisory. */
       readonly summary: string;
       /** @description A long-form Markdown-supported description of the advisory. */
@@ -10020,7 +10020,7 @@ export interface components {
         /** @description The overall CVSS score of the advisory. */
         readonly score: number;
         /** @description The full CVSS vector string for the advisory. */
-        readonly vector_string: string;
+        readonly vector_string: string | null;
       };
       /** @description Details for the advisory pertaining to Common Weakness Enumeration. */
       readonly cwes: readonly ({
@@ -10061,7 +10061,7 @@ export interface components {
        * Format: date-time 
        * @description The time that the advisory was withdrawn in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
        */
-      readonly withdrawn_at: string;
+      readonly withdrawn_at: string | null;
     };
     /** @description A Dependabot alert. */
     "dependabot-alert-with-repository": {
@@ -10096,7 +10096,7 @@ export interface components {
        */
       dismissed_reason: "fix_started" | "inaccurate" | "no_bandwidth" | "not_used" | "tolerable_risk" | null;
       /** @description An optional comment associated with the alert's dismissal. */
-      dismissed_comment: string;
+      dismissed_comment: string | null;
       fixed_at: components["schemas"]["alert-fixed-at"];
       repository: components["schemas"]["simple-repository"];
     };
@@ -10104,7 +10104,7 @@ export interface components {
      * Format: date-time 
      * @description The time that the alert was last updated in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
      */
-    readonly "nullable-alert-updated-at": string;
+    readonly "nullable-alert-updated-at": string | null;
     /**
      * @description Sets the state of the secret scanning alert. You must provide `resolution` when you set the state to `resolved`. 
      * @enum {string}
@@ -10132,7 +10132,7 @@ export interface components {
        * Format: date-time 
        * @description The time that the alert was resolved in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
        */
-      resolved_at?: string;
+      resolved_at?: string | null;
       resolved_by?: components["schemas"]["nullable-simple-user"];
       /** @description The type of secret that secret scanning detected. */
       secret_type?: string;
@@ -10145,15 +10145,15 @@ export interface components {
       secret?: string;
       repository?: components["schemas"]["simple-repository"];
       /** @description Whether push protection was bypassed for the detected secret. */
-      push_protection_bypassed?: boolean;
+      push_protection_bypassed?: boolean | null;
       push_protection_bypassed_by?: components["schemas"]["nullable-simple-user"];
       /**
        * Format: date-time 
        * @description The time that push protection was bypassed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
        */
-      push_protection_bypassed_at?: string;
+      push_protection_bypassed_at?: string | null;
       /** @description The comment that was optionally added when this alert was closed */
-      resolution_comment?: string;
+      resolution_comment?: string | null;
     };
     "advanced-security-active-committers-user": {
       user_login: string;
@@ -10182,7 +10182,7 @@ export interface components {
       id: number;
       login: string;
       display_login?: string;
-      gravatar_id: string;
+      gravatar_id: string | null;
       /** Format: uri */
       url: string;
       /** Format: uri */
@@ -10230,7 +10230,7 @@ export interface components {
        */
       title: string;
       /** @example Tracking milestone for version 1.0 */
-      description: string;
+      description: string | null;
       creator: components["schemas"]["nullable-simple-user"];
       /** @example 4 */
       open_issues: number;
@@ -10250,12 +10250,12 @@ export interface components {
        * Format: date-time 
        * @example 2013-02-12T13:22:01Z
        */
-      closed_at: string;
+      closed_at: string | null;
       /**
        * Format: date-time 
        * @example 2012-10-09T23:39:01Z
        */
-      due_on: string;
+      due_on: string | null;
     }) | null;
     /**
      * GitHub app 
@@ -10281,7 +10281,7 @@ export interface components {
        */
       name: string;
       /** @example The description of the app. */
-      description: string;
+      description: string | null;
       /**
        * Format: uri 
        * @example https://example.com
@@ -10335,7 +10335,7 @@ export interface components {
       /** @example "1d4b2097ac622ba702d19de498f005747a8b21d3" */
       client_secret?: string;
       /** @example "6fba8f2fc8a7e8f2cca5577eddd82ca7586b3b6b" */
-      webhook_secret?: string;
+      webhook_secret?: string | null;
       /** @example "-----BEGIN RSA PRIVATE KEY-----\nMIIEogIBAAKCAQEArYxrNYD/iT5CZVpRJu4rBKmmze3PVmT/gCo2ATUvDvZTPTey\nxcGJ3vvrJXazKk06pN05TN29o98jrYz4cengG3YGsXPNEpKsIrEl8NhbnxapEnM9\nJCMRe0P5JcPsfZlX6hmiT7136GRWiGOUba2X9+HKh8QJVLG5rM007TBER9/z9mWm\nrJuNh+m5l320oBQY/Qq3A7wzdEfZw8qm/mIN0FCeoXH1L6B8xXWaAYBwhTEh6SSn\nZHlO1Xu1JWDmAvBCi0RO5aRSKM8q9QEkvvHP4yweAtK3N8+aAbZ7ovaDhyGz8r6r\nzhU1b8Uo0Z2ysf503WqzQgIajr7Fry7/kUwpgQIDAQABAoIBADwJp80Ko1xHPZDy\nfcCKBDfIuPvkmSW6KumbsLMaQv1aGdHDwwTGv3t0ixSay8CGlxMRtRDyZPib6SvQ\n6OH/lpfpbMdW2ErkksgtoIKBVrDilfrcAvrNZu7NxRNbhCSvN8q0s4ICecjbbVQh\nnueSdlA6vGXbW58BHMq68uRbHkP+k+mM9U0mDJ1HMch67wlg5GbayVRt63H7R2+r\nVxcna7B80J/lCEjIYZznawgiTvp3MSanTglqAYi+m1EcSsP14bJIB9vgaxS79kTu\noiSo93leJbBvuGo8QEiUqTwMw4tDksmkLsoqNKQ1q9P7LZ9DGcujtPy4EZsamSJT\ny8OJt0ECgYEA2lxOxJsQk2kI325JgKFjo92mQeUObIvPfSNWUIZQDTjniOI6Gv63\nGLWVFrZcvQBWjMEQraJA9xjPbblV8PtfO87MiJGLWCHFxmPz2dzoedN+2Coxom8m\nV95CLz8QUShuao6u/RYcvUaZEoYs5bHcTmy5sBK80JyEmafJPtCQVxMCgYEAy3ar\nZr3yv4xRPEPMat4rseswmuMooSaK3SKub19WFI5IAtB/e7qR1Rj9JhOGcZz+OQrl\nT78O2OFYlgOIkJPvRMrPpK5V9lslc7tz1FSh3BZMRGq5jSyD7ETSOQ0c8T2O/s7v\nbeEPbVbDe4mwvM24XByH0GnWveVxaDl51ABD65sCgYB3ZAspUkOA5egVCh8kNpnd\nSd6SnuQBE3ySRlT2WEnCwP9Ph6oPgn+oAfiPX4xbRqkL8q/k0BdHQ4h+zNwhk7+h\nWtPYRAP1Xxnc/F+jGjb+DVaIaKGU18MWPg7f+FI6nampl3Q0KvfxwX0GdNhtio8T\nTj1E+SnFwh56SRQuxSh2gwKBgHKjlIO5NtNSflsUYFM+hyQiPiqnHzddfhSG+/3o\nm5nNaSmczJesUYreH5San7/YEy2UxAugvP7aSY2MxB+iGsiJ9WD2kZzTUlDZJ7RV\nUzWsoqBR+eZfVJ2FUWWvy8TpSG6trh4dFxImNtKejCR1TREpSiTV3Zb1dmahK9GV\nrK9NAoGAbBxRLoC01xfxCTgt5BDiBcFVh4fp5yYKwavJPLzHSpuDOrrI9jDn1oKN\nonq5sDU1i391zfQvdrbX4Ova48BN+B7p63FocP/MK5tyyBoT8zQEk2+vWDOw7H/Z\nu5dTCPxTIsoIwUw1I+7yIxqJzLPFgR2gVBwY1ra/8iAqCj+zeBw=\n-----END RSA PRIVATE KEY-----\n" */
       pem?: string;
     }) | null;
@@ -10407,7 +10407,7 @@ export interface components {
        * @description Contents of the issue 
        * @example It looks like the new widget form is broken on Safari. When I try and create the widget, Safari crashes. This is reproducible on 10.8, but not 10.9. Maybe a browser bug?
        */
-      body?: string;
+      body?: string | null;
       user: components["schemas"]["nullable-simple-user"];
       /**
        * @description Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository 
@@ -10423,30 +10423,30 @@ export interface components {
           /** Format: uri */
           url?: string;
           name?: string;
-          description?: string;
-          color?: string;
+          description?: string | null;
+          color?: string | null;
           default?: boolean;
         }]>)[];
       assignee: components["schemas"]["nullable-simple-user"];
-      assignees?: (components["schemas"]["simple-user"])[];
+      assignees?: (components["schemas"]["simple-user"])[] | null;
       milestone: components["schemas"]["nullable-milestone"];
       locked: boolean;
-      active_lock_reason?: string;
+      active_lock_reason?: string | null;
       comments: number;
       pull_request?: {
         /** Format: date-time */
-        merged_at?: string;
+        merged_at?: string | null;
         /** Format: uri */
-        diff_url: string;
+        diff_url: string | null;
         /** Format: uri */
-        html_url: string;
+        html_url: string | null;
         /** Format: uri */
-        patch_url: string;
+        patch_url: string | null;
         /** Format: uri */
-        url: string;
+        url: string | null;
       };
       /** Format: date-time */
-      closed_at: string;
+      closed_at: string | null;
       /** Format: date-time */
       created_at: string;
       /** Format: date-time */
@@ -10511,7 +10511,7 @@ export interface components {
      */
     event: {
       id: string;
-      type: string;
+      type: string | null;
       actor: components["schemas"]["actor"];
       repo: {
         id: number;
@@ -10527,7 +10527,7 @@ export interface components {
         pages?: ({
             page_name?: string;
             title?: string;
-            summary?: string;
+            summary?: string | null;
             action?: string;
             sha?: string;
             html_url?: string;
@@ -10535,7 +10535,7 @@ export interface components {
       };
       public: boolean;
       /** Format: date-time */
-      created_at: string;
+      created_at: string | null;
     };
     /**
      * Link With Type 
@@ -10626,7 +10626,7 @@ export interface components {
       created_at: string;
       /** Format: date-time */
       updated_at: string;
-      description: string;
+      description: string | null;
       comments: number;
       user: components["schemas"]["nullable-simple-user"];
       /** Format: uri */
@@ -10646,7 +10646,7 @@ export interface components {
       node_id: string;
       /** Format: uri */
       avatar_url: string;
-      gravatar_id: string;
+      gravatar_id: string | null;
       /** Format: uri */
       url: string;
       /** Format: uri */
@@ -10667,15 +10667,15 @@ export interface components {
       received_events_url: string;
       type: string;
       site_admin: boolean;
-      name: string;
-      company: string;
-      blog: string;
-      location: string;
+      name: string | null;
+      company: string | null;
+      blog: string | null;
+      location: string | null;
       /** Format: email */
-      email: string;
-      hireable: boolean;
-      bio: string;
-      twitter_username?: string;
+      email: string | null;
+      hireable: boolean | null;
+      bio: string | null;
+      twitter_username?: string | null;
       public_repos: number;
       public_gists: number;
       followers: number;
@@ -10691,7 +10691,7 @@ export interface components {
         private_repos: number;
       };
       /** Format: date-time */
-      suspended_at?: string;
+      suspended_at?: string | null;
       /** @example 1 */
       private_gists?: number;
       /** @example 2 */
@@ -10735,9 +10735,9 @@ export interface components {
           created_at?: string;
           /** Format: date-time */
           updated_at?: string;
-        })[];
+        })[] | null;
       /** @deprecated */
-      history?: (components["schemas"]["gist-history"])[];
+      history?: (components["schemas"]["gist-history"])[] | null;
       /**
        * Gist 
        * @description Gist
@@ -10771,7 +10771,7 @@ export interface components {
         created_at: string;
         /** Format: date-time */
         updated_at: string;
-        description: string;
+        description: string | null;
         comments: number;
         user: components["schemas"]["nullable-simple-user"];
         /** Format: uri */
@@ -10803,9 +10803,9 @@ export interface components {
       public?: boolean;
       created_at?: string;
       updated_at?: string;
-      description?: string;
+      description?: string | null;
       comments?: number;
-      user?: string;
+      user?: string | null;
       comments_url?: string;
       owner?: components["schemas"]["simple-user"];
       truncated?: boolean;
@@ -10907,9 +10907,9 @@ export interface components {
        * Format: uri 
        * @example https://api.github.com/licenses/mit
        */
-      url: string;
+      url: string | null;
       /** @example MIT */
-      spdx_id: string;
+      spdx_id: string | null;
       /** @example MDc6TGljZW5zZW1pdA== */
       node_id: string;
       /** Format: uri */
@@ -10925,12 +10925,12 @@ export interface components {
       /** @example MIT License */
       name: string;
       /** @example MIT */
-      spdx_id: string;
+      spdx_id: string | null;
       /**
        * Format: uri 
        * @example https://api.github.com/licenses/mit
        */
-      url: string;
+      url: string | null;
       /** @example MDc6TGljZW5zZW1pdA== */
       node_id: string;
       /**
@@ -11024,7 +11024,7 @@ export interface components {
       price_model: string;
       /** @example true */
       has_free_trial: boolean;
-      unit_name: string;
+      unit_name: string | null;
       /** @example published */
       state: string;
       /**
@@ -11045,21 +11045,21 @@ export interface components {
       id: number;
       login: string;
       organization_billing_email?: string;
-      email?: string;
-      marketplace_pending_change?: {
+      email?: string | null;
+      marketplace_pending_change?: ({
         is_installed?: boolean;
         effective_date?: string;
-        unit_count?: number;
+        unit_count?: number | null;
         id?: number;
         plan?: components["schemas"]["marketplace-listing-plan"];
-      } | null;
+      }) | null;
       marketplace_purchase: {
         billing_cycle?: string;
-        next_billing_date?: string;
+        next_billing_date?: string | null;
         is_installed?: boolean;
-        unit_count?: number;
+        unit_count?: number | null;
         on_free_trial?: boolean;
-        free_trial_ends_on?: string;
+        free_trial_ends_on?: string | null;
         updated_at?: string;
         plan?: components["schemas"]["marketplace-listing-plan"];
       };
@@ -11165,7 +11165,7 @@ export interface components {
        */
       html_url: string;
       /** @example This your first repo! */
-      description: string;
+      description: string | null;
       fork: boolean;
       /**
        * Format: uri 
@@ -11281,15 +11281,15 @@ export interface components {
       /** @example http://api.github.com/repos/octocat/Hello-World/git/trees{/sha} */
       trees_url: string;
       clone_url?: string;
-      mirror_url?: string;
+      mirror_url?: string | null;
       /**
        * Format: uri 
        * @example http://api.github.com/repos/octocat/Hello-World/hooks
        */
       hooks_url: string;
       svn_url?: string;
-      homepage?: string;
-      language?: string;
+      homepage?: string | null;
+      language?: string | null;
       forks_count?: number;
       stargazers_count?: number;
       watchers_count?: number;
@@ -11312,17 +11312,17 @@ export interface components {
        * Format: date-time 
        * @example 2011-01-26T19:06:43Z
        */
-      pushed_at?: string;
+      pushed_at?: string | null;
       /**
        * Format: date-time 
        * @example 2011-01-26T19:01:12Z
        */
-      created_at?: string;
+      created_at?: string | null;
       /**
        * Format: date-time 
        * @example 2011-01-26T19:14:43Z
        */
-      updated_at?: string;
+      updated_at?: string | null;
       permissions?: {
         admin?: boolean;
         maintain?: boolean;
@@ -11370,7 +11370,7 @@ export interface components {
       reason: string;
       unread: boolean;
       updated_at: string;
-      last_read_at: string;
+      last_read_at: string | null;
       url: string;
       /** @example https://api.github.com/notifications/threads/2/subscription */
       subscription_url: string;
@@ -11383,12 +11383,12 @@ export interface components {
       /** @example true */
       subscribed: boolean;
       ignored: boolean;
-      reason: string;
+      reason: string | null;
       /**
        * Format: date-time 
        * @example 2012-10-06T21:34:12Z
        */
-      created_at: string;
+      created_at: string | null;
       /**
        * Format: uri 
        * @example https://api.github.com/notifications/threads/1/subscription
@@ -11415,7 +11415,7 @@ export interface components {
       /** @description The name of the custom role. */
       name: string;
       /** @description A short description about who this role is for or what permissions it grants. */
-      description?: string;
+      description?: string | null;
       /**
        * @description The system role from which this role inherits permissions. 
        * @enum {string}
@@ -11466,7 +11466,7 @@ export interface components {
       /** @example https://github.com/images/error/octocat_happy.gif */
       avatar_url: string;
       /** @example A great organization */
-      description: string;
+      description: string | null;
       /** @example github */
       name?: string;
       /** @example GitHub */
@@ -11484,7 +11484,7 @@ export interface components {
        */
       email?: string;
       /** @example github */
-      twitter_username?: string;
+      twitter_username?: string | null;
       /** @example true */
       is_verified?: boolean;
       /** @example true */
@@ -11516,16 +11516,16 @@ export interface components {
       /** @example 100 */
       owned_private_repos?: number;
       /** @example 81 */
-      private_gists?: number;
+      private_gists?: number | null;
       /** @example 10000 */
-      disk_usage?: number;
+      disk_usage?: number | null;
       /** @example 8 */
-      collaborators?: number;
+      collaborators?: number | null;
       /**
        * Format: email 
        * @example org@example.com
        */
-      billing_email?: string;
+      billing_email?: string | null;
       plan?: {
         name: string;
         space: number;
@@ -11533,11 +11533,11 @@ export interface components {
         filled_seats?: number;
         seats?: number;
       };
-      default_repository_permission?: string;
+      default_repository_permission?: string | null;
       /** @example true */
-      members_can_create_repositories?: boolean;
+      members_can_create_repositories?: boolean | null;
       /** @example true */
-      two_factor_requirement_enabled?: boolean;
+      two_factor_requirement_enabled?: boolean | null;
       /** @example all */
       members_allowed_repository_creation_type?: string;
       /** @example true */
@@ -11553,7 +11553,7 @@ export interface components {
       /** @example true */
       members_can_create_private_pages?: boolean;
       /** @example false */
-      members_can_fork_private_repositories?: boolean;
+      members_can_fork_private_repositories?: boolean | null;
       /** @example false */
       web_commit_signoff_required?: boolean;
       /** Format: date-time */
@@ -11614,7 +11614,7 @@ export interface components {
        * @description An optional URL string to display to contributors who are blocked from pushing a secret. 
        * @example https://github.com/test-org/test-repo/blob/main/README.md
        */
-      secret_scanning_push_protection_custom_link?: string;
+      secret_scanning_push_protection_custom_link?: string | null;
     };
     /**
      * Actions Cache Usage by repository 
@@ -11785,12 +11785,12 @@ export interface components {
        * @description Display name for this codespace. 
        * @example bookish space pancake
        */
-      display_name?: string;
+      display_name?: string | null;
       /**
        * @description UUID identifying this codespace's environment. 
        * @example 26a7c758-7299-4a73-b978-5a92a7ae98a0
        */
-      environment_id: string;
+      environment_id: string | null;
       owner: components["schemas"]["simple-user"];
       billable_owner: components["schemas"]["simple-user"];
       repository: components["schemas"]["minimal-repository"];
@@ -11799,12 +11799,12 @@ export interface components {
        * @description Path to devcontainer.json from repo root used to create Codespace. 
        * @example .devcontainer/example/devcontainer.json
        */
-      devcontainer_path?: string;
+      devcontainer_path?: string | null;
       /**
        * @description Whether the codespace was created from a prebuild. 
        * @example false
        */
-      prebuild: boolean;
+      prebuild: boolean | null;
       /**
        * Format: date-time 
        * @example 2011-01-26T19:01:12Z
@@ -11864,7 +11864,7 @@ export interface components {
        * @description The number of minutes of inactivity after which this codespace will be automatically stopped. 
        * @example 60
        */
-      idle_timeout_minutes: number;
+      idle_timeout_minutes: number | null;
       /**
        * Format: uri 
        * @description URL to access this codespace on the web.
@@ -11889,34 +11889,34 @@ export interface components {
        * Format: uri 
        * @description API URL for the Pull Request associated with this codespace, if any.
        */
-      pulls_url: string;
+      pulls_url: string | null;
       recent_folders: (string)[];
       runtime_constraints?: {
         /** @description The privacy settings a user can select from when forwarding a port. */
-        allowed_port_privacy_settings?: (string)[];
+        allowed_port_privacy_settings?: (string)[] | null;
       };
       /** @description Whether or not a codespace has a pending async operation. This would mean that the codespace is temporarily unavailable. The only thing that you can do with a codespace in this state is delete it. */
-      pending_operation?: boolean;
+      pending_operation?: boolean | null;
       /** @description Text to show user when codespace is disabled by a pending operation */
-      pending_operation_disabled_reason?: string;
+      pending_operation_disabled_reason?: string | null;
       /** @description Text to show user when codespace idle timeout minutes has been overriden by an organization policy */
-      idle_timeout_notice?: string;
+      idle_timeout_notice?: string | null;
       /**
        * @description Duration in minutes after codespace has gone idle in which it will be deleted. Must be integer minutes between 0 and 43200 (30 days). 
        * @example 60
        */
-      retention_period_minutes?: number;
+      retention_period_minutes?: number | null;
       /**
        * Format: date-time 
        * @description When a codespace will be auto-deleted based on the "retention_period_minutes" and "last_used_at" 
        * @example 2011-01-26T20:01:12Z
        */
-      retention_expires_at?: string;
+      retention_expires_at?: string | null;
       /**
        * @description The text to display to a user when a codespace has been stopped for a potentially actionable reason. 
        * @example you've used 100% of your spending limit for Codespaces
        */
-      last_known_stop_notice?: string;
+      last_known_stop_notice?: string | null;
     };
     /**
      * Codespaces Secret 
@@ -12021,12 +12021,12 @@ export interface components {
      */
     "organization-invitation": {
       id: number;
-      login: string;
-      email: string;
+      login: string | null;
+      email: string | null;
       role: string;
       created_at: string;
-      failed_at?: string;
-      failed_reason?: string;
+      failed_at?: string | null;
+      failed_reason?: string | null;
       inviter: components["schemas"]["simple-user"];
       team_count: number;
       /** @example "MDIyOk9yZ2FuaXphdGlvbkludml0YXRpb24x" */
@@ -12135,7 +12135,7 @@ export interface components {
      * Team Simple 
      * @description Groups of organization members that gives permissions on specified repositories.
      */
-    "nullable-team-simple": {
+    "nullable-team-simple": ({
       /**
        * @description Unique identifier of the team 
        * @example 1
@@ -12160,7 +12160,7 @@ export interface components {
        * @description Description of the team 
        * @example A great team.
        */
-      description: string;
+      description: string | null;
       /**
        * @description Permission that the team will have for its repositories 
        * @example admin
@@ -12188,7 +12188,7 @@ export interface components {
        * @example uid=example,ou=users,dc=github,dc=com
        */
       ldap_dn?: string;
-    } | null;
+    }) | null;
     /**
      * Team 
      * @description Groups of organization members that gives permissions on specified repositories.
@@ -12198,7 +12198,7 @@ export interface components {
       node_id: string;
       name: string;
       slug: string;
-      description: string;
+      description: string | null;
       privacy?: string;
       permission: string;
       permissions?: {
@@ -12315,7 +12315,7 @@ export interface components {
        */
       html_url: string;
       /** @example This your first repo! */
-      description: string;
+      description: string | null;
       fork: boolean;
       /**
        * Format: uri 
@@ -12431,15 +12431,15 @@ export interface components {
       /** @example http://api.github.com/repos/octocat/Hello-World/git/trees{/sha} */
       trees_url: string;
       clone_url?: string;
-      mirror_url?: string;
+      mirror_url?: string | null;
       /**
        * Format: uri 
        * @example http://api.github.com/repos/octocat/Hello-World/hooks
        */
       hooks_url: string;
       svn_url?: string;
-      homepage?: string;
-      language?: string;
+      homepage?: string | null;
+      language?: string | null;
       forks_count?: number;
       stargazers_count?: number;
       watchers_count?: number;
@@ -12462,17 +12462,17 @@ export interface components {
        * Format: date-time 
        * @example 2011-01-26T19:06:43Z
        */
-      pushed_at?: string;
+      pushed_at?: string | null;
       /**
        * Format: date-time 
        * @example 2011-01-26T19:01:12Z
        */
-      created_at?: string;
+      created_at?: string | null;
       /**
        * Format: date-time 
        * @example 2011-01-26T19:14:43Z
        */
-      updated_at?: string;
+      updated_at?: string | null;
       permissions?: {
         admin?: boolean;
         maintain?: boolean;
@@ -12639,7 +12639,7 @@ export interface components {
        * @description Body of the project 
        * @example This project represents the sprint of the first week in January
        */
-      body: string;
+      body: string | null;
       /** @example 1 */
       number: number;
       /**
@@ -12695,7 +12695,7 @@ export interface components {
        * @description Description of the team 
        * @example A great team.
        */
-      description: string;
+      description: string | null;
       /**
        * @description Permission that the team will have for its repositories 
        * @example admin
@@ -12815,7 +12815,7 @@ export interface components {
       /** @example https://github.com/images/error/octocat_happy.gif */
       avatar_url: string;
       /** @example A great organization */
-      description: string;
+      description: string | null;
       /** @example github */
       name?: string;
       /** @example GitHub */
@@ -12833,7 +12833,7 @@ export interface components {
        */
       email?: string;
       /** @example github */
-      twitter_username?: string;
+      twitter_username?: string | null;
       /** @example true */
       is_verified?: boolean;
       /** @example true */
@@ -12865,16 +12865,16 @@ export interface components {
       /** @example 100 */
       owned_private_repos?: number;
       /** @example 81 */
-      private_gists?: number;
+      private_gists?: number | null;
       /** @example 10000 */
-      disk_usage?: number;
+      disk_usage?: number | null;
       /** @example 8 */
-      collaborators?: number;
+      collaborators?: number | null;
       /**
        * Format: email 
        * @example org@example.com
        */
-      billing_email?: string;
+      billing_email?: string | null;
       plan?: {
         name: string;
         space: number;
@@ -12882,11 +12882,11 @@ export interface components {
         filled_seats?: number;
         seats?: number;
       };
-      default_repository_permission?: string;
+      default_repository_permission?: string | null;
       /** @example true */
-      members_can_create_repositories?: boolean;
+      members_can_create_repositories?: boolean | null;
       /** @example true */
-      two_factor_requirement_enabled?: boolean;
+      two_factor_requirement_enabled?: boolean | null;
       /** @example all */
       members_allowed_repository_creation_type?: string;
       /** @example true */
@@ -12902,7 +12902,7 @@ export interface components {
       /** @example true */
       members_can_create_private_pages?: boolean;
       /** @example false */
-      members_can_fork_private_repositories?: boolean;
+      members_can_fork_private_repositories?: boolean | null;
       /** @example false */
       web_commit_signoff_required?: boolean;
       /** Format: date-time */
@@ -12939,7 +12939,7 @@ export interface components {
       /** @example justice-league */
       slug: string;
       /** @example A great team. */
-      description: string;
+      description: string | null;
       /**
        * @description The level of privacy this team should have 
        * @example closed 
@@ -13011,7 +13011,7 @@ export interface components {
        */
       created_at: string;
       /** Format: date-time */
-      last_edited_at: string;
+      last_edited_at: string | null;
       /**
        * Format: uri 
        * @example https://github.com/orgs/github/teams/justice-league/discussions/1
@@ -13080,7 +13080,7 @@ export interface components {
        */
       created_at: string;
       /** Format: date-time */
-      last_edited_at: string;
+      last_edited_at: string | null;
       /**
        * Format: uri 
        * @example https://api.github.com/organizations/1/team/2403582/discussions/1
@@ -13164,7 +13164,7 @@ export interface components {
       id: number;
       node_id: string;
       name: string;
-      body: string;
+      body: string | null;
       number: number;
       state: string;
       creator: components["schemas"]["simple-user"];
@@ -13221,7 +13221,7 @@ export interface components {
        */
       html_url: string;
       /** @example This your first repo! */
-      description: string;
+      description: string | null;
       fork: boolean;
       /**
        * Format: uri 
@@ -13344,7 +13344,7 @@ export interface components {
        * Format: uri 
        * @example git:git.example.com/octocat/Hello-World
        */
-      mirror_url: string;
+      mirror_url: string | null;
       /**
        * Format: uri 
        * @example http://api.github.com/repos/octocat/Hello-World/hooks
@@ -13359,8 +13359,8 @@ export interface components {
        * Format: uri 
        * @example https://github.com
        */
-      homepage: string;
-      language: string;
+      homepage: string | null;
+      language: string | null;
       /** @example 9 */
       forks_count: number;
       /** @example 80 */
@@ -13433,17 +13433,17 @@ export interface components {
        * Format: date-time 
        * @example 2011-01-26T19:06:43Z
        */
-      pushed_at: string;
+      pushed_at: string | null;
       /**
        * Format: date-time 
        * @example 2011-01-26T19:01:12Z
        */
-      created_at: string;
+      created_at: string | null;
       /**
        * Format: date-time 
        * @example 2011-01-26T19:14:43Z
        */
-      updated_at: string;
+      updated_at: string | null;
       /**
        * @description Whether to allow rebase merges for pull requests. 
        * @default true 
@@ -13724,7 +13724,7 @@ export interface components {
        */
       html_url: string;
       /** @example This your first repo! */
-      description: string;
+      description: string | null;
       fork: boolean;
       /**
        * Format: uri 
@@ -13847,7 +13847,7 @@ export interface components {
        * Format: uri 
        * @example git:git.example.com/octocat/Hello-World
        */
-      mirror_url: string;
+      mirror_url: string | null;
       /**
        * Format: uri 
        * @example http://api.github.com/repos/octocat/Hello-World/hooks
@@ -13862,8 +13862,8 @@ export interface components {
        * Format: uri 
        * @example https://github.com
        */
-      homepage: string;
-      language: string;
+      homepage: string | null;
+      language: string | null;
       /** @example 9 */
       forks_count: number;
       /** @example 80 */
@@ -13927,17 +13927,17 @@ export interface components {
        * Format: date-time 
        * @example 2011-01-26T19:06:43Z
        */
-      pushed_at: string;
+      pushed_at: string | null;
       /**
        * Format: date-time 
        * @example 2011-01-26T19:01:12Z
        */
-      created_at: string;
+      created_at: string | null;
       /**
        * Format: date-time 
        * @example 2011-01-26T19:14:43Z
        */
-      updated_at: string;
+      updated_at: string | null;
       /**
        * @description Whether to allow rebase merges for pull requests. 
        * @default true 
@@ -14006,7 +14006,7 @@ export interface components {
       /** @example MDExOlByb2plY3RDYXJkMTQ3OA== */
       node_id: string;
       /** @example Add payload for delete Project column */
-      note: string;
+      note: string | null;
       creator: components["schemas"]["nullable-simple-user"];
       /**
        * Format: date-time 
@@ -14135,7 +14135,7 @@ export interface components {
        * Format: uri 
        * @example https://github.com/github/docs/blob/main/CODE_OF_CONDUCT.md
        */
-      html_url: string;
+      html_url: string | null;
     };
     "security-and-analysis": ({
       advanced_security?: {
@@ -14172,7 +14172,7 @@ export interface components {
        */
       html_url: string;
       /** @example This your first repo! */
-      description: string;
+      description: string | null;
       fork: boolean;
       /**
        * Format: uri 
@@ -14295,7 +14295,7 @@ export interface components {
        * Format: uri 
        * @example git:git.example.com/octocat/Hello-World
        */
-      mirror_url: string;
+      mirror_url: string | null;
       /**
        * Format: uri 
        * @example http://api.github.com/repos/octocat/Hello-World/hooks
@@ -14310,8 +14310,8 @@ export interface components {
        * Format: uri 
        * @example https://github.com
        */
-      homepage: string;
-      language: string;
+      homepage: string | null;
+      language: string | null;
       /** @example 9 */
       forks_count: number;
       /** @example 80 */
@@ -14382,7 +14382,7 @@ export interface components {
       /** @example true */
       allow_rebase_merge?: boolean;
       template_repository?: components["schemas"]["nullable-repository"];
-      temp_clone_token?: string;
+      temp_clone_token?: string | null;
       /** @example true */
       allow_squash_merge?: boolean;
       /** @example false */
@@ -14483,11 +14483,11 @@ export interface components {
       /** @description Whether or not the artifact has expired. */
       expired: boolean;
       /** Format: date-time */
-      created_at: string;
+      created_at: string | null;
       /** Format: date-time */
-      expires_at: string;
+      expires_at: string | null;
       /** Format: date-time */
-      updated_at: string;
+      updated_at: string | null;
       workflow_run?: {
         /** @example 10 */
         id?: number;
@@ -14567,7 +14567,7 @@ export interface components {
       /** @example https://api.github.com/repos/github/hello-world/actions/jobs/21 */
       url: string;
       /** @example https://github.com/github/hello-world/runs/4 */
-      html_url: string;
+      html_url: string | null;
       /**
        * @description The phase of the lifecycle that the job is currently in. 
        * @example queued 
@@ -14591,7 +14591,7 @@ export interface components {
        * @description The time that the job finished, in ISO 8601 format. 
        * @example 2019-08-08T08:00:00-07:00
        */
-      completed_at: string;
+      completed_at: string | null;
       /**
        * @description The name of the job. 
        * @example test-coverage
@@ -14609,7 +14609,7 @@ export interface components {
            * @description The outcome of the job. 
            * @example success
            */
-          conclusion: string;
+          conclusion: string | null;
           /**
            * @description The name of the job. 
            * @example test-coverage
@@ -14622,13 +14622,13 @@ export interface components {
            * @description The time that the step started, in ISO 8601 format. 
            * @example 2019-08-08T08:00:00-07:00
            */
-          started_at?: string;
+          started_at?: string | null;
           /**
            * Format: date-time 
            * @description The time that the job finished, in ISO 8601 format. 
            * @example 2019-08-08T08:00:00-07:00
            */
-          completed_at?: string;
+          completed_at?: string | null;
         })[];
       /** @example https://api.github.com/repos/github/hello-world/check-runs/4 */
       check_run_url: string;
@@ -14645,22 +14645,22 @@ export interface components {
        * @description The ID of the runner to which this job has been assigned. (If a runner hasn't yet been assigned, this will be null.) 
        * @example 1
        */
-      runner_id: number;
+      runner_id: number | null;
       /**
        * @description The name of the runner to which this job has been assigned. (If a runner hasn't yet been assigned, this will be null.) 
        * @example my runner
        */
-      runner_name: string;
+      runner_name: string | null;
       /**
        * @description The ID of the runner group to which this job has been assigned. (If a runner hasn't yet been assigned, this will be null.) 
        * @example 2
        */
-      runner_group_id: number;
+      runner_group_id: number | null;
       /**
        * @description The name of the runner group to which this job has been assigned. (If a runner hasn't yet been assigned, this will be null.) 
        * @example my runner group
        */
-      runner_group_name: string;
+      runner_group_name: string | null;
     };
     /** @description Whether GitHub Actions is enabled on the repository. */
     "actions-enabled": boolean;
@@ -14743,7 +14743,7 @@ export interface components {
        * @description The name of the workflow run. 
        * @example Build
        */
-      name?: string;
+      name?: string | null;
       /** @example MDEwOkNoZWNrU3VpdGU1 */
       node_id: string;
       /**
@@ -14757,7 +14757,7 @@ export interface components {
        */
       check_suite_node_id?: string;
       /** @example master */
-      head_branch: string;
+      head_branch: string | null;
       /**
        * @description The SHA of the head commit that points to the version of the workflow being run. 
        * @example 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
@@ -14778,13 +14778,13 @@ export interface components {
        * @example 1
        */
       run_attempt?: number;
-      referenced_workflows?: (components["schemas"]["referenced-workflow"])[];
+      referenced_workflows?: (components["schemas"]["referenced-workflow"])[] | null;
       /** @example push */
       event: string;
       /** @example completed */
-      status: string;
+      status: string | null;
       /** @example neutral */
-      conclusion: string;
+      conclusion: string | null;
       /**
        * @description The ID of the parent workflow. 
        * @example 5
@@ -14797,7 +14797,7 @@ export interface components {
       url: string;
       /** @example https://github.com/github/hello-world/suites/4 */
       html_url: string;
-      pull_requests: (components["schemas"]["pull-request-minimal"])[];
+      pull_requests: (components["schemas"]["pull-request-minimal"])[] | null;
       /** Format: date-time */
       created_at: string;
       /** Format: date-time */
@@ -14843,7 +14843,7 @@ export interface components {
        * @description The URL to the previous attempted run of this workflow, if one exists. 
        * @example https://api.github.com/repos/github/hello-world/actions/runs/5/attempts/3
        */
-      previous_attempt_url?: string;
+      previous_attempt_url?: string | null;
       /**
        * @description The URL to the workflow. 
        * @example https://api.github.com/repos/github/hello-world/actions/workflows/main.yaml
@@ -14948,7 +14948,7 @@ export interface components {
        * @description The time that the wait timer began. 
        * @example 2020-11-23T22:00:40Z
        */
-      wait_timer_started_at: string;
+      wait_timer_started_at: string | null;
       /**
        * @description Whether the currently authenticated user can approve the deployment 
        * @example true
@@ -15000,7 +15000,7 @@ export interface components {
        */
       environment: string;
       /** @example Deploy request from hubot */
-      description: string;
+      description: string | null;
       creator: components["schemas"]["nullable-simple-user"];
       /**
        * Format: date-time 
@@ -15172,7 +15172,7 @@ export interface components {
       contexts: (string)[];
       checks: ({
           context: string;
-          app_id: number;
+          app_id: number | null;
         })[];
       contexts_url?: string;
       strict?: boolean;
@@ -15276,12 +15276,12 @@ export interface components {
           html_url?: string;
           name?: string;
           slug?: string;
-          description?: string;
+          description?: string | null;
           privacy?: string;
           permission?: string;
           members_url?: string;
           repositories_url?: string;
-          parent?: string;
+          parent?: string | null;
         })[];
       apps: ({
           id?: number;
@@ -15420,8 +15420,8 @@ export interface components {
     verification: {
       verified: boolean;
       reason: string;
-      payload: string;
-      signature: string;
+      payload: string | null;
+      signature: string | null;
     };
     /**
      * Diff Entry 
@@ -15575,7 +15575,7 @@ export interface components {
       checks: ({
           /** @example continuous-integration/travis-ci */
           context: string;
-          app_id: number;
+          app_id: number | null;
         })[];
       /**
        * Format: uri 
@@ -15690,7 +15690,7 @@ export interface components {
        */
       environment: string;
       /** @example Deploy request from hubot */
-      description: string;
+      description: string | null;
       /**
        * Format: date-time 
        * @example 2012-07-20T01:19:13Z
@@ -15741,13 +15741,13 @@ export interface components {
       /** @example MDg6Q2hlY2tSdW40 */
       node_id: string;
       /** @example 42 */
-      external_id: string;
+      external_id: string | null;
       /** @example https://api.github.com/repos/github/hello-world/check-runs/4 */
       url: string;
       /** @example https://github.com/github/hello-world/runs/4 */
-      html_url: string;
+      html_url: string | null;
       /** @example https://example.com */
-      details_url: string;
+      details_url: string | null;
       /**
        * @description The phase of the lifecycle that the check is currently in. 
        * @example queued 
@@ -15763,16 +15763,16 @@ export interface components {
        * Format: date-time 
        * @example 2018-05-04T01:14:52Z
        */
-      started_at: string;
+      started_at: string | null;
       /**
        * Format: date-time 
        * @example 2018-05-04T01:14:52Z
        */
-      completed_at: string;
+      completed_at: string | null;
       output: {
-        title: string;
-        summary: string;
-        text: string;
+        title: string | null;
+        summary: string | null;
+        text: string | null;
         annotations_count: number;
         /** Format: uri */
         annotations_url: string;
@@ -15801,17 +15801,17 @@ export interface components {
       /** @example 2 */
       end_line: number;
       /** @example 5 */
-      start_column: number;
+      start_column: number | null;
       /** @example 10 */
-      end_column: number;
+      end_column: number | null;
       /** @example warning */
-      annotation_level: string;
+      annotation_level: string | null;
       /** @example Spell Checker */
-      title: string;
+      title: string | null;
       /** @example Check your spelling for 'banaas'. */
-      message: string;
+      message: string | null;
       /** @example Do you mean 'bananas' or 'banana'? */
-      raw_details: string;
+      raw_details: string | null;
       blob_href: string;
     };
     /**
@@ -15843,7 +15843,7 @@ export interface components {
       /** @example MDEwOkNoZWNrU3VpdGU1 */
       node_id: string;
       /** @example master */
-      head_branch: string;
+      head_branch: string | null;
       /**
        * @description The SHA of the head commit that is being checked. 
        * @example 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
@@ -15860,18 +15860,18 @@ export interface components {
        */
       conclusion: "success" | "failure" | "neutral" | "cancelled" | "skipped" | "timed_out" | "action_required" | "startup_failure" | "stale" | "" | null;
       /** @example https://api.github.com/repos/github/hello-world/check-suites/5 */
-      url: string;
+      url: string | null;
       /** @example 146e867f55c26428e5f9fade55a9bbf5e95a7912 */
-      before: string;
+      before: string | null;
       /** @example d6fde92930d4715a2b49857d24b940956b26d2d3 */
-      after: string;
-      pull_requests: (components["schemas"]["pull-request-minimal"])[];
+      after: string | null;
+      pull_requests: (components["schemas"]["pull-request-minimal"])[] | null;
       app: components["schemas"]["nullable-integration"];
       repository: components["schemas"]["minimal-repository"];
       /** Format: date-time */
-      created_at: string;
+      created_at: string | null;
       /** Format: date-time */
-      updated_at: string;
+      updated_at: string | null;
       head_commit: components["schemas"]["simple-commit"];
       latest_check_runs_count: number;
       check_runs_url: string;
@@ -15893,11 +15893,11 @@ export interface components {
     };
     "code-scanning-alert-rule-summary": {
       /** @description A unique identifier for the rule used to detect the alert. */
-      id?: string;
+      id?: string | null;
       /** @description The name of the rule used to detect the alert. */
       name?: string;
       /** @description A set of tags applicable for the rule. */
-      tags?: (string)[];
+      tags?: (string)[] | null;
       /**
        * @description The severity of the alert. 
        * @enum {string|null}
@@ -15998,12 +15998,12 @@ export interface components {
        * Format: uri 
        * @description Next deletable analysis in chain, without last analysis deletion confirmation
        */
-      next_analysis_url: string;
+      next_analysis_url: string | null;
       /**
        * Format: uri 
        * @description Next deletable analysis in chain, with last analysis deletion confirmation
        */
-      confirm_delete_url: string;
+      confirm_delete_url: string | null;
     };
     /**
      * CodeQL Database 
@@ -16057,9 +16057,9 @@ export interface components {
        * Format: uri 
        * @description The REST API URL for getting the analyses associated with the upload.
        */
-      analyses_url?: string;
+      analyses_url?: string | null;
       /** @description Any errors that ocurred during processing of the delivery. */
-      errors?: readonly (string)[];
+      errors?: readonly (string)[] | null;
     };
     /**
      * CODEOWNERS errors 
@@ -16091,7 +16091,7 @@ export interface components {
            * @description Suggested action to fix the error. This will usually be `null`, but is provided for some common errors. 
            * @example The pattern `/` will never match anything, did you mean `*` instead?
            */
-          suggestion?: string;
+          suggestion?: string | null;
           /**
            * @description A human-readable description of the error, combining information from multiple fields, laid out for display in a monospaced typeface (for example, a command-line setting). 
            * @example Invalid owner on line 7:
@@ -16173,8 +16173,8 @@ export interface components {
       login: string;
       /** @example 1 */
       id: number;
-      email?: string;
-      name?: string;
+      email?: string | null;
+      name?: string | null;
       /** @example MDQ6VXNlcjE= */
       node_id: string;
       /**
@@ -16183,7 +16183,7 @@ export interface components {
        */
       avatar_url: string;
       /** @example 41d064eb2195891e12d0413f63227ea7 */
-      gravatar_id: string;
+      gravatar_id: string | null;
       /**
        * Format: uri 
        * @example https://api.github.com/users/octocat
@@ -16279,13 +16279,13 @@ export interface components {
      * Collaborator 
      * @description Collaborator
      */
-    "nullable-collaborator": {
+    "nullable-collaborator": ({
       /** @example octocat */
       login: string;
       /** @example 1 */
       id: number;
-      email?: string;
-      name?: string;
+      email?: string | null;
+      name?: string | null;
       /** @example MDQ6VXNlcjE= */
       node_id: string;
       /**
@@ -16294,7 +16294,7 @@ export interface components {
        */
       avatar_url: string;
       /** @example 41d064eb2195891e12d0413f63227ea7 */
-      gravatar_id: string;
+      gravatar_id: string | null;
       /**
        * Format: uri 
        * @example https://api.github.com/users/octocat
@@ -16350,7 +16350,7 @@ export interface components {
       };
       /** @example admin */
       role_name: string;
-    } | null;
+    }) | null;
     /**
      * Repository Collaborator Permission 
      * @description Repository Collaborator Permission
@@ -16373,9 +16373,9 @@ export interface components {
       id: number;
       node_id: string;
       body: string;
-      path: string;
-      position: number;
-      line: number;
+      path: string | null;
+      position: number | null;
+      line: number | null;
       commit_id: string;
       user: components["schemas"]["nullable-simple-user"];
       /** Format: date-time */
@@ -16486,7 +16486,7 @@ export interface components {
       title: string;
       user: components["schemas"]["nullable-simple-user"];
       /** @example Please pull these awesome changes */
-      body: string;
+      body: string | null;
       labels: ({
           /** Format: int64 */
           id: number;
@@ -16499,7 +16499,7 @@ export interface components {
         })[];
       milestone: components["schemas"]["nullable-milestone"];
       /** @example too heated */
-      active_lock_reason?: string;
+      active_lock_reason?: string | null;
       /**
        * Format: date-time 
        * @example 2011-01-26T19:01:12Z
@@ -16514,18 +16514,18 @@ export interface components {
        * Format: date-time 
        * @example 2011-01-26T19:01:12Z
        */
-      closed_at: string;
+      closed_at: string | null;
       /**
        * Format: date-time 
        * @example 2011-01-26T19:01:12Z
        */
-      merged_at: string;
+      merged_at: string | null;
       /** @example e5bd3914e2e596debea16f433f57875b5b90bcd6 */
-      merge_commit_sha: string;
+      merge_commit_sha: string | null;
       assignee: components["schemas"]["nullable-simple-user"];
-      assignees?: (components["schemas"]["simple-user"])[];
-      requested_reviewers?: (components["schemas"]["simple-user"])[];
-      requested_teams?: (components["schemas"]["team"])[];
+      assignees?: (components["schemas"]["simple-user"])[] | null;
+      requested_reviewers?: (components["schemas"]["simple-user"])[] | null;
+      requested_teams?: (components["schemas"]["team"])[] | null;
       head: {
         label: string;
         ref: string;
@@ -16560,16 +16560,16 @@ export interface components {
     };
     /** Simple Commit Status */
     "simple-commit-status": {
-      description: string;
+      description: string | null;
       id: number;
       node_id: string;
       state: string;
       context: string;
       /** Format: uri */
-      target_url: string;
-      required?: boolean;
+      target_url: string | null;
+      required?: boolean | null;
       /** Format: uri */
-      avatar_url: string;
+      avatar_url: string | null;
       /** Format: uri */
       url: string;
       /** Format: date-time */
@@ -16598,12 +16598,12 @@ export interface components {
      */
     status: {
       url: string;
-      avatar_url: string;
+      avatar_url: string | null;
       id: number;
       node_id: string;
       state: string;
-      description: string;
-      target_url: string;
+      description: string | null;
+      target_url: string | null;
       context: string;
       created_at: string;
       updated_at: string;
@@ -16613,7 +16613,7 @@ export interface components {
      * Code Of Conduct Simple 
      * @description Code of Conduct Simple
      */
-    "nullable-code-of-conduct-simple": {
+    "nullable-code-of-conduct-simple": ({
       /**
        * Format: uri 
        * @example https://api.github.com/repos/github/docs/community/code_of_conduct
@@ -16627,8 +16627,8 @@ export interface components {
        * Format: uri 
        * @example https://github.com/github/docs/blob/main/CODE_OF_CONDUCT.md
        */
-      html_url: string;
-    } | null;
+      html_url: string | null;
+    }) | null;
     /** Community Health File */
     "nullable-community-health-file": {
       /** Format: uri */
@@ -16644,9 +16644,9 @@ export interface components {
       /** @example 100 */
       health_percentage: number;
       /** @example My first repository on GitHub! */
-      description: string;
+      description: string | null;
       /** @example example.com */
-      documentation: string;
+      documentation: string | null;
       files: {
         code_of_conduct: components["schemas"]["nullable-code-of-conduct-simple"];
         code_of_conduct_file: components["schemas"]["nullable-community-health-file"];
@@ -16660,7 +16660,7 @@ export interface components {
        * Format: date-time 
        * @example 2017-02-28T19:09:29Z
        */
-      updated_at: string;
+      updated_at: string | null;
       /** @example true */
       content_reports_enabled?: boolean;
     };
@@ -16723,11 +16723,11 @@ export interface components {
       /** Format: uri */
       url: string;
       /** Format: uri */
-      git_url: string;
+      git_url: string | null;
       /** Format: uri */
-      html_url: string;
+      html_url: string | null;
       /** Format: uri */
-      download_url: string;
+      download_url: string | null;
       entries?: ({
           type: string;
           size: number;
@@ -16738,25 +16738,25 @@ export interface components {
           /** Format: uri */
           url: string;
           /** Format: uri */
-          git_url: string;
+          git_url: string | null;
           /** Format: uri */
-          html_url: string;
+          html_url: string | null;
           /** Format: uri */
-          download_url: string;
+          download_url: string | null;
           _links: {
             /** Format: uri */
-            git: string;
+            git: string | null;
             /** Format: uri */
-            html: string;
+            html: string | null;
             /** Format: uri */
             self: string;
           };
         })[];
       _links: {
         /** Format: uri */
-        git: string;
+        git: string | null;
         /** Format: uri */
-        html: string;
+        html: string | null;
         /** Format: uri */
         self: string;
       };
@@ -16776,16 +16776,16 @@ export interface components {
         /** Format: uri */
         url: string;
         /** Format: uri */
-        git_url: string;
+        git_url: string | null;
         /** Format: uri */
-        html_url: string;
+        html_url: string | null;
         /** Format: uri */
-        download_url: string;
+        download_url: string | null;
         _links: {
           /** Format: uri */
-          git: string;
+          git: string | null;
           /** Format: uri */
-          html: string;
+          html: string | null;
           /** Format: uri */
           self: string;
         };
@@ -16806,16 +16806,16 @@ export interface components {
       /** Format: uri */
       url: string;
       /** Format: uri */
-      git_url: string;
+      git_url: string | null;
       /** Format: uri */
-      html_url: string;
+      html_url: string | null;
       /** Format: uri */
-      download_url: string;
+      download_url: string | null;
       _links: {
         /** Format: uri */
-        git: string;
+        git: string | null;
         /** Format: uri */
-        html: string;
+        html: string | null;
         /** Format: uri */
         self: string;
       };
@@ -16839,16 +16839,16 @@ export interface components {
       /** Format: uri */
       url: string;
       /** Format: uri */
-      git_url: string;
+      git_url: string | null;
       /** Format: uri */
-      html_url: string;
+      html_url: string | null;
       /** Format: uri */
-      download_url: string;
+      download_url: string | null;
       _links: {
         /** Format: uri */
-        git: string;
+        git: string | null;
         /** Format: uri */
-        html: string;
+        html: string | null;
         /** Format: uri */
         self: string;
       };
@@ -16869,16 +16869,16 @@ export interface components {
       /** Format: uri */
       url: string;
       /** Format: uri */
-      git_url: string;
+      git_url: string | null;
       /** Format: uri */
-      html_url: string;
+      html_url: string | null;
       /** Format: uri */
-      download_url: string;
+      download_url: string | null;
       _links: {
         /** Format: uri */
-        git: string;
+        git: string | null;
         /** Format: uri */
-        html: string;
+        html: string | null;
         /** Format: uri */
         self: string;
       };
@@ -16932,8 +16932,8 @@ export interface components {
         verification?: {
           verified?: boolean;
           reason?: string;
-          signature?: string;
-          payload?: string;
+          signature?: string | null;
+          payload?: string | null;
         };
       };
     };
@@ -16947,7 +16947,7 @@ export interface components {
       node_id?: string;
       /** Format: uri */
       avatar_url?: string;
-      gravatar_id?: string;
+      gravatar_id?: string | null;
       /** Format: uri */
       url?: string;
       /** Format: uri */
@@ -17005,7 +17005,7 @@ export interface components {
        */
       dismissed_reason: "fix_started" | "inaccurate" | "no_bandwidth" | "not_used" | "tolerable_risk" | null;
       /** @description An optional comment associated with the alert's dismissal. */
-      dismissed_comment: string;
+      dismissed_comment: string | null;
       fixed_at: components["schemas"]["alert-fixed-at"];
     };
     /**
@@ -17039,11 +17039,11 @@ export interface components {
         /** @example 1.0.0 */
         version: string;
         /** @example pkg:/npm/%40actions/core@1.1.0 */
-        package_url: string;
+        package_url: string | null;
         /** @example MIT */
-        license: string;
+        license: string | null;
         /** @example https://github.com/github/actions */
-        source_repository_url: string;
+        source_repository_url: string | null;
         vulnerabilities: ({
             /** @example critical */
             severity: string;
@@ -17373,7 +17373,7 @@ export interface components {
       /** Format: uri */
       url: string;
       sha: string;
-      size: number;
+      size: number | null;
       node_id: string;
       highlighted_content?: string;
     };
@@ -17456,8 +17456,8 @@ export interface components {
       verification: {
         verified: boolean;
         reason: string;
-        signature: string;
-        payload: string;
+        signature: string | null;
+        payload: string | null;
       };
       /** Format: uri */
       html_url: string;
@@ -17587,9 +17587,9 @@ export interface components {
     };
     /** Hook Response */
     "hook-response": {
-      code: number;
-      status: string;
-      message: string;
+      code: number | null;
+      status: string | null;
+      message: string | null;
     };
     /**
      * Webhook 
@@ -17675,7 +17675,7 @@ export interface components {
      * @description A repository import from an external source.
      */
     import: {
-      vcs: string;
+      vcs: string | null;
       use_lfs?: boolean;
       /** @description The URL of the originating repository. */
       vcs_url: string;
@@ -17683,12 +17683,12 @@ export interface components {
       tfvc_project?: string;
       /** @enum {string} */
       status: "auth" | "error" | "none" | "detecting" | "choose" | "auth_failed" | "importing" | "mapping" | "waiting_to_push" | "pushing" | "complete" | "setup" | "unknown" | "detection_found_multiple" | "detection_found_nothing" | "detection_needs_auth";
-      status_text?: string;
-      failed_step?: string;
-      error_message?: string;
-      import_percent?: number;
-      commit_count?: number;
-      push_percent?: number;
+      status_text?: string | null;
+      failed_step?: string | null;
+      error_message?: string | null;
+      import_percent?: number | null;
+      commit_count?: number | null;
+      push_percent?: number | null;
       has_large_files?: boolean;
       large_files_size?: number;
       large_files_count?: number;
@@ -17698,7 +17698,7 @@ export interface components {
           human_name?: string;
         })[];
       message?: string;
-      authors_count?: number;
+      authors_count?: number | null;
       /** Format: uri */
       url: string;
       /** Format: uri */
@@ -17781,7 +17781,7 @@ export interface components {
        * @description Contents of the issue 
        * @example It looks like the new widget form is broken on Safari. When I try and create the widget, Safari crashes. This is reproducible on 10.8, but not 10.9. Maybe a browser bug?
        */
-      body?: string;
+      body?: string | null;
       user: components["schemas"]["nullable-simple-user"];
       /**
        * @description Labels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository 
@@ -17797,30 +17797,30 @@ export interface components {
           /** Format: uri */
           url?: string;
           name?: string;
-          description?: string;
-          color?: string;
+          description?: string | null;
+          color?: string | null;
           default?: boolean;
         }]>)[];
       assignee: components["schemas"]["nullable-simple-user"];
-      assignees?: (components["schemas"]["simple-user"])[];
+      assignees?: (components["schemas"]["simple-user"])[] | null;
       milestone: components["schemas"]["nullable-milestone"];
       locked: boolean;
-      active_lock_reason?: string;
+      active_lock_reason?: string | null;
       comments: number;
       pull_request?: {
         /** Format: date-time */
-        merged_at?: string;
+        merged_at?: string | null;
         /** Format: uri */
-        diff_url: string;
+        diff_url: string | null;
         /** Format: uri */
-        html_url: string;
+        html_url: string | null;
         /** Format: uri */
-        patch_url: string;
+        patch_url: string | null;
         /** Format: uri */
-        url: string;
+        url: string | null;
       };
       /** Format: date-time */
-      closed_at: string;
+      closed_at: string | null;
       /** Format: date-time */
       created_at: string;
       /** Format: date-time */
@@ -17841,15 +17841,15 @@ export interface components {
      * @description Issue Event Label
      */
     "issue-event-label": {
-      name: string;
-      color: string;
+      name: string | null;
+      color: string | null;
     };
     /** Issue Event Dismissed Review */
     "issue-event-dismissed-review": {
       state: string;
       review_id: number;
-      dismissal_message: string;
-      dismissal_commit_id?: string;
+      dismissal_message: string | null;
+      dismissal_commit_id?: string | null;
     };
     /**
      * Issue Event Milestone 
@@ -17898,9 +17898,9 @@ export interface components {
       /** @example closed */
       event: string;
       /** @example 6dcb09b5b57875f334f61aebed695e2e4193db5e */
-      commit_id: string;
+      commit_id: string | null;
       /** @example https://api.github.com/repos/octocat/Hello-World/commits/6dcb09b5b57875f334f61aebed695e2e4193db5e */
-      commit_url: string;
+      commit_url: string | null;
       /**
        * Format: date-time 
        * @example 2011-04-14T16:00:49Z
@@ -17918,7 +17918,7 @@ export interface components {
       project_card?: components["schemas"]["issue-event-project-card"];
       rename?: components["schemas"]["issue-event-rename"];
       author_association?: components["schemas"]["author-association"];
-      lock_reason?: string;
+      lock_reason?: string | null;
       performed_via_github_app?: components["schemas"]["nullable-integration"];
     };
     /**
@@ -17931,8 +17931,8 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["nullable-integration"];
       label: {
@@ -17950,8 +17950,8 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["nullable-integration"];
       label: {
@@ -17969,8 +17969,8 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["integration"];
       assignee: components["schemas"]["simple-user"];
@@ -17986,8 +17986,8 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["nullable-integration"];
       assignee: components["schemas"]["simple-user"];
@@ -18003,8 +18003,8 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["nullable-integration"];
       milestone: {
@@ -18021,8 +18021,8 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["nullable-integration"];
       milestone: {
@@ -18039,8 +18039,8 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["nullable-integration"];
       rename: {
@@ -18058,8 +18058,8 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["nullable-integration"];
       review_requester: components["schemas"]["simple-user"];
@@ -18076,8 +18076,8 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["nullable-integration"];
       review_requester: components["schemas"]["simple-user"];
@@ -18094,14 +18094,14 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["nullable-integration"];
       dismissed_review: {
         state: string;
         review_id: number;
-        dismissal_message: string;
+        dismissal_message: string | null;
         dismissal_commit_id?: string;
       };
     };
@@ -18115,12 +18115,12 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["nullable-integration"];
       /** @example "off-topic" */
-      lock_reason: string;
+      lock_reason: string | null;
     };
     /**
      * Added to Project Issue Event 
@@ -18132,8 +18132,8 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["nullable-integration"];
       project_card?: {
@@ -18157,8 +18157,8 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["nullable-integration"];
       project_card?: {
@@ -18182,8 +18182,8 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["nullable-integration"];
       project_card?: {
@@ -18207,8 +18207,8 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["integration"];
       project_card?: {
@@ -18251,7 +18251,7 @@ export interface components {
        */
       name: string;
       /** @example Something isn't working */
-      description: string;
+      description: string | null;
       /**
        * @description 6-character hex code, without the leading #, identifying the color 
        * @example FFFFFF
@@ -18401,8 +18401,8 @@ export interface components {
       verification: {
         verified: boolean;
         reason: string;
-        signature: string;
-        payload: string;
+        signature: string | null;
+        payload: string | null;
       };
       /** Format: uri */
       html_url: string;
@@ -18425,7 +18425,7 @@ export interface components {
        * @description The text of the review. 
        * @example This looks great.
        */
-      body: string;
+      body: string | null;
       /** @example CHANGES_REQUESTED */
       state: string;
       /**
@@ -18471,7 +18471,7 @@ export interface components {
        * @description The ID of the pull request review to which the comment belongs. 
        * @example 42
        */
-      pull_request_review_id: number;
+      pull_request_review_id: number | null;
       /**
        * @description The ID of the pull request review comment. 
        * @example 1
@@ -18573,12 +18573,12 @@ export interface components {
        * @description The first line of the range for a multi-line comment. 
        * @example 2
        */
-      start_line?: number;
+      start_line?: number | null;
       /**
        * @description The first line of the range for a multi-line comment. 
        * @example 2
        */
-      original_start_line?: number;
+      original_start_line?: number | null;
       /**
        * @description The side of the first line of the range for a multi-line comment. 
        * @default RIGHT 
@@ -18636,8 +18636,8 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["nullable-integration"];
       assignee: components["schemas"]["simple-user"];
@@ -18652,8 +18652,8 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["nullable-integration"];
       assignee: components["schemas"]["simple-user"];
@@ -18668,11 +18668,11 @@ export interface components {
       url: string;
       actor: components["schemas"]["simple-user"];
       event: string;
-      commit_id: string;
-      commit_url: string;
+      commit_id: string | null;
+      commit_url: string | null;
       created_at: string;
       performed_via_github_app: components["schemas"]["nullable-integration"];
-      state_reason?: string;
+      state_reason?: string | null;
     };
     /**
      * Timeline Event 
@@ -18691,8 +18691,8 @@ export interface components {
       verified: boolean;
       created_at: string;
       read_only: boolean;
-      added_by?: string;
-      last_used?: string;
+      added_by?: string | null;
+      last_used?: string | null;
     };
     /**
      * Language 
@@ -18713,19 +18713,19 @@ export interface components {
       /** Format: uri */
       url: string;
       /** Format: uri */
-      html_url: string;
+      html_url: string | null;
       /** Format: uri */
-      git_url: string;
+      git_url: string | null;
       /** Format: uri */
-      download_url: string;
+      download_url: string | null;
       type: string;
       content: string;
       encoding: string;
       _links: {
         /** Format: uri */
-        git: string;
+        git: string | null;
         /** Format: uri */
-        html: string;
+        html: string | null;
         /** Format: uri */
         self: string;
       };
@@ -18783,7 +18783,7 @@ export interface components {
        */
       title: string;
       /** @example Tracking milestone for version 1.0 */
-      description: string;
+      description: string | null;
       creator: components["schemas"]["nullable-simple-user"];
       /** @example 4 */
       open_issues: number;
@@ -18803,12 +18803,12 @@ export interface components {
        * Format: date-time 
        * @example 2013-02-12T13:22:01Z
        */
-      closed_at: string;
+      closed_at: string | null;
       /**
        * Format: date-time 
        * @example 2012-10-09T23:39:01Z
        */
-      due_on: string;
+      due_on: string | null;
     };
     /** Pages Source Hash */
     "pages-source-hash": {
@@ -18856,7 +18856,7 @@ export interface components {
        * @description The Pages site's custom domain 
        * @example example.com
        */
-      cname: string;
+      cname: string | null;
       /**
        * @description The state if the domain is verified 
        * @example pending 
@@ -18867,7 +18867,7 @@ export interface components {
        * Format: date-time 
        * @description The timestamp when a pending domain becomes unverified.
        */
-      pending_domain_unverified_at?: string;
+      pending_domain_unverified_at?: string | null;
       /**
        * @description Whether the Page has a custom 404 page. 
        * @default false 
@@ -18908,7 +18908,7 @@ export interface components {
       url: string;
       status: string;
       error: {
-        message: string;
+        message: string | null;
       };
       pusher: components["schemas"]["nullable-simple-user"];
       commit: string;
@@ -18965,61 +18965,61 @@ export interface components {
         uri?: string;
         nameservers?: string;
         dns_resolves?: boolean;
-        is_proxied?: boolean;
-        is_cloudflare_ip?: boolean;
-        is_fastly_ip?: boolean;
-        is_old_ip_address?: boolean;
-        is_a_record?: boolean;
-        has_cname_record?: boolean;
-        has_mx_records_present?: boolean;
+        is_proxied?: boolean | null;
+        is_cloudflare_ip?: boolean | null;
+        is_fastly_ip?: boolean | null;
+        is_old_ip_address?: boolean | null;
+        is_a_record?: boolean | null;
+        has_cname_record?: boolean | null;
+        has_mx_records_present?: boolean | null;
         is_valid_domain?: boolean;
         is_apex_domain?: boolean;
-        should_be_a_record?: boolean;
-        is_cname_to_github_user_domain?: boolean;
-        is_cname_to_pages_dot_github_dot_com?: boolean;
-        is_cname_to_fastly?: boolean;
-        is_pointed_to_github_pages_ip?: boolean;
-        is_non_github_pages_ip_present?: boolean;
+        should_be_a_record?: boolean | null;
+        is_cname_to_github_user_domain?: boolean | null;
+        is_cname_to_pages_dot_github_dot_com?: boolean | null;
+        is_cname_to_fastly?: boolean | null;
+        is_pointed_to_github_pages_ip?: boolean | null;
+        is_non_github_pages_ip_present?: boolean | null;
         is_pages_domain?: boolean;
-        is_served_by_pages?: boolean;
+        is_served_by_pages?: boolean | null;
         is_valid?: boolean;
-        reason?: string;
+        reason?: string | null;
         responds_to_https?: boolean;
         enforces_https?: boolean;
-        https_error?: string;
-        is_https_eligible?: boolean;
-        caa_error?: string;
+        https_error?: string | null;
+        is_https_eligible?: boolean | null;
+        caa_error?: string | null;
       };
-      alt_domain?: {
+      alt_domain?: ({
         host?: string;
         uri?: string;
         nameservers?: string;
         dns_resolves?: boolean;
-        is_proxied?: boolean;
-        is_cloudflare_ip?: boolean;
-        is_fastly_ip?: boolean;
-        is_old_ip_address?: boolean;
-        is_a_record?: boolean;
-        has_cname_record?: boolean;
-        has_mx_records_present?: boolean;
+        is_proxied?: boolean | null;
+        is_cloudflare_ip?: boolean | null;
+        is_fastly_ip?: boolean | null;
+        is_old_ip_address?: boolean | null;
+        is_a_record?: boolean | null;
+        has_cname_record?: boolean | null;
+        has_mx_records_present?: boolean | null;
         is_valid_domain?: boolean;
         is_apex_domain?: boolean;
-        should_be_a_record?: boolean;
-        is_cname_to_github_user_domain?: boolean;
-        is_cname_to_pages_dot_github_dot_com?: boolean;
-        is_cname_to_fastly?: boolean;
-        is_pointed_to_github_pages_ip?: boolean;
-        is_non_github_pages_ip_present?: boolean;
+        should_be_a_record?: boolean | null;
+        is_cname_to_github_user_domain?: boolean | null;
+        is_cname_to_pages_dot_github_dot_com?: boolean | null;
+        is_cname_to_fastly?: boolean | null;
+        is_pointed_to_github_pages_ip?: boolean | null;
+        is_non_github_pages_ip_present?: boolean | null;
         is_pages_domain?: boolean;
-        is_served_by_pages?: boolean;
+        is_served_by_pages?: boolean | null;
         is_valid?: boolean;
-        reason?: string;
+        reason?: string | null;
         responds_to_https?: boolean;
         enforces_https?: boolean;
-        https_error?: string;
-        is_https_eligible?: boolean;
-        caa_error?: string;
-      } | null;
+        https_error?: string | null;
+        is_https_eligible?: boolean | null;
+        caa_error?: string | null;
+      }) | null;
     };
     /**
      * Pull Request 
@@ -19097,20 +19097,20 @@ export interface components {
       title: string;
       user: components["schemas"]["nullable-simple-user"];
       /** @example Please pull these awesome changes */
-      body: string;
+      body: string | null;
       labels: ({
           /** Format: int64 */
           id: number;
           node_id: string;
           url: string;
           name: string;
-          description: string;
+          description: string | null;
           color: string;
           default: boolean;
         })[];
       milestone: components["schemas"]["nullable-milestone"];
       /** @example too heated */
-      active_lock_reason?: string;
+      active_lock_reason?: string | null;
       /**
        * Format: date-time 
        * @example 2011-01-26T19:01:12Z
@@ -19125,18 +19125,18 @@ export interface components {
        * Format: date-time 
        * @example 2011-01-26T19:01:12Z
        */
-      closed_at: string;
+      closed_at: string | null;
       /**
        * Format: date-time 
        * @example 2011-01-26T19:01:12Z
        */
-      merged_at: string;
+      merged_at: string | null;
       /** @example e5bd3914e2e596debea16f433f57875b5b90bcd6 */
-      merge_commit_sha: string;
+      merge_commit_sha: string | null;
       assignee: components["schemas"]["nullable-simple-user"];
-      assignees?: (components["schemas"]["simple-user"])[];
-      requested_reviewers?: (components["schemas"]["simple-user"])[];
-      requested_teams?: (components["schemas"]["team-simple"])[];
+      assignees?: (components["schemas"]["simple-user"])[] | null;
+      requested_reviewers?: (components["schemas"]["simple-user"])[] | null;
+      requested_teams?: (components["schemas"]["team-simple"])[] | null;
       head: {
         label: string;
         ref: string;
@@ -19154,7 +19154,7 @@ export interface components {
           contributors_url: string;
           /** Format: uri */
           deployments_url: string;
-          description: string;
+          description: string | null;
           /** Format: uri */
           downloads_url: string;
           /** Format: uri */
@@ -19192,7 +19192,7 @@ export interface components {
             followers_url: string;
             following_url: string;
             gists_url: string;
-            gravatar_id: string;
+            gravatar_id: string | null;
             /** Format: uri */
             html_url: string;
             id: number;
@@ -19241,15 +19241,15 @@ export interface components {
           has_pages: boolean;
           has_discussions: boolean;
           /** Format: uri */
-          homepage: string;
-          language: string;
+          homepage: string | null;
+          language: string | null;
           master_branch?: string;
           archived: boolean;
           disabled: boolean;
           /** @description The repository visibility: public, private, or internal. */
           visibility?: string;
           /** Format: uri */
-          mirror_url: string;
+          mirror_url: string | null;
           open_issues: number;
           open_issues_count: number;
           permissions?: {
@@ -19263,14 +19263,14 @@ export interface components {
           allow_merge_commit?: boolean;
           allow_squash_merge?: boolean;
           allow_rebase_merge?: boolean;
-          license: {
+          license: ({
             key: string;
             name: string;
             /** Format: uri */
-            url: string;
-            spdx_id: string;
+            url: string | null;
+            spdx_id: string | null;
             node_id: string;
-          } | null;
+          }) | null;
           /** Format: date-time */
           pushed_at: string;
           size: number;
@@ -19298,7 +19298,7 @@ export interface components {
           followers_url: string;
           following_url: string;
           gists_url: string;
-          gravatar_id: string;
+          gravatar_id: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -19336,7 +19336,7 @@ export interface components {
           contributors_url: string;
           /** Format: uri */
           deployments_url: string;
-          description: string;
+          description: string | null;
           /** Format: uri */
           downloads_url: string;
           /** Format: uri */
@@ -19375,7 +19375,7 @@ export interface components {
             followers_url: string;
             following_url: string;
             gists_url: string;
-            gravatar_id: string;
+            gravatar_id: string | null;
             /** Format: uri */
             html_url: string;
             id: number;
@@ -19424,15 +19424,15 @@ export interface components {
           has_pages: boolean;
           has_discussions: boolean;
           /** Format: uri */
-          homepage: string;
-          language: string;
+          homepage: string | null;
+          language: string | null;
           master_branch?: string;
           archived: boolean;
           disabled: boolean;
           /** @description The repository visibility: public, private, or internal. */
           visibility?: string;
           /** Format: uri */
-          mirror_url: string;
+          mirror_url: string | null;
           open_issues: number;
           open_issues_count: number;
           permissions?: {
@@ -19473,7 +19473,7 @@ export interface components {
           followers_url: string;
           following_url: string;
           gists_url: string;
-          gravatar_id: string;
+          gravatar_id: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -19513,9 +19513,9 @@ export interface components {
       draft?: boolean;
       merged: boolean;
       /** @example true */
-      mergeable: boolean;
+      mergeable: boolean | null;
       /** @example true */
-      rebaseable?: boolean;
+      rebaseable?: boolean | null;
       /** @example clean */
       mergeable_state: string;
       merged_by: components["schemas"]["nullable-simple-user"];
@@ -19614,7 +19614,7 @@ export interface components {
        */
       url: string;
       /** @example 42 */
-      pull_request_review_id: number;
+      pull_request_review_id: number | null;
       /** @example 10 */
       id: number;
       /** @example MDI0OlB1bGxSZXF1ZXN0UmV2aWV3Q29tbWVudDEw */
@@ -19624,7 +19624,7 @@ export interface components {
       /** @example file1.txt */
       path: string;
       /** @example 1 */
-      position: number;
+      position: number | null;
       /** @example 4 */
       original_position: number;
       /** @example 6dcb09b5b57875f334f61aebed695e2e4193db5e */
@@ -19691,12 +19691,12 @@ export interface components {
        * @description The first line of the range for a multi-line comment. 
        * @example 2
        */
-      start_line?: number;
+      start_line?: number | null;
       /**
        * @description The original first line of the range for a multi-line comment. 
        * @example 2
        */
-      original_start_line?: number;
+      original_start_line?: number | null;
     };
     /**
      * Release Asset 
@@ -19714,7 +19714,7 @@ export interface components {
        * @example Team Environment
        */
       name: string;
-      label: string;
+      label: string | null;
       /**
        * @description State of the release asset. 
        * @enum {string}
@@ -19742,9 +19742,9 @@ export interface components {
       assets_url: string;
       upload_url: string;
       /** Format: uri */
-      tarball_url: string;
+      tarball_url: string | null;
       /** Format: uri */
-      zipball_url: string;
+      zipball_url: string | null;
       id: number;
       node_id: string;
       /**
@@ -19757,8 +19757,8 @@ export interface components {
        * @example master
        */
       target_commitish: string;
-      name: string;
-      body?: string;
+      name: string | null;
+      body?: string | null;
       /**
        * @description true to create a draft (unpublished) release, false to create a published one. 
        * @example false
@@ -19772,7 +19772,7 @@ export interface components {
       /** Format: date-time */
       created_at: string;
       /** Format: date-time */
-      published_at: string;
+      published_at: string | null;
       author: components["schemas"]["simple-user"];
       assets: (components["schemas"]["release-asset"])[];
       body_html?: string;
@@ -19815,10 +19815,10 @@ export interface components {
        * Format: date-time 
        * @description The time that the alert was resolved in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
        */
-      resolved_at?: string;
+      resolved_at?: string | null;
       resolved_by?: components["schemas"]["nullable-simple-user"];
       /** @description An optional comment to resolve an alert. */
-      resolution_comment?: string;
+      resolution_comment?: string | null;
       /** @description The type of secret that secret scanning detected. */
       secret_type?: string;
       /**
@@ -19829,16 +19829,16 @@ export interface components {
       /** @description The secret that was detected. */
       secret?: string;
       /** @description Whether push protection was bypassed for the detected secret. */
-      push_protection_bypassed?: boolean;
+      push_protection_bypassed?: boolean | null;
       push_protection_bypassed_by?: components["schemas"]["nullable-simple-user"];
       /**
        * Format: date-time 
        * @description The time that push protection was bypassed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
        */
-      push_protection_bypassed_at?: string;
+      push_protection_bypassed_at?: string | null;
     };
     /** @description An optional comment when closing an alert. Cannot be updated or deleted. Must be `null` when changing `state` to `open`. */
-    "secret-scanning-alert-resolution-comment": string;
+    "secret-scanning-alert-resolution-comment": string | null;
     /** @description Represents a 'commit' secret scanning location type. This location type shows that a secret was detected inside a commit to a repository. */
     "secret-scanning-location-commit": {
       /**
@@ -19956,7 +19956,7 @@ export interface components {
       subscribed: boolean;
       /** @description Determines if all notifications should be blocked from this repository. */
       ignored: boolean;
-      reason: string;
+      reason: string | null;
       /**
        * Format: date-time 
        * @example 2012-10-06T21:34:12Z
@@ -20078,7 +20078,7 @@ export interface components {
     /** Search Result Text Matches */
     "search-result-text-matches": ({
         object_url?: string;
-        object_type?: string;
+        object_type?: string | null;
         property?: string;
         fragment?: string;
         matches?: ({
@@ -20103,7 +20103,7 @@ export interface components {
       repository: components["schemas"]["minimal-repository"];
       score: number;
       file_size?: number;
-      language?: string;
+      language?: string | null;
       /** Format: date-time */
       last_modified_at?: string;
       /**
@@ -20179,8 +20179,8 @@ export interface components {
       number: number;
       title: string;
       locked: boolean;
-      active_lock_reason?: string;
-      assignees?: (components["schemas"]["simple-user"])[];
+      active_lock_reason?: string | null;
+      assignees?: (components["schemas"]["simple-user"])[] | null;
       user: components["schemas"]["nullable-simple-user"];
       labels: ({
           /** Format: int64 */
@@ -20190,10 +20190,10 @@ export interface components {
           name?: string;
           color?: string;
           default?: boolean;
-          description?: string;
+          description?: string | null;
         })[];
       state: string;
-      state_reason?: string;
+      state_reason?: string | null;
       assignee: components["schemas"]["nullable-simple-user"];
       milestone: components["schemas"]["nullable-milestone"];
       comments: number;
@@ -20202,19 +20202,19 @@ export interface components {
       /** Format: date-time */
       updated_at: string;
       /** Format: date-time */
-      closed_at: string;
+      closed_at: string | null;
       text_matches?: components["schemas"]["search-result-text-matches"];
       pull_request?: {
         /** Format: date-time */
-        merged_at?: string;
+        merged_at?: string | null;
         /** Format: uri */
-        diff_url: string;
+        diff_url: string | null;
         /** Format: uri */
-        html_url: string;
+        html_url: string | null;
         /** Format: uri */
-        patch_url: string;
+        patch_url: string | null;
         /** Format: uri */
-        url: string;
+        url: string | null;
       };
       body?: string;
       score: number;
@@ -20240,7 +20240,7 @@ export interface components {
       name: string;
       color: string;
       default: boolean;
-      description: string;
+      description: string | null;
       score: number;
       text_matches?: components["schemas"]["search-result-text-matches"];
     };
@@ -20257,7 +20257,7 @@ export interface components {
       private: boolean;
       /** Format: uri */
       html_url: string;
-      description: string;
+      description: string | null;
       fork: boolean;
       /** Format: uri */
       url: string;
@@ -20268,11 +20268,11 @@ export interface components {
       /** Format: date-time */
       pushed_at: string;
       /** Format: uri */
-      homepage: string;
+      homepage: string | null;
       size: number;
       stargazers_count: number;
       watchers_count: number;
-      language: string;
+      language: string | null;
       forks_count: number;
       open_issues_count: number;
       master_branch?: string;
@@ -20337,7 +20337,7 @@ export interface components {
       watchers: number;
       topics?: (string)[];
       /** Format: uri */
-      mirror_url: string;
+      mirror_url: string | null;
       has_issues: boolean;
       has_projects: boolean;
       has_pages: boolean;
@@ -20375,11 +20375,11 @@ export interface components {
      */
     "topic-search-result-item": {
       name: string;
-      display_name: string;
-      short_description: string;
-      description: string;
-      created_by: string;
-      released: string;
+      display_name: string | null;
+      short_description: string | null;
+      description: string | null;
+      created_by: string | null;
+      released: string | null;
       /** Format: date-time */
       created_at: string;
       /** Format: date-time */
@@ -20387,9 +20387,9 @@ export interface components {
       featured: boolean;
       curated: boolean;
       score: number;
-      repository_count?: number;
+      repository_count?: number | null;
       /** Format: uri */
-      logo_url?: string;
+      logo_url?: string | null;
       text_matches?: components["schemas"]["search-result-text-matches"];
       related?: ({
           topic_relation?: {
@@ -20398,7 +20398,7 @@ export interface components {
             topic_id?: number;
             relation_type?: string;
           };
-        })[];
+        })[] | null;
       aliases?: ({
           topic_relation?: {
             id?: number;
@@ -20406,7 +20406,7 @@ export interface components {
             topic_id?: number;
             relation_type?: string;
           };
-        })[];
+        })[] | null;
     };
     /**
      * User Search Result Item 
@@ -20418,7 +20418,7 @@ export interface components {
       node_id: string;
       /** Format: uri */
       avatar_url: string;
-      gravatar_id: string;
+      gravatar_id: string | null;
       /** Format: uri */
       url: string;
       /** Format: uri */
@@ -20447,18 +20447,18 @@ export interface components {
       created_at?: string;
       /** Format: date-time */
       updated_at?: string;
-      name?: string;
-      bio?: string;
+      name?: string | null;
+      bio?: string | null;
       /** Format: email */
-      email?: string;
-      location?: string;
+      email?: string | null;
+      location?: string | null;
       site_admin: boolean;
-      hireable?: boolean;
+      hireable?: boolean | null;
       text_matches?: components["schemas"]["search-result-text-matches"];
-      blog?: string;
-      company?: string;
+      blog?: string | null;
+      company?: string | null;
       /** Format: date-time */
-      suspended_at?: string;
+      suspended_at?: string | null;
     };
     /**
      * Private User 
@@ -20477,7 +20477,7 @@ export interface components {
        */
       avatar_url: string;
       /** @example 41d064eb2195891e12d0413f63227ea7 */
-      gravatar_id: string;
+      gravatar_id: string | null;
       /**
        * Format: uri 
        * @example https://api.github.com/users/octocat
@@ -20525,23 +20525,23 @@ export interface components {
       type: string;
       site_admin: boolean;
       /** @example monalisa octocat */
-      name: string;
+      name: string | null;
       /** @example GitHub */
-      company: string;
+      company: string | null;
       /** @example https://github.com/blog */
-      blog: string;
+      blog: string | null;
       /** @example San Francisco */
-      location: string;
+      location: string | null;
       /**
        * Format: email 
        * @example octocat@github.com
        */
-      email: string;
-      hireable: boolean;
+      email: string | null;
+      hireable: boolean | null;
       /** @example There once was... */
-      bio: string;
+      bio: string | null;
       /** @example monalisa */
-      twitter_username?: string;
+      twitter_username?: string | null;
       /** @example 2 */
       public_repos: number;
       /** @example 1 */
@@ -20579,7 +20579,7 @@ export interface components {
         private_repos: number;
       };
       /** Format: date-time */
-      suspended_at?: string;
+      suspended_at?: string | null;
       business_plus?: boolean;
       ldap_dn?: string;
     };
@@ -20640,23 +20640,23 @@ export interface components {
        * @description State of the latest export 
        * @example succeeded | failed | in_progress
        */
-      state?: string;
+      state?: string | null;
       /**
        * Format: date-time 
        * @description Completion time of the last export operation 
        * @example 2021-01-01T19:01:12Z
        */
-      completed_at?: string;
+      completed_at?: string | null;
       /**
        * @description Name of the exported branch 
        * @example codespace-monalisa-octocat-hello-world-g4wpq6h95q
        */
-      branch?: string;
+      branch?: string | null;
       /**
        * @description Git commit SHA of the exported branch 
        * @example fd95a81ca01e48ede9f39c799ecbcef817b8a3b2
        */
-      sha?: string;
+      sha?: string | null;
       /**
        * @description Id for the export details 
        * @example latest
@@ -20671,7 +20671,7 @@ export interface components {
        * @description Web url for the exported branch 
        * @example https://github.com/octocat/hello-world/tree/:branch
        */
-      html_url?: string;
+      html_url?: string | null;
     };
     /**
      * Email 
@@ -20688,7 +20688,7 @@ export interface components {
       /** @example true */
       verified: boolean;
       /** @example public */
-      visibility: string;
+      visibility: string | null;
     };
     /**
      * GPG Key 
@@ -20698,8 +20698,8 @@ export interface components {
       /** @example 3 */
       id: number;
       /** @example Octocat's GPG Key */
-      name?: string;
-      primary_key_id: number;
+      name?: string | null;
+      primary_key_id: number | null;
       /** @example 3262EFF25BA0D270 */
       key_id: string;
       /** @example xsBNBFayYZ... */
@@ -20747,8 +20747,8 @@ export interface components {
           can_encrypt_storage?: boolean;
           can_certify?: boolean;
           created_at?: string;
-          expires_at?: string;
-          raw_key?: string;
+          expires_at?: string | null;
+          raw_key?: string | null;
           revoked?: boolean;
         })[];
       /** @example true */
@@ -20763,10 +20763,10 @@ export interface components {
        */
       created_at: string;
       /** Format: date-time */
-      expires_at: string;
+      expires_at: string | null;
       /** @example true */
       revoked: boolean;
-      raw_key: string;
+      raw_key: string | null;
     };
     /**
      * Key 
@@ -20791,9 +20791,9 @@ export interface components {
       node_id?: string;
       login: string;
       /** Format: email */
-      email?: string;
+      email?: string | null;
       /** Format: email */
-      organization_billing_email?: string;
+      organization_billing_email?: string | null;
     };
     /**
      * User Marketplace Purchase 
@@ -20806,20 +20806,20 @@ export interface components {
        * Format: date-time 
        * @example 2017-11-11T00:00:00Z
        */
-      next_billing_date: string;
-      unit_count: number;
+      next_billing_date: string | null;
+      unit_count: number | null;
       /** @example true */
       on_free_trial: boolean;
       /**
        * Format: date-time 
        * @example 2017-11-11T00:00:00Z
        */
-      free_trial_ends_on: string;
+      free_trial_ends_on: string | null;
       /**
        * Format: date-time 
        * @example 2017-11-02T01:12:12Z
        */
-      updated_at: string;
+      updated_at: string | null;
       account: components["schemas"]["marketplace-account"];
       plan: components["schemas"]["marketplace-listing-plan"];
     };
@@ -20880,10 +20880,10 @@ export interface components {
     /** @description A suite of checks performed on the code of a given code change */
     "simple-check-suite": {
       /** @example d6fde92930d4715a2b49857d24b940956b26d2d3 */
-      after?: string;
+      after?: string | null;
       app?: components["schemas"]["integration"];
       /** @example 146e867f55c26428e5f9fade55a9bbf5e95a7912 */
-      before?: string;
+      before?: string | null;
       /**
        * @example neutral 
        * @enum {string|null}
@@ -20892,7 +20892,7 @@ export interface components {
       /** Format: date-time */
       created_at?: string;
       /** @example master */
-      head_branch?: string;
+      head_branch?: string | null;
       /**
        * @description The SHA of the head commit that is being checked. 
        * @example 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
@@ -20925,7 +20925,7 @@ export interface components {
        * Format: date-time 
        * @example 2018-05-04T01:14:52Z
        */
-      completed_at: string;
+      completed_at: string | null;
       /**
        * @example neutral 
        * @enum {string|null}
@@ -20959,9 +20959,9 @@ export interface components {
         annotations_count: number;
         /** Format: uri */
         annotations_url: string;
-        summary: string;
-        text: string;
-        title: string;
+        summary: string | null;
+        text: string | null;
+        title: string | null;
       };
       pull_requests: (components["schemas"]["pull-request-minimal"])[];
       /**
@@ -21009,7 +21009,7 @@ export interface components {
        * Format: date-time 
        * @example 2022-04-28T12:00:00Z
        */
-      archived_at: string;
+      archived_at: string | null;
     };
     /** branch protection rule created event */
     "webhook-branch-protection-rule-created": {
@@ -21122,16 +21122,16 @@ export interface components {
       /** @description If the action was `edited`, the changes to the rule. */
       changes?: {
         admin_enforced?: {
-          from: boolean;
+          from: boolean | null;
         };
         authorized_actor_names?: {
           from: (string)[];
         };
         authorized_actors_only?: {
-          from: boolean;
+          from: boolean | null;
         };
         authorized_dismissal_actors_only?: {
-          from: boolean;
+          from: boolean | null;
         };
         linear_history_requirement_enforcement_level?: {
           /** @enum {string} */
@@ -21236,23 +21236,23 @@ export interface components {
       actions_meta?: Record<string, unknown> | null;
       /** @description The [check_suite](https://docs.github.com/rest/reference/checks#suites). */
       check_suite: {
-        after: string;
+        after: string | null;
         /**
          * App 
          * @description GitHub apps are a new way to extend GitHub. They can be installed directly on organizations and user accounts and granted access to specific repositories. They come with granular permissions and built-in webhooks. GitHub apps are first class actors within GitHub.
          */
         app: {
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "merge_group" | "pull_request_review_thread" | "workflow_job" | "merge_queue_entry" | "security_and_analysis" | "projects_v2_item" | "secret_scanning_alert_location")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -21261,7 +21261,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -21369,9 +21369,9 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         };
-        before: string;
+        before: string | null;
         /** Format: uri */
         check_runs_url: string;
         /**
@@ -21382,7 +21382,7 @@ export interface components {
         /** Format: date-time */
         created_at: string;
         /** @description The head branch name the changes are on. */
-        head_branch: string;
+        head_branch: string | null;
         /** SimpleCommit */
         head_commit: {
           /**
@@ -21393,7 +21393,7 @@ export interface components {
             /** Format: date-time */
             date?: string;
             /** Format: email */
-            email: string;
+            email: string | null;
             /** @description The git author's name. */
             name: string;
             username?: string;
@@ -21406,7 +21406,7 @@ export interface components {
             /** Format: date-time */
             date?: string;
             /** Format: email */
-            email: string;
+            email: string | null;
             /** @description The git author's name. */
             name: string;
             username?: string;
@@ -21486,13 +21486,13 @@ export interface components {
          * Format: date-time 
          * @description The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
          */
-        dismissed_at: string;
+        dismissed_at: string | null;
         /** User */
         dismissed_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -21607,7 +21607,7 @@ export interface components {
           /** @description The name of the tool used to generate the code scanning analysis alert. */
           name: string;
           /** @description The version of the tool used to detect the alert. */
-          version: string;
+          version: string | null;
         };
         /** Format: uri */
         url: string;
@@ -21643,7 +21643,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -21745,9 +21745,9 @@ export interface components {
           /** @description A short description of the rule used to detect the alert. */
           description: string;
           full_description?: string;
-          help?: string;
+          help?: string | null;
           /** @description A link to the documentation for the rule used to detect the alert. */
-          help_uri?: string;
+          help_uri?: string | null;
           /** @description A unique identifier for the rule used to detect the alert. */
           id: string;
           name?: string;
@@ -21756,7 +21756,7 @@ export interface components {
            * @enum {string|null}
            */
           severity: "none" | "note" | "warning" | "error" | "" | null;
-          tags?: (string)[];
+          tags?: (string)[] | null;
         };
         /**
          * @description State of a code scanning alert. 
@@ -21764,11 +21764,11 @@ export interface components {
          */
         state: "dismissed" | "fixed";
         tool: {
-          guid?: string;
+          guid?: string | null;
           /** @description The name of the tool used to generate the code scanning analysis alert. */
           name: string;
           /** @description The version of the tool used to detect the alert. */
-          version: string;
+          version: string | null;
         };
         /** Format: uri */
         url: string;
@@ -21793,7 +21793,7 @@ export interface components {
          * Format: date-time 
          * @description The time that the alert was created in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ.`
          */
-        created_at: string;
+        created_at: string | null;
         /** @description The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`. */
         dismissed_at: Record<string, unknown> | null;
         dismissed_by: Record<string, unknown> | null;
@@ -21867,9 +21867,9 @@ export interface components {
           /** @description A short description of the rule used to detect the alert. */
           description: string;
           full_description?: string;
-          help?: string;
+          help?: string | null;
           /** @description A link to the documentation for the rule used to detect the alert. */
-          help_uri?: string;
+          help_uri?: string | null;
           /** @description A unique identifier for the rule used to detect the alert. */
           id: string;
           name?: string;
@@ -21878,21 +21878,21 @@ export interface components {
            * @enum {string|null}
            */
           severity: "none" | "note" | "warning" | "error" | "" | null;
-          tags?: (string)[];
+          tags?: (string)[] | null;
         };
         /**
          * @description State of a code scanning alert. 
          * @enum {string}
          */
         state: "open" | "dismissed";
-        tool: {
-          guid?: string;
+        tool: ({
+          guid?: string | null;
           /** @description The name of the tool used to generate the code scanning analysis alert. */
           name: string;
           /** @description The version of the tool used to detect the alert. */
-          version: string;
-        } | null;
-        updated_at?: string;
+          version: string | null;
+        }) | null;
+        updated_at?: string | null;
         /** Format: uri */
         url: string;
       };
@@ -21921,13 +21921,13 @@ export interface components {
          * Format: date-time 
          * @description The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
          */
-        dismissed_at: string;
+        dismissed_at: string | null;
         /** User */
         dismissed_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -22031,9 +22031,9 @@ export interface components {
           /** @description A short description of the rule used to detect the alert. */
           description: string;
           full_description?: string;
-          help?: string;
+          help?: string | null;
           /** @description A link to the documentation for the rule used to detect the alert. */
-          help_uri?: string;
+          help_uri?: string | null;
           /** @description A unique identifier for the rule used to detect the alert. */
           id: string;
           name?: string;
@@ -22042,7 +22042,7 @@ export interface components {
            * @enum {string|null}
            */
           severity: "none" | "note" | "warning" | "error" | "" | null;
-          tags?: (string)[];
+          tags?: (string)[] | null;
         };
         /**
          * @description State of a code scanning alert. 
@@ -22050,11 +22050,11 @@ export interface components {
          */
         state: "fixed";
         tool: {
-          guid?: string;
+          guid?: string | null;
           /** @description The name of the tool used to generate the code scanning analysis alert. */
           name: string;
           /** @description The version of the tool used to detect the alert. */
-          version: string;
+          version: string | null;
         };
         /** Format: uri */
         url: string;
@@ -22081,10 +22081,10 @@ export interface components {
          */
         created_at: string;
         /** @description The time that the alert was dismissed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`. */
-        dismissed_at: string;
+        dismissed_at: string | null;
         dismissed_by: Record<string, unknown> | null;
         /** @description The reason for dismissing or closing the alert. Can be one of: `false positive`, `won't fix`, and `used in tests`. */
-        dismissed_reason: string;
+        dismissed_reason: string | null;
         /**
          * Format: uri 
          * @description The GitHub URL of the alert resource.
@@ -22150,9 +22150,9 @@ export interface components {
           /** @description A short description of the rule used to detect the alert. */
           description: string;
           full_description?: string;
-          help?: string;
+          help?: string | null;
           /** @description A link to the documentation for the rule used to detect the alert. */
-          help_uri?: string;
+          help_uri?: string | null;
           /** @description A unique identifier for the rule used to detect the alert. */
           id: string;
           name?: string;
@@ -22161,7 +22161,7 @@ export interface components {
            * @enum {string|null}
            */
           severity: "none" | "note" | "warning" | "error" | "" | null;
-          tags?: (string)[];
+          tags?: (string)[] | null;
         };
         /**
          * @description State of a code scanning alert. 
@@ -22169,22 +22169,22 @@ export interface components {
          */
         state: "open" | "dismissed" | "fixed";
         tool: {
-          guid?: string;
+          guid?: string | null;
           /** @description The name of the tool used to generate the code scanning analysis alert. */
           name: string;
           /** @description The version of the tool used to detect the alert. */
-          version: string;
+          version: string | null;
         };
         /** Format: uri */
         url: string;
       }) | null;
       /** @description The commit SHA of the code scanning alert. When the action is `reopened_by_user` or `closed_by_user`, the event was triggered by the `sender` and this value will be empty. */
-      commit_oid: string;
+      commit_oid: string | null;
       enterprise?: components["schemas"]["enterprise"];
       installation?: components["schemas"]["simple-installation"];
       organization?: components["schemas"]["organization-simple"];
       /** @description The Git reference of the code scanning alert. When the action is `reopened_by_user` or `closed_by_user`, the event was triggered by the `sender` and this value will be empty. */
-      ref: string;
+      ref: string | null;
       repository: components["schemas"]["repository"];
       sender: components["schemas"]["simple-user"];
     };
@@ -22285,7 +22285,7 @@ export interface components {
           /** @description The name of the tool used to generate the code scanning analysis alert. */
           name: string;
           /** @description The version of the tool used to detect the alert. */
-          version: string;
+          version: string | null;
         };
         /** Format: uri */
         url: string;
@@ -22325,13 +22325,13 @@ export interface components {
         /** @description The ID of the commit comment. */
         id: number;
         /** @description The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
-        line: number;
+        line: number | null;
         /** @description The node ID of the commit comment. */
         node_id: string;
         /** @description The relative path of the file to which the comment applies. */
-        path: string;
+        path: string | null;
         /** @description The line index in the diff to which the comment applies. */
-        position: number;
+        position: number | null;
         /** Reactions */
         reactions?: {
           "+1": number;
@@ -22354,7 +22354,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -22396,7 +22396,7 @@ export interface components {
     /** create event */
     "webhook-create": {
       /** @description The repository's current description. */
-      description: string;
+      description: string | null;
       enterprise?: components["schemas"]["enterprise"];
       installation?: components["schemas"]["simple-installation"];
       /** @description The name of the repository's default branch (usually `main`). */
@@ -22494,11 +22494,11 @@ export interface components {
       installation?: components["schemas"]["simple-installation"];
       /** @description The [`deploy key`](https://docs.github.com/rest/reference/deployments#get-a-deploy-key) resource. */
       key: {
-        added_by?: string;
+        added_by?: string | null;
         created_at: string;
         id: number;
         key: string;
-        last_used?: string;
+        last_used?: string | null;
         read_only: boolean;
         title: string;
         /** Format: uri */
@@ -22517,11 +22517,11 @@ export interface components {
       installation?: components["schemas"]["simple-installation"];
       /** @description The [`deploy key`](https://docs.github.com/rest/reference/deployments#get-a-deploy-key) resource. */
       key: {
-        added_by?: string;
+        added_by?: string | null;
         created_at: string;
         id: number;
         key: string;
-        last_used?: string;
+        last_used?: string | null;
         read_only: boolean;
         title: string;
         /** Format: uri */
@@ -22547,7 +22547,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -22579,7 +22579,7 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        description: string;
+        description: string | null;
         environment: string;
         id: number;
         node_id: string;
@@ -22591,16 +22591,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "workflow_job" | "pull_request_review_thread" | "merge_queue_entry" | "secret_scanning_alert_location" | "merge_group")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -22609,7 +22609,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -22717,7 +22717,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         production_environment?: boolean;
         ref: string;
@@ -22762,7 +22762,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -22916,7 +22916,7 @@ export interface components {
             path: string;
             ref?: string;
             sha: string;
-          })[];
+          })[] | null;
         repository?: {
           archive_url?: string;
           assignees_url?: string;
@@ -22996,7 +22996,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -23042,7 +23042,7 @@ export interface components {
       action: "created";
       check_run?: ({
         /** Format: date-time */
-        completed_at: string;
+        completed_at: string | null;
         /**
          * @description The result of the completed check run. Can be one of `success`, `failure`, `neutral`, `cancelled`, `timed_out`, `action_required` or `stale`. This value will be `null` until the check run has completed. 
          * @enum {string|null}
@@ -23081,7 +23081,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -23113,7 +23113,7 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        description: string;
+        description: string | null;
         environment: string;
         id: number;
         node_id: string;
@@ -23125,16 +23125,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "merge_queue_entry" | "workflow_job" | "pull_request_review_thread" | "secret_scanning_alert_location" | "merge_group")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -23143,7 +23143,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -23251,7 +23251,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         production_environment?: boolean;
         ref: string;
@@ -23274,7 +23274,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -23323,16 +23323,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "pull_request_review_thread" | "merge_queue_entry" | "workflow_job" | "merge_group" | "secret_scanning_alert_location")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -23341,7 +23341,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -23449,7 +23449,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         /** Format: uri */
         repository_url: string;
@@ -23491,7 +23491,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -23645,7 +23645,7 @@ export interface components {
             path: string;
             ref?: string;
             sha: string;
-          })[];
+          })[] | null;
         repository?: {
           archive_url?: string;
           assignees_url?: string;
@@ -23725,7 +23725,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -23807,7 +23807,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -23841,14 +23841,14 @@ export interface components {
         }) | null;
       };
       discussion: ({
-        active_lock_reason: string;
-        answer_chosen_at: string;
+        active_lock_reason: string | null;
+        answer_chosen_at: string | null;
         /** User */
         answer_chosen_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -23880,7 +23880,7 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         /**
          * AuthorAssociation 
          * @description How the author is associated with the repository. 
@@ -23935,7 +23935,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -23968,7 +23968,7 @@ export interface components {
           url?: string;
         }) | null;
       }) & ({
-        active_lock_reason?: string;
+        active_lock_reason?: string | null;
         /** Format: date-time */
         answer_chosen_at: string;
         /** User */
@@ -23976,7 +23976,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -24099,14 +24099,14 @@ export interface components {
       };
       /** Discussion */
       discussion: {
-        active_lock_reason: string;
-        answer_chosen_at: string;
+        active_lock_reason: string | null;
+        answer_chosen_at: string | null;
         /** User */
         answer_chosen_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -24138,7 +24138,7 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         /**
          * AuthorAssociation 
          * @description How the author is associated with the repository. 
@@ -24193,7 +24193,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -24250,7 +24250,7 @@ export interface components {
         html_url: string;
         id: number;
         node_id: string;
-        parent_id: number;
+        parent_id: number | null;
         /** Reactions */
         reactions: {
           "+1": number;
@@ -24272,7 +24272,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -24307,14 +24307,14 @@ export interface components {
       };
       /** Discussion */
       discussion: {
-        active_lock_reason: string;
-        answer_chosen_at: string;
+        active_lock_reason: string | null;
+        answer_chosen_at: string | null;
         /** User */
         answer_chosen_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -24346,14 +24346,14 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         /**
          * AuthorAssociation 
          * @description How the author is associated with the repository. 
          * @enum {string}
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
-        body: string;
+        body: string | null;
         category: {
           /** Format: date-time */
           created_at: string;
@@ -24401,7 +24401,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -24458,7 +24458,7 @@ export interface components {
         html_url: string;
         id: number;
         node_id: string;
-        parent_id: number;
+        parent_id: number | null;
         /** Reactions */
         reactions: {
           "+1": number;
@@ -24480,7 +24480,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -24515,14 +24515,14 @@ export interface components {
       };
       /** Discussion */
       discussion: {
-        active_lock_reason: string;
-        answer_chosen_at: string;
+        active_lock_reason: string | null;
+        answer_chosen_at: string | null;
         /** User */
         answer_chosen_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -24554,7 +24554,7 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         /**
          * AuthorAssociation 
          * @description How the author is associated with the repository. 
@@ -24609,7 +24609,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -24671,7 +24671,7 @@ export interface components {
         html_url: string;
         id: number;
         node_id: string;
-        parent_id: number;
+        parent_id: number | null;
         /** Reactions */
         reactions: {
           "+1": number;
@@ -24693,7 +24693,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -24728,14 +24728,14 @@ export interface components {
       };
       /** Discussion */
       discussion: {
-        active_lock_reason: string;
-        answer_chosen_at: string;
+        active_lock_reason: string | null;
+        answer_chosen_at: string | null;
         /** User */
         answer_chosen_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -24767,14 +24767,14 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         /**
          * AuthorAssociation 
          * @description How the author is associated with the repository. 
          * @enum {string}
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
-        body: string;
+        body: string | null;
         category: {
           /** Format: date-time */
           created_at: string;
@@ -24822,7 +24822,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -24866,14 +24866,14 @@ export interface components {
       /** @enum {string} */
       action: "created";
       discussion: ({
-        active_lock_reason: string;
-        answer_chosen_at: string;
+        active_lock_reason: string | null;
+        answer_chosen_at: string | null;
         /** User */
         answer_chosen_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -24905,14 +24905,14 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         /**
          * AuthorAssociation 
          * @description How the author is associated with the repository. 
          * @enum {string}
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
-        body: string;
+        body: string | null;
         category: {
           /** Format: date-time */
           created_at: string;
@@ -24960,7 +24960,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -24996,9 +24996,9 @@ export interface components {
         active_lock_reason?: Record<string, unknown> | null;
         answer_chosen_at: Record<string, unknown> | null;
         answer_chosen_by: Record<string, unknown> | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         author_association?: string;
-        body?: string;
+        body?: string | null;
         category?: {
           created_at?: string;
           description?: string;
@@ -25070,14 +25070,14 @@ export interface components {
       action: "deleted";
       /** Discussion */
       discussion: {
-        active_lock_reason: string;
-        answer_chosen_at: string;
+        active_lock_reason: string | null;
+        answer_chosen_at: string | null;
         /** User */
         answer_chosen_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -25109,7 +25109,7 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         /**
          * AuthorAssociation 
          * @description How the author is associated with the repository. 
@@ -25164,7 +25164,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -25217,14 +25217,14 @@ export interface components {
       };
       /** Discussion */
       discussion: {
-        active_lock_reason: string;
-        answer_chosen_at: string;
+        active_lock_reason: string | null;
+        answer_chosen_at: string | null;
         /** User */
         answer_chosen_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -25256,7 +25256,7 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         /**
          * AuthorAssociation 
          * @description How the author is associated with the repository. 
@@ -25311,7 +25311,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -25356,14 +25356,14 @@ export interface components {
       action: "labeled";
       /** Discussion */
       discussion: {
-        active_lock_reason: string;
-        answer_chosen_at: string;
+        active_lock_reason: string | null;
+        answer_chosen_at: string | null;
         /** User */
         answer_chosen_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -25395,14 +25395,14 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         /**
          * AuthorAssociation 
          * @description How the author is associated with the repository. 
          * @enum {string}
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
-        body: string;
+        body: string | null;
         category: {
           /** Format: date-time */
           created_at: string;
@@ -25450,7 +25450,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -25490,7 +25490,7 @@ export interface components {
         /** @description 6-character hex code, without the leading #, identifying the color */
         color: string;
         default: boolean;
-        description: string;
+        description: string | null;
         id: number;
         /** @description The name of the label. */
         name: string;
@@ -25510,14 +25510,14 @@ export interface components {
       /** @enum {string} */
       action: "locked";
       discussion: ({
-        active_lock_reason: string;
-        answer_chosen_at: string;
+        active_lock_reason: string | null;
+        answer_chosen_at: string | null;
         /** User */
         answer_chosen_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -25549,7 +25549,7 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         /**
          * AuthorAssociation 
          * @description How the author is associated with the repository. 
@@ -25604,7 +25604,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -25638,9 +25638,9 @@ export interface components {
         }) | null;
       }) & ({
         active_lock_reason?: string;
-        answer_chosen_at?: string;
+        answer_chosen_at?: string | null;
         answer_chosen_by?: Record<string, unknown> | null;
-        answer_html_url?: string;
+        answer_html_url?: string | null;
         author_association?: string;
         body?: string;
         category?: {
@@ -25714,14 +25714,14 @@ export interface components {
       action: "pinned";
       /** Discussion */
       discussion: {
-        active_lock_reason: string;
-        answer_chosen_at: string;
+        active_lock_reason: string | null;
+        answer_chosen_at: string | null;
         /** User */
         answer_chosen_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -25753,7 +25753,7 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         /**
          * AuthorAssociation 
          * @description How the author is associated with the repository. 
@@ -25808,7 +25808,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -25854,14 +25854,14 @@ export interface components {
       changes: {
         /** Discussion */
         new_discussion: {
-          active_lock_reason: string;
-          answer_chosen_at: string;
+          active_lock_reason: string | null;
+          answer_chosen_at: string | null;
           /** User */
           answer_chosen_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -25893,7 +25893,7 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          answer_html_url: string;
+          answer_html_url: string | null;
           /**
            * AuthorAssociation 
            * @description How the author is associated with the repository. 
@@ -25948,7 +25948,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -26046,7 +26046,7 @@ export interface components {
           delete_branch_on_merge?: boolean;
           /** Format: uri */
           deployments_url: string;
-          description: string;
+          description: string | null;
           /** @description Returns whether or not this repository is disabled. */
           disabled?: boolean;
           /** Format: uri */
@@ -26093,7 +26093,7 @@ export interface components {
            * @default false
            */
           has_discussions: boolean;
-          homepage: string;
+          homepage: string | null;
           /** Format: uri */
           hooks_url: string;
           /** Format: uri */
@@ -26111,25 +26111,25 @@ export interface components {
           keys_url: string;
           /** Format: uri-template */
           labels_url: string;
-          language: string;
+          language: string | null;
           /** Format: uri */
           languages_url: string;
           /** License */
-          license: {
+          license: ({
             key: string;
             name: string;
             node_id: string;
             spdx_id: string;
             /** Format: uri */
-            url: string;
-          } | null;
+            url: string | null;
+          }) | null;
           master_branch?: string;
           /** Format: uri */
           merges_url: string;
           /** Format: uri-template */
           milestones_url: string;
           /** Format: uri */
-          mirror_url: string;
+          mirror_url: string | null;
           /** @description The name of the repository. */
           name: string;
           node_id: string;
@@ -26143,7 +26143,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -26190,7 +26190,7 @@ export interface components {
           pushed_at: number | string;
           /** Format: uri-template */
           releases_url: string;
-          role_name?: string;
+          role_name?: string | null;
           size: number;
           ssh_url: string;
           stargazers?: number;
@@ -26226,14 +26226,14 @@ export interface components {
       };
       /** Discussion */
       discussion: {
-        active_lock_reason: string;
-        answer_chosen_at: string;
+        active_lock_reason: string | null;
+        answer_chosen_at: string | null;
         /** User */
         answer_chosen_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -26265,7 +26265,7 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         /**
          * AuthorAssociation 
          * @description How the author is associated with the repository. 
@@ -26320,7 +26320,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -26364,14 +26364,14 @@ export interface components {
       /** @enum {string} */
       action: "unanswered";
       discussion: ({
-        active_lock_reason: string;
-        answer_chosen_at: string;
+        active_lock_reason: string | null;
+        answer_chosen_at: string | null;
         /** User */
         answer_chosen_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -26403,7 +26403,7 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         /**
          * AuthorAssociation 
          * @description How the author is associated with the repository. 
@@ -26458,7 +26458,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -26491,10 +26491,10 @@ export interface components {
           url?: string;
         }) | null;
       }) & ({
-        active_lock_reason?: string;
+        active_lock_reason?: string | null;
         answer_chosen_at: Record<string, unknown> | null;
         answer_chosen_by: Record<string, unknown> | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         author_association?: string;
         body?: string;
         category: {
@@ -26595,7 +26595,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -26638,14 +26638,14 @@ export interface components {
       action: "unlabeled";
       /** Discussion */
       discussion: {
-        active_lock_reason: string;
-        answer_chosen_at: string;
+        active_lock_reason: string | null;
+        answer_chosen_at: string | null;
         /** User */
         answer_chosen_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -26677,7 +26677,7 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         /**
          * AuthorAssociation 
          * @description How the author is associated with the repository. 
@@ -26732,7 +26732,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -26772,7 +26772,7 @@ export interface components {
         /** @description 6-character hex code, without the leading #, identifying the color */
         color: string;
         default: boolean;
-        description: string;
+        description: string | null;
         id: number;
         /** @description The name of the label. */
         name: string;
@@ -26792,14 +26792,14 @@ export interface components {
       /** @enum {string} */
       action: "unlocked";
       discussion: ({
-        active_lock_reason: string;
-        answer_chosen_at: string;
+        active_lock_reason: string | null;
+        answer_chosen_at: string | null;
         /** User */
         answer_chosen_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -26831,7 +26831,7 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         /**
          * AuthorAssociation 
          * @description How the author is associated with the repository. 
@@ -26886,7 +26886,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -26996,14 +26996,14 @@ export interface components {
       action: "unpinned";
       /** Discussion */
       discussion: {
-        active_lock_reason: string;
-        answer_chosen_at: string;
+        active_lock_reason: string | null;
+        answer_chosen_at: string | null;
         /** User */
         answer_chosen_by: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -27035,7 +27035,7 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        answer_html_url: string;
+        answer_html_url: string | null;
         /**
          * AuthorAssociation 
          * @description How the author is associated with the repository. 
@@ -27090,7 +27090,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -27197,7 +27197,7 @@ export interface components {
         delete_branch_on_merge?: boolean;
         /** Format: uri */
         deployments_url: string;
-        description: string;
+        description: string | null;
         /** @description Returns whether or not this repository is disabled. */
         disabled?: boolean;
         /** Format: uri */
@@ -27239,7 +27239,7 @@ export interface components {
          * @default true
          */
         has_wiki: boolean;
-        homepage: string;
+        homepage: string | null;
         /** Format: uri */
         hooks_url: string;
         /** Format: uri */
@@ -27257,25 +27257,25 @@ export interface components {
         keys_url: string;
         /** Format: uri-template */
         labels_url: string;
-        language: string;
+        language: string | null;
         /** Format: uri */
         languages_url: string;
         /** License */
-        license: {
+        license: ({
           key: string;
           name: string;
           node_id: string;
           spdx_id: string;
           /** Format: uri */
-          url: string;
-        } | null;
+          url: string | null;
+        }) | null;
         master_branch?: string;
         /** Format: uri */
         merges_url: string;
         /** Format: uri-template */
         milestones_url: string;
         /** Format: uri */
-        mirror_url: string;
+        mirror_url: string | null;
         /** @description The name of the repository. */
         name: string;
         node_id: string;
@@ -27289,7 +27289,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -27336,7 +27336,7 @@ export interface components {
         pushed_at: number | string;
         /** Format: uri-template */
         releases_url: string;
-        role_name?: string;
+        role_name?: string | null;
         size: number;
         ssh_url: string;
         stargazers?: number;
@@ -27385,7 +27385,7 @@ export interface components {
         created_at?: string;
         default_branch?: string;
         deployments_url?: string;
-        description?: string;
+        description?: string | null;
         disabled?: boolean;
         downloads_url?: string;
         events_url?: string;
@@ -27404,7 +27404,7 @@ export interface components {
         has_pages?: boolean;
         has_projects?: boolean;
         has_wiki?: boolean;
-        homepage?: string;
+        homepage?: string | null;
         hooks_url?: string;
         html_url?: string;
         id?: number;
@@ -27504,7 +27504,7 @@ export interface components {
           page_name: string;
           /** @description The latest commit SHA of the page. */
           sha: string;
-          summary: string;
+          summary: string | null;
           /** @description The current page title. */
           title: string;
         })[];
@@ -27535,7 +27535,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -27653,7 +27653,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -27727,7 +27727,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -27912,7 +27912,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -27956,7 +27956,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -27992,7 +27992,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -28031,9 +28031,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -28049,7 +28049,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -28069,7 +28069,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -28078,7 +28078,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -28110,9 +28110,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -28142,16 +28142,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "reminder" | "pull_request_review_thread")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -28160,7 +28160,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -28268,7 +28268,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -28276,7 +28276,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -28303,7 +28303,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -28320,7 +28320,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -28353,13 +28353,13 @@ export interface components {
           url?: string;
         }) | null;
       }) & ({
-        active_lock_reason?: string;
+        active_lock_reason?: string | null;
         /** User */
         assignee: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -28393,8 +28393,8 @@ export interface components {
         }) | null;
         assignees?: (Record<string, unknown> | null)[];
         author_association?: string;
-        body?: string;
-        closed_at?: string;
+        body?: string | null;
+        closed_at?: string | null;
         comments?: number;
         comments_url?: string;
         created_at?: string;
@@ -28405,7 +28405,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -28522,7 +28522,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -28566,7 +28566,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -28602,7 +28602,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -28641,9 +28641,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -28659,7 +28659,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -28679,7 +28679,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -28688,7 +28688,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -28720,9 +28720,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -28752,16 +28752,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -28770,7 +28770,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -28878,7 +28878,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -28886,7 +28886,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -28913,7 +28913,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -28930,7 +28930,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -28963,13 +28963,13 @@ export interface components {
           url?: string;
         }) | null;
       }) & ({
-        active_lock_reason?: string;
+        active_lock_reason?: string | null;
         /** User */
         assignee: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -29003,8 +29003,8 @@ export interface components {
         }) | null;
         assignees?: (Record<string, unknown> | null)[];
         author_association?: string;
-        body?: string;
-        closed_at?: string;
+        body?: string | null;
+        closed_at?: string | null;
         comments?: number;
         comments_url?: string;
         created_at?: string;
@@ -29015,7 +29015,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -29139,7 +29139,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -29183,7 +29183,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -29219,7 +29219,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -29258,9 +29258,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -29276,7 +29276,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -29296,7 +29296,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -29305,7 +29305,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -29337,9 +29337,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -29369,16 +29369,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "reminder" | "pull_request_review_thread")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -29387,7 +29387,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -29495,7 +29495,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -29503,7 +29503,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -29530,7 +29530,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -29547,7 +29547,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -29580,13 +29580,13 @@ export interface components {
           url?: string;
         }) | null;
       }) & ({
-        active_lock_reason?: string;
+        active_lock_reason?: string | null;
         /** User */
         assignee: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -29620,8 +29620,8 @@ export interface components {
         }) | null;
         assignees?: (Record<string, unknown> | null)[];
         author_association?: string;
-        body?: string;
-        closed_at?: string;
+        body?: string | null;
+        closed_at?: string | null;
         comments?: number;
         comments_url?: string;
         created_at?: string;
@@ -29632,7 +29632,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -29708,7 +29708,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -29754,7 +29754,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -29790,7 +29790,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -29829,9 +29829,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -29847,7 +29847,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -29867,7 +29867,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -29876,7 +29876,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -29908,9 +29908,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -29940,16 +29940,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "reminder" | "pull_request_review_thread")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -29958,7 +29958,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -30066,7 +30066,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -30074,7 +30074,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -30101,7 +30101,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -30118,7 +30118,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -30173,7 +30173,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -30209,7 +30209,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -30248,9 +30248,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -30266,7 +30266,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -30286,7 +30286,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -30295,7 +30295,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -30327,9 +30327,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -30359,16 +30359,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "security_and_analysis" | "reminder" | "pull_request_review_thread")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -30377,7 +30377,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -30485,7 +30485,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -30493,7 +30493,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -30520,7 +30520,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -30537,7 +30537,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -30570,12 +30570,12 @@ export interface components {
           url?: string;
         }) | null;
       }) & ({
-        active_lock_reason?: string;
+        active_lock_reason?: string | null;
         assignee?: Record<string, unknown> | null;
         assignees?: (Record<string, unknown> | null)[];
         author_association?: string;
-        body?: string;
-        closed_at: string;
+        body?: string | null;
+        closed_at: string | null;
         comments?: number;
         comments_url?: string;
         created_at?: string;
@@ -30651,7 +30651,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -30687,7 +30687,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -30726,9 +30726,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -30744,7 +30744,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -30764,7 +30764,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -30773,7 +30773,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -30805,9 +30805,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -30837,16 +30837,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "reminder")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -30855,7 +30855,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -30963,7 +30963,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -30971,7 +30971,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -30998,7 +30998,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -31015,7 +31015,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -31066,7 +31066,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -31102,7 +31102,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -31141,9 +31141,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -31159,7 +31159,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -31179,7 +31179,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -31188,7 +31188,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -31220,9 +31220,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -31252,16 +31252,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -31270,7 +31270,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -31378,7 +31378,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -31386,7 +31386,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -31413,7 +31413,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -31430,7 +31430,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -31463,12 +31463,12 @@ export interface components {
           url?: string;
         }) | null;
       }) & ({
-        active_lock_reason?: string;
+        active_lock_reason?: string | null;
         assignee?: Record<string, unknown> | null;
         assignees?: (Record<string, unknown> | null)[];
         author_association?: string;
-        body?: string;
-        closed_at?: string;
+        body?: string | null;
+        closed_at?: string | null;
         comments?: number;
         comments_url?: string;
         created_at?: string;
@@ -31484,7 +31484,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -31493,7 +31493,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -31525,9 +31525,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -31597,7 +31597,7 @@ export interface components {
        */
       milestone?: {
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         closed_issues: number;
         /** Format: date-time */
         created_at: string;
@@ -31606,7 +31606,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -31638,9 +31638,9 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        description: string;
+        description: string | null;
         /** Format: date-time */
-        due_on: string;
+        due_on: string | null;
         /** Format: uri */
         html_url: string;
         id: number;
@@ -31695,7 +31695,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -31731,7 +31731,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -31770,9 +31770,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -31788,7 +31788,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -31808,7 +31808,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -31817,7 +31817,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -31849,9 +31849,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -31881,16 +31881,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "security_and_analysis" | "pull_request_review_thread" | "reminder")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -31899,7 +31899,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -32007,7 +32007,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -32015,7 +32015,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -32042,7 +32042,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -32059,7 +32059,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -32097,7 +32097,7 @@ export interface components {
         /** @description 6-character hex code, without the leading #, identifying the color */
         color: string;
         default: boolean;
-        description: string;
+        description: string | null;
         id: number;
         /** @description The name of the label. */
         name: string;
@@ -32130,7 +32130,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -32166,7 +32166,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -32205,9 +32205,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -32223,7 +32223,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -32243,7 +32243,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -32252,7 +32252,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -32284,9 +32284,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -32316,16 +32316,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "pull_request_review_thread" | "reminder")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -32334,7 +32334,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -32442,7 +32442,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -32450,7 +32450,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -32477,7 +32477,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -32494,7 +32494,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -32532,7 +32532,7 @@ export interface components {
         /** @description 6-character hex code, without the leading #, identifying the color */
         color: string;
         default: boolean;
-        description: string;
+        description: string | null;
         id: number;
         /** @description The name of the label. */
         name: string;
@@ -32561,7 +32561,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -32597,7 +32597,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -32636,9 +32636,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -32654,7 +32654,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -32674,7 +32674,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -32683,7 +32683,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -32715,9 +32715,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -32747,16 +32747,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "reminder" | "security_and_analysis")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -32765,7 +32765,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -32873,7 +32873,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -32881,7 +32881,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -32908,7 +32908,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -32925,7 +32925,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -32963,8 +32963,8 @@ export interface components {
         assignee?: Record<string, unknown> | null;
         assignees?: (Record<string, unknown> | null)[];
         author_association?: string;
-        body?: string;
-        closed_at?: string;
+        body?: string | null;
+        closed_at?: string | null;
         comments?: number;
         comments_url?: string;
         created_at?: string;
@@ -33036,7 +33036,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -33072,7 +33072,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -33111,9 +33111,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -33129,7 +33129,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -33149,7 +33149,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -33158,7 +33158,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -33190,9 +33190,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -33222,16 +33222,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "reminder")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -33240,7 +33240,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -33348,7 +33348,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -33356,7 +33356,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -33383,7 +33383,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -33400,7 +33400,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -33433,12 +33433,12 @@ export interface components {
           url?: string;
         }) | null;
       }) & ({
-        active_lock_reason?: string;
+        active_lock_reason?: string | null;
         assignee?: Record<string, unknown> | null;
         assignees?: (Record<string, unknown> | null)[];
         author_association?: string;
-        body?: string;
-        closed_at?: string;
+        body?: string | null;
+        closed_at?: string | null;
         comments?: number;
         comments_url?: string;
         created_at?: string;
@@ -33454,7 +33454,7 @@ export interface components {
          */
         milestone: {
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -33463,7 +33463,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -33495,9 +33495,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -33567,7 +33567,7 @@ export interface components {
        */
       milestone: {
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         closed_issues: number;
         /** Format: date-time */
         created_at: string;
@@ -33576,7 +33576,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -33608,9 +33608,9 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        description: string;
+        description: string | null;
         /** Format: date-time */
-        due_on: string;
+        due_on: string | null;
         /** Format: uri */
         html_url: string;
         id: number;
@@ -33653,7 +33653,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -33689,7 +33689,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -33728,9 +33728,9 @@ export interface components {
            */
           author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
           /** @description Contents of the issue */
-          body: string;
+          body: string | null;
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           comments: number;
           /** Format: uri */
           comments_url: string;
@@ -33746,7 +33746,7 @@ export interface components {
               /** @description 6-character hex code, without the leading #, identifying the color */
               color: string;
               default: boolean;
-              description: string;
+              description: string | null;
               id: number;
               /** @description The name of the label. */
               name: string;
@@ -33766,7 +33766,7 @@ export interface components {
            */
           milestone: ({
             /** Format: date-time */
-            closed_at: string;
+            closed_at: string | null;
             closed_issues: number;
             /** Format: date-time */
             created_at: string;
@@ -33775,7 +33775,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -33807,9 +33807,9 @@ export interface components {
               /** Format: uri */
               url?: string;
             }) | null;
-            description: string;
+            description: string | null;
             /** Format: date-time */
-            due_on: string;
+            due_on: string | null;
             /** Format: uri */
             html_url: string;
             id: number;
@@ -33839,16 +33839,16 @@ export interface components {
            */
           performed_via_github_app?: ({
             /** Format: date-time */
-            created_at: string;
-            description: string;
+            created_at: string | null;
+            description: string | null;
             /** @description The list of events for the GitHub app */
             events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run")[];
             /** Format: uri */
-            external_url: string;
+            external_url: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the GitHub app */
-            id: number;
+            id: number | null;
             /** @description The name of the GitHub app */
             name: string;
             node_id: string;
@@ -33857,7 +33857,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -33965,7 +33965,7 @@ export interface components {
             /** @description The slug name of the GitHub app */
             slug?: string;
             /** Format: date-time */
-            updated_at: string;
+            updated_at: string | null;
           }) | null;
           pull_request?: {
             /** Format: uri */
@@ -33973,7 +33973,7 @@ export interface components {
             /** Format: uri */
             html_url?: string;
             /** Format: date-time */
-            merged_at?: string;
+            merged_at?: string | null;
             /** Format: uri */
             patch_url?: string;
             /** Format: uri */
@@ -34000,7 +34000,7 @@ export interface components {
            * @enum {string}
            */
           state?: "open" | "closed";
-          state_reason?: string;
+          state_reason?: string | null;
           /** Format: uri */
           timeline_url?: string;
           /** @description Title of the issue */
@@ -34017,7 +34017,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -34115,7 +34115,7 @@ export interface components {
           delete_branch_on_merge?: boolean;
           /** Format: uri */
           deployments_url: string;
-          description: string;
+          description: string | null;
           /** @description Returns whether or not this repository is disabled. */
           disabled?: boolean;
           /** Format: uri */
@@ -34157,7 +34157,7 @@ export interface components {
            * @default true
            */
           has_wiki: boolean;
-          homepage: string;
+          homepage: string | null;
           /** Format: uri */
           hooks_url: string;
           /** Format: uri */
@@ -34175,25 +34175,25 @@ export interface components {
           keys_url: string;
           /** Format: uri-template */
           labels_url: string;
-          language: string;
+          language: string | null;
           /** Format: uri */
           languages_url: string;
           /** License */
-          license: {
+          license: ({
             key: string;
             name: string;
             node_id: string;
             spdx_id: string;
             /** Format: uri */
-            url: string;
-          } | null;
+            url: string | null;
+          }) | null;
           master_branch?: string;
           /** Format: uri */
           merges_url: string;
           /** Format: uri-template */
           milestones_url: string;
           /** Format: uri */
-          mirror_url: string;
+          mirror_url: string | null;
           /** @description The name of the repository. */
           name: string;
           node_id: string;
@@ -34207,7 +34207,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -34254,7 +34254,7 @@ export interface components {
           pushed_at: number | string;
           /** Format: uri-template */
           releases_url: string;
-          role_name?: string;
+          role_name?: string | null;
           size: number;
           ssh_url: string;
           stargazers?: number;
@@ -34296,7 +34296,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -34332,7 +34332,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -34371,9 +34371,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -34389,7 +34389,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -34409,7 +34409,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -34418,7 +34418,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -34450,9 +34450,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -34482,16 +34482,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "security_and_analysis" | "pull_request_review_thread" | "reminder")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -34500,7 +34500,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -34608,7 +34608,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -34616,7 +34616,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -34643,7 +34643,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -34660,7 +34660,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -34693,12 +34693,12 @@ export interface components {
           url?: string;
         }) | null;
       }) & ({
-        active_lock_reason?: string;
+        active_lock_reason?: string | null;
         assignee?: Record<string, unknown> | null;
         assignees?: (Record<string, unknown> | null)[];
         author_association?: string;
-        body?: string;
-        closed_at: string;
+        body?: string | null;
+        closed_at: string | null;
         comments?: number;
         comments_url?: string;
         created_at?: string;
@@ -34774,7 +34774,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -34810,7 +34810,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -34849,9 +34849,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -34867,7 +34867,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -34887,7 +34887,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -34896,7 +34896,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -34928,9 +34928,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -34960,16 +34960,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -34978,7 +34978,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -35086,7 +35086,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -35094,7 +35094,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -35121,7 +35121,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -35138,7 +35138,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -35189,7 +35189,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -35225,7 +35225,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -35264,9 +35264,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -35282,7 +35282,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -35302,7 +35302,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -35311,7 +35311,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -35343,9 +35343,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -35375,16 +35375,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "pull_request_review_thread" | "reminder")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -35393,7 +35393,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -35501,7 +35501,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -35509,7 +35509,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -35536,7 +35536,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -35553,7 +35553,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -35586,12 +35586,12 @@ export interface components {
           url?: string;
         }) | null;
       }) & ({
-        active_lock_reason?: string;
+        active_lock_reason?: string | null;
         assignee?: Record<string, unknown> | null;
         assignees?: (Record<string, unknown> | null)[];
         author_association?: string;
-        body?: string;
-        closed_at?: string;
+        body?: string | null;
+        closed_at?: string | null;
         comments?: number;
         comments_url?: string;
         created_at?: string;
@@ -35666,7 +35666,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -35702,7 +35702,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -35741,9 +35741,9 @@ export interface components {
            */
           author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
           /** @description Contents of the issue */
-          body: string;
+          body: string | null;
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           comments: number;
           /** Format: uri */
           comments_url: string;
@@ -35759,7 +35759,7 @@ export interface components {
               /** @description 6-character hex code, without the leading #, identifying the color */
               color: string;
               default: boolean;
-              description: string;
+              description: string | null;
               id: number;
               /** @description The name of the label. */
               name: string;
@@ -35779,7 +35779,7 @@ export interface components {
            */
           milestone: ({
             /** Format: date-time */
-            closed_at: string;
+            closed_at: string | null;
             closed_issues: number;
             /** Format: date-time */
             created_at: string;
@@ -35788,7 +35788,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -35820,9 +35820,9 @@ export interface components {
               /** Format: uri */
               url?: string;
             }) | null;
-            description: string;
+            description: string | null;
             /** Format: date-time */
-            due_on: string;
+            due_on: string | null;
             /** Format: uri */
             html_url: string;
             id: number;
@@ -35852,16 +35852,16 @@ export interface components {
            */
           performed_via_github_app?: ({
             /** Format: date-time */
-            created_at: string;
-            description: string;
+            created_at: string | null;
+            description: string | null;
             /** @description The list of events for the GitHub app */
             events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run")[];
             /** Format: uri */
-            external_url: string;
+            external_url: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the GitHub app */
-            id: number;
+            id: number | null;
             /** @description The name of the GitHub app */
             name: string;
             node_id: string;
@@ -35870,7 +35870,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -35978,7 +35978,7 @@ export interface components {
             /** @description The slug name of the GitHub app */
             slug?: string;
             /** Format: date-time */
-            updated_at: string;
+            updated_at: string | null;
           }) | null;
           pull_request?: {
             /** Format: uri */
@@ -35986,7 +35986,7 @@ export interface components {
             /** Format: uri */
             html_url?: string;
             /** Format: date-time */
-            merged_at?: string;
+            merged_at?: string | null;
             /** Format: uri */
             patch_url?: string;
             /** Format: uri */
@@ -36013,7 +36013,7 @@ export interface components {
            * @enum {string}
            */
           state?: "open" | "closed";
-          state_reason?: string;
+          state_reason?: string | null;
           /** Format: uri */
           timeline_url?: string;
           /** @description Title of the issue */
@@ -36030,7 +36030,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -36128,7 +36128,7 @@ export interface components {
           delete_branch_on_merge?: boolean;
           /** Format: uri */
           deployments_url: string;
-          description: string;
+          description: string | null;
           /** @description Returns whether or not this repository is disabled. */
           disabled?: boolean;
           /** Format: uri */
@@ -36175,7 +36175,7 @@ export interface components {
            * @default false
            */
           has_discussions: boolean;
-          homepage: string;
+          homepage: string | null;
           /** Format: uri */
           hooks_url: string;
           /** Format: uri */
@@ -36193,25 +36193,25 @@ export interface components {
           keys_url: string;
           /** Format: uri-template */
           labels_url: string;
-          language: string;
+          language: string | null;
           /** Format: uri */
           languages_url: string;
           /** License */
-          license: {
+          license: ({
             key: string;
             name: string;
             node_id: string;
             spdx_id: string;
             /** Format: uri */
-            url: string;
-          } | null;
+            url: string | null;
+          }) | null;
           master_branch?: string;
           /** Format: uri */
           merges_url: string;
           /** Format: uri-template */
           milestones_url: string;
           /** Format: uri */
-          mirror_url: string;
+          mirror_url: string | null;
           /** @description The name of the repository. */
           name: string;
           node_id: string;
@@ -36225,7 +36225,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -36272,7 +36272,7 @@ export interface components {
           pushed_at: number | string;
           /** Format: uri-template */
           releases_url: string;
-          role_name?: string;
+          role_name?: string | null;
           size: number;
           ssh_url: string;
           stargazers?: number;
@@ -36320,7 +36320,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -36356,7 +36356,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -36395,9 +36395,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -36413,7 +36413,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -36433,7 +36433,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -36442,7 +36442,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -36474,9 +36474,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -36506,16 +36506,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -36524,7 +36524,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -36632,7 +36632,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -36640,7 +36640,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -36667,7 +36667,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -36684,7 +36684,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -36733,7 +36733,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -36779,7 +36779,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -36815,7 +36815,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -36854,9 +36854,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -36872,7 +36872,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -36892,7 +36892,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -36901,7 +36901,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -36933,9 +36933,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -36965,16 +36965,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "reminder" | "pull_request_review_thread")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -36983,7 +36983,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -37091,7 +37091,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -37099,7 +37099,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -37126,7 +37126,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -37143,7 +37143,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -37198,7 +37198,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -37234,7 +37234,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -37273,9 +37273,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -37291,7 +37291,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -37311,7 +37311,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -37320,7 +37320,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -37352,9 +37352,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -37384,16 +37384,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run" | "reminder" | "pull_request_review_thread")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -37402,7 +37402,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -37510,7 +37510,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -37518,7 +37518,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -37545,7 +37545,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -37562,7 +37562,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -37600,7 +37600,7 @@ export interface components {
         /** @description 6-character hex code, without the leading #, identifying the color */
         color: string;
         default: boolean;
-        description: string;
+        description: string | null;
         id: number;
         /** @description The name of the label. */
         name: string;
@@ -37629,7 +37629,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -37665,7 +37665,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -37704,9 +37704,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -37722,7 +37722,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -37742,7 +37742,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -37751,7 +37751,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -37783,9 +37783,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -37815,16 +37815,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -37833,7 +37833,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -37941,7 +37941,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -37949,7 +37949,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -37976,7 +37976,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -37993,7 +37993,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -38030,8 +38030,8 @@ export interface components {
         assignee?: Record<string, unknown> | null;
         assignees?: (Record<string, unknown> | null)[];
         author_association?: string;
-        body?: string;
-        closed_at?: string;
+        body?: string | null;
+        closed_at?: string | null;
         comments?: number;
         comments_url?: string;
         created_at?: string;
@@ -38107,7 +38107,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -38143,7 +38143,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -38182,9 +38182,9 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description Contents of the issue */
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments: number;
         /** Format: uri */
         comments_url: string;
@@ -38200,7 +38200,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -38220,7 +38220,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -38229,7 +38229,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -38261,9 +38261,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -38293,16 +38293,16 @@ export interface components {
          */
         performed_via_github_app?: ({
           /** Format: date-time */
-          created_at: string;
-          description: string;
+          created_at: string | null;
+          description: string | null;
           /** @description The list of events for the GitHub app */
           events?: ("branch_protection_rule" | "check_run" | "check_suite" | "code_scanning_alert" | "commit_comment" | "content_reference" | "create" | "delete" | "deployment" | "deployment_review" | "deployment_status" | "deploy_key" | "discussion" | "discussion_comment" | "fork" | "gollum" | "issues" | "issue_comment" | "label" | "member" | "membership" | "milestone" | "organization" | "org_block" | "page_build" | "project" | "project_card" | "project_column" | "public" | "pull_request" | "pull_request_review" | "pull_request_review_comment" | "push" | "registry_package" | "release" | "repository" | "repository_dispatch" | "secret_scanning_alert" | "star" | "status" | "team" | "team_add" | "watch" | "workflow_dispatch" | "workflow_run")[];
           /** Format: uri */
-          external_url: string;
+          external_url: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the GitHub app */
-          id: number;
+          id: number | null;
           /** @description The name of the GitHub app */
           name: string;
           node_id: string;
@@ -38311,7 +38311,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -38419,7 +38419,7 @@ export interface components {
           /** @description The slug name of the GitHub app */
           slug?: string;
           /** Format: date-time */
-          updated_at: string;
+          updated_at: string | null;
         }) | null;
         pull_request?: {
           /** Format: uri */
@@ -38427,7 +38427,7 @@ export interface components {
           /** Format: uri */
           html_url?: string;
           /** Format: date-time */
-          merged_at?: string;
+          merged_at?: string | null;
           /** Format: uri */
           patch_url?: string;
           /** Format: uri */
@@ -38454,7 +38454,7 @@ export interface components {
          * @enum {string}
          */
         state?: "open" | "closed";
-        state_reason?: string;
+        state_reason?: string | null;
         /** Format: uri */
         timeline_url?: string;
         /** @description Title of the issue */
@@ -38471,7 +38471,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -38519,7 +38519,7 @@ export interface components {
         /** @description 6-character hex code, without the leading #, identifying the color */
         color: string;
         default: boolean;
-        description: string;
+        description: string | null;
         id: number;
         /** @description The name of the label. */
         name: string;
@@ -38545,7 +38545,7 @@ export interface components {
         /** @description 6-character hex code, without the leading #, identifying the color */
         color: string;
         default: boolean;
-        description: string;
+        description: string | null;
         id: number;
         /** @description The name of the label. */
         name: string;
@@ -38586,7 +38586,7 @@ export interface components {
         /** @description 6-character hex code, without the leading #, identifying the color */
         color: string;
         default: boolean;
-        description: string;
+        description: string | null;
         id: number;
         /** @description The name of the label. */
         name: string;
@@ -38608,17 +38608,17 @@ export interface components {
       effective_date: string;
       enterprise?: components["schemas"]["enterprise"];
       installation?: components["schemas"]["simple-installation"];
-      marketplace_purchase: {
+      marketplace_purchase: ({
         account: {
           id: number;
           login: string;
           node_id: string;
-          organization_billing_email: string;
+          organization_billing_email: string | null;
           type: string;
         };
         billing_cycle: string;
-        free_trial_ends_on: string;
-        next_billing_date?: string;
+        free_trial_ends_on: string | null;
+        next_billing_date?: string | null;
         on_free_trial: boolean;
         plan: {
           bullets: (string)[];
@@ -38628,35 +38628,35 @@ export interface components {
           monthly_price_in_cents: number;
           name: string;
           price_model: string;
-          unit_name: string;
+          unit_name: string | null;
           yearly_price_in_cents: number;
         };
         unit_count: number;
-      } & {
+      }) & ({
         account?: {
           id?: number;
           login?: string;
           node_id?: string;
-          organization_billing_email?: string;
+          organization_billing_email?: string | null;
           type?: string;
         };
         billing_cycle?: string;
-        free_trial_ends_on?: string;
-        next_billing_date: string;
+        free_trial_ends_on?: string | null;
+        next_billing_date: string | null;
         on_free_trial?: boolean;
         plan?: {
-          bullets?: (string)[];
+          bullets?: (string | null)[];
           description?: string;
           has_free_trial?: boolean;
           id?: number;
           monthly_price_in_cents?: number;
           name?: string;
           price_model?: string;
-          unit_name?: string;
+          unit_name?: string | null;
           yearly_price_in_cents?: number;
         };
         unit_count?: number;
-      };
+      });
       organization?: components["schemas"]["organization-simple"];
       /** Marketplace Purchase */
       previous_marketplace_purchase?: {
@@ -38664,12 +38664,12 @@ export interface components {
           id: number;
           login: string;
           node_id: string;
-          organization_billing_email: string;
+          organization_billing_email: string | null;
           type: string;
         };
         billing_cycle: string;
         free_trial_ends_on: Record<string, unknown> | null;
-        next_billing_date?: string;
+        next_billing_date?: string | null;
         on_free_trial: boolean;
         plan: {
           bullets: (string)[];
@@ -38679,7 +38679,7 @@ export interface components {
           monthly_price_in_cents: number;
           name: string;
           price_model: string;
-          unit_name: string;
+          unit_name: string | null;
           yearly_price_in_cents: number;
         };
         unit_count: number;
@@ -38694,17 +38694,17 @@ export interface components {
       effective_date: string;
       enterprise?: components["schemas"]["enterprise"];
       installation?: components["schemas"]["simple-installation"];
-      marketplace_purchase: {
+      marketplace_purchase: ({
         account: {
           id: number;
           login: string;
           node_id: string;
-          organization_billing_email: string;
+          organization_billing_email: string | null;
           type: string;
         };
         billing_cycle: string;
-        free_trial_ends_on: string;
-        next_billing_date?: string;
+        free_trial_ends_on: string | null;
+        next_billing_date?: string | null;
         on_free_trial: boolean;
         plan: {
           bullets: (string)[];
@@ -38714,35 +38714,35 @@ export interface components {
           monthly_price_in_cents: number;
           name: string;
           price_model: string;
-          unit_name: string;
+          unit_name: string | null;
           yearly_price_in_cents: number;
         };
         unit_count: number;
-      } & {
+      }) & ({
         account?: {
           id?: number;
           login?: string;
           node_id?: string;
-          organization_billing_email?: string;
+          organization_billing_email?: string | null;
           type?: string;
         };
         billing_cycle?: string;
-        free_trial_ends_on?: string;
-        next_billing_date: string;
+        free_trial_ends_on?: string | null;
+        next_billing_date: string | null;
         on_free_trial?: boolean;
         plan?: {
-          bullets?: (string)[];
+          bullets?: (string | null)[];
           description?: string;
           has_free_trial?: boolean;
           id?: number;
           monthly_price_in_cents?: number;
           name?: string;
           price_model?: string;
-          unit_name?: string;
+          unit_name?: string | null;
           yearly_price_in_cents?: number;
         };
         unit_count?: number;
-      };
+      });
       organization?: components["schemas"]["organization-simple"];
       /** Marketplace Purchase */
       previous_marketplace_purchase?: {
@@ -38750,13 +38750,13 @@ export interface components {
           id: number;
           login: string;
           node_id: string;
-          organization_billing_email: string;
+          organization_billing_email: string | null;
           type: string;
         };
         billing_cycle: string;
-        free_trial_ends_on: string;
-        next_billing_date?: string;
-        on_free_trial: boolean;
+        free_trial_ends_on: string | null;
+        next_billing_date?: string | null;
+        on_free_trial: boolean | null;
         plan: {
           bullets: (string)[];
           description: string;
@@ -38765,7 +38765,7 @@ export interface components {
           monthly_price_in_cents: number;
           name: string;
           price_model: string;
-          unit_name: string;
+          unit_name: string | null;
           yearly_price_in_cents: number;
         };
         unit_count: number;
@@ -38780,17 +38780,17 @@ export interface components {
       effective_date: string;
       enterprise?: components["schemas"]["enterprise"];
       installation?: components["schemas"]["simple-installation"];
-      marketplace_purchase: {
+      marketplace_purchase: ({
         account: {
           id: number;
           login: string;
           node_id: string;
-          organization_billing_email: string;
+          organization_billing_email: string | null;
           type: string;
         };
         billing_cycle: string;
-        free_trial_ends_on: string;
-        next_billing_date?: string;
+        free_trial_ends_on: string | null;
+        next_billing_date?: string | null;
         on_free_trial: boolean;
         plan: {
           bullets: (string)[];
@@ -38800,35 +38800,35 @@ export interface components {
           monthly_price_in_cents: number;
           name: string;
           price_model: string;
-          unit_name: string;
+          unit_name: string | null;
           yearly_price_in_cents: number;
         };
         unit_count: number;
-      } & {
+      }) & ({
         account?: {
           id?: number;
           login?: string;
           node_id?: string;
-          organization_billing_email?: string;
+          organization_billing_email?: string | null;
           type?: string;
         };
         billing_cycle?: string;
-        free_trial_ends_on?: string;
-        next_billing_date: string;
+        free_trial_ends_on?: string | null;
+        next_billing_date: string | null;
         on_free_trial?: boolean;
         plan?: {
-          bullets?: (string)[];
+          bullets?: (string | null)[];
           description?: string;
           has_free_trial?: boolean;
           id?: number;
           monthly_price_in_cents?: number;
           name?: string;
           price_model?: string;
-          unit_name?: string;
+          unit_name?: string | null;
           yearly_price_in_cents?: number;
         };
         unit_count?: number;
-      };
+      });
       organization?: components["schemas"]["organization-simple"];
       /** Marketplace Purchase */
       previous_marketplace_purchase?: {
@@ -38836,12 +38836,12 @@ export interface components {
           id: number;
           login: string;
           node_id: string;
-          organization_billing_email: string;
+          organization_billing_email: string | null;
           type: string;
         };
         billing_cycle: string;
-        free_trial_ends_on: string;
-        next_billing_date?: string;
+        free_trial_ends_on: string | null;
+        next_billing_date?: string | null;
         on_free_trial: boolean;
         plan: {
           bullets: (string)[];
@@ -38851,7 +38851,7 @@ export interface components {
           monthly_price_in_cents: number;
           name: string;
           price_model: string;
-          unit_name: string;
+          unit_name: string | null;
           yearly_price_in_cents: number;
         };
         unit_count: number;
@@ -38871,12 +38871,12 @@ export interface components {
           id: number;
           login: string;
           node_id: string;
-          organization_billing_email: string;
+          organization_billing_email: string | null;
           type: string;
         };
         billing_cycle: string;
         free_trial_ends_on: Record<string, unknown> | null;
-        next_billing_date?: string;
+        next_billing_date?: string | null;
         on_free_trial: boolean;
         plan: {
           bullets: (string)[];
@@ -38886,7 +38886,7 @@ export interface components {
           monthly_price_in_cents: number;
           name: string;
           price_model: string;
-          unit_name: string;
+          unit_name: string | null;
           yearly_price_in_cents: number;
         };
         unit_count: number;
@@ -38900,12 +38900,12 @@ export interface components {
           id: number;
           login: string;
           node_id: string;
-          organization_billing_email: string;
+          organization_billing_email: string | null;
           type: string;
         };
         billing_cycle: string;
         free_trial_ends_on: Record<string, unknown> | null;
-        next_billing_date?: string;
+        next_billing_date?: string | null;
         on_free_trial: boolean;
         plan: {
           bullets: (string)[];
@@ -38915,7 +38915,7 @@ export interface components {
           monthly_price_in_cents: number;
           name: string;
           price_model: string;
-          unit_name: string;
+          unit_name: string | null;
           yearly_price_in_cents: number;
         };
         unit_count: number;
@@ -38930,17 +38930,17 @@ export interface components {
       effective_date: string;
       enterprise?: components["schemas"]["enterprise"];
       installation?: components["schemas"]["simple-installation"];
-      marketplace_purchase: {
+      marketplace_purchase: ({
         account: {
           id: number;
           login: string;
           node_id: string;
-          organization_billing_email: string;
+          organization_billing_email: string | null;
           type: string;
         };
         billing_cycle: string;
-        free_trial_ends_on: string;
-        next_billing_date?: string;
+        free_trial_ends_on: string | null;
+        next_billing_date?: string | null;
         on_free_trial: boolean;
         plan: {
           bullets: (string)[];
@@ -38950,35 +38950,35 @@ export interface components {
           monthly_price_in_cents: number;
           name: string;
           price_model: string;
-          unit_name: string;
+          unit_name: string | null;
           yearly_price_in_cents: number;
         };
         unit_count: number;
-      } & {
+      }) & ({
         account?: {
           id?: number;
           login?: string;
           node_id?: string;
-          organization_billing_email?: string;
+          organization_billing_email?: string | null;
           type?: string;
         };
         billing_cycle?: string;
-        free_trial_ends_on?: string;
-        next_billing_date: string;
+        free_trial_ends_on?: string | null;
+        next_billing_date: string | null;
         on_free_trial?: boolean;
         plan?: {
-          bullets?: (string)[];
+          bullets?: (string | null)[];
           description?: string;
           has_free_trial?: boolean;
           id?: number;
           monthly_price_in_cents?: number;
           name?: string;
           price_model?: string;
-          unit_name?: string;
+          unit_name?: string | null;
           yearly_price_in_cents?: number;
         };
         unit_count?: number;
-      };
+      });
       organization?: components["schemas"]["organization-simple"];
       /** Marketplace Purchase */
       previous_marketplace_purchase?: {
@@ -38986,12 +38986,12 @@ export interface components {
           id: number;
           login: string;
           node_id: string;
-          organization_billing_email: string;
+          organization_billing_email: string | null;
           type: string;
         };
         billing_cycle: string;
         free_trial_ends_on: Record<string, unknown> | null;
-        next_billing_date?: string;
+        next_billing_date?: string | null;
         on_free_trial: boolean;
         plan: {
           bullets: (string)[];
@@ -39001,7 +39001,7 @@ export interface components {
           monthly_price_in_cents: number;
           name: string;
           price_model: string;
-          unit_name: string;
+          unit_name: string | null;
           yearly_price_in_cents: number;
         };
         unit_count: number;
@@ -39026,7 +39026,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -39073,8 +39073,8 @@ export interface components {
           from: string;
         };
         permission?: {
-          from?: string;
-          to?: string;
+          from?: string | null;
+          to?: string | null;
         };
       };
       enterprise?: components["schemas"]["enterprise"];
@@ -39084,7 +39084,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -39131,7 +39131,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -39178,7 +39178,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -39222,7 +39222,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -39261,7 +39261,7 @@ export interface components {
       team: {
         deleted?: boolean;
         /** @description Description of the team */
-        description?: string;
+        description?: string | null;
         /** Format: uri */
         html_url?: string;
         /** @description Unique identifier of the team */
@@ -39273,7 +39273,7 @@ export interface components {
         node_id?: string;
         parent?: ({
           /** @description Description of the team */
-          description: string;
+          description: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the team */
@@ -39321,7 +39321,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -39365,7 +39365,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -39404,7 +39404,7 @@ export interface components {
       team: {
         deleted?: boolean;
         /** @description Description of the team */
-        description?: string;
+        description?: string | null;
         /** Format: uri */
         html_url?: string;
         /** @description Unique identifier of the team */
@@ -39416,7 +39416,7 @@ export interface components {
         node_id?: string;
         parent?: ({
           /** @description Description of the team */
-          description: string;
+          description: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the team */
@@ -39476,7 +39476,7 @@ export interface components {
             /** Format: date-time */
             date?: string;
             /** Format: email */
-            email: string;
+            email: string | null;
             /** @description The git author's name. */
             name: string;
             username?: string;
@@ -39489,7 +39489,7 @@ export interface components {
             /** Format: date-time */
             date?: string;
             /** Format: email */
-            email: string;
+            email: string | null;
             /** @description The git author's name. */
             name: string;
             username?: string;
@@ -39546,7 +39546,7 @@ export interface components {
        */
       milestone: {
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         closed_issues: number;
         /** Format: date-time */
         created_at: string;
@@ -39555,7 +39555,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -39587,9 +39587,9 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        description: string;
+        description: string | null;
         /** Format: date-time */
-        due_on: string;
+        due_on: string | null;
         /** Format: uri */
         html_url: string;
         id: number;
@@ -39627,7 +39627,7 @@ export interface components {
        */
       milestone: {
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         closed_issues: number;
         /** Format: date-time */
         created_at: string;
@@ -39636,7 +39636,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -39668,9 +39668,9 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        description: string;
+        description: string | null;
         /** Format: date-time */
-        due_on: string;
+        due_on: string | null;
         /** Format: uri */
         html_url: string;
         id: number;
@@ -39708,7 +39708,7 @@ export interface components {
        */
       milestone: {
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         closed_issues: number;
         /** Format: date-time */
         created_at: string;
@@ -39717,7 +39717,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -39749,9 +39749,9 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        description: string;
+        description: string | null;
         /** Format: date-time */
-        due_on: string;
+        due_on: string | null;
         /** Format: uri */
         html_url: string;
         id: number;
@@ -39804,7 +39804,7 @@ export interface components {
        */
       milestone: {
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         closed_issues: number;
         /** Format: date-time */
         created_at: string;
@@ -39813,7 +39813,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -39845,9 +39845,9 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        description: string;
+        description: string | null;
         /** Format: date-time */
-        due_on: string;
+        due_on: string | null;
         /** Format: uri */
         html_url: string;
         id: number;
@@ -39885,7 +39885,7 @@ export interface components {
        */
       milestone: {
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         closed_issues: number;
         /** Format: date-time */
         created_at: string;
@@ -39894,7 +39894,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -39926,9 +39926,9 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        description: string;
+        description: string | null;
         /** Format: date-time */
-        due_on: string;
+        due_on: string | null;
         /** Format: uri */
         html_url: string;
         id: number;
@@ -39963,7 +39963,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -40010,7 +40010,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -40070,7 +40070,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -40129,7 +40129,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -40176,10 +40176,10 @@ export interface components {
       invitation: {
         /** Format: date-time */
         created_at: string;
-        email: string;
+        email: string | null;
         /** Format: date-time */
-        failed_at: string;
-        failed_reason: string;
+        failed_at: string | null;
+        failed_reason: string | null;
         id: number;
         /** Format: uri */
         invitation_teams_url: string;
@@ -40188,7 +40188,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -40220,7 +40220,7 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        login: string;
+        login: string | null;
         node_id: string;
         role: string;
         team_count: number;
@@ -40233,7 +40233,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -40288,7 +40288,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -40352,7 +40352,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -40398,8 +40398,8 @@ export interface components {
       organization?: components["schemas"]["organization-simple"];
       /** @description Information about the package. */
       package: {
-        created_at: string;
-        description: string;
+        created_at: string | null;
+        description: string | null;
         ecosystem: string;
         /** Format: uri */
         html_url: string;
@@ -40411,7 +40411,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -40450,7 +40450,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -40544,7 +40544,7 @@ export interface components {
             published_via_actions?: boolean;
             deleted_by_id?: number;
           }) | null;
-          nuget_metadata?: ({
+          nuget_metadata?: (({
               id?: number | string;
               name?: string;
               value?: OneOf<[boolean, string, number, {
@@ -40553,19 +40553,19 @@ export interface components {
                 commit?: string;
                 type?: string;
               }]>;
-            })[];
+            })[]) | null;
           package_files: ({
               content_type: string;
               created_at: string;
               /** Format: uri */
               download_url: string;
               id: number;
-              md5: string;
+              md5: string | null;
               name: string;
-              sha1: string;
-              sha256: string;
+              sha1: string | null;
+              sha256: string | null;
               size: number;
-              state: string;
+              state: string | null;
               updated_at: string;
             })[];
           package_url?: string;
@@ -40576,7 +40576,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -40613,7 +40613,7 @@ export interface components {
             /** Format: uri */
             html_url: string;
             id: number;
-            name: string;
+            name: string | null;
             prerelease: boolean;
             published_at: string;
             tag_name: string;
@@ -40639,7 +40639,7 @@ export interface components {
           url: string;
           vendor: string;
         } | null;
-        updated_at: string;
+        updated_at: string | null;
       };
       repository?: components["schemas"]["repository"];
       sender: components["schemas"]["simple-user"];
@@ -40654,7 +40654,7 @@ export interface components {
       /** @description Information about the package. */
       package: {
         created_at: string;
-        description: string;
+        description: string | null;
         ecosystem: string;
         /** Format: uri */
         html_url: string;
@@ -40666,7 +40666,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -40705,7 +40705,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -40756,9 +40756,9 @@ export interface components {
               /** Format: uri */
               download_url: string;
               id: number;
-              md5: string;
+              md5: string | null;
               name: string;
-              sha1: string;
+              sha1: string | null;
               sha256: string;
               size: number;
               state: string;
@@ -40772,7 +40772,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -40913,18 +40913,18 @@ export interface components {
     "webhook-page-build": {
       /** @description The [List GitHub Pages builds](https://docs.github.com/rest/reference/repos#list-github-pages-builds) itself. */
       build: {
-        commit: string;
+        commit: string | null;
         created_at: string;
         duration: number;
         error: {
-          message: string;
+          message: string | null;
         };
         /** User */
         pusher: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -41035,7 +41035,7 @@ export interface components {
       organization?: components["schemas"]["organization-simple"];
       /** Project Card */
       project_card: {
-        after_id?: number;
+        after_id?: number | null;
         /** @description Whether or not the card is archived */
         archived: boolean;
         column_id: number;
@@ -41050,7 +41050,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -41085,7 +41085,7 @@ export interface components {
         /** @description The project card's ID */
         id: number;
         node_id: string;
-        note: string;
+        note: string | null;
         /** Format: uri */
         project_url: string;
         /** Format: date-time */
@@ -41105,7 +41105,7 @@ export interface components {
       organization?: components["schemas"]["organization-simple"];
       /** Project Card */
       project_card: {
-        after_id?: number;
+        after_id?: number | null;
         /** @description Whether or not the card is archived */
         archived: boolean;
         column_id: number;
@@ -41120,7 +41120,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -41155,7 +41155,7 @@ export interface components {
         /** @description The project card's ID */
         id: number;
         node_id: string;
-        note: string;
+        note: string | null;
         /** Format: uri */
         project_url: string;
         /** Format: date-time */
@@ -41175,10 +41175,10 @@ export interface components {
       organization?: components["schemas"]["organization-simple"];
       /** Project Card */
       project_card: {
-        after_id?: number;
+        after_id?: number | null;
         /** @description Whether or not the card is archived */
         archived: boolean;
-        column_id: number;
+        column_id: number | null;
         /** Format: uri */
         column_url: string;
         /** Format: uri */
@@ -41190,7 +41190,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -41225,7 +41225,7 @@ export interface components {
         /** @description The project card's ID */
         id: number;
         node_id: string;
-        note: string;
+        note: string | null;
         /** Format: uri */
         project_url: string;
         /** Format: date-time */
@@ -41242,7 +41242,7 @@ export interface components {
       action: "edited";
       changes: {
         note: {
-          from: string;
+          from: string | null;
         };
       };
       enterprise?: components["schemas"]["enterprise"];
@@ -41250,7 +41250,7 @@ export interface components {
       organization?: components["schemas"]["organization-simple"];
       /** Project Card */
       project_card: {
-        after_id?: number;
+        after_id?: number | null;
         /** @description Whether or not the card is archived */
         archived: boolean;
         column_id: number;
@@ -41265,7 +41265,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -41300,7 +41300,7 @@ export interface components {
         /** @description The project card's ID */
         id: number;
         node_id: string;
-        note: string;
+        note: string | null;
         /** Format: uri */
         project_url: string;
         /** Format: date-time */
@@ -41324,7 +41324,7 @@ export interface components {
       installation?: components["schemas"]["simple-installation"];
       organization?: components["schemas"]["organization-simple"];
       project_card: ({
-        after_id?: number;
+        after_id?: number | null;
         /** @description Whether or not the card is archived */
         archived: boolean;
         column_id: number;
@@ -41339,7 +41339,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -41374,7 +41374,7 @@ export interface components {
         /** @description The project card's ID */
         id: number;
         node_id: string;
-        note: string;
+        note: string | null;
         /** Format: uri */
         project_url: string;
         /** Format: date-time */
@@ -41382,7 +41382,7 @@ export interface components {
         /** Format: uri */
         url: string;
       }) & ({
-        after_id: number;
+        after_id: number | null;
         archived?: boolean;
         column_id?: number;
         column_url?: string;
@@ -41409,7 +41409,7 @@ export interface components {
         } | null;
         id?: number;
         node_id?: string;
-        note?: string;
+        note?: string | null;
         project_url?: string;
         updated_at?: string;
         url?: string;
@@ -41427,7 +41427,7 @@ export interface components {
       /** Project */
       project: {
         /** @description Body of the project */
-        body: string;
+        body: string | null;
         /** Format: uri */
         columns_url: string;
         /** Format: date-time */
@@ -41437,7 +41437,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -41500,7 +41500,7 @@ export interface components {
       organization?: components["schemas"]["organization-simple"];
       /** Project Column */
       project_column: {
-        after_id?: number;
+        after_id?: number | null;
         /** Format: uri */
         cards_url: string;
         /** Format: date-time */
@@ -41529,7 +41529,7 @@ export interface components {
       organization?: components["schemas"]["organization-simple"];
       /** Project Column */
       project_column: {
-        after_id?: number;
+        after_id?: number | null;
         /** Format: uri */
         cards_url: string;
         /** Format: date-time */
@@ -41563,7 +41563,7 @@ export interface components {
       organization?: components["schemas"]["organization-simple"];
       /** Project Column */
       project_column: {
-        after_id?: number;
+        after_id?: number | null;
         /** Format: uri */
         cards_url: string;
         /** Format: date-time */
@@ -41592,7 +41592,7 @@ export interface components {
       organization?: components["schemas"]["organization-simple"];
       /** Project Column */
       project_column: {
-        after_id?: number;
+        after_id?: number | null;
         /** Format: uri */
         cards_url: string;
         /** Format: date-time */
@@ -41622,7 +41622,7 @@ export interface components {
       /** Project */
       project: {
         /** @description Body of the project */
-        body: string;
+        body: string | null;
         /** Format: uri */
         columns_url: string;
         /** Format: date-time */
@@ -41632,7 +41632,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -41696,7 +41696,7 @@ export interface components {
       /** Project */
       project: {
         /** @description Body of the project */
-        body: string;
+        body: string | null;
         /** Format: uri */
         columns_url: string;
         /** Format: date-time */
@@ -41706,7 +41706,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -41781,7 +41781,7 @@ export interface components {
       /** Project */
       project: {
         /** @description Body of the project */
-        body: string;
+        body: string | null;
         /** Format: uri */
         columns_url: string;
         /** Format: date-time */
@@ -41791,7 +41791,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -41855,7 +41855,7 @@ export interface components {
       /** Project */
       project: {
         /** @description Body of the project */
-        body: string;
+        body: string | null;
         /** Format: uri */
         columns_url: string;
         /** Format: date-time */
@@ -41865,7 +41865,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -41926,9 +41926,9 @@ export interface components {
       changes: {
         archived_at?: {
           /** Format: date-time */
-          from?: string;
+          from?: string | null;
           /** Format: date-time */
-          to?: string;
+          to?: string | null;
         };
       };
       installation?: components["schemas"]["simple-installation"];
@@ -41942,7 +41942,7 @@ export interface components {
       action: "converted";
       changes: {
         content_type?: {
-          from?: string;
+          from?: string | null;
           to?: string;
         };
       };
@@ -41980,8 +41980,8 @@ export interface components {
         };
       }, {
         body: {
-          from?: string;
-          to?: string;
+          from?: string | null;
+          to?: string | null;
         };
       }]>;
       installation?: components["schemas"]["simple-installation"];
@@ -41995,8 +41995,8 @@ export interface components {
       action: "reordered";
       changes: {
         previous_projects_v2_item_node_id?: {
-          from?: string;
-          to?: string;
+          from?: string | null;
+          to?: string | null;
         };
       };
       installation?: components["schemas"]["simple-installation"];
@@ -42011,9 +42011,9 @@ export interface components {
       changes: {
         archived_at?: {
           /** Format: date-time */
-          from?: string;
+          from?: string | null;
           /** Format: date-time */
-          to?: string;
+          to?: string | null;
         };
       };
       installation?: components["schemas"]["simple-installation"];
@@ -42038,7 +42038,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -42127,7 +42127,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -42163,7 +42163,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -42207,15 +42207,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -42321,7 +42321,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -42368,7 +42368,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -42386,18 +42386,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -42421,7 +42421,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -42435,7 +42435,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -42482,7 +42482,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -42543,7 +42543,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -42576,10 +42576,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -42594,7 +42594,7 @@ export interface components {
         /** @description Indicates whether or not the pull request is a draft. */
         draft: boolean;
         head: {
-          label: string;
+          label: string | null;
           ref: string;
           /**
            * Repository 
@@ -42661,7 +42661,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -42708,7 +42708,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -42726,18 +42726,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -42761,7 +42761,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -42775,7 +42775,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -42822,7 +42822,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -42883,7 +42883,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -42925,7 +42925,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -42939,18 +42939,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -42988,7 +42988,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -42997,7 +42997,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -43029,9 +43029,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -43058,12 +43058,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -43097,7 +43097,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -43109,7 +43109,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -43148,7 +43148,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -43160,7 +43160,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -43219,7 +43219,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -43315,7 +43315,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -43351,7 +43351,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -43395,15 +43395,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -43509,7 +43509,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -43556,7 +43556,7 @@ export interface components {
              * @default true
              */
             has_wiki: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -43574,18 +43574,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -43609,7 +43609,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -43623,7 +43623,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -43670,7 +43670,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -43731,7 +43731,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -43764,10 +43764,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -43849,7 +43849,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -43896,7 +43896,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -43914,18 +43914,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -43949,7 +43949,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -43963,7 +43963,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -44010,7 +44010,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -44071,7 +44071,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -44113,7 +44113,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -44127,18 +44127,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -44176,7 +44176,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -44185,7 +44185,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -44217,9 +44217,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -44246,12 +44246,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -44285,7 +44285,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -44297,7 +44297,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -44336,7 +44336,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -44348,7 +44348,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -44407,7 +44407,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -44504,7 +44504,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -44540,7 +44540,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -44584,15 +44584,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -44698,7 +44698,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -44745,7 +44745,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -44763,18 +44763,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -44798,7 +44798,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -44812,7 +44812,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -44859,7 +44859,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -44920,7 +44920,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -44953,10 +44953,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -45038,7 +45038,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -45085,7 +45085,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -45103,18 +45103,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -45138,7 +45138,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -45152,7 +45152,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -45199,7 +45199,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -45260,7 +45260,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -45302,7 +45302,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -45316,18 +45316,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -45365,7 +45365,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -45374,7 +45374,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -45406,9 +45406,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -45435,12 +45435,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -45474,7 +45474,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -45486,7 +45486,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -45525,7 +45525,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -45537,7 +45537,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -45596,7 +45596,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -45693,7 +45693,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -45729,7 +45729,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -45773,15 +45773,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -45887,7 +45887,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -45929,7 +45929,7 @@ export interface components {
              * @default true
              */
             has_wiki: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -45947,18 +45947,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -45982,7 +45982,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -45996,7 +45996,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -46043,7 +46043,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -46104,7 +46104,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -46137,10 +46137,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -46155,7 +46155,7 @@ export interface components {
         /** @description Indicates whether or not the pull request is a draft. */
         draft: boolean;
         head: {
-          label: string;
+          label: string | null;
           ref: string;
           /**
            * Repository 
@@ -46222,7 +46222,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -46264,7 +46264,7 @@ export interface components {
              * @default true
              */
             has_wiki: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -46282,18 +46282,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message. 
@@ -46310,7 +46310,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -46324,7 +46324,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -46371,7 +46371,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message. 
@@ -46425,7 +46425,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -46467,7 +46467,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -46481,18 +46481,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -46530,7 +46530,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -46539,7 +46539,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -46571,9 +46571,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -46600,12 +46600,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -46639,7 +46639,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -46651,7 +46651,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -46690,7 +46690,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -46702,7 +46702,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -46761,7 +46761,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -46820,7 +46820,7 @@ export interface components {
             href?: string;
           };
         };
-        active_lock_reason?: string;
+        active_lock_reason?: string | null;
         additions?: number;
         assignee?: Record<string, unknown> | null;
         assignees?: (Record<string, unknown> | null)[];
@@ -46852,7 +46852,7 @@ export interface components {
             default_branch?: string;
             delete_branch_on_merge?: boolean;
             deployments_url?: string;
-            description?: string;
+            description?: string | null;
             disabled?: boolean;
             downloads_url?: string;
             events_url?: string;
@@ -46870,7 +46870,7 @@ export interface components {
             has_pages?: boolean;
             has_projects?: boolean;
             has_wiki?: boolean;
-            homepage?: string;
+            homepage?: string | null;
             hooks_url?: string;
             html_url?: string;
             id?: number;
@@ -46880,7 +46880,7 @@ export interface components {
             issues_url?: string;
             keys_url?: string;
             labels_url?: string;
-            language?: string;
+            language?: string | null;
             languages_url?: string;
             license?: Record<string, unknown> | null;
             /** @enum {string} */
@@ -46889,7 +46889,7 @@ export interface components {
             merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE";
             merges_url?: string;
             milestones_url?: string;
-            mirror_url?: string;
+            mirror_url?: string | null;
             name?: string;
             node_id?: string;
             notifications_url?: string;
@@ -46933,7 +46933,7 @@ export interface components {
             svn_url?: string;
             tags_url?: string;
             teams_url?: string;
-            topics?: (string)[];
+            topics?: (string | null)[];
             trees_url?: string;
             updated_at?: string;
             url?: string;
@@ -46965,10 +46965,10 @@ export interface components {
             url?: string;
           };
         };
-        body?: string;
+        body?: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         comments_url?: string;
         commits?: number;
@@ -46978,7 +46978,7 @@ export interface components {
         diff_url?: string;
         draft?: boolean;
         head?: {
-          label?: string;
+          label?: string | null;
           ref?: string;
           repo?: ({
             allow_auto_merge?: boolean;
@@ -47003,7 +47003,7 @@ export interface components {
             default_branch?: string;
             delete_branch_on_merge?: boolean;
             deployments_url?: string;
-            description?: string;
+            description?: string | null;
             disabled?: boolean;
             downloads_url?: string;
             events_url?: string;
@@ -47021,7 +47021,7 @@ export interface components {
             has_pages?: boolean;
             has_projects?: boolean;
             has_wiki?: boolean;
-            homepage?: string;
+            homepage?: string | null;
             hooks_url?: string;
             html_url?: string;
             id?: number;
@@ -47031,7 +47031,7 @@ export interface components {
             issues_url?: string;
             keys_url?: string;
             labels_url?: string;
-            language?: string;
+            language?: string | null;
             languages_url?: string;
             license?: Record<string, unknown> | null;
             /** @enum {string} */
@@ -47040,7 +47040,7 @@ export interface components {
             merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE";
             merges_url?: string;
             milestones_url?: string;
-            mirror_url?: string;
+            mirror_url?: string | null;
             name?: string;
             node_id?: string;
             notifications_url?: string;
@@ -47084,7 +47084,7 @@ export interface components {
             svn_url?: string;
             tags_url?: string;
             teams_url?: string;
-            topics?: (string)[];
+            topics?: (string | null)[];
             trees_url?: string;
             updated_at?: string;
             url?: string;
@@ -47122,17 +47122,17 @@ export interface components {
         labels?: (Record<string, unknown> | null)[];
         locked?: boolean;
         maintainer_can_modify?: boolean;
-        merge_commit_sha?: string;
-        mergeable?: boolean;
+        merge_commit_sha?: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
         merged: boolean;
-        merged_at?: string;
+        merged_at?: string | null;
         merged_by?: Record<string, unknown> | null;
         milestone?: Record<string, unknown> | null;
         node_id?: string;
         number?: number;
         patch_url?: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers?: (Record<string, unknown> | null)[];
         requested_teams?: (Record<string, unknown> | null)[];
         review_comment_url?: string;
@@ -47231,7 +47231,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -47267,7 +47267,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -47311,15 +47311,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -47425,7 +47425,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -47467,7 +47467,7 @@ export interface components {
              * @default true
              */
             has_wiki: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -47485,18 +47485,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -47520,7 +47520,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -47534,7 +47534,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -47581,7 +47581,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -47642,7 +47642,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -47675,10 +47675,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -47760,7 +47760,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -47802,7 +47802,7 @@ export interface components {
              * @default true
              */
             has_wiki: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -47820,18 +47820,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -47855,7 +47855,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -47869,7 +47869,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -47916,7 +47916,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -47977,7 +47977,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -48019,7 +48019,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -48033,18 +48033,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -48082,7 +48082,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -48091,7 +48091,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -48123,9 +48123,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -48152,12 +48152,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -48191,7 +48191,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -48203,7 +48203,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -48242,7 +48242,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -48254,7 +48254,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -48313,7 +48313,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -48372,7 +48372,7 @@ export interface components {
             href?: string;
           };
         };
-        active_lock_reason?: string;
+        active_lock_reason?: string | null;
         additions?: number;
         assignee?: Record<string, unknown> | null;
         assignees?: (Record<string, unknown> | null)[];
@@ -48404,7 +48404,7 @@ export interface components {
             default_branch?: string;
             delete_branch_on_merge?: boolean;
             deployments_url?: string;
-            description?: string;
+            description?: string | null;
             disabled?: boolean;
             downloads_url?: string;
             events_url?: string;
@@ -48422,7 +48422,7 @@ export interface components {
             has_pages?: boolean;
             has_projects?: boolean;
             has_wiki?: boolean;
-            homepage?: string;
+            homepage?: string | null;
             hooks_url?: string;
             html_url?: string;
             id?: number;
@@ -48432,7 +48432,7 @@ export interface components {
             issues_url?: string;
             keys_url?: string;
             labels_url?: string;
-            language?: string;
+            language?: string | null;
             languages_url?: string;
             license?: Record<string, unknown> | null;
             /** @enum {string} */
@@ -48485,7 +48485,7 @@ export interface components {
             svn_url?: string;
             tags_url?: string;
             teams_url?: string;
-            topics?: (string)[];
+            topics?: (string | null)[];
             trees_url?: string;
             updated_at?: string;
             url?: string;
@@ -48517,9 +48517,9 @@ export interface components {
             url?: string;
           };
         };
-        body?: string;
+        body?: string | null;
         changed_files?: number;
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         comments_url?: string;
         commits?: number;
@@ -48555,7 +48555,7 @@ export interface components {
             default_branch?: string;
             delete_branch_on_merge?: boolean;
             deployments_url?: string;
-            description?: string;
+            description?: string | null;
             disabled?: boolean;
             downloads_url?: string;
             events_url?: string;
@@ -48573,7 +48573,7 @@ export interface components {
             has_pages?: boolean;
             has_projects?: boolean;
             has_wiki?: boolean;
-            homepage?: string;
+            homepage?: string | null;
             hooks_url?: string;
             html_url?: string;
             id?: number;
@@ -48583,7 +48583,7 @@ export interface components {
             issues_url?: string;
             keys_url?: string;
             labels_url?: string;
-            language?: string;
+            language?: string | null;
             languages_url?: string;
             license?: Record<string, unknown> | null;
             /** @enum {string} */
@@ -48636,7 +48636,7 @@ export interface components {
             svn_url?: string;
             tags_url?: string;
             teams_url?: string;
-            topics?: (string)[];
+            topics?: (string | null)[];
             trees_url?: string;
             updated_at?: string;
             url?: string;
@@ -48674,8 +48674,8 @@ export interface components {
         labels?: (Record<string, unknown> | null)[];
         locked?: boolean;
         maintainer_can_modify?: boolean;
-        merge_commit_sha?: string;
-        mergeable?: boolean;
+        merge_commit_sha?: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
         /** @enum {boolean} */
         merged: false;
@@ -48685,7 +48685,7 @@ export interface components {
         node_id?: string;
         number?: number;
         patch_url?: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers?: (Record<string, unknown> | null)[];
         requested_teams?: (Record<string, unknown> | null)[];
         review_comment_url?: string;
@@ -48781,7 +48781,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -48817,7 +48817,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -48861,15 +48861,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -48975,7 +48975,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -49022,7 +49022,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -49040,18 +49040,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -49075,7 +49075,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -49089,7 +49089,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -49136,7 +49136,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -49197,7 +49197,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -49230,10 +49230,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -49315,7 +49315,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -49362,7 +49362,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -49380,18 +49380,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -49415,7 +49415,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -49429,7 +49429,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -49476,7 +49476,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -49537,7 +49537,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -49579,7 +49579,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -49593,18 +49593,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -49642,7 +49642,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -49651,7 +49651,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -49683,9 +49683,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -49712,12 +49712,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -49751,7 +49751,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -49763,7 +49763,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -49802,7 +49802,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -49814,7 +49814,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -49873,7 +49873,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -49989,7 +49989,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -50025,7 +50025,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -50069,15 +50069,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -50183,7 +50183,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -50230,7 +50230,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -50248,18 +50248,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -50283,7 +50283,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -50297,7 +50297,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -50344,7 +50344,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -50405,7 +50405,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -50438,10 +50438,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -50456,7 +50456,7 @@ export interface components {
         /** @description Indicates whether or not the pull request is a draft. */
         draft: boolean;
         head: {
-          label: string;
+          label: string | null;
           ref: string;
           /**
            * Repository 
@@ -50523,7 +50523,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -50570,7 +50570,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -50588,18 +50588,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -50623,7 +50623,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -50637,7 +50637,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -50684,7 +50684,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -50745,7 +50745,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -50787,7 +50787,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -50801,18 +50801,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -50850,7 +50850,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -50859,7 +50859,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -50891,9 +50891,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -50920,12 +50920,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -50959,7 +50959,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -50971,7 +50971,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -51010,7 +51010,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -51022,7 +51022,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -51081,7 +51081,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -51128,7 +51128,7 @@ export interface components {
         /** @description 6-character hex code, without the leading #, identifying the color */
         color: string;
         default: boolean;
-        description: string;
+        description: string | null;
         id: number;
         /** @description The name of the label. */
         name: string;
@@ -51194,7 +51194,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -51230,7 +51230,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -51274,15 +51274,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -51388,7 +51388,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -51435,7 +51435,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -51453,18 +51453,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -51488,7 +51488,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -51502,7 +51502,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -51549,7 +51549,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -51610,7 +51610,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -51643,10 +51643,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -51661,7 +51661,7 @@ export interface components {
         /** @description Indicates whether or not the pull request is a draft. */
         draft: boolean;
         head: {
-          label: string;
+          label: string | null;
           ref: string;
           /**
            * Repository 
@@ -51728,7 +51728,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -51775,7 +51775,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -51793,18 +51793,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -51828,7 +51828,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -51842,7 +51842,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -51889,7 +51889,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -51950,7 +51950,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -51992,7 +51992,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -52006,18 +52006,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -52055,7 +52055,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -52064,7 +52064,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -52096,9 +52096,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -52125,12 +52125,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -52164,7 +52164,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -52176,7 +52176,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -52215,7 +52215,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -52227,7 +52227,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -52286,7 +52286,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -52383,7 +52383,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -52419,7 +52419,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -52463,15 +52463,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -52577,7 +52577,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -52624,7 +52624,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -52642,18 +52642,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -52677,7 +52677,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -52691,7 +52691,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -52738,7 +52738,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -52799,7 +52799,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -52832,10 +52832,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -52850,7 +52850,7 @@ export interface components {
         /** @description Indicates whether or not the pull request is a draft. */
         draft: boolean;
         head: {
-          label: string;
+          label: string | null;
           ref: string;
           /**
            * Repository 
@@ -52917,7 +52917,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -52964,7 +52964,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -52982,18 +52982,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -53017,7 +53017,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -53031,7 +53031,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -53078,7 +53078,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -53139,7 +53139,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -53181,7 +53181,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -53195,18 +53195,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -53244,7 +53244,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -53253,7 +53253,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -53285,9 +53285,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -53314,12 +53314,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -53353,7 +53353,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -53365,7 +53365,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -53404,7 +53404,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -53416,7 +53416,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -53475,7 +53475,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -53572,7 +53572,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -53608,7 +53608,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -53652,15 +53652,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -53766,7 +53766,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -53813,7 +53813,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -53831,18 +53831,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -53866,7 +53866,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -53880,7 +53880,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -53927,7 +53927,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -53988,7 +53988,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -54021,10 +54021,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -54106,7 +54106,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -54153,7 +54153,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -54171,18 +54171,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -54206,7 +54206,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -54220,7 +54220,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -54267,7 +54267,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -54328,7 +54328,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -54370,7 +54370,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -54384,18 +54384,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -54433,7 +54433,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -54442,7 +54442,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -54474,9 +54474,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -54503,12 +54503,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -54542,7 +54542,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -54554,7 +54554,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -54593,7 +54593,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -54605,7 +54605,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -54664,7 +54664,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -54760,7 +54760,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -54796,7 +54796,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -54840,15 +54840,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -54954,7 +54954,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -54996,7 +54996,7 @@ export interface components {
              * @default true
              */
             has_wiki: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -55014,18 +55014,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -55049,7 +55049,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -55063,7 +55063,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -55110,7 +55110,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -55171,7 +55171,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -55204,10 +55204,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -55289,7 +55289,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -55331,7 +55331,7 @@ export interface components {
              * @default true
              */
             has_wiki: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -55349,18 +55349,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message. 
@@ -55377,7 +55377,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -55391,7 +55391,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -55438,7 +55438,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -55499,7 +55499,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -55541,7 +55541,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -55555,18 +55555,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -55604,7 +55604,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -55613,7 +55613,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -55645,9 +55645,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -55674,12 +55674,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -55713,7 +55713,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -55725,7 +55725,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -55764,7 +55764,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -55776,7 +55776,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -55835,7 +55835,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -55894,7 +55894,7 @@ export interface components {
             href?: string;
           };
         };
-        active_lock_reason: string;
+        active_lock_reason: string | null;
         additions?: number;
         assignee?: Record<string, unknown> | null;
         assignees?: (Record<string, unknown> | null)[];
@@ -55926,7 +55926,7 @@ export interface components {
             default_branch?: string;
             delete_branch_on_merge?: boolean;
             deployments_url?: string;
-            description?: string;
+            description?: string | null;
             disabled?: boolean;
             downloads_url?: string;
             events_url?: string;
@@ -55944,7 +55944,7 @@ export interface components {
             has_pages?: boolean;
             has_projects?: boolean;
             has_wiki?: boolean;
-            homepage?: string;
+            homepage?: string | null;
             hooks_url?: string;
             html_url?: string;
             id?: number;
@@ -55954,12 +55954,12 @@ export interface components {
             issues_url?: string;
             keys_url?: string;
             labels_url?: string;
-            language?: string;
+            language?: string | null;
             languages_url?: string;
             license?: Record<string, unknown> | null;
             merges_url?: string;
             milestones_url?: string;
-            mirror_url?: string;
+            mirror_url?: string | null;
             name?: string;
             node_id?: string;
             notifications_url?: string;
@@ -55999,7 +55999,7 @@ export interface components {
             svn_url?: string;
             tags_url?: string;
             teams_url?: string;
-            topics?: (string)[];
+            topics?: (string | null)[];
             trees_url?: string;
             updated_at?: string;
             url?: string;
@@ -56030,9 +56030,9 @@ export interface components {
             url?: string;
           };
         };
-        body?: string;
+        body?: string | null;
         changed_files?: number;
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         comments_url?: string;
         commits?: number;
@@ -56067,7 +56067,7 @@ export interface components {
             default_branch?: string;
             delete_branch_on_merge?: boolean;
             deployments_url?: string;
-            description?: string;
+            description?: string | null;
             disabled?: boolean;
             downloads_url?: string;
             events_url?: string;
@@ -56085,7 +56085,7 @@ export interface components {
             has_pages?: boolean;
             has_projects?: boolean;
             has_wiki?: boolean;
-            homepage?: string;
+            homepage?: string | null;
             hooks_url?: string;
             html_url?: string;
             id?: number;
@@ -56095,12 +56095,12 @@ export interface components {
             issues_url?: string;
             keys_url?: string;
             labels_url?: string;
-            language?: string;
+            language?: string | null;
             languages_url?: string;
             license?: Record<string, unknown> | null;
             merges_url?: string;
             milestones_url?: string;
-            mirror_url?: string;
+            mirror_url?: string | null;
             name?: string;
             node_id?: string;
             notifications_url?: string;
@@ -56140,7 +56140,7 @@ export interface components {
             svn_url?: string;
             tags_url?: string;
             teams_url?: string;
-            topics?: (string)[];
+            topics?: (string | null)[];
             trees_url?: string;
             updated_at?: string;
             url?: string;
@@ -56177,17 +56177,17 @@ export interface components {
         labels?: (Record<string, unknown> | null)[];
         locked?: boolean;
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
         merged?: boolean;
-        merged_at: string;
+        merged_at: string | null;
         merged_by: Record<string, unknown> | null;
         milestone?: Record<string, unknown> | null;
         node_id?: string;
         number?: number;
         patch_url?: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers?: (Record<string, unknown> | null)[];
         requested_teams?: (Record<string, unknown> | null)[];
         review_comment_url?: string;
@@ -56283,7 +56283,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -56319,7 +56319,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -56363,15 +56363,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -56477,7 +56477,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -56519,7 +56519,7 @@ export interface components {
              * @default true
              */
             has_wiki: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -56537,18 +56537,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -56572,7 +56572,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -56586,7 +56586,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -56633,7 +56633,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -56694,7 +56694,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -56727,10 +56727,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -56812,7 +56812,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -56854,7 +56854,7 @@ export interface components {
              * @default true
              */
             has_wiki: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -56872,18 +56872,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -56907,7 +56907,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -56921,7 +56921,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -56968,7 +56968,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -57029,7 +57029,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -57071,7 +57071,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -57085,18 +57085,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -57134,7 +57134,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -57143,7 +57143,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -57175,9 +57175,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -57204,12 +57204,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -57243,7 +57243,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -57255,7 +57255,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -57294,7 +57294,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -57306,7 +57306,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -57365,7 +57365,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -57424,7 +57424,7 @@ export interface components {
             href?: string;
           };
         };
-        active_lock_reason?: string;
+        active_lock_reason?: string | null;
         additions?: number;
         assignee?: Record<string, unknown> | null;
         assignees?: (Record<string, unknown> | null)[];
@@ -57456,7 +57456,7 @@ export interface components {
             default_branch?: string;
             delete_branch_on_merge?: boolean;
             deployments_url?: string;
-            description?: string;
+            description?: string | null;
             disabled?: boolean;
             downloads_url?: string;
             events_url?: string;
@@ -57474,7 +57474,7 @@ export interface components {
             has_pages?: boolean;
             has_projects?: boolean;
             has_wiki?: boolean;
-            homepage?: string;
+            homepage?: string | null;
             hooks_url?: string;
             html_url?: string;
             id?: number;
@@ -57484,7 +57484,7 @@ export interface components {
             issues_url?: string;
             keys_url?: string;
             labels_url?: string;
-            language?: string;
+            language?: string | null;
             languages_url?: string;
             license?: Record<string, unknown> | null;
             /** @enum {string} */
@@ -57493,7 +57493,7 @@ export interface components {
             merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE";
             merges_url?: string;
             milestones_url?: string;
-            mirror_url?: string;
+            mirror_url?: string | null;
             name?: string;
             node_id?: string;
             notifications_url?: string;
@@ -57537,7 +57537,7 @@ export interface components {
             svn_url?: string;
             tags_url?: string;
             teams_url?: string;
-            topics?: (string)[];
+            topics?: (string | null)[];
             trees_url?: string;
             updated_at?: string;
             url?: string;
@@ -57569,9 +57569,9 @@ export interface components {
             url?: string;
           };
         };
-        body?: string;
+        body?: string | null;
         changed_files?: number;
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         comments_url?: string;
         commits?: number;
@@ -57607,7 +57607,7 @@ export interface components {
             default_branch?: string;
             delete_branch_on_merge?: boolean;
             deployments_url?: string;
-            description?: string;
+            description?: string | null;
             disabled?: boolean;
             downloads_url?: string;
             events_url?: string;
@@ -57625,7 +57625,7 @@ export interface components {
             has_pages?: boolean;
             has_projects?: boolean;
             has_wiki?: boolean;
-            homepage?: string;
+            homepage?: string | null;
             hooks_url?: string;
             html_url?: string;
             id?: number;
@@ -57635,7 +57635,7 @@ export interface components {
             issues_url?: string;
             keys_url?: string;
             labels_url?: string;
-            language?: string;
+            language?: string | null;
             languages_url?: string;
             license?: Record<string, unknown> | null;
             /** @enum {string} */
@@ -57644,7 +57644,7 @@ export interface components {
             merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE";
             merges_url?: string;
             milestones_url?: string;
-            mirror_url?: string;
+            mirror_url?: string | null;
             name?: string;
             node_id?: string;
             notifications_url?: string;
@@ -57688,7 +57688,7 @@ export interface components {
             svn_url?: string;
             tags_url?: string;
             teams_url?: string;
-            topics?: (string)[];
+            topics?: (string | null)[];
             trees_url?: string;
             updated_at?: string;
             url?: string;
@@ -57726,17 +57726,17 @@ export interface components {
         labels?: (Record<string, unknown> | null)[];
         locked?: boolean;
         maintainer_can_modify?: boolean;
-        merge_commit_sha?: string;
-        mergeable?: boolean;
+        merge_commit_sha?: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
         merged: boolean;
-        merged_at: string;
+        merged_at: string | null;
         merged_by: Record<string, unknown> | null;
         milestone?: Record<string, unknown> | null;
         node_id?: string;
         number?: number;
         patch_url?: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers?: (Record<string, unknown> | null)[];
         requested_teams?: (Record<string, unknown> | null)[];
         review_comment_url?: string;
@@ -57832,7 +57832,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -57868,7 +57868,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -57912,7 +57912,7 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
           commit_title: string;
           /** User */
@@ -57920,7 +57920,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -58026,7 +58026,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -58068,7 +58068,7 @@ export interface components {
              * @default true
              */
             has_wiki: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -58086,18 +58086,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -58121,7 +58121,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -58135,7 +58135,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -58182,7 +58182,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -58243,7 +58243,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -58276,10 +58276,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -58361,7 +58361,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -58403,7 +58403,7 @@ export interface components {
              * @default true
              */
             has_wiki: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -58421,18 +58421,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message. 
@@ -58449,7 +58449,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -58463,7 +58463,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -58510,7 +58510,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -58571,7 +58571,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -58613,7 +58613,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -58627,18 +58627,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -58676,7 +58676,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -58685,7 +58685,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -58717,9 +58717,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -58746,12 +58746,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -58785,7 +58785,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -58797,7 +58797,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -58836,7 +58836,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -58848,7 +58848,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -58907,7 +58907,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -58966,7 +58966,7 @@ export interface components {
             href?: string;
           };
         };
-        active_lock_reason?: string;
+        active_lock_reason?: string | null;
         additions?: number;
         assignee?: Record<string, unknown> | null;
         assignees?: (Record<string, unknown> | null)[];
@@ -58998,7 +58998,7 @@ export interface components {
             default_branch?: string;
             delete_branch_on_merge?: boolean;
             deployments_url?: string;
-            description?: string;
+            description?: string | null;
             disabled?: boolean;
             downloads_url?: string;
             events_url?: string;
@@ -59016,7 +59016,7 @@ export interface components {
             has_pages?: boolean;
             has_projects?: boolean;
             has_wiki?: boolean;
-            homepage?: string;
+            homepage?: string | null;
             hooks_url?: string;
             html_url?: string;
             id?: number;
@@ -59026,7 +59026,7 @@ export interface components {
             issues_url?: string;
             keys_url?: string;
             labels_url?: string;
-            language?: string;
+            language?: string | null;
             languages_url?: string;
             license?: Record<string, unknown> | null;
             /** @enum {string} */
@@ -59079,7 +59079,7 @@ export interface components {
             svn_url?: string;
             tags_url?: string;
             teams_url?: string;
-            topics?: (string)[];
+            topics?: (string | null)[];
             trees_url?: string;
             updated_at?: string;
             url?: string;
@@ -59111,9 +59111,9 @@ export interface components {
             url?: string;
           };
         };
-        body?: string;
+        body?: string | null;
         changed_files?: number;
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         comments_url?: string;
         commits?: number;
@@ -59148,7 +59148,7 @@ export interface components {
             default_branch?: string;
             delete_branch_on_merge?: boolean;
             deployments_url?: string;
-            description?: string;
+            description?: string | null;
             disabled?: boolean;
             downloads_url?: string;
             events_url?: string;
@@ -59166,7 +59166,7 @@ export interface components {
             has_pages?: boolean;
             has_projects?: boolean;
             has_wiki?: boolean;
-            homepage?: string;
+            homepage?: string | null;
             hooks_url?: string;
             html_url?: string;
             id?: number;
@@ -59176,7 +59176,7 @@ export interface components {
             issues_url?: string;
             keys_url?: string;
             labels_url?: string;
-            language?: string;
+            language?: string | null;
             languages_url?: string;
             license?: Record<string, unknown> | null;
             /** @enum {string} */
@@ -59229,7 +59229,7 @@ export interface components {
             svn_url?: string;
             tags_url?: string;
             teams_url?: string;
-            topics?: (string)[];
+            topics?: (string | null)[];
             trees_url?: string;
             updated_at?: string;
             url?: string;
@@ -59267,17 +59267,17 @@ export interface components {
         labels?: (Record<string, unknown> | null)[];
         locked?: boolean;
         maintainer_can_modify?: boolean;
-        merge_commit_sha?: string;
-        mergeable?: boolean;
+        merge_commit_sha?: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
         merged: boolean;
-        merged_at: string;
+        merged_at: string | null;
         merged_by: Record<string, unknown> | null;
         milestone?: Record<string, unknown> | null;
         node_id?: string;
         number?: number;
         patch_url?: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers?: (Record<string, unknown> | null)[];
         requested_teams?: (Record<string, unknown> | null)[];
         review_comment_url?: string;
@@ -59363,23 +59363,23 @@ export interface components {
         /** @description The comment ID to reply to. */
         in_reply_to_id?: number;
         /** @description The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
-        line: number;
+        line: number | null;
         /** @description The node ID of the pull request review comment. */
         node_id: string;
         /** @description The SHA of the original commit to which the comment applies. */
         original_commit_id: string;
         /** @description The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
-        original_line: number;
+        original_line: number | null;
         /** @description The index of the original line in the diff to which the comment applies. */
         original_position: number;
         /** @description The first line of the range for a multi-line comment. */
-        original_start_line: number;
+        original_start_line: number | null;
         /** @description The relative path of the file to which the comment applies. */
         path: string;
         /** @description The line index in the diff to which the comment applies. */
-        position: number;
+        position: number | null;
         /** @description The ID of the pull request review to which the comment belongs. */
-        pull_request_review_id: number;
+        pull_request_review_id: number | null;
         /**
          * Format: uri 
          * @description URL for the pull request that the review comment belongs to.
@@ -59405,7 +59405,7 @@ export interface components {
          */
         side: "LEFT" | "RIGHT";
         /** @description The first line of the range for a multi-line comment. */
-        start_line: number;
+        start_line: number | null;
         /**
          * @description The side of the first line of the range for a multi-line comment. 
          * @default RIGHT 
@@ -59424,7 +59424,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -59510,7 +59510,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -59546,7 +59546,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -59590,15 +59590,15 @@ export interface components {
          */
         auto_merge?: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -59704,7 +59704,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -59751,7 +59751,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -59769,18 +59769,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -59804,7 +59804,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -59818,7 +59818,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -59865,7 +59865,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -59926,7 +59926,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -59959,8 +59959,8 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
-        closed_at: string;
+        body: string | null;
+        closed_at: string | null;
         /** Format: uri */
         comments_url: string;
         /** Format: uri */
@@ -60037,7 +60037,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -60084,7 +60084,7 @@ export interface components {
              * @default false
              */
             has_discussions?: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -60102,18 +60102,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -60137,7 +60137,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -60151,7 +60151,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -60198,7 +60198,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -60259,7 +60259,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -60301,7 +60301,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -60313,15 +60313,15 @@ export interface components {
             url: string;
           })[];
         locked: boolean;
-        merge_commit_sha: string;
-        merged_at: string;
+        merge_commit_sha: string | null;
+        merged_at: string | null;
         /**
          * Milestone 
          * @description A collection of related issues and pull requests.
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -60330,7 +60330,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -60362,9 +60362,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -60394,7 +60394,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -60428,7 +60428,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -60440,7 +60440,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -60479,7 +60479,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -60491,7 +60491,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -60544,7 +60544,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -60630,7 +60630,7 @@ export interface components {
         /** @description The comment ID to reply to. */
         in_reply_to_id?: number;
         /** @description The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
-        line: number;
+        line: number | null;
         /** @description The node ID of the pull request review comment. */
         node_id: string;
         /** @description The SHA of the original commit to which the comment applies. */
@@ -60640,13 +60640,13 @@ export interface components {
         /** @description The index of the original line in the diff to which the comment applies. */
         original_position: number;
         /** @description The first line of the range for a multi-line comment. */
-        original_start_line: number;
+        original_start_line: number | null;
         /** @description The relative path of the file to which the comment applies. */
         path: string;
         /** @description The line index in the diff to which the comment applies. */
-        position: number;
+        position: number | null;
         /** @description The ID of the pull request review to which the comment belongs. */
-        pull_request_review_id: number;
+        pull_request_review_id: number | null;
         /**
          * Format: uri 
          * @description URL for the pull request that the review comment belongs to.
@@ -60672,7 +60672,7 @@ export interface components {
          */
         side: "LEFT" | "RIGHT";
         /** @description The first line of the range for a multi-line comment. */
-        start_line: number;
+        start_line: number | null;
         /**
          * @description The side of the first line of the range for a multi-line comment. 
          * @default RIGHT 
@@ -60691,7 +60691,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -60777,7 +60777,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -60813,7 +60813,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -60857,15 +60857,15 @@ export interface components {
          */
         auto_merge?: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -60971,7 +60971,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -61018,7 +61018,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -61036,18 +61036,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -61071,7 +61071,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -61085,7 +61085,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -61132,7 +61132,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -61193,7 +61193,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -61226,8 +61226,8 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
-        closed_at: string;
+        body: string | null;
+        closed_at: string | null;
         /** Format: uri */
         comments_url: string;
         /** Format: uri */
@@ -61304,7 +61304,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -61351,7 +61351,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -61369,18 +61369,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -61404,7 +61404,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -61418,7 +61418,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -61465,7 +61465,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -61526,7 +61526,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -61568,7 +61568,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -61580,15 +61580,15 @@ export interface components {
             url: string;
           })[];
         locked: boolean;
-        merge_commit_sha: string;
-        merged_at: string;
+        merge_commit_sha: string | null;
+        merged_at: string | null;
         /**
          * Milestone 
          * @description A collection of related issues and pull requests.
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -61597,7 +61597,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -61629,9 +61629,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -61661,7 +61661,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -61695,7 +61695,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -61707,7 +61707,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -61746,7 +61746,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -61758,7 +61758,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -61811,7 +61811,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -61904,7 +61904,7 @@ export interface components {
         /** @description The comment ID to reply to. */
         in_reply_to_id?: number;
         /** @description The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
-        line: number;
+        line: number | null;
         /** @description The node ID of the pull request review comment. */
         node_id: string;
         /** @description The SHA of the original commit to which the comment applies. */
@@ -61914,13 +61914,13 @@ export interface components {
         /** @description The index of the original line in the diff to which the comment applies. */
         original_position: number;
         /** @description The first line of the range for a multi-line comment. */
-        original_start_line: number;
+        original_start_line: number | null;
         /** @description The relative path of the file to which the comment applies. */
         path: string;
         /** @description The line index in the diff to which the comment applies. */
-        position: number;
+        position: number | null;
         /** @description The ID of the pull request review to which the comment belongs. */
-        pull_request_review_id: number;
+        pull_request_review_id: number | null;
         /**
          * Format: uri 
          * @description URL for the pull request that the review comment belongs to.
@@ -61946,7 +61946,7 @@ export interface components {
          */
         side: "LEFT" | "RIGHT";
         /** @description The first line of the range for a multi-line comment. */
-        start_line: number;
+        start_line: number | null;
         /**
          * @description The side of the first line of the range for a multi-line comment. 
          * @default RIGHT 
@@ -61965,7 +61965,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -62051,7 +62051,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -62087,7 +62087,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -62131,15 +62131,15 @@ export interface components {
          */
         auto_merge?: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -62245,7 +62245,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -62292,7 +62292,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -62310,18 +62310,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -62345,7 +62345,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -62359,7 +62359,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -62406,7 +62406,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -62467,7 +62467,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -62500,8 +62500,8 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
-        closed_at: string;
+        body: string | null;
+        closed_at: string | null;
         /** Format: uri */
         comments_url: string;
         /** Format: uri */
@@ -62578,7 +62578,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -62625,7 +62625,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -62643,18 +62643,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -62678,7 +62678,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -62692,7 +62692,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -62739,7 +62739,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -62800,7 +62800,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -62842,7 +62842,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -62854,15 +62854,15 @@ export interface components {
             url: string;
           })[];
         locked: boolean;
-        merge_commit_sha: string;
-        merged_at: string;
+        merge_commit_sha: string | null;
+        merged_at: string | null;
         /**
          * Milestone 
          * @description A collection of related issues and pull requests.
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -62871,7 +62871,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -62903,9 +62903,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -62935,7 +62935,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -62969,7 +62969,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -62981,7 +62981,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -63020,7 +63020,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -63032,7 +63032,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -63085,7 +63085,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -63179,7 +63179,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -63215,7 +63215,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -63259,15 +63259,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -63373,7 +63373,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -63420,7 +63420,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -63438,18 +63438,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -63473,7 +63473,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -63487,7 +63487,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -63534,7 +63534,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -63595,7 +63595,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -63628,8 +63628,8 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
-        closed_at: string;
+        body: string | null;
+        closed_at: string | null;
         /** Format: uri */
         comments_url: string;
         /** Format: uri */
@@ -63706,7 +63706,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -63753,7 +63753,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -63771,18 +63771,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -63806,7 +63806,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -63820,7 +63820,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -63867,7 +63867,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -63928,7 +63928,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -63970,7 +63970,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -63982,15 +63982,15 @@ export interface components {
             url: string;
           })[];
         locked: boolean;
-        merge_commit_sha: string;
-        merged_at: string;
+        merge_commit_sha: string | null;
+        merged_at: string | null;
         /**
          * Milestone 
          * @description A collection of related issues and pull requests.
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -63999,7 +63999,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -64031,9 +64031,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -64063,7 +64063,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -64097,7 +64097,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -64109,7 +64109,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -64148,7 +64148,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -64160,7 +64160,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -64213,7 +64213,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -64268,7 +64268,7 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description The text of the review. */
-        body: string;
+        body: string | null;
         /** @description A commit SHA for the review. */
         commit_id: string;
         /** Format: uri */
@@ -64287,7 +64287,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -64386,7 +64386,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -64422,7 +64422,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -64466,15 +64466,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -64580,7 +64580,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -64622,7 +64622,7 @@ export interface components {
              * @default true
              */
             has_wiki: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -64640,25 +64640,25 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /** Format: uri */
             merges_url: string;
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -64672,7 +64672,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -64719,7 +64719,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             ssh_url: string;
             stargazers?: number;
@@ -64756,7 +64756,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -64789,8 +64789,8 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
-        closed_at: string;
+        body: string | null;
+        closed_at: string | null;
         /** Format: uri */
         comments_url: string;
         /** Format: uri */
@@ -64867,7 +64867,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -64909,7 +64909,7 @@ export interface components {
              * @default true
              */
             has_wiki: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -64927,25 +64927,25 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /** Format: uri */
             merges_url: string;
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -64959,7 +64959,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -65006,7 +65006,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             ssh_url: string;
             stargazers?: number;
@@ -65043,7 +65043,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -65085,7 +65085,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -65097,15 +65097,15 @@ export interface components {
             url: string;
           })[];
         locked: boolean;
-        merge_commit_sha: string;
-        merged_at: string;
+        merge_commit_sha: string | null;
+        merged_at: string | null;
         /**
          * Milestone 
          * @description A collection of related issues and pull requests.
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -65114,7 +65114,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -65146,9 +65146,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -65178,7 +65178,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -65212,7 +65212,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -65224,7 +65224,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -65263,7 +65263,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -65275,7 +65275,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -65328,7 +65328,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -65383,7 +65383,7 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description The text of the review. */
-        body: string;
+        body: string | null;
         /** @description A commit SHA for the review. */
         commit_id: string;
         /** Format: uri */
@@ -65395,13 +65395,13 @@ export interface components {
         pull_request_url: string;
         state: string;
         /** Format: date-time */
-        submitted_at: string;
+        submitted_at: string | null;
         /** User */
         user: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -65497,7 +65497,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -65533,7 +65533,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -65577,15 +65577,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -65691,7 +65691,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -65738,7 +65738,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -65756,18 +65756,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -65791,7 +65791,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -65805,7 +65805,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -65852,7 +65852,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message. 
@@ -65906,7 +65906,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -65939,10 +65939,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -66024,7 +66024,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -66071,7 +66071,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -66089,18 +66089,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -66124,7 +66124,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -66138,7 +66138,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -66185,7 +66185,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -66246,7 +66246,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -66288,7 +66288,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -66302,18 +66302,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -66351,7 +66351,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -66360,7 +66360,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -66392,9 +66392,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -66421,12 +66421,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -66460,7 +66460,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -66472,7 +66472,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -66511,7 +66511,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -66523,7 +66523,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -66582,7 +66582,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -66621,7 +66621,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -66714,7 +66714,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -66750,7 +66750,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -66794,15 +66794,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -66908,7 +66908,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -66955,7 +66955,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -66973,18 +66973,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -67008,7 +67008,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -67022,7 +67022,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -67069,7 +67069,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -67130,7 +67130,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -67163,10 +67163,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -67248,7 +67248,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -67295,7 +67295,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -67313,18 +67313,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -67348,7 +67348,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -67362,7 +67362,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -67409,7 +67409,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -67470,7 +67470,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -67512,7 +67512,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -67526,18 +67526,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -67575,7 +67575,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -67584,7 +67584,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -67616,9 +67616,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -67645,12 +67645,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -67684,7 +67684,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -67696,7 +67696,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -67735,7 +67735,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -67747,7 +67747,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -67806,7 +67806,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -67847,7 +67847,7 @@ export interface components {
       requested_team: {
         deleted?: boolean;
         /** @description Description of the team */
-        description: string;
+        description: string | null;
         /** Format: uri */
         html_url: string;
         /** @description Unique identifier of the team */
@@ -67859,7 +67859,7 @@ export interface components {
         node_id: string;
         parent?: ({
           /** @description Description of the team */
-          description: string;
+          description: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the team */
@@ -67958,7 +67958,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -67994,7 +67994,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -68038,15 +68038,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -68152,7 +68152,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -68199,7 +68199,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -68217,18 +68217,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -68252,7 +68252,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -68266,7 +68266,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -68313,7 +68313,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -68374,7 +68374,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -68407,10 +68407,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -68492,7 +68492,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -68539,7 +68539,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -68557,18 +68557,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -68592,7 +68592,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -68606,7 +68606,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -68653,7 +68653,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -68714,7 +68714,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -68756,7 +68756,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -68770,18 +68770,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -68819,7 +68819,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -68828,7 +68828,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -68860,9 +68860,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -68889,12 +68889,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -68928,7 +68928,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -68940,7 +68940,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -68979,7 +68979,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -68991,7 +68991,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -69050,7 +69050,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -69089,7 +69089,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -69182,7 +69182,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -69218,7 +69218,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -69262,15 +69262,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -69376,7 +69376,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -69423,7 +69423,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -69441,18 +69441,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -69476,7 +69476,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -69490,7 +69490,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -69537,7 +69537,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -69598,7 +69598,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -69631,10 +69631,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -69716,7 +69716,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -69763,7 +69763,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -69781,18 +69781,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -69816,7 +69816,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -69830,7 +69830,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -69877,7 +69877,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -69938,7 +69938,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -69980,7 +69980,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -69994,18 +69994,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -70043,7 +70043,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -70052,7 +70052,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -70084,9 +70084,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -70113,12 +70113,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -70152,7 +70152,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -70164,7 +70164,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -70203,7 +70203,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -70215,7 +70215,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -70274,7 +70274,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -70315,7 +70315,7 @@ export interface components {
       requested_team: {
         deleted?: boolean;
         /** @description Description of the team */
-        description?: string;
+        description?: string | null;
         /** Format: uri */
         html_url?: string;
         /** @description Unique identifier of the team */
@@ -70327,7 +70327,7 @@ export interface components {
         node_id?: string;
         parent?: ({
           /** @description Description of the team */
-          description: string;
+          description: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the team */
@@ -70423,7 +70423,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -70459,7 +70459,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -70503,15 +70503,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -70617,7 +70617,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -70664,7 +70664,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -70682,18 +70682,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -70717,7 +70717,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -70731,7 +70731,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -70778,7 +70778,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -70839,7 +70839,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -70872,8 +70872,8 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
-        closed_at: string;
+        body: string | null;
+        closed_at: string | null;
         /** Format: uri */
         comments_url: string;
         /** Format: uri */
@@ -70883,7 +70883,7 @@ export interface components {
         diff_url: string;
         draft: boolean;
         head: {
-          label: string;
+          label: string | null;
           ref: string;
           /**
            * Repository 
@@ -70950,7 +70950,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -70997,7 +70997,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -71015,18 +71015,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -71050,7 +71050,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -71064,7 +71064,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -71111,7 +71111,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -71172,7 +71172,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -71214,7 +71214,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -71226,15 +71226,15 @@ export interface components {
             url: string;
           })[];
         locked: boolean;
-        merge_commit_sha: string;
-        merged_at: string;
+        merge_commit_sha: string | null;
+        merged_at: string | null;
         /**
          * Milestone 
          * @description A collection of related issues and pull requests.
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -71243,7 +71243,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -71275,9 +71275,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -71307,7 +71307,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -71341,7 +71341,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -71353,7 +71353,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -71392,7 +71392,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -71404,7 +71404,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -71457,7 +71457,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -71512,7 +71512,7 @@ export interface components {
          */
         author_association: "COLLABORATOR" | "CONTRIBUTOR" | "FIRST_TIMER" | "FIRST_TIME_CONTRIBUTOR" | "MANNEQUIN" | "MEMBER" | "NONE" | "OWNER";
         /** @description The text of the review. */
-        body: string;
+        body: string | null;
         /** @description A commit SHA for the review. */
         commit_id: string;
         /** Format: uri */
@@ -71524,13 +71524,13 @@ export interface components {
         pull_request_url: string;
         state: string;
         /** Format: date-time */
-        submitted_at: string;
+        submitted_at: string | null;
         /** User */
         user: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -71623,7 +71623,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -71659,7 +71659,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -71703,15 +71703,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -71817,7 +71817,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -71864,7 +71864,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -71882,25 +71882,25 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /** Format: uri */
             merges_url: string;
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -71914,7 +71914,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -71961,7 +71961,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             ssh_url: string;
             stargazers?: number;
@@ -72000,7 +72000,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -72033,8 +72033,8 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
-        closed_at: string;
+        body: string | null;
+        closed_at: string | null;
         /** Format: uri */
         comments_url: string;
         /** Format: uri */
@@ -72044,7 +72044,7 @@ export interface components {
         diff_url: string;
         draft: boolean;
         head: {
-          label: string;
+          label: string | null;
           ref: string;
           /**
            * Repository 
@@ -72111,7 +72111,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -72158,7 +72158,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -72176,25 +72176,25 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /** Format: uri */
             merges_url: string;
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -72208,7 +72208,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -72255,7 +72255,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             ssh_url: string;
             stargazers?: number;
@@ -72294,7 +72294,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -72336,7 +72336,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -72348,15 +72348,15 @@ export interface components {
             url: string;
           })[];
         locked: boolean;
-        merge_commit_sha: string;
-        merged_at: string;
+        merge_commit_sha: string | null;
+        merged_at: string | null;
         /**
          * Milestone 
          * @description A collection of related issues and pull requests.
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -72365,7 +72365,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -72397,9 +72397,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -72429,7 +72429,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -72463,7 +72463,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -72475,7 +72475,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -72514,7 +72514,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -72526,7 +72526,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -72579,7 +72579,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -72657,23 +72657,23 @@ export interface components {
             /** @description The comment ID to reply to. */
             in_reply_to_id?: number;
             /** @description The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
-            line: number;
+            line: number | null;
             /** @description The node ID of the pull request review comment. */
             node_id: string;
             /** @description The SHA of the original commit to which the comment applies. */
             original_commit_id: string;
             /** @description The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
-            original_line: number;
+            original_line: number | null;
             /** @description The index of the original line in the diff to which the comment applies. */
             original_position: number;
             /** @description The first line of the range for a multi-line comment. */
-            original_start_line: number;
+            original_start_line: number | null;
             /** @description The relative path of the file to which the comment applies. */
             path: string;
             /** @description The line index in the diff to which the comment applies. */
-            position: number;
+            position: number | null;
             /** @description The ID of the pull request review to which the comment belongs. */
-            pull_request_review_id: number;
+            pull_request_review_id: number | null;
             /**
              * Format: uri 
              * @description URL for the pull request that the review comment belongs to.
@@ -72699,7 +72699,7 @@ export interface components {
              */
             side: "LEFT" | "RIGHT";
             /** @description The first line of the range for a multi-line comment. */
-            start_line: number;
+            start_line: number | null;
             /**
              * @description The side of the first line of the range for a multi-line comment. 
              * @default RIGHT 
@@ -72718,7 +72718,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -72812,7 +72812,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -72848,7 +72848,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -72892,7 +72892,7 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
           commit_title: string;
           /** User */
@@ -72900,7 +72900,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -73006,7 +73006,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -73053,7 +73053,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -73071,25 +73071,25 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /** Format: uri */
             merges_url: string;
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -73103,7 +73103,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -73150,7 +73150,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             ssh_url: string;
             stargazers?: number;
@@ -73189,7 +73189,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -73222,8 +73222,8 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
-        closed_at: string;
+        body: string | null;
+        closed_at: string | null;
         /** Format: uri */
         comments_url: string;
         /** Format: uri */
@@ -73300,7 +73300,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -73347,7 +73347,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -73365,25 +73365,25 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /** Format: uri */
             merges_url: string;
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -73397,7 +73397,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -73444,7 +73444,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             ssh_url: string;
             stargazers?: number;
@@ -73483,7 +73483,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -73525,7 +73525,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -73537,15 +73537,15 @@ export interface components {
             url: string;
           })[];
         locked: boolean;
-        merge_commit_sha: string;
-        merged_at: string;
+        merge_commit_sha: string | null;
+        merged_at: string | null;
         /**
          * Milestone 
          * @description A collection of related issues and pull requests.
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -73554,7 +73554,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -73586,9 +73586,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -73618,7 +73618,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -73652,7 +73652,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -73664,7 +73664,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -73703,7 +73703,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -73715,7 +73715,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -73768,7 +73768,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -73846,7 +73846,7 @@ export interface components {
             /** @description The comment ID to reply to. */
             in_reply_to_id?: number;
             /** @description The line of the blob to which the comment applies. The last line of the range for a multi-line comment */
-            line: number;
+            line: number | null;
             /** @description The node ID of the pull request review comment. */
             node_id: string;
             /** @description The SHA of the original commit to which the comment applies. */
@@ -73856,13 +73856,13 @@ export interface components {
             /** @description The index of the original line in the diff to which the comment applies. */
             original_position: number;
             /** @description The first line of the range for a multi-line comment. */
-            original_start_line: number;
+            original_start_line: number | null;
             /** @description The relative path of the file to which the comment applies. */
             path: string;
             /** @description The line index in the diff to which the comment applies. */
-            position: number;
+            position: number | null;
             /** @description The ID of the pull request review to which the comment belongs. */
-            pull_request_review_id: number;
+            pull_request_review_id: number | null;
             /**
              * Format: uri 
              * @description URL for the pull request that the review comment belongs to.
@@ -73888,7 +73888,7 @@ export interface components {
              */
             side: "LEFT" | "RIGHT";
             /** @description The first line of the range for a multi-line comment. */
-            start_line: number;
+            start_line: number | null;
             /**
              * @description The side of the first line of the range for a multi-line comment. 
              * @default RIGHT 
@@ -73907,7 +73907,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -74006,7 +74006,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -74042,7 +74042,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -74086,15 +74086,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -74200,7 +74200,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -74247,7 +74247,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -74265,18 +74265,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -74300,7 +74300,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -74314,7 +74314,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -74361,7 +74361,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -74422,7 +74422,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -74455,10 +74455,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -74540,7 +74540,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -74587,7 +74587,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -74605,18 +74605,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message. 
@@ -74633,7 +74633,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -74647,7 +74647,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -74694,7 +74694,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -74755,7 +74755,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -74797,7 +74797,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -74811,18 +74811,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -74860,7 +74860,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -74869,7 +74869,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -74901,9 +74901,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -74930,12 +74930,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -74969,7 +74969,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -74981,7 +74981,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -75020,7 +75020,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -75032,7 +75032,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -75091,7 +75091,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -75136,7 +75136,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -75225,7 +75225,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -75261,7 +75261,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -75305,15 +75305,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -75352,7 +75352,7 @@ export interface components {
           merge_method: "merge" | "squash" | "rebase";
         }) | null;
         base: {
-          label: string;
+          label: string | null;
           ref: string;
           /**
            * Repository 
@@ -75419,7 +75419,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -75466,7 +75466,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -75484,18 +75484,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -75519,7 +75519,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -75533,7 +75533,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -75580,7 +75580,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -75641,7 +75641,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -75674,10 +75674,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -75692,7 +75692,7 @@ export interface components {
         /** @description Indicates whether or not the pull request is a draft. */
         draft: boolean;
         head: {
-          label: string;
+          label: string | null;
           ref: string;
           /**
            * Repository 
@@ -75759,7 +75759,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -75806,7 +75806,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -75824,18 +75824,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -75859,7 +75859,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -75873,7 +75873,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -75920,7 +75920,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -75981,7 +75981,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -76023,7 +76023,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -76037,18 +76037,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -76086,7 +76086,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -76095,7 +76095,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -76127,9 +76127,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -76156,12 +76156,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -76195,7 +76195,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -76207,7 +76207,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -76246,7 +76246,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -76258,7 +76258,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -76317,7 +76317,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -76364,7 +76364,7 @@ export interface components {
         /** @description 6-character hex code, without the leading #, identifying the color */
         color: string;
         default: boolean;
-        description: string;
+        description: string | null;
         id: number;
         /** @description The name of the label. */
         name: string;
@@ -76430,7 +76430,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -76466,7 +76466,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -76510,15 +76510,15 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
-          commit_title: string;
+          commit_title: string | null;
           /** User */
           enabled_by: ({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -76624,7 +76624,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -76671,7 +76671,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -76689,18 +76689,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -76724,7 +76724,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -76738,7 +76738,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -76785,7 +76785,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -76846,7 +76846,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -76879,10 +76879,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -76897,7 +76897,7 @@ export interface components {
         /** @description Indicates whether or not the pull request is a draft. */
         draft: boolean;
         head: {
-          label: string;
+          label: string | null;
           ref: string;
           /**
            * Repository 
@@ -76964,7 +76964,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -77011,7 +77011,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -77029,18 +77029,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message. 
@@ -77057,7 +77057,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -77071,7 +77071,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -77118,7 +77118,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -77179,7 +77179,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -77221,7 +77221,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -77235,18 +77235,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -77284,7 +77284,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -77293,7 +77293,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -77325,9 +77325,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -77354,12 +77354,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -77393,7 +77393,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description: string;
+            description: string | null;
             /** Format: uri */
             html_url: string;
             /** @description Unique identifier of the team */
@@ -77405,7 +77405,7 @@ export interface components {
             node_id: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -77444,7 +77444,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -77456,7 +77456,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -77515,7 +77515,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -77612,7 +77612,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -77648,7 +77648,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -77692,7 +77692,7 @@ export interface components {
          */
         auto_merge: ({
           /** @description Commit message for the merge commit. */
-          commit_message: string;
+          commit_message: string | null;
           /** @description Title for the merge commit message. */
           commit_title: string;
           /** User */
@@ -77700,7 +77700,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -77806,7 +77806,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -77853,7 +77853,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -77871,18 +77871,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -77906,7 +77906,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -77920,7 +77920,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -77967,7 +77967,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -78028,7 +78028,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -78061,10 +78061,10 @@ export interface components {
             url?: string;
           }) | null;
         };
-        body: string;
+        body: string | null;
         changed_files?: number;
         /** Format: date-time */
-        closed_at: string;
+        closed_at: string | null;
         comments?: number;
         /** Format: uri */
         comments_url: string;
@@ -78146,7 +78146,7 @@ export interface components {
             delete_branch_on_merge?: boolean;
             /** Format: uri */
             deployments_url: string;
-            description: string;
+            description: string | null;
             /** @description Returns whether or not this repository is disabled. */
             disabled?: boolean;
             /** Format: uri */
@@ -78193,7 +78193,7 @@ export interface components {
              * @default false
              */
             has_discussions: boolean;
-            homepage: string;
+            homepage: string | null;
             /** Format: uri */
             hooks_url: string;
             /** Format: uri */
@@ -78211,18 +78211,18 @@ export interface components {
             keys_url: string;
             /** Format: uri-template */
             labels_url: string;
-            language: string;
+            language: string | null;
             /** Format: uri */
             languages_url: string;
             /** License */
-            license: {
+            license: ({
               key: string;
               name: string;
               node_id: string;
               spdx_id: string;
               /** Format: uri */
-              url: string;
-            } | null;
+              url: string | null;
+            }) | null;
             master_branch?: string;
             /**
              * @description The default value for a merge commit message.
@@ -78246,7 +78246,7 @@ export interface components {
             /** Format: uri-template */
             milestones_url: string;
             /** Format: uri */
-            mirror_url: string;
+            mirror_url: string | null;
             /** @description The name of the repository. */
             name: string;
             node_id: string;
@@ -78260,7 +78260,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -78307,7 +78307,7 @@ export interface components {
             pushed_at: number | string;
             /** Format: uri-template */
             releases_url: string;
-            role_name?: string;
+            role_name?: string | null;
             size: number;
             /**
              * @description The default value for a squash merge commit message:
@@ -78368,7 +78368,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -78410,7 +78410,7 @@ export interface components {
             /** @description 6-character hex code, without the leading #, identifying the color */
             color: string;
             default: boolean;
-            description: string;
+            description: string | null;
             id: number;
             /** @description The name of the label. */
             name: string;
@@ -78424,18 +78424,18 @@ export interface components {
         locked: boolean;
         /** @description Indicates whether maintainers can modify the pull request. */
         maintainer_can_modify?: boolean;
-        merge_commit_sha: string;
-        mergeable?: boolean;
+        merge_commit_sha: string | null;
+        mergeable?: boolean | null;
         mergeable_state?: string;
-        merged?: boolean;
+        merged?: boolean | null;
         /** Format: date-time */
-        merged_at: string;
+        merged_at: string | null;
         /** User */
         merged_by?: ({
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -78473,7 +78473,7 @@ export interface components {
          */
         milestone: ({
           /** Format: date-time */
-          closed_at: string;
+          closed_at: string | null;
           closed_issues: number;
           /** Format: date-time */
           created_at: string;
@@ -78482,7 +78482,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -78514,9 +78514,9 @@ export interface components {
             /** Format: uri */
             url?: string;
           }) | null;
-          description: string;
+          description: string | null;
           /** Format: date-time */
-          due_on: string;
+          due_on: string | null;
           /** Format: uri */
           html_url: string;
           id: number;
@@ -78543,12 +78543,12 @@ export interface components {
         number: number;
         /** Format: uri */
         patch_url: string;
-        rebaseable?: boolean;
+        rebaseable?: boolean | null;
         requested_reviewers: (OneOf<[({
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -78582,7 +78582,7 @@ export interface components {
           }) | null, {
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -78594,7 +78594,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -78633,7 +78633,7 @@ export interface components {
         requested_teams: ({
             deleted?: boolean;
             /** @description Description of the team */
-            description?: string;
+            description?: string | null;
             /** Format: uri */
             html_url?: string;
             /** @description Unique identifier of the team */
@@ -78645,7 +78645,7 @@ export interface components {
             node_id?: string;
             parent?: ({
               /** @description Description of the team */
-              description: string;
+              description: string | null;
               /** Format: uri */
               html_url: string;
               /** @description Unique identifier of the team */
@@ -78704,7 +78704,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -78744,7 +78744,7 @@ export interface components {
     "webhook-push": {
       /** @description The SHA of the most recent commit on `ref` after the push. */
       after: string;
-      base_ref: string;
+      base_ref: string | null;
       /** @description The SHA of the most recent commit on `ref` before the push. */
       before: string;
       /** @description An array of commit objects describing the pushed commits. (Pushed commits are all commits that are included in the `compare` between the `before` commit and the `after` commit.) The array includes a maximum of 20 commits. If necessary, you can use the [Commits API](https://docs.github.com/rest/reference/repos#commits) to fetch additional commits. This limit is applied to timeline events only and isn't applied to webhook deliveries. */
@@ -78759,7 +78759,7 @@ export interface components {
             /** Format: date-time */
             date?: string;
             /** Format: email */
-            email: string;
+            email: string | null;
             /** @description The git author's name. */
             name: string;
             username?: string;
@@ -78772,7 +78772,7 @@ export interface components {
             /** Format: date-time */
             date?: string;
             /** Format: email */
-            email: string;
+            email: string | null;
             /** @description The git author's name. */
             name: string;
             username?: string;
@@ -78808,7 +78808,7 @@ export interface components {
       /** @description Whether this push was a force push of the `ref`. */
       forced: boolean;
       /** Commit */
-      head_commit: {
+      head_commit: ({
         /** @description An array of files added in the commit. */
         added?: (string)[];
         /**
@@ -78819,7 +78819,7 @@ export interface components {
           /** Format: date-time */
           date?: string;
           /** Format: email */
-          email: string;
+          email: string | null;
           /** @description The git author's name. */
           name: string;
           username?: string;
@@ -78832,7 +78832,7 @@ export interface components {
           /** Format: date-time */
           date?: string;
           /** Format: email */
-          email: string;
+          email: string | null;
           /** @description The git author's name. */
           name: string;
           username?: string;
@@ -78857,7 +78857,7 @@ export interface components {
          * @description URL that points to the commit API resource.
          */
         url: string;
-      } | null;
+      }) | null;
       installation?: components["schemas"]["simple-installation"];
       organization?: components["schemas"]["organization-simple"];
       /**
@@ -78868,7 +78868,7 @@ export interface components {
         /** Format: date-time */
         date?: string;
         /** Format: email */
-        email?: string;
+        email?: string | null;
         /** @description The git author's name. */
         name: string;
         username?: string;
@@ -78940,7 +78940,7 @@ export interface components {
         delete_branch_on_merge?: boolean;
         /** Format: uri */
         deployments_url: string;
-        description: string;
+        description: string | null;
         /** @description Returns whether or not this repository is disabled. */
         disabled?: boolean;
         /** Format: uri */
@@ -78987,7 +78987,7 @@ export interface components {
          * @default false
          */
         has_discussions: boolean;
-        homepage: string;
+        homepage: string | null;
         /** Format: uri */
         hooks_url: string;
         /** Format: uri */
@@ -79005,25 +79005,25 @@ export interface components {
         keys_url: string;
         /** Format: uri-template */
         labels_url: string;
-        language: string;
+        language: string | null;
         /** Format: uri */
         languages_url: string;
         /** License */
-        license: {
+        license: ({
           key: string;
           name: string;
           node_id: string;
           spdx_id: string;
           /** Format: uri */
-          url: string;
-        } | null;
+          url: string | null;
+        }) | null;
         master_branch?: string;
         /** Format: uri */
         merges_url: string;
         /** Format: uri-template */
         milestones_url: string;
         /** Format: uri */
-        mirror_url: string;
+        mirror_url: string | null;
         /** @description The name of the repository. */
         name: string;
         node_id: string;
@@ -79037,7 +79037,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -79084,7 +79084,7 @@ export interface components {
         pushed_at: number | string;
         /** Format: uri-template */
         releases_url: string;
-        role_name?: string;
+        role_name?: string | null;
         size: number;
         ssh_url: string;
         stargazers?: number;
@@ -79126,8 +79126,8 @@ export interface components {
       installation?: components["schemas"]["simple-installation"];
       organization?: components["schemas"]["organization-simple"];
       registry_package: {
-        created_at: string;
-        description: string;
+        created_at: string | null;
+        description: string | null;
         ecosystem: string;
         html_url: string;
         id: number;
@@ -79236,7 +79236,7 @@ export interface components {
             published_via_actions?: boolean;
             deleted_by_id?: number;
           }) | null;
-          nuget_metadata?: ({
+          nuget_metadata?: (({
               id?: string | Record<string, never> | number;
               name?: string;
               value?: OneOf<[boolean, string, number, {
@@ -79245,18 +79245,18 @@ export interface components {
                 commit?: string;
                 type?: string;
               }]>;
-            })[];
+            })[]) | null;
           package_files: ({
               content_type: string;
               created_at: string;
               download_url: string;
               id: number;
-              md5: string;
+              md5: string | null;
               name: string;
-              sha1: string;
-              sha256: string;
+              sha1: string | null;
+              sha256: string | null;
               size: number;
-              state: string;
+              state: string | null;
               updated_at: string;
             })[];
           package_url: string;
@@ -79286,7 +79286,7 @@ export interface components {
             draft?: boolean;
             html_url?: string;
             id?: number;
-            name?: string;
+            name?: string | null;
             prerelease?: boolean;
             published_at?: string;
             tag_name?: string;
@@ -79308,7 +79308,7 @@ export interface components {
           url?: string;
           vendor?: string;
         } | null;
-        updated_at: string;
+        updated_at: string | null;
       };
       repository?: components["schemas"]["repository"];
       sender: components["schemas"]["simple-user"];
@@ -79385,9 +79385,9 @@ export interface components {
               created_at?: string;
               download_url?: string;
               id?: number;
-              md5?: string;
+              md5?: string | null;
               name?: string;
-              sha1?: string;
+              sha1?: string | null;
               sha256?: string;
               size?: number;
               state?: string;
@@ -79461,7 +79461,7 @@ export interface components {
             created_at: string;
             download_count: number;
             id: number;
-            label: string;
+            label: string | null;
             /** @description The file name of the asset. */
             name: string;
             node_id: string;
@@ -79478,7 +79478,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -79520,7 +79520,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -79552,9 +79552,9 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        created_at: string;
+        created_at: string | null;
         /** Format: uri */
         discussion_url?: string;
         /** @description Whether the release is a draft or published */
@@ -79562,12 +79562,12 @@ export interface components {
         /** Format: uri */
         html_url: string;
         id: number;
-        name: string;
+        name: string | null;
         node_id: string;
         /** @description Whether the release is identified as a prerelease or a full release. */
         prerelease: boolean;
         /** Format: date-time */
-        published_at: string;
+        published_at: string | null;
         /** Reactions */
         reactions?: {
           "+1": number;
@@ -79585,7 +79585,7 @@ export interface components {
         /** @description The name of the tag. */
         tag_name: string;
         /** Format: uri */
-        tarball_url: string;
+        tarball_url: string | null;
         /** @description Specifies the commitish value that determines where the Git tag is created from. */
         target_commitish: string;
         /** Format: uri-template */
@@ -79593,7 +79593,7 @@ export interface components {
         /** Format: uri */
         url: string;
         /** Format: uri */
-        zipball_url: string;
+        zipball_url: string | null;
       };
       repository: components["schemas"]["repository"];
       sender: components["schemas"]["simple-user"];
@@ -79618,7 +79618,7 @@ export interface components {
             created_at: string;
             download_count: number;
             id: number;
-            label: string;
+            label: string | null;
             /** @description The file name of the asset. */
             name: string;
             node_id: string;
@@ -79635,7 +79635,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -79677,7 +79677,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -79709,9 +79709,9 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        created_at: string;
+        created_at: string | null;
         /** Format: uri */
         discussion_url?: string;
         /** @description Whether the release is a draft or published */
@@ -79719,12 +79719,12 @@ export interface components {
         /** Format: uri */
         html_url: string;
         id: number;
-        name: string;
+        name: string | null;
         node_id: string;
         /** @description Whether the release is identified as a prerelease or a full release. */
         prerelease: boolean;
         /** Format: date-time */
-        published_at: string;
+        published_at: string | null;
         /** Reactions */
         reactions?: {
           "+1": number;
@@ -79742,7 +79742,7 @@ export interface components {
         /** @description The name of the tag. */
         tag_name: string;
         /** Format: uri */
-        tarball_url: string;
+        tarball_url: string | null;
         /** @description Specifies the commitish value that determines where the Git tag is created from. */
         target_commitish: string;
         /** Format: uri-template */
@@ -79750,7 +79750,7 @@ export interface components {
         /** Format: uri */
         url: string;
         /** Format: uri */
-        zipball_url: string;
+        zipball_url: string | null;
       };
       repository: components["schemas"]["repository"];
       sender: components["schemas"]["simple-user"];
@@ -79785,7 +79785,7 @@ export interface components {
             created_at: string;
             download_count: number;
             id: number;
-            label: string;
+            label: string | null;
             /** @description The file name of the asset. */
             name: string;
             node_id: string;
@@ -79802,7 +79802,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -79844,7 +79844,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -79876,9 +79876,9 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        created_at: string;
+        created_at: string | null;
         /** Format: uri */
         discussion_url?: string;
         /** @description Whether the release is a draft or published */
@@ -79886,12 +79886,12 @@ export interface components {
         /** Format: uri */
         html_url: string;
         id: number;
-        name: string;
+        name: string | null;
         node_id: string;
         /** @description Whether the release is identified as a prerelease or a full release. */
         prerelease: boolean;
         /** Format: date-time */
-        published_at: string;
+        published_at: string | null;
         /** Reactions */
         reactions?: {
           "+1": number;
@@ -79909,7 +79909,7 @@ export interface components {
         /** @description The name of the tag. */
         tag_name: string;
         /** Format: uri */
-        tarball_url: string;
+        tarball_url: string | null;
         /** @description Specifies the commitish value that determines where the Git tag is created from. */
         target_commitish: string;
         /** Format: uri-template */
@@ -79917,7 +79917,7 @@ export interface components {
         /** Format: uri */
         url: string;
         /** Format: uri */
-        zipball_url: string;
+        zipball_url: string | null;
       };
       repository: components["schemas"]["repository"];
       sender?: components["schemas"]["simple-user"];
@@ -79938,7 +79938,7 @@ export interface components {
             created_at: string;
             download_count: number;
             id: number;
-            label: string;
+            label: string | null;
             /** @description The file name of the asset. */
             name: string;
             node_id: string;
@@ -79955,7 +79955,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -79997,7 +79997,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -80029,9 +80029,9 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        created_at: string;
+        created_at: string | null;
         /** Format: uri */
         discussion_url?: string;
         /** @description Whether the release is a draft or published */
@@ -80039,12 +80039,12 @@ export interface components {
         /** Format: uri */
         html_url: string;
         id: number;
-        name: string;
+        name: string | null;
         node_id: string;
         /** @description Whether the release is identified as a prerelease or a full release. */
         prerelease: boolean;
         /** Format: date-time */
-        published_at: string;
+        published_at: string | null;
         /** Reactions */
         reactions?: {
           "+1": number;
@@ -80062,7 +80062,7 @@ export interface components {
         /** @description The name of the tag. */
         tag_name: string;
         /** Format: uri */
-        tarball_url: string;
+        tarball_url: string | null;
         /** @description Specifies the commitish value that determines where the Git tag is created from. */
         target_commitish: string;
         /** Format: uri-template */
@@ -80070,7 +80070,7 @@ export interface components {
         /** Format: uri */
         url: string;
         /** Format: uri */
-        zipball_url: string;
+        zipball_url: string | null;
       }) & ({
         assets?: (Record<string, unknown> | null)[];
         assets_url?: string;
@@ -80094,25 +80094,25 @@ export interface components {
           type?: string;
           url?: string;
         };
-        body?: string;
+        body?: string | null;
         created_at?: string;
         draft?: boolean;
         html_url?: string;
         id?: number;
-        name?: string;
+        name?: string | null;
         node_id?: string;
         /**
          * @description Whether the release is identified as a prerelease or a full release. 
          * @enum {boolean}
          */
         prerelease: true;
-        published_at?: string;
+        published_at?: string | null;
         tag_name?: string;
-        tarball_url?: string;
+        tarball_url?: string | null;
         target_commitish?: string;
         upload_url?: string;
         url?: string;
-        zipball_url?: string;
+        zipball_url?: string | null;
       });
       repository: components["schemas"]["repository"];
       sender?: components["schemas"]["simple-user"];
@@ -80133,7 +80133,7 @@ export interface components {
             created_at: string;
             download_count: number;
             id: number;
-            label: string;
+            label: string | null;
             /** @description The file name of the asset. */
             name: string;
             node_id: string;
@@ -80150,7 +80150,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -80192,7 +80192,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -80224,9 +80224,9 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        created_at: string;
+        created_at: string | null;
         /** Format: uri */
         discussion_url?: string;
         /** @description Whether the release is a draft or published */
@@ -80234,12 +80234,12 @@ export interface components {
         /** Format: uri */
         html_url: string;
         id: number;
-        name: string;
+        name: string | null;
         node_id: string;
         /** @description Whether the release is identified as a prerelease or a full release. */
         prerelease: boolean;
         /** Format: date-time */
-        published_at: string;
+        published_at: string | null;
         /** Reactions */
         reactions?: {
           "+1": number;
@@ -80257,7 +80257,7 @@ export interface components {
         /** @description The name of the tag. */
         tag_name: string;
         /** Format: uri */
-        tarball_url: string;
+        tarball_url: string | null;
         /** @description Specifies the commitish value that determines where the Git tag is created from. */
         target_commitish: string;
         /** Format: uri-template */
@@ -80265,7 +80265,7 @@ export interface components {
         /** Format: uri */
         url: string;
         /** Format: uri */
-        zipball_url: string;
+        zipball_url: string | null;
       }) & ({
         assets?: (Record<string, unknown> | null)[];
         assets_url?: string;
@@ -80289,22 +80289,22 @@ export interface components {
           type?: string;
           url?: string;
         };
-        body?: string;
+        body?: string | null;
         created_at?: string;
         draft?: boolean;
         html_url?: string;
         id?: number;
-        name?: string;
+        name?: string | null;
         node_id?: string;
         prerelease?: boolean;
         /** Format: date-time */
-        published_at: string;
+        published_at: string | null;
         tag_name?: string;
-        tarball_url?: string;
+        tarball_url?: string | null;
         target_commitish?: string;
         upload_url?: string;
         url?: string;
-        zipball_url?: string;
+        zipball_url?: string | null;
       });
       repository: components["schemas"]["repository"];
       sender?: components["schemas"]["simple-user"];
@@ -80329,7 +80329,7 @@ export interface components {
             created_at: string;
             download_count: number;
             id: number;
-            label: string;
+            label: string | null;
             /** @description The file name of the asset. */
             name: string;
             node_id: string;
@@ -80346,7 +80346,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -80388,7 +80388,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -80420,9 +80420,9 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        created_at: string;
+        created_at: string | null;
         /** Format: uri */
         discussion_url?: string;
         /** @description Whether the release is a draft or published */
@@ -80430,12 +80430,12 @@ export interface components {
         /** Format: uri */
         html_url: string;
         id: number;
-        name: string;
+        name: string | null;
         node_id: string;
         /** @description Whether the release is identified as a prerelease or a full release. */
         prerelease: boolean;
         /** Format: date-time */
-        published_at: string;
+        published_at: string | null;
         /** Reactions */
         reactions?: {
           "+1": number;
@@ -80453,7 +80453,7 @@ export interface components {
         /** @description The name of the tag. */
         tag_name: string;
         /** Format: uri */
-        tarball_url: string;
+        tarball_url: string | null;
         /** @description Specifies the commitish value that determines where the Git tag is created from. */
         target_commitish: string;
         /** Format: uri-template */
@@ -80461,7 +80461,7 @@ export interface components {
         /** Format: uri */
         url: string;
         /** Format: uri */
-        zipball_url: string;
+        zipball_url: string | null;
       };
       repository: components["schemas"]["repository"];
       sender?: components["schemas"]["simple-user"];
@@ -80482,7 +80482,7 @@ export interface components {
             created_at: string;
             download_count: number;
             id: number;
-            label: string;
+            label: string | null;
             /** @description The file name of the asset. */
             name: string;
             node_id: string;
@@ -80499,7 +80499,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -80541,7 +80541,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -80573,9 +80573,9 @@ export interface components {
           /** Format: uri */
           url?: string;
         }) | null;
-        body: string;
+        body: string | null;
         /** Format: date-time */
-        created_at: string;
+        created_at: string | null;
         /** Format: uri */
         discussion_url?: string;
         /** @description Whether the release is a draft or published */
@@ -80583,12 +80583,12 @@ export interface components {
         /** Format: uri */
         html_url: string;
         id: number;
-        name: string;
+        name: string | null;
         node_id: string;
         /** @description Whether the release is identified as a prerelease or a full release. */
         prerelease: boolean;
         /** Format: date-time */
-        published_at: string;
+        published_at: string | null;
         /** Reactions */
         reactions?: {
           "+1": number;
@@ -80606,7 +80606,7 @@ export interface components {
         /** @description The name of the tag. */
         tag_name: string;
         /** Format: uri */
-        tarball_url: string;
+        tarball_url: string | null;
         /** @description Specifies the commitish value that determines where the Git tag is created from. */
         target_commitish: string;
         /** Format: uri-template */
@@ -80614,7 +80614,7 @@ export interface components {
         /** Format: uri */
         url: string;
         /** Format: uri */
-        zipball_url: string;
+        zipball_url: string | null;
       }) & ({
         assets?: (Record<string, unknown> | null)[];
         assets_url?: string;
@@ -80638,21 +80638,21 @@ export interface components {
           type?: string;
           url?: string;
         };
-        body?: string;
+        body?: string | null;
         created_at?: string;
         draft?: boolean;
         html_url?: string;
         id?: number;
-        name?: string;
+        name?: string | null;
         node_id?: string;
         prerelease?: boolean;
-        published_at: string;
+        published_at: string | null;
         tag_name?: string;
-        tarball_url?: string;
+        tarball_url?: string | null;
         target_commitish?: string;
         upload_url?: string;
         url?: string;
-        zipball_url?: string;
+        zipball_url?: string | null;
       });
       repository: components["schemas"]["repository"];
       sender?: components["schemas"]["simple-user"];
@@ -80709,13 +80709,13 @@ export interface components {
           from: string;
         };
         description?: {
-          from: string;
+          from: string | null;
         };
         homepage?: {
-          from: string;
+          from: string | null;
         };
         topics?: {
-          from?: (string)[];
+          from?: (string)[] | null;
         };
       };
       enterprise?: components["schemas"]["enterprise"];
@@ -80782,7 +80782,7 @@ export interface components {
             organization?: {
               /** Format: uri */
               avatar_url: string;
-              description: string;
+              description: string | null;
               /** Format: uri */
               events_url: string;
               /** Format: uri */
@@ -80808,7 +80808,7 @@ export interface components {
               /** Format: uri */
               avatar_url?: string;
               deleted?: boolean;
-              email?: string;
+              email?: string | null;
               /** Format: uri-template */
               events_url?: string;
               /** Format: uri */
@@ -80874,7 +80874,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -80908,90 +80908,7 @@ export interface components {
         }) | null;
         external_identifier: string;
         /** Format: uri */
-        external_reference: string;
-        fix_reason?: string;
-        /** Format: date-time */
-        fixed_at?: string;
-        fixed_in?: string;
-        ghsa_id: string;
-        id: number;
-        node_id: string;
-        number: number;
-        severity: string;
-        /** @enum {string} */
-        state: "open" | "dismissed" | "fixed";
-      }) & {
-        affected_package_name?: string;
-        affected_range?: string;
-        created_at?: string;
-        external_identifier?: string;
-        external_reference?: string;
-        fixed_in?: string;
-        ghsa_id?: string;
-        id?: number;
-        node_id?: string;
-        number?: number;
-        severity?: string;
-        /** @enum {string} */
-        state: "open";
-      };
-      enterprise?: components["schemas"]["enterprise"];
-      installation?: components["schemas"]["simple-installation"];
-      organization?: components["schemas"]["organization-simple"];
-      repository: components["schemas"]["repository"];
-      sender: components["schemas"]["simple-user"];
-    };
-    /** repository_vulnerability_alert dismiss event */
-    "webhook-repository-vulnerability-alert-dismiss": {
-      /** @enum {string} */
-      action: "dismiss";
-      alert: ({
-        affected_package_name: string;
-        affected_range: string;
-        created_at: string;
-        dismiss_comment?: string;
-        dismiss_reason?: string;
-        dismissed_at?: string;
-        /** User */
-        dismisser?: ({
-          /** Format: uri */
-          avatar_url?: string;
-          deleted?: boolean;
-          email?: string;
-          /** Format: uri-template */
-          events_url?: string;
-          /** Format: uri */
-          followers_url?: string;
-          /** Format: uri-template */
-          following_url?: string;
-          /** Format: uri-template */
-          gists_url?: string;
-          gravatar_id?: string;
-          /** Format: uri */
-          html_url?: string;
-          id: number;
-          login: string;
-          name?: string;
-          node_id?: string;
-          /** Format: uri */
-          organizations_url?: string;
-          /** Format: uri */
-          received_events_url?: string;
-          /** Format: uri */
-          repos_url?: string;
-          site_admin?: boolean;
-          /** Format: uri-template */
-          starred_url?: string;
-          /** Format: uri */
-          subscriptions_url?: string;
-          /** @enum {string} */
-          type?: "Bot" | "User" | "Organization";
-          /** Format: uri */
-          url?: string;
-        }) | null;
-        external_identifier: string;
-        /** Format: uri */
-        external_reference: string;
+        external_reference: string | null;
         fix_reason?: string;
         /** Format: date-time */
         fixed_at?: string;
@@ -81007,7 +80924,90 @@ export interface components {
         affected_package_name?: string;
         affected_range?: string;
         created_at?: string;
-        dismiss_comment?: string;
+        external_identifier?: string;
+        external_reference?: string | null;
+        fixed_in?: string;
+        ghsa_id?: string;
+        id?: number;
+        node_id?: string;
+        number?: number;
+        severity?: string;
+        /** @enum {string} */
+        state: "open";
+      });
+      enterprise?: components["schemas"]["enterprise"];
+      installation?: components["schemas"]["simple-installation"];
+      organization?: components["schemas"]["organization-simple"];
+      repository: components["schemas"]["repository"];
+      sender: components["schemas"]["simple-user"];
+    };
+    /** repository_vulnerability_alert dismiss event */
+    "webhook-repository-vulnerability-alert-dismiss": {
+      /** @enum {string} */
+      action: "dismiss";
+      alert: ({
+        affected_package_name: string;
+        affected_range: string;
+        created_at: string;
+        dismiss_comment?: string | null;
+        dismiss_reason?: string;
+        dismissed_at?: string;
+        /** User */
+        dismisser?: ({
+          /** Format: uri */
+          avatar_url?: string;
+          deleted?: boolean;
+          email?: string | null;
+          /** Format: uri-template */
+          events_url?: string;
+          /** Format: uri */
+          followers_url?: string;
+          /** Format: uri-template */
+          following_url?: string;
+          /** Format: uri-template */
+          gists_url?: string;
+          gravatar_id?: string;
+          /** Format: uri */
+          html_url?: string;
+          id: number;
+          login: string;
+          name?: string;
+          node_id?: string;
+          /** Format: uri */
+          organizations_url?: string;
+          /** Format: uri */
+          received_events_url?: string;
+          /** Format: uri */
+          repos_url?: string;
+          site_admin?: boolean;
+          /** Format: uri-template */
+          starred_url?: string;
+          /** Format: uri */
+          subscriptions_url?: string;
+          /** @enum {string} */
+          type?: "Bot" | "User" | "Organization";
+          /** Format: uri */
+          url?: string;
+        }) | null;
+        external_identifier: string;
+        /** Format: uri */
+        external_reference: string | null;
+        fix_reason?: string;
+        /** Format: date-time */
+        fixed_at?: string;
+        fixed_in?: string;
+        ghsa_id: string;
+        id: number;
+        node_id: string;
+        number: number;
+        severity: string;
+        /** @enum {string} */
+        state: "open" | "dismissed" | "fixed";
+      }) & ({
+        affected_package_name?: string;
+        affected_range?: string;
+        created_at?: string;
+        dismiss_comment?: string | null;
         dismiss_reason: string;
         dismissed_at: string;
         /** User */
@@ -81015,7 +81015,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -81048,7 +81048,7 @@ export interface components {
           url?: string;
         }) | null;
         external_identifier?: string;
-        external_reference?: string;
+        external_reference?: string | null;
         fixed_in?: string;
         ghsa_id?: string;
         id?: number;
@@ -81079,7 +81079,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -81113,7 +81113,7 @@ export interface components {
         }) | null;
         external_identifier: string;
         /** Format: uri */
-        external_reference: string;
+        external_reference: string | null;
         fix_reason?: string;
         /** Format: date-time */
         fixed_at?: string;
@@ -81125,12 +81125,12 @@ export interface components {
         severity: string;
         /** @enum {string} */
         state: "open" | "dismissed" | "fixed";
-      }) & {
+      }) & ({
         affected_package_name?: string;
         affected_range?: string;
         created_at?: string;
         external_identifier?: string;
-        external_reference?: string;
+        external_reference?: string | null;
         fixed_in?: string;
         ghsa_id?: string;
         id?: number;
@@ -81139,7 +81139,7 @@ export interface components {
         severity?: string;
         /** @enum {string} */
         state: "open";
-      };
+      });
       enterprise?: components["schemas"]["enterprise"];
       installation?: components["schemas"]["simple-installation"];
       organization?: components["schemas"]["organization-simple"];
@@ -81161,7 +81161,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -81195,7 +81195,7 @@ export interface components {
         }) | null;
         external_identifier: string;
         /** Format: uri */
-        external_reference: string;
+        external_reference: string | null;
         fix_reason?: string;
         /** Format: date-time */
         fixed_at?: string;
@@ -81212,7 +81212,7 @@ export interface components {
         affected_range?: string;
         created_at?: string;
         external_identifier?: string;
-        external_reference?: string;
+        external_reference?: string | null;
         fix_reason?: string;
         /** Format: date-time */
         fixed_at?: string;
@@ -81283,12 +81283,12 @@ export interface components {
         locations_url?: string;
         number?: components["schemas"]["alert-number"];
         /** @description Whether push protection was bypassed for the detected secret. */
-        push_protection_bypassed?: boolean;
+        push_protection_bypassed?: boolean | null;
         /**
          * Format: date-time 
          * @description The time that push protection was bypassed in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
          */
-        push_protection_bypassed_at?: string;
+        push_protection_bypassed_at?: string | null;
         push_protection_bypassed_by?: components["schemas"]["nullable-simple-user"];
         /**
          * @description **Required when the `state` is `resolved`.** The reason for resolving the alert. 
@@ -81299,10 +81299,10 @@ export interface components {
          * Format: date-time 
          * @description The time that the alert was resolved in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`.
          */
-        resolved_at?: string;
+        resolved_at?: string | null;
         resolved_by?: components["schemas"]["nullable-simple-user"];
         /** @description An optional comment to resolve an alert. */
-        resolution_comment?: string;
+        resolution_comment?: string | null;
         /** @description The secret that was detected. */
         secret?: string;
         /** @description The type of secret that secret scanning detected. */
@@ -81345,7 +81345,7 @@ export interface components {
       security_advisory: {
         cvss: {
           score: number;
-          vector_string: string;
+          vector_string: string | null;
         };
         cwes: ({
             cwe_id: string;
@@ -81376,7 +81376,7 @@ export interface components {
             severity: string;
             vulnerable_version_range: string;
           })[];
-        withdrawn_at: string;
+        withdrawn_at: string | null;
       };
       sender?: components["schemas"]["simple-user"];
     };
@@ -81392,7 +81392,7 @@ export interface components {
       security_advisory: {
         cvss: {
           score: number;
-          vector_string: string;
+          vector_string: string | null;
         };
         cwes: ({
             cwe_id: string;
@@ -81423,7 +81423,7 @@ export interface components {
             severity: string;
             vulnerable_version_range: string;
           })[];
-        withdrawn_at: string;
+        withdrawn_at: string | null;
       };
       sender?: components["schemas"]["simple-user"];
     };
@@ -81439,7 +81439,7 @@ export interface components {
       security_advisory: {
         cvss: {
           score: number;
-          vector_string: string;
+          vector_string: string | null;
         };
         cwes: ({
             cwe_id: string;
@@ -81470,7 +81470,7 @@ export interface components {
             severity: string;
             vulnerable_version_range: string;
           })[];
-        withdrawn_at: string;
+        withdrawn_at: string | null;
       };
       sender?: components["schemas"]["simple-user"];
     };
@@ -81486,7 +81486,7 @@ export interface components {
       security_advisory: {
         cvss: {
           score: number;
-          vector_string: string;
+          vector_string: string | null;
         };
         cwes: ({
             cwe_id: string;
@@ -81572,7 +81572,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -81609,7 +81609,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -81696,7 +81696,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -81733,7 +81733,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -81826,7 +81826,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -81863,7 +81863,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -81952,7 +81952,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -81989,7 +81989,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -82097,7 +82097,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -82134,7 +82134,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -82240,7 +82240,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -82277,7 +82277,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -82336,7 +82336,7 @@ export interface components {
       repository: components["schemas"]["repository"];
       sender: components["schemas"]["simple-user"];
       /** @description The time the star was created. This is a timestamp in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ`. Will be `null` for the `deleted` action. */
-      starred_at: string;
+      starred_at: string | null;
     };
     /** star deleted event */
     "webhook-star-deleted": {
@@ -82353,13 +82353,13 @@ export interface components {
     /** status event */
     "webhook-status": {
       /** Format: uri */
-      avatar_url?: string;
+      avatar_url?: string | null;
       /** @description An array of branch objects containing the status' SHA. Each branch contains the given SHA, but the SHA may or may not be the head of the branch. The array includes a maximum of 10 branches. */
       branches: ({
           commit: {
-            sha: string;
+            sha: string | null;
             /** Format: uri */
-            url: string;
+            url: string | null;
           };
           name: string;
           protected: boolean;
@@ -82370,7 +82370,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -82405,29 +82405,29 @@ export interface components {
         /** Format: uri */
         comments_url: string;
         commit: {
-          author: {
+          author: ({
             /** Format: date-time */
             date?: string;
             /** Format: email */
-            email: string;
+            email: string | null;
             /** @description The git author's name. */
             name: string;
             username?: string;
-          } & {
+          }) & {
             date: string;
             email?: string;
             name?: string;
           };
           comment_count: number;
-          committer: {
+          committer: ({
             /** Format: date-time */
             date?: string;
             /** Format: email */
-            email: string;
+            email: string | null;
             /** @description The git author's name. */
             name: string;
             username?: string;
-          } & {
+          }) & {
             date: string;
             email?: string;
             name?: string;
@@ -82441,10 +82441,10 @@ export interface components {
           /** Format: uri */
           url: string;
           verification: {
-            payload: string;
+            payload: string | null;
             /** @enum {string} */
             reason: "expired_key" | "not_signing_key" | "gpgverify_error" | "gpgverify_unavailable" | "unsigned" | "unknown_signature_type" | "no_user" | "unverified_email" | "bad_email" | "unknown_key" | "malformed_signature" | "invalid" | "valid" | "bad_cert" | "ocsp_pending";
-            signature: string;
+            signature: string | null;
             verified: boolean;
           };
         };
@@ -82453,7 +82453,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -82502,7 +82502,7 @@ export interface components {
       context: string;
       created_at: string;
       /** @description The optional human-readable description added to the status. */
-      description: string;
+      description: string | null;
       enterprise?: components["schemas"]["enterprise"];
       /** @description The unique identifier of the status. */
       id: number;
@@ -82519,7 +82519,7 @@ export interface components {
        */
       state: "pending" | "success" | "failure" | "error";
       /** @description The optional link added to the status. */
-      target_url: string;
+      target_url: string | null;
       updated_at: string;
     };
     /** team_add event */
@@ -82536,7 +82536,7 @@ export interface components {
       team: {
         deleted?: boolean;
         /** @description Description of the team */
-        description?: string;
+        description?: string | null;
         /** Format: uri */
         html_url?: string;
         /** @description Unique identifier of the team */
@@ -82548,7 +82548,7 @@ export interface components {
         node_id?: string;
         parent?: ({
           /** @description Description of the team */
-          description: string;
+          description: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the team */
@@ -82657,7 +82657,7 @@ export interface components {
         delete_branch_on_merge?: boolean;
         /** Format: uri */
         deployments_url: string;
-        description: string;
+        description: string | null;
         /** @description Returns whether or not this repository is disabled. */
         disabled?: boolean;
         /** Format: uri */
@@ -82699,7 +82699,7 @@ export interface components {
          * @default true
          */
         has_wiki: boolean;
-        homepage: string;
+        homepage: string | null;
         /** Format: uri */
         hooks_url: string;
         /** Format: uri */
@@ -82717,25 +82717,25 @@ export interface components {
         keys_url: string;
         /** Format: uri-template */
         labels_url: string;
-        language: string;
+        language: string | null;
         /** Format: uri */
         languages_url: string;
         /** License */
-        license: {
+        license: ({
           key: string;
           name: string;
           node_id: string;
           spdx_id: string;
           /** Format: uri */
-          url: string;
-        } | null;
+          url: string | null;
+        }) | null;
         master_branch?: string;
         /** Format: uri */
         merges_url: string;
         /** Format: uri-template */
         milestones_url: string;
         /** Format: uri */
-        mirror_url: string;
+        mirror_url: string | null;
         /** @description The name of the repository. */
         name: string;
         node_id: string;
@@ -82749,7 +82749,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -82796,7 +82796,7 @@ export interface components {
         pushed_at: number | string;
         /** Format: uri-template */
         releases_url: string;
-        role_name?: string;
+        role_name?: string | null;
         size: number;
         ssh_url: string;
         stargazers?: number;
@@ -82835,7 +82835,7 @@ export interface components {
       team: {
         deleted?: boolean;
         /** @description Description of the team */
-        description?: string;
+        description?: string | null;
         /** Format: uri */
         html_url?: string;
         /** @description Unique identifier of the team */
@@ -82847,7 +82847,7 @@ export interface components {
         node_id?: string;
         parent?: ({
           /** @description Description of the team */
-          description: string;
+          description: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the team */
@@ -82956,7 +82956,7 @@ export interface components {
         delete_branch_on_merge?: boolean;
         /** Format: uri */
         deployments_url: string;
-        description: string;
+        description: string | null;
         /** @description Returns whether or not this repository is disabled. */
         disabled?: boolean;
         /** Format: uri */
@@ -82998,7 +82998,7 @@ export interface components {
          * @default true
          */
         has_wiki: boolean;
-        homepage: string;
+        homepage: string | null;
         /** Format: uri */
         hooks_url: string;
         /** Format: uri */
@@ -83016,25 +83016,25 @@ export interface components {
         keys_url: string;
         /** Format: uri-template */
         labels_url: string;
-        language: string;
+        language: string | null;
         /** Format: uri */
         languages_url: string;
         /** License */
-        license: {
+        license: ({
           key: string;
           name: string;
           node_id: string;
           spdx_id: string;
           /** Format: uri */
-          url: string;
-        } | null;
+          url: string | null;
+        }) | null;
         master_branch?: string;
         /** Format: uri */
         merges_url: string;
         /** Format: uri-template */
         milestones_url: string;
         /** Format: uri */
-        mirror_url: string;
+        mirror_url: string | null;
         /** @description The name of the repository. */
         name: string;
         node_id: string;
@@ -83048,7 +83048,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -83095,7 +83095,7 @@ export interface components {
         pushed_at: number | string;
         /** Format: uri-template */
         releases_url: string;
-        role_name?: string;
+        role_name?: string | null;
         size: number;
         ssh_url: string;
         stargazers?: number;
@@ -83134,7 +83134,7 @@ export interface components {
       team: {
         deleted?: boolean;
         /** @description Description of the team */
-        description?: string;
+        description?: string | null;
         /** Format: uri */
         html_url?: string;
         /** @description Unique identifier of the team */
@@ -83146,7 +83146,7 @@ export interface components {
         node_id?: string;
         parent?: ({
           /** @description Description of the team */
-          description: string;
+          description: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the team */
@@ -83255,7 +83255,7 @@ export interface components {
         delete_branch_on_merge?: boolean;
         /** Format: uri */
         deployments_url: string;
-        description: string;
+        description: string | null;
         /** @description Returns whether or not this repository is disabled. */
         disabled?: boolean;
         /** Format: uri */
@@ -83297,7 +83297,7 @@ export interface components {
          * @default true
          */
         has_wiki: boolean;
-        homepage: string;
+        homepage: string | null;
         /** Format: uri */
         hooks_url: string;
         /** Format: uri */
@@ -83315,25 +83315,25 @@ export interface components {
         keys_url: string;
         /** Format: uri-template */
         labels_url: string;
-        language: string;
+        language: string | null;
         /** Format: uri */
         languages_url: string;
         /** License */
-        license: {
+        license: ({
           key: string;
           name: string;
           node_id: string;
           spdx_id: string;
           /** Format: uri */
-          url: string;
-        } | null;
+          url: string | null;
+        }) | null;
         master_branch?: string;
         /** Format: uri */
         merges_url: string;
         /** Format: uri-template */
         milestones_url: string;
         /** Format: uri */
-        mirror_url: string;
+        mirror_url: string | null;
         /** @description The name of the repository. */
         name: string;
         node_id: string;
@@ -83347,7 +83347,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -83394,7 +83394,7 @@ export interface components {
         pushed_at: number | string;
         /** Format: uri-template */
         releases_url: string;
-        role_name?: string;
+        role_name?: string | null;
         size: number;
         ssh_url: string;
         stargazers?: number;
@@ -83433,7 +83433,7 @@ export interface components {
       team: {
         deleted?: boolean;
         /** @description Description of the team */
-        description?: string;
+        description?: string | null;
         /** Format: uri */
         html_url?: string;
         /** @description Unique identifier of the team */
@@ -83445,7 +83445,7 @@ export interface components {
         node_id?: string;
         parent?: ({
           /** @description Description of the team */
-          description: string;
+          description: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the team */
@@ -83581,7 +83581,7 @@ export interface components {
         delete_branch_on_merge?: boolean;
         /** Format: uri */
         deployments_url: string;
-        description: string;
+        description: string | null;
         /** @description Returns whether or not this repository is disabled. */
         disabled?: boolean;
         /** Format: uri */
@@ -83623,7 +83623,7 @@ export interface components {
          * @default true
          */
         has_wiki: boolean;
-        homepage: string;
+        homepage: string | null;
         /** Format: uri */
         hooks_url: string;
         /** Format: uri */
@@ -83641,25 +83641,25 @@ export interface components {
         keys_url: string;
         /** Format: uri-template */
         labels_url: string;
-        language: string;
+        language: string | null;
         /** Format: uri */
         languages_url: string;
         /** License */
-        license: {
+        license: ({
           key: string;
           name: string;
           node_id: string;
           spdx_id: string;
           /** Format: uri */
-          url: string;
-        } | null;
+          url: string | null;
+        }) | null;
         master_branch?: string;
         /** Format: uri */
         merges_url: string;
         /** Format: uri-template */
         milestones_url: string;
         /** Format: uri */
-        mirror_url: string;
+        mirror_url: string | null;
         /** @description The name of the repository. */
         name: string;
         node_id: string;
@@ -83673,7 +83673,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -83720,7 +83720,7 @@ export interface components {
         pushed_at: number | string;
         /** Format: uri-template */
         releases_url: string;
-        role_name?: string;
+        role_name?: string | null;
         size: number;
         ssh_url: string;
         stargazers?: number;
@@ -83759,7 +83759,7 @@ export interface components {
       team: {
         deleted?: boolean;
         /** @description Description of the team */
-        description?: string;
+        description?: string | null;
         /** Format: uri */
         html_url?: string;
         /** @description Unique identifier of the team */
@@ -83771,7 +83771,7 @@ export interface components {
         node_id?: string;
         parent?: ({
           /** @description Description of the team */
-          description: string;
+          description: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the team */
@@ -83880,7 +83880,7 @@ export interface components {
         delete_branch_on_merge?: boolean;
         /** Format: uri */
         deployments_url: string;
-        description: string;
+        description: string | null;
         /** @description Returns whether or not this repository is disabled. */
         disabled?: boolean;
         /** Format: uri */
@@ -83922,7 +83922,7 @@ export interface components {
          * @default true
          */
         has_wiki: boolean;
-        homepage: string;
+        homepage: string | null;
         /** Format: uri */
         hooks_url: string;
         /** Format: uri */
@@ -83940,25 +83940,25 @@ export interface components {
         keys_url: string;
         /** Format: uri-template */
         labels_url: string;
-        language: string;
+        language: string | null;
         /** Format: uri */
         languages_url: string;
         /** License */
-        license: {
+        license: ({
           key: string;
           name: string;
           node_id: string;
           spdx_id: string;
           /** Format: uri */
-          url: string;
-        } | null;
+          url: string | null;
+        }) | null;
         master_branch?: string;
         /** Format: uri */
         merges_url: string;
         /** Format: uri-template */
         milestones_url: string;
         /** Format: uri */
-        mirror_url: string;
+        mirror_url: string | null;
         /** @description The name of the repository. */
         name: string;
         node_id: string;
@@ -83972,7 +83972,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -84019,7 +84019,7 @@ export interface components {
         pushed_at: number | string;
         /** Format: uri-template */
         releases_url: string;
-        role_name?: string;
+        role_name?: string | null;
         size: number;
         ssh_url: string;
         stargazers?: number;
@@ -84058,7 +84058,7 @@ export interface components {
       team: {
         deleted?: boolean;
         /** @description Description of the team */
-        description?: string;
+        description?: string | null;
         /** Format: uri */
         html_url?: string;
         /** @description Unique identifier of the team */
@@ -84070,7 +84070,7 @@ export interface components {
         node_id?: string;
         parent?: ({
           /** @description Description of the team */
-          description: string;
+          description: string | null;
           /** Format: uri */
           html_url: string;
           /** @description Unique identifier of the team */
@@ -84120,7 +84120,7 @@ export interface components {
         /** Format: uri */
         avatar_url?: string;
         deleted?: boolean;
-        email?: string;
+        email?: string | null;
         /** Format: uri-template */
         events_url?: string;
         /** Format: uri */
@@ -84189,7 +84189,7 @@ export interface components {
       workflow_job: ({
         /** Format: uri */
         check_run_url: string;
-        completed_at: string;
+        completed_at: string | null;
         /** @enum {string|null} */
         conclusion: "success" | "failure" | "" | "skipped" | "cancelled" | "action_required" | "neutral" | "timed_out" | null;
         head_sha: string;
@@ -84205,13 +84205,13 @@ export interface components {
         /** Format: uri */
         run_url: string;
         /** @description The ID of the runner group that is running this job. This will be `null` as long as `workflow_job[status]` is `queued`. */
-        runner_group_id: number;
+        runner_group_id: number | null;
         /** @description The name of the runner group that is running this job. This will be `null` as long as `workflow_job[status]` is `queued`. */
-        runner_group_name: string;
+        runner_group_name: string | null;
         /** @description The ID of the runner that is running this job. This will be `null` as long as `workflow_job[status]` is `queued`. */
-        runner_id: number;
+        runner_id: number | null;
         /** @description The name of the runner that is running this job. This will be `null` as long as `workflow_job[status]` is `queued`. */
-        runner_name: string;
+        runner_name: string | null;
         started_at: string;
         /**
          * @description The current status of the job. Can be `queued`, `in_progress`, or `completed`. 
@@ -84219,12 +84219,12 @@ export interface components {
          */
         status: "queued" | "in_progress" | "completed" | "waiting";
         steps: ({
-            completed_at: string;
+            completed_at: string | null;
             /** @enum {string|null} */
             conclusion: "failure" | "skipped" | "success" | "cancelled" | "" | null;
             name: string;
             number: number;
-            started_at: string;
+            started_at: string | null;
             /** @enum {string} */
             status: "in_progress" | "completed" | "queued";
           })[];
@@ -84238,16 +84238,16 @@ export interface components {
         head_sha?: string;
         html_url?: string;
         id?: number;
-        labels?: (string)[];
+        labels?: (string | null)[];
         name?: string;
         node_id?: string;
         run_attempt?: number;
         run_id?: number;
         run_url?: string;
-        runner_group_id?: number;
-        runner_group_name?: string;
-        runner_id?: number;
-        runner_name?: string;
+        runner_group_id?: number | null;
+        runner_group_name?: string | null;
+        runner_id?: number | null;
+        runner_name?: string | null;
         started_at?: string;
         status?: string;
         steps?: (Record<string, unknown> | null)[];
@@ -84266,7 +84266,7 @@ export interface components {
       workflow_job: ({
         /** Format: uri */
         check_run_url: string;
-        completed_at: string;
+        completed_at: string | null;
         /** @enum {string|null} */
         conclusion: "success" | "failure" | "" | "cancelled" | "neutral" | null;
         head_sha: string;
@@ -84282,13 +84282,13 @@ export interface components {
         /** Format: uri */
         run_url: string;
         /** @description The ID of the runner group that is running this job. This will be `null` as long as `workflow_job[status]` is `queued`. */
-        runner_group_id: number;
+        runner_group_id: number | null;
         /** @description The name of the runner group that is running this job. This will be `null` as long as `workflow_job[status]` is `queued`. */
-        runner_group_name: string;
+        runner_group_name: string | null;
         /** @description The ID of the runner that is running this job. This will be `null` as long as `workflow_job[status]` is `queued`. */
-        runner_id: number;
+        runner_id: number | null;
         /** @description The name of the runner that is running this job. This will be `null` as long as `workflow_job[status]` is `queued`. */
-        runner_name: string;
+        runner_name: string | null;
         started_at: string;
         /**
          * @description The current status of the job. Can be `queued`, `in_progress`, or `completed`. 
@@ -84296,12 +84296,12 @@ export interface components {
          */
         status: "queued" | "in_progress" | "completed";
         steps: ({
-            completed_at: string;
+            completed_at: string | null;
             /** @enum {string|null} */
             conclusion: "failure" | "skipped" | "success" | "" | "cancelled" | null;
             name: string;
             number: number;
-            started_at: string;
+            started_at: string | null;
             /** @enum {string} */
             status: "in_progress" | "completed" | "queued" | "pending";
           })[];
@@ -84309,8 +84309,8 @@ export interface components {
         url: string;
       }) & ({
         check_run_url?: string;
-        completed_at?: string;
-        conclusion?: string;
+        completed_at?: string | null;
+        conclusion?: string | null;
         head_sha?: string;
         html_url?: string;
         id?: number;
@@ -84320,19 +84320,19 @@ export interface components {
         run_attempt?: number;
         run_id?: number;
         run_url?: string;
-        runner_group_id?: number;
-        runner_group_name?: string;
-        runner_id?: number;
-        runner_name?: string;
+        runner_group_id?: number | null;
+        runner_group_name?: string | null;
+        runner_id?: number | null;
+        runner_name?: string | null;
         started_at?: string;
         /** @enum {string} */
         status: "in_progress" | "completed" | "queued";
         steps: ({
-            completed_at: string;
-            conclusion: string;
+            completed_at: string | null;
+            conclusion: string | null;
             name: string;
             number: number;
-            started_at: string;
+            started_at: string | null;
             /** @enum {string} */
             status: "in_progress" | "completed" | "pending" | "queued";
           })[];
@@ -84351,8 +84351,8 @@ export interface components {
       workflow_job: {
         /** Format: uri */
         check_run_url: string;
-        completed_at: string;
-        conclusion: string;
+        completed_at: string | null;
+        conclusion: string | null;
         head_sha: string;
         /** Format: uri */
         html_url: string;
@@ -84364,21 +84364,21 @@ export interface components {
         run_id: number;
         /** Format: uri */
         run_url: string;
-        runner_group_id: number;
-        runner_group_name: string;
-        runner_id: number;
-        runner_name: string;
+        runner_group_id: number | null;
+        runner_group_name: string | null;
+        runner_id: number | null;
+        runner_name: string | null;
         /** Format: date-time */
         started_at: string;
         /** @enum {string} */
         status: "queued" | "in_progress" | "completed" | "waiting";
         steps: ({
-            completed_at: string;
+            completed_at: string | null;
             /** @enum {string|null} */
             conclusion: "failure" | "skipped" | "success" | "cancelled" | "" | null;
             name: string;
             number: number;
-            started_at: string;
+            started_at: string | null;
             /** @enum {string} */
             status: "completed" | "in_progress" | "queued" | "pending";
           })[];
@@ -84419,7 +84419,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -84464,7 +84464,7 @@ export interface components {
         /** Format: date-time */
         created_at: string;
         event: string;
-        head_branch: string;
+        head_branch: string | null;
         /** SimpleCommit */
         head_commit: {
           /**
@@ -84475,7 +84475,7 @@ export interface components {
             /** Format: date-time */
             date?: string;
             /** Format: email */
-            email: string;
+            email: string | null;
             /** @description The git author's name. */
             name: string;
             username?: string;
@@ -84488,7 +84488,7 @@ export interface components {
             /** Format: date-time */
             date?: string;
             /** Format: email */
-            email: string;
+            email: string | null;
             /** @description The git author's name. */
             name: string;
             username?: string;
@@ -84522,7 +84522,7 @@ export interface components {
           contributors_url: string;
           /** Format: uri */
           deployments_url: string;
-          description: string;
+          description: string | null;
           /** Format: uri */
           downloads_url: string;
           /** Format: uri */
@@ -84569,7 +84569,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -84632,11 +84632,11 @@ export interface components {
         jobs_url: string;
         /** Format: uri */
         logs_url: string;
-        name: string;
+        name: string | null;
         node_id: string;
         path: string;
         /** Format: uri */
-        previous_attempt_url: string;
+        previous_attempt_url: string | null;
         pull_requests: ({
             base: {
               ref: string;
@@ -84669,7 +84669,7 @@ export interface components {
             path: string;
             ref?: string;
             sha: string;
-          })[];
+          })[] | null;
         /** Repository Lite */
         repository: {
           /** Format: uri-template */
@@ -84694,7 +84694,7 @@ export interface components {
           contributors_url: string;
           /** Format: uri */
           deployments_url: string;
-          description: string;
+          description: string | null;
           /** Format: uri */
           downloads_url: string;
           /** Format: uri */
@@ -84741,7 +84741,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -84809,7 +84809,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -84878,7 +84878,7 @@ export interface components {
         conclusion: "success" | "failure" | "neutral" | "cancelled" | "timed_out" | "action_required" | "stale" | "skipped";
         created_at?: string;
         event?: string;
-        head_branch?: string;
+        head_branch?: string | null;
         head_commit?: {
           author?: {
             email?: string;
@@ -84905,7 +84905,7 @@ export interface components {
           contents_url?: string;
           contributors_url?: string;
           deployments_url?: string;
-          description?: string;
+          description?: string | null;
           downloads_url?: string;
           events_url?: string;
           fork?: boolean;
@@ -84965,16 +84965,16 @@ export interface components {
         id?: number;
         jobs_url?: string;
         logs_url?: string;
-        name?: string;
+        name?: string | null;
         node_id?: string;
         path?: string;
-        previous_attempt_url?: string;
+        previous_attempt_url?: string | null;
         pull_requests?: (Record<string, unknown> | null)[];
         referenced_workflows?: ({
             path: string;
             ref?: string;
             sha: string;
-          })[];
+          })[] | null;
         repository?: {
           archive_url?: string;
           assignees_url?: string;
@@ -84987,7 +84987,7 @@ export interface components {
           contents_url?: string;
           contributors_url?: string;
           deployments_url?: string;
-          description?: string;
+          description?: string | null;
           downloads_url?: string;
           events_url?: string;
           fork?: boolean;
@@ -85106,7 +85106,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -85151,7 +85151,7 @@ export interface components {
         /** Format: date-time */
         created_at: string;
         event: string;
-        head_branch: string;
+        head_branch: string | null;
         /** SimpleCommit */
         head_commit: {
           /**
@@ -85162,7 +85162,7 @@ export interface components {
             /** Format: date-time */
             date?: string;
             /** Format: email */
-            email: string;
+            email: string | null;
             /** @description The git author's name. */
             name: string;
             username?: string;
@@ -85175,7 +85175,7 @@ export interface components {
             /** Format: date-time */
             date?: string;
             /** Format: email */
-            email: string;
+            email: string | null;
             /** @description The git author's name. */
             name: string;
             username?: string;
@@ -85209,7 +85209,7 @@ export interface components {
           contributors_url: string;
           /** Format: uri */
           deployments_url: string;
-          description: string;
+          description: string | null;
           /** Format: uri */
           downloads_url: string;
           /** Format: uri */
@@ -85256,7 +85256,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -85319,11 +85319,11 @@ export interface components {
         jobs_url: string;
         /** Format: uri */
         logs_url: string;
-        name: string;
+        name: string | null;
         node_id: string;
         path: string;
         /** Format: uri */
-        previous_attempt_url: string;
+        previous_attempt_url: string | null;
         pull_requests: ({
             base: {
               ref: string;
@@ -85356,7 +85356,7 @@ export interface components {
             path: string;
             ref?: string;
             sha: string;
-          })[];
+          })[] | null;
         /** Repository Lite */
         repository: {
           /** Format: uri-template */
@@ -85381,7 +85381,7 @@ export interface components {
           contributors_url: string;
           /** Format: uri */
           deployments_url: string;
-          description: string;
+          description: string | null;
           /** Format: uri */
           downloads_url: string;
           /** Format: uri */
@@ -85428,7 +85428,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -85496,7 +85496,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -85565,7 +85565,7 @@ export interface components {
         conclusion: "success" | "failure" | "neutral" | "cancelled" | "timed_out" | "action_required" | "skipped" | "stale" | null;
         created_at?: string;
         event?: string;
-        head_branch?: string;
+        head_branch?: string | null;
         head_commit?: {
           author?: {
             email?: string;
@@ -85592,7 +85592,7 @@ export interface components {
           contents_url?: string;
           contributors_url?: string;
           deployments_url?: string;
-          description?: string;
+          description?: string | null;
           downloads_url?: string;
           events_url?: string;
           fork?: boolean;
@@ -85612,7 +85612,7 @@ export interface components {
           languages_url?: string;
           merges_url?: string;
           milestones_url?: string;
-          name?: string;
+          name?: string | null;
           node_id?: string;
           notifications_url?: string;
           owner?: {
@@ -85652,16 +85652,16 @@ export interface components {
         id?: number;
         jobs_url?: string;
         logs_url?: string;
-        name?: string;
+        name?: string | null;
         node_id?: string;
         path?: string;
-        previous_attempt_url?: string;
+        previous_attempt_url?: string | null;
         pull_requests?: (Record<string, unknown> | null)[];
         referenced_workflows?: ({
             path: string;
             ref?: string;
             sha: string;
-          })[];
+          })[] | null;
         repository?: {
           archive_url?: string;
           assignees_url?: string;
@@ -85674,7 +85674,7 @@ export interface components {
           contents_url?: string;
           contributors_url?: string;
           deployments_url?: string;
-          description?: string;
+          description?: string | null;
           downloads_url?: string;
           events_url?: string;
           fork?: boolean;
@@ -85794,7 +85794,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -85839,7 +85839,7 @@ export interface components {
         /** Format: date-time */
         created_at: string;
         event: string;
-        head_branch: string;
+        head_branch: string | null;
         /** SimpleCommit */
         head_commit: {
           /**
@@ -85850,7 +85850,7 @@ export interface components {
             /** Format: date-time */
             date?: string;
             /** Format: email */
-            email: string;
+            email: string | null;
             /** @description The git author's name. */
             name: string;
             username?: string;
@@ -85863,7 +85863,7 @@ export interface components {
             /** Format: date-time */
             date?: string;
             /** Format: email */
-            email: string;
+            email: string | null;
             /** @description The git author's name. */
             name: string;
             username?: string;
@@ -85897,7 +85897,7 @@ export interface components {
           contributors_url: string;
           /** Format: uri */
           deployments_url: string;
-          description: string;
+          description: string | null;
           /** Format: uri */
           downloads_url: string;
           /** Format: uri */
@@ -85944,7 +85944,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -86007,11 +86007,11 @@ export interface components {
         jobs_url: string;
         /** Format: uri */
         logs_url: string;
-        name: string;
+        name: string | null;
         node_id: string;
         path: string;
         /** Format: uri */
-        previous_attempt_url: string;
+        previous_attempt_url: string | null;
         pull_requests: ({
             base: {
               ref: string;
@@ -86044,7 +86044,7 @@ export interface components {
             path: string;
             ref?: string;
             sha: string;
-          })[];
+          })[] | null;
         /** Repository Lite */
         repository: {
           /** Format: uri-template */
@@ -86069,7 +86069,7 @@ export interface components {
           contributors_url: string;
           /** Format: uri */
           deployments_url: string;
-          description: string;
+          description: string | null;
           /** Format: uri */
           downloads_url: string;
           /** Format: uri */
@@ -86116,7 +86116,7 @@ export interface components {
             /** Format: uri */
             avatar_url?: string;
             deleted?: boolean;
-            email?: string;
+            email?: string | null;
             /** Format: uri-template */
             events_url?: string;
             /** Format: uri */
@@ -86184,7 +86184,7 @@ export interface components {
           /** Format: uri */
           avatar_url?: string;
           deleted?: boolean;
-          email?: string;
+          email?: string | null;
           /** Format: uri-template */
           events_url?: string;
           /** Format: uri */
@@ -86314,7 +86314,7 @@ export interface components {
           block?: {
             reason?: string;
             created_at?: string;
-            html_url?: string;
+            html_url?: string | null;
           };
           message?: string;
           documentation_url?: string;
@@ -86715,7 +86715,7 @@ export interface operations {
           "application/json": components["schemas"]["integration"] & ({
             client_id: string;
             client_secret: string;
-            webhook_secret: string;
+            webhook_secret: string | null;
             pem: string;
             [key: string]: unknown | undefined;
           });
@@ -88109,12 +88109,12 @@ export interface operations {
            * }
            */
           files?: {
-            [key: string]: (({
+            [key: string]: ((({
               /** @description The new content of the file. */
               content?: string;
               /** @description The new filename for the file. */
-              filename?: string;
-            } & (Record<string, never> | Record<string, never> | Record<string, never>)) | null) | undefined;
+              filename?: string | null;
+            }) & (Record<string, never> | Record<string, never> | Record<string, never>)) | null) | undefined;
           };
         }) & (Record<string, never> | Record<string, never>)) | null;
       };
@@ -92427,7 +92427,7 @@ export interface operations {
            */
           permission?: "pull" | "push" | "admin";
           /** @description The ID of a team to set as the parent team. */
-          parent_team_id?: number;
+          parent_team_id?: number | null;
         };
       };
     };
@@ -93168,7 +93168,7 @@ export interface operations {
            * @description The project card's note 
            * @example Update all gems
            */
-          note?: string;
+          note?: string | null;
           /**
            * @description Whether or not the card is archived 
            * @example false
@@ -93332,7 +93332,7 @@ export interface operations {
            * @description The project card's note 
            * @example Update all gems
            */
-          note: string;
+          note: string | null;
         }, {
           /**
            * @description The unique identifier of the content associated with the card 
@@ -93463,7 +93463,7 @@ export interface operations {
            * @description Body of the project 
            * @example This project represents the sprint of the first week in January
            */
-          body?: string;
+          body?: string | null;
           /**
            * @description State of the project; either 'open' or 'closed' 
            * @example open
@@ -95263,7 +95263,7 @@ export interface operations {
               })[];
           } | null;
           /** @description Enforce all configured restrictions for administrators. Set to `true` to enforce required status checks for repository administrators. Set to `null` to disable. */
-          enforce_admins: boolean;
+          enforce_admins: boolean | null;
           /** @description Require at least one approving review on a pull request, before merging. Set to `null` to disable. */
           required_pull_request_reviews: {
             /** @description Specify which users, teams, and apps can dismiss pull request reviews. Pass an empty `dismissal_restrictions` object to disable. User and team `dismissal_restrictions` are only available for organization-owned repositories. Omit this parameter for personal repositories. */
@@ -95308,7 +95308,7 @@ export interface operations {
           /** @description Enforces a linear commit Git history, which prevents anyone from pushing merge commits to a branch. Set to `true` to enforce a linear commit history. Set to `false` to disable a linear commit Git history. Your repository must allow squash merging or rebase merging before you can enable a linear commit history. Default: `false`. For more information, see "[Requiring a linear commit history](https://docs.github.com/github/administering-a-repository/requiring-a-linear-commit-history)" in the GitHub Help documentation. */
           required_linear_history?: boolean;
           /** @description Permits force pushes to the protected branch by anyone with write access to the repository. Set to `true` to allow force pushes. Set to `false` or `null` to block force pushes. Default: `false`. For more information, see "[Enabling force pushes to a protected branch](https://docs.github.com/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)" in the GitHub Help documentation." */
-          allow_force_pushes?: boolean;
+          allow_force_pushes?: boolean | null;
           /** @description Allows deletion of the protected branch by anyone with write access to the repository. Set to `false` to prevent deletion of the protected branch. Default: `false`. For more information, see "[Enabling force pushes to a protected branch](https://docs.github.com/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)" in the GitHub Help documentation. */
           allow_deletions?: boolean;
           /** @description If set to `true`, the `restrictions` branch protection settings which limits who can push will also block pushes which create new branches, unless the push is initiated by a user, team, or app which has the ability to push. Set to `true` to restrict new branch creation. Default: `false`. */
@@ -96625,7 +96625,7 @@ export interface operations {
     parameters: {
         /** @description Allow deletion if the specified analysis is the last in a set. If you attempt to delete the final analysis in a set without setting this parameter to `true`, you'll get a 400 response with the message: `Analysis is last of its type and deletion may result in the loss of historical alert data. Please specify confirm_delete.` */
       query?: {
-        confirm_delete?: string;
+        confirm_delete?: string | null;
       };
         /** @description The ID of the analysis, as returned from the `GET /repos/{owner}/{repo}/code-scanning/analyses` operation. */
       path: {
@@ -96984,7 +96984,7 @@ export interface operations {
             billable_owner?: components["schemas"]["simple-user"];
             defaults?: {
               location: string;
-              devcontainer_path: string;
+              devcontainer_path: string | null;
             };
           };
         };
@@ -98357,7 +98357,7 @@ export interface operations {
         sha?: string;
         ref?: string;
         task?: string;
-        environment?: string;
+        environment?: string | null;
       };
     };
     responses: {
@@ -98450,7 +98450,7 @@ export interface operations {
            * @description Short description of the deployment. 
            * @default
            */
-          description?: string;
+          description?: string | null;
           /**
            * @description Specifies if the given environment is specific to the deployment and will no longer exist at some point in the future. Default: `false` 
            * @default false
@@ -98695,7 +98695,7 @@ export interface operations {
      */
     requestBody?: {
       content: {
-        "application/json": {
+        "application/json": ({
           wait_timer?: components["schemas"]["wait-timer"];
           /** @description The people or teams that may review jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed. */
           reviewers?: ({
@@ -98705,9 +98705,9 @@ export interface operations {
                * @example 4532992
                */
               id?: number;
-            })[];
+            })[] | null;
           deployment_branch_policy?: components["schemas"]["deployment-branch-policy-settings"];
-        } | null;
+        }) | null;
       };
     };
     responses: {
@@ -99369,7 +99369,7 @@ export interface operations {
                *   
                * **Note:** Use either `tree.sha` or `content` to specify the contents of the entry. Using both `tree.sha` and `content` will return an error.
                */
-              sha?: string;
+              sha?: string | null;
               /**
                * @description The content you want this file to have. GitHub will write this blob out and use that SHA for this entry. Use either this, or `tree.sha`.  
                *   
@@ -100083,14 +100083,14 @@ export interface operations {
           /** @description The contents of the issue. */
           body?: string;
           /** @description Login for the user that this issue should be assigned to. _NOTE: Only users with push access can set the assignee for new issues. The assignee is silently dropped otherwise. **This field is deprecated.**_ */
-          assignee?: string;
+          assignee?: string | null;
           milestone?: string | number;
           /** @description Labels to associate with this issue. _NOTE: Only users with push access can set labels for new issues. Labels are silently dropped otherwise._ */
           labels?: (OneOf<[string, {
               id?: number;
               name?: string;
-              description?: string;
-              color?: string;
+              description?: string | null;
+              color?: string | null;
             }]>)[];
           /** @description Logins for Users to assign to this issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._ */
           assignees?: (string)[];
@@ -100320,9 +100320,9 @@ export interface operations {
           /** @description The title of the issue. */
           title?: string | number;
           /** @description The contents of the issue. */
-          body?: string;
+          body?: string | null;
           /** @description Login for the user that this issue should be assigned to. **This field is deprecated.** */
-          assignee?: string;
+          assignee?: string | null;
           /**
            * @description State of the issue. Either `open` or `closed`. 
            * @enum {string}
@@ -100339,8 +100339,8 @@ export interface operations {
           labels?: (OneOf<[string, {
               id?: number;
               name?: string;
-              description?: string;
-              color?: string;
+              description?: string | null;
+              color?: string | null;
             }]>)[];
           /** @description Logins for Users to assign to this issue. Pass one or more user logins to _replace_ the set of assignees on this Issue. Send an empty array (`[]`) to clear all assignees from the Issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._ */
           assignees?: (string)[];
@@ -101191,7 +101191,7 @@ export interface operations {
       content: {
         "application/json": ({
           /** @description Specify a custom domain for the repository. Sending a `null` value will remove the custom domain. For more about custom domains, see "[Using a custom domain with GitHub Pages](https://docs.github.com/articles/using-a-custom-domain-with-github-pages/)." */
-          cname?: string;
+          cname?: string | null;
           /** @description Specify whether HTTPS should be enforced for the repository. */
           https_enforced?: boolean;
           /** @description Configures access controls for the GitHub Pages site. If public is set to `true`, the site is accessible to anyone on the internet. If set to `false`, the site will only be accessible to users who have at least `read` access to the repository that published the site. This includes anyone in your Enterprise if the repository is set to `internal` visibility. This feature is only available to repositories in an organization on an Enterprise plan. */
@@ -102983,9 +102983,9 @@ export interface operations {
            * For example, if your continuous integration system is posting build status, you would want to provide the deep link for the build output for this specific SHA:  
            * `http://ci.example.com/user/repo/build/sha`
            */
-          target_url?: string;
+          target_url?: string | null;
           /** @description A short description of the status. */
-          description?: string;
+          description?: string | null;
           /**
            * @description A string label to differentiate this status from the status of other systems. This field is case-insensitive. 
            * @default default
@@ -103916,7 +103916,7 @@ export interface operations {
            */
           permission?: "pull" | "push" | "admin";
           /** @description The ID of a team to set as the parent team. */
-          parent_team_id?: number;
+          parent_team_id?: number | null;
         };
       };
     };
@@ -104696,7 +104696,7 @@ export interface operations {
            * @description The new Twitter username of the user. 
            * @example therealomarj
            */
-          twitter_username?: string;
+          twitter_username?: string | null;
           /**
            * @description The new company of the user. 
            * @example Acme corporation
@@ -106384,7 +106384,7 @@ export interface operations {
            * @description Body of the project 
            * @example This project represents the sprint of the first week in January
            */
-          body?: string;
+          body?: string | null;
         };
       };
     };
