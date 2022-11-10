@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import path from "node:path";
 import { fileURLToPath } from "node:url";
 import degit from "degit";
 import { fetch } from "undici";
@@ -26,7 +27,8 @@ const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
 export async function download() {
   await Promise.all([
     ...Object.entries(singleFile).map(async ([k, url]) => {
-      const dest = new URL(`${k}.yaml`, EXAMPLES_DIR);
+      const ext = path.extname(url);
+      const dest = new URL(`${k}${ext}`, EXAMPLES_DIR);
       if (fs.existsSync(dest)) {
         const { mtime } = fs.statSync(dest);
         if (Date.now() - mtime.getTime() < ONE_DAY) return; // only update every 24 hours at most

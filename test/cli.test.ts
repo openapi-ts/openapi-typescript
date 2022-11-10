@@ -20,7 +20,7 @@ describe("CLI", () => {
     }, 30000);
     test("Octokit GHES 3.6 Diff to API", async () => {
       const expected = fs.readFileSync(new URL("./examples/octokit-ghes-3.6-diff-to-api.ts", cwd), "utf8").trim();
-      const { stdout } = await execa(cmd, ["./examples/octokit-ghes-3.6-diff-to-api.yaml"], { cwd });
+      const { stdout } = await execa(cmd, ["./examples/octokit-ghes-3.6-diff-to-api.json"], { cwd });
       expect(stdout).toBe(expected);
     }, 30000);
     test("Stripe API", async () => {

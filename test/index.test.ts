@@ -466,7 +466,7 @@ export type operations = Record<string, never>;
     });
     describe("Octokit GHES 3.6 Diff to API", () => {
       test("default options", async () => {
-        const generated = await openapiTS(new URL("./octokit-ghes-3.6-diff-to-api.yaml", EXAMPLES_DIR));
+        const generated = await openapiTS(new URL("./octokit-ghes-3.6-diff-to-api.json", EXAMPLES_DIR));
         expect(generated).toBe(fs.readFileSync(new URL("./octokit-ghes-3.6-diff-to-api.ts", EXAMPLES_DIR), "utf8"));
       }, 30000);
     });
