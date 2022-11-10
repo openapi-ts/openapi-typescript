@@ -55,6 +55,15 @@ const basicSchema: ComponentsObject = {
       },
     },
   },
+  // "examples" should just be ignored
+  examples: {
+    ExampleObject: {
+      value: {
+        name: "Example",
+        $ref: "foo.yml#/components/schemas/Bar",
+      },
+    },
+  },
   headers: {
     Auth: { schema: { type: "string" } },
   },

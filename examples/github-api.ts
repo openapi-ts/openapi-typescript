@@ -15230,7 +15230,7 @@ export interface components {
       /** @example 2 */
       required_approving_review_count?: number;
       /**
-       * @description Whether someone other than the person who last pushed to the branch must approve this pull request. 
+       * @description Whether the most recent push must be approved by someone other than the person who pushed it. 
        * @default false 
        * @example true
        */
@@ -15598,7 +15598,7 @@ export interface components {
         require_code_owner_reviews?: boolean;
         required_approving_review_count?: number;
         /**
-         * @description Whether someone other than the person who last pushed to the branch must approve this pull request. 
+         * @description Whether the most recent push must be approved by someone other than the person who pushed it. 
          * @default false
          */
         require_last_push_approval?: boolean;
@@ -95282,7 +95282,7 @@ export interface operations {
             /** @description Specify the number of reviewers required to approve pull requests. Use a number between 1 and 6 or 0 to not require reviewers. */
             required_approving_review_count?: number;
             /**
-             * @description Whether someone other than the person who last pushed to the branch must approve this pull request. Default: `false`. 
+             * @description Whether the most recent push must be approved by someone other than the person who pushed it. Default: `false`. 
              * @default false
              */
             require_last_push_approval?: boolean;
@@ -95447,7 +95447,7 @@ export interface operations {
           /** @description Specifies the number of reviewers required to approve pull requests. Use a number between 1 and 6 or 0 to not require reviewers. */
           required_approving_review_count?: number;
           /**
-           * @description Whether someone other than the person who last pushed to the branch must approve this pull request. Default: `false` 
+           * @description Whether the most recent push must be approved by someone other than the person who pushed it. Default: `false` 
            * @default false
            */
           require_last_push_approval?: boolean;

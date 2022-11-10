@@ -195,20 +195,28 @@ export default async function load(
   }
 
   // 2. resolve $refs
+  const currentSchema = options.schemas[schemaID].schema;
+
+  // 2a. remove "components.examples" first
+  if (options.schemas[schemaID].hint === "OpenAPI3") {
+    if ("components" in currentSchema && currentSchema.components && "examples" in currentSchema.components)
+      delete currentSchema.components.examples;
+  }
+
   const refPromises: Promise<any>[] = [];
-  walk(options.schemas[schemaID].schema, (rawNode, nodePath) => {
+  walk(currentSchema, (rawNode, nodePath) => {
     // filter custom properties from allOf, anyOf, oneOf
     for (const k of ["allOf", "anyOf", "oneOf"]) {
       if (Array.isArray(rawNode[k])) {
         rawNode[k] = (rawNode as any)[k].filter((o: SchemaObject | ReferenceObject) => {
-          if (!("$ref" in o)) return true;
+          if (!("$ref" in o) || typeof o.$ref !== "string") return true;
           const ref = parseRef(o.$ref);
           return !ref.path.some((i) => i.startsWith("x-")); // ignore all custom "x-*" properties
         });
       }
     }
 
-    if (!("$ref" in rawNode)) return;
+    if (!("$ref" in rawNode) || typeof rawNode.$ref !== "string") return;
     const node = rawNode as unknown as ReferenceObject;
 
     const ref = parseRef(node.$ref);
@@ -253,7 +261,7 @@ export default async function load(
   if (schemaID === ".") {
     for (const subschemaID of Object.keys(options.schemas)) {
       walk(options.schemas[subschemaID].schema, (rawNode) => {
-        if (!("$ref" in rawNode)) return;
+        if (!("$ref" in rawNode) || typeof rawNode.$ref !== "string") return;
         const node = rawNode as unknown as ReferenceObject;
 
         const ref = parseRef(node.$ref);
