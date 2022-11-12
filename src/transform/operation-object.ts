@@ -20,14 +20,15 @@ import transformSchemaObject from "./schema-object.js";
 export interface TransformOperationObjectOptions {
   path: string;
   ctx: GlobalContext;
+  wrapObject?: boolean;
 }
 
 export default function transformOperationObject(
   operationObject: OperationObject,
-  { path, ctx }: TransformOperationObjectOptions
+  { path, ctx, wrapObject = true }: TransformOperationObjectOptions
 ): string {
   let { indentLv } = ctx;
-  const output: string[] = ["{"];
+  const output: string[] = wrapObject ? ["{"] : [];
   indentLv++;
   const c = getSchemaObjectComment(operationObject, indentLv);
   if (c) output.push(indent(c, indentLv));
@@ -154,6 +155,8 @@ export default function transformOperationObject(
   }
 
   indentLv--;
-  output.push(indent("}", indentLv));
+  if (wrapObject) {
+    output.push(indent("}", indentLv));
+  }
   return output.join("\n");
 }
