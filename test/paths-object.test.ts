@@ -20,7 +20,7 @@ describe("Paths Object", () => {
   test("basic", () => {
     const schema: PathsObject = {
       "/api/v1/user/{user_id}": {
-        parameters: [{ name: "page", in: "query", schema: { type: "number" } }],
+        parameters: [{ name: "page", in: "query", schema: { type: "number" }, description: "Page number." }],
         get: {
           parameters: [{ name: "user_id", in: "path" }],
           responses: {
@@ -79,6 +79,7 @@ describe("Paths Object", () => {
       };
     };
     parameters?: {
+        /** @description Page number. */
       query?: {
         page?: number;
       };

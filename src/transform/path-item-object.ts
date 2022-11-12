@@ -9,8 +9,6 @@ export interface TransformPathItemObjectOptions {
 
 type Method = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
 
-const UNWRAP_OBJ_RE = /^\s*{\s*([^.]+)\s*}\s*$/;
-
 export default function transformPathItemObject(
   pathItem: PathItemObject,
   { path, ctx }: TransformPathItemObjectOptions
@@ -44,9 +42,7 @@ export default function transformPathItemObject(
   if (pathItem.parameters && pathItem.parameters.length) {
     output.push(
       indent(
-        transformOperationObject({ parameters: pathItem.parameters }, { path, ctx })
-          .replace(UNWRAP_OBJ_RE, "$1")
-          .trim(),
+        transformOperationObject({ parameters: pathItem.parameters }, { path, ctx, wrapObject: false }).trim(),
         indentLv
       )
     );
