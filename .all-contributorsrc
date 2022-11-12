@@ -576,6 +576,17 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "axelhzf",
+      "name": "Axel Hernández Ferrera",
+      "avatar_url": "https://avatars.githubusercontent.com/u/175627?v=4",
+      "profile": "http://axelhzf.com",
+      "contributions": [
+        "code",
+        "bug",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
