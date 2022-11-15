@@ -108,7 +108,7 @@ async function generateSchema(pathToSpec) {
     let outputFilePath = new URL(flags.output, CWD); // note: may be directory
     const isDir = fs.existsSync(outputFilePath) && fs.lstatSync(outputFilePath).isDirectory();
     if (isDir) {
-      const filename = pathToSpec.replace(EXT_RE, ".ts");
+      const filename = pathToSpec.replace(EXT_RE, ".ts").replace(/^https?:\/\//, '');
       outputFilePath = new URL(filename, outputFilePath);
     }
 
