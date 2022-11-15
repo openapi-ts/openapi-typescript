@@ -131,9 +131,9 @@ export default async function load(
         }
       }
       const res = await request(schema, { method: (options.httpMethod as Dispatcher.HttpMethod) || "GET", headers });
-      const contentType = Array.isArray(res.headers["Content-Type"])
-        ? res.headers["Content-Type"][0]
-        : res.headers["Content-Type"];
+      const contentType = Array.isArray(res.headers["content-type"])
+        ? res.headers["content-type"][0]
+        : res.headers["content-type"];
       if (ext === ".json" || (contentType && contentType.includes("json"))) {
         options.schemas[schemaID] = {
           hint,
