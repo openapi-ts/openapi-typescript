@@ -7,7 +7,9 @@ const BOILERPLATE = `/**
  * Do not make direct changes to the file.
  */
 
+`;
 
+const TYPE_HELPERS = `
 /** Type helpers */
 type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
 type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
@@ -432,6 +434,56 @@ export interface components {
   schemas: {
     /** Format: date-time */
     Date: DateOrTime;
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}
+
+export type external = Record<string, never>;
+
+export type operations = Record<string, never>;
+`);
+      });
+    });
+
+    describe("OneOf type helpers", () => {
+      test("should be added only when used", async () => {
+        const generated = await openapiTS(
+          {
+            openapi: "3.1",
+            info: { title: "Test", version: "1.0" },
+            components: {
+              schemas: {
+                User: {
+                  oneOf: [
+                    {
+                      type: "object",
+                      properties: { firstName: { type: "string" } },
+                    },
+                    {
+                      type: "object",
+                      properties: { name: { type: "string" } },
+                    },
+                  ],
+                },
+              },
+            },
+          },
+          { exportType: false }
+        );
+        expect(generated).toBe(`${BOILERPLATE}${TYPE_HELPERS}
+export type paths = Record<string, never>;
+
+export interface components {
+  schemas: {
+    User: OneOf<[{
+      firstName?: string;
+    }, {
+      name?: string;
+    }]>;
   };
   responses: never;
   parameters: never;

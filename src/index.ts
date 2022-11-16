@@ -94,19 +94,10 @@ async function openapiTS(
     output.push(COMMENT_HEADER);
   }
 
-  // 2b. OneOf helper (@see https://github.com/Microsoft/TypeScript/issues/14094#issuecomment-723571692)
-  output.push(
-    "/** Type helpers */",
-    "type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };",
-    "type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;",
-    "type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;",
-    ""
-  );
-
-  // 2c. options.inject
+  // 2b. options.inject
   if (options.inject) output.push(options.inject);
 
-  // 2d. root schema
+  // 2c. root schema
   const rootTypes = transformSchema(allSchemas["."].schema as OpenAPI3, ctx);
   for (const k of Object.keys(rootTypes)) {
     if (rootTypes[k] && !EMPTY_OBJECT_RE.test(rootTypes[k])) {
@@ -121,7 +112,7 @@ async function openapiTS(
     delete allSchemas["."]; // garbage collect, but also remove from next step (external)
   }
 
-  // 2e. external schemas (subschemas)
+  // 2d. external schemas (subschemas)
   const externalKeys = Object.keys(allSchemas); // root schema (".") should already be removed
   if (externalKeys.length) {
     let indentLv = 0;
@@ -196,6 +187,19 @@ async function openapiTS(
     output.push(`}${options.exportType ? ";" : ""}`, "");
   } else {
     output.push(`export type operations = Record<string, never>;`, "");
+  }
+
+  // 4. OneOf type helper (@see https://github.com/Microsoft/TypeScript/issues/14094#issuecomment-723571692)
+  if (output.join("\n").includes("OneOf")) {
+    output.splice(
+      1,
+      0,
+      "/** Type helpers */",
+      "type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };",
+      "type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;",
+      "type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;",
+      ""
+    );
   }
 
   return output.join("\n");
