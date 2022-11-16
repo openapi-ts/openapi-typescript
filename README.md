@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/main/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-56-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-57-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -386,6 +386,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center"><a href="https://semigradsky.dev/"><img src="https://avatars.githubusercontent.com/u/1198848?v=4?s=100" width="100px;" alt="Dmitry Semigradsky"/><br /><sub><b>Dmitry Semigradsky</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3ASemigradsky" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Semigradsky" title="Tests">⚠️</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Semigradsky" title="Code">💻</a></td>
       <td align="center"><a href="http://jeremyliberman.com/"><img src="https://avatars.githubusercontent.com/u/2754163?v=4?s=100" width="100px;" alt="Jeremy Liberman"/><br /><sub><b>Jeremy Liberman</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=MrLeebo" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=MrLeebo" title="Tests">⚠️</a></td>
       <td align="center"><a href="http://axelhzf.com"><img src="https://avatars.githubusercontent.com/u/175627?v=4?s=100" width="100px;" alt="Axel Hernández Ferrera"/><br /><sub><b>Axel Hernández Ferrera</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=axelhzf" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aaxelhzf" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=axelhzf" title="Tests">⚠️</a></td>
+    </tr>
+    <tr>
+      <td align="center"><a href="https://github.com/imagoiq"><img src="https://avatars.githubusercontent.com/u/12294151?v=4?s=100" width="100px;" alt="Loïc Fürhoff"/><br /><sub><b>Loïc Fürhoff</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=imagoiq" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=imagoiq" title="Tests">⚠️</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aimagoiq" title="Bug reports">🐛</a></td>
     </tr>
   </tbody>
 </table>
