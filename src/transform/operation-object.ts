@@ -71,7 +71,10 @@ export default function transformOperationObject(
           else if (p.$ref) {
             const parts = parseTSIndex(p.$ref);
             const paramI = parts.indexOf("parameters");
-            if (paramI === -1 || parts[paramI + 1] !== paramIn || !parts[paramI + 2]) continue;
+            // note: parameters can share names in different parts of the `in` key. `partsParamIn` makes sure we’re not
+            // referencing the wrong parameter with the same name but a different `in`
+            const partsParamIn = parts.find((p) => p === "query" || p === "header" || p === "path" || p === "cookie");
+            if (paramI === -1 || (partsParamIn && partsParamIn !== paramIn)) continue;
             const key = parts.pop() as string;
             const index = makeTSIndex(parts);
             if (!refs[index]) refs[index] = [key];

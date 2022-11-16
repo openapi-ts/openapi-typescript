@@ -238,7 +238,7 @@ export interface ParameterObject extends Extensable {
   /** Determines whether the parameter value SHOULD allow reserved characters, as defined by [RFC3986] `:/?#[]@!$&'()*+,;=` to be included without percent-encoding. This property only applies to parameters with an `in` value of `query`. The default value is `false`. */
   allowReserved?: boolean;
   /** The schema defining the type used for the parameter. */
-  schema?: SchemaObject;
+  schema?: SchemaObject | ReferenceObject;
   /** Example of the parameter’s potential value. */
   example?: any;
   /** Examples of the parameter’s potential value. */

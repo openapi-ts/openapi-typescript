@@ -52,6 +52,7 @@ describe("Path Item Object", () => {
           404: { $ref: 'components["responses"]["NotFound"]' },
         },
       },
+      parameters: [{ $ref: 'components["parameters"]["PerPage"]' }, { $ref: 'components["parameters"]["PageNumber"]' }],
     };
     const generated = transformPathItemObject(schema, options);
     expect(generated).toBe(`{
@@ -78,6 +79,12 @@ describe("Path Item Object", () => {
       200: components["responses"]["AllGood"];
       404: components["responses"]["NotFound"];
     };
+  };
+  parameters?: {
+    query?: Pick<NonNullable<components["parameters"]>, "PerPage" | "PageNumber">;
+    header?: Pick<NonNullable<components["parameters"]>, "PerPage" | "PageNumber">;
+    path?: Pick<components["parameters"], "PerPage" | "PageNumber">;
+    cookie?: Pick<NonNullable<components["parameters"]>, "PerPage" | "PageNumber">;
   };
 }`);
   });
