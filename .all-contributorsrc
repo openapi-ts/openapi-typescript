@@ -587,6 +587,17 @@
         "bug",
         "test"
       ]
+    },
+    {
+      "login": "imagoiq",
+      "name": "Loïc Fürhoff",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12294151?v=4",
+      "profile": "https://github.com/imagoiq",
+      "contributions": [
+        "code",
+        "test",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
