@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import fs from "node:fs";
+import path from "path";
 import { URL } from "node:url";
 import glob from "fast-glob";
 import parser from "yargs-parser";
@@ -177,8 +178,12 @@ async function main() {
   await Promise.all(
     inputSpecPaths.map(async (specPath) => {
       if (flags.output !== "." && output === OUTPUT_FILE) {
-        if (isGlob) outputDir = new URL(specPath, outputDir);
-        fs.mkdirSync(outputDir, { recursive: true }); // recursively make parent dirs
+        if (isGlob) {
+          fs.mkdirSync(new URL(path.dirname(specPath), outputDir), { recursive: true }); // recursively make parent dirs
+        }
+        else {
+          fs.mkdirSync(outputDir, { recursive: true }); // recursively make parent dirs
+        }
       }
       await generateSchema(specPath);
     })
