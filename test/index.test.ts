@@ -47,6 +47,8 @@ describe("openapiTS", () => {
       expect(generated).toBe(`${BOILERPLATE}
 export type paths = Record<string, never>;
 
+export type webhooks = Record<string, never>;
+
 export interface components {
   schemas: {
     Base: {
@@ -94,6 +96,8 @@ export type operations = Record<string, never>;
       });
       expect(generated).toBe(`${BOILERPLATE}
 export type paths = Record<string, never>;
+
+export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
@@ -163,6 +167,8 @@ export type operations = Record<string, never>;
       expect(generated).toBe(`${BOILERPLATE}
 export type paths = Record<string, never>;
 
+export type webhooks = Record<string, never>;
+
 export interface components {
   schemas: {
     Pet: {
@@ -222,6 +228,8 @@ export type operations = Record<string, never>;
       expect(generated).toBe(`${BOILERPLATE}
 export type paths = Record<string, never>;
 
+export type webhooks = Record<string, never>;
+
 export interface components {
   schemas: {
     ObjRef: {
@@ -265,6 +273,8 @@ export type operations = Record<string, never>;
         expect(generated).toBe(`${BOILERPLATE}
 export type paths = Record<string, never>;
 
+export type webhooks = Record<string, never>;
+
 export interface components {
   schemas: {
     User: {
@@ -304,6 +314,8 @@ export type operations = Record<string, never>;
         );
         expect(generated).toBe(`${BOILERPLATE}
 export type paths = Record<string, never>;
+
+export type webhooks = Record<string, never>;
 
 export type components = {
   schemas: {
@@ -350,6 +362,8 @@ export interface paths {
   };
 }
 
+export type webhooks = Record<string, never>;
+
 export type components = Record<string, never>;
 
 export type external = Record<string, never>;
@@ -370,6 +384,8 @@ export interface paths {
     };
   };
 }
+
+export type webhooks = Record<string, never>;
 
 export type components = Record<string, never>;
 
@@ -400,6 +416,8 @@ export type operations = Record<string, never>;
         expect(generated).toBe(`${BOILERPLATE}
 export type paths = Record<string, never>;
 
+export type webhooks = Record<string, never>;
+
 export interface components {
   schemas: {
     /** Format: date-time */
@@ -429,6 +447,8 @@ export type operations = Record<string, never>;
         expect(generated).toBe(`${BOILERPLATE}
 ${inject}
 export type paths = Record<string, never>;
+
+export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
@@ -476,6 +496,8 @@ export type operations = Record<string, never>;
         );
         expect(generated).toBe(`${BOILERPLATE}${TYPE_HELPERS}
 export type paths = Record<string, never>;
+
+export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
