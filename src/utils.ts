@@ -1,6 +1,8 @@
 import c from "ansi-colors";
 import { isAbsolute } from "node:path";
 import supportsColor from "supports-color";
+import { fetch as unidiciFetch } from "undici";
+import { Fetch } from "types";
 
 if (!supportsColor.stdout || supportsColor.stdout.hasBasic === false) c.enabled = false;
 
@@ -238,4 +240,12 @@ export function isRemoteURL(url: string): boolean {
 /** is the given string a filepath? */
 export function isFilepath(url: string): boolean {
   return url.startsWith("file://") || isAbsolute(url);
+}
+
+export function getDefaultFetch(): Fetch {
+  const globalFetch: Fetch | undefined = (globalThis as any).fetch;
+  if (typeof globalFetch === "undefined") {
+    return unidiciFetch;
+  }
+  return globalFetch;
 }

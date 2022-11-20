@@ -1,5 +1,6 @@
 import type {
   ComponentsObject,
+  Fetch,
   GlobalContext,
   OpenAPI3,
   OperationObject,
@@ -15,7 +16,7 @@ import path from "node:path";
 import { Readable } from "node:stream";
 import { URL } from "node:url";
 import yaml from "js-yaml";
-import { request, type Dispatcher } from "undici";
+import type { Dispatcher } from "undici";
 import { parseRef, error, makeTSIndex, walk, isRemoteURL, isFilepath } from "./utils.js";
 
 type SchemaMap = { [id: string]: Subschema };
@@ -87,7 +88,7 @@ function parseHttpHeaders(httpHeaders: Record<string, any>): Record<string, any>
   return finalHeaders;
 }
 
-interface LoadOptions extends GlobalContext {
+export interface LoadOptions extends GlobalContext {
   /** Subschemas may be any type; this helps transform correctly */
   hint?: Subschema["hint"];
   auth?: string;
@@ -96,6 +97,7 @@ interface LoadOptions extends GlobalContext {
   urlCache: Set<string>;
   httpHeaders?: Record<string, any>;
   httpMethod?: string;
+  fetch: Fetch;
 }
 
 /** Load a schema from local path or remote URL */
@@ -104,7 +106,6 @@ export default async function load(
   options: LoadOptions
 ): Promise<{ [url: string]: Subschema }> {
   let schemaID = ".";
-
   // 1. load contents
   // 1a. URL
   if (schema instanceof URL) {
@@ -130,19 +131,20 @@ export default async function load(
           headers[k] = v;
         }
       }
-      const res = await request(schema, { method: (options.httpMethod as Dispatcher.HttpMethod) || "GET", headers });
-      const contentType = Array.isArray(res.headers["content-type"])
-        ? res.headers["content-type"][0]
-        : res.headers["content-type"];
+      const res = await options.fetch(schema, {
+        method: (options.httpMethod as Dispatcher.HttpMethod) || "GET",
+        headers,
+      });
+      const contentType = res.headers.get("content-type");
       if (ext === ".json" || (contentType && contentType.includes("json"))) {
         options.schemas[schemaID] = {
           hint,
-          schema: parseJSON(await res.body.text()),
+          schema: parseJSON(await res.text()),
         };
       } else if (ext === ".yaml" || ext === ".yml" || (contentType && contentType.includes("yaml"))) {
         options.schemas[schemaID] = {
           hint,
-          schema: parseYAML(await res.body.text()),
+          schema: parseYAML(await res.text()),
         };
       }
     }
