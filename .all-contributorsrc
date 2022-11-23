@@ -609,6 +609,16 @@
         "bug",
         "test"
       ]
+    },
+    {
+      "login": "HiiiiD",
+      "name": "Marco Salomone",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61231210?v=4",
+      "profile": "https://github.com/HiiiiD",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
