@@ -640,6 +640,8 @@ export interface paths {
   };
 }
 
+export type webhooks = Record<string, never>;
+
 export interface components {
   schemas: never;
   responses: never;
@@ -654,6 +656,7 @@ export interface external {
   "description.yml": {
 
     paths: Record<string, never>;
+    webhooks: Record<string, never>;
     components: Record<string, never>;
   }
   "resources/1-clicks/models/oneClicks_create.yml": {

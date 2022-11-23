@@ -1993,6 +1993,8 @@ export interface paths {
   };
 }
 
+export type webhooks = Record<string, never>;
+
 export interface components {
   schemas: {
     /**

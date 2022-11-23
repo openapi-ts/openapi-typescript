@@ -139,6 +139,12 @@ export interface ComponentsObject extends Extensable {
 export type PathsObject = { [pathname: string]: PathItemObject };
 
 /**
+ * [x.x.x] Webhooks Object
+ * Holds the webhooks definitions, indexed by their names. A webhook is defined by a Path Item Object; the only difference is that the request is initiated by the API provider.
+ */
+export type WebhooksObject = { [name: string]: PathItemObject };
+
+/**
  * [4.8.9] Path Item Object
  * Describes the operations available on a single path. A Path Item MAY be empty, due to ACL constraints. The path itself is still exposed to the documentation viewer but they will not know which operations and parameters are available.
  */
