@@ -9,7 +9,7 @@ import transformParameterObject from "./transform/parameter-object.js";
 import transformRequestBodyObject from "./transform/request-body-object.js";
 import transformResponseObject from "./transform/response-object.js";
 import transformSchemaObject from "./transform/schema-object.js";
-import { error, escObjKey, getEntries, indent } from "./utils.js";
+import { error, escObjKey, getDefaultFetch, getEntries, indent } from "./utils.js";
 export * from "./types.js"; // expose all types to consumers
 
 const EMPTY_OBJECT_RE = /^\s*\{?\s*\}?\s*$/;
@@ -67,6 +67,7 @@ async function openapiTS(
     urlCache: new Set(),
     httpHeaders: options.httpHeaders,
     httpMethod: options.httpMethod,
+    fetch: options.fetch ?? getDefaultFetch(),
   });
 
   // 1. basic validation

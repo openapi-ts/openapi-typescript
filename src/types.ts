@@ -1,5 +1,6 @@
 import type { URL } from "node:url";
 import type { TransformSchemaObjectOptions } from "./transform/schema-object";
+import type { RequestInfo, RequestInit, Response } from "undici";
 
 export interface Extensable {
   [key: `x-${string}`]: any;
@@ -608,6 +609,11 @@ export interface OpenAPITSOptions {
   commentHeader?: string;
   /** (optional) inject code before schema ? */
   inject?: string;
+  /**
+   * (optional) A fetch implementation. Will default to the global fetch
+   * function if available; else, it will use unidici's fetch function.
+   */
+  fetch?: Fetch;
 }
 
 /** Subschema discriminator (note: only valid $ref types accepted here) */
@@ -637,3 +643,10 @@ export interface GlobalContext {
   silent: boolean;
   supportArrayLength: boolean;
 }
+
+// Fetch is available in the global scope starting with Node v18.
+// However, @types/node does not have it yet available.
+// GitHub issue: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/60924
+// Because node's underlying implementation relies on unidici, it is safe to
+// rely on unidici's type until @types/node ships it.
+export type Fetch = (input: RequestInfo, init?: RequestInit) => Promise<Response>;
