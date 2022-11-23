@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/main/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-57-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-58-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -389,6 +389,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center"><a href="https://github.com/imagoiq"><img src="https://avatars.githubusercontent.com/u/12294151?v=4?s=100" width="100px;" alt="Loïc Fürhoff"/><br /><sub><b>Loïc Fürhoff</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=imagoiq" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=imagoiq" title="Tests">⚠️</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aimagoiq" title="Bug reports">🐛</a></td>
+      <td align="center"><a href="https://github.com/BTMPL"><img src="https://avatars.githubusercontent.com/u/247153?v=4?s=100" width="100px;" alt="Bartosz Szczeciński"/><br /><sub><b>Bartosz Szczeciński</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=BTMPL" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3ABTMPL" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=BTMPL" title="Tests">⚠️</a></td>
     </tr>
   </tbody>
 </table>
