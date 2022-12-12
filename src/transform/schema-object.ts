@@ -199,7 +199,7 @@ export function defaultSchemaObjectTransform(
       const discriminator = ctx.discriminators[discriminatorRef.$ref];
       let value = parseRef(path).path.pop() as string;
       if (discriminator.mapping) {
-        const matchedValue = Object.entries(discriminator.mapping).find(([_, v]) => v === value);
+        const matchedValue = Object.entries(discriminator.mapping).find(([_, v]) => parseRef(v).path.pop() === value);
         if (matchedValue) value = matchedValue[0]; // why was this designed backwards!?
       }
       coreType.unshift(indent(`${discriminator.propertyName}: ${escStr(value)};`, indentLv + 1));
