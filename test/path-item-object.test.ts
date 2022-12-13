@@ -39,6 +39,21 @@ describe("Path Item Object", () => {
             },
           },
           404: { $ref: 'components["responses"]["NotFound"]' },
+          "5xx": {
+            description: "Server error",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    message: { type: "string" },
+                    code: { type: "string" },
+                  },
+                  required: ["message"],
+                },
+              },
+            },
+          },
         },
       },
       post: {
@@ -66,6 +81,15 @@ describe("Path Item Object", () => {
         };
       };
       404: components["responses"]["NotFound"];
+      /** @description Server error */
+      "5xx": {
+        content: {
+          "application/json": {
+            message: string;
+            code?: string;
+          };
+        };
+      };
     };
   };
   post: {

@@ -129,12 +129,13 @@ export default function transformOperationObject(
       output.push(indent(`responses: {`, indentLv));
       indentLv++;
       for (const [responseCode, responseObject] of getEntries(operationObject.responses, ctx.alphabetize)) {
+        const key = escObjKey(responseCode);
         const c = getSchemaObjectComment(responseObject, indentLv);
         if (c) output.push(indent(c, indentLv));
         if ("$ref" in responseObject) {
           output.push(
             indent(
-              `${responseCode}: ${transformSchemaObject(responseObject, {
+              `${key}: ${transformSchemaObject(responseObject, {
                 path: `${path}/responses/${responseCode}`,
                 ctx,
               })};`,
@@ -146,7 +147,7 @@ export default function transformOperationObject(
             path: `${path}/responses/${responseCode}`,
             ctx: { ...ctx, indentLv },
           });
-          output.push(indent(`${responseCode}: ${responseType};`, indentLv));
+          output.push(indent(`${key}: ${responseType};`, indentLv));
         }
       }
       indentLv--;
