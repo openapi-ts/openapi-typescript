@@ -250,11 +250,11 @@ describe("Schema Object", () => {
               'components["schemas"]["parent"]': {
                 propertyName: "operation",
                 mapping: {
-                  "test": options.path
+                  test: options.path,
                 },
-              }
-            }
-          }
+              },
+            },
+          },
         });
         expect(generated).toBe(`{
   operation: "test";
