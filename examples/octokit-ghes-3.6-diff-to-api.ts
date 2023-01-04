@@ -5928,9 +5928,9 @@ export interface operations {
   };
   "enterprise-admin/list-public-keys": {
     /** List public keys */
-    parameters?: {
+    parameters: {
         /** @description Only show public keys accessed after the given time. */
-      query?: {
+      query: {
         sort?: "created" | "updated" | "accessed";
         since?: string;
       };
@@ -6074,8 +6074,8 @@ export interface operations {
   };
   "enterprise-admin/list-pre-receive-environments": {
     /** List pre-receive environments */
-    parameters?: {
-      query?: {
+    parameters: {
+      query: {
         sort?: "created" | "updated" | "name";
       };
     };
@@ -6236,9 +6236,9 @@ export interface operations {
   };
   "enterprise-admin/list-pre-receive-hooks": {
     /** List pre-receive hooks */
-    parameters?: {
+    parameters: {
         /** @description The property to sort the results by. */
-      query?: {
+      query: {
         sort?: "created" | "updated" | "name";
       };
     };
@@ -6467,8 +6467,8 @@ export interface operations {
      * 
      * The permissions the installation has are included under the `permissions` key.
      */
-    parameters?: {
-      query?: {
+    parameters: {
+      query: {
         outdated?: string;
       };
     };
@@ -6545,9 +6545,9 @@ export interface operations {
      * 
      * You can use this API to list the set of OAuth applications that have been granted access to your account. Unlike the [list your authorizations](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations#list-your-authorizations) API, this API does not manage individual tokens. This API will return one entry for each OAuth application that has been granted access to your account, regardless of the number of tokens an application has generated for your user. The list of OAuth applications returned matches what is shown on [the application authorizations settings screen within GitHub](https://github.com/settings/applications#authorized). The `scopes` returned are the union of scopes authorized for the application. For example, if an application has one token with `repo` scope and another token with `user` scope, the grant will return `["repo", "user"]`.
      */
-    parameters?: {
+    parameters: {
         /** @description The client ID of your GitHub app. */
-      query?: {
+      query: {
         client_id?: string;
       };
     };
@@ -6703,9 +6703,9 @@ export interface operations {
      * @deprecated 
      * @description **Deprecation Notice:** GitHub Enterprise Server will discontinue the [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/enterprise-server@3.6/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
      */
-    parameters?: {
+    parameters: {
         /** @description The client ID of your GitHub app. */
-      query?: {
+      query: {
         client_id?: string;
       };
     };
@@ -7502,10 +7502,10 @@ export interface operations {
      * 
      * You can manage team membership with your identity provider using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/enterprise-server@3.6/github/getting-started-with-github/githubs-products)" in the GitHub Help documentation.
      */
-    parameters?: {
+    parameters: {
         /** @description Page token */
         /** @description Limits the list to groups containing the text in the group name */
-      query?: {
+      query: {
         page?: number;
         display_name?: string;
       };
@@ -7564,9 +7564,9 @@ export interface operations {
      * List pre-receive hooks for an organization 
      * @description List all pre-receive hooks that are enabled or testing for this organization as well as any disabled hooks that can be configured at the organization level. Globally disabled pre-receive hooks that do not allow downstream configuration are not listed.
      */
-    parameters?: {
+    parameters: {
         /** @description The sort order for the response collection. */
-      query?: {
+      query: {
         sort?: "created" | "updated" | "name";
       };
     };
@@ -8016,10 +8016,10 @@ export interface operations {
      * **Deprecation notice**:
      * The `tool_name` field is deprecated and will, in future, not be included in the response for this endpoint. The example response reflects this change. The tool name can now be found inside the `tool` field.
      */
-    parameters?: {
+    parameters: {
         /** @description The Git reference for the analyses you want to list. The `ref` for a branch can be formatted either as `refs/heads/<branch name>` or simply `<branch name>`. To reference a pull request use `refs/pull/<number>/merge`. */
         /** @description Filter analyses belonging to the same SARIF upload. */
-      query?: {
+      query: {
         ref?: components["schemas"]["code-scanning-ref"];
         sarif_id?: components["schemas"]["code-scanning-analysis-sarif-id"];
       };
@@ -8048,10 +8048,10 @@ export interface operations {
      * endpoint. GitHub Apps must have the `members` organization permission and `metadata` repository permission to use this
      * endpoint.
      */
-    parameters?: {
+    parameters: {
         /** @description Filter collaborators returned by their affiliation. `outside` means all outside collaborators of an organization-owned repository. `direct` means all collaborators with permissions to an organization-owned repository, regardless of organization membership status. `all` means all collaborators the authenticated user can see. */
         /** @description Filter collaborators by the permissions they have on the repository. If not specified, all collaborators will be returned. */
-      query?: {
+      query: {
         affiliation?: "outside" | "direct" | "all";
         permission?: "pull" | "triage" | "push" | "maintain" | "admin";
       };
@@ -8221,8 +8221,8 @@ export interface operations {
      * List pre-receive hooks for a repository 
      * @description List all pre-receive hooks that are enabled or testing for this repository as well as any disabled hooks that are allowed to be enabled at the repository level. Pre-receive hooks that are disabled at a higher level and are not configurable will not be listed.
      */
-    parameters?: {
-      query?: {
+    parameters: {
+      query: {
         sort?: "created" | "updated" | "name";
       };
     };
@@ -8552,9 +8552,9 @@ export interface operations {
      * - For GitHub Enterprise Server, this endpoint will only list repositories available to all users on the enterprise.
      * - Pagination is powered exclusively by the `since` parameter. Use the [Link header](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#link-header) to get the URL for the next page of repositories.
      */
-    parameters?: {
+    parameters: {
         /** @description Specifies the types of repositories to return. This endpoint will only list repositories available to all users on the enterprise. */
-      query?: {
+      query: {
         visibility?: "all" | "public";
       };
     };
@@ -8578,10 +8578,10 @@ export interface operations {
      * List provisioned SCIM groups for an enterprise 
      * @description **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
      */
-    parameters?: {
+    parameters: {
         /** @description filter results */
         /** @description attributes to exclude */
-      query?: {
+      query: {
         filter?: string;
         excludedAttributes?: string;
       };
@@ -8630,9 +8630,9 @@ export interface operations {
      * Get SCIM provisioning information for an enterprise group 
      * @description **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
      */
-    parameters?: {
+    parameters: {
         /** @description Attributes to exclude. */
-      query?: {
+      query: {
         excludedAttributes?: string;
       };
     };
@@ -8739,9 +8739,9 @@ export interface operations {
      *    - If the user signs in, their GitHub Enterprise Server account is linked to this entry.
      *    - If the user does not sign in (or does not create a new account when prompted), they are not added to the GitHub Enterprise Server enterprise, and the external identity `null` entry remains in place.
      */
-    parameters?: {
+    parameters: {
         /** @description filter results */
-      query?: {
+      query: {
         filter?: string;
       };
     };

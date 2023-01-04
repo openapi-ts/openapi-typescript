@@ -37,10 +37,8 @@ export default function transformOperationObject(
   {
     if (operationObject.parameters) {
       const parameterOutput: string[] = [];
-      let allParamsOptional = true;
       indentLv++;
       for (const paramIn of ["query", "header", "path", "cookie"] as ParameterObject["in"][]) {
-        let inlineParamsOptional = true;
         const inlineOutput: string[] = [];
         const refs: Record<string, string[]> = {};
         indentLv++;
@@ -51,9 +49,6 @@ export default function transformOperationObject(
             let key = escObjKey(p.name);
             if (paramIn !== "path" && !p.required) {
               key = tsOptionalProperty(key);
-            } else {
-              inlineParamsOptional = false;
-              allParamsOptional = false;
             }
             const c = getSchemaObjectComment(p, indentLv);
             if (c) parameterOutput.push(indent(c, indentLv));
@@ -90,13 +85,12 @@ export default function transformOperationObject(
           )
         );
         let key: string = paramIn;
-        if (inlineParamsOptional) key = tsOptionalProperty(key); // if all params are optional, so is this key
         if (ctx.immutableTypes) key = tsReadonly(key);
         parameterOutput.push(indent(`${key}: ${paramType};`, indentLv));
       }
       indentLv--;
       if (parameterOutput.length) {
-        output.push(indent(allParamsOptional ? `parameters?: {` : `parameters: {`, indentLv));
+        output.push(indent(`parameters: {`, indentLv));
         output.push(parameterOutput.join("\n"));
         output.push(indent("};", indentLv));
       }
