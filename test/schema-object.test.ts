@@ -137,7 +137,7 @@ describe("Schema Object", () => {
       test("const string field", () => {
         const schema: SchemaObject = {
           type: "object",
-          properties: { "constant": {"const": "a", "type": "string"} },
+          properties: { constant: { const: "a", type: "string" } },
           required: ["constant"],
         };
         const generated = transformSchemaObject(schema, options);
@@ -145,7 +145,7 @@ describe("Schema Object", () => {
   /** @constant */
   constant: "a";
 }`);
-      })
+      });
 
       test("additionalProperties with properties", () => {
         const schema: SchemaObject = {
