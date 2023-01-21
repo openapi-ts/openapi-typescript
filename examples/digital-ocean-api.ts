@@ -4,7 +4,10 @@
  */
 
 
-/** Type helpers */
+/** WithRequired type helpers */
+type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+
+/** OneOf type helpers */
 type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
 type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
 type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
@@ -1828,7 +1831,7 @@ export interface external {
      */
     databases?: (external["resources/apps/models/app_database_spec.yml"])[];
   }
-  "resources/apps/models/app_static_site_spec.yml": external["resources/apps/models/app_component_base.yml"] & {
+  "resources/apps/models/app_static_site_spec.yml": WithRequired<external["resources/apps/models/app_component_base.yml"] & {
     /**
      * @description The name of the index document to use when serving this static site. Default: index.html 
      * @default index.html 
@@ -1854,7 +1857,7 @@ export interface external {
     cors?: external["resources/apps/models/apps_cors_policy.yml"];
     /** @description A list of HTTP routes that should be routed to this component. */
     routes?: (external["resources/apps/models/app_route_spec.yml"])[];
-  }
+  }, "name">
   "resources/apps/models/app_variable_definition.yml": {
     /**
      * @description The variable name 
@@ -1884,7 +1887,7 @@ export interface external {
      */
     value?: string;
   }
-  "resources/apps/models/app_worker_spec.yml": external["resources/apps/models/app_component_base.yml"] & external["resources/apps/models/app_component_instance_base.yml"]
+  "resources/apps/models/app_worker_spec.yml": WithRequired<external["resources/apps/models/app_component_base.yml"] & external["resources/apps/models/app_component_instance_base.yml"], "name">
   "resources/apps/models/app.yml": {
     active_deployment?: external["resources/apps/models/apps_deployment.yml"];
     /**
@@ -3691,7 +3694,7 @@ export interface external {
          *   "size": "db-s-2vcpu-4gb"
          * }
          */
-        "application/json": external["resources/databases/models/database_replica.yml"];
+        "application/json": WithRequired<external["resources/databases/models/database_replica.yml"], "name" | "size">;
       };
     };
     responses: {
@@ -7391,7 +7394,7 @@ export interface external {
          *   ]
          * }
          */
-        "application/json": external["resources/firewalls/models/firewall.yml"] & (Record<string, never> | Record<string, never>);
+        "application/json": WithRequired<external["resources/firewalls/models/firewall.yml"] & (Record<string, never> | Record<string, never>), "name">;
       };
     };
     responses: {
@@ -8117,7 +8120,7 @@ export interface external {
     };
   }
   "resources/images/models/image_action.yml": Record<string, never>
-  "resources/images/models/image_new_custom.yml": external["resources/images/models/image_update.yml"] & {
+  "resources/images/models/image_new_custom.yml": WithRequired<external["resources/images/models/image_update.yml"] & {
     /**
      * @description A URL from which the custom Linux virtual machine image may be retrieved.  The image it points to must be in the raw, qcow2, vhdx, vdi, or vmdk format.  It may be compressed using gzip or bzip2 and must be smaller than 100 GB after being decompressed. 
      * @example http://cloud-images.ubuntu.com/minimal/releases/bionic/release/ubuntu-18.04-minimal-cloudimg-amd64.img
@@ -8125,7 +8128,7 @@ export interface external {
     url?: string;
     region?: external["shared/attributes/region_slug.yml"];
     tags?: external["shared/attributes/tags_array.yml"];
-  }
+  }, "name" | "url" | "region">
   "resources/images/models/image_update.yml": {
     name?: external["resources/images/attributes.yml"]["image_name"];
     distribution?: external["shared/attributes/distribution.yml"];
@@ -9748,15 +9751,15 @@ export interface external {
      */
     disable_lets_encrypt_dns_records?: boolean;
   }
-  "resources/load_balancers/models/load_balancer_create.yml": OneOf<[{
+  "resources/load_balancers/models/load_balancer_create.yml": OneOf<[WithRequired<{
     $ref?: external["resources/load_balancers/models/attributes.yml"]["load_balancer_droplet_ids"];
   } & {
     region?: external["shared/attributes/region_slug.yml"];
-  } & external["resources/load_balancers/models/load_balancer_base.yml"], {
+  } & external["resources/load_balancers/models/load_balancer_base.yml"], "droplet_ids" | "region">, WithRequired<{
     $ref?: external["resources/load_balancers/models/attributes.yml"]["load_balancer_droplet_tag"];
   } & {
     region?: external["shared/attributes/region_slug.yml"];
-  } & external["resources/load_balancers/models/load_balancer_base.yml"]]>
+  } & external["resources/load_balancers/models/load_balancer_base.yml"], "tag" | "region">]>
   "resources/load_balancers/models/load_balancer.yml": external["resources/load_balancers/models/load_balancer_base.yml"] & ({
     region?: Record<string, never> & external["resources/regions/models/region.yml"];
   }) & {
@@ -10397,7 +10400,7 @@ export interface external {
      */
     requestBody: {
       content: {
-        "application/json": external["resources/projects/models/project.yml"]["project_base"];
+        "application/json": WithRequired<external["resources/projects/models/project.yml"]["project_base"], "name" | "purpose">;
       };
     };
     responses: {
@@ -10552,7 +10555,7 @@ export interface external {
      */
     requestBody: {
       content: {
-        "application/json": external["resources/projects/models/project.yml"]["project"];
+        "application/json": WithRequired<external["resources/projects/models/project.yml"]["project"], "name" | "description" | "purpose" | "environment" | "is_default">;
       };
     };
     responses: {
@@ -10571,7 +10574,7 @@ export interface external {
      */
     requestBody: {
       content: {
-        "application/json": external["resources/projects/models/project.yml"]["project"];
+        "application/json": WithRequired<external["resources/projects/models/project.yml"]["project"], "name" | "description" | "purpose" | "environment" | "is_default">;
       };
     };
     responses: {
@@ -12373,7 +12376,7 @@ export interface external {
      */
     requestBody: {
       content: {
-        "application/json": external["resources/uptime/models/alert.yml"]["alert"];
+        "application/json": WithRequired<external["resources/uptime/models/alert.yml"]["alert"], "name" | "type" | "notifications">;
       };
     };
     responses: {
@@ -12393,7 +12396,7 @@ export interface external {
      */
     requestBody: {
       content: {
-        "application/json": external["resources/uptime/models/check.yml"]["check_updatable"];
+        "application/json": WithRequired<external["resources/uptime/models/check.yml"]["check_updatable"], "name" | "method" | "target">;
       };
     };
     responses: {
@@ -13175,7 +13178,7 @@ export interface external {
      */
     requestBody: {
       content: {
-        "application/json": external["resources/vpcs/models/vpc.yml"]["vpc_updatable"] & external["resources/vpcs/models/vpc.yml"]["vpc_create"];
+        "application/json": WithRequired<external["resources/vpcs/models/vpc.yml"]["vpc_updatable"] & external["resources/vpcs/models/vpc.yml"]["vpc_create"], "name" | "region">;
       };
     };
     responses: {
@@ -13280,7 +13283,7 @@ export interface external {
      */
     requestBody: {
       content: {
-        "application/json": external["resources/vpcs/models/vpc.yml"]["vpc_updatable"] & external["resources/vpcs/models/vpc.yml"]["vpc_default"];
+        "application/json": WithRequired<external["resources/vpcs/models/vpc.yml"]["vpc_updatable"] & external["resources/vpcs/models/vpc.yml"]["vpc_default"], "name">;
       };
     };
     responses: {
