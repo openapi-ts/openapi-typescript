@@ -580,7 +580,6 @@ export type operations = Record<string, never>;
       });
     });
   });
-  
 
   // note: this tests the Node API; the snapshots in cli.test.ts test the CLI
   describe("snapshots", () => {
