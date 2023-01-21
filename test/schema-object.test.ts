@@ -255,6 +255,26 @@ describe("Schema Object", () => {
   green: number;
 }`);
       });
+
+      test("sibling required", () => {
+        const schema: SchemaObject = {
+          required: ["red", "blue", "green"],
+          allOf: [
+            {
+              type: "object",
+              properties: { red: { type: "number" }, blue: { type: "number" } },
+            },
+            { type: "object", properties: { green: { type: "number" } } },
+          ],
+        };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe(`WithRequired<{
+  red?: number;
+  blue?: number;
+} & {
+  green?: number;
+}, "red" | "blue" | "green">`);
+      });
     });
 
     describe("anyOf", () => {

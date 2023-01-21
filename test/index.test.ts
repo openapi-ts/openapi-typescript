@@ -9,11 +9,16 @@ const BOILERPLATE = `/**
 
 `;
 
-const TYPE_HELPERS = `
-/** Type helpers */
+const ONE_OF_TYPE_HELPERS = `
+/** OneOf type helpers */
 type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
 type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
 type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
+`;
+
+const WITH_REQUIRED_TYPE_HELPERS = `
+/** WithRequired type helpers */
+type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
 `;
 
 beforeAll(() => {
@@ -494,7 +499,7 @@ export type operations = Record<string, never>;
           },
           { exportType: false }
         );
-        expect(generated).toBe(`${BOILERPLATE}${TYPE_HELPERS}
+        expect(generated).toBe(`${BOILERPLATE}${ONE_OF_TYPE_HELPERS}
 export type paths = Record<string, never>;
 
 export type webhooks = Record<string, never>;
@@ -520,7 +525,62 @@ export type operations = Record<string, never>;
 `);
       });
     });
+
+    describe("WithRequired type helpers", () => {
+      test("should be added only when used", async () => {
+        const generated = await openapiTS(
+          {
+            openapi: "3.1",
+            info: { title: "Test", version: "1.0" },
+            components: {
+              schemas: {
+                User: {
+                  allOf: [
+                    {
+                      type: "object",
+                      properties: { firstName: { type: "string" }, lastName: { type: "string" } },
+                    },
+                    {
+                      type: "object",
+                      properties: { middleName: { type: "string" } },
+                    },
+                  ],
+                  required: ["firstName", "lastName"],
+                },
+              },
+            },
+          },
+          { exportType: false }
+        );
+        expect(generated).toBe(`${BOILERPLATE}${WITH_REQUIRED_TYPE_HELPERS}
+export type paths = Record<string, never>;
+
+export type webhooks = Record<string, never>;
+
+export interface components {
+  schemas: {
+    User: WithRequired<{
+      firstName?: string;
+      lastName?: string;
+    } & {
+      middleName?: string;
+    }, "firstName" | "lastName">;
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}
+
+export type external = Record<string, never>;
+
+export type operations = Record<string, never>;
+`);
+      });
+    });
   });
+  
 
   // note: this tests the Node API; the snapshots in cli.test.ts test the CLI
   describe("snapshots", () => {

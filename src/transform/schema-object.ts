@@ -14,6 +14,7 @@ import {
   tsReadonly,
   tsTupleOf,
   tsUnionOf,
+  tsWithRequired,
 } from "../utils.js";
 
 export interface TransformSchemaObjectOptions {
@@ -229,8 +230,12 @@ export function defaultSchemaObjectTransform(
     finalType = finalType ? tsIntersectionOf(finalType, oneOfType) : oneOfType;
   } else {
     // allOf
-    if ("allOf" in schemaObject && Array.isArray(schemaObject.allOf))
+    if ("allOf" in schemaObject && Array.isArray(schemaObject.allOf)) {
       finalType = tsIntersectionOf(...(finalType ? [finalType] : []), ...collectCompositions(schemaObject.allOf));
+      if ("required" in schemaObject && Array.isArray(schemaObject.required)) {
+        finalType = tsWithRequired(finalType, schemaObject.required);
+      }
+    }
     // anyOf
     if ("anyOf" in schemaObject && Array.isArray(schemaObject.anyOf)) {
       const anyOfTypes = tsUnionOf(...collectCompositions(schemaObject.anyOf));

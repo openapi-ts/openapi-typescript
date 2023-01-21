@@ -449,8 +449,8 @@ export type SchemaObject = {
       allOf?: (SchemaObject | ReferenceObject)[];
       anyOf?: (SchemaObject | ReferenceObject)[];
     }
-  | { allOf: (SchemaObject | ReferenceObject)[]; anyOf?: (SchemaObject | ReferenceObject)[] }
-  | { allOf?: (SchemaObject | ReferenceObject)[]; anyOf: (SchemaObject | ReferenceObject)[] }
+  | { allOf: (SchemaObject | ReferenceObject)[]; anyOf?: (SchemaObject | ReferenceObject)[]; required?: string[]; }
+  | { allOf?: (SchemaObject | ReferenceObject)[]; anyOf: (SchemaObject | ReferenceObject)[]; required?: string[]; }
 );
 
 /**

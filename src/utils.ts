@@ -182,6 +182,11 @@ export function tsOmit(root: string, keys: string[]): string {
   return `Omit<${root}, ${tsUnionOf(...keys.map(escStr))}>`;
 }
 
+/** WithRequired<T> */
+export function tsWithRequired(root: string, keys: string[]): string {
+  return `WithRequired<${root}, ${tsUnionOf(...keys.map(escStr))}>`;
+}
+
 /** make a given property key optional */
 export function tsOptionalProperty(key: string): string {
   return `${key}?`;
