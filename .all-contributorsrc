@@ -630,6 +630,15 @@
         "test",
         "bug"
       ]
+    },
+    {
+      "login": "sajadtorkamani",
+      "name": "Sajad Torkamani",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9380313?v=4",
+      "profile": "http://sajadtorkamani.com",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
