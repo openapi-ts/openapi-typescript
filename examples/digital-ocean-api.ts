@@ -694,13 +694,6 @@ export interface external {
      */
     type: string;
   }
-  /**
-   * Install Kubernetes 1-Click Applications 
-   * @description To install a Kubernetes 1-Click application on a cluster, send a POST request to
-   * `/v2/1-clicks/kubernetes`. The `addon_slugs` and `cluster_uuid` must be provided as body
-   * parameter in order to specify which 1-Click application(s) to install. To list all available
-   * 1-Click Kubernetes applications, send a request to `/v2/1-clicks?type=kubernetes`.
-   */
   "resources/1-clicks/oneClicks_install_kubernetes.yml": {
     /**
      * Install Kubernetes 1-Click Applications 
@@ -722,15 +715,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List 1-Click Applications 
-   * @description To list all available 1-Click applications, send a GET request to `/v2/1-clicks`. The `type` may
-   * be provided as query paramater in order to restrict results to a certain type of 1-Click, for
-   * example: `/v2/1-clicks?type=droplet`. Current supported types are `kubernetes` and `droplet`.
-   * 
-   * The response will be a JSON object with a key called `1_clicks`. This will be set to an array of
-   * 1-Click application data, each of which will contain the the slug and type for the 1-Click.
-   */
   "resources/1-clicks/oneClicks_list.yml": {
     /**
      * List 1-Click Applications 
@@ -778,10 +762,6 @@ export interface external {
       };
     };
   }
-  /**
-   * Get User Information 
-   * @description To show information about the current user account, send a GET request to `/v2/account`.
-   */
   "resources/account/account_get.yml": {
     /**
      * Get User Information 
@@ -860,10 +840,6 @@ export interface external {
       };
     };
   }
-  /**
-   * Retrieve an Existing Action 
-   * @description To retrieve a specific action object, send a GET request to `/v2/actions/$ACTION_ID`.
-   */
   "resources/actions/actions_get.yml": {
     /**
      * Retrieve an Existing Action 
@@ -878,10 +854,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Actions 
-   * @description This will be the entire list of actions taken on your account, so it will be quite large. As with any large collection returned by the API, the results will be paginated with only 20 on each page by default.
-   */
   "resources/actions/actions_list.yml": {
     /**
      * List All Actions 
@@ -963,10 +935,6 @@ export interface external {
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
   }
-  /**
-   * Update destinations for alerts 
-   * @description Updates the emails and slack webhook destinations for app alerts. Emails must be associated to a user with access to the app.
-   */
   "resources/apps/apps_assign_alertDestinations.yml": {
     /**
      * Update destinations for alerts 
@@ -986,10 +954,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Cancel a Deployment 
-   * @description Immediately cancel an in-progress deployment.
-   */
   "resources/apps/apps_cancel_deployment.yml": {
     /**
      * Cancel a Deployment 
@@ -1004,10 +968,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Commit App Rollback 
-   * @description Commit an app rollback. This action permanently applies the rollback and unpins the app to resume new deployments.
-   */
   "resources/apps/apps_commit_rollback.yml": {
     /**
      * Commit App Rollback 
@@ -1022,10 +982,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Create an App Deployment 
-   * @description Creating an app deployment will pull the latest changes from your repository and schedule a new deployment for your app.
-   */
   "resources/apps/apps_create_deployment.yml": {
     /**
      * Create an App Deployment 
@@ -1045,16 +1001,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Rollback App 
-   * @description Rollback an app to a previous deployment. A new deployment will be created to perform the rollback.
-   * The app will be pinned to the rollback deployment preventing any new deployments from being created,
-   * either manually or through Auto Deploy on Push webhooks. To resume deployments, the rollback must be
-   * either committed or reverted.
-   * 
-   * It is recommended to use the Validate App Rollback endpoint to double check if the rollback is
-   * valid and if there are any warnings.
-   */
   "resources/apps/apps_create_rollback.yml": {
     /**
      * Rollback App 
@@ -1080,10 +1026,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Create a New App 
-   * @description Create a new app by submitting an app specification. For documentation on app specifications (`AppSpec` objects), please refer to [the product documentation](https://docs.digitalocean.com/products/app-platform/reference/app-spec/).
-   */
   "resources/apps/apps_create.yml": {
     /**
      * Create a New App 
@@ -1129,10 +1071,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete an App 
-   * @description Delete an existing app. Once deleted, all active deployments will be permanently shut down and the app deleted. If needed, be sure to back up your app specification so that you may re-create it at a later time.
-   */
   "resources/apps/apps_delete.yml": {
     /**
      * Delete an App 
@@ -1147,10 +1085,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an App Deployment 
-   * @description Retrieve information about an app deployment.
-   */
   "resources/apps/apps_get_deployment.yml": {
     /**
      * Retrieve an App Deployment 
@@ -1165,10 +1099,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Instance Size 
-   * @description Retrieve information about a specific instance size for `service`, `worker`, and `job` components.
-   */
   "resources/apps/apps_get_instanceSize.yml": {
     /**
      * Retrieve an Instance Size 
@@ -1183,10 +1113,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve Deployment Logs 
-   * @description Retrieve the logs of a past, in-progress, or active deployment. If a component name is specified, the logs will be limited to only that component. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment.
-   */
   "resources/apps/apps_get_logs.yml": {
     /**
      * Retrieve Deployment Logs 
@@ -1201,10 +1127,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve Aggregate Deployment Logs 
-   * @description Retrieve the logs of a past, in-progress, or active deployment. If a component name is specified, the logs will be limited to only that component. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment.
-   */
   "resources/apps/apps_get_logsAggregate.yml": {
     /**
      * Retrieve Aggregate Deployment Logs 
@@ -1219,10 +1141,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an App Tier 
-   * @description Retrieve information about a specific app tier.
-   */
   "resources/apps/apps_get_tier.yml": {
     /**
      * Retrieve an App Tier 
@@ -1237,10 +1155,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing App 
-   * @description Retrieve details about an existing app by either its ID or name. To retrieve an app by its name, do not include an ID in the request path. Information about the current active deployment as well as any in progress ones will also be included in the response.
-   */
   "resources/apps/apps_get.yml": {
     /**
      * Retrieve an Existing App 
@@ -1255,10 +1169,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List all app alerts 
-   * @description List alerts associated to the app and any components. This includes configuration information about the alerts including emails, slack webhooks, and triggering events or conditions.
-   */
   "resources/apps/apps_list_alerts.yml": {
     /**
      * List all app alerts 
@@ -1273,10 +1183,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List App Deployments 
-   * @description List all deployments of an app.
-   */
   "resources/apps/apps_list_deployments.yml": {
     /**
      * List App Deployments 
@@ -1291,10 +1197,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Instance Sizes 
-   * @description List all instance sizes for `service`, `worker`, and `job` components.
-   */
   "resources/apps/apps_list_instanceSizes.yml": {
     /**
      * List Instance Sizes 
@@ -1308,10 +1210,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List App Regions 
-   * @description List all regions supported by App Platform.
-   */
   "resources/apps/apps_list_regions.yml": {
     /**
      * List App Regions 
@@ -1325,10 +1223,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List App Tiers 
-   * @description List all app tiers.
-   */
   "resources/apps/apps_list_tiers.yml": {
     /**
      * List App Tiers 
@@ -1342,10 +1236,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Apps 
-   * @description List all apps on your account. Information about the current active deployment as well as any in progress ones will also be included for each app.
-   */
   "resources/apps/apps_list.yml": {
     /**
      * List All Apps 
@@ -1359,11 +1249,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Revert App Rollback 
-   * @description Revert an app rollback. This action reverts the active rollback by creating a new deployment from the
-   * latest app spec prior to the rollback and unpins the app to resume new deployments.
-   */
   "resources/apps/apps_revert_rollback.yml": {
     /**
      * Revert App Rollback 
@@ -1379,10 +1264,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update an App 
-   * @description Update an existing app by submitting a new app specification. For documentation on app specifications (`AppSpec` objects), please refer to [the product documentation](https://docs.digitalocean.com/products/app-platform/reference/app-spec/).
-   */
   "resources/apps/apps_update.yml": {
     /**
      * Update an App 
@@ -1402,10 +1283,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Propose an App Spec 
-   * @description To propose and validate a spec for a new or existing app, send a POST request to the `/v2/apps/propose` endpoint. The request returns some information about the proposed app, including app cost and upgrade cost. If an existing app ID is specified, the app spec is treated as a proposed update to the existing app.
-   */
   "resources/apps/apps_validate_appSpec.yml": {
     /**
      * Propose an App Spec 
@@ -1452,13 +1329,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Validate App Rollback 
-   * @description Check whether an app can be rolled back to a specific deployment. This endpoint can also be used
-   * to check if there are any warnings or validation conditions that will cause the rollback to proceed
-   * under unideal circumstances. For example, if a component must be rebuilt as part of the rollback
-   * causing it to take longer than usual.
-   */
   "resources/apps/apps_validate_rollback.yml": {
     /**
      * Validate App Rollback 
@@ -2866,10 +2736,6 @@ export interface external {
       "application/json": external["resources/apps/models/app_response.yml"];
     };
   }
-  /**
-   * Get Customer Balance 
-   * @description To retrieve the balances on a customer's account, send a GET request to `/v2/customers/my/balance`.
-   */
   "resources/billing/balance_get.yml": {
     /**
      * Get Customer Balance 
@@ -2884,10 +2750,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Billing History 
-   * @description To retrieve a list of all billing history entries, send a GET request to `/v2/customers/my/billing_history`.
-   */
   "resources/billing/billingHistory_list.yml": {
     /**
      * List Billing History 
@@ -2902,10 +2764,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Invoice by UUID 
-   * @description To retrieve the invoice items for an invoice, send a GET request to `/v2/customers/my/invoices/$INVOICE_UUID`.
-   */
   "resources/billing/invoices_get_byUUID.yml": {
     /**
      * Retrieve an Invoice by UUID 
@@ -2920,10 +2778,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Invoice CSV by UUID 
-   * @description To retrieve a CSV for an invoice, send a GET request to `/v2/customers/my/invoices/$INVOICE_UUID/csv`.
-   */
   "resources/billing/invoices_get_csvByUUID.yml": {
     /**
      * Retrieve an Invoice CSV by UUID 
@@ -2938,10 +2792,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Invoice PDF by UUID 
-   * @description To retrieve a PDF for an invoice, send a GET request to `/v2/customers/my/invoices/$INVOICE_UUID/pdf`.
-   */
   "resources/billing/invoices_get_pdfByUUID.yml": {
     /**
      * Retrieve an Invoice PDF by UUID 
@@ -2956,10 +2806,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Invoice Summary by UUID 
-   * @description To retrieve a summary for an invoice, send a GET request to `/v2/customers/my/invoices/$INVOICE_UUID/summary`.
-   */
   "resources/billing/invoices_get_summaryByUUID.yml": {
     /**
      * Retrieve an Invoice Summary by UUID 
@@ -2974,10 +2820,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Invoices 
-   * @description To retrieve a list of all invoices, send a GET request to `/v2/customers/my/invoices`.
-   */
   "resources/billing/invoices_list.yml": {
     /**
      * List All Invoices 
@@ -3343,16 +3185,6 @@ export interface external {
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
   }
-  /**
-   * Create a New CDN Endpoint 
-   * @description To create a new CDN endpoint, send a POST request to `/v2/cdn/endpoints`. The
-   * origin attribute must be set to the fully qualified domain name (FQDN) of a
-   * DigitalOcean Space. Optionally, the TTL may be configured by setting the `ttl`
-   * attribute.
-   * 
-   * A custom subdomain may be configured by specifying the `custom_domain` and
-   * `certificate_id` attributes.
-   */
   "resources/cdn/cdn_create_endpoint.yml": {
     /**
      * Create a New CDN Endpoint 
@@ -3377,14 +3209,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a CDN Endpoint 
-   * @description To delete a specific CDN endpoint, send a DELETE request to
-   * `/v2/cdn/endpoints/$ENDPOINT_ID`.
-   * 
-   * A status of 204 will be given. This indicates that the request was processed
-   * successfully, but that no response body is needed.
-   */
   "resources/cdn/cdn_delete_endpoint.yml": {
     /**
      * Delete a CDN Endpoint 
@@ -3403,10 +3227,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing CDN Endpoint 
-   * @description To show information about an existing CDN endpoint, send a GET request to `/v2/cdn/endpoints/$ENDPOINT_ID`.
-   */
   "resources/cdn/cdn_get_endpoint.yml": {
     /**
      * Retrieve an Existing CDN Endpoint 
@@ -3421,10 +3241,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All CDN Endpoints 
-   * @description To list all of the CDN endpoints available on your account, send a GET request to `/v2/cdn/endpoints`.
-   */
   "resources/cdn/cdn_list_endpoints.yml": {
     /**
      * List All CDN Endpoints 
@@ -3438,15 +3254,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Purge the Cache for an Existing CDN Endpoint 
-   * @description To purge cached content from a CDN endpoint, send a DELETE request to
-   * `/v2/cdn/endpoints/$ENDPOINT_ID/cache`. The body of the request should include
-   * a `files` attribute containing a list of cached file paths to be purged. A
-   * path may be for a single file or may contain a wildcard (`*`) to recursively
-   * purge all files under a directory. When only a wildcard is provided, all
-   * cached files will be purged.
-   */
   "resources/cdn/cdn_purge_cache.yml": {
     /**
      * Purge the Cache for an Existing CDN Endpoint 
@@ -3471,12 +3278,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update a CDN Endpoint 
-   * @description To update the TTL, certificate ID, or the FQDN of the custom subdomain for
-   * an existing CDN endpoint, send a PUT request to
-   * `/v2/cdn/endpoints/$ENDPOINT_ID`.
-   */
   "resources/cdn/cdn_update_endpoint.yml": {
     /**
      * Update a CDN Endpoint 
@@ -3599,18 +3400,6 @@ export interface external {
       };
     };
   }
-  /**
-   * Create a New Certificate 
-   * @description To upload new SSL certificate which you have previously generated, send a POST
-   * request to `/v2/certificates`.
-   * 
-   * When uploading a user-generated certificate, the `private_key`,
-   * `leaf_certificate`, and optionally the `certificate_chain` attributes should
-   * be provided. The type must be set to `custom`.
-   * 
-   * When using Let's Encrypt to create a certificate, the `dns_names` attribute
-   * must be provided, and the type must be set to `lets_encrypt`.
-   */
   "resources/certificates/certificates_create.yml": {
     /**
      * Create a New Certificate 
@@ -3637,11 +3426,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Certificate 
-   * @description To delete a specific certificate, send a DELETE request to
-   * `/v2/certificates/$CERTIFICATE_ID`.
-   */
   "resources/certificates/certificates_delete.yml": {
     /**
      * Delete a Certificate 
@@ -3657,10 +3441,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Certificate 
-   * @description To show information about an existing certificate, send a GET request to `/v2/certificates/$CERTIFICATE_ID`.
-   */
   "resources/certificates/certificates_get.yml": {
     /**
      * Retrieve an Existing Certificate 
@@ -3675,10 +3455,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Certificates 
-   * @description To list all of the certificates available on your account, send a GET request to `/v2/certificates`.
-   */
   "resources/certificates/certificates_list.yml": {
     /**
      * List All Certificates 
@@ -3781,19 +3557,6 @@ export interface external {
       };
     };
   }
-  /**
-   * Add a New Connection Pool (PostgreSQL) 
-   * @description For PostgreSQL database clusters, connection pools can be used to allow a
-   * database to share its idle connections. The popular PostgreSQL connection
-   * pooling utility PgBouncer is used to provide this service. [See here for more information](https://www.digitalocean.com/docs/databases/postgresql/how-to/manage-connection-pools/)
-   * about how and why to use PgBouncer connection pooling including
-   * details about the available transaction modes.
-   * 
-   * To add a new connection pool to a PostgreSQL database cluster, send a POST
-   * request to `/v2/databases/$DATABASE_ID/pools` specifying a name for the pool,
-   * the user to connect with, the database to connect to, as well as its desired
-   * size and transaction mode.
-   */
   "resources/databases/databases_add_connectionPool.yml": {
     /**
      * Add a New Connection Pool (PostgreSQL) 
@@ -3831,20 +3594,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Add a Database User 
-   * @description To add a new database user, send a POST request to `/v2/databases/$DATABASE_ID/users`
-   * with the desired username.
-   * 
-   * Note: User management is not supported for Redis clusters.
-   * 
-   * When adding a user to a MySQL cluster, additional options can be configured in the
-   * `mysql_settings` object.
-   * 
-   * The response will be a JSON object with a key called `user`. The value of this will be an
-   * object that contains the standard attributes associated with a database user including
-   * its randomly generated password.
-   */
   "resources/databases/databases_add_user.yml": {
     /**
      * Add a Database User 
@@ -3874,16 +3623,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Add a New Database 
-   * @description To add a new database to an existing cluster, send a POST request to
-   * `/v2/databases/$DATABASE_ID/dbs`.
-   * 
-   * Note: Database management is not supported for Redis clusters.
-   * 
-   * The response will be a JSON object with a key called `db`. The value of this will be
-   * an object that contains the standard attributes associated with a database.
-   */
   "resources/databases/databases_add.yml": {
     /**
      * Add a New Database 
@@ -3914,14 +3653,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Create a New Database Cluster 
-   * @description To create a database cluster, send a POST request to `/v2/databases`.
-   * The response will be a JSON object with a key called `database`. The value of this will be an object that contains the standard attributes associated with a database cluster. The initial value of the database cluster's `status` attribute will be `creating`. When the cluster is ready to receive traffic, this will transition to `online`.
-   * The embedded `connection` and `private_connection` objects will contain the information needed to access the database cluster.
-   * DigitalOcean managed PostgreSQL and MySQL database clusters take automated daily backups. To create a new database cluster based on a backup of an existing cluster, send a POST request to `/v2/databases`. In addition to the standard database cluster attributes, the JSON body must include a key named `backup_restore` with the name of the original database cluster and the timestamp of the backup to be restored. Creating a database from a backup is the same as forking a database in the control panel.
-   * Note: Backups are not supported for Redis clusters.
-   */
   "resources/databases/databases_create_cluster.yml": {
     /**
      * Create a New Database Cluster 
@@ -3947,12 +3678,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Create a Read-only Replica 
-   * @description To create a read-only replica for a PostgreSQL or MySQL database cluster, send a POST request to `/v2/databases/$DATABASE_ID/replicas` specifying the name it should be given, the size of the node to be used, and the region where it will be located.
-   * **Note**: Read-only replicas are not supported for Redis clusters.
-   * The response will be a JSON object with a key called `replica`. The value of this will be an object that contains the standard attributes associated with a database replica. The initial value of the read-only replica's `status` attribute will be `forking`. When the replica is ready to receive traffic, this will transition to `active`.
-   */
   "resources/databases/databases_create_replica.yml": {
     /**
      * Create a Read-only Replica 
@@ -3981,14 +3706,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Connection Pool (PostgreSQL) 
-   * @description To delete a specific connection pool for a PostgreSQL database cluster, send
-   * a DELETE request to `/v2/databases/$DATABASE_ID/pools/$POOL_NAME`.
-   * 
-   * A status of 204 will be given. This indicates that the request was processed
-   * successfully, but that no response body is needed.
-   */
   "resources/databases/databases_delete_connectionPool.yml": {
     /**
      * Delete a Connection Pool (PostgreSQL) 
@@ -4007,12 +3724,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Stop an Online Migration 
-   * @description To stop an online migration, send a DELETE request to `/v2/databases/$DATABASE_ID/online-migration/$MIGRATION_ID`.
-   * 
-   * A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
-   */
   "resources/databases/databases_delete_onlineMigration.yml": {
     /**
      * Stop an Online Migration 
@@ -4029,16 +3740,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Remove a Database User 
-   * @description To remove a specific database user, send a DELETE request to
-   * `/v2/databases/$DATABASE_ID/users/$USERNAME`.
-   * 
-   * A status of 204 will be given. This indicates that the request was processed
-   * successfully, but that no response body is needed.
-   * 
-   * Note: User management is not supported for Redis clusters.
-   */
   "resources/databases/databases_delete_user.yml": {
     /**
      * Remove a Database User 
@@ -4059,16 +3760,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Database 
-   * @description To delete a specific database, send a DELETE request to
-   * `/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.
-   * 
-   * A status of 204 will be given. This indicates that the request was processed
-   * successfully, but that no response body is needed.
-   * 
-   * Note: Database management is not supported for Redis clusters.
-   */
   "resources/databases/databases_delete.yml": {
     /**
      * Delete a Database 
@@ -4089,11 +3780,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Destroy a Database Cluster 
-   * @description To destroy a specific database, send a DELETE request to `/v2/databases/$DATABASE_ID`.
-   * A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
-   */
   "resources/databases/databases_destroy_cluster.yml": {
     /**
      * Destroy a Database Cluster 
@@ -4109,12 +3795,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Destroy a Read-only Replica 
-   * @description To destroy a specific read-only replica, send a DELETE request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.
-   * **Note**: Read-only replicas are not supported for Redis clusters.
-   * A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
-   */
   "resources/databases/databases_destroy_replica.yml": {
     /**
      * Destroy a Read-only Replica 
@@ -4131,14 +3811,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve the Public Certificate 
-   * @description To retrieve the public certificate used to secure the connection to the database cluster send a GET request to
-   * `/v2/databases/$DATABASE_ID/ca`.
-   * 
-   * The response will be a JSON object with a `ca` key. This will be set to an object
-   * containing the base64 encoding of the public key certificate.
-   */
   "resources/databases/databases_get_ca.yml": {
     /**
      * Retrieve the Public Certificate 
@@ -4157,13 +3829,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Database Cluster 
-   * @description To show information about an existing database cluster, send a GET request to `/v2/databases/$DATABASE_ID`.
-   * The response will be a JSON object with a database key. This will be set to an object containing the standard database cluster attributes.
-   * The embedded connection and private_connection objects will contain the information needed to access the database cluster.
-   * The embedded maintenance_window object will contain information about any scheduled maintenance for the database cluster.
-   */
   "resources/databases/databases_get_cluster.yml": {
     /**
      * Retrieve an Existing Database Cluster 
@@ -4181,13 +3846,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Database Cluster Configuration 
-   * @description Shows configuration parameters for an existing database cluster by sending a GET request to
-   * `/v2/databases/$DATABASE_ID/config`.
-   * The response is a JSON object with a `config` key, which is set to an object
-   * containing any database configuration parameters.
-   */
   "resources/databases/databases_get_config.yml": {
     /**
      * Retrieve an Existing Database Cluster Configuration 
@@ -4205,11 +3863,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve Existing Connection Pool (PostgreSQL) 
-   * @description To show information about an existing connection pool for a PostgreSQL database cluster, send a GET request to `/v2/databases/$DATABASE_ID/pools/$POOL_NAME`.
-   * The response will be a JSON object with a `pool` key.
-   */
   "resources/databases/databases_get_connectionPool.yml": {
     /**
      * Retrieve Existing Connection Pool (PostgreSQL) 
@@ -4225,11 +3878,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve the Eviction Policy for a Redis Cluster 
-   * @description To retrieve the configured eviction policy for an existing Redis cluster, send a GET request to `/v2/databases/$DATABASE_ID/eviction_policy`.
-   * The response will be a JSON object with an `eviction_policy` key. This will be set to a string representing the eviction policy.
-   */
   "resources/databases/databases_get_evictionPolicy.yml": {
     /**
      * Retrieve the Eviction Policy for a Redis Cluster 
@@ -4245,10 +3893,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve the Status of an Online Migration 
-   * @description To retrieve the status of the most recent online migration, send a GET request to `/v2/databases/$DATABASE_ID/online-migration`.
-   */
   "resources/databases/databases_get_migrationStatus.yml": {
     /**
      * Retrieve the Status of an Online Migration 
@@ -4263,12 +3907,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Read-only Replica 
-   * @description To show information about an existing database replica, send a GET request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.
-   * **Note**: Read-only replicas are not supported for Redis clusters.
-   * The response will be a JSON object with a `replica key`. This will be set to an object containing the standard database replica attributes.
-   */
   "resources/databases/databases_get_replica.yml": {
     /**
      * Retrieve an Existing Read-only Replica 
@@ -4285,11 +3923,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve the SQL Modes for a MySQL Cluster 
-   * @description To retrieve the configured SQL modes for an existing MySQL cluster, send a GET request to `/v2/databases/$DATABASE_ID/sql_mode`.
-   * The response will be a JSON object with a `sql_mode` key. This will be set to a string representing the configured SQL modes.
-   */
   "resources/databases/databases_get_sql_mode.yml": {
     /**
      * Retrieve the SQL Modes for a MySQL Cluster 
@@ -4305,19 +3938,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Database User 
-   * @description To show information about an existing database user, send a GET request to
-   * `/v2/databases/$DATABASE_ID/users/$USERNAME`.
-   * 
-   * Note: User management is not supported for Redis clusters.
-   * 
-   * The response will be a JSON object with a `user` key. This will be set to an object
-   * containing the standard database user attributes.
-   * 
-   * For MySQL clusters, additional options will be contained in the mysql_settings
-   * object.
-   */
   "resources/databases/databases_get_user.yml": {
     /**
      * Retrieve an Existing Database User 
@@ -4341,16 +3961,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Database 
-   * @description To show information about an existing database cluster, send a GET request to
-   * `/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.
-   * 
-   * Note: Database management is not supported for Redis clusters.
-   * 
-   * The response will be a JSON object with a `db` key. This will be set to an object
-   * containing the standard database attributes.
-   */
   "resources/databases/databases_get.yml": {
     /**
      * Retrieve an Existing Database 
@@ -4371,12 +3981,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Backups for a Database Cluster 
-   * @description To list all of the available backups of a PostgreSQL or MySQL database cluster, send a GET request to `/v2/databases/$DATABASE_ID/backups`.
-   * **Note**: Backups are not supported for Redis clusters.
-   * The result will be a JSON object with a `backups key`. This will be set to an array of backup objects, each of which will contain the size of the backup and the timestamp at which it was created.
-   */
   "resources/databases/databases_list_backups.yml": {
     /**
      * List Backups for a Database Cluster 
@@ -4393,13 +3997,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Database Clusters 
-   * @description To list all of the database clusters available on your account, send a GET request to `/v2/databases`. To limit the results to database clusters with a specific tag, include the `tag_name` query parameter set to the name of the tag. For example, `/v2/databases?tag_name=$TAG_NAME`.
-   * The result will be a JSON object with a `databases` key. This will be set to an array of database objects, each of which will contain the standard database attributes.
-   * The embedded `connection` and `private_connection` objects will contain the information needed to access the database cluster:
-   * The embedded `maintenance_window` object will contain information about any scheduled maintenance for the database cluster.
-   */
   "resources/databases/databases_list_clusters.yml": {
     /**
      * List All Database Clusters 
@@ -4417,11 +4014,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Connection Pools (PostgreSQL) 
-   * @description To list all of the connection pools available to a PostgreSQL database cluster, send a GET request to `/v2/databases/$DATABASE_ID/pools`.
-   * The result will be a JSON object with a `pools` key. This will be set to an array of connection pool objects.
-   */
   "resources/databases/databases_list_connectionPools.yml": {
     /**
      * List Connection Pools (PostgreSQL) 
@@ -4437,11 +4029,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Firewall Rules (Trusted Sources) for a Database Cluster 
-   * @description To list all of a database cluster's firewall rules (known as "trusted sources" in the control panel), send a GET request to `/v2/databases/$DATABASE_ID/firewall`.
-   * The result will be a JSON object with a `rules` key.
-   */
   "resources/databases/databases_list_firewall_rules.yml": {
     /**
      * List Firewall Rules (Trusted Sources) for a Database Cluster 
@@ -4457,11 +4044,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Database Options 
-   * @description To list all of the options available for the offered database engines, send a GET request to `/v2/databases/options`.
-   * The result will be a JSON object with an `options` key.
-   */
   "resources/databases/databases_list_options.yml": {
     /**
      * List Database Options 
@@ -4477,12 +4059,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Read-only Replicas 
-   * @description To list all of the read-only replicas associated with a database cluster, send a GET request to `/v2/databases/$DATABASE_ID/replicas`.
-   * **Note**: Read-only replicas are not supported for Redis clusters.
-   * The result will be a JSON object with a `replicas` key. This will be set to an array of database replica objects, each of which will contain the standard database replica attributes.
-   */
   "resources/databases/databases_list_replicas.yml": {
     /**
      * List All Read-only Replicas 
@@ -4499,18 +4075,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List all Database Users 
-   * @description To list all of the users for your database cluster, send a GET request to
-   * `/v2/databases/$DATABASE_ID/users`.
-   * 
-   * Note: User management is not supported for Redis clusters.
-   * 
-   * The result will be a JSON object with a `users` key. This will be set to an array
-   * of database user objects, each of which will contain the standard database user attributes.
-   * 
-   * For MySQL clusters, additional options will be contained in the mysql_settings object.
-   */
   "resources/databases/databases_list_users.yml": {
     /**
      * List all Database Users 
@@ -4533,16 +4097,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Databases 
-   * @description To list all of the databases in a clusters, send a GET request to
-   * `/v2/databases/$DATABASE_ID/dbs`.
-   * 
-   * The result will be a JSON object with a `dbs` key. This will be set to an array
-   * of database objects, each of which will contain the standard database attributes.
-   * 
-   * Note: Database management is not supported for Redis clusters.
-   */
   "resources/databases/databases_list.yml": {
     /**
      * List All Databases 
@@ -4563,11 +4117,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update the Database Configuration for an Existing Database 
-   * @description To update the configuration for an existing database cluster, send a PATCH request to
-   * `/v2/databases/$DATABASE_ID/config`.
-   */
   "resources/databases/databases_patch_config.yml": {
     /**
      * Update the Database Configuration for an Existing Database 
@@ -4596,18 +4145,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Reset a Database User's Password or Authentication Method 
-   * @description To reset the password for a database user, send a POST request to
-   * `/v2/databases/$DATABASE_ID/users/$USERNAME/reset_auth`.
-   * 
-   * For `mysql` databases, the authentication method can be specifying by
-   * including a key in the JSON body called `mysql_settings` with the `auth_plugin`
-   * value specified.
-   * 
-   * The response will be a JSON object with a `user` key. This will be set to an
-   * object containing the standard database user attributes.
-   */
   "resources/databases/databases_reset_auth.yml": {
     /**
      * Reset a Database User's Password or Authentication Method 
@@ -4644,11 +4181,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Resize a Database Cluster 
-   * @description To resize a database cluster, send a PUT request to `/v2/databases/$DATABASE_ID/resize`. The body of the request must specify both the size and num_nodes attributes.
-   * A successful request will receive a 202 Accepted status code with no body in response. Querying the database cluster will show that its status attribute will now be set to resizing. This will transition back to online when the resize operation has completed.
-   */
   "resources/databases/databases_update_clusterSize.yml": {
     /**
      * Resize a Database Cluster 
@@ -4675,10 +4207,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Configure the Eviction Policy for a Redis Cluster 
-   * @description To configure an eviction policy for an existing Redis cluster, send a PUT request to `/v2/databases/$DATABASE_ID/eviction_policy` specifying the desired policy.
-   */
   "resources/databases/databases_update_evictionPolicy.yml": {
     /**
      * Configure the Eviction Policy for a Redis Cluster 
@@ -4705,11 +4233,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update Firewall Rules (Trusted Sources) for a Database 
-   * @description To update a database cluster's firewall rules (known as "trusted sources" in the control panel), send a PUT request to `/v2/databases/$DATABASE_ID/firewall` specifying which resources should be able to open connections to the database. You may limit connections to specific Droplets, Kubernetes clusters, or IP addresses. When a tag is provided, any Droplet or Kubernetes node with that tag applied to it will have access. The firewall is limited to 100 rules (or trusted sources). When possible, we recommend [placing your databases into a VPC network](https://www.digitalocean.com/docs/networking/vpc/) to limit access to them instead of using a firewall.
-   * A successful
-   */
   "resources/databases/databases_update_firewall_rules.yml": {
     /**
      * Update Firewall Rules (Trusted Sources) for a Database 
@@ -4754,11 +4277,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Configure a Database Cluster's Maintenance Window 
-   * @description To configure the window when automatic maintenance should be performed for a database cluster, send a PUT request to `/v2/databases/$DATABASE_ID/maintenance`.
-   * A successful request will receive a 204 No Content status code with no body in response.
-   */
   "resources/databases/databases_update_maintenanceWindow.yml": {
     /**
      * Configure a Database Cluster's Maintenance Window 
@@ -4785,10 +4303,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Start an Online Migration 
-   * @description To start an online migration, send a PUT request to `/v2/databases/$DATABASE_ID/online-migration` endpoint. Migrating a cluster establishes a connection with an existing cluster and replicates its contents to the target cluster. Online migration is only available for MySQL, PostgreSQL, and Redis clusters.
-   */
   "resources/databases/databases_update_onlineMigration.yml": {
     /**
      * Start an Online Migration 
@@ -4820,17 +4334,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Migrate a Database Cluster to a New Region 
-   * @description To migrate a database cluster to a new region, send a `PUT` request to
-   * `/v2/databases/$DATABASE_ID/migrate`. The body of the request must specify a
-   * `region` attribute.
-   * 
-   * A successful request will receive a 202 Accepted status code with no body in
-   * response. Querying the database cluster will show that its `status` attribute
-   * will now be set to `migrating`. This will transition back to `online` when the
-   * migration has completed.
-   */
   "resources/databases/databases_update_region.yml": {
     /**
      * Migrate a Database Cluster to a New Region 
@@ -4863,11 +4366,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update SQL Mode for a Cluster 
-   * @description To configure the SQL modes for an existing MySQL cluster, send a PUT request to `/v2/databases/$DATABASE_ID/sql_mode` specifying the desired modes. See the official MySQL 8 documentation for a [full list of supported SQL modes](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sql-mode-full).
-   * A successful request will receive a 204 No Content status code with no body in response.
-   */
   "resources/databases/databases_update_sql_mode.yml": {
     /**
      * Update SQL Mode for a Cluster 
@@ -6048,17 +5546,6 @@ export interface external {
       };
     };
   }
-  /**
-   * Create a New Domain Record 
-   * @description To create a new record to a domain, send a POST request to
-   * `/v2/domains/$DOMAIN_NAME/records`.
-   * 
-   * The request must include all of the required fields for the domain record type
-   * being added.
-   * 
-   * See the [attribute table](#tag/Domain-Records) for details regarding record
-   * types and their respective required attributes.
-   */
   "resources/domains/domains_create_record.yml": {
     /**
      * Create a New Domain Record 
@@ -6098,13 +5585,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Create a New Domain 
-   * @description To create a new domain, send a POST request to `/v2/domains`. Set the "name"
-   * attribute to the domain name you are adding. Optionally, you may set the
-   * "ip_address" attribute, and an A record will be automatically created pointing
-   * to the apex domain.
-   */
   "resources/domains/domains_create.yml": {
     /**
      * Create a New Domain 
@@ -6131,14 +5611,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Domain Record 
-   * @description To delete a record for a domain, send a DELETE request to
-   * `/v2/domains/$DOMAIN_NAME/records/$DOMAIN_RECORD_ID`.
-   * 
-   * The record will be deleted and the response status will be a 204. This
-   * indicates a successful request with no body returned.
-   */
   "resources/domains/domains_delete_record.yml": {
     /**
      * Delete a Domain Record 
@@ -6157,10 +5629,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Domain 
-   * @description To delete a domain, send a DELETE request to `/v2/domains/$DOMAIN_NAME`.
-   */
   "resources/domains/domains_delete.yml": {
     /**
      * Delete a Domain 
@@ -6175,10 +5643,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Domain Record 
-   * @description To retrieve a specific domain record, send a GET request to `/v2/domains/$DOMAIN_NAME/records/$RECORD_ID`.
-   */
   "resources/domains/domains_get_record.yml": {
     /**
      * Retrieve an Existing Domain Record 
@@ -6193,10 +5657,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Domain 
-   * @description To get details about a specific domain, send a GET request to `/v2/domains/$DOMAIN_NAME`.
-   */
   "resources/domains/domains_get.yml": {
     /**
      * Retrieve an Existing Domain 
@@ -6211,11 +5671,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Domain Records 
-   * @description To get a listing of all records configured for a domain, send a GET request to `/v2/domains/$DOMAIN_NAME/records`.
-   * The list of records returned can be filtered by using the `name` and `type` query parameters. For example, to only include A records for a domain, send a GET request to `/v2/domains/$DOMAIN_NAME/records?type=A`. `name` must be a fully qualified record name. For example, to only include records matching `sub.example.com`, send a GET request to `/v2/domains/$DOMAIN_NAME/records?name=sub.example.com`. Both name and type may be used together.
-   */
   "resources/domains/domains_list_records.yml": {
     /**
      * List All Domain Records 
@@ -6231,10 +5686,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Domains 
-   * @description To retrieve a list of all of the domains in your account, send a GET request to `/v2/domains`.
-   */
   "resources/domains/domains_list.yml": {
     /**
      * List All Domains 
@@ -6248,15 +5699,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update a Domain Record 
-   * @description To update an existing record, send a PATCH request to
-   * `/v2/domains/$DOMAIN_NAME/records/$DOMAIN_RECORD_ID`. Any attribute valid for
-   * the record type can be set to a new value for the record.
-   * 
-   * See the [attribute table](#tag/Domain-Records) for details regarding record
-   * types and their respective attributes.
-   */
   "resources/domains/domains_patch_record.yml": {
     /**
      * Update a Domain Record 
@@ -6287,15 +5729,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update a Domain Record 
-   * @description To update an existing record, send a PUT request to
-   * `/v2/domains/$DOMAIN_NAME/records/$DOMAIN_RECORD_ID`. Any attribute valid for
-   * the record type can be set to a new value for the record.
-   * 
-   * See the [attribute table](#tag/Domain-Records) for details regarding record
-   * types and their respective attributes.
-   */
   "resources/domains/domains_update_record.yml": {
     /**
      * Update a Domain Record 
@@ -6482,14 +5915,6 @@ export interface external {
       };
     };
   }
-  /**
-   * Retrieve a Droplet Action 
-   * @description To retrieve a Droplet action, send a GET request to
-   * `/v2/droplets/$DROPLET_ID/actions/$ACTION_ID`.
-   * 
-   * The response will be a JSON object with a key called `action`. The value will
-   * be a Droplet action object.
-   */
   "resources/droplets/dropletActions_get.yml": {
     /**
      * Retrieve a Droplet Action 
@@ -6508,15 +5933,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Actions for a Droplet 
-   * @description To retrieve a list of all actions that have been executed for a Droplet, send
-   * a GET request to `/v2/droplets/$DROPLET_ID/actions`.
-   * 
-   * The results will be returned as a JSON object with an `actions` key. This will
-   * be set to an array filled with `action` objects containing the standard
-   * `action` attributes.
-   */
   "resources/droplets/dropletActions_list.yml": {
     /**
      * List Actions for a Droplet 
@@ -6536,23 +5952,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Acting on Tagged Droplets 
-   * @description Some actions can be performed in bulk on tagged Droplets. The actions can be
-   * initiated by sending a POST to `/v2/droplets/actions?tag_name=$TAG_NAME` with
-   * the action arguments.
-   * 
-   * Only a sub-set of action types are supported:
-   * 
-   * - `power_cycle`
-   * - `power_on`
-   * - `power_off`
-   * - `shutdown`
-   * - `enable_ipv6`
-   * - `enable_backups`
-   * - `disable_backups`
-   * - `snapshot`
-   */
   "resources/droplets/dropletActions_post_byTag.yml": {
     /**
      * Acting on Tagged Droplets 
@@ -6589,30 +5988,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Initiate a Droplet Action 
-   * @description To initiate an action on a Droplet send a POST request to
-   * `/v2/droplets/$DROPLET_ID/actions`. In the JSON body to the request,
-   * set the `type` attribute to on of the supported action types:
-   * 
-   * | Action                                   | Details |
-   * | ---------------------------------------- | ----------- |
-   * | <nobr>`enable_backups`</nobr>            | Enables backups for a Droplet |
-   * | <nobr>`disable_backups`</nobr>           | Disables backups for a Droplet |
-   * | <nobr>`reboot`</nobr>                    | Reboots a Droplet. A `reboot` action is an attempt to reboot the Droplet in a graceful way, similar to using the `reboot` command from the console. |
-   * | <nobr>`power_cycle`</nobr>               | Power cycles a Droplet. A `powercycle` action is similar to pushing the reset button on a physical machine, it's similar to booting from scratch. |
-   * | <nobr>`shutdown`</nobr>                  | Shutsdown a Droplet. A shutdown action is an attempt to shutdown the Droplet in a graceful way, similar to using the `shutdown` command from the console. Since a `shutdown` command can fail, this action guarantees that the command is issued, not that it succeeds. The preferred way to turn off a Droplet is to attempt a shutdown, with a reasonable timeout, followed by a `power_off` action to ensure the Droplet is off. |
-   * | <nobr>`power_off`</nobr>                 | Powers off a Droplet. A `power_off` event is a hard shutdown and should only be used if the `shutdown` action is not successful. It is similar to cutting the power on a server and could lead to complications. |
-   * | <nobr>`power_on`</nobr>                  | Powers on a Droplet. |
-   * | <nobr>`restore`</nobr>                   | Restore a Droplet using a backup image. The image ID that is passed in must be a backup of the current Droplet instance. The operation will leave any embedded SSH keys intact. |
-   * | <nobr>`password_reset`</nobr>            | Resets the root password for a Droplet. A new password will be provided via email. It must be changed after first use. |
-   * | <nobr>`resize`</nobr>                    | Resizes a Droplet. Set the `size` attribute to a size slug. If a permanent resize with disk changes included is desired, set the `disk` attribute to `true`. |
-   * | <nobr>`rebuild`</nobr>                   | Rebuilds a Droplet from a new base image. Set the `image` attribute to an image ID or slug. |
-   * | <nobr>`rename`</nobr>                    | Renames a Droplet. |
-   * | <nobr>`change_kernel`</nobr>             | Changes a Droplet's kernel. Only applies to Droplets with externally managed kernels. All Droplets created after March 2017 use internal kernels by default. |
-   * | <nobr>`enable_ipv6`</nobr>               | Enables IPv6 for a Droplet. |
-   * | <nobr>`snapshot`</nobr>                  | Takes a snapshot of a Droplet. |
-   */
   "resources/droplets/dropletActions_post.yml": {
     /**
      * Initiate a Droplet Action 
@@ -6657,34 +6032,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Create a New Droplet 
-   * @description To create a new Droplet, send a POST request to `/v2/droplets` setting the
-   * required attributes.
-   * 
-   * A Droplet will be created using the provided information. The response body
-   * will contain a JSON object with a key called `droplet`. The value will be an
-   * object containing the standard attributes for your new Droplet. The response
-   * code, 202 Accepted, does not indicate the success or failure of the operation,
-   * just that the request has been accepted for processing. The `actions` returned
-   * as part of the response's `links` object can be used to check the status
-   * of the Droplet create event.
-   * 
-   * ### Create Multiple Droplets
-   * 
-   * Creating multiple Droplets is very similar to creating a single Droplet.
-   * Instead of sending `name` as a string, send `names` as an array of strings. A
-   * Droplet will be created for each name you send using the associated
-   * information. Up to ten Droplets may be created this way at a time.
-   * 
-   * Rather than returning a single Droplet, the response body will contain a JSON
-   * array with a key called `droplets`. This will be set to an array of JSON
-   * objects, each of which will contain the standard Droplet attributes. The
-   * response code, 202 Accepted, does not indicate the success or failure of any
-   * operation, just that the request has been accepted for processing. The array
-   * of `actions` returned as part of the response's `links` object can be used to
-   * check the status of each individual Droplet create event.
-   */
   "resources/droplets/droplets_create.yml": {
     /**
      * Create a New Droplet 
@@ -6727,15 +6074,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Deleting Droplets by Tag 
-   * @description To delete **all** Droplets assigned to a specific tag, include the `tag_name`
-   * query parameter set to the name of the tag in your DELETE request. For
-   * example,  `/v2/droplets?tag_name=$TAG_NAME`.
-   * 
-   * A successful request will receive a 204 status code with no body in response.
-   * This indicates that the request was processed successfully.
-   */
   "resources/droplets/droplets_destroy_byTag.yml": {
     /**
      * Deleting Droplets by Tag 
@@ -6755,17 +6093,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retry a Droplet Destroy with Associated Resources Request 
-   * @description If the status of a request to destroy a Droplet with its associated resources
-   * reported any errors, it can be retried by sending a POST request to the
-   * `/v2/droplets/$DROPLET_ID/destroy_with_associated_resources/retry` endpoint.
-   * 
-   * Only one destroy can be active at a time per Droplet. If a retry is issued
-   * while another destroy is in progress for the Droplet a 409 status code will
-   * be returned. A successful response will include a 202 response code and no
-   * content.
-   */
   "resources/droplets/droplets_destroy_retryWithAssociatedResources.yml": {
     /**
      * Retry a Droplet Destroy with Associated Resources Request 
@@ -6788,19 +6115,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Destroy a Droplet and All of its Associated Resources (Dangerous) 
-   * @description To destroy a Droplet along with all of its associated resources, send a DELETE
-   * request to the `/v2/droplets/$DROPLET_ID/destroy_with_associated_resources/dangerous`
-   * endpoint. The headers of this request must include an `X-Dangerous` key set to
-   * `true`. To preview which resources will be destroyed, first query the
-   * Droplet's associated resources. This operation _can not_ be reverse and should
-   * be used with caution.
-   * 
-   * A successful response will include a 202 response code and no content. Use the
-   * status endpoint to check on the success or failure of the destruction of the
-   * individual resources.
-   */
   "resources/droplets/droplets_destroy_withAssociatedResourcesDangerous.yml": {
     /**
      * Destroy a Droplet and All of its Associated Resources (Dangerous) 
@@ -6824,20 +6138,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Selectively Destroy a Droplet and its Associated Resources 
-   * @description To destroy a Droplet along with a sub-set of its associated resources, send a
-   * DELETE request to the `/v2/droplets/$DROPLET_ID/destroy_with_associated_resources/selective`
-   * endpoint. The JSON body of the request should include `reserved_ips`, `snapshots`, `volumes`,
-   * or `volume_snapshots` keys each set to an array of IDs for the associated
-   * resources to be destroyed. The IDs can be found by querying the Droplet's
-   * associated resources. Any associated resource not included in the request
-   * will remain and continue to accrue changes on your account.
-   * 
-   * A successful response will include a 202 response code and no content. Use
-   * the status endpoint to check on the success or failure of the destruction of
-   * the individual resources.
-   */
   "resources/droplets/droplets_destroy_withAssociatedResourcesSelective.yml": {
     /**
      * Selectively Destroy a Droplet and its Associated Resources 
@@ -6867,13 +6167,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete an Existing Droplet 
-   * @description To delete a Droplet, send a DELETE request to `/v2/droplets/$DROPLET_ID`.
-   * 
-   * A successful request will receive a 204 status code with no body in response.
-   * This indicates that the request was processed successfully.
-   */
   "resources/droplets/droplets_destroy.yml": {
     /**
      * Delete an Existing Droplet 
@@ -6891,12 +6184,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Check Status of a Droplet Destroy with Associated Resources Request 
-   * @description To check on the status of a request to destroy a Droplet with its associated
-   * resources, send a GET request to the
-   * `/v2/droplets/$DROPLET_ID/destroy_with_associated_resources/status` endpoint.
-   */
   "resources/droplets/droplets_get_destroyAssociatedResourcesStatus.yml": {
     /**
      * Check Status of a Droplet Destroy with Associated Resources Request 
@@ -6913,11 +6200,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Droplet 
-   * @description To show information about an individual Droplet, send a GET request to
-   * `/v2/droplets/$DROPLET_ID`.
-   */
   "resources/droplets/droplets_get.yml": {
     /**
      * Retrieve an Existing Droplet 
@@ -6933,16 +6215,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Associated Resources for a Droplet 
-   * @description To list the associated billable resources that can be destroyed along with a
-   * Droplet, send a GET request to the
-   * `/v2/droplets/$DROPLET_ID/destroy_with_associated_resources` endpoint.
-   * 
-   * The response will be a JSON object containing `snapshots`, `volumes`, and
-   * `volume_snapshots` keys. Each will be set to an array of objects containing
-   * information about the associated resources.
-   */
   "resources/droplets/droplets_list_associatedResources.yml": {
     /**
      * List Associated Resources for a Droplet 
@@ -6963,15 +6235,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Backups for a Droplet 
-   * @description To retrieve any backups associated with a Droplet, send a GET request to
-   * `/v2/droplets/$DROPLET_ID/backups`.
-   * 
-   * You will get back a JSON object that has a `backups` key. This will be set to
-   * an array of backup objects, each of which contain the standard
-   * Droplet backup attributes.
-   */
   "resources/droplets/droplets_list_backups.yml": {
     /**
      * List Backups for a Droplet 
@@ -6991,15 +6254,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List all Firewalls Applied to a Droplet 
-   * @description To retrieve a list of all firewalls available to a Droplet, send a GET request
-   * to `/v2/droplets/$DROPLET_ID/firewalls`
-   * 
-   * The response will be a JSON object that has a key called `firewalls`. This will
-   * be set to an array of `firewall` objects, each of which contain the standard
-   * `firewall` attributes.
-   */
   "resources/droplets/droplets_list_firewalls.yml": {
     /**
      * List all Firewalls Applied to a Droplet 
@@ -7019,15 +6273,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Available Kernels for a Droplet 
-   * @description To retrieve a list of all kernels available to a Droplet, send a GET request
-   * to `/v2/droplets/$DROPLET_ID/kernels`
-   * 
-   * The response will be a JSON object that has a key called `kernels`. This will
-   * be set to an array of `kernel` objects, each of which contain the standard
-   * `kernel` attributes.
-   */
   "resources/droplets/droplets_list_kernels.yml": {
     /**
      * List All Available Kernels for a Droplet 
@@ -7047,17 +6292,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Neighbors for a Droplet 
-   * @description To retrieve a list of any "neighbors" (i.e. Droplets that are co-located on
-   * the same physical hardware) for a specific Droplet, send a GET request to
-   * `/v2/droplets/$DROPLET_ID/neighbors`.
-   * 
-   * The results will be returned as a JSON object with a key of `droplets`. This
-   * will be set to an array containing objects representing any other Droplets
-   * that share the same physical hardware. An empty array indicates that the
-   * Droplet is not co-located any other Droplets associated with your account.
-   */
   "resources/droplets/droplets_list_neighbors.yml": {
     /**
      * List Neighbors for a Droplet 
@@ -7079,17 +6313,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Droplet Neighbors 
-   * @description To retrieve a list of all Droplets that are co-located on the same physical
-   * hardware, send a GET request to `/v2/reports/droplet_neighbors_ids`.
-   * 
-   * The results will be returned as a JSON object with a key of `neighbor_ids`.
-   * This will be set to an array of arrays. Each array will contain a set of
-   * Droplet IDs for Droplets that share a physical server. An empty array
-   * indicates that all Droplets associated with your account are located on
-   * separate physical hardware.
-   */
   "resources/droplets/droplets_list_neighborsIds.yml": {
     /**
      * List All Droplet Neighbors 
@@ -7111,15 +6334,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Snapshots for a Droplet 
-   * @description To retrieve the snapshots that have been created from a Droplet, send a GET
-   * request to `/v2/droplets/$DROPLET_ID/snapshots`.
-   * 
-   * You will get back a JSON object that has a `snapshots` key. This will be set
-   * to an array of snapshot objects, each of which contain the standard Droplet
-   * snapshot attributes.
-   */
   "resources/droplets/droplets_list_snapshots.yml": {
     /**
      * List Snapshots for a Droplet 
@@ -7139,21 +6353,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Droplets 
-   * @description To list all Droplets in your account, send a GET request to `/v2/droplets`.
-   * 
-   * The response body will be a JSON object with a key of `droplets`. This will be
-   * set to an array containing objects each representing a Droplet. These will
-   * contain the standard Droplet attributes.
-   * 
-   * ### Filtering Results by Tag
-   * 
-   * It's possible to request filtered results by including certain query parameters.
-   * To only list Droplets assigned to a specific tag, include the `tag_name` query
-   * parameter set to the name of the tag in your GET request. For example,
-   * `/v2/droplets?tag_name=$TAG_NAME`.
-   */
   "resources/droplets/droplets_list.yml": {
     /**
      * List All Droplets 
@@ -7773,17 +6972,6 @@ export interface external {
       };
     };
   }
-  /**
-   * Add Rules to a Firewall 
-   * @description To add additional access rules to a firewall, send a POST request to
-   * `/v2/firewalls/$FIREWALL_ID/rules`. The body of the request may include an
-   * inbound_rules and/or outbound_rules attribute containing an array of rules to
-   * be added.
-   * 
-   * No response body will be sent back, but the response code will indicate
-   * success. Specifically, the response code will be a 204, which means that the
-   * action was successful with no returned body data.
-   */
   "resources/firewalls/firewalls_add_rules.yml": {
     /**
      * Add Rules to a Firewall 
@@ -7837,16 +7025,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Add Tags to a Firewall 
-   * @description To assign a tag representing a group of Droplets to a firewall, send a POST
-   * request to `/v2/firewalls/$FIREWALL_ID/tags`. In the body of the request,
-   * there should be a `tags` attribute containing a list of tag names.
-   * 
-   * No response body will be sent back, but the response code will indicate
-   * success. Specifically, the response code will be a 204, which means that the
-   * action was successful with no returned body data.
-   */
   "resources/firewalls/firewalls_add_tags.yml": {
     /**
      * Add Tags to a Firewall 
@@ -7882,16 +7060,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Add Droplets to a Firewall 
-   * @description To assign a Droplet to a firewall, send a POST request to
-   * `/v2/firewalls/$FIREWALL_ID/droplets`. In the body of the request, there
-   * should be a `droplet_ids` attribute containing a list of Droplet IDs.
-   * 
-   * No response body will be sent back, but the response code will indicate
-   * success. Specifically, the response code will be a 204, which means that the
-   * action was successful with no returned body data.
-   */
   "resources/firewalls/firewalls_assign_droplets.yml": {
     /**
      * Add Droplets to a Firewall 
@@ -7933,11 +7101,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Create a New Firewall 
-   * @description To create a new firewall, send a POST request to `/v2/firewalls`. The request
-   * must contain at least one inbound or outbound access rule.
-   */
   "resources/firewalls/firewalls_create.yml": {
     /**
      * Create a New Firewall 
@@ -8001,16 +7164,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Remove Droplets from a Firewall 
-   * @description To remove a Droplet from a firewall, send a DELETE request to
-   * `/v2/firewalls/$FIREWALL_ID/droplets`. In the body of the request, there should
-   * be a `droplet_ids` attribute containing a list of Droplet IDs.
-   * 
-   * No response body will be sent back, but the response code will indicate
-   * success. Specifically, the response code will be a 204, which means that the
-   * action was successful with no returned body data.
-   */
   "resources/firewalls/firewalls_delete_droplets.yml": {
     /**
      * Remove Droplets from a Firewall 
@@ -8052,17 +7205,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Remove Rules from a Firewall 
-   * @description To remove access rules from a firewall, send a DELETE request to
-   * `/v2/firewalls/$FIREWALL_ID/rules`. The body of the request may include an
-   * `inbound_rules` and/or `outbound_rules` attribute containing an array of rules
-   * to be removed.
-   * 
-   * No response body will be sent back, but the response code will indicate
-   * success. Specifically, the response code will be a 204, which means that the
-   * action was successful with no returned body data.
-   */
   "resources/firewalls/firewalls_delete_rules.yml": {
     /**
      * Remove Rules from a Firewall 
@@ -8116,16 +7258,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Remove Tags from a Firewall 
-   * @description To remove a tag representing a group of Droplets from a firewall, send a
-   * DELETE request to `/v2/firewalls/$FIREWALL_ID/tags`. In the body of the
-   * request, there should be a `tags` attribute containing a list of tag names.
-   * 
-   * No response body will be sent back, but the response code will indicate
-   * success. Specifically, the response code will be a 204, which means that the
-   * action was successful with no returned body data.
-   */
   "resources/firewalls/firewalls_delete_tags.yml": {
     /**
      * Remove Tags from a Firewall 
@@ -8161,14 +7293,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Firewall 
-   * @description To delete a firewall send a DELETE request to `/v2/firewalls/$FIREWALL_ID`.
-   * 
-   * No response body will be sent back, but the response code will indicate
-   * success. Specifically, the response code will be a 204, which means that the
-   * action was successful with no returned body data.
-   */
   "resources/firewalls/firewalls_delete.yml": {
     /**
      * Delete a Firewall 
@@ -8187,10 +7311,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Firewall 
-   * @description To show information about an existing firewall, send a GET request to `/v2/firewalls/$FIREWALL_ID`.
-   */
   "resources/firewalls/firewalls_get.yml": {
     /**
      * Retrieve an Existing Firewall 
@@ -8205,10 +7325,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Firewalls 
-   * @description To list all of the firewalls available on your account, send a GET request to `/v2/firewalls`.
-   */
   "resources/firewalls/firewalls_list.yml": {
     /**
      * List All Firewalls 
@@ -8222,13 +7338,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update a Firewall 
-   * @description To update the configuration of an existing firewall, send a PUT request to
-   * `/v2/firewalls/$FIREWALL_ID`. The request should contain a full representation
-   * of the firewall including existing attributes. **Note that any attributes that
-   * are not provided will be reset to their default values.**
-   */
   "resources/firewalls/firewalls_update.yml": {
     /**
      * Update a Firewall 
@@ -8398,17 +7507,6 @@ export interface external {
       };
     };
   }
-  /**
-   * Create a New Floating IP 
-   * @description On creation, a floating IP must be either assigned to a Droplet or reserved to a region.
-   * * To create a new floating IP assigned to a Droplet, send a POST
-   *   request to `/v2/floating_ips` with the `droplet_id` attribute.
-   * 
-   * * To create a new floating IP reserved to a region, send a POST request to
-   *   `/v2/floating_ips` with the `region` attribute.
-   * 
-   * **Note**:  In addition to the standard rate limiting, only 12 floating IPs may be created per 60 seconds.
-   */
   "resources/floating_ips/floatingIPs_create.yml": {
     /**
      * Create a New Floating IP 
@@ -8434,14 +7532,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Floating IPs 
-   * @description To delete a floating IP and remove it from your account, send a DELETE request
-   * to `/v2/floating_ips/$FLOATING_IP_ADDR`.
-   * 
-   * A successful request will receive a 204 status code with no body in response.
-   * This indicates that the request was processed successfully.
-   */
   "resources/floating_ips/floatingIPs_delete.yml": {
     /**
      * Delete a Floating IPs 
@@ -8460,10 +7550,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Floating IP 
-   * @description To show information about a floating IP, send a GET request to `/v2/floating_ips/$FLOATING_IP_ADDR`.
-   */
   "resources/floating_ips/floatingIPs_get.yml": {
     /**
      * Retrieve an Existing Floating IP 
@@ -8478,10 +7564,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Floating IPs 
-   * @description To list all of the floating IPs available on your account, send a GET request to `/v2/floating_ips`.
-   */
   "resources/floating_ips/floatingIPs_list.yml": {
     /**
      * List All Floating IPs 
@@ -8495,10 +7577,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Floating IP Action 
-   * @description To retrieve the status of a floating IP action, send a GET request to `/v2/floating_ips/$FLOATING_IP/actions/$ACTION_ID`.
-   */
   "resources/floating_ips/floatingIPsAction_get.yml": {
     /**
      * Retrieve an Existing Floating IP Action 
@@ -8513,10 +7591,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Actions for a Floating IP 
-   * @description To retrieve all actions that have been executed on a floating IP, send a GET request to `/v2/floating_ips/$FLOATING_IP/actions`.
-   */
   "resources/floating_ips/floatingIPsAction_list.yml": {
     /**
      * List All Actions for a Floating IP 
@@ -8531,17 +7605,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Initiate a Floating IP Action 
-   * @description To initiate an action on a floating IP send a POST request to
-   * `/v2/floating_ips/$FLOATING_IP/actions`. In the JSON body to the request,
-   * set the `type` attribute to on of the supported action types:
-   * 
-   * | Action     | Details
-   * |------------|--------
-   * | `assign`   | Assigns a floating IP to a Droplet
-   * | `unassign` | Unassign a floating IP from a Droplet
-   */
   "resources/floating_ips/floatingIPsAction_post.yml": {
     /**
      * Initiate a Floating IP Action 
@@ -8690,10 +7753,6 @@ export interface external {
       };
     };
   }
-  /**
-   * Create Namespace 
-   * @description Creates a new serverless functions namespace in the desired region and associates it with the provided label. A namespace is a collection of functions and their associated packages, triggers, and project specifications. To create a namespace, send a POST request to `/v2/functions/namespaces` with the `region` and `label` properties.
-   */
   "resources/functions/functions_create_namespace.yml": {
     /**
      * Create Namespace 
@@ -8714,12 +7773,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete Namespace 
-   * @description Deletes the given namespace.  When a namespace is deleted all assets, in the namespace are deleted, this includes packages, functions and triggers. Deleting a namespace is a destructive operation and assets in the namespace are not recoverable after deletion. Some metadata is retained, such as activations, or soft deleted for reporting purposes.
-   * To delete namespace, send a DELETE request to `/v2/functions/namespaces/$NAMESPACE_ID`.
-   * A successful deletion returns a 204 response.
-   */
   "resources/functions/functions_delete_namespace.yml": {
     /**
      * Delete Namespace 
@@ -8736,10 +7789,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Get Namespace 
-   * @description Gets the namespace details for the given namespace UUID. To get namespace details, send a GET request to `/v2/functions/namespaces/$NAMESPACE_ID` with no parameters.
-   */
   "resources/functions/functions_get_namespace.yml": {
     /**
      * Get Namespace 
@@ -8755,10 +7804,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Namespaces 
-   * @description Returns a list of namespaces associated with the current user. To get all namespaces, send a GET request to `/v2/functions/namespaces`.
-   */
   "resources/functions/functions_list_namespaces.yml": {
     /**
      * List Namespaces 
@@ -8893,10 +7938,6 @@ export interface external {
     };
   }
   "resources/images/attributes.yml": Record<string, never>
-  /**
-   * Retrieve an Existing Action 
-   * @description To retrieve the status of an image action, send a GET request to `/v2/images/$IMAGE_ID/actions/$IMAGE_ACTION_ID`.
-   */
   "resources/images/imageActions_get.yml": {
     /**
      * Retrieve an Existing Action 
@@ -8911,10 +7952,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Actions for an Image 
-   * @description To retrieve all actions that have been executed on an image, send a GET request to `/v2/images/$IMAGE_ID/actions`.
-   */
   "resources/images/imageActions_list.yml": {
     /**
      * List All Actions for an Image 
@@ -8929,22 +7966,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Initiate an Image Action 
-   * @description The following actions are available on an Image.
-   * 
-   * ## Convert an Image to a Snapshot
-   * 
-   * To convert an image, for example, a backup to a snapshot, send a POST request
-   * to `/v2/images/$IMAGE_ID/actions`. Set the `type` attribute to `convert`.
-   * 
-   * ## Transfer an Image
-   * 
-   * To transfer an image to another region, send a POST request to
-   * `/v2/images/$IMAGE_ID/actions`. Set the `type` attribute to `transfer` and set
-   * `region` attribute to the slug identifier of the region you wish to transfer
-   * to.
-   */
   "resources/images/imageActions_post.yml": {
     /**
      * Initiate an Image Action 
@@ -8976,15 +7997,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Create a Custom Image 
-   * @description To create a new custom image, send a POST request to /v2/images.
-   * The body must contain a url attribute pointing to a Linux virtual machine
-   * image to be imported into DigitalOcean.
-   * The image must be in the raw, qcow2, vhdx, vdi, or vmdk format.
-   * It may be compressed using gzip or bzip2 and must be smaller than 100 GB after
-   *  being decompressed.
-   */
   "resources/images/images_create_custom.yml": {
     /**
      * Create a Custom Image 
@@ -9008,10 +8020,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete an Image 
-   * @description To delete a snapshot or custom image, send a `DELETE` request to `/v2/images/$IMAGE_ID`.
-   */
   "resources/images/images_delete.yml": {
     /**
      * Delete an Image 
@@ -9026,11 +8034,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Image 
-   * @description To retrieve information about an image, send a `GET` request to
-   * `/v2/images/$IDENTIFIER`.
-   */
   "resources/images/images_get.yml": {
     /**
      * Retrieve an Existing Image 
@@ -9059,33 +8062,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Images 
-   * @description To list all of the images available on your account, send a GET request to /v2/images.
-   * 
-   * ## Filtering Results
-   * -----
-   * 
-   * It's possible to request filtered results by including certain query parameters.
-   * 
-   * **Image Type**
-   * 
-   * Either 1-Click Application or OS Distribution images can be filtered by using the `type` query parameter.
-   * 
-   * > Important: The `type` query parameter does not directly relate to the `type` attribute.
-   * 
-   * To retrieve only ***distribution*** images, include the `type` query parameter set to distribution, `/v2/images?type=distribution`.
-   * 
-   * To retrieve only ***application*** images, include the `type` query parameter set to application, `/v2/images?type=application`.
-   * 
-   * **User Images**
-   * 
-   * To retrieve only the private images of a user, include the `private` query parameter set to true, `/v2/images?private=true`.
-   * 
-   * **Tags**
-   * 
-   * To list all images assigned to a specific tag, include the `tag_name` query parameter set to the name of the tag in your GET request. For example, `/v2/images?tag_name=$TAG_NAME`.
-   */
   "resources/images/images_list.yml": {
     /**
      * List All Images 
@@ -9122,12 +8098,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update an Image 
-   * @description To update an image, send a `PUT` request to `/v2/images/$IMAGE_ID`.
-   * Set the `name` attribute to the new value you would like to use.
-   * For custom images, the `description` and `distribution` attributes may also be updated.
-   */
   "resources/images/images_update.yml": {
     /**
      * Update an Image 
@@ -9305,12 +8275,6 @@ export interface external {
     };
   }
   "resources/kubernetes/examples.yml": unknown
-  /**
-   * Add a Node Pool to a Kubernetes Cluster 
-   * @description To add an additional node pool to a Kubernetes clusters, send a POST request
-   * to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools` with the following
-   * attributes.
-   */
   "resources/kubernetes/kubernetes_add_nodePool.yml": {
     /**
      * Add a Node Pool to a Kubernetes Cluster 
@@ -9345,10 +8309,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Add Container Registry to Kubernetes Clusters 
-   * @description To integrate the container registry with Kubernetes clusters, send a POST request to `/v2/kubernetes/registry`.
-   */
   "resources/kubernetes/kubernetes_add_registry.yml": {
     /**
      * Add Container Registry to Kubernetes Clusters 
@@ -9367,18 +8327,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Create a New Kubernetes Cluster 
-   * @description To create a new Kubernetes cluster, send a POST request to
-   * `/v2/kubernetes/clusters`. The request must contain at least one node pool
-   * with at least one worker.
-   * 
-   * The request may contain a maintenance window policy describing a time period
-   * when disruptive maintenance tasks may be carried out. Omitting the policy
-   * implies that a window will be chosen automatically. See
-   * [here](https://www.digitalocean.com/docs/kubernetes/how-to/upgrade-cluster/)
-   * for details.
-   */
   "resources/kubernetes/kubernetes_create_cluster.yml": {
     /**
      * Create a New Kubernetes Cluster 
@@ -9405,14 +8353,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Kubernetes Cluster 
-   * @description To delete a Kubernetes cluster and all services deployed to it, send a DELETE
-   * request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID`.
-   * 
-   * A 204 status code with no body will be returned in response to a successful
-   * request.
-   */
   "resources/kubernetes/kubernetes_delete_cluster.yml": {
     /**
      * Delete a Kubernetes Cluster 
@@ -9431,19 +8371,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Node in a Kubernetes Cluster 
-   * @description To delete a single node in a pool, send a DELETE request to
-   * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools/$NODE_POOL_ID/nodes/$NODE_ID`.
-   * 
-   * Appending the `skip_drain=1` query parameter to the request causes node
-   * draining to be skipped. Omitting the query parameter or setting its value to
-   * `0` carries out draining prior to deletion.
-   * 
-   * Appending the `replace=1` query parameter to the request causes the node to
-   * be replaced by a new one after deletion. Omitting the query parameter or
-   * setting its value to `0` deletes without replacement.
-   */
   "resources/kubernetes/kubernetes_delete_node.yml": {
     /**
      * Delete a Node in a Kubernetes Cluster 
@@ -9467,14 +8394,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Node Pool in a Kubernetes Cluster 
-   * @description To delete a node pool, send a DELETE request to
-   * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools/$NODE_POOL_ID`.
-   * 
-   * A 204 status code with no body will be returned in response to a successful
-   * request. Nodes in the pool will subsequently be drained and deleted.
-   */
   "resources/kubernetes/kubernetes_delete_nodePool.yml": {
     /**
      * Delete a Node Pool in a Kubernetes Cluster 
@@ -9493,12 +8412,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Cluster and All of its Associated Resources (Dangerous) 
-   * @description To delete a Kubernetes cluster with all of its associated resources, send a
-   * DELETE request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/destroy_with_associated_resources/dangerous`.
-   * A 204 status code with no body will be returned in response to a successful request.
-   */
   "resources/kubernetes/kubernetes_destroy_associatedResourcesDangerous.yml": {
     /**
      * Delete a Cluster and All of its Associated Resources (Dangerous) 
@@ -9515,19 +8428,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Selectively Delete a Cluster and its Associated Resources 
-   * @description To delete a Kubernetes cluster along with a subset of its associated resources,
-   * send a DELETE request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/destroy_with_associated_resources/selective`.
-   * 
-   * The JSON body of the request should include `load_balancers`, `volumes`, or
-   * `volume_snapshots` keys each set to an array of IDs for the associated
-   * resources to be destroyed.
-   * 
-   * The IDs can be found by querying the cluster's associated resources endpoint.
-   * Any associated resource not included in the request will remain and continue
-   * to accrue changes on your account.
-   */
   "resources/kubernetes/kubernetes_destroy_associatedResourcesSelective.yml": {
     /**
      * Selectively Delete a Cluster and its Associated Resources 
@@ -9556,12 +8456,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve Available Upgrades for an Existing Kubernetes Cluster 
-   * @description To determine whether a cluster can be upgraded, and the versions to which it
-   * can be upgraded, send a GET request to
-   * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/upgrades`.
-   */
   "resources/kubernetes/kubernetes_get_availableUpgrades.yml": {
     /**
      * Retrieve Available Upgrades for an Existing Kubernetes Cluster 
@@ -9578,11 +8472,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Kubernetes Cluster 
-   * @description To show information about an existing Kubernetes cluster, send a GET request
-   * to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID`.
-   */
   "resources/kubernetes/kubernetes_get_cluster.yml": {
     /**
      * Retrieve an Existing Kubernetes Cluster 
@@ -9598,16 +8487,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Fetch Clusterlint Diagnostics for a Kubernetes Cluster 
-   * @description To request clusterlint diagnostics for your cluster, send a GET request to
-   * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/clusterlint`. If the `run_id` query
-   * parameter is provided, then the diagnostics for the specific run is fetched.
-   * By default, the latest results are shown.
-   * 
-   * To find out how to address clusterlint feedback, please refer to
-   * [the clusterlint check documentation](https://github.com/digitalocean/clusterlint/blob/master/checks.md).
-   */
   "resources/kubernetes/kubernetes_get_clusterLintResults.yml": {
     /**
      * Fetch Clusterlint Diagnostics for a Kubernetes Cluster 
@@ -9628,11 +8507,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve User Information for a Kubernetes Cluster 
-   * @description To show information the user associated with a Kubernetes cluster, send a GET
-   * request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/user`.
-   */
   "resources/kubernetes/kubernetes_get_clusterUser.yml": {
     /**
      * Retrieve User Information for a Kubernetes Cluster 
@@ -9648,25 +8522,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve Credentials for a Kubernetes Cluster 
-   * @description This endpoint returns a JSON object . It can be used to programmatically
-   * construct Kubernetes clients which cannot parse kubeconfig files.
-   * 
-   * The resulting JSON object contains token-based authentication for clusters
-   * supporting it, and certificate-based authentication otherwise. For a list of
-   * supported versions and more information, see "[How to Connect to a DigitalOcean
-   * Kubernetes Cluster with kubectl](https://www.digitalocean.com/docs/kubernetes/how-to/connect-with-kubectl/)".
-   * 
-   * To retrieve credentials for accessing a Kubernetes cluster, send a GET
-   * request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/credentials`.
-   * 
-   * Clusters supporting token-based authentication may define an expiration by
-   * passing a duration in seconds as a query parameter to
-   * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/kubeconfig?expiry_seconds=$DURATION_IN_SECONDS`.
-   * If not set or 0, then the token will have a 7 day expiry. The query parameter
-   * has no impact in certificate-based authentication.
-   */
   "resources/kubernetes/kubernetes_get_credentials.yml": {
     /**
      * Retrieve Credentials for a Kubernetes Cluster 
@@ -9696,26 +8551,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve the kubeconfig for a Kubernetes Cluster 
-   * @description This endpoint returns a kubeconfig file in YAML format. It can be used to
-   * connect to and administer the cluster using the Kubernetes command line tool,
-   * `kubectl`, or other programs supporting kubeconfig files (e.g., client libraries).
-   * 
-   * The resulting kubeconfig file uses token-based authentication for clusters
-   * supporting it, and certificate-based authentication otherwise. For a list of
-   * supported versions and more information, see "[How to Connect to a DigitalOcean
-   * Kubernetes Cluster with kubectl](https://www.digitalocean.com/docs/kubernetes/how-to/connect-with-kubectl/)".
-   * 
-   * To retrieve a kubeconfig file for use with a Kubernetes cluster, send a GET
-   * request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/kubeconfig`.
-   * 
-   * Clusters supporting token-based authentication may define an expiration by
-   * passing a duration in seconds as a query parameter to
-   * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/kubeconfig?expiry_seconds=$DURATION_IN_SECONDS`.
-   * If not set or 0, then the token will have a 7 day expiry. The query parameter
-   * has no impact in certificate-based authentication.
-   */
   "resources/kubernetes/kubernetes_get_kubeconfig.yml": {
     /**
      * Retrieve the kubeconfig for a Kubernetes Cluster 
@@ -9746,11 +8581,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve a Node Pool for a Kubernetes Cluster 
-   * @description To show information about a specific node pool in a Kubernetes cluster, send
-   * a GET request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools/$NODE_POOL_ID`.
-   */
   "resources/kubernetes/kubernetes_get_nodePool.yml": {
     /**
      * Retrieve a Node Pool for a Kubernetes Cluster 
@@ -9766,10 +8596,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Associated Resources for Cluster Deletion 
-   * @description To list the associated billable resources that can be destroyed along with a cluster, send a GET request to the `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/destroy_with_associated_resources` endpoint.
-   */
   "resources/kubernetes/kubernetes_list_associatedResources.yml": {
     /**
      * List Associated Resources for Cluster Deletion 
@@ -9784,11 +8610,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Kubernetes Clusters 
-   * @description To list all of the Kubernetes clusters on your account, send a GET request
-   * to `/v2/kubernetes/clusters`.
-   */
   "resources/kubernetes/kubernetes_list_clusters.yml": {
     /**
      * List All Kubernetes Clusters 
@@ -9803,11 +8624,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Node Pools in a Kubernetes Clusters 
-   * @description To list all of the node pools in a Kubernetes clusters, send a GET request to
-   * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools`.
-   */
   "resources/kubernetes/kubernetes_list_nodePools.yml": {
     /**
      * List All Node Pools in a Kubernetes Clusters 
@@ -9823,10 +8639,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Available Regions, Node Sizes, and Versions of Kubernetes 
-   * @description To list the versions of Kubernetes available for use, the regions that support Kubernetes, and the available node sizes, send a GET request to `/v2/kubernetes/options`.
-   */
   "resources/kubernetes/kubernetes_list_options.yml": {
     /**
      * List Available Regions, Node Sizes, and Versions of Kubernetes 
@@ -9841,13 +8653,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Recycle a Kubernetes Node Pool 
-   * @deprecated 
-   * @description The endpoint has been deprecated. Please use the DELETE
-   * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools/$NODE_POOL_ID/nodes/$NODE_ID`
-   * method instead.
-   */
   "resources/kubernetes/kubernetes_recycle_nodePool.yml": {
     /**
      * Recycle a Kubernetes Node Pool 
@@ -9877,10 +8682,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Remove Container Registry from Kubernetes Clusters 
-   * @description To remove the container registry from Kubernetes clusters, send a DELETE request to `/v2/kubernetes/registry`.
-   */
   "resources/kubernetes/kubernetes_remove_registry.yml": {
     /**
      * Remove Container Registry from Kubernetes Clusters 
@@ -9899,20 +8700,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Run Clusterlint Checks on a Kubernetes Cluster 
-   * @description Clusterlint helps operators conform to Kubernetes best practices around
-   * resources, security and reliability to avoid common problems while operating
-   * or upgrading the clusters.
-   * 
-   * To request a clusterlint run on your cluster, send a POST request to
-   * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/clusterlint`. This will run all
-   * checks present in the `doks` group by default, if a request body is not
-   * specified. Optionally specify the below attributes.
-   * 
-   * For information about the available checks, please refer to
-   * [the clusterlint check documentation](https://github.com/digitalocean/clusterlint/blob/master/checks.md).
-   */
   "resources/kubernetes/kubernetes_run_clusterLint.yml": {
     /**
      * Run Clusterlint Checks on a Kubernetes Cluster 
@@ -9942,12 +8729,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update a Kubernetes Cluster 
-   * @description To update a Kubernetes cluster, send a PUT request to
-   * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID` and specify one or more of the
-   * attributes below.
-   */
   "resources/kubernetes/kubernetes_update_cluster.yml": {
     /**
      * Update a Kubernetes Cluster 
@@ -9969,13 +8750,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update a Node Pool in a Kubernetes Cluster 
-   * @description To update the name of a node pool, edit the tags applied to it, or adjust its
-   * number of nodes, send a PUT request to
-   * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools/$NODE_POOL_ID` with the
-   * following attributes.
-   */
   "resources/kubernetes/kubernetes_update_nodePool.yml": {
     /**
      * Update a Node Pool in a Kubernetes Cluster 
@@ -9998,15 +8772,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Upgrade a Kubernetes Cluster 
-   * @description To immediately upgrade a Kubernetes cluster to a newer patch release of
-   * Kubernetes, send a POST request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/upgrade`.
-   * The body of the request must specify a version attribute.
-   * 
-   * Available upgrade versions for a cluster can be fetched from
-   * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/upgrades`.
-   */
   "resources/kubernetes/kubernetes_upgrade_cluster.yml": {
     /**
      * Upgrade a Kubernetes Cluster 
@@ -10594,19 +9359,6 @@ export interface external {
     };
   }
   "resources/load_balancers/examples.yml": unknown
-  /**
-   * Add Droplets to a Load Balancer 
-   * @description To assign a Droplet to a load balancer instance, send a POST request to
-   * `/v2/load_balancers/$LOAD_BALANCER_ID/droplets`. In the body of the request,
-   * there should be a `droplet_ids` attribute containing a list of Droplet IDs.
-   * Individual Droplets can not be added to a load balancer configured with a
-   * Droplet tag. Attempting to do so will result in a "422 Unprocessable Entity"
-   * response from the API.
-   * 
-   * No response body will be sent back, but the response code will indicate
-   * success. Specifically, the response code will be a 204, which means that the
-   * action was successful with no returned body data.
-   */
   "resources/load_balancers/loadBalancers_add_droplets.yml": {
     /**
      * Add Droplets to a Load Balancer 
@@ -10637,17 +9389,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Add Forwarding Rules to a Load Balancer 
-   * @description To add an additional forwarding rule to a load balancer instance, send a POST
-   * request to `/v2/load_balancers/$LOAD_BALANCER_ID/forwarding_rules`. In the body
-   * of the request, there should be a `forwarding_rules` attribute containing an
-   * array of rules to be added.
-   * 
-   * No response body will be sent back, but the response code will indicate
-   * success. Specifically, the response code will be a 204, which means that the
-   * action was successful with no returned body data.
-   */
   "resources/load_balancers/loadBalancers_add_forwardingRules.yml": {
     /**
      * Add Forwarding Rules to a Load Balancer 
@@ -10676,21 +9417,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Create a New Load Balancer 
-   * @description To create a new load balancer instance, send a POST request to
-   * `/v2/load_balancers`.
-   * 
-   * You can specify the Droplets that will sit behind the load balancer using one
-   * of two methods:
-   * 
-   * * Set `droplet_ids` to a list of specific Droplet IDs.
-   * * Set `tag` to the name of a tag. All Droplets with this tag applied will be
-   *   assigned to the load balancer. Additional Droplets will be automatically
-   *   assigned as they are tagged.
-   * 
-   * These methods are mutually exclusive.
-   */
   "resources/load_balancers/loadBalancers_create.yml": {
     /**
      * Create a New Load Balancer 
@@ -10720,15 +9446,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Load Balancer 
-   * @description To delete a load balancer instance, disassociating any Droplets assigned to it
-   * and removing it from your account, send a DELETE request to
-   * `/v2/load_balancers/$LOAD_BALANCER_ID`.
-   * 
-   * A successful request will receive a 204 status code with no body in response.
-   * This indicates that the request was processed successfully.
-   */
   "resources/load_balancers/loadBalancers_delete.yml": {
     /**
      * Delete a Load Balancer 
@@ -10748,11 +9465,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Load Balancer 
-   * @description To show information about a load balancer instance, send a GET request to
-   * `/v2/load_balancers/$LOAD_BALANCER_ID`.
-   */
   "resources/load_balancers/loadBalancers_get.yml": {
     /**
      * Retrieve an Existing Load Balancer 
@@ -10768,11 +9480,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Load Balancers 
-   * @description To list all of the load balancer instances on your account, send a GET request
-   * to `/v2/load_balancers`.
-   */
   "resources/load_balancers/loadBalancers_list.yml": {
     /**
      * List All Load Balancers 
@@ -10787,16 +9494,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Remove Droplets from a Load Balancer 
-   * @description To remove a Droplet from a load balancer instance, send a DELETE request to
-   * `/v2/load_balancers/$LOAD_BALANCER_ID/droplets`. In the body of the request,
-   * there should be a `droplet_ids` attribute containing a list of Droplet IDs.
-   * 
-   * No response body will be sent back, but the response code will indicate
-   * success. Specifically, the response code will be a 204, which means that the
-   * action was successful with no returned body data.
-   */
   "resources/load_balancers/loadBalancers_remove_droplets.yml": {
     /**
      * Remove Droplets from a Load Balancer 
@@ -10824,17 +9521,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Remove Forwarding Rules from a Load Balancer 
-   * @description To remove forwarding rules from a load balancer instance, send a DELETE
-   * request to `/v2/load_balancers/$LOAD_BALANCER_ID/forwarding_rules`. In the
-   * body of the request, there should be a `forwarding_rules` attribute containing
-   * an array of rules to be removed.
-   * 
-   * No response body will be sent back, but the response code will indicate
-   * success. Specifically, the response code will be a 204, which means that the
-   * action was successful with no returned body data.
-   */
   "resources/load_balancers/loadBalancers_remove_forwardingRules.yml": {
     /**
      * Remove Forwarding Rules from a Load Balancer 
@@ -10863,15 +9549,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update a Load Balancer 
-   * @description To update a load balancer's settings, send a PUT request to
-   * `/v2/load_balancers/$LOAD_BALANCER_ID`. The request should contain a full
-   * representation of the load balancer including existing attributes. It may
-   * contain _one of_ the `droplets_ids` or `tag` attributes as they are mutually
-   * exclusive. **Note that any attribute that is not provided will be reset to its
-   * default value.**
-   */
   "resources/load_balancers/loadBalancers_update.yml": {
     /**
      * Update a Load Balancer 
@@ -11306,10 +9983,6 @@ export interface external {
      */
     url: string;
   }
-  /**
-   * Create Alert Policy 
-   * @description To create a new alert, send a POST request to `/v2/monitoring/alerts`.
-   */
   "resources/monitoring/monitoring_create_alertPolicy.yml": {
     /**
      * Create Alert Policy 
@@ -11354,10 +10027,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete an Alert Policy 
-   * @description To delete an alert policy, send a DELETE request to `/v2/monitoring/alerts/{alert_uuid}`
-   */
   "resources/monitoring/monitoring_delete_alertPolicy.yml": {
     /**
      * Delete an Alert Policy 
@@ -11372,10 +10041,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Alert Policy 
-   * @description To retrieve a given alert policy, send a GET request to `/v2/monitoring/alerts/{alert_uuid}`
-   */
   "resources/monitoring/monitoring_get_alertPolicy.yml": {
     /**
      * Retrieve an Existing Alert Policy 
@@ -11390,10 +10055,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Get Droplet Bandwidth Metrics 
-   * @description To retrieve bandwidth metrics for a given Droplet, send a GET request to `/v2/monitoring/metrics/droplet/bandwidth`. Use the `interface` query parameter to specify if the results should be for the `private` or `public` interface. Use the `direction` query parameter to specify if the results should be for `inbound` or `outbound` traffic.
-   */
   "resources/monitoring/monitoring_get_dropletBandwidthMetrics.yml": {
     /**
      * Get Droplet Bandwidth Metrics 
@@ -11407,10 +10068,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Get Droplet CPU Metrics 
-   * @description To retrieve CPU metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/cpu`.
-   */
   "resources/monitoring/monitoring_get_DropletCpuMetrics.yml": {
     /**
      * Get Droplet CPU Metrics 
@@ -11424,10 +10081,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Get Droplet Filesystem Free Metrics 
-   * @description To retrieve filesystem free metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/filesystem_free`.
-   */
   "resources/monitoring/monitoring_get_dropletFilesystemFreeMetrics.yml": {
     /**
      * Get Droplet Filesystem Free Metrics 
@@ -11441,10 +10094,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Get Droplet Filesystem Size Metrics 
-   * @description To retrieve filesystem size metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/filesystem_size`.
-   */
   "resources/monitoring/monitoring_get_dropletFilesystemSizeMetrics.yml": {
     /**
      * Get Droplet Filesystem Size Metrics 
@@ -11458,10 +10107,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Get Droplet Load1 Metrics 
-   * @description To retrieve 1 minute load average metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/load_1`.
-   */
   "resources/monitoring/monitoring_get_dropletLoad1Metrics.yml": {
     /**
      * Get Droplet Load1 Metrics 
@@ -11475,10 +10120,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Get Droplet Load5 Metrics 
-   * @description To retrieve 5 minute load average metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/load_5`.
-   */
   "resources/monitoring/monitoring_get_dropletLoad5Metrics.yml": {
     /**
      * Get Droplet Load5 Metrics 
@@ -11492,10 +10133,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Get Droplet Load15 Metrics 
-   * @description To retrieve 15 minute load average metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/load_15`.
-   */
   "resources/monitoring/monitoring_get_dropletLoad15Metrics.yml": {
     /**
      * Get Droplet Load15 Metrics 
@@ -11509,10 +10146,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Get Droplet Available Memory Metrics 
-   * @description To retrieve available memory metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/memory_available`.
-   */
   "resources/monitoring/monitoring_get_dropletMemoryAvailableMetrics.yml": {
     /**
      * Get Droplet Available Memory Metrics 
@@ -11526,10 +10159,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Get Droplet Cached Memory Metrics 
-   * @description To retrieve cached memory metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/memory_cached`.
-   */
   "resources/monitoring/monitoring_get_dropletMemoryCachedMetrics.yml": {
     /**
      * Get Droplet Cached Memory Metrics 
@@ -11543,10 +10172,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Get Droplet Free Memory Metrics 
-   * @description To retrieve free memory metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/memory_free`.
-   */
   "resources/monitoring/monitoring_get_dropletMemoryFreeMetrics.yml": {
     /**
      * Get Droplet Free Memory Metrics 
@@ -11560,10 +10185,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Get Droplet Total Memory Metrics 
-   * @description To retrieve total memory metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/memory_total`.
-   */
   "resources/monitoring/monitoring_get_dropletMemoryTotalMetrics.yml": {
     /**
      * Get Droplet Total Memory Metrics 
@@ -11577,10 +10198,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Alert Policies 
-   * @description Returns all alert policies that are configured for the given account. To List all alert policies, send a GET request to `/v2/monitoring/alerts`.
-   */
   "resources/monitoring/monitoring_list_alertPolicy.yml": {
     /**
      * List Alert Policies 
@@ -11594,10 +10211,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update an Alert Policy 
-   * @description To update en existing policy, send a PUT request to `v2/monitoring/alerts/{alert_uuid}`.
-   */
   "resources/monitoring/monitoring_update_alertPolicy.yml": {
     /**
      * Update an Alert Policy 
@@ -11742,10 +10355,6 @@ export interface external {
     status?: "ok" | "not_found" | "assigned" | "already_assigned" | "service_down";
   }
   "resources/projects/parameters.yml": string
-  /**
-   * Assign Resources to Default Project 
-   * @description To assign resources to your default project, send a POST request to `/v2/projects/default/resources`.
-   */
   "resources/projects/projects_assign_resources_default.yml": {
     /**
      * Assign Resources to Default Project 
@@ -11765,10 +10374,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Assign Resources to a Project 
-   * @description To assign resources to a project, send a POST request to `/v2/projects/$PROJECT_ID/resources`.
-   */
   "resources/projects/projects_assign_resources.yml": {
     /**
      * Assign Resources to a Project 
@@ -11788,10 +10393,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Create a Project 
-   * @description To create a project, send a POST request to `/v2/projects`.
-   */
   "resources/projects/projects_create.yml": {
     /**
      * Create a Project 
@@ -11810,15 +10411,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete an Existing Project 
-   * @description To delete a project, send a DELETE request to `/v2/projects/$PROJECT_ID`. To
-   * be deleted, a project must not have any resources assigned to it. Any existing
-   * resources must first be reassigned or destroyed, or you will receive a 412 error.
-   * 
-   * A successful request will receive a 204 status code with no body in response.
-   * This indicates that the request was processed successfully.
-   */
   "resources/projects/projects_delete.yml": {
     /**
      * Delete an Existing Project 
@@ -11839,10 +10431,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve the Default Project 
-   * @description To get your default project, send a GET request to `/v2/projects/default`.
-   */
   "resources/projects/projects_get_default.yml": {
     /**
      * Retrieve the Default Project 
@@ -11857,10 +10445,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Project 
-   * @description To get a project, send a GET request to `/v2/projects/$PROJECT_ID`.
-   */
   "resources/projects/projects_get.yml": {
     /**
      * Retrieve an Existing Project 
@@ -11875,10 +10459,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Default Project Resources 
-   * @description To list all your resources in your default project, send a GET request to `/v2/projects/default/resources`.
-   */
   "resources/projects/projects_list_resources_default.yml": {
     /**
      * List Default Project Resources 
@@ -11893,10 +10473,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Project Resources 
-   * @description To list all your resources in a project, send a GET request to `/v2/projects/$PROJECT_ID/resources`.
-   */
   "resources/projects/projects_list_resources.yml": {
     /**
      * List Project Resources 
@@ -11911,10 +10487,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Projects 
-   * @description To list all your projects, send a GET request to `/v2/projects`.
-   */
   "resources/projects/projects_list.yml": {
     /**
      * List All Projects 
@@ -11928,10 +10500,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Patch the Default Project 
-   * @description To update only specific attributes of your default project, send a PATCH request to `/v2/projects/default`. At least one of the following attributes needs to be sent.
-   */
   "resources/projects/projects_patch_default.yml": {
     /**
      * Patch the Default Project 
@@ -11956,10 +10524,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Patch a Project 
-   * @description To update only specific attributes of a project, send a PATCH request to `/v2/projects/$PROJECT_ID`. At least one of the following attributes needs to be sent.
-   */
   "resources/projects/projects_patch.yml": {
     /**
      * Patch a Project 
@@ -11984,10 +10548,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update the Default Project 
-   * @description To update you default project, send a PUT request to `/v2/projects/default`. All of the following attributes must be sent.
-   */
   "resources/projects/projects_update_default.yml": {
     /**
      * Update the Default Project 
@@ -12007,10 +10567,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update a Project 
-   * @description To update a project, send a PUT request to `/v2/projects/$PROJECT_ID`. All of the following attributes must be sent.
-   */
   "resources/projects/projects_update.yml": {
     /**
      * Update a Project 
@@ -12150,11 +10706,6 @@ export interface external {
      */
     sizes: Record<string, never>;
   }
-  /**
-   * List All Data Center Regions 
-   * @description To list all of the regions that are available, send a GET request to `/v2/regions`.
-   * The response will be a JSON object with a key called `regions`. The value of this will be an array of `region` objects, each of which will contain the standard region attributes.
-   */
   "resources/regions/regions_list.yml": {
     /**
      * List All Data Center Regions 
@@ -12447,14 +10998,6 @@ export interface external {
     name: string;
   }
   "resources/registry/parameters.yml": string
-  /**
-   * Create Container Registry 
-   * @description To create your container registry, send a POST request to `/v2/registry`.
-   * 
-   * The `name` becomes part of the URL for images stored in the registry. For
-   * example, if your registry is called `example`, an image in it will have the
-   * URL `registry.digitalocean.com/example/image:tag`.
-   */
   "resources/registry/registry_create.yml": {
     /**
      * Create Container Registry 
@@ -12477,19 +11020,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete Container Registry Repository Manifest 
-   * @description To delete a container repository manifest by digest, send a DELETE request to
-   * `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests/$MANIFEST_DIGEST`.
-   * 
-   * Note that if your repository name contains `/` characters, it must be
-   * URL-encoded in the request URL. For example, to delete
-   * `registry.digitalocean.com/example/my/repo@sha256:abcd`, the path would be
-   * `/v2/registry/example/repositories/my%2Frepo/digests/sha256:abcd`.
-   * 
-   * A successful request will receive a 204 status code with no body in response.
-   * This indicates that the request was processed successfully.
-   */
   "resources/registry/registry_delete_repositoryManifest.yml": {
     /**
      * Delete Container Registry Repository Manifest 
@@ -12513,19 +11043,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete Container Registry Repository Tag 
-   * @description To delete a container repository tag, send a DELETE request to
-   * `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags/$TAG`.
-   * 
-   * Note that if your repository name contains `/` characters, it must be
-   * URL-encoded in the request URL. For example, to delete
-   * `registry.digitalocean.com/example/my/repo:mytag`, the path would be
-   * `/v2/registry/example/repositories/my%2Frepo/tags/mytag`.
-   * 
-   * A successful request will receive a 204 status code with no body in response.
-   * This indicates that the request was processed successfully.
-   */
   "resources/registry/registry_delete_repositoryTag.yml": {
     /**
      * Delete Container Registry Repository Tag 
@@ -12549,10 +11066,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete Container Registry 
-   * @description To delete your container registry, destroying all container image data stored in it, send a DELETE request to `/v2/registry`.
-   */
   "resources/registry/registry_delete.yml": {
     /**
      * Delete Container Registry 
@@ -12567,31 +11080,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Get Docker Credentials for Container Registry 
-   * @description In order to access your container registry with the Docker client or from a
-   * Kubernetes cluster, you will need to configure authentication. The necessary
-   * JSON configuration can be retrieved by sending a GET request to
-   * `/v2/registry/docker-credentials`.
-   * 
-   * The response will be in the format of a Docker `config.json` file. To use the
-   * config in your Kubernetes cluster, create a Secret with:
-   * 
-   *     kubectl create secret generic docr \
-   *       --from-file=.dockerconfigjson=config.json \
-   *       --type=kubernetes.io/dockerconfigjson
-   * 
-   * By default, the returned credentials have read-only access to your registry
-   * and cannot be used to push images. This is appropriate for most Kubernetes
-   * clusters. To retrieve read/write credentials, suitable for use with the Docker
-   * client or in a CI system, read_write may be provided as query parameter. For
-   * example: `/v2/registry/docker-credentials?read_write=true`
-   * 
-   * By default, the returned credentials will not expire. To retrieve credentials
-   * with an expiry set, expiry_seconds may be provided as a query parameter. For
-   * example: `/v2/registry/docker-credentials?expiry_seconds=3600` will return
-   * credentials that expire after one hour.
-   */
   "resources/registry/registry_get_dockerCredentials.yml": {
     /**
      * Get Docker Credentials for Container Registry 
@@ -12626,10 +11114,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Get Active Garbage Collection 
-   * @description To get information about the currently-active garbage collection for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collection`.
-   */
   "resources/registry/registry_get_garbageCollection.yml": {
     /**
      * Get Active Garbage Collection 
@@ -12644,13 +11128,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Registry Options (Subscription Tiers and Available Regions) 
-   * @description This endpoint serves to provide additional information as to which option values are available when creating a container registry.
-   * There are multiple subscription tiers available for container registry. Each tier allows a different number of image repositories to be created in your registry, and has a different amount of storage and transfer included.
-   * There are multiple regions available for container registry and controls where your data is stored.
-   * To list the available options, send a GET request to `/v2/registry/options`.
-   */
   "resources/registry/registry_get_options.yml": {
     /**
      * List Registry Options (Subscription Tiers and Available Regions) 
@@ -12667,10 +11144,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Get Subscription Information 
-   * @description A subscription is automatically created when you configure your container registry. To get information about your subscription, send a GET request to `/v2/registry/subscription`.
-   */
   "resources/registry/registry_get_subscription.yml": {
     /**
      * Get Subscription Information 
@@ -12684,10 +11157,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Get Container Registry Information 
-   * @description To get information about your container registry, send a GET request to `/v2/registry`.
-   */
   "resources/registry/registry_get.yml": {
     /**
      * Get Container Registry Information 
@@ -12701,10 +11170,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Garbage Collections 
-   * @description To get information about past garbage collections for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collections`.
-   */
   "resources/registry/registry_list_garbageCollections.yml": {
     /**
      * List Garbage Collections 
@@ -12719,14 +11184,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Container Registry Repositories 
-   * @deprecated 
-   * @description This endpoint has been deprecated in favor of the _List All Container Registry Repositories [V2]_ endpoint.
-   * 
-   * To list all repositories in your container registry, send a GET
-   * request to `/v2/registry/$REGISTRY_NAME/repositories`.
-   */
   "resources/registry/registry_list_repositories.yml": {
     /**
      * List All Container Registry Repositories 
@@ -12745,10 +11202,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Container Registry Repositories (V2) 
-   * @description To list all repositories in your container registry, send a GET request to `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
-   */
   "resources/registry/registry_list_repositoriesV2.yml": {
     /**
      * List All Container Registry Repositories (V2) 
@@ -12764,16 +11217,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Container Registry Repository Manifests 
-   * @description To list all manifests in your container registry repository, send a GET
-   * request to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.
-   * 
-   * Note that if your repository name contains `/` characters, it must be
-   * URL-encoded in the request URL. For example, to list manifests for
-   * `registry.digitalocean.com/example/my/repo`, the path would be
-   * `/v2/registry/example/repositories/my%2Frepo/digests`.
-   */
   "resources/registry/registry_list_repositoryManifests.yml": {
     /**
      * List All Container Registry Repository Manifests 
@@ -12794,16 +11237,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Container Registry Repository Tags 
-   * @description To list all tags in your container registry repository, send a GET
-   * request to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.
-   * 
-   * Note that if your repository name contains `/` characters, it must be
-   * URL-encoded in the request URL. For example, to list tags for
-   * `registry.digitalocean.com/example/my/repo`, the path would be
-   * `/v2/registry/example/repositories/my%2Frepo/tags`.
-   */
   "resources/registry/registry_list_repositoryTags.yml": {
     /**
      * List All Container Registry Repository Tags 
@@ -12824,30 +11257,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Start Garbage Collection 
-   * @description Garbage collection enables users to clear out unreferenced blobs (layer &
-   * manifest data) after deleting one or more manifests from a repository. If
-   * there are no unreferenced blobs resulting from the deletion of one or more
-   * manifests, garbage collection is effectively a noop.
-   * [See here for more information](https://www.digitalocean.com/docs/container-registry/how-to/clean-up-container-registry/)
-   * about how and why you should clean up your container registry periodically.
-   * 
-   * To request a garbage collection run on your registry, send a POST request to
-   * `/v2/registry/$REGISTRY_NAME/garbage-collection`. This will initiate the
-   * following sequence of events on your registry.
-   * 
-   * * Set the registry to read-only mode, meaning no further write-scoped
-   *   JWTs will be issued to registry clients. Existing write-scoped JWTs will
-   *   continue to work until they expire which can take up to 15 minutes.
-   * * Wait until all existing write-scoped JWTs have expired.
-   * * Scan all registry manifests to determine which blobs are unreferenced.
-   * * Delete all unreferenced blobs from the registry.
-   * * Record the number of blobs deleted and bytes freed, mark the garbage
-   *   collection status as `success`.
-   * * Remove the read-only mode restriction from the registry, meaning write-scoped
-   *   JWTs will once again be issued to registry clients.
-   */
   "resources/registry/registry_run_garbageCollection.yml": {
     /**
      * Start Garbage Collection 
@@ -12882,10 +11291,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update Garbage Collection 
-   * @description To cancel the currently-active garbage collection for a registry, send a PUT request to `/v2/registry/$REGISTRY_NAME/garbage-collection/$GC_UUID` and specify one or more of the attributes below.
-   */
   "resources/registry/registry_update_garbageCollection.yml": {
     /**
      * Update Garbage Collection 
@@ -12905,10 +11310,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update Subscription Tier 
-   * @description After creating your registry, you can switch to a different subscription tier to better suit your needs. To do this, send a POST request to `/v2/registry/subscription`.
-   */
   "resources/registry/registry_update_subscription.yml": {
     /**
      * Update Subscription Tier 
@@ -12934,15 +11335,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Validate a Container Registry Name 
-   * @description To validate that a container registry name is available for use, send a POST
-   * request to `/v2/registry/validate-name`.
-   * 
-   * If the name is both formatted correctly and available, the response code will
-   * be 204 and contain no body. If the name is already in use, the response will
-   * be a 409 Conflict.
-   */
   "resources/registry/registry_validate_name.yml": {
     /**
      * Validate a Container Registry Name 
@@ -13139,17 +11531,6 @@ export interface external {
     project_id?: string;
   }
   "resources/reserved_ips/parameters.yml": string
-  /**
-   * Create a New Reserved IP 
-   * @description On creation, a reserved IP must be either assigned to a Droplet or reserved to a region.
-   * * To create a new reserved IP assigned to a Droplet, send a POST
-   *   request to `/v2/reserved_ips` with the `droplet_id` attribute.
-   * 
-   * * To create a new reserved IP reserved to a region, send a POST request to
-   *   `/v2/reserved_ips` with the `region` attribute.
-   * 
-   * **Note**:  In addition to the standard rate limiting, only 12 reserved IPs may be created per 60 seconds.
-   */
   "resources/reserved_ips/reservedIPs_create.yml": {
     /**
      * Create a New Reserved IP 
@@ -13175,14 +11556,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Reserved IPs 
-   * @description To delete a reserved IP and remove it from your account, send a DELETE request
-   * to `/v2/reserved_ips/$RESERVED_IP_ADDR`.
-   * 
-   * A successful request will receive a 204 status code with no body in response.
-   * This indicates that the request was processed successfully.
-   */
   "resources/reserved_ips/reservedIPs_delete.yml": {
     /**
      * Delete a Reserved IPs 
@@ -13201,10 +11574,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Reserved IP 
-   * @description To show information about a reserved IP, send a GET request to `/v2/reserved_ips/$RESERVED_IP_ADDR`.
-   */
   "resources/reserved_ips/reservedIPs_get.yml": {
     /**
      * Retrieve an Existing Reserved IP 
@@ -13219,10 +11588,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Reserved IPs 
-   * @description To list all of the reserved IPs available on your account, send a GET request to `/v2/reserved_ips`.
-   */
   "resources/reserved_ips/reservedIPs_list.yml": {
     /**
      * List All Reserved IPs 
@@ -13236,10 +11601,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Reserved IP Action 
-   * @description To retrieve the status of a reserved IP action, send a GET request to `/v2/reserved_ips/$RESERVED_IP/actions/$ACTION_ID`.
-   */
   "resources/reserved_ips/reservedIPsActions_get.yml": {
     /**
      * Retrieve an Existing Reserved IP Action 
@@ -13254,10 +11615,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Actions for a Reserved IP 
-   * @description To retrieve all actions that have been executed on a reserved IP, send a GET request to `/v2/reserved_ips/$RESERVED_IP/actions`.
-   */
   "resources/reserved_ips/reservedIPsActions_list.yml": {
     /**
      * List All Actions for a Reserved IP 
@@ -13272,17 +11629,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Initiate a Reserved IP Action 
-   * @description To initiate an action on a reserved IP send a POST request to
-   * `/v2/reserved_ips/$RESERVED_IP/actions`. In the JSON body to the request,
-   * set the `type` attribute to on of the supported action types:
-   * 
-   * | Action     | Details
-   * |------------|--------
-   * | `assign`   | Assigns a reserved IP to a Droplet
-   * | `unassign` | Unassign a reserved IP from a Droplet
-   */
   "resources/reserved_ips/reservedIPsActions_post.yml": {
     /**
      * Initiate a Reserved IP Action 
@@ -13467,11 +11813,6 @@ export interface external {
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
   }
-  /**
-   * List All Droplet Sizes 
-   * @description To list all of available Droplet sizes, send a GET request to `/v2/sizes`.
-   * The response will be a JSON object with a key called `sizes`. The value of this will be an array of `size` objects each of which contain the standard size attributes.
-   */
   "resources/sizes/sizes_list.yml": {
     /**
      * List All Droplet Sizes 
@@ -13571,15 +11912,6 @@ export interface external {
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
   }
-  /**
-   * Delete a Snapshot 
-   * @description Both Droplet and volume snapshots are managed through the `/v2/snapshots/`
-   * endpoint. To delete a snapshot, send a DELETE request to
-   * `/v2/snapshots/$SNAPSHOT_ID`.
-   * 
-   * A status of 204 will be given. This indicates that the request was processed
-   * successfully, but that no response body is needed.
-   */
   "resources/snapshots/snapshots_delete.yml": {
     /**
      * Delete a Snapshot 
@@ -13599,14 +11931,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Snapshot 
-   * @description To retrieve information about a snapshot, send a GET request to
-   * `/v2/snapshots/$SNAPSHOT_ID`.
-   * 
-   * The response will be a JSON object with a key called `snapshot`. The value of
-   * this will be an snapshot object containing the standard snapshot attributes.
-   */
   "resources/snapshots/snapshots_get.yml": {
     /**
      * Retrieve an Existing Snapshot 
@@ -13625,29 +11949,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Snapshots 
-   * @description To list all of the snapshots available on your account, send a GET request to
-   * `/v2/snapshots`.
-   * 
-   * The response will be a JSON object with a key called `snapshots`. This will be
-   * set to an array of `snapshot` objects, each of which will contain the standard
-   * snapshot attributes.
-   * 
-   * ### Filtering Results by Resource Type
-   * 
-   * It's possible to request filtered results by including certain query parameters.
-   * 
-   * #### List Droplet Snapshots
-   * 
-   * To retrieve only snapshots based on Droplets, include the `resource_type`
-   * query parameter set to `droplet`. For example, `/v2/snapshots?resource_type=droplet`.
-   * 
-   * #### List Volume Snapshots
-   * 
-   * To retrieve only snapshots based on volumes, include the `resource_type`
-   * query parameter set to `volume`. For example, `/v2/snapshots?resource_type=volume`.
-   */
   "resources/snapshots/snapshots_list.yml": {
     /**
      * List All Snapshots 
@@ -13734,10 +12035,6 @@ export interface external {
       };
     };
   }
-  /**
-   * Create a New SSH Key 
-   * @description To add a new SSH public key to your DigitalOcean account, send a POST request to `/v2/account/keys`. Set the `name` attribute to the name you wish to use and the `public_key` attribute to the full public key you are adding.
-   */
   "resources/ssh_keys/sshKeys_create.yml": {
     /**
      * Create a New SSH Key 
@@ -13756,11 +12053,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete an SSH Key 
-   * @description To destroy a public SSH key that you have in your account, send a DELETE request to `/v2/account/keys/$KEY_ID` or `/v2/account/keys/$KEY_FINGERPRINT`.
-   * A 204 status will be returned, indicating that the action was successful and that the response body is empty.
-   */
   "resources/ssh_keys/sshKeys_delete.yml": {
     /**
      * Delete an SSH Key 
@@ -13776,11 +12068,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing SSH Key 
-   * @description To get information about a key, send a GET request to `/v2/account/keys/$KEY_ID` or `/v2/account/keys/$KEY_FINGERPRINT`.
-   * The response will be a JSON object with the key `ssh_key` and value an ssh_key object which contains the standard ssh_key attributes.
-   */
   "resources/ssh_keys/sshKeys_get.yml": {
     /**
      * Retrieve an Existing SSH Key 
@@ -13796,10 +12083,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All SSH Keys 
-   * @description To list all of the keys in your account, send a GET request to `/v2/account/keys`. The response will be a JSON object with a key set to `ssh_keys`. The value of this will be an array of ssh_key objects, each of which contains the standard ssh_key attributes.
-   */
   "resources/ssh_keys/sshKeys_list.yml": {
     /**
      * List All SSH Keys 
@@ -13813,10 +12096,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update an SSH Key's Name 
-   * @description To update the name of an SSH key, send a PUT request to either `/v2/account/keys/$SSH_KEY_ID` or `/v2/account/keys/$SSH_KEY_FINGERPRINT`. Set the `name` attribute to the new name you want to use.
-   */
   "resources/ssh_keys/sshKeys_update.yml": {
     /**
      * Update an SSH Key's Name 
@@ -13980,11 +12259,6 @@ export interface external {
       };
     };
   }
-  /**
-   * Tag a Resource 
-   * @description Resources can be tagged by sending a POST request to `/v2/tags/$TAG_NAME/resources` with an array of json objects containing `resource_id` and `resource_type` attributes.
-   * Currently only tagging of Droplets, Databases, Images, Volumes, and Volume Snapshots is supported. `resource_type` is expected to be the string `droplet`, `database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expected to be the ID of the resource as a string.
-   */
   "resources/tags/tags_assign_resources.yml": {
     /**
      * Tag a Resource 
@@ -14005,10 +12279,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Create a New Tag 
-   * @description To create a tag you can send a POST request to `/v2/tags` with a `name` attribute.
-   */
   "resources/tags/tags_create.yml": {
     /**
      * Create a New Tag 
@@ -14028,10 +12298,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Tag 
-   * @description A tag can be deleted by sending a `DELETE` request to `/v2/tags/$TAG_NAME`. Deleting a tag also untags all the resources that have previously been tagged by the Tag
-   */
   "resources/tags/tags_delete.yml": {
     /**
      * Delete a Tag 
@@ -14046,10 +12312,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve a Tag 
-   * @description To retrieve an individual tag, you can send a `GET` request to `/v2/tags/$TAG_NAME`.
-   */
   "resources/tags/tags_get.yml": {
     /**
      * Retrieve a Tag 
@@ -14064,10 +12326,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Tags 
-   * @description To list all of your tags, you can send a GET request to `/v2/tags`.
-   */
   "resources/tags/tags_list.yml": {
     /**
      * List All Tags 
@@ -14081,11 +12339,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Untag a Resource 
-   * @description Resources can be untagged by sending a DELETE request to `/v2/tags/$TAG_NAME/resources` with an array of json objects containing `resource_id` and `resource_type` attributes.
-   * Currently only untagging of Droplets, Databases, Images, Volumes, and Volume Snapshots is supported. `resource_type` is expected to be the string `droplet`, `database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expected to be the ID of the resource as a string.
-   */
   "resources/tags/tags_unassign_resources.yml": {
     /**
      * Untag a Resource 
@@ -14106,11 +12359,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Create a New Alert 
-   * @description To create an Uptime alert, send a POST request to `/v2/uptime/checks/$CHECK_ID/alerts` specifying the attributes
-   * in the table below in the JSON body.
-   */
   "resources/uptime/create_alert.yml": {
     /**
      * Create a New Alert 
@@ -14140,11 +12388,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Create a New Check 
-   * @description To create an Uptime check, send a POST request to `/v2/uptime/checks` specifying the attributes
-   * in the table below in the JSON body.
-   */
   "resources/uptime/create_check.yml": {
     /**
      * Create a New Check 
@@ -14164,11 +12407,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete an Alert 
-   * @description To delete an Uptime alert, send a DELETE request to `/v2/uptime/checks/$CHECK_ID/alerts/$ALERT_ID`. A 204 status
-   * code with no body will be returned in response to a successful request.
-   */
   "resources/uptime/delete_alert.yml": {
     /**
      * Delete an Alert 
@@ -14184,14 +12422,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Check 
-   * @description To delete an Uptime check, send a DELETE request to `/v2/uptime/checks/$CHECK_ID`. A 204 status
-   * code with no body will be returned in response to a successful request.
-   * 
-   * 
-   * Deleting a check will also delete alerts associated with the check.
-   */
   "resources/uptime/delete_check.yml": {
     /**
      * Delete a Check 
@@ -14210,10 +12440,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Alert 
-   * @description To show information about an existing alert, send a GET request to `/v2/uptime/checks/$CHECK_ID/alerts/$ALERT_ID`.
-   */
   "resources/uptime/get_alert.yml": {
     /**
      * Retrieve an Existing Alert 
@@ -14228,10 +12454,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve Check State 
-   * @description To show information about an existing check's state, send a GET request to `/v2/uptime/checks/$CHECK_ID/state`.
-   */
   "resources/uptime/get_check_state.yml": {
     /**
      * Retrieve Check State 
@@ -14246,10 +12468,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Check 
-   * @description To show information about an existing check, send a GET request to `/v2/uptime/checks/$CHECK_ID`.
-   */
   "resources/uptime/get_check.yml": {
     /**
      * Retrieve an Existing Check 
@@ -14264,10 +12482,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Alerts 
-   * @description To list all of the alerts for an Uptime check, send a GET request to `/v2/uptime/checks/$CHECK_ID/alerts`.
-   */
   "resources/uptime/list_alerts.yml": {
     /**
      * List All Alerts 
@@ -14282,10 +12496,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Checks 
-   * @description To list all of the Uptime checks on your account, send a GET request to `/v2/uptime/checks`.
-   */
   "resources/uptime/list_checks.yml": {
     /**
      * List All Checks 
@@ -14388,10 +12598,6 @@ export interface external {
       };
     };
   }
-  /**
-   * Update an Alert 
-   * @description To update the settings of an Uptime alert, send a PUT request to `/v2/uptime/checks/$CHECK_ID/alerts/$ALERT_ID`.
-   */
   "resources/uptime/update_alert.yml": {
     /**
      * Update an Alert 
@@ -14411,10 +12617,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update a Check 
-   * @description To update the settings of an Uptime check, send a PUT request to `/v2/uptime/checks/$CHECK_ID`.
-   */
   "resources/uptime/update_check.yml": {
     /**
      * Update a Check 
@@ -14622,10 +12824,6 @@ export interface external {
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Volume Action 
-   * @description To retrieve the status of a volume action, send a GET request to `/v2/volumes/$VOLUME_ID/actions/$ACTION_ID`.
-   */
   "resources/volumes/volumeActions_get.yml": {
     /**
      * Retrieve an Existing Volume Action 
@@ -14640,10 +12838,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Actions for a Volume 
-   * @description To retrieve all actions that have been executed on a volume, send a GET request to `/v2/volumes/$VOLUME_ID/actions`.
-   */
   "resources/volumes/volumeActions_list.yml": {
     /**
      * List All Actions for a Volume 
@@ -14658,45 +12852,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Initiate A Block Storage Action By Volume Id 
-   * @description To initiate an action on a block storage volume by Id, send a POST request to
-   * `~/v2/volumes/$VOLUME_ID/actions`. The body should contain the appropriate
-   * attributes for the respective action.
-   * 
-   * ## Attach a Block Storage Volume to a Droplet
-   * 
-   * | Attribute  | Details                                                             |
-   * | ---------- | ------------------------------------------------------------------- |
-   * | type       | This must be `attach`                                               |
-   * | droplet_id | Set to the Droplet's ID                                             |
-   * | region     | Set to the slug representing the region where the volume is located |
-   * 
-   * Each volume may only be attached to a single Droplet. However, up to seven
-   * volumes may be attached to a Droplet at a time. Pre-formatted volumes will be
-   * automatically mounted to Ubuntu, Debian, Fedora, Fedora Atomic, and CentOS
-   * Droplets created on or after April 26, 2018 when attached. On older Droplets,
-   * [additional configuration](https://www.digitalocean.com/community/tutorials/how-to-partition-and-format-digitalocean-block-storage-volumes-in-linux#mounting-the-filesystems)
-   * is required.
-   * 
-   * ## Remove a Block Storage Volume from a Droplet
-   * 
-   * | Attribute  | Details                                                             |
-   * | ---------- | ------------------------------------------------------------------- |
-   * | type       | This must be `detach`                                               |
-   * | droplet_id | Set to the Droplet's ID                                             |
-   * | region     | Set to the slug representing the region where the volume is located |
-   * 
-   * ## Resize a Volume
-   * 
-   * | Attribute      | Details                                                             |
-   * | -------------- | ------------------------------------------------------------------- |
-   * | type           | This must be `resize`                                               |
-   * | size_gigabytes | The new size of the block storage volume in GiB (1024^3)            |
-   * | region         | Set to the slug representing the region where the volume is located |
-   * 
-   * Volumes may only be resized upwards. The maximum size for a volume is 16TiB.
-   */
   "resources/volumes/volumeActions_post_byId.yml": {
     /**
      * Initiate A Block Storage Action By Volume Id 
@@ -14751,37 +12906,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Initiate A Block Storage Action By Volume Name 
-   * @description To initiate an action on a block storage volume by Name, send a POST request to
-   * `~/v2/volumes/actions`. The body should contain the appropriate
-   * attributes for the respective action.
-   * 
-   * ## Attach a Block Storage Volume to a Droplet
-   * 
-   * | Attribute   | Details                                                             |
-   * | ----------- | ------------------------------------------------------------------- |
-   * | type        | This must be `attach`                                               |
-   * | volume_name | The name of the block storage volume                                |
-   * | droplet_id  | Set to the Droplet's ID                                             |
-   * | region      | Set to the slug representing the region where the volume is located |
-   * 
-   * Each volume may only be attached to a single Droplet. However, up to five
-   * volumes may be attached to a Droplet at a time. Pre-formatted volumes will be
-   * automatically mounted to Ubuntu, Debian, Fedora, Fedora Atomic, and CentOS
-   * Droplets created on or after April 26, 2018 when attached. On older Droplets,
-   * [additional configuration](https://www.digitalocean.com/community/tutorials/how-to-partition-and-format-digitalocean-block-storage-volumes-in-linux#mounting-the-filesystems)
-   * is required.
-   * 
-   * ## Remove a Block Storage Volume from a Droplet
-   * 
-   * | Attribute   | Details                                                             |
-   * | ----------- | ------------------------------------------------------------------- |
-   * | type        | This must be `detach`                                               |
-   * | volume_name | The name of the block storage volume                                |
-   * | droplet_id  | Set to the Droplet's ID                                             |
-   * | region      | Set to the slug representing the region where the volume is located |
-   */
   "resources/volumes/volumeActions_post.yml": {
     /**
      * Initiate A Block Storage Action By Volume Name 
@@ -14828,10 +12952,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Create a New Block Storage Volume 
-   * @description To create a new volume, send a POST request to `/v2/volumes`. Optionally, a `filesystem_type` attribute may be provided in order to automatically format the volume's filesystem. Pre-formatted volumes are automatically mounted when attached to Ubuntu, Debian, Fedora, Fedora Atomic, and CentOS Droplets created on or after April 26, 2018. Attaching pre-formatted volumes to Droplets without support for auto-mounting is not recommended.
-   */
   "resources/volumes/volumes_create.yml": {
     /**
      * Create a New Block Storage Volume 
@@ -14852,11 +12972,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Block Storage Volume by Name 
-   * @description Block storage volumes may also be deleted by name by sending a DELETE request with the volume's **name** and the **region slug** for the region it is located in as query parameters to `/v2/volumes?name=$VOLUME_NAME&region=nyc1`.
-   * No response body will be sent back, but the response code will indicate success. Specifically, the response code will be a 204, which means that the action was successful with no returned body data.
-   */
   "resources/volumes/volumes_delete_byName.yml": {
     /**
      * Delete a Block Storage Volume by Name 
@@ -14872,11 +12987,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Block Storage Volume 
-   * @description To delete a block storage volume, destroying all data and removing it from your account, send a DELETE request to `/v2/volumes/$VOLUME_ID`.
-   * No response body will be sent back, but the response code will indicate success. Specifically, the response code will be a 204, which means that the action was successful with no returned body data.
-   */
   "resources/volumes/volumes_delete.yml": {
     /**
      * Delete a Block Storage Volume 
@@ -14892,10 +13002,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Block Storage Volume 
-   * @description To show information about a block storage volume, send a GET request to `/v2/volumes/$VOLUME_ID`.
-   */
   "resources/volumes/volumes_get.yml": {
     /**
      * Retrieve an Existing Block Storage Volume 
@@ -14910,18 +13016,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All Block Storage Volumes 
-   * @description To list all of the block storage volumes available on your account, send a GET request to `/v2/volumes`.
-   * ## Filtering Results
-   * ### By Region
-   * The `region` may be provided as query parameter in order to restrict results to volumes available in a specific region. For example: `/v2/volumes?region=nyc1`
-   * ### By Name
-   * It is also possible to list volumes on your account that match a specified name. To do so, send a GET request with the volume's name as a query parameter to `/v2/volumes?name=$VOLUME_NAME`.
-   * **Note:** You can only create one volume per region with the same name.
-   * ### By Name and Region
-   * It is also possible to retrieve information about a block storage volume by name. To do so, send a GET request with the volume's name and the region slug for the region it is located in as query parameters to `/v2/volumes?name=$VOLUME_NAME&region=nyc1`.
-   */
   "resources/volumes/volumes_list.yml": {
     /**
      * List All Block Storage Volumes 
@@ -14943,10 +13037,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Create Snapshot from a Volume 
-   * @description To create a snapshot from a volume, sent a POST request to `/v2/volumes/$VOLUME_ID/snapshots`.
-   */
   "resources/volumes/volumeSnapshots_create.yml": {
     /**
      * Create Snapshot from a Volume 
@@ -14979,14 +13069,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a Volume Snapshot 
-   * @description To delete a volume snapshot, send a DELETE request to
-   * `/v2/snapshots/$SNAPSHOT_ID`.
-   * 
-   * A status of 204 will be given. This indicates that the request was processed
-   * successfully, but that no response body is needed.
-   */
   "resources/volumes/volumeSnapshots_delete_byId.yml": {
     /**
      * Delete a Volume Snapshot 
@@ -15005,10 +13087,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing Volume Snapshot 
-   * @description To retrieve the details of a snapshot that has been created from a volume, send a GET request to `/v2/volumes/snapshots/$SNAPSHOT_ID`.
-   */
   "resources/volumes/volumeSnapshots_get_byId.yml": {
     /**
      * Retrieve an Existing Volume Snapshot 
@@ -15023,10 +13101,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List Snapshots for a Volume 
-   * @description To retrieve the snapshots that have been created from a volume, send a GET request to `/v2/volumes/$VOLUME_ID/snapshots`.
-   */
   "resources/volumes/volumeSnapshots_list.yml": {
     /**
      * List Snapshots for a Volume 
@@ -15092,15 +13166,6 @@ export interface external {
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
   }
-  /**
-   * Create a New VPC 
-   * @description To create a VPC, send a POST request to `/v2/vpcs` specifying the attributes
-   * in the table below in the JSON body.
-   * 
-   * **Note:** If you do not currently have a VPC network in a specific datacenter
-   * region, the first one that you create will be set as the default for that
-   * region. The default VPC for a region cannot be changed or deleted.
-   */
   "resources/vpcs/vpcs_create.yml": {
     /**
      * Create a New VPC 
@@ -15124,16 +13189,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Delete a VPC 
-   * @description To delete a VPC, send a DELETE request to `/v2/vpcs/$VPC_ID`. A 204 status
-   * code with no body will be returned in response to a successful request.
-   * 
-   * The default VPC for a region can not be deleted. Additionally, a VPC can only
-   * be deleted if it does not contain any member resources. Attempting to delete
-   * a region's default VPC or a VPC that still has members will result in a
-   * 403 Forbidden error response.
-   */
   "resources/vpcs/vpcs_delete.yml": {
     /**
      * Delete a VPC 
@@ -15154,10 +13209,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Retrieve an Existing VPC 
-   * @description To show information about an existing VPC, send a GET request to `/v2/vpcs/$VPC_ID`.
-   */
   "resources/vpcs/vpcs_get.yml": {
     /**
      * Retrieve an Existing VPC 
@@ -15172,15 +13223,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List the Member Resources of a VPC 
-   * @description To list all of the resources that are members of a VPC, send a GET request to
-   * `/v2/vpcs/$VPC_ID/members`.
-   * 
-   * To only list resources of a specific type that are members of the VPC,
-   * included a `resource_type` query parameter. For example, to only list Droplets
-   * in the VPC, send a GET request to `/v2/vpcs/$VPC_ID/members?resource_type=droplet`.
-   */
   "resources/vpcs/vpcs_list_members.yml": {
     /**
      * List the Member Resources of a VPC 
@@ -15200,10 +13242,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * List All VPCs 
-   * @description To list all of the VPCs on your account, send a GET request to `/v2/vpcs`.
-   */
   "resources/vpcs/vpcs_list.yml": {
     /**
      * List All VPCs 
@@ -15218,11 +13256,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Partially Update a VPC 
-   * @description To update a subset of information about a VPC, send a PATCH request to
-   * `/v2/vpcs/$VPC_ID`.
-   */
   "resources/vpcs/vpcs_patch.yml": {
     /**
      * Partially Update a VPC 
@@ -15243,10 +13276,6 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  /**
-   * Update a VPC 
-   * @description To update information about a VPC, send a PUT request to `/v2/vpcs/$VPC_ID`.
-   */
   "resources/vpcs/vpcs_update.yml": {
     /**
      * Update a VPC 

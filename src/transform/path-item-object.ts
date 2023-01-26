@@ -32,7 +32,7 @@ export default function transformPathItemObject(
       const operationType = transformOperationObject(operationObject, { path, ctx: { ...ctx, indentLv: 1 } });
       ctx.operations[operationObject.operationId] = { 
         operationType,
-        comment: c,
+        comment: getSchemaObjectComment(operationObject, 1),
       };
       output.push(indent(`${method}: operations[${escStr(operationObject.operationId)}];`, indentLv));
     } else {
