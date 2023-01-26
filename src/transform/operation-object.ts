@@ -51,7 +51,7 @@ export default function transformOperationObject(
               key = tsOptionalProperty(key);
             }
             const c = getSchemaObjectComment(p, indentLv);
-            if (c) parameterOutput.push(indent(c, indentLv));
+            if (c) inlineOutput.push(indent(c, indentLv));
             const parameterType = transformParameterObject(p, {
               path: `${path}/parameters/${p.name}`,
               ctx: { ...ctx, indentLv },

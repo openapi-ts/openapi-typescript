@@ -22,7 +22,7 @@ describe("Paths Object", () => {
       "/api/v1/user/{user_id}": {
         parameters: [{ name: "page", in: "query", schema: { type: "number" }, description: "Page number." }],
         get: {
-          parameters: [{ name: "user_id", in: "path" }],
+          parameters: [{ name: "user_id", in: "path", description: "User ID." }],
           responses: {
             200: {
               description: "OK",
@@ -58,6 +58,7 @@ describe("Paths Object", () => {
     get: {
       parameters: {
         path: {
+          /** @description User ID. */
           user_id: string;
         };
       };
@@ -79,8 +80,8 @@ describe("Paths Object", () => {
       };
     };
     parameters: {
-        /** @description Page number. */
       query: {
+        /** @description Page number. */
         page?: number;
       };
     };
