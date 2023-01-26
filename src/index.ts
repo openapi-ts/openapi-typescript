@@ -182,8 +182,9 @@ async function openapiTS(
   // 3. operations (only get fully built after all external schemas transformed)
   if (Object.keys(ctx.operations).length) {
     output.push(options.exportType ? "export type operations = {" : "export interface operations {", "");
-    for (const k of Object.keys(ctx.operations)) {
-      output.push(indent(`${escObjKey(k)}: ${ctx.operations[k]};`, 1));
+    for (const [ key, { operationType, comment }] of Object.entries(ctx.operations)) {
+      if (comment) output.push(indent(comment, 1));
+      output.push(indent(`${escObjKey(key)}: ${operationType};`, 1));
     }
     output.push(`}${options.exportType ? ";" : ""}`, "");
   } else {

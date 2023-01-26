@@ -1,4 +1,4 @@
-import type { PathItemObject } from "../src/types";
+import type { GlobalContext, PathItemObject } from "../src/types";
 import transformPathItemObject, { TransformPathItemObjectOptions } from "../src/transform/path-item-object.js";
 
 const options: TransformPathItemObjectOptions = {
@@ -23,6 +23,7 @@ describe("Path Item Object", () => {
   test("basic", () => {
     const schema: PathItemObject = {
       get: {
+        description: "Basic GET",
         responses: {
           200: {
             description: "OK",
@@ -57,6 +58,7 @@ describe("Path Item Object", () => {
         },
       },
       post: {
+        description: "Basic POST",
         requestBody: {
           content: {
             "application/json": { $ref: 'components["schemas"]["User"]' },
@@ -70,6 +72,7 @@ describe("Path Item Object", () => {
     };
     const generated = transformPathItemObject(schema, options);
     expect(generated).toBe(`{
+  /** @description Basic GET */
   get: {
     responses: {
       /** @description OK */
@@ -92,6 +95,7 @@ describe("Path Item Object", () => {
       };
     };
   };
+  /** @description Basic POST */
   post: {
     requestBody?: {
       content: {
@@ -107,9 +111,10 @@ describe("Path Item Object", () => {
   });
 
   test("operations", () => {
-    const operations: Record<string, string> = {};
+    const operations: GlobalContext['operations'] = {};
     const schema: PathItemObject = {
       get: {
+        description: "Get a user",
         operationId: "getUser",
         responses: {
           200: {
@@ -132,10 +137,13 @@ describe("Path Item Object", () => {
     };
     const generated = transformPathItemObject(schema, { ...options, ctx: { ...options.ctx, operations } });
     expect(generated).toBe(`{
+  /** @description Get a user */
   get: operations["getUser"];
 }`);
     expect(operations).toEqual({
-      getUser: `{
+      getUser: {
+        comment: "/** @description Get a user */",
+        operationType: `{
     responses: {
       /** @description Get User */
       200: {
@@ -148,6 +156,7 @@ describe("Path Item Object", () => {
       };
     };
   }`,
+      }        
     });
   });
 });

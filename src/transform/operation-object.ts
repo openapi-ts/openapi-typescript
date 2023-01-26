@@ -30,8 +30,6 @@ export default function transformOperationObject(
   let { indentLv } = ctx;
   const output: string[] = wrapObject ? ["{"] : [];
   indentLv++;
-  const c = getSchemaObjectComment(operationObject, indentLv);
-  if (c) output.push(indent(c, indentLv));
 
   // parameters
   {
