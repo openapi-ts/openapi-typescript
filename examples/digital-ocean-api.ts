@@ -8041,6 +8041,7 @@ export interface external {
      * `/v2/images/$IDENTIFIER`.
      */
     parameters: {
+      path: {
         /**
          * @description A unique number (id) or string (slug) used to identify and reference a
          * specific image.
@@ -8049,7 +8050,6 @@ export interface external {
          * 
          * **Private** images *must* be identified by image `id`.
          */
-      path: {
         image_id: number | string;
       };
     };

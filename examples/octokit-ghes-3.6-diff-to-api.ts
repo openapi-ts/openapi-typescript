@@ -5929,9 +5929,9 @@ export interface operations {
   "enterprise-admin/list-public-keys": {
     /** List public keys */
     parameters: {
-        /** @description Only show public keys accessed after the given time. */
       query: {
         sort?: "created" | "updated" | "accessed";
+        /** @description Only show public keys accessed after the given time. */
         since?: string;
       };
     };
@@ -6237,8 +6237,8 @@ export interface operations {
   "enterprise-admin/list-pre-receive-hooks": {
     /** List pre-receive hooks */
     parameters: {
-        /** @description The property to sort the results by. */
       query: {
+        /** @description The property to sort the results by. */
         sort?: "created" | "updated" | "name";
       };
     };
@@ -6546,8 +6546,8 @@ export interface operations {
      * You can use this API to list the set of OAuth applications that have been granted access to your account. Unlike the [list your authorizations](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations#list-your-authorizations) API, this API does not manage individual tokens. This API will return one entry for each OAuth application that has been granted access to your account, regardless of the number of tokens an application has generated for your user. The list of OAuth applications returned matches what is shown on [the application authorizations settings screen within GitHub](https://github.com/settings/applications#authorized). The `scopes` returned are the union of scopes authorized for the application. For example, if an application has one token with `repo` scope and another token with `user` scope, the grant will return `["repo", "user"]`.
      */
     parameters: {
-        /** @description The client ID of your GitHub app. */
       query: {
+        /** @description The client ID of your GitHub app. */
         client_id?: string;
       };
     };
@@ -6704,8 +6704,8 @@ export interface operations {
      * @description **Deprecation Notice:** GitHub Enterprise Server will discontinue the [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/enterprise-server@3.6/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
      */
     parameters: {
-        /** @description The client ID of your GitHub app. */
       query: {
+        /** @description The client ID of your GitHub app. */
         client_id?: string;
       };
     };
@@ -7297,8 +7297,8 @@ export interface operations {
      * For more information on custom repository roles, see "[Managing custom repository roles for an organization](https://docs.github.com/enterprise-server@3.6/organizations/managing-peoples-access-to-your-organization-with-roles/managing-custom-repository-roles-for-an-organization)".
      */
     parameters: {
-        /** @description The unique identifier of the organization. */
       path: {
+        /** @description The unique identifier of the organization. */
         organization_id: string;
       };
     };
@@ -7503,10 +7503,10 @@ export interface operations {
      * You can manage team membership with your identity provider using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/enterprise-server@3.6/github/getting-started-with-github/githubs-products)" in the GitHub Help documentation.
      */
     parameters: {
-        /** @description Page token */
-        /** @description Limits the list to groups containing the text in the group name */
       query: {
+        /** @description Page token */
         page?: number;
+        /** @description Limits the list to groups containing the text in the group name */
         display_name?: string;
       };
     };
@@ -7565,8 +7565,8 @@ export interface operations {
      * @description List all pre-receive hooks that are enabled or testing for this organization as well as any disabled hooks that can be configured at the organization level. Globally disabled pre-receive hooks that do not allow downstream configuration are not listed.
      */
     parameters: {
-        /** @description The sort order for the response collection. */
       query: {
+        /** @description The sort order for the response collection. */
         sort?: "created" | "updated" | "name";
       };
     };
@@ -8017,10 +8017,10 @@ export interface operations {
      * The `tool_name` field is deprecated and will, in future, not be included in the response for this endpoint. The example response reflects this change. The tool name can now be found inside the `tool` field.
      */
     parameters: {
-        /** @description The Git reference for the analyses you want to list. The `ref` for a branch can be formatted either as `refs/heads/<branch name>` or simply `<branch name>`. To reference a pull request use `refs/pull/<number>/merge`. */
-        /** @description Filter analyses belonging to the same SARIF upload. */
       query: {
+        /** @description The Git reference for the analyses you want to list. The `ref` for a branch can be formatted either as `refs/heads/<branch name>` or simply `<branch name>`. To reference a pull request use `refs/pull/<number>/merge`. */
         ref?: components["schemas"]["code-scanning-ref"];
+        /** @description Filter analyses belonging to the same SARIF upload. */
         sarif_id?: components["schemas"]["code-scanning-analysis-sarif-id"];
       };
     };
@@ -8049,10 +8049,10 @@ export interface operations {
      * endpoint.
      */
     parameters: {
-        /** @description Filter collaborators returned by their affiliation. `outside` means all outside collaborators of an organization-owned repository. `direct` means all collaborators with permissions to an organization-owned repository, regardless of organization membership status. `all` means all collaborators the authenticated user can see. */
-        /** @description Filter collaborators by the permissions they have on the repository. If not specified, all collaborators will be returned. */
       query: {
+        /** @description Filter collaborators returned by their affiliation. `outside` means all outside collaborators of an organization-owned repository. `direct` means all collaborators with permissions to an organization-owned repository, regardless of organization membership status. `all` means all collaborators the authenticated user can see. */
         affiliation?: "outside" | "direct" | "all";
+        /** @description Filter collaborators by the permissions they have on the repository. If not specified, all collaborators will be returned. */
         permission?: "pull" | "triage" | "push" | "maintain" | "admin";
       };
     };
@@ -8090,8 +8090,8 @@ export interface operations {
      * @description Gets the diff of the dependency changes between two commits of a repository, based on the changes to the dependency manifests made in those commits.
      */
     parameters: {
-        /** @description The base and head Git revisions to compare. The Git revisions will be resolved to commit SHAs. Named revisions will be resolved to their corresponding HEAD commits, and an appropriate merge base will be determined. This parameter expects the format `{base}...{head}`. */
       path: {
+        /** @description The base and head Git revisions to compare. The Git revisions will be resolved to commit SHAs. Named revisions will be resolved to their corresponding HEAD commits, and an appropriate merge base will be determined. This parameter expects the format `{base}...{head}`. */
         basehead: string;
       };
     };
@@ -8379,8 +8379,8 @@ export interface operations {
      * @description Get a published release with the specified tag.
      */
     parameters: {
-        /** @description tag parameter */
       path: {
+        /** @description tag parameter */
         tag: string;
       };
     };
@@ -8553,8 +8553,8 @@ export interface operations {
      * - Pagination is powered exclusively by the `since` parameter. Use the [Link header](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#link-header) to get the URL for the next page of repositories.
      */
     parameters: {
-        /** @description Specifies the types of repositories to return. This endpoint will only list repositories available to all users on the enterprise. */
       query: {
+        /** @description Specifies the types of repositories to return. This endpoint will only list repositories available to all users on the enterprise. */
         visibility?: "all" | "public";
       };
     };
@@ -8579,10 +8579,10 @@ export interface operations {
      * @description **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
      */
     parameters: {
-        /** @description filter results */
-        /** @description attributes to exclude */
       query: {
+        /** @description filter results */
         filter?: string;
+        /** @description attributes to exclude */
         excludedAttributes?: string;
       };
     };
@@ -8631,8 +8631,8 @@ export interface operations {
      * @description **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
      */
     parameters: {
-        /** @description Attributes to exclude. */
       query: {
+        /** @description Attributes to exclude. */
         excludedAttributes?: string;
       };
     };
@@ -8740,8 +8740,8 @@ export interface operations {
      *    - If the user does not sign in (or does not create a new account when prompted), they are not added to the GitHub Enterprise Server enterprise, and the external identity `null` entry remains in place.
      */
     parameters: {
-        /** @description filter results */
       query: {
+        /** @description filter results */
         filter?: string;
       };
     };

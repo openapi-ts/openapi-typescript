@@ -87148,10 +87148,10 @@ export interface operations {
      * For more information on creating a personal access token, see "[Creating a personal access token](/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)."
      */
     parameters: {
-        /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events after this cursor. */
-        /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events before this cursor. */
       query: {
+        /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events after this cursor. */
         date_start?: string;
+        /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events before this cursor. */
         date_end?: string;
       };
     };
@@ -87828,10 +87828,10 @@ export interface operations {
      * and you must use an access token with the `repo` scope or `security_events` scope.
      */
     parameters: {
-        /** @description If specified, only code scanning alerts with this state will be returned. */
-        /** @description The property by which to sort the results. */
       query: {
+        /** @description If specified, only code scanning alerts with this state will be returned. */
         state?: components["schemas"]["code-scanning-alert-state"];
+        /** @description The property by which to sort the results. */
         sort?: "created" | "updated";
       };
     };
@@ -88427,12 +88427,12 @@ export interface operations {
      * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
      */
     parameters: {
-        /** @description Indicates which sorts of issues to return. `assigned` means issues assigned to you. `created` means issues created by you. `mentioned` means issues mentioning you. `subscribed` means issues you're subscribed to updates for. `all` or `repos` means all issues you can see, regardless of participation or creation. */
-        /** @description Indicates the state of the issues to return. */
-        /** @description What to sort results by. */
       query: {
+        /** @description Indicates which sorts of issues to return. `assigned` means issues assigned to you. `created` means issues created by you. `mentioned` means issues mentioning you. `subscribed` means issues you're subscribed to updates for. `all` or `repos` means all issues you can see, regardless of participation or creation. */
         filter?: "assigned" | "created" | "mentioned" | "subscribed" | "repos" | "all";
+        /** @description Indicates the state of the issues to return. */
         state?: "open" | "closed" | "all";
+        /** @description What to sort results by. */
         sort?: "created" | "updated" | "comments";
         collab?: boolean;
         orgs?: boolean;
@@ -88602,8 +88602,8 @@ export interface operations {
      * GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth Apps must use [basic authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) with their client ID and client secret to access this endpoint.
      */
     parameters: {
-        /** @description To return the oldest accounts first, set to `asc`. Ignored without the `sort` parameter. */
       query: {
+        /** @description To return the oldest accounts first, set to `asc`. Ignored without the `sort` parameter. */
         direction?: "asc" | "desc";
       };
     };
@@ -88669,8 +88669,8 @@ export interface operations {
      * GitHub Apps must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint. OAuth Apps must use [basic authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication) with their client ID and client secret to access this endpoint.
      */
     parameters: {
-        /** @description To return the oldest accounts first, set to `asc`. Ignored without the `sort` parameter. */
       query: {
+        /** @description To return the oldest accounts first, set to `asc`. Ignored without the `sort` parameter. */
         direction?: "asc" | "desc";
       };
     };
@@ -88725,8 +88725,8 @@ export interface operations {
      * @description List all notifications for the current user, sorted by most recently updated.
      */
     parameters: {
-        /** @description The number of results per page (max 50). */
       query: {
+        /** @description The number of results per page (max 50). */
         per_page?: number;
       };
     };
@@ -88879,8 +88879,8 @@ export interface operations {
      * @description Get the octocat as ASCII art
      */
     parameters: {
-        /** @description The words to show in Octocat's speech bubble */
       query: {
+        /** @description The words to show in Octocat's speech bubble */
         s?: string;
       };
     };
@@ -88926,8 +88926,8 @@ export interface operations {
      * For more information on custom repository roles, see "[About custom repository roles](https://docs.github.com/organizations/managing-peoples-access-to-your-organization-with-roles/about-custom-repository-roles)."
      */
     parameters: {
-        /** @description The unique identifier of the organization. */
       path: {
+        /** @description The unique identifier of the organization. */
         organization_id: string;
       };
     };
@@ -90099,10 +90099,10 @@ export interface operations {
      * GitHub Apps must have the `security_events` read permission to use this endpoint.
      */
     parameters: {
-        /** @description If specified, only code scanning alerts with this state will be returned. */
-        /** @description The property by which to sort the results. */
       query: {
+        /** @description If specified, only code scanning alerts with this state will be returned. */
         state?: components["schemas"]["code-scanning-alert-state"];
+        /** @description The property by which to sort the results. */
         sort?: "created" | "updated";
       };
     };
@@ -91260,12 +91260,12 @@ export interface operations {
      * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
      */
     parameters: {
-        /** @description Indicates which sorts of issues to return. `assigned` means issues assigned to you. `created` means issues created by you. `mentioned` means issues mentioning you. `subscribed` means issues you're subscribed to updates for. `all` or `repos` means all issues you can see, regardless of participation or creation. */
-        /** @description Indicates the state of the issues to return. */
-        /** @description What to sort results by. */
       query: {
+        /** @description Indicates which sorts of issues to return. `assigned` means issues assigned to you. `created` means issues created by you. `mentioned` means issues mentioning you. `subscribed` means issues you're subscribed to updates for. `all` or `repos` means all issues you can see, regardless of participation or creation. */
         filter?: "assigned" | "created" | "mentioned" | "subscribed" | "repos" | "all";
+        /** @description Indicates the state of the issues to return. */
         state?: "open" | "closed" | "all";
+        /** @description What to sort results by. */
         sort?: "created" | "updated" | "comments";
       };
     };
@@ -91288,10 +91288,10 @@ export interface operations {
      * @description List all users who are members of an organization. If the authenticated user is also a member of this organization then both concealed and public members will be returned.
      */
     parameters: {
-        /** @description Filter members returned in the list. `2fa_disabled` means that only members without [two-factor authentication](https://github.com/blog/1614-two-factor-authentication) enabled will be returned. This options is only available for organization owners. */
-        /** @description Filter members returned by their role. */
       query: {
+        /** @description Filter members returned in the list. `2fa_disabled` means that only members without [two-factor authentication](https://github.com/blog/1614-two-factor-authentication) enabled will be returned. This options is only available for organization owners. */
         filter?: "2fa_disabled" | "all";
+        /** @description Filter members returned by their role. */
         role?: "all" | "admin" | "member";
       };
     };
@@ -91468,8 +91468,8 @@ export interface operations {
      * @description Lists the most recent migrations.
      */
     parameters: {
-        /** @description Exclude attributes from the API response to improve performance */
       query: {
+        /** @description Exclude attributes from the API response to improve performance */
         exclude?: ("repositories")[];
       };
     };
@@ -91564,8 +91564,8 @@ export interface operations {
      * *   `failed`, which means the migration failed.
      */
     parameters: {
-        /** @description Exclude attributes from the API response to improve performance */
       query: {
+        /** @description Exclude attributes from the API response to improve performance */
         exclude?: ("repositories")[];
       };
     };
@@ -91641,8 +91641,8 @@ export interface operations {
      * @description List all users who are outside collaborators of an organization.
      */
     parameters: {
-        /** @description Filter the list of outside collaborators. `2fa_disabled` means that only outside collaborators without [two-factor authentication](https://github.com/blog/1614-two-factor-authentication) enabled will be returned. */
       query: {
+        /** @description Filter the list of outside collaborators. `2fa_disabled` means that only outside collaborators without [two-factor authentication](https://github.com/blog/1614-two-factor-authentication) enabled will be returned. */
         filter?: "2fa_disabled" | "all";
       };
     };
@@ -91716,8 +91716,8 @@ export interface operations {
      * If `package_type` is not `container`, your token must also include the `repo` scope.
      */
     parameters: {
-        /** @description The type of supported package. Packages in GitHub's Gradle registry have the type `maven`. Docker images pushed to GitHub's Container registry (`ghcr.io`) have the type `container`. You can use the type `docker` to find images that were pushed to GitHub's Docker registry (`docker.pkg.github.com`), even if these have now been migrated to the Container registry. */
       query: {
+        /** @description The type of supported package. Packages in GitHub's Gradle registry have the type `maven`. Docker images pushed to GitHub's Container registry (`ghcr.io`) have the type `container`. You can use the type `docker` to find images that were pushed to GitHub's Docker registry (`docker.pkg.github.com`), even if these have now been migrated to the Container registry. */
         package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
       };
     };
@@ -91780,8 +91780,8 @@ export interface operations {
      * - If `package_type` is `container`, you must also have admin permissions to the container that you want to restore.
      */
     parameters: {
-        /** @description package token */
       query: {
+        /** @description package token */
         token?: string;
       };
     };
@@ -91802,8 +91802,8 @@ export interface operations {
      * If `package_type` is not `container`, your token must also include the `repo` scope.
      */
     parameters: {
-        /** @description The state of the package, either active or deleted. */
       query: {
+        /** @description The state of the package, either active or deleted. */
         state?: "active" | "deleted";
       };
     };
@@ -91880,8 +91880,8 @@ export interface operations {
      * @description Lists the projects in an organization. Returns a `404 Not Found` status if projects are disabled in the organization. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
      */
     parameters: {
-        /** @description Indicates the state of the projects to return. */
       query: {
+        /** @description Indicates the state of the projects to return. */
         state?: "open" | "closed" | "all";
       };
     };
@@ -91979,12 +91979,12 @@ export interface operations {
      * @description Lists repositories for the specified organization.
      */
     parameters: {
-        /** @description Specifies the types of repositories you want returned. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `type` can also be `internal`. However, the `internal` value is not yet supported when a GitHub App calls this API with an installation access token. */
-        /** @description The property to sort the results by. */
-        /** @description The order to sort by. Default: `asc` when using `full_name`, otherwise `desc`. */
       query: {
+        /** @description Specifies the types of repositories you want returned. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `type` can also be `internal`. However, the `internal` value is not yet supported when a GitHub App calls this API with an installation access token. */
         type?: "all" | "public" | "private" | "forks" | "sources" | "member" | "internal";
+        /** @description The property to sort the results by. */
         sort?: "created" | "updated" | "pushed" | "full_name";
+        /** @description The order to sort by. Default: `asc` when using `full_name`, otherwise `desc`. */
         direction?: "asc" | "desc";
       };
     };
@@ -92459,8 +92459,8 @@ export interface operations {
      * **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/{org_id}/team/{team_id}/discussions`.
      */
     parameters: {
-        /** @description Pinned discussions only filter */
       query: {
+        /** @description Pinned discussions only filter */
         pinned?: string;
       };
     };
@@ -92668,8 +92668,8 @@ export interface operations {
      * **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/:org_id/team/:team_id/discussions/:discussion_number/comments/:comment_number/reactions`.
      */
     parameters: {
-        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion comment. */
       query: {
+        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion comment. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
       };
     };
@@ -92738,8 +92738,8 @@ export interface operations {
      * **Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/:org_id/team/:team_id/discussions/:discussion_number/reactions`.
      */
     parameters: {
-        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion. */
       query: {
+        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
       };
     };
@@ -92827,8 +92827,8 @@ export interface operations {
      * To list members in a team, the team must be visible to the authenticated user.
      */
     parameters: {
-        /** @description Filters members returned by their role in the team. */
       query: {
+        /** @description Filters members returned by their role in the team. */
         role?: "member" | "maintainer" | "all";
       };
     };
@@ -93305,8 +93305,8 @@ export interface operations {
   "projects/list-cards": {
     /** List project cards */
     parameters: {
-        /** @description Filters the project cards that are returned by the card's state. */
       query: {
+        /** @description Filters the project cards that are returned by the card's state. */
         archived_state?: "all" | "archived" | "not_archived";
       };
     };
@@ -93512,8 +93512,8 @@ export interface operations {
      * @description Lists the collaborators for an organization project. For a project, the list of collaborators includes outside collaborators, organization members that are direct collaborators, organization members with access through team memberships, organization members with access through default organization permissions, and organization owners. You must be an organization owner or a project `admin` to list collaborators.
      */
     parameters: {
-        /** @description Filters the collaborators by their affiliation. `outside` means outside collaborators of a project that are not a member of the project's organization. `direct` means collaborators with permissions to a project, regardless of organization membership status. `all` means all collaborators the authenticated user can see. */
       query: {
+        /** @description Filters the collaborators by their affiliation. `outside` means outside collaborators of a project that are not a member of the project's organization. `direct` means collaborators with permissions to a project, regardless of organization membership status. `all` means all collaborators the authenticated user can see. */
         affiliation?: "outside" | "direct" | "all";
       };
     };
@@ -93884,8 +93884,8 @@ export interface operations {
      * @description Lists all artifacts for a repository. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
      */
     parameters: {
-        /** @description Filters artifacts by exact match on their name field. */
       query: {
+        /** @description Filters artifacts by exact match on their name field. */
         name?: string;
       };
     };
@@ -94592,8 +94592,8 @@ export interface operations {
      * @description Lists jobs for a workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint. You can use parameters to narrow the list of results. For more information about using parameters, see [Parameters](https://docs.github.com/rest/overview/resources-in-the-rest-api#parameters).
      */
     parameters: {
-        /** @description Filters jobs by their `completed_at` timestamp. `latest` returns jobs from the most recent execution of the workflow run. `all` returns all jobs for a workflow run, including from old executions of the workflow run. */
       query: {
+        /** @description Filters jobs by their `completed_at` timestamp. `latest` returns jobs from the most recent execution of the workflow run. `all` returns all jobs for a workflow run, including from old executions of the workflow run. */
         filter?: "latest" | "all";
       };
     };
@@ -95187,8 +95187,8 @@ export interface operations {
   "repos/list-branches": {
     /** List branches */
     parameters: {
-        /** @description Setting to `true` returns only protected branches. When set to `false`, only unprotected branches are returned. Omitting this parameter returns all branches. */
       query: {
+        /** @description Setting to `true` returns only protected branches. When set to `false`, only unprotected branches are returned. Omitting this parameter returns all branches. */
         protected?: boolean;
       };
     };
@@ -96330,8 +96330,8 @@ export interface operations {
      * Lists check runs for a check suite using its `id`. GitHub Apps must have the `checks:read` permission on a private repository or pull access to a public repository to get check runs. OAuth Apps and authenticated users must have the `repo` scope to get check runs in a private repository.
      */
     parameters: {
-        /** @description Filters check runs by their `completed_at` timestamp. `latest` returns the most recent check runs. */
       query: {
+        /** @description Filters check runs by their `completed_at` timestamp. `latest` returns the most recent check runs. */
         filter?: "latest" | "all";
       };
     };
@@ -96381,10 +96381,10 @@ export interface operations {
      * for the default branch (or for the specified Git reference if you used `ref` in the request).
      */
     parameters: {
-        /** @description The property by which to sort the results. */
-        /** @description If specified, only code scanning alerts with this state will be returned. */
       query: {
+        /** @description The property by which to sort the results. */
         sort?: "created" | "updated";
+        /** @description If specified, only code scanning alerts with this state will be returned. */
         state?: components["schemas"]["code-scanning-alert-state"];
       };
     };
@@ -96490,12 +96490,12 @@ export interface operations {
      * The `tool_name` field is deprecated and will, in future, not be included in the response for this endpoint. The example response reflects this change. The tool name can now be found inside the `tool` field.
      */
     parameters: {
-        /** @description The Git reference for the analyses you want to list. The `ref` for a branch can be formatted either as `refs/heads/<branch name>` or simply `<branch name>`. To reference a pull request use `refs/pull/<number>/merge`. */
-        /** @description Filter analyses belonging to the same SARIF upload. */
-        /** @description The property by which to sort the results. */
       query: {
+        /** @description The Git reference for the analyses you want to list. The `ref` for a branch can be formatted either as `refs/heads/<branch name>` or simply `<branch name>`. To reference a pull request use `refs/pull/<number>/merge`. */
         ref?: components["schemas"]["code-scanning-ref"];
+        /** @description Filter analyses belonging to the same SARIF upload. */
         sarif_id?: components["schemas"]["code-scanning-analysis-sarif-id"];
+        /** @description The property by which to sort the results. */
         sort?: "created";
       };
     };
@@ -96535,8 +96535,8 @@ export interface operations {
      * [SARIF version 2.1.0](https://docs.oasis-open.org/sarif/sarif/v2.1.0/cs01/sarif-v2.1.0-cs01.html).
      */
     parameters: {
-        /** @description The ID of the analysis, as returned from the `GET /repos/{owner}/{repo}/code-scanning/analyses` operation. */
       path: {
+        /** @description The ID of the analysis, as returned from the `GET /repos/{owner}/{repo}/code-scanning/analyses` operation. */
         analysis_id: number;
       };
     };
@@ -96625,12 +96625,12 @@ export interface operations {
      * The above process assumes that you want to remove all trace of the tool's analyses from the GitHub user interface, for the specified repository, and it therefore uses the `confirm_delete_url` value. Alternatively, you could use the `next_analysis_url` value, which would leave the last analysis in each set undeleted to avoid removing a tool's analysis entirely.
      */
     parameters: {
-        /** @description Allow deletion if the specified analysis is the last in a set. If you attempt to delete the final analysis in a set without setting this parameter to `true`, you'll get a 400 response with the message: `Analysis is last of its type and deletion may result in the loss of historical alert data. Please specify confirm_delete.` */
       query: {
+        /** @description Allow deletion if the specified analysis is the last in a set. If you attempt to delete the final analysis in a set without setting this parameter to `true`, you'll get a 400 response with the message: `Analysis is last of its type and deletion may result in the loss of historical alert data. Please specify confirm_delete.` */
         confirm_delete?: string | null;
       };
-        /** @description The ID of the analysis, as returned from the `GET /repos/{owner}/{repo}/code-scanning/analyses` operation. */
       path: {
+        /** @description The ID of the analysis, as returned from the `GET /repos/{owner}/{repo}/code-scanning/analyses` operation. */
         analysis_id: number;
       };
     };
@@ -96684,8 +96684,8 @@ export interface operations {
      * GitHub Apps must have the `contents` read permission to use this endpoint.
      */
     parameters: {
-        /** @description The language of the CodeQL database. */
       path: {
+        /** @description The language of the CodeQL database. */
         language: string;
       };
     };
@@ -96773,8 +96773,8 @@ export interface operations {
      * @description Gets information about a SARIF upload, including the status and the URL of the analysis that was uploaded so that you can retrieve details of the analysis. For more information, see "[Get a code scanning analysis for a repository](/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository)." You must use an access token with the `security_events` scope to use this endpoint with private repos, the `public_repo` scope also grants permission to read security events on public repos only. GitHub Apps must have the `security_events` read permission to use this endpoint.
      */
     parameters: {
-        /** @description The SARIF ID obtained after uploading. */
       path: {
+        /** @description The SARIF ID obtained after uploading. */
         sarif_id: string;
       };
     };
@@ -96801,8 +96801,8 @@ export interface operations {
      * see "[About code owners](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)."
      */
     parameters: {
-        /** @description A branch, tag or commit name used to determine which version of the CODEOWNERS file to use. Default: the repository's default branch (e.g. `main`) */
       query: {
+        /** @description A branch, tag or commit name used to determine which version of the CODEOWNERS file to use. Default: the repository's default branch (e.g. `main`) */
         ref?: string;
       };
     };
@@ -96937,10 +96937,10 @@ export interface operations {
      * GitHub Apps must have write access to the `codespaces_metadata` repository permission to use this endpoint.
      */
     parameters: {
-        /** @description The location to check for available machines. Assigned by IP if not provided. */
-        /** @description IP for location auto-detection when proxying a request */
       query: {
+        /** @description The location to check for available machines. Assigned by IP if not provided. */
         location?: string;
+        /** @description IP for location auto-detection when proxying a request */
         client_ip?: string;
       };
     };
@@ -96971,10 +96971,10 @@ export interface operations {
      * GitHub Apps must have write access to the `codespaces` repository permission to use this endpoint.
      */
     parameters: {
-        /** @description The branch or commit to check for a default devcontainer path. If not specified, the default branch will be checked. */
-        /** @description An alternative IP for default location auto-detection, such as when proxying a request. */
       query: {
+        /** @description The branch or commit to check for a default devcontainer path. If not specified, the default branch will be checked. */
         ref?: string;
+        /** @description An alternative IP for default location auto-detection, such as when proxying a request. */
         client_ip?: string;
       };
     };
@@ -97168,10 +97168,10 @@ export interface operations {
      * endpoint.
      */
     parameters: {
-        /** @description Filter collaborators returned by their affiliation. `outside` means all outside collaborators of an organization-owned repository. `direct` means all collaborators with permissions to an organization-owned repository, regardless of organization membership status. `all` means all collaborators the authenticated user can see. */
-        /** @description Filter collaborators by the permissions they have on the repository. If not specified, all collaborators will be returned. */
       query: {
+        /** @description Filter collaborators returned by their affiliation. `outside` means all outside collaborators of an organization-owned repository. `direct` means all collaborators with permissions to an organization-owned repository, regardless of organization membership status. `all` means all collaborators the authenticated user can see. */
         affiliation?: "outside" | "direct" | "all";
+        /** @description Filter collaborators by the permissions they have on the repository. If not specified, all collaborators will be returned. */
         permission?: "pull" | "triage" | "push" | "maintain" | "admin";
       };
     };
@@ -97347,8 +97347,8 @@ export interface operations {
      * @description List the reactions to a [commit comment](https://docs.github.com/rest/reference/repos#comments).
      */
     parameters: {
-        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a commit comment. */
       query: {
+        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a commit comment. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
       };
     };
@@ -97442,14 +97442,14 @@ export interface operations {
      * | `valid` | None of the above errors applied, so the signature is considered to be verified. |
      */
     parameters: {
-        /** @description SHA or branch to start listing commits from. Default: the repository’s default branch (usually `master`). */
-        /** @description Only commits containing this file path will be returned. */
-        /** @description GitHub login or email address by which to filter by commit author. */
-        /** @description Only commits before this date will be returned. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
       query: {
+        /** @description SHA or branch to start listing commits from. Default: the repository’s default branch (usually `master`). */
         sha?: string;
+        /** @description Only commits containing this file path will be returned. */
         path?: string;
+        /** @description GitHub login or email address by which to filter by commit author. */
         author?: string;
+        /** @description Only commits before this date will be returned. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
         until?: string;
       };
     };
@@ -97597,8 +97597,8 @@ export interface operations {
      * | `valid` | None of the above errors applied, so the signature is considered to be verified. |
      */
     parameters: {
-        /** @description ref parameter */
       path: {
+        /** @description ref parameter */
         ref: string;
       };
     };
@@ -97623,13 +97623,13 @@ export interface operations {
      * Lists check runs for a commit ref. The `ref` can be a SHA, branch name, or a tag name. GitHub Apps must have the `checks:read` permission on a private repository or pull access to a public repository to get check runs. OAuth Apps and authenticated users must have the `repo` scope to get check runs in a private repository.
      */
     parameters: {
-        /** @description Filters check runs by their `completed_at` timestamp. `latest` returns the most recent check runs. */
       query: {
+        /** @description Filters check runs by their `completed_at` timestamp. `latest` returns the most recent check runs. */
         filter?: "latest" | "all";
         app_id?: number;
       };
-        /** @description ref parameter */
       path: {
+        /** @description ref parameter */
         ref: string;
       };
     };
@@ -97656,15 +97656,15 @@ export interface operations {
      * Lists check suites for a commit `ref`. The `ref` can be a SHA, branch name, or a tag name. GitHub Apps must have the `checks:read` permission on a private repository or pull access to a public repository to list check suites. OAuth Apps and authenticated users must have the `repo` scope to get check suites in a private repository.
      */
     parameters: {
+      query: {
         /**
          * @description Filters check suites by GitHub App `id`. 
          * @example 1
          */
-      query: {
         app_id?: number;
       };
-        /** @description ref parameter */
       path: {
+        /** @description ref parameter */
         ref: string;
       };
     };
@@ -97696,8 +97696,8 @@ export interface operations {
      * *   **success** if the latest status for all contexts is `success`
      */
     parameters: {
-        /** @description ref parameter */
       path: {
+        /** @description ref parameter */
         ref: string;
       };
     };
@@ -97719,8 +97719,8 @@ export interface operations {
      * This resource is also available via a legacy route: `GET /repos/:owner/:repo/statuses/:ref`.
      */
     parameters: {
-        /** @description ref parameter */
       path: {
+        /** @description ref parameter */
         ref: string;
       };
     };
@@ -97808,8 +97808,8 @@ export interface operations {
      * | `valid` | None of the above errors applied, so the signature is considered to be verified. |
      */
     parameters: {
-        /** @description The base branch and head branch to compare. This parameter expects the format `{base}...{head}`. */
       path: {
+        /** @description The base branch and head branch to compare. This parameter expects the format `{base}...{head}`. */
         basehead: string;
       };
     };
@@ -97867,12 +97867,12 @@ export interface operations {
      * github.com URLs (`html_url` and `_links["html"]`) will have null values.
      */
     parameters: {
-        /** @description The name of the commit/branch/tag. Default: the repository’s default branch (usually `master`) */
       query: {
+        /** @description The name of the commit/branch/tag. Default: the repository’s default branch (usually `master`) */
         ref?: string;
       };
-        /** @description path parameter */
       path: {
+        /** @description path parameter */
         path: string;
       };
     };
@@ -97897,8 +97897,8 @@ export interface operations {
      * **Note:** If you use this endpoint and the "[Delete a file](https://docs.github.com/rest/reference/repos/#delete-file)" endpoint in parallel, the concurrent requests will conflict and you will receive errors. You must use these endpoints serially instead.
      */
     parameters: {
-        /** @description path parameter */
       path: {
+        /** @description path parameter */
         path: string;
       };
     };
@@ -97966,8 +97966,8 @@ export interface operations {
      * **Note:** If you use this endpoint and the "[Create or update file contents](https://docs.github.com/rest/reference/repos/#create-or-update-file-contents)" endpoint in parallel, the concurrent requests will conflict and you will receive errors. You must use these endpoints serially instead.
      */
     parameters: {
-        /** @description path parameter */
       path: {
+        /** @description path parameter */
         path: string;
       };
     };
@@ -98018,8 +98018,8 @@ export interface operations {
      * GitHub identifies contributors by author email address. This endpoint groups contribution counts by GitHub user, which includes all associated email addresses. To improve performance, only the first 500 author email addresses in the repository link to GitHub users. The rest will appear as anonymous contributors without associated GitHub user information.
      */
     parameters: {
-        /** @description Set to `1` or `true` to include anonymous contributors in results. */
       query: {
+        /** @description Set to `1` or `true` to include anonymous contributors in results. */
         anon?: string;
       };
     };
@@ -98047,16 +98047,16 @@ export interface operations {
      * GitHub Apps must have **Dependabot alerts** read permission to use this endpoint.
      */
     parameters: {
+      query: {
         /**
          * @deprecated 
          * @description **Deprecated**. Page number of the results to fetch. Use cursor-based pagination with `before` or `after` instead.
          */
+        page?: number;
         /**
          * @deprecated 
          * @description **Deprecated**. The number of results per page (max 100). Use cursor-based pagination with `first` or `last` instead.
          */
-      query: {
-        page?: number;
         per_page?: number;
       };
     };
@@ -98298,8 +98298,8 @@ export interface operations {
      * @description Gets the diff of the dependency changes between two commits of a repository, based on the changes to the dependency manifests made in those commits.
      */
     parameters: {
-        /** @description The base and head Git revisions to compare. The Git revisions will be resolved to commit SHAs. Named revisions will be resolved to their corresponding HEAD commits, and an appropriate merge base will be determined. This parameter expects the format `{base}...{head}`. */
       path: {
+        /** @description The base and head Git revisions to compare. The Git revisions will be resolved to commit SHAs. Named revisions will be resolved to their corresponding HEAD commits, and an appropriate merge base will be determined. This parameter expects the format `{base}...{head}`. */
         basehead: string;
       };
     };
@@ -98351,14 +98351,14 @@ export interface operations {
      * @description Simple filtering of deployments is available via query parameters:
      */
     parameters: {
-        /** @description The SHA recorded at creation time. */
-        /** @description The name of the ref. This can be a branch, tag, or SHA. */
-        /** @description The name of the task for the deployment (e.g., `deploy` or `deploy:migrations`). */
-        /** @description The name of the environment that was deployed to (e.g., `staging` or `production`). */
       query: {
+        /** @description The SHA recorded at creation time. */
         sha?: string;
+        /** @description The name of the ref. This can be a branch, tag, or SHA. */
         ref?: string;
+        /** @description The name of the task for the deployment (e.g., `deploy` or `deploy:migrations`). */
         task?: string;
+        /** @description The name of the environment that was deployed to (e.g., `staging` or `production`). */
         environment?: string | null;
       };
     };
@@ -98848,8 +98848,8 @@ export interface operations {
   "repos/list-forks": {
     /** List forks */
     parameters: {
-        /** @description The sort order. `stargazers` will sort by star count. */
       query: {
+        /** @description The sort order. `stargazers` will sort by star count. */
         sort?: "newest" | "oldest" | "stargazers" | "watchers";
       };
     };
@@ -99097,8 +99097,8 @@ export interface operations {
      * If you request matching references for a branch named `feature` but the branch `feature` doesn't exist, the response can still include other matching head refs that start with the word `feature`, such as `featureA` and `featureB`.
      */
     parameters: {
-        /** @description ref parameter */
       path: {
+        /** @description ref parameter */
         ref: string;
       };
     };
@@ -99122,8 +99122,8 @@ export interface operations {
      * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
      */
     parameters: {
-        /** @description ref parameter */
       path: {
+        /** @description ref parameter */
         ref: string;
       };
     };
@@ -99171,8 +99171,8 @@ export interface operations {
   "git/delete-ref": {
     /** Delete a reference */
     parameters: {
-        /** @description ref parameter */
       path: {
+        /** @description ref parameter */
         ref: string;
       };
     };
@@ -99185,11 +99185,11 @@ export interface operations {
   "git/update-ref": {
     /** Update a reference */
     parameters: {
+      path: {
         /**
          * @description The name of the fully qualified reference to update. For example, `refs/heads/master`. If the value doesn't start with `refs` and have at least two slashes, it will be rejected. 
          * @example refs/head/master
          */
-      path: {
         ref: string;
       };
     };
@@ -99414,8 +99414,8 @@ export interface operations {
      * **Note**: The limit for the `tree` array is 100,000 entries with a maximum size of 7 MB when using the `recursive` parameter.
      */
     parameters: {
-        /** @description Setting this parameter to any value returns the objects or subtrees referenced by the tree specified in `:tree_sha`. For example, setting `recursive` to any of the following will enable returning objects or subtrees: `0`, `1`, `"true"`, and `"false"`. Omit this parameter to prevent recursively returning objects or subtrees. */
       query: {
+        /** @description Setting this parameter to any value returns the objects or subtrees referenced by the tree specified in `:tree_sha`. For example, setting `recursive` to any of the following will enable returning objects or subtrees: `0`, `1`, `"true"`, and `"false"`. Omit this parameter to prevent recursively returning objects or subtrees. */
         recursive?: string;
       };
       path: {
@@ -100040,18 +100040,18 @@ export interface operations {
      * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
      */
     parameters: {
-        /** @description If an `integer` is passed, it should refer to a milestone by its `number` field. If the string `*` is passed, issues with any milestone are accepted. If the string `none` is passed, issues without milestones are returned. */
-        /** @description Indicates the state of the issues to return. */
-        /** @description Can be the name of a user. Pass in `none` for issues with no assigned user, and `*` for issues assigned to any user. */
-        /** @description The user that created the issue. */
-        /** @description A user that's mentioned in the issue. */
-        /** @description What to sort results by. */
       query: {
+        /** @description If an `integer` is passed, it should refer to a milestone by its `number` field. If the string `*` is passed, issues with any milestone are accepted. If the string `none` is passed, issues without milestones are returned. */
         milestone?: string;
+        /** @description Indicates the state of the issues to return. */
         state?: "open" | "closed" | "all";
+        /** @description Can be the name of a user. Pass in `none` for issues with no assigned user, and `*` for issues assigned to any user. */
         assignee?: string;
+        /** @description The user that created the issue. */
         creator?: string;
+        /** @description A user that's mentioned in the issue. */
         mentioned?: string;
+        /** @description What to sort results by. */
         sort?: "created" | "updated" | "comments";
       };
     };
@@ -100123,8 +100123,8 @@ export interface operations {
      * @description By default, Issue Comments are ordered by ascending ID.
      */
     parameters: {
-        /** @description Either `asc` or `desc`. Ignored without the `sort` parameter. */
       query: {
+        /** @description Either `asc` or `desc`. Ignored without the `sort` parameter. */
         direction?: "asc" | "desc";
       };
     };
@@ -100187,8 +100187,8 @@ export interface operations {
      * @description List the reactions to an [issue comment](https://docs.github.com/rest/reference/issues#comments).
      */
     parameters: {
-        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to an issue comment. */
       query: {
+        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to an issue comment. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
       };
     };
@@ -100631,8 +100631,8 @@ export interface operations {
      * @description List the reactions to an [issue](https://docs.github.com/rest/reference/issues).
      */
     parameters: {
-        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to an issue. */
       query: {
+        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to an issue. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
       };
     };
@@ -100999,12 +100999,12 @@ export interface operations {
   "issues/list-milestones": {
     /** List milestones */
     parameters: {
-        /** @description The state of the milestone. Either `open`, `closed`, or `all`. */
-        /** @description What to sort results by. Either `due_on` or `completeness`. */
-        /** @description The direction of the sort. Either `asc` or `desc`. */
       query: {
+        /** @description The state of the milestone. Either `open`, `closed`, or `all`. */
         state?: "open" | "closed" | "all";
+        /** @description What to sort results by. Either `due_on` or `completeness`. */
         sort?: "due_on" | "completeness";
+        /** @description The direction of the sort. Either `asc` or `desc`. */
         direction?: "asc" | "desc";
       };
     };
@@ -101405,8 +101405,8 @@ export interface operations {
      * @description Lists the projects in a repository. Returns a `404 Not Found` status if projects are disabled in the repository. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
      */
     parameters: {
-        /** @description Indicates the state of the projects to return. */
       query: {
+        /** @description Indicates the state of the projects to return. */
         state?: "open" | "closed" | "all";
       };
     };
@@ -101462,16 +101462,16 @@ export interface operations {
      * @description Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
      */
     parameters: {
-        /** @description Either `open`, `closed`, or `all` to filter by state. */
-        /** @description Filter pulls by head user or head organization and branch name in the format of `user:ref-name` or `organization:ref-name`. For example: `github:new-script-format` or `octocat:test-branch`. */
-        /** @description Filter pulls by base branch name. Example: `gh-pages`. */
-        /** @description What to sort results by. `popularity` will sort by the number of comments. `long-running` will sort by date created and will limit the results to pull requests that have been open for more than a month and have had activity within the past month. */
-        /** @description The direction of the sort. Default: `desc` when sort is `created` or sort is not specified, otherwise `asc`. */
       query: {
+        /** @description Either `open`, `closed`, or `all` to filter by state. */
         state?: "open" | "closed" | "all";
+        /** @description Filter pulls by head user or head organization and branch name in the format of `user:ref-name` or `organization:ref-name`. For example: `github:new-script-format` or `octocat:test-branch`. */
         head?: string;
+        /** @description Filter pulls by base branch name. Example: `gh-pages`. */
         base?: string;
+        /** @description What to sort results by. `popularity` will sort by the number of comments. `long-running` will sort by date created and will limit the results to pull requests that have been open for more than a month and have had activity within the past month. */
         sort?: "created" | "updated" | "popularity" | "long-running";
+        /** @description The direction of the sort. Default: `desc` when sort is `created` or sort is not specified, otherwise `asc`. */
         direction?: "asc" | "desc";
       };
     };
@@ -101542,9 +101542,9 @@ export interface operations {
      * @description Lists review comments for all pull requests in a repository. By default, review comments are in ascending order by ID.
      */
     parameters: {
-        /** @description The direction to sort results. Ignored without `sort` parameter. */
       query: {
         sort?: "created" | "updated" | "created_at";
+        /** @description The direction to sort results. Ignored without `sort` parameter. */
         direction?: "asc" | "desc";
       };
     };
@@ -101614,8 +101614,8 @@ export interface operations {
      * @description List the reactions to a [pull request review comment](https://docs.github.com/rest/reference/pulls#review-comments).
      */
     parameters: {
-        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a pull request review comment. */
       query: {
+        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a pull request review comment. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
       };
     };
@@ -101803,8 +101803,8 @@ export interface operations {
      * @description Lists all review comments for a pull request. By default, review comments are in ascending order by ID.
      */
     parameters: {
-        /** @description The direction to sort results. Ignored without `sort` parameter. */
       query: {
+        /** @description The direction to sort results. Ignored without `sort` parameter. */
         direction?: "asc" | "desc";
       };
     };
@@ -102307,8 +102307,8 @@ export interface operations {
      * READMEs support [custom media types](https://docs.github.com/rest/reference/repos#custom-media-types) for retrieving the raw content or rendered HTML.
      */
     parameters: {
-        /** @description The name of the commit/branch/tag. Default: the repository’s default branch (usually `master`) */
       query: {
+        /** @description The name of the commit/branch/tag. Default: the repository’s default branch (usually `master`) */
         ref?: string;
       };
     };
@@ -102331,12 +102331,12 @@ export interface operations {
      * READMEs support [custom media types](https://docs.github.com/rest/reference/repos#custom-media-types) for retrieving the raw content or rendered HTML.
      */
     parameters: {
-        /** @description The name of the commit/branch/tag. Default: the repository’s default branch (usually `master`) */
       query: {
+        /** @description The name of the commit/branch/tag. Default: the repository’s default branch (usually `master`) */
         ref?: string;
       };
-        /** @description The alternate path to look for a README file */
       path: {
+        /** @description The alternate path to look for a README file */
         dir: string;
       };
     };
@@ -102535,8 +102535,8 @@ export interface operations {
      * @description Get a published release with the specified tag.
      */
     parameters: {
-        /** @description tag parameter */
       path: {
+        /** @description tag parameter */
         tag: string;
       };
     };
@@ -102685,8 +102685,8 @@ export interface operations {
      * @description List the reactions to a [release](https://docs.github.com/rest/reference/repos#releases).
      */
     parameters: {
-        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a release. */
       query: {
+        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a release. */
         content?: "+1" | "laugh" | "heart" | "hooray" | "rocket" | "eyes";
       };
     };
@@ -103605,10 +103605,10 @@ export interface operations {
      * language:go`](https://github.com/search?utf8=%E2%9C%93&q=amazing+language%3Ago&type=Code) is.
      */
     parameters: {
-        /** @description The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as the web interface for GitHub. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching code](https://docs.github.com/search-github/searching-on-github/searching-code)" for a detailed list of qualifiers. */
-        /** @description Sorts the results of your query. Can only be `indexed`, which indicates how recently a file has been indexed by the GitHub search infrastructure. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
       query: {
+        /** @description The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as the web interface for GitHub. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching code](https://docs.github.com/search-github/searching-on-github/searching-code)" for a detailed list of qualifiers. */
         q: string;
+        /** @description Sorts the results of your query. Can only be `indexed`, which indicates how recently a file has been indexed by the GitHub search infrastructure. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
         sort?: "indexed";
       };
     };
@@ -103642,10 +103642,10 @@ export interface operations {
      * `q=repo:octocat/Spoon-Knife+css`
      */
     parameters: {
-        /** @description The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as the web interface for GitHub. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching commits](https://docs.github.com/search-github/searching-on-github/searching-commits)" for a detailed list of qualifiers. */
-        /** @description Sorts the results of your query by `author-date` or `committer-date`. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
       query: {
+        /** @description The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as the web interface for GitHub. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching commits](https://docs.github.com/search-github/searching-on-github/searching-commits)" for a detailed list of qualifiers. */
         q: string;
+        /** @description Sorts the results of your query by `author-date` or `committer-date`. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
         sort?: "author-date" | "committer-date";
       };
     };
@@ -103680,10 +103680,10 @@ export interface operations {
      * **Note:** For [user-to-server](https://docs.github.com/developers/apps/identifying-and-authorizing-users-for-github-apps#user-to-server-requests) GitHub App requests, you can't retrieve a combination of issues and pull requests in a single query. Requests that don't include the `is:issue` or `is:pull-request` qualifier will receive an HTTP `422 Unprocessable Entity` response. To get results for both issues and pull requests, you must send separate queries for issues and pull requests. For more information about the `is` qualifier, see "[Searching only issues or pull requests](https://docs.github.com/github/searching-for-information-on-github/searching-issues-and-pull-requests#search-only-issues-or-pull-requests)."
      */
     parameters: {
-        /** @description The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as the web interface for GitHub. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching issues and pull requests](https://docs.github.com/search-github/searching-on-github/searching-issues-and-pull-requests)" for a detailed list of qualifiers. */
-        /** @description Sorts the results of your query by the number of `comments`, `reactions`, `reactions-+1`, `reactions--1`, `reactions-smile`, `reactions-thinking_face`, `reactions-heart`, `reactions-tada`, or `interactions`. You can also sort results by how recently the items were `created` or `updated`, Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
       query: {
+        /** @description The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as the web interface for GitHub. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching issues and pull requests](https://docs.github.com/search-github/searching-on-github/searching-issues-and-pull-requests)" for a detailed list of qualifiers. */
         q: string;
+        /** @description Sorts the results of your query by the number of `comments`, `reactions`, `reactions-+1`, `reactions--1`, `reactions-smile`, `reactions-thinking_face`, `reactions-heart`, `reactions-tada`, or `interactions`. You can also sort results by how recently the items were `created` or `updated`, Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
         sort?: "comments" | "reactions" | "reactions-+1" | "reactions--1" | "reactions-smile" | "reactions-thinking_face" | "reactions-heart" | "reactions-tada" | "interactions" | "created" | "updated";
       };
     };
@@ -103718,12 +103718,12 @@ export interface operations {
      * The labels that best match the query appear first in the search results.
      */
     parameters: {
-        /** @description The id of the repository. */
-        /** @description The search keywords. This endpoint does not accept qualifiers in the query. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). */
-        /** @description Sorts the results of your query by when the label was `created` or `updated`. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
       query: {
+        /** @description The id of the repository. */
         repository_id: number;
+        /** @description The search keywords. This endpoint does not accept qualifiers in the query. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). */
         q: string;
+        /** @description Sorts the results of your query by when the label was `created` or `updated`. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
         sort?: "created" | "updated";
       };
     };
@@ -103758,10 +103758,10 @@ export interface operations {
      * This query searches for repositories with the word `tetris` in the name, the description, or the README. The results are limited to repositories where the primary language is assembly. The results are sorted by stars in descending order, so that the most popular repositories appear first in the search results.
      */
     parameters: {
-        /** @description The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as the web interface for GitHub. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching for repositories](https://docs.github.com/articles/searching-for-repositories/)" for a detailed list of qualifiers. */
-        /** @description Sorts the results of your query by number of `stars`, `forks`, or `help-wanted-issues` or how recently the items were `updated`. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
       query: {
+        /** @description The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as the web interface for GitHub. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching for repositories](https://docs.github.com/articles/searching-for-repositories/)" for a detailed list of qualifiers. */
         q: string;
+        /** @description Sorts the results of your query by number of `stars`, `forks`, or `help-wanted-issues` or how recently the items were `updated`. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
         sort?: "stars" | "forks" | "help-wanted-issues" | "updated";
       };
     };
@@ -103795,8 +103795,8 @@ export interface operations {
      * This query searches for topics with the keyword `ruby` and limits the results to find only topics that are featured. The topics that are the best match for the query appear first in the search results.
      */
     parameters: {
-        /** @description The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as the web interface for GitHub. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). */
       query: {
+        /** @description The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as the web interface for GitHub. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). */
         q: string;
       };
     };
@@ -103828,10 +103828,10 @@ export interface operations {
      * This query searches for users with the name `tom`. The results are restricted to users with more than 42 repositories and over 1,000 followers.
      */
     parameters: {
-        /** @description The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as the web interface for GitHub. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching users](https://docs.github.com/search-github/searching-on-github/searching-users)" for a detailed list of qualifiers. */
-        /** @description Sorts the results of your query by number of `followers` or `repositories`, or when the person `joined` GitHub. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
       query: {
+        /** @description The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as the web interface for GitHub. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching users](https://docs.github.com/search-github/searching-on-github/searching-users)" for a detailed list of qualifiers. */
         q: string;
+        /** @description Sorts the results of your query by number of `followers` or `repositories`, or when the person `joined` GitHub. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) */
         sort?: "followers" | "repositories" | "joined";
       };
     };
@@ -104162,8 +104162,8 @@ export interface operations {
      * List the reactions to a [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments). OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
      */
     parameters: {
-        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion comment. */
       query: {
+        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion comment. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
       };
     };
@@ -104216,8 +104216,8 @@ export interface operations {
      * List the reactions to a [team discussion](https://docs.github.com/rest/reference/teams#discussions). OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
      */
     parameters: {
-        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion. */
       query: {
+        /** @description Returns a single [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types). Omit this parameter to list all reactions to a team discussion. */
         content?: "+1" | "-1" | "laugh" | "confused" | "heart" | "hooray" | "rocket" | "eyes";
       };
     };
@@ -104290,8 +104290,8 @@ export interface operations {
      * Team members will include the members of child teams.
      */
     parameters: {
-        /** @description Filters members returned by their role in the team. */
       query: {
+        /** @description Filters members returned by their role in the team. */
         role?: "member" | "maintainer" | "all";
       };
     };
@@ -105780,12 +105780,12 @@ export interface operations {
      * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
      */
     parameters: {
-        /** @description Indicates which sorts of issues to return. `assigned` means issues assigned to you. `created` means issues created by you. `mentioned` means issues mentioning you. `subscribed` means issues you're subscribed to updates for. `all` or `repos` means all issues you can see, regardless of participation or creation. */
-        /** @description Indicates the state of the issues to return. */
-        /** @description What to sort results by. */
       query: {
+        /** @description Indicates which sorts of issues to return. `assigned` means issues assigned to you. `created` means issues created by you. `mentioned` means issues mentioning you. `subscribed` means issues you're subscribed to updates for. `all` or `repos` means all issues you can see, regardless of participation or creation. */
         filter?: "assigned" | "created" | "mentioned" | "subscribed" | "repos" | "all";
+        /** @description Indicates the state of the issues to return. */
         state?: "open" | "closed" | "all";
+        /** @description What to sort results by. */
         sort?: "created" | "updated" | "comments";
       };
     };
@@ -105930,8 +105930,8 @@ export interface operations {
   "orgs/list-memberships-for-authenticated-user": {
     /** List organization memberships for the authenticated user */
     parameters: {
-        /** @description Indicates the state of the memberships to return. If not specified, the API returns both active and pending memberships. */
       query: {
+        /** @description Indicates the state of the memberships to return. If not specified, the API returns both active and pending memberships. */
         state?: "active" | "pending";
       };
     };
@@ -106219,8 +106219,8 @@ export interface operations {
      * If `package_type` is not `container`, your token must also include the `repo` scope.
      */
     parameters: {
-        /** @description The type of supported package. Packages in GitHub's Gradle registry have the type `maven`. Docker images pushed to GitHub's Container registry (`ghcr.io`) have the type `container`. You can use the type `docker` to find images that were pushed to GitHub's Docker registry (`docker.pkg.github.com`), even if these have now been migrated to the Container registry. */
       query: {
+        /** @description The type of supported package. Packages in GitHub's Gradle registry have the type `maven`. Docker images pushed to GitHub's Container registry (`ghcr.io`) have the type `container`. You can use the type `docker` to find images that were pushed to GitHub's Docker registry (`docker.pkg.github.com`), even if these have now been migrated to the Container registry. */
         package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
       };
     };
@@ -106278,8 +106278,8 @@ export interface operations {
      * To use this endpoint, you must authenticate using an access token with the `packages:read` and `packages:write` scopes. If `package_type` is not `container`, your token must also include the `repo` scope.
      */
     parameters: {
-        /** @description package token */
       query: {
+        /** @description package token */
         token?: string;
       };
     };
@@ -106300,8 +106300,8 @@ export interface operations {
      * If `package_type` is not `container`, your token must also include the `repo` scope.
      */
     parameters: {
-        /** @description The state of the package, either active or deleted. */
       query: {
+        /** @description The state of the package, either active or deleted. */
         state?: "active" | "deleted";
       };
     };
@@ -106432,21 +106432,21 @@ export interface operations {
      * The authenticated user has explicit permission to access repositories they own, repositories where they are a collaborator, and repositories that they can access through an organization membership.
      */
     parameters: {
+      query: {
         /** @description Limit results to repositories with the specified visibility. */
+        visibility?: "all" | "public" | "private";
         /**
          * @description Comma-separated list of values. Can include:  
          * \* `owner`: Repositories that are owned by the authenticated user.  
          * \* `collaborator`: Repositories that the user has been added to as a collaborator.  
          * \* `organization_member`: Repositories that the user has access to through being a member of an organization. This includes every repository on every team that the user is on.
          */
-        /** @description Limit results to repositories of the specified type. Will cause a `422` error if used in the same request as **visibility** or **affiliation**. */
-        /** @description The property to sort the results by. */
-        /** @description The order to sort by. Default: `asc` when using `full_name`, otherwise `desc`. */
-      query: {
-        visibility?: "all" | "public" | "private";
         affiliation?: string;
+        /** @description Limit results to repositories of the specified type. Will cause a `422` error if used in the same request as **visibility** or **affiliation**. */
         type?: "all" | "owner" | "public" | "private" | "member";
+        /** @description The property to sort the results by. */
         sort?: "created" | "updated" | "pushed" | "full_name";
+        /** @description The order to sort by. Default: `asc` when using `full_name`, otherwise `desc`. */
         direction?: "asc" | "desc";
       };
     };
@@ -107040,10 +107040,10 @@ export interface operations {
      * ```
      */
     parameters: {
-        /** @description Identifies which additional information you'd like to receive about the person's hovercard. Can be `organization`, `repository`, `issue`, `pull_request`. **Required** when using `subject_id`. */
-        /** @description Uses the ID for the `subject_type` you specified. **Required** when using `subject_type`. */
       query: {
+        /** @description Identifies which additional information you'd like to receive about the person's hovercard. Can be `organization`, `repository`, `issue`, `pull_request`. **Required** when using `subject_id`. */
         subject_type?: "organization" | "repository" | "issue" | "pull_request";
+        /** @description Uses the ID for the `subject_type` you specified. **Required** when using `subject_type`. */
         subject_id?: string;
       };
     };
@@ -107119,8 +107119,8 @@ export interface operations {
      * If `package_type` is not `container`, your token must also include the `repo` scope.
      */
     parameters: {
-        /** @description The type of supported package. Packages in GitHub's Gradle registry have the type `maven`. Docker images pushed to GitHub's Container registry (`ghcr.io`) have the type `container`. You can use the type `docker` to find images that were pushed to GitHub's Docker registry (`docker.pkg.github.com`), even if these have now been migrated to the Container registry. */
       query: {
+        /** @description The type of supported package. Packages in GitHub's Gradle registry have the type `maven`. Docker images pushed to GitHub's Container registry (`ghcr.io`) have the type `container`. You can use the type `docker` to find images that were pushed to GitHub's Docker registry (`docker.pkg.github.com`), even if these have now been migrated to the Container registry. */
         package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
       };
     };
@@ -107183,8 +107183,8 @@ export interface operations {
      * - If `package_type` is `container`, you must also have admin permissions to the container that you want to restore.
      */
     parameters: {
-        /** @description package token */
       query: {
+        /** @description package token */
         token?: string;
       };
     };
@@ -107274,8 +107274,8 @@ export interface operations {
   "projects/list-for-user": {
     /** List user projects */
     parameters: {
-        /** @description Indicates the state of the projects to return. */
       query: {
+        /** @description Indicates the state of the projects to return. */
         state?: "open" | "closed" | "all";
       };
     };
@@ -107323,12 +107323,12 @@ export interface operations {
      * @description Lists public repositories for the specified user. Note: For GitHub AE, this endpoint will list internal repositories for the specified user.
      */
     parameters: {
-        /** @description Limit results to repositories of the specified type. */
-        /** @description The property to sort the results by. */
-        /** @description The order to sort by. Default: `asc` when using `full_name`, otherwise `desc`. */
       query: {
+        /** @description Limit results to repositories of the specified type. */
         type?: "all" | "owner" | "member";
+        /** @description The property to sort the results by. */
         sort?: "created" | "updated" | "pushed" | "full_name";
+        /** @description The order to sort by. Default: `asc` when using `full_name`, otherwise `desc`. */
         direction?: "asc" | "desc";
       };
     };
