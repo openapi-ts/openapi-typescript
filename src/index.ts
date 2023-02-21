@@ -46,6 +46,7 @@ async function openapiTS(
     transform: options && typeof options.transform === "function" ? options.transform : undefined,
     postTransform: options && typeof options.postTransform === "function" ? options.postTransform : undefined,
     immutableTypes: options.immutableTypes || false,
+    emptyObjectsUnknown: options.emptyObjectsUnknown || false,
     indentLv: 0,
     operations: {},
     pathParamsAsTypes: options.pathParamsAsTypes || false,

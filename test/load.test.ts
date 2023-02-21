@@ -105,6 +105,7 @@ async function load(
     urlCache: new Set(),
     fetch: vi.fn(unidiciFetch),
     additionalProperties: false,
+    emptyObjectsUnknown: false,
     alphabetize: false,
     defaultNonNullable: false,
     discriminators: {},

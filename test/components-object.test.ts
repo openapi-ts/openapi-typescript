@@ -4,6 +4,7 @@ import transformComponentsObject from "../src/transform/components-object.js";
 const options: GlobalContext = {
   additionalProperties: false,
   alphabetize: false,
+  emptyObjectsUnknown: false,
   defaultNonNullable: false,
   discriminators: {},
   immutableTypes: false,

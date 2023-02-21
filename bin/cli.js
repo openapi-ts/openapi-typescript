@@ -22,6 +22,7 @@ Options
   --export-type, -t            (optional) Export "type" instead of "interface"
   --immutable-types            (optional) Generates immutable types (readonly properties and readonly array)
   --additional-properties      (optional) Allow arbitrary properties for all schema objects without "additionalProperties: false"
+  --empty-objects-unknown      (optional) Allow arbitrary properties for schema objects with no specified properties, and no specified "additionalProperties"
   --default-non-nullable       (optional) If a schema object has a default value set, don’t mark it as nullable
   --support-array-length       (optional) Generate tuples using array minItems / maxItems
   --path-params-as-types       (optional) Substitute path parameter names with their respective types
@@ -46,6 +47,7 @@ const flags = parser(args, {
     "help",
     "version",
     "defaultNonNullable",
+    "emptyObjectsUnknown",
     "immutableTypes",
     "contentNever",
     "exportType",
@@ -89,6 +91,7 @@ async function generateSchema(pathToSpec) {
   // generate schema
   const result = await openapiTS(pathToSpec, {
     additionalProperties: flags.additionalProperties,
+    emptyObjectsUnknown: flags.emptyObjectsUnknown,
     auth: flags.auth,
     defaultNonNullable: flags.defaultNonNullable,
     immutableTypes: flags.immutableTypes,
