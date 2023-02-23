@@ -639,6 +639,17 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "mvdbeek",
+      "name": "Marius van den Beek",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6804901?v=4",
+      "profile": "https://sci-scale.net/",
+      "contributions": [
+        "code",
+        "bug",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
