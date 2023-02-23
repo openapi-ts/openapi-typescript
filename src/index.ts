@@ -190,15 +190,26 @@ async function openapiTS(
     output.push(`export type operations = Record<string, never>;`, "");
   }
 
-  // 4. OneOf type helper (@see https://github.com/Microsoft/TypeScript/issues/14094#issuecomment-723571692)
+  // 4a. OneOf type helper (@see https://github.com/Microsoft/TypeScript/issues/14094#issuecomment-723571692)
   if (output.join("\n").includes("OneOf")) {
     output.splice(
       1,
       0,
-      "/** Type helpers */",
+      "/** OneOf type helpers */",
       "type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };",
       "type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;",
       "type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;",
+      ""
+    );
+  }
+
+  // 4b. WithRequired type helper (@see https://github.com/drwpow/openapi-typescript/issues/657#issuecomment-1399274607)
+  if (output.join("\n").includes("WithRequired")) {
+    output.splice(
+      1,
+      0,
+      "/** WithRequired type helpers */",
+      "type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };",
       ""
     );
   }
