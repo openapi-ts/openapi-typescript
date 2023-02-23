@@ -205,7 +205,10 @@ export function defaultSchemaObjectTransform(
       const discriminator = ctx.discriminators[discriminatorRef.$ref];
       let value = parseRef(path).path.pop() as string;
       if (discriminator.mapping) {
-        const matchedValue = Object.entries(discriminator.mapping).find(([_, v]) => v === value);
+        // Mapping value can either be a fully-qualified ref (#/components/schemas/XYZ) or a schema name (XYZ)
+        const matchedValue = Object.entries(discriminator.mapping).find(
+          ([_, v]) => (v[0] !== "#" && v === value) || (v[0] === "#" && parseRef(v).path.pop() === value)
+        );
         if (matchedValue) value = matchedValue[0]; // why was this designed backwards!?
       }
       coreType.unshift(indent(`${discriminator.propertyName}: ${escStr(value)};`, indentLv + 1));

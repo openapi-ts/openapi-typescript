@@ -246,6 +246,35 @@ describe("Schema Object", () => {
   number: number;
 }]>`);
       });
+
+      test("discriminator", () => {
+        const schema: SchemaObject = {
+          type: "object",
+          allOf: [
+            { $ref: 'components["schemas"]["parent"]' },
+            { type: "object", properties: { string: { type: "string" } } },
+          ],
+        };
+        const generated = transformSchemaObject(schema, {
+          path: options.path,
+          ctx: {
+            ...options.ctx,
+            discriminators: {
+              'components["schemas"]["parent"]': {
+                propertyName: "operation",
+                mapping: {
+                  test: options.path,
+                },
+              },
+            },
+          },
+        });
+        expect(generated).toBe(`{
+  operation: "test";
+} & Omit<components["schemas"]["parent"], "operation"> & {
+  string?: string;
+}`);
+      });
     });
 
     describe("allOf", () => {
