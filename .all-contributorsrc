@@ -650,6 +650,17 @@
         "bug",
         "test"
       ]
+    },
+    {
+      "login": "sgrimm",
+      "name": "Steven Grimm",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1248649?v=4",
+      "profile": "https://github.com/sgrimm",
+      "contributions": [
+        "code",
+        "bug",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
