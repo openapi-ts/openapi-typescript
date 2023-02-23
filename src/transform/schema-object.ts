@@ -65,7 +65,7 @@ export function defaultSchemaObjectTransform(
     let schemaConst = schemaObject.const as any;
     if ("type" in schemaObject) {
       if (schemaObject.type === "string") {
-        schemaConst = escStr(schemaConst)
+        schemaConst = escStr(schemaConst);
       }
     }
     return transformSchemaObject(schemaConst, {
