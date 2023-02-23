@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/main/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-63-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-64-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -395,6 +395,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="http://sajadtorkamani.com"><img src="https://avatars.githubusercontent.com/u/9380313?v=4?s=100" width="100px;" alt="Sajad Torkamani"/><br /><sub><b>Sajad Torkamani</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=sajadtorkamani" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://sci-scale.net/"><img src="https://avatars.githubusercontent.com/u/6804901?v=4?s=100" width="100px;" alt="Marius van den Beek"/><br /><sub><b>Marius van den Beek</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=mvdbeek" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Amvdbeek" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=mvdbeek" title="Tests">⚠️</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/sgrimm"><img src="https://avatars.githubusercontent.com/u/1248649?v=4?s=100" width="100px;" alt="Steven Grimm"/><br /><sub><b>Steven Grimm</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=sgrimm" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Asgrimm" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=sgrimm" title="Tests">⚠️</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://trutoo.com/people/erik-hughes"><img src="https://avatars.githubusercontent.com/u/455178?v=4?s=100" width="100px;" alt="Erik Hughes"/><br /><sub><b>Erik Hughes</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=Swiftwork" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3ASwiftwork" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Swiftwork" title="Tests">⚠️</a></td>
     </tr>
   </tbody>
 </table>
