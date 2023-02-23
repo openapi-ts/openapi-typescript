@@ -1,0 +1,5 @@
+type: array
+description: >-
+  An array of objects, each indicating the version end-of-life, end-of-availability for various database engines
+items:
+  $ref: './database_version_availability.yml'

@@ -1,0 +1,24 @@
+type: object
+
+description: An object specifying allow and deny rules to control traffic to the load balancer.
+
+properties:
+  deny:
+    type: array
+    items:
+      type: string
+    example:
+      - ip:1.2.3.4
+      - cidr:2.3.0.0/16
+    default: []
+    description: the rules for denying traffic to the load balancer (in the form 'ip:1.2.3.4' or 'cidr:1.2.0.0/16')
+
+  allow:
+    type: array
+    items:
+      type: string
+    example:
+      - ip:1.2.3.4
+      - cidr:2.3.0.0/16
+    default: []
+    description: the rules for allowing traffic to the load balancer (in the form 'ip:1.2.3.4' or 'cidr:1.2.0.0/16')

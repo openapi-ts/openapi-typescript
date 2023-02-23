@@ -1,0 +1,9 @@
+type: object
+properties:
+  is_enabled:
+    type: boolean
+    example: true
+    description: Indicates weather the trigger is paused or unpaused.
+  
+  scheduled_details:
+    $ref: './scheduled_details.yml'
