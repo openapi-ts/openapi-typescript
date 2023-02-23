@@ -134,6 +134,19 @@ describe("Schema Object", () => {
 }`);
       });
 
+      test("const string field", () => {
+        const schema: SchemaObject = {
+          type: "object",
+          properties: { constant: { const: "a", type: "string" } },
+          required: ["constant"],
+        };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe(`{
+  /** @constant */
+  constant: "a";
+}`);
+      });
+
       test("additionalProperties with properties", () => {
         const schema: SchemaObject = {
           type: "object",
@@ -186,7 +199,7 @@ describe("Schema Object", () => {
     describe("const", () => {
       test("string", () => {
         const generated = transformSchemaObject({ type: "string", const: "duck" }, options);
-        expect(generated).toBe("duck");
+        expect(generated).toBe(`"duck"`);
       });
     });
 
