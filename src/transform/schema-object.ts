@@ -154,8 +154,8 @@ export function defaultSchemaObjectTransform(
         }
       }
       itemType = tsArrayOf(itemType);
-      if (schemaObject.nullable) itemType = tsUnionOf(itemType, "null");
-      return ctx.immutableTypes || schemaObject.readOnly ? tsReadonly(itemType) : itemType;
+      itemType = ctx.immutableTypes || schemaObject.readOnly ? tsReadonly(itemType) : itemType;
+      return schemaObject.nullable ? tsUnionOf(itemType, "null") : itemType;
     }
   }
 
