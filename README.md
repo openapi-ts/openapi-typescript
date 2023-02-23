@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/main/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-61-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-62-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -393,6 +393,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/HiiiiD"><img src="https://avatars.githubusercontent.com/u/61231210?v=4?s=100" width="100px;" alt="Marco Salomone"/><br /><sub><b>Marco Salomone</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=HiiiiD" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=HiiiiD" title="Tests">⚠️</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/yacinehmito"><img src="https://avatars.githubusercontent.com/u/6893840?v=4?s=100" width="100px;" alt="Yacine Hmito"/><br /><sub><b>Yacine Hmito</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=yacinehmito" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=yacinehmito" title="Tests">⚠️</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Ayacinehmito" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://sajadtorkamani.com"><img src="https://avatars.githubusercontent.com/u/9380313?v=4?s=100" width="100px;" alt="Sajad Torkamani"/><br /><sub><b>Sajad Torkamani</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=sajadtorkamani" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://sci-scale.net/"><img src="https://avatars.githubusercontent.com/u/6804901?v=4?s=100" width="100px;" alt="Marius van den Beek"/><br /><sub><b>Marius van den Beek</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=mvdbeek" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Amvdbeek" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=mvdbeek" title="Tests">⚠️</a></td>
     </tr>
   </tbody>
 </table>
