@@ -661,6 +661,17 @@
         "bug",
         "test"
       ]
+    },
+    {
+      "login": "Swiftwork",
+      "name": "Erik Hughes",
+      "avatar_url": "https://avatars.githubusercontent.com/u/455178?v=4",
+      "profile": "https://trutoo.com/people/erik-hughes",
+      "contributions": [
+        "code",
+        "bug",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
