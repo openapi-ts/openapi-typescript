@@ -78,9 +78,9 @@ describe("Paths Object", () => {
         404: components["responses"]["NotFound"];
       };
     };
-    parameters?: {
+    parameters: {
         /** @description Page number. */
-      query?: {
+      query: {
         page?: number;
       };
     };
@@ -105,7 +105,7 @@ describe("Paths Object", () => {
     expect(generated).toBe(`{
   "/api/{version}/user/{user_id}": {
     parameters: {
-      query?: {
+      query: {
         page?: number;
       } & (Pick<NonNullable<components["parameters"]["query"]>, "utm_source" | "utm_email" | "utm_campaign">);
       path: {

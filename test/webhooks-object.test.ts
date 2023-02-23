@@ -98,7 +98,7 @@ describe("Webhooks Object", () => {
       query: {
         signature: string;
       } & (Pick<NonNullable<components["parameters"]["query"]>, "utm_source" | "utm_email" | "utm_campaign">);
-      path?: Pick<components["parameters"]["path"], "version">;
+      path: Pick<components["parameters"]["path"], "version">;
     };
   };
 }`);
