@@ -111,7 +111,7 @@ describe("Path Item Object", () => {
   });
 
   test("operations", () => {
-    const operations: GlobalContext['operations'] = {};
+    const operations: GlobalContext["operations"] = {};
     const schema: PathItemObject = {
       get: {
         description: "Get a user",
@@ -156,7 +156,7 @@ describe("Path Item Object", () => {
       };
     };
   }`,
-      }        
+      },
     });
   });
 });
