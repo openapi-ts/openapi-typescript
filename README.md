@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/main/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-65-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-66-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -400,6 +400,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://trutoo.com/people/erik-hughes"><img src="https://avatars.githubusercontent.com/u/455178?v=4?s=100" width="100px;" alt="Erik Hughes"/><br /><sub><b>Erik Hughes</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=Swiftwork" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3ASwiftwork" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=Swiftwork" title="Tests">⚠️</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/mtth"><img src="https://avatars.githubusercontent.com/u/1216372?v=4?s=100" width="100px;" alt="Matthieu Monsch"/><br /><sub><b>Matthieu Monsch</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=mtth" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Amtth" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=mtth" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/mitchell-merry"><img src="https://avatars.githubusercontent.com/u/8567231?v=4?s=100" width="100px;" alt="Mitchell Merry"/><br /><sub><b>Mitchell Merry</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=mitchell-merry" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=mitchell-merry" title="Tests">⚠️</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Amitchell-merry" title="Bug reports">🐛</a></td>
     </tr>
   </tbody>
 </table>
