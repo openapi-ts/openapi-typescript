@@ -144,7 +144,7 @@ export function defaultSchemaObjectTransform(
           return ctx.immutableTypes || schemaObject.readOnly ? tsReadonly(itemType) : itemType;
         } else {
           return tsUnionOf(
-            ...Array.from({ length: (maxItems || 0) - minItems + 1 })
+            ...Array.from({ length: (maxItems ?? 0) - minItems + 1 })
               .map((_, i) => i + minItems)
               .map((n) => {
                 const t = tsTupleOf(...Array.from({ length: n }).map(() => itemType));
@@ -169,7 +169,7 @@ export function defaultSchemaObjectTransform(
     ("additionalProperties" in schemaObject && schemaObject.additionalProperties)
   ) {
     indentLv++;
-    for (const [k, v] of getEntries(schemaObject.properties || {}, ctx.alphabetize)) {
+    for (const [k, v] of getEntries(schemaObject.properties ?? {}, ctx.alphabetize)) {
       const c = getSchemaObjectComment(v, indentLv);
       if (c) coreType.push(indent(c, indentLv));
       let key = escObjKey(k);
@@ -204,11 +204,11 @@ export function defaultSchemaObjectTransform(
     );
     if (discriminatorRef) {
       const discriminator = ctx.discriminators[discriminatorRef.$ref];
-      let value = parseRef(path).path.pop() as string;
+      let value = parseRef(path).path.pop()!;
       if (discriminator.mapping) {
         // Mapping value can either be a fully-qualified ref (#/components/schemas/XYZ) or a schema name (XYZ)
         const matchedValue = Object.entries(discriminator.mapping).find(
-          ([_, v]) => (v[0] !== "#" && v === value) || (v[0] === "#" && parseRef(v).path.pop() === value)
+          ([_, v]) => (!v.startsWith("#") && v === value) || (v.startsWith("#") && parseRef(v).path.pop() === value)
         );
         if (matchedValue) value = matchedValue[0]; // why was this designed backwards!?
       }

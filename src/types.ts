@@ -137,13 +137,17 @@ export interface ComponentsObject extends Extensable {
  * [4.8.8] Paths Object
  * Holds the relative paths to the individual endpoints and their operations. The path is appended to the URL from the Server Object in order to construct the full URL. The Paths MAY be empty, due to Access Control List (ACL) constraints.
  */
-export type PathsObject = { [pathname: string]: PathItemObject };
+export interface PathsObject {
+  [pathname: string]: PathItemObject;
+}
 
 /**
  * [x.x.x] Webhooks Object
  * Holds the webhooks definitions, indexed by their names. A webhook is defined by a Path Item Object; the only difference is that the request is initiated by the API provider.
  */
-export type WebhooksObject = { [name: string]: PathItemObject };
+export interface WebhooksObject {
+  [name: string]: PathItemObject;
+}
 
 /**
  * [4.8.9] Path Item Object
@@ -574,9 +578,9 @@ export interface OpenAPITSOptions {
   /** Should schema objects with a default value not be considered optional? */
   defaultNonNullable?: boolean;
   /** Manually transform certain Schema Objects with a custom TypeScript type */
-  transform?: (schemaObject: SchemaObject, options: TransformSchemaObjectOptions) => string | undefined | void;
+  transform?: (schemaObject: SchemaObject, options: TransformSchemaObjectOptions) => string | undefined;
   /** Modify TypeScript types built from Schema Objects */
-  postTransform?: (type: string, options: TransformSchemaObjectOptions) => string | undefined | void;
+  postTransform?: (type: string, options: TransformSchemaObjectOptions) => string | undefined;
   /** Add readonly properties and readonly arrays? (default: false) */
   immutableTypes?: boolean;
   /** (optional) Should logging be suppressed? (necessary for STDOUT) */

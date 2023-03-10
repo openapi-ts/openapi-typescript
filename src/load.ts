@@ -19,7 +19,9 @@ import yaml from "js-yaml";
 import type { Dispatcher } from "undici";
 import { parseRef, error, makeTSIndex, walk, isRemoteURL, isFilepath } from "./utils.js";
 
-type SchemaMap = { [id: string]: Subschema };
+interface SchemaMap {
+  [id: string]: Subschema;
+}
 
 export const VIRTUAL_JSON_URL = `file:///_json`; // fake URL reserved for dynamic JSON
 
@@ -109,7 +111,7 @@ export default async function load(
   // 1. load contents
   // 1a. URL
   if (schema instanceof URL) {
-    const hint = options.hint || "OpenAPI3";
+    const hint = options.hint ?? "OpenAPI3";
 
     // normalize ID
     if (schema.href !== options.rootURL.href) schemaID = relativePath(options.rootURL, schema);
@@ -136,12 +138,12 @@ export default async function load(
         headers,
       });
       const contentType = res.headers.get("content-type");
-      if (ext === ".json" || (contentType && contentType.includes("json"))) {
+      if (ext === ".json" || contentType?.includes("json")) {
         options.schemas[schemaID] = {
           hint,
           schema: parseJSON(await res.text()),
         };
-      } else if (ext === ".yaml" || ext === ".yml" || (contentType && contentType.includes("yaml"))) {
+      } else if (ext === ".yaml" || ext === ".yml" || contentType?.includes("yaml")) {
         options.schemas[schemaID] = {
           hint,
           schema: parseYAML(await res.text()),
@@ -180,7 +182,7 @@ export default async function load(
     // if file starts with '{' assume JSON
     options.schemas[schemaID] = {
       hint: "OpenAPI3",
-      schema: contents.charAt(0) === "{" ? parseJSON(contents) : parseYAML(contents),
+      schema: contents.startsWith("{") ? parseJSON(contents) : parseYAML(contents),
     };
   }
   // 1c. inline
