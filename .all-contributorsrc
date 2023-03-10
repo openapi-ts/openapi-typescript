@@ -672,6 +672,17 @@
         "bug",
         "test"
       ]
+    },
+    {
+      "login": "mtth",
+      "name": "Matthieu Monsch",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1216372?v=4",
+      "profile": "https://github.com/mtth",
+      "contributions": [
+        "code",
+        "bug",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
