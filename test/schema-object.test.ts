@@ -447,6 +447,33 @@ describe("Schema Object", () => {
         );
       });
     });
+
+    describe("immutableTypes", () => {
+      test("nullable array of records property", () => {
+        const schema: SchemaObject = {
+          type: "object",
+          properties: {
+            array: {
+              type: "array",
+              nullable: true,
+              items: {
+                type: "object",
+                additionalProperties: true,
+              },
+            },
+          },
+        };
+        const generated = transformSchemaObject(schema, {
+          ...options,
+          ctx: { ...options.ctx, immutableTypes: true },
+        });
+        expect(generated).toBe(`{
+  readonly array?: (readonly ({
+      [key: string]: unknown | undefined;
+    })[]) | null;
+}`);
+      });
+    });
   });
 });
 
