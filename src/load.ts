@@ -211,13 +211,18 @@ export default async function load(
     for (const k of ["allOf", "anyOf", "oneOf"]) {
       if (Array.isArray(rawNode[k])) {
         rawNode[k] = (rawNode as any)[k].filter((o: SchemaObject | ReferenceObject) => {
+          if (!o || typeof o !== "object" || Array.isArray(o))
+            throw new Error(`${nodePath}.${k}: Expected array of objects. Is your schema valid?`);
           if (!("$ref" in o) || typeof o.$ref !== "string") return true;
           const ref = parseRef(o.$ref);
           return !ref.path.some((i) => i.startsWith("x-")); // ignore all custom "x-*" properties
         });
       }
     }
-
+    if (!rawNode || typeof rawNode !== "object" || Array.isArray(rawNode))
+      throw new Error(
+        `${nodePath}: Expected object, got ${Array.isArray(rawNode) ? "array" : typeof rawNode}. Is your schema valid?`
+      );
     if (!("$ref" in rawNode) || typeof rawNode.$ref !== "string") return;
     const node = rawNode as unknown as ReferenceObject;
 
