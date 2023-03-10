@@ -4,11 +4,12 @@ import supportsColor from "supports-color";
 import { fetch as unidiciFetch } from "undici";
 import { Fetch } from "types";
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-boolean-literal-compare
 if (!supportsColor.stdout || supportsColor.stdout.hasBasic === false) c.enabled = false;
 
 export { c };
 
-type CommentObject = {
+interface CommentObject {
   const?: unknown; // jsdoc without value
   default?: unknown; // jsdoc with value
   deprecated?: boolean; // jsdoc without value
@@ -20,7 +21,7 @@ type CommentObject = {
   summary?: string; // not jsdoc
   title?: string; // not jsdoc
   type?: string | string[]; // Type of node
-};
+}
 
 const COMMENT_RE = /\*\//g;
 export const LB_RE = /\r?\n/g;
@@ -67,9 +68,8 @@ export function getSchemaObjectComment(v: CommentObject, indentLv?: number): str
   if (v.deprecated) output.push(`@deprecated `);
 
   // * JSDOC tags with value
-  const supportedJsDocTags: Array<keyof CommentObject> = ["description", "default", "example"];
-  for (let index = 0; index < supportedJsDocTags.length; index++) {
-    const field = supportedJsDocTags[index];
+  const supportedJsDocTags: (keyof CommentObject)[] = ["description", "default", "example"];
+  for (const field of supportedJsDocTags) {
     const allowEmptyString = field === "default" || field === "example";
     if (v[field] === undefined) {
       continue;
@@ -100,11 +100,11 @@ export function comment(text: string, indentLv?: number): string {
   const commentText = text.trim().replace(COMMENT_RE, "*\\/");
 
   // if single-line comment
-  if (commentText.indexOf("\n") === -1) return `/** ${commentText} */`;
+  if (!commentText.includes("\n")) return `/** ${commentText} */`;
 
   // if multi-line comment
-  const ln = indent(" * ", indentLv || 0);
-  return ["/**", `${ln}${commentText.replace(LB_RE, `\n${ln}`)}`, indent(" */", indentLv || 0)].join("\n");
+  const ln = indent(" * ", indentLv ?? 0);
+  return ["/**", `${ln}${commentText.replace(LB_RE, `\n${ln}`)}`, indent(" */", indentLv ?? 0)].join("\n");
 }
 
 /** handle any valid $ref */
@@ -203,7 +203,7 @@ export function tsTupleOf(...types: string[]): string {
 }
 
 /** X | Y | Z */
-export function tsUnionOf(...types: Array<string | number | boolean>): string {
+export function tsUnionOf(...types: (string | number | boolean)[]): string {
   if (types.length === 1) return String(types[0]); // don’t add parentheses around one thing
   return types.map((t) => (TS_UNION_INTERSECTION_RE.test(String(t)) ? `(${t})` : t)).join(" | ");
 }

@@ -42,7 +42,7 @@ export default function transformPathItemObject(
   }
 
   // parameters
-  if (pathItem.parameters && pathItem.parameters.length) {
+  if (pathItem.parameters?.length) {
     output.push(
       indent(
         transformOperationObject({ parameters: pathItem.parameters }, { path, ctx, wrapObject: false }).trim(),

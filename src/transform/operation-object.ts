@@ -65,7 +65,7 @@ export default function transformOperationObject(
             const parts = parseTSIndex(p.$ref);
             const paramI = parts.indexOf("parameters");
             if (paramI === -1 || parts[paramI + 1] !== paramIn || !parts[paramI + 2]) continue;
-            const key = parts.pop() as string;
+            const key = parts.pop()!;
             const index = makeTSIndex(parts);
             if (!refs[index]) refs[index] = [key];
             else refs[index].push(key);

@@ -39,23 +39,23 @@ async function openapiTS(
   options: OpenAPITSOptions = {} as Partial<OpenAPITSOptions>
 ): Promise<string> {
   const ctx: GlobalContext = {
-    additionalProperties: options.additionalProperties || false,
-    alphabetize: options.alphabetize || false,
-    defaultNonNullable: options.defaultNonNullable || false,
+    additionalProperties: options.additionalProperties ?? false,
+    alphabetize: options.alphabetize ?? false,
+    defaultNonNullable: options.defaultNonNullable ?? false,
     discriminators: {},
-    transform: options && typeof options.transform === "function" ? options.transform : undefined,
-    postTransform: options && typeof options.postTransform === "function" ? options.postTransform : undefined,
-    immutableTypes: options.immutableTypes || false,
-    emptyObjectsUnknown: options.emptyObjectsUnknown || false,
+    transform: typeof options.transform === "function" ? options.transform : undefined,
+    postTransform: typeof options.postTransform === "function" ? options.postTransform : undefined,
+    immutableTypes: options.immutableTypes ?? false,
+    emptyObjectsUnknown: options.emptyObjectsUnknown ?? false,
     indentLv: 0,
     operations: {},
-    pathParamsAsTypes: options.pathParamsAsTypes || false,
-    silent: options.silent || false,
-    supportArrayLength: options.supportArrayLength || false,
+    pathParamsAsTypes: options.pathParamsAsTypes ?? false,
+    silent: options.silent ?? false,
+    supportArrayLength: options.supportArrayLength ?? false,
   };
 
   // note: we may be loading many large schemas into memory at once; take care to reuse references without cloning
-  const isInlineSchema = typeof schema !== "string" && schema instanceof URL == false;
+  const isInlineSchema = typeof schema !== "string" && schema instanceof URL === false; // eslint-disable-line @typescript-eslint/no-unnecessary-boolean-literal-compare
 
   // 1. load schema (and subschemas)
   const allSchemas: { [id: string]: Subschema } = {};
@@ -90,7 +90,7 @@ async function openapiTS(
   const output: string[] = [];
 
   // 2a. Start file, inject custom code (if any)
-  if (options && "commentHeader" in options) {
+  if ("commentHeader" in options) {
     if (options.commentHeader) output.push(options.commentHeader);
   } else {
     output.push(COMMENT_HEADER);
