@@ -4,6 +4,7 @@ import transformPathsObject from "../src/transform/paths-object.js";
 const options: GlobalContext = {
   additionalProperties: false,
   alphabetize: false,
+  emptyObjectsUnknown: false,
   defaultNonNullable: false,
   discriminators: {},
   immutableTypes: false,

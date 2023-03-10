@@ -567,6 +567,8 @@ export interface OpenAPITSOptions {
   alphabetize?: boolean;
   /** Specify auth if using openapi-typescript to fetch URL */
   auth?: string;
+  /** Allow schema objects with no specified properties to have additional properties if not expressly forbidden? (default: false) */
+  emptyObjectsUnknown?: boolean;
   /** Specify current working directory (cwd) to resolve remote schemas on disk (not needed for remote URL schemas) */
   cwd?: URL;
   /** Should schema objects with a default value not be considered optional? */
@@ -632,6 +634,7 @@ export type Subschema =
 export interface GlobalContext {
   additionalProperties: boolean;
   alphabetize: boolean;
+  emptyObjectsUnknown: boolean;
   defaultNonNullable: boolean;
   discriminators: { [$ref: string]: DiscriminatorObject };
   transform: OpenAPITSOptions["transform"];

@@ -6,6 +6,7 @@ const options: TransformSchemaObjectOptions = {
   ctx: {
     additionalProperties: false,
     alphabetize: false,
+    emptyObjectsUnknown: false,
     defaultNonNullable: false,
     discriminators: {},
     immutableTypes: false,
@@ -121,6 +122,25 @@ describe("Schema Object", () => {
     });
 
     describe("object", () => {
+      test("empty", () => {
+        const schema: SchemaObject = {
+          type: "object",
+        };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe(`Record<string, never>`);
+      });
+
+      test("empty with emptyObjectsUnknown", () => {
+        const schema: SchemaObject = {
+          type: "object",
+        };
+        const generated = transformSchemaObject(schema, {
+          ...options,
+          ctx: { ...options.ctx, emptyObjectsUnknown: true },
+        });
+        expect(generated).toBe(`Record<string, unknown>`);
+      });
+
       test("basic", () => {
         const schema: SchemaObject = {
           type: "object",
@@ -358,6 +378,30 @@ describe("Schema Object", () => {
   fixed: boolean;
   [key: string]: unknown | undefined;
 }`);
+      });
+    });
+
+    describe("emptyObjectsUnknown", () => {
+      describe("with object with no specified properties", () => {
+        const schema: SchemaObject = {
+          type: "object",
+        };
+
+        test("true", () => {
+          const generated = transformSchemaObject(schema, {
+            ...options,
+            ctx: { ...options.ctx, emptyObjectsUnknown: true },
+          });
+          expect(generated).toBe(`Record<string, unknown>`);
+        });
+
+        test("false", () => {
+          const generated = transformSchemaObject(schema, {
+            ...options,
+            ctx: { ...options.ctx, emptyObjectsUnknown: false },
+          });
+          expect(generated).toBe(`Record<string, never>`);
+        });
       });
     });
 

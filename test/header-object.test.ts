@@ -6,6 +6,7 @@ const options: TransformHeaderObjectOptions = {
   ctx: {
     additionalProperties: false,
     alphabetize: false,
+    emptyObjectsUnknown: false,
     defaultNonNullable: false,
     discriminators: {},
     immutableTypes: false,

@@ -149,6 +149,7 @@ The following flags can be appended to the CLI command.
 | `--http-method`                | `-m`  | `GET`    | Provide the HTTP Verb/Method for fetching a schema from a remote URL                                                         |
 | `--immutable-types`            |       | `false`  | Generates immutable types (readonly properties and readonly array)                                                           |
 | `--additional-properties`      |       | `false`  | Allow arbitrary properties for all schema objects without `additionalProperties: false`                                      |
+| `--empty-objects-unknown`      |       | `false`  | Allow arbitrary properties for schema objects with no specified properties, and no specified `additionalProperties`          |
 | `--default-non-nullable`       |       | `false`  | Treat schema objects with default values as non-nullable                                                                     |
 | `--export-type`                | `-t`  | `false`  | Export `type` instead of `interface`                                                                                         |
 | `--path-params-as-types`       |       | `false`  | Allow dynamic string lookups on the `paths` object                                                                           |

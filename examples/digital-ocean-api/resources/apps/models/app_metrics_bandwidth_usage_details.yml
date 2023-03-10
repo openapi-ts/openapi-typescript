@@ -1,0 +1,12 @@
+type: object
+properties:
+  app_id:
+    type: string
+    description: 'The ID of the app.'
+    example: 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+  bandwidth_bytes:
+    type: string
+    format: uint64
+    description: 'The used bandwidth amount in bytes.'
+    example: '513668'
+description: 'Bandwidth usage for an app.'
