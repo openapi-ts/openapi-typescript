@@ -126,7 +126,7 @@ export type operations = Record<string, never>;
   });
 
   describe("3.1", () => {
-    test("discriminator", async () => {
+    test("discriminator (allOf)", async () => {
       const schema: OpenAPI3 = {
         openapi: "3.1",
         info: { title: "test", version: "1.0" },
@@ -136,7 +136,10 @@ export type operations = Record<string, never>;
               type: "object",
               required: ["petType"],
               properties: { petType: { type: "string" } },
-              discriminator: { propertyName: "petType", mapping: { dog: "Dog" } },
+              discriminator: {
+                propertyName: "petType",
+                mapping: { dog: "Dog" },
+              },
             },
             Cat: {
               allOf: [
@@ -193,6 +196,92 @@ export interface components {
       petType: "Lizard";
     } & Omit<components["schemas"]["Pet"], "petType"> & {
       lovesRocks?: boolean;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}
+
+export type external = Record<string, never>;
+
+export type operations = Record<string, never>;
+`);
+    });
+
+    test("discriminator (oneOf)", async () => {
+      const schema: OpenAPI3 = {
+        openapi: "3.1",
+        info: { title: "test", version: "1.0" },
+        components: {
+          schemas: {
+            Pet: {
+              oneOf: [
+                { $ref: "#/components/schemas/Cat" },
+                { $ref: "#/components/schemas/Dog" },
+                { $ref: "#/components/schemas/Lizard" },
+              ],
+              discriminator: {
+                propertyName: "petType",
+                mapping: {
+                  cat: "#/components/schemas/Cat",
+                  dog: "#/components/schemas/Dog",
+                  lizard: "#/components/schemas/Lizard",
+                },
+              },
+            },
+            Cat: {
+              type: "object",
+              properties: {
+                name: { type: "string" },
+                petType: { type: "string", enum: ["cat"] },
+              },
+              required: ["petType"],
+            },
+            Dog: {
+              type: "object",
+              properties: {
+                bark: { type: "string" },
+                petType: { type: "string", enum: ["dog"] },
+              },
+              required: ["petType"],
+            },
+            Lizard: {
+              type: "object",
+              properties: {
+                lovesRocks: { type: "boolean" },
+                petType: { type: "string", enum: ["lizard"] },
+              },
+              required: ["petType"],
+            },
+          },
+        },
+      };
+      const generated = await openapiTS(schema);
+      expect(generated).toBe(`${BOILERPLATE}
+export type paths = Record<string, never>;
+
+export type webhooks = Record<string, never>;
+
+export interface components {
+  schemas: {
+    Pet: components["schemas"]["Cat"] | components["schemas"]["Dog"] | components["schemas"]["Lizard"];
+    Cat: {
+      name?: string;
+      /** @enum {string} */
+      petType: "cat";
+    };
+    Dog: {
+      bark?: string;
+      /** @enum {string} */
+      petType: "dog";
+    };
+    Lizard: {
+      lovesRocks?: boolean;
+      /** @enum {string} */
+      petType: "lizard";
     };
   };
   responses: never;
