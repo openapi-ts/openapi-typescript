@@ -638,7 +638,13 @@ export interface GlobalContext {
   postTransform: OpenAPITSOptions["postTransform"];
   immutableTypes: boolean;
   indentLv: number;
-  operations: Record<string, string>;
+  operations: Record<
+    string,
+    {
+      comment?: string;
+      operationType: string;
+    }
+  >;
   pathParamsAsTypes: boolean;
   silent: boolean;
   supportArrayLength: boolean;

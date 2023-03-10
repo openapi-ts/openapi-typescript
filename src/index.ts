@@ -9,7 +9,7 @@ import transformParameterObject from "./transform/parameter-object.js";
 import transformRequestBodyObject from "./transform/request-body-object.js";
 import transformResponseObject from "./transform/response-object.js";
 import transformSchemaObject from "./transform/schema-object.js";
-import { error, escObjKey, getDefaultFetch, getEntries, indent } from "./utils.js";
+import { error, escObjKey, getDefaultFetch, getEntries, getSchemaObjectComment, indent } from "./utils.js";
 export * from "./types.js"; // expose all types to consumers
 
 const EMPTY_OBJECT_RE = /^\s*\{?\s*\}?\s*$/;
@@ -125,6 +125,7 @@ async function openapiTS(
       const key = escObjKey(subschemaID);
       const path = `${subschemaID}#`;
       let subschemaOutput = "";
+      let comment: string | undefined;
       switch (subschema.hint) {
         case "OpenAPI3": {
           const subschemaTypes = transformSchema(subschema.schema, { ...ctx, indentLv });
@@ -144,6 +145,7 @@ async function openapiTS(
           break;
         }
         case "OperationObject": {
+          comment = getSchemaObjectComment(subschema.schema, indentLv);
           subschemaOutput = transformOperationObject(subschema.schema, { path, ctx: { ...ctx, indentLv } });
           break;
         }
@@ -169,6 +171,7 @@ async function openapiTS(
         }
       }
       if (subschemaOutput && !EMPTY_OBJECT_RE.test(subschemaOutput)) {
+        if (comment) output.push(indent(comment, indentLv));
         output.push(indent(`${key}: ${subschemaOutput}`, indentLv));
       }
       delete allSchemas[subschemaID];
@@ -182,8 +185,9 @@ async function openapiTS(
   // 3. operations (only get fully built after all external schemas transformed)
   if (Object.keys(ctx.operations).length) {
     output.push(options.exportType ? "export type operations = {" : "export interface operations {", "");
-    for (const k of Object.keys(ctx.operations)) {
-      output.push(indent(`${escObjKey(k)}: ${ctx.operations[k]};`, 1));
+    for (const [key, { operationType, comment }] of Object.entries(ctx.operations)) {
+      if (comment) output.push(indent(comment, 1));
+      output.push(indent(`${escObjKey(key)}: ${operationType};`, 1));
     }
     output.push(`}${options.exportType ? ";" : ""}`, "");
   } else {

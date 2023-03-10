@@ -30,7 +30,10 @@ export default function transformPathItemObject(
     // if operationId exists, move into an `operations` export and pass the reference in here
     else if (operationObject.operationId) {
       const operationType = transformOperationObject(operationObject, { path, ctx: { ...ctx, indentLv: 1 } });
-      ctx.operations[operationObject.operationId] = operationType;
+      ctx.operations[operationObject.operationId] = {
+        operationType,
+        comment: getSchemaObjectComment(operationObject, 1),
+      };
       output.push(indent(`${method}: operations[${escStr(operationObject.operationId)}];`, indentLv));
     } else {
       const operationType = transformOperationObject(operationObject, { path, ctx: { ...ctx, indentLv } });
