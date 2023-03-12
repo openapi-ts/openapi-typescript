@@ -158,7 +158,10 @@ export function tsArrayOf(type: string): string {
 /** X & Y & Z; */
 export function tsIntersectionOf(...types: string[]): string {
   if (types.length === 1) return String(types[0]); // don’t add parentheses around one thing
-  return types.map((t) => (TS_UNION_INTERSECTION_RE.test(t) ? `(${t})` : t)).join(" & ");
+  return types
+    .filter((t) => t !== "unknown")
+    .map((t) => (TS_UNION_INTERSECTION_RE.test(t) ? `(${t})` : t))
+    .join(" & ");
 }
 
 /** NonNullable<T> */
