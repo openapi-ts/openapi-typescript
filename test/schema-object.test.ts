@@ -523,6 +523,11 @@ describe("Schema Object", () => {
       });
     });
   });
+
+  test("unknown", () => {
+    const generated = transformSchemaObject({}, options);
+    expect(generated).toBe(`unknown`);
+  });
 });
 
 describe("ReferenceObject", () => {
