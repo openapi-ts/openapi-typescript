@@ -78656,14 +78656,14 @@ export interface components {
   };
   parameters: {
     /** @description The number of results per page (max 100). */
-    "per-page": number;
+    "per-page"?: number;
     /** @description Used for pagination: the starting delivery from which the page of deliveries is fetched. Refer to the `link` header for the next and previous page cursors. */
-    cursor: string;
+    cursor?: string;
     "delivery-id": number;
     /** @description Page number of the results to fetch. */
-    page: number;
+    page?: number;
     /** @description Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    since: string;
+    since?: string;
     /** @description The unique identifier of the installation. */
     "installation-id": number;
     /** @description The client ID of the GitHub app. */
@@ -78676,99 +78676,99 @@ export interface components {
      * 
      * Can be: `dismissed`, `fixed`, `open`
      */
-    "dependabot-alert-comma-separated-states": string;
+    "dependabot-alert-comma-separated-states"?: string;
     /**
      * @description A comma-separated list of severities. If specified, only alerts with these severities will be returned.
      * 
      * Can be: `low`, `medium`, `high`, `critical`
      */
-    "dependabot-alert-comma-separated-severities": string;
+    "dependabot-alert-comma-separated-severities"?: string;
     /**
      * @description A comma-separated list of ecosystems. If specified, only alerts for these ecosystems will be returned.
      * 
      * Can be: `composer`, `go`, `maven`, `npm`, `nuget`, `pip`, `pub`, `rubygems`, `rust`
      */
-    "dependabot-alert-comma-separated-ecosystems": string;
+    "dependabot-alert-comma-separated-ecosystems"?: string;
     /** @description A comma-separated list of package names. If specified, only alerts for these packages will be returned. */
-    "dependabot-alert-comma-separated-packages": string;
+    "dependabot-alert-comma-separated-packages"?: string;
     /** @description The scope of the vulnerable dependency. If specified, only alerts with this scope will be returned. */
-    "dependabot-alert-scope": "development" | "runtime";
+    "dependabot-alert-scope"?: "development" | "runtime";
     /**
      * @description The property by which to sort the results.
      * `created` means when the alert was created.
      * `updated` means when the alert's state last changed.
      */
-    "dependabot-alert-sort": "created" | "updated";
+    "dependabot-alert-sort"?: "created" | "updated";
     /** @description The direction to sort the results by. */
-    direction: "asc" | "desc";
+    direction?: "asc" | "desc";
     /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers). If specified, the query only searches for results before this cursor. */
-    "pagination-before": string;
+    "pagination-before"?: string;
     /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers). If specified, the query only searches for results after this cursor. */
-    "pagination-after": string;
+    "pagination-after"?: string;
     /**
      * @description **Deprecated**. The number of results per page (max 100), starting from the first matching result.
      * This parameter must not be used in combination with `last`.
      * Instead, use `per_page` in combination with `after` to fetch the first page of results.
      */
-    "pagination-first": number;
+    "pagination-first"?: number;
     /**
      * @description **Deprecated**. The number of results per page (max 100), starting from the last matching result.
      * This parameter must not be used in combination with `first`.
      * Instead, use `per_page` in combination with `before` to fetch the last page of results.
      */
-    "pagination-last": number;
+    "pagination-last"?: number;
     /** @description Set to `open` or `resolved` to only list secret scanning alerts in a specific state. */
-    "secret-scanning-alert-state": "open" | "resolved";
+    "secret-scanning-alert-state"?: "open" | "resolved";
     /**
      * @description A comma-separated list of secret types to return. By default all secret types are returned.
      * See "[Secret scanning patterns](https://docs.github.com/code-security/secret-scanning/secret-scanning-patterns#supported-secrets-for-advanced-security)"
      * for a complete list of secret types.
      */
-    "secret-scanning-alert-secret-type": string;
+    "secret-scanning-alert-secret-type"?: string;
     /** @description A comma-separated list of resolutions. Only secret scanning alerts with one of these resolutions are listed. Valid resolutions are `false_positive`, `wont_fix`, `revoked`, `pattern_edited`, `pattern_deleted` or `used_in_tests`. */
-    "secret-scanning-alert-resolution": string;
+    "secret-scanning-alert-resolution"?: string;
     /** @description The property to sort the results by. `created` means when the alert was created. `updated` means when the alert was updated or resolved. */
-    "secret-scanning-alert-sort": "created" | "updated";
+    "secret-scanning-alert-sort"?: "created" | "updated";
     /** @description The unique identifier of the gist. */
     "gist-id": string;
     /** @description The unique identifier of the comment. */
     "comment-id": number;
     /** @description A list of comma separated label names. Example: `bug,ui,@high` */
-    labels: string;
+    labels?: string;
     /** @description account_id parameter */
     "account-id": number;
     /** @description The unique identifier of the plan. */
     "plan-id": number;
     /** @description The property to sort the results by. */
-    sort: "created" | "updated";
+    sort?: "created" | "updated";
     /** @description The account owner of the repository. The name is not case sensitive. */
     owner: string;
     /** @description The name of the repository. The name is not case sensitive. */
     repo: string;
     /** @description If `true`, show notifications marked as read. */
-    all: boolean;
+    all?: boolean;
     /** @description If `true`, only shows notifications in which the user is directly participating or mentioned. */
-    participating: boolean;
+    participating?: boolean;
     /** @description Only show notifications updated before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    before: string;
+    before?: string;
     /** @description The unique identifier of the notification thread. This corresponds to the value returned in the `id` field when you retrieve notifications (for example with the [`GET /notifications` operation](https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user)). */
     "thread-id": number;
     /** @description An organization ID. Only return organizations with an ID greater than this ID. */
-    "since-org": number;
+    "since-org"?: number;
     /** @description The organization name. The name is not case sensitive. */
     org: string;
     /** @description The property by which to sort the results. */
-    "personal-access-token-sort": "created_at";
+    "personal-access-token-sort"?: "created_at";
     /** @description A list of owner usernames to use to filter the results. */
-    "personal-access-token-owner": (string)[];
+    "personal-access-token-owner"?: (string)[];
     /** @description The name of the repository to use to filter the results. */
-    "personal-access-token-repository": string;
+    "personal-access-token-repository"?: string;
     /** @description The permission to use to filter the results. */
-    "personal-access-token-permission": string;
+    "personal-access-token-permission"?: string;
     /** @description Only show fine-grained personal access tokens used before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    "personal-access-token-before": string;
+    "personal-access-token-before"?: string;
     /** @description Only show fine-grained personal access tokens used after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    "personal-access-token-after": string;
+    "personal-access-token-after"?: string;
     /** @description The unique identifier of the fine-grained personal access token. */
     "fine-grained-personal-access-token-id": number;
     /** @description The unique identifier of the repository. */
@@ -78782,15 +78782,15 @@ export interface components {
     /** @description The name of the secret. */
     "secret-name": string;
     /** @description The number of results per page (max 30). */
-    "variables-per-page": number;
+    "variables-per-page"?: number;
     /** @description The name of the variable. */
     "variable-name": string;
     /** @description The handle for the GitHub user account. */
     username: string;
     /** @description The name of a code scanning tool. Only results by this tool will be listed. You can specify the tool by using either `tool_name` or `tool_guid`, but not both. */
-    "tool-name": components["schemas"]["code-scanning-analysis-tool-name"];
+    "tool-name"?: components["schemas"]["code-scanning-analysis-tool-name"];
     /** @description The GUID of a code scanning tool. Only results by this tool will be listed. Note that some code scanning tools may not include a GUID in their analysis data. You can specify the tool by using either `tool_guid` or `tool_name`, but not both. */
-    "tool-guid": components["schemas"]["code-scanning-analysis-tool-guid"];
+    "tool-guid"?: components["schemas"]["code-scanning-analysis-tool-guid"];
     /** @description The unique identifier of the hook. */
     "hook-id": number;
     /** @description The unique identifier of the invitation. */
@@ -78807,7 +78807,7 @@ export interface components {
      * The `internal` visibility is only supported for GitHub Packages registries that allow for granular permissions. For other ecosystems `internal` is synonymous with `private`.
      * For the list of GitHub Packages registries that support granular permissions, see "[About permissions for GitHub Packages](https://docs.github.com/packages/learn-github-packages/about-permissions-for-github-packages#granular-permissions-for-userorganization-scoped-packages)."
      */
-    "package-visibility": "public" | "private" | "internal";
+    "package-visibility"?: "public" | "private" | "internal";
     /** @description The type of supported package. Packages in GitHub's Gradle registry have the type `maven`. Docker images pushed to GitHub's Container registry (`ghcr.io`) have the type `container`. You can use the type `docker` to find images that were pushed to GitHub's Docker registry (`docker.pkg.github.com`), even if these have now been migrated to the Container registry. */
     "package-type": "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container";
     /** @description The name of the package. */
@@ -78815,9 +78815,9 @@ export interface components {
     /** @description Unique identifier of the package version. */
     "package-version-id": number;
     /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers). If specified, the query only searches for events before this cursor. To receive an initial cursor on your first request, include an empty "before" query string. */
-    "secret-scanning-pagination-before-org-repo": string;
+    "secret-scanning-pagination-before-org-repo"?: string;
     /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers). If specified, the query only searches for events after this cursor.  To receive an initial cursor on your first request, include an empty "after" query string. */
-    "secret-scanning-pagination-after-org-repo": string;
+    "secret-scanning-pagination-after-org-repo"?: string;
     /** @description The slug of the team name. */
     "team-slug": string;
     /** @description The number that identifies the discussion. */
@@ -78846,11 +78846,11 @@ export interface components {
     /** @description The unique identifier of the artifact. */
     "artifact-id": number;
     /** @description The full Git reference for narrowing down the cache. The `ref` for a branch should be formatted as `refs/heads/<branch name>`. To reference a pull request use `refs/pull/<number>/merge`. */
-    "actions-cache-git-ref-full": string;
+    "actions-cache-git-ref-full"?: string;
     /** @description An explicit key or prefix for identifying the cache */
-    "actions-cache-key": string;
+    "actions-cache-key"?: string;
     /** @description The property to sort the results by. `created_at` means when the cache was created. `last_accessed_at` means when the cache was last accessed. `size_in_bytes` is the size of the cache in bytes. */
-    "actions-cache-list-sort": "created_at" | "last_accessed_at" | "size_in_bytes";
+    "actions-cache-list-sort"?: "created_at" | "last_accessed_at" | "size_in_bytes";
     /** @description A key for identifying the cache. */
     "actions-cache-key-required": string;
     /** @description The unique identifier of the GitHub Actions cache. */
@@ -78858,21 +78858,21 @@ export interface components {
     /** @description The unique identifier of the job. */
     "job-id": number;
     /** @description Returns someone's workflow runs. Use the login for the user who created the `push` associated with the check suite or workflow run. */
-    actor: string;
+    actor?: string;
     /** @description Returns workflow runs associated with a branch. Use the name of the branch of the `push`. */
-    "workflow-run-branch": string;
+    "workflow-run-branch"?: string;
     /** @description Returns workflow run triggered by the event you specify. For example, `push`, `pull_request` or `issue`. For more information, see "[Events that trigger workflows](https://docs.github.com/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows)." */
-    event: string;
+    event?: string;
     /** @description Returns workflow runs with the check run `status` or `conclusion` that you specify. For example, a conclusion can be `success` or a status can be `in_progress`. Only GitHub can set a status of `waiting` or `requested`. */
-    "workflow-run-status": "completed" | "action_required" | "cancelled" | "failure" | "neutral" | "skipped" | "stale" | "success" | "timed_out" | "in_progress" | "queued" | "requested" | "waiting" | "pending";
+    "workflow-run-status"?: "completed" | "action_required" | "cancelled" | "failure" | "neutral" | "skipped" | "stale" | "success" | "timed_out" | "in_progress" | "queued" | "requested" | "waiting" | "pending";
     /** @description Returns workflow runs created within the given date-time range. For more information on the syntax, see "[Understanding the search syntax](https://docs.github.com/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax#query-for-dates)." */
-    created: string;
+    created?: string;
     /** @description If `true` pull requests are omitted from the response (empty array). */
-    "exclude-pull-requests": boolean;
+    "exclude-pull-requests"?: boolean;
     /** @description Returns workflow runs with the `check_suite_id` that you specify. */
-    "workflow-run-check-suite-id": number;
+    "workflow-run-check-suite-id"?: number;
     /** @description Only returns workflow runs that are associated with the specified `head_sha`. */
-    "workflow-run-head-sha": string;
+    "workflow-run-head-sha"?: string;
     /** @description The unique identifier of the workflow run. */
     "run-id": number;
     /** @description The attempt number of the workflow run. */
@@ -78888,17 +78888,17 @@ export interface components {
     /** @description The unique identifier of the check suite. */
     "check-suite-id": number;
     /** @description Returns check runs with the specified `name`. */
-    "check-name": string;
+    "check-name"?: string;
     /** @description Returns check runs with the specified `status`. */
-    status: "queued" | "in_progress" | "completed";
+    status?: "queued" | "in_progress" | "completed";
     /** @description The Git reference for the results you want to list. The `ref` for a branch can be formatted either as `refs/heads/<branch name>` or simply `<branch name>`. To reference a pull request use `refs/pull/<number>/merge`. */
-    "git-ref": components["schemas"]["code-scanning-ref"];
+    "git-ref"?: components["schemas"]["code-scanning-ref"];
     /** @description The number that identifies an alert. You can find this at the end of the URL for a code scanning alert within GitHub, and in the `number` field in the response from the `GET /repos/{owner}/{repo}/code-scanning/alerts` operation. */
     "alert-number": components["schemas"]["alert-number"];
     /** @description The SHA of the commit. */
     "commit-sha": string;
     /** @description A comma-separated list of full manifest paths. If specified, only alerts for these manifests will be returned. */
-    "dependabot-alert-comma-separated-manifests": string;
+    "dependabot-alert-comma-separated-manifests"?: string;
     /**
      * @description The number that identifies a Dependabot alert in its repository.
      * You can find this at the end of the URL for a Dependabot alert within GitHub,
@@ -78907,7 +78907,7 @@ export interface components {
      */
     "dependabot-alert-number": components["schemas"]["alert-number"];
     /** @description The full path, relative to the repository root, of the dependency manifest file. */
-    "manifest-path": string;
+    "manifest-path"?: string;
     /** @description deployment_id parameter */
     "deployment-id": number;
     /** @description The name of the environment. */
@@ -78915,7 +78915,7 @@ export interface components {
     /** @description The unique identifier of the branch policy. */
     "branch-policy-id": number;
     /** @description A user ID. Only return users with an ID greater than this ID. */
-    "since-user": number;
+    "since-user"?: number;
     /** @description The number that identifies the issue. */
     "issue-number": number;
     /** @description The unique identifier of the key. */
@@ -78933,27 +78933,27 @@ export interface components {
     /** @description The unique identifier of the tag protection. */
     "tag-protection-id": number;
     /** @description The time frame to display results for. */
-    per: "day" | "week";
+    per?: "day" | "week";
     /** @description A repository ID. Only return repositories with an ID greater than this ID. */
-    "since-repo": number;
+    "since-repo"?: number;
     /** @description Determines whether the first search result returned is the highest number of matches (`desc`) or lowest number of matches (`asc`). This parameter is ignored unless you provide `sort`. */
-    order: "desc" | "asc";
+    order?: "desc" | "asc";
     /** @description The unique identifier of the team. */
     "team-id": number;
     /** @description ID of the Repository to filter on */
-    "repository-id-in-query": number;
+    "repository-id-in-query"?: number;
     /** @description The ID of the export operation, or `latest`. Currently only `latest` is currently supported. */
     "export-id": string;
     /** @description The unique identifier of the GPG key. */
     "gpg-key-id": number;
     /** @description Only show repositories updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    "since-repo-date": string;
+    "since-repo-date"?: string;
     /** @description Only show repositories updated before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    "before-repo-date": string;
+    "before-repo-date"?: string;
     /** @description The unique identifier of the SSH signing key. */
     "ssh-signing-key-id": number;
     /** @description The property to sort the results by. `created` means when the repository was starred. `updated` means when the repository was last pushed to. */
-    "sort-starred": "created" | "updated";
+    "sort-starred"?: "created" | "updated";
   };
   requestBodies: never;
   headers: {
