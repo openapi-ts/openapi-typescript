@@ -167,6 +167,32 @@ describe("Schema Object", () => {
 }`);
       });
 
+      test("const number field", () => {
+        const schema: SchemaObject = {
+          type: "object",
+          properties: { constant: { const: 1, type: "number" } },
+          required: ["constant"],
+        };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe(`{
+  /** @constant */
+  constant: 1;
+}`);
+      });
+
+      test("const number field which is 0", () => {
+        const schema: SchemaObject = {
+          type: "object",
+          properties: { constant: { const: 0, type: "number" } },
+          required: ["constant"],
+        };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe(`{
+  /** @constant */
+  constant: 0;
+}`);
+      });
+
       test("additionalProperties with properties", () => {
         const schema: SchemaObject = {
           type: "object",
@@ -247,6 +273,28 @@ describe("Schema Object", () => {
         };
         const generated = transformSchemaObject(schema, options);
         expect(generated).toBe("string | number");
+      });
+
+      test("const string", () => {
+        const schema: SchemaObject = {
+          oneOf: [
+            { type: "string", const: "hello" },
+            { type: "string", const: "world" },
+          ],
+        };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe('"hello" | "world"');
+      });
+
+      test("const number", () => {
+        const schema: SchemaObject = {
+          oneOf: [
+            { type: "number", const: 0 },
+            { type: "number", const: 1 },
+          ],
+        };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe("0 | 1");
       });
 
       test("complex", () => {
