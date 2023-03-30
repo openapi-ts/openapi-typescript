@@ -8,7 +8,9 @@ description: >-
   name it should be given, the size of the node to be used, and the region
   where it will be located.
 
+
   **Note**: Read-only replicas are not supported for Redis clusters.
+
 
   The response will be a JSON object with a key called `replica`. The value of
   this will be an object that contains the standard attributes associated with

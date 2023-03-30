@@ -207,7 +207,7 @@ properties:
     maximum: 4096
     example: 2048
   max_prepared_transactions:
-    description: PostgreSQL maximum prepared transactions.
+    description: PostgreSQL maximum prepared transactions. Once increased, this parameter cannot be lowered from its set value.
     type: integer
     minimum: 0
     maximum: 10000
@@ -219,7 +219,7 @@ properties:
     maximum: 640
     example: 128
   max_locks_per_transaction:
-    description: PostgreSQL maximum locks per transaction.
+    description: PostgreSQL maximum locks per transaction. Once increased, this parameter cannot be lowered from its set value.
     type: integer
     minimum: 64
     maximum: 6400
@@ -275,7 +275,7 @@ properties:
   max_worker_processes:
     description: >-
       Sets the maximum number of background processes that the system can
-      support.
+      support. Once increased, this parameter cannot be lowered from its set value.
     type: integer
     minimum: 8
     maximum: 96
@@ -352,11 +352,11 @@ properties:
       - 'on'
     example: 'off'
   max_wal_senders:
-    description: PostgreSQL maximum WAL senders
+    description: PostgreSQL maximum WAL senders. Once increased, this parameter cannot be lowered from its set value.
     type: integer
-    minimum: 8
+    minimum: 20
     maximum: 64
-    example: 8
+    example: 32
   wal_sender_timeout:
     description: >-
       Terminate replication connections that are inactive for longer than this

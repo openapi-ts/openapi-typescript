@@ -9,6 +9,10 @@ description: >-
 tags:
   - Domains
 
+parameters:
+  - $ref: '../../shared/parameters.yml#/per_page'
+  - $ref: '../../shared/parameters.yml#/page'
+
 responses:
   '200':
     $ref: 'responses/all_domains_response.yml'

@@ -318,11 +318,11 @@ tags:
       configurations requiring movable addresses.
 
       Floating IPs are bound to a specific region.
-  
+
   - name: Functions
     description: |-
       [Serverless functions](https://docs.digitalocean.com/products/functions) are blocks of code that run on demand without the need to manage any infrastructure.
-      You can develop functions on your local machine and then deploy them to a namespace using `doctl`, the [official DigitalOcean CLI tool](https://docs.digitalocean.com/reference/doctl). 
+      You can develop functions on your local machine and then deploy them to a namespace using `doctl`, the [official DigitalOcean CLI tool](https://docs.digitalocean.com/reference/doctl).
 
       The Serverless Functions API currently only supports creating and managing namespaces.
 
@@ -515,8 +515,8 @@ tags:
 
   - name: Uptime
     description: >-
-        [DigitalOcean Uptime Checks](https://docs.digitalocean.com/products/uptime/) provide the ability to monitor your endpoints from around the world, and alert you when they're slow, unavailable, or SSL certificates are expiring. 
-        
+        [DigitalOcean Uptime Checks](https://docs.digitalocean.com/products/uptime/) provide the ability to monitor your endpoints from around the world, and alert you when they're slow, unavailable, or SSL certificates are expiring.
+
         To interact with Uptime, you will generally send requests to the Uptime endpoint at `/v2/uptime/`.
 
   - name: VPCs
@@ -581,6 +581,10 @@ paths:
     put:
       $ref: 'resources/apps/apps_update.yml'
 
+  /v2/apps/{app_id}/components/{component_name}/logs:
+    get:
+      $ref: 'resources/apps/apps_get_logs_active_deployment.yml'
+
   /v2/apps/{app_id}/deployments:
     get:
       $ref: 'resources/apps/apps_list_deployments.yml'
@@ -595,13 +599,17 @@ paths:
     post:
       $ref: 'resources/apps/apps_cancel_deployment.yml'
 
-  /v2/apps/{app_id}/deployments/{deployment_id}/components/{component_name}/logs: 
+  /v2/apps/{app_id}/deployments/{deployment_id}/components/{component_name}/logs:
     get:
       $ref: 'resources/apps/apps_get_logs.yml'
 
   /v2/apps/{app_id}/deployments/{deployment_id}/logs:
     get:
-      $ref: 'resources/apps/apps_get_logsAggregate.yml'
+      $ref: 'resources/apps/apps_get_logs_aggregate.yml'
+
+  /v2/apps/{app_id}/logs:
+    get:
+      $ref: 'resources/apps/apps_get_logs_active_deployment_aggregate.yml'
 
   /v2/apps/tiers:
     get:
@@ -650,6 +658,14 @@ paths:
   /v2/apps/{app_id}/rollback/revert:
     post:
       $ref: 'resources/apps/apps_revert_rollback.yml'
+
+  /v2/apps/{app_id}/metrics/bandwidth_daily:
+    get:
+      $ref: 'resources/apps/apps_get_metrics_bandwidth_usage.yml'
+
+  /v2/apps/metrics/bandwidth_daily:
+    post:
+      $ref: 'resources/apps/apps_list_metrics_bandwidth_usage.yml'
 
   /v2/cdn/endpoints:
     get:
@@ -784,6 +800,10 @@ paths:
     delete:
       $ref: 'resources/databases/databases_destroy_replica.yml'
 
+  /v2/databases/{database_cluster_uuid}/replicas/{replica_name}/promote:
+    put:
+      $ref: 'resources/databases/databases_promote_replica.yml'
+
   /v2/databases/{database_cluster_uuid}/users:
     get:
       $ref: 'resources/databases/databases_list_users.yml'
@@ -821,6 +841,8 @@ paths:
   /v2/databases/{database_cluster_uuid}/pools/{pool_name}:
     get:
       $ref: 'resources/databases/databases_get_connectionPool.yml'
+    put:
+      $ref: 'resources/databases/databases_update_connectionPool.yml'
     delete:
       $ref: 'resources/databases/databases_delete_connectionPool.yml'
 
@@ -835,6 +857,10 @@ paths:
       $ref: 'resources/databases/databases_get_sql_mode.yml'
     put:
       $ref: 'resources/databases/databases_update_sql_mode.yml'
+
+  /v2/databases/{database_cluster_uuid}/upgrade:
+    put:
+      $ref: 'resources/databases/databases_upgrade_major_version.yml'
 
   /v2/domains:
     get:
@@ -1005,6 +1031,23 @@ paths:
 
     delete:
       $ref: 'resources/functions/functions_delete_namespace.yml'
+
+  /v2/functions/namespaces/{namespace_id}/triggers:
+    get:
+      $ref: 'resources/functions/functions_list_triggers.yml'
+
+    post:
+      $ref: 'resources/functions/functions_create_trigger.yml'
+
+  /v2/functions/namespaces/{namespace_id}/triggers/{trigger_name}:
+    get:
+      $ref: 'resources/functions/functions_get_trigger.yml'
+
+    put:
+      $ref: 'resources/functions/functions_update_trigger.yml'
+
+    delete:
+      $ref: 'resources/functions/functions_delete_trigger.yml'
 
   /v2/images:
     get:
@@ -1511,7 +1554,7 @@ components:
         authorization. OAuth allows you to delegate access to your account in full
         or in read-only mode.
 
-        You can generate an OAuth token by visiting the [Apps & API](https://cloud.digitalocean.com/settings/api/tokens)
+        You can generate an OAuth token by visiting the [Apps & API](https://cloud.digitalocean.com/account/api/tokens)
         section of the DigitalOcean control panel for your account.
 
         An OAuth token functions as a complete authentication request. In effect, it

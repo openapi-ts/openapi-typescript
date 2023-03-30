@@ -46,6 +46,9 @@ export interface paths {
     put: external["resources/apps/apps_update.yml"]
     delete: external["resources/apps/apps_delete.yml"]
   };
+  "/v2/apps/{app_id}/components/{component_name}/logs": {
+    get: external["resources/apps/apps_get_logs_active_deployment.yml"]
+  };
   "/v2/apps/{app_id}/deployments": {
     get: external["resources/apps/apps_list_deployments.yml"]
     post: external["resources/apps/apps_create_deployment.yml"]
@@ -60,7 +63,10 @@ export interface paths {
     get: external["resources/apps/apps_get_logs.yml"]
   };
   "/v2/apps/{app_id}/deployments/{deployment_id}/logs": {
-    get: external["resources/apps/apps_get_logsAggregate.yml"]
+    get: external["resources/apps/apps_get_logs_aggregate.yml"]
+  };
+  "/v2/apps/{app_id}/logs": {
+    get: external["resources/apps/apps_get_logs_active_deployment_aggregate.yml"]
   };
   "/v2/apps/tiers": {
     get: external["resources/apps/apps_list_tiers.yml"]
@@ -97,6 +103,12 @@ export interface paths {
   };
   "/v2/apps/{app_id}/rollback/revert": {
     post: external["resources/apps/apps_revert_rollback.yml"]
+  };
+  "/v2/apps/{app_id}/metrics/bandwidth_daily": {
+    get: external["resources/apps/apps_get_metrics_bandwidth_usage.yml"]
+  };
+  "/v2/apps/metrics/bandwidth_daily": {
+    post: external["resources/apps/apps_list_metrics_bandwidth_usage.yml"]
   };
   "/v2/cdn/endpoints": {
     get: external["resources/cdn/cdn_list_endpoints.yml"]
@@ -188,6 +200,9 @@ export interface paths {
     get: external["resources/databases/databases_get_replica.yml"]
     delete: external["resources/databases/databases_destroy_replica.yml"]
   };
+  "/v2/databases/{database_cluster_uuid}/replicas/{replica_name}/promote": {
+    put: external["resources/databases/databases_promote_replica.yml"]
+  };
   "/v2/databases/{database_cluster_uuid}/users": {
     get: external["resources/databases/databases_list_users.yml"]
     post: external["resources/databases/databases_add_user.yml"]
@@ -213,6 +228,7 @@ export interface paths {
   };
   "/v2/databases/{database_cluster_uuid}/pools/{pool_name}": {
     get: external["resources/databases/databases_get_connectionPool.yml"]
+    put: external["resources/databases/databases_update_connectionPool.yml"]
     delete: external["resources/databases/databases_delete_connectionPool.yml"]
   };
   "/v2/databases/{database_cluster_uuid}/eviction_policy": {
@@ -222,6 +238,9 @@ export interface paths {
   "/v2/databases/{database_cluster_uuid}/sql_mode": {
     get: external["resources/databases/databases_get_sql_mode.yml"]
     put: external["resources/databases/databases_update_sql_mode.yml"]
+  };
+  "/v2/databases/{database_cluster_uuid}/upgrade": {
+    put: external["resources/databases/databases_upgrade_major_version.yml"]
   };
   "/v2/domains": {
     get: external["resources/domains/domains_list.yml"]
@@ -333,6 +352,15 @@ export interface paths {
   "/v2/functions/namespaces/{namespace_id}": {
     get: external["resources/functions/functions_get_namespace.yml"]
     delete: external["resources/functions/functions_delete_namespace.yml"]
+  };
+  "/v2/functions/namespaces/{namespace_id}/triggers": {
+    get: external["resources/functions/functions_list_triggers.yml"]
+    post: external["resources/functions/functions_create_trigger.yml"]
+  };
+  "/v2/functions/namespaces/{namespace_id}/triggers/{trigger_name}": {
+    get: external["resources/functions/functions_get_trigger.yml"]
+    put: external["resources/functions/functions_update_trigger.yml"]
+    delete: external["resources/functions/functions_delete_trigger.yml"]
   };
   "/v2/images": {
     get: external["resources/images/images_list.yml"]
@@ -655,7 +683,6 @@ export interface components {
 }
 
 export interface external {
-
   "description.yml": {
 
     paths: Record<string, never>;
@@ -725,6 +752,11 @@ export interface external {
    * 1-Click application data, each of which will contain the the slug and type for the 1-Click.
    */
   "resources/1-clicks/oneClicks_list.yml": {
+    parameters: {
+      query: {
+        type?: external["resources/1-clicks/parameters.yml"]["oneClicks_type"];
+      };
+    };
     responses: {
       200: external["resources/1-clicks/responses/oneClicks_all.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -733,7 +765,9 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/1-clicks/parameters.yml": string
+  "resources/1-clicks/parameters.yml": {
+    oneClicks_type?: "droplet" | "kubernetes";
+  };
   "resources/1-clicks/responses/oneClicks_all.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -845,6 +879,11 @@ export interface external {
    * @description To retrieve a specific action object, send a GET request to `/v2/actions/$ACTION_ID`.
    */
   "resources/actions/actions_get.yml": {
+    parameters: {
+      path: {
+        action_id: external["resources/actions/parameters.yml"]["action_id"];
+      };
+    };
     responses: {
       200: external["resources/actions/responses/action.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -859,6 +898,12 @@ export interface external {
    * @description This will be the entire list of actions taken on your account, so it will be quite large. As with any large collection returned by the API, the results will be paginated with only 20 on each page by default.
    */
   "resources/actions/actions_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/actions/responses/actions.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -910,7 +955,9 @@ export interface external {
     region?: external["resources/regions/models/region.yml"];
     region_slug?: external["resources/regions/models/region.yml"]["slug"] & (string | null);
   }
-  "resources/actions/parameters.yml": string
+  "resources/actions/parameters.yml": {
+    action_id: number;
+  };
   "resources/actions/responses/action.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -940,6 +987,12 @@ export interface external {
    * @description Updates the emails and slack webhook destinations for app alerts. Emails must be associated to a user with access to the app.
    */
   "resources/apps/apps_assign_alertDestinations.yml": {
+    parameters: {
+      path: {
+        app_id: external["resources/apps/parameters.yml"]["app_id"];
+        alert_id: external["resources/apps/parameters.yml"]["alert_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/apps/models/apps_assign_app_alert_destinations_request.yml"];
@@ -959,6 +1012,12 @@ export interface external {
    * @description Immediately cancel an in-progress deployment.
    */
   "resources/apps/apps_cancel_deployment.yml": {
+    parameters: {
+      path: {
+        app_id: external["resources/apps/parameters.yml"]["app_id"];
+        deployment_id: external["resources/apps/parameters.yml"]["deployment_id"];
+      };
+    };
     responses: {
       200: external["resources/apps/responses/cancel_deployment.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -973,6 +1032,11 @@ export interface external {
    * @description Commit an app rollback. This action permanently applies the rollback and unpins the app to resume new deployments.
    */
   "resources/apps/apps_commit_rollback.yml": {
+    parameters: {
+      path: {
+        app_id: external["resources/apps/parameters.yml"]["app_id"];
+      };
+    };
     responses: {
       200: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -987,6 +1051,11 @@ export interface external {
    * @description Creating an app deployment will pull the latest changes from your repository and schedule a new deployment for your app.
    */
   "resources/apps/apps_create_deployment.yml": {
+    parameters: {
+      path: {
+        app_id: external["resources/apps/parameters.yml"]["app_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/apps/models/apps_create_deployment_request.yml"];
@@ -1012,6 +1081,11 @@ export interface external {
    * valid and if there are any warnings.
    */
   "resources/apps/apps_create_rollback.yml": {
+    parameters: {
+      path: {
+        app_id: external["resources/apps/parameters.yml"]["app_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/apps/models/apps_rollback_app_request.yml"];
@@ -1031,6 +1105,12 @@ export interface external {
    * @description Create a new app by submitting an app specification. For documentation on app specifications (`AppSpec` objects), please refer to [the product documentation](https://docs.digitalocean.com/products/app-platform/reference/app-spec/).
    */
   "resources/apps/apps_create.yml": {
+    parameters: {
+      header: {
+        Accept?: external["resources/apps/parameters.yml"]["accept"];
+        "Content-Type"?: external["resources/apps/parameters.yml"]["content-type"];
+      };
+    };
     requestBody: {
       content: {
         /**
@@ -1076,6 +1156,11 @@ export interface external {
    * @description Delete an existing app. Once deleted, all active deployments will be permanently shut down and the app deleted. If needed, be sure to back up your app specification so that you may re-create it at a later time.
    */
   "resources/apps/apps_delete.yml": {
+    parameters: {
+      path: {
+        id: external["resources/apps/parameters.yml"]["id_app"];
+      };
+    };
     responses: {
       200: external["resources/apps/responses/delete_app.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -1090,6 +1175,12 @@ export interface external {
    * @description Retrieve information about an app deployment.
    */
   "resources/apps/apps_get_deployment.yml": {
+    parameters: {
+      path: {
+        app_id: external["resources/apps/parameters.yml"]["app_id"];
+        deployment_id: external["resources/apps/parameters.yml"]["deployment_id"];
+      };
+    };
     responses: {
       200: external["resources/apps/responses/list_deployment.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -1104,6 +1195,11 @@ export interface external {
    * @description Retrieve information about a specific instance size for `service`, `worker`, and `job` components.
    */
   "resources/apps/apps_get_instanceSize.yml": {
+    parameters: {
+      path: {
+        slug: external["resources/apps/parameters.yml"]["slug_size"];
+      };
+    };
     responses: {
       200: external["resources/apps/responses/get_instance.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -1114,10 +1210,45 @@ export interface external {
     };
   }
   /**
-   * Retrieve Deployment Logs 
-   * @description Retrieve the logs of a past, in-progress, or active deployment. If a component name is specified, the logs will be limited to only that component. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment.
+   * Retrieve Active Deployment Aggregate Logs 
+   * @description Retrieve the logs of the active deployment if one exists. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment. Note log_type=BUILD logs will return logs associated with the current active deployment (being served). To view build logs associated with in-progress build, the query must explicitly reference the deployment id.
    */
-  "resources/apps/apps_get_logs.yml": {
+  "resources/apps/apps_get_logs_active_deployment_aggregate.yml": {
+    parameters: {
+      query: {
+        follow?: external["resources/apps/parameters.yml"]["live_updates"];
+        type: external["resources/apps/parameters.yml"]["log_type"];
+        pod_connection_timeout?: external["resources/apps/parameters.yml"]["time_wait"];
+      };
+      path: {
+        app_id: external["resources/apps/parameters.yml"]["app_id"];
+      };
+    };
+    responses: {
+      200: external["resources/apps/responses/list_logs.yml"];
+      401: external["shared/responses/unauthorized.yml"];
+      404: external["shared/responses/not_found.yml"];
+      429: external["shared/responses/too_many_requests.yml"];
+      500: external["shared/responses/server_error.yml"];
+      default: external["shared/responses/unexpected_error.yml"];
+    };
+  }
+  /**
+   * Retrieve Active Deployment Logs 
+   * @description Retrieve the logs of the active deployment if one exists. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment. Note log_type=BUILD logs will return logs associated with the current active deployment (being served). To view build logs associated with in-progress build, the query must explicitly reference the deployment id.
+   */
+  "resources/apps/apps_get_logs_active_deployment.yml": {
+    parameters: {
+      query: {
+        follow?: external["resources/apps/parameters.yml"]["live_updates"];
+        type: external["resources/apps/parameters.yml"]["log_type"];
+        pod_connection_timeout?: external["resources/apps/parameters.yml"]["time_wait"];
+      };
+      path: {
+        app_id: external["resources/apps/parameters.yml"]["app_id"];
+        component_name: external["resources/apps/parameters.yml"]["component"];
+      };
+    };
     responses: {
       200: external["resources/apps/responses/list_logs.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -1131,9 +1262,72 @@ export interface external {
    * Retrieve Aggregate Deployment Logs 
    * @description Retrieve the logs of a past, in-progress, or active deployment. If a component name is specified, the logs will be limited to only that component. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment.
    */
-  "resources/apps/apps_get_logsAggregate.yml": {
+  "resources/apps/apps_get_logs_aggregate.yml": {
+    parameters: {
+      query: {
+        follow?: external["resources/apps/parameters.yml"]["live_updates"];
+        type: external["resources/apps/parameters.yml"]["log_type"];
+        pod_connection_timeout?: external["resources/apps/parameters.yml"]["time_wait"];
+      };
+      path: {
+        app_id: external["resources/apps/parameters.yml"]["app_id"];
+        deployment_id: external["resources/apps/parameters.yml"]["deployment_id"];
+      };
+    };
     responses: {
-      200: external["resources/apps/responses/list_logs_aggregate.yml"];
+      200: external["resources/apps/responses/list_logs.yml"];
+      401: external["shared/responses/unauthorized.yml"];
+      404: external["shared/responses/not_found.yml"];
+      429: external["shared/responses/too_many_requests.yml"];
+      500: external["shared/responses/server_error.yml"];
+      default: external["shared/responses/unexpected_error.yml"];
+    };
+  }
+  /**
+   * Retrieve Deployment Logs 
+   * @description Retrieve the logs of a past, in-progress, or active deployment. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment.
+   */
+  "resources/apps/apps_get_logs.yml": {
+    parameters: {
+      query: {
+        follow?: external["resources/apps/parameters.yml"]["live_updates"];
+        type: external["resources/apps/parameters.yml"]["log_type"];
+        pod_connection_timeout?: external["resources/apps/parameters.yml"]["time_wait"];
+      };
+      path: {
+        app_id: external["resources/apps/parameters.yml"]["app_id"];
+        deployment_id: external["resources/apps/parameters.yml"]["deployment_id"];
+        component_name: external["resources/apps/parameters.yml"]["component"];
+      };
+    };
+    responses: {
+      200: external["resources/apps/responses/list_logs.yml"];
+      401: external["shared/responses/unauthorized.yml"];
+      404: external["shared/responses/not_found.yml"];
+      429: external["shared/responses/too_many_requests.yml"];
+      500: external["shared/responses/server_error.yml"];
+      default: external["shared/responses/unexpected_error.yml"];
+    };
+  }
+  /**
+   * Retrieve App Daily Bandwidth Metrics 
+   * @description Retrieve daily bandwidth usage metrics for a single app.
+   */
+  "resources/apps/apps_get_metrics_bandwidth_usage.yml": {
+    parameters: {
+      query: {
+        /**
+         * @description Optional day to query. Only the date component of the timestamp will be considered. Default: yesterday. 
+         * @example "2023-01-17T00:00:00.000Z"
+         */
+        date?: string;
+      };
+      path: {
+        app_id: external["resources/apps/parameters.yml"]["app_id"];
+      };
+    };
+    responses: {
+      200: external["resources/apps/responses/get_metrics_bandwidth_usage.yml"];
       401: external["shared/responses/unauthorized.yml"];
       404: external["shared/responses/not_found.yml"];
       429: external["shared/responses/too_many_requests.yml"];
@@ -1146,6 +1340,11 @@ export interface external {
    * @description Retrieve information about a specific app tier.
    */
   "resources/apps/apps_get_tier.yml": {
+    parameters: {
+      path: {
+        slug: external["resources/apps/parameters.yml"]["slug_tier"];
+      };
+    };
     responses: {
       200: external["resources/apps/responses/get_tier.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -1160,6 +1359,14 @@ export interface external {
    * @description Retrieve details about an existing app by either its ID or name. To retrieve an app by its name, do not include an ID in the request path. Information about the current active deployment as well as any in progress ones will also be included in the response.
    */
   "resources/apps/apps_get.yml": {
+    parameters: {
+      query: {
+        name?: external["resources/apps/parameters.yml"]["app_name"];
+      };
+      path: {
+        id: external["resources/apps/parameters.yml"]["id_app"];
+      };
+    };
     responses: {
       200: external["resources/apps/responses/apps_get.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -1174,6 +1381,11 @@ export interface external {
    * @description List alerts associated to the app and any components. This includes configuration information about the alerts including emails, slack webhooks, and triggering events or conditions.
    */
   "resources/apps/apps_list_alerts.yml": {
+    parameters: {
+      path: {
+        app_id: external["resources/apps/parameters.yml"]["app_id"];
+      };
+    };
     responses: {
       200: external["resources/apps/responses/list_alerts.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -1188,6 +1400,15 @@ export interface external {
    * @description List all deployments of an app.
    */
   "resources/apps/apps_list_deployments.yml": {
+    parameters: {
+      query: {
+        page?: external["shared/parameters.yml"]["page"];
+        per_page?: external["shared/parameters.yml"]["per_page"];
+      };
+      path: {
+        app_id: external["resources/apps/parameters.yml"]["app_id"];
+      };
+    };
     responses: {
       200: external["resources/apps/responses/existing_deployments.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -1205,6 +1426,34 @@ export interface external {
     responses: {
       200: external["resources/apps/responses/list_instance.yml"];
       401: external["shared/responses/unauthorized.yml"];
+      429: external["shared/responses/too_many_requests.yml"];
+      500: external["shared/responses/server_error.yml"];
+      default: external["shared/responses/unexpected_error.yml"];
+    };
+  }
+  /**
+   * Retrieve Multiple Apps' Daily Bandwidth Metrics 
+   * @description Retrieve daily bandwidth usage metrics for multiple apps.
+   */
+  "resources/apps/apps_list_metrics_bandwidth_usage.yml": {
+    requestBody: {
+      content: {
+        /**
+         * @example {
+         *   "app_ids": [
+         *     "4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf",
+         *     "c2a93513-8d9b-4223-9d61-5e7272c81cf5"
+         *   ],
+         *   "date": "2023-01-17T00:00:00.000Z"
+         * }
+         */
+        "application/json": external["resources/apps/models/app_metrics_bandwidth_usage_request.yml"];
+      };
+    };
+    responses: {
+      200: external["resources/apps/responses/list_metrics_bandwidth_usage.yml"];
+      401: external["shared/responses/unauthorized.yml"];
+      404: external["shared/responses/not_found.yml"];
       429: external["shared/responses/too_many_requests.yml"];
       500: external["shared/responses/server_error.yml"];
       default: external["shared/responses/unexpected_error.yml"];
@@ -1241,6 +1490,13 @@ export interface external {
    * @description List all apps on your account. Information about the current active deployment as well as any in progress ones will also be included for each app.
    */
   "resources/apps/apps_list.yml": {
+    parameters: {
+      query: {
+        page?: external["shared/parameters.yml"]["page"];
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        with_projects?: external["resources/apps/parameters.yml"]["with_projects"];
+      };
+    };
     responses: {
       200: external["resources/apps/responses/list_apps.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -1255,6 +1511,11 @@ export interface external {
    * latest app spec prior to the rollback and unpins the app to resume new deployments.
    */
   "resources/apps/apps_revert_rollback.yml": {
+    parameters: {
+      path: {
+        app_id: external["resources/apps/parameters.yml"]["app_id"];
+      };
+    };
     responses: {
       200: external["resources/apps/responses/new_app_deployment.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -1269,6 +1530,11 @@ export interface external {
    * @description Update an existing app by submitting a new app specification. For documentation on app specifications (`AppSpec` objects), please refer to [the product documentation](https://docs.digitalocean.com/products/app-platform/reference/app-spec/).
    */
   "resources/apps/apps_update.yml": {
+    parameters: {
+      path: {
+        id: external["resources/apps/parameters.yml"]["id_app"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/apps/models/apps_update_app_request.yml"];
@@ -1337,6 +1603,11 @@ export interface external {
    * causing it to take longer than usual.
    */
   "resources/apps/apps_validate_rollback.yml": {
+    parameters: {
+      path: {
+        app_id: external["resources/apps/parameters.yml"]["app_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/apps/models/apps_rollback_app_request.yml"];
@@ -1580,6 +1851,18 @@ export interface external {
      */
     minimum_tls_version?: "1.2" | "1.3";
   }
+  "resources/apps/models/app_domain_validation.yml": {
+    /**
+     * TXT record name 
+     * @example _acme-challenge.app.example.com
+     */
+    txt_name?: string;
+    /**
+     * TXT record value 
+     * @example lXLOcN6cPv0nproViNcUHcahD9TrIPlNgdwesj0pYpk
+     */
+    txt_value?: string;
+  }
   "resources/apps/models/app_functions_spec.yml": {
     cors?: external["resources/apps/models/apps_cors_policy.yml"];
     /** @description A list of HTTP routes that should be routed to this component. */
@@ -1601,6 +1884,72 @@ export interface external {
     github?: external["resources/apps/models/apps_github_source_spec.yml"];
     gitlab?: external["resources/apps/models/apps_gitlab_source_spec.yml"];
     log_destinations?: external["resources/apps/models/app_log_destination_definition.yml"];
+  }
+  "resources/apps/models/app_ingress_spec_rule_match.yml": {
+    path: external["resources/apps/models/app_ingress_spec_rule_string_match.yml"];
+  }
+  "resources/apps/models/app_ingress_spec_rule_routing_component.yml": {
+    /**
+     * @description The name of the component to route to. 
+     * @example web
+     */
+    name: string;
+    /**
+     * @description An optional flag to preserve the path that is forwarded to the backend service. By default, the HTTP request path will be trimmed from the left when forwarded to the component. For example, a component with `path=/api` will have requests to `/api/list` trimmed to `/list`. If this value is `true`, the path will remain `/api/list`. Note: this is not applicable for Functions Components and is mutually exclusive with `rewrite`. 
+     * @example true
+     */
+    preserve_path_prefix?: string;
+    /**
+     * @description An optional field that will rewrite the path of the component to be what is specified here. By default, the HTTP request path will be trimmed from the left when forwarded to the component. For example, a component with `path=/api` will have requests to `/api/list` trimmed to `/list`. If you specified the rewrite to be `/v1/`, requests to `/api/list` would be rewritten to `/v1/list`. Note: this is mutually exclusive with `preserve_path_prefix`. 
+     * @example /api/v1/
+     */
+    rewrite?: string;
+  }
+  "resources/apps/models/app_ingress_spec_rule_routing_redirect.yml": {
+    /**
+     * @description An optional URI path to redirect to. Note: if this is specified the whole URI of the original request will be overwritten to this value, irrespective of the original request URI being matched. 
+     * @example /about
+     */
+    uri?: string;
+    /**
+     * @description The authority/host to redirect to. This can be a hostname or IP address. Note: use `port` to set the port. 
+     * @example example.com
+     */
+    authority?: string;
+    /**
+     * Format: int64 
+     * @description The port to redirect to. 
+     * @example 443
+     */
+    port?: number;
+    /**
+     * @description The scheme to redirect to. Supported values are `http` or `https`. Default: `https`. 
+     * @example https
+     */
+    scheme?: string;
+    /**
+     * Format: int64 
+     * @description The redirect code to use. Defaults to `302`. Supported values are 300, 301, 302, 303, 304, 307, 308. 
+     * @example 302
+     */
+    redirect_code?: number;
+  }
+  "resources/apps/models/app_ingress_spec_rule_string_match.yml": {
+    /**
+     * @description Prefix-based match. For example, `/api` will match `/api`, `/api/`, and any nested paths such as `/api/v1/endpoint`. 
+     * @example /api
+     */
+    prefix: string;
+  }
+  "resources/apps/models/app_ingress_spec_rule.yml": {
+    match?: external["resources/apps/models/app_ingress_spec_rule_match.yml"];
+    cors?: external["resources/apps/models/apps_cors_policy.yml"];
+    component?: external["resources/apps/models/app_ingress_spec_rule_routing_component.yml"];
+    redirect?: external["resources/apps/models/app_ingress_spec_rule_routing_redirect.yml"];
+  }
+  "resources/apps/models/app_ingress_spec.yml": {
+    /** @description Rules for configuring HTTP ingress for component routes, CORS, rewrites, and redirects. */
+    rules?: (external["resources/apps/models/app_ingress_spec_rule.yml"])[];
   }
   "resources/apps/models/app_job_spec.yml": external["resources/apps/models/app_component_base.yml"] & external["resources/apps/models/app_component_instance_base.yml"] & ({
     /**
@@ -1646,6 +1995,45 @@ export interface external {
      * @example https://mypapertrailendpoint.com
      */
     endpoint: string;
+  }
+  "resources/apps/models/app_metrics_bandwidth_usage_details.yml": {
+    /**
+     * @description The ID of the app. 
+     * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+     */
+    app_id?: string;
+    /**
+     * Format: uint64 
+     * @description The used bandwidth amount in bytes. 
+     * @example 513668
+     */
+    bandwidth_bytes?: string;
+  }
+  "resources/apps/models/app_metrics_bandwidth_usage_request.yml": {
+    /**
+     * @description A list of app IDs to query bandwidth metrics for. 
+     * @example [
+     *   "4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf",
+     *   "c2a93513-8d9b-4223-9d61-5e7272c81cf5"
+     * ]
+     */
+    app_ids: (string)[];
+    /**
+     * Format: date-time 
+     * @description Optional day to query. Only the date component of the timestamp will be considered. Default: yesterday. 
+     * @example "2023-01-17T00:00:00.000Z"
+     */
+    date?: string;
+  }
+  "resources/apps/models/app_metrics_bandwidth_usage.yml": {
+    /** @description A list of bandwidth usage details by app. */
+    app_bandwidth_usage?: (external["resources/apps/models/app_metrics_bandwidth_usage_details.yml"])[];
+    /**
+     * Format: date-time 
+     * @description The date for the metrics data. 
+     * @example "2023-01-17T00:00:00.000Z"
+     */
+    date?: string;
   }
   "resources/apps/models/app_propose_response.yml": {
     /**
@@ -1812,7 +2200,7 @@ export interface external {
      * @example nyc 
      * @enum {string}
      */
-    region?: "ams" | "nyc" | "fra";
+    region?: "ams" | "nyc" | "fra" | "sfo" | "sgp" | "blr" | "tor" | "lon" | "syd";
     /** @description A set of hostnames where the application will be available. */
     domains?: (external["resources/apps/models/app_domain_spec.yml"])[];
     /** @description Workloads which expose publicly-accessible HTTP services. */
@@ -1830,6 +2218,7 @@ export interface external {
      * application.
      */
     databases?: (external["resources/apps/models/app_database_spec.yml"])[];
+    ingress?: external["resources/apps/models/app_ingress_spec.yml"];
   }
   "resources/apps/models/app_static_site_spec.yml": WithRequired<external["resources/apps/models/app_component_base.yml"] & {
     /**
@@ -1935,6 +2324,7 @@ export interface external {
      * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
      */
     owner_uuid?: string;
+    pending_deployment?: Record<string, never> & external["resources/apps/models/apps_deployment.yml"];
     /**
      * The ID of the project the app is assigned to. This will be empty if there is a lookup failure. 
      * @example 88b72d1a-b78a-4d9f-9090-b53c4399073f
@@ -2263,6 +2653,16 @@ export interface external {
     phase?: external["resources/apps/models/apps_domain_phase.yml"];
     progress?: external["resources/apps/models/apps_domain_progress.yml"];
     spec?: external["resources/apps/models/app_domain_spec.yml"];
+    /** List of TXT validation records */
+    validations?: (external["resources/apps/models/app_domain_validation.yml"])[];
+    /** Validation values have changed and require manual intervention */
+    rotate_validation_records?: boolean;
+    /**
+     * Current SSL certificate expiration time 
+     * Format: date-time 
+     * @example 2024-01-29T23:59:59Z
+     */
+    certificate_expires_at?: string;
   }
   "resources/apps/models/apps_get_instance_size_response.yml": {
     instance_size?: external["resources/apps/models/apps_instance_size.yml"];
@@ -2528,7 +2928,22 @@ export interface external {
     spec: external["resources/apps/models/app_spec.yml"];
   }
   "resources/apps/models/instance_size_cpu_type.yml": "UNSPECIFIED" | "SHARED" | "DEDICATED"
-  "resources/apps/parameters.yml": string
+  "resources/apps/parameters.yml": {
+    accept?: "application/json" | "application/yaml";
+    "content-type"?: "application/json" | "application/yaml";
+    app_id: string;
+    deployment_id: string;
+    app_name?: string;
+    id_app: string;
+    slug_size: string;
+    component: string;
+    live_updates?: boolean;
+    with_projects?: boolean;
+    log_type: "UNSPECIFIED" | "BUILD" | "DEPLOY" | "RUN";
+    time_wait?: string;
+    slug_tier: string;
+    alert_id: string;
+  };
   "resources/apps/responses/all_tiers.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -2616,6 +3031,16 @@ export interface external {
       "application/json": external["resources/apps/models/apps_get_instance_size_response.yml"];
     };
   }
+  "resources/apps/responses/get_metrics_bandwidth_usage.yml": {
+    headers: {
+      "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
+      "ratelimit-remaining": external["shared/headers.yml"]["ratelimit-remaining"];
+      "ratelimit-reset": external["shared/headers.yml"]["ratelimit-reset"];
+    };
+    content: {
+      "application/json": external["resources/apps/models/app_metrics_bandwidth_usage.yml"];
+    };
+  }
   "resources/apps/responses/get_tier.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -2666,7 +3091,7 @@ export interface external {
       "application/json": external["resources/apps/models/apps_list_instance_sizes_response.yml"];
     };
   }
-  "resources/apps/responses/list_logs_aggregate.yml": {
+  "resources/apps/responses/list_logs.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
       "ratelimit-remaining": external["shared/headers.yml"]["ratelimit-remaining"];
@@ -2676,14 +3101,14 @@ export interface external {
       "application/json": external["resources/apps/models/apps_get_logs_response.yml"];
     };
   }
-  "resources/apps/responses/list_logs.yml": {
+  "resources/apps/responses/list_metrics_bandwidth_usage.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
       "ratelimit-remaining": external["shared/headers.yml"]["ratelimit-remaining"];
       "ratelimit-reset": external["shared/headers.yml"]["ratelimit-reset"];
     };
     content: {
-      "application/json": external["resources/apps/models/apps_get_logs_response.yml"];
+      "application/json": external["resources/apps/models/app_metrics_bandwidth_usage.yml"];
     };
   }
   "resources/apps/responses/list_regions.yml": {
@@ -2769,6 +3194,11 @@ export interface external {
    * @description To retrieve the invoice items for an invoice, send a GET request to `/v2/customers/my/invoices/$INVOICE_UUID`.
    */
   "resources/billing/invoices_get_byUUID.yml": {
+    parameters: {
+      path: {
+        invoice_uuid: external["resources/billing/parameters.yml"]["invoice_uuid"];
+      };
+    };
     responses: {
       200: external["resources/billing/responses/invoice.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -2783,6 +3213,11 @@ export interface external {
    * @description To retrieve a CSV for an invoice, send a GET request to `/v2/customers/my/invoices/$INVOICE_UUID/csv`.
    */
   "resources/billing/invoices_get_csvByUUID.yml": {
+    parameters: {
+      path: {
+        invoice_uuid: external["resources/billing/parameters.yml"]["invoice_uuid"];
+      };
+    };
     responses: {
       200: external["resources/billing/responses/invoice_csv.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -2797,6 +3232,11 @@ export interface external {
    * @description To retrieve a PDF for an invoice, send a GET request to `/v2/customers/my/invoices/$INVOICE_UUID/pdf`.
    */
   "resources/billing/invoices_get_pdfByUUID.yml": {
+    parameters: {
+      path: {
+        invoice_uuid: external["resources/billing/parameters.yml"]["invoice_uuid"];
+      };
+    };
     responses: {
       200: external["resources/billing/responses/invoice_pdf.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -2811,6 +3251,11 @@ export interface external {
    * @description To retrieve a summary for an invoice, send a GET request to `/v2/customers/my/invoices/$INVOICE_UUID/summary`.
    */
   "resources/billing/invoices_get_summaryByUUID.yml": {
+    parameters: {
+      path: {
+        invoice_uuid: external["resources/billing/parameters.yml"]["invoice_uuid"];
+      };
+    };
     responses: {
       200: external["resources/billing/responses/invoice_summary.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -2825,6 +3270,12 @@ export interface external {
    * @description To retrieve a list of all invoices, send a GET request to `/v2/customers/my/invoices`.
    */
   "resources/billing/invoices_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/billing/responses/invoices.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3105,7 +3556,9 @@ export interface external {
      */
     amount?: string;
   }
-  "resources/billing/parameters.yml": string
+  "resources/billing/parameters.yml": {
+    invoice_uuid: string;
+  };
   "resources/billing/responses/balance.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3218,6 +3671,11 @@ export interface external {
    * successfully, but that no response body is needed.
    */
   "resources/cdn/cdn_delete_endpoint.yml": {
+    parameters: {
+      path: {
+        cdn_id: external["resources/cdn/parameters.yml"]["cdn_endpoint_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3232,6 +3690,11 @@ export interface external {
    * @description To show information about an existing CDN endpoint, send a GET request to `/v2/cdn/endpoints/$ENDPOINT_ID`.
    */
   "resources/cdn/cdn_get_endpoint.yml": {
+    parameters: {
+      path: {
+        cdn_id: external["resources/cdn/parameters.yml"]["cdn_endpoint_id"];
+      };
+    };
     responses: {
       200: external["resources/cdn/responses/existing_endpoint.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3246,6 +3709,12 @@ export interface external {
    * @description To list all of the CDN endpoints available on your account, send a GET request to `/v2/cdn/endpoints`.
    */
   "resources/cdn/cdn_list_endpoints.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/cdn/responses/all_cdn_endpoints.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3261,9 +3730,15 @@ export interface external {
    * a `files` attribute containing a list of cached file paths to be purged. A
    * path may be for a single file or may contain a wildcard (`*`) to recursively
    * purge all files under a directory. When only a wildcard is provided, all
-   * cached files will be purged.
+   * cached files will be purged. There is a rate limit of 50 files per 20 seconds 
+   * that can be purged.
    */
   "resources/cdn/cdn_purge_cache.yml": {
+    parameters: {
+      path: {
+        cdn_id: external["resources/cdn/parameters.yml"]["cdn_endpoint_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/cdn/models/purge_cache.yml"];
@@ -3285,6 +3760,11 @@ export interface external {
    * `/v2/cdn/endpoints/$ENDPOINT_ID`.
    */
   "resources/cdn/cdn_update_endpoint.yml": {
+    parameters: {
+      path: {
+        cdn_id: external["resources/cdn/parameters.yml"]["cdn_endpoint_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/cdn/models/update_endpoint.yml"];
@@ -3375,7 +3855,9 @@ export interface external {
      */
     custom_domain?: string;
   }
-  "resources/cdn/parameters.yml": string
+  "resources/cdn/parameters.yml": {
+    cdn_endpoint_id: string;
+  };
   "resources/cdn/responses/all_cdn_endpoints.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3432,6 +3914,11 @@ export interface external {
    * `/v2/certificates/$CERTIFICATE_ID`.
    */
   "resources/certificates/certificates_delete.yml": {
+    parameters: {
+      path: {
+        certificate_id: external["resources/certificates/parameters.yml"]["certificate_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3446,6 +3933,11 @@ export interface external {
    * @description To show information about an existing certificate, send a GET request to `/v2/certificates/$CERTIFICATE_ID`.
    */
   "resources/certificates/certificates_get.yml": {
+    parameters: {
+      path: {
+        certificate_id: external["resources/certificates/parameters.yml"]["certificate_id"];
+      };
+    };
     responses: {
       200: external["resources/certificates/responses/existing_certificate.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3460,6 +3952,12 @@ export interface external {
    * @description To list all of the certificates available on your account, send a GET request to `/v2/certificates`.
    */
   "resources/certificates/certificates_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/certificates/responses/all_certificates.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3519,7 +4017,9 @@ export interface external {
      */
     type?: "custom" | "lets_encrypt";
   }
-  "resources/certificates/parameters.yml": string
+  "resources/certificates/parameters.yml": {
+    certificate_id: string;
+  };
   "resources/certificates/responses/all_certificates.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3571,6 +4071,11 @@ export interface external {
    * size and transaction mode.
    */
   "resources/databases/databases_add_connectionPool.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     requestBody: {
       content: {
         /**
@@ -3609,6 +4114,11 @@ export interface external {
    * its randomly generated password.
    */
   "resources/databases/databases_add_user.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/databases/models/database_user.yml"];
@@ -3634,6 +4144,11 @@ export interface external {
    * an object that contains the standard attributes associated with a database.
    */
   "resources/databases/databases_add.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     requestBody: {
       content: {
         /**
@@ -3681,10 +4196,17 @@ export interface external {
   /**
    * Create a Read-only Replica 
    * @description To create a read-only replica for a PostgreSQL or MySQL database cluster, send a POST request to `/v2/databases/$DATABASE_ID/replicas` specifying the name it should be given, the size of the node to be used, and the region where it will be located.
+   * 
    * **Note**: Read-only replicas are not supported for Redis clusters.
+   * 
    * The response will be a JSON object with a key called `replica`. The value of this will be an object that contains the standard attributes associated with a database replica. The initial value of the read-only replica's `status` attribute will be `forking`. When the replica is ready to receive traffic, this will transition to `active`.
    */
   "resources/databases/databases_create_replica.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     requestBody?: {
       content: {
         /**
@@ -3715,6 +4237,12 @@ export interface external {
    * successfully, but that no response body is needed.
    */
   "resources/databases/databases_delete_connectionPool.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+        pool_name: external["resources/databases/parameters.yml"]["pool_name"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3731,6 +4259,12 @@ export interface external {
    * A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
    */
   "resources/databases/databases_delete_onlineMigration.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+        migration_id: external["resources/databases/parameters.yml"]["migration_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3751,6 +4285,12 @@ export interface external {
    * Note: User management is not supported for Redis clusters.
    */
   "resources/databases/databases_delete_user.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+        username: external["resources/databases/parameters.yml"]["username"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3771,6 +4311,12 @@ export interface external {
    * Note: Database management is not supported for Redis clusters.
    */
   "resources/databases/databases_delete.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+        database_name: external["resources/databases/parameters.yml"]["database_name"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3786,6 +4332,11 @@ export interface external {
    * A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
    */
   "resources/databases/databases_destroy_cluster.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3798,10 +4349,18 @@ export interface external {
   /**
    * Destroy a Read-only Replica 
    * @description To destroy a specific read-only replica, send a DELETE request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.
+   * 
    * **Note**: Read-only replicas are not supported for Redis clusters.
+   * 
    * A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
    */
   "resources/databases/databases_destroy_replica.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+        replica_name: external["resources/databases/parameters.yml"]["replica_name"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3820,6 +4379,11 @@ export interface external {
    * containing the base64 encoding of the public key certificate.
    */
   "resources/databases/databases_get_ca.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/ca.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3837,6 +4401,11 @@ export interface external {
    * The embedded maintenance_window object will contain information about any scheduled maintenance for the database cluster.
    */
   "resources/databases/databases_get_cluster.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/database_cluster.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3854,6 +4423,11 @@ export interface external {
    * containing any database configuration parameters.
    */
   "resources/databases/databases_get_config.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/database_config.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3869,6 +4443,12 @@ export interface external {
    * The response will be a JSON object with a `pool` key.
    */
   "resources/databases/databases_get_connectionPool.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+        pool_name: external["resources/databases/parameters.yml"]["pool_name"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/connection_pool.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3884,6 +4464,11 @@ export interface external {
    * The response will be a JSON object with an `eviction_policy` key. This will be set to a string representing the eviction policy.
    */
   "resources/databases/databases_get_evictionPolicy.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/eviction_policy_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3898,6 +4483,11 @@ export interface external {
    * @description To retrieve the status of the most recent online migration, send a GET request to `/v2/databases/$DATABASE_ID/online-migration`.
    */
   "resources/databases/databases_get_migrationStatus.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/online_migration.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3910,10 +4500,18 @@ export interface external {
   /**
    * Retrieve an Existing Read-only Replica 
    * @description To show information about an existing database replica, send a GET request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.
+   * 
    * **Note**: Read-only replicas are not supported for Redis clusters.
+   * 
    * The response will be a JSON object with a `replica key`. This will be set to an object containing the standard database replica attributes.
    */
   "resources/databases/databases_get_replica.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+        replica_name: external["resources/databases/parameters.yml"]["replica_name"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/database_replica.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3929,6 +4527,11 @@ export interface external {
    * The response will be a JSON object with a `sql_mode` key. This will be set to a string representing the configured SQL modes.
    */
   "resources/databases/databases_get_sql_mode.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/sql_mode.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3952,6 +4555,12 @@ export interface external {
    * object.
    */
   "resources/databases/databases_get_user.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+        username: external["resources/databases/parameters.yml"]["username"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/user.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3972,6 +4581,12 @@ export interface external {
    * containing the standard database attributes.
    */
   "resources/databases/databases_get.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+        database_name: external["resources/databases/parameters.yml"]["database_name"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/database.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -3988,6 +4603,11 @@ export interface external {
    * The result will be a JSON object with a `backups key`. This will be set to an array of backup objects, each of which will contain the size of the backup and the timestamp at which it was created.
    */
   "resources/databases/databases_list_backups.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/database_backups.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -4005,6 +4625,11 @@ export interface external {
    * The embedded `maintenance_window` object will contain information about any scheduled maintenance for the database cluster.
    */
   "resources/databases/databases_list_clusters.yml": {
+    parameters: {
+      query: {
+        tag_name?: external["resources/databases/parameters.yml"]["tag_name"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/database_clusters.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -4020,6 +4645,11 @@ export interface external {
    * The result will be a JSON object with a `pools` key. This will be set to an array of connection pool objects.
    */
   "resources/databases/databases_list_connectionPools.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/connection_pools.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -4035,6 +4665,11 @@ export interface external {
    * The result will be a JSON object with a `rules` key.
    */
   "resources/databases/databases_list_firewall_rules.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/firewall_rules.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -4062,10 +4697,17 @@ export interface external {
   /**
    * List All Read-only Replicas 
    * @description To list all of the read-only replicas associated with a database cluster, send a GET request to `/v2/databases/$DATABASE_ID/replicas`.
+   * 
    * **Note**: Read-only replicas are not supported for Redis clusters.
+   * 
    * The result will be a JSON object with a `replicas` key. This will be set to an array of database replica objects, each of which will contain the standard database replica attributes.
    */
   "resources/databases/databases_list_replicas.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/database_replicas.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -4088,6 +4730,11 @@ export interface external {
    * For MySQL clusters, additional options will be contained in the mysql_settings object.
    */
   "resources/databases/databases_list_users.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/users.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -4108,6 +4755,11 @@ export interface external {
    * Note: Database management is not supported for Redis clusters.
    */
   "resources/databases/databases_list.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     responses: {
       200: external["resources/databases/responses/databases.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -4123,6 +4775,11 @@ export interface external {
    * `/v2/databases/$DATABASE_ID/config`.
    */
   "resources/databases/databases_patch_config.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     requestBody: {
       content: {
         /**
@@ -4134,6 +4791,30 @@ export interface external {
          * }
          */
         "application/json": external["resources/databases/models/database_config.yml"];
+      };
+    };
+    responses: {
+      204: external["shared/responses/no_content.yml"];
+      401: external["shared/responses/unauthorized.yml"];
+      404: external["shared/responses/not_found.yml"];
+      429: external["shared/responses/too_many_requests.yml"];
+      500: external["shared/responses/server_error.yml"];
+      default: external["shared/responses/unexpected_error.yml"];
+    };
+  }
+  /**
+   * Promote a Read-only Replica to become a Primary Cluster 
+   * @description To promote a specific read-only replica, send a PUT request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME/promote`.
+   * 
+   * **Note**: Read-only replicas are not supported for Redis clusters.
+   * 
+   * A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
+   */
+  "resources/databases/databases_promote_replica.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+        replica_name: external["resources/databases/parameters.yml"]["replica_name"];
       };
     };
     responses: {
@@ -4158,6 +4839,12 @@ export interface external {
    * object containing the standard database user attributes.
    */
   "resources/databases/databases_reset_auth.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+        username: external["resources/databases/parameters.yml"]["username"];
+      };
+    };
     requestBody: {
       content: {
         /**
@@ -4187,6 +4874,11 @@ export interface external {
    * A successful request will receive a 202 Accepted status code with no body in response. Querying the database cluster will show that its status attribute will now be set to resizing. This will transition back to online when the resize operation has completed.
    */
   "resources/databases/databases_update_clusterSize.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     requestBody: {
       content: {
         /**
@@ -4208,10 +4900,48 @@ export interface external {
     };
   }
   /**
+   * Update Connection Pools (PostgreSQL) 
+   * @description To update a connection pool for a PostgreSQL database cluster, send a PUT request to  `/v2/databases/$DATABASE_ID/pools/$POOL_NAME`.
+   */
+  "resources/databases/databases_update_connectionPool.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+        pool_name: external["resources/databases/parameters.yml"]["pool_name"];
+      };
+    };
+    requestBody: {
+      content: {
+        /**
+         * @example {
+         *   "mode": "transaction",
+         *   "size": 10,
+         *   "db": "defaultdb",
+         *   "user": "doadmin"
+         * }
+         */
+        "application/json": external["resources/databases/models/connection_pool_update.yml"];
+      };
+    };
+    responses: {
+      204: external["shared/responses/no_content.yml"];
+      401: external["shared/responses/unauthorized.yml"];
+      404: external["shared/responses/not_found.yml"];
+      429: external["shared/responses/too_many_requests.yml"];
+      500: external["shared/responses/server_error.yml"];
+      default: external["shared/responses/unexpected_error.yml"];
+    };
+  }
+  /**
    * Configure the Eviction Policy for a Redis Cluster 
    * @description To configure an eviction policy for an existing Redis cluster, send a PUT request to `/v2/databases/$DATABASE_ID/eviction_policy` specifying the desired policy.
    */
   "resources/databases/databases_update_evictionPolicy.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     requestBody: {
       content: {
         /**
@@ -4239,6 +4969,11 @@ export interface external {
    * A successful
    */
   "resources/databases/databases_update_firewall_rules.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     requestBody: {
       content: {
         /**
@@ -4283,6 +5018,11 @@ export interface external {
    * A successful request will receive a 204 No Content status code with no body in response.
    */
   "resources/databases/databases_update_maintenanceWindow.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     requestBody: {
       content: {
         /**
@@ -4308,6 +5048,11 @@ export interface external {
    * @description To start an online migration, send a PUT request to `/v2/databases/$DATABASE_ID/online-migration` endpoint. Migrating a cluster establishes a connection with an existing cluster and replicates its contents to the target cluster. Online migration is only available for MySQL, PostgreSQL, and Redis clusters.
    */
   "resources/databases/databases_update_onlineMigration.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     requestBody: {
       content: {
         /**
@@ -4346,6 +5091,11 @@ export interface external {
    * migration has completed.
    */
   "resources/databases/databases_update_region.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -4372,6 +5122,11 @@ export interface external {
    * A successful request will receive a 204 No Content status code with no body in response.
    */
   "resources/databases/databases_update_sql_mode.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
     requestBody: {
       content: {
         /**
@@ -4380,6 +5135,36 @@ export interface external {
          * }
          */
         "application/json": external["resources/databases/models/sql_mode.yml"];
+      };
+    };
+    responses: {
+      204: external["shared/responses/no_content.yml"];
+      401: external["shared/responses/unauthorized.yml"];
+      404: external["shared/responses/not_found.yml"];
+      429: external["shared/responses/too_many_requests.yml"];
+      500: external["shared/responses/server_error.yml"];
+      default: external["shared/responses/unexpected_error.yml"];
+    };
+  }
+  /**
+   * Upgrade Major Version for a Database 
+   * @description To upgrade the major version of a database, send a PUT request to `/v2/databases/$DATABASE_ID/upgrade`, specifying the target version.
+   * A successful request will receive a 204 No Content status code with no body in response.
+   */
+  "resources/databases/databases_upgrade_major_version.yml": {
+    parameters: {
+      path: {
+        database_cluster_uuid: external["resources/databases/parameters.yml"]["database_cluster_uuid"];
+      };
+    };
+    requestBody: {
+      content: {
+        /**
+         * @example {
+         *   "version": "14"
+         * }
+         */
+        "application/json": external["resources/databases/models/version.yml"];
       };
     };
     responses: {
@@ -4410,6 +5195,29 @@ export interface external {
      * @example LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUVRVENDQXFtZ0F3SUJBZ0lVRUZZWTdBWFZQS0Raam9jb1lpMk00Y0dvcU0wd0RRWUpLb1pJaHZjTkFRRU0KQlFBd09qRTRNRFlHQTFVRUF3d3ZOek0zT1RaaE1XRXRaamhrTUMwME9HSmpMV0V4Wm1NdFpqbGhNVFZsWXprdwpORGhsSUZCeWIycGxZM1FnUTBFd0hoY05NakF3TnpFM01UVTFNREEyV2hjTk16QXdOekUxTVRVMU1EQTJXakE2Ck1UZ3dOZ1lEVlFRRERDODNNemM1Tm1FeFlTMW1PR1F3TFRRNFltTXRZVEZtWXkxbU9XRXhOV1ZqT1RBME9HVWcKVUhKdmFtVmpkQ0JEUVRDQ0FhSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnR1BBRENDQVlvQ2dnR0JBTVdScXhycwpMZnpNdHZyUmxKVEw4MldYMVBLZkhKbitvYjNYcmVBY3FZd1dBUUp2Q3IycmhxSXZieVZzMGlaU0NzOHI4c3RGClljQ0R1bkxJNmUwTy9laERZYTBIT2RrMkFFRzE1ckVOVmNha2NSczcyQWlHVHNrdkNXS2VkUjFTUWswVWt0WCsKQUg4S1ExS3F5bzNtZ2Y2cVV1WUpzc3JNTXFselk3YTN1RVpEb2ZqTjN5Q3MvM21pTVJKcVcyNm1JV0IrUUlEbAo5YzdLRVF5MTZvdCtjeHVnd0lLMm9oZHMzaFY1bjBKMFVBM0I3QWRBdXY5aUl5L3JHaHlTNm5CNTdaWm9JZnAyCnFybXdOY0UrVjlIdXhQSGtRVjFOQjUwOFFudWZ4Z0E5VCtqU2VrdGVUbWFORkxqNjFXL3BtcndrTytOaWFXUTIKaGgzVXBKOEozY1BoNkErbHRnUmpSV2NEb2lsYVNwRVVpU09WemNNYVFvalZKYVJlNk9NbnZYc29NaSs3ZzdneApWcittQ0lUcGcvck9DaXpBWWQ2UFAxLzdYTjk1ZXNmU2tBQnM5c3hJakpjTUFqbDBYTEFzRmtGZVdyeHNIajlVCmJnaDNWYXdtcnpUeXhZT0RQcXV1cS9JcGlwc0RRT3Fpb2ZsUStkWEJJL3NUT0NNbVp6K0pNcG5HYXdJREFRQUIKb3o4d1BUQWRCZ05WSFE0RUZnUVVSekdDRlE3WEtUdHRDN3JzNS8ydFlQcExTZGN3RHdZRFZSMFRCQWd3QmdFQgovd0lCQURBTEJnTlZIUThFQkFNQ0FRWXdEUVlKS29aSWh2Y05BUUVNQlFBRGdnR0JBSWFKQ0dSVVNxUExtcmcvCmk3MW10b0NHUDdzeG1BVXVCek1oOEdrU25uaVdaZnZGMTRwSUtqTlkwbzVkWmpHKzZqK1VjalZtK0RIdGE1RjYKOWJPeEk5S0NFeEI1blBjRXpMWjNZYitNOTcrellxbm9zUm85S21DVFJBb2JrNTZ0WU1FS1h1aVJja2tkMm1yUQo4cGw2N2xxdThjM1V4c0dHZEZVT01wMkk3ZTNpdUdWVm5UR0ZWM3JQZUdaQ0J3WGVyUUQyY0F4UjkzS3BnWVZ2ClhUUzk5dnpSbm1HOHhhUm9EVy9FbEdXZ2xWd0Q5a1JrbXhUUkdoYTdDWVZCcjFQVWY2dVVFVjhmVFIxc1hFZnIKLytMR1JoSVVsSUhWT3l2Yzk3YnZYQURPbWF1MWZDVE5lWGtRdTNyZnZFSlBmaFlLeVIwT0V3eWVvdlhRNzl0LwpTV2ZGTjBreU1Pc1UrNVNIdHJKSEh1eWNWcU0yQlVVK083VjM1UnNwOU9MZGRZMFFVbTZldFpEVEhhSUhYYzRRCnl1Rm1OL1NhSFZtNE0wL3BTVlJQdVd6TmpxMnZyRllvSDRtbGhIZk95TUNJMjc2elE2aWhGNkdDSHlkOUJqajcKUm1UWGEyNHM3NWhmSi9YTDV2bnJSdEtpVHJlVHF6V21EOVhnUmNMQ0gyS1hJaVRtSWc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
      */
     certificate: string;
+  }
+  "resources/databases/models/connection_pool_update.yml": {
+    /**
+     * @description The PGBouncer transaction mode for the connection pool. The allowed values are session, transaction, and statement. 
+     * @example transaction
+     */
+    mode: string;
+    /**
+     * Format: int32 
+     * @description The desired size of the PGBouncer connection pool. The maximum allowed size is determined by the size of the cluster's primary node. 25 backend server connections are allowed for every 1GB of RAM. Three are reserved for maintenance. For example, a primary node with 1 GB of RAM allows for a maximum of 22 backend server connections while one with 4 GB would allow for 97. Note that these are shared across all connection pools in a cluster. 
+     * @example 10
+     */
+    size: number;
+    /**
+     * @description The database for use with the connection pool. 
+     * @example defaultdb
+     */
+    db: string;
+    /**
+     * @description The name of the user for use with the connection pool. When excluded, all sessions connect to the database as the inbound user. 
+     * @example doadmin
+     */
+    user?: string;
   }
   "resources/databases/models/connection_pool.yml": {
     /**
@@ -4551,6 +5359,16 @@ export interface external {
      */
     project_id?: string;
     rules?: (external["resources/databases/models/firewall_rule.yml"])[];
+    /**
+     * @description A timestamp referring to the date when the particular version will no longer be supported. If null, the version does not have an end of life timeline. 
+     * @example 2023-11-09T00:00:00Z
+     */
+    version_end_of_life?: string;
+    /**
+     * @description A timestamp referring to the date when the particular version will no longer be available for creating new clusters. If null, the version does not have an end of availability timeline. 
+     * @example 2023-05-09T00:00:00Z
+     */
+    version_end_of_availability?: string;
   }
   "resources/databases/models/database_config.yml": {
     config?: external["resources/databases/models/mysql.yml"] | external["resources/databases/models/postgres.yml"] | external["resources/databases/models/redis.yml"];
@@ -4712,6 +5530,24 @@ export interface external {
      */
     password?: string;
     mysql_settings?: external["resources/databases/models/mysql_settings.yml"];
+  }
+  "resources/databases/models/database_version_availabilities.yml": (external["resources/databases/models/database_version_availability.yml"])[]
+  "resources/databases/models/database_version_availability.yml": {
+    /**
+     * @description A timestamp referring to the date when the particular version will no longer be supported. If null, the version does not have an end of life timeline. 
+     * @example 2023-11-09T00:00:00Z
+     */
+    end_of_life?: string;
+    /**
+     * @description A timestamp referring to the date when the particular version will no longer be available for creating new clusters. If null, the version does not have an end of availability timeline. 
+     * @example 2023-05-09T00:00:00Z
+     */
+    end_of_availability?: string;
+    /**
+     * @description The engine version. 
+     * @example 8
+     */
+    version?: string;
   }
   "resources/databases/models/database_version_options.yml": {
     /**
@@ -4936,6 +5772,12 @@ export interface external {
       mysql?: external["resources/databases/models/database_region_options.yml"] & external["resources/databases/models/database_version_options.yml"] & external["resources/databases/models/database_layout_options.yml"];
       redis?: external["resources/databases/models/database_region_options.yml"] & external["resources/databases/models/database_version_options.yml"] & external["resources/databases/models/database_layout_options.yml"];
     };
+    version_availability?: {
+      pg?: external["resources/databases/models/database_version_availabilities.yml"];
+      mysql?: external["resources/databases/models/database_version_availabilities.yml"];
+      redis?: external["resources/databases/models/database_version_availabilities.yml"];
+      mongodb?: external["resources/databases/models/database_version_availabilities.yml"];
+    };
   }
   "resources/databases/models/pgbouncer.yml": {
     /**
@@ -5113,7 +5955,7 @@ export interface external {
      */
     max_files_per_process?: number;
     /**
-     * @description PostgreSQL maximum prepared transactions. 
+     * @description PostgreSQL maximum prepared transactions. Once increased, this parameter cannot be lowered from its set value. 
      * @example 20
      */
     max_prepared_transactions?: number;
@@ -5123,7 +5965,7 @@ export interface external {
      */
     max_pred_locks_per_transaction?: number;
     /**
-     * @description PostgreSQL maximum locks per transaction. 
+     * @description PostgreSQL maximum locks per transaction. Once increased, this parameter cannot be lowered from its set value. 
      * @example 128
      */
     max_locks_per_transaction?: number;
@@ -5163,7 +6005,7 @@ export interface external {
      */
     max_parallel_workers_per_gather?: number;
     /**
-     * @description Sets the maximum number of background processes that the system can support. 
+     * @description Sets the maximum number of background processes that the system can support. Once increased, this parameter cannot be lowered from its set value. 
      * @example 16
      */
     max_worker_processes?: number;
@@ -5217,8 +6059,8 @@ export interface external {
      */
     track_io_timing?: "off" | "on";
     /**
-     * @description PostgreSQL maximum WAL senders 
-     * @example 8
+     * @description PostgreSQL maximum WAL senders. Once increased, this parameter cannot be lowered from its set value. 
+     * @example 32
      */
     max_wal_senders?: number;
     /**
@@ -5337,7 +6179,18 @@ export interface external {
      */
     max_background_workers?: number;
   }
-  "resources/databases/parameters.yml": string
+  "resources/databases/models/version.yml": {
+    version?: external["resources/databases/models/database_cluster.yml"]["version"];
+  }
+  "resources/databases/parameters.yml": {
+    database_cluster_uuid: string;
+    database_name: string;
+    replica_name: string;
+    username: string;
+    tag_name?: string;
+    pool_name: string;
+    migration_id: string;
+  };
   "resources/databases/responses/ca.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -5558,6 +6411,11 @@ export interface external {
    * types and their respective required attributes.
    */
   "resources/domains/domains_create_record.yml": {
+    parameters: {
+      path: {
+        domain_name: external["resources/domains/parameters.yml"]["domain_name"];
+      };
+    };
     requestBody?: {
       content: {
         /**
@@ -5620,6 +6478,12 @@ export interface external {
    * indicates a successful request with no body returned.
    */
   "resources/domains/domains_delete_record.yml": {
+    parameters: {
+      path: {
+        domain_name: external["resources/domains/parameters.yml"]["domain_name"];
+        domain_record_id: external["resources/domains/parameters.yml"]["domain_record_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -5634,6 +6498,11 @@ export interface external {
    * @description To delete a domain, send a DELETE request to `/v2/domains/$DOMAIN_NAME`.
    */
   "resources/domains/domains_delete.yml": {
+    parameters: {
+      path: {
+        domain_name: external["resources/domains/parameters.yml"]["domain_name"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -5648,6 +6517,12 @@ export interface external {
    * @description To retrieve a specific domain record, send a GET request to `/v2/domains/$DOMAIN_NAME/records/$RECORD_ID`.
    */
   "resources/domains/domains_get_record.yml": {
+    parameters: {
+      path: {
+        domain_name: external["resources/domains/parameters.yml"]["domain_name"];
+        domain_record_id: external["resources/domains/parameters.yml"]["domain_record_id"];
+      };
+    };
     responses: {
       200: external["resources/domains/responses/domain_record.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -5662,6 +6537,11 @@ export interface external {
    * @description To get details about a specific domain, send a GET request to `/v2/domains/$DOMAIN_NAME`.
    */
   "resources/domains/domains_get.yml": {
+    parameters: {
+      path: {
+        domain_name: external["resources/domains/parameters.yml"]["domain_name"];
+      };
+    };
     responses: {
       200: external["resources/domains/responses/existing_domain.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -5677,6 +6557,17 @@ export interface external {
    * The list of records returned can be filtered by using the `name` and `type` query parameters. For example, to only include A records for a domain, send a GET request to `/v2/domains/$DOMAIN_NAME/records?type=A`. `name` must be a fully qualified record name. For example, to only include records matching `sub.example.com`, send a GET request to `/v2/domains/$DOMAIN_NAME/records?name=sub.example.com`. Both name and type may be used together.
    */
   "resources/domains/domains_list_records.yml": {
+    parameters: {
+      query: {
+        name?: external["resources/domains/parameters.yml"]["domain_name_query"];
+        type?: external["resources/domains/parameters.yml"]["domain_type_query"];
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        domain_name: external["resources/domains/parameters.yml"]["domain_name"];
+      };
+    };
     responses: {
       200: external["resources/domains/responses/all_domain_records_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -5691,6 +6582,12 @@ export interface external {
    * @description To retrieve a list of all of the domains in your account, send a GET request to `/v2/domains`.
    */
   "resources/domains/domains_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/domains/responses/all_domains_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -5709,6 +6606,12 @@ export interface external {
    * types and their respective attributes.
    */
   "resources/domains/domains_patch_record.yml": {
+    parameters: {
+      path: {
+        domain_name: external["resources/domains/parameters.yml"]["domain_name"];
+        domain_record_id: external["resources/domains/parameters.yml"]["domain_record_id"];
+      };
+    };
     requestBody?: {
       content: {
         /**
@@ -5739,6 +6642,12 @@ export interface external {
    * types and their respective attributes.
    */
   "resources/domains/domains_update_record.yml": {
+    parameters: {
+      path: {
+        domain_name: external["resources/domains/parameters.yml"]["domain_name"];
+        domain_record_id: external["resources/domains/parameters.yml"]["domain_record_id"];
+      };
+    };
     requestBody?: {
       content: {
         /**
@@ -5841,7 +6750,12 @@ export interface external {
      */
     zone_file?: string | null;
   }
-  "resources/domains/parameters.yml": string
+  "resources/domains/parameters.yml": {
+    domain_name: string;
+    domain_record_id: number;
+    domain_name_query?: string;
+    domain_type_query?: "A" | "AAAA" | "CAA" | "CNAME" | "MX" | "NS" | "SOA" | "SRV" | "TXT";
+  };
   "resources/domains/responses/all_domain_records_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -5924,6 +6838,12 @@ export interface external {
    * be a Droplet action object.
    */
   "resources/droplets/dropletActions_get.yml": {
+    parameters: {
+      path: {
+        droplet_id: external["resources/droplets/parameters.yml"]["droplet_id"];
+        action_id: external["resources/actions/parameters.yml"]["action_id"];
+      };
+    };
     responses: {
       200: external["resources/actions/responses/action.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -5943,6 +6863,15 @@ export interface external {
    * `action` attributes.
    */
   "resources/droplets/dropletActions_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        droplet_id: external["resources/droplets/parameters.yml"]["droplet_id"];
+      };
+    };
     responses: {
       200: external["resources/droplets/responses/all_droplet_actions.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -5970,6 +6899,11 @@ export interface external {
    * - `snapshot`
    */
   "resources/droplets/dropletActions_post_byTag.yml": {
+    parameters: {
+      query: {
+        tag_name?: external["resources/droplets/parameters.yml"]["droplet_tag_name"];
+      };
+    };
     /**
      * @description The `type` attribute set in the request body will specify the  action that
      * will be taken on the Droplet. Some actions will require additional
@@ -6013,6 +6947,11 @@ export interface external {
    * | <nobr>`snapshot`</nobr>                  | Takes a snapshot of a Droplet. |
    */
   "resources/droplets/dropletActions_post.yml": {
+    parameters: {
+      path: {
+        droplet_id: external["resources/droplets/parameters.yml"]["droplet_id"];
+      };
+    };
     /**
      * @description The `type` attribute set in the request body will specify the  action that
      * will be taken on the Droplet. Some actions will require additional
@@ -6084,6 +7023,11 @@ export interface external {
    * This indicates that the request was processed successfully.
    */
   "resources/droplets/droplets_destroy_byTag.yml": {
+    parameters: {
+      query: {
+        tag_name: external["resources/droplets/parameters.yml"]["droplet_delete_tag_name"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content_with_content_type.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -6105,6 +7049,11 @@ export interface external {
    * content.
    */
   "resources/droplets/droplets_destroy_retryWithAssociatedResources.yml": {
+    parameters: {
+      path: {
+        droplet_id: external["resources/droplets/parameters.yml"]["droplet_id"];
+      };
+    };
     responses: {
       202: external["shared/responses/accepted.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -6129,6 +7078,14 @@ export interface external {
    * individual resources.
    */
   "resources/droplets/droplets_destroy_withAssociatedResourcesDangerous.yml": {
+    parameters: {
+      header: {
+        "X-Dangerous": external["resources/droplets/parameters.yml"]["x_dangerous"];
+      };
+      path: {
+        droplet_id: external["resources/droplets/parameters.yml"]["droplet_id"];
+      };
+    };
     responses: {
       202: external["shared/responses/accepted.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -6153,6 +7110,11 @@ export interface external {
    * the individual resources.
    */
   "resources/droplets/droplets_destroy_withAssociatedResourcesSelective.yml": {
+    parameters: {
+      path: {
+        droplet_id: external["resources/droplets/parameters.yml"]["droplet_id"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": external["resources/droplets/models/selective_destroy_associated_resource.yml"];
@@ -6175,6 +7137,11 @@ export interface external {
    * This indicates that the request was processed successfully.
    */
   "resources/droplets/droplets_destroy.yml": {
+    parameters: {
+      path: {
+        droplet_id: external["resources/droplets/parameters.yml"]["droplet_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content_with_content_type.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -6191,6 +7158,11 @@ export interface external {
    * `/v2/droplets/$DROPLET_ID/destroy_with_associated_resources/status` endpoint.
    */
   "resources/droplets/droplets_get_destroyAssociatedResourcesStatus.yml": {
+    parameters: {
+      path: {
+        droplet_id: external["resources/droplets/parameters.yml"]["droplet_id"];
+      };
+    };
     responses: {
       200: external["resources/droplets/responses/associated_resources_status.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -6206,6 +7178,11 @@ export interface external {
    * `/v2/droplets/$DROPLET_ID`.
    */
   "resources/droplets/droplets_get.yml": {
+    parameters: {
+      path: {
+        droplet_id: external["resources/droplets/parameters.yml"]["droplet_id"];
+      };
+    };
     responses: {
       200: external["resources/droplets/responses/existing_droplet.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -6226,6 +7203,11 @@ export interface external {
    * information about the associated resources.
    */
   "resources/droplets/droplets_list_associatedResources.yml": {
+    parameters: {
+      path: {
+        droplet_id: external["resources/droplets/parameters.yml"]["droplet_id"];
+      };
+    };
     responses: {
       200: external["resources/droplets/responses/associated_resources_list.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -6245,6 +7227,15 @@ export interface external {
    * Droplet backup attributes.
    */
   "resources/droplets/droplets_list_backups.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        droplet_id: external["resources/droplets/parameters.yml"]["droplet_id"];
+      };
+    };
     responses: {
       200: external["resources/droplets/responses/all_droplet_backups.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -6264,6 +7255,15 @@ export interface external {
    * `firewall` attributes.
    */
   "resources/droplets/droplets_list_firewalls.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        droplet_id: external["resources/droplets/parameters.yml"]["droplet_id"];
+      };
+    };
     responses: {
       200: external["resources/droplets/responses/all_firewalls.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -6283,6 +7283,15 @@ export interface external {
    * `kernel` attributes.
    */
   "resources/droplets/droplets_list_kernels.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        droplet_id: external["resources/droplets/parameters.yml"]["droplet_id"];
+      };
+    };
     responses: {
       200: external["resources/droplets/responses/all_kernels.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -6304,6 +7313,11 @@ export interface external {
    * Droplet is not co-located any other Droplets associated with your account.
    */
   "resources/droplets/droplets_list_neighbors.yml": {
+    parameters: {
+      path: {
+        droplet_id: external["resources/droplets/parameters.yml"]["droplet_id"];
+      };
+    };
     responses: {
       200: external["resources/droplets/responses/neighbor_droplets.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -6344,6 +7358,15 @@ export interface external {
    * snapshot attributes.
    */
   "resources/droplets/droplets_list_snapshots.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        droplet_id: external["resources/droplets/parameters.yml"]["droplet_id"];
+      };
+    };
     responses: {
       200: external["resources/droplets/responses/all_droplet_snapshots.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -6369,6 +7392,14 @@ export interface external {
    * `/v2/droplets?tag_name=$TAG_NAME`.
    */
   "resources/droplets/droplets_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+        tag_name?: external["resources/droplets/parameters.yml"]["droplet_tag_name"];
+        name?: external["resources/droplets/parameters.yml"]["droplet_name"];
+      };
+    };
     responses: {
       200: external["resources/droplets/responses/all_droplets.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -6507,6 +7538,14 @@ export interface external {
      * @example true
      */
     private_networking?: boolean;
+    /**
+     * @description An array of IDs for block storage volumes that will be attached to the Droplet once created. The volumes must not already be attached to an existing Droplet. 
+     * @default [] 
+     * @example [
+     *   "12e97116-7280-11ed-b3d0-0a58ac146812"
+     * ]
+     */
+    volumes?: (string)[];
     /**
      * @description A string specifying the UUID of the VPC to which the Droplet will be assigned. If excluded, the Droplet will be assigned to your account's default VPC for the region. 
      * @example 760e09ef-dc84-11e8-981e-3cfdfeaae000
@@ -6794,7 +7833,13 @@ export interface external {
      */
     volume_snapshots?: (string)[];
   }
-  "resources/droplets/parameters.yml": string
+  "resources/droplets/parameters.yml": {
+    droplet_id: number;
+    droplet_tag_name?: string;
+    droplet_delete_tag_name: string;
+    droplet_name?: string;
+    x_dangerous: boolean;
+  };
   "resources/droplets/responses/all_droplet_actions.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6984,6 +8029,11 @@ export interface external {
    * action was successful with no returned body data.
    */
   "resources/firewalls/firewalls_add_rules.yml": {
+    parameters: {
+      path: {
+        firewall_id: external["resources/firewalls/parameters.yml"]["firewall_id"];
+      };
+    };
     requestBody?: {
       content: {
         /**
@@ -7036,6 +8086,11 @@ export interface external {
    * action was successful with no returned body data.
    */
   "resources/firewalls/firewalls_add_tags.yml": {
+    parameters: {
+      path: {
+        firewall_id: external["resources/firewalls/parameters.yml"]["firewall_id"];
+      };
+    };
     requestBody?: {
       content: {
         /**
@@ -7071,6 +8126,11 @@ export interface external {
    * action was successful with no returned body data.
    */
   "resources/firewalls/firewalls_assign_droplets.yml": {
+    parameters: {
+      path: {
+        firewall_id: external["resources/firewalls/parameters.yml"]["firewall_id"];
+      };
+    };
     requestBody?: {
       content: {
         /**
@@ -7175,6 +8235,11 @@ export interface external {
    * action was successful with no returned body data.
    */
   "resources/firewalls/firewalls_delete_droplets.yml": {
+    parameters: {
+      path: {
+        firewall_id: external["resources/firewalls/parameters.yml"]["firewall_id"];
+      };
+    };
     requestBody?: {
       content: {
         /**
@@ -7217,6 +8282,11 @@ export interface external {
    * action was successful with no returned body data.
    */
   "resources/firewalls/firewalls_delete_rules.yml": {
+    parameters: {
+      path: {
+        firewall_id: external["resources/firewalls/parameters.yml"]["firewall_id"];
+      };
+    };
     requestBody?: {
       content: {
         /**
@@ -7269,6 +8339,11 @@ export interface external {
    * action was successful with no returned body data.
    */
   "resources/firewalls/firewalls_delete_tags.yml": {
+    parameters: {
+      path: {
+        firewall_id: external["resources/firewalls/parameters.yml"]["firewall_id"];
+      };
+    };
     requestBody?: {
       content: {
         /**
@@ -7302,6 +8377,11 @@ export interface external {
    * action was successful with no returned body data.
    */
   "resources/firewalls/firewalls_delete.yml": {
+    parameters: {
+      path: {
+        firewall_id: external["resources/firewalls/parameters.yml"]["firewall_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -7316,6 +8396,11 @@ export interface external {
    * @description To show information about an existing firewall, send a GET request to `/v2/firewalls/$FIREWALL_ID`.
    */
   "resources/firewalls/firewalls_get.yml": {
+    parameters: {
+      path: {
+        firewall_id: external["resources/firewalls/parameters.yml"]["firewall_id"];
+      };
+    };
     responses: {
       200: external["resources/firewalls/responses/get_firewall_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -7330,6 +8415,12 @@ export interface external {
    * @description To list all of the firewalls available on your account, send a GET request to `/v2/firewalls`.
    */
   "resources/firewalls/firewalls_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/firewalls/responses/list_firewalls_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -7346,6 +8437,11 @@ export interface external {
    * are not provided will be reset to their default values.**
    */
   "resources/firewalls/firewalls_update.yml": {
+    parameters: {
+      path: {
+        firewall_id: external["resources/firewalls/parameters.yml"]["firewall_id"];
+      };
+    };
     requestBody?: {
       content: {
         /**
@@ -7458,7 +8554,9 @@ export interface external {
     droplet_ids?: (number)[] | null;
     tags?: external["shared/attributes/tags_array.yml"] & Record<string, never>;
   }) & external["resources/firewalls/models/firewall_rule.yml"]["firewall_rules"]
-  "resources/firewalls/parameters.yml": string
+  "resources/firewalls/parameters.yml": {
+    firewall_id: string;
+  };
   "resources/firewalls/responses/create_firewall_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -7533,7 +8631,7 @@ export interface external {
     };
   }
   /**
-   * Delete a Floating IPs 
+   * Delete a Floating IP 
    * @description To delete a floating IP and remove it from your account, send a DELETE request
    * to `/v2/floating_ips/$FLOATING_IP_ADDR`.
    * 
@@ -7541,6 +8639,11 @@ export interface external {
    * This indicates that the request was processed successfully.
    */
   "resources/floating_ips/floatingIPs_delete.yml": {
+    parameters: {
+      path: {
+        floating_ip: external["resources/floating_ips/parameters.yml"]["floating_ip"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -7555,6 +8658,11 @@ export interface external {
    * @description To show information about a floating IP, send a GET request to `/v2/floating_ips/$FLOATING_IP_ADDR`.
    */
   "resources/floating_ips/floatingIPs_get.yml": {
+    parameters: {
+      path: {
+        floating_ip: external["resources/floating_ips/parameters.yml"]["floating_ip"];
+      };
+    };
     responses: {
       200: external["resources/floating_ips/responses/floating_ip.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -7569,6 +8677,12 @@ export interface external {
    * @description To list all of the floating IPs available on your account, send a GET request to `/v2/floating_ips`.
    */
   "resources/floating_ips/floatingIPs_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/floating_ips/responses/floating_ip_list.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -7582,6 +8696,12 @@ export interface external {
    * @description To retrieve the status of a floating IP action, send a GET request to `/v2/floating_ips/$FLOATING_IP/actions/$ACTION_ID`.
    */
   "resources/floating_ips/floatingIPsAction_get.yml": {
+    parameters: {
+      path: {
+        floating_ip: external["resources/floating_ips/parameters.yml"]["floating_ip"];
+        action_id: external["resources/actions/parameters.yml"]["action_id"];
+      };
+    };
     responses: {
       200: external["resources/floating_ips/responses/floating_ip_action.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -7596,6 +8716,11 @@ export interface external {
    * @description To retrieve all actions that have been executed on a floating IP, send a GET request to `/v2/floating_ips/$FLOATING_IP/actions`.
    */
   "resources/floating_ips/floatingIPsAction_list.yml": {
+    parameters: {
+      path: {
+        floating_ip: external["resources/floating_ips/parameters.yml"]["floating_ip"];
+      };
+    };
     responses: {
       200: external["resources/floating_ips/responses/floating_ip_actions.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -7617,6 +8742,11 @@ export interface external {
    * | `unassign` | Unassign a floating IP from a Droplet
    */
   "resources/floating_ips/floatingIPsAction_post.yml": {
+    parameters: {
+      path: {
+        floating_ip: external["resources/floating_ips/parameters.yml"]["floating_ip"];
+      };
+    };
     /**
      * @description The `type` attribute set in the request body will specify the action that
      * will be taken on the floating IP.
@@ -7680,7 +8810,9 @@ export interface external {
      */
     project_id?: string;
   }
-  "resources/floating_ips/parameters.yml": string
+  "resources/floating_ips/parameters.yml": {
+    floating_ip: string;
+  };
   "resources/floating_ips/responses/examples.yml": unknown
   "resources/floating_ips/responses/floating_ip_action.yml": {
     headers: {
@@ -7774,12 +8906,43 @@ export interface external {
     };
   }
   /**
+   * Create Trigger 
+   * @description Creates a new trigger for a given function in a namespace. To create a trigger, send a POST request to `/v2/functions/namespaces/$NAMESPACE_ID/triggers` with the `name`, `function`, `type`, `is_enabled` and `scheduled_details` properties.
+   */
+  "resources/functions/functions_create_trigger.yml": {
+    parameters: {
+      path: {
+        namespace_id: external["resources/functions/parameters.yml"]["namespace_id"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": external["resources/functions/models/create_trigger.yml"];
+      };
+    };
+    responses: {
+      200: external["resources/functions/responses/trigger_response.yml"];
+      400: external["resources/functions/responses/trigger_bad_request.yml"];
+      401: external["shared/responses/unauthorized.yml"];
+      404: external["resources/functions/responses/namespace_not_found.yml"];
+      422: external["resources/functions/responses/trigger_limit_reached.yml"];
+      429: external["shared/responses/too_many_requests.yml"];
+      500: external["shared/responses/server_error.yml"];
+      default: external["shared/responses/unexpected_error.yml"];
+    };
+  }
+  /**
    * Delete Namespace 
    * @description Deletes the given namespace.  When a namespace is deleted all assets, in the namespace are deleted, this includes packages, functions and triggers. Deleting a namespace is a destructive operation and assets in the namespace are not recoverable after deletion. Some metadata is retained, such as activations, or soft deleted for reporting purposes.
    * To delete namespace, send a DELETE request to `/v2/functions/namespaces/$NAMESPACE_ID`.
    * A successful deletion returns a 204 response.
    */
   "resources/functions/functions_delete_namespace.yml": {
+    parameters: {
+      path: {
+        namespace_id: external["resources/functions/parameters.yml"]["namespace_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -7790,15 +8953,62 @@ export interface external {
     };
   }
   /**
+   * Delete Trigger 
+   * @description Deletes the given trigger.
+   * To delete trigger, send a DELETE request to `/v2/functions/namespaces/$NAMESPACE_ID/triggers/$TRIGGER_NAME`.
+   * A successful deletion returns a 204 response.
+   */
+  "resources/functions/functions_delete_trigger.yml": {
+    parameters: {
+      path: {
+        namespace_id: external["resources/functions/parameters.yml"]["namespace_id"];
+        trigger_name: external["resources/functions/parameters.yml"]["trigger_name"];
+      };
+    };
+    responses: {
+      204: external["shared/responses/no_content.yml"];
+      401: external["shared/responses/unauthorized.yml"];
+      404: external["resources/functions/responses/trigger_not_found.yml"];
+      429: external["shared/responses/too_many_requests.yml"];
+      500: external["shared/responses/server_error.yml"];
+      default: external["shared/responses/unexpected_error.yml"];
+    };
+  }
+  /**
    * Get Namespace 
    * @description Gets the namespace details for the given namespace UUID. To get namespace details, send a GET request to `/v2/functions/namespaces/$NAMESPACE_ID` with no parameters.
    */
   "resources/functions/functions_get_namespace.yml": {
+    parameters: {
+      path: {
+        namespace_id: external["resources/functions/parameters.yml"]["namespace_id"];
+      };
+    };
     responses: {
       200: external["resources/functions/responses/namespace_created.yml"];
       401: external["shared/responses/unauthorized.yml"];
       403: external["resources/functions/responses/namespace_not_allowed.yml"];
       404: external["resources/functions/responses/namespace_not_found.yml"];
+      429: external["shared/responses/too_many_requests.yml"];
+      500: external["shared/responses/server_error.yml"];
+      default: external["shared/responses/unexpected_error.yml"];
+    };
+  }
+  /**
+   * Get Trigger 
+   * @description Gets the trigger details. To get the trigger details, send a GET request to `/v2/functions/namespaces/$NAMESPACE_ID/triggers/$TRIGGER_NAME`.
+   */
+  "resources/functions/functions_get_trigger.yml": {
+    parameters: {
+      path: {
+        namespace_id: external["resources/functions/parameters.yml"]["namespace_id"];
+        trigger_name: external["resources/functions/parameters.yml"]["trigger_name"];
+      };
+    };
+    responses: {
+      200: external["resources/functions/responses/trigger_response.yml"];
+      401: external["shared/responses/unauthorized.yml"];
+      404: external["resources/functions/responses/trigger_not_found.yml"];
       429: external["shared/responses/too_many_requests.yml"];
       500: external["shared/responses/server_error.yml"];
       default: external["shared/responses/unexpected_error.yml"];
@@ -7817,6 +9027,51 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
+  /**
+   * List Triggers 
+   * @description Returns a list of triggers associated with the current user and namespace. To get all triggers, send a GET request to `/v2/functions/namespaces/$NAMESPACE_ID/triggers`.
+   */
+  "resources/functions/functions_list_triggers.yml": {
+    parameters: {
+      path: {
+        namespace_id: external["resources/functions/parameters.yml"]["namespace_id"];
+      };
+    };
+    responses: {
+      200: external["resources/functions/responses/list_triggers.yml"];
+      401: external["shared/responses/unauthorized.yml"];
+      404: external["resources/functions/responses/namespace_not_found.yml"];
+      429: external["shared/responses/too_many_requests.yml"];
+      500: external["shared/responses/server_error.yml"];
+      default: external["shared/responses/unexpected_error.yml"];
+    };
+  }
+  /**
+   * Update Trigger 
+   * @description Updates the details of the given trigger. To update a trigger, send a PUT request to `/v2/functions/namespaces/$NAMESPACE_ID/triggers/$TRIGGER_NAME` with new values for the `is_enabled ` or `scheduled_details` properties.
+   */
+  "resources/functions/functions_update_trigger.yml": {
+    parameters: {
+      path: {
+        namespace_id: external["resources/functions/parameters.yml"]["namespace_id"];
+        trigger_name: external["resources/functions/parameters.yml"]["trigger_name"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": external["resources/functions/models/update_trigger.yml"];
+      };
+    };
+    responses: {
+      200: external["resources/functions/responses/trigger_response.yml"];
+      400: external["resources/functions/responses/trigger_bad_request.yml"];
+      401: external["shared/responses/unauthorized.yml"];
+      404: external["resources/functions/responses/trigger_not_found.yml"];
+      429: external["shared/responses/too_many_requests.yml"];
+      500: external["shared/responses/server_error.yml"];
+      default: external["shared/responses/unexpected_error.yml"];
+    };
+  }
   "resources/functions/models/create_namespace.yml": {
     /**
      * @description The [datacenter region](https://docs.digitalocean.com/products/platform/availability-matrix/#available-datacenters) in which to create the namespace. 
@@ -7828,6 +9083,29 @@ export interface external {
      * @example my namespace
      */
     label: string;
+  }
+  "resources/functions/models/create_trigger.yml": {
+    /**
+     * @description The trigger's unique name within the namespace. 
+     * @example my trigger
+     */
+    name: string;
+    /**
+     * @description Name of function(action) that exists in the given namespace. 
+     * @example hello
+     */
+    function: string;
+    /**
+     * @description One of different type of triggers. Currently only SCHEDULED is supported. 
+     * @example SCHEDULED
+     */
+    type: string;
+    /**
+     * @description Indicates weather the trigger is paused or unpaused. 
+     * @example true
+     */
+    is_enabled: boolean;
+    scheduled_details: external["resources/functions/models/scheduled_details.yml"];
   }
   "resources/functions/models/namespace_info.yml": {
     /**
@@ -7872,7 +9150,80 @@ export interface external {
      */
     key?: string;
   }
-  "resources/functions/parameters.yml": string
+  "resources/functions/models/scheduled_details.yml": {
+    /**
+     * @description valid cron expression string which is required for SCHEDULED type triggers. 
+     * @example * * * * *
+     */
+    cron: string;
+    /** @description Optional data to be sent to function while triggering the function. */
+    body?: {
+      /** @example Welcome to DO! */
+      name?: string;
+    } | null;
+  }
+  "resources/functions/models/trigger_info.yml": {
+    /**
+     * @description A unique string format of UUID with a prefix fn-. 
+     * @example fn-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+     */
+    namespace?: string;
+    /**
+     * @description The trigger's unique name within the namespace. 
+     * @example my trigger
+     */
+    name?: string;
+    /**
+     * @description Name of function(action) that exists in the given namespace. 
+     * @example hello
+     */
+    function?: string;
+    /**
+     * @description String which indicates the type of trigger source like SCHEDULED. 
+     * @example SCHEDULED
+     */
+    type?: string;
+    /**
+     * @description Indicates weather the trigger is paused or unpaused. 
+     * @example true
+     */
+    is_enabled?: boolean;
+    /**
+     * @description UTC time string. 
+     * @example "2022-11-11T04:16:45.000Z"
+     */
+    created_at?: string;
+    /**
+     * @description UTC time string. 
+     * @example "2022-11-11T04:16:45.000Z"
+     */
+    updated_at?: string;
+    scheduled_details?: external["resources/functions/models/scheduled_details.yml"];
+    scheduled_runs?: {
+      /**
+       * @description Indicates last run time. null value indicates trigger not run yet. 
+       * @example "2022-11-11T04:16:45.000Z"
+       */
+      last_run_at?: string | null;
+      /**
+       * @description Indicates next run time. null value indicates trigger will not run. 
+       * @example "2022-11-11T04:16:45.000Z"
+       */
+      next_run_at?: string | null;
+    };
+  }
+  "resources/functions/models/update_trigger.yml": {
+    /**
+     * @description Indicates weather the trigger is paused or unpaused. 
+     * @example true
+     */
+    is_enabled?: boolean;
+    scheduled_details?: external["resources/functions/models/scheduled_details.yml"];
+  }
+  "resources/functions/parameters.yml": {
+    namespace_id: string;
+    trigger_name: string;
+  };
   "resources/functions/responses/list_namespaces.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -7882,6 +9233,18 @@ export interface external {
     content: {
       "application/json": {
         namespaces?: (external["resources/functions/models/namespace_info.yml"])[];
+      };
+    };
+  }
+  "resources/functions/responses/list_triggers.yml": {
+    headers: {
+      "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
+      "ratelimit-remaining": external["shared/headers.yml"]["ratelimit-remaining"];
+      "ratelimit-reset": external["shared/headers.yml"]["ratelimit-reset"];
+    };
+    content: {
+      "application/json": {
+        triggers?: (external["resources/functions/models/trigger_info.yml"])[];
       };
     };
   }
@@ -7937,12 +9300,60 @@ export interface external {
       "application/json": external["shared/models/error.yml"];
     };
   }
+  "resources/functions/responses/trigger_bad_request.yml": {
+    headers: {
+      "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
+      "ratelimit-remaining": external["shared/headers.yml"]["ratelimit-remaining"];
+      "ratelimit-reset": external["shared/headers.yml"]["ratelimit-reset"];
+    };
+    content: {
+      "application/json": external["shared/models/error.yml"];
+    };
+  }
+  "resources/functions/responses/trigger_limit_reached.yml": {
+    headers: {
+      "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
+      "ratelimit-remaining": external["shared/headers.yml"]["ratelimit-remaining"];
+      "ratelimit-reset": external["shared/headers.yml"]["ratelimit-reset"];
+    };
+    content: {
+      "application/json": external["shared/models/error.yml"];
+    };
+  }
+  "resources/functions/responses/trigger_not_found.yml": {
+    headers: {
+      "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
+      "ratelimit-remaining": external["shared/headers.yml"]["ratelimit-remaining"];
+      "ratelimit-reset": external["shared/headers.yml"]["ratelimit-reset"];
+    };
+    content: {
+      "application/json": external["shared/models/error.yml"];
+    };
+  }
+  "resources/functions/responses/trigger_response.yml": {
+    headers: {
+      "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
+      "ratelimit-remaining": external["shared/headers.yml"]["ratelimit-remaining"];
+      "ratelimit-reset": external["shared/headers.yml"]["ratelimit-reset"];
+    };
+    content: {
+      "application/json": {
+        trigger?: external["resources/functions/models/trigger_info.yml"];
+      };
+    };
+  }
   "resources/images/attributes.yml": Record<string, never>
   /**
    * Retrieve an Existing Action 
    * @description To retrieve the status of an image action, send a GET request to `/v2/images/$IMAGE_ID/actions/$IMAGE_ACTION_ID`.
    */
   "resources/images/imageActions_get.yml": {
+    parameters: {
+      path: {
+        image_id: external["resources/images/parameters.yml"]["image_id"];
+        action_id: external["resources/actions/parameters.yml"]["action_id"];
+      };
+    };
     responses: {
       200: external["resources/images/responses/get_image_action_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -7957,6 +9368,11 @@ export interface external {
    * @description To retrieve all actions that have been executed on an image, send a GET request to `/v2/images/$IMAGE_ID/actions`.
    */
   "resources/images/imageActions_list.yml": {
+    parameters: {
+      path: {
+        image_id: external["resources/images/parameters.yml"]["image_id"];
+      };
+    };
     responses: {
       200: external["resources/images/responses/get_image_actions_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -7983,6 +9399,11 @@ export interface external {
    * to.
    */
   "resources/images/imageActions_post.yml": {
+    parameters: {
+      path: {
+        image_id: external["resources/images/parameters.yml"]["image_id"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": external["resources/images/models/image_action.yml"]["image_action_base"] | external["resources/images/models/image_action.yml"]["image_action_transfer"];
@@ -8025,6 +9446,11 @@ export interface external {
    * @description To delete a snapshot or custom image, send a `DELETE` request to `/v2/images/$IMAGE_ID`.
    */
   "resources/images/images_delete.yml": {
+    parameters: {
+      path: {
+        image_id: external["resources/images/parameters.yml"]["image_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -8090,6 +9516,15 @@ export interface external {
    * To list all images assigned to a specific tag, include the `tag_name` query parameter set to the name of the tag in your GET request. For example, `/v2/images?tag_name=$TAG_NAME`.
    */
   "resources/images/images_list.yml": {
+    parameters: {
+      query: {
+        type?: external["resources/images/parameters.yml"]["type"];
+        private?: external["resources/images/parameters.yml"]["private"];
+        tag_name?: external["resources/images/parameters.yml"]["tag"];
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/images/responses/all_images.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -8105,6 +9540,11 @@ export interface external {
    * For custom images, the `description` and `distribution` attributes may also be updated.
    */
   "resources/images/images_update.yml": {
+    parameters: {
+      path: {
+        image_id: external["resources/images/parameters.yml"]["image_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/images/models/image_update.yml"];
@@ -8192,7 +9632,7 @@ export interface external {
      */
     error_message?: string;
   }
-  "resources/images/parameters.yml": string
+  "resources/images/parameters.yml": Record<string, never>
   "resources/images/responses/all_images.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -8282,6 +9722,11 @@ export interface external {
    * attributes.
    */
   "resources/kubernetes/kubernetes_add_nodePool.yml": {
+    parameters: {
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+      };
+    };
     requestBody: {
       content: {
         /**
@@ -8362,6 +9807,11 @@ export interface external {
    * request.
    */
   "resources/kubernetes/kubernetes_delete_cluster.yml": {
+    parameters: {
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -8385,6 +9835,17 @@ export interface external {
    * setting its value to `0` deletes without replacement.
    */
   "resources/kubernetes/kubernetes_delete_node.yml": {
+    parameters: {
+      query: {
+        skip_drain?: external["resources/kubernetes/parameters.yml"]["kubernetes_node_skip_drain"];
+        replace?: external["resources/kubernetes/parameters.yml"]["kubernetes_node_replace"];
+      };
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+        node_pool_id: external["resources/kubernetes/parameters.yml"]["kubernetes_node_pool_id"];
+        node_id: external["resources/kubernetes/parameters.yml"]["kubernetes_node_id"];
+      };
+    };
     responses: {
       202: external["shared/responses/accepted.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -8403,6 +9864,12 @@ export interface external {
    * request. Nodes in the pool will subsequently be drained and deleted.
    */
   "resources/kubernetes/kubernetes_delete_nodePool.yml": {
+    parameters: {
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+        node_pool_id: external["resources/kubernetes/parameters.yml"]["kubernetes_node_pool_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -8419,6 +9886,11 @@ export interface external {
    * A 204 status code with no body will be returned in response to a successful request.
    */
   "resources/kubernetes/kubernetes_destroy_associatedResourcesDangerous.yml": {
+    parameters: {
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -8442,6 +9914,11 @@ export interface external {
    * to accrue changes on your account.
    */
   "resources/kubernetes/kubernetes_destroy_associatedResourcesSelective.yml": {
+    parameters: {
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/kubernetes/models/associated_kubernetes_resources.yml"]["destroy_associated_kubernetes_resources"];
@@ -8463,6 +9940,11 @@ export interface external {
    * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/upgrades`.
    */
   "resources/kubernetes/kubernetes_get_availableUpgrades.yml": {
+    parameters: {
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+      };
+    };
     responses: {
       200: external["resources/kubernetes/responses/available_upgrades.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -8478,6 +9960,11 @@ export interface external {
    * to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID`.
    */
   "resources/kubernetes/kubernetes_get_cluster.yml": {
+    parameters: {
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+      };
+    };
     responses: {
       200: external["resources/kubernetes/responses/existing_cluster.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -8498,6 +9985,14 @@ export interface external {
    * [the clusterlint check documentation](https://github.com/digitalocean/clusterlint/blob/master/checks.md).
    */
   "resources/kubernetes/kubernetes_get_clusterLintResults.yml": {
+    parameters: {
+      query: {
+        run_id?: external["resources/kubernetes/parameters.yml"]["clusterlint_run_id"];
+      };
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+      };
+    };
     responses: {
       200: external["resources/kubernetes/responses/clusterlint_results.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -8513,6 +10008,11 @@ export interface external {
    * request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/user`.
    */
   "resources/kubernetes/kubernetes_get_clusterUser.yml": {
+    parameters: {
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+      };
+    };
     responses: {
       200: external["resources/kubernetes/responses/cluster_user.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -8542,6 +10042,14 @@ export interface external {
    * has no impact in certificate-based authentication.
    */
   "resources/kubernetes/kubernetes_get_credentials.yml": {
+    parameters: {
+      query: {
+        expiry_seconds?: external["resources/kubernetes/parameters.yml"]["kubernetes_expiry_seconds"];
+      };
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+      };
+    };
     responses: {
       200: external["resources/kubernetes/responses/credentials.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -8572,6 +10080,14 @@ export interface external {
    * has no impact in certificate-based authentication.
    */
   "resources/kubernetes/kubernetes_get_kubeconfig.yml": {
+    parameters: {
+      query: {
+        expiry_seconds?: external["resources/kubernetes/parameters.yml"]["kubernetes_expiry_seconds"];
+      };
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+      };
+    };
     responses: {
       200: external["resources/kubernetes/responses/kubeconfig.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -8587,6 +10103,12 @@ export interface external {
    * a GET request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools/$NODE_POOL_ID`.
    */
   "resources/kubernetes/kubernetes_get_nodePool.yml": {
+    parameters: {
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+        node_pool_id: external["resources/kubernetes/parameters.yml"]["kubernetes_node_pool_id"];
+      };
+    };
     responses: {
       200: external["resources/kubernetes/responses/existing_node_pool.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -8601,6 +10123,11 @@ export interface external {
    * @description To list the associated billable resources that can be destroyed along with a cluster, send a GET request to the `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/destroy_with_associated_resources` endpoint.
    */
   "resources/kubernetes/kubernetes_list_associatedResources.yml": {
+    parameters: {
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+      };
+    };
     responses: {
       200: external["resources/kubernetes/responses/associated_kubernetes_resources_list.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -8616,6 +10143,12 @@ export interface external {
    * to `/v2/kubernetes/clusters`.
    */
   "resources/kubernetes/kubernetes_list_clusters.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/kubernetes/responses/all_clusters.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -8630,6 +10163,11 @@ export interface external {
    * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools`.
    */
   "resources/kubernetes/kubernetes_list_nodePools.yml": {
+    parameters: {
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+      };
+    };
     responses: {
       200: external["resources/kubernetes/responses/all_node_pools.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -8661,6 +10199,12 @@ export interface external {
    * method instead.
    */
   "resources/kubernetes/kubernetes_recycle_nodePool.yml": {
+    parameters: {
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+        node_pool_id: external["resources/kubernetes/parameters.yml"]["kubernetes_node_pool_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -8715,6 +10259,11 @@ export interface external {
    * [the clusterlint check documentation](https://github.com/digitalocean/clusterlint/blob/master/checks.md).
    */
   "resources/kubernetes/kubernetes_run_clusterLint.yml": {
+    parameters: {
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": external["resources/kubernetes/models/clusterlint_request.yml"];
@@ -8736,6 +10285,11 @@ export interface external {
    * attributes below.
    */
   "resources/kubernetes/kubernetes_update_cluster.yml": {
+    parameters: {
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/kubernetes/models/cluster_update.yml"];
@@ -8758,6 +10312,12 @@ export interface external {
    * following attributes.
    */
   "resources/kubernetes/kubernetes_update_nodePool.yml": {
+    parameters: {
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+        node_pool_id: external["resources/kubernetes/parameters.yml"]["kubernetes_node_pool_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/kubernetes/models/node_pool.yml"]["kubernetes_node_pool_update"];
@@ -8782,6 +10342,11 @@ export interface external {
    * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/upgrades`.
    */
   "resources/kubernetes/kubernetes_upgrade_cluster.yml": {
+    parameters: {
+      path: {
+        cluster_id: external["resources/kubernetes/parameters.yml"]["kubernetes_cluster_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -8842,6 +10407,12 @@ export interface external {
      * @example true
      */
     surge_upgrade?: boolean;
+    /**
+     * @description A boolean value indicating whether the control plane is run in a highly available configuration in the cluster. Highly available control planes incur less downtime. The property cannot be disabled. 
+     * @default false 
+     * @example true
+     */
+    ha?: boolean;
   }
   "resources/kubernetes/models/cluster.yml": {
     /**
@@ -8944,7 +10515,7 @@ export interface external {
      */
     surge_upgrade?: boolean;
     /**
-     * @description A boolean value indicating whether the control plane is run in a highly available configuration in the cluster. Highly available control planes incur less downtime. 
+     * @description A boolean value indicating whether the control plane is run in a highly available configuration in the cluster. Highly available control planes incur less downtime. The property cannot be disabled. 
      * @default false 
      * @example true
      */
@@ -9172,7 +10743,15 @@ export interface external {
       groups?: (string)[];
     };
   }
-  "resources/kubernetes/parameters.yml": string
+  "resources/kubernetes/parameters.yml": {
+    kubernetes_cluster_id: string;
+    kubernetes_node_pool_id: string;
+    kubernetes_node_id: string;
+    kubernetes_expiry_seconds?: number;
+    clusterlint_run_id?: string;
+    kubernetes_node_skip_drain?: number;
+    kubernetes_node_replace?: number;
+  };
   "resources/kubernetes/responses/all_clusters.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9373,6 +10952,11 @@ export interface external {
    * action was successful with no returned body data.
    */
   "resources/load_balancers/loadBalancers_add_droplets.yml": {
+    parameters: {
+      path: {
+        lb_id: external["resources/load_balancers/parameters.yml"]["load_balancer_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -9401,6 +10985,11 @@ export interface external {
    * action was successful with no returned body data.
    */
   "resources/load_balancers/loadBalancers_add_forwardingRules.yml": {
+    parameters: {
+      path: {
+        lb_id: external["resources/load_balancers/parameters.yml"]["load_balancer_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -9456,6 +11045,11 @@ export interface external {
    * This indicates that the request was processed successfully.
    */
   "resources/load_balancers/loadBalancers_delete.yml": {
+    parameters: {
+      path: {
+        lb_id: external["resources/load_balancers/parameters.yml"]["load_balancer_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -9471,6 +11065,11 @@ export interface external {
    * `/v2/load_balancers/$LOAD_BALANCER_ID`.
    */
   "resources/load_balancers/loadBalancers_get.yml": {
+    parameters: {
+      path: {
+        lb_id: external["resources/load_balancers/parameters.yml"]["load_balancer_id"];
+      };
+    };
     responses: {
       200: external["resources/load_balancers/responses/existing_load_balancer.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -9486,6 +11085,12 @@ export interface external {
    * to `/v2/load_balancers`.
    */
   "resources/load_balancers/loadBalancers_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/load_balancers/responses/all_load_balancers.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -9505,6 +11110,11 @@ export interface external {
    * action was successful with no returned body data.
    */
   "resources/load_balancers/loadBalancers_remove_droplets.yml": {
+    parameters: {
+      path: {
+        lb_id: external["resources/load_balancers/parameters.yml"]["load_balancer_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -9533,6 +11143,11 @@ export interface external {
    * action was successful with no returned body data.
    */
   "resources/load_balancers/loadBalancers_remove_forwardingRules.yml": {
+    parameters: {
+      path: {
+        lb_id: external["resources/load_balancers/parameters.yml"]["load_balancer_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -9559,6 +11174,11 @@ export interface external {
    * default value.**
    */
   "resources/load_balancers/loadBalancers_update.yml": {
+    parameters: {
+      path: {
+        lb_id: external["resources/load_balancers/parameters.yml"]["load_balancer_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/load_balancers/models/load_balancer_create.yml"];
@@ -9576,19 +11196,19 @@ export interface external {
   "resources/load_balancers/models/attributes.yml": Record<string, never>
   "resources/load_balancers/models/forwarding_rule.yml": {
     /**
-     * @description The protocol used for traffic to the load balancer. The possible values are: `http`, `https`, `http2`, `tcp`, or `udp`. If you set the  `entry_protocol` to `upd`, the `target_protocol` must be set to `udp`.  When using UDP, the load balancer requires that you set up a health  check with a port that uses TCP, HTTP, or HTTPS to work properly.
+     * @description The protocol used for traffic to the load balancer. The possible values are: `http`, `https`, `http2`, `http3`, `tcp`, or `udp`. If you set the  `entry_protocol` to `udp`, the `target_protocol` must be set to `udp`.  When using UDP, the load balancer requires that you set up a health  check with a port that uses TCP, HTTP, or HTTPS to work properly.
      *  
      * @example https 
      * @enum {string}
      */
-    entry_protocol: "http" | "https" | "http2" | "tcp" | "udp";
+    entry_protocol: "http" | "https" | "http2" | "http3" | "tcp" | "udp";
     /**
      * @description An integer representing the port on which the load balancer instance will listen. 
      * @example 443
      */
     entry_port: number;
     /**
-     * @description The protocol used for traffic from the load balancer to the backend Droplets. The possible values are: `http`, `https`, `http2`, `tcp`, or `udp`. If you set the `target_protocol` to `upd`, the `entry_protocol` must be set to  `udp`. When using UDP, the load balancer requires that you set up a health  check with a port that uses TCP, HTTP, or HTTPS to work properly.
+     * @description The protocol used for traffic from the load balancer to the backend Droplets. The possible values are: `http`, `https`, `http2`, `tcp`, or `udp`. If you set the `target_protocol` to `udp`, the `entry_protocol` must be set to  `udp`. When using UDP, the load balancer requires that you set up a health  check with a port that uses TCP, HTTP, or HTTPS to work properly.
      *  
      * @example http 
      * @enum {string}
@@ -9654,6 +11274,26 @@ export interface external {
      * @example 3
      */
     healthy_threshold?: number;
+  }
+  "resources/load_balancers/models/lb_firewall.yml": {
+    /**
+     * @description the rules for denying traffic to the load balancer (in the form 'ip:1.2.3.4' or 'cidr:1.2.0.0/16') 
+     * @default [] 
+     * @example [
+     *   "ip:1.2.3.4",
+     *   "cidr:2.3.0.0/16"
+     * ]
+     */
+    deny?: (string)[];
+    /**
+     * @description the rules for allowing traffic to the load balancer (in the form 'ip:1.2.3.4' or 'cidr:1.2.0.0/16') 
+     * @default [] 
+     * @example [
+     *   "ip:1.2.3.4",
+     *   "cidr:2.3.0.0/16"
+     * ]
+     */
+    allow?: (string)[];
   }
   "resources/load_balancers/models/load_balancer_base.yml": {
     /**
@@ -9739,6 +11379,12 @@ export interface external {
      */
     enable_backend_keepalive?: boolean;
     /**
+     * @description An integer value which configures the idle timeout for HTTP requests to the target droplets. 
+     * @default 60 
+     * @example 90
+     */
+    http_idle_timeout_seconds?: number;
+    /**
      * Format: uuid 
      * @description A string specifying the UUID of the VPC to which the load balancer is assigned. 
      * @example c33931f2-a26a-4e61-b85c-4e95a2ec431b
@@ -9750,6 +11396,7 @@ export interface external {
      * @example true
      */
     disable_lets_encrypt_dns_records?: boolean;
+    firewall?: external["resources/load_balancers/models/lb_firewall.yml"];
   }
   "resources/load_balancers/models/load_balancer_create.yml": OneOf<[WithRequired<{
     $ref?: external["resources/load_balancers/models/attributes.yml"]["load_balancer_droplet_ids"];
@@ -9786,7 +11433,9 @@ export interface external {
      */
     cookie_ttl_seconds?: number;
   }
-  "resources/load_balancers/parameters.yml": string
+  "resources/load_balancers/parameters.yml": {
+    load_balancer_id: string;
+  };
   "resources/load_balancers/responses/all_load_balancers.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9863,7 +11512,7 @@ export interface external {
      * @example v1/insights/droplet/cpu 
      * @enum {string}
      */
-    type: "v1/insights/droplet/load_1" | "v1/insights/droplet/load_5" | "v1/insights/droplet/load_15" | "v1/insights/droplet/memory_utilization_percent" | "v1/insights/droplet/disk_utilization_percent" | "v1/insights/droplet/cpu" | "v1/insights/droplet/disk_read" | "v1/insights/droplet/disk_write" | "v1/insights/droplet/public_outbound_bandwidth" | "v1/insights/droplet/public_inbound_bandwidth" | "v1/insights/droplet/private_outbound_bandwidth" | "v1/insights/droplet/private_inbound_bandwidth" | "v1/insights/lbaas/avg_cpu_utilization_percent" | "v1/insights/lbaas/connection_utilization_percent" | "v1/insights/lbaas/droplet_health" | "v1/insights/lbaas/tls_connections_per_second_utilization_percent" | "v1/dbaas/alerts/load_15_alerts" | "v1/dbaas/alerts/memory_utilization_alerts" | "v1/dbaas/alerts/disk_utilization_alerts" | "v1/dbaas/alerts/cpu_alerts";
+    type: "v1/insights/droplet/load_1" | "v1/insights/droplet/load_5" | "v1/insights/droplet/load_15" | "v1/insights/droplet/memory_utilization_percent" | "v1/insights/droplet/disk_utilization_percent" | "v1/insights/droplet/cpu" | "v1/insights/droplet/disk_read" | "v1/insights/droplet/disk_write" | "v1/insights/droplet/public_outbound_bandwidth" | "v1/insights/droplet/public_inbound_bandwidth" | "v1/insights/droplet/private_outbound_bandwidth" | "v1/insights/droplet/private_inbound_bandwidth" | "v1/insights/lbaas/avg_cpu_utilization_percent" | "v1/insights/lbaas/connection_utilization_percent" | "v1/insights/lbaas/droplet_health" | "v1/insights/lbaas/tls_connections_per_second_utilization_percent" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_4xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_4xx" | "v1/insights/lbaas/high_http_request_response_time" | "v1/insights/lbaas/high_http_request_response_time_50p" | "v1/insights/lbaas/high_http_request_response_time_95p" | "v1/insights/lbaas/high_http_request_response_time_99p" | "v1/dbaas/alerts/load_15_alerts" | "v1/dbaas/alerts/memory_utilization_alerts" | "v1/dbaas/alerts/disk_utilization_alerts" | "v1/dbaas/alerts/cpu_alerts";
     /**
      * Format: float 
      * @example 80
@@ -9902,7 +11551,7 @@ export interface external {
      * @example v1/insights/droplet/cpu 
      * @enum {string}
      */
-    type: "v1/insights/droplet/load_1" | "v1/insights/droplet/load_5" | "v1/insights/droplet/load_15" | "v1/insights/droplet/memory_utilization_percent" | "v1/insights/droplet/disk_utilization_percent" | "v1/insights/droplet/cpu" | "v1/insights/droplet/disk_read" | "v1/insights/droplet/disk_write" | "v1/insights/droplet/public_outbound_bandwidth" | "v1/insights/droplet/public_inbound_bandwidth" | "v1/insights/droplet/private_outbound_bandwidth" | "v1/insights/droplet/private_inbound_bandwidth" | "v1/insights/lbaas/avg_cpu_utilization_percent" | "v1/insights/lbaas/connection_utilization_percent" | "v1/insights/lbaas/droplet_health" | "v1/insights/lbaas/tls_connections_per_second_utilization_percent" | "v1/dbaas/alerts/load_15_alerts" | "v1/dbaas/alerts/memory_utilization_alerts" | "v1/dbaas/alerts/disk_utilization_alerts" | "v1/dbaas/alerts/cpu_alerts";
+    type: "v1/insights/droplet/load_1" | "v1/insights/droplet/load_5" | "v1/insights/droplet/load_15" | "v1/insights/droplet/memory_utilization_percent" | "v1/insights/droplet/disk_utilization_percent" | "v1/insights/droplet/cpu" | "v1/insights/droplet/disk_read" | "v1/insights/droplet/disk_write" | "v1/insights/droplet/public_outbound_bandwidth" | "v1/insights/droplet/public_inbound_bandwidth" | "v1/insights/droplet/private_outbound_bandwidth" | "v1/insights/droplet/private_inbound_bandwidth" | "v1/insights/lbaas/avg_cpu_utilization_percent" | "v1/insights/lbaas/connection_utilization_percent" | "v1/insights/lbaas/droplet_health" | "v1/insights/lbaas/tls_connections_per_second_utilization_percent" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_4xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_4xx" | "v1/insights/lbaas/high_http_request_response_time" | "v1/insights/lbaas/high_http_request_response_time_50p" | "v1/insights/lbaas/high_http_request_response_time_95p" | "v1/insights/lbaas/high_http_request_response_time_99p" | "v1/dbaas/alerts/load_15_alerts" | "v1/dbaas/alerts/memory_utilization_alerts" | "v1/dbaas/alerts/disk_utilization_alerts" | "v1/dbaas/alerts/cpu_alerts";
     /** @example 78b3da62-27e5-49ba-ac70-5db0b5935c64 */
     uuid: string;
     /**
@@ -10009,6 +11658,14 @@ export interface external {
      * `v1/insights/lbaas/connection_utilization_percent`|alert on the percent of connection utilization|load balancer ID
      * `v1/insights/lbaas/droplet_health`|alert on Droplet health status changes|load balancer ID
      * `v1/insights/lbaas/tls_connections_per_second_utilization_percent`|alert on the percent of TLS connections per second utilization|load balancer ID
+     * `v1/insights/lbaas/increase_in_http_error_rate_percentage_5xx`|alert on the percent increase of 5xx level http errors over 5m|load balancer ID
+     * `v1/insights/lbaas/increase_in_http_error_rate_percentage_4xx`|alert on the percent increase of 4xx level http errors over 5m|load balancer ID
+     * `v1/insights/lbaas/increase_in_http_error_rate_count_5xx`|alert on the count of 5xx level http errors over 5m|load balancer ID
+     * `v1/insights/lbaas/increase_in_http_error_rate_count_4xx`|alert on the count of 4xx level http errors over 5m|load balancer ID
+     * `v1/insights/lbaas/high_http_request_response_time`|alert on high average http response time|load balancer ID
+     * `v1/insights/lbaas/high_http_request_response_time_50p`|alert on high 50th percentile http response time|load balancer ID
+     * `v1/insights/lbaas/high_http_request_response_time_95p`|alert on high 95th percentile http response time|load balancer ID
+     * `v1/insights/lbaas/high_http_request_response_time_99p`|alert on high 99th percentile http response time|load balancer ID
      * `v1/dbaas/alerts/load_15_alerts` | alert on 15 minute load average across the database cluster | database cluster UUID
      * `v1/dbaas/alerts/memory_utilization_alerts` | alert on the percent memory utilization average across the database cluster | database cluster UUID
      * `v1/dbaas/alerts/disk_utilization_alerts` | alert on the percent disk utilization average across the database cluster | database cluster UUID
@@ -10032,6 +11689,11 @@ export interface external {
    * @description To delete an alert policy, send a DELETE request to `/v2/monitoring/alerts/{alert_uuid}`
    */
   "resources/monitoring/monitoring_delete_alertPolicy.yml": {
+    parameters: {
+      path: {
+        alert_uuid: external["resources/monitoring/parameters.yml"]["alert_uuid"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10046,6 +11708,11 @@ export interface external {
    * @description To retrieve a given alert policy, send a GET request to `/v2/monitoring/alerts/{alert_uuid}`
    */
   "resources/monitoring/monitoring_get_alertPolicy.yml": {
+    parameters: {
+      path: {
+        alert_uuid: external["resources/monitoring/parameters.yml"]["alert_uuid"];
+      };
+    };
     responses: {
       200: external["resources/monitoring/responses/alert_policy_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10060,6 +11727,15 @@ export interface external {
    * @description To retrieve bandwidth metrics for a given Droplet, send a GET request to `/v2/monitoring/metrics/droplet/bandwidth`. Use the `interface` query parameter to specify if the results should be for the `private` or `public` interface. Use the `direction` query parameter to specify if the results should be for `inbound` or `outbound` traffic.
    */
   "resources/monitoring/monitoring_get_dropletBandwidthMetrics.yml": {
+    parameters: {
+      query: {
+        host_id: external["resources/monitoring/parameters.yml"]["droplet_id"];
+        interface: external["resources/monitoring/parameters.yml"]["network_interface"];
+        direction: external["resources/monitoring/parameters.yml"]["network_direction"];
+        start: external["resources/monitoring/parameters.yml"]["metric_timestamp_start"];
+        end: external["resources/monitoring/parameters.yml"]["metric_timestamp_end"];
+      };
+    };
     responses: {
       200: external["resources/monitoring/responses/droplet_bandwidth_metric_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10073,6 +11749,13 @@ export interface external {
    * @description To retrieve CPU metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/cpu`.
    */
   "resources/monitoring/monitoring_get_DropletCpuMetrics.yml": {
+    parameters: {
+      query: {
+        host_id: external["resources/monitoring/parameters.yml"]["droplet_id"];
+        start: external["resources/monitoring/parameters.yml"]["metric_timestamp_start"];
+        end: external["resources/monitoring/parameters.yml"]["metric_timestamp_end"];
+      };
+    };
     responses: {
       200: external["resources/monitoring/responses/droplet_cpu_metric_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10086,6 +11769,13 @@ export interface external {
    * @description To retrieve filesystem free metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/filesystem_free`.
    */
   "resources/monitoring/monitoring_get_dropletFilesystemFreeMetrics.yml": {
+    parameters: {
+      query: {
+        host_id: external["resources/monitoring/parameters.yml"]["droplet_id"];
+        start: external["resources/monitoring/parameters.yml"]["metric_timestamp_start"];
+        end: external["resources/monitoring/parameters.yml"]["metric_timestamp_end"];
+      };
+    };
     responses: {
       200: external["resources/monitoring/responses/droplet_filesystem_metric_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10099,6 +11789,13 @@ export interface external {
    * @description To retrieve filesystem size metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/filesystem_size`.
    */
   "resources/monitoring/monitoring_get_dropletFilesystemSizeMetrics.yml": {
+    parameters: {
+      query: {
+        host_id: external["resources/monitoring/parameters.yml"]["droplet_id"];
+        start: external["resources/monitoring/parameters.yml"]["metric_timestamp_start"];
+        end: external["resources/monitoring/parameters.yml"]["metric_timestamp_end"];
+      };
+    };
     responses: {
       200: external["resources/monitoring/responses/droplet_filesystem_metric_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10112,6 +11809,13 @@ export interface external {
    * @description To retrieve 1 minute load average metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/load_1`.
    */
   "resources/monitoring/monitoring_get_dropletLoad1Metrics.yml": {
+    parameters: {
+      query: {
+        host_id: external["resources/monitoring/parameters.yml"]["droplet_id"];
+        start: external["resources/monitoring/parameters.yml"]["metric_timestamp_start"];
+        end: external["resources/monitoring/parameters.yml"]["metric_timestamp_end"];
+      };
+    };
     responses: {
       200: external["resources/monitoring/responses/metric_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10125,6 +11829,13 @@ export interface external {
    * @description To retrieve 5 minute load average metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/load_5`.
    */
   "resources/monitoring/monitoring_get_dropletLoad5Metrics.yml": {
+    parameters: {
+      query: {
+        host_id: external["resources/monitoring/parameters.yml"]["droplet_id"];
+        start: external["resources/monitoring/parameters.yml"]["metric_timestamp_start"];
+        end: external["resources/monitoring/parameters.yml"]["metric_timestamp_end"];
+      };
+    };
     responses: {
       200: external["resources/monitoring/responses/metric_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10138,6 +11849,13 @@ export interface external {
    * @description To retrieve 15 minute load average metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/load_15`.
    */
   "resources/monitoring/monitoring_get_dropletLoad15Metrics.yml": {
+    parameters: {
+      query: {
+        host_id: external["resources/monitoring/parameters.yml"]["droplet_id"];
+        start: external["resources/monitoring/parameters.yml"]["metric_timestamp_start"];
+        end: external["resources/monitoring/parameters.yml"]["metric_timestamp_end"];
+      };
+    };
     responses: {
       200: external["resources/monitoring/responses/metric_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10151,6 +11869,13 @@ export interface external {
    * @description To retrieve available memory metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/memory_available`.
    */
   "resources/monitoring/monitoring_get_dropletMemoryAvailableMetrics.yml": {
+    parameters: {
+      query: {
+        host_id: external["resources/monitoring/parameters.yml"]["droplet_id"];
+        start: external["resources/monitoring/parameters.yml"]["metric_timestamp_start"];
+        end: external["resources/monitoring/parameters.yml"]["metric_timestamp_end"];
+      };
+    };
     responses: {
       200: external["resources/monitoring/responses/metric_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10164,6 +11889,13 @@ export interface external {
    * @description To retrieve cached memory metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/memory_cached`.
    */
   "resources/monitoring/monitoring_get_dropletMemoryCachedMetrics.yml": {
+    parameters: {
+      query: {
+        host_id: external["resources/monitoring/parameters.yml"]["droplet_id"];
+        start: external["resources/monitoring/parameters.yml"]["metric_timestamp_start"];
+        end: external["resources/monitoring/parameters.yml"]["metric_timestamp_end"];
+      };
+    };
     responses: {
       200: external["resources/monitoring/responses/metric_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10177,6 +11909,13 @@ export interface external {
    * @description To retrieve free memory metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/memory_free`.
    */
   "resources/monitoring/monitoring_get_dropletMemoryFreeMetrics.yml": {
+    parameters: {
+      query: {
+        host_id: external["resources/monitoring/parameters.yml"]["droplet_id"];
+        start: external["resources/monitoring/parameters.yml"]["metric_timestamp_start"];
+        end: external["resources/monitoring/parameters.yml"]["metric_timestamp_end"];
+      };
+    };
     responses: {
       200: external["resources/monitoring/responses/metric_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10190,6 +11929,13 @@ export interface external {
    * @description To retrieve total memory metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/memory_total`.
    */
   "resources/monitoring/monitoring_get_dropletMemoryTotalMetrics.yml": {
+    parameters: {
+      query: {
+        host_id: external["resources/monitoring/parameters.yml"]["droplet_id"];
+        start: external["resources/monitoring/parameters.yml"]["metric_timestamp_start"];
+        end: external["resources/monitoring/parameters.yml"]["metric_timestamp_end"];
+      };
+    };
     responses: {
       200: external["resources/monitoring/responses/metric_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10203,6 +11949,12 @@ export interface external {
    * @description Returns all alert policies that are configured for the given account. To List all alert policies, send a GET request to `/v2/monitoring/alerts`.
    */
   "resources/monitoring/monitoring_list_alertPolicy.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/monitoring/responses/list_alert_policy_response.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10216,6 +11968,11 @@ export interface external {
    * @description To update en existing policy, send a PUT request to `v2/monitoring/alerts/{alert_uuid}`.
    */
   "resources/monitoring/monitoring_update_alertPolicy.yml": {
+    parameters: {
+      path: {
+        alert_uuid: external["resources/monitoring/parameters.yml"]["alert_uuid"];
+      };
+    };
     /**
      * @description The `type` field dictates what type of entity that the alert policy applies to and hence what type of entity is passed in the `entities` array. If both the `tags` array and `entities` array are empty the alert policy applies to all entities of the relevant type that are owned by the user account. Otherwise the following table shows the valid entity types for each type of alert policy:
      * 
@@ -10237,6 +11994,14 @@ export interface external {
      * `v1/insights/lbaas/connection_utilization_percent`|alert on the percent of connection utilization|load balancer ID
      * `v1/insights/lbaas/droplet_health`|alert on Droplet health status changes|load balancer ID
      * `v1/insights/lbaas/tls_connections_per_second_utilization_percent`|alert on the percent of TLS connections per second utilization|load balancer ID
+     * `v1/insights/lbaas/increase_in_http_error_rate_percentage_5xx`|alert on the percent increase of 5xx level http errors over 5m|load balancer ID
+     * `v1/insights/lbaas/increase_in_http_error_rate_percentage_4xx`|alert on the percent increase of 4xx level http errors over 5m|load balancer ID
+     * `v1/insights/lbaas/increase_in_http_error_rate_count_5xx`|alert on the count of 5xx level http errors over 5m|load balancer ID
+     * `v1/insights/lbaas/increase_in_http_error_rate_count_4xx`|alert on the count of 4xx level http errors over 5m|load balancer ID
+     * `v1/insights/lbaas/high_http_request_response_time`|alert on high average http response time|load balancer ID
+     * `v1/insights/lbaas/high_http_request_response_time_50p`|alert on high 50th percentile http response time|load balancer ID
+     * `v1/insights/lbaas/high_http_request_response_time_95p`|alert on high 95th percentile http response time|load balancer ID
+     * `v1/insights/lbaas/high_http_request_response_time_99p`|alert on high 99th percentile http response time|load balancer ID
      * `v1/dbaas/alerts/load_15_alerts` | alert on 15 minute load average across the database cluster | database cluster UUID
      * `v1/dbaas/alerts/memory_utilization_alerts` | alert on the percent memory utilization average across the database cluster | database cluster UUID
      * `v1/dbaas/alerts/disk_utilization_alerts` | alert on the percent disk utilization average across the database cluster | database cluster UUID
@@ -10256,7 +12021,14 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/monitoring/parameters.yml": string
+  "resources/monitoring/parameters.yml": {
+    droplet_id: string;
+    network_interface: "private" | "public";
+    network_direction: "inbound" | "outbound";
+    metric_timestamp_start: string;
+    metric_timestamp_end: string;
+    alert_uuid: string;
+  };
   "resources/monitoring/responses/alert_policy_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -10354,7 +12126,9 @@ export interface external {
      */
     status?: "ok" | "not_found" | "assigned" | "already_assigned" | "service_down";
   }
-  "resources/projects/parameters.yml": string
+  "resources/projects/parameters.yml": {
+    project_id: string;
+  };
   /**
    * Assign Resources to Default Project 
    * @description To assign resources to your default project, send a POST request to `/v2/projects/default/resources`.
@@ -10379,6 +12153,11 @@ export interface external {
    * @description To assign resources to a project, send a POST request to `/v2/projects/$PROJECT_ID/resources`.
    */
   "resources/projects/projects_assign_resources.yml": {
+    parameters: {
+      path: {
+        project_id: external["resources/projects/parameters.yml"]["project_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/projects/models/project_assignment.yml"];
@@ -10421,6 +12200,11 @@ export interface external {
    * This indicates that the request was processed successfully.
    */
   "resources/projects/projects_delete.yml": {
+    parameters: {
+      path: {
+        project_id: external["resources/projects/parameters.yml"]["project_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10450,6 +12234,11 @@ export interface external {
    * @description To get a project, send a GET request to `/v2/projects/$PROJECT_ID`.
    */
   "resources/projects/projects_get.yml": {
+    parameters: {
+      path: {
+        project_id: external["resources/projects/parameters.yml"]["project_id"];
+      };
+    };
     responses: {
       200: external["resources/projects/responses/existing_project.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10478,6 +12267,15 @@ export interface external {
    * @description To list all your resources in a project, send a GET request to `/v2/projects/$PROJECT_ID/resources`.
    */
   "resources/projects/projects_list_resources.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        project_id: external["resources/projects/parameters.yml"]["project_id"];
+      };
+    };
     responses: {
       200: external["resources/projects/responses/resources_list.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10492,6 +12290,12 @@ export interface external {
    * @description To list all your projects, send a GET request to `/v2/projects`.
    */
   "resources/projects/projects_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/projects/responses/projects_list.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10529,6 +12333,11 @@ export interface external {
    * @description To update only specific attributes of a project, send a PATCH request to `/v2/projects/$PROJECT_ID`. At least one of the following attributes needs to be sent.
    */
   "resources/projects/projects_patch.yml": {
+    parameters: {
+      path: {
+        project_id: external["resources/projects/parameters.yml"]["project_id"];
+      };
+    };
     requestBody: {
       content: {
         /**
@@ -10572,6 +12381,11 @@ export interface external {
    * @description To update a project, send a PUT request to `/v2/projects/$PROJECT_ID`. All of the following attributes must be sent.
    */
   "resources/projects/projects_update.yml": {
+    parameters: {
+      path: {
+        project_id: external["resources/projects/parameters.yml"]["project_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": WithRequired<external["resources/projects/models/project.yml"]["project"], "name" | "description" | "purpose" | "environment" | "is_default">;
@@ -10712,6 +12526,12 @@ export interface external {
    * The response will be a JSON object with a key called `regions`. The value of this will be an array of `region` objects, each of which will contain the standard region attributes.
    */
   "resources/regions/regions_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/regions/responses/all_regions.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -10997,7 +12817,17 @@ export interface external {
      */
     name: string;
   }
-  "resources/registry/parameters.yml": string
+  "resources/registry/parameters.yml": {
+    registry_expiry_seconds?: number;
+    registry_read_write?: boolean;
+    registry_name: string;
+    registry_repository_name: string;
+    registry_repository_tag: string;
+    registry_manifest_digest: string;
+    garbage_collection_uuid: string;
+    token_pagination_page?: number;
+    token_pagination_page_token?: string;
+  };
   /**
    * Create Container Registry 
    * @description To create your container registry, send a POST request to `/v2/registry`.
@@ -11034,6 +12864,13 @@ export interface external {
    * This indicates that the request was processed successfully.
    */
   "resources/registry/registry_delete_repositoryManifest.yml": {
+    parameters: {
+      path: {
+        registry_name: external["resources/registry/parameters.yml"]["registry_name"];
+        repository_name: external["resources/registry/parameters.yml"]["registry_repository_name"];
+        manifest_digest: external["resources/registry/parameters.yml"]["registry_manifest_digest"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11057,6 +12894,13 @@ export interface external {
    * This indicates that the request was processed successfully.
    */
   "resources/registry/registry_delete_repositoryTag.yml": {
+    parameters: {
+      path: {
+        registry_name: external["resources/registry/parameters.yml"]["registry_name"];
+        repository_name: external["resources/registry/parameters.yml"]["registry_repository_name"];
+        repository_tag: external["resources/registry/parameters.yml"]["registry_repository_tag"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11106,6 +12950,12 @@ export interface external {
    * credentials that expire after one hour.
    */
   "resources/registry/registry_get_dockerCredentials.yml": {
+    parameters: {
+      query: {
+        expiry_seconds?: external["resources/registry/parameters.yml"]["registry_expiry_seconds"];
+        read_write?: external["resources/registry/parameters.yml"]["registry_read_write"];
+      };
+    };
     responses: {
       200: external["resources/registry/responses/docker_credentials.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11119,6 +12969,11 @@ export interface external {
    * @description To get information about the currently-active garbage collection for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collection`.
    */
   "resources/registry/registry_get_garbageCollection.yml": {
+    parameters: {
+      path: {
+        registry_name: external["resources/registry/parameters.yml"]["registry_name"];
+      };
+    };
     responses: {
       200: external["resources/registry/responses/garbage_collection.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11175,6 +13030,15 @@ export interface external {
    * @description To get information about past garbage collections for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collections`.
    */
   "resources/registry/registry_list_garbageCollections.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        registry_name: external["resources/registry/parameters.yml"]["registry_name"];
+      };
+    };
     responses: {
       200: external["resources/registry/responses/garbage_collections.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11193,6 +13057,15 @@ export interface external {
    * request to `/v2/registry/$REGISTRY_NAME/repositories`.
    */
   "resources/registry/registry_list_repositories.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        registry_name: external["resources/registry/parameters.yml"]["registry_name"];
+      };
+    };
     responses: {
       200: external["resources/registry/responses/all_repositories.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11207,6 +13080,16 @@ export interface external {
    * @description To list all repositories in your container registry, send a GET request to `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
    */
   "resources/registry/registry_list_repositoriesV2.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["resources/registry/parameters.yml"]["token_pagination_page"];
+        page_token?: external["resources/registry/parameters.yml"]["token_pagination_page_token"];
+      };
+      path: {
+        registry_name: external["resources/registry/parameters.yml"]["registry_name"];
+      };
+    };
     responses: {
       200: external["resources/registry/responses/all_repositories_v2.yml"];
       400: external["shared/responses/bad_request.yml"];
@@ -11228,6 +13111,16 @@ export interface external {
    * `/v2/registry/example/repositories/my%2Frepo/digests`.
    */
   "resources/registry/registry_list_repositoryManifests.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        registry_name: external["resources/registry/parameters.yml"]["registry_name"];
+        repository_name: external["resources/registry/parameters.yml"]["registry_repository_name"];
+      };
+    };
     responses: {
       200: external["resources/registry/responses/repository_manifests.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11248,6 +13141,16 @@ export interface external {
    * `/v2/registry/example/repositories/my%2Frepo/tags`.
    */
   "resources/registry/registry_list_repositoryTags.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        registry_name: external["resources/registry/parameters.yml"]["registry_name"];
+        repository_name: external["resources/registry/parameters.yml"]["registry_repository_name"];
+      };
+    };
     responses: {
       200: external["resources/registry/responses/repository_tags.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11282,6 +13185,11 @@ export interface external {
    *   JWTs will once again be issued to registry clients.
    */
   "resources/registry/registry_run_garbageCollection.yml": {
+    parameters: {
+      path: {
+        registry_name: external["resources/registry/parameters.yml"]["registry_name"];
+      };
+    };
     responses: {
       201: external["resources/registry/responses/garbage_collection.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11296,6 +13204,12 @@ export interface external {
    * @description To cancel the currently-active garbage collection for a registry, send a PUT request to `/v2/registry/$REGISTRY_NAME/garbage-collection/$GC_UUID` and specify one or more of the attributes below.
    */
   "resources/registry/registry_update_garbageCollection.yml": {
+    parameters: {
+      path: {
+        registry_name: external["resources/registry/parameters.yml"]["registry_name"];
+        garbage_collection_uuid: external["resources/registry/parameters.yml"]["garbage_collection_uuid"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/registry/models/update_registry.yml"];
@@ -11530,7 +13444,9 @@ export interface external {
      */
     project_id?: string;
   }
-  "resources/reserved_ips/parameters.yml": string
+  "resources/reserved_ips/parameters.yml": {
+    reserved_ip: string;
+  };
   /**
    * Create a New Reserved IP 
    * @description On creation, a reserved IP must be either assigned to a Droplet or reserved to a region.
@@ -11557,7 +13473,7 @@ export interface external {
     };
   }
   /**
-   * Delete a Reserved IPs 
+   * Delete a Reserved IP 
    * @description To delete a reserved IP and remove it from your account, send a DELETE request
    * to `/v2/reserved_ips/$RESERVED_IP_ADDR`.
    * 
@@ -11565,6 +13481,11 @@ export interface external {
    * This indicates that the request was processed successfully.
    */
   "resources/reserved_ips/reservedIPs_delete.yml": {
+    parameters: {
+      path: {
+        reserved_ip: external["resources/reserved_ips/parameters.yml"]["reserved_ip"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11579,6 +13500,11 @@ export interface external {
    * @description To show information about a reserved IP, send a GET request to `/v2/reserved_ips/$RESERVED_IP_ADDR`.
    */
   "resources/reserved_ips/reservedIPs_get.yml": {
+    parameters: {
+      path: {
+        reserved_ip: external["resources/reserved_ips/parameters.yml"]["reserved_ip"];
+      };
+    };
     responses: {
       200: external["resources/reserved_ips/responses/reserved_ip.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11593,6 +13519,12 @@ export interface external {
    * @description To list all of the reserved IPs available on your account, send a GET request to `/v2/reserved_ips`.
    */
   "resources/reserved_ips/reservedIPs_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/reserved_ips/responses/reserved_ip_list.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11606,6 +13538,12 @@ export interface external {
    * @description To retrieve the status of a reserved IP action, send a GET request to `/v2/reserved_ips/$RESERVED_IP/actions/$ACTION_ID`.
    */
   "resources/reserved_ips/reservedIPsActions_get.yml": {
+    parameters: {
+      path: {
+        reserved_ip: external["resources/reserved_ips/parameters.yml"]["reserved_ip"];
+        action_id: external["resources/actions/parameters.yml"]["action_id"];
+      };
+    };
     responses: {
       200: external["resources/reserved_ips/responses/reserved_ip_action.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11620,6 +13558,11 @@ export interface external {
    * @description To retrieve all actions that have been executed on a reserved IP, send a GET request to `/v2/reserved_ips/$RESERVED_IP/actions`.
    */
   "resources/reserved_ips/reservedIPsActions_list.yml": {
+    parameters: {
+      path: {
+        reserved_ip: external["resources/reserved_ips/parameters.yml"]["reserved_ip"];
+      };
+    };
     responses: {
       200: external["resources/reserved_ips/responses/reserved_ip_actions.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11641,6 +13584,11 @@ export interface external {
    * | `unassign` | Unassign a reserved IP from a Droplet
    */
   "resources/reserved_ips/reservedIPsActions_post.yml": {
+    parameters: {
+      path: {
+        reserved_ip: external["resources/reserved_ips/parameters.yml"]["reserved_ip"];
+      };
+    };
     /**
      * @description The `type` attribute set in the request body will specify the action that
      * will be taken on the reserved IP.
@@ -11819,6 +13767,12 @@ export interface external {
    * The response will be a JSON object with a key called `sizes`. The value of this will be an array of `size` objects each of which contain the standard size attributes.
    */
   "resources/sizes/sizes_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/sizes/responses/all_sizes.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11886,7 +13840,10 @@ export interface external {
      */
     tags: (string)[] | null;
   })
-  "resources/snapshots/parameters.yml": string
+  "resources/snapshots/parameters.yml": {
+    snapshot_resource_type?: "droplet" | "volume";
+    snapshot_id: number | string;
+  };
   "resources/snapshots/responses/examples.yml": unknown
   "resources/snapshots/responses/snapshots_existing.yml": {
     headers: {
@@ -11922,6 +13879,11 @@ export interface external {
    * successfully, but that no response body is needed.
    */
   "resources/snapshots/snapshots_delete.yml": {
+    parameters: {
+      path: {
+        snapshot_id: external["resources/snapshots/parameters.yml"]["snapshot_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11940,6 +13902,11 @@ export interface external {
    * this will be an snapshot object containing the standard snapshot attributes.
    */
   "resources/snapshots/snapshots_get.yml": {
+    parameters: {
+      path: {
+        snapshot_id: external["resources/snapshots/parameters.yml"]["snapshot_id"];
+      };
+    };
     responses: {
       200: external["resources/snapshots/responses/snapshots_existing.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11973,6 +13940,13 @@ export interface external {
    * query parameter set to `volume`. For example, `/v2/snapshots?resource_type=volume`.
    */
   "resources/snapshots/snapshots_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+        resource_type?: external["resources/snapshots/parameters.yml"]["snapshot_resource_type"];
+      };
+    };
     responses: {
       200: external["resources/snapshots/responses/snapshots.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -11998,7 +13972,7 @@ export interface external {
     public_key: string;
     name: external["resources/ssh_keys/attributes/ssh_key_name.yml"];
   }
-  "resources/ssh_keys/parameters/ssh_key_identifier.yml": external["resources/ssh_keys/attributes/ssh_key_id.yml"] | external["resources/ssh_keys/attributes/ssh_key_fingerprint.yml"]
+  "resources/ssh_keys/parameters/ssh_key_identifier.yml": Record<string, never>
   "resources/ssh_keys/responses/sshKeys_all.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -12059,6 +14033,11 @@ export interface external {
    * A 204 status will be returned, indicating that the action was successful and that the response body is empty.
    */
   "resources/ssh_keys/sshKeys_delete.yml": {
+    parameters: {
+      path: {
+        ssh_key_identifier: external["resources/ssh_keys/parameters/ssh_key_identifier.yml"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -12074,6 +14053,11 @@ export interface external {
    * The response will be a JSON object with the key `ssh_key` and value an ssh_key object which contains the standard ssh_key attributes.
    */
   "resources/ssh_keys/sshKeys_get.yml": {
+    parameters: {
+      path: {
+        ssh_key_identifier: external["resources/ssh_keys/parameters/ssh_key_identifier.yml"];
+      };
+    };
     responses: {
       200: external["resources/ssh_keys/responses/sshKeys_existing.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -12088,6 +14072,12 @@ export interface external {
    * @description To list all of the keys in your account, send a GET request to `/v2/account/keys`. The response will be a JSON object with a key set to `ssh_keys`. The value of this will be an array of ssh_key objects, each of which contains the standard ssh_key attributes.
    */
   "resources/ssh_keys/sshKeys_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/ssh_keys/responses/sshKeys_all.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -12101,6 +14091,11 @@ export interface external {
    * @description To update the name of an SSH key, send a PUT request to either `/v2/account/keys/$SSH_KEY_ID` or `/v2/account/keys/$SSH_KEY_FINGERPRINT`. Set the `name` attribute to the new name you want to use.
    */
   "resources/ssh_keys/sshKeys_update.yml": {
+    parameters: {
+      path: {
+        ssh_key_identifier: external["resources/ssh_keys/parameters/ssh_key_identifier.yml"];
+      };
+    };
     /** @description Set the `name` attribute to the new name you want to use. */
     requestBody: {
       content: {
@@ -12211,7 +14206,9 @@ export interface external {
       databases?: external["resources/tags/models/tags_metadata.yml"];
     };
   }
-  "resources/tags/parameters.yml": string
+  "resources/tags/parameters.yml": {
+    tag_id: string;
+  };
   "resources/tags/responses/tags_all.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -12265,6 +14262,11 @@ export interface external {
    * Currently only tagging of Droplets, Databases, Images, Volumes, and Volume Snapshots is supported. `resource_type` is expected to be the string `droplet`, `database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expected to be the ID of the resource as a string.
    */
   "resources/tags/tags_assign_resources.yml": {
+    parameters: {
+      path: {
+        tag_id: external["resources/tags/parameters.yml"]["tag_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/tags/models/tags_resource.yml"];
@@ -12303,6 +14305,11 @@ export interface external {
    * @description A tag can be deleted by sending a `DELETE` request to `/v2/tags/$TAG_NAME`. Deleting a tag also untags all the resources that have previously been tagged by the Tag
    */
   "resources/tags/tags_delete.yml": {
+    parameters: {
+      path: {
+        tag_id: external["resources/tags/parameters.yml"]["tag_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -12317,6 +14324,11 @@ export interface external {
    * @description To retrieve an individual tag, you can send a `GET` request to `/v2/tags/$TAG_NAME`.
    */
   "resources/tags/tags_get.yml": {
+    parameters: {
+      path: {
+        tag_id: external["resources/tags/parameters.yml"]["tag_id"];
+      };
+    };
     responses: {
       200: external["resources/tags/responses/tags_existing.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -12331,6 +14343,12 @@ export interface external {
    * @description To list all of your tags, you can send a GET request to `/v2/tags`.
    */
   "resources/tags/tags_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/tags/responses/tags_all.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -12345,6 +14363,11 @@ export interface external {
    * Currently only untagging of Droplets, Databases, Images, Volumes, and Volume Snapshots is supported. `resource_type` is expected to be the string `droplet`, `database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expected to be the ID of the resource as a string.
    */
   "resources/tags/tags_unassign_resources.yml": {
+    parameters: {
+      path: {
+        tag_id: external["resources/tags/parameters.yml"]["tag_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/tags/models/tags_resource.yml"];
@@ -12365,6 +14388,11 @@ export interface external {
    * in the table below in the JSON body.
    */
   "resources/uptime/create_alert.yml": {
+    parameters: {
+      path: {
+        check_id: external["resources/uptime/parameters.yml"]["check_id"];
+      };
+    };
     /**
      * @description The ''type'' field dictates the type of alert, and hence what type of value to pass into the threshold property.
      * Type | Description | Threshold Value
@@ -12396,7 +14424,7 @@ export interface external {
   "resources/uptime/create_check.yml": {
     requestBody: {
       content: {
-        "application/json": WithRequired<external["resources/uptime/models/check.yml"]["check_updatable"], "name" | "method" | "target">;
+        "application/json": WithRequired<external["resources/uptime/models/check.yml"]["check_updatable"], "name" | "method" | "target" | "regions" | "type" | "enabled">;
       };
     };
     responses: {
@@ -12413,6 +14441,12 @@ export interface external {
    * code with no body will be returned in response to a successful request.
    */
   "resources/uptime/delete_alert.yml": {
+    parameters: {
+      path: {
+        check_id: external["resources/uptime/parameters.yml"]["check_id"];
+        alert_id: external["resources/uptime/parameters.yml"]["alert_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -12431,6 +14465,11 @@ export interface external {
    * Deleting a check will also delete alerts associated with the check.
    */
   "resources/uptime/delete_check.yml": {
+    parameters: {
+      path: {
+        check_id: external["resources/uptime/parameters.yml"]["check_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -12445,6 +14484,12 @@ export interface external {
    * @description To show information about an existing alert, send a GET request to `/v2/uptime/checks/$CHECK_ID/alerts/$ALERT_ID`.
    */
   "resources/uptime/get_alert.yml": {
+    parameters: {
+      path: {
+        check_id: external["resources/uptime/parameters.yml"]["check_id"];
+        alert_id: external["resources/uptime/parameters.yml"]["alert_id"];
+      };
+    };
     responses: {
       200: external["resources/uptime/responses/existing_alert.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -12459,6 +14504,11 @@ export interface external {
    * @description To show information about an existing check's state, send a GET request to `/v2/uptime/checks/$CHECK_ID/state`.
    */
   "resources/uptime/get_check_state.yml": {
+    parameters: {
+      path: {
+        check_id: external["resources/uptime/parameters.yml"]["check_id"];
+      };
+    };
     responses: {
       200: external["resources/uptime/responses/existing_check_state.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -12473,6 +14523,11 @@ export interface external {
    * @description To show information about an existing check, send a GET request to `/v2/uptime/checks/$CHECK_ID`.
    */
   "resources/uptime/get_check.yml": {
+    parameters: {
+      path: {
+        check_id: external["resources/uptime/parameters.yml"]["check_id"];
+      };
+    };
     responses: {
       200: external["resources/uptime/responses/existing_check.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -12487,6 +14542,15 @@ export interface external {
    * @description To list all of the alerts for an Uptime check, send a GET request to `/v2/uptime/checks/$CHECK_ID/alerts`.
    */
   "resources/uptime/list_alerts.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        check_id: external["resources/uptime/parameters.yml"]["check_id"];
+      };
+    };
     responses: {
       200: external["resources/uptime/responses/all_alerts.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -12501,6 +14565,12 @@ export interface external {
    * @description To list all of the Uptime checks on your account, send a GET request to `/v2/uptime/checks`.
    */
   "resources/uptime/list_checks.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/uptime/responses/all_checks.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -12537,7 +14607,10 @@ export interface external {
       })[];
   }
   "resources/uptime/models/state.yml": Record<string, never>
-  "resources/uptime/parameters.yml": string
+  "resources/uptime/parameters.yml": {
+    check_id: string;
+    alert_id: string;
+  };
   "resources/uptime/responses/all_alerts.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -12603,6 +14676,12 @@ export interface external {
    * @description To update the settings of an Uptime alert, send a PUT request to `/v2/uptime/checks/$CHECK_ID/alerts/$ALERT_ID`.
    */
   "resources/uptime/update_alert.yml": {
+    parameters: {
+      path: {
+        check_id: external["resources/uptime/parameters.yml"]["check_id"];
+        alert_id: external["resources/uptime/parameters.yml"]["alert_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/uptime/models/alert.yml"]["alert_updatable"];
@@ -12622,6 +14701,11 @@ export interface external {
    * @description To update the settings of an Uptime check, send a PUT request to `/v2/uptime/checks/$CHECK_ID`.
    */
   "resources/uptime/update_check.yml": {
+    parameters: {
+      path: {
+        check_id: external["resources/uptime/parameters.yml"]["check_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/uptime/models/check.yml"]["check_updatable"];
@@ -12750,7 +14834,11 @@ export interface external {
     region: external["shared/attributes/region_slug.yml"];
     filesystem_label?: external["resources/volumes/models/attributes.yml"]["volume_write_file_system_label"] & Record<string, never>;
   })
-  "resources/volumes/parameters.yml": string
+  "resources/volumes/parameters.yml": {
+    volume_id: string;
+    volume_name?: string;
+    volume_snapshot_id: string;
+  };
   "resources/volumes/responses/volume.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -12829,6 +14917,16 @@ export interface external {
    * @description To retrieve the status of a volume action, send a GET request to `/v2/volumes/$VOLUME_ID/actions/$ACTION_ID`.
    */
   "resources/volumes/volumeActions_get.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        volume_id: external["resources/volumes/parameters.yml"]["volume_id"];
+        action_id: external["resources/actions/parameters.yml"]["action_id"];
+      };
+    };
     responses: {
       200: external["resources/volumes/responses/volumeAction.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -12843,6 +14941,15 @@ export interface external {
    * @description To retrieve all actions that have been executed on a volume, send a GET request to `/v2/volumes/$VOLUME_ID/actions`.
    */
   "resources/volumes/volumeActions_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        volume_id: external["resources/volumes/parameters.yml"]["volume_id"];
+      };
+    };
     responses: {
       200: external["resources/volumes/responses/volumeActions.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -12892,6 +14999,15 @@ export interface external {
    * Volumes may only be resized upwards. The maximum size for a volume is 16TiB.
    */
   "resources/volumes/volumeActions_post_byId.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        volume_id: external["resources/volumes/parameters.yml"]["volume_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/volumes/models/volume_action_post_attach.yml"] | external["resources/volumes/models/volume_action_post_detach.yml"] | external["resources/volumes/models/volume_action_post_resize.yml"];
@@ -12938,6 +15054,12 @@ export interface external {
    * | region      | Set to the slug representing the region where the volume is located |
    */
   "resources/volumes/volumeActions_post.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/volumes/models/volume_action_post_attach.yml"] | external["resources/volumes/models/volume_action_post_detach.yml"];
@@ -12978,6 +15100,12 @@ export interface external {
    * No response body will be sent back, but the response code will indicate success. Specifically, the response code will be a 204, which means that the action was successful with no returned body data.
    */
   "resources/volumes/volumes_delete_byName.yml": {
+    parameters: {
+      query: {
+        name?: external["resources/volumes/parameters.yml"]["volume_name"];
+        region?: external["shared/parameters.yml"]["region"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -12993,6 +15121,11 @@ export interface external {
    * No response body will be sent back, but the response code will indicate success. Specifically, the response code will be a 204, which means that the action was successful with no returned body data.
    */
   "resources/volumes/volumes_delete.yml": {
+    parameters: {
+      path: {
+        volume_id: external["resources/volumes/parameters.yml"]["volume_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -13007,6 +15140,11 @@ export interface external {
    * @description To show information about a block storage volume, send a GET request to `/v2/volumes/$VOLUME_ID`.
    */
   "resources/volumes/volumes_get.yml": {
+    parameters: {
+      path: {
+        volume_id: external["resources/volumes/parameters.yml"]["volume_id"];
+      };
+    };
     responses: {
       200: external["resources/volumes/responses/volume.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -13029,6 +15167,14 @@ export interface external {
    * It is also possible to retrieve information about a block storage volume by name. To do so, send a GET request with the volume's name and the region slug for the region it is located in as query parameters to `/v2/volumes?name=$VOLUME_NAME&region=nyc1`.
    */
   "resources/volumes/volumes_list.yml": {
+    parameters: {
+      query: {
+        name?: external["resources/volumes/parameters.yml"]["volume_name"];
+        region?: external["shared/parameters.yml"]["region"];
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/volumes/responses/volumes.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -13042,6 +15188,11 @@ export interface external {
    * @description To create a snapshot from a volume, sent a POST request to `/v2/volumes/$VOLUME_ID/snapshots`.
    */
   "resources/volumes/volumeSnapshots_create.yml": {
+    parameters: {
+      path: {
+        volume_id: external["resources/volumes/parameters.yml"]["volume_id"];
+      };
+    };
     requestBody: {
       content: {
         /**
@@ -13078,6 +15229,11 @@ export interface external {
    * successfully, but that no response body is needed.
    */
   "resources/volumes/volumeSnapshots_delete_byId.yml": {
+    parameters: {
+      path: {
+        snapshot_id: external["resources/snapshots/parameters.yml"]["snapshot_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -13092,6 +15248,11 @@ export interface external {
    * @description To retrieve the details of a snapshot that has been created from a volume, send a GET request to `/v2/volumes/snapshots/$SNAPSHOT_ID`.
    */
   "resources/volumes/volumeSnapshots_get_byId.yml": {
+    parameters: {
+      path: {
+        snapshot_id: external["resources/snapshots/parameters.yml"]["snapshot_id"];
+      };
+    };
     responses: {
       200: external["resources/volumes/responses/volumeSnapshot.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -13106,6 +15267,15 @@ export interface external {
    * @description To retrieve the snapshots that have been created from a volume, send a GET request to `/v2/volumes/$VOLUME_ID/snapshots`.
    */
   "resources/volumes/volumeSnapshots_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        volume_id: external["resources/volumes/parameters.yml"]["volume_id"];
+      };
+    };
     responses: {
       200: external["resources/volumes/responses/volumeSnapshots.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -13129,7 +15299,10 @@ export interface external {
     created_at?: string;
   }
   "resources/vpcs/models/vpc.yml": Record<string, never>
-  "resources/vpcs/parameters.yml": string
+  "resources/vpcs/parameters.yml": {
+    vpc_id: string;
+    vpc_resource_type?: string;
+  };
   "resources/vpcs/responses/all_vpcs.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -13200,6 +15373,11 @@ export interface external {
    * 403 Forbidden error response.
    */
   "resources/vpcs/vpcs_delete.yml": {
+    parameters: {
+      path: {
+        vpc_id: external["resources/vpcs/parameters.yml"]["vpc_id"];
+      };
+    };
     responses: {
       204: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -13214,6 +15392,11 @@ export interface external {
    * @description To show information about an existing VPC, send a GET request to `/v2/vpcs/$VPC_ID`.
    */
   "resources/vpcs/vpcs_get.yml": {
+    parameters: {
+      path: {
+        vpc_id: external["resources/vpcs/parameters.yml"]["vpc_id"];
+      };
+    };
     responses: {
       200: external["resources/vpcs/responses/existing_vpc.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -13233,6 +15416,16 @@ export interface external {
    * in the VPC, send a GET request to `/v2/vpcs/$VPC_ID/members?resource_type=droplet`.
    */
   "resources/vpcs/vpcs_list_members.yml": {
+    parameters: {
+      query: {
+        resource_type?: external["resources/vpcs/parameters.yml"]["vpc_resource_type"];
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+      path: {
+        vpc_id: external["resources/vpcs/parameters.yml"]["vpc_id"];
+      };
+    };
     responses: {
       200: external["resources/vpcs/responses/vpc_members.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -13247,6 +15440,12 @@ export interface external {
    * @description To list all of the VPCs on your account, send a GET request to `/v2/vpcs`.
    */
   "resources/vpcs/vpcs_list.yml": {
+    parameters: {
+      query: {
+        per_page?: external["shared/parameters.yml"]["per_page"];
+        page?: external["shared/parameters.yml"]["page"];
+      };
+    };
     responses: {
       200: external["resources/vpcs/responses/all_vpcs.yml"];
       401: external["shared/responses/unauthorized.yml"];
@@ -13262,6 +15461,11 @@ export interface external {
    * `/v2/vpcs/$VPC_ID`.
    */
   "resources/vpcs/vpcs_patch.yml": {
+    parameters: {
+      path: {
+        vpc_id: external["resources/vpcs/parameters.yml"]["vpc_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": external["resources/vpcs/models/vpc.yml"]["vpc_updatable"] & external["resources/vpcs/models/vpc.yml"]["vpc_default"];
@@ -13281,6 +15485,11 @@ export interface external {
    * @description To update information about a VPC, send a PUT request to `/v2/vpcs/$VPC_ID`.
    */
   "resources/vpcs/vpcs_update.yml": {
+    parameters: {
+      path: {
+        vpc_id: external["resources/vpcs/parameters.yml"]["vpc_id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": WithRequired<external["resources/vpcs/models/vpc.yml"]["vpc_updatable"] & external["resources/vpcs/models/vpc.yml"]["vpc_default"], "name">;
@@ -13296,7 +15505,7 @@ export interface external {
     };
   }
   "shared/attributes/distribution.yml": "Arch Linux" | "CentOS" | "CoreOS" | "Debian" | "Fedora" | "Fedora Atomic" | "FreeBSD" | "Gentoo" | "openSUSE" | "RancherOS" | "Rocky Linux" | "Ubuntu" | "Unknown"
-  "shared/attributes/region_slug.yml": string
+  "shared/attributes/region_slug.yml": "ams1" | "ams2" | "ams3" | "blr1" | "fra1" | "lon1" | "nyc1" | "nyc2" | "nyc3" | "sfo1" | "sfo2" | "sfo3" | "sgp1" | "tor1"
   "shared/attributes/regions_array.yml": (external["shared/attributes/region_slug.yml"])[]
   "shared/attributes/tags_array.yml": (string)[] | null
   "shared/attributes/urn.yml": string
@@ -13367,7 +15576,11 @@ export interface external {
     total?: number;
   }
   "shared/pages.yml": Record<string, never>
-  "shared/parameters.yml": string
+  "shared/parameters.yml": {
+    per_page?: number;
+    page?: number;
+    region?: external["shared/attributes/region_slug.yml"];
+  };
   "shared/responses/accepted.yml": never
   "shared/responses/bad_request.yml": {
     headers: {

@@ -4,12 +4,13 @@ import transformPathsObject from "../src/transform/paths-object.js";
 const options: GlobalContext = {
   additionalProperties: false,
   alphabetize: false,
-  emptyObjectsUnknown: false,
   defaultNonNullable: false,
   discriminators: {},
+  emptyObjectsUnknown: false,
   immutableTypes: false,
   indentLv: 0,
   operations: {},
+  parameters: {},
   pathParamsAsTypes: false,
   postTransform: undefined,
   silent: true,
@@ -58,6 +59,10 @@ describe("Paths Object", () => {
   "/api/v1/user/{user_id}": {
     get: {
       parameters: {
+        query: {
+          /** @description Page number. */
+          page?: number;
+        };
         path: {
           /** @description User ID. */
           user_id: string;
@@ -103,16 +108,40 @@ describe("Paths Object", () => {
         ],
       },
     };
-    const generated = transformPathsObject(schema, options);
+    const generated = transformPathsObject(schema, {
+      ...options,
+      parameters: {
+        'components["parameters"]["query"]["utm_source"]': {
+          in: "query",
+          name: "utm_source",
+          schema: { type: "string" },
+        },
+        'components["parameters"]["query"]["utm_email"]': {
+          in: "query",
+          name: "utm_email",
+          schema: { type: "string" },
+        },
+        'components["parameters"]["query"]["utm_campaign"]': {
+          in: "query",
+          name: "utm_campaign",
+          schema: { type: "string" },
+        },
+        'components["parameters"]["path"]["version"]': { in: "path", name: "utm_campaign", schema: { type: "string" } },
+      },
+    });
     expect(generated).toBe(`{
   "/api/{version}/user/{user_id}": {
     parameters: {
       query: {
         page?: number;
-      } & (Pick<NonNullable<components["parameters"]["query"]>, "utm_source" | "utm_email" | "utm_campaign">);
+        utm_source?: components["parameters"]["query"]["utm_source"];
+        utm_email?: components["parameters"]["query"]["utm_email"];
+        utm_campaign?: components["parameters"]["query"]["utm_campaign"];
+      };
       path: {
+        utm_campaign: components["parameters"]["path"]["version"];
         user_id: string;
-      } & Pick<components["parameters"]["path"], "version">;
+      };
     };
   };
 }`);

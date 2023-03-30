@@ -31,6 +31,9 @@ responses:
   default:
     $ref: "../../shared/responses/unexpected_error.yml"
 
+x-codeSamples:
+  - $ref: 'examples/curl/volumeSnapshots_get_byId.yml'
+
 security:
   - bearer_auth:
       - "read"

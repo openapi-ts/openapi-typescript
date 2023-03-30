@@ -49,6 +49,10 @@ source: |-
           },
           DropletIDs:          []int{3164444, 3164445},
           RedirectHttpToHttps: false,
+          Firewall:            &godo.LBFirewall{
+              Deny: []string{"ip:1.2.3.4", "cidr:2.3.4.0/24"},
+              Allow: []string{"cidr:1.2.0.0/16", "ip:2.3.4.5"},
+          }
       }
 
       lb, _, err := c.LoadBalancers.Update(ctx, "c2c97ca7-6f63-4e23-8909-906fd86efb5e", updateRequest)

@@ -1,0 +1,29 @@
+type: object
+properties:
+  uri:
+    description: "An optional URI path to redirect to. Note: if this is specified the whole URI of the original request will be overwritten to this value, irrespective of the original request URI being matched."
+    type: string
+    example: /about
+  
+  authority:
+    description: "The authority/host to redirect to. This can be a hostname or IP address. Note: use `port` to set the port."
+    type: string
+    example: example.com
+  
+  port:
+    description: The port to redirect to.
+    type: integer
+    format: int64
+    example: 443
+  
+  scheme:
+    description: "The scheme to redirect to. Supported values are `http` or `https`. Default: `https`."
+    type: string
+    example: "https"
+  
+  redirect_code:
+    description: The redirect code to use. Defaults to `302`. Supported values are 300, 301, 302, 303, 304, 307, 308.
+    type: integer
+    format: int64
+    example: 302
+description: The redirect configuration for the rule. Only one of `component` or `redirect` may be set.

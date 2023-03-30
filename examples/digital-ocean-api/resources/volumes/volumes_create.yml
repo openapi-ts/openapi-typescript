@@ -28,7 +28,7 @@ requestBody:
         ext4 volume:
           value:
             size_gigabytes: 10
-            name: ext4_example
+            name: ext4-example
             description: Block store for examples
             region: nyc1
             filesystem_type: ext4

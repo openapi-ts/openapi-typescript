@@ -1,17 +1,5 @@
 import type { GlobalContext, OperationObject, ParameterObject } from "../types";
-import {
-  escObjKey,
-  getEntries,
-  getSchemaObjectComment,
-  indent,
-  makeTSIndex,
-  parseTSIndex,
-  tsIntersectionOf,
-  tsNonNullable,
-  tsOptionalProperty,
-  tsPick,
-  tsReadonly,
-} from "../utils.js";
+import { escObjKey, getEntries, getSchemaObjectComment, indent, tsOptionalProperty, tsReadonly } from "../utils.js";
 import transformParameterObject from "./parameter-object.js";
 import transformRequestBodyObject from "./request-body-object.js";
 import transformResponseObject from "./response-object.js";
@@ -37,56 +25,33 @@ export default function transformOperationObject(
       const parameterOutput: string[] = [];
       indentLv++;
       for (const paramIn of ["query", "header", "path", "cookie"] as ParameterObject["in"][]) {
-        const inlineOutput: string[] = [];
-        const refs: Record<string, string[]> = {};
+        const paramInternalOutput: string[] = [];
         indentLv++;
-        for (const p of operationObject.parameters) {
-          // handle inline params
-          if ("in" in p) {
-            if (p.in !== paramIn) continue;
-            let key = escObjKey(p.name);
-            if (paramIn !== "path" && !p.required) {
-              key = tsOptionalProperty(key);
-            }
-            const c = getSchemaObjectComment(p, indentLv);
-            if (c) inlineOutput.push(indent(c, indentLv));
-            const parameterType = transformParameterObject(p, {
-              path: `${path}/parameters/${p.name}`,
-              ctx: { ...ctx, indentLv },
-            });
-            inlineOutput.push(indent(`${key}: ${parameterType};`, indentLv));
-          }
-          // handle $ref’d params
-          // note: these can only point to specific parts of the schema, which have already
-          // been resolved in the initial step and follow a predictable pattern. so we can
-          // do some clever string magic to link them up properly without needing the
-          // original object
-          else if (p.$ref) {
-            const parts = parseTSIndex(p.$ref);
-            const paramI = parts.indexOf("parameters");
-            if (paramI === -1 || parts[paramI + 1] !== paramIn || !parts[paramI + 2]) continue;
-            const key = parts.pop()!;
-            const index = makeTSIndex(parts);
-            if (!refs[index]) refs[index] = [key];
-            else refs[index].push(key);
-          }
+        for (const param of operationObject.parameters ?? []) {
+          const node: ParameterObject | undefined = "$ref" in param ? ctx.parameters[param.$ref] : param;
+          if (node?.in !== paramIn) continue;
+          let key = escObjKey(node.name);
+          if (paramIn !== "path" && !node.required) key = tsOptionalProperty(key);
+          const c = getSchemaObjectComment(param, indentLv);
+          if (c) paramInternalOutput.push(indent(c, indentLv));
+          const parameterType =
+            "$ref" in param
+              ? param.$ref
+              : transformParameterObject(param, {
+                  path: `${path}/parameters/${param.name}`,
+                  ctx: { ...ctx, indentLv },
+                });
+          paramInternalOutput.push(indent(`${key}: ${parameterType};`, indentLv));
         }
         indentLv--;
-
-        // nothing here? skip
-        if (!inlineOutput.length && !Object.keys(refs).length) continue;
-
-        const paramType = tsIntersectionOf(
-          ...(inlineOutput.length ? [`{\n${inlineOutput.join("\n")}\n${indent("}", indentLv)}`] : []),
-          ...Object.entries(refs).map(([root, keys]) =>
-            paramIn === "path" ? tsPick(root, keys) : tsPick(tsNonNullable(root), keys)
-          )
-        );
-        let key: string = paramIn;
-        if (ctx.immutableTypes) key = tsReadonly(key);
-        parameterOutput.push(indent(`${key}: ${paramType};`, indentLv));
+        if (paramInternalOutput.length) {
+          parameterOutput.push(indent(`${paramIn}: {`, indentLv));
+          parameterOutput.push(...paramInternalOutput);
+          parameterOutput.push(indent(`};`, indentLv));
+        }
       }
       indentLv--;
+
       if (parameterOutput.length) {
         output.push(indent(`parameters: {`, indentLv));
         output.push(parameterOutput.join("\n"));

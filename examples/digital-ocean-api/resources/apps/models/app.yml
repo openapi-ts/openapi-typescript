@@ -52,6 +52,10 @@ properties:
     title: The ID of the account to which the application belongs
     type: string
     example: 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+  pending_deployment:
+    allOf:
+      - description: The most recent pending deployment. For CreateApp and UpdateApp transactions this is guaranteed to reflect the associated deployment.
+      - $ref: apps_deployment.yml
   project_id:
     readOnly: true
     type: string

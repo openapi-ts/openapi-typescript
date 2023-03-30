@@ -23,6 +23,9 @@ requestBody:
           - name
           - method
           - target
+          - regions
+          - type
+          - enabled
 
 responses:
   '201':

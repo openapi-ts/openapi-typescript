@@ -89,6 +89,17 @@ properties:
       specify a VPC network for the Droplet. If no `vpc_uuid` is provided, the
       Droplet will be placed in your account's default VPC for the region.
 
+  volumes:
+    type: array
+    items:
+      type: string
+    example:
+    - 12e97116-7280-11ed-b3d0-0a58ac146812
+    default: []
+    description: An array of IDs for block storage volumes that will be attached
+      to the Droplet once created. The volumes must not already be attached to
+      an existing Droplet.
+
   vpc_uuid:
     type: string
     example: 760e09ef-dc84-11e8-981e-3cfdfeaae000

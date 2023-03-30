@@ -130,6 +130,15 @@ properties:
     description: A boolean value indicating whether HTTP keepalive connections
       are maintained to target Droplets.
 
+  http_idle_timeout_seconds:
+    type: integer
+    example: 90
+    default: 60
+    minimum: 30
+    maximum: 600
+    description: An integer value which configures the idle timeout for HTTP requests
+     to the target droplets.
+
   vpc_uuid:
     type: string
     format: uuid
@@ -144,6 +153,9 @@ properties:
     description: A boolean value indicating whether to disable automatic DNS
       record creation for Let's Encrypt certificates that are added to the
       load balancer.
+
+  firewall:
+    $ref: 'lb_firewall.yml'
 
 required:
   - forwarding_rules
