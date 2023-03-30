@@ -276,7 +276,7 @@ By default, openapiTS will generate `updated_at?: string;` because it’s not su
 const types = openapiTS(mySchema, {
   transform(schemaObject, metadata): string {
     if ("format" in schemaObject && schemaObject.format === "date-time") {
-      return "Date";
+      return schemaObject.nullable ? "Date | null" : "Date";
     }
   },
 });
