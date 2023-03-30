@@ -695,6 +695,17 @@
         "test",
         "bug"
       ]
+    },
+    {
+      "login": "qnp",
+      "name": "François Risoud",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6012554?v=4",
+      "profile": "http://www.francoisrisoud.com",
+      "contributions": [
+        "code",
+        "bug",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
