@@ -4,6 +4,7 @@ import type {
   GlobalContext,
   OpenAPI3,
   OperationObject,
+  ParameterObject,
   PathItemObject,
   ReferenceObject,
   RequestBodyObject,
@@ -100,6 +101,7 @@ export interface LoadOptions extends GlobalContext {
   httpHeaders?: Record<string, any>;
   httpMethod?: string;
   fetch: Fetch;
+  parameters: Record<string, ParameterObject>;
 }
 
 /** Load a schema from local path or remote URL */
@@ -269,8 +271,9 @@ export default async function load(
   // 3. transform $refs once, at the root schema, after all have been scanned & downloaded (much easier to do here when we have the context)
   if (schemaID === ".") {
     for (const subschemaID of Object.keys(options.schemas)) {
-      walk(options.schemas[subschemaID].schema, (rawNode) => {
+      walk(options.schemas[subschemaID].schema, (rawNode, nodePath) => {
         if (!("$ref" in rawNode) || typeof rawNode.$ref !== "string") return;
+
         const node = rawNode as unknown as ReferenceObject;
 
         const ref = parseRef(node.$ref);
@@ -288,7 +291,18 @@ export default async function load(
     }
   }
 
-  // 4. scan for discriminators (after everything’s resolved in one file)
+  // 4. collect parameters (which must be hoisted to the top)
+  for (const k of Object.keys(options.schemas)) {
+    walk(options.schemas[k].schema, (rawNode, nodePath) => {
+      // note: 'in' is a unique required property of parameters. and parameters can live in subschemas (i.e. "parameters" doesn’t have to be part of the traceable path)
+      if (typeof rawNode === "object" && "in" in rawNode) {
+        const key = k === "." ? makeTSIndex(nodePath) : makeTSIndex(["external", k, ...nodePath]);
+        options.parameters[key] = rawNode as any;
+      }
+    });
+  }
+
+  // 5. scan for discriminators (after everything’s resolved in one file)
   for (const k of Object.keys(options.schemas)) {
     // 4a. lazy stringification check is faster than deep-scanning a giant object for discriminators
     // since most schemas don’t use them
@@ -364,7 +378,7 @@ function getHintFromMediaTypeObject(path: (string | number)[]): Subschema["hint"
 function getHintFromOperationObject(path: (string | number)[]): Subschema["hint"] {
   switch (path[0] as keyof OperationObject) {
     case "parameters":
-      return getHintFromParameterObject(path.slice(1));
+      return "ParameterObject[]";
     case "requestBody":
       return getHintFromRequestBodyObject(path.slice(1));
     case "responses":
@@ -383,8 +397,12 @@ function getHintFromParameterObject(path: (string | number)[]): Subschema["hint"
 }
 function getHintFromPathItemObject(path: (string | number)[]): Subschema["hint"] | undefined {
   switch (path[0] as keyof PathItemObject) {
-    case "parameters":
+    case "parameters": {
+      if (typeof path[1] === "number") {
+        return "ParameterObject[]";
+      }
       return getHintFromParameterObject(path.slice(1));
+    }
     default:
       return getHintFromOperationObject(path.slice(1));
   }

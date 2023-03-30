@@ -5811,6 +5811,12 @@ export interface operations {
 
   /** List global webhooks */
   "enterprise-admin/list-global-webhooks": {
+    parameters: {
+      query: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -5862,6 +5868,11 @@ export interface operations {
   };
   /** Get a global webhook */
   "enterprise-admin/get-global-webhook": {
+    parameters: {
+      path: {
+        hook_id: components["parameters"]["hook-id"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -5873,6 +5884,11 @@ export interface operations {
   };
   /** Delete a global webhook */
   "enterprise-admin/delete-global-webhook": {
+    parameters: {
+      path: {
+        hook_id: components["parameters"]["hook-id"];
+      };
+    };
     responses: {
       /** @description Response */
       204: never;
@@ -5883,6 +5899,11 @@ export interface operations {
    * @description Parameters that are not provided will be overwritten with the default value or removed if no default exists.
    */
   "enterprise-admin/update-global-webhook": {
+    parameters: {
+      path: {
+        hook_id: components["parameters"]["hook-id"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": {
@@ -5921,6 +5942,11 @@ export interface operations {
    * @description This will trigger a [ping event](https://docs.github.com/enterprise-server@3.6/webhooks/#ping-event) to be sent to the webhook.
    */
   "enterprise-admin/ping-global-webhook": {
+    parameters: {
+      path: {
+        hook_id: components["parameters"]["hook-id"];
+      };
+    };
     responses: {
       /** @description Response */
       204: never;
@@ -5930,6 +5956,9 @@ export interface operations {
   "enterprise-admin/list-public-keys": {
     parameters: {
       query: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+        direction?: components["parameters"]["direction"];
         sort?: "created" | "updated" | "accessed";
         /** @description Only show public keys accessed after the given time. */
         since?: string;
@@ -5949,6 +5978,11 @@ export interface operations {
   };
   /** Delete a public key */
   "enterprise-admin/delete-public-key": {
+    parameters: {
+      path: {
+        key_ids: components["parameters"]["key-ids"];
+      };
+    };
     responses: {
       /** @description Response */
       204: never;
@@ -5959,6 +5993,11 @@ export interface operations {
    * @description Updates the [distinguished name](https://www.ldap.com/ldap-dns-and-rdns) (DN) of the LDAP entry to map to a team. [LDAP synchronization](https://docs.github.com/enterprise-server@3.6/admin/identity-and-access-management/using-ldap-for-enterprise-iam/using-ldap#enabling-ldap-sync) must be enabled to map LDAP entries to a team. Use the [Create a team](https://docs.github.com/enterprise-server@3.6/rest/reference/teams/#create-a-team) endpoint to create a team with LDAP mapping.
    */
   "enterprise-admin/update-ldap-mapping-for-team": {
+    parameters: {
+      path: {
+        team_id: components["parameters"]["team-id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -5981,6 +6020,11 @@ export interface operations {
    * @description Note that this API call does not automatically initiate an LDAP sync. Rather, if a `201` is returned, the sync job is queued successfully, and is performed when the instance is ready.
    */
   "enterprise-admin/sync-ldap-mapping-for-team": {
+    parameters: {
+      path: {
+        team_id: components["parameters"]["team-id"];
+      };
+    };
     responses: {
       /** @description Response */
       201: {
@@ -5994,6 +6038,11 @@ export interface operations {
   };
   /** Update LDAP mapping for a user */
   "enterprise-admin/update-ldap-mapping-for-user": {
+    parameters: {
+      path: {
+        username: components["parameters"]["username"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -6016,6 +6065,11 @@ export interface operations {
    * @description Note that this API call does not automatically initiate an LDAP sync. Rather, if a `201` is returned, the sync job is queued successfully, and is performed when the instance is ready.
    */
   "enterprise-admin/sync-ldap-mapping-for-user": {
+    parameters: {
+      path: {
+        username: components["parameters"]["username"];
+      };
+    };
     responses: {
       /** @description Response */
       201: {
@@ -6052,6 +6106,11 @@ export interface operations {
   };
   /** Update an organization name */
   "enterprise-admin/update-org-name": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -6076,6 +6135,9 @@ export interface operations {
   "enterprise-admin/list-pre-receive-environments": {
     parameters: {
       query: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+        direction?: components["parameters"]["direction"];
         sort?: "created" | "updated" | "name";
       };
     };
@@ -6111,6 +6173,11 @@ export interface operations {
   };
   /** Get a pre-receive environment */
   "enterprise-admin/get-pre-receive-environment": {
+    parameters: {
+      path: {
+        pre_receive_environment_id: components["parameters"]["pre-receive-environment-id"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -6131,6 +6198,11 @@ export interface operations {
    * *   _Cannot delete environment when download is in progress_
    */
   "enterprise-admin/delete-pre-receive-environment": {
+    parameters: {
+      path: {
+        pre_receive_environment_id: components["parameters"]["pre-receive-environment-id"];
+      };
+    };
     responses: {
       /** @description Response */
       204: never;
@@ -6154,6 +6226,11 @@ export interface operations {
    * @description You cannot modify the default environment. If you attempt to modify the default environment, you will receive a `422 Unprocessable Entity` response.
    */
   "enterprise-admin/update-pre-receive-environment": {
+    parameters: {
+      path: {
+        pre_receive_environment_id: components["parameters"]["pre-receive-environment-id"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": {
@@ -6198,6 +6275,11 @@ export interface operations {
    * * _Can not start a new download when a download is in progress_
    */
   "enterprise-admin/start-pre-receive-environment-download": {
+    parameters: {
+      path: {
+        pre_receive_environment_id: components["parameters"]["pre-receive-environment-id"];
+      };
+    };
     responses: {
       /** @description Response */
       202: {
@@ -6225,6 +6307,11 @@ export interface operations {
    * @description In addition to seeing the download status at the "[Get a pre-receive environment](#get-a-pre-receive-environment)" endpoint, there is also this separate endpoint for just the download status.
    */
   "enterprise-admin/get-download-status-for-pre-receive-environment": {
+    parameters: {
+      path: {
+        pre_receive_environment_id: components["parameters"]["pre-receive-environment-id"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -6238,6 +6325,9 @@ export interface operations {
   "enterprise-admin/list-pre-receive-hooks": {
     parameters: {
       query: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+        direction?: components["parameters"]["direction"];
         /** @description The property to sort the results by. */
         sort?: "created" | "updated" | "name";
       };
@@ -6286,6 +6376,11 @@ export interface operations {
   };
   /** Get a pre-receive hook */
   "enterprise-admin/get-pre-receive-hook": {
+    parameters: {
+      path: {
+        pre_receive_hook_id: components["parameters"]["pre-receive-hook-id"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -6297,6 +6392,11 @@ export interface operations {
   };
   /** Delete a pre-receive hook */
   "enterprise-admin/delete-pre-receive-hook": {
+    parameters: {
+      path: {
+        pre_receive_hook_id: components["parameters"]["pre-receive-hook-id"];
+      };
+    };
     responses: {
       /** @description Response */
       204: never;
@@ -6304,6 +6404,11 @@ export interface operations {
   };
   /** Update a pre-receive hook */
   "enterprise-admin/update-pre-receive-hook": {
+    parameters: {
+      path: {
+        pre_receive_hook_id: components["parameters"]["pre-receive-hook-id"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": {
@@ -6340,6 +6445,12 @@ export interface operations {
    * @description Lists personal access tokens for all users, including admin users.
    */
   "enterprise-admin/list-personal-access-tokens": {
+    parameters: {
+      query: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -6357,6 +6468,11 @@ export interface operations {
    * @description Deletes a personal access token. Returns a `403 - Forbidden` status when a personal access token is in use. For example, if you access this endpoint with the same personal access token that you are trying to delete, you will receive this error.
    */
   "enterprise-admin/delete-personal-access-token": {
+    parameters: {
+      path: {
+        token_id: components["parameters"]["token-id"];
+      };
+    };
     responses: {
       /** @description Response */
       204: never;
@@ -6401,6 +6517,11 @@ export interface operations {
    * You can delete any user account except your own.
    */
   "enterprise-admin/delete-user": {
+    parameters: {
+      path: {
+        username: components["parameters"]["username"];
+      };
+    };
     responses: {
       /** @description Response */
       204: never;
@@ -6408,6 +6529,11 @@ export interface operations {
   };
   /** Update the username for a user */
   "enterprise-admin/update-username-for-user": {
+    parameters: {
+      path: {
+        username: components["parameters"]["username"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -6430,6 +6556,11 @@ export interface operations {
   };
   /** Create an impersonation OAuth token */
   "enterprise-admin/create-impersonation-o-auth-token": {
+    parameters: {
+      path: {
+        username: components["parameters"]["username"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -6455,6 +6586,11 @@ export interface operations {
   };
   /** Delete an impersonation OAuth token */
   "enterprise-admin/delete-impersonation-o-auth-token": {
+    parameters: {
+      path: {
+        username: components["parameters"]["username"];
+      };
+    };
     responses: {
       /** @description Response */
       204: never;
@@ -6469,6 +6605,9 @@ export interface operations {
   "apps/list-installations": {
     parameters: {
       query: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+        since?: components["parameters"]["since"];
         outdated?: string;
       };
     };
@@ -6491,6 +6630,11 @@ export interface operations {
    * You must use a [JWT](https://docs.github.com/enterprise-server@3.6/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
    */
   "apps/get-installation": {
+    parameters: {
+      path: {
+        installation_id: components["parameters"]["installation-id"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -6508,6 +6652,11 @@ export interface operations {
    * You must use a [JWT](https://docs.github.com/enterprise-server@3.6/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
    */
   "apps/create-installation-access-token": {
+    parameters: {
+      path: {
+        installation_id: components["parameters"]["installation-id"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": {
@@ -6547,6 +6696,8 @@ export interface operations {
   "oauth-authorizations/list-grants": {
     parameters: {
       query: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
         /** @description The client ID of your GitHub app. */
         client_id?: string;
       };
@@ -6573,6 +6724,11 @@ export interface operations {
    * @description **Deprecation Notice:** GitHub Enterprise Server will discontinue the [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/enterprise-server@3.6/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
    */
   "oauth-authorizations/get-grant": {
+    parameters: {
+      path: {
+        grant_id: components["parameters"]["grant-id"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -6593,6 +6749,11 @@ export interface operations {
    * Deleting an OAuth application's grant will also delete all OAuth tokens associated with the application for your user. Once deleted, the application has no access to your account and is no longer listed on [the application authorizations settings screen within GitHub](https://github.com/settings/applications#authorized).
    */
   "oauth-authorizations/delete-grant": {
+    parameters: {
+      path: {
+        grant_id: components["parameters"]["grant-id"];
+      };
+    };
     responses: {
       /** @description Response */
       204: never;
@@ -6606,6 +6767,11 @@ export interface operations {
    * @description OAuth applications can use a special API method for checking OAuth token validity without exceeding the normal rate limits for failed login attempts. Authentication works differently with this particular endpoint. You must use [Basic Authentication](https://docs.github.com/enterprise-server@3.6/rest/overview/other-authentication-methods#basic-authentication) to use this endpoint, where the username is the OAuth application `client_id` and the password is its `client_secret`. Invalid tokens will return `404 NOT FOUND`.
    */
   "apps/check-token": {
+    parameters: {
+      path: {
+        client_id: components["parameters"]["client-id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -6630,6 +6796,11 @@ export interface operations {
    * @description OAuth applications can use this API method to reset a valid OAuth token without end-user involvement. Applications must save the "token" property in the response because changes take effect immediately. You must use [Basic Authentication](https://docs.github.com/enterprise-server@3.6/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the OAuth application's `client_id` and `client_secret` as the username and password. Invalid tokens will return `404 NOT FOUND`.
    */
   "apps/reset-token": {
+    parameters: {
+      path: {
+        client_id: components["parameters"]["client-id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -6653,6 +6824,11 @@ export interface operations {
    * @description Use a non-scoped user-to-server OAuth access token to create a repository scoped and/or permission scoped user-to-server OAuth access token. You can specify which repositories the token can access and which permissions are granted to the token. You must use [Basic Authentication](https://docs.github.com/enterprise-server@3.6/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the OAuth application's `client_id` and `client_secret` as the username and password. Invalid tokens will return `404 NOT FOUND`.
    */
   "apps/scope-token": {
+    parameters: {
+      path: {
+        client_id: components["parameters"]["client-id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -6705,6 +6881,8 @@ export interface operations {
   "oauth-authorizations/list-authorizations": {
     parameters: {
       query: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
         /** @description The client ID of your GitHub app. */
         client_id?: string;
       };
@@ -6800,6 +6978,11 @@ export interface operations {
    * **Deprecation Notice:** GitHub Enterprise Server will discontinue the [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations/), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/enterprise-server@3.6/developers/apps/authorizing-oauth-apps#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
    */
   "oauth-authorizations/get-or-create-authorization-for-app": {
+    parameters: {
+      path: {
+        client_id: components["parameters"]["oauth-client-id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -6866,6 +7049,7 @@ export interface operations {
   "oauth-authorizations/get-or-create-authorization-for-app-and-fingerprint": {
     parameters: {
       path: {
+        client_id: components["parameters"]["oauth-client-id"];
         fingerprint: string;
       };
     };
@@ -6922,6 +7106,11 @@ export interface operations {
    * @description **Deprecation Notice:** GitHub Enterprise Server will discontinue the [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/enterprise-server@3.6/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
    */
   "oauth-authorizations/get-authorization": {
+    parameters: {
+      path: {
+        authorization_id: components["parameters"]["authorization-id"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -6940,6 +7129,11 @@ export interface operations {
    * @description **Deprecation Notice:** GitHub Enterprise Server will discontinue the [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/enterprise-server@3.6/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
    */
   "oauth-authorizations/delete-authorization": {
+    parameters: {
+      path: {
+        authorization_id: components["parameters"]["authorization-id"];
+      };
+    };
     responses: {
       /** @description Response */
       204: never;
@@ -6958,6 +7152,11 @@ export interface operations {
    * You can only send one of these scope keys at a time.
    */
   "oauth-authorizations/update-authorization": {
+    parameters: {
+      path: {
+        authorization_id: components["parameters"]["authorization-id"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": {
@@ -7177,6 +7376,11 @@ export interface operations {
    * GitHub Apps must have the `enterprise_administration:write` permission to use this endpoint.
    */
   "actions/get-actions-cache-usage-policy-for-enterprise": {
+    parameters: {
+      path: {
+        enterprise: components["parameters"]["enterprise"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7196,6 +7400,11 @@ export interface operations {
    * GitHub Apps must have the `enterprise_administration:write` permission to use this endpoint.
    */
   "actions/set-actions-cache-usage-policy-for-enterprise": {
+    parameters: {
+      path: {
+        enterprise: components["parameters"]["enterprise"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": components["schemas"]["actions-cache-usage-policy-enterprise"];
@@ -7213,6 +7422,11 @@ export interface operations {
    * You must authenticate using an access token with the `admin:enterprise` scope to use this endpoint.
    */
   "enterprise-admin/get-allowed-actions-enterprise": {
+    parameters: {
+      path: {
+        enterprise: components["parameters"]["enterprise"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7229,6 +7443,11 @@ export interface operations {
    * You must authenticate using an access token with the `admin:enterprise` scope to use this endpoint.
    */
   "enterprise-admin/set-allowed-actions-enterprise": {
+    parameters: {
+      path: {
+        enterprise: components["parameters"]["enterprise"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": components["schemas"]["selected-actions"];
@@ -7244,6 +7463,20 @@ export interface operations {
    * @description Gets the audit log for an enterprise. To use this endpoint, you must be an enterprise admin, and you must use an access token with the `admin:enterprise` scope.
    */
   "enterprise-admin/get-audit-log": {
+    parameters: {
+      query: {
+        phrase?: components["parameters"]["audit-log-phrase"];
+        include?: components["parameters"]["audit-log-include"];
+        after?: components["parameters"]["audit-log-after"];
+        before?: components["parameters"]["audit-log-before"];
+        order?: components["parameters"]["audit-log-order"];
+        page?: components["parameters"]["page"];
+        per_page?: components["parameters"]["per-page"];
+      };
+      path: {
+        enterprise: components["parameters"]["enterprise"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7259,6 +7492,21 @@ export interface operations {
    * To use this endpoint, you must be a member of the enterprise, and you must use an access token with the `repo` scope or `security_events` scope. Alerts are only returned for organizations in the enterprise for which you are an organization owner or a [security manager](https://docs.github.com/enterprise-server@3.6/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization).
    */
   "secret-scanning/list-alerts-for-enterprise": {
+    parameters: {
+      query: {
+        state?: components["parameters"]["secret-scanning-alert-state"];
+        secret_type?: components["parameters"]["secret-scanning-alert-secret-type"];
+        resolution?: components["parameters"]["secret-scanning-alert-resolution"];
+        sort?: components["parameters"]["secret-scanning-alert-sort"];
+        direction?: components["parameters"]["direction"];
+        per_page?: components["parameters"]["per-page"];
+        before?: components["parameters"]["pagination-before"];
+        after?: components["parameters"]["pagination-after"];
+      };
+      path: {
+        enterprise: components["parameters"]["enterprise"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7325,6 +7573,11 @@ export interface operations {
    * GitHub Apps with the `Organization plan` permission can use this endpoint to retrieve information about an organization's GitHub Enterprise Server plan. See "[Authenticating with GitHub Apps](https://docs.github.com/enterprise-server@3.6/apps/building-github-apps/authenticating-with-github-apps/)" for details. For an example response, see 'Response with GitHub Enterprise Server plan information' below."
    */
   "orgs/get": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7342,6 +7595,11 @@ export interface operations {
    * Enables an authenticated organization owner with the `admin:org` scope to update the organization's profile and member privileges.
    */
   "orgs/update": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": {
@@ -7429,6 +7687,11 @@ export interface operations {
    * You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
    */
   "actions/get-allowed-actions-organization": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7449,6 +7712,11 @@ export interface operations {
    * You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
    */
   "actions/set-allowed-actions-organization": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": components["schemas"]["selected-actions"];
@@ -7470,6 +7738,20 @@ export interface operations {
    * Use pagination to retrieve fewer or more than 30 events. For more information, see "[Resources in the REST API](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#pagination)."
    */
   "orgs/get-audit-log": {
+    parameters: {
+      query: {
+        phrase?: components["parameters"]["audit-log-phrase"];
+        include?: components["parameters"]["audit-log-include"];
+        after?: components["parameters"]["audit-log-after"];
+        before?: components["parameters"]["audit-log-before"];
+        order?: components["parameters"]["audit-log-order"];
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7486,6 +7768,12 @@ export interface operations {
    * You can manage team membership with your identity provider using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/enterprise-server@3.6/github/getting-started-with-github/githubs-products)" in the GitHub Help documentation.
    */
   "teams/external-idp-group-info-for-org": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+        group_id: components["parameters"]["group-id"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7504,10 +7792,14 @@ export interface operations {
   "teams/list-external-idp-groups-for-org": {
     parameters: {
       query: {
+        per_page?: components["parameters"]["per-page"];
         /** @description Page token */
         page?: number;
         /** @description Limits the list to groups containing the text in the group name */
         display_name?: string;
+      };
+      path: {
+        org: components["parameters"]["org"];
       };
     };
     responses: {
@@ -7530,6 +7822,11 @@ export interface operations {
    * You must use a [JWT](https://docs.github.com/enterprise-server@3.6/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
    */
   "apps/get-org-installation": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7544,6 +7841,15 @@ export interface operations {
    * @description Lists all GitHub Apps in an organization. The installation count includes all GitHub Apps installed on repositories in the organization. You must be an organization owner with `admin:read` scope to use this endpoint.
    */
   "orgs/list-app-installations": {
+    parameters: {
+      query: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7566,8 +7872,14 @@ export interface operations {
   "enterprise-admin/list-pre-receive-hooks-for-org": {
     parameters: {
       query: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+        direction?: components["parameters"]["direction"];
         /** @description The sort order for the response collection. */
         sort?: "created" | "updated" | "name";
+      };
+      path: {
+        org: components["parameters"]["org"];
       };
     };
     responses: {
@@ -7581,6 +7893,12 @@ export interface operations {
   };
   /** Get a pre-receive hook for an organization */
   "enterprise-admin/get-pre-receive-hook-for-org": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+        pre_receive_hook_id: components["parameters"]["pre-receive-hook-id"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7595,6 +7913,12 @@ export interface operations {
    * @description Removes any overrides for this hook at the org level for this org.
    */
   "enterprise-admin/remove-pre-receive-hook-enforcement-for-org": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+        pre_receive_hook_id: components["parameters"]["pre-receive-hook-id"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7609,6 +7933,12 @@ export interface operations {
    * @description For pre-receive hooks which are allowed to be configured at the org level, you can set `enforcement` and `allow_downstream_configuration`
    */
   "enterprise-admin/update-pre-receive-hook-enforcement-for-org": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+        pre_receive_hook_id: components["parameters"]["pre-receive-hook-id"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": {
@@ -7637,6 +7967,20 @@ export interface operations {
    * GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
    */
   "secret-scanning/list-alerts-for-org": {
+    parameters: {
+      query: {
+        state?: components["parameters"]["secret-scanning-alert-state"];
+        secret_type?: components["parameters"]["secret-scanning-alert-secret-type"];
+        resolution?: components["parameters"]["secret-scanning-alert-resolution"];
+        sort?: components["parameters"]["secret-scanning-alert-sort"];
+        direction?: components["parameters"]["direction"];
+        page?: components["parameters"]["page"];
+        per_page?: components["parameters"]["per-page"];
+      };
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7658,6 +8002,11 @@ export interface operations {
    * When you create a new team, you automatically become a team maintainer without explicitly adding yourself to the optional array of `maintainers`. For more information, see "[About teams](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/about-teams)".
    */
   "teams/create": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -7712,6 +8061,12 @@ export interface operations {
    * You can manage team membership with your identity provider using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/enterprise-server@3.6/github/getting-started-with-github/githubs-products)" in the GitHub Help documentation.
    */
   "teams/list-linked-external-idp-groups-to-team-for-org": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+        team_slug: components["parameters"]["team-slug"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7728,6 +8083,12 @@ export interface operations {
    * You can manage team membership with your IdP using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/enterprise-server@3.6/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
    */
   "teams/unlink-external-idp-group-from-team-for-org": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+        team_slug: components["parameters"]["team-slug"];
+      };
+    };
     responses: {
       /** @description Response */
       204: never;
@@ -7740,6 +8101,12 @@ export interface operations {
    * You can manage team membership with your identity provider using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/enterprise-server@3.6/github/getting-started-with-github/githubs-products)" in the GitHub Help documentation.
    */
   "teams/link-external-idp-group-to-team-for-org": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+        team_slug: components["parameters"]["team-slug"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -7790,6 +8157,12 @@ export interface operations {
    * GitHub Apps must have the `actions:read` permission to use this endpoint.
    */
   "actions/get-actions-cache-usage-policy": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7806,6 +8179,12 @@ export interface operations {
    * GitHub Apps must have the `actions:write` permission to use this endpoint.
    */
   "actions/set-actions-cache-usage-policy": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": components["schemas"]["actions-cache-usage-policy-for-repository"];
@@ -7823,6 +8202,12 @@ export interface operations {
    * You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `administration` repository permission to use this API.
    */
   "actions/get-allowed-actions-repository": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7843,6 +8228,12 @@ export interface operations {
    * You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `administration` repository permission to use this API.
    */
   "actions/set-allowed-actions-repository": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": components["schemas"]["selected-actions"];
@@ -7860,6 +8251,23 @@ export interface operations {
    * Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
    */
   "actions/list-workflow-runs-for-repo": {
+    parameters: {
+      query: {
+        actor?: components["parameters"]["actor"];
+        branch?: components["parameters"]["workflow-run-branch"];
+        event?: components["parameters"]["event"];
+        status?: components["parameters"]["workflow-run-status"];
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+        created?: components["parameters"]["created"];
+        exclude_pull_requests?: components["parameters"]["exclude-pull-requests"];
+        check_suite_id?: components["parameters"]["workflow-run-check-suite-id"];
+      };
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7880,6 +8288,16 @@ export interface operations {
    * @description Gets a specific workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
    */
   "actions/get-workflow-run": {
+    parameters: {
+      query: {
+        exclude_pull_requests?: components["parameters"]["exclude-pull-requests"];
+      };
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        run_id: components["parameters"]["run-id"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7897,6 +8315,17 @@ export interface operations {
    * use this endpoint.
    */
   "actions/get-workflow-run-attempt": {
+    parameters: {
+      query: {
+        exclude_pull_requests?: components["parameters"]["exclude-pull-requests"];
+      };
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        run_id: components["parameters"]["run-id"];
+        attempt_number: components["parameters"]["attempt-number"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7913,6 +8342,24 @@ export interface operations {
    * Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope.
    */
   "actions/list-workflow-runs": {
+    parameters: {
+      query: {
+        actor?: components["parameters"]["actor"];
+        branch?: components["parameters"]["workflow-run-branch"];
+        event?: components["parameters"]["event"];
+        status?: components["parameters"]["workflow-run-status"];
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+        created?: components["parameters"]["created"];
+        exclude_pull_requests?: components["parameters"]["exclude-pull-requests"];
+        check_suite_id?: components["parameters"]["workflow-run-check-suite-id"];
+      };
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        workflow_id: components["parameters"]["workflow-id"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7935,6 +8382,15 @@ export interface operations {
    * Information about autolinks are only available to repository administrators.
    */
   "repos/list-autolinks": {
+    parameters: {
+      query: {
+        page?: components["parameters"]["page"];
+      };
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -7949,6 +8405,12 @@ export interface operations {
    * @description Users with admin access to the repository can create an autolink.
    */
   "repos/create-autolink": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -7985,6 +8447,13 @@ export interface operations {
    * Information about autolinks are only available to repository administrators.
    */
   "repos/get-autolink": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        autolink_id: components["parameters"]["autolink-id"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -8018,10 +8487,18 @@ export interface operations {
   "code-scanning/list-recent-analyses": {
     parameters: {
       query: {
+        tool_name?: components["parameters"]["tool-name"];
+        tool_guid?: components["parameters"]["tool-guid"];
+        page?: components["parameters"]["page"];
+        per_page?: components["parameters"]["per-page"];
         /** @description The Git reference for the analyses you want to list. The `ref` for a branch can be formatted either as `refs/heads/<branch name>` or simply `<branch name>`. To reference a pull request use `refs/pull/<number>/merge`. */
         ref?: components["schemas"]["code-scanning-ref"];
         /** @description Filter analyses belonging to the same SARIF upload. */
         sarif_id?: components["schemas"]["code-scanning-analysis-sarif-id"];
+      };
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
       };
     };
     responses: {
@@ -8054,6 +8531,12 @@ export interface operations {
         affiliation?: "outside" | "direct" | "all";
         /** @description Filter collaborators by the permissions they have on the repository. If not specified, all collaborators will be returned. */
         permission?: "pull" | "triage" | "push" | "maintain" | "admin";
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
       };
     };
     responses: {
@@ -8074,6 +8557,13 @@ export interface operations {
    * @description Checks the repository permission of a collaborator. The possible repository permissions are `admin`, `write`, `read`, and `none`.
    */
   "repos/get-collaborator-permission-level": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        username: components["parameters"]["username"];
+      };
+    };
     responses: {
       /** @description if user has admin permissions */
       200: {
@@ -8090,7 +8580,12 @@ export interface operations {
    */
   "dependency-graph/diff-range": {
     parameters: {
+      query: {
+        name?: components["parameters"]["manifest-path"];
+      };
       path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
         /** @description The base and head Git revisions to compare. The Git revisions will be resolved to commit SHAs. Named revisions will be resolved to their corresponding HEAD commits, and an appropriate merge base will be determined. This parameter expects the format `{base}...{head}`. */
         basehead: string;
       };
@@ -8116,6 +8611,12 @@ export interface operations {
    * **Note**: Forking a Repository happens asynchronously. You may have to wait a short period of time before you can access the git objects. If this takes longer than 5 minutes, be sure to contact [GitHub Enterprise Server Support](https://support.github.com/contact?tags=dotcom-rest-api).
    */
   "repos/create-fork": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": {
@@ -8144,6 +8645,12 @@ export interface operations {
    * You must use a [JWT](https://docs.github.com/enterprise-server@3.6/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
    */
   "apps/get-repo-installation": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -8157,6 +8664,16 @@ export interface operations {
   };
   /** List deploy keys */
   "repos/list-deploy-keys": {
+    parameters: {
+      query: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -8174,6 +8691,12 @@ export interface operations {
    * @description You can create a read-only deploy key.
    */
   "repos/create-deploy-key": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -8206,6 +8729,13 @@ export interface operations {
   };
   /** Get a deploy key */
   "repos/get-deploy-key": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        key_id: components["parameters"]["key-id"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -8223,7 +8753,14 @@ export interface operations {
   "enterprise-admin/list-pre-receive-hooks-for-repo": {
     parameters: {
       query: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+        direction?: components["parameters"]["direction"];
         sort?: "created" | "updated" | "name";
+      };
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
       };
     };
     responses: {
@@ -8237,6 +8774,13 @@ export interface operations {
   };
   /** Get a pre-receive hook for a repository */
   "enterprise-admin/get-pre-receive-hook-for-repo": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        pre_receive_hook_id: components["parameters"]["pre-receive-hook-id"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -8253,6 +8797,13 @@ export interface operations {
    * Responds with effective values inherited from owner and/or global level.
    */
   "enterprise-admin/remove-pre-receive-hook-enforcement-for-repo": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        pre_receive_hook_id: components["parameters"]["pre-receive-hook-id"];
+      };
+    };
     responses: {
       /** @description Responds with effective values inherited from owner and/or global level. */
       200: {
@@ -8267,6 +8818,13 @@ export interface operations {
    * @description For pre-receive hooks which are allowed to be configured at the repo level, you can set `enforcement`
    */
   "enterprise-admin/update-pre-receive-hook-enforcement-for-repo": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        pre_receive_hook_id: components["parameters"]["pre-receive-hook-id"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": {
@@ -8294,6 +8852,16 @@ export interface operations {
    * Information about published releases are available to everyone. Only users with push access will receive listings for draft releases.
    */
   "repos/list-releases": {
+    parameters: {
+      query: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -8314,6 +8882,12 @@ export interface operations {
    * This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/enterprise-server@3.6/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
    */
   "repos/create-release": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -8364,6 +8938,12 @@ export interface operations {
    * The latest release is the most recent non-prerelease, non-draft release, sorted by the `created_at` attribute. The `created_at` attribute is the date of the commit used for the release, and not the date when the release was drafted or published.
    */
   "repos/get-latest-release": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -8380,6 +8960,8 @@ export interface operations {
   "repos/get-release-by-tag": {
     parameters: {
       path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
         /** @description tag parameter */
         tag: string;
       };
@@ -8399,6 +8981,13 @@ export interface operations {
    * @description **Note:** This returns an `upload_url` key corresponding to the endpoint for uploading release assets. This key is a [hypermedia resource](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#hypermedia).
    */
   "repos/get-release": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        release_id: components["parameters"]["release-id"];
+      };
+    };
     responses: {
       /** @description **Note:** This returns an `upload_url` key corresponding to the endpoint for uploading release assets. This key is a [hypermedia resource](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#hypermedia). */
       200: {
@@ -8414,6 +9003,13 @@ export interface operations {
    * @description Users with push access to the repository can edit a release.
    */
   "repos/update-release": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        release_id: components["parameters"]["release-id"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": {
@@ -8446,6 +9042,16 @@ export interface operations {
    * @description Lists the status of each repository cache replica.
    */
   "repos/list-cache-info": {
+    parameters: {
+      query: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
     responses: {
       /** @description Status information for cache replicas */
       200: {
@@ -8478,6 +9084,21 @@ export interface operations {
    * GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
    */
   "secret-scanning/list-alerts-for-repo": {
+    parameters: {
+      query: {
+        state?: components["parameters"]["secret-scanning-alert-state"];
+        secret_type?: components["parameters"]["secret-scanning-alert-secret-type"];
+        resolution?: components["parameters"]["secret-scanning-alert-resolution"];
+        sort?: components["parameters"]["secret-scanning-alert-sort"];
+        direction?: components["parameters"]["direction"];
+        page?: components["parameters"]["page"];
+        per_page?: components["parameters"]["per-page"];
+      };
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -8499,6 +9120,13 @@ export interface operations {
    * GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
    */
   "secret-scanning/get-alert": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        alert_number: components["parameters"]["alert-number"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -8521,6 +9149,13 @@ export interface operations {
    * GitHub Apps must have the `secret_scanning_alerts` write permission to use this endpoint.
    */
   "secret-scanning/update-alert": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        alert_number: components["parameters"]["alert-number"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -8554,6 +9189,7 @@ export interface operations {
   "repos/list-public": {
     parameters: {
       query: {
+        since?: components["parameters"]["since-repo"];
         /** @description Specifies the types of repositories to return. This endpoint will only list repositories available to all users on the enterprise. */
         visibility?: "all" | "public";
       };
@@ -8580,10 +9216,15 @@ export interface operations {
   "enterprise-admin/list-provisioned-groups-enterprise": {
     parameters: {
       query: {
+        startIndex?: components["parameters"]["start-index"];
+        count?: components["parameters"]["count"];
         /** @description filter results */
         filter?: string;
         /** @description attributes to exclude */
         excludedAttributes?: string;
+      };
+      path: {
+        enterprise: components["parameters"]["enterprise"];
       };
     };
     responses: {
@@ -8602,6 +9243,11 @@ export interface operations {
    * Provision an enterprise group, and invite users to the group. This sends invitation emails to the email address of the invited users to join the GitHub organization that the SCIM group corresponds to.
    */
   "enterprise-admin/provision-and-invite-enterprise-group": {
+    parameters: {
+      path: {
+        enterprise: components["parameters"]["enterprise"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -8635,6 +9281,10 @@ export interface operations {
         /** @description Attributes to exclude. */
         excludedAttributes?: string;
       };
+      path: {
+        enterprise: components["parameters"]["enterprise"];
+        scim_group_id: components["parameters"]["scim-group-id"];
+      };
     };
     responses: {
       /** @description Response */
@@ -8652,6 +9302,12 @@ export interface operations {
    * Replaces an existing provisioned group’s information. You must provide all the information required for the group as if you were provisioning it for the first time. Any existing group information that you don't provide will be removed, including group membership. If you want to only update a specific attribute, use the [Update an attribute for a SCIM enterprise group](#update-an-attribute-for-a-scim-enterprise-group) endpoint instead.
    */
   "enterprise-admin/set-information-for-provisioned-enterprise-group": {
+    parameters: {
+      path: {
+        enterprise: components["parameters"]["enterprise"];
+        scim_group_id: components["parameters"]["scim-group-id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -8680,6 +9336,12 @@ export interface operations {
    * @description **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
    */
   "enterprise-admin/delete-scim-group-from-enterprise": {
+    parameters: {
+      path: {
+        enterprise: components["parameters"]["enterprise"];
+        scim_group_id: components["parameters"]["scim-group-id"];
+      };
+    };
     responses: {
       /** @description Response */
       204: never;
@@ -8692,6 +9354,12 @@ export interface operations {
    * Allows you to change a provisioned group’s individual attributes. To change a group’s values, you must provide a specific Operations JSON format that contains at least one of the add, remove, or replace operations. For examples and more information on the SCIM operations format, see the [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.5.2).
    */
   "enterprise-admin/update-attribute-for-enterprise-group": {
+    parameters: {
+      path: {
+        enterprise: components["parameters"]["enterprise"];
+        scim_group_id: components["parameters"]["scim-group-id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -8741,8 +9409,13 @@ export interface operations {
   "enterprise-admin/list-provisioned-identities-enterprise": {
     parameters: {
       query: {
+        startIndex?: components["parameters"]["start-index"];
+        count?: components["parameters"]["count"];
         /** @description filter results */
         filter?: string;
+      };
+      path: {
+        enterprise: components["parameters"]["enterprise"];
       };
     };
     responses: {
@@ -8763,6 +9436,11 @@ export interface operations {
    * You can optionally include the groups a user will be invited to join. If you do not provide a list of `groups`, the user is provisioned for the enterprise, but no organization invitation emails will be sent.
    */
   "enterprise-admin/provision-and-invite-enterprise-user": {
+    parameters: {
+      path: {
+        enterprise: components["parameters"]["enterprise"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -8806,6 +9484,12 @@ export interface operations {
    * @description **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
    */
   "enterprise-admin/get-provisioning-information-for-enterprise-user": {
+    parameters: {
+      path: {
+        enterprise: components["parameters"]["enterprise"];
+        scim_user_id: components["parameters"]["scim-user-id"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -8826,6 +9510,12 @@ export interface operations {
    * **Warning:** Setting `active: false` removes the user from the enterprise, deletes the external identity, and deletes the associated `{scim_user_id}`.
    */
   "enterprise-admin/set-information-for-provisioned-enterprise-user": {
+    parameters: {
+      path: {
+        enterprise: components["parameters"]["enterprise"];
+        scim_user_id: components["parameters"]["scim-user-id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -8869,6 +9559,12 @@ export interface operations {
    * @description **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
    */
   "enterprise-admin/delete-user-from-enterprise": {
+    parameters: {
+      path: {
+        enterprise: components["parameters"]["enterprise"];
+        scim_user_id: components["parameters"]["scim-user-id"];
+      };
+    };
     responses: {
       /** @description Response */
       204: never;
@@ -8896,6 +9592,12 @@ export interface operations {
    * ```
    */
   "enterprise-admin/update-attribute-for-enterprise-user": {
+    parameters: {
+      path: {
+        enterprise: components["parameters"]["enterprise"];
+        scim_user_id: components["parameters"]["scim-user-id"];
+      };
+    };
     requestBody: {
       content: {
         "application/json": {
@@ -9148,6 +9850,12 @@ export interface operations {
    * You can find the permissions for the installation under the `permissions` key.
    */
   "apps/list-installations-for-authenticated-user": {
+    parameters: {
+      query: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
+    };
     responses: {
       /** @description You can find the permissions for the installation under the `permissions` key. */
       200: {
@@ -9173,6 +9881,11 @@ export interface operations {
    * You must use a [JWT](https://docs.github.com/enterprise-server@3.6/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
    */
   "apps/get-user-installation": {
+    parameters: {
+      path: {
+        username: components["parameters"]["username"];
+      };
+    };
     responses: {
       /** @description Response */
       200: {
@@ -9187,6 +9900,11 @@ export interface operations {
    * @description Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#http-verbs)."
    */
   "enterprise-admin/promote-user-to-be-site-administrator": {
+    parameters: {
+      path: {
+        username: components["parameters"]["username"];
+      };
+    };
     responses: {
       /** @description Response */
       204: never;
@@ -9197,6 +9915,11 @@ export interface operations {
    * @description You can demote any user account except your own.
    */
   "enterprise-admin/demote-site-administrator": {
+    parameters: {
+      path: {
+        username: components["parameters"]["username"];
+      };
+    };
     responses: {
       /** @description Response */
       204: never;
@@ -9211,6 +9934,11 @@ export interface operations {
    * Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#http-verbs)."
    */
   "enterprise-admin/suspend-user": {
+    parameters: {
+      path: {
+        username: components["parameters"]["username"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": {
@@ -9229,6 +9957,11 @@ export interface operations {
    * @description If your GitHub instance uses [LDAP Sync with Active Directory LDAP servers](https://docs.github.com/enterprise-server@3.6/admin/identity-and-access-management/using-ldap-for-enterprise-iam/using-ldap), this API is disabled and will return a `403` response. Active Directory LDAP-authenticated users cannot be unsuspended using the API.
    */
   "enterprise-admin/unsuspend-user": {
+    parameters: {
+      path: {
+        username: components["parameters"]["username"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": {

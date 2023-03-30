@@ -8,7 +8,8 @@ description: |
   a `files` attribute containing a list of cached file paths to be purged. A
   path may be for a single file or may contain a wildcard (`*`) to recursively
   purge all files under a directory. When only a wildcard is provided, all
-  cached files will be purged.
+  cached files will be purged. There is a rate limit of 50 files per 20 seconds 
+  that can be purged.
 
 tags:
   - CDN Endpoints

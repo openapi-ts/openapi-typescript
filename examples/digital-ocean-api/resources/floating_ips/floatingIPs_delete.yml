@@ -1,6 +1,6 @@
 operationId: floatingIPs_delete
 
-summary: Delete a Floating IPs
+summary: Delete a Floating IP
 
 description: |
   To delete a floating IP and remove it from your account, send a DELETE request

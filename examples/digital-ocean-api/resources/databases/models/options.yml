@@ -24,3 +24,14 @@ properties:
           - $ref: './database_region_options.yml'
           - $ref: './database_version_options.yml'
           - $ref: './database_layout_options.yml'
+  version_availability:
+    type: object
+    properties:
+      pg:
+        $ref: './database_version_availabilities.yml'
+      mysql:
+        $ref: './database_version_availabilities.yml'
+      redis:
+        $ref: './database_version_availabilities.yml'
+      mongodb:
+        $ref: './database_version_availabilities.yml'

@@ -8,6 +8,10 @@ description: To list all of the floating IPs available on your account, send a
 tags:
   - Floating IPs
 
+parameters:
+  - $ref: '../../shared/parameters.yml#/per_page'
+  - $ref: '../../shared/parameters.yml#/page'
+
 responses:
   '200':
     $ref: 'responses/floating_ip_list.yml'

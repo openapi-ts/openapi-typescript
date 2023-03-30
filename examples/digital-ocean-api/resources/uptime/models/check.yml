@@ -60,11 +60,3 @@ check_updatable:
       example: true
       default: true
       description: A boolean value indicating whether the check is enabled/disabled.
-
-
-
-check_create:
-  type: object
-  properties:
-
-

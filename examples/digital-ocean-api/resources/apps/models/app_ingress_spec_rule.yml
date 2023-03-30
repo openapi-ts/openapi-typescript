@@ -1,0 +1,13 @@
+type: object
+properties:
+  match:
+    $ref: app_ingress_spec_rule_match.yml
+
+  cors:
+    $ref: apps_cors_policy.yml
+
+  component:
+    $ref: app_ingress_spec_rule_routing_component.yml
+  
+  redirect:
+    $ref: app_ingress_spec_rule_routing_redirect.yml

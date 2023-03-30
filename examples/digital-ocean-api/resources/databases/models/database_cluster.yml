@@ -112,6 +112,21 @@ properties:
     type: array
     items:
       $ref: './firewall_rule.yml'
+  version_end_of_life:
+    type: string
+    example: '2023-11-09T00:00:00Z'
+    readOnly: true
+    description: >-
+      A timestamp referring to the date when the particular version will no longer be supported. If null, the version
+      does not have an end of life timeline.
+  version_end_of_availability:
+    type: string
+    example: '2023-05-09T00:00:00Z'
+    readOnly: true
+    description: >-
+      A timestamp referring to the date when the particular version will no longer be available for creating new
+      clusters. If null, the version does not have an end of availability timeline.
+
 
 required:
   - name

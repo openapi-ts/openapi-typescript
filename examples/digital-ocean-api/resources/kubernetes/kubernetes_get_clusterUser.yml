@@ -30,6 +30,10 @@ responses:
 
   default:
     $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/kubernetes_get_clusterUser.yml'
+
 security:
   - bearer_auth:
     - 'read'

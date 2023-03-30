@@ -21,6 +21,8 @@ parameters:
   - $ref: 'parameters.yml#/domain_name'
   - $ref: 'parameters.yml#/domain_name_query'
   - $ref: 'parameters.yml#/domain_type_query'
+  - $ref: '../../shared/parameters.yml#/per_page'
+  - $ref: '../../shared/parameters.yml#/page'
 
 responses:
   '200':

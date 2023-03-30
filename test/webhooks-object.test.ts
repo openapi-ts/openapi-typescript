@@ -6,9 +6,11 @@ const options: GlobalContext = {
   alphabetize: false,
   defaultNonNullable: false,
   discriminators: {},
+  emptyObjectsUnknown: false,
   immutableTypes: false,
   indentLv: 0,
   operations: {},
+  parameters: {},
   pathParamsAsTypes: false,
   postTransform: undefined,
   silent: true,
@@ -91,14 +93,39 @@ describe("Webhooks Object", () => {
         ],
       },
     };
-    const generated = transformWebhooksObject(schema, options);
+    const generated = transformWebhooksObject(schema, {
+      ...options,
+      parameters: {
+        'components["parameters"]["query"]["utm_source"]': {
+          in: "query",
+          name: "utm_source",
+          schema: { type: "string" },
+        },
+        'components["parameters"]["query"]["utm_email"]': {
+          in: "query",
+          name: "utm_email",
+          schema: { type: "string" },
+        },
+        'components["parameters"]["query"]["utm_campaign"]': {
+          in: "query",
+          name: "utm_campaign",
+          schema: { type: "string" },
+        },
+        'components["parameters"]["path"]["version"]': { in: "path", name: "utm_campaign", schema: { type: "string" } },
+      },
+    });
     expect(generated).toBe(`{
   "user-created": {
     parameters: {
       query: {
         signature: string;
-      } & (Pick<NonNullable<components["parameters"]["query"]>, "utm_source" | "utm_email" | "utm_campaign">);
-      path: Pick<components["parameters"]["path"], "version">;
+        utm_source?: components["parameters"]["query"]["utm_source"];
+        utm_email?: components["parameters"]["query"]["utm_email"];
+        utm_campaign?: components["parameters"]["query"]["utm_campaign"];
+      };
+      path: {
+        utm_campaign: components["parameters"]["path"]["version"];
+      };
     };
   };
 }`);

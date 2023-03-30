@@ -123,6 +123,59 @@ export type external = Record<string, never>;
 export type operations = Record<string, never>;
 `);
     });
+
+    test("parameter $refs", async () => {
+      const generated = await openapiTS(new URL("./fixtures/parameters-test.yaml", import.meta.url));
+      expect(generated).toBe(`${BOILERPLATE}
+export interface paths {
+  "/endpoint": {
+    /** @description OK */
+    get: {
+      parameters: {
+        path: {
+          /** @description This overrides parameters */
+          local_param_a: number;
+          local_ref_a: components["parameters"]["local_ref_a"];
+          remote_ref_a: external["_parameters-test-partial.yaml"]["remote_ref_a"];
+          local_ref_b: components["parameters"]["local_ref_b"];
+          remote_ref_b: external["_parameters-test-partial.yaml"]["remote_ref_b"];
+        };
+      };
+    };
+    parameters: {
+      path: {
+        local_param_a: string;
+        local_ref_a: components["parameters"]["local_ref_a"];
+        remote_ref_a: external["_parameters-test-partial.yaml"]["remote_ref_a"];
+      };
+    };
+  };
+}
+
+export type webhooks = Record<string, never>;
+
+export interface components {
+  schemas: never;
+  responses: never;
+  parameters: {
+    local_ref_a: string;
+    local_ref_b: string;
+  };
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}
+
+export interface external {
+  "_parameters-test-partial.yaml": {
+    remote_ref_a: string;
+    remote_ref_b: string;
+  };
+}
+
+export type operations = Record<string, never>;
+`);
+    });
   });
 
   describe("3.1", () => {

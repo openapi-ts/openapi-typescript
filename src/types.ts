@@ -630,6 +630,10 @@ export type Subschema =
   | { hint: "OpenAPI3"; schema: OpenAPI3 }
   | { hint: "OperationObject"; schema: OperationObject }
   | { hint: "ParameterObject"; schema: ParameterObject }
+  | {
+      hint: "ParameterObject[]";
+      schema: (ParameterObject | ReferenceObject)[] | Record<string, ParameterObject | ReferenceObject>;
+    }
   | { hint: "RequestBodyObject"; schema: RequestBodyObject }
   | { hint: "ResponseObject"; schema: ResponseObject }
   | { hint: "SchemaObject"; schema: SchemaObject };
@@ -652,6 +656,7 @@ export interface GlobalContext {
       operationType: string;
     }
   >;
+  parameters: Record<string, ParameterObject>;
   pathParamsAsTypes: boolean;
   silent: boolean;
   supportArrayLength: boolean;

@@ -2,8 +2,7 @@ operationId: apps_get_logs
 
 summary: Retrieve Deployment Logs
 
-description: Retrieve the logs of a past, in-progress, or active deployment. If a
-  component name is specified, the logs will be limited to only that component. The
+description: Retrieve the logs of a past, in-progress, or active deployment. The
   response will include links to either real-time logs of an in-progress or active
   deployment or archived logs of a past deployment.
 

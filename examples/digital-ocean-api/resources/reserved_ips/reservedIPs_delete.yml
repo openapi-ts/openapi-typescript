@@ -1,6 +1,6 @@
 operationId: reservedIPs_delete
 
-summary: Delete a Reserved IPs
+summary: Delete a Reserved IP
 
 description: |
   To delete a reserved IP and remove it from your account, send a DELETE request

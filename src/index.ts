@@ -6,6 +6,7 @@ import { transformSchema } from "./transform/index.js";
 import transformMediaTypeObject from "./transform/media-type-object.js";
 import transformOperationObject from "./transform/operation-object.js";
 import transformParameterObject from "./transform/parameter-object.js";
+import transformParameterObjectArray from "./transform/parameter-object-array.js";
 import transformRequestBodyObject from "./transform/request-body-object.js";
 import transformResponseObject from "./transform/response-object.js";
 import transformSchemaObject from "./transform/schema-object.js";
@@ -50,6 +51,7 @@ async function openapiTS(
     indentLv: 0,
     operations: {},
     pathParamsAsTypes: options.pathParamsAsTypes ?? false,
+    parameters: {},
     silent: options.silent ?? false,
     supportArrayLength: options.supportArrayLength ?? false,
   };
@@ -118,7 +120,7 @@ async function openapiTS(
   const externalKeys = Object.keys(allSchemas); // root schema (".") should already be removed
   if (externalKeys.length) {
     let indentLv = 0;
-    output.push(options.exportType ? "export type external = {" : "export interface external {", "");
+    output.push(options.exportType ? "export type external = {" : "export interface external {");
     externalKeys.sort((a, b) => a.localeCompare(b, "en", { numeric: true })); // sort external keys because they may have resolved in a different order each time
     indentLv++;
     for (const subschemaID of externalKeys) {
@@ -152,6 +154,21 @@ async function openapiTS(
         }
         case "ParameterObject": {
           subschemaOutput = transformParameterObject(subschema.schema, { path, ctx: { ...ctx, indentLv } });
+          break;
+        }
+        case "ParameterObject[]": {
+          // hack: sometimes subschemas contain only a single SchemaObject or ParameterObject and get incorrectly hinted
+          // currently unknown what the real fix is, but this is a bandaid
+          if (typeof subschema.schema === "object" && ("schema" in subschema.schema || "type" in subschema.schema)) {
+            subschemaOutput = transformSchemaObject(subschema.schema as any, { path, ctx: { ...ctx, indentLv } });
+          } else {
+            subschemaOutput += "{\n";
+            indentLv++;
+            subschemaOutput += transformParameterObjectArray(subschema.schema, { path, ctx: { ...ctx, indentLv } });
+            subschemaOutput += "\n";
+            indentLv--;
+            subschemaOutput += indent("};", indentLv);
+          }
           break;
         }
         case "RequestBodyObject": {

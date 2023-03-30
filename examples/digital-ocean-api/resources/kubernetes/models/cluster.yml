@@ -147,7 +147,7 @@ properties:
     example: true
     description: A boolean value indicating whether the control plane
       is run in a highly available configuration in the cluster. Highly available
-      control planes incur less downtime. 
+      control planes incur less downtime. The property cannot be disabled.
 
   registry_enabled:
     type: boolean

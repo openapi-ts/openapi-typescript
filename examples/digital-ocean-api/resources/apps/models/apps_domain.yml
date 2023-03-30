@@ -9,4 +9,19 @@ properties:
     $ref: apps_domain_progress.yml
   spec:
     $ref: app_domain_spec.yml
+  validations:
+    title: "List of TXT validation records"
+    type: array
+    items:
+      $ref: app_domain_validation.yml
+  rotate_validation_records:
+    title: "Validation values have changed and require manual intervention"
+    type: boolean
+    readOnly: true
+  certificate_expires_at:
+    title: "Current SSL certificate expiration time"
+    type: string
+    format: date-time
+    readOnly: true
+    example: "2024-01-29T23:59:59Z"
 type: object

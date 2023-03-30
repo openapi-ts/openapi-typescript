@@ -1,4 +1,4 @@
-import type { GlobalContext, PathItemObject } from "../types";
+import type { GlobalContext, ParameterObject, PathItemObject, ReferenceObject } from "../types";
 import { escStr, getSchemaObjectComment, indent } from "../utils.js";
 import transformOperationObject from "./operation-object.js";
 
@@ -36,7 +36,17 @@ export default function transformPathItemObject(
       };
       output.push(indent(`${method}: operations[${escStr(operationObject.operationId)}];`, indentLv));
     } else {
-      const operationType = transformOperationObject(operationObject, { path, ctx: { ...ctx, indentLv } });
+      // fold top-level PathItem parameters into method-level, with the latter overriding the former
+      const keyedParameters: Record<string, ParameterObject | ReferenceObject> = {};
+      // important: OperationObject parameters come last, and will override any conflicts with PathItem parameters
+      for (const parameter of [...(pathItem.parameters ?? []), ...(operationObject.parameters ?? [])]) {
+        // note: the actual key doesn’t matter here, as long as it can match between PathItem and OperationObject
+        keyedParameters["$ref" in parameter ? parameter.$ref : parameter.name] = parameter;
+      }
+      const operationType = transformOperationObject(
+        { ...operationObject, parameters: Object.values(keyedParameters) },
+        { path, ctx: { ...ctx, indentLv } }
+      );
       output.push(indent(`${method}: ${operationType};`, indentLv));
     }
   }

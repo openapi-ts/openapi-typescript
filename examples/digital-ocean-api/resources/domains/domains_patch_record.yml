@@ -45,6 +45,10 @@ responses:
 
   default:
     $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/domains_patch_record.yml'
+
 security:
   - bearer_auth:
     - 'write'
