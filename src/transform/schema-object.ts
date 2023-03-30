@@ -62,7 +62,7 @@ export function defaultSchemaObjectTransform(
   }
 
   // const (valid for any type)
-  if (schemaObject.const) {
+  if (schemaObject.const !== null && schemaObject.const !== undefined) {
     let schemaConst = schemaObject.const as any;
     if ("type" in schemaObject) {
       if (schemaObject.type === "string") {
@@ -98,7 +98,7 @@ export function defaultSchemaObjectTransform(
   // oneOf (no discriminator)
   if ("oneOf" in schemaObject && !schemaObject.oneOf.some((t) => "$ref" in t && ctx.discriminators[t.$ref])) {
     const maybeTypes = schemaObject.oneOf.map((item) => transformSchemaObject(item, { path, ctx }));
-    if (maybeTypes.some((t) => t.includes("{"))) return tsOneOf(...maybeTypes); // OneOf<> helper needed if any objects present ("{")
+    if (maybeTypes.some((t) => typeof t === "string" && t.includes("{"))) return tsOneOf(...maybeTypes); // OneOf<> helper needed if any objects present ("{")
     return tsUnionOf(...maybeTypes); // otherwise, TS union works for primitives
   }
 
