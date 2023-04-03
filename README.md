@@ -3,7 +3,9 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/main/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-67-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -52,7 +54,6 @@ npx openapi-typescript "specs/**/*.yaml" --output schemas/
 
 _Thanks, [@sharmarajdaksh](https://github.com/sharmarajdaksh)!_
 
-
 #### ☁️ Reading remote schemas
 
 ```bash
@@ -90,71 +91,50 @@ _Thanks, [@gr2m](https://github.com/gr2m)!_
 
 #### ⚾ Fetching data
 
-##### Simple example
+Fetching data can be done simply and safely using an **automatically-typed fetch wrapper**:
 
-Any fetch call can be typed from the `paths` like so:
+- [openapi-fetch](https://github.com/drwpow/openapi-fetch) (recommended)
+- [openapi-typescript-fetch](https://www.npmjs.com/package/openapi-typescript-fetch) by [@ajaishankar](https://github.com/ajaishankar)
 
-```ts
-import { paths } from './my-types';
-
-const response: paths["/api/v1/user/{user_id}"]["get"][200 | 500] = await fetch(`/api/v1/user/${user_id}`).then((res) => res.json());
-```
-
-Or if you add the `--path-params-as-types` CLI flag, you can take advantage of more automatic inference:
+**Example** ([openapi-fetch](https://github.com/drwpow/openapi-fetch))
 
 ```ts
-import { paths } from './my-types';
+import createClient from "openapi-fetch";
+import { paths } from "./v1"; // (generated from openapi-typescript)
 
-const url = `/api/v1/user/${user_id}`;
-const response: paths[url]["get"][200 | 500] = await fetch(url).then((res) => res.json());
-```
-
-##### openapi-typescript-fetch
-
-You can generate a fully-typed [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) client from openapiTS types with the [openapi-typescript-fetch](https://www.npmjs.com/package/openapi-typescript-fetch) package:
-
-```ts
-import { paths } from "./petstore";
-import { Fetcher } from "openapi-typescript-fetch";
-
-const fetcher = Fetcher.for<paths>();
-
-// GET
-const findPetsByStatus = fetcher.path("/pet/findByStatus").method("get").create();
-const { status, data: pets } = await findPetsByStatus({
-  status: ["available", "pending"],
+const { get, post, put, patch, del } = createClient<paths>({
+  baseURL: "https://myserver.com/api/v1/",
+  headers: {
+    Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
+  },
 });
-
-// POST
-const addPet = fetcher.path("/pet").method("post").create();
-await addPet({ ... })
 ```
 
-[See docs](https://www.npmjs.com/package/openapi-typescript-fetch)
+See each project’s respective pages for usage & install instructions.
 
-_Thanks, [@ajaishankar](https://github.com/ajaishankar)!_
+✨ **Tip**: Automatically-typed fetch wrappers are better to use than manually-assigned generics. The latter is not only more work, but it can be error-prone (which makes your OpenAPI typing worthless if it can’t catch all your errors!).
 
 ### 📖 Options
 
 The following flags can be appended to the CLI command.
 
-| Option                         | Alias | Default  | Description                                                                                                                  |
-| :----------------------------- | :---- | :------: | :--------------------------------------------------------------------------------------------------------------------------- |
-| `--help`                       |       |          | Display inline help message and exit                                                                                         |
-| `--version`                    |       |          | Display this library’s version and exit                                                                                      |
-| `--output [location]`          | `-o`  | (stdout) | Where should the output file be saved?                                                                                       |
-| `--auth [token]`               |       |          | Provide an auth token to be passed along in the request (only if accessing a private schema)                                 |
-| `--header`                     | `-x`  |          | Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the `key: value` pattern |
-| `--headers-object="{…}"`       | `-h`  |          | Provide a JSON object as string of HTTP headers for remote schema request. This will take priority over `--header`           |
-| `--http-method`                | `-m`  | `GET`    | Provide the HTTP Verb/Method for fetching a schema from a remote URL                                                         |
-| `--immutable-types`            |       | `false`  | Generates immutable types (readonly properties and readonly array)                                                           |
-| `--additional-properties`      |       | `false`  | Allow arbitrary properties for all schema objects without `additionalProperties: false`                                      |
-| `--empty-objects-unknown`      |       | `false`  | Allow arbitrary properties for schema objects with no specified properties, and no specified `additionalProperties`          |
-| `--default-non-nullable`       |       | `false`  | Treat schema objects with default values as non-nullable                                                                     |
-| `--export-type`                | `-t`  | `false`  | Export `type` instead of `interface`                                                                                         |
-| `--path-params-as-types`       |       | `false`  | Allow dynamic string lookups on the `paths` object                                                                           |
-| `--support-array-length`       |       | `false`  | Generate tuples using array `minItems` / `maxItems`                                                                          |
-| `--alphabetize`                |       | `false`  | Sort types alphabetically                                                                                                    |
+| Option                    | Alias | Default  | Description                                                                                                                  |
+| :------------------------ | :---- | :------: | :--------------------------------------------------------------------------------------------------------------------------- |
+| `--help`                  |       |          | Display inline help message and exit                                                                                         |
+| `--version`               |       |          | Display this library’s version and exit                                                                                      |
+| `--output [location]`     | `-o`  | (stdout) | Where should the output file be saved?                                                                                       |
+| `--auth [token]`          |       |          | Provide an auth token to be passed along in the request (only if accessing a private schema)                                 |
+| `--header`                | `-x`  |          | Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the `key: value` pattern |
+| `--headers-object="{…}"`  | `-h`  |          | Provide a JSON object as string of HTTP headers for remote schema request. This will take priority over `--header`           |
+| `--http-method`           | `-m`  |  `GET`   | Provide the HTTP Verb/Method for fetching a schema from a remote URL                                                         |
+| `--immutable-types`       |       | `false`  | Generates immutable types (readonly properties and readonly array)                                                           |
+| `--additional-properties` |       | `false`  | Allow arbitrary properties for all schema objects without `additionalProperties: false`                                      |
+| `--empty-objects-unknown` |       | `false`  | Allow arbitrary properties for schema objects with no specified properties, and no specified `additionalProperties`          |
+| `--default-non-nullable`  |       | `false`  | Treat schema objects with default values as non-nullable                                                                     |
+| `--export-type`           | `-t`  | `false`  | Export `type` instead of `interface`                                                                                         |
+| `--path-params-as-types`  |       | `false`  | Allow dynamic string lookups on the `paths` object                                                                           |
+| `--support-array-length`  |       | `false`  | Generate tuples using array `minItems` / `maxItems`                                                                          |
+| `--alphabetize`           |       | `false`  | Sort types alphabetically                                                                                                    |
 
 #### 🚩 `--path-params-as-types`
 
@@ -162,26 +142,26 @@ By default, your URLs are preserved exactly as-written in your schema:
 
 ```ts
 export interface paths {
-  '/user/{user_id}': components["schemas"]["User"];
+  "/user/{user_id}": components["schemas"]["User"];
 }
 ```
 
 Which means your type lookups also have to match the exact URL:
 
 ```ts
-import { paths } from './my-schema';
+import { paths } from "./my-schema";
 
 const url = `/user/${id}`;
-type UserResponses = paths['/user/{user_id}']['responses'];
+type UserResponses = paths["/user/{user_id}"]["responses"];
 ```
 
 But when `--path-params-as-types` is enabled, you can take advantage of dynamic lookups like so:
 
 ```ts
-import { paths } from './my-schema';
+import { paths } from "./my-schema";
 
 const url = `/user/${id}`;
-type UserResponses = paths[url]['responses']; // automatically matches `paths['/user/{user_id}']`
+type UserResponses = paths[url]["responses"]; // automatically matches `paths['/user/{user_id}']`
 ```
 
 Though this is a contrived example, you could use this feature to automatically infer typing based on the URL in a fetch client or in some other useful place in your application.
@@ -233,7 +213,7 @@ import fs from "node:fs";
 import openapiTS from "openapi-typescript";
 
 // example 1: load [object] as schema (JSON only)
-const schema = await fs.promises.readFile("spec.json", "utf8") // must be OpenAPI JSON
+const schema = await fs.promises.readFile("spec.json", "utf8"); // must be OpenAPI JSON
 const output = await openapiTS(JSON.parse(schema));
 
 // example 2: load [string] as local file (YAML or JSON; released in v4.0)
@@ -251,7 +231,7 @@ The Node API may be useful if dealing with dynamically-created schemas, or you�
 The Node API supports all the [CLI flags](#--options) above in `camelCase` format, plus the following additional options:
 
 | Name            |    Type    | Default | Description                                                                      |
-|:----------------|:----------:|:--------|:---------------------------------------------------------------------------------|
+| :-------------- | :--------: | :------ | :------------------------------------------------------------------------------- |
 | `commentHeader` |  `string`  |         | Override the default “This file was auto-generated …” file heading               |
 | `inject`        |  `string`  |         | Inject arbitrary TypeScript types into the start of the file                     |
 | `transform`     | `Function` |         | Override the default Schema Object ➝ TypeScript transformer in certain scenarios |
