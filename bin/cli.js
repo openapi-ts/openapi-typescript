@@ -112,7 +112,11 @@ async function generateSchema(pathToSpec) {
     const isDir = fs.existsSync(outputFilePath) && fs.lstatSync(outputFilePath).isDirectory();
     if (isDir) {
       const filename = pathToSpec.replace(EXT_RE, ".ts");
-      outputFilePath = new URL(filename, outputFilePath);
+      const originalOutputFilePath = outputFilePath;
+      outputFilePath = new URL(filename, originalOutputFilePath);
+      if (outputFilePath.protocol !== 'file') {
+        outputFilePath = new URL(outputFilePath.host.replace(EXT_RE, ".ts"), originalOutputFilePath);
+      }
     }
 
     fs.writeFileSync(outputFilePath, result, "utf8");
