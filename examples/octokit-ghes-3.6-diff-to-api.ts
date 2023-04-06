@@ -3539,13 +3539,13 @@ export interface components {
         ldap?: {
           host?: string | null;
           port?: number;
-          base?: (Record<string, never>)[];
+          base?: (unknown)[];
           uid?: string | null;
           bind_dn?: string | null;
           password?: string | null;
           method?: string;
           search_strategy?: string;
-          user_groups?: (Record<string, never>)[];
+          user_groups?: (unknown)[];
           admin_group?: string | null;
           virtual_attribute_enabled?: boolean;
           recursive_group_search?: boolean;
@@ -9371,7 +9371,7 @@ export interface operations {
               op: "add" | "Add" | "remove" | "Remove" | "replace" | "Replace";
               path?: string;
               /** @description Can be any value - string, number, array or object. */
-              value?: Record<string, never>;
+              value?: unknown;
             })[];
         };
       };
