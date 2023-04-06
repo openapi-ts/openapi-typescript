@@ -2,20 +2,41 @@ import { tsIntersectionOf, tsUnionOf } from "../src/utils.js";
 
 describe("utils", () => {
   describe("tsUnionOf", () => {
+    test("never for no elements", () => {
+      expect(tsUnionOf()).toBe("never");
+    });
+    test("identity for single element", () => {
+      expect(tsUnionOf("boolean")).toBe("boolean");
+    });
     test("primitive", () => {
-      return expect(tsUnionOf(...["string", "number", "boolean"])).toBe("string | number | boolean");
+      expect(tsUnionOf("string", "number", "boolean")).toBe("string | number | boolean");
     });
     test("constant booleans", () => {
-      return expect(tsUnionOf(...[true, false])).toBe("true | false");
+      expect(tsUnionOf(true, false)).toBe("true | false");
     });
     test("constant strings", () => {
-      return expect(tsUnionOf(...['"hello"', '"world"'])).toBe('"hello" | "world"');
+      expect(tsUnionOf('"hello"', '"world"')).toBe('"hello" | "world"');
     });
     test("constant numbers", () => {
-      return expect(tsUnionOf(...[0, 1, 2, 3])).toBe("0 | 1 | 2 | 3");
+      expect(tsUnionOf(0, 1, 2, 3)).toBe("0 | 1 | 2 | 3");
     });
     test("mixed", () => {
-      return expect(tsUnionOf(...[0, true, "string", '"hello"'])).toBe('0 | true | string | "hello"');
+      expect(tsUnionOf(0, true, "string", '"hello"')).toBe('0 | true | string | "hello"');
+    });
+    test("de-duplicate", () => {
+      expect(tsUnionOf("string", "string", "number")).toBe("string | number");
+    });
+    test("remove all but unknown", () => {
+      expect(tsUnionOf("string", "unknown")).toBe("unknown");
+    });
+    test("remove never", () => {
+      expect(tsUnionOf("string", "never")).toBe("string");
+    })
+    test("never if no other members of union", () => {
+      expect(tsUnionOf("never", "never")).toBe("never");
+    });
+    test("don't add parenthesis around a single element from a de-duped union", () => {
+      expect(tsUnionOf("number & number", "number & number")).toBe("number & number")
     });
   });
 
