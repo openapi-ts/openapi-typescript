@@ -212,28 +212,25 @@ export function tsUnionOf(...types: (string | number | boolean)[]): string {
   const members = new Set<string>();
   for (const t of types) {
     // unknown swallows everything else in the union
-    if (t === "unknown")
-      return "unknown";
+    if (t === "unknown") return "unknown";
 
     members.add(String(t));
   }
 
   // never gets swallowed by anything else, so only return never
   //   if it is the only member
-  if (members.has("never") && members.size === 1)
-    return "never";
+  if (members.has("never") && members.size === 1) return "never";
 
   // (otherwise remove it)
   members.delete("never");
 
   // return the only member without parentheses
   const memberArr = Array.from(members);
-  if (members.size === 1)
-    return memberArr[0];
+  if (members.size === 1) return memberArr[0];
 
   // build the union string
   let out = "";
-  for(let i = 0; i < memberArr.length; i++) {
+  for (let i = 0; i < memberArr.length; i++) {
     const t = memberArr[i];
 
     // if the type has & or | we should parenthesise it for safety
