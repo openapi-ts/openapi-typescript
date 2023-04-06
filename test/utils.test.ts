@@ -31,12 +31,12 @@ describe("utils", () => {
     });
     test("remove never", () => {
       expect(tsUnionOf("string", "never")).toBe("string");
-    })
+    });
     test("never if no other members of union", () => {
       expect(tsUnionOf("never", "never")).toBe("never");
     });
     test("don't add parenthesis around a single element from a de-duped union", () => {
-      expect(tsUnionOf("number & number", "number & number")).toBe("number & number")
+      expect(tsUnionOf("number & number", "number & number")).toBe("number & number");
     });
   });
 
