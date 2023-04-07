@@ -191,7 +191,7 @@ export function defaultSchemaObjectTransform(
           });
         }
       }
-      coreType.push(indent(`[key: string]: ${tsUnionOf(addlType ? addlType : "unknown", "undefined")};`, indentLv)); // note: `| undefined` is required to mesh with possibly-undefined keys
+      coreType.push(indent(`[key: string]: ${addlType ? addlType : "unknown"};`, indentLv));
     }
     indentLv--;
   }

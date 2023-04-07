@@ -14,6 +14,7 @@ const options: TransformSchemaObjectOptions = {
     operations: {},
     pathParamsAsTypes: false,
     postTransform: undefined,
+    parameters: {},
     silent: true,
     supportArrayLength: false,
     transform: undefined,
@@ -202,7 +203,7 @@ describe("Schema Object", () => {
         const generated = transformSchemaObject(schema, options);
         expect(generated).toBe(`{
   property?: boolean;
-  [key: string]: string | undefined;
+  [key: string]: string;
 }`);
       });
 
@@ -210,7 +211,7 @@ describe("Schema Object", () => {
         const schema: SchemaObject = { type: "object", additionalProperties: true };
         const generated = transformSchemaObject(schema, options);
         expect(generated).toBe(`{
-  [key: string]: unknown | undefined;
+  [key: string]: unknown;
 }`);
       });
 
@@ -221,7 +222,7 @@ describe("Schema Object", () => {
         };
         const generated = transformSchemaObject(schema, options);
         expect(generated).toBe(`{
-  [key: string]: string | undefined;
+  [key: string]: string;
 }`);
       });
 
@@ -229,7 +230,7 @@ describe("Schema Object", () => {
         const schema: SchemaObject = { type: "object", additionalProperties: {} };
         const generated = transformSchemaObject(schema, options);
         expect(generated).toBe(`{
-  [key: string]: unknown | undefined;
+  [key: string]: unknown;
 }`);
       });
 
@@ -424,7 +425,7 @@ describe("Schema Object", () => {
         });
         expect(generated).toBe(`{
   fixed: boolean;
-  [key: string]: unknown | undefined;
+  [key: string]: unknown;
 }`);
       });
     });
@@ -516,9 +517,9 @@ describe("Schema Object", () => {
           ctx: { ...options.ctx, immutableTypes: true },
         });
         expect(generated).toBe(`{
-  readonly array?: (readonly ({
-      [key: string]: unknown | undefined;
-    })[]) | null;
+  readonly array?: readonly ({
+      [key: string]: unknown;
+    })[] | null;
 }`);
       });
     });
