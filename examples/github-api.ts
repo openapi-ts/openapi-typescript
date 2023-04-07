@@ -10226,8 +10226,8 @@ export interface components {
       comments_url: string;
       owner?: components["schemas"]["simple-user"];
       truncated?: boolean;
-      forks?: (Record<string, never>)[];
-      history?: (Record<string, never>)[];
+      forks?: (unknown)[];
+      history?: (unknown)[];
     };
     /**
      * Public User 
@@ -10371,8 +10371,8 @@ export interface components {
         comments_url: string;
         owner?: components["schemas"]["nullable-simple-user"];
         truncated?: boolean;
-        forks?: (Record<string, never>)[];
-        history?: (Record<string, never>)[];
+        forks?: (unknown)[];
+        history?: (unknown)[];
       }) | null;
       url?: string;
       forks_url?: string;
@@ -21050,8 +21050,8 @@ export interface components {
           primary_key_id?: number;
           key_id?: string;
           public_key?: string;
-          emails?: (Record<string, never>)[];
-          subkeys?: (Record<string, never>)[];
+          emails?: (unknown)[];
+          subkeys?: (unknown)[];
           can_sign?: boolean;
           can_encrypt_comms?: boolean;
           can_encrypt_storage?: boolean;
@@ -38870,7 +38870,7 @@ export interface components {
           }) | null;
           created_at?: string;
           description: string;
-          docker_metadata?: (Record<string, never>)[];
+          docker_metadata?: (unknown)[];
           draft?: boolean;
           /** Format: uri */
           html_url: string;
@@ -38997,7 +38997,7 @@ export interface components {
             /** Format: uri */
             url: string;
           };
-          rubygems_metadata?: (Record<string, never>)[];
+          rubygems_metadata?: (unknown)[];
           source_url?: string;
           summary: string;
           tag_name?: string;
@@ -39117,14 +39117,14 @@ export interface components {
           body_html: string;
           created_at: string;
           description: string;
-          docker_metadata?: (Record<string, never>)[];
+          docker_metadata?: (unknown)[];
           draft?: boolean;
           /** Format: uri */
           html_url: string;
           id: number;
           installation_command: string;
           manifest?: string;
-          metadata: (Record<string, never>)[];
+          metadata: (unknown)[];
           name: string;
           package_files: ({
               content_type: string;
@@ -39193,7 +39193,7 @@ export interface components {
             /** Format: uri */
             url: string;
           };
-          rubygems_metadata?: (Record<string, never>)[];
+          rubygems_metadata?: (unknown)[];
           /** Format: uri */
           source_url?: string;
           summary: string;
@@ -71468,7 +71468,7 @@ export interface components {
           };
           created_at?: string;
           description: string;
-          docker_metadata?: (Record<string, never>)[];
+          docker_metadata?: (unknown)[];
           draft?: boolean;
           html_url: string;
           id: number;
@@ -71574,7 +71574,7 @@ export interface components {
             target_commitish?: string;
             url?: string;
           };
-          rubygems_metadata?: (Record<string, never>)[];
+          rubygems_metadata?: (unknown)[];
           summary: string;
           tag_name?: string;
           target_commitish?: string;
@@ -71659,7 +71659,7 @@ export interface components {
           id: number;
           installation_command: string;
           manifest?: string;
-          metadata: (Record<string, never>)[];
+          metadata: (unknown)[];
           name: string;
           package_files: ({
               content_type?: string;
@@ -71708,7 +71708,7 @@ export interface components {
             target_commitish: string;
             url: string;
           };
-          rubygems_metadata?: (Record<string, never>)[];
+          rubygems_metadata?: (unknown)[];
           summary: string;
           tag_name?: string;
           target_commitish: string;
@@ -79864,9 +79864,9 @@ export interface operations {
               content?: string;
               /** @description The new filename for the file. */
               filename?: string | null;
-            }) & (Record<string, never> | Record<string, never> | Record<string, never>)) | null) | undefined;
+            }) & (unknown | unknown | Record<string, never>)) | null) | undefined;
           };
-        }) & (Record<string, never> | Record<string, never>)) | null;
+        }) & (unknown | unknown)) | null;
       };
     };
     responses: {
@@ -97284,7 +97284,7 @@ export interface operations {
              */
             path: "/" | "/docs";
           });
-        }) & (Record<string, never> | Record<string, never> | Record<string, never> | Record<string, never> | Record<string, never>);
+        }) & (unknown | unknown | unknown | unknown | unknown);
       };
     };
     responses: {
@@ -97327,7 +97327,7 @@ export interface operations {
              */
             path?: "/" | "/docs";
           };
-        }) & (Record<string, never> | Record<string, never>)) | null;
+        }) & (unknown | unknown)) | null;
       };
     };
     responses: {
@@ -98344,7 +98344,7 @@ export interface operations {
           reviewers?: (string)[];
           /** @description An array of team `slug`s that will be requested. */
           team_reviewers?: (string)[];
-        } & (Record<string, never> | Record<string, never>);
+        } & (unknown | unknown);
       };
     };
     responses: {

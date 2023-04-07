@@ -2324,7 +2324,7 @@ export interface external {
      * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
      */
     owner_uuid?: string;
-    pending_deployment?: Record<string, never> & external["resources/apps/models/apps_deployment.yml"];
+    pending_deployment?: external["resources/apps/models/apps_deployment.yml"];
     /**
      * The ID of the project the app is assigned to. This will be empty if there is a lookup failure. 
      * @example 88b72d1a-b78a-4d9f-9090-b53c4399073f
@@ -2343,7 +2343,7 @@ export interface external {
      * @example "2020-12-01T00:42:16.000Z"
      */
     updated_at?: string;
-    pinned_deployment?: Record<string, never> & external["resources/apps/models/apps_deployment.yml"];
+    pinned_deployment?: external["resources/apps/models/apps_deployment.yml"];
   }
   "resources/apps/models/apps_alert_response.yml": {
     alert?: external["resources/apps/models/app_alert.yml"];
@@ -2974,7 +2974,7 @@ export interface external {
       "application/json": {
         /** @description Indicates whether the app can be rolled back to the specified deployment. */
         valid?: boolean;
-        error?: Record<string, never> & external["resources/apps/models/app_rollback_validation_condition.yml"];
+        error?: external["resources/apps/models/app_rollback_validation_condition.yml"];
         /** @description Contains a list of warnings that may cause the rollback to run under unideal circumstances. */
         warnings?: (external["resources/apps/models/app_rollback_validation_condition.yml"])[];
       };
@@ -3483,7 +3483,7 @@ export interface external {
      * @example Sammy Shark
      */
     user_name?: string;
-    user_billing_address?: Record<string, never> & external["resources/billing/models/billing_address.yml"];
+    user_billing_address?: external["resources/billing/models/billing_address.yml"];
     /**
      * @description Company of the DigitalOcean customer being invoiced, if set. 
      * @example DigitalOcean
@@ -3494,10 +3494,10 @@ export interface external {
      * @example sammy@digitalocean.com
      */
     user_email?: string;
-    product_charges?: Record<string, never> & external["resources/billing/models/product_usage_charges.yml"];
-    overages?: Record<string, never> & external["resources/billing/models/simple_charge.yml"];
-    taxes?: Record<string, never> & external["resources/billing/models/simple_charge.yml"];
-    credits_and_adjustments?: Record<string, never> & external["resources/billing/models/simple_charge.yml"];
+    product_charges?: external["resources/billing/models/product_usage_charges.yml"];
+    overages?: external["resources/billing/models/simple_charge.yml"];
+    taxes?: external["resources/billing/models/simple_charge.yml"];
+    credits_and_adjustments?: external["resources/billing/models/simple_charge.yml"];
   }
   "resources/billing/models/product_charge_item.yml": {
     /**
@@ -3966,7 +3966,7 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/certificates/models/certificate_create.yml": Record<string, never>
+  "resources/certificates/models/certificate_create.yml": unknown
   "resources/certificates/models/certificate.yml": {
     /**
      * Format: uuid 
@@ -5246,8 +5246,8 @@ export interface external {
      * @example doadmin
      */
     user?: string;
-    connection?: external["resources/databases/models/database_connection.yml"] & Record<string, never>;
-    private_connection?: external["resources/databases/models/database_connection.yml"] & Record<string, never>;
+    connection?: external["resources/databases/models/database_connection.yml"];
+    private_connection?: external["resources/databases/models/database_connection.yml"];
   }
   "resources/databases/models/connection_pools.yml": {
     /** @description An array of connection pool objects. */
@@ -5348,10 +5348,10 @@ export interface external {
      * ]
      */
     db_names?: readonly (string)[] | null;
-    connection?: external["resources/databases/models/database_connection.yml"] & Record<string, never>;
-    private_connection?: external["resources/databases/models/database_connection.yml"] & Record<string, never>;
+    connection?: external["resources/databases/models/database_connection.yml"];
+    private_connection?: external["resources/databases/models/database_connection.yml"];
     users?: readonly (external["resources/databases/models/database_user.yml"])[] | null;
-    maintenance_window?: external["resources/databases/models/database_maintenance_window.yml"] & Record<string, never>;
+    maintenance_window?: external["resources/databases/models/database_maintenance_window.yml"];
     /**
      * Format: uuid 
      * @description The ID of the project that the database cluster is assigned to. If excluded when creating a new database cluster, it will be assigned to your default project. 
@@ -5507,8 +5507,8 @@ export interface external {
      * @example 9423cbad-9211-442f-820b-ef6915e99b5f
      */
     private_network_uuid?: string;
-    connection?: Record<string, never> & external["resources/databases/models/database_connection.yml"];
-    private_connection?: Record<string, never> & external["resources/databases/models/database_connection.yml"];
+    connection?: external["resources/databases/models/database_connection.yml"];
+    private_connection?: external["resources/databases/models/database_connection.yml"];
   }
   "resources/databases/models/database_user.yml": {
     /**
@@ -6669,7 +6669,7 @@ export interface external {
     };
   }
   "resources/domains/examples.yml": unknown
-  "resources/domains/models/domain_record_types.yml": Record<string, never>
+  "resources/domains/models/domain_record_types.yml": unknown
   "resources/domains/models/domain_record.yml": {
     /**
      * @description A unique identifier for each domain record. 
@@ -7471,7 +7471,7 @@ export interface external {
      */
     error_message?: string;
   }
-  "resources/droplets/models/droplet_actions.yml": Record<string, never>
+  "resources/droplets/models/droplet_actions.yml": unknown
   "resources/droplets/models/droplet_create.yml": {
     /**
      * @description The slug identifier for the region that you wish to deploy the Droplet in. If the specific datacenter is not not important, a slug prefix (e.g. `nyc`) can be used to deploy the Droplet in any of the that region's locations (`nyc1`, `nyc2`, or `nyc3`). If the region is omitted from the create request completely, the Droplet may deploy in any region. 
@@ -8062,7 +8062,7 @@ export interface external {
          *   ]
          * }
          */
-        "application/json": external["resources/firewalls/models/firewall_rule.yml"]["firewall_rules"] & (Record<string, never> | Record<string, never>);
+        "application/json": external["resources/firewalls/models/firewall_rule.yml"]["firewall_rules"] & (unknown | unknown);
       };
     };
     responses: {
@@ -8101,7 +8101,7 @@ export interface external {
          * }
          */
         "application/json": {
-          tags: external["shared/attributes/tags_array.yml"] & Record<string, never>;
+          tags: external["shared/attributes/tags_array.yml"];
         };
       };
     };
@@ -8212,7 +8212,7 @@ export interface external {
          *   ]
          * }
          */
-        "application/json": external["resources/firewalls/models/firewall.yml"] & Record<string, never> & (Record<string, never> | Record<string, never>);
+        "application/json": external["resources/firewalls/models/firewall.yml"] & (unknown | unknown);
       };
     };
     responses: {
@@ -8315,7 +8315,7 @@ export interface external {
          *   ]
          * }
          */
-        "application/json": external["resources/firewalls/models/firewall_rule.yml"]["firewall_rules"] & (Record<string, never> | Record<string, never>);
+        "application/json": external["resources/firewalls/models/firewall_rule.yml"]["firewall_rules"] & (unknown | unknown);
       };
     };
     responses: {
@@ -8354,7 +8354,7 @@ export interface external {
          * }
          */
         "application/json": {
-          tags: external["shared/attributes/tags_array.yml"] & Record<string, never>;
+          tags: external["shared/attributes/tags_array.yml"];
         };
       };
     };
@@ -8490,7 +8490,7 @@ export interface external {
          *   ]
          * }
          */
-        "application/json": WithRequired<external["resources/firewalls/models/firewall.yml"] & (Record<string, never> | Record<string, never>), "name">;
+        "application/json": WithRequired<external["resources/firewalls/models/firewall.yml"] & (unknown | unknown), "name">;
       };
     };
     responses: {
@@ -8503,7 +8503,7 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/firewalls/models/firewall_rule.yml": Record<string, never>
+  "resources/firewalls/models/firewall_rule.yml": unknown
   "resources/firewalls/models/firewall.yml": ({
     /**
      * @description A unique ID that can be used to identify and reference a firewall. 
@@ -8552,7 +8552,7 @@ export interface external {
      * ]
      */
     droplet_ids?: (number)[] | null;
-    tags?: external["shared/attributes/tags_array.yml"] & Record<string, never>;
+    tags?: external["shared/attributes/tags_array.yml"];
   }) & external["resources/firewalls/models/firewall_rule.yml"]["firewall_rules"]
   "resources/firewalls/parameters.yml": {
     firewall_id: string;
@@ -8765,7 +8765,7 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/floating_ips/models/floating_ip_actions.yml": Record<string, never>
+  "resources/floating_ips/models/floating_ip_actions.yml": unknown
   "resources/floating_ips/models/floating_ip_create.yml": OneOf<[{
     /**
      * @description The ID of the Droplet that the floating IP will be assigned to. 
@@ -9342,7 +9342,7 @@ export interface external {
       };
     };
   }
-  "resources/images/attributes.yml": Record<string, never>
+  "resources/images/attributes.yml": unknown
   /**
    * Retrieve an Existing Action 
    * @description To retrieve the status of an image action, send a GET request to `/v2/images/$IMAGE_ID/actions/$IMAGE_ACTION_ID`.
@@ -9559,7 +9559,7 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/images/models/image_action.yml": Record<string, never>
+  "resources/images/models/image_action.yml": unknown
   "resources/images/models/image_new_custom.yml": WithRequired<external["resources/images/models/image_update.yml"] & {
     /**
      * @description A URL from which the custom Linux virtual machine image may be retrieved.  The image it points to must be in the raw, qcow2, vhdx, vdi, or vmdk format.  It may be compressed using gzip or bzip2 and must be smaller than 100 GB after being decompressed. 
@@ -10367,7 +10367,7 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/kubernetes/models/associated_kubernetes_resources.yml": Record<string, never>
+  "resources/kubernetes/models/associated_kubernetes_resources.yml": unknown
   "resources/kubernetes/models/cluster_registries.yml": {
     /**
      * @description An array containing the UUIDs of Kubernetes clusters. 
@@ -10685,7 +10685,7 @@ export interface external {
      */
     day?: "any" | "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
   }) | null
-  "resources/kubernetes/models/node_pool.yml": Record<string, never>
+  "resources/kubernetes/models/node_pool.yml": unknown
   "resources/kubernetes/models/node.yml": {
     /**
      * Format: uuid 
@@ -10725,7 +10725,7 @@ export interface external {
      */
     updated_at?: string;
   }
-  "resources/kubernetes/models/options.yml": Record<string, never>
+  "resources/kubernetes/models/options.yml": unknown
   "resources/kubernetes/models/user.yml": {
     kubernetes_cluster_user?: {
       /**
@@ -11193,7 +11193,7 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/load_balancers/models/attributes.yml": Record<string, never>
+  "resources/load_balancers/models/attributes.yml": unknown
   "resources/load_balancers/models/forwarding_rule.yml": {
     /**
      * @description The protocol used for traffic to the load balancer. The possible values are: `http`, `https`, `http2`, `http3`, `tcp`, or `udp`. If you set the  `entry_protocol` to `udp`, the `target_protocol` must be set to `udp`.  When using UDP, the load balancer requires that you set up a health  check with a port that uses TCP, HTTP, or HTTPS to work properly.
@@ -11407,9 +11407,9 @@ export interface external {
   } & {
     region?: external["shared/attributes/region_slug.yml"];
   } & external["resources/load_balancers/models/load_balancer_base.yml"], "tag" | "region">]>
-  "resources/load_balancers/models/load_balancer.yml": external["resources/load_balancers/models/load_balancer_base.yml"] & ({
-    region?: Record<string, never> & external["resources/regions/models/region.yml"];
-  }) & {
+  "resources/load_balancers/models/load_balancer.yml": external["resources/load_balancers/models/load_balancer_base.yml"] & {
+    region?: external["resources/regions/models/region.yml"];
+  } & {
     $ref?: external["resources/load_balancers/models/attributes.yml"]["load_balancer_droplet_ids"];
   } & {
     $ref?: external["resources/load_balancers/models/attributes.yml"]["load_balancer_droplet_tag"];
@@ -12101,7 +12101,7 @@ export interface external {
      */
     resources?: (external["shared/attributes/urn.yml"])[];
   }
-  "resources/projects/models/project.yml": Record<string, never>
+  "resources/projects/models/project.yml": unknown
   "resources/projects/models/resource.yml": {
     urn?: external["shared/attributes/urn.yml"];
     /**
@@ -12493,7 +12493,7 @@ export interface external {
      *   "image_transfer"
      * ]
      */
-    features: Record<string, never>;
+    features: unknown;
     /**
      * @description This is a boolean value that represents whether new Droplets can be created in this region. 
      * @example true
@@ -12518,7 +12518,7 @@ export interface external {
      *   "s-32vcpu-192g"
      * ]
      */
-    sizes: Record<string, never>;
+    sizes: unknown;
   }
   /**
    * List All Data Center Regions 
@@ -12650,7 +12650,7 @@ export interface external {
      * @example 2020-11-04T21:39:49.530562231Z
      */
     storage_usage_bytes_updated_at?: string;
-    subscription?: Record<string, never> & external["resources/registry/models/subscription.yml"];
+    subscription?: external["resources/registry/models/subscription.yml"];
   }
   "resources/registry/models/repository_blob.yml": {
     /**
@@ -12787,7 +12787,7 @@ export interface external {
      */
     tag_count?: number;
   }
-  "resources/registry/models/subscription_tier.yml": Record<string, never>
+  "resources/registry/models/subscription_tier.yml": unknown
   "resources/registry/models/subscription.yml": {
     tier?: external["resources/registry/models/subscription_tier.yml"]["subscription_tier_base"];
     /**
@@ -13399,7 +13399,7 @@ export interface external {
       };
     };
   }
-  "resources/reserved_ips/models/reserved_ip_actions.yml": Record<string, never>
+  "resources/reserved_ips/models/reserved_ip_actions.yml": unknown
   "resources/reserved_ips/models/reserved_ip_create.yml": OneOf<[{
     /**
      * @description The ID of the Droplet that the reserved IP will be assigned to. 
@@ -13972,7 +13972,7 @@ export interface external {
     public_key: string;
     name: external["resources/ssh_keys/attributes/ssh_key_name.yml"];
   }
-  "resources/ssh_keys/parameters/ssh_key_identifier.yml": Record<string, never>
+  "resources/ssh_keys/parameters/ssh_key_identifier.yml": unknown
   "resources/ssh_keys/responses/sshKeys_all.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -14580,8 +14580,8 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/uptime/models/alert.yml": Record<string, never>
-  "resources/uptime/models/check.yml": Record<string, never>
+  "resources/uptime/models/alert.yml": unknown
+  "resources/uptime/models/check.yml": unknown
   "resources/uptime/models/notification.yml": {
     /**
      * @description An email to notify on an alert trigger. 
@@ -14606,7 +14606,7 @@ export interface external {
         url: string;
       })[];
   }
-  "resources/uptime/models/state.yml": Record<string, never>
+  "resources/uptime/models/state.yml": unknown
   "resources/uptime/parameters.yml": {
     check_id: string;
     alert_id: string;
@@ -14721,7 +14721,7 @@ export interface external {
     };
   }
   "resources/volumes/examples.yml": unknown
-  "resources/volumes/models/attributes.yml": Record<string, never>
+  "resources/volumes/models/attributes.yml": unknown
   "resources/volumes/models/volume_action_post_attach.yml": external["resources/volumes/models/volume_action_post_base.yml"] & {
     droplet_id: external["resources/volumes/models/attributes.yml"]["volume_action_droplet_id"];
     tags?: external["shared/attributes/tags_array.yml"];
@@ -14775,7 +14775,7 @@ export interface external {
     created_at?: string;
     tags?: external["shared/attributes/tags_array.yml"];
   }
-  "resources/volumes/models/volume_full.yml": external["resources/volumes/models/volume_base.yml"] & ({
+  "resources/volumes/models/volume_full.yml": external["resources/volumes/models/volume_base.yml"] & {
     /**
      * @example {
      *   "name": "New York 1",
@@ -14805,7 +14805,7 @@ export interface external {
      *   "available": true
      * }
      */
-    region?: Record<string, never> & external["resources/regions/models/region.yml"];
+    region?: external["resources/regions/models/region.yml"];
     /**
      * @description The type of filesystem currently in-use on the volume. 
      * @example ext4
@@ -14816,7 +14816,7 @@ export interface external {
      * @example example
      */
     filesystem_label?: string;
-  })
+  }
   "resources/volumes/models/volumeAction.yml": ({
     /**
      * @description This is the type of action that the object represents. For example, this could be "attach_volume" to represent the state of a volume attach action. 
@@ -14826,14 +14826,14 @@ export interface external {
     /** @example null */
     resource_id?: number | null;
   }) & external["resources/actions/models/action.yml"]
-  "resources/volumes/models/volumes_ext4.yml": external["resources/volumes/models/volume_base.yml"] & external["resources/volumes/models/attributes.yml"]["volume_snapshot_id"] & external["resources/volumes/models/attributes.yml"]["volume_write_file_system_type"] & ({
+  "resources/volumes/models/volumes_ext4.yml": external["resources/volumes/models/volume_base.yml"] & external["resources/volumes/models/attributes.yml"]["volume_snapshot_id"] & external["resources/volumes/models/attributes.yml"]["volume_write_file_system_type"] & {
     region: external["shared/attributes/region_slug.yml"];
-    filesystem_label?: external["resources/volumes/models/attributes.yml"]["volume_write_file_system_label"] & Record<string, never>;
-  })
-  "resources/volumes/models/volumes_xfs.yml": external["resources/volumes/models/volume_base.yml"] & external["resources/volumes/models/attributes.yml"]["volume_snapshot_id"] & external["resources/volumes/models/attributes.yml"]["volume_write_file_system_type"] & ({
+    filesystem_label?: external["resources/volumes/models/attributes.yml"]["volume_write_file_system_label"];
+  }
+  "resources/volumes/models/volumes_xfs.yml": external["resources/volumes/models/volume_base.yml"] & external["resources/volumes/models/attributes.yml"]["volume_snapshot_id"] & external["resources/volumes/models/attributes.yml"]["volume_write_file_system_type"] & {
     region: external["shared/attributes/region_slug.yml"];
-    filesystem_label?: external["resources/volumes/models/attributes.yml"]["volume_write_file_system_label"] & Record<string, never>;
-  })
+    filesystem_label?: external["resources/volumes/models/attributes.yml"]["volume_write_file_system_label"];
+  }
   "resources/volumes/parameters.yml": {
     volume_id: string;
     volume_name?: string;
@@ -15298,7 +15298,7 @@ export interface external {
      */
     created_at?: string;
   }
-  "resources/vpcs/models/vpc.yml": Record<string, never>
+  "resources/vpcs/models/vpc.yml": unknown
   "resources/vpcs/parameters.yml": {
     vpc_id: string;
     vpc_resource_type?: string;
@@ -15509,12 +15509,12 @@ export interface external {
   "shared/attributes/regions_array.yml": (external["shared/attributes/region_slug.yml"])[]
   "shared/attributes/tags_array.yml": (string)[] | null
   "shared/attributes/urn.yml": string
-  "shared/headers.yml": Record<string, never>
+  "shared/headers.yml": unknown
   "shared/meta_optional_total.yml": {
     meta: external["shared/models/meta_properties.yml"];
   }
   "shared/meta.yml": {
-    meta: external["shared/models/meta_properties.yml"] & Record<string, never>;
+    meta: external["shared/models/meta_properties.yml"];
   }
   "shared/models/action_link.yml": {
     /**
@@ -15575,7 +15575,7 @@ export interface external {
      */
     total?: number;
   }
-  "shared/pages.yml": Record<string, never>
+  "shared/pages.yml": unknown
   "shared/parameters.yml": {
     per_page?: number;
     page?: number;

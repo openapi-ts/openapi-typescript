@@ -257,6 +257,9 @@ export function defaultSchemaObjectTransform(
 
   if (finalType) return finalType;
 
+  // any type
+  if (!("type" in schemaObject)) return "unknown";
+
   // if no type could be generated, fall back to “empty object” type
   return ctx.emptyObjectsUnknown ? "Record<string, unknown>" : "Record<string, never>";
 }
