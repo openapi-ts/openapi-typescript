@@ -1,4 +1,4 @@
-import type { GlobalContext, ParameterObject, PathItemObject, ReferenceObject } from "../types";
+import type { GlobalContext, ParameterObject, PathItemObject, ReferenceObject } from "../types.js";
 import { escStr, getSchemaObjectComment, indent } from "../utils.js";
 import transformOperationObject from "./operation-object.js";
 

@@ -1,4 +1,4 @@
-import type { GlobalContext, OpenAPI3, OpenAPITSOptions, Subschema } from "./types";
+import type { GlobalContext, OpenAPI3, OpenAPITSOptions, Subschema } from "./types.js";
 import type { Readable } from "node:stream";
 import { URL } from "node:url";
 import load, { resolveSchema, VIRTUAL_JSON_URL } from "./load.js";

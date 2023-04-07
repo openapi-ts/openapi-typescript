@@ -1,5 +1,4 @@
-import { tsUnionOf } from "../src/utils";
-import { tsIntersectionOf } from "../src/utils";
+import { tsIntersectionOf, tsUnionOf } from "../src/utils.js";
 
 describe("utils", () => {
   describe("tsUnionOf", () => {

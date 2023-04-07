@@ -1,4 +1,4 @@
-import type { GlobalContext, ReferenceObject, SchemaObject } from "../types";
+import type { GlobalContext, ReferenceObject, SchemaObject } from "../types.js";
 import {
   escObjKey,
   escStr,

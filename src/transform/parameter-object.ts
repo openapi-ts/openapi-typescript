@@ -1,4 +1,4 @@
-import type { GlobalContext, ParameterObject } from "types";
+import type { GlobalContext, ParameterObject } from "../types.js";
 import transformSchemaObject from "./schema-object.js";
 
 export interface TransformParameterObjectOptions {

@@ -1,6 +1,6 @@
 import type { URL } from "node:url";
-import type { TransformSchemaObjectOptions } from "./transform/schema-object";
 import type { RequestInfo, RequestInit, Response } from "undici";
+import type { TransformSchemaObjectOptions } from "./transform/schema-object.js";
 
 export interface Extensable {
   [key: `x-${string}`]: any;

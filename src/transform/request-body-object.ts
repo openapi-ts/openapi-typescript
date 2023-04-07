@@ -1,4 +1,4 @@
-import type { GlobalContext, RequestBodyObject } from "../types";
+import type { GlobalContext, RequestBodyObject } from "../types.js";
 import { escStr, getEntries, getSchemaObjectComment, indent, tsReadonly } from "../utils.js";
 import transformMediaTypeObject from "./media-type-object.js";
 import transformSchemaObject from "./schema-object.js";

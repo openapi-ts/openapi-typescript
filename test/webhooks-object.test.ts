@@ -1,4 +1,4 @@
-import type { GlobalContext, WebhooksObject } from "../src/types";
+import type { GlobalContext, WebhooksObject } from "../src/types.js";
 import transformWebhooksObject from "../src/transform/webhooks-object.js";
 
 const options: GlobalContext = {
