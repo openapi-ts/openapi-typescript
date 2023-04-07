@@ -1,4 +1,4 @@
-import type { ComponentsObject, GlobalContext } from "../types";
+import type { ComponentsObject, GlobalContext } from "../types.js";
 import { escObjKey, getEntries, getSchemaObjectComment, indent, tsOptionalProperty, tsReadonly } from "../utils.js";
 import transformHeaderObject from "./header-object.js";
 import transformParameterObject from "./parameter-object.js";

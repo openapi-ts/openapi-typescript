@@ -1,4 +1,4 @@
-import type { HeaderObject } from "../src/types";
+import type { HeaderObject } from "../src/types.js";
 import transformHeaderObject, { TransformHeaderObjectOptions } from "../src/transform/header-object.js";
 
 const options: TransformHeaderObjectOptions = {
@@ -12,6 +12,7 @@ const options: TransformHeaderObjectOptions = {
     immutableTypes: false,
     indentLv: 0,
     operations: {},
+    parameters: {},
     pathParamsAsTypes: false,
     postTransform: undefined,
     silent: true,

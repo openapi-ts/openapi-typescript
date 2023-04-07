@@ -1,4 +1,4 @@
-import type { GlobalContext, ResponseObject } from "../types";
+import type { GlobalContext, ResponseObject } from "../types.js";
 import {
   escObjKey,
   escStr,

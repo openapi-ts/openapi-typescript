@@ -2,7 +2,7 @@ import c from "ansi-colors";
 import { isAbsolute } from "node:path";
 import supportsColor from "supports-color";
 import { fetch as unidiciFetch } from "undici";
-import { Fetch } from "types";
+import type { Fetch } from "./types.js";
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-boolean-literal-compare
 if (!supportsColor.stdout || supportsColor.stdout.hasBasic === false) c.enabled = false;

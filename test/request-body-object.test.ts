@@ -1,5 +1,5 @@
 import transformRequestBodyObject, { TransformRequestBodyObjectOptions } from "../src/transform/request-body-object.js";
-import { RequestBodyObject } from "../src/types";
+import type { RequestBodyObject } from "../src/types.js";
 
 const options: TransformRequestBodyObjectOptions = {
   path: "#/test/request-body-object",
@@ -12,6 +12,7 @@ const options: TransformRequestBodyObjectOptions = {
     immutableTypes: false,
     indentLv: 0,
     operations: {},
+    parameters: {},
     pathParamsAsTypes: false,
     postTransform: undefined,
     silent: true,

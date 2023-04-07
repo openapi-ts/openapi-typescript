@@ -1,4 +1,4 @@
-import type { ComponentsObject, GlobalContext } from "../src/types";
+import type { ComponentsObject, GlobalContext } from "../src/types.js";
 import transformComponentsObject from "../src/transform/components-object.js";
 
 const options: GlobalContext = {

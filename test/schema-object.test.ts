@@ -1,4 +1,4 @@
-import type { SchemaObject } from "../src/types";
+import type { SchemaObject } from "../src/types.js";
 import transformSchemaObject, { TransformSchemaObjectOptions } from "../src/transform/schema-object.js";
 
 const options: TransformSchemaObjectOptions = {
@@ -12,6 +12,7 @@ const options: TransformSchemaObjectOptions = {
     immutableTypes: false,
     indentLv: 0,
     operations: {},
+    parameters: {},
     pathParamsAsTypes: false,
     postTransform: undefined,
     silent: true,

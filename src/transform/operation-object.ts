@@ -1,4 +1,4 @@
-import type { GlobalContext, OperationObject, ParameterObject } from "../types";
+import type { GlobalContext, OperationObject, ParameterObject } from "../types.js";
 import { escObjKey, getEntries, getSchemaObjectComment, indent, tsOptionalProperty, tsReadonly } from "../utils.js";
 import transformParameterObject from "./parameter-object.js";
 import transformRequestBodyObject from "./request-body-object.js";

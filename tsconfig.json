@@ -6,7 +6,7 @@
     "forceConsistentCasingInFileNames": true,
     "lib": ["ESNext"],
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "NodeNext",
     "noImplicitReturns": true,
     "outDir": "./dist",
     "removeComments": true,

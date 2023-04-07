@@ -1,4 +1,4 @@
-import type { GlobalContext, PathItemObject } from "../src/types";
+import type { GlobalContext, PathItemObject } from "../src/types.js";
 import transformPathItemObject, { TransformPathItemObjectOptions } from "../src/transform/path-item-object.js";
 
 const options: TransformPathItemObjectOptions = {
@@ -12,6 +12,7 @@ const options: TransformPathItemObjectOptions = {
     immutableTypes: false,
     indentLv: 0,
     operations: {},
+    parameters: {},
     pathParamsAsTypes: false,
     postTransform: undefined,
     silent: true,

@@ -1,4 +1,4 @@
-import type { GlobalContext, ParameterObject, ReferenceObject } from "types";
+import type { GlobalContext, ParameterObject, ReferenceObject } from "../types.js";
 import { escObjKey, indent, tsOptionalProperty, tsReadonly } from "../utils.js";
 import transformParameterObject from "./parameter-object.js";
 

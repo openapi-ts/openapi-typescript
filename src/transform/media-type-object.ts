@@ -1,4 +1,4 @@
-import type { GlobalContext, MediaTypeObject } from "../types";
+import type { GlobalContext, MediaTypeObject } from "../types.js";
 import transformSchemaObject from "./schema-object.js";
 
 export interface TransformMediaTypeObjectOptions {

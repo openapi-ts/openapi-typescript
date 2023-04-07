@@ -1,4 +1,4 @@
-import type { GlobalContext, WebhooksObject } from "../types";
+import type { GlobalContext, WebhooksObject } from "../types.js";
 import { escStr, getEntries, indent } from "../utils.js";
 import transformPathItemObject from "./path-item-object.js";
 

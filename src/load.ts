@@ -11,7 +11,7 @@ import type {
   ResponseObject,
   SchemaObject,
   Subschema,
-} from "./types";
+} from "./types.js";
 import fs from "node:fs";
 import path from "node:path";
 import { Readable } from "node:stream";

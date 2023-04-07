@@ -1,4 +1,4 @@
-import type { GlobalContext, PathsObject } from "../types";
+import type { GlobalContext, PathsObject } from "../types.js";
 import { escStr, getEntries, indent } from "../utils.js";
 import transformParameterObject from "./parameter-object.js";
 import transformPathItemObject from "./path-item-object.js";

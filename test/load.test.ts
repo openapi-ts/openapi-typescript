@@ -1,8 +1,8 @@
-import internalLoad, { type LoadOptions } from "../src/load.js";
-import type { Subschema } from "../src/types";
-import { Response, fetch as unidiciFetch } from "undici";
-import { Readable } from "node:stream";
 import { dump as stringifyYaml } from "js-yaml";
+import { Readable } from "node:stream";
+import { Response, fetch as unidiciFetch } from "undici";
+import internalLoad, { type LoadOptions } from "../src/load.js";
+import type { Subschema } from "../src/types.js";
 
 describe("Load", () => {
   describe("remote schema", () => {
@@ -112,6 +112,7 @@ async function load(
     immutableTypes: false,
     indentLv: 0,
     operations: {},
+    parameters: {},
     pathParamsAsTypes: false,
     postTransform: undefined,
     silent: true,

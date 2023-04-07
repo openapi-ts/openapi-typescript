@@ -1,4 +1,4 @@
-import type { GlobalContext, PathsObject } from "../src/types";
+import type { GlobalContext, PathsObject } from "../src/types.js";
 import transformPathsObject from "../src/transform/paths-object.js";
 
 const options: GlobalContext = {

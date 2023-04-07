@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { OpenAPI3 } from "../src/types";
+import type { OpenAPI3 } from "../src/types.js";
 import openapiTS from "../dist/index.js";
 
 const BOILERPLATE = `/**
@@ -556,6 +556,7 @@ export type operations = Record<string, never>;
 
       test("transform", async () => {
         const generated = await openapiTS(schema, {
+          // @ts-expect-error
           transform(node) {
             if ("format" in node && node.format === "date-time") return "Date";
           },
@@ -586,6 +587,7 @@ export type operations = Record<string, never>;
       test("postTransform (with inject)", async () => {
         const inject = `type DateOrTime = Date | number;\n`;
         const generated = await openapiTS(schema, {
+          // @ts-expect-error
           postTransform(type, options) {
             if (options.path.includes("Date")) return "DateOrTime";
           },

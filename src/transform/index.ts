@@ -1,4 +1,4 @@
-import type { GlobalContext, OpenAPI3 } from "../types";
+import type { GlobalContext, OpenAPI3 } from "../types.js";
 import transformComponentsObject from "./components-object.js";
 import transformPathsObject from "./paths-object.js";
 import transformWebhooksObject from "./webhooks-object.js";
