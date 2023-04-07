@@ -5665,13 +5665,13 @@ export interface components {
   };
   parameters: {
     /** @description The number of results per page (max 100). */
-    "per-page": number;
+    "per-page"?: number;
     /** @description Page number of the results to fetch. */
-    page: number;
+    page?: number;
     /** @description The unique identifier of the hook. */
     "hook-id": number;
     /** @description The direction to sort the results by. */
-    direction: "asc" | "desc";
+    direction?: "asc" | "desc";
     /** @description The unique identifier of the key. */
     "key-ids": string;
     /** @description The unique identifier of the team. */
@@ -5687,7 +5687,7 @@ export interface components {
     /** @description The unique identifier of the token. */
     "token-id": number;
     /** @description Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    since: string;
+    since?: string;
     /** @description The unique identifier of the installation. */
     "installation-id": number;
     /** @description The unique identifier of the grant. */
@@ -5701,7 +5701,7 @@ export interface components {
     /** @description The slug version of the enterprise name. You can also substitute this value with the enterprise id. */
     enterprise: string;
     /** @description A search phrase. For more information, see [Searching the audit log](https://docs.github.com/enterprise-server@3.6/github/setting-up-and-managing-organizations-and-teams/reviewing-the-audit-log-for-your-organization#searching-the-audit-log). */
-    "audit-log-phrase": string;
+    "audit-log-phrase"?: string;
     /**
      * @description The event types to include:
      * 
@@ -5711,33 +5711,33 @@ export interface components {
      * 
      * The default is `web`.
      */
-    "audit-log-include": "web" | "git" | "all";
+    "audit-log-include"?: "web" | "git" | "all";
     /** @description A cursor, as given in the [Link header](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events after this cursor. */
-    "audit-log-after": string;
+    "audit-log-after"?: string;
     /** @description A cursor, as given in the [Link header](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events before this cursor. */
-    "audit-log-before": string;
+    "audit-log-before"?: string;
     /**
      * @description The order of audit log events. To list newest events first, specify `desc`. To list oldest events first, specify `asc`.
      * 
      * The default is `desc`.
      */
-    "audit-log-order": "desc" | "asc";
+    "audit-log-order"?: "desc" | "asc";
     /** @description Set to `open` or `resolved` to only list secret scanning alerts in a specific state. */
-    "secret-scanning-alert-state": "open" | "resolved";
+    "secret-scanning-alert-state"?: "open" | "resolved";
     /**
      * @description A comma-separated list of secret types to return. By default all secret types are returned.
      * See "[Secret scanning patterns](https://docs.github.com/enterprise-server@3.6/code-security/secret-scanning/secret-scanning-patterns#supported-secrets-for-advanced-security)"
      * for a complete list of secret types.
      */
-    "secret-scanning-alert-secret-type": string;
+    "secret-scanning-alert-secret-type"?: string;
     /** @description A comma-separated list of resolutions. Only secret scanning alerts with one of these resolutions are listed. Valid resolutions are `false_positive`, `wont_fix`, `revoked`, `pattern_edited`, `pattern_deleted` or `used_in_tests`. */
-    "secret-scanning-alert-resolution": string;
+    "secret-scanning-alert-resolution"?: string;
     /** @description The property to sort the results by. `created` means when the alert was created. `updated` means when the alert was updated or resolved. */
-    "secret-scanning-alert-sort": "created" | "updated";
+    "secret-scanning-alert-sort"?: "created" | "updated";
     /** @description A cursor, as given in the [Link header](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events before this cursor. */
-    "pagination-before": string;
+    "pagination-before"?: string;
     /** @description A cursor, as given in the [Link header](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events after this cursor. */
-    "pagination-after": string;
+    "pagination-after"?: string;
     /** @description The unique identifier of the group. */
     "group-id": number;
     /** @description The slug of the team name. */
@@ -5747,19 +5747,19 @@ export interface components {
     /** @description The name of the repository. The name is not case sensitive. */
     repo: string;
     /** @description Returns someone's workflow runs. Use the login for the user who created the `push` associated with the check suite or workflow run. */
-    actor: string;
+    actor?: string;
     /** @description Returns workflow runs associated with a branch. Use the name of the branch of the `push`. */
-    "workflow-run-branch": string;
+    "workflow-run-branch"?: string;
     /** @description Returns workflow run triggered by the event you specify. For example, `push`, `pull_request` or `issue`. For more information, see "[Events that trigger workflows](https://docs.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows)." */
-    event: string;
+    event?: string;
     /** @description Returns workflow runs with the check run `status` or `conclusion` that you specify. For example, a conclusion can be `success` or a status can be `in_progress`. Only GitHub can set a status of `waiting` or `requested`. */
-    "workflow-run-status": "completed" | "action_required" | "cancelled" | "failure" | "neutral" | "skipped" | "stale" | "success" | "timed_out" | "in_progress" | "queued" | "requested" | "waiting";
+    "workflow-run-status"?: "completed" | "action_required" | "cancelled" | "failure" | "neutral" | "skipped" | "stale" | "success" | "timed_out" | "in_progress" | "queued" | "requested" | "waiting";
     /** @description Returns workflow runs created within the given date-time range. For more information on the syntax, see "[Understanding the search syntax](https://docs.github.com/enterprise-server@3.6/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax#query-for-dates)." */
-    created: string;
+    created?: string;
     /** @description If `true` pull requests are omitted from the response (empty array). */
-    "exclude-pull-requests": boolean;
+    "exclude-pull-requests"?: boolean;
     /** @description Returns workflow runs with the `check_suite_id` that you specify. */
-    "workflow-run-check-suite-id": number;
+    "workflow-run-check-suite-id"?: number;
     /** @description The unique identifier of the workflow run. */
     "run-id": number;
     /** @description The attempt number of the workflow run. */
@@ -5769,11 +5769,11 @@ export interface components {
     /** @description The unique identifier of the autolink. */
     "autolink-id": number;
     /** @description The name of a code scanning tool. Only results by this tool will be listed. You can specify the tool by using either `tool_name` or `tool_guid`, but not both. */
-    "tool-name": components["schemas"]["code-scanning-analysis-tool-name"];
+    "tool-name"?: components["schemas"]["code-scanning-analysis-tool-name"];
     /** @description The GUID of a code scanning tool. Only results by this tool will be listed. Note that some code scanning tools may not include a GUID in their analysis data. You can specify the tool by using either `tool_guid` or `tool_name`, but not both. */
-    "tool-guid": components["schemas"]["code-scanning-analysis-tool-guid"];
+    "tool-guid"?: components["schemas"]["code-scanning-analysis-tool-guid"];
     /** @description The full path, relative to the repository root, of the dependency manifest file. */
-    "manifest-path": string;
+    "manifest-path"?: string;
     /** @description The unique identifier of the key. */
     "key-id": number;
     /** @description The unique identifier of the release. */
@@ -5781,11 +5781,11 @@ export interface components {
     /** @description The number that identifies an alert. You can find this at the end of the URL for a code scanning alert within GitHub, and in the `number` field in the response from the `GET /repos/{owner}/{repo}/code-scanning/alerts` operation. */
     "alert-number": components["schemas"]["alert-number"];
     /** @description A repository ID. Only return repositories with an ID greater than this ID. */
-    "since-repo": number;
+    "since-repo"?: number;
     /** @description Used for pagination: the index of the first result to return. */
-    "start-index": number;
+    "start-index"?: number;
     /** @description Used for pagination: the number of results to return. */
-    count: number;
+    count?: number;
     /** @description Identifier generated by the GitHub SCIM endpoint. */
     "scim-group-id": string;
     /** @description The unique identifier of the SCIM user. */

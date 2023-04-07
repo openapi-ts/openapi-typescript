@@ -80,6 +80,9 @@ export default function transformComponentsObject(components: ComponentsObject, 
           )
         );
       } else {
+        if (parameterObject.in !== "path" && !parameterObject.required) {
+          key = tsOptionalProperty(key);
+        }
         const parameterType = transformParameterObject(parameterObject, {
           path: `#/components/parameters/${name}`,
           ctx: { ...ctx, indentLv },

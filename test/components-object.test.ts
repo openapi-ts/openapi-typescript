@@ -41,6 +41,7 @@ const basicSchema: ComponentsObject = {
     Search: {
       name: "search",
       in: "query",
+      required: true,
       schema: { type: "string" },
     },
   },
@@ -74,6 +75,22 @@ const basicSchema: ComponentsObject = {
       get: {
         requestBody: { $ref: 'components["requestBodies"]["UploadUser"]' },
       },
+    },
+  },
+};
+
+const optionalParamSchema: ComponentsObject = {
+  parameters: {
+    myParam: {
+      name: "myParam",
+      in: "query",
+      required: false,
+      schema: { type: "string" },
+    },
+    myParam2: {
+      name: "myParam2",
+      in: "query",
+      schema: { type: "string" },
     },
   },
 };
@@ -218,5 +235,20 @@ describe("Components Object", () => {
 }`);
       });
     });
+  });
+
+  test("parameters with required: false", () => {
+    const generated = transformComponentsObject(optionalParamSchema, options);
+    expect(generated).toBe(`{
+  schemas: never;
+  responses: never;
+  parameters: {
+    myParam?: string;
+    myParam2?: string;
+  };
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}`);
   });
 });
