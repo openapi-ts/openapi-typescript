@@ -101,7 +101,7 @@ import createClient from "openapi-fetch";
 import { paths } from "./v1"; // (generated from openapi-typescript)
 
 const { get, post, put, patch, del } = createClient<paths>({
-  baseURL: "https://myserver.com/api/v1/",
+  baseUrl: "https://myserver.com/api/v1/",
   headers: {
     Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
   },
