@@ -707,6 +707,15 @@
         "bug",
         "test"
       ]
+    },
+    {
+      "login": "shoffmeister",
+      "name": "shoffmeister",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3868036?v=4",
+      "profile": "https://github.com/shoffmeister",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
