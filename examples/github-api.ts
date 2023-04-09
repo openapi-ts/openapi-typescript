@@ -439,9 +439,9 @@ export interface paths {
      * Get GitHub meta information 
      * @description Returns meta information about GitHub, including a list of GitHub's IP addresses. For more information, see "[About GitHub's IP addresses](https://docs.github.com/articles/about-github-s-ip-addresses/)."
      * 
-     * **Note:** This endpoint returns both IPv4 and IPv6 addresses. However, not all features support IPv6. You should refer to the specific documentation for each feature to determine if IPv6 is supported.
+     * The values shown in the documentation's response are example values. You must always query the API directly to get the latest values.
      * 
-     * **Note:** The IP addresses shown in the documentation's response are only example values. You must always query the API directly to get the latest list of IP addresses.
+     * **Note:** This endpoint returns both IPv4 and IPv6 addresses. However, not all features support IPv6. You should refer to the specific documentation for each feature to determine if IPv6 is supported.
      */
     get: operations["meta/get"];
   };
@@ -4464,6 +4464,13 @@ export interface paths {
      */
     get: operations["dependency-graph/diff-range"];
   };
+  "/repos/{owner}/{repo}/dependency-graph/sbom": {
+    /**
+     * Export a software bill of materials (SBOM) for a repository. 
+     * @description Exports the software bill of materials (SBOM) for a repository in SPDX JSON format.
+     */
+    get: operations["dependency-graph/export-sbom"];
+  };
   "/repos/{owner}/{repo}/dependency-graph/snapshots": {
     /**
      * Create a snapshot of dependencies for a repository 
@@ -4667,6 +4674,8 @@ export interface paths {
      * @description Create a fork for the authenticated user.
      * 
      * **Note**: Forking a Repository happens asynchronously. You may have to wait a short period of time before you can access the git objects. If this takes longer than 5 minutes, be sure to contact [GitHub Support](https://support.github.com/contact?tags=dotcom-rest-api).
+     * 
+     * **Note**: Although this endpoint works with GitHub Apps, the GitHub App must be installed on the destination account with access to all repositories and on the source account with access to the source repository.
      */
     post: operations["repos/create-fork"];
   };
@@ -5871,6 +5880,47 @@ export interface paths {
      * GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
      */
     get: operations["secret-scanning/list-locations-for-alert"];
+  };
+  "/repos/{owner}/{repo}/security-advisories": {
+    /**
+     * List repository security advisories 
+     * @description Lists security advisories in a repository.
+     * You must authenticate using an access token with the `repo` scope or `repository_advisories:read` permission
+     * in order to get published security advisories in a private repository, or any unpublished security advisories that you have access to.
+     * 
+     * You can access unpublished security advisories from a repository if you are a security manager or administrator of that repository, or if you are a collaborator on any security advisory.
+     */
+    get: operations["security-advisories/list-repository-advisories"];
+    /**
+     * Create a repository security advisory 
+     * @description Creates a new repository security advisory.
+     * You must authenticate using an access token with the `repo` scope or `repository_advisories:write` permission to use this endpoint.
+     * 
+     * In order to create a draft repository security advisory, you must be a security manager or administrator of that repository.
+     */
+    post: operations["security-advisories/create-repository-advisory"];
+  };
+  "/repos/{owner}/{repo}/security-advisories/{ghsa_id}": {
+    /**
+     * Get a repository security advisory 
+     * @description Get a repository security advisory using its GitHub Security Advisory (GHSA) identifier.
+     * You can access any published security advisory on a public repository.
+     * You must authenticate using an access token with the `repo` scope or `repository_advisories:read` permission
+     * in order to get a published security advisory in a private repository, or any unpublished security advisory that you have access to.
+     * 
+     * You can access an unpublished security advisory from a repository if you are a security manager or administrator of that repository, or if you are a
+     * collaborator on the security advisory.
+     */
+    get: operations["security-advisories/get-repository-advisory"];
+    /**
+     * Update a repository security advisory 
+     * @description Update a repository security advisory using its GitHub Security Advisory (GHSA) identifier.
+     * You must authenticate using an access token with the `repo` scope or `repository_advisories:write` permission to use this endpoint.
+     * 
+     * In order to update any security advisory, you must be a security manager or administrator of that repository,
+     * or a collaborator on the repository security advisory.
+     */
+    patch: operations["security-advisories/update-repository-advisory"];
   };
   "/repos/{owner}/{repo}/stargazers": {
     /**
@@ -8238,19 +8288,19 @@ export interface components {
       url?: string;
       request: {
         /** @description The request headers sent with the webhook delivery. */
-        headers: ({
-          [key: string]: unknown | undefined;
-        }) | null;
+        headers: {
+          [key: string]: unknown;
+        } | null;
         /** @description The webhook payload. */
-        payload: ({
-          [key: string]: unknown | undefined;
-        }) | null;
+        payload: {
+          [key: string]: unknown;
+        } | null;
       };
       response: {
         /** @description The response headers received when the delivery was made. */
-        headers: ({
-          [key: string]: unknown | undefined;
-        }) | null;
+        headers: {
+          [key: string]: unknown;
+        } | null;
         /** @description The response payload received. */
         payload: string | null;
       };
@@ -8457,11 +8507,6 @@ export interface components {
        * @enum {string}
        */
       pull_requests?: "read" | "write";
-      /**
-       * @description The level of permission to grant the access token to view and manage announcement banners for a repository. 
-       * @enum {string}
-       */
-      repository_announcement_banners?: "read" | "write";
       /**
        * @description The level of permission to grant the access token to manage the post-receive hooks for a repository. 
        * @enum {string}
@@ -10675,67 +10720,61 @@ export interface components {
       };
       /**
        * @example [
-       *   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl"
+       *   "ssh-ed25519 ABCDEFGHIJKLMNOPQRSTUVWXYZ"
        * ]
        */
       ssh_keys?: (string)[];
       /**
        * @example [
-       *   "127.0.0.1/32"
+       *   "192.0.2.1"
        * ]
        */
       hooks?: (string)[];
       /**
        * @example [
-       *   "127.0.0.1/32"
+       *   "192.0.2.1"
        * ]
        */
       web?: (string)[];
       /**
        * @example [
-       *   "127.0.0.1/32"
+       *   "192.0.2.1"
        * ]
        */
       api?: (string)[];
       /**
        * @example [
-       *   "127.0.0.1/32"
+       *   "192.0.2.1"
        * ]
        */
       git?: (string)[];
       /**
        * @example [
-       *   "13.65.0.0/16",
-       *   "157.55.204.33/32",
-       *   "2a01:111:f403:f90c::/62"
+       *   "192.0.2.1"
        * ]
        */
       packages?: (string)[];
       /**
        * @example [
-       *   "192.30.252.153/32",
-       *   "192.30.252.154/32"
+       *   "192.0.2.1"
        * ]
        */
       pages?: (string)[];
       /**
        * @example [
-       *   "54.158.161.132",
-       *   "54.226.70.38"
+       *   "192.0.2.1"
        * ]
        */
       importer?: (string)[];
       /**
        * @example [
-       *   "13.64.0.0/16",
-       *   "13.65.0.0/16"
+       *   "192.0.2.1"
        * ]
        */
       actions?: (string)[];
       /**
        * @example [
-       *   "192.168.7.15/32",
-       *   "192.168.7.16/32"
+       *   "192.0.2.1"
        * ]
        */
       dependabot?: (string)[];
@@ -12423,6 +12462,11 @@ export interface components {
        */
       privacy?: string;
       /**
+       * @description The notification setting the team has set 
+       * @example notifications_enabled
+       */
+      notification_setting?: string;
+      /**
        * Format: uri 
        * @example https://github.com/orgs/rails/teams/core
        */
@@ -12451,6 +12495,7 @@ export interface components {
       slug: string;
       description: string | null;
       privacy?: string;
+      notification_setting?: string;
       permission: string;
       permissions?: {
         pull: boolean;
@@ -12709,6 +12754,11 @@ export interface components {
        */
       privacy?: string;
       /**
+       * @description The notification setting the team has set 
+       * @example notifications_enabled
+       */
+      notification_setting?: string;
+      /**
        * Format: uri 
        * @example https://github.com/orgs/rails/teams/core
        */
@@ -12950,6 +13000,12 @@ export interface components {
        * @enum {string}
        */
       privacy?: "closed" | "secret";
+      /**
+       * @description The notification setting the team has set 
+       * @example notifications_enabled 
+       * @enum {string}
+       */
+      notification_setting?: "notifications_enabled" | "notifications_disabled";
       /**
        * @description Permission that the team will have for its repositories 
        * @example push
@@ -15101,7 +15157,7 @@ export interface components {
        */
       task: string;
       payload: OneOf<[{
-        [key: string]: unknown | undefined;
+        [key: string]: unknown;
       }, string]>;
       /** @example staging */
       original_environment?: string;
@@ -15357,6 +15413,7 @@ export interface components {
           slug?: string;
           description?: string | null;
           privacy?: string;
+          notification_setting?: string;
           permission?: string;
           members_url?: string;
           repositories_url?: string;
@@ -17184,6 +17241,113 @@ export interface components {
         scope: "unknown" | "runtime" | "development";
       })[];
     /**
+     * Dependency Graph SPDX SBOM 
+     * @description A schema for the SPDX JSON format returned by the Dependency Graph.
+     */
+    "dependency-graph-spdx-sbom": {
+      sbom: {
+        /**
+         * @description The SPDX identifier for the SPDX document. 
+         * @example SPDXRef-DOCUMENT
+         */
+        SPDXID: string;
+        /**
+         * @description The version of the SPDX specification that this document conforms to. 
+         * @example SPDX-2.3
+         */
+        spdxVersion: string;
+        creationInfo: {
+          /**
+           * @description The date and time the SPDX document was created. 
+           * @example 2021-11-03T00:00:00Z
+           */
+          created: string;
+          /** @description The tools that were used to generate the SPDX document. */
+          creators: (string)[];
+        };
+        /**
+         * @description The name of the SPDX document. 
+         * @example github/github
+         */
+        name: string;
+        /**
+         * @description The license under which the SPDX document is licensed. 
+         * @example CC0-1.0
+         */
+        dataLicense: string;
+        /** @description The name of the repository that the SPDX document describes. */
+        documentDescribes: (string)[];
+        /**
+         * @description The namespace for the SPDX document. 
+         * @example https://github.com/example/dependency_graph/sbom-123
+         */
+        documentNamespace: string;
+        packages: ({
+            /**
+             * @description A unique SPDX identifier for the package. 
+             * @example SPDXRef-Package
+             */
+            SPDXID?: string;
+            /**
+             * @description The name of the package. 
+             * @example rubygems:github/github
+             */
+            name?: string;
+            /**
+             * @description The version of the package. If the package does not have an exact version specified,
+             * a version range is given. 
+             * @example 1.0.0
+             */
+            versionInfo?: string;
+            /**
+             * @description The location where the package can be downloaded,
+             * or NOASSERTION if this has not been determined. 
+             * @example NOASSERTION
+             */
+            downloadLocation?: string;
+            /**
+             * @description Whether the package's file content has been subjected to
+             * analysis during the creation of the SPDX document. 
+             * @example false
+             */
+            filesAnalyzed?: boolean;
+            /**
+             * @description The license of the package as determined while creating the SPDX document. 
+             * @example MIT
+             */
+            licenseConcluded?: string;
+            /**
+             * @description The license of the package as declared by its author, or NOASSERTION if this information
+             * was not available when the SPDX document was created. 
+             * @example NOASSERTION
+             */
+            licenseDeclared?: string;
+            /**
+             * @description The distribution source of this package, or NOASSERTION if this was not determined. 
+             * @example NOASSERTION
+             */
+            supplier?: string;
+            externalRefs?: ({
+                /**
+                 * @description The category of reference to an external resource this reference refers to. 
+                 * @example PACKAGE-MANAGER
+                 */
+                referenceCategory: string;
+                /**
+                 * @description A locator for the particular external resource this reference refers to. 
+                 * @example pkg:gem/rails@6.0.1
+                 */
+                referenceLocator: string;
+                /**
+                 * @description The category of reference to an external resource this reference refers to. 
+                 * @example purl
+                 */
+                referenceType: string;
+              })[];
+          })[];
+      };
+    };
+    /**
      * metadata 
      * @description User-defined metadata to store domain-specific information limited to 8 keys with scalar values.
      */
@@ -18624,12 +18788,12 @@ export interface components {
        * @description The line index in the diff to which the comment applies. This field is deprecated; use `line` instead. 
        * @example 1
        */
-      position: number;
+      position?: number;
       /**
        * @description The index of the original line in the diff to which the comment applies. This field is deprecated; use `original_line` instead. 
        * @example 4
        */
-      original_position: number;
+      original_position?: number;
       /**
        * @description The SHA of the commit to which the comment applies. 
        * @example 6dcb09b5b57875f334f61aebed695e2e4193db5e
@@ -20037,6 +20201,213 @@ export interface components {
        */
       type: "commit" | "issue_title" | "issue_body" | "issue_comment";
       details: components["schemas"]["secret-scanning-location-commit"] | components["schemas"]["secret-scanning-location-issue-title"] | components["schemas"]["secret-scanning-location-issue-body"] | components["schemas"]["secret-scanning-location-issue-comment"];
+    };
+    /**
+     * @description The package's language or package management ecosystem. 
+     * @enum {string}
+     */
+    "repository-advisory-ecosystems": "rubygems" | "npm" | "pip" | "maven" | "nuget" | "composer" | "go" | "rust" | "erlang" | "actions" | "pub" | "other";
+    /** @description A product affected by the vulnerability detailed in a repository security advisory. */
+    "repository-advisory-vulnerability": {
+      /** @description The name of the package affected by the vulnerability. */
+      package: ({
+        ecosystem: components["schemas"]["repository-advisory-ecosystems"];
+        /** @description The unique package name within its ecosystem. */
+        name: string | null;
+      }) | null;
+      /** @description The range of the package versions affected by the vulnerability. */
+      vulnerable_version_range: string | null;
+      /** @description The package version(s) that resolve the vulnerability. */
+      patched_versions: string | null;
+      /** @description The functions in the package that are affected. */
+      vulnerable_functions: (string)[] | null;
+    };
+    /**
+     * @description The type of credit the user is receiving. 
+     * @enum {string}
+     */
+    "repository-advisory-credit-types": "analyst" | "finder" | "reporter" | "coordinator" | "remediation_developer" | "remediation_reviewer" | "remediation_verifier" | "tool" | "sponsor" | "other";
+    /** @description A credit given to a user for a repository security advisory. */
+    "repository-advisory-credit": {
+      user: components["schemas"]["simple-user"];
+      type: components["schemas"]["repository-advisory-credit-types"];
+      /**
+       * @description The state of the user's acceptance of the credit. 
+       * @enum {string}
+       */
+      state: "accepted" | "declined" | "pending";
+    };
+    /** @description A repository security advisory. */
+    "repository-advisory": {
+      /** @description The GitHub Security Advisory ID. */
+      ghsa_id: string;
+      /** @description The Common Vulnerabilities and Exposures (CVE) ID. */
+      cve_id: string | null;
+      /** @description The API URL for the advisory. */
+      url: string;
+      /**
+       * Format: uri 
+       * @description The URL for the advisory.
+       */
+      html_url: string;
+      /** @description A short summary of the advisory. */
+      summary: string;
+      /** @description A detailed description of what the advisory entails. */
+      description: string | null;
+      /**
+       * @description The severity of the advisory. 
+       * @enum {string|null}
+       */
+      severity: "critical" | "high" | "medium" | "low" | null;
+      /** @description The author of the advisory. */
+      author: components["schemas"]["simple-user"] | null;
+      /** @description The publisher of the advisory. */
+      publisher: components["schemas"]["simple-user"] | null;
+      identifiers: readonly ({
+          /**
+           * @description The type of identifier. 
+           * @enum {string}
+           */
+          type: "CVE" | "GHSA";
+          /** @description The identifier value. */
+          value: string;
+        })[];
+      /**
+       * @description The state of the advisory. 
+       * @enum {string}
+       */
+      state: "published" | "closed" | "withdrawn" | "draft" | "triage";
+      /**
+       * Format: date-time 
+       * @description The date and time of when the advisory was created, in ISO 8601 format.
+       */
+      created_at: string | null;
+      /**
+       * Format: date-time 
+       * @description The date and time of when the advisory was last updated, in ISO 8601 format.
+       */
+      updated_at: string | null;
+      /**
+       * Format: date-time 
+       * @description The date and time of when the advisory was published, in ISO 8601 format.
+       */
+      published_at: string | null;
+      /**
+       * Format: date-time 
+       * @description The date and time of when the advisory was closed, in ISO 8601 format.
+       */
+      closed_at: string | null;
+      /**
+       * Format: date-time 
+       * @description The date and time of when the advisory was withdrawn, in ISO 8601 format.
+       */
+      withdrawn_at: string | null;
+      submission: {
+        /** @description Whether a private vulnerability report was accepted by the repository's administrators. */
+        readonly accepted: boolean;
+      } | null;
+      vulnerabilities: (components["schemas"]["repository-advisory-vulnerability"])[] | null;
+      cvss: ({
+        /** @description The CVSS vector. */
+        vector_string: string | null;
+        /** @description The CVSS score. */
+        score: number | null;
+      }) | null;
+      cwes: readonly ({
+          /** @description The Common Weakness Enumeration (CWE) identifier. */
+          cwe_id: string;
+          /** @description The name of the CWE. */
+          name: string;
+        })[] | null;
+      /** @description A list of only the CWE IDs. */
+      cwe_ids: (string)[] | null;
+      credits: ({
+          /** @description The username of the user credited. */
+          login?: string;
+          type?: components["schemas"]["repository-advisory-credit-types"];
+        })[] | null;
+      credits_detailed: readonly (components["schemas"]["repository-advisory-credit"])[] | null;
+    };
+    "repository-advisory-create": {
+      /** @description A short summary of the advisory. */
+      summary: string;
+      /** @description A detailed description of what the advisory impacts. */
+      description: string;
+      /** @description The Common Vulnerabilities and Exposures (CVE) ID. */
+      cve_id?: string | null;
+      /** @description A product affected by the vulnerability detailed in a repository security advisory. */
+      vulnerabilities: ({
+          /** @description The name of the package affected by the vulnerability. */
+          package: {
+            ecosystem: components["schemas"]["repository-advisory-ecosystems"];
+            /** @description The unique package name within its ecosystem. */
+            name?: string | null;
+          };
+          /** @description The range of the package versions affected by the vulnerability. */
+          vulnerable_version_range?: string | null;
+          /** @description The package version(s) that resolve the vulnerability. */
+          patched_versions?: string | null;
+          /** @description The functions in the package that are affected. */
+          vulnerable_functions?: (string)[] | null;
+        })[];
+      /** @description A list of Common Weakness Enumeration (CWE) IDs. */
+      cwe_ids?: (string)[] | null;
+      /** @description A list of users receiving credit for their participation in the security advisory. */
+      credits?: ({
+          /** @description The username of the user credited. */
+          login: string;
+          type: components["schemas"]["repository-advisory-credit-types"];
+        })[] | null;
+      /**
+       * @description The severity of the advisory. You must choose between setting this field or `cvss_vector_string`. 
+       * @enum {string|null}
+       */
+      severity?: "critical" | "high" | "medium" | "low" | null;
+      /** @description The CVSS vector that calculates the severity of the advisory. You must choose between setting this field or `severity`. */
+      cvss_vector_string?: string | null;
+    };
+    "repository-advisory-update": {
+      /** @description A short summary of the advisory. */
+      summary?: string;
+      /** @description A detailed description of what the advisory impacts. */
+      description?: string;
+      /** @description The Common Vulnerabilities and Exposures (CVE) ID. */
+      cve_id?: string | null;
+      /** @description A product affected by the vulnerability detailed in a repository security advisory. */
+      vulnerabilities?: ({
+          /** @description The name of the package affected by the vulnerability. */
+          package: {
+            ecosystem: components["schemas"]["repository-advisory-ecosystems"];
+            /** @description The unique package name within its ecosystem. */
+            name?: string | null;
+          };
+          /** @description The range of the package versions affected by the vulnerability. */
+          vulnerable_version_range?: string | null;
+          /** @description The package version(s) that resolve the vulnerability. */
+          patched_versions?: string | null;
+          /** @description The functions in the package that are affected. */
+          vulnerable_functions?: (string)[] | null;
+        })[];
+      /** @description A list of Common Weakness Enumeration (CWE) IDs. */
+      cwe_ids?: (string)[] | null;
+      /** @description A list of users receiving credit for their participation in the security advisory. */
+      credits?: ({
+          /** @description The username of the user credited. */
+          login: string;
+          type: components["schemas"]["repository-advisory-credit-types"];
+        })[] | null;
+      /**
+       * @description The severity of the advisory. You must choose between setting this field or `cvss_vector_string`. 
+       * @enum {string|null}
+       */
+      severity?: "critical" | "high" | "medium" | "low" | null;
+      /** @description The CVSS vector that calculates the severity of the advisory. You must choose between setting this field or `severity`. */
+      cvss_vector_string?: string | null;
+      /**
+       * @description The state of the advisory. 
+       * @enum {string}
+       */
+      state?: "published" | "closed" | "draft";
     };
     /**
      * Stargazer 
@@ -37662,6 +38033,11 @@ export interface components {
           permission: string;
           /** @enum {string} */
           privacy: "open" | "closed" | "secret";
+          /**
+           * @description Whether team members will receive notifications when their team is @mentioned 
+           * @enum {string}
+           */
+          notification_setting: "notifications_enabled" | "notifications_disabled";
           /** Format: uri */
           repositories_url: string;
           slug: string;
@@ -37675,6 +38051,8 @@ export interface components {
         permission?: string;
         /** @enum {string} */
         privacy?: "open" | "closed" | "secret";
+        /** @enum {string} */
+        notification_setting?: "notifications_enabled" | "notifications_disabled";
         /** Format: uri */
         repositories_url?: string;
         slug?: string;
@@ -37805,6 +38183,11 @@ export interface components {
           permission: string;
           /** @enum {string} */
           privacy: "open" | "closed" | "secret";
+          /**
+           * @description Whether team members will receive notifications when their team is @mentioned 
+           * @enum {string}
+           */
+          notification_setting: "notifications_enabled" | "notifications_disabled";
           /** Format: uri */
           repositories_url: string;
           slug: string;
@@ -37818,6 +38201,8 @@ export interface components {
         permission?: string;
         /** @enum {string} */
         privacy?: "open" | "closed" | "secret";
+        /** @enum {string} */
+        notification_setting?: "notifications_enabled" | "notifications_disabled";
         /** Format: uri */
         repositories_url?: string;
         slug?: string;
@@ -37829,7 +38214,8 @@ export interface components {
       };
     };
     "webhook-merge-group-checks-requested": {
-      action: string;
+      /** @enum {string} */
+      action: "checks_requested";
       installation?: components["schemas"]["simple-installation"];
       /** MergeGroup */
       merge_group: {
@@ -38878,7 +39264,7 @@ export interface components {
           installation_command: string;
           manifest?: string;
           metadata: ({
-              [key: string]: unknown | undefined;
+              [key: string]: unknown;
             })[];
           name: string;
           npm_metadata?: ({
@@ -71475,7 +71861,7 @@ export interface components {
           installation_command: string;
           manifest?: string;
           metadata: ({
-              [key: string]: unknown | undefined;
+              [key: string]: unknown;
             })[];
           name: string;
           npm_metadata?: ({
@@ -72942,6 +73328,28 @@ export interface components {
       repository: components["schemas"]["repository"];
       sender?: components["schemas"]["simple-user"];
     };
+    /** Repository advisory published event */
+    "webhook-repository-advisory-published": {
+      /** @enum {string} */
+      action: "published";
+      enterprise?: components["schemas"]["enterprise"];
+      installation?: components["schemas"]["simple-installation"];
+      organization?: components["schemas"]["organization-simple"];
+      repository: components["schemas"]["repository"];
+      repository_advisory: components["schemas"]["repository-advisory"];
+      sender?: components["schemas"]["simple-user"];
+    };
+    /** Repository advisory reported event */
+    "webhook-repository-advisory-reported": {
+      /** @enum {string} */
+      action: "reported";
+      enterprise?: components["schemas"]["enterprise"];
+      installation?: components["schemas"]["simple-installation"];
+      organization?: components["schemas"]["organization-simple"];
+      repository: components["schemas"]["repository"];
+      repository_advisory: components["schemas"]["repository-advisory"];
+      sender?: components["schemas"]["simple-user"];
+    };
     /** repository archived event */
     "webhook-repository-archived": {
       /** @enum {string} */
@@ -72976,9 +73384,9 @@ export interface components {
     "webhook-repository-dispatch-sample": {
       action: string;
       branch: string;
-      client_payload: ({
-        [key: string]: unknown | undefined;
-      }) | null;
+      client_payload: {
+        [key: string]: unknown;
+      } | null;
       enterprise?: components["schemas"]["enterprise"];
       installation: components["schemas"]["simple-installation"];
       organization?: components["schemas"]["organization-simple"];
@@ -74800,6 +75208,11 @@ export interface components {
           permission: string;
           /** @enum {string} */
           privacy: "open" | "closed" | "secret";
+          /**
+           * @description Whether team members will receive notifications when their team is @mentioned 
+           * @enum {string}
+           */
+          notification_setting: "notifications_enabled" | "notifications_disabled";
           /** Format: uri */
           repositories_url: string;
           slug: string;
@@ -74813,6 +75226,11 @@ export interface components {
         permission?: string;
         /** @enum {string} */
         privacy?: "open" | "closed" | "secret";
+        /**
+         * @description Whether team members will receive notifications when their team is @mentioned 
+         * @enum {string}
+         */
+        notification_setting?: "notifications_enabled" | "notifications_disabled";
         /** Format: uri */
         repositories_url?: string;
         slug?: string;
@@ -75099,6 +75517,11 @@ export interface components {
           permission: string;
           /** @enum {string} */
           privacy: "open" | "closed" | "secret";
+          /**
+           * @description Whether team members will receive notifications when their team is @mentioned 
+           * @enum {string}
+           */
+          notification_setting: "notifications_enabled" | "notifications_disabled";
           /** Format: uri */
           repositories_url: string;
           slug: string;
@@ -75112,6 +75535,11 @@ export interface components {
         permission?: string;
         /** @enum {string} */
         privacy?: "open" | "closed" | "secret";
+        /**
+         * @description Whether team members will receive notifications when their team is @mentioned 
+         * @enum {string}
+         */
+        notification_setting?: "notifications_enabled" | "notifications_disabled";
         /** Format: uri */
         repositories_url?: string;
         slug?: string;
@@ -75398,6 +75826,11 @@ export interface components {
           permission: string;
           /** @enum {string} */
           privacy: "open" | "closed" | "secret";
+          /**
+           * @description Whether team members will receive notifications when their team is @mentioned 
+           * @enum {string}
+           */
+          notification_setting: "notifications_enabled" | "notifications_disabled";
           /** Format: uri */
           repositories_url: string;
           slug: string;
@@ -75411,6 +75844,11 @@ export interface components {
         permission?: string;
         /** @enum {string} */
         privacy?: "open" | "closed" | "secret";
+        /**
+         * @description Whether team members will receive notifications when their team is @mentioned 
+         * @enum {string}
+         */
+        notification_setting?: "notifications_enabled" | "notifications_disabled";
         /** Format: uri */
         repositories_url?: string;
         slug?: string;
@@ -75697,6 +76135,11 @@ export interface components {
           permission: string;
           /** @enum {string} */
           privacy: "open" | "closed" | "secret";
+          /**
+           * @description Whether team members will receive notifications when their team is @mentioned 
+           * @enum {string}
+           */
+          notification_setting: "notifications_enabled" | "notifications_disabled";
           /** Format: uri */
           repositories_url: string;
           slug: string;
@@ -75710,6 +76153,11 @@ export interface components {
         permission?: string;
         /** @enum {string} */
         privacy?: "open" | "closed" | "secret";
+        /**
+         * @description Whether team members will receive notifications when their team is @mentioned 
+         * @enum {string}
+         */
+        notification_setting?: "notifications_enabled" | "notifications_disabled";
         /** Format: uri */
         repositories_url?: string;
         slug?: string;
@@ -75736,6 +76184,10 @@ export interface components {
         };
         privacy?: {
           /** @description The previous version of the team's privacy if the action was `edited`. */
+          from: string;
+        };
+        notification_setting?: {
+          /** @description The previous version of the team's notification setting if the action was `edited`. */
           from: string;
         };
         repository?: {
@@ -76023,6 +76475,11 @@ export interface components {
           permission: string;
           /** @enum {string} */
           privacy: "open" | "closed" | "secret";
+          /**
+           * @description Whether team members will receive notifications when their team is @mentioned 
+           * @enum {string}
+           */
+          notification_setting: "notifications_enabled" | "notifications_disabled";
           /** Format: uri */
           repositories_url: string;
           slug: string;
@@ -76036,6 +76493,11 @@ export interface components {
         permission?: string;
         /** @enum {string} */
         privacy?: "open" | "closed" | "secret";
+        /**
+         * @description Whether team members will receive notifications when their team is @mentioned 
+         * @enum {string}
+         */
+        notification_setting?: "notifications_enabled" | "notifications_disabled";
         /** Format: uri */
         repositories_url?: string;
         slug?: string;
@@ -76322,6 +76784,11 @@ export interface components {
           permission: string;
           /** @enum {string} */
           privacy: "open" | "closed" | "secret";
+          /**
+           * @description Whether team members will receive notifications when their team is @mentioned 
+           * @enum {string}
+           */
+          notification_setting: "notifications_enabled" | "notifications_disabled";
           /** Format: uri */
           repositories_url: string;
           slug: string;
@@ -76335,6 +76802,11 @@ export interface components {
         permission?: string;
         /** @enum {string} */
         privacy?: "open" | "closed" | "secret";
+        /**
+         * @description Whether team members will receive notifications when their team is @mentioned 
+         * @enum {string}
+         */
+        notification_setting?: "notifications_enabled" | "notifications_disabled";
         /** Format: uri */
         repositories_url?: string;
         slug?: string;
@@ -76358,9 +76830,9 @@ export interface components {
     /** workflow_dispatch event */
     "webhook-workflow-dispatch": {
       enterprise?: components["schemas"]["enterprise"];
-      inputs: ({
-        [key: string]: unknown | undefined;
-      }) | null;
+      inputs: {
+        [key: string]: unknown;
+      } | null;
       installation?: components["schemas"]["simple-installation"];
       organization?: components["schemas"]["organization-simple"];
       ref: string;
@@ -78930,6 +79402,8 @@ export interface components {
     "asset-id": number;
     /** @description The unique identifier of the release. */
     "release-id": number;
+    /** @description The GHSA (GitHub Security Advisory) identifier of the advisory. */
+    ghsa_id: string;
     /** @description The unique identifier of the tag protection. */
     "tag-protection-id": number;
     /** @description The time frame to display results for. */
@@ -79028,7 +79502,7 @@ export interface operations {
             client_secret: string;
             webhook_secret: string | null;
             pem: string;
-            [key: string]: unknown | undefined;
+            [key: string]: unknown;
           });
         };
       };
@@ -79840,7 +80314,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (({
+        "application/json": ({
           /**
            * @description The description of the gist. 
            * @example Example Ruby script
@@ -79859,14 +80333,14 @@ export interface operations {
            * }
            */
           files?: {
-            [key: string]: ((({
+            [key: string]: (({
               /** @description The new content of the file. */
               content?: string;
               /** @description The new filename for the file. */
               filename?: string | null;
-            }) & (unknown | unknown | Record<string, never>)) | null) | undefined;
+            }) | null) | undefined;
           };
-        }) & (unknown | unknown)) | null;
+        }) | null;
       };
     };
     responses: {
@@ -80557,9 +81031,9 @@ export interface operations {
    * Get GitHub meta information 
    * @description Returns meta information about GitHub, including a list of GitHub's IP addresses. For more information, see "[About GitHub's IP addresses](https://docs.github.com/articles/about-github-s-ip-addresses/)."
    * 
-   * **Note:** This endpoint returns both IPv4 and IPv6 addresses. However, not all features support IPv6. You should refer to the specific documentation for each feature to determine if IPv6 is supported.
+   * The values shown in the documentation's response are example values. You must always query the API directly to get the latest values.
    * 
-   * **Note:** The IP addresses shown in the documentation's response are only example values. You must always query the API directly to get the latest list of IP addresses.
+   * **Note:** This endpoint returns both IPv4 and IPv6 addresses. However, not all features support IPv6. You should refer to the specific documentation for each feature to determine if IPv6 is supported.
    */
   "meta/get": {
     responses: {
@@ -85545,6 +86019,14 @@ export interface operations {
            */
           privacy?: "secret" | "closed";
           /**
+           * @description The notification setting the team has chosen: 
+           *  * `notifications_enabled` - team members receive notifications when the team is @mentioned  
+           *  * `notifications_disabled` - no one receives notifications 
+           * Default: `notifications_enabled` 
+           * @enum {string}
+           */
+          notification_setting?: "notifications_enabled" | "notifications_disabled";
+          /**
            * @description **Deprecated**. The permission that new repositories will be added to the team with when none is specified. 
            * @default pull 
            * @enum {string}
@@ -85639,6 +86121,14 @@ export interface operations {
            * @enum {string}
            */
           privacy?: "secret" | "closed";
+          /**
+           * @description The notification setting the team has chosen. Editing teams without specifying this parameter leaves `notification_setting` intact. The options are: 
+           *  *`notifications_enabled` - team members receive notifications when the team is @mentioned  
+           *  * `notifications_disabled` - no one receives notifications 
+           * Default: `notifications_enabled` 
+           * @enum {string}
+           */
+          notification_setting?: "notifications_enabled" | "notifications_disabled";
           /**
            * @description **Deprecated**. The permission that new repositories will be added to the team with when none is specified. 
            * @default pull 
@@ -89355,7 +89845,7 @@ export interface operations {
           ref: string;
           /** @description Input keys and values configured in the workflow file. The maximum number of properties is 10. Any default properties configured in the workflow file will be used when `inputs` are omitted. */
           inputs?: {
-            [key: string]: unknown | undefined;
+            [key: string]: unknown;
           };
         };
       };
@@ -90764,11 +91254,11 @@ export interface operations {
         "application/json": OneOf<[{
           /** @enum {unknown} */
           status: "completed";
-          [key: string]: unknown | undefined;
+          [key: string]: unknown;
         }, {
           /** @enum {unknown} */
           status?: "queued" | "in_progress";
-          [key: string]: unknown | undefined;
+          [key: string]: unknown;
         }]>;
       };
     };
@@ -90856,7 +91346,7 @@ export interface operations {
             summary: string;
             /** @description Can contain Markdown. */
             text?: string;
-            /** @description Adds information from your analysis to specific lines of code. Annotations are visible in GitHub's pull request UI. Annotations are visible in GitHub's pull request UI. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/reference/checks#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. For details about annotations in the UI, see "[About status checks](https://docs.github.com/articles/about-status-checks#checks)". */
+            /** @description Adds information from your analysis to specific lines of code. Annotations are visible in GitHub's pull request UI. Annotations are visible in GitHub's pull request UI. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/reference/checks#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. GitHub Actions are limited to 10 warning annotations and 10 error annotations per step. For details about annotations in the UI, see "[About status checks](https://docs.github.com/articles/about-status-checks#checks)". */
             annotations?: ({
                 /** @description The path of the file to add an annotation to. For example, `assets/css/main.css`. */
                 path: string;
@@ -90899,14 +91389,14 @@ export interface operations {
               /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
               identifier: string;
             })[];
-        }) & (({
+        }) & ({
           /** @enum {unknown} */
           status?: "completed";
-          [key: string]: unknown | undefined;
-        }) | ({
+          [key: string]: unknown;
+        } | ({
           /** @enum {unknown} */
           status?: "queued" | "in_progress";
-          [key: string]: unknown | undefined;
+          [key: string]: unknown;
         }));
       };
     };
@@ -91364,7 +91854,7 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["code-scanning-analysis"];
           "application/json+sarif": {
-            [key: string]: unknown | undefined;
+            [key: string]: unknown;
           };
         };
       };
@@ -93033,7 +93523,7 @@ export interface operations {
   "repos/get-content": {
     parameters: {
       query: {
-        /** @description The name of the commit/branch/tag. Default: the repository’s default branch (usually `master`) */
+        /** @description The name of the commit/branch/tag. Default: the repository’s default branch. */
         ref?: string;
       };
       path: {
@@ -93080,7 +93570,7 @@ export interface operations {
           content: string;
           /** @description **Required if you are updating a file**. The blob SHA of the file being replaced. */
           sha?: string;
-          /** @description The branch name. Default: the repository’s default branch (usually `master`) */
+          /** @description The branch name. Default: the repository’s default branch. */
           branch?: string;
           /** @description The person that committed the file. Default: the authenticated user. */
           committer?: {
@@ -93149,7 +93639,7 @@ export interface operations {
           message: string;
           /** @description The blob SHA of the file being deleted. */
           sha: string;
-          /** @description The branch name. Default: the repository’s default branch (usually `master`) */
+          /** @description The branch name. Default: the repository’s default branch */
           branch?: string;
           /** @description object containing information about the committer. */
           committer?: {
@@ -93567,6 +94057,31 @@ export interface operations {
     };
   };
   /**
+   * Export a software bill of materials (SBOM) for a repository. 
+   * @description Exports the software bill of materials (SBOM) for a repository in SPDX JSON format.
+   */
+  "dependency-graph/export-sbom": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        headers: {
+          Link: components["headers"]["link"];
+        };
+        content: {
+          "application/json": components["schemas"]["dependency-graph-spdx-sbom"];
+        };
+      };
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+    };
+  };
+  /**
    * Create a snapshot of dependencies for a repository 
    * @description Create a new snapshot of a repository's dependencies. You must authenticate using an access token with the `repo` scope to use this endpoint for a repository that the requesting user has access to.
    */
@@ -93708,7 +94223,7 @@ export interface operations {
           /** @description The [status](https://docs.github.com/rest/commits/statuses) contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts. */
           required_contexts?: (string)[];
           payload?: OneOf<[{
-            [key: string]: unknown | undefined;
+            [key: string]: unknown;
           }, string]>;
           /**
            * @description Name for the target deployment environment (e.g., `production`, `staging`, `qa`). 
@@ -93940,7 +94455,7 @@ export interface operations {
           event_type: string;
           /** @description JSON payload with extra information about the webhook event that your action or workflow may use. The maximum number of top-level properties is 10. */
           client_payload?: {
-            [key: string]: unknown | undefined;
+            [key: string]: unknown;
           };
         };
       };
@@ -94268,6 +94783,8 @@ export interface operations {
    * @description Create a fork for the authenticated user.
    * 
    * **Note**: Forking a Repository happens asynchronously. You may have to wait a short period of time before you can access the git objects. If this takes longer than 5 minutes, be sure to contact [GitHub Support](https://support.github.com/contact?tags=dotcom-rest-api).
+   * 
+   * **Note**: Although this endpoint works with GitHub Apps, the GitHub App must be installed on the destination account with access to all repositories and on the source account with access to the source repository.
    */
   "repos/create-fork": {
     parameters: {
@@ -97265,7 +97782,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": ({
+        "application/json": {
           /** @description Specify a custom domain for the repository. Sending a `null` value will remove the custom domain. For more about custom domains, see "[Using a custom domain with GitHub Pages](https://docs.github.com/articles/using-a-custom-domain-with-github-pages/)." */
           cname?: string | null;
           /** @description Specify whether HTTPS should be enforced for the repository. */
@@ -97284,7 +97801,7 @@ export interface operations {
              */
             path: "/" | "/docs";
           });
-        }) & (unknown | unknown | unknown | unknown | unknown);
+        };
       };
     };
     responses: {
@@ -97310,7 +97827,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (({
+        "application/json": ({
           /**
            * @description The process in which the Page will be built. Possible values are `"legacy"` and `"workflow"`. 
            * @enum {string}
@@ -97327,7 +97844,7 @@ export interface operations {
              */
             path?: "/" | "/docs";
           };
-        }) & (unknown | unknown)) | null;
+        }) | null;
       };
     };
     responses: {
@@ -98344,7 +98861,7 @@ export interface operations {
           reviewers?: (string)[];
           /** @description An array of team `slug`s that will be requested. */
           team_reviewers?: (string)[];
-        } & (unknown | unknown);
+        };
       };
     };
     responses: {
@@ -98697,7 +99214,7 @@ export interface operations {
   "repos/get-readme": {
     parameters: {
       query: {
-        /** @description The name of the commit/branch/tag. Default: the repository’s default branch (usually `master`) */
+        /** @description The name of the commit/branch/tag. Default: the repository’s default branch. */
         ref?: string;
       };
       path: {
@@ -98725,7 +99242,7 @@ export interface operations {
   "repos/get-readme-in-directory": {
     parameters: {
       query: {
-        /** @description The name of the commit/branch/tag. Default: the repository’s default branch (usually `master`) */
+        /** @description The name of the commit/branch/tag. Default: the repository’s default branch. */
         ref?: string;
       };
       path: {
@@ -98794,7 +99311,7 @@ export interface operations {
         "application/json": {
           /** @description The name of the tag. */
           tag_name: string;
-          /** @description Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`). */
+          /** @description Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch. */
           target_commitish?: string;
           /** @description The name of the release. */
           name?: string;
@@ -99052,7 +99569,7 @@ export interface operations {
         "application/json": {
           /** @description The name of the tag. */
           tag_name?: string;
-          /** @description Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`). */
+          /** @description Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch. */
           target_commitish?: string;
           /** @description The name of the release. */
           name?: string;
@@ -99394,6 +99911,141 @@ export interface operations {
       /** @description Repository is public, or secret scanning is disabled for the repository, or the resource is not found */
       404: never;
       503: components["responses"]["service_unavailable"];
+    };
+  };
+  /**
+   * List repository security advisories 
+   * @description Lists security advisories in a repository.
+   * You must authenticate using an access token with the `repo` scope or `repository_advisories:read` permission
+   * in order to get published security advisories in a private repository, or any unpublished security advisories that you have access to.
+   * 
+   * You can access unpublished security advisories from a repository if you are a security manager or administrator of that repository, or if you are a collaborator on any security advisory.
+   */
+  "security-advisories/list-repository-advisories": {
+    parameters: {
+      query: {
+        direction?: components["parameters"]["direction"];
+        /** @description The property to sort the results by. */
+        sort?: "created" | "updated" | "published";
+        before?: components["parameters"]["pagination-before"];
+        after?: components["parameters"]["pagination-after"];
+        /** @description Number of advisories to return per page. */
+        per_page?: number;
+        /** @description Filter by state of the repository advisories. Only advisories of this state will be returned. */
+        state?: "triage" | "draft" | "published" | "closed";
+      };
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        content: {
+          "application/json": (components["schemas"]["repository-advisory"])[];
+        };
+      };
+      400: components["responses"]["bad_request"];
+      404: components["responses"]["not_found"];
+    };
+  };
+  /**
+   * Create a repository security advisory 
+   * @description Creates a new repository security advisory.
+   * You must authenticate using an access token with the `repo` scope or `repository_advisories:write` permission to use this endpoint.
+   * 
+   * In order to create a draft repository security advisory, you must be a security manager or administrator of that repository.
+   */
+  "security-advisories/create-repository-advisory": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["repository-advisory-create"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      201: {
+        content: {
+          "application/json": components["schemas"]["repository-advisory"];
+        };
+      };
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
+    };
+  };
+  /**
+   * Get a repository security advisory 
+   * @description Get a repository security advisory using its GitHub Security Advisory (GHSA) identifier.
+   * You can access any published security advisory on a public repository.
+   * You must authenticate using an access token with the `repo` scope or `repository_advisories:read` permission
+   * in order to get a published security advisory in a private repository, or any unpublished security advisory that you have access to.
+   * 
+   * You can access an unpublished security advisory from a repository if you are a security manager or administrator of that repository, or if you are a
+   * collaborator on the security advisory.
+   */
+  "security-advisories/get-repository-advisory": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        ghsa_id: components["parameters"]["ghsa_id"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["repository-advisory"];
+        };
+      };
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+    };
+  };
+  /**
+   * Update a repository security advisory 
+   * @description Update a repository security advisory using its GitHub Security Advisory (GHSA) identifier.
+   * You must authenticate using an access token with the `repo` scope or `repository_advisories:write` permission to use this endpoint.
+   * 
+   * In order to update any security advisory, you must be a security manager or administrator of that repository,
+   * or a collaborator on the repository security advisory.
+   */
+  "security-advisories/update-repository-advisory": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+        ghsa_id: components["parameters"]["ghsa_id"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["repository-advisory-update"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["repository-advisory"];
+        };
+      };
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      /** @description Validation failed, or the endpoint has been spammed. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["validation-error"];
+        };
+      };
     };
   };
   /**

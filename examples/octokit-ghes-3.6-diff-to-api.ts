@@ -1955,7 +1955,7 @@ export interface components {
         country_name?: string;
       };
       data?: {
-        [key: string]: unknown | undefined;
+        [key: string]: unknown;
       };
       org_id?: number;
       /** @description The username of the account being blocked. */
@@ -6352,11 +6352,11 @@ export interface operations {
           script: string;
           /** @description The GitHub repository where the script is kept. */
           script_repository: {
-            [key: string]: unknown | undefined;
+            [key: string]: unknown;
           };
           /** @description The pre-receive environment where the script is executed. */
           environment: {
-            [key: string]: unknown | undefined;
+            [key: string]: unknown;
           };
           /** @description The state of enforcement for this hook. default: `disabled` */
           enforcement?: string;
@@ -6418,11 +6418,11 @@ export interface operations {
           script?: string;
           /** @description The GitHub repository where the script is kept. */
           script_repository?: {
-            [key: string]: unknown | undefined;
+            [key: string]: unknown;
           };
           /** @description The pre-receive environment where the script is executed. */
           environment?: {
-            [key: string]: unknown | undefined;
+            [key: string]: unknown;
           };
           /** @description The state of enforcement for this hook. */
           enforcement?: string;

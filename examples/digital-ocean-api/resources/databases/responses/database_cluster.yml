@@ -23,6 +23,7 @@ content:
         name: backend
         engine: pg
         version: '14'
+        semantic_version: '14.5'
         connection:
           uri: postgres://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require
           database: ''

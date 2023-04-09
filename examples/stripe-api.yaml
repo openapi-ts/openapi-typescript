@@ -155,7 +155,7 @@ components:
         tos_acceptance:
           $ref: '#/components/schemas/account_tos_acceptance'
         type:
-          description: The Stripe account type. Can be `standard`, `express`, or `custom`.
+          description: 'The Stripe account type. Can be `standard`, `express`, or `custom`.'
           enum:
             - custom
             - express
@@ -1425,7 +1425,7 @@ components:
       description: ''
       properties:
         city:
-          description: City, district, suburb, town, or village.
+          description: 'City, district, suburb, town, or village.'
           maxLength: 5000
           nullable: true
           type: string
@@ -1437,12 +1437,12 @@ components:
           nullable: true
           type: string
         line1:
-          description: Address line 1 (e.g., street, PO Box, or company name).
+          description: 'Address line 1 (e.g., street, PO Box, or company name).'
           maxLength: 5000
           nullable: true
           type: string
         line2:
-          description: Address line 2 (e.g., apartment, suite, unit, or building).
+          description: 'Address line 2 (e.g., apartment, suite, unit, or building).'
           maxLength: 5000
           nullable: true
           type: string
@@ -1452,7 +1452,7 @@ components:
           nullable: true
           type: string
         state:
-          description: State, county, province, or region.
+          description: 'State, county, province, or region.'
           maxLength: 5000
           nullable: true
           type: string
@@ -1463,7 +1463,7 @@ components:
       description: ''
       properties:
         charge:
-          description: For card errors, the ID of the failed charge.
+          description: 'For card errors, the ID of the failed charge.'
           maxLength: 5000
           type: string
         code:
@@ -1620,7 +1620,7 @@ components:
             oneOf:
               - $ref: '#/components/schemas/account'
         amount:
-          description: Amount earned, in %s.
+          description: 'Amount earned, in %s.'
           type: integer
         amount_refunded:
           description: >-
@@ -1790,7 +1790,7 @@ components:
           format: unix-time
           type: integer
         deleted:
-          description: If true, indicates that this secret has been deleted
+          description: 'If true, indicates that this secret has been deleted'
           type: boolean
         expires_at:
           description: >-
@@ -2012,7 +2012,7 @@ components:
         Types](https://stripe.com/docs/reports/balance-transaction-types).
       properties:
         amount:
-          description: Gross amount of the transaction, in %s.
+          description: 'Gross amount of the transaction, in %s.'
           type: integer
         available_on:
           description: >-
@@ -2066,7 +2066,7 @@ components:
           maxLength: 5000
           type: string
         net:
-          description: Net amount of the transaction, in %s.
+          description: 'Net amount of the transaction, in %s.'
           type: integer
         object:
           description: >-
@@ -3011,7 +3011,7 @@ components:
           nullable: true
           type: string
         address_country:
-          description: Billing address country, if provided when creating card.
+          description: 'Billing address country, if provided when creating card.'
           maxLength: 5000
           nullable: true
           type: string
@@ -3063,7 +3063,8 @@ components:
         brand:
           description: >-
             Card brand. Can be `American Express`, `Diners Club`, `Discover`,
-            `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
+            `Eftpos Australia`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or
+            `Unknown`.
           maxLength: 5000
           type: string
         country:
@@ -3529,7 +3530,7 @@ components:
             - maxLength: 5000
               type: string
             - $ref: '#/components/schemas/payment_intent'
-          description: ID of the PaymentIntent associated with this charge, if one exists.
+          description: 'ID of the PaymentIntent associated with this charge, if one exists.'
           nullable: true
           x-expansionResources:
             oneOf:
@@ -3738,7 +3739,7 @@ components:
       description: ''
       properties:
         stripe_report:
-          description: Assessments from Stripe. If set, the value is `fraudulent`.
+          description: 'Assessments from Stripe. If set, the value is `fraudulent`.'
           maxLength: 5000
           type: string
         user_report:
@@ -3801,7 +3802,7 @@ components:
             - maxLength: 5000
               type: string
             - $ref: '#/components/schemas/rule'
-          description: The ID of the Radar rule that matched the payment, if applicable.
+          description: 'The ID of the Radar rule that matched the payment, if applicable.'
           x-expansionResources:
             oneOf:
               - $ref: '#/components/schemas/rule'
@@ -4048,7 +4049,7 @@ components:
             - maxLength: 5000
               type: string
             - $ref: '#/components/schemas/invoice'
-          description: ID of the invoice created by the Checkout Session, if it exists.
+          description: 'ID of the invoice created by the Checkout Session, if it exists.'
           nullable: true
           x-expansionResources:
             oneOf:
@@ -5349,7 +5350,7 @@ components:
       description: ''
       properties:
         amount:
-          description: Amount transferred, in %s.
+          description: 'Amount transferred, in %s.'
           type: integer
         currency:
           description: >-
@@ -6048,7 +6049,7 @@ components:
       description: ''
       properties:
         amount:
-          description: The amount, in %s, of the tax.
+          description: 'The amount, in %s, of the tax.'
           type: integer
         inclusive:
           description: Whether this tax amount is inclusive or exclusive.
@@ -6082,10 +6083,12 @@ components:
           nullable: true
         tax_behavior:
           description: >-
-            Specifies whether the price is considered inclusive of taxes or
-            exclusive of taxes. One of `inclusive`, `exclusive`, or
-            `unspecified`. Once specified as either `inclusive` or `exclusive`,
-            it cannot be changed.
+            Only required if a [default tax
+            behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended))
+            was not provided in the Stripe Tax settings. Specifies whether the
+            price is considered inclusive of taxes or exclusive of taxes. One of
+            `inclusive`, `exclusive`, or `unspecified`. Once specified as either
+            `inclusive` or `exclusive`, it cannot be changed.
           enum:
             - exclusive
             - inclusive
@@ -6287,7 +6290,7 @@ components:
           nullable: true
           type: string
         next_invoice_sequence:
-          description: The suffix of the customer's next invoice number, e.g., 0001.
+          description: 'The suffix of the customer''s next invoice number, e.g., 0001.'
           type: integer
         object:
           description: >-
@@ -6302,7 +6305,7 @@ components:
           nullable: true
           type: string
         preferred_locales:
-          description: The customer's preferred locales (languages), ordered by preference.
+          description: 'The customer''s preferred locales (languages), ordered by preference.'
           items:
             maxLength: 5000
             type: string
@@ -6316,7 +6319,7 @@ components:
             emailed to this customer.
           nullable: true
         sources:
-          description: The customer's payment sources, if any.
+          description: 'The customer''s payment sources, if any.'
           properties:
             data:
               description: Details about each object.
@@ -6354,7 +6357,7 @@ components:
           x-expandableFields:
             - data
         subscriptions:
-          description: The customer's current subscriptions, if any.
+          description: 'The customer''s current subscriptions, if any.'
           properties:
             data:
               description: Details about each object.
@@ -6589,7 +6592,7 @@ components:
           nullable: true
           type: string
         sender_name:
-          description: The full name of the sender, as supplied by the sending bank.
+          description: 'The full name of the sender, as supplied by the sending bank.'
           maxLength: 5000
           nullable: true
           type: string
@@ -7789,7 +7792,7 @@ components:
       description: ''
       properties:
         amount:
-          description: The amount, in %s, of the discount.
+          description: 'The amount, in %s, of the discount.'
           type: integer
         discount:
           anyOf:
@@ -8565,7 +8568,7 @@ components:
       description: ''
       properties:
         amount:
-          description: Amount of the fee, in cents.
+          description: 'Amount of the fee, in cents.'
           type: integer
         application:
           description: ID of the Connect application that earned the fee.
@@ -8612,7 +8615,7 @@ components:
         Fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee).
       properties:
         amount:
-          description: Amount, in %s.
+          description: 'Amount, in %s.'
           type: integer
         balance_transaction:
           anyOf:
@@ -8712,7 +8715,7 @@ components:
           nullable: true
           type: integer
         filename:
-          description: A filename for the file, suitable for saving to a filesystem.
+          description: 'A filename for the file, suitable for saving to a filesystem.'
           maxLength: 5000
           nullable: true
           type: string
@@ -8795,7 +8798,7 @@ components:
           nullable: true
           type: string
         type:
-          description: The type of the file returned (e.g., `csv`, `pdf`, `jpg`, or `png`).
+          description: 'The type of the file returned (e.g., `csv`, `pdf`, `jpg`, or `png`).'
           maxLength: 5000
           nullable: true
           type: string
@@ -9534,7 +9537,7 @@ components:
           nullable: true
           type: string
         account_type:
-          description: The bank account type. In Japan, this can only be `futsu` or `toza`.
+          description: 'The bank account type. In Japan, this can only be `futsu` or `toza`.'
           maxLength: 5000
           nullable: true
           type: string
@@ -10502,10 +10505,10 @@ components:
             invoice will be for the amount specified in `amount_due`.
           type: integer
         amount_paid:
-          description: The amount, in %s, that was paid.
+          description: 'The amount, in %s, that was paid.'
           type: integer
         amount_remaining:
-          description: The difference between amount_due and amount_paid, in %s.
+          description: 'The difference between amount_due and amount_paid, in %s.'
           type: integer
         amount_shipping:
           description: This is the sum of all the shipping amounts.
@@ -10583,7 +10586,7 @@ components:
             - maxLength: 5000
               type: string
             - $ref: '#/components/schemas/charge'
-          description: ID of the latest charge generated for this invoice, if any.
+          description: 'ID of the latest charge generated for this invoice, if any.'
           nullable: true
           x-expansionResources:
             oneOf:
@@ -10724,7 +10727,7 @@ components:
               - $ref: '#/components/schemas/source'
           x-stripeBypassValidation: true
         default_tax_rates:
-          description: The tax rates applied to this invoice, if any.
+          description: 'The tax rates applied to this invoice, if any.'
           items:
             $ref: '#/components/schemas/tax_rate'
           type: array
@@ -11040,7 +11043,7 @@ components:
             - maxLength: 5000
               type: string
             - $ref: '#/components/schemas/subscription'
-          description: The subscription that this invoice was prepared for, if any.
+          description: 'The subscription that this invoice was prepared for, if any.'
           nullable: true
           x-expansionResources:
             oneOf:
@@ -11542,7 +11545,7 @@ components:
       description: ''
       properties:
         amount:
-          description: The amount, in %s, of the tax.
+          description: 'The amount, in %s, of the tax.'
           type: integer
         inclusive:
           description: Whether this tax amount is inclusive or exclusive.
@@ -12451,7 +12454,7 @@ components:
             - maxLength: 5000
               type: string
             - $ref: '#/components/schemas/issuing.card'
-          description: The latest card that replaces this card, if any.
+          description: 'The latest card that replaces this card, if any.'
           nullable: true
           x-expansionResources:
             oneOf:
@@ -12461,7 +12464,7 @@ components:
             - maxLength: 5000
               type: string
             - $ref: '#/components/schemas/issuing.card'
-          description: The card this card replaces, if any.
+          description: 'The card this card replaces, if any.'
           nullable: true
           x-expansionResources:
             oneOf:
@@ -12623,7 +12626,10 @@ components:
             - inactive
           type: string
         type:
-          description: One of `individual` or `company`.
+          description: >-
+            One of `individual` or `company`. See [Choose a cardholder
+            type](https://stripe.com/docs/issuing/other/choose-cardholder) for
+            more details.
           enum:
             - company
             - individual
@@ -12809,7 +12815,7 @@ components:
           description: The total net amount required to settle with the network.
           type: integer
         network:
-          description: The card network for this settlement report. One of ["visa"]
+          description: 'The card network for this settlement report. One of ["visa"]'
           enum:
             - visa
           type: string
@@ -12946,7 +12952,7 @@ components:
             - maxLength: 5000
               type: string
             - $ref: '#/components/schemas/issuing.dispute'
-          description: If you've disputed the transaction, the ID of the dispute.
+          description: 'If you''ve disputed the transaction, the ID of the dispute.'
           nullable: true
           x-expansionResources:
             oneOf:
@@ -14074,7 +14080,7 @@ components:
           nullable: true
           type: boolean
         service:
-          description: Shipment service, such as `standard` or `express`.
+          description: 'Shipment service, such as `standard` or `express`.'
           enum:
             - express
             - priority
@@ -15238,11 +15244,11 @@ components:
       description: ''
       properties:
         day:
-          description: The day of birth, between 1 and 31.
+          description: 'The day of birth, between 1 and 31.'
           nullable: true
           type: integer
         month:
-          description: The month of birth, between 1 and 12.
+          description: 'The month of birth, between 1 and 12.'
           nullable: true
           type: integer
         year:
@@ -15654,7 +15660,7 @@ components:
         document:
           anyOf:
             - $ref: '#/components/schemas/issuing_cardholder_id_document'
-          description: An identifying document, either a passport or local ID card.
+          description: 'An identifying document, either a passport or local ID card.'
           nullable: true
       title: IssuingCardholderVerification
       type: object
@@ -16275,7 +16281,7 @@ components:
           description: Total before any discounts or taxes are applied.
           type: integer
         amount_tax:
-          description: Total tax amount applied. If no tax was applied, defaults to 0.
+          description: 'Total tax amount applied. If no tax was applied, defaults to 0.'
           type: integer
         amount_total:
           description: Total after discounts and taxes.
@@ -16540,11 +16546,11 @@ components:
       description: ''
       properties:
         day:
-          description: The day of birth, between 1 and 31.
+          description: 'The day of birth, between 1 and 31.'
           nullable: true
           type: integer
         month:
-          description: The month of birth, between 1 and 12.
+          description: 'The month of birth, between 1 and 12.'
           nullable: true
           type: integer
         year:
@@ -16726,7 +16732,7 @@ components:
       description: ''
       properties:
         amount:
-          description: The amount, in %s.
+          description: 'The amount, in %s.'
           type: integer
         amount_excluding_tax:
           description: >-
@@ -16831,7 +16837,7 @@ components:
           nullable: true
           type: integer
         subscription:
-          description: The subscription that the invoice item pertains to, if any.
+          description: 'The subscription that the invoice item pertains to, if any.'
           maxLength: 5000
           nullable: true
           type: string
@@ -17258,10 +17264,10 @@ components:
       description: ''
       properties:
         amount:
-          description: On a single use mandate, the amount of the payment.
+          description: 'On a single use mandate, the amount of the payment.'
           type: integer
         currency:
-          description: On a single use mandate, the currency of the payment.
+          description: 'On a single use mandate, the currency of the payment.'
           type: string
       required:
         - amount
@@ -17532,16 +17538,16 @@ components:
       description: ''
       properties:
         height:
-          description: Height, in inches.
+          description: 'Height, in inches.'
           type: number
         length:
-          description: Length, in inches.
+          description: 'Length, in inches.'
           type: number
         weight:
-          description: Weight, in ounces.
+          description: 'Weight, in ounces.'
           type: number
         width:
-          description: Width, in inches.
+          description: 'Width, in inches.'
           type: number
       required:
         - height
@@ -17637,11 +17643,11 @@ components:
       description: ''
       properties:
         day:
-          description: The day of birth, between 1 and 31.
+          description: 'The day of birth, between 1 and 31.'
           nullable: true
           type: integer
         month:
-          description: The month of birth, between 1 and 12.
+          description: 'The month of birth, between 1 and 12.'
           nullable: true
           type: integer
         year:
@@ -17834,7 +17840,7 @@ components:
             - maxLength: 5000
               type: string
             - $ref: '#/components/schemas/invoice'
-          description: ID of the invoice that created this PaymentIntent, if it exists.
+          description: 'ID of the invoice that created this PaymentIntent, if it exists.'
           nullable: true
           x-expansionResources:
             oneOf:
@@ -17946,7 +17952,7 @@ components:
             - maxLength: 5000
               type: string
             - $ref: '#/components/schemas/review'
-          description: ID of the review associated with this PaymentIntent, if any.
+          description: 'ID of the review associated with this PaymentIntent, if any.'
           nullable: true
           x-expansionResources:
             oneOf:
@@ -19974,7 +19980,7 @@ components:
       description: ''
       properties:
         enabled:
-          description: If `true`, a phone number will be collected during checkout.
+          description: 'If `true`, a phone number will be collected during checkout.'
           type: boolean
       required:
         - enabled
@@ -20611,7 +20617,7 @@ components:
           nullable: true
           type: string
         sort_code:
-          description: Sort code of the bank account. (e.g., `10-20-30`)
+          description: 'Sort code of the bank account. (e.g., `10-20-30`)'
           maxLength: 5000
           nullable: true
           type: string
@@ -20647,7 +20653,7 @@ components:
       properties:
         brand:
           description: >-
-            Card brand. Can be `amex`, `diners`, `discover`, `jcb`,
+            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`,
             `mastercard`, `unionpay`, `visa`, or `unknown`.
           maxLength: 5000
           type: string
@@ -20825,14 +20831,15 @@ components:
         type:
           description: >-
             The type of the card wallet, one of `amex_express_checkout`,
-            `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or
-            `visa_checkout`. An additional hash is included on the Wallet
-            subhash with a name matching this value. It contains additional
-            information specific to the card wallet type.
+            `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`,
+            `visa_checkout`, or `link`. An additional hash is included on the
+            Wallet subhash with a name matching this value. It contains
+            additional information specific to the card wallet type.
           enum:
             - amex_express_checkout
             - apple_pay
             - google_pay
+            - link
             - masterpass
             - samsung_pay
             - visa_checkout
@@ -21269,7 +21276,7 @@ components:
           nullable: true
           type: string
         sort_code:
-          description: Sort code of the bank account. (e.g., `10-20-30`)
+          description: 'Sort code of the bank account. (e.g., `10-20-30`)'
           maxLength: 5000
           nullable: true
           type: string
@@ -21376,7 +21383,7 @@ components:
       properties:
         brand:
           description: >-
-            Card brand. Can be `amex`, `diners`, `discover`, `jcb`,
+            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`,
             `mastercard`, `unionpay`, `visa`, or `unknown`.
           maxLength: 5000
           nullable: true
@@ -21448,8 +21455,8 @@ components:
         network:
           description: >-
             Identifies which network this charge was processed on. Can be
-            `amex`, `cartes_bancaires`, `diners`, `discover`, `interac`, `jcb`,
-            `mastercard`, `unionpay`, `visa`, or `unknown`.
+            `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`,
+            `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
           maxLength: 5000
           nullable: true
           type: string
@@ -21535,7 +21542,7 @@ components:
           nullable: true
           type: string
         type:
-          description: Type of installment plan, one of `fixed_count`.
+          description: 'Type of installment plan, one of `fixed_count`.'
           enum:
             - fixed_count
           type: string
@@ -21553,7 +21560,7 @@ components:
           type: integer
         brand:
           description: >-
-            Card brand. Can be `amex`, `diners`, `discover`, `jcb`,
+            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`,
             `mastercard`, `unionpay`, `visa`, or `unknown`.
           maxLength: 5000
           nullable: true
@@ -21642,8 +21649,8 @@ components:
         network:
           description: >-
             Identifies which network this charge was processed on. Can be
-            `amex`, `cartes_bancaires`, `diners`, `discover`, `interac`, `jcb`,
-            `mastercard`, `unionpay`, `visa`, or `unknown`.
+            `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`,
+            `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
           maxLength: 5000
           nullable: true
           type: string
@@ -21689,7 +21696,7 @@ components:
           type: string
           x-stripeBypassValidation: true
         application_cryptogram:
-          description: EMV tag 9F26, cryptogram generated by the integrated circuit chip.
+          description: 'EMV tag 9F26, cryptogram generated by the integrated circuit chip.'
           maxLength: 5000
           nullable: true
           type: string
@@ -21761,14 +21768,15 @@ components:
         type:
           description: >-
             The type of the card wallet, one of `amex_express_checkout`,
-            `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or
-            `visa_checkout`. An additional hash is included on the Wallet
-            subhash with a name matching this value. It contains additional
-            information specific to the card wallet type.
+            `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`,
+            `visa_checkout`, or `link`. An additional hash is included on the
+            Wallet subhash with a name matching this value. It contains
+            additional information specific to the card wallet type.
           enum:
             - amex_express_checkout
             - apple_pay
             - google_pay
+            - link
             - masterpass
             - samsung_pay
             - visa_checkout
@@ -22154,7 +22162,7 @@ components:
       description: ''
       properties:
         brand:
-          description: Card brand. Can be `interac`, `mastercard` or `visa`.
+          description: 'Card brand. Can be `interac`, `mastercard` or `visa`.'
           maxLength: 5000
           nullable: true
           type: string
@@ -22229,8 +22237,8 @@ components:
         network:
           description: >-
             Identifies which network this charge was processed on. Can be
-            `amex`, `cartes_bancaires`, `diners`, `discover`, `interac`, `jcb`,
-            `mastercard`, `unionpay`, `visa`, or `unknown`.
+            `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`,
+            `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
           maxLength: 5000
           nullable: true
           type: string
@@ -22280,7 +22288,7 @@ components:
           type: string
           x-stripeBypassValidation: true
         application_cryptogram:
-          description: EMV tag 9F26, cryptogram generated by the integrated circuit chip.
+          description: 'EMV tag 9F26, cryptogram generated by the integrated circuit chip.'
           maxLength: 5000
           nullable: true
           type: string
@@ -22890,7 +22898,7 @@ components:
           anyOf:
             - $ref: >-
                 #/components/schemas/payment_flows_private_payment_methods_klarna_dob
-          description: The customer's date of birth, if provided.
+          description: 'The customer''s date of birth, if provided.'
           nullable: true
       title: payment_method_klarna
       type: object
@@ -22905,6 +22913,15 @@ components:
     payment_method_link:
       description: ''
       properties:
+        country:
+          description: >-
+            Two-letter ISO code representing the funding source (i.e. card,
+            bank) country beneath the Link payment method.
+
+            You could use this attribute to get a sense of the international
+            breakdown of funding sources you've collected.
+          maxLength: 5000
+          type: string
         email:
           description: Account owner's email address.
           maxLength: 5000
@@ -23886,7 +23903,7 @@ components:
       description: ''
       properties:
         bank:
-          description: The customer's bank, if provided.
+          description: 'The customer''s bank, if provided.'
           enum:
             - alior_bank
             - bank_millennium
@@ -24044,10 +24061,62 @@ components:
           maxLength: 5000
           nullable: true
           type: string
+        status_details:
+          anyOf:
+            - $ref: >-
+                #/components/schemas/payment_method_us_bank_account_status_details
+          description: >-
+            Contains information about the future reusability of this
+            PaymentMethod.
+          nullable: true
       title: payment_method_us_bank_account
       type: object
       x-expandableFields:
         - networks
+        - status_details
+    payment_method_us_bank_account_blocked:
+      description: ''
+      properties:
+        network_code:
+          description: The ACH network code that resulted in this block.
+          enum:
+            - R02
+            - R03
+            - R04
+            - R05
+            - R07
+            - R08
+            - R10
+            - R11
+            - R16
+            - R20
+            - R29
+            - R31
+          nullable: true
+          type: string
+        reason:
+          description: The reason why this PaymentMethod's fingerprint has been blocked
+          enum:
+            - bank_account_closed
+            - bank_account_frozen
+            - bank_account_invalid_details
+            - bank_account_restricted
+            - bank_account_unusable
+            - debit_not_authorized
+          nullable: true
+          type: string
+      title: payment_method_us_bank_account_blocked
+      type: object
+      x-expandableFields: []
+    payment_method_us_bank_account_status_details:
+      description: ''
+      properties:
+        blocked:
+          $ref: '#/components/schemas/payment_method_us_bank_account_blocked'
+      title: payment_method_us_bank_account_status_details
+      type: object
+      x-expandableFields:
+        - blocked
     payment_method_wechat_pay:
       description: ''
       properties: {}
@@ -24316,7 +24385,7 @@ components:
       description: ''
       properties:
         value:
-          description: The value entered by the customer, containing only digits.
+          description: 'The value entered by the customer, containing only digits.'
           maxLength: 5000
           nullable: true
           type: string
@@ -25531,7 +25600,7 @@ components:
           nullable: true
           type: boolean
         title:
-          description: The person's title (e.g., CEO, Support Engineer).
+          description: 'The person''s title (e.g., CEO, Support Engineer).'
           maxLength: 5000
           nullable: true
           type: string
@@ -25724,7 +25793,7 @@ components:
           nullable: true
           type: object
         nickname:
-          description: A brief description of the plan, hidden from customers.
+          description: 'A brief description of the plan, hidden from customers.'
           maxLength: 5000
           nullable: true
           type: string
@@ -26322,7 +26391,7 @@ components:
             additional information about the object in a structured format.
           type: object
         nickname:
-          description: A brief description of the price, hidden from customers.
+          description: 'A brief description of the price, hidden from customers.'
           maxLength: 5000
           nullable: true
           type: string
@@ -26353,10 +26422,12 @@ components:
           nullable: true
         tax_behavior:
           description: >-
-            Specifies whether the price is considered inclusive of taxes or
-            exclusive of taxes. One of `inclusive`, `exclusive`, or
-            `unspecified`. Once specified as either `inclusive` or `exclusive`,
-            it cannot be changed.
+            Only required if a [default tax
+            behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended))
+            was not provided in the Stripe Tax settings. Specifies whether the
+            price is considered inclusive of taxes or exclusive of taxes. One of
+            `inclusive`, `exclusive`, or `unspecified`. Once specified as either
+            `inclusive` or `exclusive`, it cannot be changed.
           enum:
             - exclusive
             - inclusive
@@ -26544,7 +26615,7 @@ components:
             additional information about the object in a structured format.
           type: object
         name:
-          description: The product's name, meant to be displayable to the customer.
+          description: 'The product''s name, meant to be displayable to the customer.'
           maxLength: 5000
           type: string
         object:
@@ -26560,7 +26631,7 @@ components:
           description: The dimensions of this product for shipping purposes.
           nullable: true
         shippable:
-          description: Whether this product is shipped (i.e., physical goods).
+          description: 'Whether this product is shipped (i.e., physical goods).'
           nullable: true
           type: boolean
         statement_descriptor:
@@ -26576,7 +26647,7 @@ components:
             - maxLength: 5000
               type: string
             - $ref: '#/components/schemas/tax_code'
-          description: A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+          description: 'A [tax code](https://stripe.com/docs/tax/tax-categories) ID.'
           nullable: true
           x-expansionResources:
             oneOf:
@@ -27691,7 +27762,7 @@ components:
       description: ''
       properties:
         browser:
-          description: The browser used in this browser session (e.g., `Chrome`).
+          description: 'The browser used in this browser session (e.g., `Chrome`).'
           maxLength: 5000
           nullable: true
           type: string
@@ -27703,12 +27774,12 @@ components:
           nullable: true
           type: string
         platform:
-          description: The platform for the browser session (e.g., `Macintosh`).
+          description: 'The platform for the browser session (e.g., `Macintosh`).'
           maxLength: 5000
           nullable: true
           type: string
         version:
-          description: The version for the browser session (e.g., `61.0.3163.100`).
+          description: 'The version for the browser session (e.g., `61.0.3163.100`).'
           maxLength: 5000
           nullable: true
           type: string
@@ -27802,7 +27873,7 @@ components:
         Related guide: [Refunds](https://stripe.com/docs/refunds).
       properties:
         amount:
-          description: Amount, in %s.
+          description: 'Amount, in %s.'
           type: integer
         balance_transaction:
           anyOf:
@@ -27870,7 +27941,9 @@ components:
           maxLength: 5000
           type: string
         instructions_email:
-          description: Email to which refund instructions, if required, are sent to.
+          description: >-
+            For payment methods without native refund support (e.g., Konbini,
+            PromptPay), email for the customer to receive refund instructions.
           maxLength: 5000
           type: string
         metadata:
@@ -28250,7 +28323,7 @@ components:
         [here](https://stripe.com/docs/radar/reviews).
       properties:
         billing_zip:
-          description: The ZIP or postal code of the card used, if applicable.
+          description: 'The ZIP or postal code of the card used, if applicable.'
           maxLength: 5000
           nullable: true
           type: string
@@ -28314,7 +28387,7 @@ components:
             - review
           type: string
         open:
-          description: If `true`, the review needs action.
+          description: 'If `true`, the review needs action.'
           type: boolean
         opened_reason:
           description: The reason the review was opened. One of `rule` or `manual`.
@@ -28327,7 +28400,7 @@ components:
             - maxLength: 5000
               type: string
             - $ref: '#/components/schemas/payment_intent'
-          description: The PaymentIntent ID associated with this review, if one exists.
+          description: 'The PaymentIntent ID associated with this review, if one exists.'
           x-expansionResources:
             oneOf:
               - $ref: '#/components/schemas/payment_intent'
@@ -28490,7 +28563,7 @@ components:
             - user
           type: string
         user:
-          description: The user ID, if type is set to "user"
+          description: 'The user ID, if type is set to "user"'
           maxLength: 5000
           type: string
       required:
@@ -28506,7 +28579,7 @@ components:
             - maxLength: 5000
               type: string
             - $ref: '#/components/schemas/charge'
-          description: The ID of the Charge that generated this PaymentMethod, if any.
+          description: 'The ID of the Charge that generated this PaymentMethod, if any.'
           nullable: true
           x-expansionResources:
             oneOf:
@@ -30490,7 +30563,7 @@ components:
             number of instances of the SKU to be ordered.
           type: integer
         type:
-          description: The type of this order item. Must be `sku`, `tax`, or `shipping`.
+          description: 'The type of this order item. Must be `sku`, `tax`, or `shipping`.'
           maxLength: 5000
           nullable: true
           type: string
@@ -31541,7 +31614,7 @@ components:
             overrides a discount applied on a customer-wide basis.
           nullable: true
         ended_at:
-          description: If the subscription has ended, the date the subscription ended.
+          description: 'If the subscription has ended, the date the subscription ended.'
           format: unix-time
           nullable: true
           type: integer
@@ -31550,7 +31623,7 @@ components:
           maxLength: 5000
           type: string
         items:
-          description: List of subscription items, each with an attached price.
+          description: 'List of subscription items, each with an attached price.'
           properties:
             data:
               description: Details about each object.
@@ -31759,7 +31832,7 @@ components:
             transferred to for each of the subscription's invoices.
           nullable: true
         trial_end:
-          description: If the subscription has a trial, the end of that trial.
+          description: 'If the subscription has a trial, the end of that trial.'
           format: unix-time
           nullable: true
           type: integer
@@ -31770,7 +31843,7 @@ components:
           description: Settings related to subscription trials.
           nullable: true
         trial_start:
-          description: If the subscription has a trial, the beginning of that trial.
+          description: 'If the subscription has a trial, the beginning of that trial.'
           format: unix-time
           nullable: true
           type: integer
@@ -32847,8 +32920,12 @@ components:
         - end_behavior
     tax.calculation:
       description: >-
-        A Tax `Calculation` allows you to calculate the tax to collect from your
+        A Tax Calculation allows you to calculate the tax to collect from your
         customer.
+
+
+        Related guide: [Calculate tax in your custom payment
+        flow](https://stripe.com/docs/tax/custom).
       properties:
         amount_total:
           description: Total after taxes.
@@ -32905,7 +32982,7 @@ components:
             url:
               description: The URL where this list can be accessed.
               maxLength: 5000
-              pattern: ^/v1/tax/calculations/:id/line_items
+              pattern: '^/v1/tax/calculations/:id/line_items'
               type: string
           required:
             - data
@@ -32978,7 +33055,7 @@ components:
             top of this amount.
           type: integer
         amount_tax:
-          description: The amount of tax calculated for this line item, in integer cents.
+          description: 'The amount of tax calculated for this line item, in integer cents.'
           type: integer
         id:
           description: Unique identifier for the object.
@@ -33047,8 +33124,12 @@ components:
       x-resourceId: tax.calculation_line_item
     tax.transaction:
       description: >-
-        A Tax transaction records the tax collected from or refunded to your
+        A Tax Transaction records the tax collected from or refunded to your
         customer.
+
+
+        Related guide: [Calculate tax in your custom payment
+        flow](https://stripe.com/docs/tax/custom#tax-transaction).
       properties:
         created:
           description: >-
@@ -33079,7 +33160,7 @@ components:
           maxLength: 5000
           type: string
         line_items:
-          description: The tax collected or refunded, by line item.
+          description: 'The tax collected or refunded, by line item.'
           nullable: true
           properties:
             data:
@@ -33102,7 +33183,7 @@ components:
             url:
               description: The URL where this list can be accessed.
               maxLength: 5000
-              pattern: ^/v1/tax/transactions/:id/line_items
+              pattern: '^/v1/tax/transactions/:id/line_items'
               type: string
           required:
             - data
@@ -33136,14 +33217,14 @@ components:
             - tax.transaction
           type: string
         reference:
-          description: A custom unique identifier, such as 'myOrder_123'.
+          description: 'A custom unique identifier, such as ''myOrder_123''.'
           maxLength: 5000
           type: string
         reversal:
           anyOf:
             - $ref: >-
                 #/components/schemas/tax_product_resource_tax_transaction_resource_reversal
-          description: If `type=reversal`, contains information about what was reversed.
+          description: 'If `type=reversal`, contains information about what was reversed.'
           nullable: true
         shipping_cost:
           anyOf:
@@ -33157,7 +33238,7 @@ components:
           format: unix-time
           type: integer
         type:
-          description: If `reversal`, this transaction reverses an earlier transaction.
+          description: 'If `reversal`, this transaction reverses an earlier transaction.'
           enum:
             - reversal
             - transaction
@@ -33190,7 +33271,7 @@ components:
             top of this amount.
           type: integer
         amount_tax:
-          description: The amount of tax calculated for this line item, in integer cents.
+          description: 'The amount of tax calculated for this line item, in integer cents.'
           type: integer
         id:
           description: Unique identifier for the object.
@@ -33231,7 +33312,7 @@ components:
           anyOf:
             - $ref: >-
                 #/components/schemas/tax_product_resource_tax_transaction_line_item_resource_reversal
-          description: If `type=reversal`, contains information about what was reversed.
+          description: 'If `type=reversal`, contains information about what was reversed.'
           nullable: true
         tax_behavior:
           description: >-
@@ -33248,7 +33329,7 @@ components:
           maxLength: 5000
           type: string
         type:
-          description: If `reversal`, this line item reverses an earlier transaction.
+          description: 'If `reversal`, this line item reverses an earlier transaction.'
           enum:
             - reversal
             - transaction
@@ -33531,7 +33612,7 @@ components:
           nullable: true
           type: string
         tax_ids:
-          description: The customer's tax IDs (for example, EU VAT numbers).
+          description: 'The customer''s tax IDs (for example, EU VAT numbers).'
           items:
             $ref: >-
               #/components/schemas/tax_product_resource_customer_details_resource_tax_id
@@ -33670,7 +33751,7 @@ components:
       description: ''
       properties:
         amount:
-          description: The amount of tax, in integer cents.
+          description: 'The amount of tax, in integer cents.'
           type: integer
         jurisdiction:
           $ref: '#/components/schemas/tax_product_resource_jurisdiction'
@@ -33714,7 +33795,7 @@ components:
             - zero_rated
           type: string
         taxable_amount:
-          description: The amount on which tax is calculated, in integer cents.
+          description: 'The amount on which tax is calculated, in integer cents.'
           type: integer
       required:
         - amount
@@ -33744,7 +33825,7 @@ components:
           maxLength: 5000
           type: string
         tax_type:
-          description: The tax type, such as `vat` or `sales_tax`.
+          description: 'The tax type, such as `vat` or `sales_tax`.'
           enum:
             - gst
             - hst
@@ -33768,7 +33849,7 @@ components:
       description: ''
       properties:
         city:
-          description: City, district, suburb, town, or village.
+          description: 'City, district, suburb, town, or village.'
           maxLength: 5000
           nullable: true
           type: string
@@ -33779,12 +33860,12 @@ components:
           maxLength: 5000
           type: string
         line1:
-          description: Address line 1 (e.g., street, PO Box, or company name).
+          description: 'Address line 1 (e.g., street, PO Box, or company name).'
           maxLength: 5000
           nullable: true
           type: string
         line2:
-          description: Address line 2 (e.g., apartment, suite, unit, or building).
+          description: 'Address line 2 (e.g., apartment, suite, unit, or building).'
           maxLength: 5000
           nullable: true
           type: string
@@ -33816,7 +33897,7 @@ components:
             top of this amount.
           type: integer
         amount_tax:
-          description: The amount of tax calculated for shipping, in integer cents.
+          description: 'The amount of tax calculated for shipping, in integer cents.'
           type: integer
         shipping_rate:
           description: >-
@@ -33850,7 +33931,7 @@ components:
       description: ''
       properties:
         amount:
-          description: The amount of tax, in integer cents.
+          description: 'The amount of tax, in integer cents.'
           type: integer
         inclusive:
           description: >-
@@ -33860,7 +33941,7 @@ components:
         tax_rate_details:
           $ref: '#/components/schemas/tax_product_resource_tax_rate_details'
         taxable_amount:
-          description: The amount on which tax is calculated, in integer cents.
+          description: 'The amount on which tax is calculated, in integer cents.'
           type: integer
       required:
         - amount
@@ -33888,12 +33969,12 @@ components:
           maxLength: 5000
           type: string
         state:
-          description: State, county, province, or region.
+          description: 'State, county, province, or region.'
           maxLength: 5000
           nullable: true
           type: string
         tax_type:
-          description: The tax type, such as `vat` or `sales_tax`.
+          description: 'The tax type, such as `vat` or `sales_tax`.'
           enum:
             - gst
             - hst
@@ -34028,7 +34109,7 @@ components:
           nullable: true
           type: string
         tax_type:
-          description: The high-level tax type, such as `vat` or `sales_tax`.
+          description: 'The high-level tax type, such as `vat` or `sales_tax`.'
           enum:
             - gst
             - hst
@@ -34514,12 +34595,12 @@ components:
       description: Represents an action performed by the reader
       properties:
         failure_code:
-          description: Failure code, only set if status is `failed`.
+          description: 'Failure code, only set if status is `failed`.'
           maxLength: 5000
           nullable: true
           type: string
         failure_message:
-          description: Detailed failure message, only set if status is `failed`.
+          description: 'Detailed failure message, only set if status is `failed`.'
           maxLength: 5000
           nullable: true
           type: string
@@ -35310,7 +35391,7 @@ components:
         Transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers).
       properties:
         amount:
-          description: Amount, in %s.
+          description: 'Amount, in %s.'
           type: integer
         balance_transaction:
           anyOf:
@@ -35441,7 +35522,7 @@ components:
           description: Divide usage by this number.
           type: integer
         round:
-          description: After division, either round the result `up` or `down`.
+          description: 'After division, either round the result `up` or `down`.'
           enum:
             - down
             - up
@@ -35459,7 +35540,7 @@ components:
           description: Divide usage by this number.
           type: integer
         round:
-          description: After division, either round the result `up` or `down`.
+          description: 'After division, either round the result `up` or `down`.'
           enum:
             - down
             - up
@@ -36071,7 +36152,7 @@ components:
           description: Amount (in cents) transferred.
           type: integer
         cancelable:
-          description: Returns `true` if the object can be canceled, and `false` otherwise.
+          description: 'Returns `true` if the object can be canceled, and `false` otherwise.'
           type: boolean
         created:
           description: >-
@@ -36249,7 +36330,7 @@ components:
           description: Amount (in cents) transferred.
           type: integer
         cancelable:
-          description: Returns `true` if the object can be canceled, and `false` otherwise.
+          description: 'Returns `true` if the object can be canceled, and `false` otherwise.'
           type: boolean
         created:
           description: >-
@@ -36983,7 +37064,7 @@ components:
         inbound_pending:
           additionalProperties:
             type: integer
-          description: Funds not spendable yet, but will become available at a later time.
+          description: 'Funds not spendable yet, but will become available at a later time.'
           type: object
         outbound_pending:
           additionalProperties:
@@ -38039,11 +38120,11 @@ info:
   contact:
     email: dev-platform@stripe.com
     name: Stripe Dev Platform Team
-    url: https://stripe.com
+    url: 'https://stripe.com'
   description: >-
     The Stripe REST API. Please see https://stripe.com/docs/api for more
     details.
-  termsOfService: https://stripe.com/us/terms/
+  termsOfService: 'https://stripe.com/us/terms/'
   title: Stripe API
   version: '2022-11-15'
   x-stripeSpecFilename: spec3
@@ -39385,7 +39466,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/accounts/{account}:
+  '/v1/accounts/{account}':
     delete:
       description: >-
         <p>With <a href="/docs/connect">Connect</a>, you can delete accounts you
@@ -40500,7 +40581,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/accounts/{account}/bank_accounts:
+  '/v1/accounts/{account}/bank_accounts':
     post:
       description: <p>Create an external account for a given account.</p>
       operationId: PostAccountsAccountBankAccounts
@@ -40634,7 +40715,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/accounts/{account}/bank_accounts/{id}:
+  '/v1/accounts/{account}/bank_accounts/{id}':
     delete:
       description: <p>Delete a specified external account for a given account.</p>
       operationId: DeleteAccountsAccountBankAccountsId
@@ -40799,7 +40880,7 @@ paths:
                   maxLength: 5000
                   type: string
                 address_country:
-                  description: Billing address country, if provided when creating card.
+                  description: 'Billing address country, if provided when creating card.'
                   maxLength: 5000
                   type: string
                 address_line1:
@@ -40888,7 +40969,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/accounts/{account}/capabilities:
+  '/v1/accounts/{account}/capabilities':
     get:
       description: >-
         <p>Returns a list of capabilities associated with the account. The
@@ -40966,7 +41047,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/accounts/{account}/capabilities/{capability}:
+  '/v1/accounts/{account}/capabilities/{capability}':
     get:
       description: <p>Retrieves information about the specified Account Capability.</p>
       operationId: GetAccountsAccountCapabilitiesCapability
@@ -41072,7 +41153,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/accounts/{account}/external_accounts:
+  '/v1/accounts/{account}/external_accounts':
     get:
       description: <p>List external accounts for an account.</p>
       operationId: GetAccountsAccountExternalAccounts
@@ -41321,7 +41402,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/accounts/{account}/external_accounts/{id}:
+  '/v1/accounts/{account}/external_accounts/{id}':
     delete:
       description: <p>Delete a specified external account for a given account.</p>
       operationId: DeleteAccountsAccountExternalAccountsId
@@ -41486,7 +41567,7 @@ paths:
                   maxLength: 5000
                   type: string
                 address_country:
-                  description: Billing address country, if provided when creating card.
+                  description: 'Billing address country, if provided when creating card.'
                   maxLength: 5000
                   type: string
                 address_line1:
@@ -41575,7 +41656,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/accounts/{account}/login_links:
+  '/v1/accounts/{account}/login_links':
     post:
       description: >-
         <p>Creates a single-use login link for an Express account to access
@@ -41625,7 +41706,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/accounts/{account}/people:
+  '/v1/accounts/{account}/people':
     get:
       description: >-
         <p>Returns a list of people associated with the account’s legal entity.
@@ -42144,7 +42225,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/accounts/{account}/people/{person}:
+  '/v1/accounts/{account}/people/{person}':
     delete:
       description: >-
         <p>Deletes an existing person’s relationship to the account’s legal
@@ -42635,7 +42716,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/accounts/{account}/persons:
+  '/v1/accounts/{account}/persons':
     get:
       description: >-
         <p>Returns a list of people associated with the account’s legal entity.
@@ -43154,7 +43235,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/accounts/{account}/persons/{person}:
+  '/v1/accounts/{account}/persons/{person}':
     delete:
       description: >-
         <p>Deletes an existing person’s relationship to the account’s legal
@@ -43645,7 +43726,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/accounts/{account}/reject:
+  '/v1/accounts/{account}/reject':
     post:
       description: >-
         <p>With <a href="/docs/connect">Connect</a>, you may flag accounts as
@@ -43852,7 +43933,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/apple_pay/domains/{domain}:
+  '/v1/apple_pay/domains/{domain}':
     delete:
       description: <p>Delete an apple pay domain.</p>
       operationId: DeleteApplePayDomainsDomain
@@ -44066,7 +44147,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/application_fees/{fee}/refunds/{id}:
+  '/v1/application_fees/{fee}/refunds/{id}':
     get:
       description: >-
         <p>By default, you can see the 10 most recent refunds stored directly on
@@ -44195,7 +44276,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/application_fees/{id}:
+  '/v1/application_fees/{id}':
     get:
       description: >-
         <p>Retrieves the details of an application fee that your account has
@@ -44243,7 +44324,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/application_fees/{id}/refund:
+  '/v1/application_fees/{id}/refund':
     post:
       description: ''
       operationId: PostApplicationFeesIdRefund
@@ -44291,7 +44372,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/application_fees/{id}/refunds:
+  '/v1/application_fees/{id}/refunds':
     get:
       description: >-
         <p>You can see a list of the refunds belonging to a specific application
@@ -45043,7 +45124,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/balance/history/{id}:
+  '/v1/balance/history/{id}':
     get:
       description: >-
         <p>Retrieves the balance transaction with the given ID.</p>
@@ -45272,7 +45353,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/balance_transactions/{id}:
+  '/v1/balance_transactions/{id}':
     get:
       description: >-
         <p>Retrieves the balance transaction with the given ID.</p>
@@ -45691,7 +45772,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/billing_portal/configurations/{configuration}:
+  '/v1/billing_portal/configurations/{configuration}':
     get:
       description: >-
         <p>Retrieves a configuration that describes the functionality of the
@@ -46775,7 +46856,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/charges/{charge}:
+  '/v1/charges/{charge}':
     get:
       description: >-
         <p>Retrieves the details of a charge that has previously been created.
@@ -46990,7 +47071,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/charges/{charge}/capture:
+  '/v1/charges/{charge}/capture':
     post:
       description: >-
         <p>Capture the payment of an existing, uncaptured, charge. This is the
@@ -47104,7 +47185,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/charges/{charge}/dispute:
+  '/v1/charges/{charge}/dispute':
     get:
       description: <p>Retrieve a dispute for a specified charge.</p>
       operationId: GetChargesChargeDispute
@@ -47302,7 +47383,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/charges/{charge}/dispute/close:
+  '/v1/charges/{charge}/dispute/close':
     post:
       description: ''
       operationId: PostChargesChargeDisputeClose
@@ -47345,7 +47426,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/charges/{charge}/refund:
+  '/v1/charges/{charge}/refund':
     post:
       description: >-
         <p>When you create a new refund, you must specify a Charge or a
@@ -47402,6 +47483,10 @@ paths:
                     type: string
                   type: array
                 instructions_email:
+                  description: >-
+                    For payment methods without native refund support (e.g.,
+                    Konbini, PromptPay), use this email from the customer to
+                    receive refund instructions.
                   type: string
                 metadata:
                   anyOf:
@@ -47448,7 +47533,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/charges/{charge}/refunds:
+  '/v1/charges/{charge}/refunds':
     get:
       description: >-
         <p>You can see a list of the refunds belonging to a specific charge.
@@ -47607,8 +47692,9 @@ paths:
                   type: array
                 instructions_email:
                   description: >-
-                    Address to send refund email, use customer email if not
-                    specified
+                    For payment methods without native refund support (e.g.,
+                    Konbini, PromptPay), use this email from the customer to
+                    receive refund instructions.
                   type: string
                 metadata:
                   anyOf:
@@ -47660,7 +47746,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/charges/{charge}/refunds/{refund}:
+  '/v1/charges/{charge}/refunds/{refund}':
     get:
       description: <p>Retrieves the details of an existing refund.</p>
       operationId: GetChargesChargeRefundsRefund
@@ -49570,7 +49656,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/checkout/sessions/{session}:
+  '/v1/checkout/sessions/{session}':
     get:
       description: <p>Retrieves a Session object.</p>
       operationId: GetCheckoutSessionsSession
@@ -49615,7 +49701,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/checkout/sessions/{session}/expire:
+  '/v1/checkout/sessions/{session}/expire':
     post:
       description: >-
         <p>A Session can be expired when it is in one of these statuses:
@@ -49664,7 +49750,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/checkout/sessions/{session}/line_items:
+  '/v1/checkout/sessions/{session}/line_items':
     get:
       description: >-
         <p>When retrieving a Checkout Session, there is an includable
@@ -49883,7 +49969,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/country_specs/{country}:
+  '/v1/country_specs/{country}':
     get:
       description: <p>Returns a Country Spec for a given Country code.</p>
       operationId: GetCountrySpecsCountry
@@ -50220,7 +50306,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/coupons/{coupon}:
+  '/v1/coupons/{coupon}':
     delete:
       description: >-
         <p>You can delete coupons via the <a
@@ -51141,7 +51227,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/credit_notes/{credit_note}/lines:
+  '/v1/credit_notes/{credit_note}/lines':
     get:
       description: >-
         <p>When retrieving a credit note, you’ll get a <strong>lines</strong>
@@ -51256,7 +51342,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/credit_notes/{id}:
+  '/v1/credit_notes/{id}':
     get:
       description: <p>Retrieves the credit note object with the given identifier.</p>
       operationId: GetCreditNotesId
@@ -51362,7 +51448,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/credit_notes/{id}/void:
+  '/v1/credit_notes/{id}/void':
     post:
       description: >-
         <p>Marks a credit note as void. Learn more about <a
@@ -51749,7 +51835,7 @@ paths:
                   maxLength: 20
                   type: string
                 preferred_locales:
-                  description: Customer's preferred languages, ordered by preference.
+                  description: 'Customer''s preferred languages, ordered by preference.'
                   items:
                     maxLength: 5000
                     type: string
@@ -52032,7 +52118,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}:
+  '/v1/customers/{customer}':
     delete:
       description: >-
         <p>Permanently deletes a customer. It cannot be undone. Also immediately
@@ -52464,7 +52550,7 @@ paths:
                   maxLength: 20
                   type: string
                 preferred_locales:
-                  description: Customer's preferred languages, ordered by preference.
+                  description: 'Customer''s preferred languages, ordered by preference.'
                   items:
                     maxLength: 5000
                     type: string
@@ -52559,7 +52645,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/balance_transactions:
+  '/v1/customers/{customer}/balance_transactions':
     get:
       description: >-
         <p>Returns a list of transactions that updated the customer’s <a
@@ -52759,7 +52845,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/balance_transactions/{transaction}:
+  '/v1/customers/{customer}/balance_transactions/{transaction}':
     get:
       description: >-
         <p>Retrieves a specific customer balance transaction that updated the
@@ -52888,7 +52974,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/bank_accounts:
+  '/v1/customers/{customer}/bank_accounts':
     get:
       deprecated: true
       description: >-
@@ -53185,7 +53271,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/bank_accounts/{id}:
+  '/v1/customers/{customer}/bank_accounts/{id}':
     delete:
       description: <p>Delete a specified source for a given customer.</p>
       operationId: DeleteCustomersCustomerBankAccountsId
@@ -53345,7 +53431,7 @@ paths:
                   maxLength: 5000
                   type: string
                 address_country:
-                  description: Billing address country, if provided when creating card.
+                  description: 'Billing address country, if provided when creating card.'
                   maxLength: 5000
                   type: string
                 address_line1:
@@ -53450,7 +53536,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/bank_accounts/{id}/verify:
+  '/v1/customers/{customer}/bank_accounts/{id}/verify':
     post:
       description: <p>Verify a specified bank account for a given customer.</p>
       operationId: PostCustomersCustomerBankAccountsIdVerify
@@ -53510,7 +53596,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/cards:
+  '/v1/customers/{customer}/cards':
     get:
       deprecated: true
       description: >-
@@ -53809,7 +53895,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/cards/{id}:
+  '/v1/customers/{customer}/cards/{id}':
     delete:
       description: <p>Delete a specified source for a given customer.</p>
       operationId: DeleteCustomersCustomerCardsId
@@ -53969,7 +54055,7 @@ paths:
                   maxLength: 5000
                   type: string
                 address_country:
-                  description: Billing address country, if provided when creating card.
+                  description: 'Billing address country, if provided when creating card.'
                   maxLength: 5000
                   type: string
                 address_line1:
@@ -54074,7 +54160,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/cash_balance:
+  '/v1/customers/{customer}/cash_balance':
     get:
       description: <p>Retrieves a customer’s cash balance.</p>
       operationId: GetCustomersCustomerCashBalance
@@ -54175,7 +54261,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/cash_balance_transactions:
+  '/v1/customers/{customer}/cash_balance_transactions':
     get:
       description: >-
         <p>Returns a list of transactions that modified the customer’s <a
@@ -54298,7 +54384,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/cash_balance_transactions/{transaction}:
+  '/v1/customers/{customer}/cash_balance_transactions/{transaction}':
     get:
       description: >-
         <p>Retrieves a specific cash balance transaction, which updated the
@@ -54352,7 +54438,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/discount:
+  '/v1/customers/{customer}/discount':
     delete:
       description: <p>Removes the currently applied discount on a customer.</p>
       operationId: DeleteCustomersCustomerDiscount
@@ -54430,7 +54516,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/funding_instructions:
+  '/v1/customers/{customer}/funding_instructions':
     post:
       description: >-
         <p>Retrieve funding instructions for a customer cash balance. If funding
@@ -54534,7 +54620,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/payment_methods:
+  '/v1/customers/{customer}/payment_methods':
     get:
       description: <p>Returns a list of PaymentMethods for a given Customer</p>
       operationId: GetCustomersCustomerPaymentMethods
@@ -54685,7 +54771,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/payment_methods/{payment_method}:
+  '/v1/customers/{customer}/payment_methods/{payment_method}':
     get:
       description: <p>Retrieves a PaymentMethod object for a given Customer.</p>
       operationId: GetCustomersCustomerPaymentMethodsPaymentMethod
@@ -54737,7 +54823,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/sources:
+  '/v1/customers/{customer}/sources':
     get:
       description: <p>List sources for a specified customer.</p>
       operationId: GetCustomersCustomerSources
@@ -55041,7 +55127,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/sources/{id}:
+  '/v1/customers/{customer}/sources/{id}':
     delete:
       description: <p>Delete a specified source for a given customer.</p>
       operationId: DeleteCustomersCustomerSourcesId
@@ -55197,7 +55283,7 @@ paths:
                   maxLength: 5000
                   type: string
                 address_country:
-                  description: Billing address country, if provided when creating card.
+                  description: 'Billing address country, if provided when creating card.'
                   maxLength: 5000
                   type: string
                 address_line1:
@@ -55302,7 +55388,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/sources/{id}/verify:
+  '/v1/customers/{customer}/sources/{id}/verify':
     post:
       description: <p>Verify a specified bank account for a given customer.</p>
       operationId: PostCustomersCustomerSourcesIdVerify
@@ -55362,7 +55448,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/subscriptions:
+  '/v1/customers/{customer}/subscriptions':
     get:
       description: >-
         <p>You can see a list of the customer’s active subscriptions. Note that
@@ -56201,7 +56287,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/subscriptions/{subscription_exposed_id}:
+  '/v1/customers/{customer}/subscriptions/{subscription_exposed_id}':
     delete:
       description: >-
         <p>Cancels a customer’s subscription. If you set the
@@ -57126,7 +57212,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount:
+  '/v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount':
     delete:
       description: <p>Removes the currently applied discount on a customer.</p>
       operationId: DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount
@@ -57218,7 +57304,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/tax_ids:
+  '/v1/customers/{customer}/tax_ids':
     get:
       description: <p>Returns a list of tax IDs for a customer.</p>
       operationId: GetCustomersCustomerTaxIds
@@ -57444,7 +57530,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/customers/{customer}/tax_ids/{id}:
+  '/v1/customers/{customer}/tax_ids/{id}':
     delete:
       description: <p>Deletes an existing <code>TaxID</code> object.</p>
       operationId: DeleteCustomersCustomerTaxIdsId
@@ -57679,7 +57765,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/disputes/{dispute}:
+  '/v1/disputes/{dispute}':
     get:
       description: <p>Retrieves the dispute with the given ID.</p>
       operationId: GetDisputesDispute
@@ -57888,7 +57974,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/disputes/{dispute}/close:
+  '/v1/disputes/{dispute}/close':
     post:
       description: >-
         <p>Closing the dispute for a charge indicates that you do not have any
@@ -57992,7 +58078,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/ephemeral_keys/{key}:
+  '/v1/ephemeral_keys/{key}':
     delete:
       description: <p>Invalidates a short-lived API key for a given resource.</p>
       operationId: DeleteEphemeralKeysKey
@@ -58198,7 +58284,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/events/{id}:
+  '/v1/events/{id}':
     get:
       description: >-
         <p>Retrieves the details of an event. Supply the unique identifier of
@@ -58353,7 +58439,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/exchange_rates/{rate_id}:
+  '/v1/exchange_rates/{rate_id}':
     get:
       description: >-
         <p>Retrieves the exchange rates from the given currency to every
@@ -58611,7 +58697,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/file_links/{link}:
+  '/v1/file_links/{link}':
     get:
       description: <p>Retrieves the file link with the given ID.</p>
       operationId: GetFileLinksLink
@@ -58983,8 +59069,8 @@ paths:
                 $ref: '#/components/schemas/error'
           description: Error response.
       servers:
-        - url: https://files.stripe.com/
-  /v1/files/{file}:
+        - url: 'https://files.stripe.com/'
+  '/v1/files/{file}':
     get:
       description: >-
         <p>Retrieves the details of an existing file object. Supply the unique
@@ -59170,7 +59256,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/financial_connections/accounts/{account}:
+  '/v1/financial_connections/accounts/{account}':
     get:
       description: >-
         <p>Retrieves the details of an Financial Connections
@@ -59217,7 +59303,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/financial_connections/accounts/{account}/disconnect:
+  '/v1/financial_connections/accounts/{account}/disconnect':
     post:
       description: >-
         <p>Disables your access to a Financial Connections <code>Account</code>.
@@ -59263,7 +59349,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/financial_connections/accounts/{account}/owners:
+  '/v1/financial_connections/accounts/{account}/owners':
     get:
       description: <p>Lists all owners for a given <code>Account</code></p>
       operationId: GetFinancialConnectionsAccountsAccountOwners
@@ -59382,7 +59468,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/financial_connections/accounts/{account}/refresh:
+  '/v1/financial_connections/accounts/{account}/refresh':
     post:
       description: >-
         <p>Refreshes the data associated with a Financial Connections
@@ -59546,7 +59632,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/financial_connections/sessions/{session}:
+  '/v1/financial_connections/sessions/{session}':
     get:
       description: >-
         <p>Retrieves the details of a Financial Connections
@@ -59737,7 +59823,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/identity/verification_reports/{report}:
+  '/v1/identity/verification_reports/{report}':
     get:
       description: <p>Retrieves an existing VerificationReport</p>
       operationId: GetIdentityVerificationReportsReport
@@ -60031,7 +60117,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/identity/verification_sessions/{session}:
+  '/v1/identity/verification_sessions/{session}':
     get:
       description: >-
         <p>Retrieves the details of a VerificationSession that was previously
@@ -60189,7 +60275,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/identity/verification_sessions/{session}/cancel:
+  '/v1/identity/verification_sessions/{session}/cancel':
     post:
       description: >-
         <p>A VerificationSession object can be canceled when it is in
@@ -60240,7 +60326,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/identity/verification_sessions/{session}/redact:
+  '/v1/identity/verification_sessions/{session}/redact':
     post:
       description: >-
         <p>Redact a VerificationSession to remove all collected information from
@@ -60672,8 +60758,11 @@ paths:
                   type: string
                 tax_behavior:
                   description: >-
-                    Specifies whether the price is considered inclusive of taxes
-                    or exclusive of taxes. One of `inclusive`, `exclusive`, or
+                    Only required if a [default tax
+                    behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended))
+                    was not provided in the Stripe Tax settings. Specifies
+                    whether the price is considered inclusive of taxes or
+                    exclusive of taxes. One of `inclusive`, `exclusive`, or
                     `unspecified`. Once specified as either `inclusive` or
                     `exclusive`, it cannot be changed.
                   enum:
@@ -60687,7 +60776,7 @@ paths:
                     - enum:
                         - ''
                       type: string
-                  description: A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+                  description: 'A [tax code](https://stripe.com/docs/tax/tax-categories) ID.'
                 tax_rates:
                   description: >-
                     The tax rates which apply to the invoice item. When set, the
@@ -60729,7 +60818,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/invoiceitems/{invoiceitem}:
+  '/v1/invoiceitems/{invoiceitem}':
     delete:
       description: >-
         <p>Deletes an invoice item, removing it from an invoice. Deleting
@@ -60975,8 +61064,11 @@ paths:
                   type: integer
                 tax_behavior:
                   description: >-
-                    Specifies whether the price is considered inclusive of taxes
-                    or exclusive of taxes. One of `inclusive`, `exclusive`, or
+                    Only required if a [default tax
+                    behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended))
+                    was not provided in the Stripe Tax settings. Specifies
+                    whether the price is considered inclusive of taxes or
+                    exclusive of taxes. One of `inclusive`, `exclusive`, or
                     `unspecified`. Once specified as either `inclusive` or
                     `exclusive`, it cannot be changed.
                   enum:
@@ -60990,7 +61082,7 @@ paths:
                     - enum:
                         - ''
                       type: string
-                  description: A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+                  description: 'A [tax code](https://stripe.com/docs/tax/tax-categories) ID.'
                 tax_rates:
                   anyOf:
                     - items:
@@ -62493,7 +62585,7 @@ paths:
                   - ''
                 type: string
           style: deepObject
-        - description: A list of up to 20 subscription items, each with an attached price.
+        - description: 'A list of up to 20 subscription items, each with an attached price.'
           explode: true
           in: query
           name: subscription_items
@@ -63200,7 +63292,7 @@ paths:
                   - ''
                 type: string
           style: deepObject
-        - description: A list of up to 20 subscription items, each with an attached price.
+        - description: 'A list of up to 20 subscription items, each with an attached price.'
           explode: true
           in: query
           name: subscription_items
@@ -63429,7 +63521,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/invoices/{invoice}:
+  '/v1/invoices/{invoice}':
     delete:
       description: >-
         <p>Permanently deletes a one-off invoice draft. This cannot be undone.
@@ -64153,7 +64245,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/invoices/{invoice}/finalize:
+  '/v1/invoices/{invoice}/finalize':
     post:
       description: >-
         <p>Stripe automatically finalizes drafts before sending and attempting
@@ -64206,7 +64298,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/invoices/{invoice}/lines:
+  '/v1/invoices/{invoice}/lines':
     get:
       description: >-
         <p>When retrieving an invoice, you’ll get a <strong>lines</strong>
@@ -64321,7 +64413,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/invoices/{invoice}/mark_uncollectible:
+  '/v1/invoices/{invoice}/mark_uncollectible':
     post:
       description: >-
         <p>Marking an invoice as uncollectible is useful for keeping track of
@@ -64366,7 +64458,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/invoices/{invoice}/pay:
+  '/v1/invoices/{invoice}/pay':
     post:
       description: >-
         <p>Stripe automatically creates and then attempts to collect payment on
@@ -64466,7 +64558,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/invoices/{invoice}/send:
+  '/v1/invoices/{invoice}/send':
     post:
       description: >-
         <p>Stripe will automatically send invoices to customers according to
@@ -64520,7 +64612,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/invoices/{invoice}/void:
+  '/v1/invoices/{invoice}/void':
     post:
       description: >-
         <p>Mark a finalized invoice as void. This cannot be undone. Voiding an
@@ -64725,7 +64817,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/issuing/authorizations/{authorization}:
+  '/v1/issuing/authorizations/{authorization}':
     get:
       description: <p>Retrieves an Issuing <code>Authorization</code> object.</p>
       operationId: GetIssuingAuthorizationsAuthorization
@@ -64834,7 +64926,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/issuing/authorizations/{authorization}/approve:
+  '/v1/issuing/authorizations/{authorization}/approve':
     post:
       description: >-
         <p>Approves a pending Issuing <code>Authorization</code> object. This
@@ -64913,7 +65005,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/issuing/authorizations/{authorization}/decline:
+  '/v1/issuing/authorizations/{authorization}/decline':
     post:
       description: >-
         <p>Declines a pending Issuing <code>Authorization</code> object. This
@@ -66300,7 +66392,6 @@ paths:
               required:
                 - billing
                 - name
-                - type
               type: object
         required: true
       responses:
@@ -66316,7 +66407,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/issuing/cardholders/{cardholder}:
+  '/v1/issuing/cardholders/{cardholder}':
     get:
       description: <p>Retrieves an Issuing <code>Cardholder</code> object.</p>
       operationId: GetIssuingCardholdersCardholder
@@ -68820,7 +68911,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/issuing/cards/{card}:
+  '/v1/issuing/cards/{card}':
     get:
       description: <p>Retrieves an Issuing <code>Card</code> object.</p>
       operationId: GetIssuingCardsCard
@@ -70428,7 +70519,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/issuing/disputes/{dispute}:
+  '/v1/issuing/disputes/{dispute}':
     get:
       description: <p>Retrieves an Issuing <code>Dispute</code> object.</p>
       operationId: GetIssuingDisputesDispute
@@ -70813,7 +70904,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/issuing/disputes/{dispute}/submit:
+  '/v1/issuing/disputes/{dispute}/submit':
     post:
       description: >-
         <p>Submits an Issuing <code>Dispute</code> to the card network. Stripe
@@ -71009,7 +71100,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/issuing/settlements/{settlement}:
+  '/v1/issuing/settlements/{settlement}':
     get:
       description: <p>Retrieves an Issuing <code>Settlement</code> object.</p>
       operationId: GetIssuingSettlementsSettlement
@@ -71271,7 +71362,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/issuing/transactions/{transaction}:
+  '/v1/issuing/transactions/{transaction}':
     get:
       description: <p>Retrieves an Issuing <code>Transaction</code> object.</p>
       operationId: GetIssuingTransactionsTransaction
@@ -71485,7 +71576,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/link_account_sessions/{session}:
+  '/v1/link_account_sessions/{session}':
     get:
       description: >-
         <p>Retrieves the details of a Financial Connections
@@ -71668,7 +71759,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/linked_accounts/{account}:
+  '/v1/linked_accounts/{account}':
     get:
       description: >-
         <p>Retrieves the details of an Financial Connections
@@ -71715,7 +71806,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/linked_accounts/{account}/disconnect:
+  '/v1/linked_accounts/{account}/disconnect':
     post:
       description: >-
         <p>Disables your access to a Financial Connections <code>Account</code>.
@@ -71761,7 +71852,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/linked_accounts/{account}/owners:
+  '/v1/linked_accounts/{account}/owners':
     get:
       description: <p>Lists all owners for a given <code>Account</code></p>
       operationId: GetLinkedAccountsAccountOwners
@@ -71880,7 +71971,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/linked_accounts/{account}/refresh:
+  '/v1/linked_accounts/{account}/refresh':
     post:
       description: >-
         <p>Refreshes the data associated with a Financial Connections
@@ -71939,7 +72030,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/mandates/{mandate}:
+  '/v1/mandates/{mandate}':
     get:
       description: <p>Retrieves a Mandate object.</p>
       operationId: GetMandatesMandate
@@ -73857,7 +73948,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/payment_intents/{intent}:
+  '/v1/payment_intents/{intent}':
     get:
       description: >-
         <p>Retrieves the details of a PaymentIntent that has previously been
@@ -75413,7 +75504,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/payment_intents/{intent}/apply_customer_balance:
+  '/v1/payment_intents/{intent}/apply_customer_balance':
     post:
       description: >-
         <p>Manually reconcile the remaining amount for a customer_balance
@@ -75484,7 +75575,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/payment_intents/{intent}/cancel:
+  '/v1/payment_intents/{intent}/cancel':
     post:
       description: >-
         <p>A PaymentIntent object can be canceled when it is in one of these
@@ -75557,7 +75648,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/payment_intents/{intent}/capture:
+  '/v1/payment_intents/{intent}/capture':
     post:
       description: >-
         <p>Capture the funds of an existing uncaptured PaymentIntent when its
@@ -75659,7 +75750,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/payment_intents/{intent}/confirm:
+  '/v1/payment_intents/{intent}/confirm':
     post:
       description: >-
         <p>Confirm that your customer intends to pay with current or provided
@@ -77207,7 +77298,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/payment_intents/{intent}/increment_authorization:
+  '/v1/payment_intents/{intent}/increment_authorization':
     post:
       description: >-
         <p>Perform an incremental authorization on an eligible
@@ -77365,7 +77456,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/payment_intents/{intent}/verify_microdeposits:
+  '/v1/payment_intents/{intent}/verify_microdeposits':
     post:
       description: <p>Verifies microdeposits on a PaymentIntent object.</p>
       operationId: PostPaymentIntentsIntentVerifyMicrodeposits
@@ -78334,7 +78425,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/payment_links/{payment_link}:
+  '/v1/payment_links/{payment_link}':
     get:
       description: <p>Retrieve a payment link.</p>
       operationId: GetPaymentLinksPaymentLink
@@ -79036,7 +79127,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/payment_links/{payment_link}/line_items:
+  '/v1/payment_links/{payment_link}/line_items':
     get:
       description: >-
         <p>When retrieving a payment link, there is an includable
@@ -79999,7 +80090,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/payment_methods/{payment_method}:
+  '/v1/payment_methods/{payment_method}':
     get:
       description: >-
         <p>Retrieves a PaymentMethod object attached to the StripeAccount. To
@@ -80199,7 +80290,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/payment_methods/{payment_method}/attach:
+  '/v1/payment_methods/{payment_method}/attach':
     post:
       description: >-
         <p>Attaches a PaymentMethod object to a Customer.</p>
@@ -80279,7 +80370,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/payment_methods/{payment_method}/detach:
+  '/v1/payment_methods/{payment_method}/detach':
     post:
       description: >-
         <p>Detaches a PaymentMethod object from a Customer. After a
@@ -80613,7 +80704,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/payouts/{payout}:
+  '/v1/payouts/{payout}':
     get:
       description: >-
         <p>Retrieves the details of an existing payout. Supply the unique payout
@@ -80725,7 +80816,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/payouts/{payout}/cancel:
+  '/v1/payouts/{payout}/cancel':
     post:
       description: >-
         <p>A previously created payout can be canceled if it has not yet been
@@ -80771,7 +80862,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/payouts/{payout}/reverse:
+  '/v1/payouts/{payout}/reverse':
     post:
       description: >-
         <p>Reverses a payout by debiting the destination bank account. Only
@@ -81115,7 +81206,7 @@ paths:
                     value to them. All keys can be unset by posting an empty
                     value to `metadata`.
                 nickname:
-                  description: A brief description of the plan, hidden from customers.
+                  description: 'A brief description of the plan, hidden from customers.'
                   maxLength: 5000
                   type: string
                 product:
@@ -81250,7 +81341,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/plans/{plan}:
+  '/v1/plans/{plan}':
     delete:
       description: >-
         <p>Deleting plans means new subscribers can’t be added. Existing
@@ -81385,7 +81476,7 @@ paths:
                     value to them. All keys can be unset by posting an empty
                     value to `metadata`.
                 nickname:
-                  description: A brief description of the plan, hidden from customers.
+                  description: 'A brief description of the plan, hidden from customers.'
                   maxLength: 5000
                   type: string
                 product:
@@ -81492,7 +81583,7 @@ paths:
           schema:
             type: integer
           style: form
-        - description: Only return the price with these lookup_keys, if any exist.
+        - description: 'Only return the price with these lookup_keys, if any exist.'
           explode: true
           in: query
           name: lookup_keys
@@ -81776,7 +81867,7 @@ paths:
                     value to `metadata`.
                   type: object
                 nickname:
-                  description: A brief description of the price, hidden from customers.
+                  description: 'A brief description of the price, hidden from customers.'
                   maxLength: 5000
                   type: string
                 product:
@@ -81845,8 +81936,11 @@ paths:
                   type: object
                 tax_behavior:
                   description: >-
-                    Specifies whether the price is considered inclusive of taxes
-                    or exclusive of taxes. One of `inclusive`, `exclusive`, or
+                    Only required if a [default tax
+                    behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended))
+                    was not provided in the Stripe Tax settings. Specifies
+                    whether the price is considered inclusive of taxes or
+                    exclusive of taxes. One of `inclusive`, `exclusive`, or
                     `unspecified`. Once specified as either `inclusive` or
                     `exclusive`, it cannot be changed.
                   enum:
@@ -82064,7 +82158,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/prices/{price}:
+  '/v1/prices/{price}':
     get:
       description: <p>Retrieves the price with the given ID.</p>
       operationId: GetPricesPrice
@@ -82237,13 +82331,16 @@ paths:
                     value to them. All keys can be unset by posting an empty
                     value to `metadata`.
                 nickname:
-                  description: A brief description of the price, hidden from customers.
+                  description: 'A brief description of the price, hidden from customers.'
                   maxLength: 5000
                   type: string
                 tax_behavior:
                   description: >-
-                    Specifies whether the price is considered inclusive of taxes
-                    or exclusive of taxes. One of `inclusive`, `exclusive`, or
+                    Only required if a [default tax
+                    behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended))
+                    was not provided in the Stripe Tax settings. Specifies
+                    whether the price is considered inclusive of taxes or
+                    exclusive of taxes. One of `inclusive`, `exclusive`, or
                     `unspecified`. Once specified as either `inclusive` or
                     `exclusive`, it cannot be changed.
                   enum:
@@ -82607,7 +82704,7 @@ paths:
                     value to `metadata`.
                   type: object
                 name:
-                  description: The product's name, meant to be displayable to the customer.
+                  description: 'The product''s name, meant to be displayable to the customer.'
                   maxLength: 5000
                   type: string
                 package_dimensions:
@@ -82629,7 +82726,7 @@ paths:
                   title: package_dimensions_specs
                   type: object
                 shippable:
-                  description: Whether this product is shipped (i.e., physical goods).
+                  description: 'Whether this product is shipped (i.e., physical goods).'
                   type: boolean
                 statement_descriptor:
                   description: >-
@@ -82647,7 +82744,7 @@ paths:
                   maxLength: 22
                   type: string
                 tax_code:
-                  description: A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+                  description: 'A [tax code](https://stripe.com/docs/tax/tax-categories) ID.'
                   type: string
                 unit_label:
                   description: >-
@@ -82793,7 +82890,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/products/{id}:
+  '/v1/products/{id}':
     delete:
       description: >-
         <p>Delete a product. Deleting a product is only possible if it has no
@@ -82967,7 +83064,7 @@ paths:
                     value to them. All keys can be unset by posting an empty
                     value to `metadata`.
                 name:
-                  description: The product's name, meant to be displayable to the customer.
+                  description: 'The product''s name, meant to be displayable to the customer.'
                   maxLength: 5000
                   type: string
                 package_dimensions:
@@ -82993,7 +83090,7 @@ paths:
                       type: string
                   description: The dimensions of this product for shipping purposes.
                 shippable:
-                  description: Whether this product is shipped (i.e., physical goods).
+                  description: 'Whether this product is shipped (i.e., physical goods).'
                   type: boolean
                 statement_descriptor:
                   description: >-
@@ -83016,7 +83113,7 @@ paths:
                     - enum:
                         - ''
                       type: string
-                  description: A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+                  description: 'A [tax code](https://stripe.com/docs/tax/tax-categories) ID.'
                 unit_label:
                   description: >-
                     A label that represents units of this product. When set,
@@ -83314,7 +83411,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/promotion_codes/{promotion_code}:
+  '/v1/promotion_codes/{promotion_code}':
     get:
       description: >-
         <p>Retrieves the promotion code with the given ID. In order to retrieve
@@ -83940,7 +84037,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/quotes/{quote}:
+  '/v1/quotes/{quote}':
     get:
       description: <p>Retrieves the quote with the given ID.</p>
       operationId: GetQuotesQuote
@@ -84307,7 +84404,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/quotes/{quote}/accept:
+  '/v1/quotes/{quote}/accept':
     post:
       description: <p>Accepts the specified quote.</p>
       operationId: PostQuotesQuoteAccept
@@ -84350,7 +84447,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/quotes/{quote}/cancel:
+  '/v1/quotes/{quote}/cancel':
     post:
       description: <p>Cancels the quote.</p>
       operationId: PostQuotesQuoteCancel
@@ -84393,7 +84490,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/quotes/{quote}/computed_upfront_line_items:
+  '/v1/quotes/{quote}/computed_upfront_line_items':
     get:
       description: >-
         <p>When retrieving a quote, there is an includable <a
@@ -84509,7 +84606,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/quotes/{quote}/finalize:
+  '/v1/quotes/{quote}/finalize':
     post:
       description: <p>Finalizes the quote.</p>
       operationId: PostQuotesQuoteFinalize
@@ -84559,7 +84656,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/quotes/{quote}/line_items:
+  '/v1/quotes/{quote}/line_items':
     get:
       description: >-
         <p>When retrieving a quote, there is an includable
@@ -84674,7 +84771,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/quotes/{quote}/pdf:
+  '/v1/quotes/{quote}/pdf':
     get:
       description: <p>Download the PDF for a finalized quote</p>
       operationId: GetQuotesQuotePdf
@@ -84843,7 +84940,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/radar/early_fraud_warnings/{early_fraud_warning}:
+  '/v1/radar/early_fraud_warnings/{early_fraud_warning}':
     get:
       description: >-
         <p>Retrieves the details of an early fraud warning that has previously
@@ -85089,7 +85186,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/radar/value_list_items/{item}:
+  '/v1/radar/value_list_items/{item}':
     delete:
       description: >-
         <p>Deletes a <code>ValueListItem</code> object, removing it from its
@@ -85393,7 +85490,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/radar/value_lists/{value_list}:
+  '/v1/radar/value_lists/{value_list}':
     delete:
       description: >-
         <p>Deletes a <code>ValueList</code> object, also deleting any items
@@ -85723,8 +85820,9 @@ paths:
                   type: array
                 instructions_email:
                   description: >-
-                    Address to send refund email, use customer email if not
-                    specified
+                    For payment methods without native refund support (e.g.,
+                    Konbini, PromptPay), use this email from the customer to
+                    receive refund instructions.
                   type: string
                 metadata:
                   anyOf:
@@ -85776,7 +85874,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/refunds/{refund}:
+  '/v1/refunds/{refund}':
     get:
       description: <p>Retrieves the details of an existing refund.</p>
       operationId: GetRefundsRefund
@@ -85885,7 +85983,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/refunds/{refund}/cancel:
+  '/v1/refunds/{refund}/cancel':
     post:
       description: >-
         <p>Cancels a refund with a status of <code>requires_action</code>.</p>
@@ -86775,7 +86873,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/reporting/report_runs/{report_run}:
+  '/v1/reporting/report_runs/{report_run}':
     get:
       description: <p>Retrieves the details of an existing Report Run.</p>
       operationId: GetReportingReportRunsReportRun
@@ -86888,7 +86986,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/reporting/report_types/{report_type}:
+  '/v1/reporting/report_types/{report_type}':
     get:
       description: >-
         <p>Retrieves the details of a Report Type. (Certain report types require
@@ -87061,7 +87159,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/reviews/{review}:
+  '/v1/reviews/{review}':
     get:
       description: <p>Retrieves a <code>Review</code> object.</p>
       operationId: GetReviewsReview
@@ -87106,7 +87204,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/reviews/{review}/approve:
+  '/v1/reviews/{review}/approve':
     post:
       description: >-
         <p>Approves a <code>Review</code> object, closing it and removing it
@@ -88279,7 +88377,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/setup_intents/{intent}:
+  '/v1/setup_intents/{intent}':
     get:
       description: >-
         <p>Retrieves the details of a SetupIntent that has previously been
@@ -89073,7 +89171,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/setup_intents/{intent}/cancel:
+  '/v1/setup_intents/{intent}/cancel':
     post:
       description: >-
         <p>A SetupIntent object can be canceled when it is in one of these
@@ -89134,7 +89232,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/setup_intents/{intent}/confirm:
+  '/v1/setup_intents/{intent}/confirm':
     post:
       description: >-
         <p>Confirm that your customer intends to set up the current or
@@ -89888,7 +89986,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/setup_intents/{intent}/verify_microdeposits:
+  '/v1/setup_intents/{intent}/verify_microdeposits':
     post:
       description: <p>Verifies microdeposits on a SetupIntent object.</p>
       operationId: PostSetupIntentsIntentVerifyMicrodeposits
@@ -90249,7 +90347,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/shipping_rates/{shipping_rate_token}:
+  '/v1/shipping_rates/{shipping_rate_token}':
     get:
       description: <p>Returns the shipping rate object with the given ID.</p>
       operationId: GetShippingRatesShippingRateToken
@@ -90498,7 +90596,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/sigma/scheduled_query_runs/{scheduled_query_run}:
+  '/v1/sigma/scheduled_query_runs/{scheduled_query_run}':
     get:
       description: <p>Retrieves the details of an scheduled query run.</p>
       operationId: GetSigmaScheduledQueryRunsScheduledQueryRun
@@ -90889,7 +90987,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/sources/{source}:
+  '/v1/sources/{source}':
     get:
       description: >-
         <p>Retrieves an existing source object. Supply the unique source ID from
@@ -91221,7 +91319,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/sources/{source}/mandate_notifications/{mandate_notification}:
+  '/v1/sources/{source}/mandate_notifications/{mandate_notification}':
     get:
       description: <p>Retrieves a new Source MandateNotification.</p>
       operationId: GetSourcesSourceMandateNotificationsMandateNotification
@@ -91273,7 +91371,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/sources/{source}/source_transactions:
+  '/v1/sources/{source}/source_transactions':
     get:
       description: <p>List source transactions for a given source.</p>
       operationId: GetSourcesSourceSourceTransactions
@@ -91383,7 +91481,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/sources/{source}/source_transactions/{source_transaction}:
+  '/v1/sources/{source}/source_transactions/{source_transaction}':
     get:
       description: >-
         <p>Retrieve an existing source transaction object. Supply the unique
@@ -91439,7 +91537,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/sources/{source}/verify:
+  '/v1/sources/{source}/verify':
     post:
       description: <p>Verify a given source.</p>
       operationId: PostSourcesSourceVerify
@@ -91822,7 +91920,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/subscription_items/{item}:
+  '/v1/subscription_items/{item}':
     delete:
       description: >-
         <p>Deletes an item from the subscription. Removing a subscription item
@@ -92161,7 +92259,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/subscription_items/{subscription_item}/usage_record_summaries:
+  '/v1/subscription_items/{subscription_item}/usage_record_summaries':
     get:
       description: >-
         <p>For the specified subscription item, returns a list of summary
@@ -92281,7 +92379,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/subscription_items/{subscription_item}/usage_records:
+  '/v1/subscription_items/{subscription_item}/usage_records':
     post:
       description: >-
         <p>Creates a usage record for a specified subscription item and date,
@@ -92995,7 +93093,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/subscription_schedules/{schedule}:
+  '/v1/subscription_schedules/{schedule}':
     get:
       description: >-
         <p>Retrieves the details of an existing subscription schedule. You only
@@ -93440,7 +93538,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/subscription_schedules/{schedule}/cancel:
+  '/v1/subscription_schedules/{schedule}/cancel':
     post:
       description: >-
         <p>Cancels a subscription schedule and its associated subscription
@@ -93499,7 +93597,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/subscription_schedules/{schedule}/release:
+  '/v1/subscription_schedules/{schedule}/release':
     post:
       description: >-
         <p>Releases the subscription schedule immediately, which will stop
@@ -94660,7 +94758,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/subscriptions/{subscription_exposed_id}:
+  '/v1/subscriptions/{subscription_exposed_id}':
     delete:
       description: >-
         <p>Cancels a customer’s subscription immediately. The customer will not
@@ -95601,7 +95699,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/subscriptions/{subscription_exposed_id}/discount:
+  '/v1/subscriptions/{subscription_exposed_id}/discount':
     delete:
       description: <p>Removes the currently applied discount on a subscription.</p>
       operationId: DeleteSubscriptionsSubscriptionExposedIdDiscount
@@ -95635,7 +95733,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/subscriptions/{subscription}/resume:
+  '/v1/subscriptions/{subscription}/resume':
     post:
       description: >-
         <p>Initiates resumption of a paused subscription, optionally resetting
@@ -95762,7 +95860,7 @@ paths:
                   maxLength: 5000
                   type: string
                 customer_details:
-                  description: Details about the customer, including address and tax IDs.
+                  description: 'Details about the customer, including address and tax IDs.'
                   properties:
                     address:
                       properties:
@@ -95903,7 +96001,7 @@ paths:
                     type: object
                   type: array
                 shipping_cost:
-                  description: Shipping cost details to be used for the calculation
+                  description: Shipping cost details to be used for the calculation.
                   properties:
                     amount:
                       type: integer
@@ -95944,7 +96042,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/tax/calculations/{calculation}/line_items:
+  '/v1/tax/calculations/{calculation}/line_items':
     get:
       description: >-
         <p>Retrieves the line items of a persisted tax calculation as a
@@ -96040,7 +96138,7 @@ paths:
                   url:
                     description: The URL where this list can be accessed.
                     maxLength: 5000
-                    pattern: ^/v1/tax/calculations/:id/line_items
+                    pattern: '^/v1/tax/calculations/:id/line_items'
                     type: string
                 required:
                   - data
@@ -96247,7 +96345,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/tax/transactions/{transaction}:
+  '/v1/tax/transactions/{transaction}':
     get:
       description: <p>Retrieves a Tax <code>Transaction</code> object.</p>
       operationId: GetTaxTransactionsTransaction
@@ -96292,7 +96390,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/tax/transactions/{transaction}/line_items:
+  '/v1/tax/transactions/{transaction}/line_items':
     get:
       description: >-
         <p>Retrieves the line items of a committed standalone transaction as a
@@ -96388,7 +96486,7 @@ paths:
                   url:
                     description: The URL where this list can be accessed.
                     maxLength: 5000
-                    pattern: ^/v1/tax/transactions/:id/line_items
+                    pattern: '^/v1/tax/transactions/:id/line_items'
                     type: string
                 required:
                   - data
@@ -96510,7 +96608,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/tax_codes/{id}:
+  '/v1/tax_codes/{id}':
     get:
       description: >-
         <p>Retrieves the details of an existing tax code. Supply the unique tax
@@ -96784,7 +96882,7 @@ paths:
                   maxLength: 2
                   type: string
                 tax_type:
-                  description: The high-level tax type, such as `vat` or `sales_tax`.
+                  description: 'The high-level tax type, such as `vat` or `sales_tax`.'
                   enum:
                     - gst
                     - hst
@@ -96816,7 +96914,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/tax_rates/{tax_rate}:
+  '/v1/tax_rates/{tax_rate}':
     get:
       description: <p>Retrieves a tax rate with the given ID</p>
       operationId: GetTaxRatesTaxRate
@@ -96948,7 +97046,7 @@ paths:
                   maxLength: 2
                   type: string
                 tax_type:
-                  description: The high-level tax type, such as `vat` or `sales_tax`.
+                  description: 'The high-level tax type, such as `vat` or `sales_tax`.'
                   enum:
                     - gst
                     - hst
@@ -97363,7 +97461,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/terminal/configurations/{configuration}:
+  '/v1/terminal/configurations/{configuration}':
     delete:
       description: <p>Deletes a <code>Configuration</code> object.</p>
       operationId: DeleteTerminalConfigurationsConfiguration
@@ -97988,7 +98086,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/terminal/locations/{location}:
+  '/v1/terminal/locations/{location}':
     delete:
       description: <p>Deletes a <code>Location</code> object.</p>
       operationId: DeleteTerminalLocationsLocation
@@ -98381,7 +98479,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/terminal/readers/{reader}:
+  '/v1/terminal/readers/{reader}':
     delete:
       description: <p>Deletes a <code>Reader</code> object.</p>
       operationId: DeleteTerminalReadersReader
@@ -98531,7 +98629,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/terminal/readers/{reader}/cancel_action:
+  '/v1/terminal/readers/{reader}/cancel_action':
     post:
       description: <p>Cancels the current reader action.</p>
       operationId: PostTerminalReadersReaderCancelAction
@@ -98574,7 +98672,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/terminal/readers/{reader}/process_payment_intent:
+  '/v1/terminal/readers/{reader}/process_payment_intent':
     post:
       description: <p>Initiates a payment flow on a Reader.</p>
       operationId: PostTerminalReadersReaderProcessPaymentIntent
@@ -98639,7 +98737,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/terminal/readers/{reader}/process_setup_intent:
+  '/v1/terminal/readers/{reader}/process_setup_intent':
     post:
       description: <p>Initiates a setup intent flow on a Reader.</p>
       operationId: PostTerminalReadersReaderProcessSetupIntent
@@ -98692,7 +98790,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/terminal/readers/{reader}/refund_payment:
+  '/v1/terminal/readers/{reader}/refund_payment':
     post:
       description: <p>Initiates a refund on a Reader</p>
       operationId: PostTerminalReadersReaderRefundPayment
@@ -98781,7 +98879,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/terminal/readers/{reader}/set_reader_display:
+  '/v1/terminal/readers/{reader}/set_reader_display':
     post:
       description: <p>Sets reader display to show cart details.</p>
       operationId: PostTerminalReadersReaderSetReaderDisplay
@@ -98866,7 +98964,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/customers/{customer}/fund_cash_balance:
+  '/v1/test_helpers/customers/{customer}/fund_cash_balance':
     post:
       description: <p>Create an incoming testmode bank transfer</p>
       operationId: PostTestHelpersCustomersCustomerFundCashBalance
@@ -98938,7 +99036,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/issuing/cards/{card}/shipping/deliver:
+  '/v1/test_helpers/issuing/cards/{card}/shipping/deliver':
     post:
       description: >-
         <p>Updates the shipping status of the specified Issuing
@@ -98983,7 +99081,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/issuing/cards/{card}/shipping/fail:
+  '/v1/test_helpers/issuing/cards/{card}/shipping/fail':
     post:
       description: >-
         <p>Updates the shipping status of the specified Issuing
@@ -99028,7 +99126,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/issuing/cards/{card}/shipping/return:
+  '/v1/test_helpers/issuing/cards/{card}/shipping/return':
     post:
       description: >-
         <p>Updates the shipping status of the specified Issuing
@@ -99073,7 +99171,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/issuing/cards/{card}/shipping/ship:
+  '/v1/test_helpers/issuing/cards/{card}/shipping/ship':
     post:
       description: >-
         <p>Updates the shipping status of the specified Issuing
@@ -99118,7 +99216,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/refunds/{refund}/expire:
+  '/v1/test_helpers/refunds/{refund}/expire':
     post:
       description: <p>Expire a refund with a status of <code>requires_action</code>.</p>
       operationId: PostTestHelpersRefundsRefundExpire
@@ -99160,7 +99258,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/terminal/readers/{reader}/present_payment_method:
+  '/v1/test_helpers/terminal/readers/{reader}/present_payment_method':
     post:
       description: >-
         <p>Presents a payment method on a simulated reader. Can be used to
@@ -99388,7 +99486,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/test_clocks/{test_clock}:
+  '/v1/test_helpers/test_clocks/{test_clock}':
     delete:
       description: <p>Deletes a test clock.</p>
       operationId: DeleteTestHelpersTestClocksTestClock
@@ -99466,7 +99564,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/test_clocks/{test_clock}/advance:
+  '/v1/test_helpers/test_clocks/{test_clock}/advance':
     post:
       description: >-
         <p>Starts advancing a test clock to a specified time in the future.
@@ -99522,7 +99620,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/treasury/inbound_transfers/{id}/fail:
+  '/v1/test_helpers/treasury/inbound_transfers/{id}/fail':
     post:
       description: >-
         <p>Transitions a test mode created InboundTransfer to the
@@ -99592,7 +99690,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/treasury/inbound_transfers/{id}/return:
+  '/v1/test_helpers/treasury/inbound_transfers/{id}/return':
     post:
       description: >-
         <p>Marks the test mode InboundTransfer object as returned and links the
@@ -99638,7 +99736,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/treasury/inbound_transfers/{id}/succeed:
+  '/v1/test_helpers/treasury/inbound_transfers/{id}/succeed':
     post:
       description: >-
         <p>Transitions a test mode created InboundTransfer to the
@@ -99684,7 +99782,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/treasury/outbound_payments/{id}/fail:
+  '/v1/test_helpers/treasury/outbound_payments/{id}/fail':
     post:
       description: >-
         <p>Transitions a test mode created OutboundPayment to the
@@ -99730,7 +99828,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/treasury/outbound_payments/{id}/post:
+  '/v1/test_helpers/treasury/outbound_payments/{id}/post':
     post:
       description: >-
         <p>Transitions a test mode created OutboundPayment to the
@@ -99776,7 +99874,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/treasury/outbound_payments/{id}/return:
+  '/v1/test_helpers/treasury/outbound_payments/{id}/return':
     post:
       description: >-
         <p>Transitions a test mode created OutboundPayment to the
@@ -99843,7 +99941,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail:
+  '/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail':
     post:
       description: >-
         <p>Transitions a test mode created OutboundTransfer to the
@@ -99889,7 +99987,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post:
+  '/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post':
     post:
       description: >-
         <p>Transitions a test mode created OutboundTransfer to the
@@ -99935,7 +100033,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return:
+  '/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return':
     post:
       description: >-
         <p>Transitions a test mode created OutboundTransfer to the
@@ -100993,7 +101091,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/tokens/{token}:
+  '/v1/tokens/{token}':
     get:
       description: <p>Retrieves the token with the given ID.</p>
       operationId: GetTokensToken
@@ -101291,7 +101389,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/topups/{topup}:
+  '/v1/topups/{topup}':
     get:
       description: >-
         <p>Retrieves the details of a top-up that has previously been created.
@@ -101409,7 +101507,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/topups/{topup}/cancel:
+  '/v1/topups/{topup}/cancel':
     post:
       description: <p>Cancels a top-up. Only pending top-ups can be canceled.</p>
       operationId: PostTopupsTopupCancel
@@ -101704,7 +101802,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/transfers/{id}/reversals:
+  '/v1/transfers/{id}/reversals':
     get:
       description: >-
         <p>You can see a list of the reversals belonging to a specific transfer.
@@ -101918,7 +102016,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/transfers/{transfer}:
+  '/v1/transfers/{transfer}':
     get:
       description: >-
         <p>Retrieves the details of an existing transfer. Supply the unique
@@ -102039,7 +102137,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/transfers/{transfer}/reversals/{id}:
+  '/v1/transfers/{transfer}/reversals/{id}':
     get:
       description: >-
         <p>By default, you can see the 10 most recent reversals stored directly
@@ -102353,7 +102451,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/treasury/credit_reversals/{credit_reversal}:
+  '/v1/treasury/credit_reversals/{credit_reversal}':
     get:
       description: >-
         <p>Retrieves the details of an existing CreditReversal by passing the
@@ -102596,7 +102694,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/treasury/debit_reversals/{debit_reversal}:
+  '/v1/treasury/debit_reversals/{debit_reversal}':
     get:
       description: <p>Retrieves a DebitReversal object.</p>
       operationId: GetTreasuryDebitReversalsDebitReversal
@@ -102933,7 +103031,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/treasury/financial_accounts/{financial_account}:
+  '/v1/treasury/financial_accounts/{financial_account}':
     get:
       description: <p>Retrieves the details of a FinancialAccount.</p>
       operationId: GetTreasuryFinancialAccountsFinancialAccount
@@ -103155,7 +103253,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/treasury/financial_accounts/{financial_account}/features:
+  '/v1/treasury/financial_accounts/{financial_account}/features':
     get:
       description: >-
         <p>Retrieves Features information associated with the
@@ -103590,7 +103688,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/treasury/inbound_transfers/{id}:
+  '/v1/treasury/inbound_transfers/{id}':
     get:
       description: <p>Retrieves the details of an existing InboundTransfer.</p>
       operationId: GetTreasuryInboundTransfersId
@@ -103635,7 +103733,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/treasury/inbound_transfers/{inbound_transfer}/cancel:
+  '/v1/treasury/inbound_transfers/{inbound_transfer}/cancel':
     post:
       description: <p>Cancels an InboundTransfer.</p>
       operationId: PostTreasuryInboundTransfersInboundTransferCancel
@@ -104036,7 +104134,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/treasury/outbound_payments/{id}:
+  '/v1/treasury/outbound_payments/{id}':
     get:
       description: >-
         <p>Retrieves the details of an existing OutboundPayment by passing the
@@ -104084,7 +104182,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/treasury/outbound_payments/{id}/cancel:
+  '/v1/treasury/outbound_payments/{id}/cancel':
     post:
       description: <p>Cancel an OutboundPayment.</p>
       operationId: PostTreasuryOutboundPaymentsIdCancel
@@ -104362,7 +104460,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/treasury/outbound_transfers/{outbound_transfer}:
+  '/v1/treasury/outbound_transfers/{outbound_transfer}':
     get:
       description: >-
         <p>Retrieves the details of an existing OutboundTransfer by passing the
@@ -104410,7 +104508,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/treasury/outbound_transfers/{outbound_transfer}/cancel:
+  '/v1/treasury/outbound_transfers/{outbound_transfer}/cancel':
     post:
       description: >-
         <p>An OutboundTransfer can be canceled if the funds have not yet been
@@ -104599,7 +104697,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/treasury/received_credits/{id}:
+  '/v1/treasury/received_credits/{id}':
     get:
       description: >-
         <p>Retrieves the details of an existing ReceivedCredit by passing the
@@ -104770,7 +104868,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/treasury/received_debits/{id}:
+  '/v1/treasury/received_debits/{id}':
     get:
       description: >-
         <p>Retrieves the details of an existing ReceivedDebit by passing the
@@ -104987,7 +105085,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/treasury/transaction_entries/{id}:
+  '/v1/treasury/transaction_entries/{id}':
     get:
       description: <p>Retrieves a TransactionEntry object.</p>
       operationId: GetTreasuryTransactionEntriesId
@@ -105215,7 +105313,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/treasury/transactions/{id}:
+  '/v1/treasury/transactions/{id}':
     get:
       description: <p>Retrieves the details of an existing Transaction.</p>
       operationId: GetTreasuryTransactionsId
@@ -105785,7 +105883,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
           description: Error response.
-  /v1/webhook_endpoints/{webhook_endpoint}:
+  '/v1/webhook_endpoints/{webhook_endpoint}':
     delete:
       description: >-
         <p>You can also delete webhook endpoints via the <a
@@ -106180,4 +106278,4 @@ security:
   - basicAuth: []
   - bearerAuth: []
 servers:
-  - url: https://api.stripe.com/
+  - url: 'https://api.stripe.com/'

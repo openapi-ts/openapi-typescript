@@ -13,7 +13,7 @@ properties:
     description: A unique, human-readable name referring to a database cluster.
   engine:
     type: string
-    example: pg
+    example: mysql
     enum:
       - pg
       - mysql
@@ -24,8 +24,13 @@ properties:
       are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, and "mongodb" for MongoDB.
   version:
     type: string
-    example: '10'
+    example: '8'
     description: A string representing the version of the database engine in use for the cluster.
+  semantic_version:
+    type: string
+    example: '8.0.28'
+    description:  A string representing the semantic version of the database engine in use for the cluster.
+    readOnly: true
   num_nodes:
     type: integer
     example: 2
