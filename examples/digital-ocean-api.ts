@@ -5293,15 +5293,20 @@ export interface external {
     name: string;
     /**
      * @description A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, and "mongodb" for MongoDB. 
-     * @example pg 
+     * @example mysql 
      * @enum {string}
      */
     engine: "pg" | "mysql" | "redis" | "mongodb";
     /**
      * @description A string representing the version of the database engine in use for the cluster. 
-     * @example 10
+     * @example 8
      */
     version?: string;
+    /**
+     * @description A string representing the semantic version of the database engine in use for the cluster. 
+     * @example 8.0.28
+     */
+    semantic_version?: string;
     /**
      * @description The number of nodes in the database cluster. 
      * @example 2
@@ -8062,7 +8067,7 @@ export interface external {
          *   ]
          * }
          */
-        "application/json": external["resources/firewalls/models/firewall_rule.yml"]["firewall_rules"] & (unknown | unknown);
+        "application/json": external["resources/firewalls/models/firewall_rule.yml"]["firewall_rules"];
       };
     };
     responses: {
@@ -8212,7 +8217,7 @@ export interface external {
          *   ]
          * }
          */
-        "application/json": external["resources/firewalls/models/firewall.yml"] & (unknown | unknown);
+        "application/json": external["resources/firewalls/models/firewall.yml"];
       };
     };
     responses: {
@@ -8315,7 +8320,7 @@ export interface external {
          *   ]
          * }
          */
-        "application/json": external["resources/firewalls/models/firewall_rule.yml"]["firewall_rules"] & (unknown | unknown);
+        "application/json": external["resources/firewalls/models/firewall_rule.yml"]["firewall_rules"];
       };
     };
     responses: {
@@ -8490,7 +8495,7 @@ export interface external {
          *   ]
          * }
          */
-        "application/json": WithRequired<external["resources/firewalls/models/firewall.yml"] & (unknown | unknown), "name">;
+        "application/json": WithRequired<external["resources/firewalls/models/firewall.yml"], "name">;
       };
     };
     responses: {

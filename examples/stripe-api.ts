@@ -3140,7 +3140,7 @@ export interface components {
       address_zip_check?: string | null;
       /** @description A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout. */
       available_payout_methods?: (("instant" | "standard")[]) | null;
-      /** @description Card brand. Can be `American Express`, `Diners Club`, `Discover`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`. */
+      /** @description Card brand. Can be `American Express`, `Diners Club`, `Discover`, `Eftpos Australia`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`. */
       brand: string;
       /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
       country?: string | null;
@@ -4254,7 +4254,7 @@ export interface components {
       /** @description When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links. */
       custom_unit_amount?: components["schemas"]["custom_unit_amount"] | null;
       /**
-       * @description Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
+       * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
        * @enum {string|null}
        */
       tax_behavior?: "exclusive" | "inclusive" | "unspecified" | null;
@@ -6835,7 +6835,7 @@ export interface components {
        */
       status: "active" | "blocked" | "inactive";
       /**
-       * @description One of `individual` or `company`. 
+       * @description One of `individual` or `company`. See [Choose a cardholder type](https://stripe.com/docs/issuing/other/choose-cardholder) for more details. 
        * @enum {string}
        */
       type: "company" | "individual";
@@ -9054,7 +9054,7 @@ export interface components {
     };
     /** payment_method_card */
     payment_method_card: {
-      /** @description Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+      /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       brand: string;
       /** @description Checks on Card address and CVC if provided. */
       checks?: components["schemas"]["payment_method_card_checks"] | null;
@@ -9113,10 +9113,10 @@ export interface components {
       masterpass?: components["schemas"]["payment_method_card_wallet_masterpass"];
       samsung_pay?: components["schemas"]["payment_method_card_wallet_samsung_pay"];
       /**
-       * @description The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type. 
+       * @description The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type. 
        * @enum {string}
        */
-      type: "amex_express_checkout" | "apple_pay" | "google_pay" | "masterpass" | "samsung_pay" | "visa_checkout";
+      type: "amex_express_checkout" | "apple_pay" | "google_pay" | "link" | "masterpass" | "samsung_pay" | "visa_checkout";
       visa_checkout?: components["schemas"]["payment_method_card_wallet_visa_checkout"];
     };
     /** payment_method_card_wallet_amex_express_checkout */
@@ -9306,7 +9306,7 @@ export interface components {
     };
     /** payment_method_details_card */
     payment_method_details_card: {
-      /** @description Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+      /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       brand?: string | null;
       /** @description Check results by Card networks on Card address and CVC at time of payment. */
       checks?: components["schemas"]["payment_method_details_card_checks"] | null;
@@ -9334,7 +9334,7 @@ export interface components {
       last4?: string | null;
       /** @description ID of the mandate used to make this payment or created by it. */
       mandate?: string | null;
-      /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+      /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       network?: string | null;
       /** @description Populated if this transaction used 3D Secure authentication. */
       three_d_secure?: components["schemas"]["three_d_secure_details"] | null;
@@ -9375,7 +9375,7 @@ export interface components {
     payment_method_details_card_present: {
       /** @description The authorized amount */
       amount_authorized?: number | null;
-      /** @description Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+      /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       brand?: string | null;
       /**
        * Format: unix-time 
@@ -9406,7 +9406,7 @@ export interface components {
       incremental_authorization_supported: boolean;
       /** @description The last four digits of the card. */
       last4?: string | null;
-      /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+      /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       network?: string | null;
       /** @description Defines whether the authorized amount can be over-captured or not */
       overcapture_supported: boolean;
@@ -9452,10 +9452,10 @@ export interface components {
       masterpass?: components["schemas"]["payment_method_details_card_wallet_masterpass"];
       samsung_pay?: components["schemas"]["payment_method_details_card_wallet_samsung_pay"];
       /**
-       * @description The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type. 
+       * @description The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type. 
        * @enum {string}
        */
-      type: "amex_express_checkout" | "apple_pay" | "google_pay" | "masterpass" | "samsung_pay" | "visa_checkout";
+      type: "amex_express_checkout" | "apple_pay" | "google_pay" | "link" | "masterpass" | "samsung_pay" | "visa_checkout";
       visa_checkout?: components["schemas"]["payment_method_details_card_wallet_visa_checkout"];
     };
     /** payment_method_details_card_wallet_amex_express_checkout */
@@ -9586,7 +9586,7 @@ export interface components {
       generated_card?: string | null;
       /** @description The last four digits of the card. */
       last4?: string | null;
-      /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+      /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       network?: string | null;
       /** @description EMV tag 5F2D. Preferred languages specified by the integrated circuit chip. */
       preferred_locales?: (string)[] | null;
@@ -9818,6 +9818,11 @@ export interface components {
     payment_method_konbini: Record<string, never>;
     /** payment_method_link */
     payment_method_link: {
+      /**
+       * @description Two-letter ISO code representing the funding source (i.e. card, bank) country beneath the Link payment method.
+       * You could use this attribute to get a sense of the international breakdown of funding sources you've collected.
+       */
+      country?: string;
       /** @description Account owner's email address. */
       email?: string | null;
       /** @description Token used for persistent Link logins. */
@@ -10280,6 +10285,25 @@ export interface components {
       networks?: components["schemas"]["us_bank_account_networks"] | null;
       /** @description Routing number of the bank account. */
       routing_number?: string | null;
+      /** @description Contains information about the future reusability of this PaymentMethod. */
+      status_details?: components["schemas"]["payment_method_us_bank_account_status_details"] | null;
+    };
+    /** payment_method_us_bank_account_blocked */
+    payment_method_us_bank_account_blocked: {
+      /**
+       * @description The ACH network code that resulted in this block. 
+       * @enum {string|null}
+       */
+      network_code?: "R02" | "R03" | "R04" | "R05" | "R07" | "R08" | "R10" | "R11" | "R16" | "R20" | "R29" | "R31" | null;
+      /**
+       * @description The reason why this PaymentMethod's fingerprint has been blocked 
+       * @enum {string|null}
+       */
+      reason?: "bank_account_closed" | "bank_account_frozen" | "bank_account_invalid_details" | "bank_account_restricted" | "bank_account_unusable" | "debit_not_authorized" | null;
+    };
+    /** payment_method_us_bank_account_status_details */
+    payment_method_us_bank_account_status_details: {
+      blocked?: components["schemas"]["payment_method_us_bank_account_blocked"];
     };
     /** payment_method_wechat_pay */
     payment_method_wechat_pay: Record<string, never>;
@@ -11041,7 +11065,7 @@ export interface components {
       /** @description The recurring components of a price such as `interval` and `usage_type`. */
       recurring?: components["schemas"]["recurring"] | null;
       /**
-       * @description Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
+       * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
        * @enum {string|null}
        */
       tax_behavior?: "exclusive" | "inclusive" | "unspecified" | null;
@@ -11632,7 +11656,7 @@ export interface components {
       failure_reason?: string;
       /** @description Unique identifier for the object. */
       id: string;
-      /** @description Email to which refund instructions, if required, are sent to. */
+      /** @description For payment methods without native refund support (e.g., Konbini, PromptPay), email for the customer to receive refund instructions. */
       instructions_email?: string;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata?: ({
@@ -13497,7 +13521,9 @@ export interface components {
     };
     /**
      * TaxProductResourceTaxCalculation 
-     * @description A Tax `Calculation` allows you to calculate the tax to collect from your customer.
+     * @description A Tax Calculation allows you to calculate the tax to collect from your customer.
+     * 
+     * Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom).
      */
     "tax.calculation": {
       /** @description Total after taxes. */
@@ -13585,7 +13611,9 @@ export interface components {
     };
     /**
      * TaxProductResourceTaxTransaction 
-     * @description A Tax transaction records the tax collected from or refunded to your customer.
+     * @description A Tax Transaction records the tax collected from or refunded to your customer.
+     * 
+     * Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom#tax-transaction).
      */
     "tax.transaction": {
       /**
@@ -20003,6 +20031,7 @@ export interface operations {
           amount?: number;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
+          /** @description For payment methods without native refund support (e.g., Konbini, PromptPay), use this email from the customer to receive refund instructions. */
           instructions_email?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
@@ -20098,7 +20127,7 @@ export interface operations {
           customer?: string;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
-          /** @description Address to send refund email, use customer email if not specified */
+          /** @description For payment methods without native refund support (e.g., Konbini, PromptPay), use this email from the customer to receive refund instructions. */
           instructions_email?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
@@ -25803,7 +25832,7 @@ export interface operations {
           /** @description The ID of a subscription to add this invoice item to. When left blank, the invoice item will be be added to the next upcoming scheduled invoice. When set, scheduled invoices for subscriptions other than the specified subscription will ignore the invoice item. Use this when you want to express that an invoice item has been accrued within the context of a particular subscription. */
           subscription?: string;
           /**
-           * @description Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
+           * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
            * @enum {string}
            */
           tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -25922,7 +25951,7 @@ export interface operations {
           /** @description Non-negative integer. The quantity of units for the invoice item. */
           quantity?: number;
           /**
-           * @description Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
+           * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
            * @enum {string}
            */
           tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -27556,7 +27585,7 @@ export interface operations {
            * @description One of `individual` or `company`. See [Choose a cardholder type](https://stripe.com/docs/issuing/other/choose-cardholder) for more details. 
            * @enum {string}
            */
-          type: "company" | "individual";
+          type?: "company" | "individual";
         };
       };
     };
@@ -32399,7 +32428,7 @@ export interface operations {
             usage_type?: "licensed" | "metered";
           };
           /**
-           * @description Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
+           * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
            * @enum {string}
            */
           tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -32585,7 +32614,7 @@ export interface operations {
           /** @description A brief description of the price, hidden from customers. */
           nickname?: string;
           /**
-           * @description Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
+           * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
            * @enum {string}
            */
           tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -34176,7 +34205,7 @@ export interface operations {
           customer?: string;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
-          /** @description Address to send refund email, use customer email if not specified */
+          /** @description For payment methods without native refund support (e.g., Konbini, PromptPay), use this email from the customer to receive refund instructions. */
           instructions_email?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
@@ -38149,7 +38178,7 @@ export interface operations {
             })[];
           /**
            * shipping_cost 
-           * @description Shipping cost details to be used for the calculation
+           * @description Shipping cost details to be used for the calculation.
            */
           shipping_cost?: {
             amount?: number;
