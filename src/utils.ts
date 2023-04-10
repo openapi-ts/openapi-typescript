@@ -25,7 +25,7 @@ interface CommentObject {
 
 const COMMENT_RE = /\*\//g;
 export const LB_RE = /\r?\n/g;
-export const DOUBLE_QUOTE_RE = /"/g;
+export const DOUBLE_QUOTE_RE = /(?<!\\)"/g;
 const ESC_0_RE = /~0/g;
 const ESC_1_RE = /~1/g;
 const TILDE_RE = /~/g;
