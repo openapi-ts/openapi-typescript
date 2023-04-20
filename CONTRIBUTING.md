@@ -10,22 +10,23 @@ Please check out the [the open issues](https://github.com/drwpow/openapi-typescr
 
 Contributing doesn’t have to be in code! Simply answering questions in open issues, or providing workarounds, is just as important a contribution as making pull requests.
 
-## Setup
+## Opening a Pull Request
 
-### Dependencies
+Pull requests are **welcome** for this repo! Bugfixes will always be accepted, though in some cases some small changes may be requested.
+
+However, if adding a feature or breaking change, please **open an issue first to discuss.** This ensures no time or work is wasted writing code that won’t be accepted to the project (see [Project Goals](./README.md#-project-goals)). Undiscussed feature work may be rejected at the discretion of the maintainers.
+
+### Setup
 
 1. Install [pnpm](https://pnpm.io/)
-2. Fork and clone the repo
+2. [Fork this repo](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and clone your copy locally
 3. Run `pnpm i` to install dependencies
-4. Create a branch for your PR with `git checkout -b pr/your-branch-name`
 
-### VS Code setup
+### Writing code
 
-If using VS Code, the following extensions are recommended (or their equivalent extensions if using another editor)
+Create a new branch for your PR with `git checkout -b your-branch-name`. Add the relevant code as well as docs and tests. When you push everything up (`git push`), navigate back to your repo GitHub and you should see a prompt to open a new PR.
 
-- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-
-## Workflow
+While best practices for commit messages are encouraged (e.g. start with an imperative verb, keep it short, use the body if needed), this repo doesn’t follow any specific guidelines like [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Clarity is favored over strict rules. Changelogs are generated separately from git (see [the Changelogs section](#changelogs)
 
 When working locally, run:
 
@@ -34,6 +35,10 @@ npm run dev
 ```
 
 This will compile the code as you change automatically.
+
+### Writing the PR
+
+**Please fill out the template!** It’s a very lightweight template 🙂.
 
 ### TDD
 
@@ -44,16 +49,6 @@ This library is a great usecase for [test-driven development (TDD)](https://en.w
 3. Then, make changes to `src/` until the tests pass.
 
 _Code generation is hard!_ And for that reason, starting with a very clear expectation of your end-goal can make working easier.
-
-### Unit tests or snapshot tests?
-
-This library has both unit tests (tests that test a tiny part of a schema) and snapshot tests (tests that run over an entire, complete schema). When opening a PR, the former are more valuable than the latter, and are always required. However, updating snapshot tests can help with the following:
-
-- Fixing bugs that deal with multiple schemas with remote `$ref`s
-- Fixing Node.js or OS-related bugs
-- Adding a CLI option that changes the entire output
-
-For most PRs, **snapshot tests can be avoided.** But for scenarios similar to the ones mentioned, they can ensure everything is working as expected.
 
 #### Updating snapshot tests
 
@@ -76,6 +71,16 @@ When opening a pull request, make sure all of the following is done:
 
 Lastly, be sure to fill out the complete PR template!
 
+### Changelogs
+
+The changelog is generated via [changesets](https://github.com/changesets/changesets), and is separate from Git commit messages and pull request titles. To write a human-readable changelog for your changes, run:
+
+```
+npx changeset
+```
+
+This will ask if it’s a `patch`, `minor`, or `major` change ([semver](https://semver.org/)), along with a plain description of what you did. Commit this new file along with the rest of your PR, and during the next release this will go into the official changelog!
+
 ## Testing
 
 This library uses [Vitest](https://vitest.dev/) for testing. There’s a great [VS Code extension](https://marketplace.visualstudio.com/items?itemName=ZixuanChen.vitest-explorer) you can optionally use if you’d like in-editor debugging tools.
@@ -93,7 +98,7 @@ npm test
 To run an individual test:
 
 ```bash
-npx vitest [partial filename]
+npm test -- [partial filename]
 ```
 
 To start the entire test suite in watch mode:
@@ -117,3 +122,13 @@ npm run lint
 ```bash
 npm run update:examples
 ```
+
+### Unit tests or snapshot tests?
+
+This library has both unit tests (tests that test a tiny part of a schema) and snapshot tests (tests that run over an entire, complete schema). When opening a PR, the former are more valuable than the latter, and are always required. However, updating snapshot tests can help with the following:
+
+- Fixing bugs that deal with multiple schemas with remote `$ref`s
+- Fixing Node.js or OS-related bugs
+- Adding a CLI option that changes the entire output
+
+For most PRs, **snapshot tests can be avoided.** But for scenarios similar to the ones mentioned, they can ensure everything is working as expected.
