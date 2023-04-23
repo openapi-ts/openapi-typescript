@@ -439,7 +439,7 @@ export type SchemaObject = {
   | {
       type: "array";
       prefixItems?: SchemaObject | ReferenceObject;
-      items?: SchemaObject | ReferenceObject;
+      items?: SchemaObject | ReferenceObject | (SchemaObject | ReferenceObject)[];
       minItems?: number;
       maxItems?: number;
     }

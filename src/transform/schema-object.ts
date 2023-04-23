@@ -126,9 +126,19 @@ export function defaultSchemaObjectTransform(
     // "type": "array"
     if (schemaObject.type === "array") {
       indentLv++;
-      let itemType = schemaObject.items
-        ? transformSchemaObject(schemaObject.items, { path, ctx: { ...ctx, indentLv } })
-        : "unknown";
+      let itemType = "unknown";
+      if (schemaObject.items) {
+        if (Array.isArray(schemaObject.items)) {
+          // tuple type support
+          const result: string[] = [];
+          schemaObject.items.forEach((item) => {
+            result.push(transformSchemaObject(item, { path, ctx: { ...ctx, indentLv } }));
+          });
+          itemType = `[${result.join(",")}]`;
+        } else {
+          itemType = transformSchemaObject(schemaObject.items, { path, ctx: { ...ctx, indentLv } });
+        }
+      }
       const minItems: number =
         typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0 ? schemaObject.minItems : 0;
       const maxItems: number | undefined =
