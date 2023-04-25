@@ -1,4 +1,4 @@
-import { tsIntersectionOf, tsUnionOf } from "../src/utils.js";
+import { parseRef, tsIntersectionOf, tsUnionOf } from "../src/utils.js";
 
 describe("utils", () => {
   describe("tsUnionOf", () => {
@@ -59,6 +59,24 @@ describe("utils", () => {
       test(name, () => {
         expect(tsIntersectionOf(...input)).toBe(output);
       });
+    });
+  });
+
+  describe("parseRef", () => {
+    it("basic", () => {
+        expect(parseRef("#/test/schema-object")).toStrictEqual({ filename: ".", path: [ "test", "schema-object" ] });
+    });
+
+    it("double quote", () => {
+        expect(parseRef("#/test/\"")).toStrictEqual({ filename: ".", path: [ "test", '\\\"' ] });
+    });
+
+    it("escaped double quote", () => {
+        expect(parseRef("#/test/\\\"")).toStrictEqual({ filename: ".", path: [ "test", '\\\"' ] });
+    });
+
+    it("tilde escapes", () => {
+        expect(parseRef("#/test/~1~0")).toStrictEqual({ filename: ".", path: [ "test", "/~" ] });
     });
   });
 });
