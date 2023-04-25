@@ -109,6 +109,12 @@ describe("Schema Object", () => {
         expect(generated).toBe("(string)[]");
       });
 
+      test("tuple array", () => {
+        const schema: SchemaObject = { type: "array", items: [{ type: "string" },{"type": "number"}],minItems:2,maxItems:2 };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe("([string,number])[]");
+      });
+
       test("ref", () => {
         const schema: SchemaObject = { type: "array", items: { $ref: 'components["schemas"]["ArrayItem"]' } };
         const generated = transformSchemaObject(schema, options);
