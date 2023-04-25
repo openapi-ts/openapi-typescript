@@ -716,6 +716,17 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "liangskyli",
+      "name": "liangsky",
+      "avatar_url": "https://avatars.githubusercontent.com/u/31531283?v=4",
+      "profile": "https://github.com/liangskyli",
+      "contributions": [
+        "code",
+        "bug",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
