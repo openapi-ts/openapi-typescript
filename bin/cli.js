@@ -114,7 +114,7 @@ async function generateSchema(pathToSpec) {
       const filename = pathToSpec.replace(EXT_RE, ".ts");
       const originalOutputFilePath = outputFilePath;
       outputFilePath = new URL(filename, originalOutputFilePath);
-      if (outputFilePath.protocol !== 'file') {
+      if (outputFilePath.protocol !== 'file:') {
         outputFilePath = new URL(outputFilePath.host.replace(EXT_RE, ".ts"), originalOutputFilePath);
       }
     }
