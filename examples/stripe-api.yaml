@@ -10159,8 +10159,6 @@ components:
         - id
         - livemode
         - object
-        - options
-        - type
       title: GelatoVerificationReport
       type: object
       x-expandableFields:
@@ -10263,7 +10261,10 @@ components:
             - identity.verification_session
           type: string
         options:
-          $ref: '#/components/schemas/gelato_verification_session_options'
+          anyOf:
+            - $ref: '#/components/schemas/gelato_verification_session_options'
+          description: A set of options for the session’s verification checks.
+          nullable: true
         redaction:
           anyOf:
             - $ref: '#/components/schemas/verification_session_redaction'
@@ -10289,6 +10290,7 @@ components:
           enum:
             - document
             - id_number
+          nullable: true
           type: string
           x-stripeBypassValidation: true
         url:
@@ -10314,9 +10316,7 @@ components:
         - livemode
         - metadata
         - object
-        - options
         - status
-        - type
       title: GelatoVerificationSession
       type: object
       x-expandableFields:
@@ -13107,6 +13107,11 @@ components:
           type: string
         state:
           description: State where the seller is located
+          maxLength: 5000
+          nullable: true
+          type: string
+        terminal_id:
+          description: An ID assigned by the seller to the location of the sale.
           maxLength: 5000
           nullable: true
           type: string
@@ -16785,12 +16790,17 @@ components:
           maxLength: 5000
           type: string
         invoice_item:
+          anyOf:
+            - maxLength: 5000
+              type: string
+            - $ref: '#/components/schemas/invoiceitem'
           description: >-
             The ID of the [invoice
             item](https://stripe.com/docs/api/invoiceitems) associated with this
             line item if any.
-          maxLength: 5000
-          type: string
+          x-expansionResources:
+            oneOf:
+              - $ref: '#/components/schemas/invoiceitem'
         livemode:
           description: >-
             Has the value `true` if the object exists in live mode or the value
@@ -16837,16 +16847,26 @@ components:
           nullable: true
           type: integer
         subscription:
+          anyOf:
+            - maxLength: 5000
+              type: string
+            - $ref: '#/components/schemas/subscription'
           description: 'The subscription that the invoice item pertains to, if any.'
-          maxLength: 5000
           nullable: true
-          type: string
+          x-expansionResources:
+            oneOf:
+              - $ref: '#/components/schemas/subscription'
         subscription_item:
+          anyOf:
+            - maxLength: 5000
+              type: string
+            - $ref: '#/components/schemas/subscription_item'
           description: >-
             The subscription item that generated this line item. Left empty if
             the line item is not an explicit result of a subscription.
-          maxLength: 5000
-          type: string
+          x-expansionResources:
+            oneOf:
+              - $ref: '#/components/schemas/subscription_item'
         tax_amounts:
           description: The amount of tax calculated per tax rate for this line item
           items:
@@ -16888,9 +16908,12 @@ components:
       x-expandableFields:
         - discount_amounts
         - discounts
+        - invoice_item
         - period
         - price
         - proration_details
+        - subscription
+        - subscription_item
         - tax_amounts
         - tax_rates
       x-resourceId: line_item
@@ -22109,6 +22132,7 @@ components:
             - MOYONL21
             - RABONL2U
             - RBRBNL21
+            - REVOIE23
             - REVOLT21
             - SNSBNL2A
             - TRIONL2U
@@ -22877,6 +22901,7 @@ components:
             - MOYONL21
             - RABONL2U
             - RBRBNL21
+            - REVOIE23
             - REVOLT21
             - SNSBNL2A
             - TRIONL2U
@@ -22913,15 +22938,6 @@ components:
     payment_method_link:
       description: ''
       properties:
-        country:
-          description: >-
-            Two-letter ISO code representing the funding source (i.e. card,
-            bank) country beneath the Link payment method.
-
-            You could use this attribute to get a sense of the international
-            breakdown of funding sources you've collected.
-          maxLength: 5000
-          type: string
         email:
           description: Account owner's email address.
           maxLength: 5000
@@ -28935,6 +28951,13 @@ components:
     setup_attempt_payment_method_details_card:
       description: ''
       properties:
+        checks:
+          anyOf:
+            - $ref: '#/components/schemas/payment_method_details_card_checks'
+          description: >-
+            Check results by Card networks on Card address and CVC at time of
+            payment.
+          nullable: true
         three_d_secure:
           anyOf:
             - $ref: '#/components/schemas/three_d_secure_details'
@@ -28943,6 +28966,7 @@ components:
       title: setup_attempt_payment_method_details_card
       type: object
       x-expandableFields:
+        - checks
         - three_d_secure
     setup_attempt_payment_method_details_card_present:
       description: ''
@@ -29009,6 +29033,7 @@ components:
             - MOYONL21
             - RABONL2U
             - RBRBNL21
+            - REVOIE23
             - REVOLT21
             - SNSBNL2A
             - TRIONL2U
@@ -34098,7 +34123,10 @@ components:
             - tax_rate
           type: string
         percentage:
-          description: This represents the tax rate percent out of 100.
+          description: >-
+            Tax rate percentage out of 100. For tax calculations with
+            automatic_tax[enabled]=true, this percentage includes the statutory
+            tax rate of non-taxable jurisdictions.
           type: number
         state:
           description: >-
@@ -45516,7 +45544,7 @@ paths:
                   - has_more
                   - object
                   - url
-                title: PortalConfigurationList
+                title: PortalPublicResourceConfigurationList
                 type: object
                 x-expandableFields:
                   - data
@@ -49567,6 +49595,9 @@ paths:
                   properties:
                     application_fee_percent:
                       type: number
+                    billing_cycle_anchor:
+                      format: unix-time
+                      type: integer
                     default_tax_rates:
                       items:
                         maxLength: 5000
@@ -49580,6 +49611,11 @@ paths:
                         type: string
                       type: object
                     on_behalf_of:
+                      type: string
+                    proration_behavior:
+                      enum:
+                        - create_prorations
+                        - none
                       type: string
                     transfer_data:
                       properties:
@@ -75587,9 +75623,9 @@ paths:
 
         <p>Once canceled, no additional charges will be made by the
         PaymentIntent and any operations on the PaymentIntent will fail with an
-        error. For PaymentIntents with <code>status=’requires_capture’</code>,
-        the remaining <code>amount_capturable</code> will automatically be
-        refunded. </p>
+        error. For PaymentIntents with a <code>status</code> of
+        <code>requires_capture</code>, the remaining
+        <code>amount_capturable</code> will automatically be refunded. </p>
 
 
         <p>You cannot cancel the PaymentIntent for a Checkout Session. <a
@@ -75677,6 +75713,9 @@ paths:
               expand:
                 explode: true
                 style: deepObject
+              metadata:
+                explode: true
+                style: deepObject
               transfer_data:
                 explode: true
                 style: deepObject
@@ -75706,6 +75745,22 @@ paths:
                     maxLength: 5000
                     type: string
                   type: array
+                metadata:
+                  anyOf:
+                    - additionalProperties:
+                        type: string
+                      type: object
+                    - enum:
+                        - ''
+                      type: string
+                  description: >-
+                    Set of [key-value
+                    pairs](https://stripe.com/docs/api/metadata) that you can
+                    attach to an object. This can be useful for storing
+                    additional information about the object in a structured
+                    format. Individual keys can be unset by posting an empty
+                    value to them. All keys can be unset by posting an empty
+                    value to `metadata`.
                 statement_descriptor:
                   description: >-
                     For non-card charges, you can use this value as the complete

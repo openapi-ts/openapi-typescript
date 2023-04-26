@@ -1032,7 +1032,7 @@ export interface paths {
     /**
      * @description <p>A PaymentIntent object can be canceled when it is in one of these statuses: <code>requires_payment_method</code>, <code>requires_capture</code>, <code>requires_confirmation</code>, <code>requires_action</code> or, <a href="/docs/payments/intents">in rare cases</a>, <code>processing</code>. </p>
      * 
-     * <p>Once canceled, no additional charges will be made by the PaymentIntent and any operations on the PaymentIntent will fail with an error. For PaymentIntents with <code>status=’requires_capture’</code>, the remaining <code>amount_capturable</code> will automatically be refunded. </p>
+     * <p>Once canceled, no additional charges will be made by the PaymentIntent and any operations on the PaymentIntent will fail with an error. For PaymentIntents with a <code>status</code> of <code>requires_capture</code>, the remaining <code>amount_capturable</code> will automatically be refunded. </p>
      * 
      * <p>You cannot cancel the PaymentIntent for a Checkout Session. <a href="/docs/api/checkout/sessions/expire">Expire the Checkout Session</a> instead.</p>
      */
@@ -5977,13 +5977,13 @@ export interface components {
        * @enum {string}
        */
       object: "identity.verification_report";
-      options: components["schemas"]["gelato_verification_report_options"];
+      options?: components["schemas"]["gelato_verification_report_options"];
       selfie?: components["schemas"]["gelato_selfie_report"];
       /**
        * @description Type of report. 
        * @enum {string}
        */
-      type: "document" | "id_number";
+      type?: "document" | "id_number";
       /** @description ID of the VerificationSession that created this report. */
       verification_session?: string | null;
     };
@@ -6026,7 +6026,8 @@ export interface components {
        * @enum {string}
        */
       object: "identity.verification_session";
-      options: components["schemas"]["gelato_verification_session_options"];
+      /** @description A set of options for the session’s verification checks. */
+      options?: components["schemas"]["gelato_verification_session_options"] | null;
       /** @description Redaction status of this VerificationSession. If the VerificationSession is not redacted, this field will be null. */
       redaction?: components["schemas"]["verification_session_redaction"] | null;
       /**
@@ -6036,9 +6037,9 @@ export interface components {
       status: "canceled" | "processing" | "requires_input" | "verified";
       /**
        * @description The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed. 
-       * @enum {string}
+       * @enum {string|null}
        */
-      type: "document" | "id_number";
+      type?: "document" | "id_number" | null;
       /** @description The short-lived URL that you use to redirect a user to Stripe to submit their identity information. This URL expires after 48 hours and can only be used once. Don’t store it, log it, send it in emails or expose it to anyone other than the user. Refer to our docs on [verifying identity documents](https://stripe.com/docs/identity/verify-identity-documents?platform=web&type=redirect) to learn how to redirect users to Stripe. */
       url?: string | null;
       /** @description The user’s verified data. */
@@ -7017,6 +7018,8 @@ export interface components {
       postal_code?: string | null;
       /** @description State where the seller is located */
       state?: string | null;
+      /** @description An ID assigned by the seller to the location of the sale. */
+      terminal_id?: string | null;
     };
     /** IssuingAuthorizationNetworkData */
     issuing_authorization_network_data: {
@@ -7701,7 +7704,7 @@ export interface components {
       /** @description Unique identifier for the object. */
       id: string;
       /** @description The ID of the [invoice item](https://stripe.com/docs/api/invoiceitems) associated with this line item if any. */
-      invoice_item?: string;
+      invoice_item?: string | components["schemas"]["invoiceitem"];
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription` this will reflect the metadata of the subscription that caused the line item to be created. */
@@ -7723,9 +7726,9 @@ export interface components {
       /** @description The quantity of the subscription, if the line item is a subscription or a proration. */
       quantity?: number | null;
       /** @description The subscription that the invoice item pertains to, if any. */
-      subscription?: string | null;
+      subscription?: (string | components["schemas"]["subscription"]) | null;
       /** @description The subscription item that generated this line item. Left empty if the line item is not an explicit result of a subscription. */
-      subscription_item?: string;
+      subscription_item?: string | components["schemas"]["subscription_item"];
       /** @description The amount of tax calculated per tax rate for this line item */
       tax_amounts?: (components["schemas"]["invoice_tax_amount"])[];
       /** @description The tax rates which apply to the line item. */
@@ -9547,7 +9550,7 @@ export interface components {
        * @description The Bank Identifier Code of the customer's bank. 
        * @enum {string|null}
        */
-      bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "RABONL2U" | "RBRBNL21" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
+      bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
       /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
       generated_sepa_debit?: (string | components["schemas"]["payment_method"]) | null;
       /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
@@ -9805,7 +9808,7 @@ export interface components {
        * @description The Bank Identifier Code of the customer's bank, if the bank was provided. 
        * @enum {string|null}
        */
-      bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "RABONL2U" | "RBRBNL21" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
+      bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
     };
     /** payment_method_interac_present */
     payment_method_interac_present: Record<string, never>;
@@ -9818,11 +9821,6 @@ export interface components {
     payment_method_konbini: Record<string, never>;
     /** payment_method_link */
     payment_method_link: {
-      /**
-       * @description Two-letter ISO code representing the funding source (i.e. card, bank) country beneath the Link payment method.
-       * You could use this attribute to get a sense of the international breakdown of funding sources you've collected.
-       */
-      country?: string;
       /** @description Account owner's email address. */
       email?: string | null;
       /** @description Token used for persistent Link logins. */
@@ -12042,6 +12040,8 @@ export interface components {
     setup_attempt_payment_method_details_boleto: Record<string, never>;
     /** setup_attempt_payment_method_details_card */
     setup_attempt_payment_method_details_card: {
+      /** @description Check results by Card networks on Card address and CVC at time of payment. */
+      checks?: components["schemas"]["payment_method_details_card_checks"] | null;
       /** @description Populated if this authorization used 3D Secure authentication. */
       three_d_secure?: components["schemas"]["three_d_secure_details"] | null;
     };
@@ -12063,7 +12063,7 @@ export interface components {
        * @description The Bank Identifier Code of the customer's bank. 
        * @enum {string|null}
        */
-      bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "RABONL2U" | "RBRBNL21" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
+      bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
       /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
       generated_sepa_debit?: (string | components["schemas"]["payment_method"]) | null;
       /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
@@ -13975,7 +13975,7 @@ export interface components {
        * @enum {string}
        */
       object: "tax_rate";
-      /** @description This represents the tax rate percent out of 100. */
+      /** @description Tax rate percentage out of 100. For tax calculations with automatic_tax[enabled]=true, this percentage includes the statutory tax rate of non-taxable jurisdictions. */
       percentage: number;
       /** @description [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States. */
       state?: string | null;
@@ -20838,12 +20838,16 @@ export interface operations {
            */
           subscription_data?: {
             application_fee_percent?: number;
+            /** Format: unix-time */
+            billing_cycle_anchor?: number;
             default_tax_rates?: (string)[];
             description?: string;
             metadata?: {
               [key: string]: string | undefined;
             };
             on_behalf_of?: string;
+            /** @enum {string} */
+            proration_behavior?: "create_prorations" | "none";
             /** transfer_data_specs */
             transfer_data?: {
               amount_percent?: number;
@@ -30062,7 +30066,7 @@ export interface operations {
   /**
    * @description <p>A PaymentIntent object can be canceled when it is in one of these statuses: <code>requires_payment_method</code>, <code>requires_capture</code>, <code>requires_confirmation</code>, <code>requires_action</code> or, <a href="/docs/payments/intents">in rare cases</a>, <code>processing</code>. </p>
    * 
-   * <p>Once canceled, no additional charges will be made by the PaymentIntent and any operations on the PaymentIntent will fail with an error. For PaymentIntents with <code>status=’requires_capture’</code>, the remaining <code>amount_capturable</code> will automatically be refunded. </p>
+   * <p>Once canceled, no additional charges will be made by the PaymentIntent and any operations on the PaymentIntent will fail with an error. For PaymentIntents with a <code>status</code> of <code>requires_capture</code>, the remaining <code>amount_capturable</code> will automatically be refunded. </p>
    * 
    * <p>You cannot cancel the PaymentIntent for a Checkout Session. <a href="/docs/api/checkout/sessions/expire">Expire the Checkout Session</a> instead.</p>
    */
@@ -30122,6 +30126,10 @@ export interface operations {
           application_fee_amount?: number;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
+          /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
+          metadata?: ({
+            [key: string]: string | undefined;
+          }) | "";
           /** @description For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
           statement_descriptor?: string;
           /** @description Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */

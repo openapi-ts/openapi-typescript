@@ -256,7 +256,11 @@ export function escObjKey(input: string): string {
 
 /** Indent a string */
 export function indent(input: string, level: number) {
-  return "  ".repeat(level).concat(input);
+  if (level > 0) {
+    return "  ".repeat(level).concat(input);
+  } else {
+    return input;
+  }
 }
 
 /** call Object.entries() and optionally sort */

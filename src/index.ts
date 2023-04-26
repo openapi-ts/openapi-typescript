@@ -131,16 +131,16 @@ async function openapiTS(
       let comment: string | undefined;
       switch (subschema.hint) {
         case "OpenAPI3": {
-          const subschemaTypes = transformSchema(subschema.schema, { ...ctx, indentLv });
+          const subschemaTypes = transformSchema(subschema.schema, { ...ctx, indentLv: indentLv + 1 });
           if (!Object.keys(subschemaTypes).length) break;
-          output.push(indent(`${key}: {`, 1), "");
+          output.push(indent(`${key}: {`, indentLv));
           indentLv++;
           for (const [k, v] of getEntries(subschemaTypes, options.alphabetize)) {
             if (EMPTY_OBJECT_RE.test(v)) output.push(indent(`${escObjKey(k)}: Record<string, never>;`, indentLv));
-            else output.push(indent(`${escObjKey(k)}: {${v};`, indentLv), indent("};", indentLv));
+            else output.push(indent(`${escObjKey(k)}: ${v};`, indentLv));
           }
           indentLv--;
-          output.push(indent("}", 1));
+          output.push(indent("};", indentLv));
           break;
         }
         case "MediaTypeObject": {
