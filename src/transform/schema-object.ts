@@ -127,9 +127,11 @@ export function defaultSchemaObjectTransform(
     if (schemaObject.type === "array") {
       indentLv++;
       let itemType = "unknown";
+      let isTupleType = false;
       if (schemaObject.items) {
         if (Array.isArray(schemaObject.items)) {
           // tuple type support
+          isTupleType = true;
           const result: string[] = [];
           schemaObject.items.forEach((item) => {
             result.push(transformSchemaObject(item, { path, ctx: { ...ctx, indentLv } }));
@@ -163,7 +165,10 @@ export function defaultSchemaObjectTransform(
           );
         }
       }
-      itemType = tsArrayOf(itemType);
+      if (!isTupleType) {
+        // Do not use tsArrayOf when it is a tuple type
+        itemType = tsArrayOf(itemType);
+      }
       itemType = ctx.immutableTypes || schemaObject.readOnly ? tsReadonly(itemType) : itemType;
       return schemaObject.nullable ? tsUnionOf(itemType, "null") : itemType;
     }
