@@ -1,0 +1,18 @@
+openapi: "3.0"
+info:
+  title: test
+  version: "1.0"
+paths:
+  /:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RemoteType"
+components:
+  schemas:
+    RemoteType:
+      $ref: "./remote-ref-test-2.yaml#/components/schemas/SchemaType"

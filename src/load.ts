@@ -238,8 +238,9 @@ export default async function load(
       return;
     }
 
-    // hints help external schemas pick up where the root left off
-    const hint = getHint([...nodePath, ...ref.path], options.hint);
+    // hints help external partial schemas pick up where the root left off (for external complete/valid schemas, skip this)
+    const isRemoteFullSchema = ref.path[0] === "paths" || ref.path[0] === "components"; // if the initial ref is "paths" or "components" this must be a full schema
+    const hint = isRemoteFullSchema ? "OpenAPI3" : getHint([...nodePath, ...ref.path], options.hint);
 
     // if root schema is remote and this is a relative reference, treat as remote
     if (schema instanceof URL) {

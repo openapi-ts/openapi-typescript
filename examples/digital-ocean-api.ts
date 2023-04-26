@@ -684,11 +684,10 @@ export interface components {
 
 export interface external {
   "description.yml": {
-
     paths: Record<string, never>;
     webhooks: Record<string, never>;
     components: Record<string, never>;
-  }
+  };
   "resources/1-clicks/models/oneClicks_create.yml": {
     /**
      * addon_slugs 

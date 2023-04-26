@@ -176,6 +176,70 @@ export interface external {
 export type operations = Record<string, never>;
 `);
     });
+
+    test("remote $refs", async () => {
+      const generated = await openapiTS(new URL("./fixtures/remote-ref-test.yaml", import.meta.url));
+      expect(generated).toBe(`${BOILERPLATE}
+export interface paths {
+  "/": {
+    get: {
+      responses: {
+        /** @description OK */
+        200: {
+          content: {
+            "application/json": components["schemas"]["RemoteType"];
+          };
+        };
+      };
+    };
+  };
+}
+
+export type webhooks = Record<string, never>;
+
+export interface components {
+  schemas: {
+    RemoteType: external["remote-ref-test-2.yaml"]["components"]["schemas"]["SchemaType"];
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}
+
+export interface external {
+  "remote-ref-test-2.yaml": {
+    paths: {
+      "/": {
+        get: {
+          responses: {
+            /** @description OK */
+            200: never;
+          };
+        };
+      };
+    };
+    webhooks: Record<string, never>;
+    components: {
+      schemas: {
+        SchemaType: {
+          foo?: string;
+          bar?: number;
+        };
+      };
+      responses: never;
+      parameters: never;
+      requestBodies: never;
+      headers: never;
+      pathItems: never;
+    };
+  };
+}
+
+export type operations = Record<string, never>;
+`);
+    });
   });
 
   describe("3.1", () => {
