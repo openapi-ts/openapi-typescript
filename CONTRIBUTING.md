@@ -40,15 +40,17 @@ This will compile the code as you change automatically.
 
 **Please fill out the template!** It’s a very lightweight template 🙂.
 
-### TDD
+### Use Test-driven Development!
 
-This library is a great usecase for [test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development). If you’re new to this, the basic workflow is:
+Contributing to this library is hard-bordering-on-impossible without a [test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development) strategy. If you’re new to this, the basic workflow is:
 
 1. First, write a [test](#testing) that fully outlines what you’d _like_ the output to be.
-2. Make sure this test **fails** when you run `npm test` (yes, _fails!_)
+2. Next, make sure this test **fails** when you run `npm test` (yes, _fails!_)
 3. Then, make changes to `src/` until the tests pass.
 
-_Code generation is hard!_ And for that reason, starting with a very clear expectation of your end-goal can make working easier.
+Reasoning about code generation can be quite difficult until you “invert your thinking” and approach it output-first. Adopting TDD can turn very unclear/abstract problems into concrete ones with clear steps to resolution.
+
+✨ When starting any task, **write a failing test first!** ✨
 
 #### Updating snapshot tests
 

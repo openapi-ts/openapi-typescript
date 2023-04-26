@@ -33,6 +33,7 @@ describe("openapiTS", () => {
   });
 
   describe("3.0", () => {
+    /** test that custom $refs are ignored rather than throw errors */
     test("custom properties", async () => {
       const generated = await openapiTS({
         openapi: "3.0",
@@ -74,6 +75,7 @@ export type operations = Record<string, never>;
 `);
     });
 
+    /** test that component examples aren’t parsed (they may be invalid / pseudocode) */
     test("components.examples are skipped", async () => {
       const generated = await openapiTS({
         openapi: "3.0",
@@ -124,6 +126,7 @@ export type operations = Record<string, never>;
 `);
     });
 
+    /** test that $ref’d parameters make it into the paths object correctly */
     test("parameter $refs", async () => {
       const generated = await openapiTS(new URL("./fixtures/parameters-test.yaml", import.meta.url));
       expect(generated).toBe(`${BOILERPLATE}
@@ -177,6 +180,115 @@ export type operations = Record<string, never>;
 `);
     });
 
+    /** test that $ref’d parameters, operation parameters, and method parameters all make it into the operation object correctly */
+    test("operations keep all parameters", async () => {
+      const schema: OpenAPI3 = {
+        openapi: "3.0",
+        info: { title: "Test", version: "1.0" },
+        paths: {
+          "/post/{id}": {
+            get: {
+              operationId: "getPost",
+              parameters: [
+                { name: "format", in: "query", schema: { type: "string" } },
+                { $ref: "#/components/parameters/post_id" },
+              ],
+              responses: {
+                200: {
+                  description: "OK",
+                  content: {
+                    "application/json": { schema: { $ref: "#/components/schemas/Post" } },
+                  },
+                },
+              },
+            },
+            parameters: [{ name: "revision", in: "query", schema: { type: "number" } }],
+          },
+        },
+        components: {
+          schemas: {
+            Post: {
+              type: "object",
+              properties: {
+                id: { type: "number" },
+                title: { type: "string" },
+                body: { type: "string" },
+                published_at: { type: "number" },
+              },
+              required: ["id", "title", "body"],
+            },
+          },
+          parameters: {
+            post_id: {
+              name: "post_id",
+              in: "path",
+              schema: { type: "string" },
+              required: true,
+            },
+          },
+        },
+      };
+      const generated = await openapiTS(schema);
+      expect(generated).toBe(`${BOILERPLATE}
+export interface paths {
+  "/post/{id}": {
+    get: operations["getPost"];
+    parameters: {
+      query: {
+        revision?: number;
+      };
+    };
+  };
+}
+
+export type webhooks = Record<string, never>;
+
+export interface components {
+  schemas: {
+    Post: {
+      id: number;
+      title: string;
+      body: string;
+      published_at?: number;
+    };
+  };
+  responses: never;
+  parameters: {
+    post_id: string;
+  };
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}
+
+export type external = Record<string, never>;
+
+export interface operations {
+
+  getPost: {
+    parameters: {
+      query: {
+        revision?: number;
+        format?: string;
+      };
+      path: {
+        post_id: components["parameters"]["post_id"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Post"];
+        };
+      };
+    };
+  };
+}
+`);
+    });
+
+    /** test that remote $refs are loaded correctly */
     test("remote $refs", async () => {
       const generated = await openapiTS(new URL("./fixtures/remote-ref-test.yaml", import.meta.url));
       expect(generated).toBe(`${BOILERPLATE}

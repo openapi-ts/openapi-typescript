@@ -24,25 +24,32 @@ export default function transformPathItemObject(
     if (!operationObject) continue;
     const c = getSchemaObjectComment(operationObject, indentLv);
     if (c) output.push(indent(c, indentLv));
+
+    // fold top-level PathItem parameters into method-level, with the latter overriding the former
+    const keyedParameters: Record<string, ParameterObject | ReferenceObject> = {};
+    if (!("$ref" in operationObject)) {
+      // important: OperationObject parameters come last, and will override any conflicts with PathItem parameters
+      for (const parameter of [...(pathItem.parameters ?? []), ...(operationObject.parameters ?? [])]) {
+        // note: the actual key doesn’t matter here, as long as it can match between PathItem and OperationObject
+        keyedParameters["$ref" in parameter ? parameter.$ref : parameter.name] = parameter;
+      }
+    }
+
     if ("$ref" in operationObject) {
       output.push(indent(`${method}: ${operationObject.$ref}`, indentLv));
     }
     // if operationId exists, move into an `operations` export and pass the reference in here
     else if (operationObject.operationId) {
-      const operationType = transformOperationObject(operationObject, { path, ctx: { ...ctx, indentLv: 1 } });
+      const operationType = transformOperationObject(
+        { ...operationObject, parameters: Object.values(keyedParameters) },
+        { path, ctx: { ...ctx, indentLv: 1 } }
+      );
       ctx.operations[operationObject.operationId] = {
         operationType,
         comment: getSchemaObjectComment(operationObject, 1),
       };
       output.push(indent(`${method}: operations[${escStr(operationObject.operationId)}];`, indentLv));
     } else {
-      // fold top-level PathItem parameters into method-level, with the latter overriding the former
-      const keyedParameters: Record<string, ParameterObject | ReferenceObject> = {};
-      // important: OperationObject parameters come last, and will override any conflicts with PathItem parameters
-      for (const parameter of [...(pathItem.parameters ?? []), ...(operationObject.parameters ?? [])]) {
-        // note: the actual key doesn’t matter here, as long as it can match between PathItem and OperationObject
-        keyedParameters["$ref" in parameter ? parameter.$ref : parameter.name] = parameter;
-      }
       const operationType = transformOperationObject(
         { ...operationObject, parameters: Object.values(keyedParameters) },
         { path, ctx: { ...ctx, indentLv } }
