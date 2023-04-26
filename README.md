@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/drwpow/openapi-typescript/branch/main/graph/badge.svg)](https://codecov.io/gh/drwpow/openapi-typescript)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-69-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-70-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # 📘️ openapi-typescript
@@ -382,6 +382,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="http://www.francoisrisoud.com"><img src="https://avatars.githubusercontent.com/u/6012554?v=4?s=100" width="100px;" alt="François Risoud"/><br /><sub><b>François Risoud</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=qnp" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aqnp" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=qnp" title="Tests">⚠️</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/shoffmeister"><img src="https://avatars.githubusercontent.com/u/3868036?v=4?s=100" width="100px;" alt="shoffmeister"/><br /><sub><b>shoffmeister</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=shoffmeister" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/liangskyli"><img src="https://avatars.githubusercontent.com/u/31531283?v=4?s=100" width="100px;" alt="liangsky"/><br /><sub><b>liangsky</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=liangskyli" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Aliangskyli" title="Bug reports">🐛</a> <a href="https://github.com/drwpow/openapi-typescript/commits?author=liangskyli" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://happycollision.com"><img src="https://avatars.githubusercontent.com/u/3663628?v=4?s=100" width="100px;" alt="Don Denton"/><br /><sub><b>Don Denton</b></sub></a><br /><a href="https://github.com/drwpow/openapi-typescript/commits?author=happycollision" title="Code">💻</a> <a href="https://github.com/drwpow/openapi-typescript/issues?q=author%3Ahappycollision" title="Bug reports">🐛</a></td>
     </tr>
   </tbody>
 </table>

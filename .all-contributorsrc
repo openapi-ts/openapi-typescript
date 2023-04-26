@@ -727,6 +727,16 @@
         "bug",
         "test"
       ]
+    },
+    {
+      "login": "happycollision",
+      "name": "Don Denton",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3663628?v=4",
+      "profile": "http://happycollision.com",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
