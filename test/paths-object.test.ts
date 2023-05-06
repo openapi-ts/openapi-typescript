@@ -59,7 +59,7 @@ describe("Paths Object", () => {
   "/api/v1/user/{user_id}": {
     get: {
       parameters: {
-        query: {
+        query?: {
           /** @description Page number. */
           page?: number;
         };
@@ -86,7 +86,7 @@ describe("Paths Object", () => {
       };
     };
     parameters: {
-      query: {
+      query?: {
         /** @description Page number. */
         page?: number;
       };
@@ -132,7 +132,7 @@ describe("Paths Object", () => {
     expect(generated).toBe(`{
   "/api/{version}/user/{user_id}": {
     parameters: {
-      query: {
+      query?: {
         page?: number;
         utm_source?: components["parameters"]["query"]["utm_source"];
         utm_email?: components["parameters"]["query"]["utm_email"];
