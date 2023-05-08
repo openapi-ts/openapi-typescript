@@ -1,0 +1,142 @@
+---
+import type { MarkdownHeading } from "astro";
+import type { CollectionEntry } from "astro:content";
+import Contributors from "../components/Contributors.astro";
+import HeadCommon from "../components/HeadCommon.astro";
+import HeadSEO from "../components/HeadSEO.astro";
+import Header from "../components/Header/Header.astro";
+import NextLink from "../components/NextLink.astro";
+import PageContent from "../components/PageContent/PageContent.astro";
+import LeftSidebar from "../components/LeftSidebar/LeftSidebar.astro";
+import RightSidebar from "../components/RightSidebar/RightSidebar.astro";
+import { GITHUB_EDIT_URL, OPENAPI_FETCH_CONTRIBUTORS, OPENAPI_TS_CONTRIBUTORS, SITE } from "../consts.js";
+
+type Props = CollectionEntry<"docs">["data"] & {
+  headings: MarkdownHeading[];
+};
+
+const { headings, ...data } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const currentPage = Astro.url.pathname;
+const currentFile = `src/content/docs${currentPage.replace(/\/$/, "")}.md`;
+const githubEditUrl = `${GITHUB_EDIT_URL}/${currentFile}`;
+const nextLink: Record<string, Link | undefined> = {
+  "/introduction": { text: "CLI", url: "/cli" },
+  "/cli": { text: "Node.js API", url: "/node" },
+  "/node": { text: "Advanced", url: "/advanced" },
+  "/advanced": { text: "About", url: "/about" },
+  "/openapi-fetch": { text: "API", url: "/openapi-fetch/api" },
+  "/openapi-fetch/api": { text: "Examples", url: "/openapi-fetch/examples" },
+  "/openapi-fetch/examples": { text: "About", url: "/openapi-fetch/about" },
+};
+---
+
+<html dir={data.dir} lang={data.lang} class="initial">
+  <head>
+    <HeadCommon />
+    <HeadSEO {...data} canonicalUrl={canonicalURL} />
+    <title>
+      {`${data.title} › ${SITE.title}`}
+    </title>
+    <style lang="scss">
+      body {
+        --doc-padding: 0.25rem;
+        --gutter: 0.5rem;
+        display: grid;
+        grid-template-rows: var(--theme-navbar-height) 1fr;
+        width: 100%;
+      }
+
+      .layout {
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: minmax(var(--gutter), 1fr) minmax(0, var(--max-width)) minmax(var(--gutter), 1fr);
+
+        @media (min-width: 50em) {
+          overflow: initial;
+          gap: 1.5rem;
+          grid-template-columns: 15rem minmax(0, var(--max-width));
+        }
+
+        @media (min-width: 72em) {
+          grid-template-columns: 15rem minmax(0, var(--max-width)) 15rem;
+          padding-left: 0;
+          padding-right: 0;
+          margin: 0 auto;
+        }
+      }
+
+      .grid-sidebar {
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        padding: 0;
+      }
+
+      #grid-left {
+        position: fixed;
+        background-color: var(--theme-bg);
+        z-index: 10;
+        display: none;
+
+        @media (min-width: 50em) {
+          display: flex;
+          padding-left: 1rem;
+          position: sticky;
+          grid-column: 1;
+        }
+      }
+
+      #grid-main {
+        display: flex;
+        flex-direction: column;
+        grid-column: 2;
+        height: 100%;
+      }
+
+      #grid-right {
+        display: none;
+
+        @media (min-width: 72em) {
+          display: flex;
+          grid-column: 3;
+        }
+      }
+    </style>
+    <style is:global>
+      .layout > * {
+        width: 100%;
+        height: 100%;
+      }
+
+      .mobile-sidebar-toggle {
+        overflow: hidden;
+      }
+
+      .mobile-sidebar-toggle #grid-left {
+        display: block;
+        top: 2rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <Header currentPage={currentPage} />
+    <main class="layout">
+      <aside id="grid-left" class="grid-sidebar" title="Site Navigation">
+        <LeftSidebar currentPage={currentPage} />
+      </aside>
+      <div id="grid-main">
+        <PageContent title={data.title} headings={headings} githubEditUrl={githubEditUrl}>
+          <slot />
+          {currentPage === "/about" && <Contributors usernames={OPENAPI_TS_CONTRIBUTORS} />}
+          {currentPage === "/openapi-fetch/about" && <Contributors usernames={OPENAPI_FETCH_CONTRIBUTORS} />}
+          {nextLink[currentPage] && <NextLink href={nextLink[currentPage].url}>{nextLink[currentPage].text}</NextLink>}
+        </PageContent>
+      </div>
+      <aside id="grid-right" class="grid-sidebar" title="Table of Contents">
+        <RightSidebar headings={headings} githubEditUrl={githubEditUrl} />
+      </aside>
+    </main>
+  </body>
+</html>

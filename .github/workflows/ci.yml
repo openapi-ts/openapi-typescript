@@ -21,23 +21,11 @@ jobs:
       - uses: actions/setup-node@v3
       - run: pnpm i
       - run: npm run lint
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-      - run: pnpm i
-      - run: npm run test:coverage
   test-node-versions:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x, 18.x]
+        node-version: [16.x, 18.x, 20.x]
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
