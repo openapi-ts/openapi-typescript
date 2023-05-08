@@ -22,6 +22,7 @@
     "sass": "^1.62.1"
   },
   "devDependencies": {
-    "html-escaper": "^3.0.3"
+    "html-escaper": "^3.0.3",
+    "typescript": "^5.0.4"
   }
 }

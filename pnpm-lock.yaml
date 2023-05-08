@@ -68,6 +68,9 @@ importers:
       html-escaper:
         specifier: ^3.0.3
         version: 3.0.3
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
 
   packages/openapi-typescript:
     dependencies:
