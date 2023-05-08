@@ -1,6 +1,6 @@
 # 🎾 openapi-fetch
 
-<img src="../../../docs/public/assets/openapi-fetch.svg" alt="openapi-fetch" width="216" height="40" />
+<img src="../../docs/public/assets/openapi-fetch.svg" alt="openapi-fetch" width="216" height="40" />
 
 openapi-fetch is an ultra-fast fetch client for TypeScript using your OpenAPI schema. Weighs in at **1 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
 
