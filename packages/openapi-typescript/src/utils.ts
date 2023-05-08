@@ -35,11 +35,7 @@ const TS_UNION_INTERSECTION_RE = /[&|]/;
 const JS_OBJ_KEY = /^(\d+|[A-Za-z_$][A-Za-z0-9_$]*)$/;
 
 /** Walk through any JSON-serializable object */
-export function walk(
-  obj: unknown,
-  cb: (value: Record<string, unknown>, path: (string | number)[]) => void,
-  path: (string | number)[] = []
-): void {
+export function walk(obj: unknown, cb: (value: Record<string, unknown>, path: (string | number)[]) => void, path: (string | number)[] = []): void {
   if (!obj || typeof obj !== "object") return;
   if (Array.isArray(obj)) {
     for (let i = 0; i < obj.length; i++) walk(obj[i], cb, path.concat(i));

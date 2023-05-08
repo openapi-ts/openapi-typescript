@@ -4,8 +4,8 @@ module.exports = {
   parserOptions: {
     project: ["./tsconfig.json"],
   },
-  extends: ["plugin:prettier/recommended", "eslint:recommended", "plugin:@typescript-eslint/strict"],
-  plugins: ["@typescript-eslint"],
+  extends: ["eslint:recommended", "plugin:@typescript-eslint/strict"],
+  plugins: ["@typescript-eslint", "prettier"],
   rules: {
     "@typescript-eslint/consistent-indexed-object-style": "off", // sometimes naming keys is more user-friendly
     "@typescript-eslint/no-dynamic-delete": "off", // delete is OK

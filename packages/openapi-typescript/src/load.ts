@@ -1,17 +1,4 @@
-import type {
-  ComponentsObject,
-  Fetch,
-  GlobalContext,
-  OpenAPI3,
-  OperationObject,
-  ParameterObject,
-  PathItemObject,
-  ReferenceObject,
-  RequestBodyObject,
-  ResponseObject,
-  SchemaObject,
-  Subschema,
-} from "./types.js";
+import type { ComponentsObject, Fetch, GlobalContext, OpenAPI3, OperationObject, ParameterObject, PathItemObject, ReferenceObject, RequestBodyObject, ResponseObject, SchemaObject, Subschema } from "./types.js";
 import fs from "node:fs";
 import path from "node:path";
 import { Readable } from "node:stream";
@@ -49,9 +36,7 @@ export function resolveSchema(filename: string): URL {
   if (isRemoteURL(filename)) return new URL(filename.startsWith("//") ? `https:${filename}` : filename);
 
   // option 2: local
-  const localPath = path.isAbsolute(filename)
-    ? new URL(`file://${filename}`)
-    : new URL(filename, `file://${process.cwd()}/`);
+  const localPath = path.isAbsolute(filename) ? new URL(`file://${filename}`) : new URL(filename, `file://${process.cwd()}/`);
 
   if (!fs.existsSync(localPath)) {
     error(`Could not locate ${filename}`);
@@ -105,10 +90,7 @@ export interface LoadOptions extends GlobalContext {
 }
 
 /** Load a schema from local path or remote URL */
-export default async function load(
-  schema: URL | Subschema | Readable,
-  options: LoadOptions
-): Promise<{ [url: string]: Subschema }> {
+export default async function load(schema: URL | Subschema | Readable, options: LoadOptions): Promise<{ [url: string]: Subschema }> {
   let schemaID = ".";
   // 1. load contents
   // 1a. URL
@@ -205,8 +187,7 @@ export default async function load(
 
   // 2a. remove "components.examples" first
   if (options.schemas[schemaID].hint === "OpenAPI3") {
-    if ("components" in currentSchema && currentSchema.components && "examples" in currentSchema.components)
-      delete currentSchema.components.examples;
+    if ("components" in currentSchema && currentSchema.components && "examples" in currentSchema.components) delete currentSchema.components.examples;
   }
 
   const refPromises: Promise<any>[] = [];
@@ -215,18 +196,14 @@ export default async function load(
     for (const k of ["allOf", "anyOf", "oneOf"]) {
       if (Array.isArray(rawNode[k])) {
         rawNode[k] = (rawNode as any)[k].filter((o: SchemaObject | ReferenceObject) => {
-          if (!o || typeof o !== "object" || Array.isArray(o))
-            throw new Error(`${nodePath}.${k}: Expected array of objects. Is your schema valid?`);
+          if (!o || typeof o !== "object" || Array.isArray(o)) throw new Error(`${nodePath}.${k}: Expected array of objects. Is your schema valid?`);
           if (!("$ref" in o) || typeof o.$ref !== "string") return true;
           const ref = parseRef(o.$ref);
           return !ref.path.some((i) => i.startsWith("x-")); // ignore all custom "x-*" properties
         });
       }
     }
-    if (!rawNode || typeof rawNode !== "object" || Array.isArray(rawNode))
-      throw new Error(
-        `${nodePath}: Expected object, got ${Array.isArray(rawNode) ? "array" : typeof rawNode}. Is your schema valid?`
-      );
+    if (!rawNode || typeof rawNode !== "object" || Array.isArray(rawNode)) throw new Error(`${nodePath}: Expected object, got ${Array.isArray(rawNode) ? "array" : typeof rawNode}. Is your schema valid?`);
     if (!("$ref" in rawNode) || typeof rawNode.$ref !== "string") return;
     const node = rawNode as unknown as ReferenceObject;
 
@@ -311,8 +288,7 @@ export default async function load(
       walk(options.schemas[k].schema, (rawNode, nodePath) => {
         const node = rawNode as unknown as SchemaObject;
         if (!node.discriminator) return;
-        options.discriminators[schemaID === "." ? makeTSIndex(nodePath) : makeTSIndex(["external", k, ...nodePath])] =
-          node.discriminator;
+        options.discriminators[schemaID === "." ? makeTSIndex(nodePath) : makeTSIndex(["external", k, ...nodePath])] = node.discriminator;
       });
     }
   }
@@ -322,8 +298,7 @@ export default async function load(
 
 /** relative path from 2 URLs */
 function relativePath(src: URL, dest: URL): string {
-  const isSameOrigin =
-    dest.protocol.startsWith("http") && src.protocol.startsWith("http") && dest.origin === src.origin;
+  const isSameOrigin = dest.protocol.startsWith("http") && src.protocol.startsWith("http") && dest.origin === src.origin;
   const isSameDisk = dest.protocol === "file:" && src.protocol === "file:";
   if (isSameOrigin || isSameDisk) {
     return path.posix.relative(path.posix.dirname(src.pathname), dest.pathname);

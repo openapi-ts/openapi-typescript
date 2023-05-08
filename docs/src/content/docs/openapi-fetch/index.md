@@ -48,7 +48,7 @@ Notice **there are no generics, and no manual typing.** Your endpoint’s exact 
 
 ## Setup
 
-This library requires the latest version of <a href="https://nodejs.org/en" target="_blank" rel="noopener noreferrer">Node.js</a> installed (20.x or higher recommended). With that present, install this library and [openapi-typescript](/introduction):
+Install this library along with [openapi-typescript](/introduction):
 
 ```bash
 npm i openapi-fetch

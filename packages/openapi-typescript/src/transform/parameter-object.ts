@@ -6,9 +6,6 @@ export interface TransformParameterObjectOptions {
   ctx: GlobalContext;
 }
 
-export default function transformParameterObject(
-  parameterObject: ParameterObject,
-  { path, ctx }: TransformParameterObjectOptions
-): string {
+export default function transformParameterObject(parameterObject: ParameterObject, { path, ctx }: TransformParameterObjectOptions): string {
   return parameterObject.schema ? transformSchemaObject(parameterObject.schema, { path, ctx }) : "string"; // assume a parameter is a string by default rather than "unknown"
 }
