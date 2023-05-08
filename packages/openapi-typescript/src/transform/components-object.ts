@@ -43,12 +43,7 @@ export default function transformComponentsObject(components: ComponentsObject, 
       let key = escObjKey(name);
       if (ctx.immutableTypes) key = tsReadonly(key);
       if ("$ref" in responseObject) {
-        output.push(
-          indent(
-            `${key}": ${transformSchemaObject(responseObject, { path: `#/components/responses/${name}`, ctx })};`,
-            indentLv
-          )
-        );
+        output.push(indent(`${key}": ${transformSchemaObject(responseObject, { path: `#/components/responses/${name}`, ctx })};`, indentLv));
       } else {
         const responseType = transformResponseObject(responseObject, {
           path: `#/components/responses/${name}`,
@@ -73,12 +68,7 @@ export default function transformComponentsObject(components: ComponentsObject, 
       let key = escObjKey(name);
       if (ctx.immutableTypes) key = tsReadonly(key);
       if ("$ref" in parameterObject) {
-        output.push(
-          indent(
-            `${key}: ${transformSchemaObject(parameterObject, { path: `#/components/parameters/${name}`, ctx })};`,
-            indentLv
-          )
-        );
+        output.push(indent(`${key}: ${transformSchemaObject(parameterObject, { path: `#/components/parameters/${name}`, ctx })};`, indentLv));
       } else {
         if (parameterObject.in !== "path" && !parameterObject.required) {
           key = tsOptionalProperty(key);
@@ -141,12 +131,7 @@ export default function transformComponentsObject(components: ComponentsObject, 
       let key = escObjKey(name);
       if (ctx.immutableTypes) key = tsReadonly(key);
       if ("$ref" in headerObject) {
-        output.push(
-          indent(
-            `${key}: ${transformSchemaObject(headerObject, { path: `#/components/headers/${name}`, ctx })};`,
-            indentLv
-          )
-        );
+        output.push(indent(`${key}: ${transformSchemaObject(headerObject, { path: `#/components/headers/${name}`, ctx })};`, indentLv));
       } else {
         const headerType = transformHeaderObject(headerObject, {
           path: `#/components/headers/${name}`,
@@ -171,12 +156,7 @@ export default function transformComponentsObject(components: ComponentsObject, 
       if ("$ref" in pathItemObject) {
         const c = getSchemaObjectComment(pathItemObject, indentLv);
         if (c) output.push(indent(c, indentLv));
-        output.push(
-          indent(
-            `${key}: ${transformSchemaObject(pathItemObject, { path: `#/components/pathItems/${name}`, ctx })};`,
-            indentLv
-          )
-        );
+        output.push(indent(`${key}: ${transformSchemaObject(pathItemObject, { path: `#/components/pathItems/${name}`, ctx })};`, indentLv));
       } else {
         output.push(
           indent(

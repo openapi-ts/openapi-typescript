@@ -8,14 +8,16 @@
     "email": "drew@pow.rs"
   },
   "scripts": {
-    "lint": "run-p -s lint:openapi-typescript",
+    "lint": "run-p -s lint:*",
     "lint:openapi-fetch": "cd packages/openapi-fetch && npm run lint",
     "lint:openapi-typescript": "cd packages/openapi-typescript && npm run lint",
-    "test": "run-p -s test:openapi-typescript",
+    "test": "run-p -s test:*",
     "test:openapi-fetch": "cd packages/openapi-fetch && npm test",
     "test:openapi-typescript": "cd packages/openapi-typescript && npm test"
   },
   "devDependencies": {
+    "@changesets/changelog-git": "^0.1.14",
+    "@changesets/cli": "^2.26.1",
     "eslint": "^8.40.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",

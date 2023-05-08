@@ -1,0 +1,338 @@
+openapi:
+  version: '3.1'
+paths:
+  /comment:
+    put:
+      requestBody:
+        $ref: '#/components/requestBodies/CreateReply'
+      responses:
+        201:
+          $ref: '#/components/responses/CreateReply'
+        500:
+          $ref: '#/components/responses/Error'
+  /post:
+    put:
+      requestBody:
+        $ref: '#/components/requestBodies/CreatePost'
+      responses:
+        201:
+          $ref: '#/components/responses/CreatePost'
+        500:
+          $ref: '#/components/responses/Error'
+  /posts:
+    get:
+      responses:
+        200:
+          $ref: '#/components/responses/AllPostsGet'
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/PatchPost'
+      responses:
+        201:
+          $ref: '#/components/responses/PatchPost'
+  /post/{post_id}:
+    parameters:
+      - in: path
+        name: post_id
+        schema:
+          type: string
+        required: true
+    get:
+      parameters:
+        - in: query
+          name: version
+          schema:
+            type: number
+        - in: query
+          name: format
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/PostGet'
+        404:
+          $ref: '#/components/responses/Error'
+        500:
+          $ref: '#/components/responses/Error'
+    patch:
+      requestBody:
+        $ref: '#/components/requestBodies/PatchPost'
+      responses:
+        200:
+          $ref: '#/components/responses/PatchPost'
+        404:
+          $ref: '#/components/responses/Error'
+        500:
+          $ref: '#/components/responses/Error'
+    delete:
+      responses:
+        200:
+          $ref: '#/components/responses/PostDelete'
+        500:
+          $ref: '#/components/responses/Error'
+  /self:
+    get:
+      responses:
+        200:
+          $ref: '#/components/responses/User'
+        404:
+          $ref: '#/components/responses/Error'
+        500:
+          $ref: '#/components/responses/Error'
+  /string-array:
+    get:
+      responses:
+        200:
+          $ref: '#/components/responses/StringArray'
+        500:
+          $ref: '#/components/responses/Error'
+  /tag/{name}:
+    parameters:
+      - in: path
+        name: name
+        schema:
+          type: string
+        required: true
+    put:
+      requestBody:
+        $ref: '#/components/requestBodies/CreateTag'
+      responses:
+        201:
+          $ref: '#/components/responses/CreateTag'
+        500:
+          $ref: '#/components/responses/Error'
+  /anyMethod:
+    get:
+      responses:
+        200:
+          $ref: '#/components/responses/User'
+        404:
+          $ref: '#/components/responses/Error'
+        500:
+          $ref: '#/components/responses/Error'
+    put:
+      responses:
+        200:
+          $ref: '#/components/responses/User'
+        404:
+          $ref: '#/components/responses/Error'
+        500:
+          $ref: '#/components/responses/Error'
+    post:
+      responses:
+        200:
+          $ref: '#/components/responses/User'
+        404:
+          $ref: '#/components/responses/Error'
+        500:
+          $ref: '#/components/responses/Error'
+    delete:
+      responses:
+        200:
+          $ref: '#/components/responses/User'
+        404:
+          $ref: '#/components/responses/Error'
+        500:
+          $ref: '#/components/responses/Error'
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/User'
+        404:
+          $ref: '#/components/responses/Error'
+        500:
+          $ref: '#/components/responses/Error'
+    head:
+      responses:
+        200:
+          $ref: '#/components/responses/User'
+        404:
+          $ref: '#/components/responses/Error'
+        500:
+          $ref: '#/components/responses/Error'
+    patch:
+      responses:
+        200:
+          $ref: '#/components/responses/User'
+        404:
+          $ref: '#/components/responses/Error'
+        500:
+          $ref: '#/components/responses/Error'
+    trace:
+      responses:
+        200:
+          $ref: '#/components/responses/User'
+        404:
+          $ref: '#/components/responses/Error'
+        500:
+          $ref: '#/components/responses/Error'
+
+components:
+  schemas:
+    Post:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        publish_date:
+          type: number
+      required:
+        - title
+        - body
+    StringArray:
+      type: array
+      items:
+        type: string
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+        age:
+          type: number
+        avatar:
+          type: string
+      required:
+        - email
+  requestBodies:
+    CreatePost:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              body:
+                type: string
+              publish_date:
+                type: number
+            required:
+              - title
+              - body
+              - publish_date
+    CreateTag:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+    CreateReply:
+      required: true
+      content:
+        'application/json;charset=utf-8':
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              replied_at:
+                type: number
+            required:
+              - message
+              - replied_at
+    PatchPost:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              properties:
+              title:
+                type: string
+              body:
+                type: string
+              publish_date:
+                type: number
+  responses:
+    AllPostsGet:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Post'
+    CreatePost:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+            required:
+              - status
+    CreateTag:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+            required:
+              - status
+    CreateReply:
+      content:
+        'application/json;charset=utf-8':
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            required:
+              - message
+    Error:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: number
+              message:
+                type: string
+            required:
+              - code
+              - message
+    PatchPost:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+            required:
+              - status
+    PostDelete:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+            required:
+              - status
+    PostGet:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Post'
+    StringArray:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StringArray'
+    User:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'

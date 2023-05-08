@@ -9,10 +9,7 @@ export interface TransformPathItemObjectOptions {
 
 type Method = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
 
-export default function transformPathItemObject(
-  pathItem: PathItemObject,
-  { path, ctx }: TransformPathItemObjectOptions
-): string {
+export default function transformPathItemObject(pathItem: PathItemObject, { path, ctx }: TransformPathItemObjectOptions): string {
   let { indentLv } = ctx;
   const output: string[] = [];
   output.push("{");
@@ -40,32 +37,21 @@ export default function transformPathItemObject(
     }
     // if operationId exists, move into an `operations` export and pass the reference in here
     else if (operationObject.operationId) {
-      const operationType = transformOperationObject(
-        { ...operationObject, parameters: Object.values(keyedParameters) },
-        { path, ctx: { ...ctx, indentLv: 1 } }
-      );
+      const operationType = transformOperationObject({ ...operationObject, parameters: Object.values(keyedParameters) }, { path, ctx: { ...ctx, indentLv: 1 } });
       ctx.operations[operationObject.operationId] = {
         operationType,
         comment: getSchemaObjectComment(operationObject, 1),
       };
       output.push(indent(`${method}: operations[${escStr(operationObject.operationId)}];`, indentLv));
     } else {
-      const operationType = transformOperationObject(
-        { ...operationObject, parameters: Object.values(keyedParameters) },
-        { path, ctx: { ...ctx, indentLv } }
-      );
+      const operationType = transformOperationObject({ ...operationObject, parameters: Object.values(keyedParameters) }, { path, ctx: { ...ctx, indentLv } });
       output.push(indent(`${method}: ${operationType};`, indentLv));
     }
   }
 
   // parameters
   if (pathItem.parameters?.length) {
-    output.push(
-      indent(
-        transformOperationObject({ parameters: pathItem.parameters }, { path, ctx, wrapObject: false }).trim(),
-        indentLv
-      )
-    );
+    output.push(indent(transformOperationObject({ parameters: pathItem.parameters }, { path, ctx, wrapObject: false }).trim(), indentLv));
   }
 
   indentLv--;

@@ -8,10 +8,7 @@ export interface TransformHeaderObjectOptions {
   ctx: GlobalContext;
 }
 
-export default function transformHeaderObject(
-  headerObject: HeaderObject,
-  { path, ctx }: TransformHeaderObjectOptions
-): string {
+export default function transformHeaderObject(headerObject: HeaderObject, { path, ctx }: TransformHeaderObjectOptions): string {
   if (headerObject.schema) return transformSchemaObject(headerObject.schema, { path, ctx });
   if (headerObject.content) {
     let { indentLv } = ctx;
@@ -23,12 +20,7 @@ export default function transformHeaderObject(
       let key = escStr(contentType);
       if (ctx.immutableTypes) key = tsReadonly(key);
       if ("$ref" in mediaTypeObject) {
-        output.push(
-          indent(
-            `${key}: ${transformSchemaObject(mediaTypeObject, { path: `${path}/${contentType}`, ctx })};`,
-            indentLv
-          )
-        );
+        output.push(indent(`${key}: ${transformSchemaObject(mediaTypeObject, { path: `${path}/${contentType}`, ctx })};`, indentLv));
       } else {
         const mediaType = transformMediaTypeObject(mediaTypeObject, { path: `${path}/${contentType}`, ctx });
         output.push(indent(`${key}: ${mediaType};`, indentLv));

@@ -7,14 +7,9 @@ export interface TransformParameterArrayOptions {
   ctx: GlobalContext;
 }
 
-export default function transformParameterObjectArray(
-  parameterObjectArray: (ParameterObject | ReferenceObject)[] | Record<string, ParameterObject | ReferenceObject>,
-  { path, ctx }: TransformParameterArrayOptions
-): string {
+export default function transformParameterObjectArray(parameterObjectArray: (ParameterObject | ReferenceObject)[] | Record<string, ParameterObject | ReferenceObject>, { path, ctx }: TransformParameterArrayOptions): string {
   const output: string[] = [];
-  const parameters: [string, ParameterObject | ReferenceObject][] = Array.isArray(parameterObjectArray)
-    ? parameterObjectArray.map((p) => [(p as ParameterObject).name!, p])
-    : Object.entries(parameterObjectArray);
+  const parameters: [string, ParameterObject | ReferenceObject][] = Array.isArray(parameterObjectArray) ? parameterObjectArray.map((p) => [(p as ParameterObject).name!, p]) : Object.entries(parameterObjectArray);
 
   for (const [id, param] of parameters) {
     let key = escObjKey(id);
