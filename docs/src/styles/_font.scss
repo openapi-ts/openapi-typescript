@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "Neue Montreal";
+  font-weight: 1 999;
+  src: url("https://drewhost.s3.amazonaws.com/PPNeueMontrealVariable.ttf") format("truetype");
+}
+
+@each $wgt in 100, 200, 300, 400, 500, 600, 700 {
+  @font-face {
+    font-family: "IBM Plex Mono";
+    font-style: normal;
+    font-weight: $wgt;
+    src: url("https://drewhost.s3.amazonaws.com/ibm-plex-mono-#{$wgt}.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "IBM Plex Mono";
+    font-style: italic;
+    font-weight: $wgt;
+    src: url("https://drewhost.s3.amazonaws.com/ibm-plex-mono-#{$wgt}-italic.woff2") format("woff2");
+  }
+}
