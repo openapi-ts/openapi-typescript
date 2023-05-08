@@ -280,7 +280,7 @@ export default async function load(
         const ref = parseRef(node.$ref);
 
         // when ref.path is [], $ref has been transform, skip transform
-        if (ref.path.length === 0) {
+        if (ref.path.length === 0 && (ref.filename.startsWith("components[") || ref.filename.startsWith("external["))) {
           return;
         }
         // local $ref: convert into TS path
