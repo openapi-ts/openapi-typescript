@@ -1,6 +1,5 @@
 /** @jsxImportSource react */
 import { useState, useCallback, useRef } from "react";
-import { ALGOLIA } from "../../consts";
 import "@docsearch/css";
 import "./Search.css";
 
@@ -71,9 +70,9 @@ export default function Search() {
             initialQuery={initialQuery}
             initialScrollY={window.scrollY}
             onClose={onClose}
-            indexName={ALGOLIA.indexName}
-            appId={ALGOLIA.appId}
-            apiKey={ALGOLIA.apiKey}
+            indexName={import.meta.env.ALGOLIA_INDEX_NAME}
+            appId={import.meta.env.ALGOLIA_APP_ID}
+            apiKey={import.meta.env.ALGOLIA_SEARCH_KEY}
             transformItems={(items) => {
               return items.map((item) => {
                 // We transform the absolute URL into a relative URL to
