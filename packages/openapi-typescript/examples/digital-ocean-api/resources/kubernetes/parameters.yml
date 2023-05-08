@@ -1,0 +1,85 @@
+kubernetes_cluster_id:
+  in: path
+  name: cluster_id
+  description: A unique ID that can be used to reference a Kubernetes cluster.
+  required: true
+  schema:
+    type: string
+    format: uuid
+    minimum: 1
+  example: bd5f5959-5e1e-4205-a714-a914373942af
+
+kubernetes_node_pool_id:
+  in: path
+  name: node_pool_id
+  description: A unique ID that can be used to reference a Kubernetes node pool.
+  required: true
+  schema:
+    type: string
+    format: uuid
+    minimum: 1
+  example: cdda885e-7663-40c8-bc74-3a036c66545d
+
+kubernetes_node_id:
+  in: path
+  name: node_id
+  description: A unique ID that can be used to reference a node in a Kubernetes
+    node pool.
+  required: true
+  schema:
+    type: string
+    format: uuid
+    minimum: 1
+  example: 478247f8-b1bb-4f7a-8db9-2a5f8d4b8f8f
+
+kubernetes_expiry_seconds:
+  in: query
+  name: expiry_seconds
+  required: false
+  description: The duration in seconds that the returned Kubernetes credentials
+   will be valid. If not set or 0, the credentials will have a 7 day expiry.
+  schema:
+    type: integer
+    minimum: 0
+    default: 0
+  example: 300
+
+clusterlint_run_id:
+  in: query
+  name: run_id
+  description: Specifies the clusterlint run whose results will be retrieved.
+  required: false
+  schema:
+    type: string
+    format: uuid
+  example: 50c2f44c-011d-493e-aee5-361a4a0d1844
+
+kubernetes_node_skip_drain:
+  in: query
+  name: skip_drain
+  required: false
+  description: Specifies whether or not to drain workloads from a node before
+    it is deleted. Setting it to `1` causes node draining to be skipped.
+    Omitting the query parameter or setting its value to `0` carries out
+    draining prior to deletion.
+  schema:
+    type: integer
+    minimum: 0
+    maximum: 1
+    default: 0
+  example: 1
+
+kubernetes_node_replace:
+  in: query
+  name: replace
+  required: false
+  description: Specifies whether or not to replace a node after it has been
+    deleted. Setting it to `1` causes the node to be replaced by a new one after
+    deletion. Omitting the query parameter or setting its value to `0` deletes
+    without replacement.
+  schema:
+    type: integer
+    minimum: 0
+    maximum: 1
+    default: 0
+  example: 1

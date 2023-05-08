@@ -1,0 +1,136 @@
+---
+import { SIDEBAR } from "../../consts.js";
+
+type Props = {
+  currentPage: string;
+};
+
+const { currentPage } = Astro.props;
+const currentPageMatch = currentPage.endsWith("/") ? currentPage.slice(1, -1) : currentPage.slice(1);
+
+interface Link {
+  url: string;
+  text: string;
+}
+
+const sidebar: Record<string, Link[]> = {
+  "openapi-typescript": [
+    { text: "Introduction", url: "introduction" },
+    { text: "CLI", url: "cli" },
+    { text: "Node.js API", url: "node" },
+    { text: "Advanced", url: "advanced" },
+    { text: "About", url: "about" },
+  ],
+  "openapi-fetch": [
+    { text: "Introduction", url: "openapi-fetch" },
+    { text: "API", url: "openapi-fetch/api" },
+    { text: "Examples", url: "openapi-fetch/examples" },
+    { text: "About", url: "openapi-fetch/about" },
+  ],
+};
+---
+
+<nav aria-labelledby="grid-left">
+  <ul class="nav-groups">
+    {
+      Object.entries(sidebar).map(([header, children]) => (
+        <li>
+          <div class="nav-group">
+            <h2 class="nav-group-title">{header}</h2>
+            <ul>
+              {children.map((child) => {
+                const url = Astro.site?.pathname + child.url;
+                return (
+                  <li class="nav-link">
+                    <a href={url} aria-current={currentPageMatch === child.url ? "page" : false}>
+                      {child.text}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<script is:inline>
+  window.addEventListener("DOMContentLoaded", () => {
+    var target = document.querySelector('[aria-current="page"]');
+    if (target && target.offsetTop > window.innerHeight - 100) {
+      document.querySelector(".nav-groups").scrollTop = target.offsetTop;
+    }
+  });
+</script>
+
+<style lang="scss">
+  nav {
+    width: 100%;
+  }
+
+  .nav-groups {
+    height: 100%;
+    padding: 2rem 0;
+    overflow-y: auto;
+    max-height: 100vh;
+
+    > li + li {
+      margin-top: 1rem;
+    }
+
+    > :first-child {
+      padding-top: var(--doc-padding);
+    }
+
+    > :last-child {
+      padding-bottom: 2rem;
+      margin-bottom: var(--theme-navbar-height);
+    }
+
+    @media (min-width: 50em) {
+      padding: 0;
+    }
+  }
+
+  .nav-group-title {
+    font-size: 0.76rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+    opacity: 0.6;
+    padding: 0 0.5rem;
+    text-transform: uppercase;
+  }
+
+  .nav-link {
+    a {
+      color: inherit;
+      display: block;
+      font-size: 0.875rem;
+      line-height: 1;
+      margin: 1px;
+      padding: 0.375rem;
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        background-color: var(--theme-bg-hover);
+      }
+
+      &[aria-current="page"] {
+        color: var(--theme-text-accent);
+        background-color: var(--theme-bg-accent);
+        font-weight: 500;
+      }
+    }
+  }
+</style>
+
+<style is:global>
+  :root.theme-dark .nav-link a[aria-current="page"] {
+    color: hsla(var(--color-base-white), 100%, 1);
+  }
+</style>

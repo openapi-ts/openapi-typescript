@@ -1,0 +1,10 @@
+type: object
+
+properties:
+  source:
+    allOf:
+    - $ref: './database_connection.yml'
+  disable_ssl:
+    type: boolean
+    description: Enables SSL encryption when connecting to the source database.
+    example: false

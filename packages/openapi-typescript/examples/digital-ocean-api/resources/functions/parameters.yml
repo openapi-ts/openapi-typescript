@@ -1,0 +1,17 @@
+namespace_id:
+  name: namespace_id
+  description: The ID of the namespace to be managed.
+  in: path
+  schema:
+    type: string
+  example: fn-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+  required: true
+
+trigger_name:
+  name: trigger_name
+  description: The name of the trigger to be managed.
+  in: path
+  schema:
+    type: string
+  example: my trigger
+  required: true

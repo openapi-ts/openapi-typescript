@@ -1,0 +1,96 @@
+operationId: dropletActions_post
+
+summary: Initiate a Droplet Action
+
+description: |
+    To initiate an action on a Droplet send a POST request to
+    `/v2/droplets/$DROPLET_ID/actions`. In the JSON body to the request,
+    set the `type` attribute to on of the supported action types:
+
+    | Action                                   | Details |
+    | ---------------------------------------- | ----------- |
+    | <nobr>`enable_backups`</nobr>            | Enables backups for a Droplet |
+    | <nobr>`disable_backups`</nobr>           | Disables backups for a Droplet |
+    | <nobr>`reboot`</nobr>                    | Reboots a Droplet. A `reboot` action is an attempt to reboot the Droplet in a graceful way, similar to using the `reboot` command from the console. |
+    | <nobr>`power_cycle`</nobr>               | Power cycles a Droplet. A `powercycle` action is similar to pushing the reset button on a physical machine, it's similar to booting from scratch. |
+    | <nobr>`shutdown`</nobr>                  | Shutsdown a Droplet. A shutdown action is an attempt to shutdown the Droplet in a graceful way, similar to using the `shutdown` command from the console. Since a `shutdown` command can fail, this action guarantees that the command is issued, not that it succeeds. The preferred way to turn off a Droplet is to attempt a shutdown, with a reasonable timeout, followed by a `power_off` action to ensure the Droplet is off. |
+    | <nobr>`power_off`</nobr>                 | Powers off a Droplet. A `power_off` event is a hard shutdown and should only be used if the `shutdown` action is not successful. It is similar to cutting the power on a server and could lead to complications. |
+    | <nobr>`power_on`</nobr>                  | Powers on a Droplet. |
+    | <nobr>`restore`</nobr>                   | Restore a Droplet using a backup image. The image ID that is passed in must be a backup of the current Droplet instance. The operation will leave any embedded SSH keys intact. |
+    | <nobr>`password_reset`</nobr>            | Resets the root password for a Droplet. A new password will be provided via email. It must be changed after first use. |
+    | <nobr>`resize`</nobr>                    | Resizes a Droplet. Set the `size` attribute to a size slug. If a permanent resize with disk changes included is desired, set the `disk` attribute to `true`. |
+    | <nobr>`rebuild`</nobr>                   | Rebuilds a Droplet from a new base image. Set the `image` attribute to an image ID or slug. |
+    | <nobr>`rename`</nobr>                    | Renames a Droplet. |
+    | <nobr>`change_kernel`</nobr>             | Changes a Droplet's kernel. Only applies to Droplets with externally managed kernels. All Droplets created after March 2017 use internal kernels by default. |
+    | <nobr>`enable_ipv6`</nobr>               | Enables IPv6 for a Droplet. |
+    | <nobr>`snapshot`</nobr>                  | Takes a snapshot of a Droplet. |
+
+tags:
+  -  Droplet Actions
+
+parameters:
+  - $ref: 'parameters.yml#/droplet_id'
+
+requestBody:
+  description: |
+    The `type` attribute set in the request body will specify the  action that
+    will be taken on the Droplet. Some actions will require additional
+    attributes to be set as well.
+
+  content:
+    application/json:
+      schema:
+        anyOf:
+          - $ref: 'models/droplet_actions.yml#/droplet_action'
+          - $ref: 'models/droplet_actions.yml#/droplet_action_restore'
+          - $ref: 'models/droplet_actions.yml#/droplet_action_resize'
+          - $ref: 'models/droplet_actions.yml#/droplet_action_rebuild'
+          - $ref: 'models/droplet_actions.yml#/droplet_action_rename'
+          - $ref: 'models/droplet_actions.yml#/droplet_action_change_kernel'
+          - $ref: 'models/droplet_actions.yml#/droplet_action_snapshot'
+        discriminator:
+          propertyName: type
+          mapping:
+            enable_backups: 'models/droplet_actions.yml#/droplet_action'
+            disable_backups: 'models/droplet_actions.yml#/droplet_action'
+            reboot: 'models/droplet_actions.yml#/droplet_action'
+            power_cycle: 'models/droplet_actions.yml#/droplet_action'
+            shutdown: 'models/droplet_actions.yml#/droplet_action'
+            power_off: 'models/droplet_actions.yml#/droplet_action'
+            power_on: 'models/droplet_actions.yml#/droplet_action'
+            password_reset: 'models/droplet_actions.yml#/droplet_action'
+            restore: 'models/droplet_actions.yml#/droplet_action_restore'
+            resize: 'models/droplet_actions.yml#/droplet_action_resize'
+            rebuild: 'models/droplet_actions.yml#/droplet_action_rebuild'
+            rename: 'models/droplet_actions.yml#/droplet_action_rename'
+            change_kernel: 'models/droplet_actions.yml#/droplet_action_change_kernel'
+            enable_ipv6: 'models/droplet_actions.yml#/droplet_action'
+            snapshot: 'models/droplet_actions.yml#/droplet_action_snapshot'
+
+responses:
+  '201':
+    $ref: 'responses/droplet_action.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/dropletActions_post.yml'
+  - $ref: 'examples/go/dropletActions_post.yml'
+  - $ref: 'examples/ruby/dropletActions_post.yml'
+
+security:
+  - bearer_auth:
+    - 'write'

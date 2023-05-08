@@ -1,0 +1,20 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      createRequest := &TagCreateRequest{
+          Name: "testing-1",
+      }
+      client.Tags.Create(ctx, request)
+  }

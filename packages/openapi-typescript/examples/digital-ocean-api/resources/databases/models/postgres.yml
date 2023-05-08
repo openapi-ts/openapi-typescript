@@ -1,0 +1,409 @@
+type: object
+
+properties:
+  autovacuum_freeze_max_age:
+    description: >-
+      Specifies the maximum age (in transactions) that a table's
+      pg_class.relfrozenxid field can attain before a VACUUM operation is forced
+      to prevent transaction ID wraparound within the table. Note that the
+      system will launch autovacuum processes to prevent wraparound even when
+      autovacuum is otherwise disabled. This parameter will cause the server to
+      be restarted.
+    type: integer
+    minimum: 200000000
+    maximum: 1500000000
+    example: 200000000
+  autovacuum_max_workers:
+    description: >-
+      Specifies the maximum number of autovacuum processes (other than the
+      autovacuum launcher) that may be running at any one time. The default is
+      three. This parameter can only be set at server start.
+    type: integer
+    minimum: 1
+    maximum: 20
+    example: 5
+  autovacuum_naptime:
+    description: >-
+      Specifies the minimum delay, in seconds, between autovacuum runs on any given database.
+      The default is one minute.
+    type: integer
+    minimum: 0
+    maximum: 86400
+    example: 43200
+  autovacuum_vacuum_threshold:
+    description: >-
+      Specifies the minimum number of updated or deleted tuples needed to
+      trigger a VACUUM in any one table. The default is 50 tuples.
+    type: integer
+    minimum: 0
+    maximum: 2147483647
+    example: 50
+  autovacuum_analyze_threshold:
+    description: >-
+      Specifies the minimum number of inserted, updated, or deleted tuples needed
+      to trigger an ANALYZE in any one table. The default is 50 tuples.
+    type: integer
+    minimum: 0
+    maximum: 2147483647
+    example: 50
+  autovacuum_vacuum_scale_factor:
+    description: >-
+      Specifies a fraction, in a decimal value, of the table size to add to
+      autovacuum_vacuum_threshold when deciding whether to trigger a VACUUM. The
+      default is 0.2 (20% of table size).
+    type: number
+    minimum: 0
+    maximum: 1
+    example: 0.2
+  autovacuum_analyze_scale_factor:
+    description: >-
+      Specifies a fraction, in a decimal value, of the table size to add to
+      autovacuum_analyze_threshold when deciding whether to trigger an ANALYZE.
+      The default is 0.2 (20% of table size).
+    type: number
+    minimum: 0
+    maximum: 1
+    example: 0.2
+  autovacuum_vacuum_cost_delay:
+    description: >-
+      Specifies the cost delay value, in milliseconds, that will be used in automatic VACUUM
+      operations. If -1, uses the regular vacuum_cost_delay value, which is 20 milliseconds.
+    type: integer
+    minimum: -1
+    maximum: 100
+    example: 20
+  autovacuum_vacuum_cost_limit:
+    description: >-
+      Specifies the cost limit value that will be used in automatic VACUUM
+      operations. If -1 is specified (which is the default), the regular
+      vacuum_cost_limit value will be used.
+    type: integer
+    minimum: -1
+    maximum: 10000
+    example: -1
+  backup_hour:
+    description: >-
+      The hour of day (in UTC) when backup for the service starts. New backup
+      only starts if previous backup has already completed.
+    minimum: 0
+    maximum: 23
+    type: integer
+    example: 3
+  backup_minute:
+    description: >-
+      The minute of the backup hour when backup for the service starts. New backup is
+      only started if previous backup has already completed.
+    minimum: 0
+    maximum: 59
+    type: integer
+    example: 30
+  bgwriter_delay:
+    description: >-
+      Specifies the delay, in milliseconds, between activity rounds for the background writer. Default is 200 ms.
+    type: integer
+    minimum: 10
+    maximum: 10000
+    example: 200
+  bgwriter_flush_after:
+    description: >-
+      The amount of kilobytes that need to be written by the background writer before
+      attempting to force the OS to issue these writes to underlying storage. Specified in kilobytes, default is 512. 
+      Setting of 0 disables forced writeback.
+    type: integer
+    minimum: 0
+    maximum: 2048
+    example: 512
+  bgwriter_lru_maxpages:
+    description: >-
+      The maximum number of buffers that the background writer can write.
+      Setting this to zero disables background writing.
+      Default is 100.
+    type: integer
+    minimum: 0
+    maximum: 1073741823
+    example: 100
+  bgwriter_lru_multiplier:
+    description: >-
+      The average recent need for new buffers is multiplied by
+      bgwriter_lru_multiplier to arrive at an estimate of the number that will
+      be needed during the next round, (up to bgwriter_lru_maxpages). 1.0
+      represents a “just in time” policy of writing exactly the number of
+      buffers predicted to be needed. Larger values provide some cushion against
+      spikes in demand, while smaller values intentionally leave writes to be
+      done by server processes. The default is 2.0.
+    type: number
+    minimum: 0
+    maximum: 10
+    example: 2
+  deadlock_timeout:
+    description: >-
+      The amount of time, in milliseconds, to wait on a lock before
+      checking to see if there is a deadlock condition.
+    type: integer
+    minimum: 500
+    maximum: 1800000
+    example: 1000
+  default_toast_compression:
+    description: >-
+      Specifies the default TOAST compression method for values of compressible
+      columns (the default is lz4).
+    type: string
+    enum:
+      - lz4
+      - pglz
+    example: lz4
+  idle_in_transaction_session_timeout:
+    description: Time out sessions with open transactions after this number of milliseconds
+    type: integer
+    minimum: 0
+    maximum: 604800000
+    example: 10000
+  jit:
+    description: Activates, in a boolean, the system-wide use of Just-in-Time Compilation (JIT).
+    type: boolean
+    example: true
+  log_autovacuum_min_duration:
+    description: >-
+      Causes each action executed by autovacuum to be logged if it ran for at
+      least the specified number of milliseconds. Setting this to zero logs all
+      autovacuum actions. Minus-one (the default) disables logging autovacuum
+      actions.
+    type: integer
+    minimum: -1
+    maximum: 2147483647
+    example: -1
+  log_error_verbosity:
+    description: >-
+      Controls the amount of detail written in the server log for each message
+      that is logged.
+    type: string
+    enum:
+      - TERSE
+      - DEFAULT
+      - VERBOSE
+    example: VERBOSE
+  log_line_prefix:
+    description: >-
+      Selects one of the available log-formats. These can support popular
+      log analyzers like pgbadger, pganalyze, etc.
+    type: string
+    enum:
+      - pid=%p,user=%u,db=%d,app=%a,client=%h
+      - "%m [%p] %q[user=%u,db=%d,app=%a]"
+      - "%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h"
+    example: pid=%p,user=%u,db=%d,app=%a,client=%h
+  log_min_duration_statement:
+    description: >-
+      Log statements that take more than this number of milliseconds to run. If -1,
+      disables.
+    type: integer
+    minimum: -1
+    maximum: 86400000
+    example: -1
+  max_files_per_process:
+    description: PostgreSQL maximum number of files that can be open per process.
+    type: integer
+    minimum: 1000
+    maximum: 4096
+    example: 2048
+  max_prepared_transactions:
+    description: PostgreSQL maximum prepared transactions. Once increased, this parameter cannot be lowered from its set value.
+    type: integer
+    minimum: 0
+    maximum: 10000
+    example: 20
+  max_pred_locks_per_transaction:
+    description: PostgreSQL maximum predicate locks per transaction.
+    type: integer
+    minimum: 64
+    maximum: 640
+    example: 128
+  max_locks_per_transaction:
+    description: PostgreSQL maximum locks per transaction. Once increased, this parameter cannot be lowered from its set value.
+    type: integer
+    minimum: 64
+    maximum: 6400
+    example: 128
+  max_stack_depth:
+    description: Maximum depth of the stack in bytes.
+    type: integer
+    minimum: 2097152
+    maximum: 6291456
+    example: 2097152
+  max_standby_archive_delay:
+    description: Max standby archive delay in milliseconds.
+    type: integer
+    minimum: 1
+    maximum: 43200000
+    example: 43200
+  max_standby_streaming_delay:
+    description: Max standby streaming delay in milliseconds.
+    type: integer
+    minimum: 1
+    maximum: 43200000
+    example: 43200
+  max_replication_slots:
+    description: PostgreSQL maximum replication slots.
+    type: integer
+    minimum: 8
+    maximum: 64
+    example: 16
+  max_logical_replication_workers:
+    description: >-
+      PostgreSQL maximum logical replication workers (taken from the pool of
+      max_parallel_workers).
+    type: integer
+    minimum: 4
+    maximum: 64
+    example: 16
+  max_parallel_workers:
+    description: >-
+      Sets the maximum number of workers that the system can support for
+      parallel queries.
+    type: integer
+    minimum: 0
+    maximum: 96
+    example: 12
+  max_parallel_workers_per_gather:
+    description: >-
+      Sets the maximum number of workers that can be started by a single Gather
+      or Gather Merge node.
+    type: integer
+    minimum: 0
+    maximum: 96
+    example: 16
+  max_worker_processes:
+    description: >-
+      Sets the maximum number of background processes that the system can
+      support. Once increased, this parameter cannot be lowered from its set value.
+    type: integer
+    minimum: 8
+    maximum: 96
+    example: 16
+  pg_partman_bgw.role:
+    type: string
+    pattern: ^[_A-Za-z0-9][-._A-Za-z0-9]{0,63}$
+    maxLength: 64
+    example: myrolename
+    description: >-
+      Controls which role to use for pg_partman's scheduled background tasks.
+      Must consist of alpha-numeric characters, dots, underscores, or dashes. May
+      not start with dash or dot. Maximum of 64 characters.
+  pg_partman_bgw.interval:
+    description: Sets the time interval to run pg_partman's scheduled tasks.
+    type: integer
+    minimum: 3600
+    maximum: 604800
+    example: 3600
+  pg_stat_statements.track:
+    description: >-
+      Controls which statements are counted. Specify 'top' to track top-level
+      statements (those issued directly by clients), 'all' to also track nested
+      statements (such as statements invoked within functions), or 'none' to
+      disable statement statistics collection. The default value is top.
+    type: string
+    enum:
+      - all
+      - top
+      - none
+    example: all
+  temp_file_limit:
+    description: PostgreSQL temporary file limit in KiB. If -1, sets to unlimited.
+    type: integer
+    example: 5000000
+    minimum: -1
+    maximum: 2147483647
+  timezone:
+    description: PostgreSQL service timezone
+    type: string
+    example: Europe/Helsinki
+    maxLength: 64
+  track_activity_query_size:
+    description: >-
+      Specifies the number of bytes reserved to track the currently executing
+      command for each active session.
+    type: integer
+    example: 1024
+    minimum: 1024
+    maximum: 10240
+  track_commit_timestamp:
+    description: Record commit time of transactions.
+    type: string
+    enum:
+      - 'off'
+      - 'on'
+    example: 'off'
+  track_functions:
+    description: Enables tracking of function call counts and time used.
+    type: string
+    enum:
+      - all
+      - pl
+      - none
+    example: all
+  track_io_timing:
+    description: >-
+      Enables timing of database I/O calls. This parameter is off by default,
+      because it will repeatedly query the operating system for the current
+      time, which may cause significant overhead on some platforms.
+    type: string
+    enum:
+      - 'off'
+      - 'on'
+    example: 'off'
+  max_wal_senders:
+    description: PostgreSQL maximum WAL senders. Once increased, this parameter cannot be lowered from its set value.
+    type: integer
+    minimum: 20
+    maximum: 64
+    example: 32
+  wal_sender_timeout:
+    description: >-
+      Terminate replication connections that are inactive for longer than this
+      amount of time, in milliseconds. Setting this value to zero disables the
+      timeout. Must be either 0 or between 5000 and 10800000.
+    type: integer
+    minimum: 0
+    maximum: 10800000
+    example: 60000
+  wal_writer_delay:
+    description: >-
+      WAL flush interval in milliseconds. Note that setting this value to lower
+      than the default 200ms may negatively impact performance
+    type: integer
+    minimum: 10
+    maximum: 200
+    example: 50
+  shared_buffers_percentage:
+    description: >-
+      Percentage of total RAM that the database server uses for shared memory buffers. 
+      Valid range is 20-60 (float), which corresponds to 20% - 60%. 
+      This setting adjusts the shared_buffers configuration value.
+    type: number
+    minimum: 20.0
+    maximum: 60.0
+    example: 41.5
+  pgbouncer:
+    $ref: './pgbouncer.yml'
+  work_mem:
+    description: >-
+      The maximum amount of memory, in MB, used by a query operation (such as a sort or hash table) before writing to temporary disk files.
+      Default is 1MB + 0.075% of total RAM (up to 32MB).
+    type: integer
+    minimum: 1
+    maximum: 1024
+    example: 4
+  timescaledb:
+    $ref: './timescaledb.yml'
+  synchronous_replication:
+    description: Synchronous replication type. Note that the service plan also needs to support synchronous replication.
+    type: string
+    example: "off"
+    enum:
+      - 'off'
+      - 'quorum'
+  stat_monitor_enable:
+    description: >-
+      Enable the pg_stat_monitor extension. <b>Enabling this extension will cause the cluster to be restarted.</b> When this extension is enabled, pg_stat_statements results for utility commands are unreliable.
+    type: boolean
+    example: false

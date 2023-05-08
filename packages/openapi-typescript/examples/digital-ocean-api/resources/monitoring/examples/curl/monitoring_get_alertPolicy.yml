@@ -1,0 +1,6 @@
+lang: cURL
+source: |-
+  curl -X GET \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/monitoring/alerts/78b3da62-27e5-49ba-ac70-5db0b5935c64"

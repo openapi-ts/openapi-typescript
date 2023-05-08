@@ -1,0 +1,118 @@
+firewall_rule_base:
+  type: object
+
+  properties:
+    protocol:
+      type: string
+      enum:
+        - tcp
+        - udp
+        - icmp
+      description: >-
+        The type of traffic to be allowed. This may be one of `tcp`, `udp`, or
+        `icmp`.
+      example: tcp
+
+    ports:
+      type: string
+      description: >-
+        The ports on which traffic will be allowed specified as a string
+        containing a single port, a range (e.g. "8000-9000"), or "0" when all
+        ports are open for a protocol. For ICMP rules this parameter will always
+        return "0".
+      example: '8000'
+
+  required:
+    - protocol
+    - ports
+
+firewall_rule_target:
+  # The common definition of a rule target used in both inbound (sources) and
+  # outbound (destinations)rules.
+  type: object
+  properties:
+    addresses:
+      type: array
+      items:
+        type: string
+      description: >-
+        An array of strings containing the IPv4 addresses, IPv6 addresses, IPv4
+        CIDRs, and/or IPv6 CIDRs to which the firewall will allow traffic.
+      example:
+        - '1.2.3.4'
+        - '18.0.0.0/8'
+
+    droplet_ids:
+      type: array
+      items:
+        type: integer
+      description: >-
+        An array containing the IDs of the Droplets to which the firewall will
+        allow traffic.
+      example:
+        - 8043964
+
+    load_balancer_uids:
+      type: array
+      items:
+        type: string
+      description: >-
+        An array containing the IDs of the load balancers to which the firewall
+        will allow traffic.
+      example:
+        - 4de7ac8b-495b-4884-9a69-1050c6793cd6
+
+    kubernetes_ids:
+      type: array
+      items:
+        type: string
+      description: >-
+        An array containing the IDs of the Kubernetes clusters to which the firewall
+        will allow traffic.
+      example:
+        - 41b74c5d-9bd0-5555-5555-a57c495b81a3
+
+    tags:
+      allOf:
+        - $ref: '../../../shared/attributes/tags_array.yml'
+        - description: >-
+            An array containing the names of Tags corresponding to groups of
+            Droplets to which the firewall will allow traffic.
+          example:
+            - frontend
+
+firewall_rules:
+  type: object
+
+  properties:
+    inbound_rules:
+      nullable: true
+      type: array
+      items:
+        allOf:
+          - $ref: '#/firewall_rule_base'
+          - properties:
+              sources:
+                allOf:
+                  - $ref: '#/firewall_rule_target'
+                  - description: >-
+                      An object specifying locations from which inbound traffic
+                      will be accepted.
+            required:
+              - sources
+
+    outbound_rules:
+      nullable: true
+      type: array
+      items:
+        allOf:
+          - $ref: '#/firewall_rule_base'
+          - properties:
+              destinations:
+                allOf:
+                  - $ref: '#/firewall_rule_target'
+                  - description: >-
+                      An object specifying locations to which outbound
+                      traffic that will be allowed.
+            required:
+              - destinations

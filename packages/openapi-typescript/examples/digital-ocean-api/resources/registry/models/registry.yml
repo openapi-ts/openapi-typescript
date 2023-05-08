@@ -1,0 +1,44 @@
+type: object
+
+properties:
+  name:
+    type: string
+    maxLength: 63
+    pattern: '^[a-z0-9-]{1,63}$'
+    example: example
+    description: A globally unique name for the container registry. Must be
+      lowercase and be composed only of numbers, letters and `-`, up to a limit
+      of 63 characters.
+
+  created_at:
+    type: string
+    format: date-time
+    readOnly: true
+    example: '2020-03-21T16:02:37Z'
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the registry was created.
+
+  region:
+    type: string
+    example: fra1
+    description: Slug of the region where registry data is stored
+
+  storage_usage_bytes:
+    type: integer
+    readOnly: true
+    example: 29393920
+    description: The amount of storage used in the registry in bytes.
+
+  storage_usage_bytes_updated_at:
+    type: string
+    format: date-time
+    readOnly: true
+    example: '2020-11-04T21:39:49.530562231Z'
+    description: The time at which the storage usage was updated. Storage usage
+      is calculated asynchronously, and may not immediately reflect pushes to
+      the registry.
+
+  subscription:
+    allOf:
+    - readOnly: true
+    - $ref: 'subscription.yml'

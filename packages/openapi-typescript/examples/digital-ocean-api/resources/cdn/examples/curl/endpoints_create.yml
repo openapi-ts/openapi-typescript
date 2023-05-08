@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"origin": "static-images.nyc3.digitaloceanspaces.com","certificate_id": "892071a0-bb95-49bc-8021-3afd67a210bf","custom_domain": "static.example.com","ttl": 3600}' \
+    "https://api.digitalocean.com/v2/cdn/endpoints"

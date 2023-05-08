@@ -1,0 +1,141 @@
+type: object
+
+properties:
+  id:
+    type: string
+    format: uuid
+    example: 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+    description: A unique ID that can be used to identify and reference a database cluster.
+    readOnly: true
+  name:
+    type: string
+    example: backend
+    description: A unique, human-readable name referring to a database cluster.
+  engine:
+    type: string
+    example: mysql
+    enum:
+      - pg
+      - mysql
+      - redis
+      - mongodb
+    description: >-
+      A slug representing the database engine used for the cluster. The possible values
+      are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, and "mongodb" for MongoDB.
+  version:
+    type: string
+    example: '8'
+    description: A string representing the version of the database engine in use for the cluster.
+  semantic_version:
+    type: string
+    example: '8.0.28'
+    description:  A string representing the semantic version of the database engine in use for the cluster.
+    readOnly: true
+  num_nodes:
+    type: integer
+    example: 2
+    description: The number of nodes in the database cluster.
+  size:
+    type: string
+    example: db-s-2vcpu-4gb
+    description: The slug identifier representing the size of the nodes in the database cluster.
+  region:
+    type: string
+    example: nyc3
+    description: The slug identifier for the region where the database cluster is located.
+  status:
+    type: string
+    enum:
+      - creating
+      - online
+      - resizing
+      - migrating
+      - forking
+    example: creating
+    description: A string representing the current status of the database cluster.
+    readOnly: true
+  created_at:
+    type: string
+    format: date-time
+    example: 2019-01-11T18:37:36Z
+    description:  >-
+      A time value given in ISO8601 combined date and time format that represents
+      when the database cluster was created.
+    readOnly: true
+  private_network_uuid:
+    type: string
+    pattern: '^$|[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}'
+    example: d455e75d-4858-4eec-8c95-da2f0a5f93a7
+    description: >-
+      A string specifying the UUID of the VPC to which the database cluster will be
+      assigned. If excluded, the cluster when creating a new database cluster, it will
+      be assigned to your account's default VPC for the region.
+  tags:
+    type: array
+    items:
+      type: string
+    example:
+     - production
+    nullable: true
+    description: >-
+      An array of tags that have been applied to the database cluster.
+  db_names:
+    type: array
+    items:
+      type: string
+    example:
+      - doadmin
+    nullable: true
+    readOnly: true
+    description: >-
+      An array of strings containing the names of databases created in the
+      database cluster.
+  connection:
+    allOf:
+    - $ref: './database_connection.yml'
+    - readOnly: true
+  private_connection:
+    allOf:
+    - $ref: './database_connection.yml'
+    - readOnly: true
+  users:
+    type: array
+    nullable: true
+    items:
+      $ref: './database_user.yml'
+    readOnly: true
+  maintenance_window:
+    allOf:
+    - $ref: './database_maintenance_window.yml'
+    - readOnly: true
+  project_id:
+    type: string
+    format: uuid
+    example: 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+    description: The ID of the project that the database cluster is assigned to. If excluded when creating a new database cluster, it will be assigned to your default project.
+  rules:
+    type: array
+    items:
+      $ref: './firewall_rule.yml'
+  version_end_of_life:
+    type: string
+    example: '2023-11-09T00:00:00Z'
+    readOnly: true
+    description: >-
+      A timestamp referring to the date when the particular version will no longer be supported. If null, the version
+      does not have an end of life timeline.
+  version_end_of_availability:
+    type: string
+    example: '2023-05-09T00:00:00Z'
+    readOnly: true
+    description: >-
+      A timestamp referring to the date when the particular version will no longer be available for creating new
+      clusters. If null, the version does not have an end of availability timeline.
+
+
+required:
+  - name
+  - engine
+  - num_nodes
+  - size
+  - region

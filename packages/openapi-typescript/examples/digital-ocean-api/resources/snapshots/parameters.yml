@@ -1,0 +1,27 @@
+snapshot_resource_type:
+  in: query
+  name: resource_type
+  description: Used to filter snapshots by a resource type.
+  required: false
+  schema:
+      type: string
+      enum:
+        - droplet
+        - volume
+  example: droplet
+
+snapshot_id:
+  in: path
+  name: snapshot_id
+  required: true
+  description: Either the ID of an existing snapshot. This will be an integer for
+    a Droplet snapshot or a string for a volume snapshot.
+  schema:
+    anyOf:
+    - type: integer
+      description: The ID of a Droplet snapshot.
+      example: 6372321
+    - type: string
+      description: The ID of a volume snapshot.
+      example: fbe805e8-866b-11e6-96bf-000f53315a41
+  example: 6372321

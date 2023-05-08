@@ -1,0 +1,12 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  cluster = DropletKit::KubernetesCluster.new(
+    name: 'foo',
+    tags: ['staging', 'web-team']
+  )
+
+  client.kubernetes_clusters.update(cluster, id: 'bd5f5959-5e1e-4205-a714-a914373942af')

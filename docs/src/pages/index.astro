@@ -1,0 +1,59 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout title="openapi-typescript">
+  <p>Tools for consuming OpenAPI schemas in TypeScript.</p>
+  <div class="selection">
+    <a class="lib lib--ts" href="/introduction">
+      <img src="/assets/openapi-ts.svg" />
+      <span>Convert OpenAPI schemas to TypeScript types</span>
+    </a>
+    <a class="lib lib--fetch" href="/openapi-fetch">
+      <img src="/assets/openapi-fetch.svg" />
+      <span>Ultra-fast, type-safe fetching using your OpenAPI schema</span>
+    </a>
+  </div>
+</MainLayout>
+
+<style lang="scss">
+  .selection {
+    border-top: 1px solid hsla(var(--color-gray-80), 1);
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 2.5rem !important;
+    padding-top: 1.5rem;
+  }
+
+  .lib {
+    align-items: flex-start;
+    border-radius: 1rem;
+    border: 3px solid transparent;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.125rem;
+    gap: 1rem;
+    line-height: 1.5;
+    padding: 1rem;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    img {
+      width: 12rem;
+      height: auto;
+    }
+
+    &--ts:hover {
+      border-color: hsla(var(--color-blue), 1);
+    }
+
+    &--fetch:hover {
+      border-color: hsla(var(--color-green), 1);
+    }
+  }
+</style>

@@ -1,0 +1,39 @@
+type: object
+
+properties:
+  registry_name:
+    type: string
+    example: example
+    description: The name of the container registry.
+
+  repository:
+    type: string
+    example: repo-1
+    description: The name of the repository.
+
+  tag:
+    type: string
+    example: latest
+    description: The name of the tag.
+
+  manifest_digest:
+    type: string
+    example: sha256:cb8a924afdf0229ef7515d9e5b3024e23b3eb03ddbba287f4a19c6ac90b8d221
+    description: The digest of the manifest associated with the tag.
+
+  compressed_size_bytes:
+    type: integer
+    example: 2803255
+    description: The compressed size of the tag in bytes.
+
+  size_bytes:
+    type: integer
+    example: 5861888
+    description: The uncompressed size of the tag in bytes (this size is
+      calculated asynchronously so it may not be immediately available).
+
+  updated_at:
+    type: string
+    format: date-time
+    example: '2020-04-09T23:54:25Z'
+    description: The time the tag was last updated.

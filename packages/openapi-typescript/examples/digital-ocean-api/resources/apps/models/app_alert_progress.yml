@@ -1,0 +1,7 @@
+properties:
+  steps:
+    title: Steps of an alert's progress.
+    type: array
+    items:
+      $ref: app_alert_progress_step.yml
+type: object

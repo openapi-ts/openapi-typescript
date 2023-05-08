@@ -1,0 +1,27 @@
+description: A JSON object with a key of `droplets`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            droplets:
+              type: array
+              items:
+                $ref: '../models/droplet.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+    examples:
+      All Droplets:
+        $ref: 'examples.yml#/droplets_all'
+      Droplets Filtered By Tag:
+        $ref: 'examples.yml#/droplets_tagged'

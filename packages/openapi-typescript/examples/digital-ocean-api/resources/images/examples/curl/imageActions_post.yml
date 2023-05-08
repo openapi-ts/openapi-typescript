@@ -1,0 +1,15 @@
+lang: cURL
+source: |-
+  # Transfer an Existing Image
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"transfer","region":"nyc2"}' \
+    "https://api.digitalocean.com/v2/images/7938269/actions"
+
+  # Convert an Image into a Snapshot
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"convert"}' \
+    "https://api.digitalocean.com/v2/images/7938291/actions"

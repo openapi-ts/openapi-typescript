@@ -1,0 +1,185 @@
+inbound_private_droplet_bandwidth:
+  value:
+    status: success
+    data:
+      resultType: matrix
+      result:
+      - metric:
+          direction: inbound
+          host_id: '222651441'
+          interface: private
+        values:
+        - - 1634052360
+          - '0.016600450090265357'
+        - - 1634052480
+          - '0.015085955677299055'
+        - - 1634052600
+          - '0.014941163855322308'
+        - - 1634052720
+          - '0.016214285714285712'
+
+inbound_public_droplet_bandwidth:
+  value:
+    status: success
+    data:
+      resultType: matrix
+      result:
+      - metric:
+          direction: inbound
+          host_id: '222651441'
+          interface: public
+        values:
+        - - 1634052360
+          - '0.016600450090265357'
+        - - 1634052480
+          - '0.015085955677299055'
+        - - 1634052600
+          - '0.014941163855322308'
+        - - 1634052720
+          - '0.016214285714285712'
+
+outbound_private_droplet_bandwidth:
+  value:
+    status: success
+    data:
+      resultType: matrix
+      result:
+      - metric:
+          direction: outbound
+          host_id: '222651441'
+          interface: private
+        values:
+        - - 1634052360
+          - '0.016600450090265357'
+        - - 1634052480
+          - '0.015085955677299055'
+        - - 1634052600
+          - '0.014941163855322308'
+        - - 1634052720
+          - '0.016214285714285712'
+
+outbound_public_droplet_bandwidth:
+  value:
+    status: success
+    data:
+      resultType: matrix
+      result:
+      - metric:
+          direction: outbound
+          host_id: '222651441'
+          interface: public
+        values:
+        - - 1634052360
+          - '0.016600450090265357'
+        - - 1634052480
+          - '0.015085955677299055'
+        - - 1634052600
+          - '0.014941163855322308'
+        - - 1634052720
+          - '0.016214285714285712'
+
+droplet_cpu:
+  value:
+    status: success
+    data:
+      resultType: matrix
+      result:
+      - metric:
+          host_id: '222651441'
+          mode: idle
+        values:
+        - - 1635386880
+          - '122901.18'
+        - - 1635387000
+          - '123020.92'
+        - - 1635387120
+          - '123140.8'
+      - metric:
+          host_id: '222651441'
+          mode: iowait
+        values:
+        - - 1635386880
+          - '14.99'
+        - - 1635387000
+          - '15.01'
+        - - 1635387120
+          - '15.01'
+      - metric:
+          host_id: '222651441'
+          mode: irq
+        values:
+        - - 1635386880
+          - '0'
+        - - 1635387000
+          - '0'
+        - - 1635387120
+          - '0'
+      - metric:
+          host_id: '222651441'
+          mode: nice
+        values:
+        - - 1635386880
+          - '66.35'
+        - - 1635387000
+          - '66.35'
+        - - 1635387120
+          - '66.35'
+      - metric:
+          host_id: '222651441'
+          mode: softirq
+        values:
+        - - 1635386880
+          - '2.13'
+        - - 1635387000
+          - '2.13'
+        - - 1635387120
+          - '2.13'
+      - metric:
+          host_id: '222651441'
+          mode: steal
+        values:
+        - - 1635386880
+          - '7.89'
+        - - 1635387000
+          - '7.9'
+        - - 1635387120
+          - '7.91'
+      - metric:
+          host_id: '222651441'
+          mode: system
+        values:
+        - - 1635386880
+          - '140.09'
+        - - 1635387000
+          - '140.2'
+        - - 1635387120
+          - '140.23'
+      - metric:
+          host_id: '222651441'
+          mode: user
+        values:
+        - - 1635386880
+          - '278.57'
+        - - 1635387000
+          - '278.65'
+        - - 1635387120
+          - '278.69'
+
+droplet_filesystem:
+  value:
+    status: success
+    data:
+      resultType: matrix
+      result:
+      - metric:
+          device: "/dev/vda1"
+          fstype: ext4
+          host_id: '222651441'
+          mountpoint: "/"
+        values:
+        - - 1635386880
+          - '25832407040'
+        - - 1635387000
+          - '25832407040'
+        - - 1635387120
+          - '25832407040'

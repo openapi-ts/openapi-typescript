@@ -1,0 +1,34 @@
+description: A JSON object that has a key called `kernels`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            kernels:
+              type: array
+              items:
+                $ref: '../models/kernel.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+    example:
+      kernels:
+        - id: 7515
+          name: DigitalOcean GrubLoader v0.2 (20160714)
+          version: 2016.07.13-DigitalOcean_loader_Ubuntu
+      links:
+        pages:
+          next: https://api.digitalocean.com/v2/droplets/3164444/kernels?page=2&per_page=1
+          last: https://api.digitalocean.com/v2/droplets/3164444/kernels?page=171&per_page=1
+      meta:
+        total: 171

@@ -1,0 +1,28 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  cluster = DropletKit::KubernetesCluster.new(
+    name: 'prod-cluster-01',
+    region: 'nyc1',
+    version: '1.14.1-do.4',
+    tags: ['production', 'web-team'],
+    node_pools: [
+      {
+        name: 'frontend-pool',
+        size: 's-2vcpu-2gb',
+        count: 3,
+        tags: ['frontend'],
+        labels: {service: 'frontend', priority: 'high'}
+      },
+      {
+        name: 'backend-pool',
+        size: 'c-4',
+        count: 2
+      }
+    ]
+  )
+
+  client.kubernetes_clusters.create(cluster)

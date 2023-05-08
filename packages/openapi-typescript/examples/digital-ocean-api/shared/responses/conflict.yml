@@ -1,0 +1,17 @@
+description: Conflict
+
+headers:
+  ratelimit-limit:
+    $ref: '../headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../models/error.yml'
+    example:
+      id: conflict
+      message: The request could not be completed due to a conflict.

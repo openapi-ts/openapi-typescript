@@ -1,0 +1,9 @@
+default: UNKNOWN
+enum:
+- UNKNOWN
+- PENDING
+- RUNNING
+- ERROR
+- SUCCESS
+type: string
+example: SUCCESS

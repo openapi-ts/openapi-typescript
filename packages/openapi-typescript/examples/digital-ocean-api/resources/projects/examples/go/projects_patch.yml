@@ -1,0 +1,21 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      updateReq := &godo.UpdateProjectRequest{
+        Environment: "Staging",
+      }
+
+      client.Projects.Update(ctx, "4e1bfbc3-dc3e-41f2-a18f-1b4d7ba71679", updateReq)
+  }

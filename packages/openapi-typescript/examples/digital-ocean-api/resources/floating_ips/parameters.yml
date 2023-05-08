@@ -1,0 +1,10 @@
+floating_ip:
+  in: path
+  name: floating_ip
+  description: A floating IP address.
+  required: true
+  schema:
+    type: string
+    format: ipv4
+    minimum: 1
+  example: 45.55.96.47

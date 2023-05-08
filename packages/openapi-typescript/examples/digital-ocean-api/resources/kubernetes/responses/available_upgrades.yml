@@ -1,0 +1,28 @@
+description: |
+  The response will be a JSON object with a key called
+  `available_upgrade_versions`. The value of this will be an array of objects,
+  representing the upgrade versions currently available for this cluster.
+
+  If the cluster is up-to-date (i.e. there are no upgrades currently available)
+  `available_upgrade_versions` will be `null`.
+
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        available_upgrade_versions:
+          type: array
+          nullable: true
+          items:
+            $ref: '../models/options.yml#/kubernetes_version'
+

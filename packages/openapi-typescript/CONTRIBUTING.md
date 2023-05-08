@@ -1,0 +1,136 @@
+# Contributing
+
+Thanks for being willing to contribute! 🙏
+
+**Working on your first Pull Request (PR)?** You can learn how from this _free_ series [How to Contribute to an Open Source Project on GitHub](https://app.egghead.io/playlists/how-to-contribute-to-an-open-source-project-on-github)
+
+## Open issues
+
+Please check out the [the open issues](https://github.com/drwpow/openapi-typescript/issues). Issues labelled [**Help Wanted**](https://github.com/drwpow/openapi-typescript/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) and [**Good First Issue**](https://github.com/drwpow/openapi-typescript/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) are especially good to help with.
+
+Contributing doesn’t have to be in code! Simply answering questions in open issues, or providing workarounds, is just as important a contribution as making pull requests.
+
+## Opening a Pull Request
+
+Pull requests are **welcome** for this repo! Bugfixes will always be accepted, though in some cases some small changes may be requested.
+
+However, if adding a feature or breaking change, please **open an issue first to discuss.** This ensures no time or work is wasted writing code that won’t be accepted to the project (see [Project Goals](./README.md#-project-goals)). Undiscussed feature work may be rejected at the discretion of the maintainers.
+
+### Setup
+
+1. Install [pnpm](https://pnpm.io/)
+2. [Fork this repo](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and clone your copy locally
+3. Run `pnpm i` to install dependencies
+
+### Writing code
+
+Create a new branch for your PR with `git checkout -b your-branch-name`. Add the relevant code as well as docs and tests. When you push everything up (`git push`), navigate back to your repo GitHub and you should see a prompt to open a new PR.
+
+While best practices for commit messages are encouraged (e.g. start with an imperative verb, keep it short, use the body if needed), this repo doesn’t follow any specific guidelines like [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Clarity is favored over strict rules. Changelogs are generated separately from git (see [the Changelogs section](#changelogs)
+
+When working locally, run:
+
+```bash
+npm run dev
+```
+
+This will compile the code as you change automatically.
+
+### Writing the PR
+
+**Please fill out the template!** It’s a very lightweight template 🙂.
+
+### Use Test-driven Development!
+
+Contributing to this library is hard-bordering-on-impossible without a [test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development) strategy. If you’re new to this, the basic workflow is:
+
+1. First, write a [test](#testing) that fully outlines what you’d _like_ the output to be.
+2. Next, make sure this test **fails** when you run `npm test` (yes, _fails!_)
+3. Then, make changes to `src/` until the tests pass.
+
+Reasoning about code generation can be quite difficult until you “invert your thinking” and approach it output-first. Adopting TDD can turn very unclear/abstract problems into concrete ones with clear steps to resolution.
+
+✨ When starting any task, **write a failing test first!** ✨
+
+#### Updating snapshot tests
+
+To add a schema as a snapshot test, modify the [/scripts/download-schemas.ts](/scripts/download-schemas.ts) script with a path to download. There are both single-file schemas as well as multi-file schemas.
+
+### Generating types
+
+It may be surprising to hear, but _generating TypeScript types from OpenAPI is opinionated!_ Even though TypeScript and OpenAPI are very close relatives, both being JavaScript/JSON-based, they are nonetheless 2 different languages and thus there is always some room for interpretation. Likewise, some parts of the OpenAPI specification can be ambiguous on how they’re used, and what the expected type outcomes may be (though this is generally for more advanced usecasees, such as specific implementations of `anyOf` as well as [discriminator](https://spec.openapis.org/oas/latest.html#discriminatorObject) and complex polymorphism).
+
+All that said, this library should strive to generate _the most predictable_ TypeScript output for a given schema. And to achieve that, it always helps to open an [issue](https://github.com/drwpow/openapi-typescript/issues) or [discussion](https://github.com/drwpow/openapi-typescript/discussions) to gather feedback.
+
+### Opening a PR
+
+When opening a pull request, make sure all of the following is done:
+
+- [x] Tests are added
+- [x] Build passes (`npm run build`)
+- [x] Tests pass (`npm test`)
+- [x] Linting passes (`npm run lint`)
+
+Lastly, be sure to fill out the complete PR template!
+
+### Changelogs
+
+The changelog is generated via [changesets](https://github.com/changesets/changesets), and is separate from Git commit messages and pull request titles. To write a human-readable changelog for your changes, run:
+
+```
+npx changeset
+```
+
+This will ask if it’s a `patch`, `minor`, or `major` change ([semver](https://semver.org/)), along with a plain description of what you did. Commit this new file along with the rest of your PR, and during the next release this will go into the official changelog!
+
+## Testing
+
+This library uses [Vitest](https://vitest.dev/) for testing. There’s a great [VS Code extension](https://marketplace.visualstudio.com/items?itemName=ZixuanChen.vitest-explorer) you can optionally use if you’d like in-editor debugging tools.
+
+### Running tests
+
+💡 The tests test **the production build** in `dist/`. Be sure to run `npm run build` before running tests (or keep `npm run dev` running in the background, which compiles as-you-work)!
+
+To run the entire test suite once, run:
+
+```bash
+npm test
+```
+
+To run an individual test:
+
+```bash
+npm test -- [partial filename]
+```
+
+To start the entire test suite in watch mode:
+
+```bash
+npx vitest
+```
+
+### Running linting
+
+To run ESLint on the project:
+
+```bash
+npm run lint
+```
+
+### Updating snapshot examples
+
+⚠️ This may break tests if schemas have been updated
+
+```bash
+npm run update:examples
+```
+
+### Unit tests or snapshot tests?
+
+This library has both unit tests (tests that test a tiny part of a schema) and snapshot tests (tests that run over an entire, complete schema). When opening a PR, the former are more valuable than the latter, and are always required. However, updating snapshot tests can help with the following:
+
+- Fixing bugs that deal with multiple schemas with remote `$ref`s
+- Fixing Node.js or OS-related bugs
+- Adding a CLI option that changes the entire output
+
+For most PRs, **snapshot tests can be avoided.** But for scenarios similar to the ones mentioned, they can ensure everything is working as expected.

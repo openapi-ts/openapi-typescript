@@ -1,0 +1,9 @@
+default: UNKNOWN
+enum:
+- UNKNOWN
+- PENDING
+- CONFIGURING
+- ACTIVE
+- ERROR
+type: string
+example: ACTIVE

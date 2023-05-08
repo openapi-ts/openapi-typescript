@@ -1,0 +1,15 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  rule = DropletKit::ForwardingRule.new(
+    entry_protocol: 'tcp',
+    entry_port: 3306,
+    target_protocol: 'tcp',
+    target_port: 3306,
+    certificate_id: '',
+    tls_passthrough: false
+  )
+  client.load_balancers.add_forwarding_rules([rule], id: '4de7ac8b-495b-4884-9a69-1050c6793cd6')

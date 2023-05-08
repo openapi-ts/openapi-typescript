@@ -1,0 +1,4 @@
+properties:
+  tier:
+    $ref: apps_tier.yml
+type: object

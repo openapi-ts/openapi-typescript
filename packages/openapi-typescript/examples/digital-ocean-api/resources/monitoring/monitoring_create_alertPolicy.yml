@@ -1,0 +1,71 @@
+operationId: monitoring_create_alertPolicy
+
+summary: Create Alert Policy
+
+description: To create a new alert, send a POST request to `/v2/monitoring/alerts`.
+
+tags:
+  - Monitoring
+
+responses:
+  '200':
+    $ref: 'responses/alert_policy_response.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+requestBody:
+  description: |
+    The `type` field dictates what type of entity that the alert policy applies to and hence what type of entity is passed in the `entities` array. If both the `tags` array and `entities` array are empty the alert policy applies to all entities of the relevant type that are owned by the user account. Otherwise the following table shows the valid entity types for each type of alert policy:
+
+    Type | Description | Valid Entity Type
+    -----|-------------|--------------------
+    `v1/insights/droplet/memory_utilization_percent` | alert on the percent of memory utilization | Droplet ID
+    `v1/insights/droplet/disk_read` | alert on the rate of disk read I/O in MBps | Droplet ID
+    `v1/insights/droplet/load_5` | alert on the 5 minute load average | Droplet ID
+    `v1/insights/droplet/load_15` | alert on the 15 minute load average | Droplet ID
+    `v1/insights/droplet/disk_utilization_percent` | alert on the percent of disk utilization | Droplet ID
+    `v1/insights/droplet/cpu` | alert on the percent of CPU utilization | Droplet ID
+    `v1/insights/droplet/disk_write` | alert on the rate of disk write I/O in MBps | Droplet ID
+    `v1/insights/droplet/public_outbound_bandwidth` | alert on the rate of public outbound bandwidth in Mbps | Droplet ID
+    `v1/insights/droplet/public_inbound_bandwidth` | alert on the rate of public inbound bandwidth in Mbps | Droplet ID
+    `v1/insights/droplet/private_outbound_bandwidth` | alert on the rate of private outbound bandwidth in Mbps | Droplet ID
+    `v1/insights/droplet/private_inbound_bandwidth` | alert on the rate of private inbound bandwidth in Mbps | Droplet ID
+    `v1/insights/droplet/load_1` | alert on the 1 minute load average | Droplet ID
+    `v1/insights/lbaas/avg_cpu_utilization_percent`|alert on the percent of CPU utilization|load balancer ID
+    `v1/insights/lbaas/connection_utilization_percent`|alert on the percent of connection utilization|load balancer ID
+    `v1/insights/lbaas/droplet_health`|alert on Droplet health status changes|load balancer ID
+    `v1/insights/lbaas/tls_connections_per_second_utilization_percent`|alert on the percent of TLS connections per second utilization|load balancer ID
+    `v1/insights/lbaas/increase_in_http_error_rate_percentage_5xx`|alert on the percent increase of 5xx level http errors over 5m|load balancer ID
+    `v1/insights/lbaas/increase_in_http_error_rate_percentage_4xx`|alert on the percent increase of 4xx level http errors over 5m|load balancer ID
+    `v1/insights/lbaas/increase_in_http_error_rate_count_5xx`|alert on the count of 5xx level http errors over 5m|load balancer ID
+    `v1/insights/lbaas/increase_in_http_error_rate_count_4xx`|alert on the count of 4xx level http errors over 5m|load balancer ID
+    `v1/insights/lbaas/high_http_request_response_time`|alert on high average http response time|load balancer ID
+    `v1/insights/lbaas/high_http_request_response_time_50p`|alert on high 50th percentile http response time|load balancer ID
+    `v1/insights/lbaas/high_http_request_response_time_95p`|alert on high 95th percentile http response time|load balancer ID
+    `v1/insights/lbaas/high_http_request_response_time_99p`|alert on high 99th percentile http response time|load balancer ID
+    `v1/dbaas/alerts/load_15_alerts` | alert on 15 minute load average across the database cluster | database cluster UUID
+    `v1/dbaas/alerts/memory_utilization_alerts` | alert on the percent memory utilization average across the database cluster | database cluster UUID
+    `v1/dbaas/alerts/disk_utilization_alerts` | alert on the percent disk utilization average across the database cluster | database cluster UUID
+    `v1/dbaas/alerts/cpu_alerts` | alert on the percent CPU usage average across the database cluster | database cluster UUID
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: 'models/alert_policy_request.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/monitoring_create_alertPolicy.yml'
+
+security:
+  - bearer_auth:
+    - 'write'

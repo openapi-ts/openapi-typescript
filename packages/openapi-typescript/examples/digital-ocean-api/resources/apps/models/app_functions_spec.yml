@@ -1,0 +1,51 @@
+
+
+type: object
+properties:
+  cors:
+    $ref: apps_cors_policy.yml
+
+  routes:
+    type: array
+    description: A list of HTTP routes that should be routed to this component.
+    items:
+      $ref: app_route_spec.yml
+      
+  name:
+      type: string
+      maxLength: 32
+      minLength: 2
+      pattern: ^[a-z][a-z0-9-]{0,30}[a-z0-9]$
+      description: The name. Must be unique across all components within the same app.
+      example: api
+
+  source_dir:
+    type: string
+    description: An optional path to the working directory to use for the build. For
+      Dockerfile builds, this will be used as the build context. Must be relative
+      to the root of the repo.
+    example: path/to/dir
+  alerts:
+    type: array
+    items:
+      $ref: app_alert_spec.yml
+  envs:
+    type: array
+    items:
+      $ref: app_variable_definition.yml
+    description: A list of environment variables made available to the component.
+
+  git:
+    $ref: apps_git_source_spec.yml
+
+  github:
+    $ref: apps_github_source_spec.yml
+
+  gitlab:
+    $ref: apps_gitlab_source_spec.yml
+
+  log_destinations:
+    $ref: app_log_destination_definition.yml
+
+required:
+- name

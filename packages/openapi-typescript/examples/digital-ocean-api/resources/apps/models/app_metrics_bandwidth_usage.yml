@@ -1,0 +1,12 @@
+type: object
+properties:
+  app_bandwidth_usage:
+    type: array
+    items:
+      $ref: ../models/app_metrics_bandwidth_usage_details.yml
+    description: 'A list of bandwidth usage details by app.'
+  date:
+    type: string
+    format: date-time
+    description: 'The date for the metrics data.'
+    example: 2023-01-17T00:00:00Z

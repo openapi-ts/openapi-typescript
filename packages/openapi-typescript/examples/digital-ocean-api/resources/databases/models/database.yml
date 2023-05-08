@@ -1,0 +1,10 @@
+type: object
+
+properties:
+  name:
+    type: string
+    example: alpha
+    description: The name of the database.
+
+required:
+  - name

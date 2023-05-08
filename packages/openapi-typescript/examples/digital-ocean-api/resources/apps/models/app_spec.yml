@@ -1,0 +1,78 @@
+title: AppSpec
+type: object
+description: The desired configuration of an application.
+properties:
+  name:
+    description: The name of the app. Must be unique across all apps in the same account.
+    maxLength: 32
+    minLength: 2
+    pattern: ^[a-z][a-z0-9-]{0,30}[a-z0-9]$
+    type: string
+    example: web-app-01
+
+  region:
+    description: 'The slug form of the geographical origin of the app. Default: `nearest
+      available`'
+    type: string
+    enum:
+    - ams
+    - nyc
+    - fra
+    - sfo
+    - sgp
+    - blr
+    - tor
+    - lon
+    - syd
+    example: nyc
+
+  domains:
+    description: A set of hostnames where the application will be available.
+    type: array
+    items:
+      $ref: app_domain_spec.yml
+
+  services:
+    description: Workloads which expose publicly-accessible HTTP services.
+    type: array
+    items:
+      $ref: app_service_spec.yml
+
+  static_sites:
+    description: Content which can be rendered to static web assets.
+    type: array
+    items:
+      $ref: app_static_site_spec.yml
+
+  jobs:
+    description: Pre and post deployment workloads which do not expose publicly-accessible
+      HTTP routes.
+    type: array
+    items:
+      $ref: app_job_spec.yml
+
+  workers:
+    description: Workloads which do not expose publicly-accessible HTTP services.
+    items:
+      $ref: app_worker_spec.yml
+    type: array
+
+  functions:
+    description: Workloads which expose publicly-accessible HTTP services via Functions Components.
+    items:
+      $ref: app_functions_spec.yml
+    type: array
+
+  databases:
+    description: |-
+      Database instances which can provide persistence to workloads within the
+      application.
+    type: array
+    items:
+      $ref: app_database_spec.yml
+
+  ingress:
+    $ref: app_ingress_spec.yml
+
+required:
+- name

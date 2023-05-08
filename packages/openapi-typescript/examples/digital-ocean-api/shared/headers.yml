@@ -1,0 +1,51 @@
+content-disposition:
+  description: >-
+    Indicates if the content is expected to be displayed *inline* in the 
+    browser, that is, as a Web page or as part of a Web page, or as an 
+    *attachment*, that is downloaded and saved locally.
+  schema:
+    type: string
+  example: >-
+    attachment; filename="DigitalOcean Invoice 2020 Jul (6173678-418071234).csv"
+
+ratelimit-limit:
+  schema:
+    type: integer
+  example: 5000
+  description: >-
+    The default limit on number of requests that can be made per hour and per minute.
+    Current rate limits are 5000 requests per hour and 250 requests per minute.
+
+ratelimit-remaining:
+  schema:
+    type: integer
+  example: 4816
+  description: >-
+    The number of requests in your hourly quota that remain before you hit your request limit.
+    See https://developers.digitalocean.com/documentation/v2/#rate-limit for information about
+    how requests expire.
+
+ratelimit-reset:
+  schema:
+    type: integer
+  example: 1444931833
+  description: >-
+    The time when the oldest request will expire. The value is given in Unix epoch time.
+    See https://developers.digitalocean.com/documentation/v2/#rate-limit for information about
+    how requests expire.
+
+x-request-id:
+  description: >-
+    Optionally, some endpoints may include a request ID that should be provided 
+    when reporting bugs or opening support tickets to help identify the issue.
+  schema:
+    type: string
+    format: uuid
+  example: 515850a0-a812-50bf-aa3c-d0d21d287e40
+
+content-type:
+  description: >-
+    The type of data that is returned from a request. 
+  schema:
+    type: string
+  example: application/json; charset=utf-8

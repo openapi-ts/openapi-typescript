@@ -1,0 +1,7 @@
+default: UNSPECIFIED_OPERATOR
+enum:
+- UNSPECIFIED_OPERATOR
+- GREATER_THAN
+- LESS_THAN
+type: string
+example: GREATER_THAN

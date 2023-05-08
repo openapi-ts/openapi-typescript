@@ -1,0 +1,33 @@
+type: object
+
+allOf:
+  - $ref: 'image_update.yml'
+  - properties:
+      url:
+        type: string
+        description: >-
+          A URL from which the custom Linux virtual machine image may be retrieved. 
+          The image it points to must be in the raw, qcow2, vhdx, vdi, or vmdk format. 
+          It may be compressed using gzip or bzip2 and must be smaller than 100 GB after being decompressed.
+        example: http://cloud-images.ubuntu.com/minimal/releases/bionic/release/ubuntu-18.04-minimal-cloudimg-amd64.img
+
+      region:
+        $ref: '../../../shared/attributes/region_slug.yml'
+      
+      tags:
+        $ref: '../../../shared/attributes/tags_array.yml'
+
+required:
+  - name
+  - url
+  - region
+
+example:
+  name: ubuntu-18.04-minimal
+  url: http://cloud-images.ubuntu.com/minimal/releases/bionic/release/ubuntu-18.04-minimal-cloudimg-amd64.img
+  distribution: Ubuntu
+  region: nyc3
+  description: Cloud-optimized image w/ small footprint
+  tags:
+  - base-image
+  - prod

@@ -1,0 +1,17 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      deleteReq := &godo.KubernetesClusterDeleteSelectiveRequest{Volumes: []string{"ba49449a-7435-11ea-b89e-0a58ac14480f"}}, _, err := client.Kubernetes.DeleteSelective(ctx, "bd5f5959-5e1e-4205-a714-a914373942af", deleteReq)
+  }

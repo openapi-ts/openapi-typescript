@@ -1,0 +1,61 @@
+operationId: databases_add_connectionPool
+
+summary: Add a New Connection Pool (PostgreSQL)
+
+description: |
+  For PostgreSQL database clusters, connection pools can be used to allow a
+  database to share its idle connections. The popular PostgreSQL connection
+  pooling utility PgBouncer is used to provide this service. [See here for more information](https://www.digitalocean.com/docs/databases/postgresql/how-to/manage-connection-pools/)
+  about how and why to use PgBouncer connection pooling including
+  details about the available transaction modes.
+
+  To add a new connection pool to a PostgreSQL database cluster, send a POST
+  request to `/v2/databases/$DATABASE_ID/pools` specifying a name for the pool,
+  the user to connect with, the database to connect to, as well as its desired
+  size and transaction mode.
+
+tags:
+  - Databases
+
+parameters:
+  - $ref: 'parameters.yml#/database_cluster_uuid'
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: 'models/connection_pool.yml'
+      example:
+        name: backend-pool
+        mode: transaction
+        size: 10
+        db: defaultdb
+        user: doadmin
+
+responses:
+  '201':
+    $ref: 'responses/connection_pool.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/databases_add_connectionPool.yml'
+  - $ref: 'examples/go/databases_add_connectionPool.yml'
+
+security:
+  - bearer_auth:
+    - 'write'

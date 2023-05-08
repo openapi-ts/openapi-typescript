@@ -1,0 +1,30 @@
+description: The response will be a JSON object with a key called `project`. The
+  value of this will be an object with the standard project attributes
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        project:
+          $ref: '../models/project.yml#/project'
+
+      example:
+        project:
+          id: addb4547-6bab-419a-8542-76263a033cf6
+          owner_uuid: 99525febec065ca37b2ffe4f852fd2b2581895e7
+          owner_id: 258992
+          name: Default
+          description: Default project
+          purpose: Just trying out DigitalOcean
+          environment: Development
+          is_default: true
+          created_at: '2017-10-19T21:44:20Z'
+          updated_at: '2019-11-05T18:50:03Z'

@@ -1,0 +1,20 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      untagResourcesRequest := &godo.UntagResourcesRequest{
+          Resources: []Resource{{ID: "11457573", Type: "droplet"},{ID: "7555620", Type: "image"},{ID: "3d80cb72-342b-4aaa-b92e-4e4abb24a933", Type: "volume"}},
+      }
+      client.Tags.UntagResources(ctx, "awesome", untagResourcesRequest)
+  }

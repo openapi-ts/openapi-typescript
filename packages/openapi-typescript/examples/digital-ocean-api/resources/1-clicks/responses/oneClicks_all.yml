@@ -1,0 +1,26 @@
+description: A JSON object with a key of `1_clicks`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        1_clicks:
+          type: array
+          items:
+            $ref: '../models/oneClicks.yml'
+    examples:
+      All 1-Click Applications:
+        value:
+          1_clicks:
+          - slug: monitoring
+            type: kubernetes
+          - slug: wordpress-18-04
+            type: droplet

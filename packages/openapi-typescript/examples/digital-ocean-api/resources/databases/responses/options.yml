@@ -1,0 +1,123 @@
+description: A JSON string with a key of `options`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../models/options.yml'
+    example:
+      options:
+        mongodb:
+          regions:
+            - ams3
+            - blr1
+          versions:
+            - '4.4'
+            - '5.0'
+          layouts:
+            - num_nodes: 1
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+            - num_nodes: 3
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+                - db-s-2vcpu-4gb
+                - db-s-4vcpu-8gb
+        mysql:
+          regions:
+            - ams3
+            - blr1
+          versions:
+            - '8'
+          layouts:
+            - num_nodes: 1
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+            - num_nodes: 2
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+                - db-s-2vcpu-4gb
+                - db-s-4vcpu-8gb
+            - num_nodes: 3
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+                - db-s-2vcpu-4gb
+                - db-s-4vcpu-8gb
+        pg:
+          regions:
+            - ams3
+            - blr1
+          versions:
+            - '11'
+            - '12'
+            - '13'
+            - '14'
+          layouts:
+            - num_nodes: 1
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+            - num_nodes: 2
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+                - db-s-2vcpu-4gb
+                - db-s-4vcpu-8gb
+        redis:
+          regions:
+            - ams3
+            - blr1
+          versions:
+            - '6'
+          layouts:
+            - num_nodes: 1
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+            - num_nodes: 2
+              sizes:
+                - db-s-1vcpu-1gb
+                - db-s-1vcpu-2gb
+                - db-s-2vcpu-4gb
+                - db-s-4vcpu-8gb
+      version_availability:
+        redis:
+          - end_of_life: 'null'
+            end_of_availability: 'null'
+            version: '7'
+        mysql:
+          - end_of_life: 'null'
+            end_of_availability: 'null'
+            version: '8'
+        pg:
+          - end_of_life: '2023-11-09T00:00:00Z'
+            end_of_availability: '2023-05-09T00:00:00Z'
+            version: '11'
+          - end_of_life: '2024-11-14T00:00:00Z'
+            end_of_availability: '2024-05-14T00:00:00Z'
+            version: '12'
+          - end_of_life: '2025-11-13T00:00:00Z'
+            end_of_availability: '2025-05-13T00:00:00Z'
+            version: '13'
+          - end_of_life: '2026-11-12T00:00:00Z'
+            end_of_availability: '2026-05-12T00:00:00Z'
+            version: '14'
+        mongodb:
+          - end_of_life: '2024-02-01T08:00:00Z'
+            end_of_availability: 'null'
+            version: '4.4'
+          - end_of_life: '2024-10-01T07:00:00Z'
+            end_of_availability: 'null'
+            version: '5.0'

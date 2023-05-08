@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H 'Content-Type: application/json' \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name":"big-data-snapshot1475261774", "tags":["aninterestingtag"]}' \
+    "https://api.digitalocean.com/v2/volumes/82a48a18-873f-11e6-96bf-000f53315a41/snapshots"

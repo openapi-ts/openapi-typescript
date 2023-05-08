@@ -1,5 +1,0 @@
-type: object
-
-properties:
-  version:
-    $ref: './database_cluster.yml#/properties/version'

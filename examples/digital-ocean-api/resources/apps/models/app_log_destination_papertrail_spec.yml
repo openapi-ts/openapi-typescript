@@ -1,9 +1,0 @@
-type: object
-properties:
-  endpoint:
-    type: string
-    description: Papertrail syslog endpoint.
-    example: https://mypapertrailendpoint.com
-description: Papertrail configuration.
-required:
-  - endpoint

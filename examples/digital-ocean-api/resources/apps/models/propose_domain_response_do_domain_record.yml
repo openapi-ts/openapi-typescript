@@ -1,5 +1,0 @@
-properties:
-  name:
-    type: string
-    example: name
-type: object

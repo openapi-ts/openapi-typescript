@@ -1,0 +1,1587 @@
+openapi: '3.0.0'
+
+info:
+  title: DigitalOcean API
+  version: '2.0'
+  description:
+    $ref: 'description.yml#/introduction'
+
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+  contact:
+    name: DigitalOcean API Team
+    email: api-engineering@digitalocean.com
+  termsOfService: 'https://www.digitalocean.com/legal/terms-of-service-agreement/'
+
+servers:
+  - url: 'https://api.digitalocean.com'
+    description: production
+
+tags:
+  - name: 1-Click Applications
+    description: |-
+      1-Click applications are pre-built Droplet images or Kubernetes apps with software,
+      features, and configuration details already set up for you. They can be found in the
+      [DigitalOcean Marketplace](https://www.digitalocean.com/docs/marketplace).
+
+  - name: Account
+    description: Provides information about your current account.
+
+  - name: Actions
+    description: |-
+      Actions are records of events that have occurred on the resources in your account.
+      These can be things like rebooting a Droplet, or transferring an image to a new region.
+
+      An action object is created every time one of these actions is initiated. The action
+      object contains information about the current status of the action, start and complete
+      timestamps, and the associated resource type and ID.
+
+      Every action that creates an action object is available through this endpoint. Completed
+      actions are not removed from this list and are always available for querying.
+
+      **Note:** You can pass the following HTTP header with the request to have the API return
+      the `reserved_ips` stanza instead of the `floating_ips` stanza:
+
+      - `Accept: application/vnd.digitalocean.reserveip+json`
+
+  - name: Apps
+    description: |-
+      App Platform is a Platform-as-a-Service (PaaS) offering from DigitalOcean that allows
+      developers to publish code directly to DigitalOcean servers without worrying about the
+      underlying infrastructure.
+
+      Most API operations are centered around a few core object types. Following are the
+      definitions of these types. These definitions will be omitted from the operation-specific
+      documentation.
+
+      For documentation on app specifications (`AppSpec` objects), please refer to the
+      [product documentation](https://docs.digitalocean.com/products/app-platform/reference/app-spec/)).
+
+  - name: Billing
+    description: |-
+      The billing endpoints allow you to retrieve your account balance, invoices
+      and billing history.
+
+      **Balance:** By sending requests to the `/v2/customers/my/balance` endpoint, you can
+      retrieve the balance information for the requested customer account.
+
+      **Invoices:** [Invoices](https://www.digitalocean.com/docs/accounts/billing/invoices/)
+      are generated on the first of each month for every DigitalOcean
+      customer. An invoice preview is generated daily, which can be accessed
+      with the `preview` keyword in place of `$INVOICE_UUID`. To interact with
+      invoices, you will generally send requests to the invoices endpoint at
+      `/v2/customers/my/invoices`.
+
+      **Billing History:** Billing history is a record of billing events for your account.
+      For example, entries may include events like payments made, invoices
+      issued, or credits granted. To interact with invoices, you
+      will generally send requests to the invoices endpoint at
+      `/v2/customers/my/billing_history`.
+
+  - name: Block Storage
+    description: |-
+      [DigitalOcean Block Storage Volumes](https://www.digitalocean.com/docs/volumes/)
+      provide expanded storage capacity for your Droplets and can be moved
+      between Droplets within a specific region.
+
+      Volumes function as raw block devices, meaning they appear to the
+      operating system as locally attached storage which can be formatted using
+      any file system supported by the OS. They may be created in sizes from
+      1GiB to 16TiB.
+
+      By sending requests to the `/v2/volumes` endpoint, you can list, create, or
+      delete volumes as well as attach and detach them from Droplets
+
+  - name: Block Storage Actions
+    description: |-
+      Block storage actions are commands that can be given to a DigitalOcean
+      Block Storage Volume. An example would be detaching or attaching a volume
+      from a Droplet. These requests are made on the
+      `/v2/volumes/$VOLUME_ID/actions` endpoint.
+
+      An action object is returned. These objects hold the current status of the
+      requested action.
+
+  - name: CDN Endpoints
+    description: |-
+      Content hosted in DigitalOcean's object storage solution,
+      [Spaces](https://www.digitalocean.com/docs/spaces/overview/),
+      can optionally be served by our globally distributed Content Delivery
+      Network (CDN). By sending requests to `/v2/cdn/endpoints`, you can list,
+      create, or delete CDN Endpoints as well as purge cached content. To use a
+      custom subdomain to access the CDN Endpoint, provide the ID of a
+      DigitalOcean managed TLS certificate and the fully qualified domain name
+      for the custom subdomain.
+
+  - name: Certificates
+    description: |-
+      In order to perform SSL termination on load balancers, DigitalOcean offers
+      two types of [SSL certificate management](https://www.digitalocean.com/docs/accounts/security/#certificates):
+
+      * **Custom**: User-generated certificates may be uploaded to DigitalOcean
+      where they will be placed in a fully encrypted and isolated storage system.
+
+      * **Let's Encrypt**: Certificates may be automatically generated by
+      DigitalOcean utilizing an integration with Let's Encrypt, the free and
+      open certificate authority. These certificates will also be automatically
+      renewed as required.
+
+  - name: Container Registry
+    description: |-
+      DigitalOcean offers the ability for you to create a
+      [private container registry](https://www.digitalocean.com/docs/images/container-registry/quickstart/)
+      to store your Docker images for use with your Kubernetes clusters. This
+      container registry runs inside the same datacenters as your cluster,
+      ensuring reliable and performant rollout of image deployments.
+
+      You can only create one registry per DigitalOcean account, but you can use
+      that registry to create as many repositories as you wish.
+
+  - name: Databases
+    description: |-
+      DigitalOcean's [managed database service](https://www.digitalocean.com/docs/databases)
+      simplifies the creation and management of highly available database clusters. Currently, it
+      offers support for [PostgreSQL](http://www.digitalocean.com/docs/databases/postgresql/),
+      [Redis](https://www.digitalocean.com/docs/databases/redis/),
+      [MySQL](https://www.digitalocean.com/docs/databases/mysql/), and
+      [MongoDB](https://www.digitalocean.com/docs/databases/mongodb/).
+
+      By sending requests to the `/v2/databases` endpoint, you can list, create, or delete
+      database clusters as well as scale the size of a cluster, add or remove read-only replicas,
+      and manage other configuration details.
+
+      Database clusters may be deployed in a multi-node, high-availability configuration.
+      If your machine type is above the basic nodes, your node plan is above the smallest option,
+      or you are running MongoDB, you may additionally include up to two standby nodes in your cluster.
+
+      The size of individual nodes in a database cluster is represented by a human-readable slug,
+      which is used in some of the following requests. Each slug denotes the node's identifier,
+      CPU count, and amount of RAM, in that order.
+
+      For **Basic nodes**, reference the following table for its slug:
+
+      Slug               | CPU     | RAM
+      -------------------|---------|---------
+      db-s-1vcpu-1gb     | 1 vCPU  | 1 GB
+      db-s-1vcpu-2gb     | 1 vCPU  | 2 GB
+      db-s-2vcpu-4gb     | 2 vCPU  | 4 GB
+      db-s-4vcpu-8gb     | 4 vCPU  | 8 GB
+      db-s-6vcpu-16gb    | 6 vCPU  | 16 GB
+      db-s-8vcpu-32gb    | 8 vCPU  | 32 GB
+      db-s-16vcpu-64gb   | 16 vCPU | 64 GB
+
+      For **General Purpose nodes**, reference the following table for its slug:
+
+      Slug               | CPU     | RAM
+      -------------------|---------|---------
+      gd-2vcpu-8gb       | 2 vCPU  | 8 GB
+      gd-4vcpu-16gb      | 4 vCPU  | 16 GB
+      gd-8vcpu-32gb      | 8 vCPU  | 32 GB
+      gd-16vcpu-64gb     | 16 vCPU | 64 GB
+      gd-32vcpu-128gb    | 32 vCPU | 128 GB
+      gd-40vcpu-160gb    | 40 vCPU | 160 GB
+
+      For **Storage-Optimized nodes**, reference the following table for its slug:
+
+      Slug               | CPU     | RAM
+      -------------------|---------|---------
+      so1_5-2vcpu-16gb   | 2 vCPU  | 16 GB
+      so1_5-4vcpu-32gb   | 4 vCPU  | 32 GB
+      so1_5-8vcpu-64gb   | 8 vCPU  | 64 GB
+      so1_5-16vcpu-128gb | 16 vCPU | 128 GB
+      so1_5-24vcpu-192gb | 24 vCPU | 192 GB
+      so1_5-32vcpu-256gb | 32 vCPU | 256 GB
+
+      For **Memory-Optimized nodes**, reference the following table for its slug:
+
+      Slug               | CPU     | RAM
+      -------------------|---------|---------
+      m-2vcpu-16gb       | 2 vCPU  | 16 GB
+      m-4vcpu-32gb       | 4 vCPU  | 32 GB
+      m-8vcpu-64gb       | 8 vCPU  | 64 GB
+      m-16vcpu-128gb     | 16 vCPU | 128 GB
+      m-24vcpu-192gb     | 24 vCPU | 192 GB
+      m-32vcpu-256gb     | 32 vCPU | 256 GB
+
+  - name: Domain Records
+    description: |-
+      Domain record resources are used to set or retrieve information about the
+      individual DNS records configured for a domain. This allows you to build
+      and manage DNS zone files by adding and modifying individual records for a
+      domain.
+
+      The [DigitalOcean DNS management interface](https://www.digitalocean.com/docs/networking/dns/)
+      allows you to configure the following DNS records:
+
+      Name  | Description                                                                                                                                        |
+      ------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+      A     | This record type is used to map an IPv4 address to a hostname.                                                                                     |
+      AAAA  | This record type is used to map an IPv6 address to a hostname.                                                                                     |
+      CAA   | As specified in RFC-6844, this record type can be used to restrict which certificate authorities are permitted to issue certificates for a domain. |
+      CNAME | This record type defines an alias for your canonical hostname (the one defined by an A or AAAA record).                                            |
+      MX    | This record type is used to define the mail exchanges used for the domain.                                                                         |
+      NS    | This record type defines the name servers that are used for this zone.                                                                             |
+      TXT   | This record type is used to associate a string of text with a hostname, primarily used for verification.                                           |
+      SRV   | This record type specifies the location (hostname and port number) of servers for specific services.                                               |
+      SOA   | This record type defines administrative information about the zone. Can only have ttl changed, cannot be deleted                                   |
+
+  - name: Domains
+    description: |-
+      Domain resources are domain names that you have purchased from a domain
+      name registrar that you are managing through the
+      [DigitalOcean DNS interface](https://www.digitalocean.com/docs/networking/dns/).
+
+      This resource establishes top-level control over each domain. Actions that
+      affect individual domain records should be taken on the
+      [Domain Records](#tag/Domain-Records) resource.
+
+  - name: Droplet Actions
+    description: |-
+      Droplet actions are tasks that can be executed on a Droplet. These can be
+      things like rebooting, resizing, snapshotting, etc.
+
+      Droplet action requests are generally targeted at one of the "actions"
+      endpoints for a specific Droplet. The specific actions are usually
+      initiated by sending a POST request with the action and arguments as
+      parameters.
+
+      Droplet action requests create a Droplet actions object, which can be used
+      to get information about the status of an action. Creating a Droplet
+      action is asynchronous: the HTTP call will return the action object before
+      the action has finished processing on the Droplet. The current status of
+      an action can be retrieved from either the Droplet actions endpoint or the
+      global actions endpoint. If a Droplet action is uncompleted it may block
+      the creation of a subsequent action for that Droplet, the locked attribute
+      of the Droplet will be true and attempts to create a Droplet action will
+      fail with a status of 422.
+
+  - name: Droplets
+    description: |-
+      A [Droplet](https://www.digitalocean.com/docs/droplets/) is a DigitalOcean
+      virtual machine. By sending requests to the Droplet endpoint, you can
+      list, create, or delete Droplets.
+
+      Some of the attributes will have an object value. The `region` and `image`
+      objects will all contain the standard attributes of their associated
+      types. Find more information about each of these objects in their
+      respective sections.
+
+  - name: Firewalls
+    description: |-
+      [DigitalOcean Cloud Firewalls](https://www.digitalocean.com/docs/networking/firewalls/)
+      provide the ability to restrict network access to and from a Droplet
+      allowing you to define which ports will accept inbound or outbound
+      connections. By sending requests to the `/v2/firewalls` endpoint, you can
+      list, create, or delete firewalls as well as modify access rules.
+
+  - name: Floating IP Actions
+    description: |-
+      As of 16 June 2022, we have renamed the Floating IP product to [Reserved IPs](https://docs.digitalocean.com/reference/api/api-reference/#tag/Reserved-IPs).
+      The Reserved IP product's endpoints function the exact same way as Floating IPs.
+      The only difference is the name change throughout the URLs and fields.
+      For example, the `floating_ips` field is now the `reserved_ips` field.
+      The Floating IP endpoints will remain active until fall 2023 before being
+      permanently deprecated.
+
+      With the exception of the [Projects API](https://docs.digitalocean.com/reference/api/api-reference/#tag/Projects),
+      we will reflect this change as an additional field in the responses across the API
+      where the `floating_ip` field is used. For example, the Droplet metadata response
+      will contain the field `reserved_ips` in addition to the `floating_ips` field.
+      Floating IPs retrieved using the Projects API will retain the original name.
+
+      Floating IP actions are commands that can be given to a DigitalOcean
+      floating IP. These requests are made on the actions endpoint of a specific
+      floating IP.
+
+      An action object is returned. These objects hold the current status of the
+      requested action.
+
+  - name: Floating IPs
+    description: |-
+      As of 16 June 2022, we have renamed the Floating IP product to [Reserved IPs](https://docs.digitalocean.com/reference/api/api-reference/#tag/Reserved-IPs).
+      The Reserved IP product's endpoints function the exact same way as Floating IPs.
+      The only difference is the name change throughout the URLs and fields.
+      For example, the `floating_ips` field is now the `reserved_ips` field.
+      The Floating IP endpoints will remain active until fall 2023 before being
+      permanently deprecated.
+
+      With the exception of the [Projects API](https://docs.digitalocean.com/reference/api/api-reference/#tag/Projects),
+      we will reflect this change as an additional field in the responses across the API
+      where the `floating_ip` field is used. For example, the Droplet metadata response
+      will contain the field `reserved_ips` in addition to the `floating_ips` field.
+      Floating IPs retrieved using the Projects API will retain the original name.
+
+      [DigitalOcean Floating IPs](https://www.digitalocean.com/docs/networking/floating-ips/)
+      are publicly-accessible static IP addresses that can be mapped to one of
+      your Droplets. They can be used to create highly available setups or other
+      configurations requiring movable addresses.
+
+      Floating IPs are bound to a specific region.
+
+  - name: Functions
+    description: |-
+      [Serverless functions](https://docs.digitalocean.com/products/functions) are blocks of code that run on demand without the need to manage any infrastructure.
+      You can develop functions on your local machine and then deploy them to a namespace using `doctl`, the [official DigitalOcean CLI tool](https://docs.digitalocean.com/reference/doctl).
+
+      The Serverless Functions API currently only supports creating and managing namespaces.
+
+  - name: Image Actions
+    description: |-
+      Image actions are commands that can be given to a DigitalOcean image. In
+      general, these requests are made on the actions endpoint of a specific
+      image.
+
+      An image action object is returned. These objects hold the current status
+      of the requested action.
+
+  - name: Images
+    description: |-
+      A DigitalOcean [image](https://www.digitalocean.com/docs/images/) can be
+      used to create a Droplet and may come in a number of flavors. Currently,
+      there are five types of images: snapshots, backups, applications,
+      distributions, and custom images.
+
+      * [Snapshots](https://www.digitalocean.com/docs/images/snapshots/) provide
+      a full copy of an existing Droplet instance taken on demand.
+
+      * [Backups](https://www.digitalocean.com/docs/images/backups/) are similar
+      to snapshots but are created automatically at regular intervals when
+      enabled for a Droplet.
+
+      * [Custom images](https://www.digitalocean.com/docs/images/custom-images/)
+      are Linux-based virtual machine images (raw, qcow2, vhdx, vdi, and vmdk
+      formats are supported) that you may upload for use on DigitalOcean.
+
+      * Distributions are the public Linux distributions that are available to
+      be used as a base to create Droplets.
+
+      * Applications, or [1-Click Apps](https://www.digitalocean.com/docs/one-clicks/),
+      are distributions pre-configured with additional software.
+
+      To interact with images, you will generally send requests to the images
+      endpoint at /v2/images.
+
+  - name: Kubernetes
+    description: |-
+      [DigitalOcean Kubernetes](https://www.digitalocean.com/docs/kubernetes/)
+      allows you to quickly deploy scalable and secure Kubernetes clusters. By
+      sending requests to the `/v2/kubernetes/clusters` endpoint, you can list,
+      create, or delete clusters as well as scale node pools up and down,
+      recycle individual nodes, and retrieve the kubeconfig file for use with
+      a cluster.
+
+  - name: Load Balancers
+    description: |-
+      [DigitalOcean Load Balancers](https://www.digitalocean.com/docs/networking/load-balancers/)
+      provide a way to distribute traffic across multiple Droplets. By sending
+      requests to the `/v2/load_balancers` endpoint, you can list, create, or
+      delete load balancers as well as add or remove Droplets, forwarding rules,
+      and other configuration details.
+
+  - name: Monitoring
+    description: |-
+      The DigitalOcean Monitoring API makes it possible to programmatically retrieve metrics as well as configure alert
+      policies based on these metrics. The Monitoring API can help you gain insight into how your apps are performing
+      and consuming resources.
+
+  - name: Project Resources
+    description: |-
+      Project Resources are resources that can be grouped into your projects.
+      You can group resources (like Droplets, Spaces, load balancers, domains,
+      and floating IPs) in ways that align with the applications you host on
+      DigitalOcean.
+
+      ### Supported Resource Types Examples
+
+      Projects resources are identified by uniform resource names or URNs. A
+      valid URN has the following format: `do:resource_type:resource_id`. The
+      following resource types are supported:
+
+      Resource Type      | Example URN
+      -------------------|------------
+      App Platform App   | `do:app:be5aab85-851b-4cab-b2ed-98d5a63ba4e8`
+      Database           | `do:dbaas:83c7a55f-0d84-4760-9245-aba076ec2fb2`
+      Domain             | `do:domain:example.com`
+      Droplet            | `do:droplet:4126873`
+      Floating IP        | `do:floatingip:192.168.99.100`
+      Kubernetes Cluster | `do:kubernetes:bd5f5959-5e1e-4205-a714-a914373942af`
+      Load Balancer      | `do:loadbalancer:39052d89-8dd4-4d49-8d5a-3c3b6b365b5b`
+      Space              | `do:space:my-website-assets`
+      Volume             | `do:volume:6fc4c277-ea5c-448a-93cd-dd496cfef71f`
+
+      ### Resource Status Codes
+
+      When assigning and retrieving resources in projects, a `status` attribute
+      is returned that indicates if a resource was successfully retrieved or
+      assigned. The status codes can be one of the following:
+
+      Status Code        | Explanation
+      -------------------|------------
+      `ok`               | There was no problem retrieving or assigning a resource.
+      `not_found`        | The resource was not found.
+      `assigned`         | The resource was successfully assigned.
+      `already_assigned` | The resource was already assigned.
+      `service_down`     | There was a problem retrieving or assigning a resource. Please try again.
+
+  - name: Projects
+    description: |-
+      Projects allow you to organize your resources into groups that fit the way
+      you work. You can group resources (like Droplets, Spaces, load balancers,
+      domains, and floating IPs) in ways that align with the applications
+      you host on DigitalOcean.
+
+  - name: Regions
+    description: Provides information about DigitalOcean data center regions.
+
+  - name: Reserved IP Actions
+    description: |-
+      As of 16 June 2022, we have renamed the [Floating IP](https://docs.digitalocean.com/reference/api/api-reference/#tag/Floating-IPs)
+      product to Reserved IPs. The Reserved IP product's endpoints function the exact
+      same way as Floating IPs. The only difference is the name change throughout the
+      URLs and fields. For example, the `floating_ips` field is now the `reserved_ips` field.
+      The Floating IP endpoints will remain active until fall 2023 before being
+      permanently deprecated.
+
+      With the exception of the [Projects API](https://docs.digitalocean.com/reference/api/api-reference/#tag/Projects),
+      we will reflect this change as an additional field in the responses across the API
+      where the `floating_ip` field is used. For example, the Droplet metadata response
+      will contain the field `reserved_ips` in addition to the `floating_ips` field.
+      Floating IPs retrieved using the Projects API will retain the original name.
+
+      Reserved IP actions are commands that can be given to a DigitalOcean
+      reserved IP. These requests are made on the actions endpoint of a specific
+      reserved IP.
+
+      An action object is returned. These objects hold the current status of the
+      requested action.
+
+  - name: Reserved IPs
+    description: |-
+      As of 16 June 2022, we have renamed the [Floating IP](https://docs.digitalocean.com/reference/api/api-reference/#tag/Floating-IPs)
+      product to Reserved IPs. The Reserved IP product's endpoints function the exact
+      same way as Floating IPs. The only difference is the name change throughout the
+      URLs and fields. For example, the `floating_ips` field is now the `reserved_ips` field.
+      The Floating IP endpoints will remain active until fall 2023 before being
+      permanently deprecated.
+
+      With the exception of the [Projects API](https://docs.digitalocean.com/reference/api/api-reference/#tag/Projects),
+      we will reflect this change as an additional field in the responses across the API
+      where the `floating_ip` field is used. For example, the Droplet metadata response
+      will contain the field `reserved_ips` in addition to the `floating_ips` field.
+      Floating IPs retrieved using the Projects API will retain the original name.
+
+      DigitalOcean Reserved IPs are publicly-accessible static IP addresses that can be
+      mapped to one of your Droplets. They can be used to create highly available
+      setups or other configurations requiring movable addresses.
+
+      Reserved IPs are bound to a specific region.
+
+  - name: Sizes
+    description: |-
+      The sizes objects represent different packages of hardware resources that
+      can be used for Droplets. When a Droplet is created, a size must be
+      selected so that the correct resources can be allocated.
+
+      Each size represents a plan that bundles together specific sets of
+      resources. This includes the amount of RAM, the number of virtual CPUs,
+      disk space, and transfer. The size object also includes the pricing
+      details and the regions that the size is available in.
+
+  - name: Snapshots
+    description: |-
+      [Snapshots](https://www.digitalocean.com/docs/images/snapshots/) are saved
+      instances of a Droplet or a block storage volume, which is reflected in
+      the `resource_type` attribute. In order to avoid problems with compressing
+      filesystems, each defines a `min_disk_size` attribute which is the minimum
+      size of the Droplet or volume disk when creating a new resource from the
+      saved snapshot.
+
+      To interact with snapshots, you will generally send requests to the
+      snapshots endpoint at `/v2/snapshots`.
+
+  - name: SSH Keys
+    description: Manage SSH keys available on your account.
+
+  - name: Tags
+    description: |-
+      A tag is a label that can be applied to a resource (currently Droplets,
+      Images, Volumes, Volume Snapshots, and Database clusters) in order to
+      better organize or facilitate the lookups and actions on it.
+
+      Tags have two attributes: a user defined `name` attribute and an embedded
+      `resources` attribute with information about resources that have been tagged.
+
+
+  - name: Uptime
+    description: >-
+        [DigitalOcean Uptime Checks](https://docs.digitalocean.com/products/uptime/) provide the ability to monitor your endpoints from around the world, and alert you when they're slow, unavailable, or SSL certificates are expiring.
+
+        To interact with Uptime, you will generally send requests to the Uptime endpoint at `/v2/uptime/`.
+
+  - name: VPCs
+    description: |-
+      [VPCs (virtual private clouds)](https://www.digitalocean.com/docs/networking/vpc/)
+      allow you to create virtual networks containing resources that can
+      communicate with each other in full isolation using private IP addresses.
+
+      By sending requests to the `/v2/vpcs` endpoint, you can create, configure,
+      list, and delete custom VPCs as well as retrieve information about the
+      resources assigned to them.
+
+paths:
+  /v2/1-clicks:
+    get:
+      $ref: 'resources/1-clicks/oneClicks_list.yml'
+
+  /v2/1-clicks/kubernetes:
+    post:
+      $ref: 'resources/1-clicks/oneClicks_install_kubernetes.yml'
+
+  /v2/account:
+    get:
+      $ref: 'resources/account/account_get.yml'
+
+  /v2/account/keys:
+    get:
+      $ref: 'resources/ssh_keys/sshKeys_list.yml'
+
+    post:
+      $ref: 'resources/ssh_keys/sshKeys_create.yml'
+
+  /v2/account/keys/{ssh_key_identifier}:
+    get:
+      $ref: 'resources/ssh_keys/sshKeys_get.yml'
+
+    put:
+      $ref: 'resources/ssh_keys/sshKeys_update.yml'
+
+    delete:
+      $ref: 'resources/ssh_keys/sshKeys_delete.yml'
+
+  /v2/actions:
+    get:
+      $ref: 'resources/actions/actions_list.yml'
+
+  /v2/actions/{action_id}:
+    get:
+      $ref: 'resources/actions/actions_get.yml'
+
+  /v2/apps:
+    get:
+      $ref: 'resources/apps/apps_list.yml'
+    post:
+      $ref: 'resources/apps/apps_create.yml'
+
+  /v2/apps/{id}:
+    delete:
+      $ref: 'resources/apps/apps_delete.yml'
+    get:
+      $ref: 'resources/apps/apps_get.yml'
+    put:
+      $ref: 'resources/apps/apps_update.yml'
+
+  /v2/apps/{app_id}/components/{component_name}/logs:
+    get:
+      $ref: 'resources/apps/apps_get_logs_active_deployment.yml'
+
+  /v2/apps/{app_id}/deployments:
+    get:
+      $ref: 'resources/apps/apps_list_deployments.yml'
+    post:
+      $ref: 'resources/apps/apps_create_deployment.yml'
+
+  /v2/apps/{app_id}/deployments/{deployment_id}:
+    get:
+      $ref: 'resources/apps/apps_get_deployment.yml'
+
+  /v2/apps/{app_id}/deployments/{deployment_id}/cancel:
+    post:
+      $ref: 'resources/apps/apps_cancel_deployment.yml'
+
+  /v2/apps/{app_id}/deployments/{deployment_id}/components/{component_name}/logs:
+    get:
+      $ref: 'resources/apps/apps_get_logs.yml'
+
+  /v2/apps/{app_id}/deployments/{deployment_id}/logs:
+    get:
+      $ref: 'resources/apps/apps_get_logs_aggregate.yml'
+
+  /v2/apps/{app_id}/logs:
+    get:
+      $ref: 'resources/apps/apps_get_logs_active_deployment_aggregate.yml'
+
+  /v2/apps/tiers:
+    get:
+      $ref: 'resources/apps/apps_list_tiers.yml'
+
+  /v2/apps/tiers/{slug}:
+    get:
+      $ref: 'resources/apps/apps_get_tier.yml'
+
+  /v2/apps/tiers/instance_sizes:
+    get:
+      $ref: 'resources/apps/apps_list_instanceSizes.yml'
+
+  /v2/apps/tiers/instance_sizes/{slug}:
+    get:
+      $ref: 'resources/apps/apps_get_instanceSize.yml'
+
+  /v2/apps/regions:
+    get:
+      $ref: 'resources/apps/apps_list_regions.yml'
+
+  /v2/apps/propose:
+    post:
+      $ref: 'resources/apps/apps_validate_appSpec.yml'
+
+  /v2/apps/{app_id}/alerts:
+    get:
+      $ref: 'resources/apps/apps_list_alerts.yml'
+
+  /v2/apps/{app_id}/alerts/{alert_id}/destinations:
+    post:
+      $ref: 'resources/apps/apps_assign_alertDestinations.yml'
+
+  /v2/apps/{app_id}/rollback:
+    post:
+      $ref: 'resources/apps/apps_create_rollback.yml'
+
+  /v2/apps/{app_id}/rollback/validate:
+    post:
+      $ref: 'resources/apps/apps_validate_rollback.yml'
+
+  /v2/apps/{app_id}/rollback/commit:
+    post:
+      $ref: 'resources/apps/apps_commit_rollback.yml'
+
+  /v2/apps/{app_id}/rollback/revert:
+    post:
+      $ref: 'resources/apps/apps_revert_rollback.yml'
+
+  /v2/apps/{app_id}/metrics/bandwidth_daily:
+    get:
+      $ref: 'resources/apps/apps_get_metrics_bandwidth_usage.yml'
+
+  /v2/apps/metrics/bandwidth_daily:
+    post:
+      $ref: 'resources/apps/apps_list_metrics_bandwidth_usage.yml'
+
+  /v2/cdn/endpoints:
+    get:
+      $ref: 'resources/cdn/cdn_list_endpoints.yml'
+
+    post:
+      $ref: 'resources/cdn/cdn_create_endpoint.yml'
+
+  /v2/cdn/endpoints/{cdn_id}:
+    get:
+      $ref: 'resources/cdn/cdn_get_endpoint.yml'
+
+    put:
+      $ref: 'resources/cdn/cdn_update_endpoint.yml'
+
+    delete:
+      $ref: 'resources/cdn/cdn_delete_endpoint.yml'
+
+  /v2/cdn/endpoints/{cdn_id}/cache:
+    delete:
+      $ref: 'resources/cdn/cdn_purge_cache.yml'
+
+  /v2/certificates:
+    get:
+      $ref: 'resources/certificates/certificates_list.yml'
+
+    post:
+      $ref: 'resources/certificates/certificates_create.yml'
+
+  /v2/certificates/{certificate_id}:
+    get:
+      $ref: 'resources/certificates/certificates_get.yml'
+
+    delete:
+      $ref: 'resources/certificates/certificates_delete.yml'
+
+  /v2/customers/my/balance:
+    get:
+      $ref: 'resources/billing/balance_get.yml'
+
+  /v2/customers/my/billing_history:
+    get:
+      $ref: 'resources/billing/billingHistory_list.yml'
+
+  /v2/customers/my/invoices:
+    get:
+      $ref: 'resources/billing/invoices_list.yml'
+
+  /v2/customers/my/invoices/{invoice_uuid}:
+    get:
+      $ref: 'resources/billing/invoices_get_byUUID.yml'
+
+  /v2/customers/my/invoices/{invoice_uuid}/csv:
+    get:
+      $ref: 'resources/billing/invoices_get_csvByUUID.yml'
+
+  /v2/customers/my/invoices/{invoice_uuid}/pdf:
+    get:
+      $ref: 'resources/billing/invoices_get_pdfByUUID.yml'
+
+  /v2/customers/my/invoices/{invoice_uuid}/summary:
+    get:
+      $ref: 'resources/billing/invoices_get_summaryByUUID.yml'
+
+  /v2/databases/options:
+    get:
+      $ref: 'resources/databases/databases_list_options.yml'
+
+  /v2/databases:
+    get:
+      $ref: 'resources/databases/databases_list_clusters.yml'
+    post:
+      $ref: 'resources/databases/databases_create_cluster.yml'
+
+  /v2/databases/{database_cluster_uuid}:
+    get:
+      $ref: 'resources/databases/databases_get_cluster.yml'
+    delete:
+      $ref: 'resources/databases/databases_destroy_cluster.yml'
+
+  /v2/databases/{database_cluster_uuid}/config:
+    get:
+      $ref: 'resources/databases/databases_get_config.yml'
+    patch:
+      $ref: 'resources/databases/databases_patch_config.yml'
+
+  /v2/databases/{database_cluster_uuid}/ca:
+    get:
+      $ref: 'resources/databases/databases_get_ca.yml'
+
+  /v2/databases/{database_cluster_uuid}/online-migration:
+    get:
+      $ref: 'resources/databases/databases_get_migrationStatus.yml'
+    put:
+      $ref: 'resources/databases/databases_update_onlineMigration.yml'
+
+  /v2/databases/{database_cluster_uuid}/online-migration/{migration_id}:
+    delete:
+      $ref: 'resources/databases/databases_delete_onlineMigration.yml'
+
+  /v2/databases/{database_cluster_uuid}/migrate:
+    put:
+      $ref: 'resources/databases/databases_update_region.yml'
+
+  /v2/databases/{database_cluster_uuid}/resize:
+    put:
+      $ref: 'resources/databases/databases_update_clusterSize.yml'
+
+  /v2/databases/{database_cluster_uuid}/firewall:
+    get:
+      $ref: 'resources/databases/databases_list_firewall_rules.yml'
+    put:
+      $ref: 'resources/databases/databases_update_firewall_rules.yml'
+
+  /v2/databases/{database_cluster_uuid}/maintenance:
+    put:
+      $ref: 'resources/databases/databases_update_maintenanceWindow.yml'
+
+  /v2/databases/{database_cluster_uuid}/backups:
+    get:
+      $ref: 'resources/databases/databases_list_backups.yml'
+
+  /v2/databases/{database_cluster_uuid}/replicas:
+    get:
+      $ref: 'resources/databases/databases_list_replicas.yml'
+    post:
+      $ref: 'resources/databases/databases_create_replica.yml'
+
+  /v2/databases/{database_cluster_uuid}/replicas/{replica_name}:
+    get:
+      $ref: 'resources/databases/databases_get_replica.yml'
+    delete:
+      $ref: 'resources/databases/databases_destroy_replica.yml'
+
+  /v2/databases/{database_cluster_uuid}/replicas/{replica_name}/promote:
+    put:
+      $ref: 'resources/databases/databases_promote_replica.yml'
+
+  /v2/databases/{database_cluster_uuid}/users:
+    get:
+      $ref: 'resources/databases/databases_list_users.yml'
+    post:
+      $ref: 'resources/databases/databases_add_user.yml'
+
+  /v2/databases/{database_cluster_uuid}/users/{username}:
+    get:
+      $ref: 'resources/databases/databases_get_user.yml'
+    delete:
+      $ref: 'resources/databases/databases_delete_user.yml'
+
+  /v2/databases/{database_cluster_uuid}/users/{username}/reset_auth:
+    post:
+      $ref: 'resources/databases/databases_reset_auth.yml'
+
+  /v2/databases/{database_cluster_uuid}/dbs:
+    get:
+      $ref: 'resources/databases/databases_list.yml'
+    post:
+      $ref: 'resources/databases/databases_add.yml'
+
+  /v2/databases/{database_cluster_uuid}/dbs/{database_name}:
+    get:
+      $ref: 'resources/databases/databases_get.yml'
+    delete:
+      $ref: 'resources/databases/databases_delete.yml'
+
+  /v2/databases/{database_cluster_uuid}/pools:
+    get:
+      $ref: 'resources/databases/databases_list_connectionPools.yml'
+    post:
+      $ref: 'resources/databases/databases_add_connectionPool.yml'
+
+  /v2/databases/{database_cluster_uuid}/pools/{pool_name}:
+    get:
+      $ref: 'resources/databases/databases_get_connectionPool.yml'
+    put:
+      $ref: 'resources/databases/databases_update_connectionPool.yml'
+    delete:
+      $ref: 'resources/databases/databases_delete_connectionPool.yml'
+
+  /v2/databases/{database_cluster_uuid}/eviction_policy:
+    get:
+      $ref: 'resources/databases/databases_get_evictionPolicy.yml'
+    put:
+      $ref: 'resources/databases/databases_update_evictionPolicy.yml'
+
+  /v2/databases/{database_cluster_uuid}/sql_mode:
+    get:
+      $ref: 'resources/databases/databases_get_sql_mode.yml'
+    put:
+      $ref: 'resources/databases/databases_update_sql_mode.yml'
+
+  /v2/databases/{database_cluster_uuid}/upgrade:
+    put:
+      $ref: 'resources/databases/databases_upgrade_major_version.yml'
+
+  /v2/domains:
+    get:
+      $ref: 'resources/domains/domains_list.yml'
+    post:
+      $ref: 'resources/domains/domains_create.yml'
+
+  /v2/domains/{domain_name}:
+    get:
+      $ref: 'resources/domains/domains_get.yml'
+    delete:
+      $ref: 'resources/domains/domains_delete.yml'
+
+  /v2/domains/{domain_name}/records:
+    get:
+      $ref: 'resources/domains/domains_list_records.yml'
+    post:
+      $ref: 'resources/domains/domains_create_record.yml'
+
+  /v2/domains/{domain_name}/records/{domain_record_id}:
+    get:
+      $ref: 'resources/domains/domains_get_record.yml'
+    patch:
+      $ref: 'resources/domains/domains_patch_record.yml'
+    put:
+      $ref: 'resources/domains/domains_update_record.yml'
+    delete:
+      $ref: 'resources/domains/domains_delete_record.yml'
+
+  /v2/droplets:
+    get:
+      $ref: 'resources/droplets/droplets_list.yml'
+
+    post:
+      $ref: 'resources/droplets/droplets_create.yml'
+
+    delete:
+      $ref: 'resources/droplets/droplets_destroy_byTag.yml'
+
+  /v2/droplets/{droplet_id}:
+    get:
+      $ref: 'resources/droplets/droplets_get.yml'
+
+    delete:
+      $ref: 'resources/droplets/droplets_destroy.yml'
+
+  /v2/droplets/{droplet_id}/backups:
+    get:
+      $ref: 'resources/droplets/droplets_list_backups.yml'
+
+  /v2/droplets/{droplet_id}/snapshots:
+    get:
+      $ref: 'resources/droplets/droplets_list_snapshots.yml'
+
+  /v2/droplets/{droplet_id}/actions:
+    get:
+      $ref: 'resources/droplets/dropletActions_list.yml'
+    post:
+      $ref: 'resources/droplets/dropletActions_post.yml'
+
+  /v2/droplets/actions:
+    post:
+      $ref: 'resources/droplets/dropletActions_post_byTag.yml'
+
+  /v2/droplets/{droplet_id}/actions/{action_id}:
+    get:
+      $ref: 'resources/droplets/dropletActions_get.yml'
+
+  /v2/droplets/{droplet_id}/kernels:
+    get:
+      $ref: 'resources/droplets/droplets_list_kernels.yml'
+
+  /v2/droplets/{droplet_id}/firewalls:
+    get:
+      $ref: 'resources/droplets/droplets_list_firewalls.yml'
+
+  /v2/droplets/{droplet_id}/neighbors:
+    get:
+      $ref: 'resources/droplets/droplets_list_neighbors.yml'
+
+  /v2/droplets/{droplet_id}/destroy_with_associated_resources:
+    get:
+      $ref: 'resources/droplets/droplets_list_associatedResources.yml'
+
+  /v2/droplets/{droplet_id}/destroy_with_associated_resources/selective:
+    delete:
+      $ref: 'resources/droplets/droplets_destroy_withAssociatedResourcesSelective.yml'
+
+  /v2/droplets/{droplet_id}/destroy_with_associated_resources/dangerous:
+    delete:
+      $ref: 'resources/droplets/droplets_destroy_withAssociatedResourcesDangerous.yml'
+
+  /v2/droplets/{droplet_id}/destroy_with_associated_resources/status:
+    get:
+      $ref: 'resources/droplets/droplets_get_destroyAssociatedResourcesStatus.yml'
+
+  /v2/droplets/{droplet_id}/destroy_with_associated_resources/retry:
+    post:
+      $ref: 'resources/droplets/droplets_destroy_retryWithAssociatedResources.yml'
+
+  /v2/firewalls:
+    get:
+      $ref: 'resources/firewalls/firewalls_list.yml'
+    post:
+      $ref: 'resources/firewalls/firewalls_create.yml'
+
+  /v2/firewalls/{firewall_id}:
+    get:
+      $ref: 'resources/firewalls/firewalls_get.yml'
+    put:
+      $ref: 'resources/firewalls/firewalls_update.yml'
+    delete:
+      $ref: 'resources/firewalls/firewalls_delete.yml'
+
+  /v2/firewalls/{firewall_id}/droplets:
+    post:
+      $ref: 'resources/firewalls/firewalls_assign_droplets.yml'
+    delete:
+      $ref: 'resources/firewalls/firewalls_delete_droplets.yml'
+
+  /v2/firewalls/{firewall_id}/tags:
+    post:
+      $ref: 'resources/firewalls/firewalls_add_tags.yml'
+    delete:
+      $ref: 'resources/firewalls/firewalls_delete_tags.yml'
+
+  /v2/firewalls/{firewall_id}/rules:
+    post:
+      $ref: 'resources/firewalls/firewalls_add_rules.yml'
+    delete:
+      $ref: 'resources/firewalls/firewalls_delete_rules.yml'
+
+  /v2/floating_ips:
+    get:
+      $ref: 'resources/floating_ips/floatingIPs_list.yml'
+
+    post:
+      $ref: 'resources/floating_ips/floatingIPs_create.yml'
+
+  /v2/floating_ips/{floating_ip}:
+    get:
+      $ref: 'resources/floating_ips/floatingIPs_get.yml'
+
+    delete:
+      $ref: 'resources/floating_ips/floatingIPs_delete.yml'
+
+  /v2/floating_ips/{floating_ip}/actions:
+    get:
+      $ref: 'resources/floating_ips/floatingIPsAction_list.yml'
+
+    post:
+      $ref: 'resources/floating_ips/floatingIPsAction_post.yml'
+
+  /v2/floating_ips/{floating_ip}/actions/{action_id}:
+    get:
+      $ref: 'resources/floating_ips/floatingIPsAction_get.yml'
+
+  /v2/functions/namespaces:
+    get:
+      $ref: 'resources/functions/functions_list_namespaces.yml'
+
+    post:
+      $ref: 'resources/functions/functions_create_namespace.yml'
+
+  /v2/functions/namespaces/{namespace_id}:
+    get:
+      $ref: 'resources/functions/functions_get_namespace.yml'
+
+    delete:
+      $ref: 'resources/functions/functions_delete_namespace.yml'
+
+  /v2/functions/namespaces/{namespace_id}/triggers:
+    get:
+      $ref: 'resources/functions/functions_list_triggers.yml'
+
+    post:
+      $ref: 'resources/functions/functions_create_trigger.yml'
+
+  /v2/functions/namespaces/{namespace_id}/triggers/{trigger_name}:
+    get:
+      $ref: 'resources/functions/functions_get_trigger.yml'
+
+    put:
+      $ref: 'resources/functions/functions_update_trigger.yml'
+
+    delete:
+      $ref: 'resources/functions/functions_delete_trigger.yml'
+
+  /v2/images:
+    get:
+      $ref: 'resources/images/images_list.yml'
+    post:
+      $ref: 'resources/images/images_create_custom.yml'
+
+  /v2/images/{image_id}:
+    get:
+      $ref: 'resources/images/images_get.yml'
+    put:
+      $ref: 'resources/images/images_update.yml'
+    delete:
+      $ref: 'resources/images/images_delete.yml'
+
+  /v2/images/{image_id}/actions:
+    get:
+      $ref: 'resources/images/imageActions_list.yml'
+    post:
+      $ref: 'resources/images/imageActions_post.yml'
+
+  /v2/images/{image_id}/actions/{action_id}:
+    get:
+      $ref: 'resources/images/imageActions_get.yml'
+
+  /v2/kubernetes/clusters:
+    get:
+      $ref: 'resources/kubernetes/kubernetes_list_clusters.yml'
+
+    post:
+      $ref: 'resources/kubernetes/kubernetes_create_cluster.yml'
+
+  /v2/kubernetes/clusters/{cluster_id}:
+    get:
+      $ref: 'resources/kubernetes/kubernetes_get_cluster.yml'
+
+    put:
+      $ref: 'resources/kubernetes/kubernetes_update_cluster.yml'
+
+    delete:
+      $ref: 'resources/kubernetes/kubernetes_delete_cluster.yml'
+
+  /v2/kubernetes/clusters/{cluster_id}/destroy_with_associated_resources:
+    get:
+      $ref: 'resources/kubernetes/kubernetes_list_associatedResources.yml'
+
+  /v2/kubernetes/clusters/{cluster_id}/destroy_with_associated_resources/selective:
+    delete:
+      $ref: 'resources/kubernetes/kubernetes_destroy_associatedResourcesSelective.yml'
+
+  /v2/kubernetes/clusters/{cluster_id}/destroy_with_associated_resources/dangerous:
+    delete:
+      $ref: 'resources/kubernetes/kubernetes_destroy_associatedResourcesDangerous.yml'
+
+  /v2/kubernetes/clusters/{cluster_id}/kubeconfig:
+    get:
+      $ref: 'resources/kubernetes/kubernetes_get_kubeconfig.yml'
+
+  /v2/kubernetes/clusters/{cluster_id}/credentials:
+    get:
+      $ref: 'resources/kubernetes/kubernetes_get_credentials.yml'
+
+  /v2/kubernetes/clusters/{cluster_id}/upgrades:
+    get:
+      $ref: 'resources/kubernetes/kubernetes_get_availableUpgrades.yml'
+
+  /v2/kubernetes/clusters/{cluster_id}/upgrade:
+    post:
+      $ref: 'resources/kubernetes/kubernetes_upgrade_cluster.yml'
+
+  /v2/kubernetes/clusters/{cluster_id}/node_pools:
+    get:
+      $ref: 'resources/kubernetes/kubernetes_list_nodePools.yml'
+
+    post:
+      $ref: 'resources/kubernetes/kubernetes_add_nodePool.yml'
+
+  /v2/kubernetes/clusters/{cluster_id}/node_pools/{node_pool_id}:
+    get:
+      $ref: 'resources/kubernetes/kubernetes_get_nodePool.yml'
+
+    put:
+      $ref: 'resources/kubernetes/kubernetes_update_nodePool.yml'
+
+    delete:
+      $ref: 'resources/kubernetes/kubernetes_delete_nodePool.yml'
+
+  /v2/kubernetes/clusters/{cluster_id}/node_pools/{node_pool_id}/nodes/{node_id}:
+    delete:
+      $ref: 'resources/kubernetes/kubernetes_delete_node.yml'
+
+  /v2/kubernetes/clusters/{cluster_id}/node_pools/{node_pool_id}/recycle:
+    post:
+      $ref: 'resources/kubernetes/kubernetes_recycle_nodePool.yml'
+
+  /v2/kubernetes/clusters/{cluster_id}/user:
+    get:
+      $ref: 'resources/kubernetes/kubernetes_get_clusterUser.yml'
+
+  /v2/kubernetes/options:
+    get:
+      $ref: 'resources/kubernetes/kubernetes_list_options.yml'
+
+  /v2/kubernetes/clusters/{cluster_id}/clusterlint:
+    post:
+      $ref: 'resources/kubernetes/kubernetes_run_clusterLint.yml'
+
+    get:
+      $ref: 'resources/kubernetes/kubernetes_get_clusterLintResults.yml'
+
+  /v2/kubernetes/registry:
+    post:
+      $ref: 'resources/kubernetes/kubernetes_add_registry.yml'
+
+    delete:
+      $ref: 'resources/kubernetes/kubernetes_remove_registry.yml'
+
+  /v2/load_balancers:
+    post:
+      $ref: 'resources/load_balancers/loadBalancers_create.yml'
+
+    get:
+      $ref: 'resources/load_balancers/loadBalancers_list.yml'
+
+  /v2/load_balancers/{lb_id}:
+    get:
+      $ref: 'resources/load_balancers/loadBalancers_get.yml'
+
+    put:
+      $ref: 'resources/load_balancers/loadBalancers_update.yml'
+
+    delete:
+      $ref: 'resources/load_balancers/loadBalancers_delete.yml'
+
+  /v2/load_balancers/{lb_id}/droplets:
+    post:
+      $ref: 'resources/load_balancers/loadBalancers_add_droplets.yml'
+
+    delete:
+      $ref: 'resources/load_balancers/loadBalancers_remove_droplets.yml'
+
+  /v2/load_balancers/{lb_id}/forwarding_rules:
+    post:
+      $ref: 'resources/load_balancers/loadBalancers_add_forwardingRules.yml'
+
+    delete:
+      $ref: 'resources/load_balancers/loadBalancers_remove_forwardingRules.yml'
+
+  /v2/monitoring/alerts:
+    get:
+      $ref: 'resources/monitoring/monitoring_list_alertPolicy.yml'
+
+    post:
+      $ref: 'resources/monitoring/monitoring_create_alertPolicy.yml'
+
+  /v2/monitoring/alerts/{alert_uuid}:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_alertPolicy.yml'
+
+    put:
+      $ref: 'resources/monitoring/monitoring_update_alertPolicy.yml'
+
+    delete:
+      $ref: 'resources/monitoring/monitoring_delete_alertPolicy.yml'
+
+  /v2/monitoring/metrics/droplet/bandwidth:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_dropletBandwidthMetrics.yml'
+
+  /v2/monitoring/metrics/droplet/cpu:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_DropletCpuMetrics.yml'
+
+  /v2/monitoring/metrics/droplet/filesystem_free:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_dropletFilesystemFreeMetrics.yml'
+
+  /v2/monitoring/metrics/droplet/filesystem_size:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_dropletFilesystemSizeMetrics.yml'
+
+  /v2/monitoring/metrics/droplet/load_1:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_dropletLoad1Metrics.yml'
+
+  /v2/monitoring/metrics/droplet/load_5:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_dropletLoad5Metrics.yml'
+
+  /v2/monitoring/metrics/droplet/load_15:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_dropletLoad15Metrics.yml'
+
+  /v2/monitoring/metrics/droplet/memory_cached:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_dropletMemoryCachedMetrics.yml'
+
+  /v2/monitoring/metrics/droplet/memory_free:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_dropletMemoryFreeMetrics.yml'
+
+  /v2/monitoring/metrics/droplet/memory_total:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_dropletMemoryTotalMetrics.yml'
+
+  /v2/monitoring/metrics/droplet/memory_available:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_dropletMemoryAvailableMetrics.yml'
+
+  /v2/projects:
+    get:
+      $ref: 'resources/projects/projects_list.yml'
+
+    post:
+      $ref: 'resources/projects/projects_create.yml'
+
+  /v2/projects/default:
+    get:
+      $ref: 'resources/projects/projects_get_default.yml'
+
+    put:
+      $ref: 'resources/projects/projects_update_default.yml'
+
+    patch:
+      $ref: 'resources/projects/projects_patch_default.yml'
+
+  /v2/projects/{project_id}:
+    get:
+      $ref: 'resources/projects/projects_get.yml'
+
+    put:
+      $ref: 'resources/projects/projects_update.yml'
+
+    patch:
+      $ref: 'resources/projects/projects_patch.yml'
+
+    delete:
+      $ref: 'resources/projects/projects_delete.yml'
+
+  /v2/projects/{project_id}/resources:
+    get:
+      $ref: 'resources/projects/projects_list_resources.yml'
+
+    post:
+      $ref: 'resources/projects/projects_assign_resources.yml'
+
+  /v2/projects/default/resources:
+    get:
+      $ref: 'resources/projects/projects_list_resources_default.yml'
+
+    post:
+      $ref: 'resources/projects/projects_assign_resources_default.yml'
+
+  /v2/regions:
+    get:
+      $ref: 'resources/regions/regions_list.yml'
+
+  /v2/registry:
+    get:
+      $ref: 'resources/registry/registry_get.yml'
+
+    post:
+      $ref: 'resources/registry/registry_create.yml'
+
+    delete:
+      $ref: 'resources/registry/registry_delete.yml'
+
+  /v2/registry/subscription:
+    get:
+      $ref: 'resources/registry/registry_get_subscription.yml'
+
+    post:
+      $ref: 'resources/registry/registry_update_subscription.yml'
+
+  /v2/registry/docker-credentials:
+    get:
+      $ref: 'resources/registry/registry_get_dockerCredentials.yml'
+
+  /v2/registry/validate-name:
+    post:
+      $ref: 'resources/registry/registry_validate_name.yml'
+
+  /v2/registry/{registry_name}/repositories:
+    get:
+      $ref: 'resources/registry/registry_list_repositories.yml'
+
+  /v2/registry/{registry_name}/repositoriesV2:
+    get:
+      $ref: 'resources/registry/registry_list_repositoriesV2.yml'
+
+  /v2/registry/{registry_name}/{repository_name}/tags:
+    get:
+      $ref: 'resources/registry/registry_list_repositoryTags.yml'
+
+  /v2/registry/{registry_name}/{repository_name}/tags/{repository_tag}:
+    delete:
+      $ref: 'resources/registry/registry_delete_repositoryTag.yml'
+
+  /v2/registry/{registry_name}/{repository_name}/digests:
+    get:
+      $ref: 'resources/registry/registry_list_repositoryManifests.yml'
+
+  /v2/registry/{registry_name}/{repository_name}/digests/{manifest_digest}:
+    delete:
+      $ref: 'resources/registry/registry_delete_repositoryManifest.yml'
+
+  /v2/registry/{registry_name}/garbage-collection:
+    post:
+      $ref: 'resources/registry/registry_run_garbageCollection.yml'
+
+    get:
+      $ref: 'resources/registry/registry_get_garbageCollection.yml'
+
+  /v2/registry/{registry_name}/garbage-collections:
+    get:
+      $ref: 'resources/registry/registry_list_garbageCollections.yml'
+
+  /v2/registry/{registry_name}/garbage-collection/{garbage_collection_uuid}:
+    put:
+      $ref: 'resources/registry/registry_update_garbageCollection.yml'
+
+  /v2/registry/options:
+    get:
+      $ref: 'resources/registry/registry_get_options.yml'
+
+  /v2/reports/droplet_neighbors_ids:
+    get:
+      $ref: 'resources/droplets/droplets_list_neighborsIds.yml'
+
+  /v2/reserved_ips:
+    get:
+      $ref: 'resources/reserved_ips/reservedIPs_list.yml'
+
+    post:
+      $ref: 'resources/reserved_ips/reservedIPs_create.yml'
+
+  /v2/reserved_ips/{reserved_ip}:
+    get:
+      $ref: 'resources/reserved_ips/reservedIPs_get.yml'
+
+    delete:
+      $ref: 'resources/reserved_ips/reservedIPs_delete.yml'
+
+  /v2/reserved_ips/{reserved_ip}/actions:
+    get:
+      $ref: 'resources/reserved_ips/reservedIPsActions_list.yml'
+
+    post:
+      $ref: 'resources/reserved_ips/reservedIPsActions_post.yml'
+
+  /v2/reserved_ips/{reserved_ip}/actions/{action_id}:
+    get:
+      $ref: 'resources/reserved_ips/reservedIPsActions_get.yml'
+
+  /v2/sizes:
+    get:
+      $ref: 'resources/sizes/sizes_list.yml'
+
+  /v2/snapshots:
+    get:
+      $ref: 'resources/snapshots/snapshots_list.yml'
+
+  /v2/snapshots/{snapshot_id}:
+    get:
+      $ref: 'resources/snapshots/snapshots_get.yml'
+
+    delete:
+      $ref: 'resources/snapshots/snapshots_delete.yml'
+
+  /v2/tags:
+    get:
+      $ref: 'resources/tags/tags_list.yml'
+    post:
+      $ref: 'resources/tags/tags_create.yml'
+
+  /v2/tags/{tag_id}:
+    get:
+      $ref: 'resources/tags/tags_get.yml'
+    delete:
+      $ref: 'resources/tags/tags_delete.yml'
+
+  /v2/tags/{tag_id}/resources:
+    post:
+      $ref: 'resources/tags/tags_assign_resources.yml'
+    delete:
+      $ref: 'resources/tags/tags_unassign_resources.yml'
+
+  /v2/volumes:
+    get:
+      $ref: 'resources/volumes/volumes_list.yml'
+    post:
+      $ref: 'resources/volumes/volumes_create.yml'
+    delete:
+      $ref: 'resources/volumes/volumes_delete_byName.yml'
+
+  /v2/volumes/actions:
+    post:
+      $ref: 'resources/volumes/volumeActions_post.yml'
+
+  /v2/volumes/snapshots/{snapshot_id}:
+    get:
+      $ref: 'resources/volumes/volumeSnapshots_get_byId.yml'
+    delete:
+      $ref: 'resources/volumes/volumeSnapshots_delete_byId.yml'
+
+  /v2/volumes/{volume_id}:
+    get:
+      $ref: 'resources/volumes/volumes_get.yml'
+    delete:
+      $ref: 'resources/volumes/volumes_delete.yml'
+
+  /v2/volumes/{volume_id}/actions:
+    get:
+      $ref: 'resources/volumes/volumeActions_list.yml'
+    post:
+      $ref: 'resources/volumes/volumeActions_post_byId.yml'
+
+  /v2/volumes/{volume_id}/actions/{action_id}:
+    get:
+      $ref: 'resources/volumes/volumeActions_get.yml'
+
+  /v2/volumes/{volume_id}/snapshots:
+    get:
+      $ref: 'resources/volumes/volumeSnapshots_list.yml'
+    post:
+      $ref: 'resources/volumes/volumeSnapshots_create.yml'
+
+  /v2/vpcs:
+    get:
+      $ref: 'resources/vpcs/vpcs_list.yml'
+
+    post:
+      $ref: 'resources/vpcs/vpcs_create.yml'
+
+  /v2/vpcs/{vpc_id}:
+    get:
+      $ref: 'resources/vpcs/vpcs_get.yml'
+
+    put:
+      $ref: 'resources/vpcs/vpcs_update.yml'
+
+    patch:
+      $ref: 'resources/vpcs/vpcs_patch.yml'
+
+    delete:
+      $ref: 'resources/vpcs/vpcs_delete.yml'
+
+  /v2/vpcs/{vpc_id}/members:
+    get:
+      $ref: 'resources/vpcs/vpcs_list_members.yml'
+
+
+  /v2/uptime/checks:
+    get:
+      $ref: 'resources/uptime/list_checks.yml'
+
+    post:
+      $ref: 'resources/uptime/create_check.yml'
+
+  /v2/uptime/checks/{check_id}:
+    get:
+      $ref: 'resources/uptime/get_check.yml'
+
+    put:
+      $ref: 'resources/uptime/update_check.yml'
+
+    delete:
+      $ref: 'resources/uptime/delete_check.yml'
+
+  /v2/uptime/checks/{check_id}/state:
+    get:
+      $ref: 'resources/uptime/get_check_state.yml'
+
+  /v2/uptime/checks/{check_id}/alerts:
+    get:
+      $ref: 'resources/uptime/list_alerts.yml'
+
+    post:
+      $ref: 'resources/uptime/create_alert.yml'
+
+  /v2/uptime/checks/{check_id}/alerts/{alert_id}:
+    get:
+      $ref: 'resources/uptime/get_alert.yml'
+
+    put:
+      $ref: 'resources/uptime/update_alert.yml'
+
+    delete:
+      $ref: 'resources/uptime/delete_alert.yml'
+
+
+components:
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+      description: |
+        ## OAuth Authentication
+
+        In order to interact with the DigitalOcean API, you or your application must
+        authenticate.
+
+        The DigitalOcean API handles this through OAuth, an open standard for
+        authorization. OAuth allows you to delegate access to your account in full
+        or in read-only mode.
+
+        You can generate an OAuth token by visiting the [Apps & API](https://cloud.digitalocean.com/account/api/tokens)
+        section of the DigitalOcean control panel for your account.
+
+        An OAuth token functions as a complete authentication request. In effect, it
+        acts as a substitute for a username and password pair.
+
+        Because of this, it is absolutely **essential** that you keep your OAuth
+        tokens secure. In fact, upon generation, the web interface will only display
+        each token a single time in order to prevent the token from being compromised.
+
+        DigitalOcean access tokens begin with an identifiable prefix in order to
+        distinguish them from other similar tokens.
+
+        - `dop_v1_` for personal access tokens generated in the control panel
+        - `doo_v1_` for tokens generated by applications using [the OAuth flow](https://docs.digitalocean.com/reference/api/oauth-api/)
+        - `dor_v1_` for OAuth refresh tokens
+
+        ### How to Authenticate with OAuth
+
+        In order to make an authenticated request, include a bearer-type
+        `Authorization` header containing your OAuth token. All requests must be
+        made over HTTPS.
+
+        ### Authenticate with a Bearer Authorization Header
+
+        ```
+        curl -X $HTTP_METHOD -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" "https://api.digitalocean.com/v2/$OBJECT"
+        ```
+
+security:
+  - bearer_auth: []

@@ -1,0 +1,86 @@
+type: object
+
+allOf:
+  - properties:
+      id:
+        type: string
+        description: >-
+          A unique ID that can be used to identify and reference a firewall.
+        readOnly: true
+        example: bb4b2611-3d72-467b-8602-280330ecd65c
+
+      status:
+        type: string
+        description: >-
+          A status string indicating the current state of the firewall. This can be
+          "waiting", "succeeded", or "failed".
+        enum:
+          - waiting
+          - succeeded
+          - failed
+        readOnly: true
+        example: waiting
+
+      created_at:
+        type: string
+        format: date-time
+        description: >-
+          A time value given in ISO8601 combined date and time format that
+          represents when the firewall was created.
+        readOnly: true
+        example: '2020-05-23T21:24:00Z'
+
+      pending_changes:
+        type: array
+        description: >-
+          An array of objects each containing the fields "droplet_id", "removing",
+          and "status". It is provided to detail exactly which Droplets are having
+          their security policies updated. When empty, all changes have been
+          successfully applied.
+        items:
+          type: object
+          properties:
+            droplet_id:
+              type: integer
+              example: 8043964
+
+            removing:
+              type: boolean
+              example: false
+
+            status:
+              type: string
+              example: waiting
+        readOnly: true
+        example:
+          - droplet_id: 8043964
+            removing: false
+            status: waiting
+
+      name:
+        type: string
+        description: >-
+          A human-readable name for a firewall. The name must begin with an
+          alphanumeric character. Subsequent characters must either be alphanumeric
+          characters, a period (.), or a dash (-).
+        pattern: '^[a-zA-Z0-9][a-zA-Z0-9\.-]+$'
+        example: firewall
+
+      droplet_ids:
+        type: array
+        description: >-
+          An array containing the IDs of the Droplets assigned to the firewall.
+        nullable: true
+        items:
+          type: integer
+        example:
+          - 8043964
+
+      tags:
+        allOf:
+          - $ref: '../../../shared/attributes/tags_array.yml'
+          - description: >-
+              An array containing the names of the Tags assigned to the firewall.
+            example: gateway
+
+  - $ref: 'firewall_rule.yml#/firewall_rules'

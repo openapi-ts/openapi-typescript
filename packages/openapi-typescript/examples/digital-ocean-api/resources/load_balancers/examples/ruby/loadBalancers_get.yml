@@ -1,0 +1,7 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  client.load_balancers.find(id: '4de7ac8b-495b-4884-9a69-1050c6793cd6')

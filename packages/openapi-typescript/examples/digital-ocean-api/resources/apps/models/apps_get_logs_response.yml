@@ -1,0 +1,13 @@
+properties:
+  historic_urls:
+    items:
+      type: string
+      example: https://logs/build.log
+    title: A list of URLs to archived log files
+    type: array
+  live_url:
+    description: A URL of the real-time live logs. This URL may use either the `https://`
+      or `wss://` protocols and will keep pushing live logs as they become available.
+    type: string
+    example: ws://logs/build
+type: object

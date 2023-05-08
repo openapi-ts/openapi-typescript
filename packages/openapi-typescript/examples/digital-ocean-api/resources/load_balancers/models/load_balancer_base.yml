@@ -1,0 +1,161 @@
+type: object
+
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+    example: 4de7ac8b-495b-4884-9a69-1050c6793cd6
+    description: A unique ID that can be used to identify and reference a load
+      balancer.
+
+  name:
+    type: string
+    example: example-lb-01
+    description: A human-readable name for a load balancer instance.
+
+  project_id:
+    type: string
+    example: 4de7ac8b-495b-4884-9a69-1050c6793cd6
+    description: The ID of the project that the load balancer is associated with. 
+      If no ID is provided at creation, the load balancer associates with the user's 
+      default project. If an invalid project ID is provided, the load balancer will 
+      not be created.
+
+  ip:
+    type: string
+    pattern: '^$|^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+    readOnly: true
+    example: '104.131.186.241'
+    description: An attribute containing the public-facing IP address of the
+      load balancer.
+
+  size_unit:
+    type: integer
+    default: 1
+    minimum: 1
+    maximum: 100
+    example: 3
+    description: How many nodes the load balancer contains. Each additional
+      node increases the load balancer's ability to manage more connections.
+      Load balancers can be scaled up or down, and you can change the number of
+      nodes after creation up to once per hour. This field is currently not
+      available in the AMS2, NYC2, or SFO1 regions. Use the `size` field to
+      scale load balancers that reside in these regions.
+
+  size:
+    type: string
+    enum:
+      - lb-small
+      - lb-medium
+      - lb-large
+    deprecated: true
+    default: lb-small
+    example: lb-small
+    description: This field has been replaced by the `size_unit` field for all
+      regions except in AMS2, NYC2, and SFO1. Each available load balancer size
+      now equates to the load balancer having a set number of nodes.
+
+      * `lb-small` = 1 node
+
+      * `lb-medium` = 3 nodes
+
+      * `lb-large` = 6 nodes
+
+
+      You can resize load balancers after creation up to once per hour. You
+      cannot resize a load balancer within the first hour of its creation.
+
+  algorithm:
+    type: string
+    example: round_robin
+    enum:
+      - round_robin
+      - least_connections
+    deprecated: true
+    default: round_robin
+    description: This field has been deprecated. You can no longer specify an
+      algorithm for load balancers.
+
+  status:
+    type: string
+    example: new
+    enum:
+      - new
+      - active
+      - errored
+    readOnly: true
+    description: A status string indicating the current state of the load
+      balancer. This can be `new`, `active`, or `errored`.
+
+  created_at:
+    type: string
+    format: date-time
+    readOnly: true
+    example: '2017-02-01T22:22:58Z'
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the load balancer was created.
+
+  forwarding_rules:
+    type: array
+    minItems: 1
+    items:
+      $ref: 'forwarding_rule.yml'
+    description: An array of objects specifying the forwarding rules for a
+      load balancer.
+
+  health_check:
+    $ref: 'health_check.yml'
+
+  sticky_sessions:
+    $ref: 'sticky_sessions.yml'
+
+  redirect_http_to_https:
+    type: boolean
+    example: true
+    default: false
+    description: A boolean value indicating whether HTTP requests to the load
+      balancer on port 80 will be redirected to HTTPS on port 443.
+
+  enable_proxy_protocol:
+    type: boolean
+    example: true
+    default: false
+    description: A boolean value indicating whether PROXY Protocol is in use.
+
+  enable_backend_keepalive:
+    type: boolean
+    example: true
+    default: false
+    description: A boolean value indicating whether HTTP keepalive connections
+      are maintained to target Droplets.
+
+  http_idle_timeout_seconds:
+    type: integer
+    example: 90
+    default: 60
+    minimum: 30
+    maximum: 600
+    description: An integer value which configures the idle timeout for HTTP requests
+     to the target droplets.
+
+  vpc_uuid:
+    type: string
+    format: uuid
+    example: c33931f2-a26a-4e61-b85c-4e95a2ec431b
+    description: A string specifying the UUID of the VPC to which the load
+      balancer is assigned.
+
+  disable_lets_encrypt_dns_records:
+    type: boolean
+    example: true
+    default: false
+    description: A boolean value indicating whether to disable automatic DNS
+      record creation for Let's Encrypt certificates that are added to the
+      load balancer.
+
+  firewall:
+    $ref: 'lb_firewall.yml'
+
+required:
+  - forwarding_rules

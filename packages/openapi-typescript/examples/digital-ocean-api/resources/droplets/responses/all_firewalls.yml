@@ -1,0 +1,73 @@
+description: A JSON object that has a key called `firewalls`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            firewalls:
+              type: array
+              items:
+                $ref: '../../firewalls/models/firewall.yml' 
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+    example:
+      firewalls:
+        - id: bb4b2611-3d72-467b-8602-280330ecd65c
+          status: succeeded
+          created_at: 2020-05-23T21:24:00Z
+          pending_changes:
+            - droplet_id: 8043964
+              removing: true
+              status: waiting
+          name: firewall
+          droplet_ids:
+            - 89989
+            - 33322
+          tags:
+            - base-image
+            - prod
+          inbound_rules:
+            - protocol: udp
+              ports: 8000-9000
+              sources:
+                addresses:
+                  - 1.2.3.4
+                  - 18.0.0.0/8
+                droplet_ids:
+                    - 8282823
+                    - 3930392
+                load_balancer_uids:
+                    - 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                tags:
+                    - base-image
+                    - dev
+          outbound_rules:
+            - protocol: tcp
+              ports: 7000-9000
+              destinations:
+                addresses:
+                  - 1.2.3.4
+                  - 18.0.0.0/8
+                droplet_ids:
+                  - 3827493
+                  - 213213
+                load_balancer_uids:
+                  - 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                tags:
+                  - base-image
+                  - prod
+      links:
+        pages: {}
+      meta:
+        total: 1

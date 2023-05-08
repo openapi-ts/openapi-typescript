@@ -1,0 +1,43 @@
+description: A JSON object with the validation results.
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        valid:
+          type: boolean
+          description: Indicates whether the app can be rolled back to the specified deployment.
+        error:
+          allOf:
+            - description: Contains the failing condition that is causing the rollback to be invalid.
+            - $ref: ../models/app_rollback_validation_condition.yml
+        warnings:
+          type: array
+          description: Contains a list of warnings that may cause the rollback to run under unideal circumstances.
+          items:
+            $ref: ../models/app_rollback_validation_condition.yml
+    examples:
+      "Valid rollback":
+        value:
+          valid: true
+      "Valid rollback with warnings":
+        value:
+          valid: true
+          warnings:
+            - code: image_source_missing_digest
+              components: ["docker-worker"]
+              message: one or more components are missing an image digest and are not guaranteed rollback to the old version
+      "Invalid rollback":
+        value:
+          valid: false
+          error:
+            code: incompatible_result
+            message: deployment result "failed" is unsuitable for rollback
+headers:
+  ratelimit-limit:
+    $ref: ../../../shared/headers.yml#/ratelimit-limit
+  ratelimit-remaining:
+    $ref: ../../../shared/headers.yml#/ratelimit-remaining
+  ratelimit-reset:
+    $ref: ../../../shared/headers.yml#/ratelimit-reset

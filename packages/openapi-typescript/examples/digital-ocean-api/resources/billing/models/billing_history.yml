@@ -1,0 +1,43 @@
+type: object
+
+properties:
+  description:
+    type: string
+    description: Description of the billing history entry.
+    example: Invoice for May 2018
+  amount:
+    type: string
+    description: Amount of the billing history entry.
+    example: "12.34"
+  invoice_id:
+    type: string
+    description: >-
+      ID of the invoice associated with the billing history entry, if 
+      applicable.
+    example: "123"
+  invoice_uuid:
+    type: string
+    description: >-
+      UUID of the invoice associated with the billing history entry, if 
+      applicable.
+    example: example-uuid
+  date:
+    type: string
+    format: date-time
+    description: Time the billing history entry occurred.
+    example: 2018-06-01T08:44:38Z
+  type:
+    type: string
+    description: Type of billing history entry.
+    example: Invoice
+    enum:
+      - ACHFailure
+      - Adjustment
+      - AttemptFailed
+      - Chargeback
+      - Credit
+      - CreditExpiration
+      - Invoice
+      - Payment
+      - Refund
+      - Reversal

@@ -1,0 +1,6 @@
+lang: cURL
+source: |-
+  curl -X GET \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/apps/{app_id}/deployments/{deployment_id}/components/{component_name}/logs"

@@ -1,0 +1,25 @@
+properties:
+  build_seconds:
+    format: int64
+    title: The amount of included build time in seconds
+    type: string
+    example: "233"
+  egress_bandwidth_bytes:
+    format: int64
+    title: The amount of included outbound bandwidth in bytes
+    type: string
+    example: "123"
+  name:
+    title: A human-readable name of the tier
+    type: string
+    example: test
+  slug:
+    title: The slug of the tier
+    type: string
+    example: test
+  storage_bytes:
+    format: int64
+    title: The allotted disk space in bytes
+    type: string
+    example: "10000000"
+type: object

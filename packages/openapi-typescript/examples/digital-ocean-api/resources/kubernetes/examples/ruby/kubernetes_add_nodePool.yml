@@ -1,0 +1,15 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  node_pool = DropletKit::KubernetesNodePool.new(
+    name: 'pool-02',
+    size: 's-2vcpu-4gb',
+    count: 1,
+    tags: ['web']
+    labels: {service: 'web', priority: 'high'}
+  )
+
+  client.kubernetes_clusters.create_node_pool(node_pool, id: 'bd5f5959-5e1e-4205-a714-a914373942af')

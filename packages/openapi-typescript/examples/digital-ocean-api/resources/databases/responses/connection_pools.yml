@@ -1,0 +1,42 @@
+description: A JSON object with a key of `pools`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../models/connection_pools.yml'
+    example:
+      pools:
+      - user: doadmin
+        name: reporting-pool
+        size: 10
+        db: defaultdb
+        mode: session
+        connection:
+          uri: postgres://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25061/foo?sslmode=require
+          database: foo
+          host: backend-do-user-19081923-0.db.ondigitalocean.com
+          port: 25061
+          user: doadmin
+          password: wv78n3zpz42xezdk
+          ssl: true
+      - user: doadmin
+        name: backend-pool
+        size: 10
+        db: defaultdb
+        mode: transaction
+        connection:
+          uri: postgres://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25061/backend-pool?sslmode=require
+          database: backend-pool
+          host: backend-do-user-19081923-0.db.ondigitalocean.com
+          port: 25061
+          user: doadmin
+          password: wv78n3zpz42xezdk
+          ssl: true

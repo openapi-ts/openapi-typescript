@@ -1,0 +1,29 @@
+description: |
+  The response will be a JSON object with a key called `kubernetes_cluster`. The
+  value of this will be an object containing the standard attributes of a
+  Kubernetes cluster.
+
+  The IP address and cluster API server endpoint will not be available until the
+  cluster has finished provisioning. The initial value of the cluster's
+  `status.state` attribute will be `provisioning`. When the cluster is ready,
+  this will transition to `running`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        kubernetes_cluster:
+          $ref: '../models/cluster.yml'
+    examples:
+      Kubernetes Cluster Response:
+        $ref: 'examples.yml#/kubernetes_clusters_create_basic_response'
+      Kubernetes Cluster with Multiple Node Pools Response:
+         $ref: 'examples.yml#/kubernetes_clusters_multi_pool_response'

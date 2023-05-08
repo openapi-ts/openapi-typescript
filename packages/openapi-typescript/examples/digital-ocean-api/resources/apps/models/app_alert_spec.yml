@@ -1,0 +1,17 @@
+properties:
+  rule:
+    $ref: app_alert_spec_rule.yml
+  disabled:
+    description: Is the alert disabled?
+    type: boolean
+    example: false
+  operator:
+    $ref: app_alert_spec_operator.yml
+  value:
+    description: Threshold value for alert
+    format: float
+    type: number
+    example: 2.32
+  window:
+    $ref: app_alert_spec_window.yml
+type: object

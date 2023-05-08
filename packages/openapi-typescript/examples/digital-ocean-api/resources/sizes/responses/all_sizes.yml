@@ -1,0 +1,60 @@
+description: >-
+  A JSON object with a key called `sizes`. The value of this will be an array
+  of `size` objects each of which contain the standard size attributes.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            sizes:
+              type: array
+              items:
+                $ref: '../models/size.yml'
+          required:
+            - sizes
+
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+      example:
+        sizes:
+        - slug: "s-1vcpu-1gb"
+          memory: 1024
+          vcpus: 1
+          disk: 25
+          transfer: 1.0
+          price_monthly: 5.0
+          price_hourly: 0.00743999984115362
+          regions:
+          - ams2
+          - ams3
+          - blr1
+          - fra1
+          - lon1
+          - nyc1
+          - nyc2
+          - nyc3
+          - sfo1
+          - sfo2
+          - sfo3
+          - sgp1
+          - tor1
+          available: true
+          description: Basic
+        links:
+          pages:
+            last: "https://api.digitalocean.com/v2/sizes?page=64&per_page=1"
+            next: "https://api.digitalocean.com/v2/sizes?page=2&per_page=1"
+        meta:
+          total:
+            64

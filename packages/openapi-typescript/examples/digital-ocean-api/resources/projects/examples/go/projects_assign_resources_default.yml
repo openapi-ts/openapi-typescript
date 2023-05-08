@@ -1,0 +1,23 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      res := []interface{}{
+        &godo.Droplet{ID: 1},
+        "do:droplet:42",
+        &godo.FloatingIP{IP: "192.168.99.100"},
+      }
+
+      client.Projects.AssignResources(ctx, godo.DefaultProject, res...)
+  }

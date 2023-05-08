@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"resources": ["do:droplet:1", "do:floatingip:192.168.99.100"]}' \
+    "https://api.digitalocean.com/v2/projects/default/resources"

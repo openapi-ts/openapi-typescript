@@ -1,0 +1,8 @@
+type: array
+items:
+  $ref: 'region_slug.yml'
+description: >-
+  This attribute is an array of the regions that the image is available in. The regions are represented by their identifying slug values.
+example: 
+  - nyc1
+  - nyc2

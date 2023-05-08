@@ -1,0 +1,24 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+    // Attach a Volume to a Droplet by ID
+      action, _, err := client.StorageActions.Attach(ctx, "7724db7c-e098-11e5-b522-000f53304e51", 11612190)
+
+    // Remove a Volume from a Droplet by ID
+    // action, _, err := client.StorageActions.Detach(ctx, "7724db7c-e098-11e5-b522-000f53304e51")
+
+    // Resize a Volume
+    // action, _, err := client.StorageActions.Resize(ctx, "7724db7c-e098-11e5-b522-000f53304e51", 100, "nyc1")
+  }

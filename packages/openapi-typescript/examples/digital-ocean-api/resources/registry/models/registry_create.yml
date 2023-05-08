@@ -1,0 +1,36 @@
+type: object
+
+properties:
+  name:
+    type: string
+    maxLength: 63
+    pattern: '^[a-z0-9-]{1,63}$'
+    example: example
+    description: A globally unique name for the container registry. Must be
+      lowercase and be composed only of numbers, letters and `-`, up to a limit
+      of 63 characters.
+
+  subscription_tier_slug:
+    type: string
+    enum:
+    - starter
+    - basic
+    - professional
+    example: basic
+    description: The slug of the subscription tier to sign up for. Valid values
+      can be retrieved using the options endpoint.
+
+  region:
+    type: string
+    enum:
+    - nyc3
+    - sfo3
+    - ams3
+    - sgp1
+    - fra1
+    example: fra1
+    description: Slug of the region where registry data is stored. When not provided, a region will be selected.
+
+required:
+- name
+- subscription_tier_slug

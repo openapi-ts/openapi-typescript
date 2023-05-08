@@ -1,0 +1,13 @@
+type: object
+required:
+  - url
+  - channel
+properties:
+  channel:
+    type: string
+    example: "Production Alerts"
+    description: "Slack channel to notify of an alert trigger."
+  url:
+    type: string
+    description: "Slack Webhook URL."
+    example: "https://hooks.slack.com/services/T1234567/AAAAAAAA/ZZZZZZ"

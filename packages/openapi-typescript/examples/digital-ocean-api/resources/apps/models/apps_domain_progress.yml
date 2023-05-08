@@ -1,0 +1,10 @@
+properties:
+  steps:
+    items:
+      # FIXME: Circular refs are not currently supported by Prism
+      # https://github.com/stoplightio/prism/issues/1456
+      #$ref: apps_domain_progress_step.yml
+      type: object
+    title: The steps of the domain's progress
+    type: array
+type: object

@@ -1,6 +1,0 @@
-properties:
-  regions:
-    items:
-      $ref: apps_region.yml
-    type: array
-type: object

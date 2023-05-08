@@ -1,4 +1,4 @@
 .DS_Store
-coverage/
+.astro
 dist
 node_modules

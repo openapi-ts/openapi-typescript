@@ -1,0 +1,10 @@
+allOf:
+  - type: object
+    properties:
+      deployments:
+        title: A list of deployments
+        type: array
+        items:
+          $ref: apps_deployment.yml
+  - $ref: ../../../shared/pages.yml#/pagination
+  - $ref: ../../../shared/meta.yml

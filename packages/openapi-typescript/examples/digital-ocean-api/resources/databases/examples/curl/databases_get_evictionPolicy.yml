@@ -1,0 +1,6 @@
+lang: cURL
+source: |-
+  curl -X GET \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/databases/9cdb64e5-61e4-4b30-b711-11ef66d84558/eviction_policy"

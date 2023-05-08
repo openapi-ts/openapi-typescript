@@ -1,6 +1,0 @@
-properties:
-  alerts:
-    type: array
-    items:
-      $ref: app_alert.yml
-type: object

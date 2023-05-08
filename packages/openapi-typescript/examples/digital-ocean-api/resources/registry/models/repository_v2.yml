@@ -1,0 +1,25 @@
+type: object
+
+properties:
+  registry_name:
+    type: string
+    example: example
+    description: The name of the container registry.
+
+  name:
+    type: string
+    example: repo-1
+    description: The name of the repository.
+
+  latest_manifest:
+    $ref: 'repository_manifest.yml'
+
+  tag_count:
+    type: integer
+    example: 1
+    description: The number of tags in the repository.
+
+  manifest_count:
+    type: integer
+    example: 1
+    description: The number of manifests in the repository.

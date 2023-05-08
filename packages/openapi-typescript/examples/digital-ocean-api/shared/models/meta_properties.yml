@@ -1,0 +1,9 @@
+type: object
+
+description: Information about the response itself.
+
+properties:
+  total:
+    description: Number of objects returned by the request.
+    type: integer
+    example: 1

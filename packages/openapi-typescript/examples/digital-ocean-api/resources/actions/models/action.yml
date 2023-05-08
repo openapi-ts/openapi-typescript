@@ -1,0 +1,55 @@
+type: object
+
+properties:
+  id:
+    type: integer
+    description: A unique numeric ID that can be used to identify and reference an action.
+    example: 36804636
+
+  status:
+    type: string
+    description: The current status of the action. This can be "in-progress", "completed", or "errored".
+    enum:
+      - in-progress
+      - completed
+      - errored
+    example: completed
+    default: in-progress
+
+  type:
+    type: string
+    description: This is the type of action that the object represents. For example, this could be "transfer" to represent the state of an image transfer action.
+    example: create
+
+  started_at:
+    type: string
+    format: date-time
+    description: A time value given in ISO8601 combined date and time format that represents when the action was initiated.
+    example: 2020-11-14T16:29:21Z
+
+  completed_at:
+    type: string
+    format: date-time
+    nullable: true
+    description: A time value given in ISO8601 combined date and time format that represents when the action was completed.
+    example: 2020-11-14T16:30:06Z
+
+  resource_id:
+    type: integer
+    nullable: true
+    description: A unique identifier for the resource that the action is associated with.
+    example: 3164444
+
+  resource_type:
+    type: string
+    description: The type of resource that the action is associated with.
+    example: droplet
+
+  region:
+      $ref: '../../regions/models/region.yml'
+
+  region_slug:
+    allOf:
+      - $ref: '../../regions/models/region.yml#/properties/slug'
+      - type: string
+        nullable: true

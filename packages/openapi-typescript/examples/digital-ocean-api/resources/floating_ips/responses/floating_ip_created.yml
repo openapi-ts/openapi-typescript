@@ -1,0 +1,40 @@
+description: The response will be a JSON object with a key called `floating_ip`.
+  The value of this will be an object that contains the standard attributes
+  associated with a floating IP.
+
+  When assigning a floating IP to a Droplet at same time as it created, the
+  response's `links` object will contain links to both the Droplet and the
+  assignment action. The latter can be used to check the status of the action.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        floating_ip:
+          $ref: '../models/floating_ip.yml'
+        links:
+          type: object
+          properties:
+            droplets:
+              type: array
+              items:
+                $ref: '../../../shared/models/action_link.yml'
+            actions:
+              type: array
+              items:
+                $ref: '../../../shared/models/action_link.yml'
+
+    examples:
+      floating_ip_assigning:
+        $ref: 'examples.yml#/floating_ip_assigning'
+      floating_ip_reserving:
+        $ref: 'examples.yml#/floating_ip_reserving'

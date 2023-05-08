@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name": "example", "subscription_tier_slug": "basic", "region": "fra1"}' \
+    "https://api.digitalocean.com/v2/registry"

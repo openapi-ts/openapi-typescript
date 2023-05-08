@@ -1,0 +1,41 @@
+properties:
+  component_name:
+    title: The component name that this step is associated with
+    type: string
+    example: component
+  ended_at:
+    format: date-time
+    title: The end time of this step
+    type: string
+    example: 2020-11-19T20:27:18Z
+  message_base:
+    description: |-
+      The base of a human-readable description of the step intended to be combined with the component name for presentation. For example:
+
+      `message_base` = "Building service"
+      `component_name` = "api"
+    type: string
+    example: Building service
+  name:
+    title: The name of this step
+    type: string
+    example: example_step
+  reason:
+    $ref: apps_deployment_progress_step_reason.yml
+  started_at:
+    format: date-time
+    title: The start time of this step
+    type: string
+    example: 2020-11-19T20:27:18Z
+  status:
+    $ref: apps_deployment_progress_step_status.yml
+  steps:
+    items:
+      # FIXME: Circular refs are not currently supported by Prism
+      # https://github.com/stoplightio/prism/issues/1456
+      # $ref: apps_deployment_progress_step.yml
+      type: object
+    title: Child steps of this step
+    type: array
+title: A step that is run as part of the deployment's lifecycle
+type: object

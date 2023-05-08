@@ -1,0 +1,33 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      createRequest := &godo.DropletCreateRequest{
+          Name:   "example.com",
+          Region: "nyc3",
+          Size:   "s-1vcpu-1gb",
+          Image: godo.DropletCreateImage{
+              Slug: "ubuntu-20-04-x64",
+          },
+          SSHKeys: []godo.DropletCreateSSHKey{
+              godo.DropletCreateSSHKey{ID: 289794},
+              godo.DropletCreateSSHKey{Fingerprint: "3b:16:e4:bf:8b:00:8b:b8:59:8c:a9:d3:f0:19:fa:45"}
+          },
+          Backups: true,
+          IPv6: true,
+          Monitoring: true,
+          Tags: []string{"env:prod","web"},
+          UserData: "#cloud-config\nruncmd:\n  - touch /test.txt\n",
+          VPCUUID: "760e09ef-dc84-11e8-981e-3cfdfeaae000",
+      }

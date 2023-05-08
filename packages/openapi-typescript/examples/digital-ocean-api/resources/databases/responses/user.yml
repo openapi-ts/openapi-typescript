@@ -1,0 +1,35 @@
+description: A JSON object with a key of `user`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        user:
+          $ref: '../models/database_user.yml'
+      required:
+        - user
+    examples:
+      New User:
+        value:
+          user:
+            name: app-01
+            role: normal
+            password: jge5lfxtzhx42iff
+
+      New User with MySQL Auth Plugin:
+        value:
+          user:
+            name: app-02
+            role: normal
+            password: wv78n3zpz42xezdk
+            mysql_settings:
+              auth_plugin: mysql_native_password

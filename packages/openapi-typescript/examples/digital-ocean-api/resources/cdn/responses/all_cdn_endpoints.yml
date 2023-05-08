@@ -1,0 +1,38 @@
+description: >-
+  The result will be a JSON object with an `endpoints` key. This will be set to
+  an array of endpoint objects, each of which will contain the standard CDN
+  endpoint attributes.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            endpoints:
+              type: array
+              items:
+                $ref: '../models/cdn_endpoint.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+      example:
+        endpoints:
+          - id: 19f06b6a-3ace-4315-b086-499a0e521b76
+            origin: static-images.nyc3.digitaloceanspaces.com
+            endpoint: static-images.nyc3.cdn.digitaloceanspaces.com
+            created_at: '2018-07-19T15:04:16Z'
+            certificate_id: 892071a0-bb95-49bc-8021-3afd67a210bf
+            custom_domain: static.example.com
+            ttl: 3600
+        links: {}
+        meta:
+          total: 1

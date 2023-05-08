@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"region": "nyc1", "label": "my namespace label"}' \
+    "https://api.digitalocean.com/v2/functions/namespaces"

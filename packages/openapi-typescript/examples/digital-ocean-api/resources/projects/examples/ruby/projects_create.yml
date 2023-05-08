@@ -1,0 +1,13 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  project = DropletKit::Project.new(
+    name: 'my-api',
+    description: 'My website API',
+    purpose: 'Service or API',
+    environment: 'Production'
+  )
+  client.projects.create(project)

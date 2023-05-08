@@ -1,0 +1,66 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+  // Enable Backups
+      action, _, err := client.DropletActions.EnableBackups(ctx, 3164450)
+
+  // Disable Backups
+  //  action, _, err := client.DropletActions.DisableBackups(ctx, 3164450)
+
+  // Reboot a Droplet
+  //  action, _, err := client.DropletActions.Reboot(ctx, 3164450)
+
+  // Power Cycle a Droplet
+  //  action, _, err := client.DropletActions.PowerCycle(ctx, 3164450)
+
+  // Shutdown a Droplet
+  //  action, _, err := client.DropletActions.Shutdown(ctx, 3067649)
+
+  // Power Off a Droplet
+  //  action, _, err := client.DropletActions.PowerOff(ctx, 3164450)
+
+  // Power On a Droplet
+  //  action, _, err := client.DropletActions.PowerOn(ctx, 3164450)
+
+  // Restore a Droplet
+  //  action, _, err := client.DropletActions.Restore(ctx, 3164449, 12389723)
+
+  // Password Reset a Droplet
+  //  action, _, err := client.DropletActions.PasswordReset(ctx, 3164450)
+
+  // Resize a Droplet
+  //  action, _, err := client.DropletActions.Resize(ctx, 3164450, "1gb", true)
+
+  // Rebuild a Droplet
+  //  action, _, err := client.DropletActions.RebuildByImageSlug(ctx, 3164450, "ubuntu-16-04-x64")
+
+  // Rename a Droplet
+  //  action, _, err := client.DropletActions.Rename(ctx, 3164450, "nifty-new-name")
+
+  // Change the Kernel
+  //  action, _, err := client.DropletActions.ChangeKernel(ctx, 3164450, 991)
+
+  // Enable IPv6
+  //  action, _, err := client.DropletActions.EnableIPv6(ctx, 3164450)
+
+  // Enable Private Networking
+  //  action, _, err := client.DropletActions.EnablePrivateNetworking(ctx, 3164450)
+
+  // Snapshot a Droplet
+  //  action, _, err := client.DropletActions.Snapshot(ctx, 3164450, "Nifty New Snapshot")
+
+  // Retrieve a Droplet Action
+  //  action, _, err := client.DropletActions.Get(ctx, 3164450, 36804807)
+
+  }

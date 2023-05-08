@@ -1,4 +1,0 @@
-properties:
-  app:
-    $ref: app.yml
-type: object

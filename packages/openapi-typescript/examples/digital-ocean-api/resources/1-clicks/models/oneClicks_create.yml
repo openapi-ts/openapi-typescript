@@ -1,0 +1,23 @@
+type: object
+
+properties:
+  addon_slugs:
+    title: addon_slugs
+    type: array
+    items:
+      type: string
+    example:
+    - kube-state-metrics
+    - loki
+    default: []
+    description: An array of 1-Click Application slugs to be installed to the Kubernetes cluster.
+
+  cluster_uuid:
+    title: cluster_uuid
+    type: string
+    example: 50a994b6-c303-438f-9495-7e896cfe6b08
+    description: A unique ID for the Kubernetes cluster to which the 1-Click Applications will be installed.
+
+required:
+  - addon_slugs
+  - cluster_uuid

@@ -1,0 +1,47 @@
+type: object
+
+description: An objects containing information about a resources scheduled
+  for deletion.
+
+properties:
+  droplet:
+    $ref: 'destroyed_associated_resource.yml'
+
+  resources:
+    type: object
+    description: An object containing additional information about resource
+      related to a Droplet requested to be destroyed.
+    properties:
+      reserved_ips:
+        type: array
+        items:
+          $ref: 'destroyed_associated_resource.yml'
+      floating_ips:
+        type: array
+        items:
+          $ref: 'destroyed_associated_resource.yml'
+      snapshots:
+        type: array
+        items:
+          $ref: 'destroyed_associated_resource.yml'
+      volumes:
+        type: array
+        items:
+          $ref: 'destroyed_associated_resource.yml'
+      volume_snapshots:
+        type: array
+        items:
+          $ref: 'destroyed_associated_resource.yml'
+
+  completed_at:
+    type: string
+    format: date-time
+    example: 2020-04-01T18:11:49Z
+    description: A time value given in ISO8601 combined date and time format
+      indicating when the requested action was completed.
+
+  failures:
+    type: integer
+    example: 0
+    description: A count of the associated resources that failed to be
+      destroyed, if any.

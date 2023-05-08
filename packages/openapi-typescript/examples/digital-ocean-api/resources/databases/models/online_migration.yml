@@ -1,0 +1,20 @@
+type: object
+
+properties:
+  id:
+    type: string
+    description: The ID of the most recent migration.
+    example: 77b28fc8-19ff-11eb-8c9c-c68e24557488
+  status:
+    type: string
+    description: The current status of the migration.
+    enum:
+      - running
+      - canceled
+      - error
+      - done
+    example: running
+  created_at:
+    type: string
+    description: The time the migration was initiated, in ISO 8601 format.
+    example: 2020-10-29T15:57:38Z

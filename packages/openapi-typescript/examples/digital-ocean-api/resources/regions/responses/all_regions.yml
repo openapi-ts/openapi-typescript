@@ -1,0 +1,63 @@
+description: >-
+  A JSON object with a key set to `regions`. The value is an array of `region`
+  objects, each of which contain the standard `region` attributes.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            regions:
+              type: array
+              items:
+                $ref: '../models/region.yml'
+          required:
+            - regions
+
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+      example:
+        regions:
+        - name: New York 3
+          slug: nyc3
+          features:
+              - private_networking
+              - backups
+              - ipv6
+              - metadata
+              - install_agent
+              - storage
+              - image_transfer
+          available: true
+          sizes:
+              - s-1vcpu-1gb
+              - s-1vcpu-2gb
+              - s-1vcpu-3gb
+              - s-2vcpu-2gb
+              - s-3vcpu-1gb
+              - s-2vcpu-4gb
+              - s-4vcpu-8gb
+              - s-6vcpu-16gb
+              - s-8vcpu-32gb
+              - s-12vcpu-48gb
+              - s-16vcpu-64gb
+              - s-20vcpu-96gb
+              - s-24vcpu-128gb
+              - s-32vcpu-192g
+        links:
+          pages:
+            last: "https://api.digitalocean.com/v2/regions?page=13&per_page=1"
+            next: "https://api.digitalocean.com/v2/regions?page=2&per_page=1"
+        meta:
+          total:
+            13

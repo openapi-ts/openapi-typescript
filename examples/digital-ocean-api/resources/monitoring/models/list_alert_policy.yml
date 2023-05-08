@@ -1,8 +1,0 @@
-type: object
-required:
-  - policies
-properties:
-  policies:
-    type: array
-    items:
-      $ref: 'alert_policy.yml'

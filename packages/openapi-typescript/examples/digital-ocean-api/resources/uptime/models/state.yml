@@ -1,0 +1,58 @@
+state:
+  type: object
+  properties:
+    regions:
+      $ref: '#/regional_state'
+    previous_outage:
+      $ref: '#/previous_outage'
+
+
+regional_state:
+  type: object
+  description: "A map of region to regional state"
+  properties:
+    us_east:
+      $ref: "#/region_state"
+    eu_west:
+      $ref: "#/region_state"
+
+
+region_state:
+  type: object
+  properties:
+    status:
+      type: string
+      example: "UP"
+      enum:
+        - "DOWN"
+        - "UP"
+        - "CHECKING"
+    status_changed_at:
+      type: string
+      example: "2022-03-17T22:28:51Z"
+    thirty_day_uptime_percentage:
+      type: number
+      example: 97.99
+
+
+previous_outage:
+  type: object
+  properties:
+    region:
+      type: string
+      example: "us_east"
+    started_at:
+      type: string
+      example: "2022-03-17T18:04:55Z"
+    ended_at:
+      type: string
+      example: "2022-03-17T18:06:55Z"
+    duration_seconds:
+      type: integer
+      example: 120
+
+
+
+
+
+

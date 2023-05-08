@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"inbound_rules":[{"protocol":"tcp","ports":"3306","sources":{"droplet_ids":[49696269]}}],"outbound_rules":[{"protocol":"tcp","ports":"3306","destinations":{"droplet_ids":[49696269]}}]}' \
+    "https://api.digitalocean.com/v2/firewalls/bb4b2611-3d72-467b-8602-280330ecd65c/rules" 

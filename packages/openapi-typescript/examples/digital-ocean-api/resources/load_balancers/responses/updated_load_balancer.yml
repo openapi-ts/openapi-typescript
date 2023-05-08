@@ -1,0 +1,22 @@
+description: |
+  The response will be a JSON object with a key called `load_balancer`. The
+  value of this will be an object containing the standard attributes of a
+  load balancer.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        load_balancer:
+          $ref: '../models/load_balancer.yml'
+    examples:
+      load_balancer_update_response:
+        $ref: 'examples.yml#/load_balancer_update_response'

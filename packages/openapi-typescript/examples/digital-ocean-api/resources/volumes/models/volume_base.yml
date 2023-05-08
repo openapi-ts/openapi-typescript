@@ -1,0 +1,50 @@
+type: object
+
+properties:
+
+  id:
+    type: string
+    description: The unique identifier for the block storage volume.
+    example: 506f78a4-e098-11e5-ad9f-000f53306ae1
+    readOnly: true
+
+  droplet_ids:
+    type: array
+    items:
+      type: integer
+    nullable: true
+    description: >-
+      An array containing the IDs of the Droplets the volume is attached to.
+      Note that at this time, a volume can only be attached to a single Droplet.
+    example: []
+    readOnly: true
+
+  name:
+    type: string
+    description: >-
+      A human-readable name for the block storage volume. Must be lowercase and
+      be composed only of numbers, letters and "-", up to a limit of 64
+      characters. The name must begin with a letter.
+    example: example
+
+  description:
+    type: string
+    description: >-
+      An optional free-form text field to describe a block storage volume.
+    example: Block store for examples
+
+  size_gigabytes:
+    type: integer
+    description: The size of the block storage volume in GiB (1024^3).
+    example: 10
+
+  created_at:
+    type: string
+    description: >-
+      A time value given in ISO8601 combined date and time format that
+      represents when the block storage volume was created.
+    example: 2020-03-02T17:00:49Z
+    readOnly: true
+
+  tags:
+    $ref: '../../../shared/attributes/tags_array.yml'

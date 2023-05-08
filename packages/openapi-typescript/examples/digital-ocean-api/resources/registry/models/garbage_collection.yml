@@ -1,0 +1,48 @@
+type: object
+
+properties:
+  uuid:
+    type: string
+    example: eff0feee-49c7-4e8f-ba5c-a320c109c8a8
+    description: A string specifying the UUID of the garbage collection.
+
+  registry_name:
+    type: string
+    example: example
+    description: The name of the container registry.
+
+  status:
+    type: string
+    enum:
+    - requested
+    - waiting for write JWTs to expire
+    - scanning manifests
+    - deleting unreferenced blobs
+    - cancelling
+    - failed
+    - succeeded
+    - cancelled
+    example: requested
+    description: The current status of this garbage collection.
+
+  created_at:
+    type: string
+    format: date-time
+    example: 2020-10-30T21:03:24Z
+    description: The time the garbage collection was created.
+
+  updated_at:
+    type: string
+    format: date-time
+    example: 2020-10-30T21:03:44Z
+    description: The time the garbage collection was last updated.
+
+  blobs_deleted:
+    type: integer
+    example: 42
+    description: The number of blobs deleted as a result of this garbage collection.
+
+  freed_bytes:
+    type: integer
+    example: 667
+    description: The number of bytes freed as a result of this garbage collection.

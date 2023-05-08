@@ -1,0 +1,18 @@
+type: object
+properties:
+  app_ids:
+    type: array
+    items:
+      type: string
+    description: 'A list of app IDs to query bandwidth metrics for.'
+    maxItems: 100
+    example:
+      - 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+      - c2a93513-8d9b-4223-9d61-5e7272c81cf5
+  date:
+    type: string
+    format: date-time
+    description: 'Optional day to query. Only the date component of the timestamp will be considered. Default: yesterday.'
+    example: 2023-01-17T00:00:00Z
+required:
+  - app_ids

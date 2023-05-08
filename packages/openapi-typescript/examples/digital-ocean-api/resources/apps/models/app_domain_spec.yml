@@ -1,0 +1,52 @@
+type: object
+properties:
+  domain:
+    type: string
+    maxLength: 253
+    minLength: 4
+    pattern: ^((xn--)?[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}\.?$
+    description: The hostname for the domain
+    example: app.example.com
+
+  type:
+    type: string
+    default: UNSPECIFIED
+    enum:
+      - UNSPECIFIED
+      - DEFAULT
+      - PRIMARY
+      - ALIAS
+    description: |-
+      - DEFAULT: The default `.ondigitalocean.app` domain assigned to this app
+      - PRIMARY: The primary domain for this app that is displayed as the default in the control panel, used in bindable environment variables, and any other places that reference an app's live URL. Only one domain may be set as primary.
+      - ALIAS: A non-primary domain
+    example: DEFAULT
+
+  wildcard:
+    type: boolean
+    description: Indicates whether the domain includes all sub-domains, in
+      addition to the given domain
+    example: true
+
+  zone:
+    description: |-
+      Optional. If the domain uses DigitalOcean DNS and you would like App
+      Platform to automatically manage it for you, set this to the name of the
+      domain on your account.
+
+      For example, If the domain you are adding is `app.domain.com`, the zone
+      could be `domain.com`.
+    type: string
+    format: hostname
+    example: example.com
+  minimum_tls_version:
+    type: string
+    maxLength: 3
+    minLength: 3
+    enum:
+      - '1.2'
+      - '1.3'
+    description: 'The minimum version of TLS a client application can use to access resources for the domain.  Must be one of the following values wrapped within quotations: `"1.2"` or `"1.3"`.'
+    example: '1.3'
+required:
+  - domain

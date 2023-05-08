@@ -1,0 +1,22 @@
+title: Multiple Droplet Request
+allOf:
+  - type: object
+
+    properties:
+      names:
+        type: array
+        items:
+          type: string
+        example:
+        - sub-01.example.com
+        - sub-02.example.com
+        description: An array of human human-readable strings you wish to use
+          when displaying the Droplet name. Each name, if set to a domain name
+          managed in the DigitalOcean DNS management system, will configure a
+          PTR record for the Droplet. Each name set during creation will also
+          determine the hostname for the Droplet in its internal configuration.
+
+    required:
+    - names
+
+  - $ref: 'droplet_create.yml'

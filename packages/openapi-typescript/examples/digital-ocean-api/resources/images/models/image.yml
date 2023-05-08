@@ -1,0 +1,105 @@
+type: object
+
+properties:
+
+  id:
+    type: integer
+    description: >-
+      A unique number that can be used to identify and reference a specific
+      image.
+    example: 7555620
+    readOnly: true
+
+  name:
+    $ref: '../attributes.yml#/image_name'
+
+  type:
+    type: string
+    description: >-
+      Describes the kind of image. It may be one of `base`, `snapshot`, `backup`,
+      `custom`, or `admin`. Respectively, this specifies whether an image is a
+      DigitalOcean base OS image, user-generated Droplet snapshot, automatically
+      created Droplet backup, user-provided virtual machine image, or an image
+      used for DigitalOcean managed resources (e.g. DOKS worker nodes).
+    enum:
+      - base
+      - snapshot
+      - backup
+      - custom
+      - admin
+    example: snapshot
+
+  distribution:
+     $ref: '../../../shared/attributes/distribution.yml'
+
+  slug:
+    type: string
+    nullable: true
+    description: >-
+      A uniquely identifying string that is associated with each of the
+      DigitalOcean-provided public images.
+      These can be used to reference a public image as an alternative to the
+      numeric id.
+    example: nifty1
+
+  public:
+    type: boolean
+    description: >-
+      This is a boolean value that indicates whether the image in question is
+      public or not.
+      An image that is public is available to all accounts. A non-public image
+      is only accessible from your account.
+    example: true
+
+  regions:
+    $ref: '../../../shared/attributes/regions_array.yml'
+
+  created_at:
+    type: string
+    format: date-time
+    description: >-
+      A time value given in ISO8601 combined date and time format that
+      represents when the image was created.
+    example: 2020-05-04T22:23:02Z
+
+  min_disk_size:
+    type: integer
+    description: >-
+      The minimum disk size in GB required for a Droplet to use this image.
+    example: 20
+    nullable: true
+    minimum: 0
+
+  size_gigabytes:
+    type: number
+    format: float
+    nullable: true
+    description: >-
+      The size of the image in gigabytes.
+    example: 2.34
+
+  description:
+    $ref: '../attributes.yml#/image_description'
+
+  tags:
+    $ref: '../../../shared/attributes/tags_array.yml'
+
+  status:
+    type: string
+    description: >-
+      A status string indicating the state of a custom image. This may be `NEW`,
+       `available`, `pending`, `deleted`, or `retired`.
+    enum:
+      - NEW
+      - available
+      - pending
+      - deleted
+      - retired
+    example: NEW
+
+  error_message:
+    type: string
+    description: >-
+      A string containing information about errors that may occur when importing
+       a custom image.
+    example: " "
