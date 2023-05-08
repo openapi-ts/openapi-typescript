@@ -1,10 +1,13 @@
 {
-  "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "esModuleInterop": true,
     "jsx": "preserve",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "outDir": "dist",
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "target": "ESNext"
   }
 }

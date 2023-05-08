@@ -1,3 +1,4 @@
 .DS_Store
+.astro
 dist
 node_modules
