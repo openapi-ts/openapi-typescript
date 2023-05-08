@@ -27,11 +27,16 @@ export default function transformOperationObject(
       for (const paramIn of ["query", "header", "path", "cookie"] as ParameterObject["in"][]) {
         const paramInternalOutput: string[] = [];
         indentLv++;
+        let allOptional = true;
         for (const param of operationObject.parameters ?? []) {
           const node: ParameterObject | undefined = "$ref" in param ? ctx.parameters[param.$ref] : param;
           if (node?.in !== paramIn) continue;
           let key = escObjKey(node.name);
-          if (paramIn !== "path" && !node.required) key = tsOptionalProperty(key);
+          if (paramIn !== "path" && !node.required) {
+            key = tsOptionalProperty(key);
+          } else {
+            allOptional = false;
+          }
           const c = getSchemaObjectComment(param, indentLv);
           if (c) paramInternalOutput.push(indent(c, indentLv));
           const parameterType =
@@ -45,7 +50,8 @@ export default function transformOperationObject(
         }
         indentLv--;
         if (paramInternalOutput.length) {
-          parameterOutput.push(indent(`${paramIn}: {`, indentLv));
+          const key = allOptional ? tsOptionalProperty(paramIn) : paramIn;
+          parameterOutput.push(indent(`${key}: {`, indentLv));
           parameterOutput.push(...paramInternalOutput);
           parameterOutput.push(indent(`};`, indentLv));
         }

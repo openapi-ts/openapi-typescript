@@ -752,7 +752,7 @@ export interface external {
    */
   "resources/1-clicks/oneClicks_list.yml": {
     parameters: {
-      query: {
+      query?: {
         type?: external["resources/1-clicks/parameters.yml"]["oneClicks_type"];
       };
     };
@@ -898,7 +898,7 @@ export interface external {
    */
   "resources/actions/actions_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -1105,7 +1105,7 @@ export interface external {
    */
   "resources/apps/apps_create.yml": {
     parameters: {
-      header: {
+      header?: {
         Accept?: external["resources/apps/parameters.yml"]["accept"];
         "Content-Type"?: external["resources/apps/parameters.yml"]["content-type"];
       };
@@ -1314,7 +1314,7 @@ export interface external {
    */
   "resources/apps/apps_get_metrics_bandwidth_usage.yml": {
     parameters: {
-      query: {
+      query?: {
         /**
          * @description Optional day to query. Only the date component of the timestamp will be considered. Default: yesterday. 
          * @example "2023-01-17T00:00:00.000Z"
@@ -1359,7 +1359,7 @@ export interface external {
    */
   "resources/apps/apps_get.yml": {
     parameters: {
-      query: {
+      query?: {
         name?: external["resources/apps/parameters.yml"]["app_name"];
       };
       path: {
@@ -1400,7 +1400,7 @@ export interface external {
    */
   "resources/apps/apps_list_deployments.yml": {
     parameters: {
-      query: {
+      query?: {
         page?: external["shared/parameters.yml"]["page"];
         per_page?: external["shared/parameters.yml"]["per_page"];
       };
@@ -1490,7 +1490,7 @@ export interface external {
    */
   "resources/apps/apps_list.yml": {
     parameters: {
-      query: {
+      query?: {
         page?: external["shared/parameters.yml"]["page"];
         per_page?: external["shared/parameters.yml"]["per_page"];
         with_projects?: external["resources/apps/parameters.yml"]["with_projects"];
@@ -3270,7 +3270,7 @@ export interface external {
    */
   "resources/billing/invoices_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -3709,7 +3709,7 @@ export interface external {
    */
   "resources/cdn/cdn_list_endpoints.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -3952,7 +3952,7 @@ export interface external {
    */
   "resources/certificates/certificates_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -4625,7 +4625,7 @@ export interface external {
    */
   "resources/databases/databases_list_clusters.yml": {
     parameters: {
-      query: {
+      query?: {
         tag_name?: external["resources/databases/parameters.yml"]["tag_name"];
       };
     };
@@ -6562,7 +6562,7 @@ export interface external {
    */
   "resources/domains/domains_list_records.yml": {
     parameters: {
-      query: {
+      query?: {
         name?: external["resources/domains/parameters.yml"]["domain_name_query"];
         type?: external["resources/domains/parameters.yml"]["domain_type_query"];
         per_page?: external["shared/parameters.yml"]["per_page"];
@@ -6587,7 +6587,7 @@ export interface external {
    */
   "resources/domains/domains_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -6868,7 +6868,7 @@ export interface external {
    */
   "resources/droplets/dropletActions_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -6904,7 +6904,7 @@ export interface external {
    */
   "resources/droplets/dropletActions_post_byTag.yml": {
     parameters: {
-      query: {
+      query?: {
         tag_name?: external["resources/droplets/parameters.yml"]["droplet_tag_name"];
       };
     };
@@ -7232,7 +7232,7 @@ export interface external {
    */
   "resources/droplets/droplets_list_backups.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -7260,7 +7260,7 @@ export interface external {
    */
   "resources/droplets/droplets_list_firewalls.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -7288,7 +7288,7 @@ export interface external {
    */
   "resources/droplets/droplets_list_kernels.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -7363,7 +7363,7 @@ export interface external {
    */
   "resources/droplets/droplets_list_snapshots.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -7397,7 +7397,7 @@ export interface external {
    */
   "resources/droplets/droplets_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
         tag_name?: external["resources/droplets/parameters.yml"]["droplet_tag_name"];
@@ -8420,7 +8420,7 @@ export interface external {
    */
   "resources/firewalls/firewalls_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -8682,7 +8682,7 @@ export interface external {
    */
   "resources/floating_ips/floatingIPs_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -9521,7 +9521,7 @@ export interface external {
    */
   "resources/images/images_list.yml": {
     parameters: {
-      query: {
+      query?: {
         type?: external["resources/images/parameters.yml"]["type"];
         private?: external["resources/images/parameters.yml"]["private"];
         tag_name?: external["resources/images/parameters.yml"]["tag"];
@@ -9840,7 +9840,7 @@ export interface external {
    */
   "resources/kubernetes/kubernetes_delete_node.yml": {
     parameters: {
-      query: {
+      query?: {
         skip_drain?: external["resources/kubernetes/parameters.yml"]["kubernetes_node_skip_drain"];
         replace?: external["resources/kubernetes/parameters.yml"]["kubernetes_node_replace"];
       };
@@ -9990,7 +9990,7 @@ export interface external {
    */
   "resources/kubernetes/kubernetes_get_clusterLintResults.yml": {
     parameters: {
-      query: {
+      query?: {
         run_id?: external["resources/kubernetes/parameters.yml"]["clusterlint_run_id"];
       };
       path: {
@@ -10047,7 +10047,7 @@ export interface external {
    */
   "resources/kubernetes/kubernetes_get_credentials.yml": {
     parameters: {
-      query: {
+      query?: {
         expiry_seconds?: external["resources/kubernetes/parameters.yml"]["kubernetes_expiry_seconds"];
       };
       path: {
@@ -10085,7 +10085,7 @@ export interface external {
    */
   "resources/kubernetes/kubernetes_get_kubeconfig.yml": {
     parameters: {
-      query: {
+      query?: {
         expiry_seconds?: external["resources/kubernetes/parameters.yml"]["kubernetes_expiry_seconds"];
       };
       path: {
@@ -10148,7 +10148,7 @@ export interface external {
    */
   "resources/kubernetes/kubernetes_list_clusters.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -11090,7 +11090,7 @@ export interface external {
    */
   "resources/load_balancers/loadBalancers_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -11954,7 +11954,7 @@ export interface external {
    */
   "resources/monitoring/monitoring_list_alertPolicy.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -12272,7 +12272,7 @@ export interface external {
    */
   "resources/projects/projects_list_resources.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -12295,7 +12295,7 @@ export interface external {
    */
   "resources/projects/projects_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -12531,7 +12531,7 @@ export interface external {
    */
   "resources/regions/regions_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -12955,7 +12955,7 @@ export interface external {
    */
   "resources/registry/registry_get_dockerCredentials.yml": {
     parameters: {
-      query: {
+      query?: {
         expiry_seconds?: external["resources/registry/parameters.yml"]["registry_expiry_seconds"];
         read_write?: external["resources/registry/parameters.yml"]["registry_read_write"];
       };
@@ -13035,7 +13035,7 @@ export interface external {
    */
   "resources/registry/registry_list_garbageCollections.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -13062,7 +13062,7 @@ export interface external {
    */
   "resources/registry/registry_list_repositories.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -13085,7 +13085,7 @@ export interface external {
    */
   "resources/registry/registry_list_repositoriesV2.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["resources/registry/parameters.yml"]["token_pagination_page"];
         page_token?: external["resources/registry/parameters.yml"]["token_pagination_page_token"];
@@ -13116,7 +13116,7 @@ export interface external {
    */
   "resources/registry/registry_list_repositoryManifests.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -13146,7 +13146,7 @@ export interface external {
    */
   "resources/registry/registry_list_repositoryTags.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -13524,7 +13524,7 @@ export interface external {
    */
   "resources/reserved_ips/reservedIPs_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -13772,7 +13772,7 @@ export interface external {
    */
   "resources/sizes/sizes_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -13945,7 +13945,7 @@ export interface external {
    */
   "resources/snapshots/snapshots_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
         resource_type?: external["resources/snapshots/parameters.yml"]["snapshot_resource_type"];
@@ -14077,7 +14077,7 @@ export interface external {
    */
   "resources/ssh_keys/sshKeys_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -14348,7 +14348,7 @@ export interface external {
    */
   "resources/tags/tags_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -14547,7 +14547,7 @@ export interface external {
    */
   "resources/uptime/list_alerts.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -14570,7 +14570,7 @@ export interface external {
    */
   "resources/uptime/list_checks.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -14922,7 +14922,7 @@ export interface external {
    */
   "resources/volumes/volumeActions_get.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -14946,7 +14946,7 @@ export interface external {
    */
   "resources/volumes/volumeActions_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -15004,7 +15004,7 @@ export interface external {
    */
   "resources/volumes/volumeActions_post_byId.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -15059,7 +15059,7 @@ export interface external {
    */
   "resources/volumes/volumeActions_post.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -15105,7 +15105,7 @@ export interface external {
    */
   "resources/volumes/volumes_delete_byName.yml": {
     parameters: {
-      query: {
+      query?: {
         name?: external["resources/volumes/parameters.yml"]["volume_name"];
         region?: external["shared/parameters.yml"]["region"];
       };
@@ -15172,7 +15172,7 @@ export interface external {
    */
   "resources/volumes/volumes_list.yml": {
     parameters: {
-      query: {
+      query?: {
         name?: external["resources/volumes/parameters.yml"]["volume_name"];
         region?: external["shared/parameters.yml"]["region"];
         per_page?: external["shared/parameters.yml"]["per_page"];
@@ -15272,7 +15272,7 @@ export interface external {
    */
   "resources/volumes/volumeSnapshots_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };
@@ -15421,7 +15421,7 @@ export interface external {
    */
   "resources/vpcs/vpcs_list_members.yml": {
     parameters: {
-      query: {
+      query?: {
         resource_type?: external["resources/vpcs/parameters.yml"]["vpc_resource_type"];
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -15445,7 +15445,7 @@ export interface external {
    */
   "resources/vpcs/vpcs_list.yml": {
     parameters: {
-      query: {
+      query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
       };

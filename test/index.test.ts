@@ -234,7 +234,7 @@ export interface paths {
   "/post/{id}": {
     get: operations["getPost"];
     parameters: {
-      query: {
+      query?: {
         revision?: number;
       };
     };
@@ -267,7 +267,7 @@ export interface operations {
 
   getPost: {
     parameters: {
-      query: {
+      query?: {
         revision?: number;
         format?: string;
       };

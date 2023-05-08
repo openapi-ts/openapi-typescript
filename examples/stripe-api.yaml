@@ -5062,6 +5062,35 @@ components:
       title: CheckoutKonbiniPaymentMethodOptions
       type: object
       x-expandableFields: []
+    checkout_link_payment_method_options:
+      description: ''
+      properties:
+        setup_future_usage:
+          description: >-
+            Indicates that you intend to make future payments with this
+            PaymentIntent's payment method.
+
+
+            Providing this parameter will [attach the payment
+            method](https://stripe.com/docs/payments/save-during-payment) to the
+            PaymentIntent's Customer, if present, after the PaymentIntent is
+            confirmed and any required actions from the user are complete. If no
+            Customer was provided, the payment method can still be
+            [attached](https://stripe.com/docs/api/payment_methods/attach) to a
+            Customer after the transaction completes.
+
+
+            When processing card payments, Stripe also uses `setup_future_usage`
+            to dynamically optimize your payment flow and comply with regional
+            legislation and network rules, such as
+            [SCA](https://stripe.com/docs/strong-customer-authentication).
+          enum:
+            - none
+            - off_session
+          type: string
+      title: CheckoutLinkPaymentMethodOptions
+      type: object
+      x-expandableFields: []
     checkout_oxxo_payment_method_options:
       description: ''
       properties:
@@ -5236,6 +5265,8 @@ components:
           $ref: '#/components/schemas/checkout_klarna_payment_method_options'
         konbini:
           $ref: '#/components/schemas/checkout_konbini_payment_method_options'
+        link:
+          $ref: '#/components/schemas/checkout_link_payment_method_options'
         oxxo:
           $ref: '#/components/schemas/checkout_oxxo_payment_method_options'
         p24:
@@ -5271,6 +5302,7 @@ components:
         - ideal
         - klarna
         - konbini
+        - link
         - oxxo
         - p24
         - paynow
@@ -6554,6 +6586,12 @@ components:
         eu_bank_transfer:
           $ref: >-
             #/components/schemas/customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_eu_bank_transfer
+        gb_bank_transfer:
+          $ref: >-
+            #/components/schemas/customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_gb_bank_transfer
+        jp_bank_transfer:
+          $ref: >-
+            #/components/schemas/customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_jp_bank_transfer
         reference:
           description: The user-supplied reference field on the bank transfer.
           maxLength: 5000
@@ -6578,6 +6616,8 @@ components:
       type: object
       x-expandableFields:
         - eu_bank_transfer
+        - gb_bank_transfer
+        - jp_bank_transfer
     customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_eu_bank_transfer:
       description: ''
       properties:
@@ -6598,6 +6638,52 @@ components:
           type: string
       title: >-
         CustomerBalanceResourceCashBalanceTransactionResourceFundedTransactionResourceBankTransferResourceEuBankTransfer
+      type: object
+      x-expandableFields: []
+    customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_gb_bank_transfer:
+      description: ''
+      properties:
+        account_number_last4:
+          description: >-
+            The last 4 digits of the account number of the sender of the
+            funding.
+          maxLength: 5000
+          nullable: true
+          type: string
+        sender_name:
+          description: 'The full name of the sender, as supplied by the sending bank.'
+          maxLength: 5000
+          nullable: true
+          type: string
+        sort_code:
+          description: The sort code of the bank of the sender of the funding
+          maxLength: 5000
+          nullable: true
+          type: string
+      title: >-
+        CustomerBalanceResourceCashBalanceTransactionResourceFundedTransactionResourceBankTransferResourceGbBankTransfer
+      type: object
+      x-expandableFields: []
+    customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_jp_bank_transfer:
+      description: ''
+      properties:
+        sender_bank:
+          description: The name of the bank of the sender of the funding.
+          maxLength: 5000
+          nullable: true
+          type: string
+        sender_branch:
+          description: The name of the bank branch of the sender of the funding.
+          maxLength: 5000
+          nullable: true
+          type: string
+        sender_name:
+          description: 'The full name of the sender, as supplied by the sending bank.'
+          maxLength: 5000
+          nullable: true
+          type: string
+      title: >-
+        CustomerBalanceResourceCashBalanceTransactionResourceFundedTransactionResourceBankTransferResourceJpBankTransfer
       type: object
       x-expandableFields: []
     customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction:
@@ -28951,23 +29037,91 @@ components:
     setup_attempt_payment_method_details_card:
       description: ''
       properties:
+        brand:
+          description: >-
+            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`,
+            `mastercard`, `unionpay`, `visa`, or `unknown`.
+          maxLength: 5000
+          nullable: true
+          type: string
         checks:
           anyOf:
             - $ref: '#/components/schemas/payment_method_details_card_checks'
           description: >-
-            Check results by Card networks on Card address and CVC at time of
-            payment.
+            Check results by Card networks on Card address and CVC at the time
+            of authorization
           nullable: true
+        country:
+          description: >-
+            Two-letter ISO code representing the country of the card. You could
+            use this attribute to get a sense of the international breakdown of
+            cards you've collected.
+          maxLength: 5000
+          nullable: true
+          type: string
+        exp_month:
+          description: Two-digit number representing the card's expiration month.
+          nullable: true
+          type: integer
+        exp_year:
+          description: Four-digit number representing the card's expiration year.
+          nullable: true
+          type: integer
+        fingerprint:
+          description: >-
+            Uniquely identifies this particular card number. You can use this
+            attribute to check whether two customers who’ve signed up with you
+            are using the same card number, for example. For payment methods
+            that tokenize card information (Apple Pay, Google Pay), the
+            tokenized number might be provided instead of the underlying card
+            number.
+
+
+            *Starting May 1, 2021, card fingerprint in India for Connect will
+            change to allow two fingerprints for the same card --- one for India
+            and one for the rest of the world.*
+          maxLength: 5000
+          nullable: true
+          type: string
+        funding:
+          description: >-
+            Card funding type. Can be `credit`, `debit`, `prepaid`, or
+            `unknown`.
+          maxLength: 5000
+          nullable: true
+          type: string
+        last4:
+          description: The last four digits of the card.
+          maxLength: 5000
+          nullable: true
+          type: string
+        network:
+          description: >-
+            Identifies which network this charge was processed on. Can be
+            `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`,
+            `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+          maxLength: 5000
+          nullable: true
+          type: string
         three_d_secure:
           anyOf:
             - $ref: '#/components/schemas/three_d_secure_details'
           description: Populated if this authorization used 3D Secure authentication.
+          nullable: true
+        wallet:
+          anyOf:
+            - $ref: >-
+                #/components/schemas/setup_attempt_payment_method_details_card_wallet
+          description: >-
+            If this Card is part of a card wallet, this contains the details of
+            the card wallet.
           nullable: true
       title: setup_attempt_payment_method_details_card
       type: object
       x-expandableFields:
         - checks
         - three_d_secure
+        - wallet
     setup_attempt_payment_method_details_card_present:
       description: ''
       properties:
@@ -28987,6 +29141,31 @@ components:
       type: object
       x-expandableFields:
         - generated_card
+    setup_attempt_payment_method_details_card_wallet:
+      description: ''
+      properties:
+        apple_pay:
+          $ref: '#/components/schemas/payment_method_details_card_wallet_apple_pay'
+        google_pay:
+          $ref: '#/components/schemas/payment_method_details_card_wallet_google_pay'
+        type:
+          description: >-
+            The type of the card wallet, one of `apple_pay`, `google_pay`, or
+            `link`. An additional hash is included on the Wallet subhash with a
+            name matching this value. It contains additional information
+            specific to the card wallet type.
+          enum:
+            - apple_pay
+            - google_pay
+            - link
+          type: string
+      required:
+        - type
+      title: setup_attempt_payment_method_details_card_wallet
+      type: object
+      x-expandableFields:
+        - apple_pay
+        - google_pay
     setup_attempt_payment_method_details_cashapp:
       description: ''
       properties: {}
@@ -33032,7 +33211,8 @@ components:
           type: string
         shipping_cost:
           anyOf:
-            - $ref: '#/components/schemas/tax_product_resource_shipping_cost'
+            - $ref: >-
+                #/components/schemas/tax_product_resource_tax_calculation_shipping_cost
           description: The shipping cost details for the calculation.
           nullable: true
         tax_amount_exclusive:
@@ -33253,7 +33433,8 @@ components:
           nullable: true
         shipping_cost:
           anyOf:
-            - $ref: '#/components/schemas/tax_product_resource_shipping_cost'
+            - $ref: >-
+                #/components/schemas/tax_product_resource_tax_transaction_shipping_cost
           description: The shipping cost details for the transaction.
           nullable: true
         tax_date:
@@ -33912,46 +34093,6 @@ components:
       title: TaxProductResourcePostalAddress
       type: object
       x-expandableFields: []
-    tax_product_resource_shipping_cost:
-      description: ''
-      properties:
-        amount:
-          description: >-
-            The shipping amount in integer cents. If `tax_behavior=inclusive`,
-            then this amount includes taxes. Otherwise, taxes were calculated on
-            top of this amount.
-          type: integer
-        amount_tax:
-          description: 'The amount of tax calculated for shipping, in integer cents.'
-          type: integer
-        shipping_rate:
-          description: >-
-            The ID of an existing
-            [ShippingRate](https://stripe.com/docs/api/shipping_rates/object)
-          maxLength: 5000
-          type: string
-        tax_behavior:
-          description: >-
-            Specifies whether the `amount` includes taxes. If
-            `tax_behavior=inclusive`, then the amount includes taxes.
-          enum:
-            - exclusive
-            - inclusive
-          type: string
-        tax_code:
-          description: >-
-            The [tax code](https://stripe.com/docs/tax/tax-categories) ID used
-            for shipping.
-          maxLength: 5000
-          type: string
-      required:
-        - amount
-        - amount_tax
-        - tax_behavior
-        - tax_code
-      title: TaxProductResourceShippingCost
-      type: object
-      x-expandableFields: []
     tax_product_resource_tax_breakdown:
       description: ''
       properties:
@@ -33977,6 +34118,52 @@ components:
       type: object
       x-expandableFields:
         - tax_rate_details
+    tax_product_resource_tax_calculation_shipping_cost:
+      description: ''
+      properties:
+        amount:
+          description: >-
+            The shipping amount in integer cents. If `tax_behavior=inclusive`,
+            then this amount includes taxes. Otherwise, taxes were calculated on
+            top of this amount.
+          type: integer
+        amount_tax:
+          description: 'The amount of tax calculated for shipping, in integer cents.'
+          type: integer
+        shipping_rate:
+          description: >-
+            The ID of an existing
+            [ShippingRate](https://stripe.com/docs/api/shipping_rates/object)
+          maxLength: 5000
+          type: string
+        tax_behavior:
+          description: >-
+            Specifies whether the `amount` includes taxes. If
+            `tax_behavior=inclusive`, then the amount includes taxes.
+          enum:
+            - exclusive
+            - inclusive
+          type: string
+        tax_breakdown:
+          description: Detailed account of taxes relevant to shipping cost.
+          items:
+            $ref: '#/components/schemas/tax_product_resource_line_item_tax_breakdown'
+          type: array
+        tax_code:
+          description: >-
+            The [tax code](https://stripe.com/docs/tax/tax-categories) ID used
+            for shipping.
+          maxLength: 5000
+          type: string
+      required:
+        - amount
+        - amount_tax
+        - tax_behavior
+        - tax_code
+      title: TaxProductResourceTaxCalculationShippingCost
+      type: object
+      x-expandableFields:
+        - tax_breakdown
     tax_product_resource_tax_rate_details:
       description: ''
       properties:
@@ -34039,6 +34226,40 @@ components:
           nullable: true
           type: string
       title: TaxProductResourceTaxTransactionResourceReversal
+      type: object
+      x-expandableFields: []
+    tax_product_resource_tax_transaction_shipping_cost:
+      description: ''
+      properties:
+        amount:
+          description: >-
+            The shipping amount in integer cents. If `tax_behavior=inclusive`,
+            then this amount includes taxes. Otherwise, taxes were calculated on
+            top of this amount.
+          type: integer
+        amount_tax:
+          description: 'The amount of tax calculated for shipping, in integer cents.'
+          type: integer
+        tax_behavior:
+          description: >-
+            Specifies whether the `amount` includes taxes. If
+            `tax_behavior=inclusive`, then the amount includes taxes.
+          enum:
+            - exclusive
+            - inclusive
+          type: string
+        tax_code:
+          description: >-
+            The [tax code](https://stripe.com/docs/tax/tax-categories) ID used
+            for shipping.
+          maxLength: 5000
+          type: string
+      required:
+        - amount
+        - amount_tax
+        - tax_behavior
+        - tax_code
+      title: TaxProductResourceTaxTransactionShippingCost
       type: object
       x-expandableFields: []
     tax_rate:
@@ -49016,6 +49237,15 @@ paths:
                         setup_future_usage:
                           enum:
                             - none
+                          type: string
+                      title: payment_method_options_param
+                      type: object
+                    link:
+                      properties:
+                        setup_future_usage:
+                          enum:
+                            - none
+                            - off_session
                           type: string
                       title: payment_method_options_param
                       type: object
