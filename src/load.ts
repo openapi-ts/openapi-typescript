@@ -279,6 +279,10 @@ export default async function load(
 
         const ref = parseRef(node.$ref);
 
+        // when ref.path is [], $ref has been transform, skip transform
+        if (ref.path.length === 0) {
+          return;
+        }
         // local $ref: convert into TS path
         if (ref.filename === ".") {
           node.$ref = makeTSIndex(ref.path);
