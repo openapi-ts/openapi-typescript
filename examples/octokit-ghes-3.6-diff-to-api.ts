@@ -5812,7 +5812,7 @@ export interface operations {
   /** List global webhooks */
   "enterprise-admin/list-global-webhooks": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -5955,7 +5955,7 @@ export interface operations {
   /** List public keys */
   "enterprise-admin/list-public-keys": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
         direction?: components["parameters"]["direction"];
@@ -6134,7 +6134,7 @@ export interface operations {
   /** List pre-receive environments */
   "enterprise-admin/list-pre-receive-environments": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
         direction?: components["parameters"]["direction"];
@@ -6324,7 +6324,7 @@ export interface operations {
   /** List pre-receive hooks */
   "enterprise-admin/list-pre-receive-hooks": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
         direction?: components["parameters"]["direction"];
@@ -6446,7 +6446,7 @@ export interface operations {
    */
   "enterprise-admin/list-personal-access-tokens": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -6604,7 +6604,7 @@ export interface operations {
    */
   "apps/list-installations": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
         since?: components["parameters"]["since"];
@@ -6695,7 +6695,7 @@ export interface operations {
    */
   "oauth-authorizations/list-grants": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
         /** @description The client ID of your GitHub app. */
@@ -6880,7 +6880,7 @@ export interface operations {
    */
   "oauth-authorizations/list-authorizations": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
         /** @description The client ID of your GitHub app. */
@@ -7464,7 +7464,7 @@ export interface operations {
    */
   "enterprise-admin/get-audit-log": {
     parameters: {
-      query: {
+      query?: {
         phrase?: components["parameters"]["audit-log-phrase"];
         include?: components["parameters"]["audit-log-include"];
         after?: components["parameters"]["audit-log-after"];
@@ -7493,7 +7493,7 @@ export interface operations {
    */
   "secret-scanning/list-alerts-for-enterprise": {
     parameters: {
-      query: {
+      query?: {
         state?: components["parameters"]["secret-scanning-alert-state"];
         secret_type?: components["parameters"]["secret-scanning-alert-secret-type"];
         resolution?: components["parameters"]["secret-scanning-alert-resolution"];
@@ -7739,7 +7739,7 @@ export interface operations {
    */
   "orgs/get-audit-log": {
     parameters: {
-      query: {
+      query?: {
         phrase?: components["parameters"]["audit-log-phrase"];
         include?: components["parameters"]["audit-log-include"];
         after?: components["parameters"]["audit-log-after"];
@@ -7791,7 +7791,7 @@ export interface operations {
    */
   "teams/list-external-idp-groups-for-org": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         /** @description Page token */
         page?: number;
@@ -7842,7 +7842,7 @@ export interface operations {
    */
   "orgs/list-app-installations": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -7871,7 +7871,7 @@ export interface operations {
    */
   "enterprise-admin/list-pre-receive-hooks-for-org": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
         direction?: components["parameters"]["direction"];
@@ -7968,7 +7968,7 @@ export interface operations {
    */
   "secret-scanning/list-alerts-for-org": {
     parameters: {
-      query: {
+      query?: {
         state?: components["parameters"]["secret-scanning-alert-state"];
         secret_type?: components["parameters"]["secret-scanning-alert-secret-type"];
         resolution?: components["parameters"]["secret-scanning-alert-resolution"];
@@ -8252,7 +8252,7 @@ export interface operations {
    */
   "actions/list-workflow-runs-for-repo": {
     parameters: {
-      query: {
+      query?: {
         actor?: components["parameters"]["actor"];
         branch?: components["parameters"]["workflow-run-branch"];
         event?: components["parameters"]["event"];
@@ -8289,7 +8289,7 @@ export interface operations {
    */
   "actions/get-workflow-run": {
     parameters: {
-      query: {
+      query?: {
         exclude_pull_requests?: components["parameters"]["exclude-pull-requests"];
       };
       path: {
@@ -8316,7 +8316,7 @@ export interface operations {
    */
   "actions/get-workflow-run-attempt": {
     parameters: {
-      query: {
+      query?: {
         exclude_pull_requests?: components["parameters"]["exclude-pull-requests"];
       };
       path: {
@@ -8343,7 +8343,7 @@ export interface operations {
    */
   "actions/list-workflow-runs": {
     parameters: {
-      query: {
+      query?: {
         actor?: components["parameters"]["actor"];
         branch?: components["parameters"]["workflow-run-branch"];
         event?: components["parameters"]["event"];
@@ -8383,7 +8383,7 @@ export interface operations {
    */
   "repos/list-autolinks": {
     parameters: {
-      query: {
+      query?: {
         page?: components["parameters"]["page"];
       };
       path: {
@@ -8486,7 +8486,7 @@ export interface operations {
    */
   "code-scanning/list-recent-analyses": {
     parameters: {
-      query: {
+      query?: {
         tool_name?: components["parameters"]["tool-name"];
         tool_guid?: components["parameters"]["tool-guid"];
         page?: components["parameters"]["page"];
@@ -8526,7 +8526,7 @@ export interface operations {
    */
   "repos/list-collaborators": {
     parameters: {
-      query: {
+      query?: {
         /** @description Filter collaborators returned by their affiliation. `outside` means all outside collaborators of an organization-owned repository. `direct` means all collaborators with permissions to an organization-owned repository, regardless of organization membership status. `all` means all collaborators the authenticated user can see. */
         affiliation?: "outside" | "direct" | "all";
         /** @description Filter collaborators by the permissions they have on the repository. If not specified, all collaborators will be returned. */
@@ -8580,7 +8580,7 @@ export interface operations {
    */
   "dependency-graph/diff-range": {
     parameters: {
-      query: {
+      query?: {
         name?: components["parameters"]["manifest-path"];
       };
       path: {
@@ -8665,7 +8665,7 @@ export interface operations {
   /** List deploy keys */
   "repos/list-deploy-keys": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -8752,7 +8752,7 @@ export interface operations {
    */
   "enterprise-admin/list-pre-receive-hooks-for-repo": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
         direction?: components["parameters"]["direction"];
@@ -8853,7 +8853,7 @@ export interface operations {
    */
   "repos/list-releases": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -9043,7 +9043,7 @@ export interface operations {
    */
   "repos/list-cache-info": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };
@@ -9085,7 +9085,7 @@ export interface operations {
    */
   "secret-scanning/list-alerts-for-repo": {
     parameters: {
-      query: {
+      query?: {
         state?: components["parameters"]["secret-scanning-alert-state"];
         secret_type?: components["parameters"]["secret-scanning-alert-secret-type"];
         resolution?: components["parameters"]["secret-scanning-alert-resolution"];
@@ -9188,7 +9188,7 @@ export interface operations {
    */
   "repos/list-public": {
     parameters: {
-      query: {
+      query?: {
         since?: components["parameters"]["since-repo"];
         /** @description Specifies the types of repositories to return. This endpoint will only list repositories available to all users on the enterprise. */
         visibility?: "all" | "public";
@@ -9215,7 +9215,7 @@ export interface operations {
    */
   "enterprise-admin/list-provisioned-groups-enterprise": {
     parameters: {
-      query: {
+      query?: {
         startIndex?: components["parameters"]["start-index"];
         count?: components["parameters"]["count"];
         /** @description filter results */
@@ -9277,7 +9277,7 @@ export interface operations {
    */
   "enterprise-admin/get-provisioning-information-for-enterprise-group": {
     parameters: {
-      query: {
+      query?: {
         /** @description Attributes to exclude. */
         excludedAttributes?: string;
       };
@@ -9408,7 +9408,7 @@ export interface operations {
    */
   "enterprise-admin/list-provisioned-identities-enterprise": {
     parameters: {
-      query: {
+      query?: {
         startIndex?: components["parameters"]["start-index"];
         count?: components["parameters"]["count"];
         /** @description filter results */
@@ -9851,7 +9851,7 @@ export interface operations {
    */
   "apps/list-installations-for-authenticated-user": {
     parameters: {
-      query: {
+      query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
       };

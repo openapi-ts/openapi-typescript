@@ -3851,6 +3851,18 @@ export interface components {
        */
       setup_future_usage?: "none";
     };
+    /** CheckoutLinkPaymentMethodOptions */
+    checkout_link_payment_method_options: {
+      /**
+       * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
+       * 
+       * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+       * 
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       * @enum {string}
+       */
+      setup_future_usage?: "none" | "off_session";
+    };
     /** CheckoutOxxoPaymentMethodOptions */
     checkout_oxxo_payment_method_options: {
       /** @description The number of calendar days before an OXXO invoice expires. For example, if you create an OXXO invoice on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time. */
@@ -3926,6 +3938,7 @@ export interface components {
       ideal?: components["schemas"]["checkout_ideal_payment_method_options"];
       klarna?: components["schemas"]["checkout_klarna_payment_method_options"];
       konbini?: components["schemas"]["checkout_konbini_payment_method_options"];
+      link?: components["schemas"]["checkout_link_payment_method_options"];
       oxxo?: components["schemas"]["checkout_oxxo_payment_method_options"];
       p24?: components["schemas"]["checkout_p24_payment_method_options"];
       paynow?: components["schemas"]["checkout_paynow_payment_method_options"];
@@ -4442,6 +4455,8 @@ export interface components {
     /** CustomerBalanceResourceCashBalanceTransactionResourceFundedTransactionResourceBankTransfer */
     customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer: {
       eu_bank_transfer?: components["schemas"]["customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_eu_bank_transfer"];
+      gb_bank_transfer?: components["schemas"]["customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_gb_bank_transfer"];
+      jp_bank_transfer?: components["schemas"]["customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_jp_bank_transfer"];
       /** @description The user-supplied reference field on the bank transfer. */
       reference?: string | null;
       /**
@@ -4456,6 +4471,24 @@ export interface components {
       bic?: string | null;
       /** @description The last 4 digits of the IBAN of the sender of the funding. */
       iban_last4?: string | null;
+      /** @description The full name of the sender, as supplied by the sending bank. */
+      sender_name?: string | null;
+    };
+    /** CustomerBalanceResourceCashBalanceTransactionResourceFundedTransactionResourceBankTransferResourceGbBankTransfer */
+    customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_gb_bank_transfer: {
+      /** @description The last 4 digits of the account number of the sender of the funding. */
+      account_number_last4?: string | null;
+      /** @description The full name of the sender, as supplied by the sending bank. */
+      sender_name?: string | null;
+      /** @description The sort code of the bank of the sender of the funding */
+      sort_code?: string | null;
+    };
+    /** CustomerBalanceResourceCashBalanceTransactionResourceFundedTransactionResourceBankTransferResourceJpBankTransfer */
+    customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_jp_bank_transfer: {
+      /** @description The name of the bank of the sender of the funding. */
+      sender_bank?: string | null;
+      /** @description The name of the bank branch of the sender of the funding. */
+      sender_branch?: string | null;
       /** @description The full name of the sender, as supplied by the sending bank. */
       sender_name?: string | null;
     };
@@ -12040,15 +12073,47 @@ export interface components {
     setup_attempt_payment_method_details_boleto: Record<string, never>;
     /** setup_attempt_payment_method_details_card */
     setup_attempt_payment_method_details_card: {
-      /** @description Check results by Card networks on Card address and CVC at time of payment. */
+      /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+      brand?: string | null;
+      /** @description Check results by Card networks on Card address and CVC at the time of authorization */
       checks?: components["schemas"]["payment_method_details_card_checks"] | null;
+      /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
+      country?: string | null;
+      /** @description Two-digit number representing the card's expiration month. */
+      exp_month?: number | null;
+      /** @description Four-digit number representing the card's expiration year. */
+      exp_year?: number | null;
+      /**
+       * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+       * 
+       * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
+       */
+      fingerprint?: string | null;
+      /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
+      funding?: string | null;
+      /** @description The last four digits of the card. */
+      last4?: string | null;
+      /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+      network?: string | null;
       /** @description Populated if this authorization used 3D Secure authentication. */
       three_d_secure?: components["schemas"]["three_d_secure_details"] | null;
+      /** @description If this Card is part of a card wallet, this contains the details of the card wallet. */
+      wallet?: components["schemas"]["setup_attempt_payment_method_details_card_wallet"] | null;
     };
     /** setup_attempt_payment_method_details_card_present */
     setup_attempt_payment_method_details_card_present: {
       /** @description The ID of the Card PaymentMethod which was generated by this SetupAttempt. */
       generated_card?: (string | components["schemas"]["payment_method"]) | null;
+    };
+    /** setup_attempt_payment_method_details_card_wallet */
+    setup_attempt_payment_method_details_card_wallet: {
+      apple_pay?: components["schemas"]["payment_method_details_card_wallet_apple_pay"];
+      google_pay?: components["schemas"]["payment_method_details_card_wallet_google_pay"];
+      /**
+       * @description The type of the card wallet, one of `apple_pay`, `google_pay`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type. 
+       * @enum {string}
+       */
+      type: "apple_pay" | "google_pay" | "link";
     };
     /** setup_attempt_payment_method_details_cashapp */
     setup_attempt_payment_method_details_cashapp: Record<string, never>;
@@ -13565,7 +13630,7 @@ export interface components {
        */
       object: "tax.calculation";
       /** @description The shipping cost details for the calculation. */
-      shipping_cost?: components["schemas"]["tax_product_resource_shipping_cost"] | null;
+      shipping_cost?: components["schemas"]["tax_product_resource_tax_calculation_shipping_cost"] | null;
       /** @description The amount of tax to be collected on top of the line item prices. */
       tax_amount_exclusive: number;
       /** @description The amount of tax already included in the line item prices. */
@@ -13661,7 +13726,7 @@ export interface components {
       /** @description If `type=reversal`, contains information about what was reversed. */
       reversal?: components["schemas"]["tax_product_resource_tax_transaction_resource_reversal"] | null;
       /** @description The shipping cost details for the transaction. */
-      shipping_cost?: components["schemas"]["tax_product_resource_shipping_cost"] | null;
+      shipping_cost?: components["schemas"]["tax_product_resource_tax_transaction_shipping_cost"] | null;
       /**
        * Format: unix-time 
        * @description Timestamp of date at which the tax rules and rates in effect applies for the calculation.
@@ -13888,8 +13953,18 @@ export interface components {
       /** @description State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX". */
       state?: string | null;
     };
-    /** TaxProductResourceShippingCost */
-    tax_product_resource_shipping_cost: {
+    /** TaxProductResourceTaxBreakdown */
+    tax_product_resource_tax_breakdown: {
+      /** @description The amount of tax, in integer cents. */
+      amount: number;
+      /** @description Specifies whether the tax amount is included in the line item amount. */
+      inclusive: boolean;
+      tax_rate_details: components["schemas"]["tax_product_resource_tax_rate_details"];
+      /** @description The amount on which tax is calculated, in integer cents. */
+      taxable_amount: number;
+    };
+    /** TaxProductResourceTaxCalculationShippingCost */
+    tax_product_resource_tax_calculation_shipping_cost: {
       /** @description The shipping amount in integer cents. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount. */
       amount: number;
       /** @description The amount of tax calculated for shipping, in integer cents. */
@@ -13901,18 +13976,10 @@ export interface components {
        * @enum {string}
        */
       tax_behavior: "exclusive" | "inclusive";
+      /** @description Detailed account of taxes relevant to shipping cost. */
+      tax_breakdown?: (components["schemas"]["tax_product_resource_line_item_tax_breakdown"])[];
       /** @description The [tax code](https://stripe.com/docs/tax/tax-categories) ID used for shipping. */
       tax_code: string;
-    };
-    /** TaxProductResourceTaxBreakdown */
-    tax_product_resource_tax_breakdown: {
-      /** @description The amount of tax, in integer cents. */
-      amount: number;
-      /** @description Specifies whether the tax amount is included in the line item amount. */
-      inclusive: boolean;
-      tax_rate_details: components["schemas"]["tax_product_resource_tax_rate_details"];
-      /** @description The amount on which tax is calculated, in integer cents. */
-      taxable_amount: number;
     };
     /** TaxProductResourceTaxRateDetails */
     tax_product_resource_tax_rate_details: {
@@ -13937,6 +14004,20 @@ export interface components {
     tax_product_resource_tax_transaction_resource_reversal: {
       /** @description The `id` of the reversed `Transaction` object. */
       original_transaction?: string | null;
+    };
+    /** TaxProductResourceTaxTransactionShippingCost */
+    tax_product_resource_tax_transaction_shipping_cost: {
+      /** @description The shipping amount in integer cents. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount. */
+      amount: number;
+      /** @description The amount of tax calculated for shipping, in integer cents. */
+      amount_tax: number;
+      /**
+       * @description Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes. 
+       * @enum {string}
+       */
+      tax_behavior: "exclusive" | "inclusive";
+      /** @description The [tax code](https://stripe.com/docs/tax/tax-categories) ID used for shipping. */
+      tax_code: string;
     };
     /**
      * TaxRate 
@@ -15662,7 +15743,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an account.</p> */
   GetAccount: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -15731,7 +15812,7 @@ export interface operations {
   /** @description <p>Returns a list of accounts connected to your platform via <a href="/docs/connect">Connect</a>. If you’re not a platform, the list is empty.</p> */
   GetAccounts: {
     parameters: {
-      query: {
+      query?: {
         created?: {
           gt?: number;
           gte?: number;
@@ -16282,7 +16363,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an account.</p> */
   GetAccountsAccount: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -16886,7 +16967,7 @@ export interface operations {
   /** @description <p>Retrieve a specified external account for a given account.</p> */
   GetAccountsAccountBankAccountsId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -17027,7 +17108,7 @@ export interface operations {
   /** @description <p>Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.</p> */
   GetAccountsAccountCapabilities: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -17069,7 +17150,7 @@ export interface operations {
   /** @description <p>Retrieves information about the specified Account Capability.</p> */
   GetAccountsAccountCapabilitiesCapability: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -17134,7 +17215,7 @@ export interface operations {
   /** @description <p>List external accounts for an account.</p> */
   GetAccountsAccountExternalAccounts: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -17242,7 +17323,7 @@ export interface operations {
   /** @description <p>Retrieve a specified external account for a given account.</p> */
   GetAccountsAccountExternalAccountsId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -17417,7 +17498,7 @@ export interface operations {
   /** @description <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p> */
   GetAccountsAccountPeople: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -17642,7 +17723,7 @@ export interface operations {
   /** @description <p>Retrieves an existing person.</p> */
   GetAccountsAccountPeoplePerson: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -17873,7 +17954,7 @@ export interface operations {
   /** @description <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p> */
   GetAccountsAccountPersons: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -18098,7 +18179,7 @@ export interface operations {
   /** @description <p>Retrieves an existing person.</p> */
   GetAccountsAccountPersonsPerson: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -18365,7 +18446,7 @@ export interface operations {
   /** @description <p>List apple pay domains.</p> */
   GetApplePayDomains: {
     parameters: {
-      query: {
+      query?: {
         domain_name?: string;
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -18437,7 +18518,7 @@ export interface operations {
   /** @description <p>Retrieve an apple pay domain.</p> */
   GetApplePayDomainsDomain: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -18495,7 +18576,7 @@ export interface operations {
   /** @description <p>Returns a list of application fees you’ve previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.</p> */
   GetApplicationFees: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return application fees for the charge specified by this charge ID. */
         charge?: string;
         created?: {
@@ -18548,7 +18629,7 @@ export interface operations {
   /** @description <p>By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.</p> */
   GetApplicationFeesFeeRefundsId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -18619,7 +18700,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an application fee that your account has collected. The same information is returned when refunding the application fee.</p> */
   GetApplicationFeesId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -18681,7 +18762,7 @@ export interface operations {
   /** @description <p>You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available by default on the application fee object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional refunds.</p> */
   GetApplicationFeesIdRefunds: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -18945,7 +19026,7 @@ export interface operations {
    */
   GetBalance: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -18977,7 +19058,7 @@ export interface operations {
    */
   GetBalanceHistory: {
     parameters: {
-      query: {
+      query?: {
         created?: {
           gt?: number;
           gte?: number;
@@ -19040,7 +19121,7 @@ export interface operations {
    */
   GetBalanceHistoryId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -19075,7 +19156,7 @@ export interface operations {
    */
   GetBalanceTransactions: {
     parameters: {
-      query: {
+      query?: {
         created?: {
           gt?: number;
           gte?: number;
@@ -19138,7 +19219,7 @@ export interface operations {
    */
   GetBalanceTransactionsId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -19169,7 +19250,7 @@ export interface operations {
   /** @description <p>Returns a list of configurations that describe the functionality of the customer portal.</p> */
   GetBillingPortalConfigurations: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return configurations that are active or inactive (e.g., pass `true` to only list active configurations). */
         active?: boolean;
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -19312,7 +19393,7 @@ export interface operations {
   /** @description <p>Retrieves a configuration that describes the functionality of the customer portal.</p> */
   GetBillingPortalConfigurationsConfiguration: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -19507,7 +19588,7 @@ export interface operations {
   /** @description <p>Returns a list of charges you’ve previously created. The charges are returned in sorted order, with the most recent charges appearing first.</p> */
   GetCharges: {
     parameters: {
-      query: {
+      query?: {
         created?: {
           gt?: number;
           gte?: number;
@@ -19726,7 +19807,7 @@ export interface operations {
   /** @description <p>Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.</p> */
   GetChargesCharge: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -19881,7 +19962,7 @@ export interface operations {
   /** @description <p>Retrieve a dispute for a specified charge.</p> */
   GetChargesChargeDispute: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -20063,7 +20144,7 @@ export interface operations {
   /** @description <p>You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional refunds.</p> */
   GetChargesChargeRefunds: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -20164,7 +20245,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an existing refund.</p> */
   GetChargesChargeRefundsRefund: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -20230,7 +20311,7 @@ export interface operations {
   /** @description <p>Returns a list of Checkout Sessions.</p> */
   GetCheckoutSessions: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return the Checkout Sessions for the Customer specified. */
         customer?: string;
         /** @description Only return the Checkout Sessions for the Customer details specified. */
@@ -20689,6 +20770,11 @@ export interface operations {
               setup_future_usage?: "none";
             };
             /** payment_method_options_param */
+            link?: {
+              /** @enum {string} */
+              setup_future_usage?: "none" | "off_session";
+            };
+            /** payment_method_options_param */
             oxxo?: {
               expires_after_days?: number;
               /** @enum {string} */
@@ -20900,7 +20986,7 @@ export interface operations {
   /** @description <p>Retrieves a Session object.</p> */
   GetCheckoutSessionsSession: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -20965,7 +21051,7 @@ export interface operations {
   /** @description <p>When retrieving a Checkout Session, there is an includable <strong>line_items</strong> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
   GetCheckoutSessionsSessionLineItems: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -21014,7 +21100,7 @@ export interface operations {
   /** @description <p>Lists all Country Spec objects available in the API.</p> */
   GetCountrySpecs: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -21059,7 +21145,7 @@ export interface operations {
   /** @description <p>Returns a Country Spec for a given Country code.</p> */
   GetCountrySpecsCountry: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -21090,7 +21176,7 @@ export interface operations {
   /** @description <p>Returns a list of your coupons.</p> */
   GetCoupons: {
     parameters: {
-      query: {
+      query?: {
         /** @description A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
         created?: {
           gt?: number;
@@ -21212,7 +21298,7 @@ export interface operations {
   /** @description <p>Retrieves the coupon with the given ID.</p> */
   GetCouponsCoupon: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -21312,7 +21398,7 @@ export interface operations {
   /** @description <p>Returns a list of credit notes.</p> */
   GetCreditNotes: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return credit notes for the customer specified by this customer ID. */
         customer?: string;
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -21592,7 +21678,7 @@ export interface operations {
   /** @description <p>When retrieving a credit note, you’ll get a <strong>lines</strong> property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
   GetCreditNotesCreditNoteLines: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -21641,7 +21727,7 @@ export interface operations {
   /** @description <p>Retrieves the credit note object with the given identifier.</p> */
   GetCreditNotesId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -21738,7 +21824,7 @@ export interface operations {
   /** @description <p>Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.</p> */
   GetCustomers: {
     parameters: {
-      query: {
+      query?: {
         created?: {
           gt?: number;
           gte?: number;
@@ -21964,7 +22050,7 @@ export interface operations {
   /** @description <p>Retrieves a Customer object.</p> */
   GetCustomersCustomer: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -22187,7 +22273,7 @@ export interface operations {
   /** @description <p>Returns a list of transactions that updated the customer’s <a href="/docs/billing/customer/balance">balances</a>.</p> */
   GetCustomersCustomerBalanceTransactions: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -22276,7 +22362,7 @@ export interface operations {
   /** @description <p>Retrieves a specific customer balance transaction that updated the customer’s <a href="/docs/billing/customer/balance">balances</a>.</p> */
   GetCustomersCustomerBalanceTransactionsTransaction: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -22348,7 +22434,7 @@ export interface operations {
    */
   GetCustomersCustomerBankAccounts: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -22475,7 +22561,7 @@ export interface operations {
    */
   GetCustomersCustomerBankAccountsId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -22651,7 +22737,7 @@ export interface operations {
    */
   GetCustomersCustomerCards: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -22777,7 +22863,7 @@ export interface operations {
    */
   GetCustomersCustomerCardsId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -22915,7 +23001,7 @@ export interface operations {
   /** @description <p>Retrieves a customer’s cash balance.</p> */
   GetCustomersCustomerCashBalance: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -22984,7 +23070,7 @@ export interface operations {
   /** @description <p>Returns a list of transactions that modified the customer’s <a href="/docs/payments/customer-balance">cash balance</a>.</p> */
   GetCustomersCustomerCashBalanceTransactions: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -23033,7 +23119,7 @@ export interface operations {
   /** @description <p>Retrieves a specific cash balance transaction, which updated the customer’s <a href="/docs/payments/customer-balance">cash balance</a>.</p> */
   GetCustomersCustomerCashBalanceTransactionsTransaction: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -23064,7 +23150,7 @@ export interface operations {
   };
   GetCustomersCustomerDiscount: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -23176,7 +23262,7 @@ export interface operations {
   /** @description <p>Returns a list of PaymentMethods for a given Customer</p> */
   GetCustomersCustomerPaymentMethods: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -23226,7 +23312,7 @@ export interface operations {
   /** @description <p>Retrieves a PaymentMethod object for a given Customer.</p> */
   GetCustomersCustomerPaymentMethodsPaymentMethod: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -23258,7 +23344,7 @@ export interface operations {
   /** @description <p>List sources for a specified customer.</p> */
   GetCustomersCustomerSources: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -23384,7 +23470,7 @@ export interface operations {
   /** @description <p>Retrieve a specified source for a given customer.</p> */
   GetCustomersCustomerSourcesId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -23555,7 +23641,7 @@ export interface operations {
   /** @description <p>You can see a list of the customer’s active subscriptions. Note that the 10 most recent active subscriptions are always available by default on the customer object. If you need more than those 10, you can use the limit and starting_after parameters to page through additional subscriptions.</p> */
   GetCustomersCustomerSubscriptions: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -23843,7 +23929,7 @@ export interface operations {
   /** @description <p>Retrieves the subscription with the given ID.</p> */
   GetCustomersCustomerSubscriptionsSubscriptionExposedId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -24160,7 +24246,7 @@ export interface operations {
   };
   GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -24220,7 +24306,7 @@ export interface operations {
   /** @description <p>Returns a list of tax IDs for a customer.</p> */
   GetCustomersCustomerTaxIds: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -24306,7 +24392,7 @@ export interface operations {
   /** @description <p>Retrieves the <code>TaxID</code> object with the given identifier.</p> */
   GetCustomersCustomerTaxIdsId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -24366,7 +24452,7 @@ export interface operations {
   /** @description <p>Returns a list of your disputes.</p> */
   GetDisputes: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return disputes associated to the charge specified by this charge ID. */
         charge?: string;
         created?: {
@@ -24421,7 +24507,7 @@ export interface operations {
   /** @description <p>Retrieves the dispute with the given ID.</p> */
   GetDisputesDispute: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -24620,7 +24706,7 @@ export interface operations {
   /** @description <p>List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in <a href="/docs/api/events/object">event object</a> <code>api_version</code> attribute (not according to your current Stripe API version or <code>Stripe-Version</code> header).</p> */
   GetEvents: {
     parameters: {
-      query: {
+      query?: {
         created?: {
           gt?: number;
           gte?: number;
@@ -24677,7 +24763,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an event. Supply the unique identifier of the event, which you might have received in a webhook.</p> */
   GetEventsId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -24708,7 +24794,7 @@ export interface operations {
   /** @description <p>Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.</p> */
   GetExchangeRates: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with the exchange rate for currency X your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -24753,7 +24839,7 @@ export interface operations {
   /** @description <p>Retrieves the exchange rates from the given currency to every supported currency.</p> */
   GetExchangeRatesRateId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -24784,7 +24870,7 @@ export interface operations {
   /** @description <p>Returns a list of file links.</p> */
   GetFileLinks: {
     parameters: {
-      query: {
+      query?: {
         created?: {
           gt?: number;
           gte?: number;
@@ -24876,7 +24962,7 @@ export interface operations {
   /** @description <p>Retrieves the file link with the given ID.</p> */
   GetFileLinksLink: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -24943,7 +25029,7 @@ export interface operations {
   /** @description <p>Returns a list of the files that your account has access to. The files are returned sorted by creation date, with the most recently created files appearing first.</p> */
   GetFiles: {
     parameters: {
-      query: {
+      query?: {
         created?: {
           gt?: number;
           gte?: number;
@@ -25044,7 +25130,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an existing file object. Supply the unique file ID from a file, and Stripe will return the corresponding file object. To access file contents, see the <a href="/docs/file-upload#download-file-contents">File Upload Guide</a>.</p> */
   GetFilesFile: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -25075,7 +25161,7 @@ export interface operations {
   /** @description <p>Returns a list of Financial Connections <code>Account</code> objects.</p> */
   GetFinancialConnectionsAccounts: {
     parameters: {
-      query: {
+      query?: {
         /** @description If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive. */
         account_holder?: {
           account?: string;
@@ -25128,7 +25214,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an Financial Connections <code>Account</code>.</p> */
   GetFinancialConnectionsAccountsAccount: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -25322,7 +25408,7 @@ export interface operations {
   /** @description <p>Retrieves the details of a Financial Connections <code>Session</code></p> */
   GetFinancialConnectionsSessionsSession: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -25353,7 +25439,7 @@ export interface operations {
   /** @description <p>List all verification reports.</p> */
   GetIdentityVerificationReports: {
     parameters: {
-      query: {
+      query?: {
         created?: {
           gt?: number;
           gte?: number;
@@ -25408,7 +25494,7 @@ export interface operations {
   /** @description <p>Retrieves an existing VerificationReport</p> */
   GetIdentityVerificationReportsReport: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -25439,7 +25525,7 @@ export interface operations {
   /** @description <p>Returns a list of VerificationSessions</p> */
   GetIdentityVerificationSessions: {
     parameters: {
-      query: {
+      query?: {
         created?: {
           gt?: number;
           gte?: number;
@@ -25553,7 +25639,7 @@ export interface operations {
    */
   GetIdentityVerificationSessionsSession: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -25724,7 +25810,7 @@ export interface operations {
   /** @description <p>Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.</p> */
   GetInvoiceitems: {
     parameters: {
-      query: {
+      query?: {
         created?: {
           gt?: number;
           gte?: number;
@@ -25872,7 +25958,7 @@ export interface operations {
   /** @description <p>Retrieves the invoice item with the given ID.</p> */
   GetInvoiceitemsInvoiceitem: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -26018,7 +26104,7 @@ export interface operations {
   /** @description <p>You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.</p> */
   GetInvoices: {
     parameters: {
-      query: {
+      query?: {
         /** @description The collection method of the invoice to retrieve. Either `charge_automatically` or `send_invoice`. */
         collection_method?: "charge_automatically" | "send_invoice";
         created?: {
@@ -26373,7 +26459,7 @@ export interface operations {
    */
   GetInvoicesUpcoming: {
     parameters: {
-      query: {
+      query?: {
         /** @description Settings for automatic tax lookup for this invoice preview. */
         automatic_tax?: {
           enabled: boolean;
@@ -26549,7 +26635,7 @@ export interface operations {
   /** @description <p>When retrieving an upcoming invoice, you’ll get a <strong>lines</strong> property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
   GetInvoicesUpcomingLines: {
     parameters: {
-      query: {
+      query?: {
         /** @description Settings for automatic tax lookup for this invoice preview. */
         automatic_tax?: {
           enabled: boolean;
@@ -26743,7 +26829,7 @@ export interface operations {
   /** @description <p>Retrieves the invoice with the given ID.</p> */
   GetInvoicesInvoice: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -27049,7 +27135,7 @@ export interface operations {
   /** @description <p>When retrieving an invoice, you’ll get a <strong>lines</strong> property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
   GetInvoicesInvoiceLines: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -27238,7 +27324,7 @@ export interface operations {
   /** @description <p>Returns a list of Issuing <code>Authorization</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingAuthorizations: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return authorizations that belong to the given card. */
         card?: string;
         /** @description Only return authorizations that belong to the given cardholder. */
@@ -27296,7 +27382,7 @@ export interface operations {
   /** @description <p>Retrieves an Issuing <code>Authorization</code> object.</p> */
   GetIssuingAuthorizationsAuthorization: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -27437,7 +27523,7 @@ export interface operations {
   /** @description <p>Returns a list of Issuing <code>Cardholder</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingCardholders: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return cardholders that were created during the given date interval. */
         created?: {
           gt?: number;
@@ -27611,7 +27697,7 @@ export interface operations {
   /** @description <p>Retrieves an Issuing <code>Cardholder</code> object.</p> */
   GetIssuingCardholdersCardholder: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -27754,7 +27840,7 @@ export interface operations {
   /** @description <p>Returns a list of Issuing <code>Card</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingCards: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return cards belonging to the Cardholder with the provided ID. */
         cardholder?: string;
         /** @description Only return cards that were issued during the given date interval. */
@@ -27909,7 +27995,7 @@ export interface operations {
   /** @description <p>Retrieves an Issuing <code>Card</code> object.</p> */
   GetIssuingCardsCard: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -28005,7 +28091,7 @@ export interface operations {
   /** @description <p>Returns a list of Issuing <code>Dispute</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingDisputes: {
     parameters: {
-      query: {
+      query?: {
         /** @description Select Issuing disputes that were created during the given date interval. */
         created?: {
           gt?: number;
@@ -28166,7 +28252,7 @@ export interface operations {
   /** @description <p>Retrieves an Issuing <code>Dispute</code> object.</p> */
   GetIssuingDisputesDispute: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -28332,7 +28418,7 @@ export interface operations {
   /** @description <p>Returns a list of Issuing <code>Settlement</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingSettlements: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return issuing settlements that were created during the given date interval. */
         created?: {
           gt?: number;
@@ -28384,7 +28470,7 @@ export interface operations {
   /** @description <p>Retrieves an Issuing <code>Settlement</code> object.</p> */
   GetIssuingSettlementsSettlement: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -28449,7 +28535,7 @@ export interface operations {
   /** @description <p>Returns a list of Issuing <code>Transaction</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingTransactions: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return transactions that belong to the given card. */
         card?: string;
         /** @description Only return transactions that belong to the given cardholder. */
@@ -28507,7 +28593,7 @@ export interface operations {
   /** @description <p>Retrieves an Issuing <code>Transaction</code> object.</p> */
   GetIssuingTransactionsTransaction: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -28622,7 +28708,7 @@ export interface operations {
   /** @description <p>Retrieves the details of a Financial Connections <code>Session</code></p> */
   GetLinkAccountSessionsSession: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -28653,7 +28739,7 @@ export interface operations {
   /** @description <p>Returns a list of Financial Connections <code>Account</code> objects.</p> */
   GetLinkedAccounts: {
     parameters: {
-      query: {
+      query?: {
         /** @description If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive. */
         account_holder?: {
           account?: string;
@@ -28706,7 +28792,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an Financial Connections <code>Account</code>.</p> */
   GetLinkedAccountsAccount: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -28850,7 +28936,7 @@ export interface operations {
   /** @description <p>Retrieves a Mandate object.</p> */
   GetMandatesMandate: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -28881,7 +28967,7 @@ export interface operations {
   /** @description <p>Returns a list of PaymentIntents.</p> */
   GetPaymentIntents: {
     parameters: {
-      query: {
+      query?: {
         /** @description A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
         created?: {
           gt?: number;
@@ -29519,7 +29605,7 @@ export interface operations {
    */
   GetPaymentIntentsIntent: {
     parameters: {
-      query: {
+      query?: {
         /** @description The client secret of the PaymentIntent. Required if a publishable key is used to retrieve the source. */
         client_secret?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -30779,7 +30865,7 @@ export interface operations {
   /** @description <p>Returns a list of your payment links.</p> */
   GetPaymentLinks: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return payment links that are active or inactive (e.g., pass `false` to list all inactive payment links). */
         active?: boolean;
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -31044,7 +31130,7 @@ export interface operations {
   /** @description <p>Retrieve a payment link.</p> */
   GetPaymentLinksPaymentLink: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -31228,7 +31314,7 @@ export interface operations {
   /** @description <p>When retrieving a payment link, there is an includable <strong>line_items</strong> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
   GetPaymentLinksPaymentLinkLineItems: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -31277,7 +31363,7 @@ export interface operations {
   /** @description <p>Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the <a href="/docs/api/payment_methods/customer_list">List a Customer’s PaymentMethods</a> API instead.</p> */
   GetPaymentMethods: {
     parameters: {
-      query: {
+      query?: {
         /** @description The ID of the customer whose PaymentMethods will be retrieved. */
         customer?: string;
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -31590,7 +31676,7 @@ export interface operations {
   /** @description <p>Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use <a href="/docs/api/payment_methods/customer">Retrieve a Customer’s PaymentMethods</a></p> */
   GetPaymentMethodsPaymentMethod: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -31769,7 +31855,7 @@ export interface operations {
   /** @description <p>Returns a list of existing payouts sent to third-party bank accounts or that Stripe has sent you. The payouts are returned in sorted order, with the most recently created payouts appearing first.</p> */
   GetPayouts: {
     parameters: {
-      query: {
+      query?: {
         arrival_date?: {
           gt?: number;
           gte?: number;
@@ -31885,7 +31971,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list, and Stripe will return the corresponding payout information.</p> */
   GetPayoutsPayout: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -32018,7 +32104,7 @@ export interface operations {
   /** @description <p>Returns a list of your plans.</p> */
   GetPlans: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return plans that are active or inactive (e.g., pass `false` to list all inactive plans). */
         active?: boolean;
         /** @description A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
@@ -32178,7 +32264,7 @@ export interface operations {
   /** @description <p>Retrieves the plan with the given ID.</p> */
   GetPlansPlan: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -32278,7 +32364,7 @@ export interface operations {
   /** @description <p>Returns a list of your prices.</p> */
   GetPrices: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return prices that are active or inactive (e.g., pass `false` to list all inactive prices). */
         active?: boolean;
         /** @description A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
@@ -32545,7 +32631,7 @@ export interface operations {
   /** @description <p>Retrieves the price with the given ID.</p> */
   GetPricesPrice: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -32649,7 +32735,7 @@ export interface operations {
   /** @description <p>Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.</p> */
   GetProducts: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return products that are active or inactive (e.g., pass `false` to list all inactive products). */
         active?: boolean;
         /** @description Only return products that were created during the given date interval. */
@@ -32868,7 +32954,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.</p> */
   GetProductsId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -32992,7 +33078,7 @@ export interface operations {
   /** @description <p>Returns a list of your promotion codes.</p> */
   GetPromotionCodes: {
     parameters: {
-      query: {
+      query?: {
         /** @description Filter promotion codes by whether they are active. */
         active?: boolean;
         /** @description Only return promotion codes that have this case-insensitive code. */
@@ -33110,7 +33196,7 @@ export interface operations {
   /** @description <p>Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing <code>code</code> use <a href="/docs/api/promotion_codes/list">list</a> with the desired <code>code</code>.</p> */
   GetPromotionCodesPromotionCode: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -33188,7 +33274,7 @@ export interface operations {
   /** @description <p>Returns a list of your quotes.</p> */
   GetQuotes: {
     parameters: {
-      query: {
+      query?: {
         /** @description The ID of the customer whose quotes will be retrieved. */
         customer?: string;
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -33360,7 +33446,7 @@ export interface operations {
   /** @description <p>Retrieves the quote with the given ID.</p> */
   GetQuotesQuote: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -33568,7 +33654,7 @@ export interface operations {
   /** @description <p>When retrieving a quote, there is an includable <a href="https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items"><strong>computed.upfront.line_items</strong></a> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.</p> */
   GetQuotesQuoteComputedUpfrontLineItems: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -33652,7 +33738,7 @@ export interface operations {
   /** @description <p>When retrieving a quote, there is an includable <strong>line_items</strong> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
   GetQuotesQuoteLineItems: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -33701,7 +33787,7 @@ export interface operations {
   /** @description <p>Download the PDF for a finalized quote</p> */
   GetQuotesQuotePdf: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -33732,7 +33818,7 @@ export interface operations {
   /** @description <p>Returns a list of early fraud warnings.</p> */
   GetRadarEarlyFraudWarnings: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return early fraud warnings for the charge specified by this charge ID. */
         charge?: string;
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -33785,7 +33871,7 @@ export interface operations {
    */
   GetRadarEarlyFraudWarningsEarlyFraudWarning: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -33900,7 +33986,7 @@ export interface operations {
   /** @description <p>Retrieves a <code>ValueListItem</code> object.</p> */
   GetRadarValueListItemsItem: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -33958,7 +34044,7 @@ export interface operations {
   /** @description <p>Returns a list of <code>ValueList</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetRadarValueLists: {
     parameters: {
-      query: {
+      query?: {
         /** @description The alias used to reference the value list when writing rules. */
         alias?: string;
         /** @description A value contained within a value list - returns all value lists containing this value. */
@@ -34051,7 +34137,7 @@ export interface operations {
   /** @description <p>Retrieves a <code>ValueList</code> object.</p> */
   GetRadarValueListsValueList: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -34147,7 +34233,7 @@ export interface operations {
   /** @description <p>Returns a list of all refunds you’ve previously created. The refunds are returned in sorted order, with the most recent refunds appearing first. For convenience, the 10 most recent refunds are always available by default on the charge object.</p> */
   GetRefunds: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return refunds for the charge specified by this charge ID. */
         charge?: string;
         created?: {
@@ -34250,7 +34336,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an existing refund.</p> */
   GetRefundsRefund: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -34353,7 +34439,7 @@ export interface operations {
   /** @description <p>Returns a list of Report Runs, with the most recent appearing first.</p> */
   GetReportingReportRuns: {
     parameters: {
-      query: {
+      query?: {
         created?: {
           gt?: number;
           gte?: number;
@@ -34449,7 +34535,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an existing Report Run.</p> */
   GetReportingReportRunsReportRun: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -34480,7 +34566,7 @@ export interface operations {
   /** @description <p>Returns a full list of Report Types.</p> */
   GetReportingReportTypes: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -34519,7 +34605,7 @@ export interface operations {
   /** @description <p>Retrieves the details of a Report Type. (Certain report types require a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p> */
   GetReportingReportTypesReportType: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -34550,7 +34636,7 @@ export interface operations {
   /** @description <p>Returns a list of <code>Review</code> objects that have <code>open</code> set to <code>true</code>. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetReviews: {
     parameters: {
-      query: {
+      query?: {
         created?: {
           gt?: number;
           gte?: number;
@@ -34601,7 +34687,7 @@ export interface operations {
   /** @description <p>Retrieves a <code>Review</code> object.</p> */
   GetReviewsReview: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -34723,7 +34809,7 @@ export interface operations {
   /** @description <p>Returns a list of SetupIntents.</p> */
   GetSetupIntents: {
     parameters: {
-      query: {
+      query?: {
         /**
          * @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
          * 
@@ -35101,7 +35187,7 @@ export interface operations {
    */
   GetSetupIntentsIntent: {
     parameters: {
-      query: {
+      query?: {
         /** @description The client secret of the SetupIntent. Required if a publishable key is used to retrieve the SetupIntent. */
         client_secret?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -35761,7 +35847,7 @@ export interface operations {
   /** @description <p>Returns a list of your shipping rates.</p> */
   GetShippingRates: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return shipping rates that are active or inactive. */
         active?: boolean;
         /** @description A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
@@ -35893,7 +35979,7 @@ export interface operations {
   /** @description <p>Returns the shipping rate object with the given ID.</p> */
   GetShippingRatesShippingRateToken: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -35978,7 +36064,7 @@ export interface operations {
   /** @description <p>Returns a list of scheduled query runs.</p> */
   GetSigmaScheduledQueryRuns: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -36023,7 +36109,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an scheduled query run.</p> */
   GetSigmaScheduledQueryRunsScheduledQueryRun: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -36201,7 +36287,7 @@ export interface operations {
   /** @description <p>Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information.</p> */
   GetSourcesSource: {
     parameters: {
-      query: {
+      query?: {
         /** @description The client secret of the source. Required if a publishable key is used to retrieve the source. */
         client_secret?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -36357,7 +36443,7 @@ export interface operations {
   /** @description <p>Retrieves a new Source MandateNotification.</p> */
   GetSourcesSourceMandateNotificationsMandateNotification: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -36389,7 +36475,7 @@ export interface operations {
   /** @description <p>List source transactions for a given source.</p> */
   GetSourcesSourceSourceTransactions: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -36437,7 +36523,7 @@ export interface operations {
   /** @description <p>Retrieve an existing source transaction object. Supply the unique source ID from a source creation request and the source transaction ID and Stripe will return the corresponding up-to-date source object information.</p> */
   GetSourcesSourceSourceTransactionsSourceTransaction: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -36629,7 +36715,7 @@ export interface operations {
   /** @description <p>Retrieves the subscription item with the given ID.</p> */
   GetSubscriptionItemsItem: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -36790,7 +36876,7 @@ export interface operations {
    */
   GetSubscriptionItemsSubscriptionItemUsageRecordSummaries: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -36885,7 +36971,7 @@ export interface operations {
   /** @description <p>Retrieves the list of your subscription schedules.</p> */
   GetSubscriptionSchedules: {
     parameters: {
-      query: {
+      query?: {
         /** @description Only return subscription schedules that were created canceled the given date interval. */
         canceled_at?: {
           gt?: number;
@@ -37116,7 +37202,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation.</p> */
   GetSubscriptionSchedulesSchedule: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -37369,7 +37455,7 @@ export interface operations {
   /** @description <p>By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify <code>status=canceled</code>.</p> */
   GetSubscriptions: {
     parameters: {
-      query: {
+      query?: {
         /** @description The collection method of the subscriptions to retrieve. Either `charge_automatically` or `send_invoice`. */
         collection_method?: "charge_automatically" | "send_invoice";
         created?: {
@@ -37741,7 +37827,7 @@ export interface operations {
   /** @description <p>Retrieves the subscription with the given ID.</p> */
   GetSubscriptionsSubscriptionExposedId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -38218,7 +38304,7 @@ export interface operations {
   /** @description <p>Retrieves the line items of a persisted tax calculation as a collection.</p> */
   GetTaxCalculationsCalculationLineItems: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -38357,7 +38443,7 @@ export interface operations {
   /** @description <p>Retrieves a Tax <code>Transaction</code> object.</p> */
   GetTaxTransactionsTransaction: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -38388,7 +38474,7 @@ export interface operations {
   /** @description <p>Retrieves the line items of a committed standalone transaction as a collection.</p> */
   GetTaxTransactionsTransactionLineItems: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -38437,7 +38523,7 @@ export interface operations {
   /** @description <p>A list of <a href="https://stripe.com/docs/tax/tax-categories">all tax codes available</a> to add to Products in order to allow specific tax calculations.</p> */
   GetTaxCodes: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -38482,7 +38568,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an existing tax code. Supply the unique tax code ID and Stripe will return the corresponding tax code information.</p> */
   GetTaxCodesId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -38513,7 +38599,7 @@ export interface operations {
   /** @description <p>Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.</p> */
   GetTaxRates: {
     parameters: {
-      query: {
+      query?: {
         /** @description Optional flag to filter by tax rates that are either active or inactive (archived). */
         active?: boolean;
         /** @description Optional range for filtering created date. */
@@ -38619,7 +38705,7 @@ export interface operations {
   /** @description <p>Retrieves a tax rate with the given ID</p> */
   GetTaxRatesTaxRate: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -38701,7 +38787,7 @@ export interface operations {
   /** @description <p>Returns a list of <code>Configuration</code> objects.</p> */
   GetTerminalConfigurations: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -38874,7 +38960,7 @@ export interface operations {
   /** @description <p>Retrieves a <code>Configuration</code> object.</p> */
   GetTerminalConfigurationsConfiguration: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -39084,7 +39170,7 @@ export interface operations {
   /** @description <p>Returns a list of <code>Location</code> objects.</p> */
   GetTerminalLocations: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -39177,7 +39263,7 @@ export interface operations {
   /** @description <p>Retrieves a <code>Location</code> object.</p> */
   GetTerminalLocationsLocation: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -39285,7 +39371,7 @@ export interface operations {
   /** @description <p>Returns a list of <code>Reader</code> objects.</p> */
   GetTerminalReaders: {
     parameters: {
-      query: {
+      query?: {
         /** @description Filters readers by device type */
         device_type?: "bbpos_chipper2x" | "bbpos_wisepad3" | "bbpos_wisepos_e" | "simulated_wisepos_e" | "stripe_m2" | "verifone_P400";
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -39372,7 +39458,7 @@ export interface operations {
   /** @description <p>Retrieves a <code>Reader</code> object.</p> */
   GetTerminalReadersReader: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -39903,7 +39989,7 @@ export interface operations {
   /** @description <p>Returns a list of your test clocks.</p> */
   GetTestHelpersTestClocks: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -39980,7 +40066,7 @@ export interface operations {
   /** @description <p>Retrieves a test clock.</p> */
   GetTestHelpersTestClocksTestClock: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -40799,7 +40885,7 @@ export interface operations {
   /** @description <p>Retrieves the token with the given ID.</p> */
   GetTokensToken: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -40830,7 +40916,7 @@ export interface operations {
   /** @description <p>Returns a list of top-ups.</p> */
   GetTopups: {
     parameters: {
-      query: {
+      query?: {
         /** @description A positive integer representing how much to transfer. */
         amount?: {
           gt?: number;
@@ -40932,7 +41018,7 @@ export interface operations {
   /** @description <p>Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.</p> */
   GetTopupsTopup: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -41029,7 +41115,7 @@ export interface operations {
   /** @description <p>Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.</p> */
   GetTransfers: {
     parameters: {
-      query: {
+      query?: {
         created?: {
           gt?: number;
           gte?: number;
@@ -41131,7 +41217,7 @@ export interface operations {
   /** @description <p>You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional reversals.</p> */
   GetTransfersIdReversals: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -41226,7 +41312,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.</p> */
   GetTransfersTransfer: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -41297,7 +41383,7 @@ export interface operations {
   /** @description <p>By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.</p> */
   GetTransfersTransferReversalsId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -41451,7 +41537,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an existing CreditReversal by passing the unique CreditReversal ID from either the CreditReversal creation request or CreditReversal list</p> */
   GetTreasuryCreditReversalsCreditReversal: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -41567,7 +41653,7 @@ export interface operations {
   /** @description <p>Retrieves a DebitReversal object.</p> */
   GetTreasuryDebitReversalsDebitReversal: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -41598,7 +41684,7 @@ export interface operations {
   /** @description <p>Returns a list of FinancialAccounts.</p> */
   GetTreasuryFinancialAccounts: {
     parameters: {
-      query: {
+      query?: {
         created?: {
           gt?: number;
           gte?: number;
@@ -41744,7 +41830,7 @@ export interface operations {
   /** @description <p>Retrieves the details of a FinancialAccount.</p> */
   GetTreasuryFinancialAccountsFinancialAccount: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -41873,7 +41959,7 @@ export interface operations {
   /** @description <p>Retrieves Features information associated with the FinancialAccount.</p> */
   GetTreasuryFinancialAccountsFinancialAccountFeatures: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -42094,7 +42180,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an existing InboundTransfer.</p> */
   GetTreasuryInboundTransfersId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -42304,7 +42390,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an existing OutboundPayment by passing the unique OutboundPayment ID from either the OutboundPayment creation request or OutboundPayment list.</p> */
   GetTreasuryOutboundPaymentsId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -42466,7 +42552,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundTransfer creation request or OutboundTransfer list.</p> */
   GetTreasuryOutboundTransfersOutboundTransfer: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -42582,7 +42668,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.</p> */
   GetTreasuryReceivedCreditsId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -42663,7 +42749,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list</p> */
   GetTreasuryReceivedDebitsId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -42758,7 +42844,7 @@ export interface operations {
   /** @description <p>Retrieves a TransactionEntry object.</p> */
   GetTreasuryTransactionEntriesId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -42856,7 +42942,7 @@ export interface operations {
   /** @description <p>Retrieves the details of an existing Transaction.</p> */
   GetTreasuryTransactionsId: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
@@ -42887,7 +42973,7 @@ export interface operations {
   /** @description <p>Returns a list of your webhook endpoints.</p> */
   GetWebhookEndpoints: {
     parameters: {
-      query: {
+      query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -42974,7 +43060,7 @@ export interface operations {
   /** @description <p>Retrieves the webhook endpoint with the given ID.</p> */
   GetWebhookEndpointsWebhookEndpoint: {
     parameters: {
-      query: {
+      query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
       };
