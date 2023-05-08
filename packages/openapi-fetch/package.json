@@ -8,7 +8,9 @@
   },
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "homepage": "https://openapi-ts.pages.dev",
   "repository": {
     "type": "git",
@@ -31,11 +33,11 @@
     "vue",
     "svelte"
   ],
+  "files": ["dist"],
   "scripts": {
-    "build": "npm run build:clean && npm run build:ts && npm run build:ts-min",
+    "build": "npm run build:clean && npm run build:ts",
     "build:clean": "del dist",
-    "build:ts": "tsc -p tsconfig.build.json",
-    "build:ts-min": "esbuild --bundle src/index.ts --format=esm --minify --outfile=dist/index.min.js && cp dist/index.d.ts dist/index.min.d.ts",
+    "build:ts": "tsup src/index.ts",
     "lint": "npm run lint:js",
     "lint:js": "npx prettier --check \"{src,test}/**/*\"",
     "test": "npm run test:ts && npm run test:js",
@@ -51,6 +53,7 @@
     "nanostores": "^0.8.1",
     "openapi-typescript": "workspace:^",
     "prettier": "^2.8.8",
+    "tsup": "^6.7.0",
     "typescript": "^5.0.4",
     "vitest": "^0.31.0",
     "vitest-fetch-mock": "^0.2.2"
