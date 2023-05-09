@@ -40,8 +40,8 @@ export type RequestBodyObj<O> = O extends { requestBody: any } ? O["requestBody"
 export type RequestBodyContent<O> = undefined extends RequestBodyObj<O> ? FilterKeys<NonNullable<RequestBodyObj<O>>, "content"> | undefined : FilterKeys<RequestBodyObj<O>, "content">;
 export type RequestBodyJSON<O> = FilterKeys<RequestBodyContent<O>, JSONLike> extends never ? FilterKeys<NonNullable<RequestBodyContent<O>>, JSONLike> | undefined : FilterKeys<RequestBodyContent<O>, JSONLike>;
 export type RequestBody<O> = undefined extends RequestBodyJSON<O> ? { body?: RequestBodyJSON<O> } : { body: RequestBodyJSON<O> };
-export type QuerySerializer<O> = { querySerializer?: (query: O extends { parameters: { query: any } } ? O["parameters"]["query"] : Record<string, unknown>) => string };
-export type FetchOptions<T> = Params<T> & RequestBody<T> & Omit<RequestInit, "body"> & QuerySerializer<T>;
+export type QuerySerializer<O> = (query: O extends { parameters: { query: any } } ? O["parameters"]["query"] : Record<string, unknown>) => string;
+export type FetchOptions<T> = Params<T> & RequestBody<T> & Omit<RequestInit, "body"> & { querySerializer?: QuerySerializer<T> };
 export type Success<O> = FilterKeys<FilterKeys<O, OkStatus>, "content">;
 export type Error<O> = FilterKeys<FilterKeys<O, ErrorStatus>, "content">;
 export type FetchResponse<T> =
@@ -99,7 +99,7 @@ export default function createClient<Paths extends {}>(options?: ClientOptions) 
     },
     /** Call a POST endpoint */
     async post<P extends PathsWith<Paths, "post">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "post">>) {
-      return coreFetch<P, "put">(url, { ...init, method: "POST" } as any);
+      return coreFetch<P, "post">(url, { ...init, method: "POST" } as any);
     },
     /** Call a DELETE endpoint */
     async del<P extends PathsWith<Paths, "delete">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "delete">>) {
@@ -107,7 +107,7 @@ export default function createClient<Paths extends {}>(options?: ClientOptions) 
     },
     /** Call a OPTIONS endpoint */
     async options<P extends PathsWith<Paths, "options">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "options">>) {
-      return coreFetch<P, "delete">(url, { ...init, method: "OPTIONS" } as any);
+      return coreFetch<P, "options">(url, { ...init, method: "OPTIONS" } as any);
     },
     /** Call a HEAD endpoint */
     async head<P extends PathsWith<Paths, "head">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "head">>) {
