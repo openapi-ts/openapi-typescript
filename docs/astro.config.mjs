@@ -6,5 +6,11 @@ import react from "@astrojs/react";
 export default defineConfig({
   integrations: [preact(), react()],
   site: `https://openapi-typescript.pages.dev`,
-  vite: {},
+  vite: {
+    define: {
+      "import.meta.env.VITE_ALGOLIA_APP_ID": JSON.stringify(process.env.ALGOLIA_APP_ID ?? ""),
+      "import.meta.env.VITE_ALGOLIA_INDEX_NAME": JSON.stringify(process.env.ALGOLIA_INDEX_NAME ?? ""),
+      "import.meta.env.VITE_ALGOLIA_SEARCH_KEY": JSON.stringify(process.env.ALGOLIA_SEARCH_KEY ?? ""),
+    },
+  },
 });
