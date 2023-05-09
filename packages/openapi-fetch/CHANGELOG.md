@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.1.2
+
+### Patch Changes
+
+- e730cd8: Fix post() and options() types
+
 ## 0.1.1
 
 ### Patch Changes
