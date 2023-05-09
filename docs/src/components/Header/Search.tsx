@@ -8,8 +8,7 @@ import * as docSearchReact from "@docsearch/react";
 
 /** FIXME: This is still kinda nasty, but DocSearch is not ESM ready. */
 const DocSearchModal = docSearchReact.DocSearchModal || (docSearchReact as any).default.DocSearchModal;
-const useDocSearchKeyboardEvents =
-  docSearchReact.useDocSearchKeyboardEvents || (docSearchReact as any).default.useDocSearchKeyboardEvents;
+const useDocSearchKeyboardEvents = docSearchReact.useDocSearchKeyboardEvents || (docSearchReact as any).default.useDocSearchKeyboardEvents;
 
 export default function Search() {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,13 +43,7 @@ export default function Search() {
     <>
       <button type="button" ref={searchButtonRef} onClick={onOpen} className="search-input">
         <svg className="search-icon" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
 
         <span>Search</span>
@@ -70,9 +63,9 @@ export default function Search() {
             initialQuery={initialQuery}
             initialScrollY={window.scrollY}
             onClose={onClose}
-            indexName={import.meta.env.ALGOLIA_INDEX_NAME}
-            appId={import.meta.env.ALGOLIA_APP_ID}
-            apiKey={import.meta.env.ALGOLIA_SEARCH_KEY}
+            indexName={import.meta.env.VITE_ALGOLIA_INDEX_NAME}
+            appId={import.meta.env.VITE_ALGOLIA_APP_ID}
+            apiKey={import.meta.env.VITE_ALGOLIA_SEARCH_KEY}
             transformItems={(items) => {
               return items.map((item) => {
                 // We transform the absolute URL into a relative URL to
