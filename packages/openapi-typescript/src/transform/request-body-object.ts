@@ -8,10 +8,7 @@ export interface TransformRequestBodyObjectOptions {
   ctx: GlobalContext;
 }
 
-export default function transformRequestBodyObject(
-  requestBodyObject: RequestBodyObject,
-  { path, ctx }: TransformRequestBodyObjectOptions
-): string {
+export default function transformRequestBodyObject(requestBodyObject: RequestBodyObject, { path, ctx }: TransformRequestBodyObjectOptions): string {
   let { indentLv } = ctx;
   const output: string[] = ["{"];
   indentLv++;

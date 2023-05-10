@@ -1,13 +1,5 @@
 import type { GlobalContext, ResponseObject } from "../types.js";
-import {
-  escObjKey,
-  escStr,
-  getEntries,
-  getSchemaObjectComment,
-  indent,
-  tsOptionalProperty,
-  tsReadonly,
-} from "../utils.js";
+import { escObjKey, escStr, getEntries, getSchemaObjectComment, indent, tsOptionalProperty, tsReadonly } from "../utils.js";
 import transformHeaderObject from "./header-object.js";
 import transformMediaTypeObject from "./media-type-object.js";
 
@@ -16,10 +8,7 @@ export interface TransformResponseObjectOptions {
   ctx: GlobalContext;
 }
 
-export default function transformResponseObject(
-  responseObject: ResponseObject,
-  { path, ctx }: TransformResponseObjectOptions
-): string {
+export default function transformResponseObject(responseObject: ResponseObject, { path, ctx }: TransformResponseObjectOptions): string {
   // never
   if (!responseObject.content) {
     return "never";

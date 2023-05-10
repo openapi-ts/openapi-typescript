@@ -11,10 +11,7 @@ export interface TransformOperationObjectOptions {
   wrapObject?: boolean;
 }
 
-export default function transformOperationObject(
-  operationObject: OperationObject,
-  { path, ctx, wrapObject = true }: TransformOperationObjectOptions
-): string {
+export default function transformOperationObject(operationObject: OperationObject, { path, ctx, wrapObject = true }: TransformOperationObjectOptions): string {
   let { indentLv } = ctx;
   const output: string[] = wrapObject ? ["{"] : [];
   indentLv++;

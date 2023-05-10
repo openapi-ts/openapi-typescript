@@ -1,0 +1,58 @@
+{
+  "name": "openapi-fetch",
+  "description": "Ultra-fast fetching for TypeScript generated automatically from your OpenAPI schema. Weighs in at 1 kb and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.",
+  "version": "0.1.1",
+  "author": {
+    "name": "Drew Powers",
+    "email": "drew@pow.rs"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "homepage": "https://openapi-ts.pages.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drwpow/openapi-typescript",
+    "directory": "packages/openapi-fetch"
+  },
+  "bugs": {
+    "url": "https://github.com/drwpow/openapi-typescript/issues"
+  },
+  "keywords": [
+    "openapi",
+    "swagger",
+    "rest",
+    "api",
+    "oapi_3",
+    "oapi_3_1",
+    "typescript",
+    "fetch",
+    "react",
+    "vue",
+    "svelte"
+  ],
+  "scripts": {
+    "build": "npm run build:clean && npm run build:ts && npm run build:ts-min",
+    "build:clean": "del dist",
+    "build:ts": "tsc -p tsconfig.build.json",
+    "build:ts-min": "esbuild --bundle src/index.ts --format=esm --minify --outfile=dist/index.min.js && cp dist/index.d.ts dist/index.min.d.ts",
+    "lint": "npm run lint:js",
+    "lint:js": "npx prettier --check \"{src,test}/**/*\"",
+    "test": "npm run test:ts && npm run test:js",
+    "test:js": "vitest run",
+    "test:ts": "tsc --noEmit",
+    "prepare": "openapi-typescript test/v1.yaml -o test/v1.d.ts",
+    "prepublish": "npm run prepare && npm run build",
+    "version": "npm run prepare && npm run build"
+  },
+  "devDependencies": {
+    "del-cli": "^5.0.0",
+    "esbuild": "^0.17.18",
+    "nanostores": "^0.8.1",
+    "openapi-typescript": "workspace:^",
+    "prettier": "^2.8.8",
+    "typescript": "^5.0.4",
+    "vitest": "^0.31.0",
+    "vitest-fetch-mock": "^0.2.2"
+  }
+}

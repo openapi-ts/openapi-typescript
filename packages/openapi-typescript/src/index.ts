@@ -35,10 +35,7 @@ export const COMMENT_HEADER = `/**
  * @param {SwaggerToTSOptions<typeof schema>} [options] Options to specify to the parsing system
  * @return {Promise<string>}  {Promise<string>} Parsed file schema
  */
-async function openapiTS(
-  schema: string | URL | OpenAPI3 | Readable,
-  options: OpenAPITSOptions = {} as Partial<OpenAPITSOptions>
-): Promise<string> {
+async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: OpenAPITSOptions = {} as Partial<OpenAPITSOptions>): Promise<string> {
   const ctx: GlobalContext = {
     additionalProperties: options.additionalProperties ?? false,
     alphabetize: options.alphabetize ?? false,
@@ -105,10 +102,7 @@ async function openapiTS(
   const rootTypes = transformSchema(allSchemas["."].schema as OpenAPI3, ctx);
   for (const k of Object.keys(rootTypes)) {
     if (rootTypes[k] && !EMPTY_OBJECT_RE.test(rootTypes[k])) {
-      output.push(
-        options.exportType ? `export type ${k} = ${rootTypes[k]};` : `export interface ${k} ${rootTypes[k]}`,
-        ""
-      );
+      output.push(options.exportType ? `export type ${k} = ${rootTypes[k]};` : `export interface ${k} ${rootTypes[k]}`, "");
     } else {
       output.push(`export type ${k} = Record<string, never>;`, "");
     }
@@ -227,13 +221,7 @@ async function openapiTS(
 
   // 4b. WithRequired type helper (@see https://github.com/drwpow/openapi-typescript/issues/657#issuecomment-1399274607)
   if (output.join("\n").includes("WithRequired")) {
-    output.splice(
-      1,
-      0,
-      "/** WithRequired type helpers */",
-      "type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };",
-      ""
-    );
+    output.splice(1, 0, "/** WithRequired type helpers */", "type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };", "");
   }
 
   return output.join("\n");

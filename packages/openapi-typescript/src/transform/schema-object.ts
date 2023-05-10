@@ -1,21 +1,5 @@
 import type { GlobalContext, ReferenceObject, SchemaObject } from "../types.js";
-import {
-  escObjKey,
-  escStr,
-  getEntries,
-  getSchemaObjectComment,
-  indent,
-  parseRef,
-  tsArrayOf,
-  tsIntersectionOf,
-  tsOmit,
-  tsOneOf,
-  tsOptionalProperty,
-  tsReadonly,
-  tsTupleOf,
-  tsUnionOf,
-  tsWithRequired,
-} from "../utils.js";
+import { escObjKey, escStr, getEntries, getSchemaObjectComment, indent, parseRef, tsArrayOf, tsIntersectionOf, tsOmit, tsOneOf, tsOptionalProperty, tsReadonly, tsTupleOf, tsUnionOf, tsWithRequired } from "../utils.js";
 
 export interface TransformSchemaObjectOptions {
   /** The full ID for this object (mostly used in error messages) */
@@ -24,10 +8,7 @@ export interface TransformSchemaObjectOptions {
   ctx: GlobalContext;
 }
 
-export default function transformSchemaObject(
-  schemaObject: SchemaObject | ReferenceObject,
-  options: TransformSchemaObjectOptions
-): string {
+export default function transformSchemaObject(schemaObject: SchemaObject | ReferenceObject, options: TransformSchemaObjectOptions): string {
   const result = defaultSchemaObjectTransform(schemaObject, options);
   if (typeof options.ctx.postTransform === "function") {
     const postResult = options.ctx.postTransform(result, options);
@@ -36,10 +17,7 @@ export default function transformSchemaObject(
   return result;
 }
 
-export function defaultSchemaObjectTransform(
-  schemaObject: SchemaObject | ReferenceObject,
-  { path, ctx }: TransformSchemaObjectOptions
-): string {
+export function defaultSchemaObjectTransform(schemaObject: SchemaObject | ReferenceObject, { path, ctx }: TransformSchemaObjectOptions): string {
   let { indentLv } = ctx;
 
   // const fallback (primitives) return passed value
@@ -79,20 +57,13 @@ export function defaultSchemaObjectTransform(
   if (schemaObject.enum) {
     let items = schemaObject.enum as any[];
     if ("type" in schemaObject) {
-      if (schemaObject.type === "string" || (Array.isArray(schemaObject.type) && schemaObject.type.includes("string")))
-        items = items.map((t) => escStr(t || "")); // empty/missing values are empty strings
+      if (schemaObject.type === "string" || (Array.isArray(schemaObject.type) && schemaObject.type.includes("string"))) items = items.map((t) => escStr(t || "")); // empty/missing values are empty strings
     }
     // if no type, assume "string"
     else {
       items = items.map((t) => escStr(t || ""));
     }
-    return tsUnionOf(
-      ...items,
-      ...(schemaObject.nullable ||
-      ("type" in schemaObject && Array.isArray(schemaObject.type) && schemaObject.type.includes("null"))
-        ? ["null"]
-        : [])
-    );
+    return tsUnionOf(...items, ...(schemaObject.nullable || ("type" in schemaObject && Array.isArray(schemaObject.type) && schemaObject.type.includes("null")) ? ["null"] : []));
   }
 
   // oneOf (no discriminator)
@@ -105,9 +76,7 @@ export function defaultSchemaObjectTransform(
   if ("type" in schemaObject) {
     // array type
     if (Array.isArray(schemaObject.type)) {
-      return tsOneOf(
-        ...schemaObject.type.map((t) => transformSchemaObject({ ...schemaObject, type: t }, { path, ctx }))
-      );
+      return tsOneOf(...schemaObject.type.map((t) => transformSchemaObject({ ...schemaObject, type: t }, { path, ctx })));
     }
 
     // "type": "null"
@@ -141,14 +110,9 @@ export function defaultSchemaObjectTransform(
           itemType = transformSchemaObject(schemaObject.items, { path, ctx: { ...ctx, indentLv } });
         }
       }
-      const minItems: number =
-        typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0 ? schemaObject.minItems : 0;
-      const maxItems: number | undefined =
-        typeof schemaObject.maxItems === "number" && schemaObject.maxItems >= 0 && minItems <= schemaObject.maxItems
-          ? schemaObject.maxItems
-          : undefined;
-      const estimateCodeSize =
-        typeof maxItems !== "number" ? minItems : (maxItems * (maxItems + 1) - minItems * (minItems - 1)) / 2;
+      const minItems: number = typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0 ? schemaObject.minItems : 0;
+      const maxItems: number | undefined = typeof schemaObject.maxItems === "number" && schemaObject.maxItems >= 0 && minItems <= schemaObject.maxItems ? schemaObject.maxItems : undefined;
+      const estimateCodeSize = typeof maxItems !== "number" ? minItems : (maxItems * (maxItems + 1) - minItems * (minItems - 1)) / 2;
       // export types
       if (ctx.supportArrayLength && (minItems !== 0 || maxItems !== undefined) && estimateCodeSize < 30) {
         if (typeof schemaObject.maxItems !== "number") {
@@ -179,10 +143,7 @@ export function defaultSchemaObjectTransform(
 
   // core type: properties + additionalProperties
   const coreType: string[] = [];
-  if (
-    ("properties" in schemaObject && schemaObject.properties && Object.keys(schemaObject.properties).length) ||
-    ("additionalProperties" in schemaObject && schemaObject.additionalProperties)
-  ) {
+  if (("properties" in schemaObject && schemaObject.properties && Object.keys(schemaObject.properties).length) || ("additionalProperties" in schemaObject && schemaObject.additionalProperties)) {
     indentLv++;
     for (const [k, v] of getEntries(schemaObject.properties ?? {}, ctx.alphabetize)) {
       const c = getSchemaObjectComment(v, indentLv);
@@ -214,17 +175,13 @@ export function defaultSchemaObjectTransform(
   // discriminators
   for (const k of ["oneOf", "allOf", "anyOf"] as ("oneOf" | "allOf" | "anyOf")[]) {
     if (!(k in schemaObject)) continue;
-    const discriminatorRef: ReferenceObject | undefined = (schemaObject as any)[k].find(
-      (t: SchemaObject | ReferenceObject) => "$ref" in t && ctx.discriminators[t.$ref]
-    );
+    const discriminatorRef: ReferenceObject | undefined = (schemaObject as any)[k].find((t: SchemaObject | ReferenceObject) => "$ref" in t && ctx.discriminators[t.$ref]);
     if (discriminatorRef) {
       const discriminator = ctx.discriminators[discriminatorRef.$ref];
       let value = parseRef(path).path.pop()!;
       if (discriminator.mapping) {
         // Mapping value can either be a fully-qualified ref (#/components/schemas/XYZ) or a schema name (XYZ)
-        const matchedValue = Object.entries(discriminator.mapping).find(
-          ([_, v]) => (!v.startsWith("#") && v === value) || (v.startsWith("#") && parseRef(v).path.pop() === value)
-        );
+        const matchedValue = Object.entries(discriminator.mapping).find(([_, v]) => (!v.startsWith("#") && v === value) || (v.startsWith("#") && parseRef(v).path.pop() === value));
         if (matchedValue) value = matchedValue[0]; // why was this designed backwards!?
       }
       coreType.unshift(indent(`${discriminator.propertyName}: ${escStr(value)};`, indentLv + 1));
