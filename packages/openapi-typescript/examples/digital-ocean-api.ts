@@ -932,13 +932,13 @@ export interface external {
     /**
      * Format: date-time 
      * @description A time value given in ISO8601 combined date and time format that represents when the action was initiated. 
-     * @example "2020-11-14T16:29:21.000Z"
+     * @example 2020-11-14T16:29:21.000Z
      */
     started_at?: string;
     /**
      * Format: date-time 
      * @description A time value given in ISO8601 combined date and time format that represents when the action was completed. 
-     * @example "2020-11-14T16:30:06.000Z"
+     * @example 2020-11-14T16:30:06.000Z
      */
     completed_at?: string | null;
     /**
@@ -1317,7 +1317,7 @@ export interface external {
       query?: {
         /**
          * @description Optional day to query. Only the date component of the timestamp will be considered. Default: yesterday. 
-         * @example "2023-01-17T00:00:00.000Z"
+         * @example 2023-01-17T00:00:00.000Z
          */
         date?: string;
       };
@@ -1646,13 +1646,13 @@ export interface external {
     /**
      * The start time of this step 
      * Format: date-time 
-     * @example "2020-11-19T20:27:18.000Z"
+     * @example 2020-11-19T20:27:18.000Z
      */
     started_at?: string;
     /**
      * The start time of this step 
      * Format: date-time 
-     * @example "2020-11-19T20:27:18.000Z"
+     * @example 2020-11-19T20:27:18.000Z
      */
     ended_at?: string;
     reason?: external["resources/apps/models/app_alert_progress_step_reason.yml"];
@@ -2020,7 +2020,7 @@ export interface external {
     /**
      * Format: date-time 
      * @description Optional day to query. Only the date component of the timestamp will be considered. Default: yesterday. 
-     * @example "2023-01-17T00:00:00.000Z"
+     * @example 2023-01-17T00:00:00.000Z
      */
     date?: string;
   }
@@ -2030,7 +2030,7 @@ export interface external {
     /**
      * Format: date-time 
      * @description The date for the metrics data. 
-     * @example "2023-01-17T00:00:00.000Z"
+     * @example 2023-01-17T00:00:00.000Z
      */
     date?: string;
   }
@@ -2281,7 +2281,7 @@ export interface external {
     /**
      * The creation time of the app 
      * Format: date-time 
-     * @example "2020-11-19T20:27:18.000Z"
+     * @example 2020-11-19T20:27:18.000Z
      */
     created_at?: string;
     /**
@@ -2300,7 +2300,7 @@ export interface external {
     /**
      * The creation time of the last deployment 
      * Format: date-time 
-     * @example "2020-11-19T20:27:18.000Z"
+     * @example 2020-11-19T20:27:18.000Z
      */
     last_deployment_created_at?: string;
     /**
@@ -2339,7 +2339,7 @@ export interface external {
     /**
      * Time of the app's last configuration update 
      * Format: date-time 
-     * @example "2020-12-01T00:42:16.000Z"
+     * @example 2020-12-01T00:42:16.000Z
      */
     updated_at?: string;
     pinned_deployment?: external["resources/apps/models/apps_deployment.yml"];
@@ -2479,7 +2479,7 @@ export interface external {
     /**
      * The end time of this step 
      * Format: date-time 
-     * @example "2020-11-19T20:27:18.000Z"
+     * @example 2020-11-19T20:27:18.000Z
      */
     ended_at?: string;
     /**
@@ -2499,7 +2499,7 @@ export interface external {
     /**
      * The start time of this step 
      * Format: date-time 
-     * @example "2020-11-19T20:27:18.000Z"
+     * @example 2020-11-19T20:27:18.000Z
      */
     started_at?: string;
     status?: external["resources/apps/models/apps_deployment_progress_step_status.yml"];
@@ -2595,7 +2595,7 @@ export interface external {
     /**
      * The creation time of the deployment 
      * Format: date-time 
-     * @example "2020-07-28T18:00:00.000Z"
+     * @example 2020-07-28T18:00:00.000Z
      */
     created_at?: string;
     /**
@@ -2611,7 +2611,7 @@ export interface external {
     /**
      * When the deployment phase was last updated 
      * Format: date-time 
-     * @example "1901-01-01T00:00:00.000Z"
+     * @example 1901-01-01T00:00:00.000Z
      */
     phase_last_updated_at?: string;
     progress?: external["resources/apps/models/apps_deployment_progress.yml"];
@@ -2628,7 +2628,7 @@ export interface external {
     /**
      * When the deployment was last updated 
      * Format: date-time 
-     * @example "2020-07-28T18:00:00.000Z"
+     * @example 2020-07-28T18:00:00.000Z
      */
     updated_at?: string;
     /** Worker components that are part of this deployment */
@@ -3302,7 +3302,7 @@ export interface external {
     /**
      * Format: date-time 
      * @description The time at which balances were most recently generated. 
-     * @example "2019-07-09T15:01:12.000Z"
+     * @example 2019-07-09T15:01:12.000Z
      */
     generated_at?: string;
   }
@@ -3339,12 +3339,12 @@ export interface external {
     country_iso2_code?: string;
     /**
      * @description Timestamp billing address was created 
-     * @example "2019-09-03T16:34:46.000Z"
+     * @example 2019-09-03T16:34:46.000Z
      */
     created_at?: string;
     /**
      * @description Timestamp billing address was updated 
-     * @example "2019-09-03T16:34:46.000Z"
+     * @example 2019-09-03T16:34:46.000Z
      */
     updated_at?: string;
   }
@@ -3372,7 +3372,7 @@ export interface external {
     /**
      * Format: date-time 
      * @description Time the billing history entry occurred. 
-     * @example "2018-06-01T08:44:38.000Z"
+     * @example 2018-06-01T08:44:38.000Z
      */
     date?: string;
     /**
@@ -3425,12 +3425,12 @@ export interface external {
     duration_unit?: string;
     /**
      * @description Time the invoice item began to be billed for usage. 
-     * @example "2020-01-01T00:00:00.000Z"
+     * @example 2020-01-01T00:00:00.000Z
      */
     start_time?: string;
     /**
      * @description Time the invoice item stopped being billed for usage. 
-     * @example "2020-02-01T00:00:00.000Z"
+     * @example 2020-02-01T00:00:00.000Z
      */
     end_time?: string;
     /**
@@ -3457,7 +3457,7 @@ export interface external {
     invoice_period?: string;
     /**
      * @description Time the invoice was last updated.  This is only included with the invoice preview. 
-     * @example "2020-01-23T06:31:50.000Z"
+     * @example 2020-01-23T06:31:50.000Z
      */
     updated_at?: string;
   }
@@ -3981,7 +3981,7 @@ export interface external {
     /**
      * Format: date-time 
      * @description A time value given in ISO8601 combined date and time format that represents the certificate's expiration date. 
-     * @example "2017-02-22T00:23:00.000Z"
+     * @example 2017-02-22T00:23:00.000Z
      */
     not_after?: string;
     /**
@@ -3992,7 +3992,7 @@ export interface external {
     /**
      * Format: date-time 
      * @description A time value given in ISO8601 combined date and time format that represents when the certificate was created. 
-     * @example "2017-02-08T16:02:37.000Z"
+     * @example 2017-02-08T16:02:37.000Z
      */
     created_at?: string;
     /**
@@ -5179,7 +5179,7 @@ export interface external {
     /**
      * Format: date-time 
      * @description A time value given in ISO8601 combined date and time format at which the backup was created. 
-     * @example "2019-01-31T19:25:22.000Z"
+     * @example 2019-01-31T19:25:22.000Z
      */
     created_at: string;
     /**
@@ -5261,7 +5261,7 @@ export interface external {
     /**
      * Format: date-time 
      * @description The timestamp of an existing database cluster backup in ISO8601 combined date and time format. The most recent backup will be used if excluded. 
-     * @example "2019-01-31T19:25:22.000Z"
+     * @example 2019-01-31T19:25:22.000Z
      */
     backup_created_at?: string;
   }
@@ -5330,7 +5330,7 @@ export interface external {
     /**
      * Format: date-time 
      * @description A time value given in ISO8601 combined date and time format that represents when the database cluster was created. 
-     * @example "2019-01-11T18:37:36.000Z"
+     * @example 2019-01-11T18:37:36.000Z
      */
     created_at?: string;
     /**
@@ -5503,7 +5503,7 @@ export interface external {
     /**
      * Format: date-time 
      * @description A time value given in ISO8601 combined date and time format that represents when the database cluster was created. 
-     * @example "2019-01-11T18:37:36.000Z"
+     * @example 2019-01-11T18:37:36.000Z
      */
     created_at?: string;
     /**
@@ -5596,7 +5596,7 @@ export interface external {
     /**
      * Format: date-time 
      * @description A time value given in ISO8601 combined date and time format that represents when the firewall rule was created. 
-     * @example "2019-01-11T18:37:36.000Z"
+     * @example 2019-01-11T18:37:36.000Z
      */
     created_at?: string;
   }
@@ -5765,7 +5765,7 @@ export interface external {
     status?: "running" | "canceled" | "error" | "done";
     /**
      * @description The time the migration was initiated, in ISO 8601 format. 
-     * @example "2020-10-29T15:57:38.000Z"
+     * @example 2020-10-29T15:57:38.000Z
      */
     created_at?: string;
   }
@@ -7426,7 +7426,7 @@ export interface external {
     /**
      * Format: date-time 
      * @description A time value given in ISO8601 combined date and time format indicating when the requested action was completed. 
-     * @example "2020-04-01T18:11:49.000Z"
+     * @example 2020-04-01T18:11:49.000Z
      */
     completed_at?: string;
     /**
@@ -7466,7 +7466,7 @@ export interface external {
     /**
      * Format: date-time 
      * @description A time value given in ISO8601 combined date and time format indicating when the resource was destroyed if the request was successful. 
-     * @example "2020-04-01T18:11:49.000Z"
+     * @example 2020-04-01T18:11:49.000Z
      */
     destroyed_at?: string;
     /**
@@ -9124,12 +9124,12 @@ export interface external {
     namespace?: string;
     /**
      * @description UTC time string. 
-     * @example "2022-09-14T04:16:45.000Z"
+     * @example 2022-09-14T04:16:45.000Z
      */
     created_at?: string;
     /**
      * @description UTC time string. 
-     * @example "2022-09-14T04:16:45.000Z"
+     * @example 2022-09-14T04:16:45.000Z
      */
     updated_at?: string;
     /**
@@ -9194,24 +9194,24 @@ export interface external {
     is_enabled?: boolean;
     /**
      * @description UTC time string. 
-     * @example "2022-11-11T04:16:45.000Z"
+     * @example 2022-11-11T04:16:45.000Z
      */
     created_at?: string;
     /**
      * @description UTC time string. 
-     * @example "2022-11-11T04:16:45.000Z"
+     * @example 2022-11-11T04:16:45.000Z
      */
     updated_at?: string;
     scheduled_details?: external["resources/functions/models/scheduled_details.yml"];
     scheduled_runs?: {
       /**
        * @description Indicates last run time. null value indicates trigger not run yet. 
-       * @example "2022-11-11T04:16:45.000Z"
+       * @example 2022-11-11T04:16:45.000Z
        */
       last_run_at?: string | null;
       /**
        * @description Indicates next run time. null value indicates trigger will not run. 
-       * @example "2022-11-11T04:16:45.000Z"
+       * @example 2022-11-11T04:16:45.000Z
        */
       next_run_at?: string | null;
     };
@@ -9606,7 +9606,7 @@ export interface external {
     /**
      * Format: date-time 
      * @description A time value given in ISO8601 combined date and time format that represents when the image was created. 
-     * @example "2020-05-04T22:23:02.000Z"
+     * @example 2020-05-04T22:23:02.000Z
      */
     created_at?: string;
     /**
@@ -10667,7 +10667,7 @@ export interface external {
     /**
      * Format: date-time 
      * @description A time value given in ISO8601 combined date and time format that represents when the access token expires. 
-     * @example "2019-11-09T11:50:28.889Z"
+     * @example 2019-11-09T11:50:28.889Z
      */
     expires_at?: string;
   }
@@ -12587,13 +12587,13 @@ export interface external {
     /**
      * Format: date-time 
      * @description The time the garbage collection was created. 
-     * @example "2020-10-30T21:03:24.000Z"
+     * @example 2020-10-30T21:03:24.000Z
      */
     created_at?: string;
     /**
      * Format: date-time 
      * @description The time the garbage collection was last updated. 
-     * @example "2020-10-30T21:03:44.000Z"
+     * @example 2020-10-30T21:03:44.000Z
      */
     updated_at?: string;
     /**
@@ -14774,7 +14774,7 @@ export interface external {
     size_gigabytes?: number;
     /**
      * @description A time value given in ISO8601 combined date and time format that represents when the block storage volume was created. 
-     * @example "2020-03-02T17:00:49.000Z"
+     * @example 2020-03-02T17:00:49.000Z
      */
     created_at?: string;
     tags?: external["shared/attributes/tags_array.yml"];
