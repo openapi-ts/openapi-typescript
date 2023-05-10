@@ -181,6 +181,8 @@ export default async function load(schema: URL | Subschema | Readable, options: 
     error(`Invalid schema`);
     process.exit(1);
   }
+  // avoidance $ref has been transform many times, use JSON.parse and JSON.stringify fix: https://github.com/drwpow/openapi-typescript/issues/1093
+  options.schemas[schemaID].schema = JSON.parse(JSON.stringify(options.schemas[schemaID].schema));
 
   // 2. resolve $refs
   const currentSchema = options.schemas[schemaID].schema;
@@ -256,10 +258,6 @@ export default async function load(schema: URL | Subschema | Readable, options: 
 
         const ref = parseRef(node.$ref);
 
-        // when ref.path is [], $ref has been transform, skip transform
-        if (ref.path.length === 0 && (ref.filename.startsWith("components[") || ref.filename.startsWith("external["))) {
-          return;
-        }
         // local $ref: convert into TS path
         if (ref.filename === ".") {
           node.$ref = makeTSIndex(ref.path);
