@@ -15,6 +15,11 @@ type Props = CollectionEntry<"docs">["data"] & {
   headings: MarkdownHeading[];
 };
 
+interface Link {
+  url: string;
+  text: string;
+}
+
 const { headings, ...data } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const currentPage = Astro.url.pathname;
@@ -138,5 +143,14 @@ const nextLink: Record<string, Link | undefined> = {
         <RightSidebar headings={headings} githubEditUrl={githubEditUrl} />
       </aside>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+    <script is:inline type="text/javascript">
+      docsearch({
+        appId: import.meta.env.VITE_ALGOLIA_APP_ID,
+        apiKey: import.meta.env.VITE_ALGOLIA_SEARCH_KEY,
+        indexName: import.meta.env.VITE_ALGOLIA_INDEX_NAME,
+        container: "#grid-main",
+      });
+    </script>
   </body>
 </html>

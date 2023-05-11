@@ -1,5 +1,7 @@
-openapi:
-  version: '3.1'
+openapi: 3.1
+info:
+  title: Test Specification
+  version: '1.0'
 paths:
   /comment:
     put:
@@ -14,6 +16,27 @@ paths:
     put:
       requestBody:
         $ref: '#/components/requestBodies/CreatePost'
+      responses:
+        201:
+          $ref: '#/components/responses/CreatePost'
+        500:
+          $ref: '#/components/responses/Error'
+  /post/optional:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/CreatePostOptional'
+      responses:
+        201:
+          $ref: '#/components/responses/CreatePost'
+        500:
+          $ref: '#/components/responses/Error'
+  /post/optional/inline:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
       responses:
         201:
           $ref: '#/components/responses/CreatePost'
@@ -199,6 +222,23 @@ components:
   requestBodies:
     CreatePost:
       required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              body:
+                type: string
+              publish_date:
+                type: number
+            required:
+              - title
+              - body
+              - publish_date
+    CreatePostOptional:
+      required: false
       content:
         application/json:
           schema:

@@ -34,16 +34,19 @@ export type FilterKeys<Obj, Matchers> = { [K in keyof Obj]: K extends Matchers ?
 /** handle "application/json", "application/vnd.api+json", "appliacation/json;charset=utf-8" and more */
 export type JSONLike = `${string}json${string}`;
 
-// fetch types
+// general purpose types
 export type Params<O> = O extends { parameters: any } ? { params: NonNullable<O["parameters"]> } : BaseParams;
-export type RequestBodyObj<O> = O extends { requestBody: any } ? O["requestBody"] : never;
+export type RequestBodyObj<O> = O extends { requestBody?: any } ? O["requestBody"] : never;
 export type RequestBodyContent<O> = undefined extends RequestBodyObj<O> ? FilterKeys<NonNullable<RequestBodyObj<O>>, "content"> | undefined : FilterKeys<RequestBodyObj<O>, "content">;
 export type RequestBodyJSON<O> = FilterKeys<RequestBodyContent<O>, JSONLike> extends never ? FilterKeys<NonNullable<RequestBodyContent<O>>, JSONLike> | undefined : FilterKeys<RequestBodyContent<O>, JSONLike>;
 export type RequestBody<O> = undefined extends RequestBodyJSON<O> ? { body?: RequestBodyJSON<O> } : { body: RequestBodyJSON<O> };
 export type QuerySerializer<O> = (query: O extends { parameters: { query: any } } ? O["parameters"]["query"] : Record<string, unknown>) => string;
-export type FetchOptions<T> = Params<T> & RequestBody<T> & Omit<RequestInit, "body"> & { querySerializer?: QuerySerializer<T> };
+export type RequestOptions<T> = Params<T> & RequestBody<T> & { querySerializer?: QuerySerializer<T> };
 export type Success<O> = FilterKeys<FilterKeys<O, OkStatus>, "content">;
 export type Error<O> = FilterKeys<FilterKeys<O, ErrorStatus>, "content">;
+
+// fetch types
+export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body">;
 export type FetchResponse<T> =
   | { data: T extends { responses: any } ? NonNullable<FilterKeys<Success<T["responses"]>, JSONLike>> : unknown; error?: never; response: Response }
   | { data?: never; error: T extends { responses: any } ? NonNullable<FilterKeys<Error<T["responses"]>, JSONLike>> : unknown; response: Response };

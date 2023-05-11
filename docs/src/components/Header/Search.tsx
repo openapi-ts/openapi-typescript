@@ -1,10 +1,9 @@
 /** @jsxImportSource react */
 import { useState, useCallback, useRef } from "react";
 import "@docsearch/css";
-import "./Search.css";
-
-import { createPortal } from "react-dom";
 import * as docSearchReact from "@docsearch/react";
+import { createPortal } from "react-dom";
+import "./Search.css";
 
 /** FIXME: This is still kinda nasty, but DocSearch is not ESM ready. */
 const DocSearchModal = docSearchReact.DocSearchModal || (docSearchReact as any).default.DocSearchModal;
