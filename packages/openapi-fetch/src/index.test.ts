@@ -351,6 +351,42 @@ describe("post()", () => {
     // assert error is empty
     expect(error).toBe(undefined);
   });
+
+  it("request body type when optional", async () => {
+    fetchMocker.mockResponse(() => ({ status: 201, body: "{}" }));
+    const client = createClient<paths>();
+
+    // expect error on wrong body type
+    // @ts-expect-error
+    await client.post("/post/optional", { body: { error: true } });
+
+    // (no error)
+    await client.post("/post/optional", {
+      body: {
+        title: "",
+        publish_date: 3,
+        body: "",
+      },
+    });
+  });
+
+  it("request body type when optional inline", async () => {
+    fetchMocker.mockResponse(() => ({ status: 201, body: "{}" }));
+    const client = createClient<paths>();
+
+    // expect error on wrong body type
+    // @ts-expect-error
+    await client.post("/post/optional/inline", { body: { error: true } });
+
+    // (no error)
+    await client.post("/post/optional/inline", {
+      body: {
+        title: "",
+        publish_date: 3,
+        body: "",
+      },
+    });
+  });
 });
 
 describe("delete()", () => {

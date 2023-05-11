@@ -2,17 +2,12 @@
 import "../styles/app.scss";
 ---
 
-<!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
 <meta name="generator" content={Astro.generator} />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="sitemap" href="/sitemap.xml" />
-
-<!-- Scrollable a11y code helper -->
+<link rel="sitemap" href="/sitemap-index.xml" />
 <script src="/make-scrollable-code-focusable.js" is:inline></script>
-
-<!-- This is intentionally inlined to avoid FOUC -->
 <script is:inline>
   const root = document.documentElement;
   const theme = localStorage.getItem("theme");
@@ -22,12 +17,3 @@ import "../styles/app.scss";
     root.classList.remove("theme-dark");
   }
 </script>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-TEL60V1WM9" is:inline></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-TEL60V1WM9');
-</script> -->

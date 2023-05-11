@@ -15,6 +15,11 @@ type Props = CollectionEntry<"docs">["data"] & {
   headings: MarkdownHeading[];
 };
 
+interface Link {
+  url: string;
+  text: string;
+}
+
 const { headings, ...data } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const currentPage = Astro.url.pathname;
@@ -131,7 +136,7 @@ const nextLink: Record<string, Link | undefined> = {
           <slot />
           {currentPage === "/about" && <Contributors usernames={OPENAPI_TS_CONTRIBUTORS} />}
           {currentPage === "/openapi-fetch/about" && <Contributors usernames={OPENAPI_FETCH_CONTRIBUTORS} />}
-          {nextLink[currentPage] && <NextLink href={nextLink[currentPage].url}>{nextLink[currentPage].text}</NextLink>}
+          {nextLink[currentPage] && <NextLink href={nextLink[currentPage]!.url}>{nextLink[currentPage]!.text}</NextLink>}
         </PageContent>
       </div>
       <aside id="grid-right" class="grid-sidebar" title="Table of Contents">

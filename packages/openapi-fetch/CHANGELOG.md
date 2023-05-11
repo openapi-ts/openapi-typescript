@@ -1,5 +1,17 @@
 # openapi-fetch
 
+## 0.1.4
+
+### Patch Changes
+
+- 63ebe48: Fix request body type when optional (#48)
+
+## 0.1.3
+
+### Patch Changes
+
+- 8c01480: Fix querySerializer signature
+
 ## 0.1.2
 
 ### Patch Changes

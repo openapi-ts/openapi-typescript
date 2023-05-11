@@ -23,6 +23,28 @@ export interface paths {
       };
     };
   };
+  "/post/optional": {
+    post: {
+      requestBody: components["requestBodies"]["CreatePostOptional"];
+      responses: {
+        201: components["responses"]["CreatePost"];
+        500: components["responses"]["Error"];
+      };
+    };
+  };
+  "/post/optional/inline": {
+    post: {
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["Post"];
+        };
+      };
+      responses: {
+        201: components["responses"]["CreatePost"];
+        500: components["responses"]["Error"];
+      };
+    };
+  };
   "/posts": {
     get: {
       responses: {
@@ -263,6 +285,15 @@ export interface components {
   parameters: never;
   requestBodies: {
     CreatePost: {
+      content: {
+        "application/json": {
+          title: string;
+          body: string;
+          publish_date: number;
+        };
+      };
+    };
+    CreatePostOptional?: {
       content: {
         "application/json": {
           title: string;
