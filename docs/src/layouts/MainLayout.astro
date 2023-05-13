@@ -9,7 +9,8 @@ import NextLink from "../components/NextLink.astro";
 import PageContent from "../components/PageContent/PageContent.astro";
 import LeftSidebar from "../components/LeftSidebar/LeftSidebar.astro";
 import RightSidebar from "../components/RightSidebar/RightSidebar.astro";
-import { GITHUB_EDIT_URL, OPENAPI_FETCH_CONTRIBUTORS, OPENAPI_TS_CONTRIBUTORS, SITE } from "../consts.js";
+import { GITHUB_EDIT_URL, SITE } from "../consts.js";
+import contributors from "../data/contributors.json";
 
 type Props = CollectionEntry<"docs">["data"] & {
   headings: MarkdownHeading[];
@@ -72,7 +73,7 @@ const nextLink: Record<string, Link | undefined> = {
       }
 
       .grid-sidebar {
-        height: 100vh;
+        max-height: 100vh;
         position: sticky;
         top: 0;
         padding: 0;
@@ -134,8 +135,8 @@ const nextLink: Record<string, Link | undefined> = {
       <div id="grid-main">
         <PageContent title={data.title} headings={headings} githubEditUrl={githubEditUrl}>
           <slot />
-          {currentPage === "/about" && <Contributors usernames={OPENAPI_TS_CONTRIBUTORS} />}
-          {currentPage === "/openapi-fetch/about" && <Contributors usernames={OPENAPI_FETCH_CONTRIBUTORS} />}
+          {currentPage.startsWith("/about") && <Contributors contributors={contributors["openapi-typescript"]} />}
+          {currentPage.startsWith("/openapi-fetch/about") && <Contributors contributors={contributors["openapi-fetch"]} />}
           {nextLink[currentPage] && <NextLink href={nextLink[currentPage]!.url}>{nextLink[currentPage]!.text}</NextLink>}
         </PageContent>
       </div>

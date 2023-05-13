@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "astro build",
-    "dev": "astro dev"
+    "build": "npm run update-contributors && astro build",
+    "dev": "npm run update-contributors && astro dev",
+    "update-contributors": "node scripts/update-contributors.js"
   },
   "dependencies": {
     "@algolia/client-search": "^4.17.0",

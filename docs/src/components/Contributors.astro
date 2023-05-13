@@ -2,20 +2,19 @@
 import { fetchAvatar } from "../lib/github.js";
 
 export type Props = {
-  usernames: string[];
+  contributors: { username: string; avatar: string }[];
 };
 
-const { usernames = [] } = Astro.props;
-const avatars = await Promise.all(usernames.map(fetchAvatar));
+const { contributors = [] } = Astro.props;
 ---
 
 <ul class="wrapper">
   {
-    usernames.map((user, i) => (
+    contributors.map(({ username, avatar }) => (
       <li class="contributor">
-        <a href={`https://github.com/${user}`} target="_blank" rel="noopener noreferrer" class="link">
-          <img class="avatar" src={avatars[i]} alt={user} />
-          {user}
+        <a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" class="link">
+          <img class="avatar" src={avatar} alt={username} />
+          {username}
         </a>
       </li>
     ))

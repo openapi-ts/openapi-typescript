@@ -31,7 +31,7 @@ This library requires the latest version of <a href="https://nodejs.org/en" targ
 npm i -D openapi-typescript
 ```
 
-## Basic Usage
+## Basic usage
 
 First, generate a local type file by running `npx openapi-typescript`:
 
