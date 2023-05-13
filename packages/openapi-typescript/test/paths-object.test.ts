@@ -16,6 +16,7 @@ const options: GlobalContext = {
   silent: true,
   supportArrayLength: false,
   transform: undefined,
+  excludeDeprecated: false,
 };
 
 describe("Paths Object", () => {

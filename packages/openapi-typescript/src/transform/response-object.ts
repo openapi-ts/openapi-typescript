@@ -22,7 +22,7 @@ export default function transformResponseObject(responseObject: ResponseObject, 
     indentLv++;
     output.push(indent(`headers: {`, indentLv));
     indentLv++;
-    for (const [name, headerObject] of getEntries(responseObject.headers, ctx.alphabetize)) {
+    for (const [name, headerObject] of getEntries(responseObject.headers, ctx.alphabetize, ctx.excludeDeprecated)) {
       const c = getSchemaObjectComment(headerObject, indentLv);
       if (c) output.push(indent(c, indentLv));
       let key = escObjKey(name);
@@ -52,7 +52,7 @@ export default function transformResponseObject(responseObject: ResponseObject, 
     indentLv++;
     output.push(indent("content: {", indentLv));
     indentLv++;
-    for (const [contentType, mediaTypeObject] of getEntries(responseObject.content, ctx.alphabetize)) {
+    for (const [contentType, mediaTypeObject] of getEntries(responseObject.content, ctx.alphabetize, ctx.excludeDeprecated)) {
       let key = escStr(contentType);
       if (ctx.immutableTypes) key = tsReadonly(key);
       output.push(

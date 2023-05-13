@@ -15,7 +15,7 @@ export default function transformRequestBodyObject(requestBodyObject: RequestBod
   output.push(indent(ctx.immutableTypes ? tsReadonly("content: {") : "content: {", indentLv));
   if (!Object.keys(requestBodyObject.content).length) return `${escStr("*/*")}: never`;
   indentLv++;
-  for (const [contentType, mediaTypeObject] of getEntries(requestBodyObject.content, ctx.alphabetize)) {
+  for (const [contentType, mediaTypeObject] of getEntries(requestBodyObject.content, ctx.alphabetize, ctx.excludeDeprecated)) {
     const c = getSchemaObjectComment(mediaTypeObject, indentLv);
     if (c) output.push(indent(c, indentLv));
     let key = escStr(contentType);

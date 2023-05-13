@@ -621,6 +621,8 @@ export interface OpenAPITSOptions {
    * function if available; else, it will use unidici's fetch function.
    */
   fetch?: Fetch;
+  /** Exclude deprecated fields from types? (default: false) */
+  excludeDeprecated?: boolean;
 }
 
 /** Subschema discriminator (note: only valid $ref types accepted here) */
@@ -661,6 +663,7 @@ export interface GlobalContext {
   pathParamsAsTypes: boolean;
   silent: boolean;
   supportArrayLength: boolean;
+  excludeDeprecated: boolean;
 }
 
 // Fetch is available in the global scope starting with Node v18.

@@ -7,7 +7,7 @@ export default function transformPathsObject(pathsObject: PathsObject, ctx: Glob
   let { indentLv } = ctx;
   const output: string[] = ["{"];
   indentLv++;
-  for (const [url, pathItemObject] of getEntries(pathsObject, ctx.alphabetize)) {
+  for (const [url, pathItemObject] of getEntries(pathsObject, ctx.alphabetize, ctx.excludeDeprecated)) {
     let path = url;
 
     // build dynamic string template literal index

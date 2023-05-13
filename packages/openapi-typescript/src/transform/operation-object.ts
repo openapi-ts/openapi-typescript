@@ -88,7 +88,7 @@ export default function transformOperationObject(operationObject: OperationObjec
     if (operationObject.responses) {
       output.push(indent(`responses: {`, indentLv));
       indentLv++;
-      for (const [responseCode, responseObject] of getEntries(operationObject.responses, ctx.alphabetize)) {
+      for (const [responseCode, responseObject] of getEntries(operationObject.responses, ctx.alphabetize, ctx.excludeDeprecated)) {
         const key = escObjKey(responseCode);
         const c = getSchemaObjectComment(responseObject, indentLv);
         if (c) output.push(indent(c, indentLv));

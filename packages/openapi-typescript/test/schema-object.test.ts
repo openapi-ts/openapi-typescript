@@ -18,6 +18,7 @@ const options: TransformSchemaObjectOptions = {
     silent: true,
     supportArrayLength: false,
     transform: undefined,
+    excludeDeprecated: false,
   },
 };
 

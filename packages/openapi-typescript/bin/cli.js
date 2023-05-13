@@ -27,6 +27,7 @@ Options
   --support-array-length       (optional) Generate tuples using array minItems / maxItems
   --path-params-as-types       (optional) Substitute path parameter names with their respective types
   --alphabetize                (optional) Sort types alphabetically
+  --exclude-deprecated         (optional) Exclude deprecated fields from types
 `;
 
 const OUTPUT_FILE = "FILE";
@@ -54,6 +55,7 @@ const flags = parser(args, {
     "supportArrayLength",
     "pathParamsAsTypes",
     "alphabetize",
+    "excludeDeprecated",
   ],
   string: ["auth", "header", "headersObject", "httpMethod"],
   alias: {
@@ -104,6 +106,7 @@ async function generateSchema(pathToSpec) {
     supportArrayLength: flags.supportArrayLength,
     pathParamsAsTypes: flags.pathParamsAsTypes,
     alphabetize: flags.alphabetize,
+    excludeDeprecated: flags.excludeDeprecated,
   });
 
   // output
