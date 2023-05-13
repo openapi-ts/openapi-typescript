@@ -236,7 +236,7 @@ describe("Components Object", () => {
 }`);
       });
     });
-    describe.only("excludeDeprecated", () => {
+    describe("excludeDeprecated", () => {
       test("true", () => {
         const schema: ComponentsObject = {
           schemas: {
