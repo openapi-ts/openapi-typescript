@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "del-cli": "^5.0.0",
-    "esbuild": "^0.17.18",
+    "esbuild": "^0.17.19",
     "nanostores": "^0.8.1",
     "openapi-typescript": "workspace:^",
     "prettier": "^2.8.8",
