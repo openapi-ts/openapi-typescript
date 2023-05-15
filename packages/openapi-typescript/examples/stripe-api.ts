@@ -4261,6 +4261,13 @@ export interface components {
       inclusive: boolean;
       /** @description The tax rate that was applied to get this tax amount. */
       tax_rate: string | components["schemas"]["tax_rate"];
+      /**
+       * @description The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported. 
+       * @enum {string|null}
+       */
+      taxability_reason?: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated" | null;
+      /** @description The amount on which tax is calculated, in %s. */
+      taxable_amount?: number | null;
     };
     /** CurrencyOption */
     currency_option: {
@@ -6511,6 +6518,13 @@ export interface components {
       inclusive: boolean;
       /** @description The tax rate that was applied to get this tax amount. */
       tax_rate: string | components["schemas"]["tax_rate"];
+      /**
+       * @description The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported. 
+       * @enum {string|null}
+       */
+      taxability_reason?: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated" | null;
+      /** @description The amount on which tax is calculated, in %s. */
+      taxable_amount?: number | null;
     };
     /** InvoiceThresholdReason */
     invoice_threshold_reason: {
@@ -6637,7 +6651,7 @@ export interface components {
       /** @description Payment-method-specific configuration to provide to the invoice’s PaymentIntent. */
       payment_method_options?: components["schemas"]["invoices_payment_method_options"] | null;
       /** @description The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). */
-      payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | null;
+      payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "paypal" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | null;
     };
     /** InvoicesResourceInvoiceTaxID */
     invoices_resource_invoice_tax_id: {
@@ -7788,6 +7802,13 @@ export interface components {
       /** @description Amount of tax applied for this rate. */
       amount: number;
       rate: components["schemas"]["tax_rate"];
+      /**
+       * @description The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported. 
+       * @enum {string|null}
+       */
+      taxability_reason?: "customer_exempt" | "excluded_territory" | "jurisdiction_unsupported" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "vat_exempt" | "zero_rated" | null;
+      /** @description The amount on which tax is calculated, in %s. */
+      taxable_amount?: number | null;
     };
     /** linked_account_options_us_bank_account */
     linked_account_options_us_bank_account: {
@@ -7919,10 +7940,18 @@ export interface components {
       card?: components["schemas"]["card_mandate_payment_method_details"];
       cashapp?: components["schemas"]["mandate_cashapp"];
       link?: components["schemas"]["mandate_link"];
+      paypal?: components["schemas"]["mandate_paypal"];
       sepa_debit?: components["schemas"]["mandate_sepa_debit"];
       /** @description The type of the payment method associated with this mandate. An additional hash is included on `payment_method_details` with a name matching this value. It contains mandate information specific to the payment method. */
       type: string;
       us_bank_account?: components["schemas"]["mandate_us_bank_account"];
+    };
+    /** mandate_paypal */
+    mandate_paypal: {
+      /** @description The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer. */
+      billing_agreement_id?: string | null;
+      /** @description PayPal account PayerID. This identifier uniquely identifies the PayPal customer. */
+      payer_id?: string | null;
     };
     /** mandate_sepa_debit */
     mandate_sepa_debit: {
@@ -8518,6 +8547,7 @@ export interface components {
       oxxo?: components["schemas"]["payment_method_options_oxxo"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
       p24?: components["schemas"]["payment_method_options_p24"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
       paynow?: components["schemas"]["payment_method_options_paynow"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
+      paypal?: components["schemas"]["payment_method_options_paypal"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
       pix?: components["schemas"]["payment_method_options_pix"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
       promptpay?: components["schemas"]["payment_method_options_promptpay"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
       sepa_debit?: components["schemas"]["payment_intent_payment_method_options_sepa_debit"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
@@ -8576,7 +8606,7 @@ export interface components {
        * @description Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time. 
        * @enum {string|null}
        */
-      network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
+      network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
       /**
        * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine. 
        * @enum {string|null}
@@ -8797,7 +8827,7 @@ export interface components {
        */
       payment_method_collection: "always" | "if_required";
       /** @description The list of payment method types that customers can use. When `null`, Stripe will dynamically show relevant payment methods you've enabled in your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
-      payment_method_types?: (("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | null;
+      payment_method_types?: (("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | null;
       phone_number_collection: components["schemas"]["payment_links_resource_phone_number_collection"];
       /** @description Configuration for collecting the customer's shipping address. */
       shipping_address_collection?: components["schemas"]["payment_links_resource_shipping_address_collection"] | null;
@@ -9031,6 +9061,7 @@ export interface components {
       oxxo?: components["schemas"]["payment_method_oxxo"];
       p24?: components["schemas"]["payment_method_p24"];
       paynow?: components["schemas"]["payment_method_paynow"];
+      paypal?: components["schemas"]["payment_method_paypal"];
       pix?: components["schemas"]["payment_method_pix"];
       promptpay?: components["schemas"]["payment_method_promptpay"];
       radar_options?: components["schemas"]["radar_radar_options"];
@@ -9040,7 +9071,7 @@ export interface components {
        * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. 
        * @enum {string}
        */
-      type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "card_present" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "interac_present" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+      type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "card_present" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "interac_present" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
       us_bank_account?: components["schemas"]["payment_method_us_bank_account"];
       wechat_pay?: components["schemas"]["payment_method_wechat_pay"];
     };
@@ -9138,7 +9169,42 @@ export interface components {
       setup_attempt?: (string | components["schemas"]["setup_attempt"]) | null;
     };
     /** payment_method_card_present */
-    payment_method_card_present: Record<string, never>;
+    payment_method_card_present: {
+      /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+      brand?: string | null;
+      /** @description The cardholder name as read from the card, in [ISO 7813](https://en.wikipedia.org/wiki/ISO/IEC_7813) format. May include alphanumeric characters, special characters and first/last name separator (`/`). In some cases, the cardholder name may not be available depending on how the issuer has configured the card. Cardholder name is typically not available on swipe or contactless payments, such as those made with Apple Pay and Google Pay. */
+      cardholder_name?: string | null;
+      /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
+      country?: string | null;
+      /** @description Two-digit number representing the card's expiration month. */
+      exp_month: number;
+      /** @description Four-digit number representing the card's expiration year. */
+      exp_year: number;
+      /**
+       * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+       * 
+       * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
+       */
+      fingerprint?: string | null;
+      /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
+      funding?: string | null;
+      /** @description The last four digits of the card. */
+      last4?: string | null;
+      /** @description Contains information about card networks that can be used to process the payment. */
+      networks?: components["schemas"]["payment_method_card_present_networks"] | null;
+      /**
+       * @description How card details were read in this transaction. 
+       * @enum {string|null}
+       */
+      read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2" | null;
+    };
+    /** payment_method_card_present_networks */
+    payment_method_card_present_networks: {
+      /** @description All available networks for the card. */
+      available: (string)[];
+      /** @description The preferred network for the card. */
+      preferred?: string | null;
+    };
     /** payment_method_card_wallet */
     payment_method_card_wallet: {
       amex_express_checkout?: components["schemas"]["payment_method_card_wallet_amex_express_checkout"];
@@ -9186,7 +9252,12 @@ export interface components {
       shipping_address?: components["schemas"]["address"] | null;
     };
     /** payment_method_cashapp */
-    payment_method_cashapp: Record<string, never>;
+    payment_method_cashapp: {
+      /** @description A unique and immutable identifier assigned by Cash App to every buyer. */
+      buyer_id?: string | null;
+      /** @description A public identifier for buyers using Cash App. */
+      cashtag?: string | null;
+    };
     /** payment_method_customer_balance */
     payment_method_customer_balance: Record<string, never>;
     /** payment_method_details */
@@ -9219,6 +9290,7 @@ export interface components {
       oxxo?: components["schemas"]["payment_method_details_oxxo"];
       p24?: components["schemas"]["payment_method_details_p24"];
       paynow?: components["schemas"]["payment_method_details_paynow"];
+      paypal?: components["schemas"]["payment_method_details_paypal"];
       pix?: components["schemas"]["payment_method_details_pix"];
       promptpay?: components["schemas"]["payment_method_details_promptpay"];
       sepa_debit?: components["schemas"]["payment_method_details_sepa_debit"];
@@ -9372,6 +9444,8 @@ export interface components {
       mandate?: string | null;
       /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       network?: string | null;
+      /** @description If this card has network token credentials, this contains the details of the network token credentials. */
+      network_token?: components["schemas"]["payment_method_details_card_network_token"] | null;
       /** @description Populated if this transaction used 3D Secure authentication. */
       three_d_secure?: components["schemas"]["three_d_secure_details"] | null;
       /** @description If this Card is part of a card wallet, this contains the details of the card wallet. */
@@ -9406,6 +9480,11 @@ export interface components {
        * @enum {string}
        */
       type: "fixed_count";
+    };
+    /** payment_method_details_card_network_token */
+    payment_method_details_card_network_token: {
+      /** @description Indicates if Stripe used a network token, either user provided or Stripe managed when processing the transaction. */
+      used: boolean;
     };
     /** payment_method_details_card_present */
     payment_method_details_card_present: {
@@ -9525,7 +9604,12 @@ export interface components {
       shipping_address?: components["schemas"]["address"] | null;
     };
     /** payment_method_details_cashapp */
-    payment_method_details_cashapp: Record<string, never>;
+    payment_method_details_cashapp: {
+      /** @description A unique and immutable identifier assigned by Cash App to every buyer. */
+      buyer_id?: string | null;
+      /** @description A public identifier for buyers using Cash App. */
+      cashtag?: string | null;
+    };
     /** payment_method_details_customer_balance */
     payment_method_details_customer_balance: Record<string, never>;
     /** payment_method_details_eps */
@@ -9725,6 +9809,25 @@ export interface components {
       /** @description Reference number associated with this PayNow payment */
       reference?: string | null;
     };
+    /** payment_method_details_paypal */
+    payment_method_details_paypal: {
+      /**
+       * @description Owner's email. Values are provided by PayPal directly
+       * (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+       */
+      payer_email?: string | null;
+      /** @description PayPal account PayerID. This identifier uniquely identifies the PayPal customer. */
+      payer_id?: string | null;
+      /**
+       * @description Owner's full name. Values provided by PayPal directly
+       * (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+       */
+      payer_name?: string | null;
+      /** @description The level of protection offered as defined by PayPal Seller Protection for Merchants, for this transaction. */
+      seller_protection?: components["schemas"]["paypal_seller_protection"] | null;
+      /** @description A unique ID generated by PayPal for this transaction. */
+      transaction_id?: string | null;
+    };
     /** payment_method_details_pix */
     payment_method_details_pix: {
       /** @description Unique transaction id generated by BCB */
@@ -9844,7 +9947,37 @@ export interface components {
       bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
     };
     /** payment_method_interac_present */
-    payment_method_interac_present: Record<string, never>;
+    payment_method_interac_present: {
+      /** @description Card brand. Can be `interac`, `mastercard` or `visa`. */
+      brand?: string | null;
+      /** @description The cardholder name as read from the card, in [ISO 7813](https://en.wikipedia.org/wiki/ISO/IEC_7813) format. May include alphanumeric characters, special characters and first/last name separator (`/`). In some cases, the cardholder name may not be available depending on how the issuer has configured the card. Cardholder name is typically not available on swipe or contactless payments, such as those made with Apple Pay and Google Pay. */
+      cardholder_name?: string | null;
+      /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
+      country?: string | null;
+      /** @description Two-digit number representing the card's expiration month. */
+      exp_month: number;
+      /** @description Four-digit number representing the card's expiration year. */
+      exp_year: number;
+      /**
+       * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+       * 
+       * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
+       */
+      fingerprint?: string | null;
+      /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
+      funding?: string | null;
+      /** @description The last four digits of the card. */
+      last4?: string | null;
+      /** @description Contains information about card networks that can be used to process the payment. */
+      networks?: components["schemas"]["payment_method_card_present_networks"] | null;
+      /** @description EMV tag 5F2D. Preferred languages specified by the integrated circuit chip. */
+      preferred_locales?: (string)[] | null;
+      /**
+       * @description How card details were read in this transaction. 
+       * @enum {string|null}
+       */
+      read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2" | null;
+    };
     /** payment_method_klarna */
     payment_method_klarna: {
       /** @description The customer's date of birth, if provided. */
@@ -10192,6 +10325,27 @@ export interface components {
        */
       setup_future_usage?: "none";
     };
+    /** payment_method_options_paypal */
+    payment_method_options_paypal: {
+      /**
+       * @description Controls when the funds will be captured from the customer's account. 
+       * @enum {string}
+       */
+      capture_method?: "manual";
+      /** @description Preferred locale of the PayPal checkout page that the customer is redirected to. */
+      preferred_locale?: string | null;
+      /** @description A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID. */
+      reference?: string | null;
+      /**
+       * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
+       * 
+       * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+       * 
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       * @enum {string}
+       */
+      setup_future_usage?: "none" | "off_session";
+    };
     /** payment_method_options_pix */
     payment_method_options_pix: {
       /** @description The number of seconds (between 10 and 1209600) after which Pix payment will expire. */
@@ -10268,6 +10422,11 @@ export interface components {
     };
     /** payment_method_paynow */
     payment_method_paynow: Record<string, never>;
+    /** payment_method_paypal */
+    payment_method_paypal: {
+      /** @description PayPal account PayerID. This identifier uniquely identifies the PayPal customer. */
+      payer_id?: string | null;
+    };
     /** payment_method_pix */
     payment_method_pix: Record<string, never>;
     /** payment_method_promptpay */
@@ -10665,6 +10824,16 @@ export interface components {
        * @enum {string}
        */
       type: "bank_account" | "card";
+    };
+    /** paypal_seller_protection */
+    paypal_seller_protection: {
+      /** @description An array of conditions that are covered for the transaction, if applicable. */
+      dispute_categories?: (("fraudulent" | "product_not_received")[]) | null;
+      /**
+       * @description Indicates whether the transaction is eligible for PayPal's seller protection. 
+       * @enum {string}
+       */
+      status: "eligible" | "not_eligible" | "partially_eligible";
     };
     /** Period */
     period: {
@@ -12029,6 +12198,7 @@ export interface components {
       ideal?: components["schemas"]["setup_attempt_payment_method_details_ideal"];
       klarna?: components["schemas"]["setup_attempt_payment_method_details_klarna"];
       link?: components["schemas"]["setup_attempt_payment_method_details_link"];
+      paypal?: components["schemas"]["setup_attempt_payment_method_details_paypal"];
       sepa_debit?: components["schemas"]["setup_attempt_payment_method_details_sepa_debit"];
       sofort?: components["schemas"]["setup_attempt_payment_method_details_sofort"];
       /** @description The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method. */
@@ -12145,6 +12315,8 @@ export interface components {
     setup_attempt_payment_method_details_klarna: Record<string, never>;
     /** setup_attempt_payment_method_details_link */
     setup_attempt_payment_method_details_link: Record<string, never>;
+    /** setup_attempt_payment_method_details_paypal */
+    setup_attempt_payment_method_details_paypal: Record<string, never>;
     /** setup_attempt_payment_method_details_sepa_debit */
     setup_attempt_payment_method_details_sepa_debit: Record<string, never>;
     /** setup_attempt_payment_method_details_sofort */
@@ -12322,6 +12494,7 @@ export interface components {
       blik?: components["schemas"]["setup_intent_payment_method_options_blik"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
       card?: components["schemas"]["setup_intent_payment_method_options_card"];
       link?: components["schemas"]["setup_intent_payment_method_options_link"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
+      paypal?: components["schemas"]["setup_intent_payment_method_options_paypal"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
       sepa_debit?: components["schemas"]["setup_intent_payment_method_options_sepa_debit"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
       us_bank_account?: components["schemas"]["setup_intent_payment_method_options_us_bank_account"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
     };
@@ -12351,7 +12524,7 @@ export interface components {
        * @description Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the setup intent. Can be only set confirm-time. 
        * @enum {string|null}
        */
-      network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
+      network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
       /**
        * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine. 
        * @enum {string|null}
@@ -12433,6 +12606,11 @@ export interface components {
     };
     /** setup_intent_payment_method_options_mandate_options_sepa_debit */
     setup_intent_payment_method_options_mandate_options_sepa_debit: Record<string, never>;
+    /** setup_intent_payment_method_options_paypal */
+    setup_intent_payment_method_options_paypal: {
+      /** @description The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer. */
+      billing_agreement_id?: string | null;
+    };
     /** setup_intent_payment_method_options_sepa_debit */
     setup_intent_payment_method_options_sepa_debit: {
       mandate_options?: components["schemas"]["setup_intent_payment_method_options_mandate_options_sepa_debit"];
@@ -13265,7 +13443,7 @@ export interface components {
        * @description Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time. 
        * @enum {string|null}
        */
-      network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
+      network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
       /**
        * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine. 
        * @enum {string|null}
@@ -13533,7 +13711,7 @@ export interface components {
       /** @description Payment-method-specific configuration to provide to invoices created by the subscription. */
       payment_method_options?: components["schemas"]["subscriptions_resource_payment_method_options"] | null;
       /** @description The list of payment method types to provide to every invoice created by the subscription. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). */
-      payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | null;
+      payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "paypal" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | null;
       /**
        * @description Either `off`, or `on_subscription`. With `on_subscription` Stripe updates `subscription.default_payment_method` when a subscription payment succeeds. 
        * @enum {string|null}
@@ -14039,6 +14217,8 @@ export interface components {
       description?: string | null;
       /** @description The display name of the tax rates as it will appear to your customer on their receipt email, PDF, and the hosted invoice page. */
       display_name: string;
+      /** @description Actual/effective tax rate percentage out of 100. For tax calculations with automatic_tax[enabled]=true, this percentage does not include the statutory tax rate of non-taxable jurisdictions. */
+      effective_percentage?: number | null;
       /** @description Unique identifier for the object. */
       id: string;
       /** @description This specifies if the tax rate is inclusive or exclusive. */
@@ -20792,6 +20972,17 @@ export interface operations {
               setup_future_usage?: "none";
             };
             /** payment_method_options_param */
+            paypal?: {
+              /** @enum {string} */
+              capture_method?: "" | "manual";
+              /** @enum {string} */
+              preferred_locale?: "cs-CZ" | "da-DK" | "de-AT" | "de-DE" | "de-LU" | "el-GR" | "en-GB" | "en-US" | "es-ES" | "fi-FI" | "fr-BE" | "fr-FR" | "fr-LU" | "hu-HU" | "it-IT" | "nl-BE" | "nl-NL" | "pl-PL" | "pt-PT" | "sk-SK" | "sv-SE";
+              reference?: string;
+              risk_correlation_id?: string;
+              /** @enum {string} */
+              setup_future_usage?: "" | "none" | "off_session";
+            };
+            /** payment_method_options_param */
             pix?: {
               expires_after_seconds?: number;
             };
@@ -20838,7 +21029,7 @@ export interface operations {
            * prioritize the most relevant payment methods based on the customer's location and
            * other characteristics.
            */
-          payment_method_types?: ("acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[];
+          payment_method_types?: ("acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[];
           /**
            * phone_number_collection_params 
            * @description Controls phone number collection settings for the session.
@@ -23272,7 +23463,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
         /** @description An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request. */
-        type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+        type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
       };
       path: {
         customer: string;
@@ -23841,7 +24032,7 @@ export interface operations {
                   description?: string;
                 };
                 /** @enum {string} */
-                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                 /** @enum {string} */
                 request_three_d_secure?: "any" | "automatic";
               }) | "";
@@ -23866,7 +24057,7 @@ export interface operations {
                 verification_method?: "automatic" | "instant" | "microdeposits";
               }) | "";
             };
-            payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
+            payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "paypal" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
             /** @enum {string} */
             save_default_payment_method?: "off" | "on_subscription";
           };
@@ -24118,7 +24309,7 @@ export interface operations {
                   description?: string;
                 };
                 /** @enum {string} */
-                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                 /** @enum {string} */
                 request_three_d_secure?: "any" | "automatic";
               }) | "";
@@ -24143,7 +24334,7 @@ export interface operations {
                 verification_method?: "automatic" | "instant" | "microdeposits";
               }) | "";
             };
-            payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
+            payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "paypal" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
             /** @enum {string} */
             save_default_payment_method?: "off" | "on_subscription";
           };
@@ -24162,7 +24353,7 @@ export interface operations {
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /**
            * Format: unix-time 
-           * @description If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations.
+           * @description If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#upcoming_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations.
            */
           proration_date?: number;
           /** @description If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges. This will be unset if you POST an empty value. */
@@ -26294,7 +26485,7 @@ export interface operations {
                 verification_method?: "automatic" | "instant" | "microdeposits";
               }) | "";
             };
-            payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
+            payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "paypal" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
           };
           /**
            * @description How to handle pending invoice items on invoice creation. One of `include` or `exclude`. `include` will include any pending invoice items, and will create an empty draft invoice if no pending invoice items exist. `exclude` will always create an empty invoice draft regardless if there are pending invoice items or not. Defaults to `exclude` if the parameter is omitted. 
@@ -26984,7 +27175,7 @@ export interface operations {
                 verification_method?: "automatic" | "instant" | "microdeposits";
               }) | "";
             };
-            payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
+            payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "paypal" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
           };
           /** @description Options for invoice PDF rendering. */
           rendering_options?: ({
@@ -29208,6 +29399,8 @@ export interface operations {
             /** param */
             paynow?: Record<string, never>;
             /** param */
+            paypal?: Record<string, never>;
+            /** param */
             pix?: Record<string, never>;
             /** param */
             promptpay?: Record<string, never>;
@@ -29225,7 +29418,7 @@ export interface operations {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL";
             };
             /** @enum {string} */
-            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
             /** payment_method_param */
             us_bank_account?: {
               /** @enum {string} */
@@ -29331,7 +29524,7 @@ export interface operations {
                 supported_types?: ("india")[];
               };
               /** @enum {string} */
-              network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+              network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
               /** @enum {string} */
               request_three_d_secure?: "any" | "automatic";
               /** @enum {string} */
@@ -29423,6 +29616,16 @@ export interface operations {
               /** @enum {string} */
               setup_future_usage?: "none";
             } | "";
+            paypal?: ({
+              /** @enum {string} */
+              capture_method?: "" | "manual";
+              /** @enum {string} */
+              preferred_locale?: "cs-CZ" | "da-DK" | "de-AT" | "de-DE" | "de-LU" | "el-GR" | "en-GB" | "en-US" | "es-ES" | "fi-FI" | "fr-BE" | "fr-FR" | "fr-LU" | "hu-HU" | "it-IT" | "nl-BE" | "nl-NL" | "pl-PL" | "pt-PT" | "sk-SK" | "sv-SE";
+              reference?: string;
+              risk_correlation_id?: string;
+              /** @enum {string} */
+              setup_future_usage?: "" | "none" | "off_session";
+            }) | "";
             pix?: {
               expires_after_seconds?: number;
               /** Format: unix-time */
@@ -29525,7 +29728,7 @@ export interface operations {
           };
           /** @description A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
           transfer_group?: string;
-          /** @description Set to `true` only when using manual confirmation and the iOS or Android SDKs to handle additional authentication steps. */
+          /** @description Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions. */
           use_stripe_sdk?: boolean;
         };
       };
@@ -29784,6 +29987,8 @@ export interface operations {
             /** param */
             paynow?: Record<string, never>;
             /** param */
+            paypal?: Record<string, never>;
+            /** param */
             pix?: Record<string, never>;
             /** param */
             promptpay?: Record<string, never>;
@@ -29801,7 +30006,7 @@ export interface operations {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL";
             };
             /** @enum {string} */
-            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
             /** payment_method_param */
             us_bank_account?: {
               /** @enum {string} */
@@ -29907,7 +30112,7 @@ export interface operations {
                 supported_types?: ("india")[];
               };
               /** @enum {string} */
-              network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+              network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
               /** @enum {string} */
               request_three_d_secure?: "any" | "automatic";
               /** @enum {string} */
@@ -29999,6 +30204,16 @@ export interface operations {
               /** @enum {string} */
               setup_future_usage?: "none";
             } | "";
+            paypal?: ({
+              /** @enum {string} */
+              capture_method?: "" | "manual";
+              /** @enum {string} */
+              preferred_locale?: "cs-CZ" | "da-DK" | "de-AT" | "de-DE" | "de-LU" | "el-GR" | "en-GB" | "en-US" | "es-ES" | "fi-FI" | "fr-BE" | "fr-FR" | "fr-LU" | "hu-HU" | "it-IT" | "nl-BE" | "nl-NL" | "pl-PL" | "pt-PT" | "sk-SK" | "sv-SE";
+              reference?: string;
+              risk_correlation_id?: string;
+              /** @enum {string} */
+              setup_future_usage?: "" | "none" | "off_session";
+            }) | "";
             pix?: {
               expires_after_seconds?: number;
               /** Format: unix-time */
@@ -30426,6 +30641,8 @@ export interface operations {
             /** param */
             paynow?: Record<string, never>;
             /** param */
+            paypal?: Record<string, never>;
+            /** param */
             pix?: Record<string, never>;
             /** param */
             promptpay?: Record<string, never>;
@@ -30443,7 +30660,7 @@ export interface operations {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL";
             };
             /** @enum {string} */
-            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
             /** payment_method_param */
             us_bank_account?: {
               /** @enum {string} */
@@ -30549,7 +30766,7 @@ export interface operations {
                 supported_types?: ("india")[];
               };
               /** @enum {string} */
-              network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+              network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
               /** @enum {string} */
               request_three_d_secure?: "any" | "automatic";
               /** @enum {string} */
@@ -30641,6 +30858,16 @@ export interface operations {
               /** @enum {string} */
               setup_future_usage?: "none";
             } | "";
+            paypal?: ({
+              /** @enum {string} */
+              capture_method?: "" | "manual";
+              /** @enum {string} */
+              preferred_locale?: "cs-CZ" | "da-DK" | "de-AT" | "de-DE" | "de-LU" | "el-GR" | "en-GB" | "en-US" | "es-ES" | "fi-FI" | "fr-BE" | "fr-FR" | "fr-LU" | "hu-HU" | "it-IT" | "nl-BE" | "nl-NL" | "pl-PL" | "pt-PT" | "sk-SK" | "sv-SE";
+              reference?: string;
+              risk_correlation_id?: string;
+              /** @enum {string} */
+              setup_future_usage?: "" | "none" | "off_session";
+            }) | "";
             pix?: {
               expires_after_seconds?: number;
               /** Format: unix-time */
@@ -30731,7 +30958,7 @@ export interface operations {
             phone?: string;
             tracking_number?: string;
           } | "";
-          /** @description Set to `true` only when using manual confirmation and the iOS or Android SDKs to handle additional authentication steps. */
+          /** @description Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions. */
           use_stripe_sdk?: boolean;
         };
       };
@@ -31060,7 +31287,7 @@ export interface operations {
            */
           payment_method_collection?: "always" | "if_required";
           /** @description The list of payment method types that customers can use. If no value is passed, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods) (20+ payment methods [supported](https://stripe.com/docs/payments/payment-methods/integration-options#payment-method-product-support)). */
-          payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[];
+          payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[];
           /**
            * phone_number_collection_params 
            * @description Controls phone number collection settings during checkout.
@@ -31288,7 +31515,7 @@ export interface operations {
            */
           payment_method_collection?: "always" | "if_required";
           /** @description The list of payment method types that customers can use. Pass an empty string to enable automatic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
-          payment_method_types?: (("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
+          payment_method_types?: (("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
           /** @description Configuration for collecting the customer's shipping address. */
           shipping_address_collection?: ({
             allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
@@ -31375,7 +31602,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
         /** @description An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request. */
-        type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+        type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
       };
     };
     requestBody?: {
@@ -31602,6 +31829,11 @@ export interface operations {
           paynow?: Record<string, never>;
           /**
            * param 
+           * @description If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+           */
+          paypal?: Record<string, never>;
+          /**
+           * param 
            * @description If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
            */
           pix?: Record<string, never>;
@@ -31636,7 +31868,7 @@ export interface operations {
            * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. 
            * @enum {string}
            */
-          type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+          type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
           /**
            * payment_method_param 
            * @description If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
@@ -35038,6 +35270,8 @@ export interface operations {
             /** param */
             paynow?: Record<string, never>;
             /** param */
+            paypal?: Record<string, never>;
+            /** param */
             pix?: Record<string, never>;
             /** param */
             promptpay?: Record<string, never>;
@@ -35055,7 +35289,7 @@ export interface operations {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL";
             };
             /** @enum {string} */
-            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
             /** payment_method_param */
             us_bank_account?: {
               /** @enum {string} */
@@ -35115,13 +35349,17 @@ export interface operations {
                 supported_types?: ("india")[];
               };
               /** @enum {string} */
-              network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+              network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
               /** @enum {string} */
               request_three_d_secure?: "any" | "automatic";
             };
             /** setup_intent_payment_method_options_param */
             link?: {
               persistent_token?: string;
+            };
+            /** payment_method_options_param */
+            paypal?: {
+              billing_agreement_id?: string;
             };
             /** setup_intent_payment_method_options_param */
             sepa_debit?: {
@@ -35356,6 +35594,8 @@ export interface operations {
             /** param */
             paynow?: Record<string, never>;
             /** param */
+            paypal?: Record<string, never>;
+            /** param */
             pix?: Record<string, never>;
             /** param */
             promptpay?: Record<string, never>;
@@ -35373,7 +35613,7 @@ export interface operations {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL";
             };
             /** @enum {string} */
-            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
             /** payment_method_param */
             us_bank_account?: {
               /** @enum {string} */
@@ -35433,13 +35673,17 @@ export interface operations {
                 supported_types?: ("india")[];
               };
               /** @enum {string} */
-              network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+              network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
               /** @enum {string} */
               request_three_d_secure?: "any" | "automatic";
             };
             /** setup_intent_payment_method_options_param */
             link?: {
               persistent_token?: string;
+            };
+            /** payment_method_options_param */
+            paypal?: {
+              billing_agreement_id?: string;
             };
             /** setup_intent_payment_method_options_param */
             sepa_debit?: {
@@ -35679,6 +35923,8 @@ export interface operations {
             /** param */
             paynow?: Record<string, never>;
             /** param */
+            paypal?: Record<string, never>;
+            /** param */
             pix?: Record<string, never>;
             /** param */
             promptpay?: Record<string, never>;
@@ -35696,7 +35942,7 @@ export interface operations {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL";
             };
             /** @enum {string} */
-            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
             /** payment_method_param */
             us_bank_account?: {
               /** @enum {string} */
@@ -35756,13 +36002,17 @@ export interface operations {
                 supported_types?: ("india")[];
               };
               /** @enum {string} */
-              network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+              network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
               /** @enum {string} */
               request_three_d_secure?: "any" | "automatic";
             };
             /** setup_intent_payment_method_options_param */
             link?: {
               persistent_token?: string;
+            };
+            /** payment_method_options_param */
+            paypal?: {
+              billing_agreement_id?: string;
             };
             /** setup_intent_payment_method_options_param */
             sepa_debit?: {
@@ -37688,7 +37938,7 @@ export interface operations {
                   description?: string;
                 };
                 /** @enum {string} */
-                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                 /** @enum {string} */
                 request_three_d_secure?: "any" | "automatic";
               }) | "";
@@ -37713,7 +37963,7 @@ export interface operations {
                 verification_method?: "automatic" | "instant" | "microdeposits";
               }) | "";
             };
-            payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
+            payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "paypal" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
             /** @enum {string} */
             save_default_payment_method?: "off" | "on_subscription";
           };
@@ -38018,7 +38268,7 @@ export interface operations {
                   description?: string;
                 };
                 /** @enum {string} */
-                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                 /** @enum {string} */
                 request_three_d_secure?: "any" | "automatic";
               }) | "";
@@ -38043,7 +38293,7 @@ export interface operations {
                 verification_method?: "automatic" | "instant" | "microdeposits";
               }) | "";
             };
-            payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
+            payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "paypal" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
             /** @enum {string} */
             save_default_payment_method?: "off" | "on_subscription";
           };
@@ -38062,7 +38312,7 @@ export interface operations {
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /**
            * Format: unix-time 
-           * @description If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations.
+           * @description If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#upcoming_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations.
            */
           proration_date?: number;
           /** @description If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges. This will be unset if you POST an empty value. */

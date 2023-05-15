@@ -12,11 +12,7 @@ async function generateSchemas() {
       await execa("node", ["./bin/cli.js", `./examples/${name}${ext}`, "-o", `./examples/${name}.ts`], { cwd });
     }),
     ...Object.entries(multiFile).map(async ([name, meta]) => {
-      await execa(
-        "node",
-        ["./bin/cli.js", `./examples/${name}${meta.entry.substring(1)}`, "-o", `./examples/${name}.ts`],
-        { cwd }
-      );
+      await execa("node", ["./bin/cli.js", `./examples/${name}${meta.entry.substring(1)}`, "-o", `./examples/${name}.ts`], { cwd });
     }),
   ]);
 }

@@ -12,10 +12,9 @@ The code is <a href="https://github.com/drwpow/openapi-typescript/blob/main/pack
 ## Features
 
 - ✅ Supports OpenAPI 3.0 and 3.1 (including advanced features like <a href="https://spec.openapis.org/oas/v3.1.0#discriminator-object" target="_blank" rel="noopener noreferrer">discriminators</a>)
-- ✅ Supports YAML and JSON
-- ✅ Supports loading via remote URL (simple authentication supported with the `--auth` flag)
-- ✅ Supports remote references: `$ref: "external.yaml#components/schemas/User"`
-- ✅ Fetches remote schemas quickly using <a href="https://www.npmjs.com/package/undici" target="_blank" rel="noopener noreferrer">undici</a>
+- ✅ Generate **runtime-free types** that outperform old-school codegen
+- ✅ Load schemas from YAML or JSON, locally or remotely
+- ✅ Native Node.js code is fast and generates types within milliseconds
 
 _Note: OpenAPI 2.x is supported with versions `5.x` and previous_
 
@@ -45,7 +44,7 @@ npx openapi-typescript https://myapi.dev/api/v1/openapi.yaml -o ./path/to/my/sch
 # 🚀 https://myapi.dev/api/v1/openapi.yaml -> ./path/to/my/schema.d.ts [250ms]
 ```
 
-> ⚠️ Be sure to <a href="(https://apitools.dev/swagger-cli/" target="_blank" rel="noopener noreferrer">validate your schemas</a>! openapi-typescript will err on invalid schemas.
+> ⚠️ Be sure to <a href="https://redocly.com/docs/cli/commands/lint/" target="_blank" rel="noopener noreferrer">validate your schemas</a>! openapi-typescript will err on invalid schemas.
 
 Then, import schemas from the generated file like so:
 

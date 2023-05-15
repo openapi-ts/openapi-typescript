@@ -5529,7 +5529,12 @@ export interface paths {
     put: operations["activity/mark-repo-notifications-as-read"];
   };
   "/repos/{owner}/{repo}/pages": {
-    /** Get a GitHub Pages site */
+    /**
+     * Get a GitHub Pages site 
+     * @description Gets information about a GitHub Pages site.
+     * 
+     * A token with the `repo` scope is required. GitHub Apps must have the `pages:read` permission.
+     */
     get: operations["repos/get-pages"];
     /**
      * Update information about a GitHub Pages site 
@@ -5554,7 +5559,12 @@ export interface paths {
     delete: operations["repos/delete-pages-site"];
   };
   "/repos/{owner}/{repo}/pages/builds": {
-    /** List GitHub Pages builds */
+    /**
+     * List GitHub Pages builds 
+     * @description Lists builts of a GitHub Pages site.
+     * 
+     * A token with the `repo` scope is required. GitHub Apps must have the `pages:read` permission.
+     */
     get: operations["repos/list-pages-builds"];
     /**
      * Request a GitHub Pages build 
@@ -5565,11 +5575,21 @@ export interface paths {
     post: operations["repos/request-pages-build"];
   };
   "/repos/{owner}/{repo}/pages/builds/latest": {
-    /** Get latest Pages build */
+    /**
+     * Get latest Pages build 
+     * @description Gets information about the single most recent build of a GitHub Pages site.
+     * 
+     * A token with the `repo` scope is required. GitHub Apps must have the `pages:read` permission.
+     */
     get: operations["repos/get-latest-pages-build"];
   };
   "/repos/{owner}/{repo}/pages/builds/{build_id}": {
-    /** Get GitHub Pages build */
+    /**
+     * Get GitHub Pages build 
+     * @description Gets information about a GitHub Pages build.
+     * 
+     * A token with the `repo` scope is required. GitHub Apps must have the `pages:read` permission.
+     */
     get: operations["repos/get-pages-build"];
   };
   "/repos/{owner}/{repo}/pages/deployment": {
@@ -5747,11 +5767,15 @@ export interface paths {
     get: operations["pulls/list-files"];
   };
   "/repos/{owner}/{repo}/pulls/{pull_number}/merge": {
-    /** Check if a pull request has been merged */
+    /**
+     * Check if a pull request has been merged 
+     * @description Checks if a pull request has been merged into the base branch. The HTTP status of the response indicates whether or not the pull request has been merged; the response body is empty.
+     */
     get: operations["pulls/check-if-merged"];
     /**
      * Merge a pull request 
-     * @description This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+     * @description Merges a pull request into the base branch.
+     * This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
      */
     put: operations["pulls/merge"];
   };
@@ -5763,10 +5787,14 @@ export interface paths {
     get: operations["pulls/list-requested-reviewers"];
     /**
      * Request reviewers for a pull request 
-     * @description This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+     * @description Requests reviews for a pull request from a given set of users and/or teams.
+     * This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
      */
     post: operations["pulls/request-reviewers"];
-    /** Remove requested reviewers from a pull request */
+    /**
+     * Remove requested reviewers from a pull request 
+     * @description Removes review requests from a pull request for a given set of users and/or teams.
+     */
     delete: operations["pulls/remove-requested-reviewers"];
   };
   "/repos/{owner}/{repo}/pulls/{pull_number}/reviews": {
@@ -5788,14 +5816,20 @@ export interface paths {
     post: operations["pulls/create-review"];
   };
   "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}": {
-    /** Get a review for a pull request */
+    /**
+     * Get a review for a pull request 
+     * @description Retrieves a pull request review by its ID.
+     */
     get: operations["pulls/get-review"];
     /**
      * Update a review for a pull request 
      * @description Update the review summary comment with new text.
      */
     put: operations["pulls/update-review"];
-    /** Delete a pending review for a pull request */
+    /**
+     * Delete a pending review for a pull request 
+     * @description Deletes a pull request review that has not been submitted. Submitted reviews cannot be deleted.
+     */
     delete: operations["pulls/delete-pending-review"];
   };
   "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments": {
@@ -15366,17 +15400,50 @@ export interface components {
      * @description A commit.
      */
     "nullable-simple-commit": ({
+      /**
+       * @description SHA for the commit 
+       * @example 7638417db6d59f3c431d3e1f261cc637155684cd
+       */
       id: string;
+      /** @description SHA for the commit's tree */
       tree_id: string;
+      /**
+       * @description Message describing the purpose of the commit 
+       * @example Fix #42
+       */
       message: string;
-      /** Format: date-time */
+      /**
+       * Format: date-time 
+       * @description Timestamp of the commit 
+       * @example 2014-08-09T08:02:04+12:00
+       */
       timestamp: string;
+      /** @description Information about the Git author */
       author: {
+        /**
+         * @description Name of the commit's author 
+         * @example Monalisa Octocat
+         */
         name: string;
+        /**
+         * Format: email 
+         * @description Git email address of the commit's author 
+         * @example monalisa.octocat@example.com
+         */
         email: string;
       } | null;
+      /** @description Information about the Git committer */
       committer: {
+        /**
+         * @description Name of the commit's committer 
+         * @example Monalisa Octocat
+         */
         name: string;
+        /**
+         * Format: email 
+         * @description Git email address of the commit's committer 
+         * @example monalisa.octocat@example.com
+         */
         email: string;
       } | null;
     }) | null;
@@ -16456,17 +16523,50 @@ export interface components {
      * @description A commit.
      */
     "simple-commit": {
+      /**
+       * @description SHA for the commit 
+       * @example 7638417db6d59f3c431d3e1f261cc637155684cd
+       */
       id: string;
+      /** @description SHA for the commit's tree */
       tree_id: string;
+      /**
+       * @description Message describing the purpose of the commit 
+       * @example Fix #42
+       */
       message: string;
-      /** Format: date-time */
+      /**
+       * Format: date-time 
+       * @description Timestamp of the commit 
+       * @example 2014-08-09T08:02:04+12:00
+       */
       timestamp: string;
+      /** @description Information about the Git author */
       author: {
+        /**
+         * @description Name of the commit's author 
+         * @example Monalisa Octocat
+         */
         name: string;
+        /**
+         * Format: email 
+         * @description Git email address of the commit's author 
+         * @example monalisa.octocat@example.com
+         */
         email: string;
       } | null;
+      /** @description Information about the Git committer */
       committer: {
+        /**
+         * @description Name of the commit's committer 
+         * @example Monalisa Octocat
+         */
         name: string;
+        /**
+         * Format: email 
+         * @description Git email address of the commit's committer 
+         * @example monalisa.octocat@example.com
+         */
         email: string;
       } | null;
     };
@@ -20756,12 +20856,12 @@ export interface components {
      * @description The package's language or package management ecosystem. 
      * @enum {string}
      */
-    "repository-advisory-ecosystems": "rubygems" | "npm" | "pip" | "maven" | "nuget" | "composer" | "go" | "rust" | "erlang" | "actions" | "pub" | "other";
+    "security-advisory-ecosystems": "rubygems" | "npm" | "pip" | "maven" | "nuget" | "composer" | "go" | "rust" | "erlang" | "actions" | "pub" | "other";
     /** @description A product affected by the vulnerability detailed in a repository security advisory. */
     "repository-advisory-vulnerability": {
       /** @description The name of the package affected by the vulnerability. */
       package: ({
-        ecosystem: components["schemas"]["repository-advisory-ecosystems"];
+        ecosystem: components["schemas"]["security-advisory-ecosystems"];
         /** @description The unique package name within its ecosystem. */
         name: string | null;
       }) | null;
@@ -20776,11 +20876,11 @@ export interface components {
      * @description The type of credit the user is receiving. 
      * @enum {string}
      */
-    "repository-advisory-credit-types": "analyst" | "finder" | "reporter" | "coordinator" | "remediation_developer" | "remediation_reviewer" | "remediation_verifier" | "tool" | "sponsor" | "other";
+    "security-advisory-credit-types": "analyst" | "finder" | "reporter" | "coordinator" | "remediation_developer" | "remediation_reviewer" | "remediation_verifier" | "tool" | "sponsor" | "other";
     /** @description A credit given to a user for a repository security advisory. */
     "repository-advisory-credit": {
       user: components["schemas"]["simple-user"];
-      type: components["schemas"]["repository-advisory-credit-types"];
+      type: components["schemas"]["security-advisory-credit-types"];
       /**
        * @description The state of the user's acceptance of the credit. 
        * @enum {string}
@@ -20874,7 +20974,7 @@ export interface components {
       credits: ({
           /** @description The username of the user credited. */
           login?: string;
-          type?: components["schemas"]["repository-advisory-credit-types"];
+          type?: components["schemas"]["security-advisory-credit-types"];
         })[] | null;
       credits_detailed: readonly (components["schemas"]["repository-advisory-credit"])[] | null;
     };
@@ -20889,7 +20989,7 @@ export interface components {
       vulnerabilities: ({
           /** @description The name of the package affected by the vulnerability. */
           package: {
-            ecosystem: components["schemas"]["repository-advisory-ecosystems"];
+            ecosystem: components["schemas"]["security-advisory-ecosystems"];
             /** @description The unique package name within its ecosystem. */
             name?: string | null;
           };
@@ -20906,7 +21006,7 @@ export interface components {
       credits?: ({
           /** @description The username of the user credited. */
           login: string;
-          type: components["schemas"]["repository-advisory-credit-types"];
+          type: components["schemas"]["security-advisory-credit-types"];
         })[] | null;
       /**
        * @description The severity of the advisory. You must choose between setting this field or `cvss_vector_string`. 
@@ -20925,7 +21025,7 @@ export interface components {
       vulnerabilities?: (({
           /** @description The name of the package affected by the vulnerability. */
           package: {
-            ecosystem: components["schemas"]["repository-advisory-ecosystems"];
+            ecosystem: components["schemas"]["security-advisory-ecosystems"];
             /** @description The unique package name within its ecosystem. */
             name?: string | null;
           };
@@ -20957,7 +21057,7 @@ export interface components {
       vulnerabilities?: ({
           /** @description The name of the package affected by the vulnerability. */
           package: {
-            ecosystem: components["schemas"]["repository-advisory-ecosystems"];
+            ecosystem: components["schemas"]["security-advisory-ecosystems"];
             /** @description The unique package name within its ecosystem. */
             name?: string | null;
           };
@@ -20974,7 +21074,7 @@ export interface components {
       credits?: ({
           /** @description The username of the user credited. */
           login: string;
-          type: components["schemas"]["repository-advisory-credit-types"];
+          type: components["schemas"]["security-advisory-credit-types"];
         })[] | null;
       /**
        * @description The severity of the advisory. You must choose between setting this field or `cvss_vector_string`. 
@@ -22394,6 +22494,21 @@ export interface components {
         /** Format: uri */
         url?: string;
       }) | null;
+    };
+    /**
+     * Merge Group 
+     * @description A group of pull requests that the merge queue has grouped together to be merged.
+     */
+    "merge-group": {
+      /** @description The SHA of the merge group. */
+      head_sha: string;
+      /** @description The full ref of the merge group. */
+      head_ref: string;
+      /** @description The SHA of the merge group's parent commit. */
+      base_sha: string;
+      /** @description The full ref of the branch the merge group will be merged into. */
+      base_ref: string;
+      head_commit: components["schemas"]["simple-commit"];
     };
     /**
      * Personal Access Token Request 
@@ -38842,50 +38957,21 @@ export interface components {
       /** @enum {string} */
       action: "checks_requested";
       installation?: components["schemas"]["simple-installation"];
-      /** MergeGroup */
-      merge_group: {
-        /** @description The SHA of the merge group. */
-        head_sha: string;
-        /** @description The full ref of the merge group. */
-        head_ref: string;
-        /** @description The SHA of the merge group's parent commit. */
-        base_sha: string;
-        /** @description The full ref of the branch the merge group will be merged into. */
-        base_ref: string;
-        /** SimpleCommit */
-        head_commit: {
-          /**
-           * Committer 
-           * @description Metaproperties for Git author/committer information.
-           */
-          author: {
-            /** Format: date-time */
-            date?: string;
-            /** Format: email */
-            email: string | null;
-            /** @description The git author's name. */
-            name: string;
-            username?: string;
-          };
-          /**
-           * Committer 
-           * @description Metaproperties for Git author/committer information.
-           */
-          committer: {
-            /** Format: date-time */
-            date?: string;
-            /** Format: email */
-            email: string | null;
-            /** @description The git author's name. */
-            name: string;
-            username?: string;
-          };
-          id: string;
-          message: string;
-          timestamp: string;
-          tree_id: string;
-        };
-      };
+      merge_group: components["schemas"]["merge-group"];
+      organization?: components["schemas"]["organization-simple"];
+      repository?: components["schemas"]["repository"];
+      sender?: components["schemas"]["simple-user"];
+    };
+    "webhook-merge-group-destroyed": {
+      /** @enum {string} */
+      action: "destroyed";
+      /**
+       * @description Explains why the merge group is being destroyed. The group could have been merged, removed from the queue (dequeued), or invalidated by an earlier queue entry being dequeued (invalidated). 
+       * @enum {string}
+       */
+      reason?: "merged" | "invalidated" | "dequeued";
+      installation?: components["schemas"]["simple-installation"];
+      merge_group: components["schemas"]["merge-group"];
       organization?: components["schemas"]["organization-simple"];
       repository?: components["schemas"]["repository"];
       sender?: components["schemas"]["simple-user"];
@@ -98763,7 +98849,12 @@ export interface operations {
       205: never;
     };
   };
-  /** Get a GitHub Pages site */
+  /**
+   * Get a GitHub Pages site 
+   * @description Gets information about a GitHub Pages site.
+   * 
+   * A token with the `repo` scope is required. GitHub Apps must have the `pages:read` permission.
+   */
   "repos/get-pages": {
     parameters: {
       path: {
@@ -98893,7 +98984,12 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** List GitHub Pages builds */
+  /**
+   * List GitHub Pages builds 
+   * @description Lists builts of a GitHub Pages site.
+   * 
+   * A token with the `repo` scope is required. GitHub Apps must have the `pages:read` permission.
+   */
   "repos/list-pages-builds": {
     parameters: {
       query?: {
@@ -98939,7 +99035,12 @@ export interface operations {
       };
     };
   };
-  /** Get latest Pages build */
+  /**
+   * Get latest Pages build 
+   * @description Gets information about the single most recent build of a GitHub Pages site.
+   * 
+   * A token with the `repo` scope is required. GitHub Apps must have the `pages:read` permission.
+   */
   "repos/get-latest-pages-build": {
     parameters: {
       path: {
@@ -98956,7 +99057,12 @@ export interface operations {
       };
     };
   };
-  /** Get GitHub Pages build */
+  /**
+   * Get GitHub Pages build 
+   * @description Gets information about a GitHub Pages build.
+   * 
+   * A token with the `repo` scope is required. GitHub Apps must have the `pages:read` permission.
+   */
   "repos/get-pages-build": {
     parameters: {
       path: {
@@ -99762,7 +99868,10 @@ export interface operations {
       503: components["responses"]["service_unavailable"];
     };
   };
-  /** Check if a pull request has been merged */
+  /**
+   * Check if a pull request has been merged 
+   * @description Checks if a pull request has been merged into the base branch. The HTTP status of the response indicates whether or not the pull request has been merged; the response body is empty.
+   */
   "pulls/check-if-merged": {
     parameters: {
       path: {
@@ -99780,7 +99889,8 @@ export interface operations {
   };
   /**
    * Merge a pull request 
-   * @description This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+   * @description Merges a pull request into the base branch.
+   * This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
    */
   "pulls/merge": {
     parameters: {
@@ -99863,7 +99973,8 @@ export interface operations {
   };
   /**
    * Request reviewers for a pull request 
-   * @description This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+   * @description Requests reviews for a pull request from a given set of users and/or teams.
+   * This endpoint triggers [notifications](https://docs.github.com/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
    */
   "pulls/request-reviewers": {
     parameters: {
@@ -99895,7 +100006,10 @@ export interface operations {
       422: never;
     };
   };
-  /** Remove requested reviewers from a pull request */
+  /**
+   * Remove requested reviewers from a pull request 
+   * @description Removes review requests from a pull request for a given set of users and/or teams.
+   */
   "pulls/remove-requested-reviewers": {
     parameters: {
       path: {
@@ -100013,7 +100127,10 @@ export interface operations {
       422: components["responses"]["validation_failed_simple"];
     };
   };
-  /** Get a review for a pull request */
+  /**
+   * Get a review for a pull request 
+   * @description Retrieves a pull request review by its ID.
+   */
   "pulls/get-review": {
     parameters: {
       path: {
@@ -100064,7 +100181,10 @@ export interface operations {
       422: components["responses"]["validation_failed_simple"];
     };
   };
-  /** Delete a pending review for a pull request */
+  /**
+   * Delete a pending review for a pull request 
+   * @description Deletes a pull request review that has not been submitted. Submitted reviews cannot be deleted.
+   */
   "pulls/delete-pending-review": {
     parameters: {
       path: {
