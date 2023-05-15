@@ -6162,7 +6162,33 @@ export interface external {
     redis_acl_channels_default?: "allchannels" | "resetchannels";
   }
   "resources/databases/models/source_database.yml": {
-    source?: external["resources/databases/models/database_connection.yml"];
+    source?: {
+      /**
+       * @description The FQDN pointing to the database cluster's current primary node. 
+       * @example backend-do-user-19081923-0.db.ondigitalocean.com
+       */
+      host?: string;
+      /**
+       * @description The port on which the database cluster is listening. 
+       * @example 25060
+       */
+      port?: number;
+      /**
+       * @description The name of the default database. 
+       * @example defaultdb
+       */
+      dbname?: string;
+      /**
+       * @description The default user for the database. 
+       * @example doadmin
+       */
+      username?: string;
+      /**
+       * @description The randomly generated password for the default user. 
+       * @example wv78n3zpz42xezdk
+       */
+      password?: string;
+    };
     /**
      * @description Enables SSL encryption when connecting to the source database. 
      * @example false

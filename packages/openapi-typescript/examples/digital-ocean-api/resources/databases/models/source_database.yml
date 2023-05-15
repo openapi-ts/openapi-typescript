@@ -2,8 +2,28 @@ type: object
 
 properties:
   source:
-    allOf:
-    - $ref: './database_connection.yml'
+    type: object
+    properties:
+      host:
+        type: string
+        description: The FQDN pointing to the database cluster's current primary node.
+        example: backend-do-user-19081923-0.db.ondigitalocean.com
+      port:
+        type: integer
+        description: The port on which the database cluster is listening.
+        example: 25060
+      dbname:
+        type: string
+        description: The name of the default database.
+        example: defaultdb
+      username:
+        type: string
+        description: The default user for the database.
+        example: doadmin
+      password:
+        type: string
+        description: The randomly generated password for the default user.
+        example: wv78n3zpz42xezdk
   disable_ssl:
     type: boolean
     description: Enables SSL encryption when connecting to the source database.
