@@ -18,6 +18,7 @@ const options: TransformPathItemObjectOptions = {
     silent: true,
     supportArrayLength: false,
     transform: undefined,
+    excludeDeprecated: false,
   },
 };
 

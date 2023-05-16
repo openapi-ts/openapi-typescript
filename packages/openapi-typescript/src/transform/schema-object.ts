@@ -145,7 +145,7 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
   const coreType: string[] = [];
   if (("properties" in schemaObject && schemaObject.properties && Object.keys(schemaObject.properties).length) || ("additionalProperties" in schemaObject && schemaObject.additionalProperties)) {
     indentLv++;
-    for (const [k, v] of getEntries(schemaObject.properties ?? {}, ctx.alphabetize)) {
+    for (const [k, v] of getEntries(schemaObject.properties ?? {}, ctx.alphabetize, ctx.excludeDeprecated)) {
       const c = getSchemaObjectComment(v, indentLv);
       if (c) coreType.push(indent(c, indentLv));
       let key = escObjKey(k);

@@ -14,7 +14,7 @@ export default function transformHeaderObject(headerObject: HeaderObject, { path
     let { indentLv } = ctx;
     const output: string[] = ["{"];
     indentLv++;
-    for (const [contentType, mediaTypeObject] of getEntries(headerObject.content, ctx.alphabetize)) {
+    for (const [contentType, mediaTypeObject] of getEntries(headerObject.content, ctx.alphabetize, ctx.excludeDeprecated)) {
       const c = getSchemaObjectComment(mediaTypeObject, indentLv);
       if (c) output.push(indent(c, indentLv));
       let key = escStr(contentType);

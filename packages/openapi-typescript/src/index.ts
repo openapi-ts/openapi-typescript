@@ -51,6 +51,7 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
     parameters: {},
     silent: options.silent ?? false,
     supportArrayLength: options.supportArrayLength ?? false,
+    excludeDeprecated: options.excludeDeprecated ?? false,
   };
 
   // note: we may be loading many large schemas into memory at once; take care to reuse references without cloning
@@ -129,7 +130,7 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
           if (!Object.keys(subschemaTypes).length) break;
           output.push(indent(`${key}: {`, indentLv));
           indentLv++;
-          for (const [k, v] of getEntries(subschemaTypes, options.alphabetize)) {
+          for (const [k, v] of getEntries(subschemaTypes, options.alphabetize, options.excludeDeprecated)) {
             if (EMPTY_OBJECT_RE.test(v)) output.push(indent(`${escObjKey(k)}: Record<string, never>;`, indentLv));
             else output.push(indent(`${escObjKey(k)}: ${v};`, indentLv));
           }

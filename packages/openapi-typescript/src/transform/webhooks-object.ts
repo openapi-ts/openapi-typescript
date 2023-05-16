@@ -6,7 +6,7 @@ export default function transformWebhooksObject(webhooksObject: WebhooksObject, 
   let { indentLv } = ctx;
   const output: string[] = ["{"];
   indentLv++;
-  for (const [name, pathItemObject] of getEntries(webhooksObject, ctx.alphabetize)) {
+  for (const [name, pathItemObject] of getEntries(webhooksObject, ctx.alphabetize, ctx.excludeDeprecated)) {
     output.push(
       indent(
         `${escStr(name)}: ${transformPathItemObject(pathItemObject, {

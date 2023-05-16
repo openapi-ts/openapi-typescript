@@ -16,7 +16,7 @@ export default function transformComponentsObject(components: ComponentsObject, 
   if (components.schemas) {
     output.push(indent("schemas: {", indentLv));
     indentLv++;
-    for (const [name, schemaObject] of getEntries(components.schemas, ctx.alphabetize)) {
+    for (const [name, schemaObject] of getEntries(components.schemas, ctx.alphabetize, ctx.excludeDeprecated)) {
       const c = getSchemaObjectComment(schemaObject, indentLv);
       if (c) output.push(indent(c, indentLv));
       let key = escObjKey(name);
@@ -37,7 +37,7 @@ export default function transformComponentsObject(components: ComponentsObject, 
   if (components.responses) {
     output.push(indent("responses: {", indentLv));
     indentLv++;
-    for (const [name, responseObject] of getEntries(components.responses, ctx.alphabetize)) {
+    for (const [name, responseObject] of getEntries(components.responses, ctx.alphabetize, ctx.excludeDeprecated)) {
       const c = getSchemaObjectComment(responseObject, indentLv);
       if (c) output.push(indent(c, indentLv));
       let key = escObjKey(name);
@@ -62,7 +62,7 @@ export default function transformComponentsObject(components: ComponentsObject, 
   if (components.parameters) {
     output.push(indent("parameters: {", indentLv));
     indentLv++;
-    for (const [name, parameterObject] of getEntries(components.parameters, ctx.alphabetize)) {
+    for (const [name, parameterObject] of getEntries(components.parameters, ctx.alphabetize, ctx.excludeDeprecated)) {
       const c = getSchemaObjectComment(parameterObject, indentLv);
       if (c) output.push(indent(c, indentLv));
       let key = escObjKey(name);
@@ -90,7 +90,7 @@ export default function transformComponentsObject(components: ComponentsObject, 
   if (components.requestBodies) {
     output.push(indent("requestBodies: {", indentLv));
     indentLv++;
-    for (const [name, requestBodyObject] of getEntries(components.requestBodies, ctx.alphabetize)) {
+    for (const [name, requestBodyObject] of getEntries(components.requestBodies, ctx.alphabetize, ctx.excludeDeprecated)) {
       const c = getSchemaObjectComment(requestBodyObject, indentLv);
       if (c) output.push(indent(c, indentLv));
       let key = escObjKey(name);
@@ -125,7 +125,7 @@ export default function transformComponentsObject(components: ComponentsObject, 
   if (components.headers) {
     output.push(indent("headers: {", indentLv));
     indentLv++;
-    for (const [name, headerObject] of getEntries(components.headers, ctx.alphabetize)) {
+    for (const [name, headerObject] of getEntries(components.headers, ctx.alphabetize, ctx.excludeDeprecated)) {
       const c = getSchemaObjectComment(headerObject, indentLv);
       if (c) output.push(indent(c, indentLv));
       let key = escObjKey(name);
@@ -150,7 +150,7 @@ export default function transformComponentsObject(components: ComponentsObject, 
   if (components.pathItems) {
     output.push(indent("pathItems: {", indentLv));
     indentLv++;
-    for (const [name, pathItemObject] of getEntries(components.pathItems, ctx.alphabetize)) {
+    for (const [name, pathItemObject] of getEntries(components.pathItems, ctx.alphabetize, ctx.excludeDeprecated)) {
       let key = escObjKey(name);
       if (ctx.immutableTypes) key = tsReadonly(key);
       if ("$ref" in pathItemObject) {

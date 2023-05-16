@@ -54,6 +54,7 @@ _Thanks, [@psmyrdek](https://github.com/psmyrdek)!_
 | `--path-params-as-types`  |       | `false`  | Allow dynamic string lookups on the `paths` object                                                                           |
 | `--support-array-length`  |       | `false`  | Generate tuples using array `minItems` / `maxItems`                                                                          |
 | `--alphabetize`           |       | `false`  | Sort types alphabetically                                                                                                    |
+| `--exclude-deprecated`    |       | `false`  | Exclude deprecated fields from types                                                                                         |
 
 ### `--path-params-as-types`
 

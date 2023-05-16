@@ -260,9 +260,10 @@ export function indent(input: string, level: number) {
 }
 
 /** call Object.entries() and optionally sort */
-export function getEntries<T>(obj: ArrayLike<T> | Record<string, T>, alphabetize?: boolean) {
-  const entries = Object.entries(obj);
+export function getEntries<T>(obj: ArrayLike<T> | Record<string, T>, alphabetize?: boolean, excludeDeprecated?: boolean) {
+  let entries = Object.entries(obj);
   if (alphabetize) entries.sort(([a], [b]) => a.localeCompare(b, "en", { numeric: true }));
+  if (excludeDeprecated) entries = entries.filter(([, v]) => !(v && typeof v === "object" && "deprecated" in v && v.deprecated));
   return entries;
 }
 

@@ -16,6 +16,7 @@ const options: GlobalContext = {
   silent: true,
   supportArrayLength: false,
   transform: undefined,
+  excludeDeprecated: false,
 };
 
 const basicSchema: ComponentsObject = {
@@ -235,7 +236,35 @@ describe("Components Object", () => {
 }`);
       });
     });
-  });
+    describe("excludeDeprecated", () => {
+      test("true", () => {
+        const schema: ComponentsObject = {
+          schemas: {
+            Alpha: {
+              type: "object",
+              properties: {
+                a: { type: "boolean", deprecated: true },
+                z: { type: "boolean" },
+              },
+            },
+          },
+        };
+        const generated = transformComponentsObject(schema, { ...options, excludeDeprecated: true });
+        expect(generated).toBe(`{
+  schemas: {
+    Alpha: {
+      z?: boolean;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}`);
+          });
+        });
+      });
 
   test("parameters with required: false", () => {
     const generated = transformComponentsObject(optionalParamSchema, options);

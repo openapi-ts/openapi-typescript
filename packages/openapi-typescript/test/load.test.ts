@@ -118,6 +118,7 @@ async function load(
     silent: true,
     supportArrayLength: false,
     transform: undefined,
+    excludeDeprecated: false,
     ...options,
   });
 }
