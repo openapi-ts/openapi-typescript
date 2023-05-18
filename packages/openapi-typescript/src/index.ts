@@ -22,6 +22,12 @@ export const COMMENT_HEADER = `/**
 
 `;
 
+const EXTRA_TYPE_ARGUMENTS: Record<string, string> = {
+  express: "<AppLocals extends Record<string, any>, RequestLocals extends Record<string, any>>",
+  pathHandlers: "<AppLocals extends Record<string, any>, RequestLocals extends Record<string, any>>",
+  operationHandlers: "<AppLocals extends Record<string, any>, RequestLocals extends Record<string, any>>",
+};
+
 /**
  * This function is the entry to the program and allows the user to pass in a remote schema and/or local schema.
  * The URL or schema and headers can be passed in either programmatically and/or via the CLI.
@@ -89,6 +95,13 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
   // 2. generate raw output
   const output: string[] = [];
 
+  // 2a-1. import express and make a helper type
+  output.push(`import type { Application, Query } from 'express-serve-static-core';\nimport type { Request, Response } from 'express';\n`);
+  output.push(`export type ExpressRequest<
+  RequestType extends Request,
+  AppLocals extends Record<string, any>, Query
+> = Omit<RequestType, "app" | "query"> & { app: Application<AppLocals>, query: Query };\n`);
+
   // 2a. Start file, inject custom code (if any)
   if ("commentHeader" in options) {
     if (options.commentHeader) output.push(options.commentHeader);
@@ -102,10 +115,12 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
   // 2c. root schema
   const rootTypes = transformSchema(allSchemas["."].schema as OpenAPI3, ctx);
   for (const k of Object.keys(rootTypes)) {
+    const typeArguments = EXTRA_TYPE_ARGUMENTS[k] || "";
+
     if (rootTypes[k] && !EMPTY_OBJECT_RE.test(rootTypes[k])) {
-      output.push(options.exportType ? `export type ${k} = ${rootTypes[k]};` : `export interface ${k} ${rootTypes[k]}`, "");
+      output.push(options.exportType ? `export type ${k}${typeArguments} = ${rootTypes[k]};` : `export interface ${k}${typeArguments} ${rootTypes[k]}`, "");
     } else {
-      output.push(`export type ${k} = Record<string, never>;`, "");
+      output.push(`export type ${k}${typeArguments} = Record<string, never>;`, "");
     }
     delete rootTypes[k];
     delete allSchemas["."]; // garbage collect, but also remove from next step (external)

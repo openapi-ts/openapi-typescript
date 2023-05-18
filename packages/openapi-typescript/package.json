@@ -1,7 +1,7 @@
 {
-  "name": "openapi-typescript",
-  "description": "Generate TypeScript types from Swagger OpenAPI specs",
-  "version": "6.2.4",
+  "name": "openapi-typescript-express",
+  "description": "Generate TypeScript types from Swagger OpenAPI specs suitable for hosting express services",
+  "version": "3.0.0",
   "author": {
     "name": "Drew Powers",
     "email": "drew@pow.rs"
