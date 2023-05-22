@@ -1,10 +1,9 @@
 ---
-name: Bug report
-about: Unrelated to the OpenAPI schema (Node error, etc.)
-title: ''
-labels: ''
-assignees: ''
-
+name: "Bug report: openapi-typescript"
+about: For the openapi-typescript library
+title: ""
+labels: openapi-ts, bug
+assignees: ""
 ---
 
 **Description**
@@ -16,7 +15,7 @@ Paste full error message
 ```
 
 | Name                 | Version                      |
-|:---------------------|:-----------------------------|
+| :------------------- | :--------------------------- |
 | `openapi-typescript` | `x.x.x`                      |
 | Node.js              | `x.x.x`                      |
 | OS + version         | `macOS 13, Windows 11, etc.` |
@@ -31,4 +30,5 @@ _(in case it’s not obvious)_
 
 **Checklist**
 
+- [ ] My OpenAPI schema passes the [Redocly validator](https://redocly.com/docs/cli/commands/lint/) (`npx @redocly/cli@latest lint`)
 - [ ] I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/drwpow/openapi-typescript/blob/main/CONTRIBUTING.md))

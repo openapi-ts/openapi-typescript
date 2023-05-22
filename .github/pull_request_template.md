@@ -10,4 +10,4 @@ _How can a reviewer review your changes? What should be kept in mind for this re
 
 - [ ] Unit tests updated
 - [ ] README updated
-- [ ] `examples/` directory updated (if applicable)
+- [ ] `examples/` directory updated (only applicable for openapi-typescript)
