@@ -180,6 +180,20 @@ describe("client", () => {
       })
     );
   });
+
+  it("accepts a custom fetch function", async () => {
+    const data = { works: true };
+    const client = createClient<paths>({
+      fetch: async () =>
+        Promise.resolve({
+          headers: new Headers(),
+          json: async () => data,
+          status: 200,
+          ok: true,
+        } as Response),
+    });
+    expect((await client.get("/self", {})).data).toBe(data);
+  });
 });
 
 describe("get()", () => {

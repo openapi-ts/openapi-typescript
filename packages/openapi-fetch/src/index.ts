@@ -7,6 +7,8 @@ const DEFAULT_HEADERS = {
 interface ClientOptions extends RequestInit {
   /** set the common root URL for all API requests */
   baseUrl?: string;
+  /** custom fetch (defaults to globalThis.fetch) */
+  fetch?: typeof fetch;
 }
 export interface BaseParams {
   params?: { query?: Record<string, unknown> };
@@ -51,17 +53,19 @@ export type FetchResponse<T> =
   | { data: T extends { responses: any } ? NonNullable<FilterKeys<Success<T["responses"]>, JSONLike>> : unknown; error?: never; response: Response }
   | { data?: never; error: T extends { responses: any } ? NonNullable<FilterKeys<Error<T["responses"]>, JSONLike>> : unknown; response: Response };
 
-export default function createClient<Paths extends {}>(options?: ClientOptions) {
+export default function createClient<Paths extends {}>(clientOptions: ClientOptions = {}) {
+  const { fetch = globalThis.fetch, ...options } = clientOptions;
+
   const defaultHeaders = new Headers({
     ...DEFAULT_HEADERS,
-    ...(options?.headers ?? {}),
+    ...(options.headers ?? {}),
   });
 
   async function coreFetch<P extends keyof Paths, M extends HttpMethod>(url: P, fetchOptions: FetchOptions<M extends keyof Paths[P] ? Paths[P][M] : never>): Promise<FetchResponse<M extends keyof Paths[P] ? Paths[P][M] : unknown>> {
     const { headers, body: requestBody, params = {}, querySerializer = (q: QuerySerializer<M extends keyof Paths[P] ? Paths[P][M] : never>) => new URLSearchParams(q as any).toString(), ...init } = fetchOptions || {};
 
     // URL
-    let finalURL = `${options?.baseUrl ?? ""}${url as string}`;
+    let finalURL = `${options.baseUrl ?? ""}${url as string}`;
     if ((params as any).path) {
       for (const [k, v] of Object.entries((params as any).path)) finalURL = finalURL.replace(`{${k}}`, encodeURIComponent(String(v)));
     }

@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.2.0
+
+### Minor Changes
+
+- 97c8757: Add custom fetch option (#51). Thanks, [@hd-o](https://github.com/hd-o)!
+
 ## 0.1.4
 
 ### Patch Changes

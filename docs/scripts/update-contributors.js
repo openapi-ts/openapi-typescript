@@ -84,6 +84,7 @@ const OPENAPI_TS_CONTRIBUTORS = [
     "shoffmeister",
     "liangskyli",
     "happycollision",
+    "hd-o",
   ]),
 ];
 
