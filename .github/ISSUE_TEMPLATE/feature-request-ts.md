@@ -1,10 +1,9 @@
 ---
-name: Feature request
-about: Add missing functionality
-title: ''
-labels: enhancement, help wanted
-assignees: ''
-
+name: "Feature request: openapi-typescript"
+about: For the openapi-typescript library
+title: ""
+labels: openapi-ts, enhancement, help wanted
+assignees: ""
 ---
 
 **Description**
