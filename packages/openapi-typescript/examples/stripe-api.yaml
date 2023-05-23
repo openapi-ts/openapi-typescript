@@ -71,9 +71,9 @@ components:
           type: boolean
         email:
           description: >-
-            An email address associated with the account. You can treat this as
-            metadata: it is not used for authentication or messaging account
-            holders.
+            An email address associated with the account. It's not used for
+            authentication and Stripe doesn't market to this field without
+            explicit approval from the platform.
           maxLength: 5000
           nullable: true
           type: string
@@ -991,7 +991,7 @@ components:
 
 
         Related guide: [Connect
-        Onboarding](https://stripe.com/docs/connect/connect-onboarding).
+        Onboarding](https://stripe.com/docs/connect/connect-onboarding)
       properties:
         created:
           description: >-
@@ -1781,7 +1781,7 @@ components:
 
 
         Related guide: [Store data between page
-        reloads](https://stripe.com/docs/stripe-apps/store-auth-data-custom-objects).
+        reloads](https://stripe.com/docs/stripe-apps/store-auth-data-custom-objects)
       properties:
         created:
           description: >-
@@ -1886,8 +1886,8 @@ components:
         payment source types.
 
 
-        Related guide: [Understanding Connect Account
-        Balances](https://stripe.com/docs/connect/account-balances).
+        Related guide: [Understanding Connect account
+        balances](https://stripe.com/docs/connect/account-balances)
       properties:
         available:
           description: >-
@@ -2008,8 +2008,8 @@ components:
         out of your Stripe account balance.
 
 
-        Related guide: [Balance Transaction
-        Types](https://stripe.com/docs/reports/balance-transaction-types).
+        Related guide: [Balance transaction
+        types](https://stripe.com/docs/reports/balance-transaction-types)
       properties:
         amount:
           description: 'Gross amount of the transaction, in %s.'
@@ -2214,8 +2214,8 @@ components:
         the links above.
 
 
-        Related guide: [Bank Debits and
-        Transfers](https://stripe.com/docs/payments/bank-debits-transfers).
+        Related guide: [Bank debits and
+        transfers](https://stripe.com/docs/payments/bank-debits-transfers)
       properties:
         account:
           anyOf:
@@ -2919,7 +2919,7 @@ components:
 
 
         Related guide: [Account
-        capabilities](https://stripe.com/docs/connect/account-capabilities).
+        capabilities](https://stripe.com/docs/connect/account-capabilities)
       properties:
         account:
           anyOf:
@@ -2990,8 +2990,8 @@ components:
         transfer to those cards later.
 
 
-        Related guide: [Card Payments with
-        Sources](https://stripe.com/docs/sources/cards).
+        Related guide: [Card payments with
+        Sources](https://stripe.com/docs/sources/cards)
       properties:
         account:
           anyOf:
@@ -3314,7 +3314,7 @@ components:
 
 
         Related guide: [Accept a payment with the Charges
-        API](https://stripe.com/docs/payments/accept-a-payment-charges).
+        API](https://stripe.com/docs/payments/accept-a-payment-charges)
       properties:
         amount:
           description: >-
@@ -3885,7 +3885,7 @@ components:
 
 
         Related guide: [Checkout
-        Quickstart](https://stripe.com/docs/checkout/quickstart).
+        quickstart](https://stripe.com/docs/checkout/quickstart)
       properties:
         after_expiration:
           anyOf:
@@ -5716,7 +5716,7 @@ components:
 
 
         Related guide: [Credit
-        Notes](https://stripe.com/docs/billing/invoices/credit-notes).
+        notes](https://stripe.com/docs/billing/invoices/credit-notes)
       properties:
         amount:
           description: >-
@@ -6209,7 +6209,7 @@ components:
 
 
         Related guide: [Save a card during
-        payment](https://stripe.com/docs/payments/save-during-payment).
+        payment](https://stripe.com/docs/payments/save-during-payment)
       properties:
         address:
           anyOf:
@@ -6760,7 +6760,7 @@ components:
     customer_balance_transaction:
       description: >-
         Each customer has a
-        [`balance`](https://stripe.com/docs/api/customers/object#customer_object-balance)
+        [Balance](https://stripe.com/docs/api/customers/object#customer_object-balance)
         value,
 
         which denotes a debit or credit that's automatically applied to their
@@ -6774,8 +6774,7 @@ components:
 
 
         Related guide: [Customer
-        Balance](https://stripe.com/docs/billing/customer/balance) to learn
-        more.
+        balance](https://stripe.com/docs/billing/customer/balance)
       properties:
         amount:
           description: >-
@@ -7806,8 +7805,8 @@ components:
         and what it is applied to.
 
 
-        Related guide: [Applying Discounts to
-        Subscriptions](https://stripe.com/docs/billing/subscriptions/discounts).
+        Related guide: [Applying discounts to
+        subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
       properties:
         checkout_session:
           description: >-
@@ -7941,7 +7940,7 @@ components:
         Fraud](/docs/disputes) documentation.
 
 
-        Related guide: [Disputes and Fraud](https://stripe.com/docs/disputes).
+        Related guide: [Disputes and fraud](https://stripe.com/docs/disputes)
       properties:
         amount:
           description: >-
@@ -8725,8 +8724,8 @@ components:
         the Stripe account from which the fee was originally collected.
 
 
-        Related guide: [Refunding Application
-        Fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee).
+        Related guide: [Refunding application
+        fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee)
       properties:
         amount:
           description: 'Amount, in %s.'
@@ -8813,7 +8812,7 @@ components:
         query](#scheduled_queries)).
 
 
-        Related guide: [File Upload Guide](https://stripe.com/docs/file-upload).
+        Related guide: [File upload guide](https://stripe.com/docs/file-upload)
       properties:
         created:
           description: >-
@@ -9445,9 +9444,8 @@ components:
 
         `financial_addresses` field.
 
-        Related guide: [Customer Balance - Funding
-        Instructions](https://stripe.com/docs/payments/customer-balance/funding-instructions)
-        to learn more
+        Related guide: [Customer balance funding
+        instructions](https://stripe.com/docs/payments/customer-balance/funding-instructions)
       properties:
         bank_transfer:
           $ref: '#/components/schemas/funding_instructions_bank_transfer'
@@ -10575,8 +10573,8 @@ components:
         [here](https://stripe.com/docs/billing/customer/balance).
 
 
-        Related guide: [Send Invoices to
-        Customers](https://stripe.com/docs/billing/invoices/sending).
+        Related guide: [Send invoices to
+        customers](https://stripe.com/docs/billing/invoices/sending)
       properties:
         account_country:
           description: >-
@@ -12303,8 +12301,8 @@ components:
         purchase to be completed successfully.
 
 
-        Related guide: [Issued Card
-        Authorizations](https://stripe.com/docs/issuing/purchases/authorizations).
+        Related guide: [Issued card
+        authorizations](https://stripe.com/docs/issuing/purchases/authorizations)
       properties:
         amount:
           description: >-
@@ -12685,7 +12683,7 @@ components:
 
 
         Related guide: [How to create a
-        Cardholder](https://stripe.com/docs/issuing/cards#create-cardholder)
+        cardholder](https://stripe.com/docs/issuing/cards#create-cardholder)
       properties:
         billing:
           $ref: '#/components/schemas/issuing_cardholder_address'
@@ -12805,8 +12803,8 @@ components:
         fraudulent, or has other issues with.
 
 
-        Related guide: [Disputing
-        Transactions](https://stripe.com/docs/issuing/purchases/disputes)
+        Related guide: [Issuing
+        disputes](https://stripe.com/docs/issuing/purchases/disputes)
       properties:
         amount:
           description: >-
@@ -13018,8 +13016,8 @@ components:
         `Transaction` object.
 
 
-        Related guide: [Issued Card
-        Transactions](https://stripe.com/docs/issuing/purchases/transactions).
+        Related guide: [Issued card
+        transactions](https://stripe.com/docs/issuing/purchases/transactions)
       properties:
         amount:
           description: >-
@@ -17902,7 +17900,7 @@ components:
 
 
         Related guide: [Payment Intents
-        API](https://stripe.com/docs/payments/payment-intents).
+        API](https://stripe.com/docs/payments/payment-intents)
       properties:
         amount:
           description: >-
@@ -19205,10 +19203,14 @@ components:
       x-expandableFields: []
     payment_intent_payment_method_options_blik:
       description: ''
-      properties: {}
+      properties:
+        mandate_options:
+          $ref: >-
+            #/components/schemas/payment_intent_payment_method_options_mandate_options_blik
       title: payment_intent_payment_method_options_blik
       type: object
-      x-expandableFields: []
+      x-expandableFields:
+        - mandate_options
     payment_intent_payment_method_options_card:
       description: ''
       properties:
@@ -19425,6 +19427,27 @@ components:
       title: payment_intent_payment_method_options_mandate_options_acss_debit
       type: object
       x-expandableFields: []
+    payment_intent_payment_method_options_mandate_options_blik:
+      description: ''
+      properties:
+        expires_after:
+          description: Date at which the mandate expires.
+          format: unix-time
+          nullable: true
+          type: integer
+        off_session:
+          $ref: '#/components/schemas/mandate_options_off_session_details_blik'
+        type:
+          description: Type of the mandate.
+          enum:
+            - off_session
+            - on_session
+          nullable: true
+          type: string
+      title: payment_intent_payment_method_options_mandate_options_blik
+      type: object
+      x-expandableFields:
+        - off_session
     payment_intent_payment_method_options_mandate_options_sepa_debit:
       description: ''
       properties: {}
@@ -21157,6 +21180,8 @@ components:
           type: string
         google_pay:
           $ref: '#/components/schemas/payment_method_card_wallet_google_pay'
+        link:
+          $ref: '#/components/schemas/payment_method_card_wallet_link'
         masterpass:
           $ref: '#/components/schemas/payment_method_card_wallet_masterpass'
         samsung_pay:
@@ -21187,6 +21212,7 @@ components:
         - amex_express_checkout
         - apple_pay
         - google_pay
+        - link
         - masterpass
         - samsung_pay
         - visa_checkout
@@ -21206,6 +21232,12 @@ components:
       description: ''
       properties: {}
       title: payment_method_card_wallet_google_pay
+      type: object
+      x-expandableFields: []
+    payment_method_card_wallet_link:
+      description: ''
+      properties: {}
+      title: payment_method_card_wallet_link
       type: object
       x-expandableFields: []
     payment_method_card_wallet_masterpass:
@@ -22130,6 +22162,8 @@ components:
           type: string
         google_pay:
           $ref: '#/components/schemas/payment_method_details_card_wallet_google_pay'
+        link:
+          $ref: '#/components/schemas/payment_method_details_card_wallet_link'
         masterpass:
           $ref: '#/components/schemas/payment_method_details_card_wallet_masterpass'
         samsung_pay:
@@ -22161,6 +22195,7 @@ components:
         - amex_express_checkout
         - apple_pay
         - google_pay
+        - link
         - masterpass
         - samsung_pay
         - visa_checkout
@@ -22180,6 +22215,12 @@ components:
       description: ''
       properties: {}
       title: payment_method_details_card_wallet_google_pay
+      type: object
+      x-expandableFields: []
+    payment_method_details_card_wallet_link:
+      description: ''
+      properties: {}
+      title: payment_method_details_card_wallet_link
       type: object
       x-expandableFields: []
     payment_method_details_card_wallet_masterpass:
@@ -25648,7 +25689,7 @@ components:
         industry.
 
 
-        Related guide: [Receiving Payouts](https://stripe.com/docs/payouts).
+        Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
       properties:
         amount:
           description: Amount (in %s) to be transferred to your bank account or debit card.
@@ -25933,8 +25974,8 @@ components:
         information about platform pre-filling and account onboarding steps.
 
 
-        Related guide: [Handling Identity Verification with the
-        API](https://stripe.com/docs/connect/identity-verification-api#person-information).
+        Related guide: [Handling identity verification with the
+        API](https://stripe.com/docs/connect/identity-verification-api#person-information)
       properties:
         account:
           description: The account the person is associated with.
@@ -26661,13 +26702,25 @@ components:
             - $ref: '#/components/schemas/portal_flows_flow_subscription_cancel'
           description: Configuration when `flow.type=subscription_cancel`.
           nullable: true
+        subscription_update:
+          anyOf:
+            - $ref: '#/components/schemas/portal_flows_flow_subscription_update'
+          description: Configuration when `flow.type=subscription_update`.
+          nullable: true
+        subscription_update_confirm:
+          anyOf:
+            - $ref: >-
+                #/components/schemas/portal_flows_flow_subscription_update_confirm
+          description: Configuration when `flow.type=subscription_update_confirm`.
+          nullable: true
         type:
           description: Type of flow that the customer will go through.
           enum:
             - payment_method_update
             - subscription_cancel
+            - subscription_update
+            - subscription_update_confirm
           type: string
-          x-stripeBypassValidation: true
       required:
         - after_completion
         - type
@@ -26676,6 +26729,8 @@ components:
       x-expandableFields:
         - after_completion
         - subscription_cancel
+        - subscription_update
+        - subscription_update_confirm
     portal_flows_flow_after_completion:
       description: ''
       properties:
@@ -26714,6 +26769,94 @@ components:
       required:
         - subscription
       title: PortalFlowsFlowSubscriptionCancel
+      type: object
+      x-expandableFields: []
+    portal_flows_flow_subscription_update:
+      description: ''
+      properties:
+        subscription:
+          description: The ID of the subscription to be updated.
+          maxLength: 5000
+          type: string
+      required:
+        - subscription
+      title: PortalFlowsFlowSubscriptionUpdate
+      type: object
+      x-expandableFields: []
+    portal_flows_flow_subscription_update_confirm:
+      description: ''
+      properties:
+        discounts:
+          description: >-
+            The coupon or promotion code to apply to this subscription update.
+            Currently, only up to one may be specified.
+          items:
+            $ref: >-
+              #/components/schemas/portal_flows_subscription_update_confirm_discount
+          nullable: true
+          type: array
+        items:
+          description: >-
+            The [subscription
+            item](https://stripe.com/docs/api/subscription_items) to be updated
+            through this flow. Currently, only up to one may be specified and
+            subscriptions with multiple items are not updatable.
+          items:
+            $ref: '#/components/schemas/portal_flows_subscription_update_confirm_item'
+          type: array
+        subscription:
+          description: The ID of the subscription to be updated.
+          maxLength: 5000
+          type: string
+      required:
+        - items
+        - subscription
+      title: PortalFlowsFlowSubscriptionUpdateConfirm
+      type: object
+      x-expandableFields:
+        - discounts
+        - items
+    portal_flows_subscription_update_confirm_discount:
+      description: ''
+      properties:
+        coupon:
+          description: The ID of the coupon to apply to this subscription update.
+          maxLength: 5000
+          nullable: true
+          type: string
+        promotion_code:
+          description: The ID of a promotion code to apply to this subscription update.
+          maxLength: 5000
+          nullable: true
+          type: string
+      title: PortalFlowsSubscriptionUpdateConfirmDiscount
+      type: object
+      x-expandableFields: []
+    portal_flows_subscription_update_confirm_item:
+      description: ''
+      properties:
+        id:
+          description: >-
+            The ID of the [subscription
+            item](https://stripe.com/docs/api/subscriptions/object#subscription_object-items-data-id)
+            to be updated.
+          maxLength: 5000
+          nullable: true
+          type: string
+        price:
+          description: >-
+            The price the customer should subscribe to through this flow. The
+            price must also be included in the configuration's
+            [`features.subscription_update.products`](docs/api/customer_portal/configuration#portal_configuration_object-features-subscription_update-products).
+          maxLength: 5000
+          nullable: true
+          type: string
+        quantity:
+          description: >-
+            [Quantity](https://stripe.com/docs/subscriptions/quantities) for
+            this item that the customer should subscribe to through this flow.
+          type: integer
+      title: PortalFlowsSubscriptionUpdateConfirmItem
       type: object
       x-expandableFields: []
     portal_invoice_list:
@@ -28064,8 +28207,8 @@ components:
         charge may be fraudulent.
 
 
-        Related guide: [Early Fraud
-        Warnings](https://stripe.com/docs/disputes/measuring#early-fraud-warnings).
+        Related guide: [Early fraud
+        warnings](https://stripe.com/docs/disputes/measuring#early-fraud-warnings)
       properties:
         actionable:
           description: >-
@@ -28146,7 +28289,7 @@ components:
 
 
         Related guide: [Default Stripe
-        Lists](https://stripe.com/docs/radar/lists#managing-list-items).
+        lists](https://stripe.com/docs/radar/lists#managing-list-items)
       properties:
         alias:
           description: The name of the value list for use in rules.
@@ -28261,8 +28404,8 @@ components:
         list, which can then be used in rules.
 
 
-        Related guide: [Managing List
-        Items](https://stripe.com/docs/radar/lists#managing-list-items).
+        Related guide: [Managing list
+        items](https://stripe.com/docs/radar/lists#managing-list-items)
       properties:
         created:
           description: >-
@@ -28471,7 +28614,7 @@ components:
         was originally charged.
 
 
-        Related guide: [Refunds](https://stripe.com/docs/refunds).
+        Related guide: [Refunds](https://stripe.com/docs/refunds)
       properties:
         amount:
           description: 'Amount, in %s.'
@@ -29931,7 +30074,7 @@ components:
 
 
         Related guide: [Setup Intents
-        API](https://stripe.com/docs/payments/setup-intents).
+        API](https://stripe.com/docs/payments/setup-intents)
       properties:
         application:
           anyOf:
@@ -32159,7 +32302,7 @@ components:
 
 
         Related guide: [Creating
-        Subscriptions](https://stripe.com/docs/billing/subscriptions/creating).
+        subscriptions](https://stripe.com/docs/billing/subscriptions/creating)
       properties:
         application:
           anyOf:
@@ -32816,7 +32959,7 @@ components:
 
 
         Related guide: [Subscription
-        Schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules).
+        schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules)
       properties:
         application:
           anyOf:
@@ -33660,7 +33803,7 @@ components:
 
 
         Related guide: [Calculate tax in your custom payment
-        flow](https://stripe.com/docs/tax/custom).
+        flow](https://stripe.com/docs/tax/custom)
       properties:
         amount_total:
           description: Total after taxes.
@@ -33865,7 +34008,7 @@ components:
 
 
         Related guide: [Calculate tax in your custom payment
-        flow](https://stripe.com/docs/tax/custom#tax-transaction).
+        flow](https://stripe.com/docs/tax/custom#tax-transaction)
       properties:
         created:
           description: >-
@@ -34170,8 +34313,8 @@ components:
         for the customer.
 
 
-        Related guide: [Customer Tax Identification
-        Numbers](https://stripe.com/docs/billing/taxes/tax-ids).
+        Related guide: [Customer tax identification
+        numbers](https://stripe.com/docs/billing/taxes/tax-ids)
       properties:
         country:
           description: Two-letter ISO code representing the country of the tax ID.
@@ -34804,7 +34947,7 @@ components:
 
 
         Related guide: [Tax
-        Rates](https://stripe.com/docs/billing/taxes/tax-rates).
+        rates](https://stripe.com/docs/billing/taxes/tax-rates)
       properties:
         active:
           description: >-
@@ -34898,6 +35041,8 @@ components:
         tax_type:
           description: 'The high-level tax type, such as `vat` or `sales_tax`.'
           enum:
+            - amusement_tax
+            - communications_tax
             - gst
             - hst
             - igst
@@ -34975,7 +35120,7 @@ components:
 
 
         Related guide: [Fleet
-        Management](https://stripe.com/docs/terminal/fleet/locations).
+        management](https://stripe.com/docs/terminal/fleet/locations)
       properties:
         location:
           description: >-
@@ -35009,7 +35154,7 @@ components:
 
 
         Related guide: [Fleet
-        Management](https://stripe.com/docs/terminal/fleet/locations).
+        management](https://stripe.com/docs/terminal/fleet/locations)
       properties:
         address:
           $ref: '#/components/schemas/address'
@@ -35066,7 +35211,7 @@ components:
 
 
         Related guide: [Connecting to a
-        Reader](https://stripe.com/docs/terminal/payments/connect-reader).
+        reader](https://stripe.com/docs/terminal/payments/connect-reader)
       properties:
         action:
           anyOf:
@@ -35717,8 +35862,8 @@ components:
         performs best with integrations that use client-side tokenization.
 
 
-        Related guide: [Accept a
-        payment](https://stripe.com/docs/payments/accept-a-payment-charges#web-create-token)
+        Related guide: [Accept a payment with Charges and
+        Tokens](https://stripe.com/docs/payments/accept-a-payment-charges#web-create-token)
       properties:
         bank_account:
           $ref: '#/components/schemas/bank_account'
@@ -35784,8 +35929,8 @@ components:
         unique, random ID.
 
 
-        Related guide: [Topping Up your Platform
-        Account](https://stripe.com/docs/connect/top-ups).
+        Related guide: [Topping up your platform
+        account](https://stripe.com/docs/connect/top-ups)
       properties:
         amount:
           description: Amount transferred.
@@ -35940,8 +36085,8 @@ components:
         [transfer/payout split](https://stripe.com/docs/transfer-payout-split).
 
 
-        Related guide: [Creating Separate Charges and
-        Transfers](https://stripe.com/docs/connect/charges-transfers).
+        Related guide: [Creating separate charges and
+        transfers](https://stripe.com/docs/connect/charges-transfers)
       properties:
         amount:
           description: Amount in %s to be transferred.
@@ -36175,7 +36320,7 @@ components:
 
 
         Related guide: [Reversing
-        Transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers).
+        transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers)
       properties:
         amount:
           description: 'Amount, in %s.'
@@ -38687,7 +38832,7 @@ components:
 
 
         Related guide: [Metered
-        Billing](https://stripe.com/docs/billing/subscriptions/metered-billing).
+        billing](https://stripe.com/docs/billing/subscriptions/metered-billing)
       properties:
         id:
           description: Unique identifier for the object.
@@ -38804,7 +38949,7 @@ components:
 
 
         Related guide: [Setting up
-        Webhooks](https://stripe.com/docs/webhooks/configure).
+        webhooks](https://stripe.com/docs/webhooks/configure)
       properties:
         api_version:
           description: The API version events are rendered as for this webhook endpoint.
@@ -46944,12 +47089,60 @@ paths:
                         - subscription
                       title: flow_data_subscription_cancel_param
                       type: object
+                    subscription_update:
+                      properties:
+                        subscription:
+                          maxLength: 5000
+                          type: string
+                      required:
+                        - subscription
+                      title: flow_data_subscription_update_param
+                      type: object
+                    subscription_update_confirm:
+                      properties:
+                        discounts:
+                          items:
+                            properties:
+                              coupon:
+                                maxLength: 5000
+                                type: string
+                              promotion_code:
+                                maxLength: 5000
+                                type: string
+                            title: subscription_update_confirm_discount_params
+                            type: object
+                          type: array
+                        items:
+                          items:
+                            properties:
+                              id:
+                                maxLength: 5000
+                                type: string
+                              price:
+                                maxLength: 5000
+                                type: string
+                              quantity:
+                                type: integer
+                            required:
+                              - id
+                            title: subscription_update_confirm_item_params
+                            type: object
+                          type: array
+                        subscription:
+                          maxLength: 5000
+                          type: string
+                      required:
+                        - items
+                        - subscription
+                      title: flow_data_subscription_update_confirm_param
+                      type: object
                     type:
                       enum:
                         - payment_method_update
                         - subscription_cancel
+                        - subscription_update
+                        - subscription_update_confirm
                       type: string
-                      x-stripeBypassValidation: true
                   required:
                     - type
                   title: flow_data_param
@@ -60878,7 +61071,7 @@ paths:
 
         <p>Related guide: <a
         href="/docs/identity/verify-identity-documents">Verify your users’
-        identity documents</a>.</p>
+        identity documents</a></p>
       operationId: PostIdentityVerificationSessions
       requestBody:
         content:
@@ -73911,6 +74104,30 @@ paths:
                             code:
                               maxLength: 5000
                               type: string
+                            mandate_options:
+                              properties:
+                                expires_after:
+                                  type: integer
+                                off_session:
+                                  properties:
+                                    interval:
+                                      enum:
+                                        - day
+                                        - month
+                                        - week
+                                        - year
+                                      type: string
+                                    interval_count:
+                                      type: integer
+                                  required:
+                                    - interval
+                                    - interval_count
+                                  title: >-
+                                    mandate_options_off_session_details_common_param
+                                  type: object
+                              title: >-
+                                payment_intent_payment_method_options_mandate_options_param
+                              type: object
                           title: payment_intent_payment_method_options_param
                           type: object
                         - enum:
@@ -75659,6 +75876,30 @@ paths:
                             code:
                               maxLength: 5000
                               type: string
+                            mandate_options:
+                              properties:
+                                expires_after:
+                                  type: integer
+                                off_session:
+                                  properties:
+                                    interval:
+                                      enum:
+                                        - day
+                                        - month
+                                        - week
+                                        - year
+                                      type: string
+                                    interval_count:
+                                      type: integer
+                                  required:
+                                    - interval
+                                    - interval_count
+                                  title: >-
+                                    mandate_options_off_session_details_common_param
+                                  type: object
+                              title: >-
+                                payment_intent_payment_method_options_mandate_options_param
+                              type: object
                           title: payment_intent_payment_method_options_param
                           type: object
                         - enum:
@@ -77534,6 +77775,30 @@ paths:
                             code:
                               maxLength: 5000
                               type: string
+                            mandate_options:
+                              properties:
+                                expires_after:
+                                  type: integer
+                                off_session:
+                                  properties:
+                                    interval:
+                                      enum:
+                                        - day
+                                        - month
+                                        - week
+                                        - year
+                                      type: string
+                                    interval_count:
+                                      type: integer
+                                  required:
+                                    - interval
+                                    - interval_count
+                                  title: >-
+                                    mandate_options_off_session_details_common_param
+                                  type: object
+                              title: >-
+                                payment_intent_payment_method_options_mandate_options_param
+                              type: object
                           title: payment_intent_payment_method_options_param
                           type: object
                         - enum:
@@ -89252,6 +89517,37 @@ paths:
                         code:
                           maxLength: 5000
                           type: string
+                        mandate_options:
+                          properties:
+                            expires_after:
+                              type: integer
+                            off_session:
+                              properties:
+                                amount:
+                                  type: integer
+                                currency:
+                                  enum:
+                                    - pln
+                                  type: string
+                                interval:
+                                  enum:
+                                    - day
+                                    - month
+                                    - week
+                                    - year
+                                  type: string
+                                interval_count:
+                                  type: integer
+                              required:
+                                - amount
+                                - currency
+                                - interval
+                                - interval_count
+                              title: mandate_options_off_session_details_param
+                              type: object
+                          title: >-
+                            setup_intent_payment_method_options_mandate_options_param
+                          type: object
                       title: setup_intent_payment_method_options_param
                       type: object
                     card:
@@ -90091,6 +90387,37 @@ paths:
                         code:
                           maxLength: 5000
                           type: string
+                        mandate_options:
+                          properties:
+                            expires_after:
+                              type: integer
+                            off_session:
+                              properties:
+                                amount:
+                                  type: integer
+                                currency:
+                                  enum:
+                                    - pln
+                                  type: string
+                                interval:
+                                  enum:
+                                    - day
+                                    - month
+                                    - week
+                                    - year
+                                  type: string
+                                interval_count:
+                                  type: integer
+                              required:
+                                - amount
+                                - currency
+                                - interval
+                                - interval_count
+                              title: mandate_options_off_session_details_param
+                              type: object
+                          title: >-
+                            setup_intent_payment_method_options_mandate_options_param
+                          type: object
                       title: setup_intent_payment_method_options_param
                       type: object
                     card:
@@ -90917,6 +91244,37 @@ paths:
                         code:
                           maxLength: 5000
                           type: string
+                        mandate_options:
+                          properties:
+                            expires_after:
+                              type: integer
+                            off_session:
+                              properties:
+                                amount:
+                                  type: integer
+                                currency:
+                                  enum:
+                                    - pln
+                                  type: string
+                                interval:
+                                  enum:
+                                    - day
+                                    - month
+                                    - week
+                                    - year
+                                  type: string
+                                interval_count:
+                                  type: integer
+                              required:
+                                - amount
+                                - currency
+                                - interval
+                                - interval_count
+                              title: mandate_options_off_session_details_param
+                              type: object
+                          title: >-
+                            setup_intent_payment_method_options_mandate_options_param
+                          type: object
                       title: setup_intent_payment_method_options_param
                       type: object
                     card:
@@ -97986,6 +98344,8 @@ paths:
                 tax_type:
                   description: 'The high-level tax type, such as `vat` or `sales_tax`.'
                   enum:
+                    - amusement_tax
+                    - communications_tax
                     - gst
                     - hst
                     - igst
@@ -98150,6 +98510,8 @@ paths:
                 tax_type:
                   description: 'The high-level tax type, such as `vat` or `sales_tax`.'
                   enum:
+                    - amusement_tax
+                    - communications_tax
                     - gst
                     - hst
                     - igst

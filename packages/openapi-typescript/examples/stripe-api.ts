@@ -724,7 +724,7 @@ export interface paths {
      * 
      * <p>If your API key is in test mode, verification checks won’t actually process, though everything else will occur as if in live mode.</p>
      * 
-     * <p>Related guide: <a href="/docs/identity/verify-identity-documents">Verify your users’ identity documents</a>.</p>
+     * <p>Related guide: <a href="/docs/identity/verify-identity-documents">Verify your users’ identity documents</a></p>
      */
     post: operations["PostIdentityVerificationSessions"];
   };
@@ -2029,7 +2029,7 @@ export interface components {
       default_currency?: string;
       /** @description Whether account details have been submitted. Standard accounts cannot receive payouts before this is true. */
       details_submitted?: boolean;
-      /** @description An email address associated with the account. You can treat this as metadata: it is not used for authentication or messaging account holders. */
+      /** @description An email address associated with the account. It's not used for authentication and Stripe doesn't market to this field without explicit approval from the platform. */
       email?: string | null;
       /**
        * ExternalAccountList 
@@ -2393,7 +2393,7 @@ export interface components {
      * @description Account Links are the means by which a Connect platform grants a connected account permission to access
      * Stripe-hosted applications, such as Connect Onboarding.
      * 
-     * Related guide: [Connect Onboarding](https://stripe.com/docs/connect/connect-onboarding).
+     * Related guide: [Connect Onboarding](https://stripe.com/docs/connect/connect-onboarding)
      */
     account_link: {
       /**
@@ -2666,7 +2666,7 @@ export interface components {
      * 
      * A `user` scoped secret is accessible by the app backend and one specific Dashboard user. Use the `user` scope for per-user secrets like per-user OAuth tokens, where different users might have different permissions.
      * 
-     * Related guide: [Store data between page reloads](https://stripe.com/docs/stripe-apps/store-auth-data-custom-objects).
+     * Related guide: [Store data between page reloads](https://stripe.com/docs/stripe-apps/store-auth-data-custom-objects)
      */
     "apps.secret": {
       /**
@@ -2718,7 +2718,7 @@ export interface components {
      * The available and pending amounts for each currency are broken down further by
      * payment source types.
      * 
-     * Related guide: [Understanding Connect Account Balances](https://stripe.com/docs/connect/account-balances).
+     * Related guide: [Understanding Connect account balances](https://stripe.com/docs/connect/account-balances)
      */
     balance: {
       /** @description Funds that are available to be transferred or paid out, whether automatically by Stripe or explicitly via the [Transfers API](https://stripe.com/docs/api#transfers) or [Payouts API](https://stripe.com/docs/api#payouts). The available balance for each currency and payment type can be found in the `source_types` property. */
@@ -2765,7 +2765,7 @@ export interface components {
      * @description Balance transactions represent funds moving through your Stripe account.
      * They're created for every type of transaction that comes into or flows out of your Stripe account balance.
      * 
-     * Related guide: [Balance Transaction Types](https://stripe.com/docs/reports/balance-transaction-types).
+     * Related guide: [Balance transaction types](https://stripe.com/docs/reports/balance-transaction-types)
      */
     balance_transaction: {
       /** @description Gross amount of the transaction, in %s. */
@@ -2819,7 +2819,7 @@ export interface components {
      * destinations on `Account` objects for [Custom accounts](https://stripe.com/docs/connect/custom-accounts).
      * They can be bank accounts or debit cards as well, and are documented in the links above.
      * 
-     * Related guide: [Bank Debits and Transfers](https://stripe.com/docs/payments/bank-debits-transfers).
+     * Related guide: [Bank debits and transfers](https://stripe.com/docs/payments/bank-debits-transfers)
      */
     bank_account: {
       /** @description The ID of the account that the bank account is associated with. */
@@ -3084,7 +3084,7 @@ export interface components {
      * AccountCapability 
      * @description This is an object representing a capability for a Stripe account.
      * 
-     * Related guide: [Account capabilities](https://stripe.com/docs/connect/account-capabilities).
+     * Related guide: [Account capabilities](https://stripe.com/docs/connect/account-capabilities)
      */
     capability: {
       /** @description The account for which the capability enables functionality. */
@@ -3117,7 +3117,7 @@ export interface components {
      * later. You can also store multiple debit cards on a recipient in order to
      * transfer to those cards later.
      * 
-     * Related guide: [Card Payments with Sources](https://stripe.com/docs/sources/cards).
+     * Related guide: [Card payments with Sources](https://stripe.com/docs/sources/cards)
      */
     card: {
       /** @description The account this card belongs to. This attribute will not be in the card object if the card belongs to a customer or recipient instead. */
@@ -3229,7 +3229,7 @@ export interface components {
      * retrieve and refund individual charges as well as list all charges. Charges
      * are identified by a unique, random ID.
      * 
-     * Related guide: [Accept a payment with the Charges API](https://stripe.com/docs/payments/accept-a-payment-charges).
+     * Related guide: [Accept a payment with the Charges API](https://stripe.com/docs/payments/accept-a-payment-charges)
      */
     charge: {
       /** @description Amount intended to be collected by this payment. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99). */
@@ -3393,7 +3393,7 @@ export interface components {
      * You can create a Checkout Session on your server and redirect to its URL
      * to begin Checkout.
      * 
-     * Related guide: [Checkout Quickstart](https://stripe.com/docs/checkout/quickstart).
+     * Related guide: [Checkout quickstart](https://stripe.com/docs/checkout/quickstart)
      */
     "checkout.session": {
       /** @description When set, provides configuration for actions to take if this Checkout Session expires. */
@@ -4109,7 +4109,7 @@ export interface components {
      * CreditNote 
      * @description Issue a credit note to adjust an invoice's amount after the invoice is finalized.
      * 
-     * Related guide: [Credit Notes](https://stripe.com/docs/billing/invoices/credit-notes).
+     * Related guide: [Credit notes](https://stripe.com/docs/billing/invoices/credit-notes)
      */
     credit_note: {
       /** @description The integer amount in %s representing the total amount of the credit note, including tax. */
@@ -4301,7 +4301,7 @@ export interface components {
      * Customer 
      * @description This object represents a customer of your business. It lets you create recurring charges and track payments that belong to the same customer.
      * 
-     * Related guide: [Save a card during payment](https://stripe.com/docs/payments/save-during-payment).
+     * Related guide: [Save a card during payment](https://stripe.com/docs/payments/save-during-payment)
      */
     customer: {
       /** @description The customer's address. */
@@ -4511,12 +4511,12 @@ export interface components {
     };
     /**
      * CustomerBalanceTransaction 
-     * @description Each customer has a [`balance`](https://stripe.com/docs/api/customers/object#customer_object-balance) value,
+     * @description Each customer has a [Balance](https://stripe.com/docs/api/customers/object#customer_object-balance) value,
      * which denotes a debit or credit that's automatically applied to their next invoice upon finalization.
      * You may modify the value directly by using the [update customer API](https://stripe.com/docs/api/customers/update),
      * or by creating a Customer Balance Transaction, which increments or decrements the customer's `balance` by the specified `amount`.
      * 
-     * Related guide: [Customer Balance](https://stripe.com/docs/billing/customer/balance) to learn more.
+     * Related guide: [Customer balance](https://stripe.com/docs/billing/customer/balance)
      */
     customer_balance_transaction: {
       /** @description The amount of the transaction. A negative value is a credit for the customer's balance, and a positive value is a debit to the customer's `balance`. */
@@ -4999,7 +4999,7 @@ export interface components {
      * @description A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
      * It contains information about when the discount began, when it will end, and what it is applied to.
      * 
-     * Related guide: [Applying Discounts to Subscriptions](https://stripe.com/docs/billing/subscriptions/discounts).
+     * Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
      */
     discount: {
       /** @description The Checkout session that this coupon is applied to, if it is applied to a particular session in payment mode. Will not be present for subscription mode. */
@@ -5048,7 +5048,7 @@ export interface components {
      * information about the dispute process in our [Disputes and
      * Fraud](/docs/disputes) documentation.
      * 
-     * Related guide: [Disputes and Fraud](https://stripe.com/docs/disputes).
+     * Related guide: [Disputes and fraud](https://stripe.com/docs/disputes)
      */
     dispute: {
       /** @description Disputed amount. Usually the amount of the charge, but can differ (usually because of currency fluctuation or because only part of the order is disputed). */
@@ -5318,7 +5318,7 @@ export interface components {
      * has previously been created but not yet refunded. Funds will be refunded to
      * the Stripe account from which the fee was originally collected.
      * 
-     * Related guide: [Refunding Application Fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee).
+     * Related guide: [Refunding application fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee)
      */
     fee_refund: {
       /** @description Amount, in %s. */
@@ -5354,7 +5354,7 @@ export interface components {
      * been created by Stripe (for example, the results of a [Sigma scheduled
      * query](#scheduled_queries)).
      * 
-     * Related guide: [File Upload Guide](https://stripe.com/docs/file-upload).
+     * Related guide: [File upload guide](https://stripe.com/docs/file-upload)
      */
     file: {
       /**
@@ -5644,7 +5644,7 @@ export interface components {
      * automatically applied to future invoices and payments using the `customer_balance` payment method.
      * Customers can fund this balance by initiating a bank transfer to any account in the
      * `financial_addresses` field.
-     * Related guide: [Customer Balance - Funding Instructions](https://stripe.com/docs/payments/customer-balance/funding-instructions) to learn more
+     * Related guide: [Customer balance funding instructions](https://stripe.com/docs/payments/customer-balance/funding-instructions)
      */
     funding_instructions: {
       bank_transfer: components["schemas"]["funding_instructions_bank_transfer"];
@@ -6154,7 +6154,7 @@ export interface components {
      * More details on the customer's credit balance are
      * [here](https://stripe.com/docs/billing/customer/balance).
      * 
-     * Related guide: [Send Invoices to Customers](https://stripe.com/docs/billing/invoices/sending).
+     * Related guide: [Send invoices to customers](https://stripe.com/docs/billing/invoices/sending)
      */
     invoice: {
       /** @description The country of the business associated with this invoice, most often the business creating the invoice. */
@@ -6705,7 +6705,7 @@ export interface components {
      * object is created. [Authorizations](https://stripe.com/docs/issuing/purchases/authorizations) must be approved for the
      * purchase to be completed successfully.
      * 
-     * Related guide: [Issued Card Authorizations](https://stripe.com/docs/issuing/purchases/authorizations).
+     * Related guide: [Issued card authorizations](https://stripe.com/docs/issuing/purchases/authorizations)
      */
     "issuing.authorization": {
       /** @description The total amount that was authorized or rejected. This amount is in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
@@ -6842,7 +6842,7 @@ export interface components {
      * IssuingCardholder 
      * @description An Issuing `Cardholder` object represents an individual or business entity who is [issued](https://stripe.com/docs/issuing) cards.
      * 
-     * Related guide: [How to create a Cardholder](https://stripe.com/docs/issuing/cards#create-cardholder)
+     * Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards#create-cardholder)
      */
     "issuing.cardholder": {
       billing: components["schemas"]["issuing_cardholder_address"];
@@ -6892,7 +6892,7 @@ export interface components {
      * IssuingDispute 
      * @description As a [card issuer](https://stripe.com/docs/issuing), you can dispute transactions that the cardholder does not recognize, suspects to be fraudulent, or has other issues with.
      * 
-     * Related guide: [Disputing Transactions](https://stripe.com/docs/issuing/purchases/disputes)
+     * Related guide: [Issuing disputes](https://stripe.com/docs/issuing/purchases/disputes)
      */
     "issuing.dispute": {
       /** @description Disputed amount in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Usually the amount of the `transaction`, but can differ (usually because of currency fluctuation). */
@@ -6985,7 +6985,7 @@ export interface components {
      * your Stripe account, such as a completed purchase or refund, is represented by an Issuing
      * `Transaction` object.
      * 
-     * Related guide: [Issued Card Transactions](https://stripe.com/docs/issuing/purchases/transactions).
+     * Related guide: [Issued card transactions](https://stripe.com/docs/issuing/purchases/transactions)
      */
     "issuing.transaction": {
       /** @description The transaction amount, which will be reflected in your balance. This amount is in your currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
@@ -8149,7 +8149,7 @@ export interface components {
      * throughout its lifetime as it interfaces with Stripe.js to perform
      * authentication flows and ultimately creates at most one successful charge.
      * 
-     * Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents).
+     * Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
      */
     payment_intent: {
       /** @description Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99). */
@@ -8586,7 +8586,9 @@ export interface components {
       setup_future_usage?: "none" | "off_session" | "on_session";
     };
     /** payment_intent_payment_method_options_blik */
-    payment_intent_payment_method_options_blik: Record<string, never>;
+    payment_intent_payment_method_options_blik: {
+      mandate_options?: components["schemas"]["payment_intent_payment_method_options_mandate_options_blik"];
+    };
     /** payment_intent_payment_method_options_card */
     payment_intent_payment_method_options_card: {
       /**
@@ -8673,6 +8675,20 @@ export interface components {
        * @enum {string|null}
        */
       transaction_type?: "business" | "personal" | null;
+    };
+    /** payment_intent_payment_method_options_mandate_options_blik */
+    payment_intent_payment_method_options_mandate_options_blik: {
+      /**
+       * Format: unix-time 
+       * @description Date at which the mandate expires.
+       */
+      expires_after?: number | null;
+      off_session?: components["schemas"]["mandate_options_off_session_details_blik"];
+      /**
+       * @description Type of the mandate. 
+       * @enum {string|null}
+       */
+      type?: "off_session" | "on_session" | null;
     };
     /** payment_intent_payment_method_options_mandate_options_sepa_debit */
     payment_intent_payment_method_options_mandate_options_sepa_debit: Record<string, never>;
@@ -9212,6 +9228,7 @@ export interface components {
       /** @description (For tokenized numbers only.) The last four digits of the device account number. */
       dynamic_last4?: string | null;
       google_pay?: components["schemas"]["payment_method_card_wallet_google_pay"];
+      link?: components["schemas"]["payment_method_card_wallet_link"];
       masterpass?: components["schemas"]["payment_method_card_wallet_masterpass"];
       samsung_pay?: components["schemas"]["payment_method_card_wallet_samsung_pay"];
       /**
@@ -9227,6 +9244,8 @@ export interface components {
     payment_method_card_wallet_apple_pay: Record<string, never>;
     /** payment_method_card_wallet_google_pay */
     payment_method_card_wallet_google_pay: Record<string, never>;
+    /** payment_method_card_wallet_link */
+    payment_method_card_wallet_link: Record<string, never>;
     /** payment_method_card_wallet_masterpass */
     payment_method_card_wallet_masterpass: {
       /** @description Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
@@ -9564,6 +9583,7 @@ export interface components {
       /** @description (For tokenized numbers only.) The last four digits of the device account number. */
       dynamic_last4?: string | null;
       google_pay?: components["schemas"]["payment_method_details_card_wallet_google_pay"];
+      link?: components["schemas"]["payment_method_details_card_wallet_link"];
       masterpass?: components["schemas"]["payment_method_details_card_wallet_masterpass"];
       samsung_pay?: components["schemas"]["payment_method_details_card_wallet_samsung_pay"];
       /**
@@ -9579,6 +9599,8 @@ export interface components {
     payment_method_details_card_wallet_apple_pay: Record<string, never>;
     /** payment_method_details_card_wallet_google_pay */
     payment_method_details_card_wallet_google_pay: Record<string, never>;
+    /** payment_method_details_card_wallet_link */
+    payment_method_details_card_wallet_link: Record<string, never>;
     /** payment_method_details_card_wallet_masterpass */
     payment_method_details_card_wallet_masterpass: {
       /** @description Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
@@ -10758,7 +10780,7 @@ export interface components {
      * schedules](/docs/connect/manage-payout-schedule), depending on your country and
      * industry.
      * 
-     * Related guide: [Receiving Payouts](https://stripe.com/docs/payouts).
+     * Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
      */
     payout: {
       /** @description Amount (in %s) to be transferred to your bank account or debit card. */
@@ -10855,7 +10877,7 @@ export interface components {
      * A platform cannot access a Standard or Express account's persons after the account starts onboarding, such as after generating an account link for the account.
      * See the [Standard onboarding](https://stripe.com/docs/connect/standard-accounts) or [Express onboarding documentation](https://stripe.com/docs/connect/express-accounts) for information about platform pre-filling and account onboarding steps.
      * 
-     * Related guide: [Handling Identity Verification with the API](https://stripe.com/docs/connect/identity-verification-api#person-information).
+     * Related guide: [Handling identity verification with the API](https://stripe.com/docs/connect/identity-verification-api#person-information)
      */
     person: {
       /** @description The account the person is associated with. */
@@ -11120,11 +11142,15 @@ export interface components {
       after_completion: components["schemas"]["portal_flows_flow_after_completion"];
       /** @description Configuration when `flow.type=subscription_cancel`. */
       subscription_cancel?: components["schemas"]["portal_flows_flow_subscription_cancel"] | null;
+      /** @description Configuration when `flow.type=subscription_update`. */
+      subscription_update?: components["schemas"]["portal_flows_flow_subscription_update"] | null;
+      /** @description Configuration when `flow.type=subscription_update_confirm`. */
+      subscription_update_confirm?: components["schemas"]["portal_flows_flow_subscription_update_confirm"] | null;
       /**
        * @description Type of flow that the customer will go through. 
        * @enum {string}
        */
-      type: "payment_method_update" | "subscription_cancel";
+      type: "payment_method_update" | "subscription_cancel" | "subscription_update" | "subscription_update_confirm";
     };
     /** PortalFlowsFlowAfterCompletion */
     portal_flows_flow_after_completion: {
@@ -11142,6 +11168,36 @@ export interface components {
     portal_flows_flow_subscription_cancel: {
       /** @description The ID of the subscription to be canceled. */
       subscription: string;
+    };
+    /** PortalFlowsFlowSubscriptionUpdate */
+    portal_flows_flow_subscription_update: {
+      /** @description The ID of the subscription to be updated. */
+      subscription: string;
+    };
+    /** PortalFlowsFlowSubscriptionUpdateConfirm */
+    portal_flows_flow_subscription_update_confirm: {
+      /** @description The coupon or promotion code to apply to this subscription update. Currently, only up to one may be specified. */
+      discounts?: (components["schemas"]["portal_flows_subscription_update_confirm_discount"])[] | null;
+      /** @description The [subscription item](https://stripe.com/docs/api/subscription_items) to be updated through this flow. Currently, only up to one may be specified and subscriptions with multiple items are not updatable. */
+      items: (components["schemas"]["portal_flows_subscription_update_confirm_item"])[];
+      /** @description The ID of the subscription to be updated. */
+      subscription: string;
+    };
+    /** PortalFlowsSubscriptionUpdateConfirmDiscount */
+    portal_flows_subscription_update_confirm_discount: {
+      /** @description The ID of the coupon to apply to this subscription update. */
+      coupon?: string | null;
+      /** @description The ID of a promotion code to apply to this subscription update. */
+      promotion_code?: string | null;
+    };
+    /** PortalFlowsSubscriptionUpdateConfirmItem */
+    portal_flows_subscription_update_confirm_item: {
+      /** @description The ID of the [subscription item](https://stripe.com/docs/api/subscriptions/object#subscription_object-items-data-id) to be updated. */
+      id?: string | null;
+      /** @description The price the customer should subscribe to through this flow. The price must also be included in the configuration's [`features.subscription_update.products`](docs/api/customer_portal/configuration#portal_configuration_object-features-subscription_update-products). */
+      price?: string | null;
+      /** @description [Quantity](https://stripe.com/docs/subscriptions/quantities) for this item that the customer should subscribe to through this flow. */
+      quantity?: number;
     };
     /** PortalInvoiceList */
     portal_invoice_list: {
@@ -11656,7 +11712,7 @@ export interface components {
      * @description An early fraud warning indicates that the card issuer has notified us that a
      * charge may be fraudulent.
      * 
-     * Related guide: [Early Fraud Warnings](https://stripe.com/docs/disputes/measuring#early-fraud-warnings).
+     * Related guide: [Early fraud warnings](https://stripe.com/docs/disputes/measuring#early-fraud-warnings)
      */
     "radar.early_fraud_warning": {
       /** @description An EFW is actionable if it has not received a dispute and has not been fully refunded. You may wish to proactively refund a charge that receives an EFW, in order to avoid receiving a dispute later. */
@@ -11686,7 +11742,7 @@ export interface components {
      * RadarListList 
      * @description Value lists allow you to group values together which can then be referenced in rules.
      * 
-     * Related guide: [Default Stripe Lists](https://stripe.com/docs/radar/lists#managing-list-items).
+     * Related guide: [Default Stripe lists](https://stripe.com/docs/radar/lists#managing-list-items)
      */
     "radar.value_list": {
       /** @description The name of the value list for use in rules. */
@@ -11740,7 +11796,7 @@ export interface components {
      * RadarListListItem 
      * @description Value list items allow you to add specific values to a given Radar value list, which can then be used in rules.
      * 
-     * Related guide: [Managing List Items](https://stripe.com/docs/radar/lists#managing-list-items).
+     * Related guide: [Managing list items](https://stripe.com/docs/radar/lists#managing-list-items)
      */
     "radar.value_list_item": {
       /**
@@ -11832,7 +11888,7 @@ export interface components {
      * but not yet refunded. Funds will be refunded to the credit or debit card that
      * was originally charged.
      * 
-     * Related guide: [Refunds](https://stripe.com/docs/refunds).
+     * Related guide: [Refunds](https://stripe.com/docs/refunds)
      */
     refund: {
       /** @description Amount, in %s. */
@@ -12370,7 +12426,7 @@ export interface components {
      * By using SetupIntents, you ensure that your customers experience the minimum set of required friction,
      * even as regulations change over time.
      * 
-     * Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents).
+     * Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents)
      */
     setup_intent: {
       /** @description ID of the Connect application that created the SetupIntent. */
@@ -13234,7 +13290,7 @@ export interface components {
      * Subscription 
      * @description Subscriptions allow you to charge a customer on a recurring basis.
      * 
-     * Related guide: [Creating Subscriptions](https://stripe.com/docs/billing/subscriptions/creating).
+     * Related guide: [Creating subscriptions](https://stripe.com/docs/billing/subscriptions/creating)
      */
     subscription: {
       /** @description ID of the Connect Application that created the subscription. */
@@ -13464,7 +13520,7 @@ export interface components {
      * SubscriptionSchedule 
      * @description A subscription schedule allows you to create and manage the lifecycle of a subscription by predefining expected changes.
      * 
-     * Related guide: [Subscription Schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules).
+     * Related guide: [Subscription schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules)
      */
     subscription_schedule: {
       /** @description ID of the Connect Application that created the schedule. */
@@ -13766,7 +13822,7 @@ export interface components {
      * TaxProductResourceTaxCalculation 
      * @description A Tax Calculation allows you to calculate the tax to collect from your customer.
      * 
-     * Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom).
+     * Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom)
      */
     "tax.calculation": {
       /** @description Total after taxes. */
@@ -13856,7 +13912,7 @@ export interface components {
      * TaxProductResourceTaxTransaction 
      * @description A Tax Transaction records the tax collected from or refunded to your customer.
      * 
-     * Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom#tax-transaction).
+     * Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom#tax-transaction)
      */
     "tax.transaction": {
       /**
@@ -13998,7 +14054,7 @@ export interface components {
      * @description You can add one or multiple tax IDs to a [customer](https://stripe.com/docs/api/customers).
      * A customer's tax IDs are displayed on invoices and credit notes issued for the customer.
      * 
-     * Related guide: [Customer Tax Identification Numbers](https://stripe.com/docs/billing/taxes/tax-ids).
+     * Related guide: [Customer tax identification numbers](https://stripe.com/docs/billing/taxes/tax-ids)
      */
     tax_id: {
       /** @description Two-letter ISO code representing the country of the tax ID. */
@@ -14201,7 +14257,7 @@ export interface components {
      * TaxRate 
      * @description Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
      * 
-     * Related guide: [Tax Rates](https://stripe.com/docs/billing/taxes/tax-rates).
+     * Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
      */
     tax_rate: {
       /** @description Defaults to `true`. When set to `false`, this tax rate cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set. */
@@ -14244,7 +14300,7 @@ export interface components {
        * @description The high-level tax type, such as `vat` or `sales_tax`. 
        * @enum {string|null}
        */
-      tax_type?: "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat" | null;
+      tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat" | null;
     };
     /**
      * TerminalConfigurationConfiguration 
@@ -14270,7 +14326,7 @@ export interface components {
      * TerminalConnectionToken 
      * @description A Connection Token is used by the Stripe Terminal SDK to connect to a reader.
      * 
-     * Related guide: [Fleet Management](https://stripe.com/docs/terminal/fleet/locations).
+     * Related guide: [Fleet management](https://stripe.com/docs/terminal/fleet/locations)
      */
     "terminal.connection_token": {
       /** @description The id of the location that this connection token is scoped to. Note that location scoping only applies to internet-connected readers. For more details, see [the docs on scoping connection tokens](https://stripe.com/docs/terminal/fleet/locations#connection-tokens). */
@@ -14287,7 +14343,7 @@ export interface components {
      * TerminalLocationLocation 
      * @description A Location represents a grouping of readers.
      * 
-     * Related guide: [Fleet Management](https://stripe.com/docs/terminal/fleet/locations).
+     * Related guide: [Fleet management](https://stripe.com/docs/terminal/fleet/locations)
      */
     "terminal.location": {
       address: components["schemas"]["address"];
@@ -14313,7 +14369,7 @@ export interface components {
      * TerminalReaderReader 
      * @description A Reader represents a physical device for accepting payment details.
      * 
-     * Related guide: [Connecting to a Reader](https://stripe.com/docs/terminal/payments/connect-reader).
+     * Related guide: [Connecting to a reader](https://stripe.com/docs/terminal/payments/connect-reader)
      */
     "terminal.reader": {
       /** @description The most recent action performed by the reader. */
@@ -14598,7 +14654,7 @@ export interface components {
      * [Radar](https://stripe.com/docs/radar), our integrated solution for automatic fraud protection,
      * performs best with integrations that use client-side tokenization.
      * 
-     * Related guide: [Accept a payment](https://stripe.com/docs/payments/accept-a-payment-charges#web-create-token)
+     * Related guide: [Accept a payment with Charges and Tokens](https://stripe.com/docs/payments/accept-a-payment-charges#web-create-token)
      */
     token: {
       bank_account?: components["schemas"]["bank_account"];
@@ -14630,7 +14686,7 @@ export interface components {
      * individual top-ups, as well as list all top-ups. Top-ups are identified by a
      * unique, random ID.
      * 
-     * Related guide: [Topping Up your Platform Account](https://stripe.com/docs/connect/top-ups).
+     * Related guide: [Topping up your platform account](https://stripe.com/docs/connect/top-ups)
      */
     topup: {
       /** @description Amount transferred. */
@@ -14688,7 +14744,7 @@ export interface components {
      * information, read about the
      * [transfer/payout split](https://stripe.com/docs/transfer-payout-split).
      * 
-     * Related guide: [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/charges-transfers).
+     * Related guide: [Creating separate charges and transfers](https://stripe.com/docs/connect/charges-transfers)
      */
     transfer: {
       /** @description Amount in %s to be transferred. */
@@ -14774,7 +14830,7 @@ export interface components {
      * transfer only if the destination account has enough balance to cover the
      * reversal.
      * 
-     * Related guide: [Reversing Transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers).
+     * Related guide: [Reversing transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers)
      */
     transfer_reversal: {
       /** @description Amount, in %s. */
@@ -15815,7 +15871,7 @@ export interface components {
      * @description Usage records allow you to report customer usage and metrics to Stripe for
      * metered billing of subscription prices.
      * 
-     * Related guide: [Metered Billing](https://stripe.com/docs/billing/subscriptions/metered-billing).
+     * Related guide: [Metered billing](https://stripe.com/docs/billing/subscriptions/metered-billing)
      */
     usage_record: {
       /** @description Unique identifier for the object. */
@@ -15872,7 +15928,7 @@ export interface components {
      * 
      * Most users configure webhooks from [the dashboard](https://dashboard.stripe.com/webhooks), which provides a user interface for registering and testing your webhook endpoints.
      * 
-     * Related guide: [Setting up Webhooks](https://stripe.com/docs/webhooks/configure).
+     * Related guide: [Setting up webhooks](https://stripe.com/docs/webhooks/configure)
      */
     webhook_endpoint: {
       /** @description The API version events are rendered as for this webhook endpoint. */
@@ -19735,8 +19791,25 @@ export interface operations {
             subscription_cancel?: {
               subscription: string;
             };
+            /** flow_data_subscription_update_param */
+            subscription_update?: {
+              subscription: string;
+            };
+            /** flow_data_subscription_update_confirm_param */
+            subscription_update_confirm?: {
+              discounts?: ({
+                  coupon?: string;
+                  promotion_code?: string;
+                })[];
+              items: ({
+                  id: string;
+                  price?: string;
+                  quantity?: number;
+                })[];
+              subscription: string;
+            };
             /** @enum {string} */
-            type: "payment_method_update" | "subscription_cancel";
+            type: "payment_method_update" | "subscription_cancel" | "subscription_update" | "subscription_update_confirm";
           };
           /**
            * @description The IETF language tag of the locale Customer Portal is displayed in. If blank or auto, the customer’s `preferred_locales` or browser’s locale is used. 
@@ -25773,7 +25846,7 @@ export interface operations {
    * 
    * <p>If your API key is in test mode, verification checks won’t actually process, though everything else will occur as if in live mode.</p>
    * 
-   * <p>Related guide: <a href="/docs/identity/verify-identity-documents">Verify your users’ identity documents</a>.</p>
+   * <p>Related guide: <a href="/docs/identity/verify-identity-documents">Verify your users’ identity documents</a></p>
    */
   PostIdentityVerificationSessions: {
     requestBody: {
@@ -29484,9 +29557,19 @@ export interface operations {
               /** @enum {string} */
               setup_future_usage?: "" | "none" | "off_session";
             }) | "";
-            blik?: {
+            blik?: ({
               code?: string;
-            } | "";
+              /** payment_intent_payment_method_options_mandate_options_param */
+              mandate_options?: {
+                expires_after?: number;
+                /** mandate_options_off_session_details_common_param */
+                off_session?: {
+                  /** @enum {string} */
+                  interval: "day" | "month" | "week" | "year";
+                  interval_count: number;
+                };
+              };
+            }) | "";
             boleto?: ({
               expires_after_days?: number;
               /** @enum {string} */
@@ -30072,9 +30155,19 @@ export interface operations {
               /** @enum {string} */
               setup_future_usage?: "" | "none" | "off_session";
             }) | "";
-            blik?: {
+            blik?: ({
               code?: string;
-            } | "";
+              /** payment_intent_payment_method_options_mandate_options_param */
+              mandate_options?: {
+                expires_after?: number;
+                /** mandate_options_off_session_details_common_param */
+                off_session?: {
+                  /** @enum {string} */
+                  interval: "day" | "month" | "week" | "year";
+                  interval_count: number;
+                };
+              };
+            }) | "";
             boleto?: ({
               expires_after_days?: number;
               /** @enum {string} */
@@ -30726,9 +30819,19 @@ export interface operations {
               /** @enum {string} */
               setup_future_usage?: "" | "none" | "off_session";
             }) | "";
-            blik?: {
+            blik?: ({
               code?: string;
-            } | "";
+              /** payment_intent_payment_method_options_mandate_options_param */
+              mandate_options?: {
+                expires_after?: number;
+                /** mandate_options_off_session_details_common_param */
+                off_session?: {
+                  /** @enum {string} */
+                  interval: "day" | "month" | "week" | "year";
+                  interval_count: number;
+                };
+              };
+            }) | "";
             boleto?: ({
               expires_after_days?: number;
               /** @enum {string} */
@@ -35328,6 +35431,19 @@ export interface operations {
             /** setup_intent_payment_method_options_param */
             blik?: {
               code?: string;
+              /** setup_intent_payment_method_options_mandate_options_param */
+              mandate_options?: {
+                expires_after?: number;
+                /** mandate_options_off_session_details_param */
+                off_session?: {
+                  amount: number;
+                  /** @enum {string} */
+                  currency: "pln";
+                  /** @enum {string} */
+                  interval: "day" | "month" | "week" | "year";
+                  interval_count: number;
+                };
+              };
             };
             /** setup_intent_param */
             card?: {
@@ -35652,6 +35768,19 @@ export interface operations {
             /** setup_intent_payment_method_options_param */
             blik?: {
               code?: string;
+              /** setup_intent_payment_method_options_mandate_options_param */
+              mandate_options?: {
+                expires_after?: number;
+                /** mandate_options_off_session_details_param */
+                off_session?: {
+                  amount: number;
+                  /** @enum {string} */
+                  currency: "pln";
+                  /** @enum {string} */
+                  interval: "day" | "month" | "week" | "year";
+                  interval_count: number;
+                };
+              };
             };
             /** setup_intent_param */
             card?: {
@@ -35981,6 +36110,19 @@ export interface operations {
             /** setup_intent_payment_method_options_param */
             blik?: {
               code?: string;
+              /** setup_intent_payment_method_options_mandate_options_param */
+              mandate_options?: {
+                expires_after?: number;
+                /** mandate_options_off_session_details_param */
+                off_session?: {
+                  amount: number;
+                  /** @enum {string} */
+                  currency: "pln";
+                  /** @enum {string} */
+                  interval: "day" | "month" | "week" | "year";
+                  interval_count: number;
+                };
+              };
             };
             /** setup_intent_param */
             card?: {
@@ -38933,7 +39075,7 @@ export interface operations {
            * @description The high-level tax type, such as `vat` or `sales_tax`. 
            * @enum {string}
            */
-          tax_type?: "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
+          tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
         };
       };
     };
@@ -39015,7 +39157,7 @@ export interface operations {
            * @description The high-level tax type, such as `vat` or `sales_tax`. 
            * @enum {string}
            */
-          tax_type?: "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
+          tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
         };
       };
     };

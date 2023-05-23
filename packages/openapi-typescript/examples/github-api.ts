@@ -22085,7 +22085,6 @@ export interface components {
        *     "key_id": "4A595D4C72EE49C7",
        *     "public_key": "zsBNBFayYZ...",
        *     "emails": [],
-       *     "subkeys": [],
        *     "can_sign": false,
        *     "can_encrypt_comms": true,
        *     "can_encrypt_storage": true,
