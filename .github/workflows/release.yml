@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  changelog:
+    name: Changelog PR or Release
+
+runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 8
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+    - run: pnpm i
+    - run: pnpm run build
+    - name: Create Release Pull Request or Publish
+      id: changesets
+      uses: changesets/action@v1
+      with:
+        version: pnpm run version
+        publish: pnpm exec changeset publish
+        commit: "[ci] release"
+        title: "[ci] release"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # npm token temporarily disabled for debugging
+        # NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

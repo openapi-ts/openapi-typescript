@@ -11,6 +11,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v3
+      - run: pnpm i
+      - run: pnpm run build
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -20,7 +30,7 @@ jobs:
           version: 8
       - uses: actions/setup-node@v3
       - run: pnpm i
-      - run: npm run lint
+      - run: pnpm run lint
   test-node-versions:
     runs-on: ubuntu-latest
     strategy:
@@ -35,7 +45,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: pnpm i
-      - run: npm test
+      - run: pnpm test
   test-macos:
     runs-on: macos-latest
     steps:
@@ -47,4 +57,4 @@ jobs:
         with:
           version: 20
       - run: pnpm i
-      - run: npm test
+      - run: pnpm test
