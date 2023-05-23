@@ -42,8 +42,8 @@
     "test:js": "vitest run",
     "test:ts": "tsc --noEmit",
     "prepare": "openapi-typescript test/v1.yaml -o test/v1.d.ts",
-    "prepublish": "pnpm run prepare && npm run build",
-    "version": "pnpm run prepare && npm run build"
+    "prepublish": "pnpm run prepare && pnpm run build",
+    "version": "pnpm run prepare && pnpm run build"
   },
   "devDependencies": {
     "del-cli": "^5.0.0",
