@@ -141,6 +141,13 @@ export interface paths {
       };
     };
   };
+  "/default-as-error": {
+    get: {
+      responses: {
+        default: components["responses"]["Error"];
+      };
+    };
+  };
   "/anyMethod": {
     get: {
       responses: {

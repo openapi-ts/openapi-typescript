@@ -194,6 +194,18 @@ describe("client", () => {
     });
     expect((await client.get("/self", {})).data).toBe(data);
   });
+
+  it("treats `default` as an error", async () => {
+    const client = createClient<paths>({ headers: { "Cache-Control": "max-age=10000000" } });
+    fetchMocker.mockResponseOnce(() => ({ status: 500, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: 500, message: "An unexpected error occurred" }) }));
+    const { error } = await client.get("/default-as-error", {});
+
+    // discard `data` object
+    if (!error) throw new Error("treats `default` as an error: error response should be present");
+
+    // assert `error.message` doesn’t throw TS error
+    expect(error.message).toBe("An unexpected error occurred");
+  });
 });
 
 describe("get()", () => {

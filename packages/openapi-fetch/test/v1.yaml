@@ -124,6 +124,11 @@ paths:
           $ref: '#/components/responses/CreateTag'
         500:
           $ref: '#/components/responses/Error'
+  /default-as-error:
+    get:
+      responses:
+        default:
+          $ref: '#/components/responses/Error'
   /anyMethod:
     get:
       responses:
