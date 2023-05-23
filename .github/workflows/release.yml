@@ -30,7 +30,6 @@ runs-on: ubuntu-latest
         commit: "[ci] release"
         title: "[ci] release"
       env:
-        # Needs access to push to main
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # Needs access to publish to npm
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        # npm token temporarily disabled for debugging
+        # NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
