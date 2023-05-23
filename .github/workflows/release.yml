@@ -7,7 +7,6 @@ on:
 
 jobs:
   changelog:
-    name: Changelog PR or Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,15 +19,12 @@ jobs:
           node-version: 20
       - run: pnpm i
       - run: pnpm run build
-      - name: Create Release Pull Request or Publish
-        id: changesets
-        uses: changesets/action@v1
+      - uses: changesets/action@v1
         with:
-          version: pnpm exec changeset version
+          version: pnpm run version
           publish: pnpm exec changeset publish
           commit: "[ci] release"
           title: "[ci] release"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # npm token temporarily disabled for debugging
-          # NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -16,7 +16,8 @@
     "lint:openapi-fetch": "cd packages/openapi-fetch && pnpm run lint",
     "test": "run-p -s test:*",
     "test:openapi-typescript": "cd packages/openapi-typescript && pnpm test",
-    "test:openapi-fetch": "cd packages/openapi-fetch && pnpm test"
+    "test:openapi-fetch": "cd packages/openapi-fetch && pnpm test",
+    "version": "pnpm run build && changeset version && pnpm i"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",
