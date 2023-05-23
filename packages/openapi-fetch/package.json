@@ -32,24 +32,24 @@
     "svelte"
   ],
   "scripts": {
-    "build": "npm run build:clean && npm run build:ts && npm run build:ts-min",
+    "build": "pnpm run build:clean && pnpm run build:ts && pnpm run build:ts-min",
     "build:clean": "del dist",
     "build:ts": "tsc -p tsconfig.build.json",
     "build:ts-min": "esbuild --bundle src/index.ts --format=esm --minify --outfile=dist/index.min.js && cp dist/index.d.ts dist/index.min.d.ts",
-    "lint": "npm run lint:js",
-    "lint:js": "npx prettier --check \"{src,test}/**/*\"",
-    "test": "npm run test:ts && npm run test:js",
+    "lint": "pnpm run lint:js",
+    "lint:js": "prettier --check \"{src,test}/**/*\"",
+    "test": "pnpm run test:ts && npm run test:js",
     "test:js": "vitest run",
     "test:ts": "tsc --noEmit",
     "prepare": "openapi-typescript test/v1.yaml -o test/v1.d.ts",
-    "prepublish": "npm run prepare && npm run build",
-    "version": "npm run prepare && npm run build"
+    "prepublish": "pnpm run prepare && npm run build",
+    "version": "pnpm run prepare && npm run build"
   },
   "devDependencies": {
     "del-cli": "^5.0.0",
     "esbuild": "^0.17.19",
     "nanostores": "^0.8.1",
-    "openapi-typescript": "workspace:^",
+    "openapi-typescript": "^6.2.4",
     "prettier": "^2.8.8",
     "typescript": "^5.0.4",
     "vitest": "^0.31.1",
