@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.1.2
+
+### Patch Changes
+
+- [#1139](https://github.com/drwpow/openapi-typescript/pull/1139) [`30c01fa`](https://github.com/drwpow/openapi-typescript/commit/30c01fa3727a9696166a9bf44dd01693cc354a09) Thanks [@drwpow](https://github.com/drwpow)! - Treat `default` response as error
+
 ## 0.2.0
 
 ### Minor Changes
