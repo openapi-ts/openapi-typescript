@@ -10,6 +10,9 @@ importers:
       '@changesets/cli':
         specifier: ^2.26.1
         version: 2.26.1
+      del-cli:
+        specifier: ^5.0.0
+        version: 5.0.0
       eslint:
         specifier: ^8.41.0
         version: 8.41.0(supports-color@9.3.1)
