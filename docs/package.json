@@ -1,6 +1,7 @@
 {
   "name": "openapi-typescript-docs",
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "build": "npm run update-contributors && astro build",
