@@ -134,4 +134,5 @@ All methods return an object with **data**, **error**, and **response**.
 
 - **data** will contain that endpoint’s `2xx` response if the server returned `2xx`; otherwise it will be `undefined`
 - **error** likewise contains that endpoint’s `4xx`/`5xx` response if the server returned either; otherwise it will be `undefined`
+  - _Note: `default` will also be interpreted as `error`, since its intent is handling unexpected HTTP codes_
 - **response** has response info like `status`, `headers`, etc. It is not typechecked.
