@@ -6,14 +6,12 @@ import transformPathItemObject from "./path-item-object.js";
 const OPERATIONS = ["get", "post", "put", "delete", "options", "head", "patch", "trace"];
 
 function extractPathParams(obj?: ReferenceObject | PathItemObject | OperationObject | undefined): Map<string, ParameterObject> {
-  const params = new Map();
-  obj &&
-    "parameters" in obj &&
-    obj.parameters?.forEach((p) => {
-      if ("in" in p && p.in === "path") {
-        params.set(p.name, p);
-      }
-    });
+  const params = new Map<string, ParameterObject>();
+  if (obj && "parameters" in obj) {
+    for (const p of obj.parameters ?? []) {
+      if ("in" in p && p.in === "path") params.set(p.name, p);
+    }
+  }
   return params;
 }
 
