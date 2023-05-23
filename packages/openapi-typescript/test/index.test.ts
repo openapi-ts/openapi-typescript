@@ -719,6 +719,87 @@ export type operations = Record<string, never>;
       });
     });
 
+    describe("pathParamsAsTypes (with nested parameters)", () => {
+      const schema: OpenAPI3 = {
+        openapi: "3.1",
+        info: { title: "Test", version: "1.0" },
+        paths: {
+          "/user/{user_id}": {
+            get: {
+              parameters: [{ name: "user_id", in: "path" }],
+            },
+            put: {
+              parameters: [{ name: "user_id", in: "path" }],
+            }
+          },
+        },
+      };
+
+      test("false", async () => {
+        const generated = await openapiTS(schema, { pathParamsAsTypes: false });
+        expect(generated).toBe(`${BOILERPLATE}
+export interface paths {
+  "/user/{user_id}": {
+    get: {
+      parameters: {
+        path: {
+          user_id: string;
+        };
+      };
+    };
+    put: {
+      parameters: {
+        path: {
+          user_id: string;
+        };
+      };
+    };
+  };
+}
+
+export type webhooks = Record<string, never>;
+
+export type components = Record<string, never>;
+
+export type external = Record<string, never>;
+
+export type operations = Record<string, never>;
+`);
+      });
+
+      test("true", async () => {
+        const generated = await openapiTS(schema, { pathParamsAsTypes: true });
+        expect(generated).toBe(`${BOILERPLATE}
+export interface paths {
+  [path: \`/user/\${string}\`]: {
+    get: {
+      parameters: {
+        path: {
+          user_id: string;
+        };
+      };
+    };
+    put: {
+      parameters: {
+        path: {
+          user_id: string;
+        };
+      };
+    };
+  };
+}
+
+export type webhooks = Record<string, never>;
+
+export type components = Record<string, never>;
+
+export type external = Record<string, never>;
+
+export type operations = Record<string, never>;
+`);
+      });
+    });
+
     describe("transform/postTransform", () => {
       const schema: OpenAPI3 = {
         openapi: "3.1",
