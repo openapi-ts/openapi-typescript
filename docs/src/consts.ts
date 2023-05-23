@@ -1,6 +1,6 @@
 export const SITE = {
   title: "OpenAPI TS",
-  description: "Your website description.",
+  description: "Tools for consuming OpenAPI schemas in TypeScript.",
   defaultLanguage: "en-us",
 } as const;
 
