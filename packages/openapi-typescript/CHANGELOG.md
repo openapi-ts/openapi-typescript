@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.2.5
+
+### Patch Changes
+
+- 7d09c3b: Support nested path parameters in `--path-params-as-types`
+
 ## 6.2.4
 
 ### Patch changes
