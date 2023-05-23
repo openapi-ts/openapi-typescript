@@ -50,6 +50,7 @@
     "test:js": "vitest run",
     "test:ts": "tsc --noEmit",
     "update:examples": "vite-node ./scripts/update-examples.ts",
+    "prepublish": "pnpm run build",
     "version": "pnpm run build"
   },
   "dependencies": {
