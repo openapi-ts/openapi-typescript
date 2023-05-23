@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- 7d09c3b: Support nested path parameters in `--path-params-as-types`
+- 7d09c3b: Support nested path parameters in `--path-params-as-types` (#1130). Thanks, [barakalon](https://github.com/barakalon)!
 
 ## 6.2.4
 
