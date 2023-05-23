@@ -1,7 +1,21 @@
-import type { GlobalContext, PathsObject } from "../types.js";
+import type { GlobalContext, PathsObject, PathItemObject, ParameterObject, ReferenceObject, OperationObject } from "../types.js";
 import { escStr, getEntries, indent } from "../utils.js";
 import transformParameterObject from "./parameter-object.js";
 import transformPathItemObject from "./path-item-object.js";
+
+const OPERATIONS = ["get", "post", "put", "delete", "options", "head", "patch", "trace"];
+
+function extractPathParams(obj?: ReferenceObject | PathItemObject | OperationObject | undefined): Map<string, ParameterObject> {
+  const params = new Map();
+  obj &&
+    "parameters" in obj &&
+    obj.parameters?.forEach((p) => {
+      if ("in" in p && p.in === "path") {
+        params.set(p.name, p);
+      }
+    });
+  return params;
+}
 
 export default function transformPathsObject(pathsObject: PathsObject, ctx: GlobalContext): string {
   let { indentLv } = ctx;
@@ -10,13 +24,13 @@ export default function transformPathsObject(pathsObject: PathsObject, ctx: Glob
   for (const [url, pathItemObject] of getEntries(pathsObject, ctx.alphabetize, ctx.excludeDeprecated)) {
     let path = url;
 
+    const pathParams = new Map([...extractPathParams(pathItemObject), ...OPERATIONS.flatMap((op) => Array.from(extractPathParams(pathItemObject[op as keyof PathItemObject])))]);
+
     // build dynamic string template literal index
-    if (ctx.pathParamsAsTypes && pathItemObject.parameters) {
-      for (const p of pathItemObject.parameters) {
-        if ("in" in p && p.in === "path") {
-          const paramType = transformParameterObject(p, { path: `#/paths/${url}/parameters/${p.name}`, ctx });
-          path = path.replace(`{${p.name}}`, `\${${paramType}}`);
-        }
+    if (ctx.pathParamsAsTypes && pathParams) {
+      for (const p of pathParams.values()) {
+        const paramType = transformParameterObject(p, { path: `#/paths/${url}/parameters/${p.name}`, ctx });
+        path = path.replace(`{${p.name}}`, `\${${paramType}}`);
       }
       path = `[path: \`${path}\`]`;
     } else {
