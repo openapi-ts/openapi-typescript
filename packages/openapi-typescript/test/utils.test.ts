@@ -1,3 +1,4 @@
+import { bench } from "vitest";
 import { parseRef, tsIntersectionOf, tsUnionOf } from "../src/utils.js";
 
 describe("utils", () => {
@@ -48,11 +49,7 @@ describe("utils", () => {
       ["identity for unknown type", ["unknown"], "unknown"],
       ["unknown for no types passed", [], "unknown"],
       ["parentheses around types with union", ["4", `string | number`], "4 & (string | number)"],
-      [
-        "parentheses around types with intersection",
-        ["{ red: string }", "{ blue: string } & { green: string }"],
-        "{ red: string } & ({ blue: string } & { green: string })",
-      ],
+      ["parentheses around types with intersection", ["{ red: string }", "{ blue: string } & { green: string }"], "{ red: string } & ({ blue: string } & { green: string })"],
     ];
 
     tests.forEach(([name, input, output]) => {
@@ -64,19 +61,23 @@ describe("utils", () => {
 
   describe("parseRef", () => {
     it("basic", () => {
-        expect(parseRef("#/test/schema-object")).toStrictEqual({ filename: ".", path: [ "test", "schema-object" ] });
+      expect(parseRef("#/test/schema-object")).toStrictEqual({ filename: ".", path: ["test", "schema-object"] });
     });
 
     it("double quote", () => {
-        expect(parseRef("#/test/\"")).toStrictEqual({ filename: ".", path: [ "test", '\\\"' ] });
+      expect(parseRef('#/test/"')).toStrictEqual({ filename: ".", path: ["test", '\\"'] });
     });
 
     it("escaped double quote", () => {
-        expect(parseRef("#/test/\\\"")).toStrictEqual({ filename: ".", path: [ "test", '\\\"' ] });
+      expect(parseRef('#/test/\\"')).toStrictEqual({ filename: ".", path: ["test", '\\"'] });
     });
 
     it("tilde escapes", () => {
-        expect(parseRef("#/test/~1~0")).toStrictEqual({ filename: ".", path: [ "test", "/~" ] });
+      expect(parseRef("#/test/~1~0")).toStrictEqual({ filename: ".", path: ["test", "/~"] });
+    });
+
+    it("js-yaml $ref", () => {
+      expect(parseRef('components["schemas"]["SchemaObject"]')).toStrictEqual({ filename: ".", path: ["components", "schemas", "SchemaObject"] });
     });
   });
 });
