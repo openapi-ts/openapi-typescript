@@ -1,6 +1,6 @@
 # openapi-fetch
 
-## 0.1.2
+## 0.2.1
 
 ### Patch Changes
 
