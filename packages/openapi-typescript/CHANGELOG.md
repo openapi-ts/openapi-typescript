@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.2.6
+
+### Patch Changes
+
+- [#1146](https://github.com/drwpow/openapi-typescript/pull/1146) [`12aa721`](https://github.com/drwpow/openapi-typescript/commit/12aa7212fbe09efd0fe89dca18713145e8da9c8e) Thanks [@drwpow](https://github.com/drwpow)! - Fix js-yaml $refs
+
 ## 6.2.5
 
 ### Patch Changes
