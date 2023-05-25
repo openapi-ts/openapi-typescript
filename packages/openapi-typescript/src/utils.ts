@@ -106,15 +106,31 @@ export function comment(text: string, indentLv?: number): string {
 /** handle any valid $ref */
 export function parseRef(ref: string): { filename: string; path: string[] } {
   if (typeof ref !== "string") return { filename: ".", path: [] };
-  if (!ref.includes("#")) return { filename: ref, path: [] };
-  const [filename, path] = ref.split("#");
-  return {
-    filename: filename || ".",
-    path: path
-      .split("/") // split by special character
-      .filter((p) => !!p && p !== "properties") // remove empty parts and "properties" (gets flattened by TS)
-      .map(decodeRef), // decode encoded chars
-  };
+
+  // OpenAPI $ref
+  if (ref.includes("#/")) {
+    const [filename, pathStr] = ref.split("#");
+    const parts = pathStr.split("/");
+    const path: string[] = [];
+    for (const part of parts) {
+      if (!part || part === "properties") continue; // remove empty parts and "properties" (gets flattened by TS)
+      path.push(decodeRef(part));
+    }
+    return { filename: filename || ".", path };
+  }
+  // js-yaml $ref
+  else if (ref.includes('["')) {
+    const parts = ref.split('["');
+    const path: string[] = [];
+    for (const part of parts) {
+      const sanitized = part.replace('"]', "").trim();
+      if (!sanitized || sanitized === "properties") continue;
+      path.push(sanitized);
+    }
+    return { filename: ".", path };
+  }
+  // remote $ref
+  return { filename: ref, path: [] };
 }
 
 /** Parse TS index */
