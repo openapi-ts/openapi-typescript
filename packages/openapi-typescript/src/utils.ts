@@ -257,7 +257,7 @@ export function tsUnionOf(...types: (string | number | boolean)[]): string {
 
 /** escape string value */
 export function escStr(input: any): string {
-  if (typeof input !== "string") return input;
+  if (typeof input !== "string") return JSON.stringify(input);
   return `"${input.trim().replace(DOUBLE_QUOTE_RE, '\\"')}"`;
 }
 
