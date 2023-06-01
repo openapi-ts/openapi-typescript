@@ -25,7 +25,7 @@ export default function transformPathsObject(pathsObject: PathsObject, ctx: Glob
     const pathParams = new Map([...extractPathParams(pathItemObject), ...OPERATIONS.flatMap((op) => Array.from(extractPathParams(pathItemObject[op as keyof PathItemObject])))]);
 
     // build dynamic string template literal index
-    if (ctx.pathParamsAsTypes && pathParams) {
+    if (ctx.pathParamsAsTypes && pathParams.size) {
       for (const p of pathParams.values()) {
         const paramType = transformParameterObject(p, { path: `#/paths/${url}/parameters/${p.name}`, ctx });
         path = path.replace(`{${p.name}}`, `\${${paramType}}`);
