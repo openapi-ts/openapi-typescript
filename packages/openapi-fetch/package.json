@@ -9,6 +9,15 @@
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "homepage": "https://openapi-ts.pages.dev",
   "repository": {
     "type": "git",
@@ -32,10 +41,11 @@
     "svelte"
   ],
   "scripts": {
-    "build": "pnpm run build:clean && pnpm run build:ts && pnpm run build:ts-min",
+    "build": "pnpm run build:clean && pnpm run build:ts && pnpm run build:ts-min && pnpm run build:cjs",
     "build:clean": "del dist",
     "build:ts": "tsc -p tsconfig.build.json",
     "build:ts-min": "esbuild --bundle src/index.ts --format=esm --minify --outfile=dist/index.min.js && cp dist/index.d.ts dist/index.min.d.ts",
+    "build:cjs": "esbuild --bundle src/index.ts --format=cjs --outfile=dist/index.cjs",
     "lint": "pnpm run lint:js",
     "lint:js": "prettier --check \"{src,test}/**/*\"",
     "test": "pnpm run test:ts && npm run test:js",
