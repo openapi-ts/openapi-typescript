@@ -255,6 +255,21 @@ describe("Schema Object", () => {
         const generated = transformSchemaObject({ type: "string", const: "duck" }, options);
         expect(generated).toBe(`"duck"`);
       });
+
+      test("number", () => {
+        const generated = transformSchemaObject({ type: "number", const: 42 }, options);
+        expect(generated).toBe("42");
+      });
+
+      test("string, no type specified", () => {
+        const generated = transformSchemaObject({ const: "99" }, options);
+        expect(generated).toBe(`"99"`);
+      });
+
+      test("number, no type specified", () => {
+        const generated = transformSchemaObject({ const: 300 }, options);
+        expect(generated).toBe("300");
+      });
     });
 
     describe("polymorphic", () => {

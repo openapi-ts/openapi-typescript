@@ -41,13 +41,7 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
 
   // const (valid for any type)
   if (schemaObject.const !== null && schemaObject.const !== undefined) {
-    let schemaConst = schemaObject.const as any;
-    if ("type" in schemaObject) {
-      if (schemaObject.type === "string") {
-        schemaConst = escStr(schemaConst);
-      }
-    }
-    return transformSchemaObject(schemaConst, {
+    return transformSchemaObject(escStr(schemaObject.const) as any, {
       path,
       ctx: { ...ctx, immutableTypes: false, indentLv: indentLv + 1 }, // note: guarantee readonly happens once, here
     });
