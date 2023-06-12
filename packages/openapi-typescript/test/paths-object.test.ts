@@ -147,4 +147,76 @@ describe("Paths Object", () => {
   };
 }`);
   });
+  test("empty params", () => {
+    const schema: PathsObject = {
+      "/api/v1/user/me": {
+        parameters: [{ name: "page", in: "query", schema: { type: "number" }, description: "Page number." }],
+        get: {
+          parameters: [],
+          responses: {
+            200: {
+              description: "OK",
+              headers: {
+                Link: {
+                  $ref: 'components["headers"]["link"]',
+                },
+              },
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    properties: {
+                      id: { type: "string" },
+                      email: { type: "string" },
+                      name: { type: "string" },
+                    },
+                    required: ["id", "email"],
+                  },
+                },
+              },
+            },
+            404: {
+              $ref: 'components["responses"]["NotFound"]',
+            },
+          },
+        },
+      },
+    };
+
+    const generated = transformPathsObject(schema, { ...options, pathParamsAsTypes: true });
+    expect(generated).toBe(`{
+  "/api/v1/user/me": {
+    get: {
+      parameters: {
+        query?: {
+          /** @description Page number. */
+          page?: number;
+        };
+      };
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            Link: components["headers"]["link"];
+          };
+          content: {
+            "application/json": {
+              id: string;
+              email: string;
+              name?: string;
+            };
+          };
+        };
+        404: components["responses"]["NotFound"];
+      };
+    };
+    parameters: {
+      query?: {
+        /** @description Page number. */
+        page?: number;
+      };
+    };
+  };
+}`);
+  });
 });
