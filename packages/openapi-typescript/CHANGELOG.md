@@ -1,5 +1,13 @@
 # openapi-typescript
 
+## 6.2.7
+
+### Patch Changes
+
+- [#1149](https://github.com/drwpow/openapi-typescript/pull/1149) [`b82cffb`](https://github.com/drwpow/openapi-typescript/commit/b82cffbc6c3fc0da9a24d9b90b303dcb2dd71c62) Thanks [@duncanbeevers](https://github.com/duncanbeevers)! - Stringify const values with no specified type
+
+- [#1156](https://github.com/drwpow/openapi-typescript/pull/1156) [`ad017a9`](https://github.com/drwpow/openapi-typescript/commit/ad017a9ac2dc5b01726267fca9418b311fe91896) Thanks [@horaklukas](https://github.com/horaklukas)! - Avoid index signature TS error for paths with empty params
+
 ## 6.2.6
 
 ### Patch Changes
