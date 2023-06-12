@@ -1,5 +1,5 @@
 ---
-"openapi-typescript": minor
+"openapi-typescript": patch
 ---
 
 Stringify const values with no specified type
