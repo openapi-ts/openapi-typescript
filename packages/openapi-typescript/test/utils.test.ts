@@ -1,5 +1,5 @@
 import { bench } from "vitest";
-import { parseRef, tsIntersectionOf, tsUnionOf } from "../src/utils.js";
+import { escObjKey, parseRef, tsIntersectionOf, tsUnionOf } from "../src/utils.js";
 
 describe("utils", () => {
   describe("tsUnionOf", () => {
@@ -80,4 +80,30 @@ describe("utils", () => {
       expect(parseRef('components["schemas"]["SchemaObject"]')).toStrictEqual({ filename: ".", path: ["components", "schemas", "SchemaObject"] });
     });
   });
+
+  describe("escObjKey", () => {
+    it("basic", () => {
+      expect(escObjKey("some-prop")).toStrictEqual("\"some-prop\"");
+    });
+
+    it("@ escapes", () => {
+      expect(escObjKey("@type")).toStrictEqual("\"@type\"");
+    });
+
+    it("number escapes", () => {
+      expect(escObjKey("123var")).toStrictEqual("\"123var\"");
+    });
+
+    it("only number no escapes", () => {
+      expect(escObjKey("123")).toStrictEqual("123");
+    });
+
+    it("$ no escapes", () => {
+      expect(escObjKey("$ref")).toStrictEqual("$ref");
+    });
+
+    it("_ no escapes", () => {
+      expect(escObjKey("_ref_")).toStrictEqual("_ref_");
+    })
+  })
 });

@@ -184,7 +184,7 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
         const matchedValue = Object.entries(discriminator.mapping).find(([_, v]) => (!v.startsWith("#") && v === value) || (v.startsWith("#") && parseRef(v).path.pop() === value));
         if (matchedValue) value = matchedValue[0]; // why was this designed backwards!?
       }
-      coreType.unshift(indent(`${discriminator.propertyName}: ${escStr(value)};`, indentLv + 1));
+      coreType.unshift(indent(`${escObjKey(discriminator.propertyName)}: ${escStr(value)};`, indentLv + 1));
       break;
     }
   }
