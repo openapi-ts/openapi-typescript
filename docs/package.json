@@ -26,6 +26,6 @@
     "@astrojs/sitemap": "^1.3.1",
     "@types/node": "^20.2.3",
     "html-escaper": "^3.0.3",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.3"
   }
 }
