@@ -366,6 +366,35 @@ describe("Schema Object", () => {
   string?: string;
 }`);
       });
+
+      test("discriminator escape", () => {
+        const schema: SchemaObject = {
+          type: "object",
+          allOf: [
+            { $ref: 'components["schemas"]["parent"]' },
+            { type: "object", properties: { string: { type: "string" } } },
+          ],
+        };
+        const generated = transformSchemaObject(schema, {
+          path: options.path,
+          ctx: {
+            ...options.ctx,
+            discriminators: {
+              'components["schemas"]["parent"]': {
+                propertyName: "@type",
+                mapping: {
+                  test: options.path,
+                },
+              },
+            },
+          },
+        });
+        expect(generated).toBe(`{
+  "@type": "test";
+} & Omit<components["schemas"]["parent"], "@type"> & {
+  string?: string;
+}`);
+      });
     });
 
     describe("allOf", () => {
