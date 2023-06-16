@@ -85,6 +85,7 @@ const OPENAPI_TS_CONTRIBUTORS = [
     "liangskyli",
     "happycollision",
     "barakalon",
+    "pvanagtmaal",
   ]),
 ];
 
