@@ -1,5 +1,23 @@
 # openapi-fetch
 
+## 0.3.0
+
+### Minor Changes
+
+- [#1169](https://github.com/drwpow/openapi-typescript/pull/1169) [`74bfc0d`](https://github.com/drwpow/openapi-typescript/commit/74bfc0d879747790aed7942e11f4b277b9b0428d) Thanks [@drwpow](https://github.com/drwpow)! - Expose createFinalURL() logic for testing
+
+- [#1169](https://github.com/drwpow/openapi-typescript/pull/1169) [`74bfc0d`](https://github.com/drwpow/openapi-typescript/commit/74bfc0d879747790aed7942e11f4b277b9b0428d) Thanks [@drwpow](https://github.com/drwpow)! - Automatically remove `undefined` and `null` query params without requiring querySerializer
+
+- [#1169](https://github.com/drwpow/openapi-typescript/pull/1169) [`74bfc0d`](https://github.com/drwpow/openapi-typescript/commit/74bfc0d879747790aed7942e11f4b277b9b0428d) Thanks [@drwpow](https://github.com/drwpow)! - Allow overriding of JSON body parsing
+
+### Patch Changes
+
+- [#1169](https://github.com/drwpow/openapi-typescript/pull/1169) [`74bfc0d`](https://github.com/drwpow/openapi-typescript/commit/74bfc0d879747790aed7942e11f4b277b9b0428d) Thanks [@drwpow](https://github.com/drwpow)! - Clone response internally
+
+- [#1169](https://github.com/drwpow/openapi-typescript/pull/1169) [`74bfc0d`](https://github.com/drwpow/openapi-typescript/commit/74bfc0d879747790aed7942e11f4b277b9b0428d) Thanks [@drwpow](https://github.com/drwpow)! - Strip trailing slashes from baseUrl
+
+- [#1169](https://github.com/drwpow/openapi-typescript/pull/1169) [`74bfc0d`](https://github.com/drwpow/openapi-typescript/commit/74bfc0d879747790aed7942e11f4b277b9b0428d) Thanks [@drwpow](https://github.com/drwpow)! - Fix querySerializer typing
+
 ## 0.2.1
 
 ### Patch Changes

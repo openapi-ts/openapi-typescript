@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.2.8
+
+### Patch Changes
+
+- [#1166](https://github.com/drwpow/openapi-typescript/pull/1166) [`db37f3c`](https://github.com/drwpow/openapi-typescript/commit/db37f3ca2993a3d7e7cf580273452c21a68c503d) Thanks [@pvanagtmaal](https://github.com/pvanagtmaal)! - Fix property escaping for discriminators
+
 ## 6.2.7
 
 ### Patch Changes
