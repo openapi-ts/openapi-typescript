@@ -10,6 +10,7 @@ module.exports = {
     "@typescript-eslint/consistent-indexed-object-style": "off", // sometimes naming keys is more user-friendly
     "@typescript-eslint/no-dynamic-delete": "off", // delete is OK
     "@typescript-eslint/no-unnecessary-condition": "off", // this gives bad advice
+    "no-console": "error",
     "no-unused-vars": "off",
   },
   overrides: [
