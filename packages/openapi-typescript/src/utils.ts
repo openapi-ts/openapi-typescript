@@ -285,7 +285,7 @@ export function getEntries<T>(obj: ArrayLike<T> | Record<string, T>, alphabetize
 
 /** print error message */
 export function error(msg: string) {
-  console.error(c.red(` ✘  ${msg}`));
+  console.error(c.red(` ✘  ${msg}`)); // eslint-disable-line no-console
 }
 
 /** is the given string a remote URL */

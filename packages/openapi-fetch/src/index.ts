@@ -1,7 +1,8 @@
-// settings
+// settings & const
 const DEFAULT_HEADERS = {
   "Content-Type": "application/json",
 };
+const TRAILING_SLASH_RE = /\/*$/;
 
 /** options for each client instance */
 interface ClientOptions extends RequestInit {
@@ -17,6 +18,7 @@ export interface BaseParams {
 // const
 
 export type PathItemObject = { [M in HttpMethod]: OperationObject } & { parameters?: any };
+export type ParseAs = "json" | "text" | "blob" | "arrayBuffer" | "stream";
 export interface OperationObject {
   parameters: any;
   requestBody: any; // note: "any" will get overridden in inference
@@ -43,8 +45,8 @@ export type RequestBodyObj<O> = O extends { requestBody?: any } ? O["requestBody
 export type RequestBodyContent<O> = undefined extends RequestBodyObj<O> ? FilterKeys<NonNullable<RequestBodyObj<O>>, "content"> | undefined : FilterKeys<RequestBodyObj<O>, "content">;
 export type RequestBodyJSON<O> = FilterKeys<RequestBodyContent<O>, JSONLike> extends never ? FilterKeys<NonNullable<RequestBodyContent<O>>, JSONLike> | undefined : FilterKeys<RequestBodyContent<O>, JSONLike>;
 export type RequestBody<O> = undefined extends RequestBodyJSON<O> ? { body?: RequestBodyJSON<O> } : { body: RequestBodyJSON<O> };
-export type QuerySerializer<O> = (query: O extends { parameters: { query: any } } ? O["parameters"]["query"] : Record<string, unknown>) => string;
-export type RequestOptions<T> = Params<T> & RequestBody<T> & { querySerializer?: QuerySerializer<T> };
+export type QuerySerializer<O> = (query: O extends { parameters: any } ? NonNullable<O["parameters"]["query"]> : Record<string, unknown>) => string;
+export type RequestOptions<T> = Params<T> & RequestBody<T> & { querySerializer?: QuerySerializer<T>; parseAs?: ParseAs };
 export type Success<O> = FilterKeys<FilterKeys<O, OkStatus>, "content">;
 export type Error<O> = FilterKeys<FilterKeys<O, ErrorStatus>, "content">;
 
@@ -53,6 +55,31 @@ export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body">;
 export type FetchResponse<T> =
   | { data: T extends { responses: any } ? NonNullable<FilterKeys<Success<T["responses"]>, JSONLike>> : unknown; error?: never; response: Response }
   | { data?: never; error: T extends { responses: any } ? NonNullable<FilterKeys<Error<T["responses"]>, JSONLike>> : unknown; response: Response };
+
+/** Call URLSearchParams() on the object, but remove `undefined` and `null` params */
+export function defaultSerializer(q: unknown): string {
+  const search = new URLSearchParams();
+  if (q && typeof q === "object") {
+    for (const [k, v] of Object.entries(q)) {
+      if (v === undefined || v === null) continue;
+      search.set(k, String(v));
+    }
+  }
+  return search.toString();
+}
+
+/** Construct URL string from baseUrl and handle path and query params */
+export function createFinalURL<O>(url: string, options: { baseUrl?: string; params: { query?: Record<string, unknown>; path?: Record<string, unknown> }; querySerializer: QuerySerializer<O> }): string {
+  let finalURL = `${options.baseUrl ? options.baseUrl.replace(TRAILING_SLASH_RE, "") : ""}${url as string}`;
+  if (options.params.path) {
+    for (const [k, v] of Object.entries(options.params.path)) finalURL = finalURL.replace(`{${k}}`, encodeURIComponent(String(v)));
+  }
+  if (options.params.query) {
+    const search = options.querySerializer(options.params.query as any);
+    if (search) finalURL += `?${search}`;
+  }
+  return finalURL;
+}
 
 export default function createClient<Paths extends {}>(clientOptions: ClientOptions = {}) {
   const { fetch = globalThis.fetch, ...options } = clientOptions;
@@ -63,16 +90,10 @@ export default function createClient<Paths extends {}>(clientOptions: ClientOpti
   });
 
   async function coreFetch<P extends keyof Paths, M extends HttpMethod>(url: P, fetchOptions: FetchOptions<M extends keyof Paths[P] ? Paths[P][M] : never>): Promise<FetchResponse<M extends keyof Paths[P] ? Paths[P][M] : unknown>> {
-    const { headers, body: requestBody, params = {}, querySerializer = (q: QuerySerializer<M extends keyof Paths[P] ? Paths[P][M] : never>) => new URLSearchParams(q as any).toString(), ...init } = fetchOptions || {};
+    const { headers, body: requestBody, params = {}, parseAs = "json", querySerializer = defaultSerializer, ...init } = fetchOptions || {};
 
     // URL
-    let finalURL = `${options.baseUrl ?? ""}${url as string}`;
-    if ((params as any).path) {
-      for (const [k, v] of Object.entries((params as any).path)) finalURL = finalURL.replace(`{${k}}`, encodeURIComponent(String(v)));
-    }
-    if ((params as any).query && Object.keys((params as any).query).length) {
-      finalURL += `?${querySerializer((params as any).query)}`;
-    }
+    const finalURL = createFinalURL(url as string, { baseUrl: options.baseUrl, params, querySerializer });
 
     // headers
     const baseHeaders = new Headers(defaultHeaders); // clone defaults (don’t overwrite!)
@@ -91,9 +112,33 @@ export default function createClient<Paths extends {}>(clientOptions: ClientOpti
       body: typeof requestBody === "string" ? requestBody : JSON.stringify(requestBody),
     });
 
-    // don’t parse JSON if status is 204, or Content-Length is '0'
-    const body = response.status === 204 || response.headers.get("Content-Length") === "0" ? {} : await response.json();
-    return response.ok ? { data: body, response } : { error: body, response: response };
+    // handle empty content
+    // note: we return `{}` because we want user truthy checks for `.data` or `.error` to succeed
+    if (response.status === 204 || response.headers.get("Content-Length") === "0") {
+      return response.ok ? { data: {} as any, response } : { error: {} as any, response };
+    }
+
+    // parse response (falling back to .text() when necessary)
+    if (response.ok) {
+      let data: any = response.body;
+      if (parseAs !== "stream") {
+        try {
+          data = await response.clone()[parseAs]();
+        } catch {
+          data = await response.clone().text();
+        }
+      }
+      return { data, response };
+    }
+
+    // handle errors (always parse as .json() or .text())
+    let error: any = {};
+    try {
+      error = await response.clone().json();
+    } catch {
+      error = await response.clone().text();
+    }
+    return { error, response };
   }
 
   return {
