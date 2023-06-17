@@ -543,16 +543,16 @@ export interface paths {
   "/v2/registry/{registry_name}/repositoriesV2": {
     get: external["resources/registry/registry_list_repositoriesV2.yml"]
   };
-  "/v2/registry/{registry_name}/{repository_name}/tags": {
+  "/v2/registry/{registry_name}/repositories/{repository_name}/tags": {
     get: external["resources/registry/registry_list_repositoryTags.yml"]
   };
-  "/v2/registry/{registry_name}/{repository_name}/tags/{repository_tag}": {
+  "/v2/registry/{registry_name}/repositories/{repository_name}/tags/{repository_tag}": {
     delete: external["resources/registry/registry_delete_repositoryTag.yml"]
   };
-  "/v2/registry/{registry_name}/{repository_name}/digests": {
+  "/v2/registry/{registry_name}/repositories/{repository_name}/digests": {
     get: external["resources/registry/registry_list_repositoryManifests.yml"]
   };
-  "/v2/registry/{registry_name}/{repository_name}/digests/{manifest_digest}": {
+  "/v2/registry/{registry_name}/repositories/{repository_name}/digests/{manifest_digest}": {
     delete: external["resources/registry/registry_delete_repositoryManifest.yml"]
   };
   "/v2/registry/{registry_name}/garbage-collection": {
@@ -4120,7 +4120,15 @@ export interface external {
     };
     requestBody: {
       content: {
-        "application/json": external["resources/databases/models/database_user.yml"];
+        "application/json": external["resources/databases/models/database_user.yml"] & {
+          /**
+           * @description For MongoDB clusters, set to `true` to create a read-only user.
+           * This option is not currently supported for other database engines.
+           *  
+           * @example true
+           */
+          readonly?: boolean;
+        };
       };
     };
     responses: {
@@ -14794,7 +14802,7 @@ export interface external {
      */
     description?: string;
     /**
-     * @description The size of the block storage volume in GiB (1024^3). 
+     * @description The size of the block storage volume in GiB (1024^3). This field does not apply  when creating a volume from a snapshot. 
      * @example 10
      */
     size_gigabytes?: number;

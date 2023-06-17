@@ -1338,19 +1338,19 @@ paths:
     get:
       $ref: 'resources/registry/registry_list_repositoriesV2.yml'
 
-  /v2/registry/{registry_name}/{repository_name}/tags:
+  /v2/registry/{registry_name}/repositories/{repository_name}/tags:
     get:
       $ref: 'resources/registry/registry_list_repositoryTags.yml'
 
-  /v2/registry/{registry_name}/{repository_name}/tags/{repository_tag}:
+  /v2/registry/{registry_name}/repositories/{repository_name}/tags/{repository_tag}:
     delete:
       $ref: 'resources/registry/registry_delete_repositoryTag.yml'
 
-  /v2/registry/{registry_name}/{repository_name}/digests:
+  /v2/registry/{registry_name}/repositories/{repository_name}/digests:
     get:
       $ref: 'resources/registry/registry_list_repositoryManifests.yml'
 
-  /v2/registry/{registry_name}/{repository_name}/digests/{manifest_digest}:
+  /v2/registry/{registry_name}/repositories/{repository_name}/digests/{manifest_digest}:
     delete:
       $ref: 'resources/registry/registry_delete_repositoryManifest.yml'
 

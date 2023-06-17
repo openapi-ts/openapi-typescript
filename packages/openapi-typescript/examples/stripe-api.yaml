@@ -618,6 +618,15 @@ components:
             - inactive
             - pending
           type: string
+        zip_payments:
+          description: >-
+            The status of the Zip capability of the account, or whether the
+            account can directly process Zip charges.
+          enum:
+            - active
+            - inactive
+            - pending
+          type: string
       title: AccountCapabilities
       type: object
       x-expandableFields: []
@@ -2842,7 +2851,7 @@ components:
             The account for which the session was created on behalf of. When
             specified, only subscriptions and invoices with this `on_behalf_of`
             account appear in the portal. For more information, see the
-            [docs](https://stripe.com/docs/connect/charges-transfers#on-behalf-of).
+            [docs](https://stripe.com/docs/connect/separate-charges-and-transfers#on-behalf-of).
             Use the [Accounts
             API](https://stripe.com/docs/api/accounts/object#account_object-settings-branding)
             to modify the `on_behalf_of` account's branding settings, which the
@@ -3304,17 +3313,17 @@ components:
       x-resourceId: cash_balance
     charge:
       description: >-
-        To charge a credit or a debit card, you create a `Charge` object. You
-        can
+        The `Charge` object represents a single attempt to move money into your
+        Stripe account.
 
-        retrieve and refund individual charges as well as list all charges.
-        Charges
+        PaymentIntent confirmation is the most common way to create Charges, but
+        transferring
 
-        are identified by a unique, random ID.
+        money to a different Stripe account through Connect also creates
+        Charges.
 
-
-        Related guide: [Accept a payment with the Charges
-        API](https://stripe.com/docs/payments/accept-a-payment-charges)
+        Some legacy payment flows create Charges directly, which is not
+        recommended for new integrations.
       properties:
         amount:
           description: >-
@@ -3506,7 +3515,7 @@ components:
           description: >-
             The account (if any) the charge was made on behalf of without
             triggering an automatic transfer. See the [Connect
-            documentation](https://stripe.com/docs/connect/charges-transfers)
+            documentation](https://stripe.com/docs/connect/separate-charges-and-transfers)
             for details.
           nullable: true
           x-expansionResources:
@@ -3691,7 +3700,7 @@ components:
           description: >-
             A string that identifies this transaction as part of a group. See
             the [Connect
-            documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options)
+            documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options)
             for details.
           maxLength: 5000
           nullable: true
@@ -4320,6 +4329,7 @@ components:
             The URL the customer will be directed to after the payment or
             subscription creation is successful.
           maxLength: 5000
+          nullable: true
           type: string
         tax_id_collection:
           $ref: >-
@@ -4355,7 +4365,6 @@ components:
         - payment_method_types
         - payment_status
         - shipping_options
-        - success_url
       title: Session
       type: object
       x-expandableFields:
@@ -4791,10 +4800,12 @@ components:
             Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
           items:
             enum:
+              - aba
               - iban
               - sepa
               - sort_code
               - spei
+              - swift
               - zengin
             type: string
             x-stripeBypassValidation: true
@@ -4803,12 +4814,14 @@ components:
           description: >-
             The bank transfer type that this PaymentIntent is allowed to use for
             funding Permitted values include: `eu_bank_transfer`,
-            `gb_bank_transfer`, `jp_bank_transfer`, or `mx_bank_transfer`.
+            `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or
+            `us_bank_transfer`.
           enum:
             - eu_bank_transfer
             - gb_bank_transfer
             - jp_bank_transfer
             - mx_bank_transfer
+            - us_bank_transfer
           nullable: true
           type: string
           x-stripeBypassValidation: true
@@ -6629,14 +6642,18 @@ components:
           description: >-
             The funding method type used to fund the customer balance. Permitted
             values include: `eu_bank_transfer`, `gb_bank_transfer`,
-            `jp_bank_transfer`, or `mx_bank_transfer`.
+            `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
           enum:
             - eu_bank_transfer
             - gb_bank_transfer
             - jp_bank_transfer
             - mx_bank_transfer
+            - us_bank_transfer
           type: string
           x-stripeBypassValidation: true
+        us_bank_transfer:
+          $ref: >-
+            #/components/schemas/customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_us_bank_transfer
       required:
         - type
       title: >-
@@ -6646,6 +6663,7 @@ components:
         - eu_bank_transfer
         - gb_bank_transfer
         - jp_bank_transfer
+        - us_bank_transfer
     customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_eu_bank_transfer:
       description: ''
       properties:
@@ -6712,6 +6730,25 @@ components:
           type: string
       title: >-
         CustomerBalanceResourceCashBalanceTransactionResourceFundedTransactionResourceBankTransferResourceJpBankTransfer
+      type: object
+      x-expandableFields: []
+    customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_us_bank_transfer:
+      description: ''
+      properties:
+        network:
+          description: The banking network used for this funding.
+          enum:
+            - ach
+            - domestic_wire_us
+            - swift
+          type: string
+        sender_name:
+          description: 'The full name of the sender, as supplied by the sending bank.'
+          maxLength: 5000
+          nullable: true
+          type: string
+      title: >-
+        CustomerBalanceResourceCashBalanceTransactionResourceFundedTransactionResourceBankTransferResourceUsBankTransfer
       type: object
       x-expandableFields: []
     customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction:
@@ -10529,7 +10566,7 @@ components:
         that finalizing the invoice,
 
         [when
-        automatic](https://stripe.com/docs/billing/invoices/workflow/#auto_advance),
+        automatic](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection),
         does
 
         not happen immediately as the invoice is created. Stripe waits
@@ -10660,9 +10697,9 @@ components:
           type: boolean
         auto_advance:
           description: >-
-            Controls whether Stripe will perform [automatic
-            collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance)
-            of the invoice. When `false`, the invoice's state will not
+            Controls whether Stripe performs [automatic
+            collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection)
+            of the invoice. If `false`, the invoice's state doesn't
             automatically advance without an explicit action.
           type: boolean
         automatic_tax:
@@ -11476,7 +11513,7 @@ components:
           description: >-
             The bank transfer type that can be used for funding. Permitted
             values include: `eu_bank_transfer`, `gb_bank_transfer`,
-            `jp_bank_transfer`, or `mx_bank_transfer`.
+            `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
           nullable: true
           type: string
       title: invoice_payment_method_options_customer_balance_bank_transfer
@@ -11994,39 +12031,6 @@ components:
       type: object
       x-expandableFields:
         - invoice
-    invoices_line_items_credited_items:
-      description: ''
-      properties:
-        invoice:
-          description: Invoice containing the credited invoice line items
-          maxLength: 5000
-          type: string
-        invoice_line_items:
-          description: Credited invoice line items
-          items:
-            maxLength: 5000
-            type: string
-          type: array
-      required:
-        - invoice
-        - invoice_line_items
-      title: InvoicesLineItemsCreditedItems
-      type: object
-      x-expandableFields: []
-    invoices_line_items_proration_details:
-      description: ''
-      properties:
-        credited_items:
-          anyOf:
-            - $ref: '#/components/schemas/invoices_line_items_credited_items'
-          description: >-
-            For a credit proration `line_item`, the original debit line_items to
-            which the credit proration applies.
-          nullable: true
-      title: InvoicesLineItemsProrationDetails
-      type: object
-      x-expandableFields:
-        - credited_items
     invoices_payment_method_options:
       description: ''
       properties:
@@ -12225,6 +12229,39 @@ components:
       title: InvoicesResourceInvoiceTaxID
       type: object
       x-expandableFields: []
+    invoices_resource_line_items_credited_items:
+      description: ''
+      properties:
+        invoice:
+          description: Invoice containing the credited invoice line items
+          maxLength: 5000
+          type: string
+        invoice_line_items:
+          description: Credited invoice line items
+          items:
+            maxLength: 5000
+            type: string
+          type: array
+      required:
+        - invoice
+        - invoice_line_items
+      title: InvoicesResourceLineItemsCreditedItems
+      type: object
+      x-expandableFields: []
+    invoices_resource_line_items_proration_details:
+      description: ''
+      properties:
+        credited_items:
+          anyOf:
+            - $ref: '#/components/schemas/invoices_resource_line_items_credited_items'
+          description: >-
+            For a credit proration `line_item`, the original debit line_items to
+            which the credit proration applies.
+          nullable: true
+      title: InvoicesResourceLineItemsProrationDetails
+      type: object
+      x-expandableFields:
+        - credited_items
     invoices_shipping_cost:
       description: ''
       properties:
@@ -12746,6 +12783,21 @@ components:
           maxLength: 5000
           nullable: true
           type: string
+        preferred_locales:
+          description: >-
+            The cardholder’s preferred locales (languages), ordered by
+            preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
+             This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder.
+          items:
+            enum:
+              - de
+              - en
+              - es
+              - fr
+              - it
+            type: string
+          nullable: true
+          type: array
         requirements:
           $ref: '#/components/schemas/issuing_cardholder_requirements'
         spending_controls:
@@ -14278,8 +14330,9 @@ components:
         eori_number:
           description: >-
             A registration number used for customs in Europe. See
-            https://www.gov.uk/eori and
-            https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en.
+            [https://www.gov.uk/eori](https://www.gov.uk/eori) for the UK and
+            [https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en](https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en)
+            for the EU.
           maxLength: 5000
           nullable: true
           type: string
@@ -16978,7 +17031,8 @@ components:
           type: boolean
         proration_details:
           anyOf:
-            - $ref: '#/components/schemas/invoices_line_items_proration_details'
+            - $ref: >-
+                #/components/schemas/invoices_resource_line_items_proration_details
           description: Additional details for proration line items
           nullable: true
         quantity:
@@ -17144,7 +17198,9 @@ components:
       type: object
       x-expandableFields: []
     login_link:
-      description: ''
+      description: >-
+        Login Links are single-use login link for an Express account to access
+        their Stripe dashboard.
       properties:
         created:
           description: >-
@@ -17530,8 +17586,12 @@ components:
           type: object
         previous_attributes:
           description: >-
-            Object containing the names of the attributes that have changed, and
-            their previous values (sent along only with *.updated events).
+            Object containing the names of the updated attributes and their
+            values prior to the event (only included in events of type
+            `*.updated`). If an array attribute has any updated elements, this
+            object contains the entire array. In Stripe API versions 2017-04-06
+            or earlier, an updated array attribute in this object includes only
+            the updated array elements.
           type: object
       required:
         - object
@@ -18546,6 +18606,7 @@ components:
             - gb_bank_transfer
             - jp_bank_transfer
             - mx_bank_transfer
+            - us_bank_transfer
           type: string
           x-stripeBypassValidation: true
       required:
@@ -19094,6 +19155,11 @@ components:
             - $ref: '#/components/schemas/payment_method_options_wechat_pay'
             - $ref: >-
                 #/components/schemas/payment_intent_type_specific_payment_method_options_client
+        zip:
+          anyOf:
+            - $ref: '#/components/schemas/payment_method_options_zip'
+            - $ref: >-
+                #/components/schemas/payment_intent_type_specific_payment_method_options_client
       title: PaymentIntentPaymentMethodOptions
       type: object
       x-expandableFields:
@@ -19129,6 +19195,7 @@ components:
         - sofort
         - us_bank_account
         - wechat_pay
+        - zip
     payment_intent_payment_method_options_acss_debit:
       description: ''
       properties:
@@ -20734,12 +20801,15 @@ components:
             - sofort
             - us_bank_account
             - wechat_pay
+            - zip
           type: string
           x-stripeBypassValidation: true
         us_bank_account:
           $ref: '#/components/schemas/payment_method_us_bank_account'
         wechat_pay:
           $ref: '#/components/schemas/payment_method_wechat_pay'
+        zip:
+          $ref: '#/components/schemas/payment_method_zip'
       required:
         - billing_details
         - created
@@ -20785,6 +20855,7 @@ components:
         - sofort
         - us_bank_account
         - wechat_pay
+        - zip
       x-resourceId: payment_method
     payment_method_acss_debit:
       description: ''
@@ -21442,6 +21513,8 @@ components:
           $ref: '#/components/schemas/payment_method_details_wechat'
         wechat_pay:
           $ref: '#/components/schemas/payment_method_details_wechat_pay'
+        zip:
+          $ref: '#/components/schemas/payment_method_details_zip'
       required:
         - type
       title: payment_method_details
@@ -21484,6 +21557,7 @@ components:
         - us_bank_account
         - wechat
         - wechat_pay
+        - zip
     payment_method_details_ach_credit_transfer:
       description: ''
       properties:
@@ -23197,6 +23271,12 @@ components:
       title: payment_method_details_wechat_pay
       type: object
       x-expandableFields: []
+    payment_method_details_zip:
+      description: ''
+      properties: {}
+      title: payment_method_details_zip
+      type: object
+      x-expandableFields: []
     payment_method_eps:
       description: ''
       properties:
@@ -23932,10 +24012,12 @@ components:
             Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
           items:
             enum:
+              - aba
               - iban
               - sepa
               - sort_code
               - spei
+              - swift
               - zengin
             type: string
             x-stripeBypassValidation: true
@@ -23944,12 +24026,14 @@ components:
           description: >-
             The bank transfer type that this PaymentIntent is allowed to use for
             funding Permitted values include: `eu_bank_transfer`,
-            `gb_bank_transfer`, `jp_bank_transfer`, or `mx_bank_transfer`.
+            `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or
+            `us_bank_transfer`.
           enum:
             - eu_bank_transfer
             - gb_bank_transfer
             - jp_bank_transfer
             - mx_bank_transfer
+            - us_bank_transfer
           nullable: true
           type: string
           x-stripeBypassValidation: true
@@ -24493,6 +24577,34 @@ components:
       title: payment_method_options_wechat_pay
       type: object
       x-expandableFields: []
+    payment_method_options_zip:
+      description: ''
+      properties:
+        setup_future_usage:
+          description: >-
+            Indicates that you intend to make future payments with this
+            PaymentIntent's payment method.
+
+
+            Providing this parameter will [attach the payment
+            method](https://stripe.com/docs/payments/save-during-payment) to the
+            PaymentIntent's Customer, if present, after the PaymentIntent is
+            confirmed and any required actions from the user are complete. If no
+            Customer was provided, the payment method can still be
+            [attached](https://stripe.com/docs/api/payment_methods/attach) to a
+            Customer after the transaction completes.
+
+
+            When processing card payments, Stripe also uses `setup_future_usage`
+            to dynamically optimize your payment flow and comply with regional
+            legislation and network rules, such as
+            [SCA](https://stripe.com/docs/strong-customer-authentication).
+          enum:
+            - none
+          type: string
+      title: payment_method_options_zip
+      type: object
+      x-expandableFields: []
     payment_method_oxxo:
       description: ''
       properties: {}
@@ -24545,6 +24657,15 @@ components:
     payment_method_paypal:
       description: ''
       properties:
+        payer_email:
+          description: >-
+            Owner's email. Values are provided by PayPal directly
+
+            (if supported) at the time of authorization or settlement. They
+            cannot be set or mutated.
+          maxLength: 5000
+          nullable: true
+          type: string
         payer_id:
           description: >-
             PayPal account PayerID. This identifier uniquely identifies the
@@ -24734,6 +24855,12 @@ components:
       description: ''
       properties: {}
       title: payment_method_wechat_pay
+      type: object
+      x-expandableFields: []
+    payment_method_zip:
+      description: ''
+      properties: {}
+      title: payment_method_zip
       type: object
       x-expandableFields: []
     payment_pages_checkout_session_after_expiration:
@@ -24997,6 +25124,14 @@ components:
     payment_pages_checkout_session_custom_fields_numeric:
       description: ''
       properties:
+        maximum_length:
+          description: The maximum character length constraint for the customer's input.
+          nullable: true
+          type: integer
+        minimum_length:
+          description: The minimum character length requirement for the customer's input.
+          nullable: true
+          type: integer
         value:
           description: 'The value entered by the customer, containing only digits.'
           maxLength: 5000
@@ -25031,6 +25166,14 @@ components:
     payment_pages_checkout_session_custom_fields_text:
       description: ''
       properties:
+        maximum_length:
+          description: The maximum character length constraint for the customer's input.
+          nullable: true
+          type: integer
+        minimum_length:
+          description: The minimum character length requirement for the customer's input.
+          nullable: true
+          type: integer
         value:
           description: The value entered by the customer.
           maxLength: 5000
@@ -33860,7 +34003,7 @@ components:
             url:
               description: The URL where this list can be accessed.
               maxLength: 5000
-              pattern: '^/v1/tax/calculations/:id/line_items'
+              pattern: '^/v1/tax/calculations/[^/]+/line_items'
               type: string
           required:
             - data
@@ -34062,7 +34205,7 @@ components:
             url:
               description: The URL where this list can be accessed.
               maxLength: 5000
-              pattern: '^/v1/tax/transactions/:id/line_items'
+              pattern: '^/v1/tax/transactions/[^/]+/line_items'
               type: string
           required:
             - data
@@ -34780,6 +34923,28 @@ components:
           type: boolean
         tax_rate_details:
           $ref: '#/components/schemas/tax_product_resource_tax_rate_details'
+        taxability_reason:
+          description: >-
+            The reasoning behind this tax, for example, if the product is tax
+            exempt. We might extend the possible values for this field to
+            support new tax rules.
+          enum:
+            - customer_exempt
+            - not_collecting
+            - not_subject_to_tax
+            - not_supported
+            - portion_product_exempt
+            - portion_reduced_rated
+            - portion_standard_rated
+            - product_exempt
+            - product_exempt_holiday
+            - proportionally_rated
+            - reduced_rated
+            - reverse_charge
+            - standard_rated
+            - taxable_basis_reduced
+            - zero_rated
+          type: string
         taxable_amount:
           description: 'The amount on which tax is calculated, in integer cents.'
           type: integer
@@ -34787,6 +34952,7 @@ components:
         - amount
         - inclusive
         - tax_rate_details
+        - taxability_reason
         - taxable_amount
       title: TaxProductResourceTaxBreakdown
       type: object
@@ -35860,10 +36026,6 @@ components:
         automatic fraud protection,
 
         performs best with integrations that use client-side tokenization.
-
-
-        Related guide: [Accept a payment with Charges and
-        Tokens](https://stripe.com/docs/payments/accept-a-payment-charges#web-create-token)
       properties:
         bank_account:
           $ref: '#/components/schemas/bank_account'
@@ -36086,7 +36248,7 @@ components:
 
 
         Related guide: [Creating separate charges and
-        transfers](https://stripe.com/docs/connect/charges-transfers)
+        transfers](https://stripe.com/docs/connect/separate-charges-and-transfers)
       properties:
         amount:
           description: Amount in %s to be transferred.
@@ -36232,7 +36394,7 @@ components:
           description: >-
             A string that identifies this transaction as part of a group. See
             the [Connect
-            documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options)
+            documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options)
             for details.
           maxLength: 5000
           nullable: true
@@ -36312,7 +36474,7 @@ components:
 
         the charge. It is possible to reverse a
 
-        [transfer_group](https://stripe.com/docs/connect/charges-transfers#transfer-options)
+        [transfer_group](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options)
 
         transfer only if the destination account has enough balance to cover the
 
@@ -36320,7 +36482,7 @@ components:
 
 
         Related guide: [Reversing
-        transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers)
+        transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#reversing-transfers)
       properties:
         amount:
           description: 'Amount, in %s.'
@@ -39705,6 +39867,12 @@ paths:
                           type: boolean
                       title: capability_param
                       type: object
+                    zip_payments:
+                      properties:
+                        requested:
+                          type: boolean
+                      title: capability_param
+                      type: object
                   title: capabilities_param
                   type: object
                 company:
@@ -40839,6 +41007,12 @@ paths:
                       title: capability_param
                       type: object
                     us_bank_account_ach_payments:
+                      properties:
+                        requested:
+                          type: boolean
+                      title: capability_param
+                      type: object
+                    zip_payments:
                       properties:
                         requested:
                           type: boolean
@@ -47207,7 +47381,7 @@ paths:
                     specified, only subscriptions and invoices with this
                     `on_behalf_of` account appear in the portal. For more
                     information, see the
-                    [docs](https://stripe.com/docs/connect/charges-transfers#on-behalf-of).
+                    [docs](https://stripe.com/docs/connect/separate-charges-and-transfers#on-behalf-of).
                     Use the [Accounts
                     API](https://stripe.com/docs/api/accounts/object#account_object-settings-branding)
                     to modify the `on_behalf_of` account's branding settings,
@@ -47387,11 +47561,14 @@ paths:
           description: Error response.
     post:
       description: >-
-        <p>To charge a credit card or other payment source, you create a
-        <code>Charge</code> object. If your API key is in test mode, the
-        supplied payment source (e.g., card) won’t actually be charged, although
-        everything else will occur as if in live mode. (Stripe assumes that the
-        charge would have completed successfully).</p>
+        <p>Use the <a href="/docs/api/payment_intents">Payment Intents API</a>
+        to initiate a new payment instead
+
+        of using this method. Confirmation of the PaymentIntent creates the
+        <code>Charge</code>
+
+        object used to request payment, so this method is limited to legacy
+        integrations.</p>
       operationId: PostCharges
       requestBody:
         content:
@@ -47575,7 +47752,7 @@ paths:
                     The Stripe account ID for which these funds are intended.
                     Automatically set if you use the `destination` parameter.
                     For details, see [Creating Separate Charges and
-                    Transfers](https://stripe.com/docs/connect/charges-transfers#on-behalf-of).
+                    Transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#on-behalf-of).
                   maxLength: 5000
                   type: string
                 radar_options:
@@ -47703,7 +47880,7 @@ paths:
                   description: >-
                     A string that identifies this transaction as part of a
                     group. For details, see [Grouping
-                    transactions](https://stripe.com/docs/connect/charges-transfers#transfer-options).
+                    transactions](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options).
                   type: string
               type: object
         required: false
@@ -48033,7 +48210,7 @@ paths:
                     A string that identifies this transaction as part of a
                     group. `transfer_group` may only be provided if it has not
                     been set. See the [Connect
-                    documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options)
+                    documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options)
                     for details.
                   type: string
               type: object
@@ -48054,16 +48231,18 @@ paths:
   '/v1/charges/{charge}/capture':
     post:
       description: >-
-        <p>Capture the payment of an existing, uncaptured, charge. This is the
-        second half of the two-step payment flow, where first you <a
-        href="#create_charge">created a charge</a> with the capture option set
-        to false.</p>
+        <p>Capture the payment of an existing, uncaptured charge that was
+        created with the <code>capture</code> option set to false.</p>
 
 
         <p>Uncaptured payments expire a set number of days after they are
-        created (<a href="/docs/charges/placing-a-hold">7 by default</a>). If
-        they are not captured by that point in time, they will be marked as
-        refunded and will no longer be capturable.</p>
+        created (<a href="/docs/charges/placing-a-hold">7 by default</a>), after
+        which they are marked as refunded and capture attempts will fail.</p>
+
+
+        <p>Don’t use this method to capture a PaymentIntent-initiated charge.
+        Use <a href="/docs/api/payment_intents/capture">Capture a
+        PaymentIntent</a>.</p>
       operationId: PostChargesChargeCapture
       parameters:
         - in: path
@@ -48147,7 +48326,7 @@ paths:
                     A string that identifies this transaction as part of a
                     group. `transfer_group` may only be provided if it has not
                     been set. See the [Connect
-                    documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options)
+                    documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options)
                     for details.
                   type: string
               type: object
@@ -49178,8 +49357,24 @@ paths:
                           - type
                         title: custom_field_label_param
                         type: object
+                      numeric:
+                        properties:
+                          maximum_length:
+                            type: integer
+                          minimum_length:
+                            type: integer
+                        title: custom_field_numeric_param
+                        type: object
                       optional:
                         type: boolean
+                      text:
+                        properties:
+                          maximum_length:
+                            type: integer
+                          minimum_length:
+                            type: integer
+                        title: custom_field_text_param
+                        type: object
                       type:
                         enum:
                           - dropdown
@@ -49883,10 +50078,12 @@ paths:
                             requested_address_types:
                               items:
                                 enum:
+                                  - aba
                                   - iban
                                   - sepa
                                   - sort_code
                                   - spei
+                                  - swift
                                   - zengin
                                 type: string
                                 x-stripeBypassValidation: true
@@ -49897,6 +50094,7 @@ paths:
                                 - gb_bank_transfer
                                 - jp_bank_transfer
                                 - mx_bank_transfer
+                                - us_bank_transfer
                               type: string
                               x-stripeBypassValidation: true
                           required:
@@ -50190,6 +50388,7 @@ paths:
                       - sofort
                       - us_bank_account
                       - wechat_pay
+                      - zip
                     type: string
                     x-stripeBypassValidation: true
                   type: array
@@ -55621,6 +55820,7 @@ paths:
                         - gb_bank_transfer
                         - jp_bank_transfer
                         - mx_bank_transfer
+                        - us_bank_transfer
                       type: string
                       x-stripeBypassValidation: true
                   required:
@@ -55761,6 +55961,7 @@ paths:
               - sofort
               - us_bank_account
               - wechat_pay
+              - zip
             type: string
             x-stripeBypassValidation: true
           style: form
@@ -60057,6 +60258,7 @@ paths:
                     A file to upload. The file should follow the specifications
                     of RFC 2388 (which defines file transfers for the
                     `multipart/form-data` protocol).
+                  format: binary
                   type: string
                 file_link_data:
                   description: >-
@@ -62445,9 +62647,9 @@ paths:
                   type: integer
                 auto_advance:
                   description: >-
-                    Controls whether Stripe will perform [automatic
-                    collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance)
-                    of the invoice. When `false`, the invoice's state will not
+                    Controls whether Stripe performs [automatic
+                    collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection)
+                    of the invoice. If `false`, the invoice's state doesn't
                     automatically advance without an explicit action.
                   type: boolean
                 automatic_tax:
@@ -64748,8 +64950,8 @@ paths:
                   type: integer
                 auto_advance:
                   description: >-
-                    Controls whether Stripe will perform [automatic
-                    collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance)
+                    Controls whether Stripe performs [automatic
+                    collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection)
                     of the invoice.
                   type: boolean
                 automatic_tax:
@@ -65323,9 +65525,9 @@ paths:
               properties:
                 auto_advance:
                   description: >-
-                    Controls whether Stripe will perform [automatic
-                    collection](https://stripe.com/docs/invoicing/automatic-charging)
-                    of the invoice. When `false`, the invoice's state will not
+                    Controls whether Stripe performs [automatic
+                    collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection)
+                    of the invoice. If `false`, the invoice's state doesn't
                     automatically advance without an explicit action.
                   type: boolean
                 expand:
@@ -65987,7 +66189,7 @@ paths:
 
         You can also respond directly to the webhook request to approve an
         authorization (preferred). More details can be found <a
-        href="https://site-admin.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
+        href="/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
       operationId: PostIssuingAuthorizationsAuthorizationApprove
       parameters:
         - in: path
@@ -66066,7 +66268,7 @@ paths:
 
         You can also respond directly to the webhook request to decline an
         authorization (preferred). More details can be found <a
-        href="https://site-admin.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
+        href="/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
       operationId: PostIssuingAuthorizationsAuthorizationDecline
       parameters:
         - in: path
@@ -66319,6 +66521,9 @@ paths:
               metadata:
                 explode: true
                 style: deepObject
+              preferred_locales:
+                explode: true
+                style: deepObject
               spending_controls:
                 explode: true
                 style: deepObject
@@ -66457,6 +66662,20 @@ paths:
                     documentation](https://stripe.com/docs/issuing/3d-secure#when-is-3d-secure-applied)
                     for more details.
                   type: string
+                preferred_locales:
+                  description: >-
+                    The cardholder’s preferred locales (languages), ordered by
+                    preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
+                     This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder.
+                  items:
+                    enum:
+                      - de
+                      - en
+                      - es
+                      - fr
+                      - it
+                    type: string
+                  type: array
                 spending_controls:
                   description: >-
                     Rules that control spending across this cardholder's cards.
@@ -67536,6 +67755,9 @@ paths:
               metadata:
                 explode: true
                 style: deepObject
+              preferred_locales:
+                explode: true
+                style: deepObject
               spending_controls:
                 explode: true
                 style: deepObject
@@ -67666,6 +67888,20 @@ paths:
                     documentation](https://stripe.com/docs/issuing/3d-secure)
                     for more details.
                   type: string
+                preferred_locales:
+                  description: >-
+                    The cardholder’s preferred locales (languages), ordered by
+                    preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
+                     This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder.
+                  items:
+                    enum:
+                      - de
+                      - en
+                      - es
+                      - fr
+                      - it
+                    type: string
+                  type: array
                 spending_controls:
                   description: >-
                     Rules that control spending across this cardholder's cards.
@@ -73907,6 +74143,7 @@ paths:
                         - sofort
                         - us_bank_account
                         - wechat_pay
+                        - zip
                       type: string
                       x-stripeBypassValidation: true
                     us_bank_account:
@@ -73933,6 +74170,10 @@ paths:
                       title: payment_method_param
                       type: object
                     wechat_pay:
+                      properties: {}
+                      title: param
+                      type: object
+                    zip:
                       properties: {}
                       title: param
                       type: object
@@ -74332,10 +74573,12 @@ paths:
                                 requested_address_types:
                                   items:
                                     enum:
+                                      - aba
                                       - iban
                                       - sepa
                                       - sort_code
                                       - spei
+                                      - swift
                                       - zengin
                                     type: string
                                     x-stripeBypassValidation: true
@@ -74346,6 +74589,7 @@ paths:
                                     - gb_bank_transfer
                                     - jp_bank_transfer
                                     - mx_bank_transfer
+                                    - us_bank_transfer
                                   type: string
                                   x-stripeBypassValidation: true
                               required:
@@ -74786,6 +75030,18 @@ paths:
                               type: string
                           required:
                             - client
+                          title: payment_method_options_param
+                          type: object
+                        - enum:
+                            - ''
+                          type: string
+                    zip:
+                      anyOf:
+                        - properties:
+                            setup_future_usage:
+                              enum:
+                                - none
+                              type: string
                           title: payment_method_options_param
                           type: object
                         - enum:
@@ -75679,6 +75935,7 @@ paths:
                         - sofort
                         - us_bank_account
                         - wechat_pay
+                        - zip
                       type: string
                       x-stripeBypassValidation: true
                     us_bank_account:
@@ -75705,6 +75962,10 @@ paths:
                       title: payment_method_param
                       type: object
                     wechat_pay:
+                      properties: {}
+                      title: param
+                      type: object
+                    zip:
                       properties: {}
                       title: param
                       type: object
@@ -76104,10 +76365,12 @@ paths:
                                 requested_address_types:
                                   items:
                                     enum:
+                                      - aba
                                       - iban
                                       - sepa
                                       - sort_code
                                       - spei
+                                      - swift
                                       - zengin
                                     type: string
                                     x-stripeBypassValidation: true
@@ -76118,6 +76381,7 @@ paths:
                                     - gb_bank_transfer
                                     - jp_bank_transfer
                                     - mx_bank_transfer
+                                    - us_bank_transfer
                                   type: string
                                   x-stripeBypassValidation: true
                               required:
@@ -76563,6 +76827,18 @@ paths:
                         - enum:
                             - ''
                           type: string
+                    zip:
+                      anyOf:
+                        - properties:
+                            setup_future_usage:
+                              enum:
+                                - none
+                              type: string
+                          title: payment_method_options_param
+                          type: object
+                        - enum:
+                            - ''
+                          type: string
                   title: payment_method_options_param
                   type: object
                 payment_method_types:
@@ -76999,8 +77275,10 @@ paths:
         suggest additional actions via <code>next_action</code>. If payment
         fails,
 
-        the PaymentIntent will transition to the
-        <code>requires_payment_method</code> status. If
+        the PaymentIntent transitions to the
+        <code>requires_payment_method</code> status or the
+
+        <code>canceled</code> status if the confirmation limit is reached. If
 
         payment succeeds, the PaymentIntent will transition to the
         <code>succeeded</code>
@@ -77578,6 +77856,7 @@ paths:
                         - sofort
                         - us_bank_account
                         - wechat_pay
+                        - zip
                       type: string
                       x-stripeBypassValidation: true
                     us_bank_account:
@@ -77604,6 +77883,10 @@ paths:
                       title: payment_method_param
                       type: object
                     wechat_pay:
+                      properties: {}
+                      title: param
+                      type: object
+                    zip:
                       properties: {}
                       title: param
                       type: object
@@ -78003,10 +78286,12 @@ paths:
                                 requested_address_types:
                                   items:
                                     enum:
+                                      - aba
                                       - iban
                                       - sepa
                                       - sort_code
                                       - spei
+                                      - swift
                                       - zengin
                                     type: string
                                     x-stripeBypassValidation: true
@@ -78017,6 +78302,7 @@ paths:
                                     - gb_bank_transfer
                                     - jp_bank_transfer
                                     - mx_bank_transfer
+                                    - us_bank_transfer
                                   type: string
                                   x-stripeBypassValidation: true
                               required:
@@ -78457,6 +78743,18 @@ paths:
                               type: string
                           required:
                             - client
+                          title: payment_method_options_param
+                          type: object
+                        - enum:
+                            - ''
+                          type: string
+                    zip:
+                      anyOf:
+                        - properties:
+                            setup_future_usage:
+                              enum:
+                                - none
+                              type: string
                           title: payment_method_options_param
                           type: object
                         - enum:
@@ -79131,8 +79429,24 @@ paths:
                           - type
                         title: custom_field_label_param
                         type: object
+                      numeric:
+                        properties:
+                          maximum_length:
+                            type: integer
+                          minimum_length:
+                            type: integer
+                        title: custom_field_numeric_param
+                        type: object
                       optional:
                         type: boolean
+                      text:
+                        properties:
+                          maximum_length:
+                            type: integer
+                          minimum_length:
+                            type: integer
+                        title: custom_field_text_param
+                        type: object
                       type:
                         enum:
                           - dropdown
@@ -79923,8 +80237,24 @@ paths:
                               - type
                             title: custom_field_label_param
                             type: object
+                          numeric:
+                            properties:
+                              maximum_length:
+                                type: integer
+                              minimum_length:
+                                type: integer
+                            title: custom_field_numeric_param
+                            type: object
                           optional:
                             type: boolean
+                          text:
+                            properties:
+                              maximum_length:
+                                type: integer
+                              minimum_length:
+                                type: integer
+                            title: custom_field_text_param
+                            type: object
                           type:
                             enum:
                               - dropdown
@@ -80656,6 +80986,7 @@ paths:
               - sofort
               - us_bank_account
               - wechat_pay
+              - zip
             type: string
             x-stripeBypassValidation: true
           style: form
@@ -80832,6 +81163,9 @@ paths:
                 explode: true
                 style: deepObject
               wechat_pay:
+                explode: true
+                style: deepObject
+              zip:
                 explode: true
                 style: deepObject
             schema:
@@ -81364,6 +81698,7 @@ paths:
                     - sofort
                     - us_bank_account
                     - wechat_pay
+                    - zip
                   type: string
                   x-stripeBypassValidation: true
                 us_bank_account:
@@ -81396,6 +81731,13 @@ paths:
                   description: >-
                     If this is an `wechat_pay` PaymentMethod, this hash contains
                     details about the wechat_pay payment method.
+                  properties: {}
+                  title: param
+                  type: object
+                zip:
+                  description: >-
+                    If this is a `zip` PaymentMethod, this hash contains details
+                    about the Zip payment method.
                   properties: {}
                   title: param
                   type: object
@@ -89428,6 +89770,7 @@ paths:
                         - sofort
                         - us_bank_account
                         - wechat_pay
+                        - zip
                       type: string
                       x-stripeBypassValidation: true
                     us_bank_account:
@@ -89454,6 +89797,10 @@ paths:
                       title: payment_method_param
                       type: object
                     wechat_pay:
+                      properties: {}
+                      title: param
+                      type: object
+                    zip:
                       properties: {}
                       title: param
                       type: object
@@ -90298,6 +90645,7 @@ paths:
                         - sofort
                         - us_bank_account
                         - wechat_pay
+                        - zip
                       type: string
                       x-stripeBypassValidation: true
                     us_bank_account:
@@ -90324,6 +90672,10 @@ paths:
                       title: payment_method_param
                       type: object
                     wechat_pay:
+                      properties: {}
+                      title: param
+                      type: object
+                    zip:
                       properties: {}
                       title: param
                       type: object
@@ -90670,7 +91022,10 @@ paths:
 
         the SetupIntent will transition to the
 
-        <code>requires_payment_method</code> status.</p>
+        <code>requires_payment_method</code> status or the <code>canceled</code>
+        status if the
+
+        confirmation limit is reached.</p>
       operationId: PostSetupIntentsIntentConfirm
       parameters:
         - in: path
@@ -91155,6 +91510,7 @@ paths:
                         - sofort
                         - us_bank_account
                         - wechat_pay
+                        - zip
                       type: string
                       x-stripeBypassValidation: true
                     us_bank_account:
@@ -91181,6 +91537,10 @@ paths:
                       title: payment_method_param
                       type: object
                     wechat_pay:
+                      properties: {}
+                      title: param
+                      type: object
+                    zip:
                       properties: {}
                       title: param
                       type: object
@@ -97598,7 +97958,7 @@ paths:
                   url:
                     description: The URL where this list can be accessed.
                     maxLength: 5000
-                    pattern: '^/v1/tax/calculations/:id/line_items'
+                    pattern: '^/v1/tax/calculations/[^/]+/line_items'
                     type: string
                 required:
                   - data
@@ -97768,7 +98128,7 @@ paths:
                 reference:
                   description: >-
                     A custom identifier for this reversal, such as
-                    'myOrder_123-refund_1', which must be unique across all
+                    `myOrder_123-refund_1`, which must be unique across all
                     transactions. The reference helps identify this reversal
                     transaction in exported [tax
                     reports](https://stripe.com/docs/tax/reports).
@@ -97946,7 +98306,7 @@ paths:
                   url:
                     description: The URL where this list can be accessed.
                     maxLength: 5000
-                    pattern: '^/v1/tax/transactions/:id/line_items'
+                    pattern: '^/v1/tax/transactions/[^/]+/line_items'
                     type: string
                 required:
                   - data
@@ -103198,8 +103558,8 @@ paths:
                 destination:
                   description: >-
                     The ID of a connected Stripe account. <a
-                    href="/docs/connect/charges-transfers">See the Connect
-                    documentation</a> for details.
+                    href="/docs/connect/separate-charges-and-transfers">See the
+                    Connect documentation</a> for details.
                   type: string
                 expand:
                   description: Specifies which fields in the response should be expanded.
@@ -103226,7 +103586,7 @@ paths:
                     balance will transfer immediately but the funds will not
                     become available until the original charge becomes
                     available. [See the Connect
-                    documentation](https://stripe.com/docs/connect/charges-transfers#transfer-availability)
+                    documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-availability)
                     for details.
                   type: string
                 source_type:
@@ -103245,7 +103605,7 @@ paths:
                   description: >-
                     A string that identifies this transaction as part of a
                     group. See the [Connect
-                    documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options)
+                    documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options)
                     for details.
                   type: string
               required:

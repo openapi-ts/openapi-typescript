@@ -175,11 +175,17 @@ export interface paths {
     get: operations["apps/get-by-slug"];
   };
   "/codes_of_conduct": {
-    /** Get all codes of conduct */
+    /**
+     * Get all codes of conduct 
+     * @description Returns array of all GitHub's codes of conduct.
+     */
     get: operations["codes-of-conduct/get-all-codes-of-conduct"];
   };
   "/codes_of_conduct/{key}": {
-    /** Get a code of conduct */
+    /**
+     * Get a code of conduct 
+     * @description Returns information about the specified GitHub code of conduct.
+     */
     get: operations["codes-of-conduct/get-conduct-code"];
   };
   "/emojis": {
@@ -439,6 +445,8 @@ export interface paths {
      * Get GitHub meta information 
      * @description Returns meta information about GitHub, including a list of GitHub's IP addresses. For more information, see "[About GitHub's IP addresses](https://docs.github.com/articles/about-github-s-ip-addresses/)."
      * 
+     * The API's response also includes a list of GitHub's domain names.
+     * 
      * The values shown in the documentation's response are example values. You must always query the API directly to get the latest values.
      * 
      * **Note:** This endpoint returns both IPv4 and IPv6 addresses. However, not all features support IPv6. You should refer to the specific documentation for each feature to determine if IPv6 is supported.
@@ -512,82 +520,6 @@ export interface paths {
      */
     get: operations["orgs/list"];
   };
-  "/organizations/{org}/personal-access-token-requests": {
-    /**
-     * List requests to access organization resources with fine-grained personal access tokens 
-     * @description Lists requests from organization members to access organization resources with a fine-grained personal access token. Only GitHub Apps can call this API,
-     * using the `organization_personal_access_token_requests: read` permission.
-     * 
-     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-     */
-    get: operations["orgs/list-pat-grant-requests"];
-    /**
-     * Review requests to access organization resources with fine-grained personal access tokens 
-     * @description Approves or denies multiple pending requests to access organization resources via a fine-grained personal access token. Only GitHub Apps can call this API,
-     * using the `organization_personal_access_token_requests: write` permission.
-     * 
-     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-     */
-    post: operations["orgs/review-pat-grant-requests-in-bulk"];
-  };
-  "/organizations/{org}/personal-access-token-requests/{pat_request_id}": {
-    /**
-     * Review a request to access organization resources with a fine-grained personal access token 
-     * @description Approves or denies a pending request to access organization resources via a fine-grained personal access token. Only GitHub Apps can call this API,
-     * using the `organization_personal_access_token_requests: write` permission.
-     * 
-     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-     */
-    post: operations["orgs/review-pat-grant-request"];
-  };
-  "/organizations/{org}/personal-access-token-requests/{pat_request_id}/repositories": {
-    /**
-     * List repositories requested to be accessed by a fine-grained personal access token 
-     * @description Lists the repositories a fine-grained personal access token request is requesting access to. Only GitHub Apps can call this API,
-     * using the `organization_personal_access_token_requests: read` permission.
-     * 
-     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-     */
-    get: operations["orgs/list-pat-grant-request-repositories"];
-  };
-  "/organizations/{org}/personal-access-tokens": {
-    /**
-     * List fine-grained personal access tokens with access to organization resources 
-     * @description Lists approved fine-grained personal access tokens owned by organization members that can access organization resources. Only GitHub Apps can call this API,
-     * using the `organization_personal_access_tokens: read` permission.
-     * 
-     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-     */
-    get: operations["orgs/list-pat-grants"];
-    /**
-     * Update the access to organization resources via fine-grained personal access tokens 
-     * @description Updates the access organization members have to organization resources via fine-grained personal access tokens. Limited to revoking a token's existing access. Only GitHub Apps can call this API,
-     * using the `organization_personal_access_tokens: write` permission.
-     * 
-     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-     */
-    post: operations["orgs/update-pat-accesses"];
-  };
-  "/organizations/{org}/personal-access-tokens/{pat_id}": {
-    /**
-     * Update the access a fine-grained personal access token has to organization resources 
-     * @description Updates the access an organization member has to organization resources via a fine-grained personal access token. Limited to revoking the token's existing access. Limited to revoking a token's existing access. Only GitHub Apps can call this API,
-     * using the `organization_personal_access_tokens: write` permission.
-     * 
-     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-     */
-    post: operations["orgs/update-pat-access"];
-  };
-  "/organizations/{org}/personal-access-tokens/{pat_id}/repositories": {
-    /**
-     * List repositories a fine-grained personal access token has access to 
-     * @description Lists the repositories a fine-grained personal access token has access to. Only GitHub Apps can call this API,
-     * using the `organization_personal_access_tokens: read` permission.
-     * 
-     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-     */
-    get: operations["orgs/list-pat-grant-repositories"];
-  };
   "/orgs/{org}": {
     /**
      * Get an organization 
@@ -611,7 +543,7 @@ export interface paths {
      * Update an organization 
      * @description **Parameter Deprecation Notice:** GitHub will replace and discontinue `members_allowed_repository_creation_type` in favor of more granular permissions. The new input parameters are `members_can_create_public_repositories`, `members_can_create_private_repositories` for all organizations and `members_can_create_internal_repositories` for organizations associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. For more information, see the [blog post](https://developer.github.com/changes/2019-12-03-internal-visibility-changes).
      * 
-     * Enables an authenticated organization owner with the `admin:org` scope to update the organization's profile and member privileges.
+     * Enables an authenticated organization owner with the `admin:org` scope or the `repo` scope to update the organization's profile and member privileges.
      */
     patch: operations["orgs/update"];
   };
@@ -840,6 +772,15 @@ export interface paths {
      */
     get: operations["actions/list-runner-applications-for-org"];
   };
+  "/orgs/{org}/actions/runners/generate-jitconfig": {
+    /**
+     * Create configuration for a just-in-time runner for an organization 
+     * @description Generates a configuration that can be passed to the runner application at startup.
+     * 
+     * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+     */
+    post: operations["actions/generate-runner-jitconfig-for-org"];
+  };
   "/orgs/{org}/actions/runners/registration-token": {
     /**
      * Create a registration token for an organization 
@@ -963,7 +904,7 @@ export interface paths {
      * token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to
      * use this endpoint.
      * 
-     * #### Example encrypting a secret using Node.js
+     * **Example encrypting a secret using Node.js*
      * 
      * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
      * 
@@ -988,7 +929,7 @@ export interface paths {
      * });
      * ```
      * 
-     * #### Example encrypting a secret using Python
+     * **Example encrypting a secret using Python**
      * 
      * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
      * 
@@ -1004,7 +945,7 @@ export interface paths {
      *   return b64encode(encrypted).decode("utf-8")
      * ```
      * 
-     * #### Example encrypting a secret using C#
+     * **Example encrypting a secret using C#**
      * 
      * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
      * 
@@ -1017,7 +958,7 @@ export interface paths {
      * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
      * ```
      * 
-     * #### Example encrypting a secret using Ruby
+     * **Example encrypting a secret using Ruby**
      * 
      * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
      * 
@@ -1133,11 +1074,20 @@ export interface paths {
     get: operations["orgs/list-blocked-users"];
   };
   "/orgs/{org}/blocks/{username}": {
-    /** Check if a user is blocked by an organization */
+    /**
+     * Check if a user is blocked by an organization 
+     * @description Returns a 204 if the given user is blocked by the given organization. Returns a 404 if the organization is not blocking the user, or if the user account has been identified as spam by GitHub.
+     */
     get: operations["orgs/check-blocked-user"];
-    /** Block a user from an organization */
+    /**
+     * Block a user from an organization 
+     * @description Blocks the given user on behalf of the specified organization and returns a 204. If the organization cannot block the given user a 422 is returned.
+     */
     put: operations["orgs/block-user"];
-    /** Unblock a user from an organization */
+    /**
+     * Unblock a user from an organization 
+     * @description Unblocks the given user on behalf of the specified organization.
+     */
     delete: operations["orgs/unblock-user"];
   };
   "/orgs/{org}/code-scanning/alerts": {
@@ -1165,6 +1115,7 @@ export interface paths {
   "/orgs/{org}/codespaces/billing": {
     /**
      * Manage access control for organization codespaces 
+     * @deprecated 
      * @description Sets which users can access codespaces in an organization. This is synonymous with granting or revoking codespaces billing permissions for users according to the visibility.
      * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      */
@@ -1173,12 +1124,14 @@ export interface paths {
   "/orgs/{org}/codespaces/billing/selected_users": {
     /**
      * Add users to Codespaces billing for an organization 
+     * @deprecated 
      * @description Codespaces for the specified users will be billed to the organization.
      * To use this endpoint, the billing settings for the organization must be set to `selected_members`. For information on how to change this setting please see [these docs].(https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces) You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      */
     post: operations["codespaces/set-codespaces-billing-users"];
     /**
      * Removes users from Codespaces billing for an organization 
+     * @deprecated 
      * @description Codespaces for the specified users will no longer be billed to the organization.
      * To use this endpoint, the billing settings for the organization must be set to `selected_members`. For information on how to change this setting please see [these docs].(https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces) You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      */
@@ -1212,7 +1165,7 @@ export interface paths {
      * [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). You must authenticate using an access
      * token with the `admin:org` scope to use this endpoint.
      * 
-     * #### Example encrypting a secret using Node.js
+     * **Example encrypting a secret using Node.js**
      * 
      * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
      * 
@@ -1237,7 +1190,7 @@ export interface paths {
      * });
      * ```
      * 
-     * #### Example encrypting a secret using Python
+     * **Example encrypting a secret using Python**
      * 
      * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
      * 
@@ -1253,7 +1206,7 @@ export interface paths {
      *   return b64encode(encrypted).decode("utf-8")
      * ```
      * 
-     * #### Example encrypting a secret using C#
+     * **Example encrypting a secret using C#**
      * 
      * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
      * 
@@ -1266,7 +1219,7 @@ export interface paths {
      * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
      * ```
      * 
-     * #### Example encrypting a secret using Ruby
+     * **Example encrypting a secret using Ruby**
      * 
      * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
      * 
@@ -1355,7 +1308,7 @@ export interface paths {
      * token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization
      * permission to use this endpoint.
      * 
-     * #### Example encrypting a secret using Node.js
+     * **Example encrypting a secret using Node.js**
      * 
      * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
      * 
@@ -1380,7 +1333,7 @@ export interface paths {
      * });
      * ```
      * 
-     * #### Example encrypting a secret using Python
+     * **Example encrypting a secret using Python**
      * 
      * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
      * 
@@ -1396,7 +1349,7 @@ export interface paths {
      *   return b64encode(encrypted).decode("utf-8")
      * ```
      * 
-     * #### Example encrypting a secret using C#
+     * **Example encrypting a secret using C#**
      * 
      * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
      * 
@@ -1409,7 +1362,7 @@ export interface paths {
      * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
      * ```
      * 
-     * #### Example encrypting a secret using Ruby
+     * **Example encrypting a secret using Ruby**
      * 
      * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
      * 
@@ -1849,6 +1802,82 @@ export interface paths {
      */
     post: operations["packages/restore-package-version-for-org"];
   };
+  "/orgs/{org}/personal-access-token-requests": {
+    /**
+     * List requests to access organization resources with fine-grained personal access tokens 
+     * @description Lists requests from organization members to access organization resources with a fine-grained personal access token. Only GitHub Apps can call this API,
+     * using the `organization_personal_access_token_requests: read` permission.
+     * 
+     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+     */
+    get: operations["orgs/list-pat-grant-requests"];
+    /**
+     * Review requests to access organization resources with fine-grained personal access tokens 
+     * @description Approves or denies multiple pending requests to access organization resources via a fine-grained personal access token. Only GitHub Apps can call this API,
+     * using the `organization_personal_access_token_requests: write` permission.
+     * 
+     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+     */
+    post: operations["orgs/review-pat-grant-requests-in-bulk"];
+  };
+  "/orgs/{org}/personal-access-token-requests/{pat_request_id}": {
+    /**
+     * Review a request to access organization resources with a fine-grained personal access token 
+     * @description Approves or denies a pending request to access organization resources via a fine-grained personal access token. Only GitHub Apps can call this API,
+     * using the `organization_personal_access_token_requests: write` permission.
+     * 
+     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+     */
+    post: operations["orgs/review-pat-grant-request"];
+  };
+  "/orgs/{org}/personal-access-token-requests/{pat_request_id}/repositories": {
+    /**
+     * List repositories requested to be accessed by a fine-grained personal access token 
+     * @description Lists the repositories a fine-grained personal access token request is requesting access to. Only GitHub Apps can call this API,
+     * using the `organization_personal_access_token_requests: read` permission.
+     * 
+     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+     */
+    get: operations["orgs/list-pat-grant-request-repositories"];
+  };
+  "/orgs/{org}/personal-access-tokens": {
+    /**
+     * List fine-grained personal access tokens with access to organization resources 
+     * @description Lists approved fine-grained personal access tokens owned by organization members that can access organization resources. Only GitHub Apps can call this API,
+     * using the `organization_personal_access_tokens: read` permission.
+     * 
+     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+     */
+    get: operations["orgs/list-pat-grants"];
+    /**
+     * Update the access to organization resources via fine-grained personal access tokens 
+     * @description Updates the access organization members have to organization resources via fine-grained personal access tokens. Limited to revoking a token's existing access. Only GitHub Apps can call this API,
+     * using the `organization_personal_access_tokens: write` permission.
+     * 
+     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+     */
+    post: operations["orgs/update-pat-accesses"];
+  };
+  "/orgs/{org}/personal-access-tokens/{pat_id}": {
+    /**
+     * Update the access a fine-grained personal access token has to organization resources 
+     * @description Updates the access an organization member has to organization resources via a fine-grained personal access token. Limited to revoking the token's existing access. Limited to revoking a token's existing access. Only GitHub Apps can call this API,
+     * using the `organization_personal_access_tokens: write` permission.
+     * 
+     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+     */
+    post: operations["orgs/update-pat-access"];
+  };
+  "/orgs/{org}/personal-access-tokens/{pat_id}/repositories": {
+    /**
+     * List repositories a fine-grained personal access token has access to 
+     * @description Lists the repositories a fine-grained personal access token has access to. Only GitHub Apps can call this API,
+     * using the `organization_personal_access_tokens: read` permission.
+     * 
+     * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+     */
+    get: operations["orgs/list-pat-grant-repositories"];
+  };
   "/orgs/{org}/projects": {
     /**
      * List organization projects 
@@ -1869,7 +1898,10 @@ export interface paths {
     get: operations["orgs/list-public-members"];
   };
   "/orgs/{org}/public_members/{username}": {
-    /** Check public organization membership for a user */
+    /**
+     * Check public organization membership for a user 
+     * @description Check if the provided user is a public member of the organization.
+     */
     get: operations["orgs/check-public-membership-for-user"];
     /**
      * Set public organization membership for the authenticated user 
@@ -1878,7 +1910,10 @@ export interface paths {
      * Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
      */
     put: operations["orgs/set-public-membership-for-authenticated-user"];
-    /** Remove public organization membership for the authenticated user */
+    /**
+     * Remove public organization membership for the authenticated user 
+     * @description Removes the public membership for the authenticated user from the specified organization, unless public visibility is enforced by default.
+     */
     delete: operations["orgs/remove-public-membership-for-authenticated-user"];
   };
   "/orgs/{org}/repos": {
@@ -2331,9 +2366,15 @@ export interface paths {
     post: operations["orgs/enable-or-disable-security-product-on-all-org-repos"];
   };
   "/projects/columns/cards/{card_id}": {
-    /** Get a project card */
+    /**
+     * Get a project card 
+     * @description Gets information about a project card.
+     */
     get: operations["projects/get-card"];
-    /** Delete a project card */
+    /**
+     * Delete a project card 
+     * @description Deletes a project card
+     */
     delete: operations["projects/delete-card"];
     /** Update an existing project card */
     patch: operations["projects/update-card"];
@@ -2343,15 +2384,24 @@ export interface paths {
     post: operations["projects/move-card"];
   };
   "/projects/columns/{column_id}": {
-    /** Get a project column */
+    /**
+     * Get a project column 
+     * @description Gets information about a project column.
+     */
     get: operations["projects/get-column"];
-    /** Delete a project column */
+    /**
+     * Delete a project column 
+     * @description Deletes a project column.
+     */
     delete: operations["projects/delete-column"];
     /** Update an existing project column */
     patch: operations["projects/update-column"];
   };
   "/projects/columns/{column_id}/cards": {
-    /** List project cards */
+    /**
+     * List project cards 
+     * @description Lists the project cards in a project.
+     */
     get: operations["projects/list-cards"];
     /** Create a project card */
     post: operations["projects/create-card"];
@@ -2404,9 +2454,15 @@ export interface paths {
     get: operations["projects/get-permission-for-user"];
   };
   "/projects/{project_id}/columns": {
-    /** List project columns */
+    /**
+     * List project columns 
+     * @description Lists the project columns in a project.
+     */
     get: operations["projects/list-columns"];
-    /** Create a project column */
+    /**
+     * Create a project column 
+     * @description Creates a new project column.
+     */
     post: operations["projects/create-column"];
   };
   "/rate_limit": {
@@ -2684,6 +2740,15 @@ export interface paths {
      * You must authenticate using an access token with the `repo` scope to use this endpoint.
      */
     get: operations["actions/list-runner-applications-for-repo"];
+  };
+  "/repos/{owner}/{repo}/actions/runners/generate-jitconfig": {
+    /**
+     * Create configuration for a just-in-time runner for a repository 
+     * @description Generates a configuration that can be passed to the runner application at startup.
+     * 
+     * You must authenticate using an access token with the `repo` scope to use this endpoint.
+     */
+    post: operations["actions/generate-runner-jitconfig-for-repo"];
   };
   "/repos/{owner}/{repo}/actions/runners/registration-token": {
     /**
@@ -2965,7 +3030,7 @@ export interface paths {
      * token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use
      * this endpoint.
      * 
-     * #### Example encrypting a secret using Node.js
+     * **Example encrypting a secret using Node.js**
      * 
      * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
      * 
@@ -2990,7 +3055,7 @@ export interface paths {
      * });
      * ```
      * 
-     * #### Example encrypting a secret using Python
+     * **Example encrypting a secret using Python**
      * 
      * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
      * 
@@ -3006,7 +3071,7 @@ export interface paths {
      *   return b64encode(encrypted).decode("utf-8")
      * ```
      * 
-     * #### Example encrypting a secret using C#
+     * **Example encrypting a secret using C#**
      * 
      * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
      * 
@@ -3019,7 +3084,7 @@ export interface paths {
      * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
      * ```
      * 
-     * #### Example encrypting a secret using Ruby
+     * **Example encrypting a secret using Ruby**
      * 
      * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
      * 
@@ -3520,6 +3585,8 @@ export interface paths {
      * @description Triggers GitHub to rerequest an existing check run, without pushing new code to a repository. This endpoint will trigger the [`check_run` webhook](https://docs.github.com/webhooks/event-payloads/#check_run) event with the action `rerequested`. When a check run is `rerequested`, its `status` is reset to `queued` and the `conclusion` is cleared.
      * 
      * To rerequest a check run, your GitHub App must have the `checks:read` permission on a private repository or pull access to a public repository.
+     * 
+     * For more information about how to re-run GitHub Actions jobs, see "[Re-run a job from a workflow run](https://docs.github.com/rest/actions/workflow-runs#re-run-a-job-from-a-workflow-run)".
      */
     post: operations["checks/rerequest-run"];
   };
@@ -4030,13 +4097,42 @@ export interface paths {
      * You are limited to sending 50 invitations to a repository per 24 hour period. Note there is no limit if you are inviting organization members to an organization repository.
      */
     put: operations["repos/add-collaborator"];
-    /** Remove a repository collaborator */
+    /**
+     * Remove a repository collaborator 
+     * @description Removes a collaborator from a repository.
+     * 
+     * To use this endpoint, the authenticated user must either be an administrator of the repository or target themselves for removal.
+     * 
+     * This endpoint also:
+     * - Cancels any outstanding invitations
+     * - Unasigns the user from any issues
+     * - Removes access to organization projects if the user is not an organization member and is not a collaborator on any other organization repositories.
+     * - Unstars the repository
+     * - Updates access permissions to packages
+     * 
+     * Removing a user as a collaborator has the following effects on forks:
+     *  - If the user had access to a fork through their membership to this repository, the user will also be removed from the fork.
+     *  - If the user had their own fork of the repository, the fork will be deleted.
+     *  - If the user still has read access to the repository, open pull requests by this user from a fork will be denied.
+     * 
+     * **Note**: A user can still have access to the repository through organization permissions like base repository permissions.
+     * 
+     * Although the API responds immediately, the additional permission updates might take some extra time to complete in the background.
+     * 
+     * For more information on fork permissions, see "[About permissions and visibility of forks](https://docs.github.com/pull-requests/collaborating-with-pull-requests/working-with-forks/about-permissions-and-visibility-of-forks)".
+     */
     delete: operations["repos/remove-collaborator"];
   };
   "/repos/{owner}/{repo}/collaborators/{username}/permission": {
     /**
      * Get repository permissions for a user 
-     * @description Checks the repository permission of a collaborator. The possible repository permissions are `admin`, `write`, `read`, and `none`.
+     * @description Checks the repository permission of a collaborator. The possible repository
+     * permissions are `admin`, `write`, `read`, and `none`.
+     * 
+     * *Note*: The `permission` attribute provides the legacy base roles of `admin`, `write`, `read`, and `none`, where the
+     * `maintain` role is mapped to `write` and the `triage` role is mapped to `read`. To determine the role assigned to the
+     * collaborator, see the `role_name` attribute, which will provide the full role name, including custom roles. The
+     * `permissions` hash can also be used to determine which base level of access the collaborator has to the repository.
      */
     get: operations["repos/get-collaborator-permission-level"];
   };
@@ -4389,6 +4485,8 @@ export interface paths {
      * @description You must use an access token with the `security_events` scope to use this endpoint with private repositories.
      * You can also use tokens with the `public_repo` scope for public repositories only.
      * GitHub Apps must have **Dependabot alerts** write permission to use this endpoint.
+     * 
+     * To use this endpoint, you must have access to security alerts for the repository. For more information, see "[Granting access to security alerts](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-security-and-analysis-settings-for-your-repository#granting-access-to-security-alerts)."
      */
     patch: operations["dependabot/update-alert"];
   };
@@ -4419,7 +4517,7 @@ export interface paths {
      * token with the `repo` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` repository
      * permission to use this endpoint.
      * 
-     * #### Example encrypting a secret using Node.js
+     * **Example encrypting a secret using Node.js**
      * 
      * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
      * 
@@ -4444,7 +4542,7 @@ export interface paths {
      * });
      * ```
      * 
-     * #### Example encrypting a secret using Python
+     * **Example encrypting a secret using Python**
      * 
      * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
      * 
@@ -4460,7 +4558,7 @@ export interface paths {
      *   return b64encode(encrypted).decode("utf-8")
      * ```
      * 
-     * #### Example encrypting a secret using C#
+     * **Example encrypting a secret using C#**
      * 
      * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
      * 
@@ -4473,7 +4571,7 @@ export interface paths {
      * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
      * ```
      * 
-     * #### Example encrypting a secret using Ruby
+     * **Example encrypting a secret using Ruby**
      * 
      * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
      * 
@@ -4819,8 +4917,9 @@ export interface paths {
   };
   "/repos/{owner}/{repo}/git/commits/{commit_sha}": {
     /**
-     * Get a commit 
-     * @description Gets a Git [commit object](https://git-scm.com/book/en/v1/Git-Internals-Git-Objects#Commit-Objects).
+     * Get a commit object 
+     * @description Gets a Git [commit object](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects).
+     * To get the contents of a commit, see "[Get a commit](/rest/commits/commits#get-a-commit)."
      * 
      * **Signature verification object**
      * 
@@ -5291,11 +5390,17 @@ export interface paths {
     delete: operations["reactions/delete-for-issue-comment"];
   };
   "/repos/{owner}/{repo}/issues/events": {
-    /** List issue events for a repository */
+    /**
+     * List issue events for a repository 
+     * @description Lists events for a repository.
+     */
     get: operations["issues/list-events-for-repo"];
   };
   "/repos/{owner}/{repo}/issues/events/{event_id}": {
-    /** Get an issue event */
+    /**
+     * Get an issue event 
+     * @description Gets a single event by the event id.
+     */
     get: operations["issues/get-event"];
   };
   "/repos/{owner}/{repo}/issues/{issue_number}": {
@@ -5365,20 +5470,32 @@ export interface paths {
     post: operations["issues/create-comment"];
   };
   "/repos/{owner}/{repo}/issues/{issue_number}/events": {
-    /** List issue events */
+    /**
+     * List issue events 
+     * @description Lists all events for an issue.
+     */
     get: operations["issues/list-events"];
   };
   "/repos/{owner}/{repo}/issues/{issue_number}/labels": {
-    /** List labels for an issue */
+    /**
+     * List labels for an issue 
+     * @description Lists all labels for an issue.
+     */
     get: operations["issues/list-labels-on-issue"];
     /**
      * Set labels for an issue 
      * @description Removes any previous labels and sets the new labels for an issue.
      */
     put: operations["issues/set-labels"];
-    /** Add labels to an issue */
+    /**
+     * Add labels to an issue 
+     * @description Adds labels to an issue. If you provide an empty array of labels, all labels are removed from the issue.
+     */
     post: operations["issues/add-labels"];
-    /** Remove all labels from an issue */
+    /**
+     * Remove all labels from an issue 
+     * @description Removes all labels from an issue.
+     */
     delete: operations["issues/remove-all-labels"];
   };
   "/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}": {
@@ -5424,7 +5541,10 @@ export interface paths {
     delete: operations["reactions/delete-for-issue"];
   };
   "/repos/{owner}/{repo}/issues/{issue_number}/timeline": {
-    /** List timeline events for an issue */
+    /**
+     * List timeline events for an issue 
+     * @description List all timeline events for an issue.
+     */
     get: operations["issues/list-events-for-timeline"];
   };
   "/repos/{owner}/{repo}/keys": {
@@ -5446,17 +5566,32 @@ export interface paths {
     delete: operations["repos/delete-deploy-key"];
   };
   "/repos/{owner}/{repo}/labels": {
-    /** List labels for a repository */
+    /**
+     * List labels for a repository 
+     * @description Lists all labels for a repository.
+     */
     get: operations["issues/list-labels-for-repo"];
-    /** Create a label */
+    /**
+     * Create a label 
+     * @description Creates a label for the specified repository with the given name and color. The name and color parameters are required. The color must be a valid [hexadecimal color code](http://www.color-hex.com/).
+     */
     post: operations["issues/create-label"];
   };
   "/repos/{owner}/{repo}/labels/{name}": {
-    /** Get a label */
+    /**
+     * Get a label 
+     * @description Gets a label using the given name.
+     */
     get: operations["issues/get-label"];
-    /** Delete a label */
+    /**
+     * Delete a label 
+     * @description Deletes a label using the given label name.
+     */
     delete: operations["issues/delete-label"];
-    /** Update a label */
+    /**
+     * Update a label 
+     * @description Updates a label using the given label name.
+     */
     patch: operations["issues/update-label"];
   };
   "/repos/{owner}/{repo}/languages": {
@@ -5499,21 +5634,36 @@ export interface paths {
     post: operations["repos/merge"];
   };
   "/repos/{owner}/{repo}/milestones": {
-    /** List milestones */
+    /**
+     * List milestones 
+     * @description Lists milestones for a repository.
+     */
     get: operations["issues/list-milestones"];
-    /** Create a milestone */
+    /**
+     * Create a milestone 
+     * @description Creates a milestone.
+     */
     post: operations["issues/create-milestone"];
   };
   "/repos/{owner}/{repo}/milestones/{milestone_number}": {
-    /** Get a milestone */
+    /**
+     * Get a milestone 
+     * @description Gets a milestone using the given milestone number.
+     */
     get: operations["issues/get-milestone"];
-    /** Delete a milestone */
+    /**
+     * Delete a milestone 
+     * @description Deletes a milestone using the given milestone number.
+     */
     delete: operations["issues/delete-milestone"];
     /** Update a milestone */
     patch: operations["issues/update-milestone"];
   };
   "/repos/{owner}/{repo}/milestones/{milestone_number}/labels": {
-    /** List labels for issues in a milestone */
+    /**
+     * List labels for issues in a milestone 
+     * @description Lists labels for issues in a milestone.
+     */
     get: operations["issues/list-labels-for-milestone"];
   };
   "/repos/{owner}/{repo}/notifications": {
@@ -5999,7 +6149,9 @@ export interface paths {
   "/repos/{owner}/{repo}/rules/branches/{branch}": {
     /**
      * Get rules for a branch 
-     * @description Returns all rules that apply to the specified branch.
+     * @description Returns all rules that apply to the specified branch. The branch does not need to exist; rules that would apply to a
+     * branch with that name will be returned. All rules that apply will be returned, regardless of the level at which they
+     * are configured.
      */
     get: operations["repos/get-branch-rules"];
   };
@@ -6200,7 +6352,10 @@ export interface paths {
     get: operations["activity/list-watchers-for-repo"];
   };
   "/repos/{owner}/{repo}/subscription": {
-    /** Get a repository subscription */
+    /**
+     * Get a repository subscription 
+     * @description Gets information about whether the authenticated user is subscribed to the repository.
+     */
     get: operations["activity/get-repo-subscription"];
     /**
      * Set a repository subscription 
@@ -6251,7 +6406,18 @@ export interface paths {
     get: operations["repos/download-tarball-archive"];
   };
   "/repos/{owner}/{repo}/teams": {
-    /** List repository teams */
+    /**
+     * List repository teams 
+     * @description Lists the teams that have access to the specified repository and that are also visible to the authenticated user.
+     * 
+     * For a public repository, a team is listed only if that team added the public repository explicitly.
+     * 
+     * Personal access tokens require the following scopes:
+     * * `public_repo` to call this endpoint on a public repository
+     * * `repo` to call this endpoint on a private repository (this scope also includes public repositories)
+     * 
+     * This endpoint is not compatible with fine-grained personal access tokens.
+     */
     get: operations["repos/list-teams"];
   };
   "/repos/{owner}/{repo}/topics": {
@@ -6377,7 +6543,7 @@ export interface paths {
      * token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use
      * this endpoint.
      * 
-     * #### Example encrypting a secret using Node.js
+     * **Example encrypting a secret using Node.js**
      * 
      * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
      * 
@@ -6402,7 +6568,7 @@ export interface paths {
      * });
      * ```
      * 
-     * #### Example encrypting a secret using Python
+     * **Example encrypting a secret using Python**
      * 
      * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
      * 
@@ -6418,7 +6584,7 @@ export interface paths {
      *   return b64encode(encrypted).decode("utf-8")
      * ```
      * 
-     * #### Example encrypting a secret using C#
+     * **Example encrypting a secret using C#**
      * 
      * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
      * 
@@ -6431,7 +6597,7 @@ export interface paths {
      * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
      * ```
      * 
-     * #### Example encrypting a secret using Ruby
+     * **Example encrypting a secret using Ruby**
      * 
      * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
      * 
@@ -6606,6 +6772,8 @@ export interface paths {
      * `q=tom+repos:%3E42+followers:%3E1000`
      * 
      * This query searches for users with the name `tom`. The results are restricted to users with more than 42 repositories and over 1,000 followers.
+     * 
+     * This endpoint does not accept authentication and will only include publicly visible users. As an alternative, you can use the GraphQL API. The GraphQL API requires authentication and will return private users, including Enterprise Managed Users (EMUs), that you are authorized to view. For more information, see "[GraphQL Queries](https://docs.github.com/graphql/reference/queries#search)."
      */
     get: operations["search/users"];
   };
@@ -6976,11 +7144,20 @@ export interface paths {
     get: operations["users/list-blocked-by-authenticated-user"];
   };
   "/user/blocks/{username}": {
-    /** Check if a user is blocked by the authenticated user */
+    /**
+     * Check if a user is blocked by the authenticated user 
+     * @description Returns a 204 if the given user is blocked by the authenticated user. Returns a 404 if the given user is not blocked by the authenticated user, or if the given user account has been identified as spam by GitHub.
+     */
     get: operations["users/check-blocked"];
-    /** Block a user */
+    /**
+     * Block a user 
+     * @description Blocks the given user and returns a 204. If the authenticated user cannot block the given user a 422 is returned.
+     */
     put: operations["users/block"];
-    /** Unblock a user */
+    /**
+     * Unblock a user 
+     * @description Unblocks the given user and returns a 204.
+     */
     delete: operations["users/unblock"];
   };
   "/user/codespaces": {
@@ -7047,7 +7224,7 @@ export interface paths {
      * 
      * GitHub Apps must have write access to the `codespaces_user_secrets` user permission and `codespaces_secrets` repository permission on all referenced repositories to use this endpoint.
      * 
-     * #### Example encrypting a secret using Node.js
+     * **Example encrypting a secret using Node.js**
      * 
      * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
      * 
@@ -7072,7 +7249,7 @@ export interface paths {
      * });
      * ```
      * 
-     * #### Example encrypting a secret using Python
+     * **Example encrypting a secret using Python**
      * 
      * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
      * 
@@ -7088,7 +7265,7 @@ export interface paths {
      *   return b64encode(encrypted).decode("utf-8")
      * ```
      * 
-     * #### Example encrypting a secret using C#
+     * **Example encrypting a secret using C#**
      * 
      * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
      * 
@@ -7101,7 +7278,7 @@ export interface paths {
      * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
      * ```
      * 
-     * #### Example encrypting a secret using Ruby
+     * **Example encrypting a secret using Ruby**
      * 
      * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
      * 
@@ -7391,7 +7568,7 @@ export interface paths {
     put: operations["apps/add-repo-to-installation-for-authenticated-user"];
     /**
      * Remove a repository from an app installation 
-     * @description Remove a single repository from an installation. The authenticated user must have admin access to the repository.
+     * @description Remove a single repository from an installation. The authenticated user must have admin access to the repository. The installation must have the `repository_selection` of `selected`.
      * 
      * You must use a personal access token (which you can create via the [command line](https://docs.github.com/github/authenticating-to-github/creating-a-personal-access-token) or [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication)) to access this endpoint.
      */
@@ -7465,13 +7642,22 @@ export interface paths {
     get: operations["apps/list-subscriptions-for-authenticated-user-stubbed"];
   };
   "/user/memberships/orgs": {
-    /** List organization memberships for the authenticated user */
+    /**
+     * List organization memberships for the authenticated user 
+     * @description Lists all of the authenticated user's organization memberships.
+     */
     get: operations["orgs/list-memberships-for-authenticated-user"];
   };
   "/user/memberships/orgs/{org}": {
-    /** Get an organization membership for the authenticated user */
+    /**
+     * Get an organization membership for the authenticated user 
+     * @description If the authenticated user is an active or pending member of the organization, this endpoint will return the user's membership. If the authenticated user is not affiliated with the organization, a `404` is returned. This endpoint will return a `403` if the request is made by a GitHub App that is blocked by the organization.
+     */
     get: operations["orgs/get-membership-for-authenticated-user"];
-    /** Update an organization membership for the authenticated user */
+    /**
+     * Update an organization membership for the authenticated user 
+     * @description Converts the authenticated user to an active member of the organization, if that user has a pending invitation from the organization.
+     */
     patch: operations["orgs/update-membership-for-authenticated-user"];
   };
   "/user/migrations": {
@@ -7734,14 +7920,20 @@ export interface paths {
     get: operations["activity/list-repos-starred-by-authenticated-user"];
   };
   "/user/starred/{owner}/{repo}": {
-    /** Check if a repository is starred by the authenticated user */
+    /**
+     * Check if a repository is starred by the authenticated user 
+     * @description Whether the authenticated user has starred the repository.
+     */
     get: operations["activity/check-repo-is-starred-by-authenticated-user"];
     /**
      * Star a repository for the authenticated user 
      * @description Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-verbs)."
      */
     put: operations["activity/star-repo-for-authenticated-user"];
-    /** Unstar a repository for the authenticated user */
+    /**
+     * Unstar a repository for the authenticated user 
+     * @description Unstar a repository that the authenticated user has previously starred.
+     */
     delete: operations["activity/unstar-repo-for-authenticated-user"];
   };
   "/user/subscriptions": {
@@ -7962,7 +8154,10 @@ export interface paths {
     post: operations["packages/restore-package-version-for-user"];
   };
   "/users/{username}/projects": {
-    /** List user projects */
+    /**
+     * List user projects 
+     * @description Lists projects for a user.
+     */
     get: operations["projects/list-for-user"];
   };
   "/users/{username}/received_events": {
@@ -10985,6 +11180,12 @@ export interface components {
        * ]
        */
       dependabot?: (string)[];
+      domains?: {
+        website?: (string)[];
+        codespaces?: (string)[];
+        copilot?: (string)[];
+        packages?: (string)[];
+      };
     };
     "security-and-analysis": ({
       advanced_security?: {
@@ -11300,80 +11501,6 @@ export interface components {
       avatar_url: string;
       /** @example A great organization */
       description: string | null;
-    };
-    /**
-     * Simple Organization Programmatic Access Grant Request 
-     * @description Minimal representation of an organization programmatic access grant request for enumerations
-     */
-    "organization-programmatic-access-grant-request": {
-      /** @description Unique identifier of the request for access via fine-grained personal access token. The `pat_request_id` used to review PAT requests. */
-      id: number;
-      /** @description Reason for requesting access. */
-      reason: string | null;
-      owner: components["schemas"]["simple-user"];
-      /**
-       * @description Type of repository selection requested. 
-       * @enum {string}
-       */
-      repository_selection: "none" | "all" | "subset";
-      /** @description URL to the list of repositories requested to be accessed via fine-grained personal access token. Should only be followed when `repository_selection` is `subset`. */
-      repositories_url: string;
-      /** @description Permissions requested, categorized by type of permission. */
-      permissions: {
-        organization?: {
-          [key: string]: string | undefined;
-        };
-        repository?: {
-          [key: string]: string | undefined;
-        };
-        other?: {
-          [key: string]: string | undefined;
-        };
-      };
-      /** @description Date and time when the request for access was created. */
-      created_at: string;
-      /** @description Whether the associated fine-grained personal access token has expired. */
-      token_expired: boolean;
-      /** @description Date and time when the associated fine-grained personal access token expires. */
-      token_expires_at: string | null;
-      /** @description Date and time when the associated fine-grained personal access token was last used for authentication. */
-      token_last_used_at: string | null;
-    };
-    /**
-     * Organization Programmatic Access Grant 
-     * @description Minimal representation of an organization programmatic access grant for enumerations
-     */
-    "organization-programmatic-access-grant": {
-      /** @description Unique identifier of the fine-grained personal access token. The `pat_id` used to get details about an approved fine-grained personal access token. */
-      id: number;
-      owner: components["schemas"]["simple-user"];
-      /**
-       * @description Type of repository selection requested. 
-       * @enum {string}
-       */
-      repository_selection: "none" | "all" | "subset";
-      /** @description URL to the list of repositories the fine-grained personal access token can access. Only follow when `repository_selection` is `subset`. */
-      repositories_url: string;
-      /** @description Permissions requested, categorized by type of permission. */
-      permissions: {
-        organization?: {
-          [key: string]: string | undefined;
-        };
-        repository?: {
-          [key: string]: string | undefined;
-        };
-        other?: {
-          [key: string]: string | undefined;
-        };
-      };
-      /** @description Date and time when the fine-grained personal access token was approved to access the organization. */
-      access_granted_at: string;
-      /** @description Whether the associated fine-grained personal access token has expired. */
-      token_expired: boolean;
-      /** @description Date and time when the associated fine-grained personal access token expires. */
-      token_expires_at: string | null;
-      /** @description Date and time when the associated fine-grained personal access token was last used for authentication. */
-      token_last_used_at: string | null;
     };
     /**
      * Organization Full 
@@ -12861,6 +12988,80 @@ export interface components {
       };
     };
     /**
+     * Simple Organization Programmatic Access Grant Request 
+     * @description Minimal representation of an organization programmatic access grant request for enumerations
+     */
+    "organization-programmatic-access-grant-request": {
+      /** @description Unique identifier of the request for access via fine-grained personal access token. The `pat_request_id` used to review PAT requests. */
+      id: number;
+      /** @description Reason for requesting access. */
+      reason: string | null;
+      owner: components["schemas"]["simple-user"];
+      /**
+       * @description Type of repository selection requested. 
+       * @enum {string}
+       */
+      repository_selection: "none" | "all" | "subset";
+      /** @description URL to the list of repositories requested to be accessed via fine-grained personal access token. Should only be followed when `repository_selection` is `subset`. */
+      repositories_url: string;
+      /** @description Permissions requested, categorized by type of permission. */
+      permissions: {
+        organization?: {
+          [key: string]: string | undefined;
+        };
+        repository?: {
+          [key: string]: string | undefined;
+        };
+        other?: {
+          [key: string]: string | undefined;
+        };
+      };
+      /** @description Date and time when the request for access was created. */
+      created_at: string;
+      /** @description Whether the associated fine-grained personal access token has expired. */
+      token_expired: boolean;
+      /** @description Date and time when the associated fine-grained personal access token expires. */
+      token_expires_at: string | null;
+      /** @description Date and time when the associated fine-grained personal access token was last used for authentication. */
+      token_last_used_at: string | null;
+    };
+    /**
+     * Organization Programmatic Access Grant 
+     * @description Minimal representation of an organization programmatic access grant for enumerations
+     */
+    "organization-programmatic-access-grant": {
+      /** @description Unique identifier of the fine-grained personal access token. The `pat_id` used to get details about an approved fine-grained personal access token. */
+      id: number;
+      owner: components["schemas"]["simple-user"];
+      /**
+       * @description Type of repository selection requested. 
+       * @enum {string}
+       */
+      repository_selection: "none" | "all" | "subset";
+      /** @description URL to the list of repositories the fine-grained personal access token can access. Only follow when `repository_selection` is `subset`. */
+      repositories_url: string;
+      /** @description Permissions requested, categorized by type of permission. */
+      permissions: {
+        organization?: {
+          [key: string]: string | undefined;
+        };
+        repository?: {
+          [key: string]: string | undefined;
+        };
+        other?: {
+          [key: string]: string | undefined;
+        };
+      };
+      /** @description Date and time when the fine-grained personal access token was approved to access the organization. */
+      access_granted_at: string;
+      /** @description Whether the associated fine-grained personal access token has expired. */
+      token_expired: boolean;
+      /** @description Date and time when the associated fine-grained personal access token expires. */
+      token_expires_at: string | null;
+      /** @description Date and time when the associated fine-grained personal access token was last used for authentication. */
+      token_last_used_at: string | null;
+    };
+    /**
      * Project 
      * @description Projects are a way to organize columns and cards of work.
      */
@@ -12976,7 +13177,7 @@ export interface components {
     "org-ruleset-conditions": components["schemas"]["repository-ruleset-conditions"] & components["schemas"]["repository-ruleset-conditions-repository-name-target"];
     /**
      * creation 
-     * @description Parameters to be used for the creation rule
+     * @description Only allow users with bypass permission to create matching refs.
      */
     "repository-rule-creation": {
       /** @enum {string} */
@@ -12984,7 +13185,7 @@ export interface components {
     };
     /**
      * update 
-     * @description Parameters to be used for the update rule
+     * @description Only allow users with bypass permission to update matching refs.
      */
     "repository-rule-update": {
       /** @enum {string} */
@@ -12996,7 +13197,7 @@ export interface components {
     };
     /**
      * deletion 
-     * @description Parameters to be used for the deletion rule
+     * @description Only allow users with bypass permissions to delete matching refs.
      */
     "repository-rule-deletion": {
       /** @enum {string} */
@@ -13004,7 +13205,7 @@ export interface components {
     };
     /**
      * required_linear_history 
-     * @description Parameters to be used for the required_linear_history rule
+     * @description Prevent merge commits from being pushed to matching branches.
      */
     "repository-rule-required-linear-history": {
       /** @enum {string} */
@@ -13012,7 +13213,7 @@ export interface components {
     };
     /**
      * required_deployments 
-     * @description Parameters to be used for the required_deployments rule
+     * @description Choose which environments must be successfully deployed to before branches can be merged into a branch that matches this rule.
      */
     "repository-rule-required-deployments": {
       /** @enum {string} */
@@ -13024,7 +13225,7 @@ export interface components {
     };
     /**
      * required_signatures 
-     * @description Parameters to be used for the required_signatures rule
+     * @description Commits pushed to matching branches must have verified signatures.
      */
     "repository-rule-required-signatures": {
       /** @enum {string} */
@@ -13032,7 +13233,7 @@ export interface components {
     };
     /**
      * pull_request 
-     * @description Parameters to be used for the pull_request rule
+     * @description Require all commits be made to a non-target branch and submitted via a pull request before they can be merged.
      */
     "repository-rule-pull-request": {
       /** @enum {string} */
@@ -13062,7 +13263,7 @@ export interface components {
     };
     /**
      * required_status_checks 
-     * @description Parameters to be used for the required_status_checks rule
+     * @description Choose which status checks must pass before branches can be merged into a branch that matches this rule. When enabled, commits must first be pushed to another branch, then merged or pushed directly to a branch that matches this rule after status checks have passed.
      */
     "repository-rule-required-status-checks": {
       /** @enum {string} */
@@ -13076,7 +13277,7 @@ export interface components {
     };
     /**
      * non_fast_forward 
-     * @description Parameters to be used for the non_fast_forward rule
+     * @description Prevent users with push access from force pushing to branches.
      */
     "repository-rule-non-fast-forward": {
       /** @enum {string} */
@@ -13227,9 +13428,17 @@ export interface components {
           /** @description The URL of the ruleset */
           href?: string;
         };
+        html?: {
+          /** @description The html URL of the ruleset */
+          href?: string;
+        };
       };
       conditions?: components["schemas"]["repository-ruleset-conditions"] | components["schemas"]["org-ruleset-conditions"];
       rules?: (components["schemas"]["repository-rule"])[];
+      /** Format: date-time */
+      created_at?: string;
+      /** Format: date-time */
+      updated_at?: string;
     };
     /**
      * Team Simple 
@@ -14686,6 +14895,7 @@ export interface components {
         core: components["schemas"]["rate-limit"];
         graphql?: components["schemas"]["rate-limit"];
         search: components["schemas"]["rate-limit"];
+        code_search?: components["schemas"]["rate-limit"];
         source_import?: components["schemas"]["rate-limit"];
         integration_manifest?: components["schemas"]["rate-limit"];
         code_scanning_upload?: components["schemas"]["rate-limit"];
@@ -16782,7 +16992,7 @@ export interface components {
        */
       state?: "configured" | "not-configured";
       /** @description Languages to be analysed. */
-      languages?: ("c" | "cpp" | "csharp" | "go" | "java" | "javascript" | "kotlin" | "python" | "ruby" | "typescript")[];
+      languages?: ("c-cpp" | "csharp" | "go" | "java-kotlin" | "javascript-typescript" | "javascript" | "python" | "ruby" | "typescript")[];
       /**
        * @description CodeQL query suite to be used. 
        * @enum {string}
@@ -16807,6 +17017,8 @@ export interface components {
        * @enum {string}
        */
       query_suite?: "default" | "extended";
+      /** @description CodeQL languages to be analyzed. Supported values are: `c-cpp`, `csharp`, `go`, `java-kotlin`, `javascript-typescript`, `python`, and `ruby`. */
+      languages?: ("c-cpp" | "csharp" | "go" | "java-kotlin" | "javascript-typescript" | "python" | "ruby")[];
     };
     /**
      * @description You can use `run_url` to track the status of the run. This includes a property status and conclusion.
@@ -22685,6 +22897,8 @@ export interface components {
         pull_request_reviews_enforcement_level: "off" | "non_admins" | "everyone";
         repository_id: number;
         require_code_owner_review: boolean;
+        /** @description Whether the most recent push must be approved by someone other than the person who pushed it */
+        require_last_push_approval?: boolean;
         required_approving_review_count: number;
         /** @enum {string} */
         required_conversation_resolution_level: "off" | "non_admins" | "everyone";
@@ -22737,6 +22951,8 @@ export interface components {
         pull_request_reviews_enforcement_level: "off" | "non_admins" | "everyone";
         repository_id: number;
         require_code_owner_review: boolean;
+        /** @description Whether the most recent push must be approved by someone other than the person who pushed it */
+        require_last_push_approval?: boolean;
         required_approving_review_count: number;
         /** @enum {string} */
         required_conversation_resolution_level: "off" | "non_admins" | "everyone";
@@ -22815,6 +23031,8 @@ export interface components {
         pull_request_reviews_enforcement_level: "off" | "non_admins" | "everyone";
         repository_id: number;
         require_code_owner_review: boolean;
+        /** @description Whether the most recent push must be approved by someone other than the person who pushed it */
+        require_last_push_approval?: boolean;
         required_approving_review_count: number;
         /** @enum {string} */
         required_conversation_resolution_level: "off" | "non_admins" | "everyone";
@@ -41388,6 +41606,7 @@ export interface components {
     "webhook-projects-v2-project-closed": {
       /** @enum {string} */
       action: "closed";
+      installation?: components["schemas"]["simple-installation"];
       organization: components["schemas"]["organization-simple"];
       projects_v2: components["schemas"]["projects-v2"];
       sender: components["schemas"]["simple-user"];
@@ -41396,6 +41615,7 @@ export interface components {
     "webhook-projects-v2-project-created": {
       /** @enum {string} */
       action: "created";
+      installation?: components["schemas"]["simple-installation"];
       organization: components["schemas"]["organization-simple"];
       projects_v2: components["schemas"]["projects-v2"];
       sender: components["schemas"]["simple-user"];
@@ -41404,6 +41624,7 @@ export interface components {
     "webhook-projects-v2-project-deleted": {
       /** @enum {string} */
       action: "deleted";
+      installation?: components["schemas"]["simple-installation"];
       organization: components["schemas"]["organization-simple"];
       projects_v2: components["schemas"]["projects-v2"];
       sender: components["schemas"]["simple-user"];
@@ -41430,6 +41651,7 @@ export interface components {
           to?: string;
         };
       };
+      installation?: components["schemas"]["simple-installation"];
       organization: components["schemas"]["organization-simple"];
       projects_v2: components["schemas"]["projects-v2"];
       sender: components["schemas"]["simple-user"];
@@ -41540,6 +41762,7 @@ export interface components {
     "webhook-projects-v2-project-reopened": {
       /** @enum {string} */
       action: "reopened";
+      installation?: components["schemas"]["simple-installation"];
       organization: components["schemas"]["organization-simple"];
       projects_v2: components["schemas"]["projects-v2"];
       sender: components["schemas"]["simple-user"];
@@ -79794,18 +80017,20 @@ export interface components {
         "application/json": components["schemas"]["basic-error"];
       };
     };
-    /** @description Internal Error */
-    internal_error: {
-      content: {
-        "application/json": components["schemas"]["basic-error"];
-      };
-    };
-    /** @description A header with no content is returned. */
-    no_content: never;
     /** @description Conflict */
     conflict: {
       content: {
         "application/json": components["schemas"]["basic-error"];
+      };
+    };
+    /** @description Response */
+    actions_runner_jitconfig: {
+      content: {
+        "application/json": {
+          runner: components["schemas"]["runner"];
+          /** @description The base64 encoded runner configuration. */
+          encoded_jit_config: string;
+        };
       };
     };
     /** @description Response */
@@ -79826,8 +80051,16 @@ export interface components {
         };
       };
     };
+    /** @description Internal Error */
+    internal_error: {
+      content: {
+        "application/json": components["schemas"]["basic-error"];
+      };
+    };
     /** @description The value of `per_page` multiplied by `page` cannot be greater than 10000. */
     package_es_list_error: never;
+    /** @description A header with no content is returned. */
+    no_content: never;
     /** @description Gone */
     gone: {
       content: {
@@ -79956,7 +80189,7 @@ export interface components {
     sort?: "created" | "updated";
     /** @description The account owner of the repository. The name is not case sensitive. */
     owner: string;
-    /** @description The name of the repository. The name is not case sensitive. */
+    /** @description The name of the repository without the `.git` extension. The name is not case sensitive. */
     repo: string;
     /** @description If `true`, show notifications marked as read. */
     all?: boolean;
@@ -79970,20 +80203,6 @@ export interface components {
     "since-org"?: number;
     /** @description The organization name. The name is not case sensitive. */
     org: string;
-    /** @description The property by which to sort the results. */
-    "personal-access-token-sort"?: "created_at";
-    /** @description A list of owner usernames to use to filter the results. */
-    "personal-access-token-owner"?: (string)[];
-    /** @description The name of the repository to use to filter the results. */
-    "personal-access-token-repository"?: string;
-    /** @description The permission to use to filter the results. */
-    "personal-access-token-permission"?: string;
-    /** @description Only show fine-grained personal access tokens used before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    "personal-access-token-before"?: string;
-    /** @description Only show fine-grained personal access tokens used after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
-    "personal-access-token-after"?: string;
-    /** @description The unique identifier of the fine-grained personal access token. */
-    "fine-grained-personal-access-token-id": number;
     /** @description The unique identifier of the repository. */
     "repository-id": number;
     /** @description The unique identifier of the required workflow. */
@@ -80027,6 +80246,20 @@ export interface components {
     "package-name": string;
     /** @description Unique identifier of the package version. */
     "package-version-id": number;
+    /** @description The property by which to sort the results. */
+    "personal-access-token-sort"?: "created_at";
+    /** @description A list of owner usernames to use to filter the results. */
+    "personal-access-token-owner"?: (string)[];
+    /** @description The name of the repository to use to filter the results. */
+    "personal-access-token-repository"?: string;
+    /** @description The permission to use to filter the results. */
+    "personal-access-token-permission"?: string;
+    /** @description Only show fine-grained personal access tokens used before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+    "personal-access-token-before"?: string;
+    /** @description Only show fine-grained personal access tokens used after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+    "personal-access-token-after"?: string;
+    /** @description The unique identifier of the fine-grained personal access token. */
+    "fine-grained-personal-access-token-id": number;
     /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers). If specified, the query only searches for events before this cursor. To receive an initial cursor on your first request, include an empty "before" query string. */
     "secret-scanning-pagination-before-org-repo"?: string;
     /** @description A cursor, as given in the [Link header](https://docs.github.com/rest/guides/using-pagination-in-the-rest-api#using-link-headers). If specified, the query only searches for events after this cursor.  To receive an initial cursor on your first request, include an empty "after" query string. */
@@ -80110,6 +80343,8 @@ export interface components {
     "alert-number": components["schemas"]["alert-number"];
     /** @description The SHA of the commit. */
     "commit-sha": string;
+    /** @description The commit reference. Can be a commit SHA, branch name (`heads/BRANCH_NAME`), or tag name (`tags/TAG_NAME`). For more information, see "[Git References](https://git-scm.com/book/en/v2/Git-Internals-Git-References)" in the Git documentation. */
+    "commit-ref": string;
     /** @description A comma-separated list of full manifest paths. If specified, only alerts for these manifests will be returned. */
     "dependabot-alert-comma-separated-manifests"?: string;
     /**
@@ -80710,7 +80945,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Get all codes of conduct */
+  /**
+   * Get all codes of conduct 
+   * @description Returns array of all GitHub's codes of conduct.
+   */
   "codes-of-conduct/get-all-codes-of-conduct": {
     responses: {
       /** @description Response */
@@ -80722,7 +80960,10 @@ export interface operations {
       304: components["responses"]["not_modified"];
     };
   };
-  /** Get a code of conduct */
+  /**
+   * Get a code of conduct 
+   * @description Returns information about the specified GitHub code of conduct.
+   */
   "codes-of-conduct/get-conduct-code": {
     parameters: {
       path: {
@@ -81774,6 +82015,8 @@ export interface operations {
    * Get GitHub meta information 
    * @description Returns meta information about GitHub, including a list of GitHub's IP addresses. For more information, see "[About GitHub's IP addresses](https://docs.github.com/articles/about-github-s-ip-addresses/)."
    * 
+   * The API's response also includes a list of GitHub's domain names.
+   * 
    * The values shown in the documentation's response are example values. You must always query the API directly to get the latest values.
    * 
    * **Note:** This endpoint returns both IPv4 and IPv6 addresses. However, not all features support IPv6. You should refer to the specific documentation for each feature to determine if IPv6 is supported.
@@ -82046,293 +82289,6 @@ export interface operations {
     };
   };
   /**
-   * List requests to access organization resources with fine-grained personal access tokens 
-   * @description Lists requests from organization members to access organization resources with a fine-grained personal access token. Only GitHub Apps can call this API,
-   * using the `organization_personal_access_token_requests: read` permission.
-   * 
-   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-   */
-  "orgs/list-pat-grant-requests": {
-    parameters: {
-      query?: {
-        per_page?: components["parameters"]["per-page"];
-        page?: components["parameters"]["page"];
-        sort?: components["parameters"]["personal-access-token-sort"];
-        direction?: components["parameters"]["direction"];
-        owner?: components["parameters"]["personal-access-token-owner"];
-        repository?: components["parameters"]["personal-access-token-repository"];
-        permission?: components["parameters"]["personal-access-token-permission"];
-        last_used_before?: components["parameters"]["personal-access-token-before"];
-        last_used_after?: components["parameters"]["personal-access-token-after"];
-      };
-      path: {
-        org: components["parameters"]["org"];
-      };
-    };
-    responses: {
-      /** @description Response */
-      200: {
-        headers: {
-          Link: components["headers"]["link"];
-        };
-        content: {
-          "application/json": (components["schemas"]["organization-programmatic-access-grant-request"])[];
-        };
-      };
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      422: components["responses"]["validation_failed"];
-      500: components["responses"]["internal_error"];
-    };
-  };
-  /**
-   * Review requests to access organization resources with fine-grained personal access tokens 
-   * @description Approves or denies multiple pending requests to access organization resources via a fine-grained personal access token. Only GitHub Apps can call this API,
-   * using the `organization_personal_access_token_requests: write` permission.
-   * 
-   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-   */
-  "orgs/review-pat-grant-requests-in-bulk": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": {
-          /** @description Unique identifiers of the requests for access via fine-grained personal access token. Must be formed of between 1 and 100 `pat_request_id` values. */
-          pat_request_ids?: (number)[];
-          /**
-           * @description Action to apply to the requests. 
-           * @enum {string}
-           */
-          action: "approve" | "deny";
-          /** @description Reason for approving or denying the requests. Max 1024 characters. */
-          reason?: string | null;
-        };
-      };
-    };
-    responses: {
-      202: components["responses"]["accepted"];
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      422: components["responses"]["validation_failed"];
-      500: components["responses"]["internal_error"];
-    };
-  };
-  /**
-   * Review a request to access organization resources with a fine-grained personal access token 
-   * @description Approves or denies a pending request to access organization resources via a fine-grained personal access token. Only GitHub Apps can call this API,
-   * using the `organization_personal_access_token_requests: write` permission.
-   * 
-   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-   */
-  "orgs/review-pat-grant-request": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-        /** @description Unique identifier of the request for access via fine-grained personal access token. */
-        pat_request_id: number;
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": {
-          /**
-           * @description Action to apply to the request. 
-           * @enum {string}
-           */
-          action: "approve" | "deny";
-          /** @description Reason for approving or denying the request. Max 1024 characters. */
-          reason?: string | null;
-        };
-      };
-    };
-    responses: {
-      204: components["responses"]["no_content"];
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      422: components["responses"]["validation_failed"];
-      500: components["responses"]["internal_error"];
-    };
-  };
-  /**
-   * List repositories requested to be accessed by a fine-grained personal access token 
-   * @description Lists the repositories a fine-grained personal access token request is requesting access to. Only GitHub Apps can call this API,
-   * using the `organization_personal_access_token_requests: read` permission.
-   * 
-   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-   */
-  "orgs/list-pat-grant-request-repositories": {
-    parameters: {
-      query?: {
-        per_page?: components["parameters"]["per-page"];
-        page?: components["parameters"]["page"];
-      };
-      path: {
-        org: components["parameters"]["org"];
-        /** @description Unique identifier of the request for access via fine-grained personal access token. */
-        pat_request_id: number;
-      };
-    };
-    responses: {
-      /** @description Response */
-      200: {
-        headers: {
-          Link: components["headers"]["link"];
-        };
-        content: {
-          "application/json": (components["schemas"]["minimal-repository"])[];
-        };
-      };
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      500: components["responses"]["internal_error"];
-    };
-  };
-  /**
-   * List fine-grained personal access tokens with access to organization resources 
-   * @description Lists approved fine-grained personal access tokens owned by organization members that can access organization resources. Only GitHub Apps can call this API,
-   * using the `organization_personal_access_tokens: read` permission.
-   * 
-   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-   */
-  "orgs/list-pat-grants": {
-    parameters: {
-      query?: {
-        per_page?: components["parameters"]["per-page"];
-        page?: components["parameters"]["page"];
-        sort?: components["parameters"]["personal-access-token-sort"];
-        direction?: components["parameters"]["direction"];
-        owner?: components["parameters"]["personal-access-token-owner"];
-        repository?: components["parameters"]["personal-access-token-repository"];
-        permission?: components["parameters"]["personal-access-token-permission"];
-        last_used_before?: components["parameters"]["personal-access-token-before"];
-        last_used_after?: components["parameters"]["personal-access-token-after"];
-      };
-      path: {
-        org: components["parameters"]["org"];
-      };
-    };
-    responses: {
-      /** @description Response */
-      200: {
-        headers: {
-          Link: components["headers"]["link"];
-        };
-        content: {
-          "application/json": (components["schemas"]["organization-programmatic-access-grant"])[];
-        };
-      };
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      422: components["responses"]["validation_failed"];
-      500: components["responses"]["internal_error"];
-    };
-  };
-  /**
-   * Update the access to organization resources via fine-grained personal access tokens 
-   * @description Updates the access organization members have to organization resources via fine-grained personal access tokens. Limited to revoking a token's existing access. Only GitHub Apps can call this API,
-   * using the `organization_personal_access_tokens: write` permission.
-   * 
-   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-   */
-  "orgs/update-pat-accesses": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": {
-          /**
-           * @description Action to apply to the fine-grained personal access token. 
-           * @enum {string}
-           */
-          action: "revoke";
-          /** @description The IDs of the fine-grained personal access tokens. */
-          pat_ids: (number)[];
-        };
-      };
-    };
-    responses: {
-      202: components["responses"]["accepted"];
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      422: components["responses"]["validation_failed"];
-      500: components["responses"]["internal_error"];
-    };
-  };
-  /**
-   * Update the access a fine-grained personal access token has to organization resources 
-   * @description Updates the access an organization member has to organization resources via a fine-grained personal access token. Limited to revoking the token's existing access. Limited to revoking a token's existing access. Only GitHub Apps can call this API,
-   * using the `organization_personal_access_tokens: write` permission.
-   * 
-   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-   */
-  "orgs/update-pat-access": {
-    parameters: {
-      path: {
-        org: components["parameters"]["org"];
-        pat_id: components["parameters"]["fine-grained-personal-access-token-id"];
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": {
-          /**
-           * @description Action to apply to the fine-grained personal access token. 
-           * @enum {string}
-           */
-          action: "revoke";
-        };
-      };
-    };
-    responses: {
-      204: components["responses"]["no_content"];
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      422: components["responses"]["validation_failed"];
-      500: components["responses"]["internal_error"];
-    };
-  };
-  /**
-   * List repositories a fine-grained personal access token has access to 
-   * @description Lists the repositories a fine-grained personal access token has access to. Only GitHub Apps can call this API,
-   * using the `organization_personal_access_tokens: read` permission.
-   * 
-   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
-   */
-  "orgs/list-pat-grant-repositories": {
-    parameters: {
-      query?: {
-        per_page?: components["parameters"]["per-page"];
-        page?: components["parameters"]["page"];
-      };
-      path: {
-        org: components["parameters"]["org"];
-        /** @description Unique identifier of the fine-grained personal access token. */
-        pat_id: number;
-      };
-    };
-    responses: {
-      /** @description Response */
-      200: {
-        headers: {
-          Link: components["headers"]["link"];
-        };
-        content: {
-          "application/json": (components["schemas"]["minimal-repository"])[];
-        };
-      };
-      403: components["responses"]["forbidden"];
-      404: components["responses"]["not_found"];
-      500: components["responses"]["internal_error"];
-    };
-  };
-  /**
    * Get an organization 
    * @description To see many of the organization response values, you need to be an authenticated organization owner with the `admin:org` scope. When the value of `two_factor_requirement_enabled` is `true`, the organization requires all members, billing managers, and outside collaborators to enable [two-factor authentication](https://docs.github.com/articles/securing-your-account-with-two-factor-authentication-2fa/).
    * 
@@ -82380,7 +82336,7 @@ export interface operations {
    * Update an organization 
    * @description **Parameter Deprecation Notice:** GitHub will replace and discontinue `members_allowed_repository_creation_type` in favor of more granular permissions. The new input parameters are `members_can_create_public_repositories`, `members_can_create_private_repositories` for all organizations and `members_can_create_internal_repositories` for organizations associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. For more information, see the [blog post](https://developer.github.com/changes/2019-12-03-internal-visibility-changes).
    * 
-   * Enables an authenticated organization owner with the `admin:org` scope to update the organization's profile and member privileges.
+   * Enables an authenticated organization owner with the `admin:org` scope or the `repo` scope to update the organization's profile and member privileges.
    */
   "orgs/update": {
     parameters: {
@@ -83178,6 +83134,41 @@ export interface operations {
     };
   };
   /**
+   * Create configuration for a just-in-time runner for an organization 
+   * @description Generates a configuration that can be passed to the runner application at startup.
+   * 
+   * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+   */
+  "actions/generate-runner-jitconfig-for-org": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description The name of the new runner. */
+          name: string;
+          /** @description The ID of the runner group to register the runner to. */
+          runner_group_id: number;
+          /** @description The names of the custom labels to add to the runner. **Minimum items**: 1. **Maximum items**: 100. */
+          labels: (string)[];
+          /**
+           * @description The working directory to be used for job execution, relative to the runner install directory. 
+           * @default _work
+           */
+          work_folder?: string;
+        };
+      };
+    };
+    responses: {
+      201: components["responses"]["actions_runner_jitconfig"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed_simple"];
+    };
+  };
+  /**
    * Create a registration token for an organization 
    * @description Returns a token that you can pass to the `config` script. The token expires after one hour.
    * 
@@ -83467,7 +83458,7 @@ export interface operations {
    * token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to
    * use this endpoint.
    * 
-   * #### Example encrypting a secret using Node.js
+   * **Example encrypting a secret using Node.js*
    * 
    * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
    * 
@@ -83492,7 +83483,7 @@ export interface operations {
    * });
    * ```
    * 
-   * #### Example encrypting a secret using Python
+   * **Example encrypting a secret using Python**
    * 
    * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
    * 
@@ -83508,7 +83499,7 @@ export interface operations {
    *   return b64encode(encrypted).decode("utf-8")
    * ```
    * 
-   * #### Example encrypting a secret using C#
+   * **Example encrypting a secret using C#**
    * 
    * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
    * 
@@ -83521,7 +83512,7 @@ export interface operations {
    * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
    * ```
    * 
-   * #### Example encrypting a secret using Ruby
+   * **Example encrypting a secret using Ruby**
    * 
    * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
    * 
@@ -83935,7 +83926,10 @@ export interface operations {
       };
     };
   };
-  /** Check if a user is blocked by an organization */
+  /**
+   * Check if a user is blocked by an organization 
+   * @description Returns a 204 if the given user is blocked by the given organization. Returns a 404 if the organization is not blocking the user, or if the user account has been identified as spam by GitHub.
+   */
   "orgs/check-blocked-user": {
     parameters: {
       path: {
@@ -83954,7 +83948,10 @@ export interface operations {
       };
     };
   };
-  /** Block a user from an organization */
+  /**
+   * Block a user from an organization 
+   * @description Blocks the given user on behalf of the specified organization and returns a 204. If the organization cannot block the given user a 422 is returned.
+   */
   "orgs/block-user": {
     parameters: {
       path: {
@@ -83968,7 +83965,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Unblock a user from an organization */
+  /**
+   * Unblock a user from an organization 
+   * @description Unblocks the given user on behalf of the specified organization.
+   */
   "orgs/unblock-user": {
     parameters: {
       path: {
@@ -84061,6 +84061,7 @@ export interface operations {
   };
   /**
    * Manage access control for organization codespaces 
+   * @deprecated 
    * @description Sets which users can access codespaces in an organization. This is synonymous with granting or revoking codespaces billing permissions for users according to the visibility.
    * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    */
@@ -84096,6 +84097,7 @@ export interface operations {
   };
   /**
    * Add users to Codespaces billing for an organization 
+   * @deprecated 
    * @description Codespaces for the specified users will be billed to the organization.
    * To use this endpoint, the billing settings for the organization must be set to `selected_members`. For information on how to change this setting please see [these docs].(https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces) You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    */
@@ -84126,6 +84128,7 @@ export interface operations {
   };
   /**
    * Removes users from Codespaces billing for an organization 
+   * @deprecated 
    * @description Codespaces for the specified users will no longer be billed to the organization.
    * To use this endpoint, the billing settings for the organization must be set to `selected_members`. For information on how to change this setting please see [these docs].(https://docs.github.com/rest/codespaces/organizations#manage-access-control-for-organization-codespaces) You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    */
@@ -84233,7 +84236,7 @@ export interface operations {
    * [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages). You must authenticate using an access
    * token with the `admin:org` scope to use this endpoint.
    * 
-   * #### Example encrypting a secret using Node.js
+   * **Example encrypting a secret using Node.js**
    * 
    * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
    * 
@@ -84258,7 +84261,7 @@ export interface operations {
    * });
    * ```
    * 
-   * #### Example encrypting a secret using Python
+   * **Example encrypting a secret using Python**
    * 
    * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
    * 
@@ -84274,7 +84277,7 @@ export interface operations {
    *   return b64encode(encrypted).decode("utf-8")
    * ```
    * 
-   * #### Example encrypting a secret using C#
+   * **Example encrypting a secret using C#**
    * 
    * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
    * 
@@ -84287,7 +84290,7 @@ export interface operations {
    * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
    * ```
    * 
-   * #### Example encrypting a secret using Ruby
+   * **Example encrypting a secret using Ruby**
    * 
    * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
    * 
@@ -84575,7 +84578,7 @@ export interface operations {
    * token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization
    * permission to use this endpoint.
    * 
-   * #### Example encrypting a secret using Node.js
+   * **Example encrypting a secret using Node.js**
    * 
    * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
    * 
@@ -84600,7 +84603,7 @@ export interface operations {
    * });
    * ```
    * 
-   * #### Example encrypting a secret using Python
+   * **Example encrypting a secret using Python**
    * 
    * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
    * 
@@ -84616,7 +84619,7 @@ export interface operations {
    *   return b64encode(encrypted).decode("utf-8")
    * ```
    * 
-   * #### Example encrypting a secret using C#
+   * **Example encrypting a secret using C#**
    * 
    * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
    * 
@@ -84629,7 +84632,7 @@ export interface operations {
    * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
    * ```
    * 
-   * #### Example encrypting a secret using Ruby
+   * **Example encrypting a secret using Ruby**
    * 
    * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
    * 
@@ -86201,6 +86204,293 @@ export interface operations {
     };
   };
   /**
+   * List requests to access organization resources with fine-grained personal access tokens 
+   * @description Lists requests from organization members to access organization resources with a fine-grained personal access token. Only GitHub Apps can call this API,
+   * using the `organization_personal_access_token_requests: read` permission.
+   * 
+   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+   */
+  "orgs/list-pat-grant-requests": {
+    parameters: {
+      query?: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+        sort?: components["parameters"]["personal-access-token-sort"];
+        direction?: components["parameters"]["direction"];
+        owner?: components["parameters"]["personal-access-token-owner"];
+        repository?: components["parameters"]["personal-access-token-repository"];
+        permission?: components["parameters"]["personal-access-token-permission"];
+        last_used_before?: components["parameters"]["personal-access-token-before"];
+        last_used_after?: components["parameters"]["personal-access-token-after"];
+      };
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        headers: {
+          Link: components["headers"]["link"];
+        };
+        content: {
+          "application/json": (components["schemas"]["organization-programmatic-access-grant-request"])[];
+        };
+      };
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Review requests to access organization resources with fine-grained personal access tokens 
+   * @description Approves or denies multiple pending requests to access organization resources via a fine-grained personal access token. Only GitHub Apps can call this API,
+   * using the `organization_personal_access_token_requests: write` permission.
+   * 
+   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+   */
+  "orgs/review-pat-grant-requests-in-bulk": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description Unique identifiers of the requests for access via fine-grained personal access token. Must be formed of between 1 and 100 `pat_request_id` values. */
+          pat_request_ids?: (number)[];
+          /**
+           * @description Action to apply to the requests. 
+           * @enum {string}
+           */
+          action: "approve" | "deny";
+          /** @description Reason for approving or denying the requests. Max 1024 characters. */
+          reason?: string | null;
+        };
+      };
+    };
+    responses: {
+      202: components["responses"]["accepted"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Review a request to access organization resources with a fine-grained personal access token 
+   * @description Approves or denies a pending request to access organization resources via a fine-grained personal access token. Only GitHub Apps can call this API,
+   * using the `organization_personal_access_token_requests: write` permission.
+   * 
+   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+   */
+  "orgs/review-pat-grant-request": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+        /** @description Unique identifier of the request for access via fine-grained personal access token. */
+        pat_request_id: number;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /**
+           * @description Action to apply to the request. 
+           * @enum {string}
+           */
+          action: "approve" | "deny";
+          /** @description Reason for approving or denying the request. Max 1024 characters. */
+          reason?: string | null;
+        };
+      };
+    };
+    responses: {
+      204: components["responses"]["no_content"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * List repositories requested to be accessed by a fine-grained personal access token 
+   * @description Lists the repositories a fine-grained personal access token request is requesting access to. Only GitHub Apps can call this API,
+   * using the `organization_personal_access_token_requests: read` permission.
+   * 
+   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+   */
+  "orgs/list-pat-grant-request-repositories": {
+    parameters: {
+      query?: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
+      path: {
+        org: components["parameters"]["org"];
+        /** @description Unique identifier of the request for access via fine-grained personal access token. */
+        pat_request_id: number;
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        headers: {
+          Link: components["headers"]["link"];
+        };
+        content: {
+          "application/json": (components["schemas"]["minimal-repository"])[];
+        };
+      };
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * List fine-grained personal access tokens with access to organization resources 
+   * @description Lists approved fine-grained personal access tokens owned by organization members that can access organization resources. Only GitHub Apps can call this API,
+   * using the `organization_personal_access_tokens: read` permission.
+   * 
+   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+   */
+  "orgs/list-pat-grants": {
+    parameters: {
+      query?: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+        sort?: components["parameters"]["personal-access-token-sort"];
+        direction?: components["parameters"]["direction"];
+        owner?: components["parameters"]["personal-access-token-owner"];
+        repository?: components["parameters"]["personal-access-token-repository"];
+        permission?: components["parameters"]["personal-access-token-permission"];
+        last_used_before?: components["parameters"]["personal-access-token-before"];
+        last_used_after?: components["parameters"]["personal-access-token-after"];
+      };
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        headers: {
+          Link: components["headers"]["link"];
+        };
+        content: {
+          "application/json": (components["schemas"]["organization-programmatic-access-grant"])[];
+        };
+      };
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Update the access to organization resources via fine-grained personal access tokens 
+   * @description Updates the access organization members have to organization resources via fine-grained personal access tokens. Limited to revoking a token's existing access. Only GitHub Apps can call this API,
+   * using the `organization_personal_access_tokens: write` permission.
+   * 
+   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+   */
+  "orgs/update-pat-accesses": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /**
+           * @description Action to apply to the fine-grained personal access token. 
+           * @enum {string}
+           */
+          action: "revoke";
+          /** @description The IDs of the fine-grained personal access tokens. */
+          pat_ids: (number)[];
+        };
+      };
+    };
+    responses: {
+      202: components["responses"]["accepted"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Update the access a fine-grained personal access token has to organization resources 
+   * @description Updates the access an organization member has to organization resources via a fine-grained personal access token. Limited to revoking the token's existing access. Limited to revoking a token's existing access. Only GitHub Apps can call this API,
+   * using the `organization_personal_access_tokens: write` permission.
+   * 
+   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+   */
+  "orgs/update-pat-access": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+        pat_id: components["parameters"]["fine-grained-personal-access-token-id"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /**
+           * @description Action to apply to the fine-grained personal access token. 
+           * @enum {string}
+           */
+          action: "revoke";
+        };
+      };
+    };
+    responses: {
+      204: components["responses"]["no_content"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * List repositories a fine-grained personal access token has access to 
+   * @description Lists the repositories a fine-grained personal access token has access to. Only GitHub Apps can call this API,
+   * using the `organization_personal_access_tokens: read` permission.
+   * 
+   * **Note**: Fine-grained PATs are in public beta. Related APIs, events, and functionality are subject to change.
+   */
+  "orgs/list-pat-grant-repositories": {
+    parameters: {
+      query?: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
+      path: {
+        org: components["parameters"]["org"];
+        /** @description Unique identifier of the fine-grained personal access token. */
+        pat_id: number;
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        headers: {
+          Link: components["headers"]["link"];
+        };
+        content: {
+          "application/json": (components["schemas"]["minimal-repository"])[];
+        };
+      };
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
    * List organization projects 
    * @description Lists the projects in an organization. Returns a `404 Not Found` status if projects are disabled in the organization. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.
    */
@@ -86289,7 +86579,10 @@ export interface operations {
       };
     };
   };
-  /** Check public organization membership for a user */
+  /**
+   * Check public organization membership for a user 
+   * @description Check if the provided user is a public member of the organization.
+   */
   "orgs/check-public-membership-for-user": {
     parameters: {
       path: {
@@ -86323,7 +86616,10 @@ export interface operations {
       403: components["responses"]["forbidden"];
     };
   };
-  /** Remove public organization membership for the authenticated user */
+  /**
+   * Remove public organization membership for the authenticated user 
+   * @description Removes the public membership for the authenticated user from the specified organization, unless public visibility is enforced by default.
+   */
   "orgs/remove-public-membership-for-authenticated-user": {
     parameters: {
       path: {
@@ -86532,6 +86828,10 @@ export interface operations {
    */
   "repos/get-org-rulesets": {
     parameters: {
+      query?: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
       path: {
         org: components["parameters"]["org"];
       };
@@ -87965,7 +88265,10 @@ export interface operations {
       422: never;
     };
   };
-  /** Get a project card */
+  /**
+   * Get a project card 
+   * @description Gets information about a project card.
+   */
   "projects/get-card": {
     parameters: {
       path: {
@@ -87985,7 +88288,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Delete a project card */
+  /**
+   * Delete a project card 
+   * @description Deletes a project card
+   */
   "projects/delete-card": {
     parameters: {
       path: {
@@ -88111,7 +88417,10 @@ export interface operations {
       };
     };
   };
-  /** Get a project column */
+  /**
+   * Get a project column 
+   * @description Gets information about a project column.
+   */
   "projects/get-column": {
     parameters: {
       path: {
@@ -88131,7 +88440,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Delete a project column */
+  /**
+   * Delete a project column 
+   * @description Deletes a project column.
+   */
   "projects/delete-column": {
     parameters: {
       path: {
@@ -88176,7 +88488,10 @@ export interface operations {
       403: components["responses"]["forbidden"];
     };
   };
-  /** List project cards */
+  /**
+   * List project cards 
+   * @description Lists the project cards in a project.
+   */
   "projects/list-cards": {
     parameters: {
       query?: {
@@ -88523,7 +88838,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** List project columns */
+  /**
+   * List project columns 
+   * @description Lists the project columns in a project.
+   */
   "projects/list-columns": {
     parameters: {
       query?: {
@@ -88549,7 +88867,10 @@ export interface operations {
       403: components["responses"]["forbidden"];
     };
   };
-  /** Create a project column */
+  /**
+   * Create a project column 
+   * @description Creates a new project column.
+   */
   "projects/create-column": {
     parameters: {
       path: {
@@ -89593,6 +89914,42 @@ export interface operations {
     };
   };
   /**
+   * Create configuration for a just-in-time runner for a repository 
+   * @description Generates a configuration that can be passed to the runner application at startup.
+   * 
+   * You must authenticate using an access token with the `repo` scope to use this endpoint.
+   */
+  "actions/generate-runner-jitconfig-for-repo": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description The name of the new runner. */
+          name: string;
+          /** @description The ID of the runner group to register the runner to. */
+          runner_group_id: number;
+          /** @description The names of the custom labels to add to the runner. **Minimum items**: 1. **Maximum items**: 100. */
+          labels: (string)[];
+          /**
+           * @description The working directory to be used for job execution, relative to the runner install directory. 
+           * @default _work
+           */
+          work_folder?: string;
+        };
+      };
+    };
+    responses: {
+      201: components["responses"]["actions_runner_jitconfig"];
+      404: components["responses"]["not_found"];
+      422: components["responses"]["validation_failed_simple"];
+    };
+  };
+  /**
    * Create a registration token for a repository 
    * @description Returns a token that you can pass to the `config` script. The token expires after one hour. You must authenticate
    * using an access token with the `repo` scope to use this endpoint.
@@ -90419,7 +90776,7 @@ export interface operations {
    * token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use
    * this endpoint.
    * 
-   * #### Example encrypting a secret using Node.js
+   * **Example encrypting a secret using Node.js**
    * 
    * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
    * 
@@ -90444,7 +90801,7 @@ export interface operations {
    * });
    * ```
    * 
-   * #### Example encrypting a secret using Python
+   * **Example encrypting a secret using Python**
    * 
    * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
    * 
@@ -90460,7 +90817,7 @@ export interface operations {
    *   return b64encode(encrypted).decode("utf-8")
    * ```
    * 
-   * #### Example encrypting a secret using C#
+   * **Example encrypting a secret using C#**
    * 
    * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
    * 
@@ -90473,7 +90830,7 @@ export interface operations {
    * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
    * ```
    * 
-   * #### Example encrypting a secret using Ruby
+   * **Example encrypting a secret using Ruby**
    * 
    * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
    * 
@@ -92358,6 +92715,8 @@ export interface operations {
    * @description Triggers GitHub to rerequest an existing check run, without pushing new code to a repository. This endpoint will trigger the [`check_run` webhook](https://docs.github.com/webhooks/event-payloads/#check_run) event with the action `rerequested`. When a check run is `rerequested`, its `status` is reset to `queued` and the `conclusion` is cleared.
    * 
    * To rerequest a check run, your GitHub App must have the `checks:read` permission on a private repository or pull access to a public repository.
+   * 
+   * For more information about how to re-run GitHub Actions jobs, see "[Re-run a job from a workflow run](https://docs.github.com/rest/actions/workflow-runs#re-run-a-job-from-a-workflow-run)".
    */
   "checks/rerequest-run": {
     parameters: {
@@ -93678,7 +94037,30 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Remove a repository collaborator */
+  /**
+   * Remove a repository collaborator 
+   * @description Removes a collaborator from a repository.
+   * 
+   * To use this endpoint, the authenticated user must either be an administrator of the repository or target themselves for removal.
+   * 
+   * This endpoint also:
+   * - Cancels any outstanding invitations
+   * - Unasigns the user from any issues
+   * - Removes access to organization projects if the user is not an organization member and is not a collaborator on any other organization repositories.
+   * - Unstars the repository
+   * - Updates access permissions to packages
+   * 
+   * Removing a user as a collaborator has the following effects on forks:
+   *  - If the user had access to a fork through their membership to this repository, the user will also be removed from the fork.
+   *  - If the user had their own fork of the repository, the fork will be deleted.
+   *  - If the user still has read access to the repository, open pull requests by this user from a fork will be denied.
+   * 
+   * **Note**: A user can still have access to the repository through organization permissions like base repository permissions.
+   * 
+   * Although the API responds immediately, the additional permission updates might take some extra time to complete in the background.
+   * 
+   * For more information on fork permissions, see "[About permissions and visibility of forks](https://docs.github.com/pull-requests/collaborating-with-pull-requests/working-with-forks/about-permissions-and-visibility-of-forks)".
+   */
   "repos/remove-collaborator": {
     parameters: {
       path: {
@@ -93688,13 +94070,21 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Response */
+      /** @description No Content when collaborator was removed from the repository. */
       204: never;
+      403: components["responses"]["forbidden"];
+      422: components["responses"]["validation_failed"];
     };
   };
   /**
    * Get repository permissions for a user 
-   * @description Checks the repository permission of a collaborator. The possible repository permissions are `admin`, `write`, `read`, and `none`.
+   * @description Checks the repository permission of a collaborator. The possible repository
+   * permissions are `admin`, `write`, `read`, and `none`.
+   * 
+   * *Note*: The `permission` attribute provides the legacy base roles of `admin`, `write`, `read`, and `none`, where the
+   * `maintain` role is mapped to `write` and the `triage` role is mapped to `read`. To determine the role assigned to the
+   * collaborator, see the `role_name` attribute, which will provide the full role name, including custom roles. The
+   * `permissions` hash can also be used to determine which base level of access the collaborator has to the repository.
    */
   "repos/get-collaborator-permission-level": {
     parameters: {
@@ -94134,8 +94524,7 @@ export interface operations {
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
-        /** @description ref parameter */
-        ref: string;
+        ref: components["parameters"]["commit-ref"];
       };
     };
     responses: {
@@ -94171,8 +94560,7 @@ export interface operations {
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
-        /** @description ref parameter */
-        ref: string;
+        ref: components["parameters"]["commit-ref"];
       };
     };
     responses: {
@@ -94211,8 +94599,7 @@ export interface operations {
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
-        /** @description ref parameter */
-        ref: string;
+        ref: components["parameters"]["commit-ref"];
       };
     };
     responses: {
@@ -94250,8 +94637,7 @@ export interface operations {
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
-        /** @description ref parameter */
-        ref: string;
+        ref: components["parameters"]["commit-ref"];
       };
     };
     responses: {
@@ -94279,8 +94665,7 @@ export interface operations {
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
-        /** @description ref parameter */
-        ref: string;
+        ref: components["parameters"]["commit-ref"];
       };
     };
     responses: {
@@ -94709,6 +95094,8 @@ export interface operations {
    * @description You must use an access token with the `security_events` scope to use this endpoint with private repositories.
    * You can also use tokens with the `public_repo` scope for public repositories only.
    * GitHub Apps must have **Dependabot alerts** write permission to use this endpoint.
+   * 
+   * To use this endpoint, you must have access to security alerts for the repository. For more information, see "[Granting access to security alerts](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-security-and-analysis-settings-for-your-repository#granting-access-to-security-alerts)."
    */
   "dependabot/update-alert": {
     parameters: {
@@ -94829,7 +95216,7 @@ export interface operations {
    * token with the `repo` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` repository
    * permission to use this endpoint.
    * 
-   * #### Example encrypting a secret using Node.js
+   * **Example encrypting a secret using Node.js**
    * 
    * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
    * 
@@ -94854,7 +95241,7 @@ export interface operations {
    * });
    * ```
    * 
-   * #### Example encrypting a secret using Python
+   * **Example encrypting a secret using Python**
    * 
    * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
    * 
@@ -94870,7 +95257,7 @@ export interface operations {
    *   return b64encode(encrypted).decode("utf-8")
    * ```
    * 
-   * #### Example encrypting a secret using C#
+   * **Example encrypting a secret using C#**
    * 
    * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
    * 
@@ -94883,7 +95270,7 @@ export interface operations {
    * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
    * ```
    * 
-   * #### Example encrypting a secret using Ruby
+   * **Example encrypting a secret using Ruby**
    * 
    * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
    * 
@@ -96043,8 +96430,9 @@ export interface operations {
     };
   };
   /**
-   * Get a commit 
-   * @description Gets a Git [commit object](https://git-scm.com/book/en/v1/Git-Internals-Git-Objects#Commit-Objects).
+   * Get a commit object 
+   * @description Gets a Git [commit object](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects).
+   * To get the contents of a commit, see "[Get a commit](/rest/commits/commits#get-a-commit)."
    * 
    * **Signature verification object**
    * 
@@ -96108,8 +96496,7 @@ export interface operations {
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
-        /** @description ref parameter */
-        ref: string;
+        ref: components["parameters"]["commit-ref"];
       };
     };
     responses: {
@@ -96135,8 +96522,7 @@ export interface operations {
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
-        /** @description ref parameter */
-        ref: string;
+        ref: components["parameters"]["commit-ref"];
       };
     };
     responses: {
@@ -96190,8 +96576,7 @@ export interface operations {
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
-        /** @description ref parameter */
-        ref: string;
+        ref: components["parameters"]["commit-ref"];
       };
     };
     responses: {
@@ -97383,6 +97768,7 @@ export interface operations {
           "application/json": components["schemas"]["issue"];
         };
       };
+      400: components["responses"]["bad_request"];
       403: components["responses"]["forbidden"];
       404: components["responses"]["not_found"];
       410: components["responses"]["gone"];
@@ -97584,7 +97970,10 @@ export interface operations {
       204: never;
     };
   };
-  /** List issue events for a repository */
+  /**
+   * List issue events for a repository 
+   * @description Lists events for a repository.
+   */
   "issues/list-events-for-repo": {
     parameters: {
       query?: {
@@ -97609,7 +97998,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Get an issue event */
+  /**
+   * Get an issue event 
+   * @description Gets a single event by the event id.
+   */
   "issues/get-event": {
     parameters: {
       path: {
@@ -97888,7 +98280,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** List issue events */
+  /**
+   * List issue events 
+   * @description Lists all events for an issue.
+   */
   "issues/list-events": {
     parameters: {
       query?: {
@@ -97914,7 +98309,10 @@ export interface operations {
       410: components["responses"]["gone"];
     };
   };
-  /** List labels for an issue */
+  /**
+   * List labels for an issue 
+   * @description Lists all labels for an issue.
+   */
   "issues/list-labels-on-issue": {
     parameters: {
       query?: {
@@ -97981,7 +98379,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Add labels to an issue */
+  /**
+   * Add labels to an issue 
+   * @description Adds labels to an issue. If you provide an empty array of labels, all labels are removed from the issue.
+   */
   "issues/add-labels": {
     parameters: {
       path: {
@@ -98017,7 +98418,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Remove all labels from an issue */
+  /**
+   * Remove all labels from an issue 
+   * @description Removes all labels from an issue.
+   */
   "issues/remove-all-labels": {
     parameters: {
       path: {
@@ -98207,7 +98611,10 @@ export interface operations {
       204: never;
     };
   };
-  /** List timeline events for an issue */
+  /**
+   * List timeline events for an issue 
+   * @description List all timeline events for an issue.
+   */
   "issues/list-events-for-timeline": {
     parameters: {
       query?: {
@@ -98335,7 +98742,10 @@ export interface operations {
       204: never;
     };
   };
-  /** List labels for a repository */
+  /**
+   * List labels for a repository 
+   * @description Lists all labels for a repository.
+   */
   "issues/list-labels-for-repo": {
     parameters: {
       query?: {
@@ -98360,7 +98770,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Create a label */
+  /**
+   * Create a label 
+   * @description Creates a label for the specified repository with the given name and color. The name and color parameters are required. The color must be a valid [hexadecimal color code](http://www.color-hex.com/).
+   */
   "issues/create-label": {
     parameters: {
       path: {
@@ -98395,7 +98808,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Get a label */
+  /**
+   * Get a label 
+   * @description Gets a label using the given name.
+   */
   "issues/get-label": {
     parameters: {
       path: {
@@ -98414,7 +98830,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Delete a label */
+  /**
+   * Delete a label 
+   * @description Deletes a label using the given label name.
+   */
   "issues/delete-label": {
     parameters: {
       path: {
@@ -98428,7 +98847,10 @@ export interface operations {
       204: never;
     };
   };
-  /** Update a label */
+  /**
+   * Update a label 
+   * @description Updates a label using the given label name.
+   */
   "issues/update-label": {
     parameters: {
       path: {
@@ -98608,7 +99030,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** List milestones */
+  /**
+   * List milestones 
+   * @description Lists milestones for a repository.
+   */
   "issues/list-milestones": {
     parameters: {
       query?: {
@@ -98639,7 +99064,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Create a milestone */
+  /**
+   * Create a milestone 
+   * @description Creates a milestone.
+   */
   "issues/create-milestone": {
     parameters: {
       path: {
@@ -98683,7 +99111,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Get a milestone */
+  /**
+   * Get a milestone 
+   * @description Gets a milestone using the given milestone number.
+   */
   "issues/get-milestone": {
     parameters: {
       path: {
@@ -98702,7 +99133,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Delete a milestone */
+  /**
+   * Delete a milestone 
+   * @description Deletes a milestone using the given milestone number.
+   */
   "issues/delete-milestone": {
     parameters: {
       path: {
@@ -98756,7 +99190,10 @@ export interface operations {
       };
     };
   };
-  /** List labels for issues in a milestone */
+  /**
+   * List labels for issues in a milestone 
+   * @description Lists labels for issues in a milestone.
+   */
   "issues/list-labels-for-milestone": {
     parameters: {
       query?: {
@@ -100670,7 +101107,8 @@ export interface operations {
           "application/json": components["schemas"]["release"];
         };
       };
-      404: components["responses"]["not_found"];
+      /** @description Unauthorized */
+      401: never;
     };
   };
   /**
@@ -100910,10 +101348,16 @@ export interface operations {
   };
   /**
    * Get rules for a branch 
-   * @description Returns all rules that apply to the specified branch.
+   * @description Returns all rules that apply to the specified branch. The branch does not need to exist; rules that would apply to a
+   * branch with that name will be returned. All rules that apply will be returned, regardless of the level at which they
+   * are configured.
    */
   "repos/get-branch-rules": {
     parameters: {
+      query?: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
+      };
       path: {
         owner: components["parameters"]["owner"];
         repo: components["parameters"]["repo"];
@@ -100936,6 +101380,8 @@ export interface operations {
   "repos/get-repo-rulesets": {
     parameters: {
       query?: {
+        per_page?: components["parameters"]["per-page"];
+        page?: components["parameters"]["page"];
         /** @description Include rulesets configured at higher levels that apply to this repository */
         includes_parents?: boolean;
       };
@@ -101638,7 +102084,10 @@ export interface operations {
       };
     };
   };
-  /** Get a repository subscription */
+  /**
+   * Get a repository subscription 
+   * @description Gets information about whether the authenticated user is subscribed to the repository.
+   */
   "activity/get-repo-subscription": {
     parameters: {
       path: {
@@ -101823,7 +102272,18 @@ export interface operations {
       302: never;
     };
   };
-  /** List repository teams */
+  /**
+   * List repository teams 
+   * @description Lists the teams that have access to the specified repository and that are also visible to the authenticated user.
+   * 
+   * For a public repository, a team is listed only if that team added the public repository explicitly.
+   * 
+   * Personal access tokens require the following scopes:
+   * * `public_repo` to call this endpoint on a public repository
+   * * `repo` to call this endpoint on a private repository (this scope also includes public repositories)
+   * 
+   * This endpoint is not compatible with fine-grained personal access tokens.
+   */
   "repos/list-teams": {
     parameters: {
       query?: {
@@ -101845,6 +102305,7 @@ export interface operations {
           "application/json": (components["schemas"]["team"])[];
         };
       };
+      404: components["responses"]["not_found"];
     };
   };
   /** Get all repository topics */
@@ -102251,7 +102712,7 @@ export interface operations {
    * token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use
    * this endpoint.
    * 
-   * #### Example encrypting a secret using Node.js
+   * **Example encrypting a secret using Node.js**
    * 
    * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
    * 
@@ -102276,7 +102737,7 @@ export interface operations {
    * });
    * ```
    * 
-   * #### Example encrypting a secret using Python
+   * **Example encrypting a secret using Python**
    * 
    * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
    * 
@@ -102292,7 +102753,7 @@ export interface operations {
    *   return b64encode(encrypted).decode("utf-8")
    * ```
    * 
-   * #### Example encrypting a secret using C#
+   * **Example encrypting a secret using C#**
    * 
    * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
    * 
@@ -102305,7 +102766,7 @@ export interface operations {
    * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
    * ```
    * 
-   * #### Example encrypting a secret using Ruby
+   * **Example encrypting a secret using Ruby**
    * 
    * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
    * 
@@ -102769,6 +103230,8 @@ export interface operations {
    * `q=tom+repos:%3E42+followers:%3E1000`
    * 
    * This query searches for users with the name `tom`. The results are restricted to users with more than 42 repositories and over 1,000 followers.
+   * 
+   * This endpoint does not accept authentication and will only include publicly visible users. As an alternative, you can use the GraphQL API. The GraphQL API requires authentication and will return private users, including Enterprise Managed Users (EMUs), that you are authorized to view. For more information, see "[GraphQL Queries](https://docs.github.com/graphql/reference/queries#search)."
    */
   "search/users": {
     parameters: {
@@ -103936,7 +104399,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Check if a user is blocked by the authenticated user */
+  /**
+   * Check if a user is blocked by the authenticated user 
+   * @description Returns a 204 if the given user is blocked by the authenticated user. Returns a 404 if the given user is not blocked by the authenticated user, or if the given user account has been identified as spam by GitHub.
+   */
   "users/check-blocked": {
     parameters: {
       path: {
@@ -103957,7 +104423,10 @@ export interface operations {
       };
     };
   };
-  /** Block a user */
+  /**
+   * Block a user 
+   * @description Blocks the given user and returns a 204. If the authenticated user cannot block the given user a 422 is returned.
+   */
   "users/block": {
     parameters: {
       path: {
@@ -103974,7 +104443,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Unblock a user */
+  /**
+   * Unblock a user 
+   * @description Unblocks the given user and returns a 204.
+   */
   "users/unblock": {
     parameters: {
       path: {
@@ -104190,7 +104662,7 @@ export interface operations {
    * 
    * GitHub Apps must have write access to the `codespaces_user_secrets` user permission and `codespaces_secrets` repository permission on all referenced repositories to use this endpoint.
    * 
-   * #### Example encrypting a secret using Node.js
+   * **Example encrypting a secret using Node.js**
    * 
    * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
    * 
@@ -104215,7 +104687,7 @@ export interface operations {
    * });
    * ```
    * 
-   * #### Example encrypting a secret using Python
+   * **Example encrypting a secret using Python**
    * 
    * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
    * 
@@ -104231,7 +104703,7 @@ export interface operations {
    *   return b64encode(encrypted).decode("utf-8")
    * ```
    * 
-   * #### Example encrypting a secret using C#
+   * **Example encrypting a secret using C#**
    * 
    * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
    * 
@@ -104244,7 +104716,7 @@ export interface operations {
    * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
    * ```
    * 
-   * #### Example encrypting a secret using Ruby
+   * **Example encrypting a secret using Ruby**
    * 
    * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
    * 
@@ -105135,7 +105607,7 @@ export interface operations {
   };
   /**
    * Remove a repository from an app installation 
-   * @description Remove a single repository from an installation. The authenticated user must have admin access to the repository.
+   * @description Remove a single repository from an installation. The authenticated user must have admin access to the repository. The installation must have the `repository_selection` of `selected`.
    * 
    * You must use a personal access token (which you can create via the [command line](https://docs.github.com/github/authenticating-to-github/creating-a-personal-access-token) or [Basic Authentication](https://docs.github.com/rest/overview/other-authentication-methods#basic-authentication)) to access this endpoint.
    */
@@ -105152,6 +105624,8 @@ export interface operations {
       304: components["responses"]["not_modified"];
       403: components["responses"]["forbidden"];
       404: components["responses"]["not_found"];
+      /** @description Returned when the application is installed on `all` repositories in the organization, or if this request would remove the last repository that the application has access to in the organization. */
+      422: never;
     };
   };
   /**
@@ -105391,7 +105865,10 @@ export interface operations {
       401: components["responses"]["requires_authentication"];
     };
   };
-  /** List organization memberships for the authenticated user */
+  /**
+   * List organization memberships for the authenticated user 
+   * @description Lists all of the authenticated user's organization memberships.
+   */
   "orgs/list-memberships-for-authenticated-user": {
     parameters: {
       query?: {
@@ -105417,7 +105894,10 @@ export interface operations {
       422: components["responses"]["validation_failed"];
     };
   };
-  /** Get an organization membership for the authenticated user */
+  /**
+   * Get an organization membership for the authenticated user 
+   * @description If the authenticated user is an active or pending member of the organization, this endpoint will return the user's membership. If the authenticated user is not affiliated with the organization, a `404` is returned. This endpoint will return a `403` if the request is made by a GitHub App that is blocked by the organization.
+   */
   "orgs/get-membership-for-authenticated-user": {
     parameters: {
       path: {
@@ -105435,7 +105915,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Update an organization membership for the authenticated user */
+  /**
+   * Update an organization membership for the authenticated user 
+   * @description Converts the authenticated user to an active member of the organization, if that user has a pending invitation from the organization.
+   */
   "orgs/update-membership-for-authenticated-user": {
     parameters: {
       path: {
@@ -106474,7 +106957,10 @@ export interface operations {
       403: components["responses"]["forbidden"];
     };
   };
-  /** Check if a repository is starred by the authenticated user */
+  /**
+   * Check if a repository is starred by the authenticated user 
+   * @description Whether the authenticated user has starred the repository.
+   */
   "activity/check-repo-is-starred-by-authenticated-user": {
     parameters: {
       path: {
@@ -106516,7 +107002,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** Unstar a repository for the authenticated user */
+  /**
+   * Unstar a repository for the authenticated user 
+   * @description Unstar a repository that the authenticated user has previously starred.
+   */
   "activity/unstar-repo-for-authenticated-user": {
     parameters: {
       path: {
@@ -107171,7 +107660,10 @@ export interface operations {
       404: components["responses"]["not_found"];
     };
   };
-  /** List user projects */
+  /**
+   * List user projects 
+   * @description Lists projects for a user.
+   */
   "projects/list-for-user": {
     parameters: {
       query?: {

@@ -22,7 +22,7 @@ import { paths } from "./v1"; // generated from openapi-typescript
 const { get, post } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 
 // Type-checked request
-await post("/create-post", {
+await put("/blogposts", {
   body: {
     title: "My New Post",
     // ❌ Property 'publish_date' is missing in type …
@@ -30,7 +30,7 @@ await post("/create-post", {
 });
 
 // Type-checked response
-const { data, error } = await get("/post/my-blog-post");
+const { data, error } = await get("/blogposts/my-blog-post");
 
 console.log(data.title); // ❌ 'data' is possibly 'undefined'
 console.log(error.message); // ❌ 'error' is possibly 'undefined'
@@ -85,7 +85,7 @@ Using **openapi-fetch** is as easy as reading your schema! For example, given th
 
 ![OpenAPI schema example](/assets/openapi-schema.png)
 
-Here’s how you’d fetch `/post/{post_id}` and `/create-post`:
+Here’s how you’d fetch GET `/blogposts/{post_id}` and POST `/blogposts`:
 
 ```ts
 import createClient from "openapi-fetch";
@@ -93,16 +93,14 @@ import { paths } from "./v1";
 
 const { get, post } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 
-// GET /post/{post_id}
-const { data, error } = await get("/post/{post_id}", {
+const { data, error } = await get("/blogposts/{post_id}", {
   params: {
     path: { post_id: "my-post" },
     query: { version: 2 },
   },
 });
 
-// POST /create-post
-const { data, error } = await post("/create-post", {
+const { data, error } = await post("/blogposts", {
   body: {
     title: "New Post",
     body: "<p>New post body</p>",
@@ -113,13 +111,13 @@ const { data, error } = await post("/create-post", {
 
 ### Pathname
 
-The pathname of `get()`, `put()`, `post()`, etc. **must match your schema literally.** Note in the example, the URL is `/post/{post_id}`. This library will replace all `path` params for you (so they can be typechecked)
+The pathname of `get()`, `put()`, `post()`, etc. **must match your schema literally.** Note in the example, the URL is `/blogposts/{post_id}`. This library will replace all `path` params for you (so they can be typechecked)
 
 > ✨ **Tip**
 >
 > openapi-fetch infers types from the URL. Prefer static string values over dynamic runtime values, e.g.:
 >
-> - ✅ `"/post/{post_id}"`
+> - ✅ `"/blogposts/{post_id}"`
 > - ❌ `[...pathParts].join("/") + "{post_id}"`
 
 ### Request
