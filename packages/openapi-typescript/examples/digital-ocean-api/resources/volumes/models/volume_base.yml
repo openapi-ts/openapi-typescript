@@ -35,7 +35,9 @@ properties:
 
   size_gigabytes:
     type: integer
-    description: The size of the block storage volume in GiB (1024^3).
+    description: >- 
+      The size of the block storage volume in GiB (1024^3). This field does not apply 
+      when creating a volume from a snapshot.
     example: 10
 
   created_at:

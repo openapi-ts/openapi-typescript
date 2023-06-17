@@ -47,7 +47,7 @@ import { paths } from "./v1"; // generated from openapi-typescript
 
 const { get, post } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 
-const { data, error } = await get("/post/{post_id}", {
+const { data, error } = await get("/blogposts/{post_id}", {
   params: {
     path: { post_id: "my-post" },
     query: { version: 2 },

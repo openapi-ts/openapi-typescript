@@ -91,22 +91,22 @@ describe("client", () => {
 
       // expect error on missing 'params'
       // @ts-expect-error
-      await client.get("/post/{post_id}", {});
+      await client.get("/blogposts/{post_id}", {});
 
       // expect error on empty params
       // @ts-expect-error
-      await client.get("/post/{post_id}", { params: {} });
+      await client.get("/blogposts/{post_id}", { params: {} });
 
       // expect error on empty params.path
       // @ts-expect-error
-      await client.get("/post/{post_id}", { params: { path: {} } });
+      await client.get("/blogposts/{post_id}", { params: { path: {} } });
 
       // expect error on mismatched type (number v string)
       // @ts-expect-error
-      await client.get("/post/{post_id}", { params: { path: { post_id: 1234 } }, query: {} });
+      await client.get("/blogposts/{post_id}", { params: { path: { post_id: 1234 } }, query: {} });
 
       // (no error)
-      await client.get("/post/{post_id}", { params: { path: { post_id: "1234" }, query: {} } });
+      await client.get("/blogposts/{post_id}", { params: { path: { post_id: "1234" }, query: {} } });
     });
 
     it("requires necessary requestBodies", async () => {
@@ -115,15 +115,15 @@ describe("client", () => {
 
       // expect error on missing `body`
       // @ts-expect-error
-      await client.get("/post", {});
+      await client.get("/blogposts", {});
 
       // expect error on missing fields
       // @ts-expect-error
-      await client.put("/post", { body: { title: "Foo" } });
+      await client.put("/blogposts", { body: { title: "Foo" } });
 
       // expect present body to be good enough (all fields optional)
       // (no error)
-      await client.put("/post", {
+      await client.put("/blogposts", {
         body: { title: "Foo", body: "Bar", publish_date: new Date("2023-04-01T12:00:00Z").getTime() },
       });
     });
@@ -158,10 +158,10 @@ describe("client", () => {
 
       // expect error on wrong body type
       // @ts-expect-error
-      await client.post("/post/optional", { body: { error: true } });
+      await client.put("/blogposts-optional", { body: { error: true } });
 
       // (no error)
-      await client.post("/post/optional", {
+      await client.put("/blogposts-optional", {
         body: {
           title: "",
           publish_date: 3,
@@ -176,10 +176,10 @@ describe("client", () => {
 
       // expect error on wrong body type
       // @ts-expect-error
-      await client.post("/post/optional/inline", { body: { error: true } });
+      await client.put("/blogposts-optional-inline", { body: { error: true } });
 
       // (no error)
-      await client.post("/post/optional/inline", {
+      await client.put("/blogposts-optional-inline", {
         body: {
           title: "",
           publish_date: 3,
@@ -256,12 +256,12 @@ describe("client", () => {
     it("escapes URLs properly", async () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
-      await client.get("/post/{post_id}", {
+      await client.get("/blogposts/{post_id}", {
         params: { path: { post_id: "post?id = 🥴" }, query: {} },
       });
 
       // expect post_id to be encoded properly
-      expect(fetchMocker.mock.calls[0][0]).toBe("/post/post%3Fid%20%3D%20%F0%9F%A5%B4");
+      expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/post%3Fid%20%3D%20%F0%9F%A5%B4");
     });
   });
 
@@ -298,7 +298,7 @@ describe("client", () => {
       const client = createClient<paths>();
       const bodyResponse = "My Post";
       mockFetchOnce({ status: 200, body: bodyResponse });
-      const { data, error } = await client.get("/post/{post_id}", { params: { path: { post_id: "my-post" } } });
+      const { data, error } = await client.get("/blogposts/{post_id}", { params: { path: { post_id: "my-post" } } });
       if (error) throw new Error("falls back to text(): error shouldn’t be present");
 
       // assert `data` is a string
@@ -339,33 +339,45 @@ describe("client", () => {
       it("default", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        await client.get("/post/{post_id}", {
+        await client.get("/blogposts/{post_id}", {
           params: {
             path: { post_id: "my-post" },
             query: { version: 2, format: "json" },
           },
         });
 
-        expect(fetchMocker.mock.calls[0][0]).toBe("/post/my-post?version=2&format=json");
+        expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post?version=2&format=json");
+      });
+
+      it("default (array params)", async () => {
+        const client = createClient<paths>();
+        mockFetchOnce({ status: 200, body: "{}" });
+        await client.get("/blogposts", {
+          params: {
+            query: { tags: ["one", "two", "three"] },
+          },
+        });
+
+        expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts?tags=one%2Ctwo%2Cthree");
       });
 
       it("default (with empty params)", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        await client.get("/post/{post_id}", {
+        await client.get("/blogposts/{post_id}", {
           params: {
             path: { post_id: "my-post" },
             query: { version: undefined, format: null as any },
           },
         });
 
-        expect(fetchMocker.mock.calls[0][0]).toBe("/post/my-post");
+        expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post");
       });
 
       it("custom", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        await client.get("/post/{post_id}", {
+        await client.get("/blogposts/{post_id}", {
           params: {
             path: { post_id: "my-post" },
             query: { version: 2, format: "json" },
@@ -373,7 +385,7 @@ describe("client", () => {
           querySerializer: (q) => `alpha=${q.version}&beta=${q.format}`,
         });
 
-        expect(fetchMocker.mock.calls[0][0]).toBe("/post/my-post?alpha=2&beta=json");
+        expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post?alpha=2&beta=json");
       });
     });
   });
@@ -390,12 +402,12 @@ describe("client", () => {
       const mockData = { title: "My Post", body: "<p>This is a very good post</p>", publish_date: new Date("2023-03-01T12:00:00Z").getTime() };
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: JSON.stringify(mockData) });
-      const { data, error, response } = await client.get("/post/{post_id}", {
+      const { data, error, response } = await client.get("/blogposts/{post_id}", {
         params: { path: { post_id: "my-post" }, query: {} },
       });
 
       // assert correct URL was called
-      expect(fetchMocker.mock.calls[0][0]).toBe("/post/my-post");
+      expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post");
 
       // assert correct data was returned
       expect(data).toEqual(mockData);
@@ -409,7 +421,7 @@ describe("client", () => {
       const mockError = { code: 404, message: "Post not found" };
       const client = createClient<paths>();
       mockFetchOnce({ status: 404, body: JSON.stringify(mockError) });
-      const { data, error, response } = await client.get("/post/{post_id}", {
+      const { data, error, response } = await client.get("/blogposts/{post_id}", {
         params: {
           path: { post_id: "my-post" },
           query: {},
@@ -417,7 +429,7 @@ describe("client", () => {
       });
 
       // assert correct URL was called
-      expect(fetchMocker.mock.calls[0][0]).toBe("/post/my-post");
+      expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post");
 
       // assert correct method was called
       expect(fetchMocker.mock.calls[0][1]?.method).toBe("GET");
@@ -434,7 +446,7 @@ describe("client", () => {
     it("handles array-type responses", async () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "[]" });
-      const { data } = await client.get("/posts", { params: {} });
+      const { data } = await client.get("/blogposts", { params: {} });
       if (!data) throw new Error("data empty");
 
       // assert array type (and only array type) was inferred
@@ -454,7 +466,7 @@ describe("client", () => {
       const mockData = { status: "success" };
       const client = createClient<paths>();
       mockFetchOnce({ status: 201, body: JSON.stringify(mockData) });
-      const { data, error, response } = await client.put("/post", {
+      const { data, error, response } = await client.put("/blogposts", {
         params: {},
         body: {
           title: "New Post",
@@ -464,7 +476,7 @@ describe("client", () => {
       });
 
       // assert correct URL was called
-      expect(fetchMocker.mock.calls[0][0]).toBe("/post");
+      expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts");
 
       // assert correct data was returned
       expect(data).toEqual(mockData);
@@ -506,7 +518,7 @@ describe("client", () => {
     it("returns empty object on 204", async () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 204, body: "" });
-      const { data, error } = await client.del("/post/{post_id}", {
+      const { data, error } = await client.del("/blogposts/{post_id}", {
         params: {
           path: { post_id: "123" },
         },
@@ -522,7 +534,7 @@ describe("client", () => {
     it("returns empty object on Content-Length: 0", async () => {
       const client = createClient<paths>();
       mockFetchOnce({ headers: { "Content-Length": "0" }, status: 200, body: "" });
-      const { data, error } = await client.del("/post/{post_id}", {
+      const { data, error } = await client.del("/blogposts/{post_id}", {
         params: {
           path: { post_id: "123" },
         },
@@ -581,7 +593,7 @@ describe("examples", () => {
 
     // assert initial call is unauthenticated
     mockFetchOnce({ status: 200, body: "{}" });
-    await client.get().get("/post/{post_id}", { params: { path: { post_id: "1234" }, query: {} } });
+    await client.get().get("/blogposts/{post_id}", { params: { path: { post_id: "1234" }, query: {} } });
     expect(fetchMocker.mock.calls[0][1].headers.get("authorization")).toBeNull();
 
     // assert after setting token, client is authenticated
@@ -593,7 +605,7 @@ describe("examples", () => {
         resolve();
       }, 0)
     );
-    await client.get().get("/post/{post_id}", { params: { path: { post_id: "1234" }, query: {} } });
+    await client.get().get("/blogposts/{post_id}", { params: { path: { post_id: "1234" }, query: {} } });
     expect(fetchMocker.mock.calls[1][1].headers.get("authorization")).toBe(`Bearer ${tokenVal}`);
   });
 
@@ -610,7 +622,7 @@ describe("examples", () => {
 
     // assert initial call is unauthenticated
     mockFetchOnce({ status: 200, body: "{}" });
-    await client.get("/post/{post_id}", { params: { path: { post_id: "1234" }, query: {} } });
+    await client.get("/blogposts/{post_id}", { params: { path: { post_id: "1234" }, query: {} } });
     expect(fetchMocker.mock.calls[0][1].headers.get("authorization")).toBeNull();
 
     // assert after setting token, client is authenticated
@@ -622,7 +634,7 @@ describe("examples", () => {
         resolve();
       }, 0)
     );
-    await client.get("/post/{post_id}", { params: { path: { post_id: "1234" }, query: {} } });
+    await client.get("/blogposts/{post_id}", { params: { path: { post_id: "1234" }, query: {} } });
     expect(fetchMocker.mock.calls[1][1].headers.get("authorization")).toBe(`Bearer ${tokenVal}`);
   });
 });

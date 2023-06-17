@@ -12,7 +12,20 @@ paths:
           $ref: '#/components/responses/CreateReply'
         500:
           $ref: '#/components/responses/Error'
-  /post:
+  /blogposts:
+    get:
+      parameters:
+        - in: query
+          name: tags
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        200:
+          $ref: '#/components/responses/AllPostsGet'
+        500:
+          $ref: '#/components/responses/Error'
     put:
       requestBody:
         $ref: '#/components/requestBodies/CreatePost'
@@ -21,39 +34,13 @@ paths:
           $ref: '#/components/responses/CreatePost'
         500:
           $ref: '#/components/responses/Error'
-  /post/optional:
-    post:
-      requestBody:
-        $ref: '#/components/requestBodies/CreatePostOptional'
-      responses:
-        201:
-          $ref: '#/components/responses/CreatePost'
-        500:
-          $ref: '#/components/responses/Error'
-  /post/optional/inline:
-    post:
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Post'
-      responses:
-        201:
-          $ref: '#/components/responses/CreatePost'
-        500:
-          $ref: '#/components/responses/Error'
-  /posts:
-    get:
-      responses:
-        200:
-          $ref: '#/components/responses/AllPostsGet'
-    post:
+    patch:
       requestBody:
         $ref: '#/components/requestBodies/PatchPost'
       responses:
         201:
           $ref: '#/components/responses/PatchPost'
-  /post/{post_id}:
+  /blogposts/{post_id}:
     parameters:
       - in: path
         name: post_id
@@ -93,6 +80,27 @@ paths:
           $ref: '#/components/responses/PostDelete'
         500:
           $ref: '#/components/responses/Error'
+  /blogposts-optional:
+    put:
+      requestBody:
+        $ref: '#/components/requestBodies/CreatePostOptional'
+      responses:
+        201:
+          $ref: '#/components/responses/CreatePost'
+        500:
+          $ref: '#/components/responses/Error'
+  /blogposts-optional-inline:
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+      responses:
+        201:
+          $ref: '#/components/responses/CreatePost'
+        500:
+          $ref: '#/components/responses/Error'
   /self:
     get:
       responses:
@@ -116,6 +124,12 @@ paths:
         schema:
           type: string
         required: true
+    get:
+      responses:
+        200:
+          $ref: '#/components/responses/Tag'
+        500:
+          $ref: '#/components/responses/Error'
     put:
       requestBody:
         $ref: '#/components/requestBodies/CreateTag'

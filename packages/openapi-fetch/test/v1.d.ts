@@ -14,7 +14,18 @@ export interface paths {
       };
     };
   };
-  "/post": {
+  "/blogposts": {
+    get: {
+      parameters: {
+        query?: {
+          tags?: (string)[];
+        };
+      };
+      responses: {
+        200: components["responses"]["AllPostsGet"];
+        500: components["responses"]["Error"];
+      };
+    };
     put: {
       requestBody: components["requestBodies"]["CreatePost"];
       responses: {
@@ -22,43 +33,14 @@ export interface paths {
         500: components["responses"]["Error"];
       };
     };
-  };
-  "/post/optional": {
-    post: {
-      requestBody: components["requestBodies"]["CreatePostOptional"];
-      responses: {
-        201: components["responses"]["CreatePost"];
-        500: components["responses"]["Error"];
-      };
-    };
-  };
-  "/post/optional/inline": {
-    post: {
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["Post"];
-        };
-      };
-      responses: {
-        201: components["responses"]["CreatePost"];
-        500: components["responses"]["Error"];
-      };
-    };
-  };
-  "/posts": {
-    get: {
-      responses: {
-        200: components["responses"]["AllPostsGet"];
-      };
-    };
-    post: {
+    patch: {
       requestBody: components["requestBodies"]["PatchPost"];
       responses: {
         201: components["responses"]["PatchPost"];
       };
     };
   };
-  "/post/{post_id}": {
+  "/blogposts/{post_id}": {
     get: {
       parameters: {
         query?: {
@@ -105,6 +87,28 @@ export interface paths {
       };
     };
   };
+  "/blogposts-optional": {
+    put: {
+      requestBody: components["requestBodies"]["CreatePostOptional"];
+      responses: {
+        201: components["responses"]["CreatePost"];
+        500: components["responses"]["Error"];
+      };
+    };
+  };
+  "/blogposts-optional-inline": {
+    put: {
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["Post"];
+        };
+      };
+      responses: {
+        201: components["responses"]["CreatePost"];
+        500: components["responses"]["Error"];
+      };
+    };
+  };
   "/self": {
     get: {
       responses: {
@@ -123,6 +127,17 @@ export interface paths {
     };
   };
   "/tag/{name}": {
+    get: {
+      parameters: {
+        path: {
+          name: string;
+        };
+      };
+      responses: {
+        200: components["responses"]["Tag"];
+        500: components["responses"]["Error"];
+      };
+    };
     put: {
       parameters: {
         path: {

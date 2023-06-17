@@ -260,7 +260,11 @@ export interface paths {
   "/v1/charges": {
     /** @description <p>Returns a list of charges you’ve previously created. The charges are returned in sorted order, with the most recent charges appearing first.</p> */
     get: operations["GetCharges"];
-    /** @description <p>To charge a credit card or other payment source, you create a <code>Charge</code> object. If your API key is in test mode, the supplied payment source (e.g., card) won’t actually be charged, although everything else will occur as if in live mode. (Stripe assumes that the charge would have completed successfully).</p> */
+    /**
+     * @description <p>Use the <a href="/docs/api/payment_intents">Payment Intents API</a> to initiate a new payment instead
+     * of using this method. Confirmation of the PaymentIntent creates the <code>Charge</code>
+     * object used to request payment, so this method is limited to legacy integrations.</p>
+     */
     post: operations["PostCharges"];
   };
   "/v1/charges/search": {
@@ -280,9 +284,11 @@ export interface paths {
   };
   "/v1/charges/{charge}/capture": {
     /**
-     * @description <p>Capture the payment of an existing, uncaptured, charge. This is the second half of the two-step payment flow, where first you <a href="#create_charge">created a charge</a> with the capture option set to false.</p>
+     * @description <p>Capture the payment of an existing, uncaptured charge that was created with the <code>capture</code> option set to false.</p>
      * 
-     * <p>Uncaptured payments expire a set number of days after they are created (<a href="/docs/charges/placing-a-hold">7 by default</a>). If they are not captured by that point in time, they will be marked as refunded and will no longer be capturable.</p>
+     * <p>Uncaptured payments expire a set number of days after they are created (<a href="/docs/charges/placing-a-hold">7 by default</a>), after which they are marked as refunded and capture attempts will fail.</p>
+     * 
+     * <p>Don’t use this method to capture a PaymentIntent-initiated charge. Use <a href="/docs/api/payment_intents/capture">Capture a PaymentIntent</a>.</p>
      */
     post: operations["PostChargesChargeCapture"];
   };
@@ -875,14 +881,14 @@ export interface paths {
   "/v1/issuing/authorizations/{authorization}/approve": {
     /**
      * @description <p>Approves a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real-time authorization</a> flow. 
-     * You can also respond directly to the webhook request to approve an authorization (preferred). More details can be found <a href="https://site-admin.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
+     * You can also respond directly to the webhook request to approve an authorization (preferred). More details can be found <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
      */
     post: operations["PostIssuingAuthorizationsAuthorizationApprove"];
   };
   "/v1/issuing/authorizations/{authorization}/decline": {
     /**
      * @description <p>Declines a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real time authorization</a> flow.
-     * You can also respond directly to the webhook request to decline an authorization (preferred). More details can be found <a href="https://site-admin.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
+     * You can also respond directly to the webhook request to decline an authorization (preferred). More details can be found <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
      */
     post: operations["PostIssuingAuthorizationsAuthorizationDecline"];
   };
@@ -1056,7 +1062,8 @@ export interface paths {
      * If the selected payment method requires additional authentication steps, the
      * PaymentIntent will transition to the <code>requires_action</code> status and
      * suggest additional actions via <code>next_action</code>. If payment fails,
-     * the PaymentIntent will transition to the <code>requires_payment_method</code> status. If
+     * the PaymentIntent transitions to the <code>requires_payment_method</code> status or the
+     * <code>canceled</code> status if the confirmation limit is reached. If
      * payment succeeds, the PaymentIntent will transition to the <code>succeeded</code>
      * status (or <code>requires_capture</code>, if <code>capture_method</code> is set to <code>manual</code>).
      * If the <code>confirmation_method</code> is <code>automatic</code>, payment may be attempted
@@ -1439,7 +1446,8 @@ export interface paths {
      * <p>Otherwise, it will transition to the <code>requires_action</code> status and
      * suggest additional actions via <code>next_action</code>. If setup fails,
      * the SetupIntent will transition to the
-     * <code>requires_payment_method</code> status.</p>
+     * <code>requires_payment_method</code> status or the <code>canceled</code> status if the
+     * confirmation limit is reached.</p>
      */
     post: operations["PostSetupIntentsIntentConfirm"];
   };
@@ -2285,6 +2293,11 @@ export interface components {
        * @enum {string}
        */
       us_bank_account_ach_payments?: "active" | "inactive" | "pending";
+      /**
+       * @description The status of the Zip capability of the account, or whether the account can directly process Zip charges. 
+       * @enum {string}
+       */
+      zip_payments?: "active" | "inactive" | "pending";
     };
     /** AccountCapabilityFutureRequirements */
     account_capability_future_requirements: {
@@ -3058,7 +3071,7 @@ export interface components {
        * @enum {string}
        */
       object: "billing_portal.session";
-      /** @description The account for which the session was created on behalf of. When specified, only subscriptions and invoices with this `on_behalf_of` account appear in the portal. For more information, see the [docs](https://stripe.com/docs/connect/charges-transfers#on-behalf-of). Use the [Accounts API](https://stripe.com/docs/api/accounts/object#account_object-settings-branding) to modify the `on_behalf_of` account's branding settings, which the portal displays. */
+      /** @description The account for which the session was created on behalf of. When specified, only subscriptions and invoices with this `on_behalf_of` account appear in the portal. For more information, see the [docs](https://stripe.com/docs/connect/separate-charges-and-transfers#on-behalf-of). Use the [Accounts API](https://stripe.com/docs/api/accounts/object#account_object-settings-branding) to modify the `on_behalf_of` account's branding settings, which the portal displays. */
       on_behalf_of?: string | null;
       /** @description The URL to redirect customers to when they click on the portal's link to return to your website. */
       return_url?: string | null;
@@ -3225,11 +3238,10 @@ export interface components {
     };
     /**
      * Charge 
-     * @description To charge a credit or a debit card, you create a `Charge` object. You can
-     * retrieve and refund individual charges as well as list all charges. Charges
-     * are identified by a unique, random ID.
-     * 
-     * Related guide: [Accept a payment with the Charges API](https://stripe.com/docs/payments/accept-a-payment-charges)
+     * @description The `Charge` object represents a single attempt to move money into your Stripe account.
+     * PaymentIntent confirmation is the most common way to create Charges, but transferring
+     * money to a different Stripe account through Connect also creates Charges.
+     * Some legacy payment flows create Charges directly, which is not recommended for new integrations.
      */
     charge: {
       /** @description Amount intended to be collected by this payment. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99). */
@@ -3287,7 +3299,7 @@ export interface components {
        * @enum {string}
        */
       object: "charge";
-      /** @description The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers) for details. */
+      /** @description The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details. */
       on_behalf_of?: (string | components["schemas"]["account"]) | null;
       /** @description Details about whether the payment was accepted, and why. See [understanding declines](https://stripe.com/docs/declines) for details. */
       outcome?: components["schemas"]["charge_outcome"] | null;
@@ -3344,7 +3356,7 @@ export interface components {
       transfer?: string | components["schemas"]["transfer"];
       /** @description An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
       transfer_data?: components["schemas"]["charge_transfer_data"] | null;
-      /** @description A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
+      /** @description A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details. */
       transfer_group?: string | null;
     };
     /** ChargeFraudDetails */
@@ -3560,7 +3572,7 @@ export interface components {
        * @description The URL the customer will be directed to after the payment or
        * subscription creation is successful.
        */
-      success_url: string;
+      success_url?: string | null;
       tax_id_collection?: components["schemas"]["payment_pages_checkout_session_tax_id_collection"];
       /** @description Tax and discount details for the computed total amount. */
       total_details?: components["schemas"]["payment_pages_checkout_session_total_details"] | null;
@@ -3740,12 +3752,12 @@ export interface components {
        * 
        * Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
        */
-      requested_address_types?: ("iban" | "sepa" | "sort_code" | "spei" | "zengin")[];
+      requested_address_types?: ("aba" | "iban" | "sepa" | "sort_code" | "spei" | "swift" | "zengin")[];
       /**
-       * @description The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, or `mx_bank_transfer`. 
+       * @description The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`. 
        * @enum {string|null}
        */
-      type?: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | null;
+      type?: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer" | null;
     };
     /** CheckoutCustomerBalancePaymentMethodOptions */
     checkout_customer_balance_payment_method_options: {
@@ -4467,10 +4479,11 @@ export interface components {
       /** @description The user-supplied reference field on the bank transfer. */
       reference?: string | null;
       /**
-       * @description The funding method type used to fund the customer balance. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, or `mx_bank_transfer`. 
+       * @description The funding method type used to fund the customer balance. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`. 
        * @enum {string}
        */
-      type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer";
+      type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer";
+      us_bank_transfer?: components["schemas"]["customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_us_bank_transfer"];
     };
     /** CustomerBalanceResourceCashBalanceTransactionResourceFundedTransactionResourceBankTransferResourceEuBankTransfer */
     customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_eu_bank_transfer: {
@@ -4496,6 +4509,16 @@ export interface components {
       sender_bank?: string | null;
       /** @description The name of the bank branch of the sender of the funding. */
       sender_branch?: string | null;
+      /** @description The full name of the sender, as supplied by the sending bank. */
+      sender_name?: string | null;
+    };
+    /** CustomerBalanceResourceCashBalanceTransactionResourceFundedTransactionResourceBankTransferResourceUsBankTransfer */
+    customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_us_bank_transfer: {
+      /**
+       * @description The banking network used for this funding. 
+       * @enum {string}
+       */
+      network?: "ach" | "domestic_wire_us" | "swift";
       /** @description The full name of the sender, as supplied by the sending bank. */
       sender_name?: string | null;
     };
@@ -6132,7 +6155,7 @@ export interface components {
      * If your invoice is configured to be billed through automatic charges,
      * Stripe automatically finalizes your invoice and attempts payment. Note
      * that finalizing the invoice,
-     * [when automatic](https://stripe.com/docs/billing/invoices/workflow/#auto_advance), does
+     * [when automatic](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection), does
      * not happen immediately as the invoice is created. Stripe waits
      * until one hour after the last webhook was successfully sent (or the last
      * webhook timed out after failing). If you (and the platforms you may have
@@ -6179,7 +6202,7 @@ export interface components {
       attempt_count: number;
       /** @description Whether an attempt has been made to pay the invoice. An invoice is not attempted until 1 hour after the `invoice.created` webhook, for example, so you might not want to display that invoice as unpaid to your users. */
       attempted: boolean;
-      /** @description Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. When `false`, the invoice's state will not automatically advance without an explicit action. */
+      /** @description Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. */
       auto_advance?: boolean;
       automatic_tax: components["schemas"]["automatic_tax"];
       /**
@@ -6445,7 +6468,7 @@ export interface components {
     /** invoice_payment_method_options_customer_balance_bank_transfer */
     invoice_payment_method_options_customer_balance_bank_transfer: {
       eu_bank_transfer?: components["schemas"]["invoice_payment_method_options_customer_balance_bank_transfer_eu_bank_transfer"];
-      /** @description The bank transfer type that can be used for funding. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, or `mx_bank_transfer`. */
+      /** @description The bank transfer type that can be used for funding. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`. */
       type?: string | null;
     };
     /** invoice_payment_method_options_customer_balance_bank_transfer_eu_bank_transfer */
@@ -6617,18 +6640,6 @@ export interface components {
       /** @description The invoice that was cloned. */
       invoice: string | components["schemas"]["invoice"];
     };
-    /** InvoicesLineItemsCreditedItems */
-    invoices_line_items_credited_items: {
-      /** @description Invoice containing the credited invoice line items */
-      invoice: string;
-      /** @description Credited invoice line items */
-      invoice_line_items: (string)[];
-    };
-    /** InvoicesLineItemsProrationDetails */
-    invoices_line_items_proration_details: {
-      /** @description For a credit proration `line_item`, the original debit line_items to which the credit proration applies. */
-      credited_items?: components["schemas"]["invoices_line_items_credited_items"] | null;
-    };
     /** InvoicesPaymentMethodOptions */
     invoices_payment_method_options: {
       /** @description If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent. */
@@ -6662,6 +6673,18 @@ export interface components {
       type: "ae_trn" | "au_abn" | "au_arn" | "bg_uic" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "ph_tin" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "za_vat";
       /** @description The value of the tax ID. */
       value?: string | null;
+    };
+    /** InvoicesResourceLineItemsCreditedItems */
+    invoices_resource_line_items_credited_items: {
+      /** @description Invoice containing the credited invoice line items */
+      invoice: string;
+      /** @description Credited invoice line items */
+      invoice_line_items: (string)[];
+    };
+    /** InvoicesResourceLineItemsProrationDetails */
+    invoices_resource_line_items_proration_details: {
+      /** @description For a credit proration `line_item`, the original debit line_items to which the credit proration applies. */
+      credited_items?: components["schemas"]["invoices_resource_line_items_credited_items"] | null;
     };
     /** InvoicesShippingCost */
     invoices_shipping_cost: {
@@ -6874,6 +6897,11 @@ export interface components {
       object: "issuing.cardholder";
       /** @description The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://stripe.com/docs/issuing/3d-secure#when-is-3d-secure-applied) for more details. */
       phone_number?: string | null;
+      /**
+       * @description The cardholder’s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
+       *  This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder.
+       */
+      preferred_locales?: (("de" | "en" | "es" | "fr" | "it")[]) | null;
       requirements: components["schemas"]["issuing_cardholder_requirements"];
       /** @description Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details. */
       spending_controls?: components["schemas"]["issuing_cardholder_authorization_controls"] | null;
@@ -7221,7 +7249,7 @@ export interface components {
     };
     /** IssuingCardShippingCustoms */
     issuing_card_shipping_customs: {
-      /** @description A registration number used for customs in Europe. See https://www.gov.uk/eori and https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en. */
+      /** @description A registration number used for customs in Europe. See [https://www.gov.uk/eori](https://www.gov.uk/eori) for the UK and [https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en](https://ec.europa.eu/taxation_customs/business/customs-procedures-import-and-export/customs-procedures/economic-operators-registration-and-identification-number-eori_en) for the EU. */
       eori_number?: string | null;
     };
     /** IssuingCardSpendingLimit */
@@ -7769,7 +7797,7 @@ export interface components {
       /** @description Whether this is a proration. */
       proration: boolean;
       /** @description Additional details for proration line items */
-      proration_details?: components["schemas"]["invoices_line_items_proration_details"] | null;
+      proration_details?: components["schemas"]["invoices_resource_line_items_proration_details"] | null;
       /** @description The quantity of the subscription, if the line item is a subscription or a proration. */
       quantity?: number | null;
       /** @description The subscription that the invoice item pertains to, if any. */
@@ -7817,7 +7845,10 @@ export interface components {
       /** @description For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app. */
       return_url?: string;
     };
-    /** LoginLink */
+    /**
+     * LoginLink 
+     * @description Login Links are single-use login link for an Express account to access their Stripe dashboard.
+     */
     login_link: {
       /**
        * Format: unix-time 
@@ -7980,7 +8011,7 @@ export interface components {
     notification_event_data: {
       /** @description Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://stripe.com/docs/api#invoice_object) as the value of the object key. */
       object: Record<string, never>;
-      /** @description Object containing the names of the attributes that have changed, and their previous values (sent along only with *.updated events). */
+      /** @description Object containing the names of the updated attributes and their values prior to the event (only included in events of type `*.updated`). If an array attribute has any updated elements, this object contains the entire array. In Stripe API versions 2017-04-06 or earlier, an updated array attribute in this object includes only the updated array elements. */
       previous_attributes?: Record<string, never>;
     };
     /** NotificationEventRequest */
@@ -8364,7 +8395,7 @@ export interface components {
        * @description Type of bank transfer 
        * @enum {string}
        */
-      type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer";
+      type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer";
     };
     /** PaymentIntentNextActionDisplayOxxoDetails */
     payment_intent_next_action_display_oxxo_details: {
@@ -8554,6 +8585,7 @@ export interface components {
       sofort?: components["schemas"]["payment_method_options_sofort"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
       us_bank_account?: components["schemas"]["payment_intent_payment_method_options_us_bank_account"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
       wechat_pay?: components["schemas"]["payment_method_options_wechat_pay"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
+      zip?: components["schemas"]["payment_method_options_zip"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
     };
     /** payment_intent_payment_method_options_acss_debit */
     payment_intent_payment_method_options_acss_debit: {
@@ -9087,9 +9119,10 @@ export interface components {
        * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. 
        * @enum {string}
        */
-      type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "card_present" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "interac_present" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+      type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "card_present" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "interac_present" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay" | "zip";
       us_bank_account?: components["schemas"]["payment_method_us_bank_account"];
       wechat_pay?: components["schemas"]["payment_method_wechat_pay"];
+      zip?: components["schemas"]["payment_method_zip"];
     };
     /** payment_method_acss_debit */
     payment_method_acss_debit: {
@@ -9324,6 +9357,7 @@ export interface components {
       us_bank_account?: components["schemas"]["payment_method_details_us_bank_account"];
       wechat?: components["schemas"]["payment_method_details_wechat"];
       wechat_pay?: components["schemas"]["payment_method_details_wechat_pay"];
+      zip?: components["schemas"]["payment_method_details_zip"];
     };
     /** payment_method_details_ach_credit_transfer */
     payment_method_details_ach_credit_transfer: {
@@ -9935,6 +9969,8 @@ export interface components {
       /** @description Transaction ID of this particular WeChat Pay transaction. */
       transaction_id?: string | null;
     };
+    /** payment_method_details_zip */
+    payment_method_details_zip: Record<string, never>;
     /** payment_method_eps */
     payment_method_eps: {
       /**
@@ -10202,12 +10238,12 @@ export interface components {
        * 
        * Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
        */
-      requested_address_types?: ("iban" | "sepa" | "sort_code" | "spei" | "zengin")[];
+      requested_address_types?: ("aba" | "iban" | "sepa" | "sort_code" | "spei" | "swift" | "zengin")[];
       /**
-       * @description The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, or `mx_bank_transfer`. 
+       * @description The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`. 
        * @enum {string|null}
        */
-      type?: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | null;
+      type?: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer" | null;
     };
     /** payment_method_options_customer_balance_eu_bank_account */
     payment_method_options_customer_balance_eu_bank_account: {
@@ -10432,6 +10468,18 @@ export interface components {
        */
       setup_future_usage?: "none";
     };
+    /** payment_method_options_zip */
+    payment_method_options_zip: {
+      /**
+       * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
+       * 
+       * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+       * 
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       * @enum {string}
+       */
+      setup_future_usage?: "none";
+    };
     /** payment_method_oxxo */
     payment_method_oxxo: Record<string, never>;
     /** payment_method_p24 */
@@ -10446,6 +10494,11 @@ export interface components {
     payment_method_paynow: Record<string, never>;
     /** payment_method_paypal */
     payment_method_paypal: {
+      /**
+       * @description Owner's email. Values are provided by PayPal directly
+       * (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+       */
+      payer_email?: string | null;
       /** @description PayPal account PayerID. This identifier uniquely identifies the PayPal customer. */
       payer_id?: string | null;
     };
@@ -10519,6 +10572,8 @@ export interface components {
     };
     /** payment_method_wechat_pay */
     payment_method_wechat_pay: Record<string, never>;
+    /** payment_method_zip */
+    payment_method_zip: Record<string, never>;
     /** PaymentPagesCheckoutSessionAfterExpiration */
     payment_pages_checkout_session_after_expiration: {
       /** @description When set, configuration used to recover the Checkout Session on expiry. */
@@ -10633,6 +10688,10 @@ export interface components {
     };
     /** PaymentPagesCheckoutSessionCustomFieldsNumeric */
     payment_pages_checkout_session_custom_fields_numeric: {
+      /** @description The maximum character length constraint for the customer's input. */
+      maximum_length?: number | null;
+      /** @description The minimum character length requirement for the customer's input. */
+      minimum_length?: number | null;
       /** @description The value entered by the customer, containing only digits. */
       value?: string | null;
     };
@@ -10645,6 +10704,10 @@ export interface components {
     };
     /** PaymentPagesCheckoutSessionCustomFieldsText */
     payment_pages_checkout_session_custom_fields_text: {
+      /** @description The maximum character length constraint for the customer's input. */
+      maximum_length?: number | null;
+      /** @description The minimum character length requirement for the customer's input. */
+      minimum_length?: number | null;
       /** @description The value entered by the customer. */
       value?: string | null;
     };
@@ -14194,6 +14257,11 @@ export interface components {
       /** @description Specifies whether the tax amount is included in the line item amount. */
       inclusive: boolean;
       tax_rate_details: components["schemas"]["tax_product_resource_tax_rate_details"];
+      /**
+       * @description The reasoning behind this tax, for example, if the product is tax exempt. We might extend the possible values for this field to support new tax rules. 
+       * @enum {string}
+       */
+      taxability_reason: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated";
       /** @description The amount on which tax is calculated, in integer cents. */
       taxable_amount: number;
     };
@@ -14653,8 +14721,6 @@ export interface components {
      * objects or [Custom accounts](https://stripe.com/docs/api#external_accounts). Note that
      * [Radar](https://stripe.com/docs/radar), our integrated solution for automatic fraud protection,
      * performs best with integrations that use client-side tokenization.
-     * 
-     * Related guide: [Accept a payment with Charges and Tokens](https://stripe.com/docs/payments/accept-a-payment-charges#web-create-token)
      */
     token: {
       bank_account?: components["schemas"]["bank_account"];
@@ -14744,7 +14810,7 @@ export interface components {
      * information, read about the
      * [transfer/payout split](https://stripe.com/docs/transfer-payout-split).
      * 
-     * Related guide: [Creating separate charges and transfers](https://stripe.com/docs/connect/charges-transfers)
+     * Related guide: [Creating separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers)
      */
     transfer: {
       /** @description Amount in %s to be transferred. */
@@ -14802,7 +14868,7 @@ export interface components {
       source_transaction?: (string | components["schemas"]["charge"]) | null;
       /** @description The source balance this transfer came from. One of `card`, `fpx`, or `bank_account`. */
       source_type?: string;
-      /** @description A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
+      /** @description A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details. */
       transfer_group?: string | null;
     };
     /** transfer_data */
@@ -14826,11 +14892,11 @@ export interface components {
      * Reversing a transfer that was made for a [destination
      * charge](/docs/connect/destination-charges) is allowed only up to the amount of
      * the charge. It is possible to reverse a
-     * [transfer_group](https://stripe.com/docs/connect/charges-transfers#transfer-options)
+     * [transfer_group](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options)
      * transfer only if the destination account has enough balance to cover the
      * reversal.
      * 
-     * Related guide: [Reversing transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers)
+     * Related guide: [Reversing transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#reversing-transfers)
      */
     transfer_reversal: {
       /** @description Amount, in %s. */
@@ -16303,6 +16369,10 @@ export interface operations {
             us_bank_account_ach_payments?: {
               requested?: boolean;
             };
+            /** capability_param */
+            zip_payments?: {
+              requested?: boolean;
+            };
           };
           /**
            * company_specs 
@@ -16820,6 +16890,10 @@ export interface operations {
             };
             /** capability_param */
             us_bank_account_ach_payments?: {
+              requested?: boolean;
+            };
+            /** capability_param */
+            zip_payments?: {
               requested?: boolean;
             };
           };
@@ -19816,7 +19890,7 @@ export interface operations {
            * @enum {string}
            */
           locale?: "auto" | "bg" | "cs" | "da" | "de" | "el" | "en" | "en-AU" | "en-CA" | "en-GB" | "en-IE" | "en-IN" | "en-NZ" | "en-SG" | "es" | "es-419" | "et" | "fi" | "fil" | "fr" | "fr-CA" | "hr" | "hu" | "id" | "it" | "ja" | "ko" | "lt" | "lv" | "ms" | "mt" | "nb" | "nl" | "pl" | "pt" | "pt-BR" | "ro" | "ru" | "sk" | "sl" | "sv" | "th" | "tr" | "vi" | "zh" | "zh-HK" | "zh-TW";
-          /** @description The `on_behalf_of` account to use for this session. When specified, only subscriptions and invoices with this `on_behalf_of` account appear in the portal. For more information, see the [docs](https://stripe.com/docs/connect/charges-transfers#on-behalf-of). Use the [Accounts API](https://stripe.com/docs/api/accounts/object#account_object-settings-branding) to modify the `on_behalf_of` account's branding settings, which the portal displays. */
+          /** @description The `on_behalf_of` account to use for this session. When specified, only subscriptions and invoices with this `on_behalf_of` account appear in the portal. For more information, see the [docs](https://stripe.com/docs/connect/separate-charges-and-transfers#on-behalf-of). Use the [Accounts API](https://stripe.com/docs/api/accounts/object#account_object-settings-branding) to modify the `on_behalf_of` account's branding settings, which the portal displays. */
           on_behalf_of?: string;
           /** @description The default URL to redirect customers to when they click on the portal's link to return to your website. */
           return_url?: string;
@@ -19895,7 +19969,11 @@ export interface operations {
       };
     };
   };
-  /** @description <p>To charge a credit card or other payment source, you create a <code>Charge</code> object. If your API key is in test mode, the supplied payment source (e.g., card) won’t actually be charged, although everything else will occur as if in live mode. (Stripe assumes that the charge would have completed successfully).</p> */
+  /**
+   * @description <p>Use the <a href="/docs/api/payment_intents">Payment Intents API</a> to initiate a new payment instead
+   * of using this method. Confirmation of the PaymentIntent creates the <code>Charge</code>
+   * object used to request payment, so this method is limited to legacy integrations.</p>
+   */
   PostCharges: {
     requestBody?: {
       content: {
@@ -19942,7 +20020,7 @@ export interface operations {
           metadata?: ({
             [key: string]: string | undefined;
           }) | "";
-          /** @description The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/charges-transfers#on-behalf-of). */
+          /** @description The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#on-behalf-of). */
           on_behalf_of?: string;
           /**
            * radar_options 
@@ -19986,7 +20064,7 @@ export interface operations {
             amount?: number;
             destination: string;
           };
-          /** @description A string that identifies this transaction as part of a group. For details, see [Grouping transactions](https://stripe.com/docs/connect/charges-transfers#transfer-options). */
+          /** @description A string that identifies this transaction as part of a group. For details, see [Grouping transactions](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options). */
           transfer_group?: string;
         };
       };
@@ -20137,7 +20215,7 @@ export interface operations {
             phone?: string;
             tracking_number?: string;
           };
-          /** @description A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
+          /** @description A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details. */
           transfer_group?: string;
         };
       };
@@ -20158,9 +20236,11 @@ export interface operations {
     };
   };
   /**
-   * @description <p>Capture the payment of an existing, uncaptured, charge. This is the second half of the two-step payment flow, where first you <a href="#create_charge">created a charge</a> with the capture option set to false.</p>
+   * @description <p>Capture the payment of an existing, uncaptured charge that was created with the <code>capture</code> option set to false.</p>
    * 
-   * <p>Uncaptured payments expire a set number of days after they are created (<a href="/docs/charges/placing-a-hold">7 by default</a>). If they are not captured by that point in time, they will be marked as refunded and will no longer be capturable.</p>
+   * <p>Uncaptured payments expire a set number of days after they are created (<a href="/docs/charges/placing-a-hold">7 by default</a>), after which they are marked as refunded and capture attempts will fail.</p>
+   * 
+   * <p>Don’t use this method to capture a PaymentIntent-initiated charge. Use <a href="/docs/api/payment_intents/capture">Capture a PaymentIntent</a>.</p>
    */
   PostChargesChargeCapture: {
     parameters: {
@@ -20192,7 +20272,7 @@ export interface operations {
           transfer_data?: {
             amount?: number;
           };
-          /** @description A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
+          /** @description A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details. */
           transfer_group?: string;
         };
       };
@@ -20684,7 +20764,17 @@ export interface operations {
                 /** @enum {string} */
                 type: "custom";
               };
+              /** custom_field_numeric_param */
+              numeric?: {
+                maximum_length?: number;
+                minimum_length?: number;
+              };
               optional?: boolean;
+              /** custom_field_text_param */
+              text?: {
+                maximum_length?: number;
+                minimum_length?: number;
+              };
               /** @enum {string} */
               type: "dropdown" | "numeric" | "text";
             })[];
@@ -20977,9 +21067,9 @@ export interface operations {
                 eu_bank_transfer?: {
                   country: string;
                 };
-                requested_address_types?: ("iban" | "sepa" | "sort_code" | "spei" | "zengin")[];
+                requested_address_types?: ("aba" | "iban" | "sepa" | "sort_code" | "spei" | "swift" | "zengin")[];
                 /** @enum {string} */
-                type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer";
+                type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer";
               };
               /** @enum {string} */
               funding_type?: "bank_transfer";
@@ -21102,7 +21192,7 @@ export interface operations {
            * prioritize the most relevant payment methods based on the customer's location and
            * other characteristics.
            */
-          payment_method_types?: ("acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[];
+          payment_method_types?: ("acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay" | "zip")[];
           /**
            * phone_number_collection_params 
            * @description Controls phone number collection settings for the session.
@@ -23494,7 +23584,7 @@ export interface operations {
             };
             requested_address_types?: ("iban" | "sort_code" | "spei" | "zengin")[];
             /** @enum {string} */
-            type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer";
+            type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer";
           };
           /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency: string;
@@ -23536,7 +23626,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
         /** @description An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request. */
-        type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+        type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay" | "zip";
       };
       path: {
         customer: string;
@@ -25354,7 +25444,10 @@ export interface operations {
         "multipart/form-data": {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
-          /** @description A file to upload. The file should follow the specifications of RFC 2388 (which defines file transfers for the `multipart/form-data` protocol). */
+          /**
+           * Format: binary 
+           * @description A file to upload. The file should follow the specifications of RFC 2388 (which defines file transfers for the `multipart/form-data` protocol).
+           */
           file: string;
           /**
            * file_link_creation_params 
@@ -26439,7 +26532,7 @@ export interface operations {
           account_tax_ids?: (string)[] | "";
           /** @description A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees). */
           application_fee_amount?: number;
-          /** @description Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. When `false`, the invoice's state will not automatically advance without an explicit action. */
+          /** @description Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. */
           auto_advance?: boolean;
           /**
            * automatic_tax_param 
@@ -27142,7 +27235,7 @@ export interface operations {
           account_tax_ids?: (string)[] | "";
           /** @description A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees). */
           application_fee_amount?: number;
-          /** @description Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance) of the invoice. */
+          /** @description Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. */
           auto_advance?: boolean;
           /**
            * automatic_tax_param 
@@ -27374,7 +27467,7 @@ export interface operations {
     requestBody?: {
       content: {
         "application/x-www-form-urlencoded": {
-          /** @description Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/invoicing/automatic-charging) of the invoice. When `false`, the invoice's state will not automatically advance without an explicit action. */
+          /** @description Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. */
           auto_advance?: boolean;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
@@ -27710,7 +27803,7 @@ export interface operations {
   };
   /**
    * @description <p>Approves a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real-time authorization</a> flow. 
-   * You can also respond directly to the webhook request to approve an authorization (preferred). More details can be found <a href="https://site-admin.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
+   * You can also respond directly to the webhook request to approve an authorization (preferred). More details can be found <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
    */
   PostIssuingAuthorizationsAuthorizationApprove: {
     parameters: {
@@ -27749,7 +27842,7 @@ export interface operations {
   };
   /**
    * @description <p>Declines a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real time authorization</a> flow.
-   * You can also respond directly to the webhook request to decline an authorization (preferred). More details can be found <a href="https://site-admin.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
+   * You can also respond directly to the webhook request to decline an authorization (preferred). More details can be found <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
    */
   PostIssuingAuthorizationsAuthorizationDecline: {
     parameters: {
@@ -27916,6 +28009,11 @@ export interface operations {
           /** @description The cardholder's phone number. This will be transformed to [E.164](https://en.wikipedia.org/wiki/E.164) if it is not provided in that format already. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://stripe.com/docs/issuing/3d-secure#when-is-3d-secure-applied) for more details. */
           phone_number?: string;
           /**
+           * @description The cardholder’s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
+           *  This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder.
+           */
+          preferred_locales?: ("de" | "en" | "es" | "fr" | "it")[];
+          /**
            * authorization_controls_param_v2 
            * @description Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
            */
@@ -28063,6 +28161,11 @@ export interface operations {
           };
           /** @description The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://stripe.com/docs/issuing/3d-secure) for more details. */
           phone_number?: string;
+          /**
+           * @description The cardholder’s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
+           *  This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder.
+           */
+          preferred_locales?: ("de" | "en" | "es" | "fr" | "it")[];
           /**
            * authorization_controls_param_v2 
            * @description Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
@@ -29491,7 +29594,7 @@ export interface operations {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL";
             };
             /** @enum {string} */
-            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay" | "zip";
             /** payment_method_param */
             us_bank_account?: {
               /** @enum {string} */
@@ -29504,6 +29607,8 @@ export interface operations {
             };
             /** param */
             wechat_pay?: Record<string, never>;
+            /** param */
+            zip?: Record<string, never>;
           };
           /**
            * payment_method_options_param 
@@ -29632,9 +29737,9 @@ export interface operations {
                 eu_bank_transfer?: {
                   country: string;
                 };
-                requested_address_types?: ("iban" | "sepa" | "sort_code" | "spei" | "zengin")[];
+                requested_address_types?: ("aba" | "iban" | "sepa" | "sort_code" | "spei" | "swift" | "zengin")[];
                 /** @enum {string} */
-                type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer";
+                type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer";
               };
               /** @enum {string} */
               funding_type?: "bank_transfer";
@@ -29754,6 +29859,10 @@ export interface operations {
               /** @enum {string} */
               setup_future_usage?: "none";
             }) | "";
+            zip?: {
+              /** @enum {string} */
+              setup_future_usage?: "none";
+            } | "";
           };
           /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. If this is not provided, defaults to ["card"]. Use automatic_payment_methods to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). */
           payment_method_types?: (string)[];
@@ -30089,7 +30198,7 @@ export interface operations {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL";
             };
             /** @enum {string} */
-            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay" | "zip";
             /** payment_method_param */
             us_bank_account?: {
               /** @enum {string} */
@@ -30102,6 +30211,8 @@ export interface operations {
             };
             /** param */
             wechat_pay?: Record<string, never>;
+            /** param */
+            zip?: Record<string, never>;
           };
           /**
            * payment_method_options_param 
@@ -30230,9 +30341,9 @@ export interface operations {
                 eu_bank_transfer?: {
                   country: string;
                 };
-                requested_address_types?: ("iban" | "sepa" | "sort_code" | "spei" | "zengin")[];
+                requested_address_types?: ("aba" | "iban" | "sepa" | "sort_code" | "spei" | "swift" | "zengin")[];
                 /** @enum {string} */
-                type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer";
+                type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer";
               };
               /** @enum {string} */
               funding_type?: "bank_transfer";
@@ -30352,6 +30463,10 @@ export interface operations {
               /** @enum {string} */
               setup_future_usage?: "none";
             }) | "";
+            zip?: {
+              /** @enum {string} */
+              setup_future_usage?: "none";
+            } | "";
           };
           /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. Use automatic_payment_methods to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). */
           payment_method_types?: (string)[];
@@ -30561,7 +30676,8 @@ export interface operations {
    * If the selected payment method requires additional authentication steps, the
    * PaymentIntent will transition to the <code>requires_action</code> status and
    * suggest additional actions via <code>next_action</code>. If payment fails,
-   * the PaymentIntent will transition to the <code>requires_payment_method</code> status. If
+   * the PaymentIntent transitions to the <code>requires_payment_method</code> status or the
+   * <code>canceled</code> status if the confirmation limit is reached. If
    * payment succeeds, the PaymentIntent will transition to the <code>succeeded</code>
    * status (or <code>requires_capture</code>, if <code>capture_method</code> is set to <code>manual</code>).
    * If the <code>confirmation_method</code> is <code>automatic</code>, payment may be attempted
@@ -30753,7 +30869,7 @@ export interface operations {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL";
             };
             /** @enum {string} */
-            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay" | "zip";
             /** payment_method_param */
             us_bank_account?: {
               /** @enum {string} */
@@ -30766,6 +30882,8 @@ export interface operations {
             };
             /** param */
             wechat_pay?: Record<string, never>;
+            /** param */
+            zip?: Record<string, never>;
           };
           /**
            * payment_method_options_param 
@@ -30894,9 +31012,9 @@ export interface operations {
                 eu_bank_transfer?: {
                   country: string;
                 };
-                requested_address_types?: ("iban" | "sepa" | "sort_code" | "spei" | "zengin")[];
+                requested_address_types?: ("aba" | "iban" | "sepa" | "sort_code" | "spei" | "swift" | "zengin")[];
                 /** @enum {string} */
-                type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer";
+                type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer";
               };
               /** @enum {string} */
               funding_type?: "bank_transfer";
@@ -31016,6 +31134,10 @@ export interface operations {
               /** @enum {string} */
               setup_future_usage?: "none";
             }) | "";
+            zip?: {
+              /** @enum {string} */
+              setup_future_usage?: "none";
+            } | "";
           };
           /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. Use automatic_payment_methods to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). */
           payment_method_types?: (string)[];
@@ -31306,7 +31428,17 @@ export interface operations {
                 /** @enum {string} */
                 type: "custom";
               };
+              /** custom_field_numeric_param */
+              numeric?: {
+                maximum_length?: number;
+                minimum_length?: number;
+              };
               optional?: boolean;
+              /** custom_field_text_param */
+              text?: {
+                maximum_length?: number;
+                minimum_length?: number;
+              };
               /** @enum {string} */
               type: "dropdown" | "numeric" | "text";
             })[];
@@ -31546,7 +31678,17 @@ export interface operations {
                 /** @enum {string} */
                 type: "custom";
               };
+              /** custom_field_numeric_param */
+              numeric?: {
+                maximum_length?: number;
+                minimum_length?: number;
+              };
               optional?: boolean;
+              /** custom_field_text_param */
+              text?: {
+                maximum_length?: number;
+                minimum_length?: number;
+              };
               /** @enum {string} */
               type: "dropdown" | "numeric" | "text";
             })[]) | "";
@@ -31705,7 +31847,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
         /** @description An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request. */
-        type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+        type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay" | "zip";
       };
     };
     requestBody?: {
@@ -31971,7 +32113,7 @@ export interface operations {
            * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. 
            * @enum {string}
            */
-          type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+          type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay" | "zip";
           /**
            * payment_method_param 
            * @description If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
@@ -31990,6 +32132,11 @@ export interface operations {
            * @description If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
            */
           wechat_pay?: Record<string, never>;
+          /**
+           * param 
+           * @description If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
+           */
+          zip?: Record<string, never>;
         };
       };
     };
@@ -35392,7 +35539,7 @@ export interface operations {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL";
             };
             /** @enum {string} */
-            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay" | "zip";
             /** payment_method_param */
             us_bank_account?: {
               /** @enum {string} */
@@ -35405,6 +35552,8 @@ export interface operations {
             };
             /** param */
             wechat_pay?: Record<string, never>;
+            /** param */
+            zip?: Record<string, never>;
           };
           /**
            * payment_method_options_param 
@@ -35729,7 +35878,7 @@ export interface operations {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL";
             };
             /** @enum {string} */
-            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay" | "zip";
             /** payment_method_param */
             us_bank_account?: {
               /** @enum {string} */
@@ -35742,6 +35891,8 @@ export interface operations {
             };
             /** param */
             wechat_pay?: Record<string, never>;
+            /** param */
+            zip?: Record<string, never>;
           };
           /**
            * payment_method_options_param 
@@ -35906,7 +36057,8 @@ export interface operations {
    * <p>Otherwise, it will transition to the <code>requires_action</code> status and
    * suggest additional actions via <code>next_action</code>. If setup fails,
    * the SetupIntent will transition to the
-   * <code>requires_payment_method</code> status.</p>
+   * <code>requires_payment_method</code> status or the <code>canceled</code> status if the
+   * confirmation limit is reached.</p>
    */
   PostSetupIntentsIntentConfirm: {
     parameters: {
@@ -36071,7 +36223,7 @@ export interface operations {
               country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL";
             };
             /** @enum {string} */
-            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay";
+            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay" | "zip";
             /** payment_method_param */
             us_bank_account?: {
               /** @enum {string} */
@@ -36084,6 +36236,8 @@ export interface operations {
             };
             /** param */
             wechat_pay?: Record<string, never>;
+            /** param */
+            zip?: Record<string, never>;
           };
           /**
            * payment_method_options_param 
@@ -38804,7 +38958,7 @@ export interface operations {
           mode: "full" | "partial";
           /** @description The ID of the Transaction to partially or fully reverse. */
           original_transaction: string;
-          /** @description A custom identifier for this reversal, such as 'myOrder_123-refund_1', which must be unique across all transactions. The reference helps identify this reversal transaction in exported [tax reports](https://stripe.com/docs/tax/reports). */
+          /** @description A custom identifier for this reversal, such as `myOrder_123-refund_1`, which must be unique across all transactions. The reference helps identify this reversal transaction in exported [tax reports](https://stripe.com/docs/tax/reports). */
           reference: string;
           /**
            * transaction_shipping_cost_reversal 
@@ -41571,7 +41725,7 @@ export interface operations {
           currency: string;
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
           description?: string;
-          /** @description The ID of a connected Stripe account. <a href="/docs/connect/charges-transfers">See the Connect documentation</a> for details. */
+          /** @description The ID of a connected Stripe account. <a href="/docs/connect/separate-charges-and-transfers">See the Connect documentation</a> for details. */
           destination: string;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
@@ -41579,14 +41733,14 @@ export interface operations {
           metadata?: {
             [key: string]: string | undefined;
           };
-          /** @description You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-availability) for details. */
+          /** @description You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-availability) for details. */
           source_transaction?: string;
           /**
            * @description The source balance to use for this transfer. One of `bank_account`, `card`, or `fpx`. For most users, this will default to `card`. 
            * @enum {string}
            */
           source_type?: "bank_account" | "card" | "fpx";
-          /** @description A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers#transfer-options) for details. */
+          /** @description A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details. */
           transfer_group?: string;
         };
       };
