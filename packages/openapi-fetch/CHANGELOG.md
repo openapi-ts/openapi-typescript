@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.4.0
+
+### Minor Changes
+
+- [#1176](https://github.com/drwpow/openapi-typescript/pull/1176) [`21fb484`](https://github.com/drwpow/openapi-typescript/pull/1176/commits/21fb4848f1e70e4423a5f20cae330210b5b813b4) Thanks [@kecrily](https://github.com/kecrily)! - Add CommonJS bundle
+
 ## 0.3.0
 
 ### Minor Changes

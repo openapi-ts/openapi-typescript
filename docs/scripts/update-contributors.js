@@ -89,7 +89,7 @@ const OPENAPI_TS_CONTRIBUTORS = [
   ]),
 ];
 
-export const OPENAPI_FETCH_CONTRIBUTORS = [...new Set(["drwpow", "fergusean", "shinzui", "ezpuzz", "KotoriK", "fletchertyler914", "nholik", "roj1512", "nickcaballero", "hd-o"])];
+export const OPENAPI_FETCH_CONTRIBUTORS = [...new Set(["drwpow", "fergusean", "shinzui", "ezpuzz", "KotoriK", "fletchertyler914", "nholik", "roj1512", "nickcaballero", "hd-o", "kecrily"])];
 
 async function main() {
   const openapiTS = Promise.all(OPENAPI_TS_CONTRIBUTORS.map(async (username) => ({ username, avatar: await fetchAvatar(username) })));
