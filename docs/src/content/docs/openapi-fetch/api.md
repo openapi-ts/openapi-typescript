@@ -19,12 +19,10 @@ createClient<paths>(options);
 
 ## Fetch options
 
+The following options apply to all request methods (`.get()`, `.post()`, etc.)
+
 ```ts
-import { paths } from "./v1";
-
-const { get, put, post, del, options, head, patch, trace } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
-
-const { data, error, response } = await get("/my-url", options);
+client.get("/my-url", options);
 ```
 
 | Name              |                               Type                                | Description                                                                                                                                                                                                                      |

@@ -196,7 +196,7 @@ Authentication often requires some reactivity dependent on a token. Since this l
 
 #### Nano Stores
 
-Here’s how it can be handled using [nanostores](https://github.com/nanostores/nanostores), a tiny (334 b), universal signals store:
+Here’s how it can be handled using [Nano Stores](https://github.com/nanostores/nanostores), a tiny (334 b), universal signals store:
 
 ```ts
 // src/lib/api/index.ts
