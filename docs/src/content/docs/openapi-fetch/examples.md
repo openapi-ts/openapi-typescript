@@ -94,65 +94,109 @@ client.get("/my/endpoint", {
 });
 ```
 
-<a href="https://developer.mozilla.org/en-US/docs/Web/API/Request/cache" target="_blank">Learn more about cache options</a>
+Beyond this, you’re better off using a prebuilt fetch wrapper in whatever JS library you’re consuming:
 
-### Custom cache wrapper
+- **React**: [React Query](#react-query)
+- **Svelte**: (suggestions welcome — please file an issue!)
+- **Vue**: (suggestions welcome — please file an issue!)
+- **Vanilla JS**: [Nano Stores](https://github.com/nanostores/nanostores)
 
-> ⚠️ You probably shouldn’t use this, relying instead on [built-in Fetch caching behavior](#built-in-fetch-caching)
+#### Further Reading
 
-Say for some special reason you needed to add custom caching behavior on top of openapi-fetch. Here is an example of how to do that using <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy" target="_blank" rel="noopener noreferrer">proxies</a> in conjunction with the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control" target="_blank" rel="noopener noreferrer">Cache-Control</a> header (the latter is only for the purpose of example, and should be replaced with your caching strategy).
+- <a href="https://developer.mozilla.org/en-US/docs/Web/API/Request/cache" target="_blank">HTTP cache options</a>
 
-```ts
-// src/lib/api/index.ts
-import createClient from "openapi-fetch";
-import { paths } from "./v1";
+## React Query
 
-const MAX_AGE_RE = /max-age=([^,]+)/;
+[React Query](https://tanstack.com/query/latest) is a perfect wrapper for openapi-fetch in React. At only 13 kB, it provides clientside caching and request deduping across async React components without too much client weight in return. And its type inference preserves openapi-fetch types perfectly with minimal setup. Here’s one example of how you could create your own [React Hook](https://react.dev/learn/reusing-logic-with-custom-hooks) to reuse and cache the same request across multiple components:
 
-const expiryCache = new Map<string, number>();
-const resultCache = new Map<string, any>();
-const baseClient = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
+```tsx
+import { useQuery } from "@tanstack/react-query";
+import createClient, { Params, RequestBody } from "openapi-fetch";
+import React from "react";
+import { paths } from "./my-schema";
 
-function parseMaxAge(cc: string | null): number {
-  // if no Cache-Control header, or if "no-store" or "no-cache" present, skip cache
-  if (!cc || cc.includes("no-")) return 0;
-  const maxAge = cc.match(MAX_AGE_RE);
-  // if "max-age" missing, skip cache
-  if (!maxAge || !maxAge[1]) return 0;
-  return Date.now() + parseInt(maxAge[1]) * 1000;
+/**
+ * openapi-fetch wrapper
+ * (this could go in a shared file)
+ */
+
+type UseQueryOptions<T> = Params<T> &
+  RequestBody<T> & {
+    // add your custom options here
+    reactQuery: {
+      enabled: boolean; // Note: React Query type’s inference is difficult to apply automatically, hence manual option passing here
+      // add other React Query options as needed
+    };
+  };
+
+const client = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
+
+const GET_USER = "/users/{user_id}";
+
+function useUser({ params, body, reactQuery }: UseQueryOptions<paths[typeof GET_USER]["get"]>) {
+  return useQuery({
+    ...reactQuery,
+    queryKey: [
+      GET_USER,
+      params.path.user_id,
+      // add any other hook dependencies here
+    ],
+    queryFn: () =>
+      client
+        .get(GET_USER, {
+          params,
+          // body - isn’t used for GET, but needed for other request types
+        })
+        .then((res) => {
+          if (res.data) return res.data;
+          throw new Error(res.error.message); // React Query expects errors to be thrown to show a message
+        }),
+  });
 }
 
-export default new Proxy(baseClient, {
-  get(_, key: keyof typeof baseClient) {
-    const [url, init] = arguments;
-    const expiry = expiryCache.get(url);
+/**
+ * MyComponent example usage
+ */
 
-    // cache expired: update
-    if (!expiry || expiry <= Date.now()) {
-      const result = await baseClient[key](url, init);
-      const nextExpiry = parseMaxAge(result.response.headers.get("Cache-Control"));
-      // erase cache on error, or skipped cache
-      if (result.error || nextExpiry <= Date.now()) {
-        expiryCache.delete(url);
-        resultCache.delete(url);
-      }
-      // update cache on success and response is cacheable
-      else if (result.data) {
-        resultCache.set(url, result);
-        if (nextExpiry) expiryCache.set(url, nextExpiry);
-      }
-      return result;
-    }
+interface MyComponentProps {
+  user_id: string;
+}
 
-    // otherwise, serve cache
-    return resultCache.get(url);
+function MyComponent({ user_id }: MyComponentProps) {
+  const user = useUser({ params: { path: { user_id } } });
+
+  return <span>{user.data?.name}</span>;
+}
+```
+
+Some important callouts:
+
+- `UseQueryOptions<T>` is a bit technical, but it’s what passes through the `params` and `body` options to React Query for the endpoint used. It’s how in `<MyComponent />` you can provide `params.path.user_id` despite us not having manually typed that anywhere (after all, it’s in the OpenAPI schema—why would we need to type it again if we don’t have to?).
+- Saving the pathname as `GET_USER` is an important concept. That lets us use the same value to:
+  1. Query the API
+  2. Infer types from the OpenAPI schema’s [Paths Object](https://spec.openapis.org/oas/latest.html#paths-object)
+  3. Cache in React Query (using the pathname as a cache key)
+- Note that `useUser()` types its parameters as `UseQueryOptions<paths[typeof GET_USER]["get"]>`. The type `paths[typeof GET_USER]["get"]`:
+  1. Starts from the OpenAPI `paths` object,
+  2. finds the `GET_USER` pathname,
+  3. and finds the `"get"` request off that path (remember every pathname can have multiple methods)
+- To create another hook, you’d replace `typeof GET_USER` with another URL, and `"get"` with the method you’re using.
+- Lastly, `queryKey` in React Query is what creates the cache key for that request (same as hook dependencies). In our example, we want to key off of two things—the pathname and the `params.path.user_id` param. This, sadly, does require some manual typing, but it’s so you can have granular control over when refetches happen (or don’t) for this request.
+
+### Further optimization
+
+Setting the default [network mode](https://tanstack.com/query/latest/docs/react/guides/network-mode) and [window focus refreshing](https://tanstack.com/query/latest/docs/react/guides/window-focus-refetching) options could be useful if you find React Query making too many requests:
+
+```tsx
+import { QueryClient } from '@tanstack/react-query';
+
+const reactQueryClient = new QueryClient({
+  defaultOptions: {
+  queries: {
+    networkMode: "offlineFirst", // keep caches as long as possible
+    refetchOnWindowFocus: false, // don’t refetch on window focus
   },
 });
-
-// src/some-other-file.ts
-import client from "./lib/api";
-
-client.get("/my/endpoint", {
-  /* … */
-});
 ```
+
+Experiment with the options to improve what works best for your setup.
