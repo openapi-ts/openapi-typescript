@@ -99,11 +99,71 @@ Beyond this, you’re better off using a prebuilt fetch wrapper in whatever JS l
 - **React**: [React Query](#react-query)
 - **Svelte**: (suggestions welcome — please file an issue!)
 - **Vue**: (suggestions welcome — please file an issue!)
-- **Vanilla JS**: [Nano Stores](https://github.com/nanostores/nanostores)
+- **Vanilla JS**: (see below)
 
 #### Further Reading
 
 - <a href="https://developer.mozilla.org/en-US/docs/Web/API/Request/cache" target="_blank">HTTP cache options</a>
+
+### Vanilla JS (idempotent)
+
+For idempotent data fetching (not having to wrestle with promises—great for UI applications), [Nano Stores](https://github.com/nanostores/nanostores) is a great pair with `openapi-fetch`. This general strategy could also be used in simple UI applications or Web Components:
+
+```ts
+import createClient, { Success, Error } from "openapi-fetch";
+import { map } from "nanostores";
+import { components, paths } from "./my-schema";
+
+/**
+ * Shared query
+ */
+
+type DataLoader<T> = { loading: true; data?: never; error?: never } | { loading: false; data: Success<T>; error?: never } | { loading: false; data?: never; error: Error<t> };
+
+const client = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
+
+const GET_USER = "/users/{user_id}";
+
+$userCache = atom<Record<string, DataLoader<Success[paths[typeof GET_USER]["get"]]>>>({});
+$userErrorCache = atom<Record<string, DataLoader<Error[paths[typeof GET_USER]["get"]]>>>({});
+
+function getUser(userId: string): DataLoader<paths[typeof GET_USER]["get"]> {
+  // if last response was successful, return that
+  if ($userCache.get()[userId]) {
+    return { loading: false, data: $userCache.get()[userId] };
+  }
+  // otherwise if last response erred, return that
+  else if ($userErrorCache.get()[userId]) {
+    return { loading: false, error: $userErrorCache.get()[userId] };
+  }
+  // otherwise, return `loading: true` and fetch in the background (and update stores, alerting all listeners)
+  else {
+    client.get(GET_USER, { params: { path: { user_id: userId } } }).then(({ data, error }) => {
+      if (data) {
+        $userCache.set({ ...$userCache.get(), [userId]: data });
+      } else {
+        $userErrorCache.set({ ...$userErrorCache.get(), [userId]: error });
+      }
+    });
+    return { loading: true };
+  }
+}
+
+/**
+ * Usage example
+ */
+
+// Loading
+console.log(getUser("user-123")); // { loading: true }
+// Success
+console.log(getUser("user-123")); // { loading: false, data: { … } }
+// Error
+console.log(getUser("user-123")); // { loading: false, error: { … } }
+```
+
+Keep in mind, though, that reactivity is difficult! You’ll have to account for stale data in the context of your application (if using a JS framework, there are already existing libraries that can handle this for you). Further, this is a contrived example that doesn’t handle invalidating the cache—both data and errors. Cache invalidation will be dependent on your specific needs.
+
+If you need to work with promises, then just using `openapi-fetch` as-is will usually suffice. If you need promises + caching, then you’ll have to come up with a solution that fits your own custom usecase.
 
 ## React Query
 
