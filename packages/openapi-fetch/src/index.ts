@@ -10,6 +10,8 @@ interface ClientOptions extends RequestInit {
   baseUrl?: string;
   /** custom fetch (defaults to globalThis.fetch) */
   fetch?: typeof fetch;
+  /** global querySerializer */
+  querySerializer?: QuerySerializer<unknown>;
 }
 export interface BaseParams {
   params?: { query?: Record<string, unknown> };
@@ -82,7 +84,7 @@ export function createFinalURL<O>(url: string, options: { baseUrl?: string; para
 }
 
 export default function createClient<Paths extends {}>(clientOptions: ClientOptions = {}) {
-  const { fetch = globalThis.fetch, ...options } = clientOptions;
+  const { fetch = globalThis.fetch, querySerializer: globalQuerySerializer, ...options } = clientOptions;
 
   const defaultHeaders = new Headers({
     ...DEFAULT_HEADERS,
@@ -90,7 +92,7 @@ export default function createClient<Paths extends {}>(clientOptions: ClientOpti
   });
 
   async function coreFetch<P extends keyof Paths, M extends HttpMethod>(url: P, fetchOptions: FetchOptions<M extends keyof Paths[P] ? Paths[P][M] : never>): Promise<FetchResponse<M extends keyof Paths[P] ? Paths[P][M] : unknown>> {
-    const { headers, body: requestBody, params = {}, parseAs = "json", querySerializer = defaultSerializer, ...init } = fetchOptions || {};
+    const { headers, body: requestBody, params = {}, parseAs = "json", querySerializer = globalQuerySerializer ?? defaultSerializer, ...init } = fetchOptions || {};
 
     // URL
     const finalURL = createFinalURL(url as string, { baseUrl: options.baseUrl, params, querySerializer });

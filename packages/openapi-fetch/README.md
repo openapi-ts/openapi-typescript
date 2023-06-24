@@ -188,6 +188,35 @@ Note that this happens **at the request level** so that you still get correct ty
 
 _Thanks, [@ezpuzz](https://github.com/ezpuzz)!_
 
+Provide a `querySerializer()` to `createClient()` to globally override the default `URLSearchParams` serializer. Serializers provided to a specific request method still override the global default.
+
+```ts
+import createClient, { defaultSerializer } from "openapi-fetch";
+import { paths } from "./v1"; // generated from openapi-typescript
+import { queryString } from "query-string";
+
+const { get, post } = createClient<paths>({
+  baseUrl: "https://myapi.dev/v1/",
+  querySerializer: (q) => queryString.stringify(q, { arrayFormat: "none" }), // Override the default `URLSearchParams` serializer
+});
+
+const { data, error } = await get("/posts/", {
+  params: {
+    query: { categories: ["dogs", "cats", "lizards"] }, // Use the serializer specified in `createClient()`
+  },
+});
+
+const { data, error } = await get("/images/{image_id}", {
+  params: {
+    path: { image_id: "image-id" },
+    query: { size: 512 },
+  },
+  querySerializer: defaultSerializer, // Use `openapi-fetch`'s `URLSearchParams` serializer
+});
+```
+
+_Thanks, [@psychedelicious](https://github.com/psychedelicious)!_
+
 ## Examples
 
 ### 🔒 Handling Auth
