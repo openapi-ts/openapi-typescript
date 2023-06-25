@@ -387,6 +387,37 @@ describe("client", () => {
 
         expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post?alpha=2&beta=json");
       });
+
+      it("applies global serializer", async () => {
+        const client = createClient<paths>({
+          querySerializer: (q) => `alpha=${q.version}&beta=${q.format}`,
+        });
+        mockFetchOnce({ status: 200, body: "{}" });
+        await client.get("/blogposts/{post_id}", {
+          params: {
+            path: { post_id: "my-post" },
+            query: { version: 2, format: "json" },
+          },
+        });
+
+        expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post?alpha=2&beta=json");
+      });
+
+      it("overrides global serializer if provided", async () => {
+        const client = createClient<paths>({
+          querySerializer: () => "query",
+        });
+        mockFetchOnce({ status: 200, body: "{}" });
+        await client.get("/blogposts/{post_id}", {
+          params: {
+            path: { post_id: "my-post" },
+            query: { version: 2, format: "json" },
+          },
+          querySerializer: (q) => `alpha=${q.version}&beta=${q.format}`,
+        });
+
+        expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post?alpha=2&beta=json");
+      });
     });
   });
 
