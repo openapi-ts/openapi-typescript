@@ -1,5 +1,15 @@
 # openapi-fetch
 
+## 0.5.0
+
+### Minor Changes
+
+- [#1183](https://github.com/drwpow/openapi-typescript/pull/1183) [`431a98f`](https://github.com/drwpow/openapi-typescript/commit/431a98f0b6d518aa8e780f063d680d380a8a12dd) Thanks [@psychedelicious](https://github.com/psychedelicious)! - Add global `querySerializer()` option to `createClient()`
+
+### Patch Changes
+
+- [#1186](https://github.com/drwpow/openapi-typescript/pull/1186) [`cd0a653`](https://github.com/drwpow/openapi-typescript/commit/cd0a65354b03fce8a6e28453b8760ac017205df1) Thanks [@drwpow](https://github.com/drwpow)! - Fix CJS build
+
 ## 0.4.0
 
 ### Minor Changes
