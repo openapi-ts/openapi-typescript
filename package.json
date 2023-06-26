@@ -9,8 +9,8 @@
   },
   "scripts": {
     "build": "run-p -s build:*",
-    "build:clean": "del packages/openapi-typescript/dist && del packages/openapi-fetch/dist",
-    "build:ts": "tsc -b packages/openapi-typescript/tsconfig.build.json packages/openapi-fetch/tsconfig.build.json",
+    "build:openapi-typescript": "cd packages/openapi-typescript && pnpm run build",
+    "build:openapi-fetch": "cd packages/openapi-fetch && pnpm run build",
     "lint": "run-p -s lint:*",
     "lint:openapi-typescript": "cd packages/openapi-typescript && pnpm run lint",
     "lint:openapi-fetch": "cd packages/openapi-fetch && pnpm run lint",
