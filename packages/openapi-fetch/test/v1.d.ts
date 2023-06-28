@@ -221,6 +221,14 @@ export interface paths {
       };
     };
   };
+  "/contact": {
+    put: {
+      requestBody: components["requestBodies"]["Contact"];
+      responses: {
+        200: components["responses"]["Contact"];
+      };
+    };
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -264,6 +272,11 @@ export interface components {
         "application/json;charset=utf-8": {
           message: string;
         };
+      };
+    };
+    Contact: {
+      content: {
+        "text/html": string;
       };
     };
     Error: {
@@ -336,6 +349,16 @@ export interface components {
         "application/json;charset=utf-8": {
           message: string;
           replied_at: number;
+        };
+      };
+    };
+    Contact: {
+      content: {
+        "multipart/form-data": {
+          name: string;
+          email: string;
+          subject: string;
+          message: string;
         };
       };
     };

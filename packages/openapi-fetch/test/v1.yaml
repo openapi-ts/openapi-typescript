@@ -208,7 +208,13 @@ paths:
           $ref: '#/components/responses/Error'
         500:
           $ref: '#/components/responses/Error'
-
+  /contact:
+    put:
+      requestBody:
+        $ref: '#/components/requestBodies/Contact'
+      responses:
+        200:
+          $ref: '#/components/responses/Contact'
 components:
   schemas:
     Post:
@@ -295,6 +301,26 @@ components:
             required:
               - message
               - replied_at
+    Contact:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              email:
+                type: string
+              subject:
+                type: string
+              message:
+                type: string
+            required:
+              - name
+              - email
+              - subject
+              - message
     PatchPost:
       required: true
       content:
@@ -347,6 +373,11 @@ components:
                 type: string
             required:
               - message
+    Contact:
+      content:
+        text/html:
+          schema:
+            type: string
     Error:
       content:
         application/json:

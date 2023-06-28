@@ -5,7 +5,7 @@ description: Get Started with openapi-fetch
 
 <img src="/assets/openapi-fetch.svg" alt="openapi-fetch" width="216" height="40" />
 
-openapi-fetch is an ultra-fast fetch client for TypeScript using your OpenAPI schema. Weighs in at **1 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
+openapi-fetch applies your OpenAPI types to the native fetch API via TypeScript. Weighs in at **1 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
 
 | Library                        | Size (min) |
 | :----------------------------- | ---------: |
@@ -19,7 +19,7 @@ The syntax is inspired by popular libraries like react-query or Apollo client, b
 import createClient from "openapi-fetch";
 import { paths } from "./v1"; // generated from openapi-typescript
 
-const { get, post } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
+const { get, put } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 
 // Type-checked request
 await put("/blogposts", {
@@ -30,8 +30,7 @@ await put("/blogposts", {
 });
 
 // Type-checked response
-const { data, error } = await get("/blogposts/my-blog-post");
-
+const { data, error } = await get("/blogposts/{post_id}", { params: { path: { post_id: "123" } } });
 console.log(data.title); // ❌ 'data' is possibly 'undefined'
 console.log(error.message); // ❌ 'error' is possibly 'undefined'
 console.log(data?.foo); // ❌ Property 'foo' does not exist on type …
@@ -81,17 +80,17 @@ And run `npm run test:ts` in your CI to catch type errors.
 
 ## Usage
 
-Using **openapi-fetch** is as easy as reading your schema! For example, given the following schema:
+Using **openapi-fetch** is as easy as reading your schema:
 
 ![OpenAPI schema example](/assets/openapi-schema.png)
 
-Here’s how you’d fetch GET `/blogposts/{post_id}` and POST `/blogposts`:
+Here’s how you’d fetch GET `/blogposts/{post_id}` and PUT `/blogposts`:
 
 ```ts
 import createClient from "openapi-fetch";
 import { paths } from "./v1";
 
-const { get, post } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
+const { get, put } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 
 const { data, error } = await get("/blogposts/{post_id}", {
   params: {
@@ -100,7 +99,7 @@ const { data, error } = await get("/blogposts/{post_id}", {
   },
 });
 
-const { data, error } = await post("/blogposts", {
+const { data, error } = await put("/blogposts", {
   body: {
     title: "New Post",
     body: "<p>New post body</p>",
@@ -134,3 +133,11 @@ All methods return an object with **data**, **error**, and **response**.
 - **error** likewise contains that endpoint’s `4xx`/`5xx` response if the server returned either; otherwise it will be `undefined`
   - _Note: `default` will also be interpreted as `error`, since its intent is handling unexpected HTTP codes_
 - **response** has response info like `status`, `headers`, etc. It is not typechecked.
+
+## Version Support
+
+openapi-fetch implements the [native fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) which is available in all major browsers.
+
+If using in a Node.js environment, version 18 or greater is recommended (newer is better).
+
+TypeScript support is pretty far-reaching as this library doesn’t use any cutting-edge features, but using the latest version of TypeScript is always recommended for accuracy.

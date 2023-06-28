@@ -257,11 +257,42 @@ describe("client", () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
       await client.get("/blogposts/{post_id}", {
-        params: { path: { post_id: "post?id = 🥴" }, query: {} },
+        params: {
+          path: {
+            post_id: "post?id = 🥴",
+          },
+        },
       });
 
       // expect post_id to be encoded properly
       expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/post%3Fid%20%3D%20%F0%9F%A5%B4");
+    });
+
+    it("multipart/form-data", async () => {
+      const client = createClient<paths>();
+      mockFetchOnce({ status: 200, body: "{}" });
+      const { data } = await client.put("/contact", {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        body: {
+          name: "John Doe",
+          email: "test@email.email",
+          subject: "Test Message",
+          message: "This is a test message",
+        },
+        bodySerializer(body) {
+          const fd = new FormData();
+          for (const [k, v] of Object.entries(body)) {
+            fd.append(k, v);
+          }
+          return fd;
+        },
+      });
+
+      // expect post_id to be encoded properly
+      const req = fetchMocker.mock.calls[0][1];
+      expect(req.body).toBeInstanceOf(FormData);
     });
   });
 
@@ -292,17 +323,6 @@ describe("client", () => {
 
       // assert `error.message` doesn’t throw TS error
       expect(error.message).toBe("An unexpected error occurred");
-    });
-
-    it("falls back to text() on invalid JSON", async () => {
-      const client = createClient<paths>();
-      const bodyResponse = "My Post";
-      mockFetchOnce({ status: 200, body: bodyResponse });
-      const { data, error } = await client.get("/blogposts/{post_id}", { params: { path: { post_id: "my-post" } } });
-      if (error) throw new Error("falls back to text(): error shouldn’t be present");
-
-      // assert `data` is a string
-      expect(data).toBe(bodyResponse);
     });
 
     describe("parseAs", () => {
@@ -498,7 +518,6 @@ describe("client", () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 201, body: JSON.stringify(mockData) });
       const { data, error, response } = await client.put("/blogposts", {
-        params: {},
         body: {
           title: "New Post",
           body: "<p>Best post yet</p>",

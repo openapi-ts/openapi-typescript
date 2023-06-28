@@ -12,6 +12,8 @@ interface ClientOptions extends RequestInit {
   fetch?: typeof fetch;
   /** global querySerializer */
   querySerializer?: QuerySerializer<unknown>;
+  /** global bodySerializer */
+  bodySerializer?: BodySerializer<unknown>;
 }
 export interface BaseParams {
   params?: { query?: Record<string, unknown> };
@@ -38,36 +40,46 @@ export type PathsWith<Paths extends Record<string, PathItemObject>, PathnameMeth
 }[keyof Paths];
 /** Find first match of multiple keys */
 export type FilterKeys<Obj, Matchers> = { [K in keyof Obj]: K extends Matchers ? Obj[K] : never }[keyof Obj];
-/** handle "application/json", "application/vnd.api+json", "appliacation/json;charset=utf-8" and more */
-export type JSONLike = `${string}json${string}`;
+export type MediaType = `${string}/${string}`;
 
 // general purpose types
-export type Params<O> = O extends { parameters: any } ? { params: NonNullable<O["parameters"]> } : BaseParams;
-export type RequestBodyObj<O> = O extends { requestBody?: any } ? O["requestBody"] : never;
-export type RequestBodyContent<O> = undefined extends RequestBodyObj<O> ? FilterKeys<NonNullable<RequestBodyObj<O>>, "content"> | undefined : FilterKeys<RequestBodyObj<O>, "content">;
-export type RequestBodyJSON<O> = FilterKeys<RequestBodyContent<O>, JSONLike> extends never ? FilterKeys<NonNullable<RequestBodyContent<O>>, JSONLike> | undefined : FilterKeys<RequestBodyContent<O>, JSONLike>;
-export type RequestBody<O> = undefined extends RequestBodyJSON<O> ? { body?: RequestBodyJSON<O> } : { body: RequestBodyJSON<O> };
-export type QuerySerializer<O> = (query: O extends { parameters: any } ? NonNullable<O["parameters"]["query"]> : Record<string, unknown>) => string;
-export type RequestOptions<T> = Params<T> & RequestBody<T> & { querySerializer?: QuerySerializer<T>; parseAs?: ParseAs };
-export type Success<O> = FilterKeys<FilterKeys<O, OkStatus>, "content">;
-export type Error<O> = FilterKeys<FilterKeys<O, ErrorStatus>, "content">;
+export type Params<T> = T extends { parameters: any } ? { params: NonNullable<T["parameters"]> } : BaseParams;
+export type RequestBodyObj<T> = T extends { requestBody?: any } ? T["requestBody"] : never;
+export type RequestBodyContent<T> = undefined extends RequestBodyObj<T> ? FilterKeys<NonNullable<RequestBodyObj<T>>, "content"> | undefined : FilterKeys<RequestBodyObj<T>, "content">;
+export type RequestBodyMedia<T> = FilterKeys<RequestBodyContent<T>, MediaType> extends never ? FilterKeys<NonNullable<RequestBodyContent<T>>, MediaType> | undefined : FilterKeys<RequestBodyContent<T>, MediaType>;
+export type RequestBody<T> = undefined extends RequestBodyMedia<T> ? { body?: RequestBodyMedia<T> } : { body: RequestBodyMedia<T> };
+export type QuerySerializer<T> = (query: T extends { parameters: any } ? NonNullable<T["parameters"]["query"]> : Record<string, unknown>) => string;
+export type BodySerializer<T> = (body: RequestBodyMedia<T>) => any;
+export type RequestOptions<T> = Params<T> &
+  RequestBody<T> & {
+    querySerializer?: QuerySerializer<T>;
+    bodySerializer?: BodySerializer<T>;
+    parseAs?: ParseAs;
+  };
+export type Success<T> = FilterKeys<FilterKeys<T, OkStatus>, "content">;
+export type Error<T> = FilterKeys<FilterKeys<T, ErrorStatus>, "content">;
 
 // fetch types
 export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body">;
 export type FetchResponse<T> =
-  | { data: T extends { responses: any } ? NonNullable<FilterKeys<Success<T["responses"]>, JSONLike>> : unknown; error?: never; response: Response }
-  | { data?: never; error: T extends { responses: any } ? NonNullable<FilterKeys<Error<T["responses"]>, JSONLike>> : unknown; response: Response };
+  | { data: T extends { responses: any } ? NonNullable<FilterKeys<Success<T["responses"]>, MediaType>> : unknown; error?: never; response: Response }
+  | { data?: never; error: T extends { responses: any } ? NonNullable<FilterKeys<Error<T["responses"]>, MediaType>> : unknown; response: Response };
 
-/** Call URLSearchParams() on the object, but remove `undefined` and `null` params */
-export function defaultSerializer(q: unknown): string {
+/** serialize query params to string */
+export function defaultQuerySerializer<T = unknown>(q: T): string {
   const search = new URLSearchParams();
   if (q && typeof q === "object") {
     for (const [k, v] of Object.entries(q)) {
       if (v === undefined || v === null) continue;
-      search.set(k, String(v));
+      search.set(k, v);
     }
   }
   return search.toString();
+}
+
+/** serialize body object to string */
+export function defaultBodySerializer<T>(body: T): string {
+  return JSON.stringify(body);
 }
 
 /** Construct URL string from baseUrl and handle path and query params */
@@ -84,7 +96,7 @@ export function createFinalURL<O>(url: string, options: { baseUrl?: string; para
 }
 
 export default function createClient<Paths extends {}>(clientOptions: ClientOptions = {}) {
-  const { fetch = globalThis.fetch, querySerializer: globalQuerySerializer, ...options } = clientOptions;
+  const { fetch = globalThis.fetch, querySerializer: globalQuerySerializer, bodySerializer: globalBodySerializer, ...options } = clientOptions;
 
   const defaultHeaders = new Headers({
     ...DEFAULT_HEADERS,
@@ -92,7 +104,7 @@ export default function createClient<Paths extends {}>(clientOptions: ClientOpti
   });
 
   async function coreFetch<P extends keyof Paths, M extends HttpMethod>(url: P, fetchOptions: FetchOptions<M extends keyof Paths[P] ? Paths[P][M] : never>): Promise<FetchResponse<M extends keyof Paths[P] ? Paths[P][M] : unknown>> {
-    const { headers, body: requestBody, params = {}, parseAs = "json", querySerializer = globalQuerySerializer ?? defaultSerializer, ...init } = fetchOptions || {};
+    const { headers, body: requestBody, params = {}, parseAs = "json", querySerializer = globalQuerySerializer ?? defaultQuerySerializer, bodySerializer = globalBodySerializer ?? defaultBodySerializer, ...init } = fetchOptions || {};
 
     // URL
     const finalURL = createFinalURL(url as string, { baseUrl: options.baseUrl, params, querySerializer });
@@ -106,13 +118,14 @@ export default function createClient<Paths extends {}>(clientOptions: ClientOpti
     }
 
     // fetch!
-    const response = await fetch(finalURL, {
+    const requestInit: RequestInit = {
       redirect: "follow",
       ...options,
       ...init,
       headers: baseHeaders,
-      body: typeof requestBody === "string" ? requestBody : JSON.stringify(requestBody),
-    });
+    };
+    if (requestBody) requestInit.body = bodySerializer(requestBody as any);
+    const response = await fetch(finalURL, requestInit);
 
     // handle empty content
     // note: we return `{}` because we want user truthy checks for `.data` or `.error` to succeed
@@ -124,11 +137,8 @@ export default function createClient<Paths extends {}>(clientOptions: ClientOpti
     if (response.ok) {
       let data: any = response.body;
       if (parseAs !== "stream") {
-        try {
-          data = await response.clone()[parseAs]();
-        } catch {
-          data = await response.clone().text();
-        }
+        const cloned = response.clone();
+        data = typeof cloned[parseAs] === "function" ? await cloned[parseAs]() : await cloned.text();
       }
       return { data, response };
     }
