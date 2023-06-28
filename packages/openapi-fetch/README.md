@@ -1,6 +1,6 @@
 <img src="../../docs/public/assets/openapi-fetch.svg" alt="openapi-fetch" width="216" height="40" />
 
-openapi-fetch is an ultra-fast fetch client for TypeScript using your OpenAPI schema. Weighs in at **1 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
+openapi-fetch applies your OpenAPI types to the native fetch API via TypeScript. Weighs in at **1 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
 
 | Library                        | Size (min) |
 | :----------------------------- | ---------: |
@@ -76,17 +76,17 @@ And run `npm run test:ts` in your CI to catch type errors.
 
 ## 🏓 Usage
 
-Using **openapi-fetch** is as easy as reading your schema! For example, given the following schema:
+Using **openapi-fetch** is as easy as reading your schema:
 
-![OpenAPI schema example](../../../docs/public/assets/openapi-schema.png)
+![OpenAPI schema example](../../docs/public/assets/openapi-schema.png)
 
-Here’s how you’d fetch GET `/blogpost/{post_id}` and POST `/blogposts`:
+Here’s how you’d fetch GET `/blogposts/{post_id}` and PUT `/blogposts`:
 
 ```ts
 import createClient from "openapi-fetch";
 import { paths } from "./v1";
 
-const { get, post } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
+const { get, put } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 
 const { data, error } = await get("/blogposts/{post_id}", {
   params: {
@@ -95,7 +95,7 @@ const { data, error } = await get("/blogposts/{post_id}", {
   },
 });
 
-const { data, error } = await post("/blogposts", {
+const { data, error } = await put("/blogposts", {
   body: {
     title: "New Post",
     body: "<p>New post body</p>",
@@ -130,6 +130,14 @@ All methods return an object with **data**, **error**, and **response**.
   - _Note: `default` will also be interpreted as `error`, since its intent is handling unexpected HTTP codes_
 - **response** has response info like `status`, `headers`, etc. It is not typechecked.
 
+## Version Support
+
+openapi-fetch implements the [native fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) which is available in all major browsers.
+
+If using in a Node.js environment, version 18 or greater is recommended (newer is better).
+
+TypeScript support is pretty far-reaching as this library doesn’t use any cutting-edge features, but using the latest version of TypeScript is always recommended for accuracy.
+
 ## API
 
 ### Create Client
@@ -140,147 +148,73 @@ All methods return an object with **data**, **error**, and **response**.
 createClient<paths>(options);
 ```
 
-| Name            |   Type   | Description                                                                                                                                                                                   |
-| :-------------- | :------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `baseUrl`       | `string` | Prefix all fetch URLs with this option (e.g. `"https://myapi.dev/v1/"`).                                                                                                                      |
-| `fetch`         | `fetch`  | Fetch function used for requests (defaults to `globalThis.fetch`)                                                                                                                             |
-| (Fetch options) |          | Any valid fetch option (`headers`, `mode`, `cache`, `signal` …) (<a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch#options" target="_blank" rel="noopener noreferrer">docs</a>) |
+| Name              |      Type       | Description                                                                                                                                                                                   |
+| :---------------- | :-------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `baseUrl`         |    `string`     | Prefix all fetch URLs with this option (e.g. `"https://myapi.dev/v1/"`).                                                                                                                      |
+| `fetch`           |     `fetch`     | Fetch function used for requests (defaults to `globalThis.fetch`)                                                                                                                             |
+| `querySerializer` | QuerySerializer | (optional) Serialize query params for all requests (default: `new URLSearchParams()`)                                                                                                         |
+| `bodySerializer`  | BodySerializer  | (optional) Serialize request body object for all requests (default: `JSON.stringify()`)                                                                                                       |
+| (Fetch options)   |                 | Any valid fetch option (`headers`, `mode`, `cache`, `signal` …) (<a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch#options" target="_blank" rel="noopener noreferrer">docs</a>) |
 
 ### Fetch options
 
+The following options apply to all request methods (`.get()`, `.post()`, etc.)
+
 ```ts
-import { paths } from "./v1";
-
-const { get, put, post, del, options, head, patch, trace } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
-
-const { data, error, response } = await get("/my-url", options);
+client.get("/my-url", options);
 ```
 
-| Name              |        Type         | Description                                                                                                                                                                                   |
-| :---------------- | :-----------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `params`          |    ParamsObject     | Provide `path` and `query` params from the OpenAPI schema                                                                                                                                     |
-| `params.path`     | `{ [name]: value }` | Provide all `path` params (params that are part of the URL)                                                                                                                                   |
-| `params.query`    | `{ [name]: value }` | Provide all `query params (params that are part of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/URL/searchParams" target="_blank" rel="noopener noreferrer">searchParams</a> |
-| `body`            | `{ [name]:value }`  | The <a href="https://spec.openapis.org/oas/latest.html#request-body-object" target="_blank" rel="noopener noreferrer">requestBody</a> data, if needed (PUT/POST/PATCH/DEL only)               |
-| `querySerializer` |   QuerySerializer   | (optional) Override default param serialization (see [Parameter Serialization](#parameter-serialization))                                                                                     |
-| (Fetch options)   |                     | Any valid fetch option (`headers`, `mode`, `cache`, `signal` …) (<a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch#options" target="_blank" rel="noopener noreferrer">docs</a>) |
+| Name              |                               Type                                | Description                                                                                                                                                                                                        |
+| :---------------- | :---------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `params`          |                           ParamsObject                            | Provide `path` and `query` params from the OpenAPI schema                                                                                                                                                          |
+| `params.path`     |                        `{ [name]: value }`                        | Provide all `path` params (params that are part of the URL)                                                                                                                                                        |
+| `params.query`    |                        `{ [name]: value }`                        | Provide all `query params (params that are part of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/URL/searchParams" target="_blank" rel="noopener noreferrer">searchParams</a>                      |
+| `body`            |                        `{ [name]:value }`                         | The <a href="https://spec.openapis.org/oas/latest.html#request-body-object" target="_blank" rel="noopener noreferrer">requestBody</a> data, if needed (PUT/POST/PATCH/DEL only)                                    |
+| `querySerializer` |                          QuerySerializer                          | (optional) Serialize query params for this request only (default: `new URLSearchParams()`)                                                                                                                         |
+| `bodySerializer`  |                          BodySerializer                           | (optional) Serialize request body for this request only (default: `JSON.stringify()`)                                                                                                                              |
+| `parseAs`         | `"json"` \| `"text"` \| `"arrayBuffer"` \| `"blob"` \| `"stream"` | Parse the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response/body" target="_blank" rel="noopener noreferrer">response body</a>, with `"stream"` skipping processing altogether (default: `"json"`) |
+| (Fetch options)   |                                                                   | Any valid fetch option (`headers`, `mode`, `cache`, `signal` …) (<a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch#options" target="_blank" rel="noopener noreferrer">docs</a>)                      |
 
-#### 🔀 Parameter Serialization
+### querySerializer
 
-In the spirit of being lightweight, this library only uses <a href="https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams" target="_blank" rel="noopener noreferrer">URLSearchParams</a> to <a href="https://swagger.io/docs/specification/serialization/" target="_blank" rel="noopener noreferrer">serialize parameters</a>. So for complex query param types (e.g. arrays) you’ll need to provide your own `querySerializer()` method that transforms query params into a URL-safe string:
+This library uses <a href="https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams" target="_blank" rel="noopener noreferrer">URLSearchParams</a> to <a href="https://swagger.io/docs/specification/serialization/" target="_blank" rel="noopener noreferrer">serialize query parameters</a>. For complex query param types (e.g. arrays) you’ll need to provide your own `querySerializer()` method that transforms query params into a URL-safe string:
 
 ```ts
-import createClient from "openapi-fetch";
-import { paths } from "./v1"; // generated from openapi-typescript
-
-const { get, post } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
-
-const { data, error } = await get("/post/{post_id}", {
+const { data, error } = await get("/search", {
   params: {
-    path: { post_id: "my-post" },
+    query: { tags: ["food", "california", "healthy"] },
+  },
+  querySerializer(q) {
+    let s = "";
+    for (const [k, v] of Object.entries(q)) {
+      if (Array.isArray(v)) {
+        s += `${k}[]=${v.join(",")}`;
+      } else {
+        s += `${k}=${v}`;
+      }
+    }
+    return s; // ?tags[]=food&tags[]=california&tags[]=healthy
+  },
+});
+```
+
+### bodySerializer
+
+Similar to [querySerializer](#querySerializer), bodySerializer works for requestBody. You probably only need this when using `multipart/form-data`:
+
+```ts
+const { data, error } = await put("/submit", {
+  body: {
+    name: "",
     query: { version: 2 },
   },
-  querySerializer: (q) => `v=${q.version}`, // ✅ Still typechecked based on the URL!
-});
-```
-
-Note that this happens **at the request level** so that you still get correct type inference for that URL’s specific query params.
-
-_Thanks, [@ezpuzz](https://github.com/ezpuzz)!_
-
-Provide a `querySerializer()` to `createClient()` to globally override the default `URLSearchParams` serializer. Serializers provided to a specific request method still override the global default.
-
-```ts
-import createClient, { defaultSerializer } from "openapi-fetch";
-import { paths } from "./v1"; // generated from openapi-typescript
-import { queryString } from "query-string";
-
-const { get, post } = createClient<paths>({
-  baseUrl: "https://myapi.dev/v1/",
-  querySerializer: (q) => queryString.stringify(q, { arrayFormat: "none" }), // Override the default `URLSearchParams` serializer
-});
-
-const { data, error } = await get("/posts/", {
-  params: {
-    query: { categories: ["dogs", "cats", "lizards"] }, // Use the serializer specified in `createClient()`
+  bodySerializer(body) {
+    const fd = new FormData();
+    for (const [k, v] of Object.entries(body)) {
+      fd.append(k, v);
+    }
+    return fd;
   },
-});
-
-const { data, error } = await get("/images/{image_id}", {
-  params: {
-    path: { image_id: "image-id" },
-    query: { size: 512 },
-  },
-  querySerializer: defaultSerializer, // Use `openapi-fetch`'s `URLSearchParams` serializer
-});
-```
-
-_Thanks, [@psychedelicious](https://github.com/psychedelicious)!_
-
-## Examples
-
-### 🔒 Handling Auth
-
-Authentication often requires some reactivity dependent on a token. Since this library is so low-level, there are myriad ways to handle it:
-
-#### Nano Stores
-
-Here’s how it can be handled using [Nano Stores](https://github.com/nanostores/nanostores), a tiny (334 b), universal signals store:
-
-```ts
-// src/lib/api/index.ts
-import { atom, computed } from "nanostores";
-import createClient from "openapi-fetch";
-import { paths } from "./v1";
-
-export const authToken = atom<string | undefined>();
-someAuthMethod().then((newToken) => authToken.set(newToken));
-
-export const client = computed(authToken, (currentToken) =>
-  createClient<paths>({
-    headers: currentToken ? { Authorization: `Bearer ${currentToken}` } : {},
-    baseUrl: "https://myapi.dev/v1/",
-  })
-);
-
-// src/some-other-file.ts
-import { client } from "./lib/api";
-
-const { get, post } = client.get();
-
-get("/some-authenticated-url", {
-  /* … */
-});
-```
-
-#### Vanilla JS Proxies
-
-You can also use [proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) which are now supported in all modern browsers:
-
-```ts
-// src/lib/api/index.ts
-import createClient from "openapi-fetch";
-import { paths } from "./v1";
-
-let authToken: string | undefined = undefined;
-someAuthMethod().then((newToken) => (authToken = newToken));
-
-const baseClient = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
-export default new Proxy(baseClient, {
-  get(_, key: keyof typeof baseClient) {
-    const newClient = createClient<paths>({
-      headers: authToken ? { Authorization: `Bearer ${authToken}` } : {},
-      baseUrl: "https://myapi.dev/v1/",
-    });
-    return newClient[key];
-  },
-});
-
-// src/some-other-file.ts
-import client from "./lib/api";
-
-client.get("/some-authenticated-url", {
-  /* … */
 });
 ```
 
