@@ -1,5 +1,13 @@
 # openapi-fetch
 
+## 0.6.0
+
+### Minor Changes
+
+- [`0380e9a`](https://github.com/drwpow/openapi-typescript/commit/0380e9a572f6edfcc6ca1242b7f11abd8fc24610) Thanks [@drwpow](https://github.com/drwpow)! - Add multipart/form-data request body support
+
+- [`0380e9a`](https://github.com/drwpow/openapi-typescript/commit/0380e9a572f6edfcc6ca1242b7f11abd8fc24610) Thanks [@drwpow](https://github.com/drwpow)! - Breaking: openapi-fetch now just takes the first media type it finds rather than preferring JSON. This is because in the case of `multipart/form-data` vs `application/json`, it’s not inherently clear which you’d want. Or if there were multiple JSON-like media types.
+
 ## 0.5.0
 
 ### Minor Changes

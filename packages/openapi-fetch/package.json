@@ -1,7 +1,7 @@
 {
   "name": "openapi-fetch",
   "description": "Fetch using your OpenAPI types. Weighs in at 1 kb and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "author": {
     "name": "Drew Powers",
     "email": "drew@pow.rs"
