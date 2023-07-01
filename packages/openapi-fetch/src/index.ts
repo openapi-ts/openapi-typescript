@@ -122,9 +122,11 @@ export default function createClient<Paths extends {}>(clientOptions: ClientOpti
       redirect: "follow",
       ...options,
       ...init,
-      headers: baseHeaders,
     };
     if (requestBody) requestInit.body = bodySerializer(requestBody as any);
+    // remove `Content-Type` if serialized body is FormData; browser will correctly set Content-Type & boundary expression
+    if (requestInit.body instanceof FormData) baseHeaders.delete("Content-Type");
+    requestInit.headers = baseHeaders;
     const response = await fetch(finalURL, requestInit);
 
     // handle empty content

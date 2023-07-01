@@ -218,6 +218,17 @@ const { data, error } = await put("/submit", {
 });
 ```
 
+If your `body` is already a `FormData`, provide an identity function:
+
+```ts
+const { data, error } = await put("/submit", {
+  body: myFormData,
+  bodySerializer: (body) => body,
+});
+```
+
+For `multipart/form-data`, [do not set the `Content-Type` header](https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects#sending_files_using_a_formdata_object). The browser will set that for you, along with the boundary expression, which serves as a delimiter for the form fields.
+
 ## 🎯 Project Goals
 
 1. Infer types automatically from OpenAPI schemas **without generics** (or, only the absolute minimum needed)
