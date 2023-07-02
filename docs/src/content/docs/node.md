@@ -76,3 +76,72 @@ That would result in the following change:
 Any [Schema Object](https://spec.openapis.org/oas/latest.html#schema-object) present in your schema will be run through this formatter (even remote ones!). Also be sure to check the `metadata` parameter for additional context that may be helpful.
 
 There are many other uses for this besides checking `format`. Because this must return a **string** you can produce any arbitrary TypeScript code you’d like (even your own custom types).
+
+## Node.js API with browser build target
+
+Projects with a browser build target (e.g. a React app) may be unable to run a Node.js script, due to differences between Node.js and and browser module systems. Some minor configuration is needed.
+
+Here's an example script implementing the above transforms:
+
+```ts
+// scripts/generateTypes.ts
+import fs from "node:fs";
+import openapiTS from "openapi-typescript";
+
+const OPENAPI_URL = "https://petstore3.swagger.io/api/v3/openapi.json";
+const OUTPUT_FILE = "src/services/api/schema.d.ts";
+
+async function main() {
+  process.stdout.write(`Generating types "${OPENAPI_URL}" --> "${OUTPUT_FILE}"...`);
+  const types = await openapiTS(OPENAPI_URL, {
+    transform: (schemaObject, metadata): string | undefined => {
+      if ("format" in schemaObject && schemaObject.format === "binary") {
+        return schemaObject.nullable ? "Blob | null" : "Blob";
+      }
+      if ("format" in schemaObject && schemaObject.format === "date-time") {
+        return schemaObject.nullable ? "Date | null" : "Date";
+      }
+    },
+  });
+  fs.writeFileSync(OUTPUT_FILE, types);
+  process.stdout.write(` OK!\r\n`);
+}
+
+main();
+```
+
+Add a `package.json` to the scripts folder declaring the module type:
+
+```json
+// scripts/package.json
+{
+  "type": "module"
+}
+```
+
+Now you can run your script using `ts-node`. The `--esm` flag tells `ts-node` how to handle the imports:
+
+```bash
+npx ts-node --esm scripts/generateTypes.ts
+```
+
+If you the project uses JSX (e.g. React), you may need to pass in `compilerOptions` with correct `"jsx"`property:
+
+```bash
+npx ts-node --esm -compilerOptions {\"jsx\":\"preserve\"} scripts/generateTypes.ts
+```
+
+A alternative to the CLI flags is to add a `ts-node` section to your `tsconfig.json`:
+
+```json
+// tsconfig.json
+{
+  ... // your existing config
+  "ts-node": {
+    "compilerOptions": { // `ts-node`-specific compiler options
+      "jsx": "preserve" // this may not be the correct value for your project
+    },
+    "esm": true // support ECMAScript modules
+  }
+}
+```
