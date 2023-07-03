@@ -272,9 +272,6 @@ describe("client", () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
       const { data } = await client.put("/contact", {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
         body: {
           name: "John Doe",
           email: "test@email.email",
@@ -293,6 +290,9 @@ describe("client", () => {
       // expect post_id to be encoded properly
       const req = fetchMocker.mock.calls[0][1];
       expect(req.body).toBeInstanceOf(FormData);
+
+      // TODO: `vitest-fetch-mock` does not add the boundary to the Content-Type header like browsers do, so we expect the header to be null instead
+      expect((req.headers as Headers).get("Content-Type")).toBeNull();
     });
   });
 
