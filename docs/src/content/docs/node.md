@@ -45,6 +45,8 @@ Use the `transform()` and `postTransform()` options to override the default Sche
 - `transform()` runs **BEFORE** the conversion to TypeScript (you’re working with the original OpenAPI nodes)
 - `postTransform()` runs **AFTER** the conversion to TypeScript (you’re working with TypeScript types)
 
+#### Example: `Date` types
+
 For example, say your schema has the following property:
 
 ```yaml
@@ -71,6 +73,41 @@ That would result in the following change:
 ```diff
 -  updated_at?: string;
 +  updated_at?: Date;
+```
+
+#### Example: `Blob` types
+
+Another common transformation is for file uploads, where the `body` of a request is a `multipart/form-data` with some `Blob` fields. Here's an example schema:
+
+```yaml
+Body_file_upload:
+  type: object;
+  properties:
+    file:
+      type: string;
+      format: binary;
+    }
+  }
+}
+```
+
+Use the same pattern to transform the types:
+
+```ts
+const types = openapiTS(mySchema, {
+  transform(schemaObject, metadata): string {
+    if ("format" in schemaObject && schemaObject.format === "binary") {
+      return schemaObject.nullable ? "Blob | null" : "Blob";
+    }
+  },
+});
+```
+
+Resultant diff with correctly-typed `file` property:
+
+```diff
+-    file?: string;
++    file?: Blob;
 ```
 
 Any [Schema Object](https://spec.openapis.org/oas/latest.html#schema-object) present in your schema will be run through this formatter (even remote ones!). Also be sure to check the `metadata` parameter for additional context that may be helpful.
