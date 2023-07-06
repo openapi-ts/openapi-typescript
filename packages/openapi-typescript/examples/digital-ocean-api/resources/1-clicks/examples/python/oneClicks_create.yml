@@ -1,0 +1,12 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  install_req = {
+      "addon_slugs": ["kube-state-metrics", "loki"],
+      "cluster_uuid": "50a994b6-c303-438f-9495-7e896cfe6b08",
+  }
+  install_resp = client.one_clicks.install_kubernetes(install_req)

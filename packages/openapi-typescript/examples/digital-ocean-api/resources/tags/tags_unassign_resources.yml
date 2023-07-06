@@ -48,6 +48,7 @@ x-codeSamples:
   - $ref: 'examples/curl/tags_unassign_resources.yml'
   - $ref: 'examples/go/tags_unassign_resources.yml'
   - $ref: 'examples/ruby/tags_unassign_resources.yml'
+  - $ref: 'examples/python/tags_unassign_resources.yml'
 
 security:
   - bearer_auth:

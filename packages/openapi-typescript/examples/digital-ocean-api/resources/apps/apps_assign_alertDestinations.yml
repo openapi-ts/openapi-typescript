@@ -41,6 +41,8 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/apps_assign_alertDestinations.yml'
+  - $ref: 'examples/python/apps_assign_alertDestinations.yml'
+
 security:
   - bearer_auth:
     - 'write'

@@ -32,6 +32,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/apps_cancel_deployment.yml'
+  - $ref: 'examples/python/apps_cancel_deployment.yml'
 
 security:
   - bearer_auth:

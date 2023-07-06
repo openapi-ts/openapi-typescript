@@ -37,6 +37,7 @@ x-codeSamples:
   - $ref: 'examples/curl/regions_list.yml'
   - $ref: 'examples/go/regions_list.yml'
   - $ref: 'examples/ruby/regions_list.yml'
+  - $ref: 'examples/python/regions_list.yml'
 
 security:
   - bearer_auth:

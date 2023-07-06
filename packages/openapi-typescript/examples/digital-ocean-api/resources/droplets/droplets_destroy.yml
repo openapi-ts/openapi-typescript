@@ -37,6 +37,7 @@ x-codeSamples:
   - $ref: 'examples/curl/droplets_destroy.yml'
   - $ref: 'examples/go/droplets_destroy.yml'
   - $ref: 'examples/ruby/droplets_destroy.yml'
+  - $ref: 'examples/python/droplets_destroy.yml'
 
 security:
   - bearer_auth:

@@ -49,6 +49,7 @@ x-codeSamples:
   - $ref: 'examples/curl/sshKeys_patch.yml'
   - $ref: 'examples/go/sshKeys_patch.yml'
   - $ref: 'examples/ruby/sshKeys_patch.yml'
+  - $ref: 'examples/python/sshKeys_patch.yml'
 
 security:
   - bearer_auth:

@@ -1,0 +1,15 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "droplet_ids": [
+      3164444,
+      3164445
+    ]
+  }
+
+  resp = client.load_balancers.remove_droplets(lb_id="fda9fda", body=req)

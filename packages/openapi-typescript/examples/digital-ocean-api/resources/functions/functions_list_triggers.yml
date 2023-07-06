@@ -33,6 +33,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/list_triggers.yml'
+  - $ref: 'examples/python/list_triggers.yml'
 
 security:
   - bearer_auth:

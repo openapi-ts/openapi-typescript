@@ -33,6 +33,7 @@ responses:
 x-codeSamples:
   - $ref: 'examples/curl/vpcs_get.yml'
   - $ref: 'examples/go/vpcs_get.yml'
+  - $ref: 'examples/python/vpcs_get.yml'
 
 security:
   - bearer_auth:

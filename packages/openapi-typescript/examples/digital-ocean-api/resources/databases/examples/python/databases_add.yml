@@ -1,0 +1,8 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  add_resp = client.databases.add(database_cluster_uuid="9cc10173", body={"name": "alpha"})

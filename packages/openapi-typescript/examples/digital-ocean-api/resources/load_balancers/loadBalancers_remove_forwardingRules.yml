@@ -56,6 +56,7 @@ x-codeSamples:
   - $ref: 'examples/curl/loadBalancers_remove_forwardingRules.yml'
   - $ref: 'examples/go/loadBalancers_remove_forwardingRules.yml'
   - $ref: 'examples/ruby/loadBalancers_remove_forwardingRules.yml'
+  - $ref: 'examples/python/loadBalancers_remove_forwardingRules.yml'
 
 security:
   - bearer_auth:

@@ -34,6 +34,7 @@ responses:
 x-codeSamples:
   - $ref: 'examples/curl/vpcs_list.yml'
   - $ref: 'examples/go/vpcs_list.yml'
+  - $ref: 'examples/python/vpcs_list.yml'
 
 security:
   - bearer_auth:

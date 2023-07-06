@@ -1,0 +1,9 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  get_resp = client.domains.get_record(domain_name="example.com", domain_record_id=3352896)
+  

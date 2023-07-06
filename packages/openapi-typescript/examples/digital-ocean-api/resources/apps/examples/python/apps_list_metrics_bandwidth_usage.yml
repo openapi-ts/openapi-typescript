@@ -1,0 +1,16 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+  
+  req = {
+      "app_ids": [
+          "4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf",
+          "c2a93513-8d9b-4223-9d61-5e7272c81cf5",
+      ],
+      "date": "2023-01-17T00:00:00Z",
+  }
+
+  get_resp = client.apps.list_metrics_bandwidth_daily(body=req)

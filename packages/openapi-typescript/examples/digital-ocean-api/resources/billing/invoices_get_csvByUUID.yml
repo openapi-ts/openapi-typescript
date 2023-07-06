@@ -33,6 +33,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/invoices_get_csvByUUID.yml'
+  - $ref: 'examples/python/invoices_get_csvByUUID.yml'
 
 security:
   - bearer_auth:

@@ -40,6 +40,7 @@ responses:
 
 x-codeSamples:
   - $ref: examples/curl/apps_list_metrics_bandwidth_usage.yml
+  - $ref: examples/python/apps_list_metrics_bandwidth_usage.yml
 
 security:
   - bearer_auth:

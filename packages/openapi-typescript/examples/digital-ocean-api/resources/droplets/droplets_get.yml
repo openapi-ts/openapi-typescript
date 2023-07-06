@@ -35,6 +35,7 @@ x-codeSamples:
   - $ref: 'examples/curl/droplets_get.yml'
   - $ref: 'examples/go/droplets_get.yml'
   - $ref: 'examples/ruby/droplets_get.yml'
+  - $ref: 'examples/python/droplets_get.yml'
 
 security:
   - bearer_auth:

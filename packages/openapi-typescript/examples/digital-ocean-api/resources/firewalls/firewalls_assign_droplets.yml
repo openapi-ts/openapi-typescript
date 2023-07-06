@@ -65,6 +65,7 @@ x-codeSamples:
   - $ref: 'examples/curl/firewalls_assign_droplet.yml'
   - $ref: 'examples/go/firewalls_assign_droplet.yml'
   - $ref: 'examples/ruby/firewalls_assign_droplet.yml'
+  - $ref: 'examples/python/firewalls_assign_droplet.yml'
 
 security:
   - bearer_auth:

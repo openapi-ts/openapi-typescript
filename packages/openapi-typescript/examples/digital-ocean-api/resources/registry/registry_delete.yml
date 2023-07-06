@@ -29,6 +29,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/registry_delete.yml'
+  - $ref: 'examples/python/registry_delete.yml'
 
 security:
   - bearer_auth:

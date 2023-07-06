@@ -39,6 +39,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/apps_get_logs_active_deployment_aggregate.yml'
+  - $ref: 'examples/python/apps_get_logs_active_deployment_aggregate.yml'
 
 security:
   - bearer_auth:

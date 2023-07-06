@@ -1,0 +1,34 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "alerts": {
+      "email": [
+        "bob@exmaple.com"
+      ],
+      "slack": [
+        {
+          "channel": "Production Alerts",
+          "url": "https://hooks.slack.com/services/T1234567/AAAAAAAA/ZZZZZZ"
+        }
+      ]
+    },
+    "compare": "GreaterThan",
+    "description": "CPU Alert",
+    "enabled": True,
+    "entities": [
+      "192018292"
+    ],
+    "tags": [
+      "droplet_tag"
+    ],
+    "type": "v1/insights/droplet/cpu",
+    "value": 80,
+    "window": "5m"
+  }
+
+  resp = client.monitoring.create_alert_policy(body=req)

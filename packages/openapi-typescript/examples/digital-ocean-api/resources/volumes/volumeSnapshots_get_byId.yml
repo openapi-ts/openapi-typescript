@@ -33,6 +33,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/volumeSnapshots_get_byId.yml'
+  - $ref: 'examples/python/volumeSnapshots_get_byId.yml'
 
 security:
   - bearer_auth:

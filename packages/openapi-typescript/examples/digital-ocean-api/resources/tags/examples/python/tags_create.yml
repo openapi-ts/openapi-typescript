@@ -1,0 +1,32 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "tag": {
+      "name": "extra-awesome",
+      "resources": {
+        "count": 0,
+        "droplets": {
+          "count": 0
+        },
+        "images": {
+          "count": 0
+        },
+        "volumes": {
+          "count": 0
+        },
+        "volume_snapshots": {
+          "count": 0
+        },
+        "databases": {
+          "count": 0
+        }
+      }
+    }
+  }
+
+  resp = client.tags.create(body=req)

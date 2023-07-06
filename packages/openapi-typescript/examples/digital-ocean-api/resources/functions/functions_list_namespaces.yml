@@ -27,6 +27,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/list_namespaces.yml'
+  - $ref: 'examples/python/list_namespaces.yml'
 
 security:
   - bearer_auth:

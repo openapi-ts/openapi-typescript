@@ -39,6 +39,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/droplets_list_neighbors.yml'
+  - $ref: 'examples/python/droplets_list_neighbors.yml'
 
 security:
   - bearer_auth:

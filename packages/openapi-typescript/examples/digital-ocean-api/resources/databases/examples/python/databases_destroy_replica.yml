@@ -1,0 +1,8 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  delete_resp = client.databases.destroy_replica(database_cluster_uuid="ba88aab", replica_name="read_nyc_3")

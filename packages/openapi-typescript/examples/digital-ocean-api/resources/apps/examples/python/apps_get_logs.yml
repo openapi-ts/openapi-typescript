@@ -1,0 +1,8 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  get_resp = client.apps.get_logs(app_id="4f6c71e2", deployment_id="3aa4d20e", component_name="component")

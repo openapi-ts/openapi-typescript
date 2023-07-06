@@ -1,0 +1,8 @@
+lang: cURL
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  resp = client.snapshots.get(snapshot_id="fbe805e8")

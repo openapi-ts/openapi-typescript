@@ -55,6 +55,7 @@ responses:
 x-codeSamples:
   - $ref: 'examples/curl/databases_reset_auth.yml'
   - $ref: 'examples/go/databases_reset_auth.yml'
+  - $ref: 'examples/python/databases_reset_auth.yml'
 
 security:
   - bearer_auth:

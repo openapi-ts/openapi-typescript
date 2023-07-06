@@ -1,0 +1,21 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "forwarding_rules": [
+      {
+        "entry_protocol": "https",
+        "entry_port": 443,
+        "target_protocol": "http",
+        "target_port": 80,
+        "certificate_id": "892071a0-bb95-49bc-8021-3afd67a210bf",
+        "tls_passthrough": False
+      }
+    ]
+  }
+
+  resp = client.load_balancers.remove_forwarding_rules(lb_id="fda9fda", body=req)

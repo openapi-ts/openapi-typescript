@@ -34,6 +34,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/droplets_get_DestroyAssociatedResourcesStatus.yml'
+  - $ref: 'examples/python/droplets_get_DestroyAssociatedResourcesStatus.yml'
 
 security:
   - bearer_auth:

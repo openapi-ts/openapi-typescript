@@ -55,6 +55,7 @@ responses:
 x-codeSamples:
   - $ref: 'examples/curl/databases_add_connectionPool.yml'
   - $ref: 'examples/go/databases_add_connectionPool.yml'
+  - $ref: 'examples/python/databases_add_connectionPool.yml'
 
 security:
   - bearer_auth:

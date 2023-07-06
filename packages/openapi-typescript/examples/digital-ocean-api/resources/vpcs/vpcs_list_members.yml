@@ -40,6 +40,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/vpcs_list_members.yml'
+  - $ref: 'examples/python/vpcs_list_members.yml'
 
 security:
   - bearer_auth:

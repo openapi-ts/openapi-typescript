@@ -38,6 +38,7 @@ responses:
 x-codeSamples:
   - $ref: 'examples/curl/databases_get_connectionPool.yml'
   - $ref: 'examples/go/databases_get_connectionPool.yml'
+  - $ref: 'examples/python/databases_get_connectionPool.yml'
 
 security:
   - bearer_auth:

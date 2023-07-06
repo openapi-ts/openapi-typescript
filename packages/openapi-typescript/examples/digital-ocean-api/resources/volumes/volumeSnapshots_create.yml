@@ -57,6 +57,7 @@ x-codeSamples:
   - $ref: 'examples/curl/volumeSnapshots_create.yml'
   - $ref: 'examples/go/volumeSnapshots_create.yml'
   - $ref: 'examples/ruby/volumeSnapshots_create.yml'
+  - $ref: 'examples/python/volumeSnapshots_create.yml'
 
 security:
   - bearer_auth:

@@ -38,6 +38,7 @@ x-codeSamples:
   - $ref: 'examples/curl/delete_reserved_ip.yml'
   - $ref: 'examples/go/delete_reserved_ip.yml'
   - $ref: 'examples/ruby/delete_reserved_ip.yml'
+  - $ref: 'examples/python/delete_reserved_ip.yml'
 
 security:
   - bearer_auth:

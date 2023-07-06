@@ -36,6 +36,7 @@ x-codeSamples:
   - $ref: 'examples/curl/tags_delete.yml'
   - $ref: 'examples/go/tags_delete.yml'
   - $ref: 'examples/ruby/tags_delete.yml'
+  - $ref: 'examples/python/tags_delete.yml'
 
 security:
   - bearer_auth:

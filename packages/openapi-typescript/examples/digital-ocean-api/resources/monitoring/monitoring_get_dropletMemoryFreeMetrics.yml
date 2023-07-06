@@ -31,6 +31,8 @@ parameters:
 
 x-codeSamples:
   - $ref: 'examples/curl/monitoring_get_dropletMemoryFreeMetrics.yml'
+  - $ref: 'examples/python/monitoring_get_dropletMemoryFreeMetrics.yml'
+
 security:
   - bearer_auth:
     - 'read'

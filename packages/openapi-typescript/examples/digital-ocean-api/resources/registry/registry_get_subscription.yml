@@ -27,6 +27,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/registry_get_subscription.yml'
+  - $ref: 'examples/python/registry_get_subscription.yml'
 
 security:
   - bearer_auth:

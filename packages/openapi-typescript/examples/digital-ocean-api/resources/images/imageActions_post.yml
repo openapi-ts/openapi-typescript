@@ -59,6 +59,7 @@ x-codeSamples:
   - $ref: 'examples/curl/imageActions_post.yml'
   - $ref: 'examples/go/imageActions_post.yml'
   - $ref: 'examples/ruby/imageActions_post.yml'
+  - $ref: 'examples/python/imageActions_post.yml'
 
 security:
   - bearer_auth:

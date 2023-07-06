@@ -33,6 +33,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/kubernetes_get_clusterUser.yml'
+  - $ref: 'examples/python/kubernetes_get_clusterUser.yml'
 
 security:
   - bearer_auth:

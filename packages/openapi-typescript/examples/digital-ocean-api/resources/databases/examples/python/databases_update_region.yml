@@ -1,0 +1,12 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "region": "lon1"
+  }
+
+  update_resp = client.databases.update_region(database_cluster_uuid="a7a8bas", body=req)

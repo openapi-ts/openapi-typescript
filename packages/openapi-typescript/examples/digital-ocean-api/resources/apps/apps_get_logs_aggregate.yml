@@ -38,6 +38,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/apps_get_logs_aggregate.yml'
+  - $ref: 'examples/python/apps_get_logs_aggregate.yml'
 
 security:
   - bearer_auth:

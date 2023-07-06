@@ -45,6 +45,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/create_trigger.yml'
+  - $ref: 'examples/python/create_trigger.yml'
 
 security:
   - bearer_auth:

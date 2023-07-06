@@ -49,6 +49,7 @@ x-codeSamples:
   - $ref: 'examples/curl/projects_assign_resources.yml'
   - $ref: 'examples/go/projects_assign_resources.yml'
   - $ref: 'examples/ruby/projects_assign_resources.yml'
+  - $ref: 'examples/python/projects_assign_resources.yml'
 
 security:
   - bearer_auth:

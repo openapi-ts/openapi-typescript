@@ -43,6 +43,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/databases_patch_config.yml'
+  - $ref: 'examples/python/databases_patch_config.yml'
 
 security:
   - bearer_auth:

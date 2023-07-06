@@ -35,6 +35,7 @@ x-codeSamples:
   - $ref: 'examples/curl/tags_get.yml'
   - $ref: 'examples/go/tags_get.yml'
   - $ref: 'examples/ruby/tags_get.yml'
+  - $ref: 'examples/python/tags_get.yml'
 
 security:
   - bearer_auth:

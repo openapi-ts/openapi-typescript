@@ -31,6 +31,8 @@ parameters:
 
 x-codeSamples:
   - $ref: 'examples/curl/monitoring_get_DropletCpuMetrics.yml'
+  - $ref: 'examples/python/monitoring_get_DropletCpuMetrics.yml'
+
 security:
   - bearer_auth:
     - 'read'

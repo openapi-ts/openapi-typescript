@@ -34,6 +34,7 @@ responses:
 x-codeSamples:
   - $ref: 'examples/curl/imageActions_list.yml'
   - $ref: 'examples/go/imageActions_list.yml'
+  - $ref: 'examples/python/imageActions_list.yml'
 
 security:
   - bearer_auth:

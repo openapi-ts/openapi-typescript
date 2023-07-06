@@ -1,0 +1,19 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "name": "Landing page check",
+    "type": "https",
+    "target": "https://www.landingpage.com",
+    "regions": [
+      "us_east",
+      "eu_west"
+    ],
+    "enabled": True
+  }
+
+  resp = client.uptime.check_update(check_id="fd9fda", body=req)

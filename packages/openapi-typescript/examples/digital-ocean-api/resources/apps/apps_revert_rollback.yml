@@ -33,6 +33,7 @@ responses:
 
 x-codeSamples:
   - $ref: "examples/curl/revert_app_rollback.yml"
+  - $ref: "examples/python/revert_app_rollback.yml"
 
 security:
   - bearer_auth:

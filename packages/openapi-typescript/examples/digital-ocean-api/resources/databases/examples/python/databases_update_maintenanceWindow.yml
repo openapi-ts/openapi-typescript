@@ -1,0 +1,13 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "day": "tuesday",
+    "hour": "14:00"
+  }
+
+  update_resp = client.databases.update_maintenance_window(database_cluster_uuid="a7a8bas", body=req)

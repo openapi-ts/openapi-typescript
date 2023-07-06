@@ -42,6 +42,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/registry_update_garbageCollection.yml'
+  - $ref: 'examples/python/registry_update_garbageCollection.yml'
 
 security:
   - bearer_auth:

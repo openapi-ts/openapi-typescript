@@ -33,6 +33,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/apps_list_deployments.yml'
+  - $ref: 'examples/python/apps_list_deployments.yml'
 
 security:
   - bearer_auth:

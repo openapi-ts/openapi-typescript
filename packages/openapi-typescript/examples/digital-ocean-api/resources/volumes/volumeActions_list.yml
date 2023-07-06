@@ -37,6 +37,7 @@ x-codeSamples:
   - $ref: 'examples/curl/volumeActions_list.yml'
   - $ref: 'examples/go/volumeActions_list.yml'
   - $ref: 'examples/ruby/volumeActions_list.yml'
+  - $ref: 'examples/python/volumeActions_list.yml'
 
 security:
   - bearer_auth:

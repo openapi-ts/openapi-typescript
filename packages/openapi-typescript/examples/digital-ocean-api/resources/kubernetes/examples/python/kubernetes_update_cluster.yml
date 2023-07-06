@@ -1,0 +1,25 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "name": "prod-cluster-01",
+    "tags": [
+      "k8s",
+      "k8s:bd5f5959-5e1e-4205-a714-a914373942af",
+      "production",
+      "web-team"
+    ],
+    "maintenance_policy": {
+      "start_time": "12:00",
+      "day": "any"
+    },
+    "auto_upgrade": True,
+    "surge_upgrade": True,
+    "ha": True
+  }
+
+  resp = client.kubernetes.update_cluster(cluster_id="1fd32a", body=req)

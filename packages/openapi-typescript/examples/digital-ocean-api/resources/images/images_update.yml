@@ -44,6 +44,7 @@ x-codeSamples:
   - $ref: 'examples/curl/images_update.yml'
   - $ref: 'examples/go/images_update.yml'
   - $ref: 'examples/ruby/images_update.yml'
+  - $ref: 'examples/python/images_update.yml'
 
 security:
   - bearer_auth:

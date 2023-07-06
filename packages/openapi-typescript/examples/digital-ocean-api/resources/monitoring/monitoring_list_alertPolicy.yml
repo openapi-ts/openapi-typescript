@@ -31,7 +31,8 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/monitoring_list_alertPolicy.yml'
-  
+  - $ref: 'examples/python/monitoring_list_alertPolicy.yml'
+ 
 security:
   - bearer_auth:
     - 'read'

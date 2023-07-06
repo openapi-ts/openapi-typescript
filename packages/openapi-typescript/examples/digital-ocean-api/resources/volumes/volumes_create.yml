@@ -77,6 +77,7 @@ x-codeSamples:
   - $ref: 'examples/curl/volumes_create.yml'
   - $ref: 'examples/go/volumes_create.yml'
   - $ref: 'examples/ruby/volumes_create.yml'
+  - $ref: 'examples/python/volumes_create.yml'
 
 security:
   - bearer_auth:

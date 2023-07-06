@@ -4143,6 +4143,11 @@ export interface components {
       discount_amount: number;
       /** @description The aggregate amounts calculated per discount for all line items. */
       discount_amounts: (components["schemas"]["discounts_resource_discount_amount"])[];
+      /**
+       * Format: unix-time 
+       * @description The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
+       */
+      effective_at?: number | null;
       /** @description Unique identifier for the object. */
       id: string;
       /** @description ID of the invoice. */
@@ -5535,7 +5540,10 @@ export interface components {
       /** @description The [PaymentMethod type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type)(s) that can be created from this account. */
       supported_payment_method_types: ("link" | "us_bank_account")[];
     };
-    /** BankConnectionsResourceOwner */
+    /**
+     * BankConnectionsResourceOwner 
+     * @description Describes an owner of an account.
+     */
     "financial_connections.account_owner": {
       /** @description The email address of the owner. */
       email?: string | null;
@@ -6262,6 +6270,11 @@ export interface components {
        * @description The date on which payment for this invoice is due. This value will be `null` for invoices where `collection_method=charge_automatically`.
        */
       due_date?: number | null;
+      /**
+       * Format: unix-time 
+       * @description The date when this invoice is in effect. Same as `finalized_at` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the invoice PDF and receipt.
+       */
+      effective_at?: number | null;
       /** @description Ending customer balance after the invoice is finalized. Invoices are finalized approximately an hour after successful webhook delivery or when payment collection is attempted for the invoice. If the invoice has not been finalized yet, this will be null. */
       ending_balance?: number | null;
       /** @description Footer displayed on the invoice. */
@@ -6667,10 +6680,10 @@ export interface components {
     /** InvoicesResourceInvoiceTaxID */
     invoices_resource_invoice_tax_id: {
       /**
-       * @description The type of the tax ID, one of `eu_vat`, `br_cnpj`, `br_cpf`, `eu_oss_vat`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown` 
+       * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown` 
        * @enum {string}
        */
-      type: "ae_trn" | "au_abn" | "au_arn" | "bg_uic" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "ph_tin" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "za_vat";
+      type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
       /** @description The value of the tax ID. */
       value?: string | null;
     };
@@ -7879,6 +7892,8 @@ export interface components {
        * @enum {string}
        */
       object: "mandate";
+      /** @description The account (if any) for which the mandate is intended. */
+      on_behalf_of?: string;
       /** @description ID of the payment method associated with this mandate. */
       payment_method: string | components["schemas"]["payment_method"];
       payment_method_details: components["schemas"]["mandate_payment_method_details"];
@@ -8939,8 +8954,12 @@ export interface components {
       /** @description String of your choice that your integration can use to reconcile this field. Must be unique to this field, alphanumeric, and up to 200 characters. */
       key: string;
       label: components["schemas"]["payment_links_resource_custom_fields_label"];
+      /** @description Configuration for `type=numeric` fields. */
+      numeric?: components["schemas"]["payment_links_resource_custom_fields_numeric"] | null;
       /** @description Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`. */
       optional: boolean;
+      /** @description Configuration for `type=text` fields. */
+      text?: components["schemas"]["payment_links_resource_custom_fields_text"] | null;
       /**
        * @description The type of the field. 
        * @enum {string}
@@ -8968,6 +8987,20 @@ export interface components {
        * @enum {string}
        */
       type: "custom";
+    };
+    /** PaymentLinksResourceCustomFieldsNumeric */
+    payment_links_resource_custom_fields_numeric: {
+      /** @description The maximum character length constraint for the customer's input. */
+      maximum_length?: number | null;
+      /** @description The minimum character length requirement for the customer's input. */
+      minimum_length?: number | null;
+    };
+    /** PaymentLinksResourceCustomFieldsText */
+    payment_links_resource_custom_fields_text: {
+      /** @description The maximum character length constraint for the customer's input. */
+      maximum_length?: number | null;
+      /** @description The minimum character length requirement for the customer's input. */
+      minimum_length?: number | null;
     };
     /** PaymentLinksResourceCustomText */
     payment_links_resource_custom_text: {
@@ -10803,10 +10836,10 @@ export interface components {
     /** PaymentPagesCheckoutSessionTaxID */
     payment_pages_checkout_session_tax_id: {
       /**
-       * @description The type of the tax ID, one of `eu_vat`, `br_cnpj`, `br_cpf`, `eu_oss_vat`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown` 
+       * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown` 
        * @enum {string}
        */
-      type: "ae_trn" | "au_abn" | "au_arn" | "bg_uic" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "ph_tin" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "za_vat";
+      type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
       /** @description The value of the tax ID. */
       value?: string | null;
     };
@@ -13486,7 +13519,7 @@ export interface components {
        * 
        * A subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over. 
        * 
-       * If subscription `collection_method=charge_automatically` it becomes `past_due` when payment to renew it fails and `canceled` or `unpaid` (depending on your subscriptions settings) when Stripe has exhausted all payment retry attempts. 
+       * If subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings). 
        * 
        * If subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices. 
        * @enum {string}
@@ -14139,10 +14172,10 @@ export interface components {
        */
       object: "tax_id";
       /**
-       * @description Type of the tax ID, one of `ae_trn`, `au_abn`, `au_arn`, `bg_uic`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `ph_tin`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, or `za_vat`. Note that some legacy tax IDs have type `unknown` 
+       * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`. Note that some legacy tax IDs have type `unknown` 
        * @enum {string}
        */
-      type: "ae_trn" | "au_abn" | "au_arn" | "bg_uic" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "ph_tin" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "za_vat";
+      type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
       /** @description Value of the tax ID. */
       value: string;
       /** @description Tax ID verification information. */
@@ -14182,10 +14215,10 @@ export interface components {
     /** TaxProductResourceCustomerDetailsResourceTaxId */
     tax_product_resource_customer_details_resource_tax_id: {
       /**
-       * @description The type of the tax ID, one of `eu_vat`, `br_cnpj`, `br_cpf`, `eu_oss_vat`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown` 
+       * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown` 
        * @enum {string}
        */
-      type: "ae_trn" | "au_abn" | "au_arn" | "bg_uic" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "ph_tin" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "za_vat";
+      type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
       /** @description The value of the tax ID. */
       value: string;
     };
@@ -15523,6 +15556,21 @@ export interface components {
       routing_number: string;
     };
     /**
+     * TreasuryFinancialAccountsResourceAbaToggleSettings 
+     * @description Toggle settings for enabling/disabling the ABA address feature
+     */
+    treasury_financial_accounts_resource_aba_toggle_settings: {
+      /** @description Whether the FinancialAccount should have the Feature. */
+      requested: boolean;
+      /**
+       * @description Whether the Feature is operational. 
+       * @enum {string}
+       */
+      status: "active" | "pending" | "restricted";
+      /** @description Additional details; includes at least one entry when the status is not `active`. */
+      status_details: (components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"])[];
+    };
+    /**
      * TreasuryFinancialAccountsResourceAchToggleSettings 
      * @description Toggle settings for enabling/disabling an ACH specific feature
      */
@@ -15579,7 +15627,7 @@ export interface components {
      * @description Settings related to Financial Addresses features on a Financial Account
      */
     treasury_financial_accounts_resource_financial_addresses_features: {
-      aba?: components["schemas"]["treasury_financial_accounts_resource_toggle_settings"];
+      aba?: components["schemas"]["treasury_financial_accounts_resource_aba_toggle_settings"];
     };
     /**
      * TreasuryFinancialAccountsResourceInboundTransfers 
@@ -21822,6 +21870,11 @@ export interface operations {
           amount?: number;
           /** @description The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice. */
           credit_amount?: number;
+          /**
+           * Format: unix-time 
+           * @description The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
+           */
+          effective_at?: number;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /** @description ID of the invoice. */
@@ -21889,6 +21942,8 @@ export interface operations {
         amount?: number;
         /** @description The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice. */
         credit_amount?: number;
+        /** @description The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF. */
+        effective_at?: number;
         /** @description Specifies which fields in the response should be expanded. */
         expand?: (string)[];
         /** @description ID of the invoice. */
@@ -21954,6 +22009,8 @@ export interface operations {
         amount?: number;
         /** @description The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice. */
         credit_amount?: number;
+        /** @description The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF. */
+        effective_at?: number;
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
@@ -22327,7 +22384,7 @@ export interface operations {
           /** @description The customer's tax IDs. */
           tax_id_data?: ({
               /** @enum {string} */
-              type: "ae_trn" | "au_abn" | "au_arn" | "bg_uic" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "ph_tin" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "za_vat";
+              type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
               value: string;
             })[];
           /** @description ID of the test clock to attach to the customer. */
@@ -24719,10 +24776,10 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * @description Type of the tax ID, one of `ae_trn`, `au_abn`, `au_arn`, `bg_uic`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `ph_tin`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, or `za_vat` 
+           * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat` 
            * @enum {string}
            */
-          type: "ae_trn" | "au_abn" | "au_arn" | "bg_uic" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "ph_tin" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "za_vat";
+          type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
           /** @description Value of the tax ID. */
           value: string;
         };
@@ -26575,6 +26632,11 @@ export interface operations {
            * @description The date on which payment for this invoice is due. Valid only for invoices where `collection_method=send_invoice`.
            */
           due_date?: number;
+          /**
+           * Format: unix-time 
+           * @description The date when this invoice is in effect. Same as `finalized_at` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the invoice PDF and receipt.
+           */
+          effective_at?: number;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /** @description Footer to be displayed on the invoice. */
@@ -26858,7 +26920,7 @@ export interface operations {
           tax_exempt?: "" | "exempt" | "none" | "reverse";
           tax_ids?: ({
               /** @enum {string} */
-              type: "ae_trn" | "au_abn" | "au_arn" | "bg_uic" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "ph_tin" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "za_vat";
+              type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
               value: string;
             })[];
         };
@@ -27034,7 +27096,7 @@ export interface operations {
           tax_exempt?: "" | "exempt" | "none" | "reverse";
           tax_ids?: ({
               /** @enum {string} */
-              type: "ae_trn" | "au_abn" | "au_arn" | "bg_uic" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "ph_tin" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "za_vat";
+              type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
               value: string;
             })[];
         };
@@ -27274,6 +27336,8 @@ export interface operations {
            * @description The date on which payment for this invoice is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices.
            */
           due_date?: number;
+          /** @description The date when this invoice is in effect. Same as `finalized_at` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the invoice PDF and receipt. */
+          effective_at?: number | "";
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /** @description Footer to be displayed on the invoice. */
@@ -38002,6 +38066,10 @@ export interface operations {
   GetSubscriptions: {
     parameters: {
       query?: {
+        /** @description Filter subscriptions by their automatic tax settings. */
+        automatic_tax?: {
+          enabled: boolean;
+        };
         /** @description The collection method of the subscriptions to retrieve. Either `charge_automatically` or `send_invoice`. */
         collection_method?: "charge_automatically" | "send_invoice";
         created?: {
@@ -38798,7 +38866,7 @@ export interface operations {
             ip_address?: string;
             tax_ids?: ({
                 /** @enum {string} */
-                type: "ae_trn" | "au_abn" | "au_arn" | "bg_uic" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "ph_tin" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "za_vat";
+                type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
                 value: string;
               })[];
             /** @enum {string} */
@@ -42300,7 +42368,7 @@ export interface operations {
             };
             /** financial_addresses */
             financial_addresses?: {
-              /** access */
+              /** aba_access */
               aba?: {
                 requested: boolean;
               };
@@ -42431,7 +42499,7 @@ export interface operations {
             };
             /** financial_addresses */
             financial_addresses?: {
-              /** access */
+              /** aba_access */
               aba?: {
                 requested: boolean;
               };
@@ -42564,7 +42632,7 @@ export interface operations {
            * @description Contains Features that add FinancialAddresses to the FinancialAccount.
            */
           financial_addresses?: {
-            /** access */
+            /** aba_access */
             aba?: {
               requested: boolean;
             };

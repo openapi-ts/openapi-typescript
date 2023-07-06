@@ -43,6 +43,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/registry_delete_repositoryManifest.yml'
+  - $ref: 'examples/python/registry_delete_repositoryManifest.yml'
 
 security:
   - bearer_auth:

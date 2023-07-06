@@ -30,6 +30,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/billingHistory_list.yml'
+  - $ref: 'examples/python/billingHistory_list.yml'
 
 security:
   - bearer_auth:

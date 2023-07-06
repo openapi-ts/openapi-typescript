@@ -1,0 +1,13 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "name": "blog",
+    "type": "CNAME"
+  }
+
+  resp = client.droplet_actions.list(droplet_id=3164494)

@@ -48,6 +48,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/droplets_destroy_withAssociatedResourcesSelective.yml'
+  - $ref: 'examples/python/droplets_destroy_withAssociatedResourcesSelective.yml'
 
 security:
   - bearer_auth:

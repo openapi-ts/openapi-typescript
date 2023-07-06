@@ -51,6 +51,7 @@ x-codeSamples:
   - $ref: 'examples/curl/loadBalancers_update.yml'
   - $ref: 'examples/go/loadBalancers_update.yml'
   - $ref: 'examples/ruby/loadBalancers_update.yml'
+  - $ref: 'examples/python/loadBalancers_update.yml'
 
 security:
   - bearer_auth:
