@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.6.1
+
+### Patch Changes
+
+- [#1192](https://github.com/drwpow/openapi-typescript/pull/1192) [`38ee8b4`](https://github.com/drwpow/openapi-typescript/commit/38ee8b406ecf07e2dece05c4867a0bc5d27c309d) Thanks [@psychedelicious](https://github.com/psychedelicious)! - Fix header handling for FormData
+
 ## 0.6.0
 
 ### Minor Changes

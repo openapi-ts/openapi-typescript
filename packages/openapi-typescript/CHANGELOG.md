@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.2.9
+
+### Patch Changes
+
+- [#1193](https://github.com/drwpow/openapi-typescript/pull/1193) [`64decb7`](https://github.com/drwpow/openapi-typescript/commit/64decb7243e3f4962dd3a97378f37142ee89546a) Thanks [@psychedelicious](https://github.com/psychedelicious)! - Add example for `Blob` type transforms
+
 ## 6.2.8
 
 ### Patch Changes
