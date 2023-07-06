@@ -173,7 +173,7 @@ export default async function load(schema: URL | Subschema | Readable, options: 
   else if (typeof schema === "object") {
     options.schemas[schemaID] = {
       hint: "OpenAPI3",
-      schema: schema as any,
+      schema: JSON.parse(JSON.stringify(schema)), // create deep clone of inline schema (don’t mutate)
     };
   }
   // 1d. failsafe
