@@ -189,10 +189,7 @@ export type operations = Record<string, never>;
           "/post/{id}": {
             get: {
               operationId: "getPost",
-              parameters: [
-                { name: "format", in: "query", schema: { type: "string" } },
-                { $ref: "#/components/parameters/post_id" },
-              ],
+              parameters: [{ name: "format", in: "query", schema: { type: "string" } }, { $ref: "#/components/parameters/post_id" }],
               responses: {
                 200: {
                   description: "OK",
@@ -447,11 +444,7 @@ export type operations = Record<string, never>;
         components: {
           schemas: {
             Pet: {
-              oneOf: [
-                { $ref: "#/components/schemas/Cat" },
-                { $ref: "#/components/schemas/Dog" },
-                { $ref: "#/components/schemas/Lizard" },
-              ],
+              oneOf: [{ $ref: "#/components/schemas/Cat" }, { $ref: "#/components/schemas/Dog" }, { $ref: "#/components/schemas/Lizard" }],
               discriminator: {
                 propertyName: "petType",
                 mapping: {
@@ -539,10 +532,7 @@ export type operations = Record<string, never>;
               },
             },
             AllOf: {
-              allOf: [
-                { $ref: "#/components/schemas/Entity/properties/foo" },
-                { $ref: "#/components/schemas/Thingy/properties/bar" },
-              ],
+              allOf: [{ $ref: "#/components/schemas/Entity/properties/foo" }, { $ref: "#/components/schemas/Thingy/properties/bar" }],
             },
           },
         },
@@ -730,7 +720,7 @@ export type operations = Record<string, never>;
             },
             put: {
               parameters: [{ name: "user_id", in: "path" }],
-            }
+            },
           },
         },
       };
@@ -980,6 +970,30 @@ export type operations = Record<string, never>;
 `);
       });
     });
+  });
+
+  it("does not mutate original reference", async () => {
+    const schema: OpenAPI3 = {
+      openapi: "3.1",
+      info: { title: "test", version: "1.0" },
+      components: {},
+      paths: {
+        "/": {
+          get: {
+            responses: {
+              200: {
+                description: "ok",
+                $ref: "#/components/schemas/OKResponse",
+              },
+            },
+          },
+        },
+      },
+    };
+    const before = JSON.stringify(schema);
+    await openapiTS(schema);
+    const after = JSON.stringify(schema);
+    expect(before).toBe(after);
   });
 
   // note: this tests the Node API; the snapshots in cli.test.ts test the CLI
