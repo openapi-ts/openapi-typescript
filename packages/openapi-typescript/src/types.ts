@@ -438,7 +438,7 @@ export type SchemaObject = {
   | { type: "integer"; minimum?: number; maximum?: number }
   | {
       type: "array";
-      prefixItems?: SchemaObject | ReferenceObject;
+      prefixItems?: (SchemaObject | ReferenceObject)[];
       items?: SchemaObject | ReferenceObject | (SchemaObject | ReferenceObject)[];
       minItems?: number;
       maxItems?: number;

@@ -91,18 +91,16 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
       indentLv++;
       let itemType = "unknown";
       let isTupleType = false;
-      if (schemaObject.items) {
-        if (Array.isArray(schemaObject.items)) {
-          // tuple type support
-          isTupleType = true;
-          const result: string[] = [];
-          schemaObject.items.forEach((item) => {
-            result.push(transformSchemaObject(item, { path, ctx: { ...ctx, indentLv } }));
-          });
-          itemType = `[${result.join(",")}]`;
-        } else {
-          itemType = transformSchemaObject(schemaObject.items, { path, ctx: { ...ctx, indentLv } });
+      if (schemaObject.prefixItems || Array.isArray(schemaObject.items)) {
+        // tuple type support
+        isTupleType = true;
+        const result: string[] = [];
+        for (const item of schemaObject.prefixItems ?? (schemaObject.items as (SchemaObject | ReferenceObject)[])) {
+          result.push(transformSchemaObject(item, { path, ctx: { ...ctx, indentLv } }));
         }
+        itemType = `[${result.join(", ")}]`;
+      } else if (schemaObject.items) {
+        itemType = transformSchemaObject(schemaObject.items, { path, ctx: { ...ctx, indentLv } });
       }
       const minItems: number = typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0 ? schemaObject.minItems : 0;
       const maxItems: number | undefined = typeof schemaObject.maxItems === "number" && schemaObject.maxItems >= 0 && minItems <= schemaObject.maxItems ? schemaObject.maxItems : undefined;
