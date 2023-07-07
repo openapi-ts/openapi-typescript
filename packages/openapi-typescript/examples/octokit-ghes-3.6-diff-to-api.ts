@@ -3174,7 +3174,7 @@ export interface components {
      * @description **Required when the `state` is `resolved`.** The reason for resolving the alert. 
      * @enum {string|null}
      */
-    "secret-scanning-alert-resolution": "" | "false_positive" | "wont_fix" | "revoked" | "used_in_tests" | null;
+    "secret-scanning-alert-resolution": null | "false_positive" | "wont_fix" | "revoked" | "used_in_tests";
     /**
      * Minimal Repository 
      * @description Minimal Repository
