@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.3.1
+
+### Patch Changes
+
+- [#1207](https://github.com/drwpow/openapi-typescript/pull/1207) [`914e049`](https://github.com/drwpow/openapi-typescript/commit/914e049573218b1bf791ce7855cdb1022bedc2b2) Thanks [@drwpow](https://github.com/drwpow)! - Fall back to TypeScript unions for long oneOf lists
+
 ## 6.3.0
 
 ### Minor Changes
