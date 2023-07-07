@@ -174,6 +174,18 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
           subschemaOutput = transformResponseObject(subschema.schema, { path, ctx: { ...ctx, indentLv } });
           break;
         }
+        case "SchemaMap": {
+          subschemaOutput += "{\n";
+          indentLv++;
+          for (const [name, schemaObject] of getEntries(subschema.schema!)) {
+            const c = getSchemaObjectComment(schemaObject, indentLv);
+            if (c) subschemaOutput += indent(c, indentLv);
+            subschemaOutput += indent(`${escObjKey(name)}: ${transformSchemaObject(schemaObject, { path: `${path}${name}`, ctx: { ...ctx, indentLv } })};\n`, indentLv);
+          }
+          indentLv--;
+          subschemaOutput += indent("};", indentLv);
+          break;
+        }
         case "SchemaObject": {
           subschemaOutput = transformSchemaObject(subschema.schema, { path, ctx: { ...ctx, indentLv } });
           break;
