@@ -180,9 +180,17 @@ export function tsNonNullable(type: string): string {
   return `NonNullable<${type}>`;
 }
 
-/** OneOf<T> (custom) */
+/**
+ * OneOf<T>
+ * TypeScript unions are not exclusive @see https://stackoverflow.com/questions/42123407/does-typescript-support-mutually-exclusive-types
+ * However, at a certain size, the helper type becomes too complex for inference to work. Hence the > check.
+ */
 export function tsOneOf(...types: string[]): string {
-  if (types.length === 1) return types[0];
+  if (types.length === 1) {
+    return types[0];
+  } else if (types.length > 5) {
+    return tsUnionOf(...types);
+  }
   return `OneOf<[${types.join(", ")}]>`;
 }
 

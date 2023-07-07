@@ -335,6 +335,36 @@ describe("Schema Object", () => {
 }]>`);
       });
 
+      test("falls back to union at high complexity", () => {
+        const schema: SchemaObject = {
+          oneOf: [
+            { type: "object", properties: { string: { type: "string" } }, required: ["string"] },
+            { type: "object", properties: { boolean: { type: "boolean" } }, required: ["boolean"] },
+            { type: "object", properties: { number: { type: "number" } }, required: ["number"] },
+            { type: "object", properties: { array: { type: "array", items: { type: "string" } } }, required: ["array"] },
+            { type: "object", properties: { object: { type: "object", properties: { string: { type: "string" } }, required: ["string"] } }, required: ["object"] },
+            { type: "object", properties: { enum: { type: "string", enum: ["foo", "bar", "baz"] } }, required: ["enum"] },
+          ],
+        };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe(`{
+  string: string;
+} | {
+  boolean: boolean;
+} | {
+  number: number;
+} | {
+  array: (string)[];
+} | {
+  object: {
+    string: string;
+  };
+} | ({
+  /** @enum {string} */
+  enum: "foo" | "bar" | "baz";
+})`);
+      });
+
       test("discriminator", () => {
         const schema: SchemaObject = {
           type: "object",
