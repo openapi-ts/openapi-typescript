@@ -51,13 +51,13 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
   if (schemaObject.enum) {
     let items = schemaObject.enum as any[];
     if ("type" in schemaObject) {
-      if (schemaObject.type === "string" || (Array.isArray(schemaObject.type) && schemaObject.type.includes("string"))) items = items.map((t) => escStr(t || "")); // empty/missing values are empty strings
+      if (schemaObject.type === "string" || (Array.isArray(schemaObject.type) && schemaObject.type.includes("string"))) items = items.map((t) => escStr(t));
     }
     // if no type, assume "string"
     else {
       items = items.map((t) => escStr(t || ""));
     }
-    return tsUnionOf(...items, ...(schemaObject.nullable || ("type" in schemaObject && Array.isArray(schemaObject.type) && schemaObject.type.includes("null")) ? ["null"] : []));
+    return tsUnionOf(...items, ...(schemaObject.nullable ? ["null"] : []));
   }
 
   // oneOf (no discriminator)
