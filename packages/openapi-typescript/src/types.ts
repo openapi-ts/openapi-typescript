@@ -282,7 +282,7 @@ export interface MediaTypeObject extends Extensable {
   /** Examples of the media type. Each example object SHOULD match the media type and specified schema if present. The examples field is mutually exclusive of the example field. Furthermore, if referencing a schema which contains an example, the examples value SHALL override the example provided by the schema. */
   examples?: { [name: string]: ExampleObject | ReferenceObject };
   /** A map between a property name and its encoding information. The key, being the property name, MUST exist in the schema as a property. The encoding object SHALL only apply to requestBody objects when the media type is multipart or application/x-www-form-urlencoded. */
-  encoding?: { [contentType: string]: EncodingObject };
+  encoding?: { [propertyName: string]: EncodingObject };
 }
 
 /**
