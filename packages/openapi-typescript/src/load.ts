@@ -217,7 +217,10 @@ export default async function load(schema: URL | Subschema | Readable, options: 
 
     // hints help external partial schemas pick up where the root left off (for external complete/valid schemas, skip this)
     const isRemoteFullSchema = ref.path[0] === "paths" || ref.path[0] === "components"; // if the initial ref is "paths" or "components" this must be a full schema
-    const hint = isRemoteFullSchema ? "OpenAPI3" : getHint([...nodePath, ...ref.path], options.hint);
+    const hintPath: string[] = [...(nodePath as string[])];
+    if (ref.filename) hintPath.push(ref.filename);
+    hintPath.push(...ref.path);
+    const hint = isRemoteFullSchema ? "OpenAPI3" : getHint({ path: hintPath, external: !!ref.filename, startFrom: options.hint });
 
     // if root schema is remote and this is a relative reference, treat as remote
     if (schema instanceof URL) {
@@ -306,105 +309,116 @@ function relativePath(src: URL, dest: URL): string {
   return dest.href;
 }
 
+export interface GetHintOptions {
+  path: string[];
+  external: boolean;
+  startFrom?: Subschema["hint"];
+}
+
 /** given a path array (an array of indices), what type of object is this? */
-export function getHint(path: (string | number)[], startFrom?: Subschema["hint"]): Subschema["hint"] | undefined {
+export function getHint({ path, external, startFrom }: GetHintOptions): Subschema["hint"] | undefined {
   if (startFrom && startFrom !== "OpenAPI3") {
     switch (startFrom) {
       case "OperationObject":
-        return getHintFromOperationObject(path);
+        return getHintFromOperationObject(path, external);
       case "RequestBodyObject":
-        return getHintFromRequestBodyObject(path);
+        return getHintFromRequestBodyObject(path, external);
       case "ResponseObject":
-        return getHintFromResponseObject(path);
+        return getHintFromResponseObject(path, external);
       default:
         return startFrom;
     }
   }
   switch (path[0] as keyof OpenAPI3) {
     case "paths":
-      return getHintFromPathItemObject(path.slice(2)); // skip URL at [1]
+      return getHintFromPathItemObject(path.slice(2), external); // skip URL at [1]
     case "components":
-      return getHintFromComponentsObject(path.slice(1));
+      return getHintFromComponentsObject(path.slice(1), external);
   }
   return undefined;
 }
-function getHintFromComponentsObject(path: (string | number)[]): Subschema["hint"] | undefined {
+function getHintFromComponentsObject(path: (string | number)[], external: boolean): Subschema["hint"] | undefined {
   switch (path[0] as keyof ComponentsObject) {
     case "schemas":
     case "headers":
-      return getHintFromSchemaObject(path.slice(2));
+      return getHintFromSchemaObject(path.slice(2), external);
     case "parameters":
-      return getHintFromParameterObject(path.slice(2));
+      return getHintFromParameterObject(path.slice(2), external);
     case "responses":
-      return getHintFromResponseObject(path.slice(2));
+      return getHintFromResponseObject(path.slice(2), external);
     case "requestBodies":
-      return getHintFromRequestBodyObject(path.slice(2));
+      return getHintFromRequestBodyObject(path.slice(2), external);
     case "pathItems":
-      return getHintFromPathItemObject(path.slice(2));
+      return getHintFromPathItemObject(path.slice(2), external);
   }
   return "SchemaObject";
 }
-function getHintFromMediaTypeObject(path: (string | number)[]): Subschema["hint"] {
+function getHintFromMediaTypeObject(path: (string | number)[], external: boolean): Subschema["hint"] {
   switch (path[0]) {
     case "schema":
-      return getHintFromSchemaObject(path.slice(1));
+      return getHintFromSchemaObject(path.slice(1), external);
   }
   return "MediaTypeObject";
 }
-function getHintFromOperationObject(path: (string | number)[]): Subschema["hint"] {
+function getHintFromOperationObject(path: (string | number)[], external: boolean): Subschema["hint"] {
   switch (path[0] as keyof OperationObject) {
     case "parameters":
       return "ParameterObject[]";
     case "requestBody":
-      return getHintFromRequestBodyObject(path.slice(1));
+      return getHintFromRequestBodyObject(path.slice(1), external);
     case "responses":
-      return getHintFromResponseObject(path.slice(2)); // skip the response code at [1]
+      return getHintFromResponseObject(path.slice(2), external); // skip the response code at [1]
   }
   return "OperationObject";
 }
-function getHintFromParameterObject(path: (string | number)[]): Subschema["hint"] {
+function getHintFromParameterObject(path: (string | number)[], external: boolean): Subschema["hint"] {
   switch (path[0]) {
     case "content":
-      return getHintFromMediaTypeObject(path.slice(2)); // skip content type at [1]
+      return getHintFromMediaTypeObject(path.slice(2), external); // skip content type at [1]
     case "schema":
-      return getHintFromSchemaObject(path.slice(1));
+      return getHintFromSchemaObject(path.slice(1), external);
   }
   return "ParameterObject";
 }
-function getHintFromPathItemObject(path: (string | number)[]): Subschema["hint"] | undefined {
+function getHintFromPathItemObject(path: (string | number)[], external: boolean): Subschema["hint"] | undefined {
   switch (path[0] as keyof PathItemObject) {
     case "parameters": {
       if (typeof path[1] === "number") {
         return "ParameterObject[]";
       }
-      return getHintFromParameterObject(path.slice(1));
+      return getHintFromParameterObject(path.slice(1), external);
     }
     default:
-      return getHintFromOperationObject(path.slice(1));
+      return getHintFromOperationObject(path.slice(1), external);
   }
 }
-function getHintFromRequestBodyObject(path: (string | number)[]): Subschema["hint"] {
+function getHintFromRequestBodyObject(path: (string | number)[], external: boolean): Subschema["hint"] {
   switch (path[0] as keyof RequestBodyObject) {
     case "content":
-      return getHintFromMediaTypeObject(path.slice(2)); // skip content type at [1]
+      return getHintFromMediaTypeObject(path.slice(2), external); // skip content type at [1]
   }
   return "RequestBodyObject";
 }
-function getHintFromResponseObject(path: (string | number)[]): Subschema["hint"] {
+function getHintFromResponseObject(path: (string | number)[], external: boolean): Subschema["hint"] {
   switch (path[0] as keyof ResponseObject) {
     case "headers":
-      return getHintFromSchemaObject(path.slice(2)); // skip name at [1]
+      return getHintFromSchemaObject(path.slice(2), external); // skip name at [1]
     case "content":
-      return getHintFromMediaTypeObject(path.slice(2)); // skip content type at [1]
+      return getHintFromMediaTypeObject(path.slice(2), external); // skip content type at [1]
   }
   return "ResponseObject";
 }
-function getHintFromSchemaObject(path: (string | number)[]): Subschema["hint"] {
+function getHintFromSchemaObject(path: (string | number)[], external: boolean): Subschema["hint"] {
   switch (path[0]) {
     case "allOf":
     case "anyOf":
     case "oneOf":
-      return getHintFromSchemaObject(path.slice(2)); // skip array index at [1]
+      return getHintFromSchemaObject(path.slice(2), external); // skip array index at [1]
   }
+  // if this is external, and the path is [filename, key], then the external schema is probably a SchemaMap
+  if (path.length === 2 && external) {
+    return "SchemaMap";
+  }
+  // otherwise, path length of 1 means partial schema is likely a SchemaObject (or it’s unknown, in which case assume SchemaObject)
   return "SchemaObject";
 }

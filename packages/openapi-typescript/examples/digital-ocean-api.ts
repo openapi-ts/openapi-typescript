@@ -3965,7 +3965,160 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/certificates/models/certificate_create.yml": unknown
+  "resources/certificates/models/certificate_create.yml": {
+    certificate_create_base: {
+      /**
+       * @description A unique human-readable name referring to a certificate. 
+       * @example web-cert-01
+       */
+      name: string;
+      /**
+       * @description A string representing the type of the certificate. The value will be `custom` for a user-uploaded certificate or `lets_encrypt` for one automatically generated with Let's Encrypt. 
+       * @example lets_encrypt 
+       * @enum {string}
+       */
+      type?: "custom" | "lets_encrypt";
+    };
+    /** Custom Certificate Request */    certificate_request_custom: certificate_create_base[] & {
+      /**
+       * @description The contents of a PEM-formatted private-key corresponding to the SSL certificate. 
+       * @example -----BEGIN PRIVATE KEY-----
+       * MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBIZMz8pnK6V52
+       * SVf+CYssOfCQHAx5f0Ou5rYbq3xNh8VHAIYJCQ1QxQIxKSP6+uODSYrb2KWyurP1
+       * DwGb8OYm0J3syEDtCUQik1cpCzpeNlAZ2f8FzXyYQAqPopxdRpsFz8DtZnVvu86X
+       * wrE4oFPl9MReICmZfBNWylpV5qgFPoXyJ70ZAsTm3cEe3n+LBXEnY4YrVDRWxA3w
+       * Z2mzZ03HZ1hHrxK9CMnS829U+8sK+UneZpCO7yLRPuxwhmps0wpK/YuZZfRAKF1F
+       * ZRnak/SIQ28rnWufmdg16YqqHgl5JOgnb3aslKRvL4dI2Gwnkd2IHtpZnTR0gxFX
+       * fqqbQwuRAgMBAAECggEBAILLmkW0JzOkmLTDNzR0giyRkLoIROqDpfLtjKdwm95l
+       * 9NUBJcU4vCvXQITKt/NhtnNTexcowg8pInb0ksJpg3UGE+4oMNBXVi2UW5MQZ5cm
+       * cVkQqgXkBF2YAY8FMaB6EML+0En2+dGR/3gIAr221xsFiXe1kHbB8Nb2c/d5HpFt
+       * eRpLVJnK+TxSr78PcZA8DDGlSgwvgimdAaFUNO2OqB9/0E9UPyKk2ycdff/Z6ldF
+       * 0hkCLtdYTTl8Kf/OwjcuTgmA2O3Y8/CoQX/L+oP9Rvt9pWCEfuebiOmHJVPO6Y6x
+       * gtQVEXwmF1pDHH4Qtz/e6UZTdYeMl9G4aNO2CawwcaYECgYEA57imgSOG4XsJLRh
+       * GGncV9R/xhy4AbDWLtAMzQRX4ktvKCaHWyQV2XK2we/cu29NLv2Y89WmerTNPOU+
+       * P8+pB31uty2ELySVn15QhKpQClVEAlxCnnNjXYrii5LOM80+lVmxvQwxVd8Yz8nj
+       * IntyioXNBEnYS7V2RxxFGgFun1cCgYEA1V3W+Uyamhq8JS5EY0FhyGcXdHd70K49
+       * W1ou7McIpncf9tM9acLS1hkI98rd2T69Zo8mKoV1V2hjFaKUYfNys6tTkYWeZCcJ
+       * 3rW44j9DTD+FmmjcX6b8DzfybGLehfNbCw6n67/r45DXIV/fk6XZfkx6IEGO4ODt
+       * Nfnvx4TuI1cCgYBACDiKqwSUvmkUuweOo4IuCxyb5Ee8v98P5JIE/VRDxlCbKbpx
+       * pxEam6aBBQVcDi+n8o0H3WjjlKc6UqbW/01YMoMrvzotxNBLz8Y0QtQHZvR6KoCG
+       * RKCKstxTcWflzKuknbqN4RapAhNbKBDJ8PMSWfyDWNyaXzSmBdvaidbF1QKBgDI0
+       * o4oD0Xkjg1QIYAUu9FBQmb9JAjRnW36saNBEQS/SZg4RRKknM683MtoDvVIKJk0E
+       * sAlfX+4SXQZRPDMUMtA+Jyrd0xhj6zmhbwClvDMr20crF3fWdgcqtft1BEFmsuyW
+       * JUMe5OWmRkjPI2+9ncDPRAllA7a8lnSV/Crph5N/AoGBAIK249temKrGe9pmsmAo
+       * QbNuYSmwpnMoAqdHTrl70HEmK7ob6SIVmsR8QFAkH7xkYZc4Bxbx4h1bdpozGB+/
+       * AangbiaYJcAOD1QyfiFbflvI1RFeHgrk7VIafeSeQv6qu0LLMi2zUbpgVzxt78Wg
+       * eTuK2xNR0PIM8OI7pRpgyj1I
+       * -----END PRIVATE KEY-----
+       */
+      private_key: string;
+      /**
+       * @description The contents of a PEM-formatted public SSL certificate. 
+       * @example -----BEGIN CERTIFICATE-----
+       * MIIFFjCCA/6gAwIBAgISA0AznUJmXhu08/89ZuSPC/kRMA0GCSqGSIb3DQEBCwUA
+       * MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
+       * ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xNjExMjQwMDIzMDBaFw0x
+       * NzAyMjIwMDIzMDBaMCQxIjAgBgNVBAMTGWNsb3VkLmFuZHJld3NvbWV0aGluZy5j
+       * b20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDBIZMz8pnK6V52SVf+
+       * CYssOfCQHAx5f0Ou5rYbq3xNh8VWHIYJCQ1QxQIxKSP6+uODSYrb2KWyurP1DwGb
+       * 8OYm0J3syEDtCUQik1cpCzpeNlAZ2f8FzXyYQAqPopxdRpsFz8DtZnVvu86XwrE4
+       * oFPl9MReICmZfBNWylpV5qgFPoXyJ70ZAsTm3cEe3n+LBXEnY4YrVDRWxA3wZ2mz
+       * Z03HZ1hHrxK9CMnS829U+8sK+UneZpCO7yLRPuxwhmps0wpK/YuZZfRAKF1FZRna
+       * k/SIQ28rnWufmdg16YqqHgl5JOgnb3aslKRvL4dI2Gwnkd2IHtpZnTR0gxFXfqqb
+       * QwuRAgMBAAGjggIaMIICFjAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYB
+       * BQUHAwEGCCsGAQUFBwMCMAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFLsAFcxAhFX1
+       * MbCnzr9hEO5rL4jqMB8GA1UdIwQYMBaAFKhKamMEfd265tE5t6ZFZe/zqOyhMHAG
+       * CCsGAQUFBwEBBGQwYjAvBggrBgEFBQcwAYYjaHR0cDovL29jc3AuaW50LXgzLmxl
+       * dHNlbmNyeXB0Lm9yZy8wLwYIKwYBBQUHMAKGI2h0dHA6Ly9jZXJ0LmludC14My5s
+       * ZXRzZW5jcnlwdC5vcmcvMCQGA1UdEQQdMBuCGWNsb3VkLmFuZHJld3NvbWV0aGlu
+       * Zy5jb20wgf4GA1UdIASB9jCB8zAIBgZngQwBAgWrgeYGCysGAQQBgt8TAQEBMIHW
+       * MCYGCCsGAQUFBwIBFhpodHRwOi8vY3BzLmxldHNlbmNyeXB0Lm9yZzCBqwYIKwYB
+       * BQUHAgIwgZ4MgZtUaGlzIENlcnRpZmljYXRlIG1heSBvbmx5IGJlIHJlbGllZCB1
+       * cG9uIGJ5IFJlbHlpbmcgUGFydGllcyBhbmQgb25seSQ2ziBhY2NvcmRhbmNlIHdp
+       * dGggdGhlIENlcnRpZmljYXRlIFBvbGljeSBmb3VuZCBhdCBodHRwczovL2xldHNl
+       * bmNyeXB0Lm9yZy9yZXBvc2l0b3J5LzANBgkqhkiG9w0BAQsFAAOCAQEAOZVQvrjM
+       * PKXLARTjB5XsgfyDN3/qwLl7SmwGkPe+B+9FJpfScYG1JzVuCj/SoaPaK34G4x/e
+       * iXwlwOXtMOtqjQYzNu2Pr2C+I+rVmaxIrCUXFmC205IMuUBEeWXG9Y/HvXQLPabD
+       * D3Gdl5+Feink9SDRP7G0HaAwq13hI7ARxkL9p+UIY39X0dV3WOboW2Re8nrkFXJ7
+       * q9Z6shK5QgpBfsLjtjNsQzaGV3ve1gOg25aTJGearBWOvEjJNA1wGMoKVXOtYwm/
+       * WyWoVdCQ8HmconcbJB6xc0UZ1EjvzRr5ZIvSa5uHZD0L3m7/kpPWlAlFJ7hHASPu
+       * UlF1zblDmg2Iaw==
+       * -----END CERTIFICATE-----
+       */
+      leaf_certificate: string;
+      /**
+       * @description The full PEM-formatted trust chain between the certificate authority's certificate and your domain's SSL certificate. 
+       * @example -----BEGIN CERTIFICATE-----
+       * MIIFFjCCA/6gAwIBAgISA0AznUJmXhu08/89ZuSPC/kRMA0GCSqGSIb3DQEBCwUA
+       * MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
+       * ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xNjExMjQwMDIzMDBaFw0x
+       * NzAyMjIwMDIzMDBaMCQxIjAgBgNVBAMTGWNsb3VkLmFuZHJld3NvbWV0aGluZy5j
+       * b20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDBIZMz7tnK6V52SVf+
+       * CYssOfCQHAx5f0Ou5rYbq3xNh8VHAIYJCQ1QxQIxKSP6+uODSYrb2KWyurP1DwGb
+       * 8OYm0J3syEDtCUQik1cpCzpeNlAZ2f8FzXyYQAqPopxdRpsFz8DtZnVvu86XwrE4
+       * oFPl9MReICmZfBNWylpV5qgFPoXyJ70ZAsTm3cEe3n+LBXEnY4YrVDRWxA3wZ2mz
+       * Z03HZ1hHrxK9CMnS829U+8sK+UneZpCO7yLRPuxwhmps0wpK/YuZZfRAKF1FZRna
+       * k/SIQ28rnWufmdg16YqqHgl5JOgnb3aslKRvL4dI2Gwnkd2IHtpZnTR0gxFXfqqb
+       * QwuRAgMBAAGjggIaMIICFjAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYB
+       * BQUHAwEGCCsGAQUFBwMCMAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFLsAFcxAhFX1
+       * MbCnzr9hEO5rL4jqMB8GA1UdIwQYMBaAFKhKamMEfd265tE5t6ZFZe/zqOyhMHAG
+       * CCsGAQUFBwEBBGQwYjAvBggrBgEFBQcwAYYjaHR0cDovL29jc3AuaW50LXgzLmxl
+       * dHNlbmNyeXB0Lm9yZy8wLwYIKwYBBQUHMAKGI2h0dHA6Ly9jZXJ0LmludC14My5s
+       * ZXRzZW5jcnlwdC5vcmcvMCQGA1UdEQQdMBuCGWNsb3VkLmFuZHJld3NvbWV0aGlu
+       * Zy5jb20wgf4GA1UdIASB9jCB8zAIBgZngQwBAgEwgeWECysGAQQBgt8TAQEBMIHW
+       * MCYGCCsGAQUFBwIBFhpodHRwOi8vY3BzLmxldHNlbmNyeXB0Lm9yZzCBqwYIKwYB
+       * BQUHAgIwgZ4MgZtUaGlzIENlcnRpZmljYXRlIG1heSBvbmx5IGJlIHJlbGllZCB1
+       * cG9uIGJ5IFJlbHlpbmcgUGFydGllcyBhbmQgb25seSQ2ziBhY2NvcmRhbmNlIHdp
+       * dGggdGhlIENlcnRpZmljYXRlIFBvbGljeSBmb3VuZCBhdCBsdHRwczovL2xldHNl
+       * bmNyeXB0Lm9yZy9yZXBvc2l0b3J5LzANBgkqhkiG9w0BAQsFAAOCAQEAOZVQvrjM
+       * PKXLARTjB5XsgfyDN3/qwLl7SmwGkPe+B+9FJpfScYG1JzVuCj/SoaPaK34G4x/e
+       * iXwlwOXtMOtqjQYzNu2Pr2C+I+rVmaxIrCUXFmC205IMuUBEeWXG9Y/HvXQLPabD
+       * D3Gdl5+Feink9SDRP7G0HaAwq13hI7ARxkL3o+UIY39X0dV3WOboW2Re8nrkFXJ7
+       * q9Z6shK5QgpBfsLjtjNsQzaGV3ve1gOg25aTJGearBWOvEjJNA1wGMoKVXOtYwm/
+       * WyWoVdCQ8HmconcbJB6xc0UZ1EjvzRr5ZIvSa5uHZD0L3m7/kpPWlAlFJ7hHASPu
+       * UlF1zblDmg2Iaw==
+       * -----END CERTIFICATE-----
+       * -----BEGIN CERTIFICATE-----
+       * MIIEkjCCA3qgAwIBAgIQCgFBQgAAAVOFc2oLheynCDANBgkqhkiG9w0BAQsFADA/
+       * MSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT
+       * DkRTVCBSb290IENBIFgzMB4XDTE2MDMxNzE2NDA0NloXDTIxMDMxNzE2NDA0Nlow
+       * SjELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUxldCdzIEVuY3J5cHQxIzAhBgNVBAMT
+       * GkxldCdzIEVuY3J5cHQgQXV0aG9yaXR5IFgzMIIBIjANBgkqhkiG9w0BAQEFAAOC
+       * AQ8AMIIBCgKCAQEAnNMM8FrlLsd3cl03g7NoYzDq1zUmGSXhvb418XCSL7e4S0EF
+       * q6meNQhY7LEqxGiHC6PjdeTm86dicbp5gWAf15Gan/PQeGdxyGkOlZHP/uaZ6WA8
+       * SMx+yk13EiSdRxta67nsHjcAHJyse6cF6s5K671B5TaYucv9bTyWaN8jKkKQDIZ0
+       * Z8h/pZq4UmEUEz9l6YKHy9v6Dlb2honzhT+Xhq+w3Brvaw2VFn3EK6BlspkENnWA
+       * a6xK8xuQSXgvopZPKiAlKQTGdMDQMc2PMTiVFrqoM7hD8bEfwzB/onkxEz0tNvjj
+       * /PIzark5McWvxI0NHWQWM6r6hCm21AvA2H3DkwIPOIUo4IBfTCCAXkwEgYDVR0T
+       * AQH/BAgwBgEB/wIBADAOBgNVHQ8BAf8EBAMCAYYwfwYIKwYBBQUHAQEEczBxMDIG
+       * CCsGAQUFBzABhiZodHRwOi8vaXNyZy50cnVzdGlkLm9jc3AuaWRlbnRydXN0LmNv
+       * bTA7BggrBgEFBQcwAoYvaHR0cDovL2FwcHMuaWRlbnRydXN0LmNvbS9yb290cy9k
+       * c3Ryb290Y2F4My5wN2MwHwYDVR0jBBgwFoAUxKexpHsscfrb4UuQdf/EFWCFiRAw
+       * VAYDVR0gBE0wSzAIBgZngQwBAgEwPwYLKwYBBAGC3xMBAQEwMDAuBggrBgEFBQcC
+       * ARYiaHR0cDovL2Nwcy5yb290LXgxLmxldHNlbmNyeXB0Lm9yZzA8BgNVHR8ENTAz
+       * MDGgL6AthitodHRwOi8vY3JsLmlkZW50cnVzdC5jb20vRFNUUk9PVENBWDNDUkwu
+       * Y3JsMB0GA1UdDgQWBBSoSmpjBH3duubRObemRWXv86jsoTANBgkqhkiG9w0BAQsF
+       * AAOCAQEA3TPXEfNjWDjdGBX7CVW+dla5cEilaUcne8IkCJLxWh9KEik3JHRRHGJo
+       * uM2VcGfl96S8TihRzZvoroed6ti6WqEBmtzw3Wodatg+VyOeph4EYpr/1wXKtx8/
+       * wApIvJSwtmVi4MFU5aMqrSDE6ea73Mj2tcMyo5jMd6jmeWUHK8so/joWUoHOUgwu
+       * X4Po1QYz+3dszkDqMp4fklxBwXRsW10KXzPMTZ+sOPAveyxindmjkW8lGy+QsRlG
+       * PfZ+G6Z6h7mjem0Y+iWlkYcV4PIWL1iwBi8saCbGS5jN2p8M+X+Q7UNKEkROb3N6
+       * KOqkqm57TH2H3eDJAkSnh6/DNFu0Qg==
+       * -----END CERTIFICATE-----
+       */
+      certificate_chain?: string;
+    };
+    /** Let's Encrypt Certificate Request */    certificate_request_lets_encrypt: certificate_create_base[] & {
+      /**
+       * @description An array of fully qualified domain names (FQDNs) for which the certificate was issued. A certificate covering all subdomains can be issued using a wildcard (e.g. `*.example.com`). 
+       * @example [
+       *   "www.example.com",
+       *   "example.com"
+       * ]
+       */
+      dns_names: (string)[];
+    };
+  };
   "resources/certificates/models/certificate.yml": {
     /**
      * Format: uuid 
@@ -6707,7 +6860,17 @@ export interface external {
     };
   }
   "resources/domains/examples.yml": unknown
-  "resources/domains/models/domain_record_types.yml": unknown
+  "resources/domains/models/domain_record_types.yml": {
+    domain_record_a: external["resources/domains/models/domain_record.yml"];
+    domain_record_aaaa: external["resources/domains/models/domain_record.yml"];
+    domain_record_caa: external["resources/domains/models/domain_record.yml"];
+    domain_record_cname: external["resources/domains/models/domain_record.yml"];
+    domain_record_mx: external["resources/domains/models/domain_record.yml"];
+    domain_record_ns: external["resources/domains/models/domain_record.yml"];
+    domain_record_soa: external["resources/domains/models/domain_record.yml"];
+    domain_record_srv: external["resources/domains/models/domain_record.yml"];
+    domain_record_txt: external["resources/domains/models/domain_record.yml"];
+  };
   "resources/domains/models/domain_record.yml": {
     /**
      * @description A unique identifier for each domain record. 
@@ -7509,7 +7672,63 @@ export interface external {
      */
     error_message?: string;
   }
-  "resources/droplets/models/droplet_actions.yml": unknown
+  "resources/droplets/models/droplet_actions.yml": {
+    /** @description Specifies the action that will be taken on the Droplet. */    droplet_action: {
+      /**
+       * @description The type of action to initiate for the Droplet. 
+       * @example reboot 
+       * @enum {string}
+       */
+      type: "enable_backups" | "disable_backups" | "reboot" | "power_cycle" | "shutdown" | "power_off" | "power_on" | "restore" | "password_reset" | "resize" | "rebuild" | "rename" | "change_kernel" | "enable_ipv6" | "snapshot";
+    };
+    droplet_action_restore: droplet_action[] & {
+      /**
+       * @description The ID of a backup of the current Droplet instance to restore from. 
+       * @example 12389723
+       */
+      image?: number;
+    };
+    droplet_action_resize: droplet_action[] & {
+      /**
+       * @description When `true`, the Droplet's disk will be resized in addition to its RAM and CPU. This is a permanent change and cannot be reversed as a Droplet's disk size cannot be decreased. 
+       * @example true
+       */
+      disk?: boolean;
+      /**
+       * @description The slug identifier for the size to which you wish to resize the Droplet. 
+       * @example s-2vcpu-2gb
+       */
+      size?: string;
+    };
+    droplet_action_rebuild: droplet_action[] & ({
+      /**
+       * @description The image ID of a public or private image or the slug identifier for a public image. The Droplet will be rebuilt using this image as its base. 
+       * @example ubuntu-20-04-x64
+       */
+      image?: string | number;
+    });
+    droplet_action_rename: droplet_action[] & {
+      /**
+       * @description The new name for the Droplet. 
+       * @example nifty-new-name
+       */
+      name?: string;
+    };
+    droplet_action_change_kernel: droplet_action[] & {
+      /**
+       * @description A unique number used to identify and reference a specific kernel. 
+       * @example 12389723
+       */
+      kernel?: number;
+    };
+    droplet_action_snapshot: droplet_action[] & {
+      /**
+       * @description The name to give the new snapshot of the Droplet. 
+       * @example Nifty New Snapshot
+       */
+      name?: string;
+    };
+  };
   "resources/droplets/models/droplet_create.yml": {
     /**
      * @description The slug identifier for the region that you wish to deploy the Droplet in. If the specific datacenter is not not important, a slug prefix (e.g. `nyc`) can be used to deploy the Droplet in any of the that region's locations (`nyc1`, `nyc2`, or `nyc3`). If the region is omitted from the create request completely, the Droplet may deploy in any region. 
@@ -8803,7 +9022,27 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/floating_ips/models/floating_ip_actions.yml": unknown
+  "resources/floating_ips/models/floating_ip_actions.yml": {
+    floatingIPsAction: {
+      /**
+       * @description The type of action to initiate for the floating IP. 
+       * @enum {string}
+       */
+      type: "assign" | "unassign";
+    };
+    floating_ip_action_unassign: {
+      type: undefined;
+    } & Omit<floatingIPsAction[], "type"> & Record<string, never>;
+    floating_ip_action_assign: {
+      type: undefined;
+    } & Omit<floatingIPsAction[], "type"> & {
+      /**
+       * @description The ID of the Droplet that the floating IP will be assigned to. 
+       * @example 758604968
+       */
+      droplet_id: number;
+    };
+  };
   "resources/floating_ips/models/floating_ip_create.yml": OneOf<[{
     /**
      * @description The ID of the Droplet that the floating IP will be assigned to. 
@@ -9597,7 +9836,19 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/images/models/image_action.yml": unknown
+  "resources/images/models/image_action.yml": {
+    image_action_base: {
+      /**
+       * @description The action to be taken on the image. Can be either `convert` or `transfer`. 
+       * @example convert 
+       * @enum {string}
+       */
+      type: "convert" | "transfer";
+    };
+    image_action_transfer: image_action_base[] & {
+      region: external["shared/attributes/region_slug.yml"];
+    };
+  };
   "resources/images/models/image_new_custom.yml": WithRequired<external["resources/images/models/image_update.yml"] & {
     /**
      * @description A URL from which the custom Linux virtual machine image may be retrieved.  The image it points to must be in the raw, qcow2, vhdx, vdi, or vmdk format.  It may be compressed using gzip or bzip2 and must be smaller than 100 GB after being decompressed. 
@@ -10405,7 +10656,75 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/kubernetes/models/associated_kubernetes_resources.yml": unknown
+  "resources/kubernetes/models/associated_kubernetes_resources.yml": {
+    /** @description An object containing the IDs of resources associated with a Kubernetes cluster. */    associated_kubernetes_resources: {
+      /**
+       * @description A list of names and IDs for associated load balancers that can be destroyed along with the cluster. 
+       * @example [
+       *   {
+       *     "id": "4de7ac8b-495b-4884-9a69-1050c6793cd6",
+       *     "name": "lb-001"
+       *   }
+       * ]
+       */
+      load_balancers?: (associated_kubernetes_resource[])[];
+      /**
+       * @description A list of names and IDs for associated volumes that can be destroyed along with the cluster. 
+       * @example [
+       *   {
+       *     "id": "ba49449a-7435-11ea-b89e-0a58ac14480f",
+       *     "name": "volume-001"
+       *   }
+       * ]
+       */
+      volumes?: (associated_kubernetes_resource[])[];
+      /**
+       * @description A list of names and IDs for associated volume snapshots that can be destroyed along with the cluster. 
+       * @example [
+       *   {
+       *     "id": "edb0478d-7436-11ea-86e6-0a58ac144b91",
+       *     "name": "snapshot-001"
+       *   }
+       * ]
+       */
+      volume_snapshots?: (associated_kubernetes_resource[])[];
+    };
+    associated_kubernetes_resource: {
+      /**
+       * @description The ID of a resource associated with a Kubernetes cluster. 
+       * @example edb0478d-7436-11ea-86e6-0a58ac144b91
+       */
+      id?: string;
+      /**
+       * @description The name of a resource associated with a Kubernetes cluster. 
+       * @example volume-001
+       */
+      name?: string;
+    };
+    /** @description An object containing the IDs of resources to be destroyed along with their associated with a Kubernetes cluster. */    destroy_associated_kubernetes_resources: {
+      /**
+       * @description A list of IDs for associated load balancers to destroy along with the cluster. 
+       * @example [
+       *   "4de7ac8b-495b-4884-9a69-1050c6793cd6"
+       * ]
+       */
+      load_balancers?: (string)[];
+      /**
+       * @description A list of IDs for associated volumes to destroy along with the cluster. 
+       * @example [
+       *   "ba49449a-7435-11ea-b89e-0a58ac14480f"
+       * ]
+       */
+      volumes?: (string)[];
+      /**
+       * @description A list of IDs for associated volume snapshots to destroy along with the cluster. 
+       * @example [
+       *   "edb0478d-7436-11ea-86e6-0a58ac144b91"
+       * ]
+       */
+      volume_snapshots?: (string)[];
+    };
+  };
   "resources/kubernetes/models/cluster_registries.yml": {
     /**
      * @description An array containing the UUIDs of Kubernetes clusters. 
@@ -13437,7 +13756,27 @@ export interface external {
       };
     };
   }
-  "resources/reserved_ips/models/reserved_ip_actions.yml": unknown
+  "resources/reserved_ips/models/reserved_ip_actions.yml": {
+    reserved_ip_action_type: {
+      /**
+       * @description The type of action to initiate for the reserved IP. 
+       * @enum {string}
+       */
+      type: "assign" | "unassign";
+    };
+    reserved_ip_action_unassign: {
+      type: undefined;
+    } & Omit<reserved_ip_action_type[], "type"> & Record<string, never>;
+    reserved_ip_action_assign: {
+      type: undefined;
+    } & Omit<reserved_ip_action_type[], "type"> & {
+      /**
+       * @description The ID of the Droplet that the reserved IP will be assigned to. 
+       * @example 758604968
+       */
+      droplet_id: number;
+    };
+  };
   "resources/reserved_ips/models/reserved_ip_create.yml": OneOf<[{
     /**
      * @description The ID of the Droplet that the reserved IP will be assigned to. 
@@ -15547,7 +15886,32 @@ export interface external {
   "shared/attributes/regions_array.yml": (external["shared/attributes/region_slug.yml"])[]
   "shared/attributes/tags_array.yml": (string)[] | null
   "shared/attributes/urn.yml": string
-  "shared/headers.yml": unknown
+  "shared/headers.yml": {
+    /**
+     * @description Indicates if the content is expected to be displayed *inline* in the  browser, that is, as a Web page or as part of a Web page, or as an  *attachment*, that is downloaded and saved locally. 
+     * @example attachment; filename="DigitalOcean Invoice 2020 Jul (6173678-418071234).csv"
+     */    "content-disposition": unknown;
+    /**
+     * @description The default limit on number of requests that can be made per hour and per minute. Current rate limits are 5000 requests per hour and 250 requests per minute. 
+     * @example 5000
+     */    "ratelimit-limit": unknown;
+    /**
+     * @description The number of requests in your hourly quota that remain before you hit your request limit. See https://developers.digitalocean.com/documentation/v2/#rate-limit for information about how requests expire. 
+     * @example 4816
+     */    "ratelimit-remaining": unknown;
+    /**
+     * @description The time when the oldest request will expire. The value is given in Unix epoch time. See https://developers.digitalocean.com/documentation/v2/#rate-limit for information about how requests expire. 
+     * @example 1444931833
+     */    "ratelimit-reset": unknown;
+    /**
+     * @description Optionally, some endpoints may include a request ID that should be provided  when reporting bugs or opening support tickets to help identify the issue. 
+     * @example 515850a0-a812-50bf-aa3c-d0d21d287e40
+     */    "x-request-id": unknown;
+    /**
+     * @description The type of data that is returned from a request.  
+     * @example application/json; charset=utf-8
+     */    "content-type": unknown;
+  };
   "shared/meta_optional_total.yml": {
     meta: external["shared/models/meta_properties.yml"];
   }
@@ -15613,7 +15977,52 @@ export interface external {
      */
     total?: number;
   }
-  "shared/pages.yml": unknown
+  "shared/pages.yml": {
+    pagination: {
+      links?: page_links[];
+    };
+    page_links: {
+      /**
+       * @example {
+       *   "pages": {
+       *     "first": "https://api.digitalocean.com/v2/account/keys?page=1",
+       *     "prev": "https://api.digitalocean.com/v2/account/keys?page=2"
+       *   }
+       * }
+       */
+      pages?: unknown;
+    };
+    backward_links: link_to_first_page[] & link_to_prev_page[];
+    forward_links: link_to_last_page[] & link_to_next_page[];
+    link_to_first_page: {
+      /**
+       * @description URI of the first page of the results. 
+       * @example https://api.digitalocean.com/v2/images?page=1
+       */
+      first?: string;
+    };
+    link_to_prev_page: {
+      /**
+       * @description URI of the previous page of the results. 
+       * @example https://api.digitalocean.com/v2/images?page=1
+       */
+      prev?: string;
+    };
+    link_to_next_page: {
+      /**
+       * @description URI of the next page of the results. 
+       * @example https://api.digitalocean.com/v2/images?page=2
+       */
+      next?: string;
+    };
+    link_to_last_page: {
+      /**
+       * @description URI of the last page of the results. 
+       * @example https://api.digitalocean.com/v2/images?page=2
+       */
+      last?: string;
+    };
+  };
   "shared/parameters.yml": {
     per_page?: number;
     page?: number;

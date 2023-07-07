@@ -309,6 +309,7 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     RemoteType: external["remote-ref-test-2.yaml"]["components"]["schemas"]["SchemaType"];
+    RemotePartialType: external["_schema-test-partial.yaml"]["PartialType"];
   };
   responses: never;
   parameters: never;
@@ -318,6 +319,11 @@ export interface components {
 }
 
 export interface external {
+  "_schema-test-partial.yaml": {
+    PartialType: {
+      foo: string;
+    };
+  };
   "remote-ref-test-2.yaml": {
     paths: {
       "/": {

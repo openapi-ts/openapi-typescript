@@ -639,6 +639,7 @@ export type Subschema =
     }
   | { hint: "RequestBodyObject"; schema: RequestBodyObject }
   | { hint: "ResponseObject"; schema: ResponseObject }
+  | { hint: "SchemaMap"; schema: NonNullable<ComponentsObject["schemas"]> }
   | { hint: "SchemaObject"; schema: SchemaObject };
 
 /** Context passed to all submodules */

@@ -16,3 +16,5 @@ components:
   schemas:
     RemoteType:
       $ref: "./remote-ref-test-2.yaml#/components/schemas/SchemaType"
+    RemotePartialType:
+      $ref: '_schema-test-partial.yaml#/PartialType'
