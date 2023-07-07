@@ -76,6 +76,12 @@ describe("utils", () => {
       expect(parseRef("#/test/~1~0")).toStrictEqual({ filename: ".", path: ["test", "/~"] });
     });
 
+    it("remote ref", () => {
+      expect(parseRef("remote.yaml#/Subpath")).toStrictEqual({ filename: "remote.yaml", path: ["Subpath"] });
+      expect(parseRef("../schemas/remote.yaml#/Subpath")).toStrictEqual({ filename: "../schemas/remote.yaml", path: ["Subpath"] });
+      expect(parseRef("https://myschema.com/api/v1/openapi.yaml#/Subpath")).toStrictEqual({ filename: "https://myschema.com/api/v1/openapi.yaml", path: ["Subpath"] });
+    });
+
     it("js-yaml $ref", () => {
       expect(parseRef('components["schemas"]["SchemaObject"]')).toStrictEqual({ filename: ".", path: ["components", "schemas", "SchemaObject"] });
     });
@@ -83,15 +89,15 @@ describe("utils", () => {
 
   describe("escObjKey", () => {
     it("basic", () => {
-      expect(escObjKey("some-prop")).toStrictEqual("\"some-prop\"");
+      expect(escObjKey("some-prop")).toStrictEqual('"some-prop"');
     });
 
     it("@ escapes", () => {
-      expect(escObjKey("@type")).toStrictEqual("\"@type\"");
+      expect(escObjKey("@type")).toStrictEqual('"@type"');
     });
 
     it("number escapes", () => {
-      expect(escObjKey("123var")).toStrictEqual("\"123var\"");
+      expect(escObjKey("123var")).toStrictEqual('"123var"');
     });
 
     it("only number no escapes", () => {
@@ -104,6 +110,6 @@ describe("utils", () => {
 
     it("_ no escapes", () => {
       expect(escObjKey("_ref_")).toStrictEqual("_ref_");
-    })
-  })
+    });
+  });
 });
