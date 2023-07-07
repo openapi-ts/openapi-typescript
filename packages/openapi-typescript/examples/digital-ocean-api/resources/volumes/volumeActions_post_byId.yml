@@ -109,6 +109,7 @@ x-codeSamples:
   - $ref: "examples/curl/volumeActions_attach_byId.yml"
   - $ref: "examples/go/volumeActions_attach_byId.yml"
   - $ref: "examples/ruby/volumeActions_attach_byId.yml"
+  - $ref: "examples/python/volumeActions_attach_byId.yml"
 
 security:
   - bearer_auth:

@@ -26,6 +26,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/account_get.yml'
+  - $ref: 'examples/python/account_get.yml'
 
 security:
   - bearer_auth:

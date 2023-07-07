@@ -1,0 +1,20 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "type": "A",
+    "name": "www",
+    "data": "162.10.66.0",
+    "priority": None,
+    "port": None,
+    "ttl": 1800,
+    "weight": None,
+    "flags": None,
+    "tag": None
+  }
+
+  resp = client.domains.create_record(domain_name="example.com", body=req)

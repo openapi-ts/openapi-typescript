@@ -1,0 +1,10 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  purge_req = {"files": ["path/to/image.png", "path/to/css/*"]}
+
+  purge_resp = client.cdn.purge_cache("19f06b6a", purge_req)

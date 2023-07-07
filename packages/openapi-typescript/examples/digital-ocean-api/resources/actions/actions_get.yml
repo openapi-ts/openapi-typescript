@@ -33,7 +33,7 @@ x-codeSamples:
   - $ref: 'examples/curl/actions_get.yml'
   - $ref: 'examples/go/actions_get.yml'
   - $ref: 'examples/ruby/actions_get.yml'
-  
+  - $ref: 'examples/python/actions_get.yml'
 
 security:
   - bearer_auth:

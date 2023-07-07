@@ -31,6 +31,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/apps_get_tier.yml'
+  - $ref: 'examples/python/apps_get_tier.yml'
 
 security:
   - bearer_auth:

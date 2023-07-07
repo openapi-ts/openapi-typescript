@@ -50,6 +50,7 @@ x-codeSamples:
   - $ref: 'examples/curl/domains_update_record.yml'
   - $ref: 'examples/go/domains_update_record.yml'
   - $ref: 'examples/ruby/domains_update_record.yml'
+  - $ref: 'examples/python/domains_update_record.yml'
 
 security:
   - bearer_auth:

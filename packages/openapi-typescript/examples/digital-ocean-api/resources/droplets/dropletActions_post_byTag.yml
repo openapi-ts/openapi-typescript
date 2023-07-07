@@ -68,6 +68,7 @@ x-codeSamples:
   - $ref: 'examples/curl/dropletActions_post_byTag.yml'
   - $ref: 'examples/go/dropletActions_post_byTag.yml'
   - $ref: 'examples/ruby/dropletActions_post_byTag.yml'
+  - $ref: 'examples/python/dropletActions_post_byTag.yml'
 
 security:
   - bearer_auth:

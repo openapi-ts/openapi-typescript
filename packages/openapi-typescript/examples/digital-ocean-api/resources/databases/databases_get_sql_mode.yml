@@ -37,6 +37,7 @@ responses:
 x-codeSamples:
   - $ref: 'examples/curl/databases_get_sql_mode.yml'
   - $ref: 'examples/go/databases_get_sql_mode.yml'
+  - $ref: 'examples/python/databases_get_sql_mode.yml'
 
 security:
   - bearer_auth:

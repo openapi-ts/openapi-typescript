@@ -46,6 +46,7 @@ x-codeSamples:
   - $ref: 'examples/curl/create_reserved_ip.yml'
   - $ref: 'examples/go/create_reserved_ip.yml'
   - $ref: 'examples/ruby/create_reserved_ip.yml'
+  - $ref: 'examples/python/create_reserved_ip.yml'
 
 security:
   - bearer_auth:

@@ -43,6 +43,7 @@ x-codeSamples:
   - $ref: 'examples/curl/projects_patch_default.yml'
   - $ref: 'examples/go/projects_patch_default.yml'
   - $ref: 'examples/ruby/projects_patch_default.yml'
+  - $ref: 'examples/python/projects_patch_default.yml'
 
 security:
   - bearer_auth:

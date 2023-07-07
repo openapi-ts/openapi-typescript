@@ -58,6 +58,7 @@ x-codeSamples:
   - $ref: 'examples/curl/post_reserved_ip_action.yml'
   - $ref: 'examples/go/post_reserved_ip_action.yml'
   - $ref: 'examples/ruby/post_reserved_ip_action.yml'
+  - $ref: 'examples/python/post_reserved_ip_action.yml'
 
 security:
   - bearer_auth:

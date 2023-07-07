@@ -42,6 +42,7 @@ responses:
 x-codeSamples:
   - $ref: 'examples/curl/databases_list_replicas.yml'
   - $ref: 'examples/go/databases_list_replicas.yml'
+  - $ref: 'examples/python/databases_list_replicas.yml'
 
 security:
   - bearer_auth:

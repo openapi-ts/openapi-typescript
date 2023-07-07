@@ -38,6 +38,7 @@ x-codeSamples:
   - $ref: 'examples/curl/sshKeys_get.yml'
   - $ref: 'examples/go/sshKeys_get.yml'
   - $ref: 'examples/ruby/sshKeys_get.yml'
+  - $ref: 'examples/python/sshKeys_get.yml'
 
 security:
   - bearer_auth:

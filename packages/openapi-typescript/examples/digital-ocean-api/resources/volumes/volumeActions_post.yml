@@ -92,6 +92,7 @@ responses:
 
 x-codeSamples:
   - $ref: "examples/curl/volumeActions_attach.yml"
+  - $ref: "examples/python/volumeActions_attach.yml"
 
 security:
   - bearer_auth:

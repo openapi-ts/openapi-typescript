@@ -39,6 +39,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/volumes_delete_byName.yml'
+  - $ref: 'examples/python/volumes_delete_byName.yml'
 
 security:
   - bearer_auth:

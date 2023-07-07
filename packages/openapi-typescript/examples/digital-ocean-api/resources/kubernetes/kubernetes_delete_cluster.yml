@@ -38,6 +38,7 @@ x-codeSamples:
   - $ref: 'examples/curl/kubernetes_delete_cluster.yml'
   - $ref: 'examples/go/kubernetes_delete_cluster.yml'
   - $ref: 'examples/ruby/kubernetes_delete_cluster.yml'
+  - $ref: 'examples/python/kubernetes_delete_cluster.yml'
 
 security:
   - bearer_auth:

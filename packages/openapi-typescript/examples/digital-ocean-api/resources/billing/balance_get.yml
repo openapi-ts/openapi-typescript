@@ -30,6 +30,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/balance_get.yml'
+  - $ref: 'examples/python/balance_get.yml'
 
 security:
   - bearer_auth:

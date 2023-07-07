@@ -34,6 +34,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/databases_delete_onlineMigration.yml'
+  - $ref: 'examples/python/databases_delete_onlineMigration.yml'
 
 security:
   - bearer_auth:

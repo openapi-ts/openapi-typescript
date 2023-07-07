@@ -1,0 +1,12 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req={
+    "type": "unassign"
+  }
+
+  resp = client.reserved_ips_actions.post(reserved_ip="49.32.13.21", body=req)

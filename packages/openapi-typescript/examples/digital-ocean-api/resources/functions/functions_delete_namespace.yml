@@ -38,6 +38,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/delete_namespace.yml'
+  - $ref: 'examples/python/delete_namespace.yml'
 
 security:
   - bearer_auth:

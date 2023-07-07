@@ -35,6 +35,7 @@ x-codeSamples:
   - $ref: 'examples/curl/domains_get.yml'
   - $ref: 'examples/go/domains_get.yml'
   - $ref: 'examples/ruby/domains_get.yml'
+  - $ref: 'examples/python/domains_get.yml'
 
 security:
   - bearer_auth:

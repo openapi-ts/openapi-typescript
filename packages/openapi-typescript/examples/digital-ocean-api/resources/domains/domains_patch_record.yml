@@ -48,6 +48,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/domains_patch_record.yml'
+  - $ref: 'examples/python/domains_patch_record.yml'
 
 security:
   - bearer_auth:

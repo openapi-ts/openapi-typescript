@@ -32,6 +32,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/check_get.yml'
+  - $ref: 'examples/python/check_get.yml'
 
 security:
   - bearer_auth:

@@ -34,6 +34,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/oneClicks.yml'
+  - $ref: 'examples/python/oneClicks.yml'
 
 security:
   - bearer_auth:

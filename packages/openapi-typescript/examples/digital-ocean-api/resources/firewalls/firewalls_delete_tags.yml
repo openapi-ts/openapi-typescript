@@ -62,6 +62,7 @@ x-codeSamples:
   - $ref: 'examples/curl/firewalls_delete_tags.yml'
   - $ref: 'examples/go/firewalls_delete_tags.yml'
   - $ref: 'examples/ruby/firewalls_delete_tags.yml'
+  - $ref: 'examples/python/firewalls_delete_tags.yml'
 
 security:
   - bearer_auth:

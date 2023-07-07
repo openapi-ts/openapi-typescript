@@ -47,6 +47,7 @@ responses:
 x-codeSamples:
   - $ref: 'examples/curl/vpcs_create.yml'
   - $ref: 'examples/go/vpcs_create.yml'
+  - $ref: 'examples/python/vpcs_create.yml'
 
 security:
   - bearer_auth:

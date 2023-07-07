@@ -35,6 +35,7 @@ responses:
 x-codeSamples:
   - $ref: 'examples/curl/kubernetes_destroy_associatedResourcesDangerous.yml'
   - $ref: 'examples/go/kubernetes_destroy_associatedResourcesDangerous.yml'
+  - $ref: 'examples/python/kubernetes_destroy_associatedResourcesDangerous.yml'
 
 security:
   - bearer_auth:

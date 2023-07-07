@@ -5783,6 +5783,14 @@ components:
           items:
             $ref: '#/components/schemas/discounts_resource_discount_amount'
           type: array
+        effective_at:
+          description: >-
+            The date when this credit note is in effect. Same as `created`
+            unless overwritten. When defined, this value replaces the
+            system-generated 'Date of issue' printed on the credit note PDF.
+          format: unix-time
+          nullable: true
+          type: integer
         id:
           description: Unique identifier for the object.
           maxLength: 5000
@@ -9200,7 +9208,7 @@ components:
         - ownership_refresh
       x-resourceId: financial_connections.account
     financial_connections.account_owner:
-      description: ''
+      description: Describes an owner of an account.
       properties:
         email:
           description: The email address of the owner.
@@ -10919,6 +10927,15 @@ components:
           format: unix-time
           nullable: true
           type: integer
+        effective_at:
+          description: >-
+            The date when this invoice is in effect. Same as `finalized_at`
+            unless overwritten. When defined, this value replaces the
+            system-generated 'Date of issue' printed on the invoice PDF and
+            receipt.
+          format: unix-time
+          nullable: true
+          type: integer
         ending_balance:
           description: >-
             Ending customer balance after the invoice is finalized. Invoices are
@@ -12156,20 +12173,26 @@ components:
       properties:
         type:
           description: >-
-            The type of the tax ID, one of `eu_vat`, `br_cnpj`, `br_cpf`,
-            `eu_oss_vat`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`,
-            `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`,
-            `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`,
-            `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`,
-            `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`,
-            `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`,
-            `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`,
-            `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`,
+            `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`,
+            `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`,
+            `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`,
+            `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`,
+            `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`,
+            `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`,
+            `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`,
+            `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`,
+            `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`,
+            `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`,
+            `ph_tin`, or `unknown`
           enum:
+            - ad_nrt
             - ae_trn
+            - ar_cuit
             - au_abn
             - au_arn
             - bg_uic
+            - bo_tin
             - br_cnpj
             - br_cpf
             - ca_bn
@@ -12180,6 +12203,11 @@ components:
             - ca_qst
             - ch_vat
             - cl_tin
+            - cn_tin
+            - co_nit
+            - cr_tin
+            - do_rcn
+            - ec_ruc
             - eg_tin
             - es_cif
             - eu_oss_vat
@@ -12204,19 +12232,25 @@ components:
             - my_sst
             - no_vat
             - nz_gst
+            - pe_ruc
             - ph_tin
+            - rs_pib
             - ru_inn
             - ru_kpp
             - sa_vat
             - sg_gst
             - sg_uen
             - si_tin
+            - sv_nit
             - th_vat
             - tr_tin
             - tw_vat
             - ua_vat
             - unknown
             - us_ein
+            - uy_ruc
+            - ve_rif
+            - vn_tin
             - za_vat
           type: string
         value:
@@ -14296,6 +14330,7 @@ components:
             - shipped
           nullable: true
           type: string
+          x-stripeBypassValidation: true
         tracking_number:
           description: A tracking number for a card shipment.
           maxLength: 5000
@@ -17252,6 +17287,10 @@ components:
           enum:
             - mandate
           type: string
+        on_behalf_of:
+          description: The account (if any) for which the mandate is intended.
+          maxLength: 5000
+          type: string
         payment_method:
           anyOf:
             - maxLength: 5000
@@ -20078,11 +20117,22 @@ components:
           type: string
         label:
           $ref: '#/components/schemas/payment_links_resource_custom_fields_label'
+        numeric:
+          anyOf:
+            - $ref: >-
+                #/components/schemas/payment_links_resource_custom_fields_numeric
+          description: Configuration for `type=numeric` fields.
+          nullable: true
         optional:
           description: >-
             Whether the customer is required to complete the field before
             completing the Checkout Session. Defaults to `false`.
           type: boolean
+        text:
+          anyOf:
+            - $ref: '#/components/schemas/payment_links_resource_custom_fields_text'
+          description: Configuration for `type=text` fields.
+          nullable: true
         type:
           description: The type of the field.
           enum:
@@ -20100,6 +20150,8 @@ components:
       x-expandableFields:
         - dropdown
         - label
+        - numeric
+        - text
     payment_links_resource_custom_fields_dropdown:
       description: ''
       properties:
@@ -20158,6 +20210,34 @@ components:
       required:
         - type
       title: PaymentLinksResourceCustomFieldsLabel
+      type: object
+      x-expandableFields: []
+    payment_links_resource_custom_fields_numeric:
+      description: ''
+      properties:
+        maximum_length:
+          description: The maximum character length constraint for the customer's input.
+          nullable: true
+          type: integer
+        minimum_length:
+          description: The minimum character length requirement for the customer's input.
+          nullable: true
+          type: integer
+      title: PaymentLinksResourceCustomFieldsNumeric
+      type: object
+      x-expandableFields: []
+    payment_links_resource_custom_fields_text:
+      description: ''
+      properties:
+        maximum_length:
+          description: The maximum character length constraint for the customer's input.
+          nullable: true
+          type: integer
+        minimum_length:
+          description: The minimum character length requirement for the customer's input.
+          nullable: true
+          type: integer
+      title: PaymentLinksResourceCustomFieldsText
       type: object
       x-expandableFields: []
     payment_links_resource_custom_text:
@@ -25677,20 +25757,26 @@ components:
       properties:
         type:
           description: >-
-            The type of the tax ID, one of `eu_vat`, `br_cnpj`, `br_cpf`,
-            `eu_oss_vat`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`,
-            `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`,
-            `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`,
-            `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`,
-            `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`,
-            `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`,
-            `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`,
-            `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`,
+            `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`,
+            `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`,
+            `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`,
+            `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`,
+            `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`,
+            `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`,
+            `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`,
+            `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`,
+            `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`,
+            `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`,
+            `ph_tin`, or `unknown`
           enum:
+            - ad_nrt
             - ae_trn
+            - ar_cuit
             - au_abn
             - au_arn
             - bg_uic
+            - bo_tin
             - br_cnpj
             - br_cpf
             - ca_bn
@@ -25701,6 +25787,11 @@ components:
             - ca_qst
             - ch_vat
             - cl_tin
+            - cn_tin
+            - co_nit
+            - cr_tin
+            - do_rcn
+            - ec_ruc
             - eg_tin
             - es_cif
             - eu_oss_vat
@@ -25725,19 +25816,25 @@ components:
             - my_sst
             - no_vat
             - nz_gst
+            - pe_ruc
             - ph_tin
+            - rs_pib
             - ru_inn
             - ru_kpp
             - sa_vat
             - sg_gst
             - sg_uen
             - si_tin
+            - sv_nit
             - th_vat
             - tr_tin
             - tw_vat
             - ua_vat
             - unknown
             - us_ein
+            - uy_ruc
+            - ve_rif
+            - vn_tin
             - za_vat
           type: string
         value:
@@ -32808,10 +32905,11 @@ components:
             moves to `active` when the trial period is over. 
 
 
-            If subscription `collection_method=charge_automatically` it becomes
-            `past_due` when payment to renew it fails and `canceled` or `unpaid`
-            (depending on your subscriptions settings) when Stripe has exhausted
-            all payment retry attempts. 
+            If subscription `collection_method=charge_automatically`, it becomes
+            `past_due` when payment is required but cannot be paid (due to
+            failed payment or awaiting additional user actions). Once Stripe has
+            exhausted all payment retry attempts, the subscription will become
+            `canceled` or `unpaid` (depending on your subscriptions settings). 
 
 
             If subscription `collection_method=send_invoice` it becomes
@@ -34498,21 +34596,26 @@ components:
           type: string
         type:
           description: >-
-            Type of the tax ID, one of `ae_trn`, `au_abn`, `au_arn`, `bg_uic`,
-            `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`,
-            `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `eg_tin`,
-            `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`,
-            `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`,
-            `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`,
-            `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `ph_tin`, `ru_inn`,
-            `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `th_vat`,
-            `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, or `za_vat`. Note that some
-            legacy tax IDs have type `unknown`
+            Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`,
+            `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`,
+            `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`,
+            `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`,
+            `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`,
+            `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`,
+            `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`,
+            `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`,
+            `pe_ruc`, `ph_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`,
+            `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`,
+            `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or
+            `za_vat`. Note that some legacy tax IDs have type `unknown`
           enum:
+            - ad_nrt
             - ae_trn
+            - ar_cuit
             - au_abn
             - au_arn
             - bg_uic
+            - bo_tin
             - br_cnpj
             - br_cpf
             - ca_bn
@@ -34523,6 +34626,11 @@ components:
             - ca_qst
             - ch_vat
             - cl_tin
+            - cn_tin
+            - co_nit
+            - cr_tin
+            - do_rcn
+            - ec_ruc
             - eg_tin
             - es_cif
             - eu_oss_vat
@@ -34547,19 +34655,25 @@ components:
             - my_sst
             - no_vat
             - nz_gst
+            - pe_ruc
             - ph_tin
+            - rs_pib
             - ru_inn
             - ru_kpp
             - sa_vat
             - sg_gst
             - sg_uen
             - si_tin
+            - sv_nit
             - th_vat
             - tr_tin
             - tw_vat
             - ua_vat
             - unknown
             - us_ein
+            - uy_ruc
+            - ve_rif
+            - vn_tin
             - za_vat
           type: string
         value:
@@ -34660,20 +34774,26 @@ components:
       properties:
         type:
           description: >-
-            The type of the tax ID, one of `eu_vat`, `br_cnpj`, `br_cpf`,
-            `eu_oss_vat`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`,
-            `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`,
-            `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`,
-            `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`,
-            `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`,
-            `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`,
-            `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`,
-            `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`,
+            `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`,
+            `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`,
+            `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`,
+            `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`,
+            `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`,
+            `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`,
+            `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`,
+            `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`,
+            `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`,
+            `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`,
+            `ph_tin`, or `unknown`
           enum:
+            - ad_nrt
             - ae_trn
+            - ar_cuit
             - au_abn
             - au_arn
             - bg_uic
+            - bo_tin
             - br_cnpj
             - br_cpf
             - ca_bn
@@ -34684,6 +34804,11 @@ components:
             - ca_qst
             - ch_vat
             - cl_tin
+            - cn_tin
+            - co_nit
+            - cr_tin
+            - do_rcn
+            - ec_ruc
             - eg_tin
             - es_cif
             - eu_oss_vat
@@ -34708,19 +34833,25 @@ components:
             - my_sst
             - no_vat
             - nz_gst
+            - pe_ruc
             - ph_tin
+            - rs_pib
             - ru_inn
             - ru_kpp
             - sa_vat
             - sg_gst
             - sg_uen
             - si_tin
+            - sv_nit
             - th_vat
             - tr_tin
             - tw_vat
             - ua_vat
             - unknown
             - us_ein
+            - uy_ruc
+            - ve_rif
+            - vn_tin
             - za_vat
           type: string
         value:
@@ -38118,6 +38249,35 @@ components:
       title: TreasuryFinancialAccountsResourceABARecord
       type: object
       x-expandableFields: []
+    treasury_financial_accounts_resource_aba_toggle_settings:
+      description: Toggle settings for enabling/disabling the ABA address feature
+      properties:
+        requested:
+          description: Whether the FinancialAccount should have the Feature.
+          type: boolean
+        status:
+          description: Whether the Feature is operational.
+          enum:
+            - active
+            - pending
+            - restricted
+          type: string
+        status_details:
+          description: >-
+            Additional details; includes at least one entry when the status is
+            not `active`.
+          items:
+            $ref: >-
+              #/components/schemas/treasury_financial_accounts_resource_toggles_setting_status_details
+          type: array
+      required:
+        - requested
+        - status
+        - status_details
+      title: TreasuryFinancialAccountsResourceAbaToggleSettings
+      type: object
+      x-expandableFields:
+        - status_details
     treasury_financial_accounts_resource_ach_toggle_settings:
       description: Toggle settings for enabling/disabling an ACH specific feature
       properties:
@@ -38224,7 +38384,7 @@ components:
       properties:
         aba:
           $ref: >-
-            #/components/schemas/treasury_financial_accounts_resource_toggle_settings
+            #/components/schemas/treasury_financial_accounts_resource_aba_toggle_settings
       title: TreasuryFinancialAccountsResourceFinancialAddressesFeatures
       type: object
       x-expandableFields:
@@ -51913,6 +52073,14 @@ paths:
                     representing the amount to credit the customer's balance,
                     which will be automatically applied to their next invoice.
                   type: integer
+                effective_at:
+                  description: >-
+                    The date when this credit note is in effect. Same as
+                    `created` unless overwritten. When defined, this value
+                    replaces the system-generated 'Date of issue' printed on the
+                    credit note PDF.
+                  format: unix-time
+                  type: integer
                 expand:
                   description: Specifies which fields in the response should be expanded.
                   items:
@@ -52050,6 +52218,17 @@ paths:
           name: credit_amount
           required: false
           schema:
+            type: integer
+          style: form
+        - description: >-
+            The date when this credit note is in effect. Same as `created`
+            unless overwritten. When defined, this value replaces the
+            system-generated 'Date of issue' printed on the credit note PDF.
+          in: query
+          name: effective_at
+          required: false
+          schema:
+            format: unix-time
             type: integer
           style: form
         - description: Specifies which fields in the response should be expanded.
@@ -52240,6 +52419,17 @@ paths:
           name: credit_amount
           required: false
           schema:
+            type: integer
+          style: form
+        - description: >-
+            The date when this credit note is in effect. Same as `created`
+            unless overwritten. When defined, this value replaces the
+            system-generated 'Date of issue' printed on the credit note PDF.
+          in: query
+          name: effective_at
+          required: false
+          schema:
+            format: unix-time
             type: integer
           style: form
         - description: >-
@@ -53164,10 +53354,13 @@ paths:
                     properties:
                       type:
                         enum:
+                          - ad_nrt
                           - ae_trn
+                          - ar_cuit
                           - au_abn
                           - au_arn
                           - bg_uic
+                          - bo_tin
                           - br_cnpj
                           - br_cpf
                           - ca_bn
@@ -53178,6 +53371,11 @@ paths:
                           - ca_qst
                           - ch_vat
                           - cl_tin
+                          - cn_tin
+                          - co_nit
+                          - cr_tin
+                          - do_rcn
+                          - ec_ruc
                           - eg_tin
                           - es_cif
                           - eu_oss_vat
@@ -53202,18 +53400,24 @@ paths:
                           - my_sst
                           - no_vat
                           - nz_gst
+                          - pe_ruc
                           - ph_tin
+                          - rs_pib
                           - ru_inn
                           - ru_kpp
                           - sa_vat
                           - sg_gst
                           - sg_uen
                           - si_tin
+                          - sv_nit
                           - th_vat
                           - tr_tin
                           - tw_vat
                           - ua_vat
                           - us_ein
+                          - uy_ruc
+                          - ve_rif
+                          - vn_tin
                           - za_vat
                         maxLength: 5000
                         type: string
@@ -58694,21 +58898,27 @@ paths:
                   type: array
                 type:
                   description: >-
-                    Type of the tax ID, one of `ae_trn`, `au_abn`, `au_arn`,
-                    `bg_uic`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`,
-                    `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`,
-                    `cl_tin`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`,
-                    `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`,
-                    `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`,
-                    `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`,
-                    `no_vat`, `nz_gst`, `ph_tin`, `ru_inn`, `ru_kpp`, `sa_vat`,
-                    `sg_gst`, `sg_uen`, `si_tin`, `th_vat`, `tr_tin`, `tw_vat`,
-                    `ua_vat`, `us_ein`, or `za_vat`
+                    Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`,
+                    `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`,
+                    `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`,
+                    `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`,
+                    `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`,
+                    `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`,
+                    `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`,
+                    `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`,
+                    `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`,
+                    `ph_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`,
+                    `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`,
+                    `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or
+                    `za_vat`
                   enum:
+                    - ad_nrt
                     - ae_trn
+                    - ar_cuit
                     - au_abn
                     - au_arn
                     - bg_uic
+                    - bo_tin
                     - br_cnpj
                     - br_cpf
                     - ca_bn
@@ -58719,6 +58929,11 @@ paths:
                     - ca_qst
                     - ch_vat
                     - cl_tin
+                    - cn_tin
+                    - co_nit
+                    - cr_tin
+                    - do_rcn
+                    - ec_ruc
                     - eg_tin
                     - es_cif
                     - eu_oss_vat
@@ -58743,18 +58958,24 @@ paths:
                     - my_sst
                     - no_vat
                     - nz_gst
+                    - pe_ruc
                     - ph_tin
+                    - rs_pib
                     - ru_inn
                     - ru_kpp
                     - sa_vat
                     - sg_gst
                     - sg_uen
                     - si_tin
+                    - sv_nit
                     - th_vat
                     - tr_tin
                     - tw_vat
                     - ua_vat
                     - us_ein
+                    - uy_ruc
+                    - ve_rif
+                    - vn_tin
                     - za_vat
                   maxLength: 5000
                   type: string
@@ -62769,6 +62990,14 @@ paths:
                     only for invoices where `collection_method=send_invoice`.
                   format: unix-time
                   type: integer
+                effective_at:
+                  description: >-
+                    The date when this invoice is in effect. Same as
+                    `finalized_at` unless overwritten. When defined, this value
+                    replaces the system-generated 'Date of issue' printed on the
+                    invoice PDF and receipt.
+                  format: unix-time
+                  type: integer
                 expand:
                   description: Specifies which fields in the response should be expanded.
                   items:
@@ -63516,10 +63745,13 @@ paths:
                   properties:
                     type:
                       enum:
+                        - ad_nrt
                         - ae_trn
+                        - ar_cuit
                         - au_abn
                         - au_arn
                         - bg_uic
+                        - bo_tin
                         - br_cnpj
                         - br_cpf
                         - ca_bn
@@ -63530,6 +63762,11 @@ paths:
                         - ca_qst
                         - ch_vat
                         - cl_tin
+                        - cn_tin
+                        - co_nit
+                        - cr_tin
+                        - do_rcn
+                        - ec_ruc
                         - eg_tin
                         - es_cif
                         - eu_oss_vat
@@ -63554,18 +63791,24 @@ paths:
                         - my_sst
                         - no_vat
                         - nz_gst
+                        - pe_ruc
                         - ph_tin
+                        - rs_pib
                         - ru_inn
                         - ru_kpp
                         - sa_vat
                         - sg_gst
                         - sg_uen
                         - si_tin
+                        - sv_nit
                         - th_vat
                         - tr_tin
                         - tw_vat
                         - ua_vat
                         - us_ein
+                        - uy_ruc
+                        - ve_rif
+                        - vn_tin
                         - za_vat
                       maxLength: 5000
                       type: string
@@ -64188,10 +64431,13 @@ paths:
                   properties:
                     type:
                       enum:
+                        - ad_nrt
                         - ae_trn
+                        - ar_cuit
                         - au_abn
                         - au_arn
                         - bg_uic
+                        - bo_tin
                         - br_cnpj
                         - br_cpf
                         - ca_bn
@@ -64202,6 +64448,11 @@ paths:
                         - ca_qst
                         - ch_vat
                         - cl_tin
+                        - cn_tin
+                        - co_nit
+                        - cr_tin
+                        - do_rcn
+                        - ec_ruc
                         - eg_tin
                         - es_cif
                         - eu_oss_vat
@@ -64226,18 +64477,24 @@ paths:
                         - my_sst
                         - no_vat
                         - nz_gst
+                        - pe_ruc
                         - ph_tin
+                        - rs_pib
                         - ru_inn
                         - ru_kpp
                         - sa_vat
                         - sg_gst
                         - sg_uen
                         - si_tin
+                        - sv_nit
                         - th_vat
                         - tr_tin
                         - tw_vat
                         - ua_vat
                         - us_ein
+                        - uy_ruc
+                        - ve_rif
+                        - vn_tin
                         - za_vat
                       maxLength: 5000
                       type: string
@@ -64900,6 +65157,9 @@ paths:
               discounts:
                 explode: true
                 style: deepObject
+              effective_at:
+                explode: true
+                style: deepObject
               expand:
                 explode: true
                 style: deepObject
@@ -65066,6 +65326,18 @@ paths:
                     This field can only be updated on `draft` invoices.
                   format: unix-time
                   type: integer
+                effective_at:
+                  anyOf:
+                    - format: unix-time
+                      type: integer
+                    - enum:
+                        - ''
+                      type: string
+                  description: >-
+                    The date when this invoice is in effect. Same as
+                    `finalized_at` unless overwritten. When defined, this value
+                    replaces the system-generated 'Date of issue' printed on the
+                    invoice PDF and receipt.
                 expand:
                   description: Specifies which fields in the response should be expanded.
                   items:
@@ -95476,6 +95748,20 @@ paths:
         <code>status=canceled</code>.</p>
       operationId: GetSubscriptions
       parameters:
+        - description: Filter subscriptions by their automatic tax settings.
+          explode: true
+          in: query
+          name: automatic_tax
+          required: false
+          schema:
+            properties:
+              enabled:
+                type: boolean
+            required:
+              - enabled
+            title: automatic_tax_filter_params
+            type: object
+          style: deepObject
         - description: >-
             The collection method of the subscriptions to retrieve. Either
             `charge_automatically` or `send_invoice`.
@@ -97718,10 +98004,13 @@ paths:
                         properties:
                           type:
                             enum:
+                              - ad_nrt
                               - ae_trn
+                              - ar_cuit
                               - au_abn
                               - au_arn
                               - bg_uic
+                              - bo_tin
                               - br_cnpj
                               - br_cpf
                               - ca_bn
@@ -97732,6 +98021,11 @@ paths:
                               - ca_qst
                               - ch_vat
                               - cl_tin
+                              - cn_tin
+                              - co_nit
+                              - cr_tin
+                              - do_rcn
+                              - ec_ruc
                               - eg_tin
                               - es_cif
                               - eu_oss_vat
@@ -97756,18 +98050,24 @@ paths:
                               - my_sst
                               - no_vat
                               - nz_gst
+                              - pe_ruc
                               - ph_tin
+                              - rs_pib
                               - ru_inn
                               - ru_kpp
                               - sa_vat
                               - sg_gst
                               - sg_uen
                               - si_tin
+                              - sv_nit
                               - th_vat
                               - tr_tin
                               - tw_vat
                               - ua_vat
                               - us_ein
+                              - uy_ruc
+                              - ve_rif
+                              - vn_tin
                               - za_vat
                             maxLength: 5000
                             type: string
@@ -104737,7 +105037,7 @@ paths:
                               type: boolean
                           required:
                             - requested
-                          title: access
+                          title: aba_access
                           type: object
                       title: financial_addresses
                       type: object
@@ -104967,7 +105267,7 @@ paths:
                               type: boolean
                           required:
                             - requested
-                          title: access
+                          title: aba_access
                           type: object
                       title: financial_addresses
                       type: object
@@ -105207,7 +105507,7 @@ paths:
                           type: boolean
                       required:
                         - requested
-                      title: access
+                      title: aba_access
                       type: object
                   title: financial_addresses
                   type: object

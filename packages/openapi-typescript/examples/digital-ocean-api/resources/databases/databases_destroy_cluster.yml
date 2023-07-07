@@ -37,6 +37,7 @@ responses:
 x-codeSamples:
   - $ref: 'examples/curl/databases_destroy_cluster.yml'
   - $ref: 'examples/go/databases_destroy_cluster.yml'
+  - $ref: 'examples/python/databases_destroy_cluster.yml'
 
 security:
   - bearer_auth:

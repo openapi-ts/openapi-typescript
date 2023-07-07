@@ -40,6 +40,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/registry_list_repositories.yml'
+  - $ref: 'examples/python/registry_list_repositories.yml'
 
 security:
   - bearer_auth:

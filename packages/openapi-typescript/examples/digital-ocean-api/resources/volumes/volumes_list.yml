@@ -59,6 +59,7 @@ x-codeSamples:
   - $ref: "examples/curl/volumes_list.yml"
   - $ref: "examples/go/volumes_list.yml"
   - $ref: "examples/ruby/volumes_list.yml"
+  - $ref: "examples/python/volumes_list.yml"
 
 security:
   - bearer_auth:

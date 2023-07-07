@@ -65,6 +65,7 @@ requestBody:
 
 x-codeSamples:
   - $ref: 'examples/curl/monitoring_create_alertPolicy.yml'
+  - $ref: 'examples/python/monitoring_create_alertPolicy.yml'
 
 security:
   - bearer_auth:

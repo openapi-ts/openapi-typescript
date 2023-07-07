@@ -38,6 +38,7 @@ x-codeSamples:
   - $ref: 'examples/curl/volumeSnapshots_delete_byId.yml'
   - $ref: 'examples/go/volumeSnapshots_delete_byId.yml'
   - $ref: 'examples/ruby/volumeSnapshots_delete_byId.yml'
+  - $ref: 'examples/python/volumeSnapshots_delete_byId.yml'
 
 security:
   - bearer_auth:

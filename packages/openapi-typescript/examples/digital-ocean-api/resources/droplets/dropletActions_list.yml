@@ -41,6 +41,7 @@ x-codeSamples:
   - $ref: 'examples/curl/dropletActions_list.yml'
   - $ref: 'examples/go/dropletActions_list.yml'
   - $ref: 'examples/ruby/dropletActions_list.yml'
+  - $ref: 'examples/python/dropletActions_list.yml'
 
 security:
   - bearer_auth:

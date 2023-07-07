@@ -1,0 +1,28 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "rules": [
+      {
+        "type": "ip_addr",
+        "value": "192.168.1.1"
+      },
+      {
+        "type": "k8s",
+        "value": "ff2a6c52-5a44-4b63-b99c-0e98e7a63d61"
+      },
+      {
+        "type": "droplet",
+        "value": "163973392"
+      },
+      {
+        "type": "tag",
+        "value": "backend"
+      }
+    ]
+  }
+  update_resp = client.databases.update_firewall_rules(database_cluster_uuid="a7a8bas", body=req)

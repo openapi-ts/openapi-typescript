@@ -31,6 +31,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/invoices_list.yml'
+  - $ref: 'examples/python/invoices_list.yml'
 
 security:
   - bearer_auth:

@@ -72,6 +72,7 @@ x-codeSamples:
   - $ref: 'examples/curl/firewalls_add_rules.yml'
   - $ref: 'examples/go/firewalls_add_rules.yml'
   - $ref: 'examples/ruby/firewalls_add_rules.yml'
+  - $ref: 'examples/python/firewalls_add_rules.yml'
 
 security:
   - bearer_auth:

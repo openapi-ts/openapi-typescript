@@ -30,6 +30,8 @@ parameters:
 
 x-codeSamples:
   - $ref: 'examples/curl/monitoring_get_alertPolicy.yml'
+  - $ref: 'examples/python/monitoring_get_alertPolicy.yml'
+
 security:
   - bearer_auth:
     - 'read'

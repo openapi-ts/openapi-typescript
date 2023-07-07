@@ -1,0 +1,44 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "name": "example-lb-01",
+    "region": "nyc3",
+    "forwarding_rules": [
+      {
+        "entry_protocol": "http",
+        "entry_port": 80,
+        "target_protocol": "http",
+        "target_port": 80
+      },
+      {
+        "entry_protocol": "https",
+        "entry_port": 443,
+        "target_protocol": "https",
+        "target_port": 443,
+        "tls_passthrough": True
+      }
+    ],
+    "droplet_ids": [
+      3164444,
+      3164445
+    ],
+    "project_id": "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30",
+    "http_idle_timeout_seconds": 60,
+    "firewall": {
+      "deny": [
+        "cidr:1.2.0.0/16",
+        "ip:2.3.4.5"
+      ],
+      "allow": [
+        "ip:1.2.3.4",
+        "cidr:2.3.4.0/24"
+      ]
+    }
+  }
+
+  resp = client.load_balancers.create(body=req)

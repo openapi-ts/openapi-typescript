@@ -43,6 +43,7 @@ responses:
 x-codeSamples:
   - $ref: 'examples/curl/databases_get_cluster.yml'
   - $ref: 'examples/go/databases_get_cluster.yml'
+  - $ref: 'examples/python/databases_get_cluster.yml'
 
 security:
   - bearer_auth:

@@ -36,6 +36,7 @@ x-codeSamples:
   - $ref: 'examples/curl/imageActions_get.yml'
   - $ref: 'examples/go/imageActions_get.yml'
   - $ref: 'examples/ruby/imageActions_get.yml'
+  - $ref: 'examples/python/imageActions_get.yml'
 
 security:
   - bearer_auth:

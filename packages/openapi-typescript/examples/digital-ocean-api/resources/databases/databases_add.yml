@@ -48,6 +48,7 @@ responses:
 x-codeSamples:
   - $ref: 'examples/curl/databases_add.yml'
   - $ref: 'examples/go/databases_add.yml'
+  - $ref: 'examples/python/databases_add.yml'
 
 security:
   - bearer_auth:

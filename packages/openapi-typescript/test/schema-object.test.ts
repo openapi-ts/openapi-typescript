@@ -111,9 +111,9 @@ describe("Schema Object", () => {
       });
 
       test("tuple array", () => {
-        const schema: SchemaObject = { type: "array", items: [{ type: "string" },{"type": "number"}],minItems:2,maxItems:2 };
+        const schema: SchemaObject = { type: "array", items: [{ type: "string" }, { type: "number" }], minItems: 2, maxItems: 2 };
         const generated = transformSchemaObject(schema, options);
-        expect(generated).toBe("[string,number]");
+        expect(generated).toBe("[string, number]");
       });
 
       test("ref", () => {
@@ -279,10 +279,7 @@ describe("Schema Object", () => {
       });
 
       test("enum + polymorphism + nullable", () => {
-        const generated = transformSchemaObject(
-          { type: ["string", "null"], enum: ["", "false positive", "won't fix", "used in tests"] },
-          options
-        );
+        const generated = transformSchemaObject({ type: ["string", "null"], enum: ["", "false positive", "won't fix", "used in tests"] }, options);
         expect(generated).toBe(`"" | "false positive" | "won't fix" | "used in tests" | null`);
       });
     });
@@ -341,10 +338,7 @@ describe("Schema Object", () => {
       test("discriminator", () => {
         const schema: SchemaObject = {
           type: "object",
-          allOf: [
-            { $ref: 'components["schemas"]["parent"]' },
-            { type: "object", properties: { string: { type: "string" } } },
-          ],
+          allOf: [{ $ref: 'components["schemas"]["parent"]' }, { type: "object", properties: { string: { type: "string" } } }],
         };
         const generated = transformSchemaObject(schema, {
           path: options.path,
@@ -370,10 +364,7 @@ describe("Schema Object", () => {
       test("discriminator escape", () => {
         const schema: SchemaObject = {
           type: "object",
-          allOf: [
-            { $ref: 'components["schemas"]["parent"]' },
-            { type: "object", properties: { string: { type: "string" } } },
-          ],
+          allOf: [{ $ref: 'components["schemas"]["parent"]' }, { type: "object", properties: { string: { type: "string" } } }],
         };
         const generated = transformSchemaObject(schema, {
           path: options.path,
@@ -532,20 +523,22 @@ describe("Schema Object", () => {
       });
     });
 
-    describe("supportArrayLength", () => {
-      test("true", () => {
-        const opts = { ...options, ctx: { ...options.ctx, supportArrayLength: true } };
-        expect(transformSchemaObject({ type: "array", items: { type: "string" } }, options)).toBe(`(string)[]`);
-        expect(transformSchemaObject({ type: "array", items: { type: "string" }, minItems: 1 }, opts)).toBe(
-          `[string, ...(string)[]]`
-        );
-        expect(transformSchemaObject({ type: "array", items: { type: "string" }, maxItems: 2 }, opts)).toBe(
-          `[] | [string] | [string, string]`
-        );
-        expect(transformSchemaObject({ type: "array", items: { type: "string" }, maxItems: 20 }, opts)).toBe(
-          `(string)[]`
-        );
-      });
+    test("supportArrayLength", () => {
+      const opts = { ...options, ctx: { ...options.ctx, supportArrayLength: true } };
+      expect(transformSchemaObject({ type: "array", items: { type: "string" } }, options)).toBe(`(string)[]`);
+      expect(transformSchemaObject({ type: "array", items: { type: "string" }, minItems: 1 }, opts)).toBe(`[string, ...(string)[]]`);
+      expect(transformSchemaObject({ type: "array", items: { type: "string" }, maxItems: 2 }, opts)).toBe(`[] | [string] | [string, string]`);
+      expect(transformSchemaObject({ type: "array", items: { type: "string" }, maxItems: 20 }, opts)).toBe(`(string)[]`);
+    });
+
+    test("prefixItems", () => {
+      const schema: SchemaObject = {
+        type: "array",
+        items: { type: "number" },
+        prefixItems: [{ type: "number" }, { type: "number" }, { type: "number" }],
+      };
+      const generated = transformSchemaObject(schema, options);
+      expect(generated).toBe(`[number, number, number]`);
     });
 
     describe("immutableTypes", () => {

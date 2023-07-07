@@ -1,0 +1,12 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "version": "1.16.13-do.0"
+  }
+
+  resp = client.kubernetes.upgrade_cluster(cluster_id="1fd32a", body=req)

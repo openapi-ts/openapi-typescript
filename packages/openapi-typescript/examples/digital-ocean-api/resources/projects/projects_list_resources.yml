@@ -36,6 +36,7 @@ x-codeSamples:
   - $ref: 'examples/curl/projects_list_resources.yml'
   - $ref: 'examples/go/projects_list_resources.yml'
   - $ref: 'examples/ruby/projects_list_resources.yml'
+  - $ref: 'examples/python/projects_list_resources.yml'
 
 security:
   - bearer_auth:

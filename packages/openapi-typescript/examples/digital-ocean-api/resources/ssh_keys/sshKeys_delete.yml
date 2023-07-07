@@ -38,6 +38,7 @@ x-codeSamples:
   - $ref: 'examples/curl/sshKeys_delete.yml'
   - $ref: 'examples/go/sshKeys_delete.yml'
   - $ref: 'examples/ruby/sshKeys_delete.yml'
+  - $ref: 'examples/python/sshKeys_delete.yml'
 
 security:
   - bearer_auth:

@@ -83,6 +83,7 @@ x-codeSamples:
   - $ref: 'examples/curl/firewalls_update.yml'
   - $ref: 'examples/go/firewalls_update.yml'
   - $ref: 'examples/ruby/firewalls_update.yml'
+  - $ref: 'examples/python/firewalls_update.yml'
 
 security:
   - bearer_auth:

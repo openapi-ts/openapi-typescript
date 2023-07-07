@@ -35,6 +35,7 @@ x-codeSamples:
   - $ref: 'examples/curl/endpoints_get.yml'
   - $ref: 'examples/go/endpoints_get.yml'
   - $ref: 'examples/ruby/endpoints_get.yml'
+  - $ref: 'examples/python/endpoints_get.yml'
 
 security:
   - bearer_auth:

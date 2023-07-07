@@ -47,6 +47,7 @@ x-codeSamples:
   - $ref: 'examples/curl/projects_update_default.yml'
   - $ref: 'examples/go/projects_update_default.yml'
   - $ref: 'examples/ruby/projects_update_default.yml'
+  - $ref: 'examples/python/projects_update_default.yml'
 
 security:
   - bearer_auth:

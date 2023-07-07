@@ -1,0 +1,14 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "name": "env.prod-vpc",
+    "description": "VPC for production environment",
+    "default": True
+  }
+
+  resp = client.vpcs.patch(vpc_id="8fdsfa", body=req)

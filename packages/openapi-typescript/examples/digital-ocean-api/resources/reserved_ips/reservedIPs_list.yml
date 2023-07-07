@@ -32,6 +32,7 @@ x-codeSamples:
   - $ref: 'examples/curl/list_reserved_ips.yml'
   - $ref: 'examples/go/list_reserved_ips.yml'
   - $ref: 'examples/ruby/list_reserved_ips.yml'
+  - $ref: 'examples/python/list_reserved_ips.yml'
 
 security:
   - bearer_auth:

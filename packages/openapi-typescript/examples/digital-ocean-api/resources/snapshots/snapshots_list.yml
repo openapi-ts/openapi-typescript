@@ -52,6 +52,7 @@ x-codeSamples:
   - $ref: 'examples/curl/snapshots_list.yml'
   - $ref: 'examples/go/snapshots_list.yml'
   - $ref: 'examples/ruby/snapshots_list.yml'
+  - $ref: 'examples/python/snapshots_list.yml'
 
 security:
   - bearer_auth:

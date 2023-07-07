@@ -90,6 +90,7 @@ x-codeSamples:
   - $ref: 'examples/curl/dropletActions_post.yml'
   - $ref: 'examples/go/dropletActions_post.yml'
   - $ref: 'examples/ruby/dropletActions_post.yml'
+  - $ref: 'examples/python/dropletActions_post.yml'
 
 security:
   - bearer_auth:

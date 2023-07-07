@@ -35,6 +35,7 @@ x-codeSamples:
   - $ref: 'examples/curl/loadBalancers_get.yml'
   - $ref: 'examples/go/loadBalancers_get.yml'
   - $ref: 'examples/ruby/loadBalancers_get.yml'
+  - $ref: 'examples/python/loadBalancers_get.yml'
 
 security:
   - bearer_auth:

@@ -34,6 +34,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/invoices_get_summaryByUUID.yml'
+  - $ref: 'examples/python/invoices_get_summaryByUUID.yml'
 
 security:
   - bearer_auth:

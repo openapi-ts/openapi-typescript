@@ -1,0 +1,10 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  validate_req = {"deployment_id": "2", "skip_pin": False}
+
+  validate_resp = client.apps.validate_rollback("1", validate_req)

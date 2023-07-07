@@ -1,0 +1,13 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  # enable back ups example
+  req = {
+    "type": "enable_backups"
+  }
+
+  resp = client.droplet_actions.post(droplet_id=346652, body=req)

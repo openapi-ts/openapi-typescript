@@ -43,6 +43,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/update_trigger.yml'
+  - $ref: 'examples/python/update_trigger.yml'
 
 security:
   - bearer_auth:

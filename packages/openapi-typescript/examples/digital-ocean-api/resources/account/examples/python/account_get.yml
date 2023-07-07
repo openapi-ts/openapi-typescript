@@ -1,0 +1,8 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.getenv("$DIGITALOCEAN_TOKEN"))
+
+  account_info = client.account.get()
