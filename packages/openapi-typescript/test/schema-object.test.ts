@@ -279,18 +279,18 @@ describe("Schema Object", () => {
       });
 
       test("enum + polymorphism + nullable 1", () => {
-        const generated = transformSchemaObject({ type: ["string", "null"], enum: ["false positive", "won't fix", "used in tests"] }, options);
-        expect(generated).toBe(`"false positive" | "won't fix" | "used in tests"`);
+        const generated = transformSchemaObject({ type: ["string", "null"], enum: ["blue", "green", "yellow"] }, options);
+        expect(generated).toBe(`"blue" | "green" | "yellow"`);
       });
 
       test("enum + polymorphism + nullable 2", () => {
-        const generated = transformSchemaObject({ type: ["string", "null"], enum: ["", "false positive", "won't fix", "used in tests"] }, options);
-        expect(generated).toBe(`"" | "false positive" | "won't fix" | "used in tests"`);
+        const generated = transformSchemaObject({ type: ["string", "null"], enum: ["", "blue", "green", "yellow"] }, options);
+        expect(generated).toBe(`"" | "blue" | "green" | "yellow"`);
       });
 
       test("enum + polymorphism + nullable 3", () => {
-        const generated = transformSchemaObject({ type: ["string", "null"], enum: [null, "false positive", "won't fix", "used in tests"] }, options);
-        expect(generated).toBe(`null | "false positive" | "won't fix" | "used in tests"`);
+        const generated = transformSchemaObject({ type: ["string", "null"], enum: [null, "blue", "green", "yellow"] }, options);
+        expect(generated).toBe(`null | "blue" | "green" | "yellow"`);
       });
     });
   });
