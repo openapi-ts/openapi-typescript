@@ -1,5 +1,15 @@
 # openapi-typescript
 
+## 6.3.0
+
+### Minor Changes
+
+- [#1205](https://github.com/drwpow/openapi-typescript/pull/1205) [`c753f7b`](https://github.com/drwpow/openapi-typescript/commit/c753f7b27a93bb963d8b762b8faa785025aa9135) Thanks [@drwpow](https://github.com/drwpow)! - Add prefixItems support
+
+### Patch Changes
+
+- [#1203](https://github.com/drwpow/openapi-typescript/pull/1203) [`902fde1`](https://github.com/drwpow/openapi-typescript/commit/902fde156a55f2f0f4889680cea3605cc9d137b4) Thanks [@drwpow](https://github.com/drwpow)! - Fix mutating $refs in Node.js API
+
 ## 6.2.9
 
 ### Patch Changes
