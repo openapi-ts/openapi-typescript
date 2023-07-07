@@ -95,10 +95,7 @@ const exampleSchema = {
   },
 };
 
-async function load(
-  schema: URL | Subschema | Readable,
-  options?: Partial<LoadOptions>
-): Promise<{ [url: string]: Subschema }> {
+async function load(schema: URL | Subschema | Readable, options?: Partial<LoadOptions>): Promise<{ [url: string]: Subschema }> {
   return internalLoad(schema, {
     rootURL: schema as URL,
     schemas: {},
