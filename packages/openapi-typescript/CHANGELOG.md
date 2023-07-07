@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.3.3
+
+### Patch Changes
+
+- [#1200](https://github.com/drwpow/openapi-typescript/pull/1200) [`4fc8c20`](https://github.com/drwpow/openapi-typescript/commit/4fc8c20c079e81c600ecffffd90fc9c77c11d49e) Thanks [@toomuchdesign](https://github.com/toomuchdesign)! - Remove unexpected empty string in generated nullable polymophic enum types (["string", "null"])
+
 ## 6.3.2
 
 ### Patch Changes
