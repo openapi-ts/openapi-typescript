@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.3.2
+
+### Patch Changes
+
+- [#1212](https://github.com/drwpow/openapi-typescript/pull/1212) [`e173ccf`](https://github.com/drwpow/openapi-typescript/commit/e173ccf0d92fd4b54cb2dec54056f4647cbadc83) Thanks [@drwpow](https://github.com/drwpow)! - Fix bug with remote schema $refs
+
 ## 6.3.1
 
 ### Patch Changes
