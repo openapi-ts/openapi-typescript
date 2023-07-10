@@ -1,5 +1,13 @@
 # openapi-typescript
 
+## 6.3.4
+
+### Patch Changes
+
+- [#1221](https://github.com/drwpow/openapi-typescript/pull/1221) [`4e96e9d`](https://github.com/drwpow/openapi-typescript/commit/4e96e9dcb845adc501d7256c3c3c9c30c8c6d99d) Thanks [@drwpow](https://github.com/drwpow)! - Remove OneOf<> helper for simple type comparisons
+
+- [#1221](https://github.com/drwpow/openapi-typescript/pull/1221) [`4e96e9d`](https://github.com/drwpow/openapi-typescript/commit/4e96e9dcb845adc501d7256c3c3c9c30c8c6d99d) Thanks [@drwpow](https://github.com/drwpow)! - Fix 3.1 nullable types
+
 ## 6.3.3
 
 ### Patch Changes
