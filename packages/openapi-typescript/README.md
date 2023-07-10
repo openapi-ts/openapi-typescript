@@ -23,7 +23,9 @@ First, generate a local type file by running `npx openapi-typescript`:
 # Local schema
 npx openapi-typescript ./path/to/my/schema.yaml -o ./path/to/my/schema.d.ts
 # 🚀 ./path/to/my/schema.yaml -> ./path/to/my/schema.d.ts [7ms]
+```
 
+```bash
 # Remote schema
 npx openapi-typescript https://myapi.dev/api/v1/openapi.yaml -o ./path/to/my/schema.d.ts
 # 🚀 https://myapi.dev/api/v1/openapi.yaml -> ./path/to/my/schema.d.ts [250ms]
