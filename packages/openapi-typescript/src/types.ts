@@ -432,31 +432,59 @@ export type SchemaObject = {
   [key: `x-${string}`]: any;
 } & (
   | { oneOf: (SchemaObject | ReferenceObject)[] }
+  | StringSubtype
+  | NumberSubtype
+  | IntegerSubtype
+  | ArraySubtype
+  | BooleanSubtype
+  | NullSubtype
+  | ObjectSubtype
   | { type: ("string" | "number" | "integer" | "array" | "boolean" | "null" | "object")[] }
-  | { type: "string" }
-  | { type: "number"; minimum?: number; maximum?: number }
-  | { type: "integer"; minimum?: number; maximum?: number }
-  | {
-      type: "array";
-      prefixItems?: (SchemaObject | ReferenceObject)[];
-      items?: SchemaObject | ReferenceObject | (SchemaObject | ReferenceObject)[];
-      minItems?: number;
-      maxItems?: number;
-    }
-  | { type: "boolean" }
-  | { type: "null" }
-  | {
-      type: "object";
-      properties?: { [name: string]: SchemaObject | ReferenceObject };
-      additionalProperties?: boolean | Record<string, never> | SchemaObject | ReferenceObject;
-      required?: string[];
-      allOf?: (SchemaObject | ReferenceObject)[];
-      anyOf?: (SchemaObject | ReferenceObject)[];
-    }
   | { allOf: (SchemaObject | ReferenceObject)[]; anyOf?: (SchemaObject | ReferenceObject)[]; required?: string[] }
   | { allOf?: (SchemaObject | ReferenceObject)[]; anyOf: (SchemaObject | ReferenceObject)[]; required?: string[] }
   | {}
 );
+
+export interface StringSubtype {
+  type: "string";
+}
+
+export interface NumberSubtype {
+  type: "number";
+  minimum?: number;
+  maximum?: number;
+}
+
+export interface IntegerSubtype {
+  type: "integer";
+  minimum?: number;
+  maximum?: number;
+}
+
+export interface ArraySubtype {
+  type: "array";
+  prefixItems?: (SchemaObject | ReferenceObject)[];
+  items?: SchemaObject | ReferenceObject | (SchemaObject | ReferenceObject)[];
+  minItems?: number;
+  maxItems?: number;
+}
+
+export interface BooleanSubtype {
+  type: "boolean";
+}
+
+export interface NullSubtype {
+  type: "null";
+}
+
+export interface ObjectSubtype {
+  type: "object" | ["object", "null"];
+  properties?: { [name: string]: SchemaObject | ReferenceObject };
+  additionalProperties?: boolean | Record<string, never> | SchemaObject | ReferenceObject;
+  required?: string[];
+  allOf?: (SchemaObject | ReferenceObject)[];
+  anyOf?: (SchemaObject | ReferenceObject)[];
+}
 
 /**
  * [4.8.25] Discriminator Object

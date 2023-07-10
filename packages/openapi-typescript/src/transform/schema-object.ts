@@ -51,7 +51,7 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
   if (schemaObject.enum) {
     let items = schemaObject.enum as any[];
     if ("type" in schemaObject) {
-      if (schemaObject.type === "string" || (Array.isArray(schemaObject.type) && schemaObject.type.includes("string"))) items = items.map((t) => escStr(t));
+      if (schemaObject.type === "string" || (Array.isArray(schemaObject.type) && schemaObject.type.includes("string" as any))) items = items.map((t) => escStr(t));
     }
     // if no type, assume "string"
     else {
@@ -68,20 +68,15 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
   }
 
   if ("type" in schemaObject) {
-    // array type
-    if (Array.isArray(schemaObject.type)) {
-      return tsOneOf(...schemaObject.type.map((t) => transformSchemaObject({ ...schemaObject, type: t }, { path, ctx })));
-    }
-
     // "type": "null"
-    if (schemaObject.type === "null") return schemaObject.type;
+    if (schemaObject.type === "null") return "null";
 
-    // "type": "string" / "type": "null"
+    // "type": "string", "type": "boolean"
     if (schemaObject.type === "string" || schemaObject.type === "boolean") {
       return schemaObject.nullable ? tsUnionOf(schemaObject.type, "null") : schemaObject.type;
     }
 
-    // "type": "number" / "type": "integer"
+    // "type": "number", "type": "integer"
     if (schemaObject.type === "number" || schemaObject.type === "integer") {
       return schemaObject.nullable ? tsUnionOf("number", "null") : "number";
     }
@@ -102,18 +97,18 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
       } else if (schemaObject.items) {
         itemType = transformSchemaObject(schemaObject.items, { path, ctx: { ...ctx, indentLv } });
       }
-      const minItems: number = typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0 ? schemaObject.minItems : 0;
-      const maxItems: number | undefined = typeof schemaObject.maxItems === "number" && schemaObject.maxItems >= 0 && minItems <= schemaObject.maxItems ? schemaObject.maxItems : undefined;
-      const estimateCodeSize = typeof maxItems !== "number" ? minItems : (maxItems * (maxItems + 1) - minItems * (minItems - 1)) / 2;
+      const min: number = typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0 ? schemaObject.minItems : 0;
+      const max: number | undefined = typeof schemaObject.maxItems === "number" && schemaObject.maxItems >= 0 && min <= schemaObject.maxItems ? schemaObject.maxItems : undefined;
+      const estimateCodeSize = typeof max !== "number" ? min : (max * (max + 1) - min * (min - 1)) / 2;
       // export types
-      if (ctx.supportArrayLength && (minItems !== 0 || maxItems !== undefined) && estimateCodeSize < 30) {
+      if (ctx.supportArrayLength && (min !== 0 || max !== undefined) && estimateCodeSize < 30) {
         if (typeof schemaObject.maxItems !== "number") {
-          itemType = tsTupleOf(...Array.from({ length: minItems }).map(() => itemType), `...${tsArrayOf(itemType)}`);
+          itemType = tsTupleOf(...Array.from({ length: min }).map(() => itemType), `...${tsArrayOf(itemType)}`);
           return ctx.immutableTypes || schemaObject.readOnly ? tsReadonly(itemType) : itemType;
         } else {
           return tsUnionOf(
-            ...Array.from({ length: (maxItems ?? 0) - minItems + 1 })
-              .map((_, i) => i + minItems)
+            ...Array.from({ length: (max ?? 0) - min + 1 })
+              .map((_, i) => i + min)
               .map((n) => {
                 const t = tsTupleOf(...Array.from({ length: n }).map(() => itemType));
                 return ctx.immutableTypes || schemaObject.readOnly ? tsReadonly(t) : t;
@@ -126,7 +121,13 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
         itemType = tsArrayOf(itemType);
       }
       itemType = ctx.immutableTypes || schemaObject.readOnly ? tsReadonly(itemType) : itemType;
+
       return schemaObject.nullable ? tsUnionOf(itemType, "null") : itemType;
+    }
+
+    // polymorphic, or 3.1 nullable
+    if (Array.isArray(schemaObject.type)) {
+      return tsUnionOf(...schemaObject.type.map((t) => transformSchemaObject({ ...schemaObject, type: t }, { path, ctx })));
     }
   }
 
