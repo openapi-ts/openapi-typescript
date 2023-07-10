@@ -49,12 +49,6 @@ describe("Schema Object", () => {
   status?: "complete" | "incomplete";
 }`);
       });
-
-      test("nullable", () => {
-        const schema: SchemaObject = { type: "string", nullable: true };
-        const generated = transformSchemaObject(schema, options);
-        expect(generated).toBe("string | null");
-      });
     });
 
     describe("number", () => {
@@ -75,12 +69,6 @@ describe("Schema Object", () => {
         const generated = transformSchemaObject(schema, options);
         expect(generated).toBe("number");
       });
-
-      test("nullable", () => {
-        const schema: SchemaObject = { type: "number", nullable: true };
-        const generated = transformSchemaObject(schema, options);
-        expect(generated).toBe("number | null");
-      });
     });
 
     describe("boolean", () => {
@@ -94,12 +82,6 @@ describe("Schema Object", () => {
         const schema: SchemaObject = { type: "boolean", enum: [true] };
         const generated = transformSchemaObject(schema, options);
         expect(generated).toBe("true");
-      });
-
-      test("nullable", () => {
-        const schema: SchemaObject = { type: "boolean", nullable: true };
-        const generated = transformSchemaObject(schema, options);
-        expect(generated).toBe("boolean | null");
       });
     });
 
@@ -120,12 +102,6 @@ describe("Schema Object", () => {
         const schema: SchemaObject = { type: "array", items: { $ref: 'components["schemas"]["ArrayItem"]' } };
         const generated = transformSchemaObject(schema, options);
         expect(generated).toBe('(components["schemas"]["ArrayItem"])[]');
-      });
-
-      test("nullable", () => {
-        const schema: SchemaObject = { type: "array", items: { type: "string" }, nullable: true };
-        const generated = transformSchemaObject(schema, options);
-        expect(generated).toBe("(string)[] | null");
       });
     });
 
@@ -240,14 +216,6 @@ describe("Schema Object", () => {
   [key: string]: unknown;
 }`);
       });
-
-      test("nullable", () => {
-        const schema: SchemaObject = { type: "object", properties: { string: { type: "string" } }, nullable: true };
-        const generated = transformSchemaObject(schema, options);
-        expect(generated).toBe(`{
-  string?: string;
-} | null`);
-      });
     });
 
     describe("const", () => {
@@ -272,10 +240,75 @@ describe("Schema Object", () => {
       });
     });
 
+    describe("nullable", () => {
+      describe("3.0 nullable", () => {
+        test("string", () => {
+          const generated = transformSchemaObject({ type: "string", nullable: true }, options);
+          expect(generated).toBe("string | null");
+        });
+
+        test("number", () => {
+          const generated = transformSchemaObject({ type: "number", nullable: true }, options);
+          expect(generated).toBe("number | null");
+        });
+
+        test("boolean", () => {
+          const generated = transformSchemaObject({ type: "boolean", nullable: true }, options);
+          expect(generated).toBe("boolean | null");
+        });
+
+        test("array", () => {
+          const generated = transformSchemaObject({ type: "array", items: { type: "string" }, nullable: true }, options);
+          expect(generated).toBe("(string)[] | null");
+        });
+
+        test("object", () => {
+          const generated = transformSchemaObject({ type: "object", properties: { string: { type: "string" } }, nullable: true }, options);
+          expect(generated).toBe(`{
+  string?: string;
+} | null`);
+        });
+      });
+
+      describe("3.1 nullable", () => {
+        test("string", () => {
+          const generated = transformSchemaObject({ type: ["string", "null"] }, options);
+          expect(generated).toBe("string | null");
+        });
+
+        test("number", () => {
+          const generated = transformSchemaObject({ type: ["number", "null"] }, options);
+          expect(generated).toBe("number | null");
+        });
+
+        test("integer", () => {
+          const generated = transformSchemaObject({ type: ["integer", "null"] }, options);
+          expect(generated).toBe("number | null");
+        });
+
+        test("boolean", () => {
+          const generated = transformSchemaObject({ type: ["boolean", "null"] }, options);
+          expect(generated).toBe("boolean | null");
+        });
+
+        test("array", () => {
+          const generated = transformSchemaObject({ type: ["array", "null"], items: { type: "string" } } as any, options);
+          expect(generated).toBe("(string)[] | null");
+        });
+
+        test("object", () => {
+          const generated = transformSchemaObject({ type: ["object", "null"], properties: { string: { type: "string" } } }, options);
+          expect(generated).toBe(`{
+  string?: string;
+} | null`);
+        });
+      });
+    });
+
     describe("polymorphic", () => {
       test("nullish primitive", () => {
         const generated = transformSchemaObject({ type: ["string", "boolean", "number", "null"] }, options);
-        expect(generated).toBe("OneOf<[string, boolean, number, null]>");
+        expect(generated).toBe("string | boolean | number | null");
       });
 
       test("enum + polymorphism + nullable 1", () => {
