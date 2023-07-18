@@ -23,6 +23,14 @@ const options: TransformSchemaObjectOptions = {
 };
 
 describe("Schema Object", () => {
+  describe("boolean schema", () => {
+    it("true", () => {
+      expect(transformSchemaObject(true as any, options)).toBe("unknown");
+    });
+    it("false", () => {
+      expect(transformSchemaObject(false as any, options)).toBe("never");
+    });
+  });
   describe("data types", () => {
     describe("string", () => {
       test("basic", () => {
