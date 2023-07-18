@@ -20,6 +20,10 @@ export default function transformSchemaObject(schemaObject: SchemaObject | Refer
 export function defaultSchemaObjectTransform(schemaObject: SchemaObject | ReferenceObject, { path, ctx }: TransformSchemaObjectOptions): string {
   let { indentLv } = ctx;
 
+  // boolean schemas
+  if (typeof schemaObject === "boolean") {
+    return schemaObject ? "unknown" : "never";
+  }
   // const fallback (primitives) return passed value
   if (!schemaObject || typeof schemaObject !== "object") return schemaObject;
   // const fallback (array) return tuple
