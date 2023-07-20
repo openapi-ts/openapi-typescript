@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.3.5
+
+### Patch Changes
+
+- [#1228](https://github.com/drwpow/openapi-typescript/pull/1228) [`3107f1e`](https://github.com/drwpow/openapi-typescript/commit/3107f1edb9119397fca3e34aeda4def3555c0811) Thanks [@m-ronchi](https://github.com/m-ronchi)! - Fix boolean JSON Schemas
+
 ## 6.3.4
 
 ### Patch Changes
