@@ -99,8 +99,14 @@ export function comment(text: string, indentLv?: number): string {
   if (!commentText.includes("\n")) return `/** ${commentText} */`;
 
   // if multi-line comment
-  const ln = indent(" * ", indentLv ?? 0);
-  return ["/**", `${ln}${commentText.replace(LB_RE, `\n${ln}`)}`, indent(" */", indentLv ?? 0)].join("\n");
+  const star = indent(" *", indentLv ?? 0);
+
+  const body = commentText.split(LB_RE).map((ln) => {
+    ln = ln.trimEnd();
+    return ln.length > 0 ? `${star} ${ln}` : star;
+  });
+
+  return ["/**", body.join("\n"), indent(" */", indentLv ?? 0)].join("\n");
 }
 
 /** handle any valid $ref */

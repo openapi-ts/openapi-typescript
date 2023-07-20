@@ -116,10 +116,11 @@ describe("utils", () => {
   describe("comment", () => {
     it("basic", () => {
       expect(comment("A comment")).toStrictEqual("/** A comment */");
-      expect(comment("A multi-line \n comment")).toStrictEqual(
+      expect(comment("A multi-line \n\n comment")).toStrictEqual(
         // prettier-ignore
         "/**\n" +
-        " * A multi-line \n" +
+        " * A multi-line\n" +
+        " *\n" +
         " *  comment\n"+
         " */"
       );
@@ -154,13 +155,14 @@ describe("utils", () => {
       expect(
         getSchemaObjectComment({
           title: "A title",
-          description: "A multi-line \n description",
+          description: "A multi-line \n\n description",
         })
       ).toStrictEqual(
         // prettier-ignore
         "/**\n" +
         " * A title\n" +
-        " * @description A multi-line \n" +
+        " * @description A multi-line\n" +
+        " *\n" +
         " *  description\n" +
         " */"
       );
