@@ -19,7 +19,7 @@ export interface paths {
     /**
      * @description <p>With <a href="/docs/connect">Connect</a>, you can create Stripe accounts for your users.
      * To do this, you’ll first need to <a href="https://dashboard.stripe.com/account/applications/settings">register your platform</a>.</p>
-     * 
+     *
      * <p>If you’ve already collected information for your connected accounts, you <a href="/docs/connect/best-practices#onboarding">can pre-fill that information</a> when
      * creating the account. Connect Onboarding won’t ask for the pre-filled information during account onboarding.
      * You can pre-fill any information on the account.</p>
@@ -32,21 +32,21 @@ export interface paths {
     /**
      * @description <p>Updates a <a href="/docs/connect/accounts">connected account</a> by setting the values of the parameters passed. Any parameters not provided are
      * left unchanged.</p>
-     * 
+     *
      * <p>For Custom accounts, you can update any information on the account. For other accounts, you can update all information until that
      * account has started to go through Connect Onboarding. Once you create an <a href="/docs/api/account_links">Account Link</a>
      * for a Standard or Express account, some parameters can no longer be changed. These are marked as <strong>Custom Only</strong> or <strong>Custom and Express</strong>
      * below.</p>
-     * 
+     *
      * <p>To update your own account, use the <a href="https://dashboard.stripe.com/account">Dashboard</a>. Refer to our
      * <a href="/docs/connect/updating-accounts">Connect</a> documentation to learn more about updating accounts.</p>
      */
     post: operations["PostAccountsAccount"];
     /**
      * @description <p>With <a href="/docs/connect">Connect</a>, you can delete accounts you manage.</p>
-     * 
+     *
      * <p>Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.</p>
-     * 
+     *
      * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
      */
     delete: operations["DeleteAccountsAccount"];
@@ -60,7 +60,7 @@ export interface paths {
     get: operations["GetAccountsAccountBankAccountsId"];
     /**
      * @description <p>Updates the metadata, account holder name, account holder type of a bank account belonging to a <a href="/docs/connect/custom-accounts">Custom account</a>, and optionally sets it as the default for its currency. Other bank account details are not editable by design.</p>
-     * 
+     *
      * <p>You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.</p>
      */
     post: operations["PostAccountsAccountBankAccountsId"];
@@ -88,7 +88,7 @@ export interface paths {
     get: operations["GetAccountsAccountExternalAccountsId"];
     /**
      * @description <p>Updates the metadata, account holder name, account holder type of a bank account belonging to a <a href="/docs/connect/custom-accounts">Custom account</a>, and optionally sets it as the default for its currency. Other bank account details are not editable by design.</p>
-     * 
+     *
      * <p>You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.</p>
      */
     post: operations["PostAccountsAccountExternalAccountsId"];
@@ -98,7 +98,7 @@ export interface paths {
   "/v1/accounts/{account}/login_links": {
     /**
      * @description <p>Creates a single-use login link for an Express account to access their Stripe dashboard.</p>
-     * 
+     *
      * <p><strong>You may only create login links for <a href="/docs/connect/express-accounts">Express accounts</a> connected to your platform</strong>.</p>
      */
     post: operations["PostAccountsAccountLoginLinks"];
@@ -134,7 +134,7 @@ export interface paths {
   "/v1/accounts/{account}/reject": {
     /**
      * @description <p>With <a href="/docs/connect">Connect</a>, you may flag accounts as suspicious.</p>
-     * 
+     *
      * <p>Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.</p>
      */
     post: operations["PostAccountsAccountReject"];
@@ -160,7 +160,7 @@ export interface paths {
     get: operations["GetApplicationFeesFeeRefundsId"];
     /**
      * @description <p>Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
-     * 
+     *
      * <p>This request only accepts metadata as an argument.</p>
      */
     post: operations["PostApplicationFeesFeeRefundsId"];
@@ -178,10 +178,10 @@ export interface paths {
     /**
      * @description <p>Refunds an application fee that has previously been collected but not yet refunded.
      * Funds will be refunded to the Stripe account from which the fee was originally collected.</p>
-     * 
+     *
      * <p>You can optionally refund only part of an application fee.
      * You can do so multiple times, until the entire fee has been refunded.</p>
-     * 
+     *
      * <p>Once entirely refunded, an application fee can’t be refunded again.
      * This method will raise an error when called on an already-refunded application fee,
      * or when trying to refund more money than is left on an application fee.</p>
@@ -212,7 +212,7 @@ export interface paths {
   "/v1/balance/history": {
     /**
      * @description <p>Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.</p>
-     * 
+     *
      * <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p>
      */
     get: operations["GetBalanceHistory"];
@@ -220,7 +220,7 @@ export interface paths {
   "/v1/balance/history/{id}": {
     /**
      * @description <p>Retrieves the balance transaction with the given ID.</p>
-     * 
+     *
      * <p>Note that this endpoint previously used the path <code>/v1/balance/history/:id</code>.</p>
      */
     get: operations["GetBalanceHistoryId"];
@@ -228,7 +228,7 @@ export interface paths {
   "/v1/balance_transactions": {
     /**
      * @description <p>Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.</p>
-     * 
+     *
      * <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p>
      */
     get: operations["GetBalanceTransactions"];
@@ -236,7 +236,7 @@ export interface paths {
   "/v1/balance_transactions/{id}": {
     /**
      * @description <p>Retrieves the balance transaction with the given ID.</p>
-     * 
+     *
      * <p>Note that this endpoint previously used the path <code>/v1/balance/history/:id</code>.</p>
      */
     get: operations["GetBalanceTransactionsId"];
@@ -285,9 +285,9 @@ export interface paths {
   "/v1/charges/{charge}/capture": {
     /**
      * @description <p>Capture the payment of an existing, uncaptured charge that was created with the <code>capture</code> option set to false.</p>
-     * 
+     *
      * <p>Uncaptured payments expire a set number of days after they are created (<a href="/docs/charges/placing-a-hold">7 by default</a>), after which they are marked as refunded and capture attempts will fail.</p>
-     * 
+     *
      * <p>Don’t use this method to capture a PaymentIntent-initiated charge. Use <a href="/docs/api/payment_intents/capture">Capture a PaymentIntent</a>.</p>
      */
     post: operations["PostChargesChargeCapture"];
@@ -303,13 +303,13 @@ export interface paths {
   "/v1/charges/{charge}/refund": {
     /**
      * @description <p>When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.</p>
-     * 
+     *
      * <p>Creating a new refund will refund a charge that has previously been created but not yet refunded.
      * Funds will be refunded to the credit or debit card that was originally charged.</p>
-     * 
+     *
      * <p>You can optionally refund only part of a charge.
      * You can do so multiple times, until the entire charge has been refunded.</p>
-     * 
+     *
      * <p>Once entirely refunded, a charge can’t be refunded again.
      * This method will raise an error when called on an already-refunded charge,
      * or when trying to refund more money than is left on a charge.</p>
@@ -341,7 +341,7 @@ export interface paths {
   "/v1/checkout/sessions/{session}/expire": {
     /**
      * @description <p>A Session can be expired when it is in one of these statuses: <code>open</code> </p>
-     * 
+     *
      * <p>After it expires, a customer can’t complete a Session and customers loading the Session see a message saying the Session is expired.</p>
      */
     post: operations["PostCheckoutSessionsSessionExpire"];
@@ -363,7 +363,7 @@ export interface paths {
     get: operations["GetCoupons"];
     /**
      * @description <p>You can create coupons easily via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.</p>
-     * 
+     *
      * <p>A coupon has either a <code>percent_off</code> or an <code>amount_off</code> and <code>currency</code>. If you set an <code>amount_off</code>, that amount will be subtracted from any invoice’s subtotal. For example, an invoice with a subtotal of <currency>100</currency> will have a final total of <currency>0</currency> if a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to it and an invoice with a subtotal of <currency>300</currency> will have a final total of <currency>100</currency> if a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to it.</p>
      */
     post: operations["PostCoupons"];
@@ -383,15 +383,15 @@ export interface paths {
      * @description <p>Issue a credit note to adjust the amount of a finalized invoice. For a <code>status=open</code> invoice, a credit note reduces
      * its <code>amount_due</code>. For a <code>status=paid</code> invoice, a credit note does not affect its <code>amount_due</code>. Instead, it can result
      * in any combination of the following:</p>
-     * 
+     *
      * <ul>
      * <li>Refund: create a new refund (using <code>refund_amount</code>) or link an existing refund (using <code>refund</code>).</li>
      * <li>Customer balance credit: credit the customer’s balance (using <code>credit_amount</code>) which will be automatically applied to their next invoice when it’s finalized.</li>
      * <li>Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using <code>out_of_band_amount</code>).</li>
      * </ul>
-     * 
+     *
      * <p>For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.</p>
-     * 
+     *
      * <p>You may issue multiple credit notes for an invoice. Each credit note will increment the invoice’s <code>pre_payment_credit_notes_amount</code>
      * or <code>post_payment_credit_notes_amount</code> depending on its <code>status</code> at the time of credit note creation.</p>
      */
@@ -439,7 +439,7 @@ export interface paths {
     get: operations["GetCustomersCustomer"];
     /**
      * @description <p>Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the <strong>source</strong> parameter, that becomes the customer’s active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the <strong>source</strong> parameter: for each of the customer’s current subscriptions, if the subscription bills automatically and is in the <code>past_due</code> state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the <strong>default_source</strong> for a customer will not trigger this behavior.</p>
-     * 
+     *
      * <p>This request accepts mostly the same arguments as the customer creation call.</p>
      */
     post: operations["PostCustomersCustomer"];
@@ -460,13 +460,13 @@ export interface paths {
   };
   "/v1/customers/{customer}/bank_accounts": {
     /**
-     * @deprecated 
+     * @deprecated
      * @description <p>You can see a list of the bank accounts belonging to a Customer. Note that the 10 most recent sources are always available by default on the Customer. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional bank accounts.</p>
      */
     get: operations["GetCustomersCustomerBankAccounts"];
     /**
      * @description <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
-     * 
+     *
      * <p>If the card’s owner has no default card, then the new card will become the default.
      * However, if the owner already has a default, then it will not change.
      * To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p>
@@ -475,7 +475,7 @@ export interface paths {
   };
   "/v1/customers/{customer}/bank_accounts/{id}": {
     /**
-     * @deprecated 
+     * @deprecated
      * @description <p>By default, you can see the 10 most recent sources stored on a Customer directly on the object, but you can also retrieve details about a specific bank account stored on the Stripe account.</p>
      */
     get: operations["GetCustomersCustomerBankAccountsId"];
@@ -490,7 +490,7 @@ export interface paths {
   };
   "/v1/customers/{customer}/cards": {
     /**
-     * @deprecated 
+     * @deprecated
      * @description <p>You can see a list of the cards belonging to a customer.
      * Note that the 10 most recent sources are always available on the <code>Customer</code> object.
      * If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional cards.</p>
@@ -498,7 +498,7 @@ export interface paths {
     get: operations["GetCustomersCustomerCards"];
     /**
      * @description <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
-     * 
+     *
      * <p>If the card’s owner has no default card, then the new card will become the default.
      * However, if the owner already has a default, then it will not change.
      * To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p>
@@ -507,7 +507,7 @@ export interface paths {
   };
   "/v1/customers/{customer}/cards/{id}": {
     /**
-     * @deprecated 
+     * @deprecated
      * @description <p>You can always see the 10 most recent cards directly on a customer; this method lets you retrieve details about a specific card stored on the customer.</p>
      */
     get: operations["GetCustomersCustomerCardsId"];
@@ -556,7 +556,7 @@ export interface paths {
     get: operations["GetCustomersCustomerSources"];
     /**
      * @description <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
-     * 
+     *
      * <p>If the card’s owner has no default card, then the new card will become the default.
      * However, if the owner already has a default, then it will not change.
      * To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p>
@@ -588,9 +588,9 @@ export interface paths {
     post: operations["PostCustomersCustomerSubscriptionsSubscriptionExposedId"];
     /**
      * @description <p>Cancels a customer’s subscription. If you set the <code>at_period_end</code> parameter to <code>true</code>, the subscription will remain active until the end of the period, at which point it will be canceled and not renewed. Otherwise, with the default <code>false</code> value, the subscription is terminated immediately. In either case, the customer will not be charged again for the subscription.</p>
-     * 
+     *
      * <p>Note, however, that any pending invoice items that you’ve created will still be charged for at the end of the period, unless manually <a href="#delete_invoiceitem">deleted</a>. If you’ve set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.</p>
-     * 
+     *
      * <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p>
      */
     delete: operations["DeleteCustomersCustomerSubscriptionsSubscriptionExposedId"];
@@ -621,7 +621,7 @@ export interface paths {
     get: operations["GetDisputesDispute"];
     /**
      * @description <p>When you get a dispute, contacting your customer is always the best first step. If that doesn’t work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your <a href="https://dashboard.stripe.com/disputes">dashboard</a>, but if you prefer, you can use the API to submit evidence programmatically.</p>
-     * 
+     *
      * <p>Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our <a href="/docs/disputes/categories">guide to dispute types</a>.</p>
      */
     post: operations["PostDisputesDispute"];
@@ -629,7 +629,7 @@ export interface paths {
   "/v1/disputes/{dispute}/close": {
     /**
      * @description <p>Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.</p>
-     * 
+     *
      * <p>The status of the dispute will change from <code>needs_response</code> to <code>lost</code>. <em>Closing a dispute is irreversible</em>.</p>
      */
     post: operations["PostDisputesDisputeClose"];
@@ -675,7 +675,7 @@ export interface paths {
     get: operations["GetFiles"];
     /**
      * @description <p>To upload a file to Stripe, you’ll need to send a request of type <code>multipart/form-data</code>. The request should contain the file you would like to upload, as well as the parameters for creating a file.</p>
-     * 
+     *
      * <p>All of Stripe’s officially supported Client libraries should have support for sending <code>multipart/form-data</code>.</p>
      */
     post: operations["PostFiles"];
@@ -725,11 +725,11 @@ export interface paths {
     get: operations["GetIdentityVerificationSessions"];
     /**
      * @description <p>Creates a VerificationSession object.</p>
-     * 
+     *
      * <p>After the VerificationSession is created, display a verification modal using the session <code>client_secret</code> or send your users to the session’s <code>url</code>.</p>
-     * 
+     *
      * <p>If your API key is in test mode, verification checks won’t actually process, though everything else will occur as if in live mode.</p>
-     * 
+     *
      * <p>Related guide: <a href="/docs/identity/verify-identity-documents">Verify your users’ identity documents</a></p>
      */
     post: operations["PostIdentityVerificationSessions"];
@@ -737,14 +737,14 @@ export interface paths {
   "/v1/identity/verification_sessions/{session}": {
     /**
      * @description <p>Retrieves the details of a VerificationSession that was previously created.</p>
-     * 
+     *
      * <p>When the session status is <code>requires_input</code>, you can use this method to retrieve a valid
      * <code>client_secret</code> or <code>url</code> to allow re-submission.</p>
      */
     get: operations["GetIdentityVerificationSessionsSession"];
     /**
      * @description <p>Updates a VerificationSession object.</p>
-     * 
+     *
      * <p>When the session status is <code>requires_input</code>, you can use this method to update the
      * verification check and options.</p>
      */
@@ -753,7 +753,7 @@ export interface paths {
   "/v1/identity/verification_sessions/{session}/cancel": {
     /**
      * @description <p>A VerificationSession object can be canceled when it is in <code>requires_input</code> <a href="/docs/identity/how-sessions-work">status</a>.</p>
-     * 
+     *
      * <p>Once canceled, future submission attempts are disabled. This cannot be undone. <a href="/docs/identity/verification-sessions#cancel">Learn more</a>.</p>
      */
     post: operations["PostIdentityVerificationSessionsSessionCancel"];
@@ -763,21 +763,21 @@ export interface paths {
      * @description <p>Redact a VerificationSession to remove all collected information from Stripe. This will redact
      * the VerificationSession and all objects related to it, including VerificationReports, Events,
      * request logs, etc.</p>
-     * 
+     *
      * <p>A VerificationSession object can be redacted when it is in <code>requires_input</code> or <code>verified</code>
      * <a href="/docs/identity/how-sessions-work">status</a>. Redacting a VerificationSession in <code>requires_action</code>
      * state will automatically cancel it.</p>
-     * 
+     *
      * <p>The redaction process may take up to four days. When the redaction process is in progress, the
      * VerificationSession’s <code>redaction.status</code> field will be set to <code>processing</code>; when the process is
      * finished, it will change to <code>redacted</code> and an <code>identity.verification_session.redacted</code> event
      * will be emitted.</p>
-     * 
+     *
      * <p>Redaction is irreversible. Redacted objects are still accessible in the Stripe API, but all the
      * fields that contain personal data will be replaced by the string <code>[redacted]</code> or a similar
      * placeholder. The <code>metadata</code> field will also be erased. Redacted objects cannot be updated or
      * used for any purpose.</p>
-     * 
+     *
      * <p><a href="/docs/identity/verification-sessions#redact">Learn more</a>.</p>
      */
     post: operations["PostIdentityVerificationSessionsSessionRedact"];
@@ -814,9 +814,9 @@ export interface paths {
   "/v1/invoices/upcoming": {
     /**
      * @description <p>At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.</p>
-     * 
+     *
      * <p>Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer’s discount.</p>
-     * 
+     *
      * <p>You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass a <code>proration_date</code> parameter when doing the actual subscription update. The value passed in should be the same as the <code>subscription_proration_date</code> returned on the upcoming invoice resource. The recommended way to get only the prorations being previewed is to consider only proration line items where <code>period[start]</code> is equal to the <code>subscription_proration_date</code> on the upcoming invoice resource.</p>
      */
     get: operations["GetInvoicesUpcoming"];
@@ -831,7 +831,7 @@ export interface paths {
     /**
      * @description <p>Draft invoices are fully editable. Once an invoice is <a href="/docs/billing/invoices/workflow#finalized">finalized</a>,
      * monetary values, as well as <code>collection_method</code>, become uneditable.</p>
-     * 
+     *
      * <p>If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
      * sending reminders for, or <a href="/docs/billing/invoices/reconciliation">automatically reconciling</a> invoices, pass
      * <code>auto_advance=false</code>.</p>
@@ -859,7 +859,7 @@ export interface paths {
   "/v1/invoices/{invoice}/send": {
     /**
      * @description <p>Stripe will automatically send invoices to customers according to your <a href="https://dashboard.stripe.com/account/billing/automatic">subscriptions settings</a>. However, if you’d like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.</p>
-     * 
+     *
      * <p>Requests made in test-mode result in no emails being sent, despite sending an <code>invoice.sent</code> event.</p>
      */
     post: operations["PostInvoicesInvoiceSend"];
@@ -880,7 +880,7 @@ export interface paths {
   };
   "/v1/issuing/authorizations/{authorization}/approve": {
     /**
-     * @description <p>Approves a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real-time authorization</a> flow. 
+     * @description <p>Approves a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real-time authorization</a> flow.
      * You can also respond directly to the webhook request to approve an authorization (preferred). More details can be found <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
      */
     post: operations["PostIssuingAuthorizationsAuthorizationApprove"];
@@ -989,11 +989,11 @@ export interface paths {
     get: operations["GetPaymentIntents"];
     /**
      * @description <p>Creates a PaymentIntent object.</p>
-     * 
+     *
      * <p>After the PaymentIntent is created, attach a payment method and <a href="/docs/api/payment_intents/confirm">confirm</a>
      * to continue the payment. You can read more about the different payment flows
      * available via the Payment Intents API <a href="/docs/payments/payment-intents">here</a>.</p>
-     * 
+     *
      * <p>When <code>confirm=true</code> is used during creation, it is equivalent to creating
      * and confirming the PaymentIntent in the same call. You may use any parameters
      * available in the <a href="/docs/api/payment_intents/confirm">confirm API</a> when <code>confirm=true</code>
@@ -1013,15 +1013,15 @@ export interface paths {
   "/v1/payment_intents/{intent}": {
     /**
      * @description <p>Retrieves the details of a PaymentIntent that has previously been created. </p>
-     * 
+     *
      * <p>Client-side retrieval using a publishable key is allowed when the <code>client_secret</code> is provided in the query string. </p>
-     * 
+     *
      * <p>When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the <a href="#payment_intent_object">payment intent</a> object reference for more details.</p>
      */
     get: operations["GetPaymentIntentsIntent"];
     /**
      * @description <p>Updates properties on a PaymentIntent object without confirming.</p>
-     * 
+     *
      * <p>Depending on which properties you update, you may need to confirm the
      * PaymentIntent again. For example, updating the <code>payment_method</code> will
      * always require you to confirm the PaymentIntent again. If you prefer to
@@ -1037,9 +1037,9 @@ export interface paths {
   "/v1/payment_intents/{intent}/cancel": {
     /**
      * @description <p>A PaymentIntent object can be canceled when it is in one of these statuses: <code>requires_payment_method</code>, <code>requires_capture</code>, <code>requires_confirmation</code>, <code>requires_action</code> or, <a href="/docs/payments/intents">in rare cases</a>, <code>processing</code>. </p>
-     * 
+     *
      * <p>Once canceled, no additional charges will be made by the PaymentIntent and any operations on the PaymentIntent will fail with an error. For PaymentIntents with a <code>status</code> of <code>requires_capture</code>, the remaining <code>amount_capturable</code> will automatically be refunded. </p>
-     * 
+     *
      * <p>You cannot cancel the PaymentIntent for a Checkout Session. <a href="/docs/api/checkout/sessions/expire">Expire the Checkout Session</a> instead.</p>
      */
     post: operations["PostPaymentIntentsIntentCancel"];
@@ -1047,9 +1047,9 @@ export interface paths {
   "/v1/payment_intents/{intent}/capture": {
     /**
      * @description <p>Capture the funds of an existing uncaptured PaymentIntent when its status is <code>requires_capture</code>.</p>
-     * 
+     *
      * <p>Uncaptured PaymentIntents will be canceled a set number of days after they are created (7 by default).</p>
-     * 
+     *
      * <p>Learn more about <a href="/docs/payments/capture-later">separate authorization and capture</a>.</p>
      */
     post: operations["PostPaymentIntentsIntentCapture"];
@@ -1089,13 +1089,13 @@ export interface paths {
      * PaymentIntent’s status must be <code>requires_capture</code> and
      * <a href="/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported">incremental_authorization_supported</a>
      * must be <code>true</code>.</p>
-     * 
+     *
      * <p>Incremental authorizations attempt to increase the authorized amount on
      * your customer’s card to the new, higher <code>amount</code> provided. As with the
      * initial authorization, incremental authorizations may be declined. A
      * single PaymentIntent can call this endpoint multiple times to further
      * increase the authorized amount.</p>
-     * 
+     *
      * <p>If the incremental authorization succeeds, the PaymentIntent object is
      * returned with the updated
      * <a href="/docs/api/payment_intents/object#payment_intent_object-amount">amount</a>.
@@ -1103,10 +1103,10 @@ export interface paths {
      * <a href="/docs/error-codes#card-declined">card_declined</a> error is returned, and no
      * fields on the PaymentIntent or Charge are updated. The PaymentIntent
      * object remains capturable for the previously authorized amount.</p>
-     * 
+     *
      * <p>Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
      * Once captured, a PaymentIntent can no longer be incremented.</p>
-     * 
+     *
      * <p>Learn more about <a href="/docs/terminal/features/incremental-authorizations">incremental authorizations</a>.</p>
      */
     post: operations["PostPaymentIntentsIntentIncrementAuthorization"];
@@ -1136,7 +1136,7 @@ export interface paths {
     get: operations["GetPaymentMethods"];
     /**
      * @description <p>Creates a PaymentMethod object. Read the <a href="/docs/stripe-js/reference#stripe-create-payment-method">Stripe.js reference</a> to learn how to create PaymentMethods via Stripe.js.</p>
-     * 
+     *
      * <p>Instead of creating a PaymentMethod directly, we recommend using the <a href="/docs/payments/accept-a-payment">PaymentIntents</a> API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent</a> API to collect payment method details ahead of a future payment.</p>
      */
     post: operations["PostPaymentMethods"];
@@ -1150,7 +1150,7 @@ export interface paths {
   "/v1/payment_methods/{payment_method}/attach": {
     /**
      * @description <p>Attaches a PaymentMethod object to a Customer.</p>
-     * 
+     *
      * <p>To attach a new PaymentMethod to a customer for future payments, we recommend you use a <a href="/docs/api/setup_intents">SetupIntent</a>
      * or a PaymentIntent with <a href="/docs/api/payment_intents/create#create_payment_intent-setup_future_usage">setup_future_usage</a>.
      * These approaches will perform any necessary steps to set up the PaymentMethod for future payments. Using the <code>/v1/payment_methods/:id/attach</code>
@@ -1158,7 +1158,7 @@ export interface paths {
      * future use, which makes later declines and payment friction more likely.
      * See <a href="/docs/payments/payment-intents#future-usage">Optimizing cards for future payments</a> for more information about setting up
      * future payments.</p>
-     * 
+     *
      * <p>To use this PaymentMethod as the default for invoice or subscription payments,
      * set <a href="/docs/api/customers/update#update_customer-invoice_settings-default_payment_method"><code>invoice_settings.default_payment_method</code></a>,
      * on the Customer to the PaymentMethod’s ID.</p>
@@ -1174,9 +1174,9 @@ export interface paths {
     get: operations["GetPayouts"];
     /**
      * @description <p>To send funds to your own bank account, you create a new payout object. Your <a href="#balance">Stripe balance</a> must be able to cover the payout amount, or you’ll receive an “Insufficient Funds” error.</p>
-     * 
+     *
      * <p>If your API key is in test mode, money won’t actually be sent, though everything else will occur as if in live mode.</p>
-     * 
+     *
      * <p>If you are creating a manual payout on a Stripe account that uses multiple payment source types, you’ll need to specify the source type balance that the payout should draw from. The <a href="#balance_object">balance object</a> details available and pending amounts by source type.</p>
      */
     post: operations["PostPayouts"];
@@ -1194,7 +1194,7 @@ export interface paths {
   "/v1/payouts/{payout}/reverse": {
     /**
      * @description <p>Reverses a payout by debiting the destination bank account. Only payouts for connected accounts to US bank accounts may be reversed at this time. If the payout is in the <code>pending</code> status, <code>/v1/payouts/:id/cancel</code> should be used instead.</p>
-     * 
+     *
      * <p>By requesting a reversal via <code>/v1/payouts/:id/reverse</code>, you confirm that the authorized signatory of the selected bank account has authorized the debit on the bank account and that no other authorization is required.</p>
      */
     post: operations["PostPayoutsPayoutReverse"];
@@ -1312,7 +1312,7 @@ export interface paths {
   "/v1/radar/early_fraud_warnings/{early_fraud_warning}": {
     /**
      * @description <p>Retrieves the details of an early fraud warning that has previously been created. </p>
-     * 
+     *
      * <p>Please refer to the <a href="#early_fraud_warning_object">early fraud warning</a> object reference for more details.</p>
      */
     get: operations["GetRadarEarlyFraudWarningsEarlyFraudWarning"];
@@ -1354,7 +1354,7 @@ export interface paths {
     get: operations["GetRefundsRefund"];
     /**
      * @description <p>Updates the specified refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
-     * 
+     *
      * <p>This request only accepts <code>metadata</code> as an argument.</p>
      */
     post: operations["PostRefundsRefund"];
@@ -1362,7 +1362,7 @@ export interface paths {
   "/v1/refunds/{refund}/cancel": {
     /**
      * @description <p>Cancels a refund with a status of <code>requires_action</code>.</p>
-     * 
+     *
      * <p>Refunds in other states cannot be canceled, and only refunds for payment methods that require customer action will enter the <code>requires_action</code> state.</p>
      */
     post: operations["PostRefundsRefundCancel"];
@@ -1406,7 +1406,7 @@ export interface paths {
     get: operations["GetSetupIntents"];
     /**
      * @description <p>Creates a SetupIntent object.</p>
-     * 
+     *
      * <p>After the SetupIntent is created, attach a payment method and <a href="/docs/api/setup_intents/confirm">confirm</a>
      * to collect any required permissions to charge the payment method later.</p>
      */
@@ -1415,9 +1415,9 @@ export interface paths {
   "/v1/setup_intents/{intent}": {
     /**
      * @description <p>Retrieves the details of a SetupIntent that has previously been created. </p>
-     * 
+     *
      * <p>Client-side retrieval using a publishable key is allowed when the <code>client_secret</code> is provided in the query string. </p>
-     * 
+     *
      * <p>When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the <a href="#setup_intent_object">SetupIntent</a> object reference for more details.</p>
      */
     get: operations["GetSetupIntentsIntent"];
@@ -1427,7 +1427,7 @@ export interface paths {
   "/v1/setup_intents/{intent}/cancel": {
     /**
      * @description <p>A SetupIntent object can be canceled when it is in one of these statuses: <code>requires_payment_method</code>, <code>requires_confirmation</code>, or <code>requires_action</code>. </p>
-     * 
+     *
      * <p>Once canceled, setup is abandoned and any operations on the SetupIntent will fail with an error.</p>
      */
     post: operations["PostSetupIntentsIntentCancel"];
@@ -1438,11 +1438,11 @@ export interface paths {
      * provided payment method. For example, you would confirm a SetupIntent
      * when a customer hits the “Save” button on a payment method management
      * page on your website.</p>
-     * 
+     *
      * <p>If the selected payment method does not require any additional
      * steps from the customer, the SetupIntent will transition to the
      * <code>succeeded</code> status.</p>
-     * 
+     *
      * <p>Otherwise, it will transition to the <code>requires_action</code> status and
      * suggest additional actions via <code>next_action</code>. If setup fails,
      * the SetupIntent will transition to the
@@ -1484,7 +1484,7 @@ export interface paths {
     get: operations["GetSourcesSource"];
     /**
      * @description <p>Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
-     * 
+     *
      * <p>This request accepts the <code>metadata</code> and <code>owner</code> as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our <a href="/docs/sources">payment method guides</a> for more detail.</p>
      */
     post: operations["PostSourcesSource"];
@@ -1522,7 +1522,7 @@ export interface paths {
   "/v1/subscription_items/{subscription_item}/usage_record_summaries": {
     /**
      * @description <p>For the specified subscription item, returns a list of summary objects. Each object in the list provides usage information that’s been summarized from multiple usage records and over a subscription billing period (e.g., 15 usage records in the month of September).</p>
-     * 
+     *
      * <p>The list is sorted in reverse-chronological order (newest first). The first list item represents the most current usage period that hasn’t ended yet. Since new usage records can still be added, the returned summary information for the subscription item’s ID should be seen as unstable until the subscription billing period ends.</p>
      */
     get: operations["GetSubscriptionItemsSubscriptionItemUsageRecordSummaries"];
@@ -1530,11 +1530,11 @@ export interface paths {
   "/v1/subscription_items/{subscription_item}/usage_records": {
     /**
      * @description <p>Creates a usage record for a specified subscription item and date, and fills it with a quantity.</p>
-     * 
+     *
      * <p>Usage records provide <code>quantity</code> information that Stripe uses to track how much a customer is using your service. With usage information and the pricing model set up by the <a href="https://stripe.com/docs/billing/subscriptions/metered-billing">metered billing</a> plan, Stripe helps you send accurate invoices to your customers.</p>
-     * 
+     *
      * <p>The default calculation for usage is to add up all the <code>quantity</code> values of the usage records within a billing period. You can change this default behavior with the billing plan’s <code>aggregate_usage</code> <a href="/docs/api/plans/create#create_plan-aggregate_usage">parameter</a>. When there is more than one usage record with the same timestamp, Stripe adds the <code>quantity</code> values together. In most cases, this is the desired resolution, however, you can change this behavior with the <code>action</code> parameter.</p>
-     * 
+     *
      * <p>The default pricing model for metered billing is <a href="/docs/api/plans/object#plan_object-billing_scheme">per-unit pricing</a>. For finer granularity, you can configure metered billing to have a <a href="https://stripe.com/docs/billing/subscriptions/tiers">tiered pricing</a> model.</p>
      */
     post: operations["PostSubscriptionItemsSubscriptionItemUsageRecords"];
@@ -1564,10 +1564,10 @@ export interface paths {
     get: operations["GetSubscriptions"];
     /**
      * @description <p>Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.</p>
-     * 
+     *
      * <p>When you create a subscription with <code>collection_method=charge_automatically</code>, the first invoice is finalized as part of the request.
      * The <code>payment_behavior</code> parameter determines the exact behavior of the initial payment.</p>
-     * 
+     *
      * <p>To start subscriptions where the first invoice always begins in a <code>draft</code> status, use <a href="/docs/billing/subscriptions/subscription-schedules#managing">subscription schedules</a> instead.
      * Schedules provide the flexibility to model more complex billing configurations that change over time.</p>
      */
@@ -1589,9 +1589,9 @@ export interface paths {
     post: operations["PostSubscriptionsSubscriptionExposedId"];
     /**
      * @description <p>Cancels a customer’s subscription immediately. The customer will not be charged again for the subscription.</p>
-     * 
+     *
      * <p>Note, however, that any pending invoice items that you’ve created will still be charged for at the end of the period, unless manually <a href="#delete_invoiceitem">deleted</a>. If you’ve set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.</p>
-     * 
+     *
      * <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p>
      */
     delete: operations["DeleteSubscriptionsSubscriptionExposedId"];
@@ -1843,9 +1843,9 @@ export interface paths {
     get: operations["GetTransfersIdReversals"];
     /**
      * @description <p>When you create a new reversal, you must specify a transfer to create it on.</p>
-     * 
+     *
      * <p>When reversing transfers, you can optionally reverse part of the transfer. You can do so as many times as you wish until the entire transfer has been reversed.</p>
-     * 
+     *
      * <p>Once entirely reversed, a transfer can’t be reversed again. This method will return an error when called on an already-reversed transfer, or when trying to reverse more money than is left on a transfer.</p>
      */
     post: operations["PostTransfersIdReversals"];
@@ -1855,7 +1855,7 @@ export interface paths {
     get: operations["GetTransfersTransfer"];
     /**
      * @description <p>Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
-     * 
+     *
      * <p>This request accepts only metadata as an argument.</p>
      */
     post: operations["PostTransfersTransfer"];
@@ -1865,7 +1865,7 @@ export interface paths {
     get: operations["GetTransfersTransferReversalsId"];
     /**
      * @description <p>Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
-     * 
+     *
      * <p>This request only accepts metadata and description as arguments.</p>
      */
     post: operations["PostTransfersTransferReversalsId"];
@@ -2003,11 +2003,11 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * Account 
+     * Account
      * @description This is an object representing a Stripe account. You can retrieve it to see
      * properties on the account like its current requirements or if the account is
      * enabled to make live charges or receive payouts.
-     * 
+     *
      * For Custom accounts, the properties below are always returned. For other accounts, some properties are returned until that
      * account has started to go through Connect Onboarding. Once you create an [Account Link](https://stripe.com/docs/api/account_links)
      * for a Standard or Express account, some parameters are no longer returned. These are marked as **Custom Only** or **Custom and Express**
@@ -2017,7 +2017,7 @@ export interface components {
       /** @description Business information about the account. */
       business_profile?: components["schemas"]["account_business_profile"] | null;
       /**
-       * @description The business type. 
+       * @description The business type.
        * @enum {string|null}
        */
       business_type?: "company" | "government_entity" | "individual" | "non_profit" | null;
@@ -2029,7 +2029,7 @@ export interface components {
       /** @description The account's country. */
       country?: string;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the account was connected. Measured in seconds since the Unix epoch.
        */
       created?: number;
@@ -2040,7 +2040,7 @@ export interface components {
       /** @description An email address associated with the account. It's not used for authentication and Stripe doesn't market to this field without explicit approval from the platform. */
       email?: string | null;
       /**
-       * ExternalAccountList 
+       * ExternalAccountList
        * @description External accounts (bank accounts and debit cards) currently attached to this account
        */
       external_accounts?: {
@@ -2049,7 +2049,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -2065,7 +2065,7 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "account";
@@ -2076,7 +2076,7 @@ export interface components {
       settings?: components["schemas"]["account_settings"] | null;
       tos_acceptance?: components["schemas"]["account_tos_acceptance"];
       /**
-       * @description The Stripe account type. Can be `standard`, `express`, or `custom`. 
+       * @description The Stripe account type. Can be `standard`, `express`, or `custom`.
        * @enum {string}
        */
       type?: "custom" | "express" | "standard";
@@ -2119,182 +2119,182 @@ export interface components {
     /** AccountCapabilities */
     account_capabilities: {
       /**
-       * @description The status of the Canadian pre-authorized debits payments capability of the account, or whether the account can directly process Canadian pre-authorized debits charges. 
+       * @description The status of the Canadian pre-authorized debits payments capability of the account, or whether the account can directly process Canadian pre-authorized debits charges.
        * @enum {string}
        */
       acss_debit_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the Affirm capability of the account, or whether the account can directly process Affirm charges. 
+       * @description The status of the Affirm capability of the account, or whether the account can directly process Affirm charges.
        * @enum {string}
        */
       affirm_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the Afterpay Clearpay capability of the account, or whether the account can directly process Afterpay Clearpay charges. 
+       * @description The status of the Afterpay Clearpay capability of the account, or whether the account can directly process Afterpay Clearpay charges.
        * @enum {string}
        */
       afterpay_clearpay_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges. 
+       * @description The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges.
        * @enum {string}
        */
       au_becs_debit_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the Bacs Direct Debits payments capability of the account, or whether the account can directly process Bacs Direct Debits charges. 
+       * @description The status of the Bacs Direct Debits payments capability of the account, or whether the account can directly process Bacs Direct Debits charges.
        * @enum {string}
        */
       bacs_debit_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the Bancontact payments capability of the account, or whether the account can directly process Bancontact charges. 
+       * @description The status of the Bancontact payments capability of the account, or whether the account can directly process Bancontact charges.
        * @enum {string}
        */
       bancontact_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the customer_balance payments capability of the account, or whether the account can directly process customer_balance charges. 
+       * @description The status of the customer_balance payments capability of the account, or whether the account can directly process customer_balance charges.
        * @enum {string}
        */
       bank_transfer_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the blik payments capability of the account, or whether the account can directly process blik charges. 
+       * @description The status of the blik payments capability of the account, or whether the account can directly process blik charges.
        * @enum {string}
        */
       blik_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the boleto payments capability of the account, or whether the account can directly process boleto charges. 
+       * @description The status of the boleto payments capability of the account, or whether the account can directly process boleto charges.
        * @enum {string}
        */
       boleto_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the card issuing capability of the account, or whether you can use Issuing to distribute funds on cards 
+       * @description The status of the card issuing capability of the account, or whether you can use Issuing to distribute funds on cards
        * @enum {string}
        */
       card_issuing?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the card payments capability of the account, or whether the account can directly process credit and debit card charges. 
+       * @description The status of the card payments capability of the account, or whether the account can directly process credit and debit card charges.
        * @enum {string}
        */
       card_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the Cartes Bancaires payments capability of the account, or whether the account can directly process Cartes Bancaires card charges in EUR currency. 
+       * @description The status of the Cartes Bancaires payments capability of the account, or whether the account can directly process Cartes Bancaires card charges in EUR currency.
        * @enum {string}
        */
       cartes_bancaires_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the Cash App Pay capability of the account, or whether the account can directly process Cash App Pay payments. 
+       * @description The status of the Cash App Pay capability of the account, or whether the account can directly process Cash App Pay payments.
        * @enum {string}
        */
       cashapp_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the EPS payments capability of the account, or whether the account can directly process EPS charges. 
+       * @description The status of the EPS payments capability of the account, or whether the account can directly process EPS charges.
        * @enum {string}
        */
       eps_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the FPX payments capability of the account, or whether the account can directly process FPX charges. 
+       * @description The status of the FPX payments capability of the account, or whether the account can directly process FPX charges.
        * @enum {string}
        */
       fpx_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the giropay payments capability of the account, or whether the account can directly process giropay charges. 
+       * @description The status of the giropay payments capability of the account, or whether the account can directly process giropay charges.
        * @enum {string}
        */
       giropay_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the GrabPay payments capability of the account, or whether the account can directly process GrabPay charges. 
+       * @description The status of the GrabPay payments capability of the account, or whether the account can directly process GrabPay charges.
        * @enum {string}
        */
       grabpay_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the iDEAL payments capability of the account, or whether the account can directly process iDEAL charges. 
+       * @description The status of the iDEAL payments capability of the account, or whether the account can directly process iDEAL charges.
        * @enum {string}
        */
       ideal_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the india_international_payments capability of the account, or whether the account can process international charges (non INR) in India. 
+       * @description The status of the india_international_payments capability of the account, or whether the account can process international charges (non INR) in India.
        * @enum {string}
        */
       india_international_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the JCB payments capability of the account, or whether the account (Japan only) can directly process JCB credit card charges in JPY currency. 
+       * @description The status of the JCB payments capability of the account, or whether the account (Japan only) can directly process JCB credit card charges in JPY currency.
        * @enum {string}
        */
       jcb_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the Klarna payments capability of the account, or whether the account can directly process Klarna charges. 
+       * @description The status of the Klarna payments capability of the account, or whether the account can directly process Klarna charges.
        * @enum {string}
        */
       klarna_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the konbini payments capability of the account, or whether the account can directly process konbini charges. 
+       * @description The status of the konbini payments capability of the account, or whether the account can directly process konbini charges.
        * @enum {string}
        */
       konbini_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the legacy payments capability of the account. 
+       * @description The status of the legacy payments capability of the account.
        * @enum {string}
        */
       legacy_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the link_payments capability of the account, or whether the account can directly process Link charges. 
+       * @description The status of the link_payments capability of the account, or whether the account can directly process Link charges.
        * @enum {string}
        */
       link_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the OXXO payments capability of the account, or whether the account can directly process OXXO charges. 
+       * @description The status of the OXXO payments capability of the account, or whether the account can directly process OXXO charges.
        * @enum {string}
        */
       oxxo_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the P24 payments capability of the account, or whether the account can directly process P24 charges. 
+       * @description The status of the P24 payments capability of the account, or whether the account can directly process P24 charges.
        * @enum {string}
        */
       p24_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the paynow payments capability of the account, or whether the account can directly process paynow charges. 
+       * @description The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
        * @enum {string}
        */
       paynow_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges. 
+       * @description The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges.
        * @enum {string}
        */
       promptpay_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges. 
+       * @description The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
        * @enum {string}
        */
       sepa_debit_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges. 
+       * @description The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
        * @enum {string}
        */
       sofort_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the tax reporting 1099-K (US) capability of the account. 
+       * @description The status of the tax reporting 1099-K (US) capability of the account.
        * @enum {string}
        */
       tax_reporting_us_1099_k?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the tax reporting 1099-MISC (US) capability of the account. 
+       * @description The status of the tax reporting 1099-MISC (US) capability of the account.
        * @enum {string}
        */
       tax_reporting_us_1099_misc?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the transfers capability of the account, or whether your platform can transfer funds to the account. 
+       * @description The status of the transfers capability of the account, or whether your platform can transfer funds to the account.
        * @enum {string}
        */
       transfers?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the banking capability, or whether the account can have bank accounts. 
+       * @description The status of the banking capability, or whether the account can have bank accounts.
        * @enum {string}
        */
       treasury?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the US bank account ACH payments capability of the account, or whether the account can directly process US bank account charges. 
+       * @description The status of the US bank account ACH payments capability of the account, or whether the account can directly process US bank account charges.
        * @enum {string}
        */
       us_bank_account_ach_payments?: "active" | "inactive" | "pending";
       /**
-       * @description The status of the Zip capability of the account, or whether the account can directly process Zip charges. 
+       * @description The status of the Zip capability of the account, or whether the account can directly process Zip charges.
        * @enum {string}
        */
       zip_payments?: "active" | "inactive" | "pending";
@@ -2304,7 +2304,7 @@ export interface components {
       /** @description Fields that are due and can be satisfied by providing the corresponding alternative fields instead. */
       alternatives?: (components["schemas"]["account_requirements_alternative"])[] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date on which `future_requirements` merges with the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on the capability's enablement state prior to transitioning.
        */
       current_deadline?: number | null;
@@ -2326,7 +2326,7 @@ export interface components {
       /** @description Fields that are due and can be satisfied by providing the corresponding alternative fields instead. */
       alternatives?: (components["schemas"]["account_requirements_alternative"])[] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date by which the fields in `currently_due` must be collected to keep the capability enabled for the account. These fields may disable the capability sooner if the next threshold is reached before they are collected.
        */
       current_deadline?: number | null;
@@ -2334,11 +2334,11 @@ export interface components {
       currently_due: (string)[];
       /**
        * @description If the capability is disabled, this string describes why. Can be `requirements.past_due`, `requirements.pending_verification`, `listed`, `platform_paused`, `rejected.fraud`, `rejected.listed`, `rejected.terms_of_service`, `rejected.other`, `under_review`, or `other`.
-       * 
+       *
        * `rejected.unsupported_business` means that the account's business is not supported by the capability. For example, payment methods may restrict the businesses they support in their terms of service:
-       * 
+       *
        * - [Afterpay Clearpay's terms of service](/afterpay-clearpay/legal#restricted-businesses)
-       * 
+       *
        * If you believe that the rejection is in error, please contact support at https://support.stripe.com/contact/ for assistance.
        */
       disabled_reason?: string | null;
@@ -2384,7 +2384,7 @@ export interface components {
       /** @description Fields that are due and can be satisfied by providing the corresponding alternative fields instead. */
       alternatives?: (components["schemas"]["account_requirements_alternative"])[] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date on which `future_requirements` merges with the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on its enablement state prior to transitioning.
        */
       current_deadline?: number | null;
@@ -2402,25 +2402,25 @@ export interface components {
       pending_verification?: (string)[] | null;
     };
     /**
-     * AccountLink 
+     * AccountLink
      * @description Account Links are the means by which a Connect platform grants a connected account permission to access
      * Stripe-hosted applications, such as Connect Onboarding.
-     * 
+     *
      * Related guide: [Connect Onboarding](https://stripe.com/docs/connect/connect-onboarding)
      */
     account_link: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The timestamp at which this account link will expire.
        */
       expires_at: number;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "account_link";
@@ -2453,7 +2453,7 @@ export interface components {
       /** @description Fields that are due and can be satisfied by providing the corresponding alternative fields instead. */
       alternatives?: (components["schemas"]["account_requirements_alternative"])[] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date by which the fields in `currently_due` must be collected to keep the account enabled. These fields may disable the account sooner if the next threshold is reached before they are collected.
        */
       current_deadline?: number | null;
@@ -2480,7 +2480,7 @@ export interface components {
     /** AccountRequirementsError */
     account_requirements_error: {
       /**
-       * @description The code for the type of error. 
+       * @description The code for the type of error.
        * @enum {string}
        */
       code: "invalid_address_city_state_postal_code" | "invalid_dob_age_under_18" | "invalid_representative_country" | "invalid_street_address" | "invalid_tos_acceptance" | "invalid_value_other" | "verification_document_address_mismatch" | "verification_document_address_missing" | "verification_document_corrupt" | "verification_document_country_not_supported" | "verification_document_dob_mismatch" | "verification_document_duplicate_type" | "verification_document_expired" | "verification_document_failed_copy" | "verification_document_failed_greyscale" | "verification_document_failed_other" | "verification_document_failed_test_mode" | "verification_document_fraudulent" | "verification_document_id_number_mismatch" | "verification_document_id_number_missing" | "verification_document_incomplete" | "verification_document_invalid" | "verification_document_issue_or_expiry_date_missing" | "verification_document_manipulated" | "verification_document_missing_back" | "verification_document_missing_front" | "verification_document_name_mismatch" | "verification_document_name_missing" | "verification_document_nationality_mismatch" | "verification_document_not_readable" | "verification_document_not_signed" | "verification_document_not_uploaded" | "verification_document_photo_mismatch" | "verification_document_too_large" | "verification_document_type_not_supported" | "verification_failed_address_match" | "verification_failed_business_iec_number" | "verification_failed_document_match" | "verification_failed_id_number_match" | "verification_failed_keyed_identity" | "verification_failed_keyed_match" | "verification_failed_name_match" | "verification_failed_other" | "verification_failed_residential_address" | "verification_failed_tax_id_match" | "verification_failed_tax_id_not_issued" | "verification_missing_executives" | "verification_missing_owners" | "verification_requires_additional_memorandum_of_associations";
@@ -2518,7 +2518,7 @@ export interface components {
     /** AccountTOSAcceptance */
     account_tos_acceptance: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The Unix timestamp marking when the account representative accepted their service agreement
        */
       date?: number | null;
@@ -2538,7 +2538,7 @@ export interface components {
       /** @description `true` if the Connect application retrieving the resource controls the account and can therefore exercise [platform controls](https://stripe.com/docs/connect/platform-controls-for-standard-accounts). Otherwise, this field is null. */
       is_controller?: boolean;
       /**
-       * @description The controller type. Can be `application`, if a Connect application controls the account, or `account`, if the account controls itself. 
+       * @description The controller type. Can be `application`, if a Connect application controls the account, or `account`, if the account controls itself.
        * @enum {string}
        */
       type: "account" | "application";
@@ -2582,7 +2582,7 @@ export interface components {
       /** @description The source object for errors returned on a request involving a source. */
       source?: components["schemas"]["bank_account"] | components["schemas"]["card"] | components["schemas"]["source"];
       /**
-       * @description The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error` 
+       * @description The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
        * @enum {string}
        */
       type: "api_error" | "card_error" | "idempotency_error" | "invalid_request_error";
@@ -2590,7 +2590,7 @@ export interface components {
     /** ApplePayDomain */
     apple_pay_domain: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -2600,7 +2600,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "apple_pay_domain";
@@ -2612,7 +2612,7 @@ export interface components {
       /** @description The name of the application. */
       name?: string | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "application";
@@ -2632,7 +2632,7 @@ export interface components {
       /** @description ID of the charge that the application fee was taken from. */
       charge: string | components["schemas"]["charge"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -2643,7 +2643,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "application_fee";
@@ -2652,7 +2652,7 @@ export interface components {
       /** @description Whether the fee has been fully refunded. If the fee is only partially refunded, this attribute will still be false. */
       refunded: boolean;
       /**
-       * FeeRefundList 
+       * FeeRefundList
        * @description A list of refunds that have been applied to the fee.
        */
       refunds: {
@@ -2661,7 +2661,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -2670,27 +2670,27 @@ export interface components {
       };
     };
     /**
-     * SecretServiceResourceSecret 
+     * SecretServiceResourceSecret
      * @description Secret Store is an API that allows Stripe Apps developers to securely persist secrets for use by UI Extensions and app backends.
-     * 
+     *
      * The primary resource in Secret Store is a `secret`. Other apps can't view secrets created by an app. Additionally, secrets are scoped to provide further permission control.
-     * 
+     *
      * All Dashboard users and the app backend share `account` scoped secrets. Use the `account` scope for secrets that don't change per-user, like a third-party API key.
-     * 
+     *
      * A `user` scoped secret is accessible by the app backend and one specific Dashboard user. Use the `user` scope for per-user secrets like per-user OAuth tokens, where different users might have different permissions.
-     * 
+     *
      * Related guide: [Store data between page reloads](https://stripe.com/docs/stripe-apps/store-auth-data-custom-objects)
      */
     "apps.secret": {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
       /** @description If true, indicates that this secret has been deleted */
       deleted?: boolean;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The Unix timestamp for the expiry time of the secret, after which the secret deletes.
        */
       expires_at?: number | null;
@@ -2701,7 +2701,7 @@ export interface components {
       /** @description A name for the secret that's unique within the scope. */
       name: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "apps.secret";
@@ -2714,23 +2714,23 @@ export interface components {
       /** @description Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices. */
       enabled: boolean;
       /**
-       * @description The status of the most recent automated tax calculation for this invoice. 
+       * @description The status of the most recent automated tax calculation for this invoice.
        * @enum {string|null}
        */
       status?: "complete" | "failed" | "requires_location_inputs" | null;
     };
     /**
-     * Balance 
+     * Balance
      * @description This is an object representing your Stripe balance. You can retrieve it to see
      * the balance currently on your Stripe account.
-     * 
+     *
      * You can also retrieve the balance history, which contains a list of
      * [transactions](https://stripe.com/docs/reporting/balance-transaction-types) that contributed to the balance
      * (charges, payouts, and so forth).
-     * 
+     *
      * The available and pending amounts for each currency are broken down further by
      * payment source types.
-     * 
+     *
      * Related guide: [Understanding Connect account balances](https://stripe.com/docs/connect/account-balances)
      */
     balance: {
@@ -2744,7 +2744,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "balance";
@@ -2774,22 +2774,22 @@ export interface components {
       available: (components["schemas"]["balance_amount"])[];
     };
     /**
-     * BalanceTransaction 
+     * BalanceTransaction
      * @description Balance transactions represent funds moving through your Stripe account.
      * They're created for every type of transaction that comes into or flows out of your Stripe account balance.
-     * 
+     *
      * Related guide: [Balance transaction types](https://stripe.com/docs/reports/balance-transaction-types)
      */
     balance_transaction: {
       /** @description Gross amount of the transaction, in %s. */
       amount: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The date the transaction's net funds will become available in the Stripe balance.
        */
       available_on: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -2808,7 +2808,7 @@ export interface components {
       /** @description Net amount of the transaction, in %s. */
       net: number;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "balance_transaction";
@@ -2819,19 +2819,19 @@ export interface components {
       /** @description If the transaction's net funds are available in the Stripe balance yet. Either `available` or `pending`. */
       status: string;
       /**
-       * @description Transaction type: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. [Learn more](https://stripe.com/docs/reports/balance-transaction-types) about balance transaction types and what they represent. If you are looking to classify transactions for accounting purposes, you might want to consider `reporting_category` instead. 
+       * @description Transaction type: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. [Learn more](https://stripe.com/docs/reports/balance-transaction-types) about balance transaction types and what they represent. If you are looking to classify transactions for accounting purposes, you might want to consider `reporting_category` instead.
        * @enum {string}
        */
       type: "adjustment" | "advance" | "advance_funding" | "anticipation_repayment" | "application_fee" | "application_fee_refund" | "charge" | "connect_collection_transfer" | "contribution" | "issuing_authorization_hold" | "issuing_authorization_release" | "issuing_dispute" | "issuing_transaction" | "payment" | "payment_failure_refund" | "payment_refund" | "payout" | "payout_cancel" | "payout_failure" | "refund" | "refund_failure" | "reserve_transaction" | "reserved_funds" | "stripe_fee" | "stripe_fx_fee" | "tax_fee" | "topup" | "topup_reversal" | "transfer" | "transfer_cancel" | "transfer_failure" | "transfer_refund";
     };
     /**
-     * BankAccount 
+     * BankAccount
      * @description These bank accounts are payment methods on `Customer` objects.
-     * 
+     *
      * On the other hand [External Accounts](https://stripe.com/docs/api#external_accounts) are transfer
      * destinations on `Account` objects for [Custom accounts](https://stripe.com/docs/connect/custom-accounts).
      * They can be bank accounts or debit cards as well, and are documented in the links above.
-     * 
+     *
      * Related guide: [Bank debits and transfers](https://stripe.com/docs/payments/bank-debits-transfers)
      */
     bank_account: {
@@ -2868,7 +2868,7 @@ export interface components {
         [key: string]: string | undefined;
       }) | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "bank_account";
@@ -2878,7 +2878,7 @@ export interface components {
       routing_number?: string | null;
       /**
        * @description For bank accounts, possible values are `new`, `validated`, `verified`, `verification_failed`, or `errored`. A bank account that hasn't had any activity or validation performed is `new`. If Stripe can determine that the bank account exists, its status will be `validated`. Note that there often isn’t enough information to know (e.g., for smaller credit unions), and the validation is not always run. If customer bank account verification has succeeded, the bank account status will be `verified`. If the verification failed for any reason, such as microdeposit failure, the status will be `verification_failed`. If a transfer sent to this bank account fails, we'll set the status to `errored` and will not continue to send transfers until the bank details are updated.
-       * 
+       *
        * For external accounts, possible values are `new`, `errored` and `verification_failed`. If a transfer fails, the status is set to `errored` and transfers are stopped until account details are updated. In India, if we can't [verify the owner of the bank account](https://support.stripe.com/questions/bank-account-ownership-verification), we'll set the status to `verification_failed`. Other validations aren't run against external accounts because they're only used for payouts. This means the other statuses don't apply.
        */
       status: string;
@@ -2890,7 +2890,7 @@ export interface components {
       /** @description ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`. */
       customer?: string | components["schemas"]["customer"];
       /**
-       * @description Type of account holder that this account belongs to. 
+       * @description Type of account holder that this account belongs to.
        * @enum {string}
        */
       type: "account" | "customer";
@@ -2898,7 +2898,7 @@ export interface components {
     /** BankConnectionsResourceBalance */
     bank_connections_resource_balance: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The time that the external institution calculated this balance. Measured in seconds since the Unix epoch.
        */
       as_of: number;
@@ -2906,16 +2906,16 @@ export interface components {
       credit?: components["schemas"]["bank_connections_resource_balance_api_resource_credit_balance"];
       /**
        * @description The balances owed to (or by) the account holder.
-       * 
+       *
        * Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
-       * 
+       *
        * Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
        */
       current: {
         [key: string]: number | undefined;
       };
       /**
-       * @description The `type` of the balance. An additional hash is included on the balance with a name matching this value. 
+       * @description The `type` of the balance. An additional hash is included on the balance with a name matching this value.
        * @enum {string}
        */
       type: "cash" | "credit";
@@ -2924,9 +2924,9 @@ export interface components {
     bank_connections_resource_balance_api_resource_cash_balance: {
       /**
        * @description The funds available to the account holder. Typically this is the current balance less any holds.
-       * 
+       *
        * Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
-       * 
+       *
        * Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
        */
       available?: ({
@@ -2937,9 +2937,9 @@ export interface components {
     bank_connections_resource_balance_api_resource_credit_balance: {
       /**
        * @description The credit that has been used by the account holder.
-       * 
+       *
        * Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
-       * 
+       *
        * Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
        */
       used?: ({
@@ -2949,12 +2949,12 @@ export interface components {
     /** BankConnectionsResourceBalanceRefresh */
     bank_connections_resource_balance_refresh: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
        */
       last_attempted_at: number;
       /**
-       * @description The status of the last refresh attempt. 
+       * @description The status of the last refresh attempt.
        * @enum {string}
        */
       status: "failed" | "pending" | "succeeded";
@@ -2967,12 +2967,12 @@ export interface components {
     /** BankConnectionsResourceOwnershipRefresh */
     bank_connections_resource_ownership_refresh: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
        */
       last_attempted_at: number;
       /**
-       * @description The status of the last refresh attempt. 
+       * @description The status of the last refresh attempt.
        * @enum {string}
        */
       status: "failed" | "pending" | "succeeded";
@@ -2989,7 +2989,7 @@ export interface components {
       phone?: string | null;
     };
     /**
-     * PortalConfiguration 
+     * PortalConfiguration
      * @description A portal configuration describes the functionality and behavior of a portal session.
      */
     "billing_portal.configuration": {
@@ -2999,7 +2999,7 @@ export interface components {
       application?: (string | components["schemas"]["application"] | components["schemas"]["deleted_application"]) | null;
       business_profile: components["schemas"]["portal_business_profile"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -3018,38 +3018,38 @@ export interface components {
         [key: string]: string | undefined;
       }) | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "billing_portal.configuration";
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was last updated. Measured in seconds since the Unix epoch.
        */
       updated: number;
     };
     /**
-     * PortalSession 
+     * PortalSession
      * @description The Billing customer portal is a Stripe-hosted UI for subscription and
      * billing management.
-     * 
+     *
      * A portal configuration describes the functionality and features that you
      * want to provide to your customers through the portal.
-     * 
+     *
      * A portal session describes the instantiation of the customer portal for
      * a particular customer. By visiting the session's URL, the customer
      * can manage their subscriptions and billing details. For security reasons,
      * sessions are short-lived and will expire if the customer does not visit the URL.
      * Create sessions on-demand when customers intend to manage their subscriptions
      * and billing details.
-     * 
+     *
      * Learn more in the [integration guide](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal).
      */
     "billing_portal.session": {
       /** @description The configuration used by this session, describing the features available. */
       configuration: string | components["schemas"]["billing_portal.configuration"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -3062,12 +3062,12 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description The IETF language tag of the locale Customer Portal is displayed in. If blank or auto, the customer’s `preferred_locales` or browser’s locale is used. 
+       * @description The IETF language tag of the locale Customer Portal is displayed in. If blank or auto, the customer’s `preferred_locales` or browser’s locale is used.
        * @enum {string|null}
        */
       locale?: "auto" | "bg" | "cs" | "da" | "de" | "el" | "en" | "en-AU" | "en-CA" | "en-GB" | "en-IE" | "en-IN" | "en-NZ" | "en-SG" | "es" | "es-419" | "et" | "fi" | "fil" | "fr" | "fr-CA" | "hr" | "hu" | "id" | "it" | "ja" | "ko" | "lt" | "lv" | "ms" | "mt" | "nb" | "nl" | "pl" | "pt" | "pt-BR" | "ro" | "ru" | "sk" | "sl" | "sv" | "th" | "tr" | "vi" | "zh" | "zh-HK" | "zh-TW" | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "billing_portal.session";
@@ -3083,20 +3083,20 @@ export interface components {
       /** @description Additional comments about why the user canceled the subscription, if the subscription was cancelled explicitly by the user. */
       comment?: string | null;
       /**
-       * @description The customer submitted reason for why they cancelled, if the subscription was cancelled explicitly by the user. 
+       * @description The customer submitted reason for why they cancelled, if the subscription was cancelled explicitly by the user.
        * @enum {string|null}
        */
       feedback?: "customer_service" | "low_quality" | "missing_features" | "other" | "switched_service" | "too_complex" | "too_expensive" | "unused" | null;
       /**
-       * @description Why this subscription was cancelled. 
+       * @description Why this subscription was cancelled.
        * @enum {string|null}
        */
       reason?: "cancellation_requested" | "payment_disputed" | "payment_failed" | null;
     };
     /**
-     * AccountCapability 
+     * AccountCapability
      * @description This is an object representing a capability for a Stripe account.
-     * 
+     *
      * Related guide: [Account capabilities](https://stripe.com/docs/connect/account-capabilities)
      */
     capability: {
@@ -3106,30 +3106,30 @@ export interface components {
       /** @description The identifier for the capability. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "capability";
       /** @description Whether the capability has been requested. */
       requested: boolean;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the capability was requested. Measured in seconds since the Unix epoch.
        */
       requested_at?: number | null;
       requirements?: components["schemas"]["account_capability_requirements"];
       /**
-       * @description The status of the capability. Can be `active`, `inactive`, `pending`, or `unrequested`. 
+       * @description The status of the capability. Can be `active`, `inactive`, `pending`, or `unrequested`.
        * @enum {string}
        */
       status: "active" | "disabled" | "inactive" | "pending" | "unrequested";
     };
     /**
-     * Card 
+     * Card
      * @description You can store multiple cards on a customer in order to charge the customer
      * later. You can also store multiple debit cards on a recipient in order to
      * transfer to those cards later.
-     * 
+     *
      * Related guide: [Card payments with Sources](https://stripe.com/docs/sources/cards)
      */
     card: {
@@ -3173,7 +3173,7 @@ export interface components {
       exp_year: number;
       /**
        * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
-       * 
+       *
        * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
        */
       fingerprint?: string | null;
@@ -3190,7 +3190,7 @@ export interface components {
       /** @description Cardholder name. */
       name?: string | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "card";
@@ -3217,7 +3217,7 @@ export interface components {
     /** card_mandate_payment_method_details */
     card_mandate_payment_method_details: Record<string, never>;
     /**
-     * cash_balance 
+     * cash_balance
      * @description A customer's `Cash balance` represents real funds. Customers can add funds to their cash balance by sending a bank transfer. These funds can be used for payment and can eventually be paid out to your bank account.
      */
     cash_balance: {
@@ -3230,14 +3230,14 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "cash_balance";
       settings: components["schemas"]["customer_balance_customer_balance_settings"];
     };
     /**
-     * Charge 
+     * Charge
      * @description The `Charge` object represents a single attempt to move money into your Stripe account.
      * PaymentIntent confirmation is the most common way to create Charges, but transferring
      * money to a different Stripe account through Connect also creates Charges.
@@ -3264,7 +3264,7 @@ export interface components {
       /** @description If the charge was created without capturing, this Boolean represents whether it is still uncaptured or has since been captured. */
       captured: boolean;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -3295,7 +3295,7 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "charge";
@@ -3321,7 +3321,7 @@ export interface components {
       /** @description Whether the charge has been fully refunded. If the charge is only partially refunded, this attribute will still be false. */
       refunded: boolean;
       /**
-       * RefundList 
+       * RefundList
        * @description A list of refunds that have been applied to the charge.
        */
       refunds?: {
@@ -3330,7 +3330,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -3348,7 +3348,7 @@ export interface components {
       /** @description Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
       statement_descriptor_suffix?: string | null;
       /**
-       * @description The status of the payment is either `succeeded`, `pending`, or `failed`. 
+       * @description The status of the payment is either `succeeded`, `pending`, or `failed`.
        * @enum {string}
        */
       status: "failed" | "pending" | "succeeded";
@@ -3391,20 +3391,20 @@ export interface components {
       destination: string | components["schemas"]["account"];
     };
     /**
-     * Session 
+     * Session
      * @description A Checkout Session represents your customer's session as they pay for
      * one-time purchases or subscriptions through [Checkout](https://stripe.com/docs/payments/checkout)
      * or [Payment Links](https://stripe.com/docs/payments/payment-links). We recommend creating a
      * new Session each time your customer attempts to pay.
-     * 
+     *
      * Once payment is successful, the Checkout Session will contain a reference
      * to the [Customer](https://stripe.com/docs/api/customers), and either the successful
      * [PaymentIntent](https://stripe.com/docs/api/payment_intents) or an active
      * [Subscription](https://stripe.com/docs/api/subscriptions).
-     * 
+     *
      * You can create a Checkout Session on your server and redirect to its URL
      * to begin Checkout.
-     * 
+     *
      * Related guide: [Checkout quickstart](https://stripe.com/docs/checkout/quickstart)
      */
     "checkout.session": {
@@ -3418,7 +3418,7 @@ export interface components {
       amount_total?: number | null;
       automatic_tax: components["schemas"]["payment_pages_checkout_session_automatic_tax"];
       /**
-       * @description Describes whether Checkout should collect the customer's billing address. 
+       * @description Describes whether Checkout should collect the customer's billing address.
        * @enum {string|null}
        */
       billing_address_collection?: "auto" | "required" | null;
@@ -3435,7 +3435,7 @@ export interface components {
       /** @description When set, provides configuration for the Checkout Session to gather active consent from customers. */
       consent_collection?: components["schemas"]["payment_pages_checkout_session_consent_collection"] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -3455,7 +3455,7 @@ export interface components {
        */
       customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
       /**
-       * @description Configure whether a Checkout Session creates a Customer when the Checkout Session completes. 
+       * @description Configure whether a Checkout Session creates a Customer when the Checkout Session completes.
        * @enum {string|null}
        */
       customer_creation?: "always" | "if_required" | null;
@@ -3470,7 +3470,7 @@ export interface components {
        */
       customer_email?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The timestamp at which the Checkout Session will expire.
        */
       expires_at: number;
@@ -3481,7 +3481,7 @@ export interface components {
       /** @description Details on the state of invoice creation for the Checkout Session. */
       invoice_creation?: components["schemas"]["payment_pages_checkout_session_invoice_creation"] | null;
       /**
-       * PaymentPagesCheckoutSessionListLineItems 
+       * PaymentPagesCheckoutSessionListLineItems
        * @description The line items purchased by the customer.
        */
       line_items?: {
@@ -3490,7 +3490,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -3500,7 +3500,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used. 
+       * @description The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
        * @enum {string|null}
        */
       locale?: "auto" | "bg" | "cs" | "da" | "de" | "el" | "en" | "en-GB" | "es" | "es-419" | "et" | "fi" | "fil" | "fr" | "fr-CA" | "hr" | "hu" | "id" | "it" | "ja" | "ko" | "lt" | "lv" | "ms" | "mt" | "nb" | "nl" | "pl" | "pt" | "pt-BR" | "ro" | "ru" | "sk" | "sl" | "sv" | "th" | "tr" | "vi" | "zh" | "zh-HK" | "zh-TW" | null;
@@ -3509,12 +3509,12 @@ export interface components {
         [key: string]: string | undefined;
       }) | null;
       /**
-       * @description The mode of the Checkout Session. 
+       * @description The mode of the Checkout Session.
        * @enum {string}
        */
       mode: "payment" | "setup" | "subscription";
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "checkout.session";
@@ -3523,7 +3523,7 @@ export interface components {
       /** @description The ID of the Payment Link that created this Session. */
       payment_link?: (string | components["schemas"]["payment_link"]) | null;
       /**
-       * @description Configure whether a Checkout Session should collect a payment method. 
+       * @description Configure whether a Checkout Session should collect a payment method.
        * @enum {string|null}
        */
       payment_method_collection?: "always" | "if_required" | null;
@@ -3536,7 +3536,7 @@ export interface components {
       payment_method_types: (string)[];
       /**
        * @description The payment status of the Checkout Session, one of `paid`, `unpaid`, or `no_payment_required`.
-       * You can use this value to decide when to fulfill your customer's order. 
+       * You can use this value to decide when to fulfill your customer's order.
        * @enum {string}
        */
       payment_status: "no_payment_required" | "paid" | "unpaid";
@@ -3554,7 +3554,7 @@ export interface components {
       /** @description The shipping rate options applied to this Session. */
       shipping_options: (components["schemas"]["payment_pages_checkout_session_shipping_option"])[];
       /**
-       * @description The status of the Checkout Session, one of `open`, `complete`, or `expired`. 
+       * @description The status of the Checkout Session, one of `open`, `complete`, or `expired`.
        * @enum {string|null}
        */
       status?: "complete" | "expired" | "open" | null;
@@ -3562,7 +3562,7 @@ export interface components {
        * @description Describes the type of transaction being performed by Checkout in order to customize
        * relevant text on the page, such as the submit button. `submit_type` can only be
        * specified on Checkout Sessions in `payment` mode, but not Checkout Sessions
-       * in `subscription` or `setup` mode. 
+       * in `subscription` or `setup` mode.
        * @enum {string|null}
        */
       submit_type?: "auto" | "book" | "donate" | "pay" | null;
@@ -3591,12 +3591,12 @@ export interface components {
       /** @description Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'. */
       interval_description?: string | null;
       /**
-       * @description Payment schedule for the mandate. 
+       * @description Payment schedule for the mandate.
        * @enum {string|null}
        */
       payment_schedule?: "combined" | "interval" | "sporadic" | null;
       /**
-       * @description Transaction type of the mandate. 
+       * @description Transaction type of the mandate.
        * @enum {string|null}
        */
       transaction_type?: "business" | "personal" | null;
@@ -3604,22 +3604,22 @@ export interface components {
     /** CheckoutAcssDebitPaymentMethodOptions */
     checkout_acss_debit_payment_method_options: {
       /**
-       * @description Currency supported by the bank account. Returned when the Session is in `setup` mode. 
+       * @description Currency supported by the bank account. Returned when the Session is in `setup` mode.
        * @enum {string}
        */
       currency?: "cad" | "usd";
       mandate_options?: components["schemas"]["checkout_acss_debit_mandate_options"];
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session" | "on_session";
       /**
-       * @description Bank account verification method. 
+       * @description Bank account verification method.
        * @enum {string}
        */
       verification_method?: "automatic" | "instant" | "microdeposits";
@@ -3628,10 +3628,10 @@ export interface components {
     checkout_affirm_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3640,10 +3640,10 @@ export interface components {
     checkout_afterpay_clearpay_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3652,10 +3652,10 @@ export interface components {
     checkout_alipay_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3664,10 +3664,10 @@ export interface components {
     checkout_au_becs_debit_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3676,10 +3676,10 @@ export interface components {
     checkout_bacs_debit_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session" | "on_session";
@@ -3688,10 +3688,10 @@ export interface components {
     checkout_bancontact_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3702,10 +3702,10 @@ export interface components {
       expires_after_days: number;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session" | "on_session";
@@ -3720,10 +3720,10 @@ export interface components {
       installments?: components["schemas"]["checkout_card_installments_options"];
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session" | "on_session";
@@ -3736,10 +3736,10 @@ export interface components {
     checkout_cashapp_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3749,12 +3749,12 @@ export interface components {
       eu_bank_transfer?: components["schemas"]["payment_method_options_customer_balance_eu_bank_account"];
       /**
        * @description List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
-       * 
+       *
        * Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
        */
       requested_address_types?: ("aba" | "iban" | "sepa" | "sort_code" | "spei" | "swift" | "zengin")[];
       /**
-       * @description The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`. 
+       * @description The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
        * @enum {string|null}
        */
       type?: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer" | null;
@@ -3763,16 +3763,16 @@ export interface components {
     checkout_customer_balance_payment_method_options: {
       bank_transfer?: components["schemas"]["checkout_customer_balance_bank_transfer_payment_method_options"];
       /**
-       * @description The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`. 
+       * @description The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
        * @enum {string|null}
        */
       funding_type?: "bank_transfer" | null;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3781,10 +3781,10 @@ export interface components {
     checkout_eps_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3793,10 +3793,10 @@ export interface components {
     checkout_fpx_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3805,10 +3805,10 @@ export interface components {
     checkout_giropay_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3817,10 +3817,10 @@ export interface components {
     checkout_grab_pay_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3829,10 +3829,10 @@ export interface components {
     checkout_ideal_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3841,10 +3841,10 @@ export interface components {
     checkout_klarna_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session" | "on_session";
@@ -3855,10 +3855,10 @@ export interface components {
       expires_after_days?: number | null;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3867,10 +3867,10 @@ export interface components {
     checkout_link_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session";
@@ -3881,10 +3881,10 @@ export interface components {
       expires_after_days: number;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3893,10 +3893,10 @@ export interface components {
     checkout_p24_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3905,10 +3905,10 @@ export interface components {
     checkout_paynow_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3922,10 +3922,10 @@ export interface components {
     checkout_sepa_debit_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session" | "on_session";
@@ -3963,10 +3963,10 @@ export interface components {
     checkout_sofort_payment_method_options: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -3976,15 +3976,15 @@ export interface components {
       financial_connections?: components["schemas"]["linked_account_options_us_bank_account"];
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session" | "on_session";
       /**
-       * @description Bank account verification method. 
+       * @description Bank account verification method.
        * @enum {string}
        */
       verification_method?: "automatic" | "instant";
@@ -4002,17 +4002,17 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "connect_collection_transfer";
     };
     /**
-     * CountrySpec 
+     * CountrySpec
      * @description Stripe needs to collect certain pieces of information about each account
      * created. These requirements can differ depending on the account's country. The
      * Country Specs API makes these rules available to your integration.
-     * 
+     *
      * You can also view the information from this API call as [an online
      * guide](/docs/connect/required-verification-information).
      */
@@ -4022,7 +4022,7 @@ export interface components {
       /** @description Unique identifier for the object. Represented as the ISO country code for this country. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "country_spec";
@@ -4051,7 +4051,7 @@ export interface components {
       individual: components["schemas"]["country_spec_verification_field_details"];
     };
     /**
-     * Coupon 
+     * Coupon
      * @description A coupon contains information about a percent-off or amount-off discount you
      * might want to apply to a customer. Coupons may be applied to [subscriptions](https://stripe.com/docs/api#subscriptions), [invoices](https://stripe.com/docs/api#invoices),
      * [checkout sessions](https://stripe.com/docs/api/checkout/sessions), [quotes](https://stripe.com/docs/api#quotes), and more. Coupons do not work with conventional one-off [charges](https://stripe.com/docs/api#create_charge) or [payment intents](https://stripe.com/docs/api/payment_intents).
@@ -4061,7 +4061,7 @@ export interface components {
       amount_off?: number | null;
       applies_to?: components["schemas"]["coupon_applies_to"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -4072,7 +4072,7 @@ export interface components {
         [key: string]: components["schemas"]["coupon_currency_option"] | undefined;
       };
       /**
-       * @description One of `forever`, `once`, and `repeating`. Describes how long a customer who applies this coupon will get the discount. 
+       * @description One of `forever`, `once`, and `repeating`. Describes how long a customer who applies this coupon will get the discount.
        * @enum {string}
        */
       duration: "forever" | "once" | "repeating";
@@ -4091,14 +4091,14 @@ export interface components {
       /** @description Name of the coupon displayed to customers on for instance invoices or receipts. */
       name?: string | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "coupon";
       /** @description Percent that will be taken off the subtotal of any invoices for this customer for the duration of the coupon. For example, a coupon with percent_off of 50 will make a %s100 invoice %s50 instead. */
       percent_off?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date after which the coupon can no longer be redeemed.
        */
       redeem_by?: number | null;
@@ -4118,9 +4118,9 @@ export interface components {
       amount_off: number;
     };
     /**
-     * CreditNote 
+     * CreditNote
      * @description Issue a credit note to adjust an invoice's amount after the invoice is finalized.
-     * 
+     *
      * Related guide: [Credit notes](https://stripe.com/docs/billing/invoices/credit-notes)
      */
     credit_note: {
@@ -4129,7 +4129,7 @@ export interface components {
       /** @description This is the sum of all the shipping amounts. */
       amount_shipping: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -4144,7 +4144,7 @@ export interface components {
       /** @description The aggregate amounts calculated per discount for all line items. */
       discount_amounts: (components["schemas"]["discounts_resource_discount_amount"])[];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
        */
       effective_at?: number | null;
@@ -4153,7 +4153,7 @@ export interface components {
       /** @description ID of the invoice. */
       invoice: string | components["schemas"]["invoice"];
       /**
-       * CreditNoteLinesList 
+       * CreditNoteLinesList
        * @description Line items that make up the credit note
        */
       lines: {
@@ -4162,7 +4162,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -4180,7 +4180,7 @@ export interface components {
       /** @description A unique number that identifies this particular credit note and appears on the PDF of the credit note and its associated invoice. */
       number: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "credit_note";
@@ -4189,7 +4189,7 @@ export interface components {
       /** @description The link to download the PDF of the credit note. */
       pdf: string;
       /**
-       * @description Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` 
+       * @description Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
        * @enum {string|null}
        */
       reason?: "duplicate" | "fraudulent" | "order_change" | "product_unsatisfactory" | null;
@@ -4198,7 +4198,7 @@ export interface components {
       /** @description The details of the cost of shipping, including the ShippingRate applied to the invoice. */
       shipping_cost?: components["schemas"]["invoices_shipping_cost"] | null;
       /**
-       * @description Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding). 
+       * @description Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
        * @enum {string}
        */
       status: "issued" | "void";
@@ -4213,12 +4213,12 @@ export interface components {
       /** @description The integer amount in %s representing the total amount of the credit note, excluding tax, but including discounts. */
       total_excluding_tax?: number | null;
       /**
-       * @description Type of this credit note, one of `pre_payment` or `post_payment`. A `pre_payment` credit note means it was issued when the invoice was open. A `post_payment` credit note means it was issued when the invoice was paid. 
+       * @description Type of this credit note, one of `pre_payment` or `post_payment`. A `pre_payment` credit note means it was issued when the invoice was open. A `post_payment` credit note means it was issued when the invoice was paid.
        * @enum {string}
        */
       type: "post_payment" | "pre_payment";
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The time that the credit note was voided.
        */
       voided_at?: number | null;
@@ -4242,7 +4242,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "credit_note_line_item";
@@ -4253,19 +4253,19 @@ export interface components {
       /** @description The tax rates which apply to the line item. */
       tax_rates: (components["schemas"]["tax_rate"])[];
       /**
-       * @description The type of the credit note line item, one of `invoice_line_item` or `custom_line_item`. When the type is `invoice_line_item` there is an additional `invoice_line_item` property on the resource the value of which is the id of the credited line item on the invoice. 
+       * @description The type of the credit note line item, one of `invoice_line_item` or `custom_line_item`. When the type is `invoice_line_item` there is an additional `invoice_line_item` property on the resource the value of which is the id of the credited line item on the invoice.
        * @enum {string}
        */
       type: "custom_line_item" | "invoice_line_item";
       /** @description The cost of each unit of product being credited. */
       unit_amount?: number | null;
       /**
-       * Format: decimal 
+       * Format: decimal
        * @description Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
        */
       unit_amount_decimal?: string | null;
       /**
-       * Format: decimal 
+       * Format: decimal
        * @description The amount in %s representing the unit amount being credited for this line item, excluding all tax and discounts.
        */
       unit_amount_excluding_tax?: string | null;
@@ -4279,7 +4279,7 @@ export interface components {
       /** @description The tax rate that was applied to get this tax amount. */
       tax_rate: string | components["schemas"]["tax_rate"];
       /**
-       * @description The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported. 
+       * @description The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
        * @enum {string|null}
        */
       taxability_reason?: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated" | null;
@@ -4291,7 +4291,7 @@ export interface components {
       /** @description When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links. */
       custom_unit_amount?: components["schemas"]["custom_unit_amount"] | null;
       /**
-       * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
+       * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
        * @enum {string|null}
        */
       tax_behavior?: "exclusive" | "inclusive" | "unspecified" | null;
@@ -4300,7 +4300,7 @@ export interface components {
       /** @description The unit amount in %s to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`. */
       unit_amount?: number | null;
       /**
-       * Format: decimal 
+       * Format: decimal
        * @description The unit amount in %s to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
        */
       unit_amount_decimal?: string | null;
@@ -4315,9 +4315,9 @@ export interface components {
       preset?: number | null;
     };
     /**
-     * Customer 
+     * Customer
      * @description This object represents a customer of your business. It lets you create recurring charges and track payments that belong to the same customer.
-     * 
+     *
      * Related guide: [Save a card during payment](https://stripe.com/docs/payments/save-during-payment)
      */
     customer: {
@@ -4328,7 +4328,7 @@ export interface components {
       /** @description The current funds being held by Stripe on behalf of the customer. These funds can be applied towards payment intents with source "cash_balance". The settings[reconciliation_mode] field describes whether these funds are applied to such payment intents manually or automatically. */
       cash_balance?: components["schemas"]["cash_balance"] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -4336,13 +4336,13 @@ export interface components {
       currency?: string | null;
       /**
        * @description ID of the default payment source for the customer.
-       * 
+       *
        * If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.
        */
       default_source?: (string | components["schemas"]["bank_account"] | components["schemas"]["card"] | components["schemas"]["source"]) | null;
       /**
        * @description When the customer's latest invoice is billed by charging automatically, `delinquent` is `true` if the invoice's latest charge failed. When the customer's latest invoice is billed by sending an invoice, `delinquent` is `true` if the invoice isn't paid by its due date.
-       * 
+       *
        * If an invoice is marked uncollectible by [dunning](https://stripe.com/docs/billing/automatic-collection), `delinquent` doesn't get reset to `false`.
        */
       delinquent?: boolean | null;
@@ -4372,7 +4372,7 @@ export interface components {
       /** @description The suffix of the customer's next invoice number, e.g., 0001. */
       next_invoice_sequence?: number;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "customer";
@@ -4383,7 +4383,7 @@ export interface components {
       /** @description Mailing and shipping address for the customer. Appears on invoices emailed to this customer. */
       shipping?: components["schemas"]["shipping"] | null;
       /**
-       * ApmsSourcesSourceList 
+       * ApmsSourcesSourceList
        * @description The customer's payment sources, if any.
        */
       sources?: {
@@ -4392,7 +4392,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -4400,7 +4400,7 @@ export interface components {
         url: string;
       };
       /**
-       * SubscriptionList 
+       * SubscriptionList
        * @description The customer's current subscriptions, if any.
        */
       subscriptions?: {
@@ -4409,7 +4409,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -4418,12 +4418,12 @@ export interface components {
       };
       tax?: components["schemas"]["customer_tax"];
       /**
-       * @description Describes the customer's tax exemption status. One of `none`, `exempt`, or `reverse`. When set to `reverse`, invoice and receipt PDFs include the text **"Reverse charge"**. 
+       * @description Describes the customer's tax exemption status. One of `none`, `exempt`, or `reverse`. When set to `reverse`, invoice and receipt PDFs include the text **"Reverse charge"**.
        * @enum {string|null}
        */
       tax_exempt?: "exempt" | "none" | "reverse" | null;
       /**
-       * TaxIDsList 
+       * TaxIDsList
        * @description The customer's tax IDs.
        */
       tax_ids?: {
@@ -4432,7 +4432,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -4445,14 +4445,14 @@ export interface components {
     /** customer_acceptance */
     customer_acceptance: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The time at which the customer accepted the Mandate.
        */
       accepted_at?: number | null;
       offline?: components["schemas"]["offline_acceptance"];
       online?: components["schemas"]["online_acceptance"];
       /**
-       * @description The type of customer acceptance information included with the Mandate. One of `online` or `offline`. 
+       * @description The type of customer acceptance information included with the Mandate. One of `online` or `offline`.
        * @enum {string}
        */
       type: "offline" | "online";
@@ -4460,7 +4460,7 @@ export interface components {
     /** CustomerBalanceCustomerBalanceSettings */
     customer_balance_customer_balance_settings: {
       /**
-       * @description The configuration for how funds that land in the customer cash balance are reconciled. 
+       * @description The configuration for how funds that land in the customer cash balance are reconciled.
        * @enum {string}
        */
       reconciliation_mode: "automatic" | "manual";
@@ -4484,7 +4484,7 @@ export interface components {
       /** @description The user-supplied reference field on the bank transfer. */
       reference?: string | null;
       /**
-       * @description The funding method type used to fund the customer balance. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`. 
+       * @description The funding method type used to fund the customer balance. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
        * @enum {string}
        */
       type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer";
@@ -4520,7 +4520,7 @@ export interface components {
     /** CustomerBalanceResourceCashBalanceTransactionResourceFundedTransactionResourceBankTransferResourceUsBankTransfer */
     customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_us_bank_transfer: {
       /**
-       * @description The banking network used for this funding. 
+       * @description The banking network used for this funding.
        * @enum {string}
        */
       network?: "ach" | "domestic_wire_us" | "swift";
@@ -4538,19 +4538,19 @@ export interface components {
       payment_intent: string | components["schemas"]["payment_intent"];
     };
     /**
-     * CustomerBalanceTransaction 
+     * CustomerBalanceTransaction
      * @description Each customer has a [Balance](https://stripe.com/docs/api/customers/object#customer_object-balance) value,
      * which denotes a debit or credit that's automatically applied to their next invoice upon finalization.
      * You may modify the value directly by using the [update customer API](https://stripe.com/docs/api/customers/update),
      * or by creating a Customer Balance Transaction, which increments or decrements the customer's `balance` by the specified `amount`.
-     * 
+     *
      * Related guide: [Customer balance](https://stripe.com/docs/billing/customer/balance)
      */
     customer_balance_transaction: {
       /** @description The amount of the transaction. A negative value is a credit for the customer's balance, and a positive value is a debit to the customer's `balance`. */
       amount: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -4575,18 +4575,18 @@ export interface components {
         [key: string]: string | undefined;
       }) | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "customer_balance_transaction";
       /**
-       * @description Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_overpaid`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, or `unapplied_from_invoice`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types. 
+       * @description Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_overpaid`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, or `unapplied_from_invoice`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types.
        * @enum {string}
        */
       type: "adjustment" | "applied_to_invoice" | "credit_note" | "initial" | "invoice_overpaid" | "invoice_too_large" | "invoice_too_small" | "migration" | "unapplied_from_invoice" | "unspent_receiver_credit";
     };
     /**
-     * CustomerCashBalanceTransaction 
+     * CustomerCashBalanceTransaction
      * @description Customers with certain payments enabled have a cash balance, representing funds that were paid
      * by the customer to a merchant, but have not yet been allocated to a payment. Cash Balance Transactions
      * represent when funds are moved into or out of this balance. This includes funding by the customer, allocation
@@ -4595,7 +4595,7 @@ export interface components {
     customer_cash_balance_transaction: {
       applied_to_payment?: components["schemas"]["customer_balance_resource_cash_balance_transaction_resource_applied_to_payment_transaction"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -4613,13 +4613,13 @@ export interface components {
       /** @description The amount by which the cash balance changed, represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). A positive value represents funds being added to the cash balance, a negative value represents funds being removed from the cash balance. */
       net_amount: number;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "customer_cash_balance_transaction";
       refunded_from_payment?: components["schemas"]["customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction"];
       /**
-       * @description The type of the cash balance transaction. One of `applied_to_payment`, `unapplied_from_payment`, `refunded_from_payment`, `funded`, `return_initiated`, or `return_canceled`. New types may be added in future. See [Customer Balance](https://stripe.com/docs/payments/customer-balance#types) to learn more about these types. 
+       * @description The type of the cash balance transaction. One of `applied_to_payment`, `unapplied_from_payment`, `refunded_from_payment`, `funded`, `return_initiated`, or `return_canceled`. New types may be added in future. See [Customer Balance](https://stripe.com/docs/payments/customer-balance#types) to learn more about these types.
        * @enum {string}
        */
       type: "applied_to_payment" | "funded" | "funding_reversed" | "refunded_from_payment" | "return_canceled" | "return_initiated" | "unapplied_from_payment";
@@ -4628,7 +4628,7 @@ export interface components {
     /** CustomerTax */
     customer_tax: {
       /**
-       * @description Surfaces if automatic tax computation is possible given the current customer location information. 
+       * @description Surfaces if automatic tax computation is possible given the current customer location information.
        * @enum {string}
        */
       automatic_tax: "failed" | "not_collecting" | "supported" | "unrecognized_location";
@@ -4642,7 +4642,7 @@ export interface components {
       /** @description The customer's country as identified by Stripe Tax. */
       country: string;
       /**
-       * @description The data source used to infer the customer's location. 
+       * @description The data source used to infer the customer's location.
        * @enum {string}
        */
       source: "billing_address" | "ip_address" | "payment_method" | "shipping_destination";
@@ -4652,14 +4652,14 @@ export interface components {
     /** DeletedAccount */
     deleted_account: {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "account";
@@ -4667,14 +4667,14 @@ export interface components {
     /** DeletedApplePayDomain */
     deleted_apple_pay_domain: {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "apple_pay_domain";
@@ -4682,7 +4682,7 @@ export interface components {
     /** DeletedApplication */
     deleted_application: {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
@@ -4691,7 +4691,7 @@ export interface components {
       /** @description The name of the application. */
       name?: string | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "application";
@@ -4701,14 +4701,14 @@ export interface components {
       /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account. */
       currency?: string | null;
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "bank_account";
@@ -4718,14 +4718,14 @@ export interface components {
       /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account. */
       currency?: string | null;
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "card";
@@ -4733,14 +4733,14 @@ export interface components {
     /** DeletedCoupon */
     deleted_coupon: {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "coupon";
@@ -4748,14 +4748,14 @@ export interface components {
     /** DeletedCustomer */
     deleted_customer: {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "customer";
@@ -4768,7 +4768,7 @@ export interface components {
       /** @description The ID of the customer associated with this discount. */
       customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
@@ -4779,14 +4779,14 @@ export interface components {
       /** @description The invoice item `id` (or invoice line item `id` for invoice line items of type='subscription') that the discount's coupon was applied to, if it was applied directly to a particular invoice item or invoice line item. */
       invoice_item?: string | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "discount";
       /** @description The promotion code applied to create this discount. */
       promotion_code?: (string | components["schemas"]["promotion_code"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date that the coupon was applied.
        */
       start: number;
@@ -4798,14 +4798,14 @@ export interface components {
     /** DeletedInvoice */
     deleted_invoice: {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "invoice";
@@ -4813,14 +4813,14 @@ export interface components {
     /** DeletedInvoiceItem */
     deleted_invoiceitem: {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "invoiceitem";
@@ -4830,14 +4830,14 @@ export interface components {
     /** DeletedPerson */
     deleted_person: {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "person";
@@ -4845,14 +4845,14 @@ export interface components {
     /** DeletedPlan */
     deleted_plan: {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "plan";
@@ -4860,14 +4860,14 @@ export interface components {
     /** DeletedPrice */
     deleted_price: {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "price";
@@ -4875,14 +4875,14 @@ export interface components {
     /** DeletedProduct */
     deleted_product: {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "product";
@@ -4890,14 +4890,14 @@ export interface components {
     /** RadarListDeletedList */
     "deleted_radar.value_list": {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "radar.value_list";
@@ -4905,14 +4905,14 @@ export interface components {
     /** RadarListDeletedListItem */
     "deleted_radar.value_list_item": {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "radar.value_list_item";
@@ -4920,14 +4920,14 @@ export interface components {
     /** DeletedSubscriptionItem */
     deleted_subscription_item: {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "subscription_item";
@@ -4935,14 +4935,14 @@ export interface components {
     /** deleted_tax_id */
     deleted_tax_id: {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "tax_id";
@@ -4950,14 +4950,14 @@ export interface components {
     /** TerminalConfigurationDeletedConfiguration */
     "deleted_terminal.configuration": {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "terminal.configuration";
@@ -4965,14 +4965,14 @@ export interface components {
     /** TerminalLocationDeletedLocation */
     "deleted_terminal.location": {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "terminal.location";
@@ -4980,14 +4980,14 @@ export interface components {
     /** TerminalReaderDeletedReader */
     "deleted_terminal.reader": {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "terminal.reader";
@@ -4995,14 +4995,14 @@ export interface components {
     /** DeletedTestClock */
     "deleted_test_helpers.test_clock": {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "test_helpers.test_clock";
@@ -5010,23 +5010,23 @@ export interface components {
     /** NotificationWebhookEndpointDeleted */
     deleted_webhook_endpoint: {
       /**
-       * @description Always true for a deleted object 
+       * @description Always true for a deleted object
        * @enum {boolean}
        */
       deleted: true;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "webhook_endpoint";
     };
     /**
-     * Discount 
+     * Discount
      * @description A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
      * It contains information about when the discount began, when it will end, and what it is applied to.
-     * 
+     *
      * Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
      */
     discount: {
@@ -5036,7 +5036,7 @@ export interface components {
       /** @description The ID of the customer associated with this discount. */
       customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.
        */
       end?: number | null;
@@ -5047,14 +5047,14 @@ export interface components {
       /** @description The invoice item `id` (or invoice line item `id` for invoice line items of type='subscription') that the discount's coupon was applied to, if it was applied directly to a particular invoice item or invoice line item. */
       invoice_item?: string | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "discount";
       /** @description The promotion code applied to create this discount. */
       promotion_code?: (string | components["schemas"]["promotion_code"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date that the coupon was applied.
        */
       start: number;
@@ -5069,13 +5069,13 @@ export interface components {
       discount: string | components["schemas"]["discount"] | components["schemas"]["deleted_discount"];
     };
     /**
-     * Dispute 
+     * Dispute
      * @description A dispute occurs when a customer questions your charge with their card issuer.
      * When this happens, you're given the opportunity to respond to the dispute with
      * evidence that shows that the charge is legitimate. You can find more
      * information about the dispute process in our [Disputes and
      * Fraud](/docs/disputes) documentation.
-     * 
+     *
      * Related guide: [Disputes and fraud](https://stripe.com/docs/disputes)
      */
     dispute: {
@@ -5086,7 +5086,7 @@ export interface components {
       /** @description ID of the charge that was disputed. */
       charge: string | components["schemas"]["charge"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -5105,7 +5105,7 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "dispute";
@@ -5114,7 +5114,7 @@ export interface components {
       /** @description Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Read more about [dispute reasons](https://stripe.com/docs/disputes/categories). */
       reason: string;
       /**
-       * @description Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `charge_refunded`, `won`, or `lost`. 
+       * @description Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `charge_refunded`, `won`, or `lost`.
        * @enum {string}
        */
       status: "charge_refunded" | "lost" | "needs_response" | "under_review" | "warning_closed" | "warning_needs_response" | "warning_under_review" | "won";
@@ -5179,7 +5179,7 @@ export interface components {
     /** DisputeEvidenceDetails */
     dispute_evidence_details: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date by which evidence must be submitted in order to successfully challenge dispute. Will be 0 if the customer's bank or credit card company doesn't allow a response for this particular dispute.
        */
       due_by?: number | null;
@@ -5193,7 +5193,7 @@ export interface components {
     /** EmailSent */
     email_sent: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The timestamp when the email was sent.
        */
       email_sent_at: number;
@@ -5203,12 +5203,12 @@ export interface components {
     /** EphemeralKey */
     ephemeral_key: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the key will expire. Measured in seconds since the Unix epoch.
        */
       expires: number;
@@ -5217,7 +5217,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "ephemeral_key";
@@ -5229,7 +5229,7 @@ export interface components {
       error: components["schemas"]["api_errors"];
     };
     /**
-     * NotificationEvent 
+     * NotificationEvent
      * @description Events are our way of letting you know when something interesting happens in
      * your account. When an interesting event occurs, we create a new `Event`
      * object. For example, when a charge succeeds, we create a `charge.succeeded`
@@ -5238,12 +5238,12 @@ export interface components {
      * events to be created. For example, if you create a new subscription for a
      * customer, you will receive both a `customer.subscription.created` event and a
      * `charge.succeeded` event.
-     * 
+     *
      * Events occur when the state of another API resource changes. The state of that
      * resource at the time of the change is embedded in the event's data field. For
      * example, a `charge.succeeded` event will contain a charge, and an
      * `invoice.payment_failed` event will contain an invoice.
-     * 
+     *
      * As with other API resources, you can use endpoints to retrieve an
      * [individual event](https://stripe.com/docs/api#retrieve_event) or a [list of events](https://stripe.com/docs/api#list_events)
      * from the API. We also have a separate
@@ -5252,11 +5252,11 @@ export interface components {
      * in your
      * [account settings](https://dashboard.stripe.com/account/webhooks),
      * and our [Using Webhooks](https://stripe.com/docs/webhooks) guide will help you get set up.
-     * 
+     *
      * When using [Connect](https://stripe.com/docs/connect), you can also receive notifications of
      * events that occur in connected accounts. For these events, there will be an
      * additional `account` attribute in the received `Event` object.
-     * 
+     *
      * **NOTE:** Right now, access to events through the [Retrieve Event API](https://stripe.com/docs/api#retrieve_event) is
      * guaranteed only for 30 days.
      */
@@ -5266,7 +5266,7 @@ export interface components {
       /** @description The Stripe API version used to render `data`. *Note: This property is populated only for events on or after October 31, 2014*. */
       api_version?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -5276,7 +5276,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "event";
@@ -5288,13 +5288,13 @@ export interface components {
       type: string;
     };
     /**
-     * ExchangeRate 
+     * ExchangeRate
      * @description `Exchange Rate` objects allow you to determine the rates that Stripe is
      * currently using to convert from one currency to another. Since this number is
      * variable throughout the day, there are various reasons why you might want to
      * know the current rate (for example, to dynamically price an item for a user
      * with a default payment in a foreign currency).
-     * 
+     *
      * If you want a guarantee that the charge is made with a certain exchange rate
      * you expect is current, you can pass in `exchange_rate` to charges endpoints.
      * If the value is no longer up to date, the charge won't go through. Please
@@ -5305,7 +5305,7 @@ export interface components {
       /** @description Unique identifier for the object. Represented as the three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "exchange_rate";
@@ -5341,11 +5341,11 @@ export interface components {
       type: string;
     };
     /**
-     * FeeRefund 
+     * FeeRefund
      * @description `Application Fee Refund` objects allow you to refund an application fee that
      * has previously been created but not yet refunded. Funds will be refunded to
      * the Stripe account from which the fee was originally collected.
-     * 
+     *
      * Related guide: [Refunding application fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee)
      */
     fee_refund: {
@@ -5354,7 +5354,7 @@ export interface components {
       /** @description Balance transaction that describes the impact on your account balance. */
       balance_transaction?: (string | components["schemas"]["balance_transaction"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -5369,29 +5369,29 @@ export interface components {
         [key: string]: string | undefined;
       }) | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "fee_refund";
     };
     /**
-     * File 
+     * File
      * @description This is an object representing a file hosted on Stripe's servers. The
      * file may have been uploaded by yourself using the [create file](https://stripe.com/docs/api#create_file)
      * request (for example, when uploading dispute evidence) or it may have
      * been created by Stripe (for example, the results of a [Sigma scheduled
      * query](#scheduled_queries)).
-     * 
+     *
      * Related guide: [File upload guide](https://stripe.com/docs/file-upload)
      */
     file: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The time at which the file expires and is no longer available in epoch seconds.
        */
       expires_at?: number | null;
@@ -5400,7 +5400,7 @@ export interface components {
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * FileFileLinkList 
+       * FileFileLinkList
        * @description A list of [file links](https://stripe.com/docs/api#file_links) that point at this file.
        */
       links?: {
@@ -5409,7 +5409,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -5417,12 +5417,12 @@ export interface components {
         url: string;
       } | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "file";
       /**
-       * @description The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file. 
+       * @description The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
        * @enum {string}
        */
       purpose: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "document_provider_identity_document" | "finance_report_run" | "identity_document" | "identity_document_downloadable" | "pci_document" | "selfie" | "sigma_scheduled_query" | "tax_document_user_upload" | "terminal_reader_splashscreen";
@@ -5436,21 +5436,21 @@ export interface components {
       url?: string | null;
     };
     /**
-     * FileLink 
+     * FileLink
      * @description To share the contents of a `File` object with non-Stripe users, you can
      * create a `FileLink`. `FileLink`s contain a URL that can be used to
      * retrieve the contents of the file without authentication.
      */
     file_link: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
       /** @description Whether this link is already expired. */
       expired: boolean;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the link expires.
        */
       expires_at?: number | null;
@@ -5465,7 +5465,7 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "file_link";
@@ -5473,7 +5473,7 @@ export interface components {
       url?: string | null;
     };
     /**
-     * BankConnectionsResourceLinkedAccount 
+     * BankConnectionsResourceLinkedAccount
      * @description A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.
      */
     "financial_connections.account": {
@@ -5484,12 +5484,12 @@ export interface components {
       /** @description The state of the most recent attempt to refresh the account balance. */
       balance_refresh?: components["schemas"]["bank_connections_resource_balance_refresh"] | null;
       /**
-       * @description The type of the account. Account category is further divided in `subcategory`. 
+       * @description The type of the account. Account category is further divided in `subcategory`.
        * @enum {string}
        */
       category: "cash" | "credit" | "investment" | "other";
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -5504,7 +5504,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "financial_connections.account";
@@ -5515,25 +5515,25 @@ export interface components {
       /** @description The list of permissions granted by this account. */
       permissions?: (("balances" | "ownership" | "payment_method" | "transactions")[]) | null;
       /**
-       * @description The status of the link to the account. 
+       * @description The status of the link to the account.
        * @enum {string}
        */
       status: "active" | "disconnected" | "inactive";
       /**
        * @description If `category` is `cash`, one of:
-       * 
+       *
        *  - `checking`
        *  - `savings`
        *  - `other`
-       * 
+       *
        * If `category` is `credit`, one of:
-       * 
+       *
        *  - `mortgage`
        *  - `line_of_credit`
        *  - `credit_card`
        *  - `other`
-       * 
-       * If `category` is `investment` or `other`, this will be `other`. 
+       *
+       * If `category` is `investment` or `other`, this will be `other`.
        * @enum {string}
        */
       subcategory: "checking" | "credit_card" | "line_of_credit" | "mortgage" | "other" | "savings";
@@ -5541,7 +5541,7 @@ export interface components {
       supported_payment_method_types: ("link" | "us_bank_account")[];
     };
     /**
-     * BankConnectionsResourceOwner 
+     * BankConnectionsResourceOwner
      * @description Describes an owner of an account.
      */
     "financial_connections.account_owner": {
@@ -5552,7 +5552,7 @@ export interface components {
       /** @description The full name of the owner. */
       name: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "financial_connections.account_owner";
@@ -5563,30 +5563,30 @@ export interface components {
       /** @description The raw physical address of the owner. */
       raw_address?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The timestamp of the refresh that updated this owner.
        */
       refreshed_at?: number | null;
     };
     /**
-     * BankConnectionsResourceOwnership 
+     * BankConnectionsResourceOwnership
      * @description Describes a snapshot of the owners of an account at a particular point in time.
      */
     "financial_connections.account_ownership": {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "financial_connections.account_ownership";
       /**
-       * BankConnectionsResourceOwnerList 
+       * BankConnectionsResourceOwnerList
        * @description A paginated list of owners for this account.
        */
       owners: {
@@ -5595,7 +5595,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -5604,14 +5604,14 @@ export interface components {
       };
     };
     /**
-     * BankConnectionsResourceLinkAccountSession 
+     * BankConnectionsResourceLinkAccountSession
      * @description A Financial Connections Session is the secure way to programmatically launch the client-side Stripe.js modal that lets your users link their accounts.
      */
     "financial_connections.session": {
       /** @description The account holder for whom accounts are collected in this session. */
       account_holder?: components["schemas"]["bank_connections_resource_accountholder"] | null;
       /**
-       * BankConnectionsResourceLinkedAccountList 
+       * BankConnectionsResourceLinkedAccountList
        * @description The accounts that were collected as part of this Session.
        */
       accounts: {
@@ -5620,7 +5620,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -5635,7 +5635,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "financial_connections.session";
@@ -5653,12 +5653,12 @@ export interface components {
       /** @description Currency of objects to be included in the report run. */
       currency?: string;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Ending timestamp of data to be included in the report run. Can be any UTC timestamp between 1 second after the user specified `interval_start` and 1 second before this report's last `data_available_end` value.
        */
       interval_end?: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Starting timestamp of data to be included in the report run. Can be any UTC timestamp between 1 second after this report's `data_available_start` and 1 second before the user specified `interval_end` value.
        */
       interval_start?: number;
@@ -5670,7 +5670,7 @@ export interface components {
       timezone?: string;
     };
     /**
-     * CustomerBalanceFundingInstructionsCustomerBalanceFundingInstructions 
+     * CustomerBalanceFundingInstructionsCustomerBalanceFundingInstructions
      * @description Each customer has a [`balance`](https://stripe.com/docs/api/customers/object#customer_object-balance) that is
      * automatically applied to future invoices and payments using the `customer_balance` payment method.
      * Customers can fund this balance by initiating a bank transfer to any account in the
@@ -5682,14 +5682,14 @@ export interface components {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /**
-       * @description The `funding_type` of the returned instructions 
+       * @description The `funding_type` of the returned instructions
        * @enum {string}
        */
       funding_type: "bank_transfer";
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "funding_instructions";
@@ -5701,13 +5701,13 @@ export interface components {
       /** @description A list of financial addresses that can be used to fund a particular balance */
       financial_addresses: (components["schemas"]["funding_instructions_bank_transfer_financial_address"])[];
       /**
-       * @description The bank_transfer type 
+       * @description The bank_transfer type
        * @enum {string}
        */
       type: "eu_bank_transfer" | "jp_bank_transfer";
     };
     /**
-     * FundingInstructionsBankTransferFinancialAddress 
+     * FundingInstructionsBankTransferFinancialAddress
      * @description FinancialAddresses contain identifying information that resolves to a FinancialAccount.
      */
     funding_instructions_bank_transfer_financial_address: {
@@ -5717,14 +5717,14 @@ export interface components {
       /** @description The payment networks supported by this FinancialAddress */
       supported_networks?: ("bacs" | "fps" | "sepa" | "spei" | "zengin")[];
       /**
-       * @description The type of financial address 
+       * @description The type of financial address
        * @enum {string}
        */
       type: "iban" | "sort_code" | "spei" | "zengin";
       zengin?: components["schemas"]["funding_instructions_bank_transfer_zengin_record"];
     };
     /**
-     * FundingInstructionsBankTransferIbanRecord 
+     * FundingInstructionsBankTransferIbanRecord
      * @description Iban Records contain E.U. bank account details per the SEPA format.
      */
     funding_instructions_bank_transfer_iban_record: {
@@ -5738,7 +5738,7 @@ export interface components {
       iban: string;
     };
     /**
-     * FundingInstructionsBankTransferSortCodeRecord 
+     * FundingInstructionsBankTransferSortCodeRecord
      * @description Sort Code Records contain U.K. bank account details per the sort code format.
      */
     funding_instructions_bank_transfer_sort_code_record: {
@@ -5750,7 +5750,7 @@ export interface components {
       sort_code: string;
     };
     /**
-     * FundingInstructionsBankTransferSpeiRecord 
+     * FundingInstructionsBankTransferSpeiRecord
      * @description SPEI Records contain Mexico bank account details per the SPEI format.
      */
     funding_instructions_bank_transfer_spei_record: {
@@ -5762,7 +5762,7 @@ export interface components {
       clabe: string;
     };
     /**
-     * FundingInstructionsBankTransferZenginRecord 
+     * FundingInstructionsBankTransferZenginRecord
      * @description Zengin Records contain Japan bank account details per the Zengin format.
      */
     funding_instructions_bank_transfer_zengin_record: {
@@ -5782,7 +5782,7 @@ export interface components {
       branch_name?: string | null;
     };
     /**
-     * GelatoDataDocumentReportDateOfBirth 
+     * GelatoDataDocumentReportDateOfBirth
      * @description Point in Time
      */
     gelato_data_document_report_date_of_birth: {
@@ -5794,7 +5794,7 @@ export interface components {
       year?: number | null;
     };
     /**
-     * GelatoDataDocumentReportExpirationDate 
+     * GelatoDataDocumentReportExpirationDate
      * @description Point in Time
      */
     gelato_data_document_report_expiration_date: {
@@ -5806,7 +5806,7 @@ export interface components {
       year?: number | null;
     };
     /**
-     * GelatoDataDocumentReportIssuedDate 
+     * GelatoDataDocumentReportIssuedDate
      * @description Point in Time
      */
     gelato_data_document_report_issued_date: {
@@ -5818,7 +5818,7 @@ export interface components {
       year?: number | null;
     };
     /**
-     * GelatoDataIdNumberReportDate 
+     * GelatoDataIdNumberReportDate
      * @description Point in Time
      */
     gelato_data_id_number_report_date: {
@@ -5830,7 +5830,7 @@ export interface components {
       year?: number | null;
     };
     /**
-     * GelatoDataVerifiedOutputsDate 
+     * GelatoDataVerifiedOutputsDate
      * @description Point in Time
      */
     gelato_data_verified_outputs_date: {
@@ -5842,7 +5842,7 @@ export interface components {
       year?: number | null;
     };
     /**
-     * GelatoDocumentReport 
+     * GelatoDocumentReport
      * @description Result from a document check
      */
     gelato_document_report: {
@@ -5867,12 +5867,12 @@ export interface components {
       /** @description Document ID number. */
       number?: string | null;
       /**
-       * @description Status of this `document` check. 
+       * @description Status of this `document` check.
        * @enum {string}
        */
       status: "unverified" | "verified";
       /**
-       * @description Type of the document. 
+       * @description Type of the document.
        * @enum {string|null}
        */
       type?: "driving_license" | "id_card" | "passport" | null;
@@ -5880,7 +5880,7 @@ export interface components {
     /** GelatoDocumentReportError */
     gelato_document_report_error: {
       /**
-       * @description A short machine-readable string giving the reason for the verification failure. 
+       * @description A short machine-readable string giving the reason for the verification failure.
        * @enum {string|null}
        */
       code?: "document_expired" | "document_type_not_supported" | "document_unverified_other" | null;
@@ -5888,7 +5888,7 @@ export interface components {
       reason?: string | null;
     };
     /**
-     * GelatoIdNumberReport 
+     * GelatoIdNumberReport
      * @description Result from an id_number check
      */
     gelato_id_number_report: {
@@ -5901,14 +5901,14 @@ export interface components {
       /** @description ID number. */
       id_number?: string | null;
       /**
-       * @description Type of ID number. 
+       * @description Type of ID number.
        * @enum {string|null}
        */
       id_number_type?: "br_cpf" | "sg_nric" | "us_ssn" | null;
       /** @description Last name. */
       last_name?: string | null;
       /**
-       * @description Status of this `id_number` check. 
+       * @description Status of this `id_number` check.
        * @enum {string}
        */
       status: "unverified" | "verified";
@@ -5916,7 +5916,7 @@ export interface components {
     /** GelatoIdNumberReportError */
     gelato_id_number_report_error: {
       /**
-       * @description A short machine-readable string giving the reason for the verification failure. 
+       * @description A short machine-readable string giving the reason for the verification failure.
        * @enum {string|null}
        */
       code?: "id_number_insufficient_document_data" | "id_number_mismatch" | "id_number_unverified_other" | null;
@@ -5937,7 +5937,7 @@ export interface components {
     /** GelatoReportIdNumberOptions */
     gelato_report_id_number_options: Record<string, never>;
     /**
-     * GelatoSelfieReport 
+     * GelatoSelfieReport
      * @description Result from a selfie check
      */
     gelato_selfie_report: {
@@ -5948,7 +5948,7 @@ export interface components {
       /** @description ID of the [File](https://stripe.com/docs/api/files) holding the image of the selfie used in this check. */
       selfie?: string | null;
       /**
-       * @description Status of this `selfie` check. 
+       * @description Status of this `selfie` check.
        * @enum {string}
        */
       status: "unverified" | "verified";
@@ -5956,7 +5956,7 @@ export interface components {
     /** GelatoSelfieReportError */
     gelato_selfie_report_error: {
       /**
-       * @description A short machine-readable string giving the reason for the verification failure. 
+       * @description A short machine-readable string giving the reason for the verification failure.
        * @enum {string|null}
        */
       code?: "selfie_document_missing_photo" | "selfie_face_mismatch" | "selfie_manipulated" | "selfie_unverified_other" | null;
@@ -5977,12 +5977,12 @@ export interface components {
     /** GelatoSessionIdNumberOptions */
     gelato_session_id_number_options: Record<string, never>;
     /**
-     * GelatoSessionLastError 
+     * GelatoSessionLastError
      * @description Shows last VerificationSession error
      */
     gelato_session_last_error: {
       /**
-       * @description A short machine-readable string giving the reason for the verification or user-session failure. 
+       * @description A short machine-readable string giving the reason for the verification or user-session failure.
        * @enum {string|null}
        */
       code?: "abandoned" | "consent_declined" | "country_not_supported" | "device_not_supported" | "document_expired" | "document_type_not_supported" | "document_unverified_other" | "id_number_insufficient_document_data" | "id_number_mismatch" | "id_number_unverified_other" | "selfie_document_missing_photo" | "selfie_face_mismatch" | "selfie_manipulated" | "selfie_unverified_other" | "under_supported_age" | null;
@@ -6010,7 +6010,7 @@ export interface components {
       /** @description The user's verified id number. */
       id_number?: string | null;
       /**
-       * @description The user's verified id number type. 
+       * @description The user's verified id number type.
        * @enum {string|null}
        */
       id_number_type?: "br_cpf" | "sg_nric" | "us_ssn" | null;
@@ -6018,22 +6018,22 @@ export interface components {
       last_name?: string | null;
     };
     /**
-     * GelatoVerificationReport 
+     * GelatoVerificationReport
      * @description A VerificationReport is the result of an attempt to collect and verify data from a user.
      * The collection of verification checks performed is determined from the `type` and `options`
      * parameters used. You can find the result of each verification check performed in the
      * appropriate sub-resource: `document`, `id_number`, `selfie`.
-     * 
+     *
      * Each VerificationReport contains a copy of any data collected by the user as well as
      * reference IDs which can be used to access collected images through the [FileUpload](https://stripe.com/docs/api/files)
      * API. To configure and create VerificationReports, use the
      * [VerificationSession](https://stripe.com/docs/api/identity/verification_sessions) API.
-     * 
+     *
      * Related guides: [Accessing verification results](https://stripe.com/docs/identity/verification-sessions#results).
      */
     "identity.verification_report": {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -6044,14 +6044,14 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "identity.verification_report";
       options?: components["schemas"]["gelato_verification_report_options"];
       selfie?: components["schemas"]["gelato_selfie_report"];
       /**
-       * @description Type of report. 
+       * @description Type of report.
        * @enum {string}
        */
       type?: "document" | "id_number";
@@ -6059,24 +6059,24 @@ export interface components {
       verification_session?: string | null;
     };
     /**
-     * GelatoVerificationSession 
+     * GelatoVerificationSession
      * @description A VerificationSession guides you through the process of collecting and verifying the identities
      * of your users. It contains details about the type of verification, such as what [verification
      * check](/docs/identity/verification-checks) to perform. Only create one VerificationSession for
      * each verification in your system.
-     * 
+     *
      * A VerificationSession transitions through [multiple
      * statuses](/docs/identity/how-sessions-work) throughout its lifetime as it progresses through
      * the verification flow. The VerificationSession contains the user's verified data after
      * verification checks are complete.
-     * 
+     *
      * Related guide: [The Verification Sessions API](https://stripe.com/docs/identity/verification-sessions)
      */
     "identity.verification_session": {
       /** @description The short-lived client secret used by Stripe.js to [show a verification modal](https://stripe.com/docs/js/identity/modal) inside your app. This client secret expires after 24 hours and can only be used once. Don’t store it, log it, embed it in a URL, or expose it to anyone other than the user. Make sure that you have TLS enabled on any page that includes the client secret. Refer to our docs on [passing the client secret to the frontend](https://stripe.com/docs/identity/verification-sessions#client-secret) to learn more. */
       client_secret?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -6093,7 +6093,7 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "identity.verification_session";
@@ -6102,12 +6102,12 @@ export interface components {
       /** @description Redaction status of this VerificationSession. If the VerificationSession is not redacted, this field will be null. */
       redaction?: components["schemas"]["verification_session_redaction"] | null;
       /**
-       * @description Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work). 
+       * @description Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
        * @enum {string}
        */
       status: "canceled" | "processing" | "requires_input" | "verified";
       /**
-       * @description The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed. 
+       * @description The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
        * @enum {string|null}
        */
       type?: "document" | "id_number" | null;
@@ -6120,7 +6120,7 @@ export interface components {
     inbound_transfers: {
       billing_details: components["schemas"]["treasury_shared_resource_billing_details"];
       /**
-       * @description The type of the payment method used in the InboundTransfer. 
+       * @description The type of the payment method used in the InboundTransfer.
        * @enum {string}
        */
       type: "us_bank_account";
@@ -6129,12 +6129,12 @@ export interface components {
     /** inbound_transfers_payment_method_details_us_bank_account */
     inbound_transfers_payment_method_details_us_bank_account: {
       /**
-       * @description Account holder type: individual or company. 
+       * @description Account holder type: individual or company.
        * @enum {string|null}
        */
       account_holder_type?: "company" | "individual" | null;
       /**
-       * @description Account type: checkings or savings. Defaults to checking if omitted. 
+       * @description Account type: checkings or savings. Defaults to checking if omitted.
        * @enum {string|null}
        */
       account_type?: "checking" | "savings" | null;
@@ -6145,7 +6145,7 @@ export interface components {
       /** @description Last four digits of the bank account number. */
       last4?: string | null;
       /**
-       * @description The US bank account network used to debit funds. 
+       * @description The US bank account network used to debit funds.
        * @enum {string}
        */
       network: "ach";
@@ -6153,13 +6153,13 @@ export interface components {
       routing_number?: string | null;
     };
     /**
-     * Invoice 
+     * Invoice
      * @description Invoices are statements of amounts owed by a customer, and are either
      * generated one-off, or generated periodically from a subscription.
-     * 
+     *
      * They contain [invoice items](https://stripe.com/docs/api#invoiceitems), and proration adjustments
      * that may be caused by subscription upgrades/downgrades (if necessary).
-     * 
+     *
      * If your invoice is configured to be billed through automatic charges,
      * Stripe automatically finalizes your invoice and attempts payment. Note
      * that finalizing the invoice,
@@ -6169,22 +6169,22 @@ export interface components {
      * webhook timed out after failing). If you (and the platforms you may have
      * connected to) have no webhooks configured, Stripe waits one hour after
      * creation to finalize the invoice.
-     * 
+     *
      * If your invoice is configured to be billed by sending an email, then based on your
      * [email settings](https://dashboard.stripe.com/account/billing/automatic),
      * Stripe will email the invoice to your customer and await payment. These
      * emails can contain a link to a hosted page to pay the invoice.
-     * 
+     *
      * Stripe applies any customer credit on the account before determining the
      * amount due for the invoice (i.e., the amount that will be actually
      * charged). If the amount due for the invoice is less than Stripe's [minimum allowed charge
      * per currency](/docs/currencies#minimum-and-maximum-charge-amounts), the
      * invoice is automatically marked paid, and we add the amount due to the
      * customer's credit balance which is applied to the next invoice.
-     * 
+     *
      * More details on the customer's credit balance are
      * [here](https://stripe.com/docs/billing/customer/balance).
-     * 
+     *
      * Related guide: [Send invoices to customers](https://stripe.com/docs/billing/invoices/sending)
      */
     invoice: {
@@ -6214,19 +6214,19 @@ export interface components {
       auto_advance?: boolean;
       automatic_tax: components["schemas"]["automatic_tax"];
       /**
-       * @description Indicates the reason why the invoice was created. `subscription_cycle` indicates an invoice created by a subscription advancing into a new period. `subscription_create` indicates an invoice created due to creating a subscription. `subscription_update` indicates an invoice created due to updating a subscription. `subscription` is set for all old invoices to indicate either a change to a subscription or a period advancement. `manual` is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The `upcoming` value is reserved for simulated invoices per the upcoming invoice endpoint. `subscription_threshold` indicates an invoice created due to a billing threshold being reached. 
+       * @description Indicates the reason why the invoice was created. `subscription_cycle` indicates an invoice created by a subscription advancing into a new period. `subscription_create` indicates an invoice created due to creating a subscription. `subscription_update` indicates an invoice created due to updating a subscription. `subscription` is set for all old invoices to indicate either a change to a subscription or a period advancement. `manual` is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The `upcoming` value is reserved for simulated invoices per the upcoming invoice endpoint. `subscription_threshold` indicates an invoice created due to a billing threshold being reached.
        * @enum {string|null}
        */
       billing_reason?: "automatic_pending_invoice_item_invoice" | "manual" | "quote_accept" | "subscription" | "subscription_create" | "subscription_cycle" | "subscription_threshold" | "subscription_update" | "upcoming" | null;
       /** @description ID of the latest charge generated for this invoice, if any. */
       charge?: (string | components["schemas"]["charge"]) | null;
       /**
-       * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. 
+       * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
        * @enum {string}
        */
       collection_method: "charge_automatically" | "send_invoice";
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -6247,7 +6247,7 @@ export interface components {
       /** @description The customer's shipping information. Until the invoice is finalized, this field will equal `customer.shipping`. Once the invoice is finalized, this field will no longer be updated. */
       customer_shipping?: components["schemas"]["shipping"] | null;
       /**
-       * @description The customer's tax exempt status. Until the invoice is finalized, this field will equal `customer.tax_exempt`. Once the invoice is finalized, this field will no longer be updated. 
+       * @description The customer's tax exempt status. Until the invoice is finalized, this field will equal `customer.tax_exempt`. Once the invoice is finalized, this field will no longer be updated.
        * @enum {string|null}
        */
       customer_tax_exempt?: "exempt" | "none" | "reverse" | null;
@@ -6266,12 +6266,12 @@ export interface components {
       /** @description The discounts applied to the invoice. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount. */
       discounts?: ((string | components["schemas"]["discount"] | components["schemas"]["deleted_discount"])[]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The date on which payment for this invoice is due. This value will be `null` for invoices where `collection_method=charge_automatically`.
        */
       due_date?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The date when this invoice is in effect. Same as `finalized_at` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the invoice PDF and receipt.
        */
       effective_at?: number | null;
@@ -6292,7 +6292,7 @@ export interface components {
       /** @description The ID of the most recent non-draft revision of this invoice */
       latest_revision?: (string | components["schemas"]["invoice"]) | null;
       /**
-       * InvoiceLinesList 
+       * InvoiceLinesList
        * @description The individual line items that make up the invoice. `lines` is sorted as follows: (1) pending invoice items (including prorations) in reverse chronological order, (2) subscription items in reverse chronological order, and (3) invoice items added after invoice creation in chronological order.
        */
       lines: {
@@ -6301,7 +6301,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -6315,14 +6315,14 @@ export interface components {
         [key: string]: string | undefined;
       }) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The time at which payment will next be attempted. This value will be `null` for invoices where `collection_method=send_invoice`.
        */
       next_payment_attempt?: number | null;
       /** @description A unique, identifying string that appears on emails sent to the customer for this invoice. This starts with the customer's unique invoice_prefix if it is specified. */
       number?: string | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "invoice";
@@ -6336,12 +6336,12 @@ export interface components {
       payment_intent?: (string | components["schemas"]["payment_intent"]) | null;
       payment_settings: components["schemas"]["invoices_payment_settings"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description End of the usage period during which invoice items were added to this invoice.
        */
       period_end: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Start of the usage period during which invoice items were added to this invoice.
        */
       period_start: number;
@@ -6364,7 +6364,7 @@ export interface components {
       /** @description Extra information about an invoice for the customer's credit card statement. */
       statement_descriptor?: string | null;
       /**
-       * @description The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview) 
+       * @description The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview)
        * @enum {string|null}
        */
       status?: "draft" | "open" | "paid" | "uncollectible" | "void" | null;
@@ -6393,7 +6393,7 @@ export interface components {
       /** @description The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to for the invoice. */
       transfer_data?: components["schemas"]["invoice_transfer_data"] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Invoices are automatically paid or sent 1 hour after webhooks are delivered, or until all webhook delivery attempts have [been exhausted](https://stripe.com/docs/billing/webhooks#understand). This field tracks the time when webhooks for this invoice were successfully delivered. If the invoice had no webhooks to deliver, this will be set while the invoice is being created.
        */
       webhooks_delivered_at?: number | null;
@@ -6413,12 +6413,12 @@ export interface components {
     /** InvoiceLineItemPeriod */
     invoice_line_item_period: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The end of the period, which must be greater than or equal to the start. This value is inclusive.
        */
       end: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The start of the period. This value is inclusive.
        */
       start: number;
@@ -6428,7 +6428,7 @@ export interface components {
       /** @description Amount to be charged for future payments. */
       amount?: number | null;
       /**
-       * @description One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param. 
+       * @description One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
        * @enum {string|null}
        */
       amount_type?: "fixed" | "maximum" | null;
@@ -6439,7 +6439,7 @@ export interface components {
     invoice_payment_method_options_acss_debit: {
       mandate_options?: components["schemas"]["invoice_payment_method_options_acss_debit_mandate_options"];
       /**
-       * @description Bank account verification method. 
+       * @description Bank account verification method.
        * @enum {string}
        */
       verification_method?: "automatic" | "instant" | "microdeposits";
@@ -6447,7 +6447,7 @@ export interface components {
     /** invoice_payment_method_options_acss_debit_mandate_options */
     invoice_payment_method_options_acss_debit_mandate_options: {
       /**
-       * @description Transaction type of the mandate. 
+       * @description Transaction type of the mandate.
        * @enum {string|null}
        */
       transaction_type?: "business" | "personal" | null;
@@ -6455,7 +6455,7 @@ export interface components {
     /** invoice_payment_method_options_bancontact */
     invoice_payment_method_options_bancontact: {
       /**
-       * @description Preferred language of the Bancontact authorization page that the customer is redirected to. 
+       * @description Preferred language of the Bancontact authorization page that the customer is redirected to.
        * @enum {string}
        */
       preferred_language: "de" | "en" | "fr" | "nl";
@@ -6464,7 +6464,7 @@ export interface components {
     invoice_payment_method_options_card: {
       installments?: components["schemas"]["invoice_installments_card"];
       /**
-       * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine. 
+       * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
        * @enum {string|null}
        */
       request_three_d_secure?: "any" | "automatic" | null;
@@ -6473,7 +6473,7 @@ export interface components {
     invoice_payment_method_options_customer_balance: {
       bank_transfer?: components["schemas"]["invoice_payment_method_options_customer_balance_bank_transfer"];
       /**
-       * @description The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`. 
+       * @description The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
        * @enum {string|null}
        */
       funding_type?: "bank_transfer" | null;
@@ -6487,7 +6487,7 @@ export interface components {
     /** invoice_payment_method_options_customer_balance_bank_transfer_eu_bank_transfer */
     invoice_payment_method_options_customer_balance_bank_transfer_eu_bank_transfer: {
       /**
-       * @description The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`. 
+       * @description The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
        * @enum {string}
        */
       country: "BE" | "DE" | "ES" | "FR" | "IE" | "NL";
@@ -6498,7 +6498,7 @@ export interface components {
     invoice_payment_method_options_us_bank_account: {
       financial_connections?: components["schemas"]["invoice_payment_method_options_us_bank_account_linked_account_options"];
       /**
-       * @description Bank account verification method. 
+       * @description Bank account verification method.
        * @enum {string}
        */
       verification_method?: "automatic" | "instant" | "microdeposits";
@@ -6555,7 +6555,7 @@ export interface components {
       /** @description The tax rate that was applied to get this tax amount. */
       tax_rate: string | components["schemas"]["tax_rate"];
       /**
-       * @description The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported. 
+       * @description The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
        * @enum {string|null}
        */
       taxability_reason?: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated" | null;
@@ -6577,17 +6577,17 @@ export interface components {
       destination: string | components["schemas"]["account"];
     };
     /**
-     * InvoiceItem 
+     * InvoiceItem
      * @description Invoice Items represent the component lines of an [invoice](https://stripe.com/docs/api/invoices). An invoice item is added to an
      * invoice by creating or updating it with an `invoice` field, at which point it will be included as
      * [an invoice line item](https://stripe.com/docs/api/invoices/line_item) within
      * [invoice.lines](https://stripe.com/docs/api/invoices/object#invoice_object-lines).
-     * 
+     *
      * Invoice Items can be created before you are ready to actually send the invoice. This can be particularly useful when combined
      * with a [subscription](https://stripe.com/docs/api/subscriptions). Sometimes you want to add a charge or credit to a customer, but actually charge
      * or credit the customer’s card only at the end of a regular billing cycle. This is useful for combining several charges
      * (to minimize per-transaction fees), or for having Stripe tabulate your usage-based billing totals.
-     * 
+     *
      * Related guides: [Integrate with the Invoicing API](https://stripe.com/docs/invoicing/integration), [Subscription Invoices](https://stripe.com/docs/billing/invoices/subscription#adding-upcoming-invoice-items).
      */
     invoiceitem: {
@@ -6598,7 +6598,7 @@ export interface components {
       /** @description The ID of the customer who will be billed when this invoice item is billed. */
       customer: string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       date: number;
@@ -6619,7 +6619,7 @@ export interface components {
         [key: string]: string | undefined;
       }) | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "invoiceitem";
@@ -6641,7 +6641,7 @@ export interface components {
       /** @description Unit amount (in the `currency` specified) of the invoice item. */
       unit_amount?: number | null;
       /**
-       * Format: decimal 
+       * Format: decimal
        * @description Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
        */
       unit_amount_decimal?: string | null;
@@ -6680,7 +6680,7 @@ export interface components {
     /** InvoicesResourceInvoiceTaxID */
     invoices_resource_invoice_tax_id: {
       /**
-       * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown` 
+       * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
        * @enum {string}
        */
       type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
@@ -6715,32 +6715,32 @@ export interface components {
     /** InvoicesStatusTransitions */
     invoices_status_transitions: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The time that the invoice draft was finalized.
        */
       finalized_at?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The time that the invoice was marked uncollectible.
        */
       marked_uncollectible_at?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The time that the invoice was paid.
        */
       paid_at?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The time that the invoice was voided.
        */
       voided_at?: number | null;
     };
     /**
-     * IssuingAuthorization 
+     * IssuingAuthorization
      * @description When an [issued card](https://stripe.com/docs/issuing) is used to make a purchase, an Issuing `Authorization`
      * object is created. [Authorizations](https://stripe.com/docs/issuing/purchases/authorizations) must be approved for the
      * purchase to be completed successfully.
-     * 
+     *
      * Related guide: [Issued card authorizations](https://stripe.com/docs/issuing/purchases/authorizations)
      */
     "issuing.authorization": {
@@ -6751,7 +6751,7 @@ export interface components {
       /** @description Whether the authorization has been approved. */
       approved: boolean;
       /**
-       * @description How the card details were provided. 
+       * @description How the card details were provided.
        * @enum {string}
        */
       authorization_method: "chip" | "contactless" | "keyed_in" | "online" | "swipe";
@@ -6761,7 +6761,7 @@ export interface components {
       /** @description The cardholder to whom this authorization belongs. */
       cardholder?: (string | components["schemas"]["issuing.cardholder"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -6783,7 +6783,7 @@ export interface components {
       /** @description Details about the authorization, such as identifiers, set by the card network. */
       network_data?: components["schemas"]["issuing_authorization_network_data"] | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "issuing.authorization";
@@ -6792,7 +6792,7 @@ export interface components {
       /** @description History of every time a `pending_request` authorization was approved/declined, either by you directly or by Stripe (e.g. based on your spending_controls). If the merchant changes the authorization by performing an incremental authorization, you can look at this field to see the previous requests for the authorization. This field can be helpful in determining why a given authorization was approved/declined. */
       request_history: (components["schemas"]["issuing_authorization_request"])[];
       /**
-       * @description The current status of the authorization in its lifecycle. 
+       * @description The current status of the authorization in its lifecycle.
        * @enum {string}
        */
       status: "closed" | "pending" | "reversed";
@@ -6805,20 +6805,20 @@ export interface components {
       wallet?: string | null;
     };
     /**
-     * IssuingCard 
+     * IssuingCard
      * @description You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders.
      */
     "issuing.card": {
       /** @description The brand of the card. */
       brand: string;
       /**
-       * @description The reason why the card was canceled. 
+       * @description The reason why the card was canceled.
        * @enum {string|null}
        */
       cancellation_reason?: "design_rejected" | "lost" | "stolen" | null;
       cardholder: components["schemas"]["issuing.cardholder"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -6845,7 +6845,7 @@ export interface components {
       /** @description The full unredacted card number. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint. */
       number?: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "issuing.card";
@@ -6854,7 +6854,7 @@ export interface components {
       /** @description The card this card replaces, if any. */
       replacement_for?: (string | components["schemas"]["issuing.card"]) | null;
       /**
-       * @description The reason why the previous card needed to be replaced. 
+       * @description The reason why the previous card needed to be replaced.
        * @enum {string|null}
        */
       replacement_reason?: "damaged" | "expired" | "lost" | "stolen" | null;
@@ -6862,12 +6862,12 @@ export interface components {
       shipping?: components["schemas"]["issuing_card_shipping"] | null;
       spending_controls: components["schemas"]["issuing_card_authorization_controls"];
       /**
-       * @description Whether authorizations can be approved on this card. May be blocked from activating cards depending on past-due Cardholder requirements. Defaults to `inactive`. 
+       * @description Whether authorizations can be approved on this card. May be blocked from activating cards depending on past-due Cardholder requirements. Defaults to `inactive`.
        * @enum {string}
        */
       status: "active" | "canceled" | "inactive";
       /**
-       * @description The type of the card. 
+       * @description The type of the card.
        * @enum {string}
        */
       type: "physical" | "virtual";
@@ -6875,9 +6875,9 @@ export interface components {
       wallets?: components["schemas"]["issuing_card_wallets"] | null;
     };
     /**
-     * IssuingCardholder 
+     * IssuingCardholder
      * @description An Issuing `Cardholder` object represents an individual or business entity who is [issued](https://stripe.com/docs/issuing) cards.
-     * 
+     *
      * Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards#create-cardholder)
      */
     "issuing.cardholder": {
@@ -6885,7 +6885,7 @@ export interface components {
       /** @description Additional information about a `company` cardholder. */
       company?: components["schemas"]["issuing_cardholder_company"] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -6904,7 +6904,7 @@ export interface components {
       /** @description The cardholder's name. This will be printed on cards issued to them. */
       name: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "issuing.cardholder";
@@ -6919,20 +6919,20 @@ export interface components {
       /** @description Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details. */
       spending_controls?: components["schemas"]["issuing_cardholder_authorization_controls"] | null;
       /**
-       * @description Specifies whether to permit authorizations on this cardholder's cards. 
+       * @description Specifies whether to permit authorizations on this cardholder's cards.
        * @enum {string}
        */
       status: "active" | "blocked" | "inactive";
       /**
-       * @description One of `individual` or `company`. See [Choose a cardholder type](https://stripe.com/docs/issuing/other/choose-cardholder) for more details. 
+       * @description One of `individual` or `company`. See [Choose a cardholder type](https://stripe.com/docs/issuing/other/choose-cardholder) for more details.
        * @enum {string}
        */
       type: "company" | "individual";
     };
     /**
-     * IssuingDispute 
+     * IssuingDispute
      * @description As a [card issuer](https://stripe.com/docs/issuing), you can dispute transactions that the cardholder does not recognize, suspects to be fraudulent, or has other issues with.
-     * 
+     *
      * Related guide: [Issuing disputes](https://stripe.com/docs/issuing/purchases/disputes)
      */
     "issuing.dispute": {
@@ -6941,7 +6941,7 @@ export interface components {
       /** @description List of balance transactions associated with the dispute. */
       balance_transactions?: (components["schemas"]["balance_transaction"])[] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -6957,12 +6957,12 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "issuing.dispute";
       /**
-       * @description Current status of the dispute. 
+       * @description Current status of the dispute.
        * @enum {string}
        */
       status: "expired" | "lost" | "submitted" | "unsubmitted" | "won";
@@ -6972,7 +6972,7 @@ export interface components {
       treasury?: components["schemas"]["issuing_dispute_treasury"] | null;
     };
     /**
-     * IssuingSettlement 
+     * IssuingSettlement
      * @description When a non-stripe BIN is used, any use of an [issued card](https://stripe.com/docs/issuing) must be settled directly with the card network. The net amount owed is represented by an Issuing `Settlement` object.
      */
     "issuing.settlement": {
@@ -6981,7 +6981,7 @@ export interface components {
       /** @description The date that the transactions are cleared and posted to user's accounts. */
       clearing_date: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -7000,7 +7000,7 @@ export interface components {
       /** @description The total net amount required to settle with the network. */
       net_total: number;
       /**
-       * @description The card network for this settlement report. One of ["visa"] 
+       * @description The card network for this settlement report. One of ["visa"]
        * @enum {string}
        */
       network: "visa";
@@ -7009,7 +7009,7 @@ export interface components {
       /** @description The Settlement Identification Number assigned by the network. */
       network_settlement_identifier: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "issuing.settlement";
@@ -7021,11 +7021,11 @@ export interface components {
       transaction_volume: number;
     };
     /**
-     * IssuingTransaction 
+     * IssuingTransaction
      * @description Any use of an [issued card](https://stripe.com/docs/issuing) that results in funds entering or leaving
      * your Stripe account, such as a completed purchase or refund, is represented by an Issuing
      * `Transaction` object.
-     * 
+     *
      * Related guide: [Issued card transactions](https://stripe.com/docs/issuing/purchases/transactions)
      */
     "issuing.transaction": {
@@ -7042,7 +7042,7 @@ export interface components {
       /** @description The cardholder to whom this transaction belongs. */
       cardholder?: (string | components["schemas"]["issuing.cardholder"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -7064,7 +7064,7 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "issuing.transaction";
@@ -7073,12 +7073,12 @@ export interface components {
       /** @description [Treasury](https://stripe.com/docs/api/treasury) details related to this transaction if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts */
       treasury?: components["schemas"]["issuing_transaction_treasury"] | null;
       /**
-       * @description The nature of the transaction. 
+       * @description The nature of the transaction.
        * @enum {string}
        */
       type: "capture" | "refund";
       /**
-       * @description The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. 
+       * @description The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`.
        * @enum {string|null}
        */
       wallet?: "apple_pay" | "google_pay" | "samsung_pay" | null;
@@ -7138,7 +7138,7 @@ export interface components {
       /** @description Whether this request was approved. */
       approved: boolean;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -7149,7 +7149,7 @@ export interface components {
       /** @description The currency that was collected by the merchant and presented to the cardholder for the authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       merchant_currency: string;
       /**
-       * @description When an authorization is approved or declined by you or by Stripe, this field provides additional detail on the reason for the outcome. 
+       * @description When an authorization is approved or declined by you or by Stripe, this field provides additional detail on the reason for the outcome.
        * @enum {string}
        */
       reason: "account_disabled" | "card_active" | "card_inactive" | "cardholder_inactive" | "cardholder_verification_required" | "insufficient_funds" | "not_allowed" | "spending_controls" | "suspected_fraud" | "verification_failed" | "webhook_approved" | "webhook_declined" | "webhook_error" | "webhook_timeout";
@@ -7168,22 +7168,22 @@ export interface components {
     /** IssuingAuthorizationVerificationData */
     issuing_authorization_verification_data: {
       /**
-       * @description Whether the cardholder provided an address first line and if it matched the cardholder’s `billing.address.line1`. 
+       * @description Whether the cardholder provided an address first line and if it matched the cardholder’s `billing.address.line1`.
        * @enum {string}
        */
       address_line1_check: "match" | "mismatch" | "not_provided";
       /**
-       * @description Whether the cardholder provided a postal code and if it matched the cardholder’s `billing.address.postal_code`. 
+       * @description Whether the cardholder provided a postal code and if it matched the cardholder’s `billing.address.postal_code`.
        * @enum {string}
        */
       address_postal_code_check: "match" | "mismatch" | "not_provided";
       /**
-       * @description Whether the cardholder provided a CVC and if it matched Stripe’s record. 
+       * @description Whether the cardholder provided a CVC and if it matched Stripe’s record.
        * @enum {string}
        */
       cvc_check: "match" | "mismatch" | "not_provided";
       /**
-       * @description Whether the cardholder provided an expiry date and if it matched Stripe’s record. 
+       * @description Whether the cardholder provided an expiry date and if it matched Stripe’s record.
        * @enum {string}
        */
       expiry_check: "match" | "mismatch" | "not_provided";
@@ -7193,7 +7193,7 @@ export interface components {
       /** @description Apple Pay Eligibility */
       eligible: boolean;
       /**
-       * @description Reason the card is ineligible for Apple Pay 
+       * @description Reason the card is ineligible for Apple Pay
        * @enum {string|null}
        */
       ineligible_reason?: "missing_agreement" | "missing_cardholder_contact" | "unsupported_region" | null;
@@ -7214,7 +7214,7 @@ export interface components {
       /** @description Google Pay Eligibility */
       eligible: boolean;
       /**
-       * @description Reason the card is ineligible for Google Pay 
+       * @description Reason the card is ineligible for Google Pay
        * @enum {string|null}
        */
       ineligible_reason?: "missing_agreement" | "missing_cardholder_contact" | "unsupported_region" | null;
@@ -7223,14 +7223,14 @@ export interface components {
     issuing_card_shipping: {
       address: components["schemas"]["address"];
       /**
-       * @description The delivery company that shipped a card. 
+       * @description The delivery company that shipped a card.
        * @enum {string|null}
        */
       carrier?: "dhl" | "fedex" | "royal_mail" | "usps" | null;
       /** @description Additional information that may be required for clearing customs. */
       customs?: components["schemas"]["issuing_card_shipping_customs"] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description A unix timestamp representing a best estimate of when the card will be delivered.
        */
       eta?: number | null;
@@ -7241,12 +7241,12 @@ export interface components {
       /** @description Whether a signature is required for card delivery. This feature is only supported for US users. Standard shipping service does not support signature on delivery. The default value for standard shipping service is false and for express and priority services is true. */
       require_signature?: boolean | null;
       /**
-       * @description Shipment service, such as `standard` or `express`. 
+       * @description Shipment service, such as `standard` or `express`.
        * @enum {string}
        */
       service: "express" | "priority" | "standard";
       /**
-       * @description The delivery status of the card. 
+       * @description The delivery status of the card.
        * @enum {string|null}
        */
       status?: "canceled" | "delivered" | "failure" | "pending" | "returned" | "shipped" | null;
@@ -7255,7 +7255,7 @@ export interface components {
       /** @description A link to the shipping carrier's site where you can view detailed information about a card shipment. */
       tracking_url?: string | null;
       /**
-       * @description Packaging options. 
+       * @description Packaging options.
        * @enum {string}
        */
       type: "bulk" | "individual";
@@ -7272,7 +7272,7 @@ export interface components {
       /** @description Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories. */
       categories?: (("ac_refrigeration_repair" | "accounting_bookkeeping_services" | "advertising_services" | "agricultural_cooperative" | "airlines_air_carriers" | "airports_flying_fields" | "ambulance_services" | "amusement_parks_carnivals" | "antique_reproductions" | "antique_shops" | "aquariums" | "architectural_surveying_services" | "art_dealers_and_galleries" | "artists_supply_and_craft_shops" | "auto_and_home_supply_stores" | "auto_body_repair_shops" | "auto_paint_shops" | "auto_service_shops" | "automated_cash_disburse" | "automated_fuel_dispensers" | "automobile_associations" | "automotive_parts_and_accessories_stores" | "automotive_tire_stores" | "bail_and_bond_payments" | "bakeries" | "bands_orchestras" | "barber_and_beauty_shops" | "betting_casino_gambling" | "bicycle_shops" | "billiard_pool_establishments" | "boat_dealers" | "boat_rentals_and_leases" | "book_stores" | "books_periodicals_and_newspapers" | "bowling_alleys" | "bus_lines" | "business_secretarial_schools" | "buying_shopping_services" | "cable_satellite_and_other_pay_television_and_radio" | "camera_and_photographic_supply_stores" | "candy_nut_and_confectionery_stores" | "car_and_truck_dealers_new_used" | "car_and_truck_dealers_used_only" | "car_rental_agencies" | "car_washes" | "carpentry_services" | "carpet_upholstery_cleaning" | "caterers" | "charitable_and_social_service_organizations_fundraising" | "chemicals_and_allied_products" | "child_care_services" | "childrens_and_infants_wear_stores" | "chiropodists_podiatrists" | "chiropractors" | "cigar_stores_and_stands" | "civic_social_fraternal_associations" | "cleaning_and_maintenance" | "clothing_rental" | "colleges_universities" | "commercial_equipment" | "commercial_footwear" | "commercial_photography_art_and_graphics" | "commuter_transport_and_ferries" | "computer_network_services" | "computer_programming" | "computer_repair" | "computer_software_stores" | "computers_peripherals_and_software" | "concrete_work_services" | "construction_materials" | "consulting_public_relations" | "correspondence_schools" | "cosmetic_stores" | "counseling_services" | "country_clubs" | "courier_services" | "court_costs" | "credit_reporting_agencies" | "cruise_lines" | "dairy_products_stores" | "dance_hall_studios_schools" | "dating_escort_services" | "dentists_orthodontists" | "department_stores" | "detective_agencies" | "digital_goods_applications" | "digital_goods_games" | "digital_goods_large_volume" | "digital_goods_media" | "direct_marketing_catalog_merchant" | "direct_marketing_combination_catalog_and_retail_merchant" | "direct_marketing_inbound_telemarketing" | "direct_marketing_insurance_services" | "direct_marketing_other" | "direct_marketing_outbound_telemarketing" | "direct_marketing_subscription" | "direct_marketing_travel" | "discount_stores" | "doctors" | "door_to_door_sales" | "drapery_window_covering_and_upholstery_stores" | "drinking_places" | "drug_stores_and_pharmacies" | "drugs_drug_proprietaries_and_druggist_sundries" | "dry_cleaners" | "durable_goods" | "duty_free_stores" | "eating_places_restaurants" | "educational_services" | "electric_razor_stores" | "electric_vehicle_charging" | "electrical_parts_and_equipment" | "electrical_services" | "electronics_repair_shops" | "electronics_stores" | "elementary_secondary_schools" | "emergency_services_gcas_visa_use_only" | "employment_temp_agencies" | "equipment_rental" | "exterminating_services" | "family_clothing_stores" | "fast_food_restaurants" | "financial_institutions" | "fines_government_administrative_entities" | "fireplace_fireplace_screens_and_accessories_stores" | "floor_covering_stores" | "florists" | "florists_supplies_nursery_stock_and_flowers" | "freezer_and_locker_meat_provisioners" | "fuel_dealers_non_automotive" | "funeral_services_crematories" | "furniture_home_furnishings_and_equipment_stores_except_appliances" | "furniture_repair_refinishing" | "furriers_and_fur_shops" | "general_services" | "gift_card_novelty_and_souvenir_shops" | "glass_paint_and_wallpaper_stores" | "glassware_crystal_stores" | "golf_courses_public" | "government_licensed_horse_dog_racing_us_region_only" | "government_licensed_online_casions_online_gambling_us_region_only" | "government_owned_lotteries_non_us_region" | "government_owned_lotteries_us_region_only" | "government_services" | "grocery_stores_supermarkets" | "hardware_equipment_and_supplies" | "hardware_stores" | "health_and_beauty_spas" | "hearing_aids_sales_and_supplies" | "heating_plumbing_a_c" | "hobby_toy_and_game_shops" | "home_supply_warehouse_stores" | "hospitals" | "hotels_motels_and_resorts" | "household_appliance_stores" | "industrial_supplies" | "information_retrieval_services" | "insurance_default" | "insurance_underwriting_premiums" | "intra_company_purchases" | "jewelry_stores_watches_clocks_and_silverware_stores" | "landscaping_services" | "laundries" | "laundry_cleaning_services" | "legal_services_attorneys" | "luggage_and_leather_goods_stores" | "lumber_building_materials_stores" | "manual_cash_disburse" | "marinas_service_and_supplies" | "marketplaces" | "masonry_stonework_and_plaster" | "massage_parlors" | "medical_and_dental_labs" | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies" | "medical_services" | "membership_organizations" | "mens_and_boys_clothing_and_accessories_stores" | "mens_womens_clothing_stores" | "metal_service_centers" | "miscellaneous" | "miscellaneous_apparel_and_accessory_shops" | "miscellaneous_auto_dealers" | "miscellaneous_business_services" | "miscellaneous_food_stores" | "miscellaneous_general_merchandise" | "miscellaneous_general_services" | "miscellaneous_home_furnishing_specialty_stores" | "miscellaneous_publishing_and_printing" | "miscellaneous_recreation_services" | "miscellaneous_repair_shops" | "miscellaneous_specialty_retail" | "mobile_home_dealers" | "motion_picture_theaters" | "motor_freight_carriers_and_trucking" | "motor_homes_dealers" | "motor_vehicle_supplies_and_new_parts" | "motorcycle_shops_and_dealers" | "motorcycle_shops_dealers" | "music_stores_musical_instruments_pianos_and_sheet_music" | "news_dealers_and_newsstands" | "non_fi_money_orders" | "non_fi_stored_value_card_purchase_load" | "nondurable_goods" | "nurseries_lawn_and_garden_supply_stores" | "nursing_personal_care" | "office_and_commercial_furniture" | "opticians_eyeglasses" | "optometrists_ophthalmologist" | "orthopedic_goods_prosthetic_devices" | "osteopaths" | "package_stores_beer_wine_and_liquor" | "paints_varnishes_and_supplies" | "parking_lots_garages" | "passenger_railways" | "pawn_shops" | "pet_shops_pet_food_and_supplies" | "petroleum_and_petroleum_products" | "photo_developing" | "photographic_photocopy_microfilm_equipment_and_supplies" | "photographic_studios" | "picture_video_production" | "piece_goods_notions_and_other_dry_goods" | "plumbing_heating_equipment_and_supplies" | "political_organizations" | "postal_services_government_only" | "precious_stones_and_metals_watches_and_jewelry" | "professional_services" | "public_warehousing_and_storage" | "quick_copy_repro_and_blueprint" | "railroads" | "real_estate_agents_and_managers_rentals" | "record_stores" | "recreational_vehicle_rentals" | "religious_goods_stores" | "religious_organizations" | "roofing_siding_sheet_metal" | "secretarial_support_services" | "security_brokers_dealers" | "service_stations" | "sewing_needlework_fabric_and_piece_goods_stores" | "shoe_repair_hat_cleaning" | "shoe_stores" | "small_appliance_repair" | "snowmobile_dealers" | "special_trade_services" | "specialty_cleaning" | "sporting_goods_stores" | "sporting_recreation_camps" | "sports_and_riding_apparel_stores" | "sports_clubs_fields" | "stamp_and_coin_stores" | "stationary_office_supplies_printing_and_writing_paper" | "stationery_stores_office_and_school_supply_stores" | "swimming_pools_sales" | "t_ui_travel_germany" | "tailors_alterations" | "tax_payments_government_agencies" | "tax_preparation_services" | "taxicabs_limousines" | "telecommunication_equipment_and_telephone_sales" | "telecommunication_services" | "telegraph_services" | "tent_and_awning_shops" | "testing_laboratories" | "theatrical_ticket_agencies" | "timeshares" | "tire_retreading_and_repair" | "tolls_bridge_fees" | "tourist_attractions_and_exhibits" | "towing_services" | "trailer_parks_campgrounds" | "transportation_services" | "travel_agencies_tour_operators" | "truck_stop_iteration" | "truck_utility_trailer_rentals" | "typesetting_plate_making_and_related_services" | "typewriter_stores" | "u_s_federal_government_agencies_or_departments" | "uniforms_commercial_clothing" | "used_merchandise_and_secondhand_stores" | "utilities" | "variety_stores" | "veterinary_services" | "video_amusement_game_supplies" | "video_game_arcades" | "video_tape_rental_stores" | "vocational_trade_schools" | "watch_jewelry_repair" | "welding_repair" | "wholesale_clubs" | "wig_and_toupee_stores" | "wires_money_orders" | "womens_accessory_and_specialty_shops" | "womens_ready_to_wear_stores" | "wrecking_and_salvage_yards")[]) | null;
       /**
-       * @description Interval (or event) to which the amount applies. 
+       * @description Interval (or event) to which the amount applies.
        * @enum {string}
        */
       interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
@@ -7341,7 +7341,7 @@ export interface components {
     /** IssuingCardholderRequirements */
     issuing_cardholder_requirements: {
       /**
-       * @description If `disabled_reason` is present, all cards will decline authorizations with `cardholder_verification_required` reason. 
+       * @description If `disabled_reason` is present, all cards will decline authorizations with `cardholder_verification_required` reason.
        * @enum {string|null}
        */
       disabled_reason?: "listed" | "rejected.listed" | "requirements.past_due" | "under_review" | null;
@@ -7355,7 +7355,7 @@ export interface components {
       /** @description Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories. */
       categories?: (("ac_refrigeration_repair" | "accounting_bookkeeping_services" | "advertising_services" | "agricultural_cooperative" | "airlines_air_carriers" | "airports_flying_fields" | "ambulance_services" | "amusement_parks_carnivals" | "antique_reproductions" | "antique_shops" | "aquariums" | "architectural_surveying_services" | "art_dealers_and_galleries" | "artists_supply_and_craft_shops" | "auto_and_home_supply_stores" | "auto_body_repair_shops" | "auto_paint_shops" | "auto_service_shops" | "automated_cash_disburse" | "automated_fuel_dispensers" | "automobile_associations" | "automotive_parts_and_accessories_stores" | "automotive_tire_stores" | "bail_and_bond_payments" | "bakeries" | "bands_orchestras" | "barber_and_beauty_shops" | "betting_casino_gambling" | "bicycle_shops" | "billiard_pool_establishments" | "boat_dealers" | "boat_rentals_and_leases" | "book_stores" | "books_periodicals_and_newspapers" | "bowling_alleys" | "bus_lines" | "business_secretarial_schools" | "buying_shopping_services" | "cable_satellite_and_other_pay_television_and_radio" | "camera_and_photographic_supply_stores" | "candy_nut_and_confectionery_stores" | "car_and_truck_dealers_new_used" | "car_and_truck_dealers_used_only" | "car_rental_agencies" | "car_washes" | "carpentry_services" | "carpet_upholstery_cleaning" | "caterers" | "charitable_and_social_service_organizations_fundraising" | "chemicals_and_allied_products" | "child_care_services" | "childrens_and_infants_wear_stores" | "chiropodists_podiatrists" | "chiropractors" | "cigar_stores_and_stands" | "civic_social_fraternal_associations" | "cleaning_and_maintenance" | "clothing_rental" | "colleges_universities" | "commercial_equipment" | "commercial_footwear" | "commercial_photography_art_and_graphics" | "commuter_transport_and_ferries" | "computer_network_services" | "computer_programming" | "computer_repair" | "computer_software_stores" | "computers_peripherals_and_software" | "concrete_work_services" | "construction_materials" | "consulting_public_relations" | "correspondence_schools" | "cosmetic_stores" | "counseling_services" | "country_clubs" | "courier_services" | "court_costs" | "credit_reporting_agencies" | "cruise_lines" | "dairy_products_stores" | "dance_hall_studios_schools" | "dating_escort_services" | "dentists_orthodontists" | "department_stores" | "detective_agencies" | "digital_goods_applications" | "digital_goods_games" | "digital_goods_large_volume" | "digital_goods_media" | "direct_marketing_catalog_merchant" | "direct_marketing_combination_catalog_and_retail_merchant" | "direct_marketing_inbound_telemarketing" | "direct_marketing_insurance_services" | "direct_marketing_other" | "direct_marketing_outbound_telemarketing" | "direct_marketing_subscription" | "direct_marketing_travel" | "discount_stores" | "doctors" | "door_to_door_sales" | "drapery_window_covering_and_upholstery_stores" | "drinking_places" | "drug_stores_and_pharmacies" | "drugs_drug_proprietaries_and_druggist_sundries" | "dry_cleaners" | "durable_goods" | "duty_free_stores" | "eating_places_restaurants" | "educational_services" | "electric_razor_stores" | "electric_vehicle_charging" | "electrical_parts_and_equipment" | "electrical_services" | "electronics_repair_shops" | "electronics_stores" | "elementary_secondary_schools" | "emergency_services_gcas_visa_use_only" | "employment_temp_agencies" | "equipment_rental" | "exterminating_services" | "family_clothing_stores" | "fast_food_restaurants" | "financial_institutions" | "fines_government_administrative_entities" | "fireplace_fireplace_screens_and_accessories_stores" | "floor_covering_stores" | "florists" | "florists_supplies_nursery_stock_and_flowers" | "freezer_and_locker_meat_provisioners" | "fuel_dealers_non_automotive" | "funeral_services_crematories" | "furniture_home_furnishings_and_equipment_stores_except_appliances" | "furniture_repair_refinishing" | "furriers_and_fur_shops" | "general_services" | "gift_card_novelty_and_souvenir_shops" | "glass_paint_and_wallpaper_stores" | "glassware_crystal_stores" | "golf_courses_public" | "government_licensed_horse_dog_racing_us_region_only" | "government_licensed_online_casions_online_gambling_us_region_only" | "government_owned_lotteries_non_us_region" | "government_owned_lotteries_us_region_only" | "government_services" | "grocery_stores_supermarkets" | "hardware_equipment_and_supplies" | "hardware_stores" | "health_and_beauty_spas" | "hearing_aids_sales_and_supplies" | "heating_plumbing_a_c" | "hobby_toy_and_game_shops" | "home_supply_warehouse_stores" | "hospitals" | "hotels_motels_and_resorts" | "household_appliance_stores" | "industrial_supplies" | "information_retrieval_services" | "insurance_default" | "insurance_underwriting_premiums" | "intra_company_purchases" | "jewelry_stores_watches_clocks_and_silverware_stores" | "landscaping_services" | "laundries" | "laundry_cleaning_services" | "legal_services_attorneys" | "luggage_and_leather_goods_stores" | "lumber_building_materials_stores" | "manual_cash_disburse" | "marinas_service_and_supplies" | "marketplaces" | "masonry_stonework_and_plaster" | "massage_parlors" | "medical_and_dental_labs" | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies" | "medical_services" | "membership_organizations" | "mens_and_boys_clothing_and_accessories_stores" | "mens_womens_clothing_stores" | "metal_service_centers" | "miscellaneous" | "miscellaneous_apparel_and_accessory_shops" | "miscellaneous_auto_dealers" | "miscellaneous_business_services" | "miscellaneous_food_stores" | "miscellaneous_general_merchandise" | "miscellaneous_general_services" | "miscellaneous_home_furnishing_specialty_stores" | "miscellaneous_publishing_and_printing" | "miscellaneous_recreation_services" | "miscellaneous_repair_shops" | "miscellaneous_specialty_retail" | "mobile_home_dealers" | "motion_picture_theaters" | "motor_freight_carriers_and_trucking" | "motor_homes_dealers" | "motor_vehicle_supplies_and_new_parts" | "motorcycle_shops_and_dealers" | "motorcycle_shops_dealers" | "music_stores_musical_instruments_pianos_and_sheet_music" | "news_dealers_and_newsstands" | "non_fi_money_orders" | "non_fi_stored_value_card_purchase_load" | "nondurable_goods" | "nurseries_lawn_and_garden_supply_stores" | "nursing_personal_care" | "office_and_commercial_furniture" | "opticians_eyeglasses" | "optometrists_ophthalmologist" | "orthopedic_goods_prosthetic_devices" | "osteopaths" | "package_stores_beer_wine_and_liquor" | "paints_varnishes_and_supplies" | "parking_lots_garages" | "passenger_railways" | "pawn_shops" | "pet_shops_pet_food_and_supplies" | "petroleum_and_petroleum_products" | "photo_developing" | "photographic_photocopy_microfilm_equipment_and_supplies" | "photographic_studios" | "picture_video_production" | "piece_goods_notions_and_other_dry_goods" | "plumbing_heating_equipment_and_supplies" | "political_organizations" | "postal_services_government_only" | "precious_stones_and_metals_watches_and_jewelry" | "professional_services" | "public_warehousing_and_storage" | "quick_copy_repro_and_blueprint" | "railroads" | "real_estate_agents_and_managers_rentals" | "record_stores" | "recreational_vehicle_rentals" | "religious_goods_stores" | "religious_organizations" | "roofing_siding_sheet_metal" | "secretarial_support_services" | "security_brokers_dealers" | "service_stations" | "sewing_needlework_fabric_and_piece_goods_stores" | "shoe_repair_hat_cleaning" | "shoe_stores" | "small_appliance_repair" | "snowmobile_dealers" | "special_trade_services" | "specialty_cleaning" | "sporting_goods_stores" | "sporting_recreation_camps" | "sports_and_riding_apparel_stores" | "sports_clubs_fields" | "stamp_and_coin_stores" | "stationary_office_supplies_printing_and_writing_paper" | "stationery_stores_office_and_school_supply_stores" | "swimming_pools_sales" | "t_ui_travel_germany" | "tailors_alterations" | "tax_payments_government_agencies" | "tax_preparation_services" | "taxicabs_limousines" | "telecommunication_equipment_and_telephone_sales" | "telecommunication_services" | "telegraph_services" | "tent_and_awning_shops" | "testing_laboratories" | "theatrical_ticket_agencies" | "timeshares" | "tire_retreading_and_repair" | "tolls_bridge_fees" | "tourist_attractions_and_exhibits" | "towing_services" | "trailer_parks_campgrounds" | "transportation_services" | "travel_agencies_tour_operators" | "truck_stop_iteration" | "truck_utility_trailer_rentals" | "typesetting_plate_making_and_related_services" | "typewriter_stores" | "u_s_federal_government_agencies_or_departments" | "uniforms_commercial_clothing" | "used_merchandise_and_secondhand_stores" | "utilities" | "variety_stores" | "veterinary_services" | "video_amusement_game_supplies" | "video_game_arcades" | "video_tape_rental_stores" | "vocational_trade_schools" | "watch_jewelry_repair" | "welding_repair" | "wholesale_clubs" | "wig_and_toupee_stores" | "wires_money_orders" | "womens_accessory_and_specialty_shops" | "womens_ready_to_wear_stores" | "wrecking_and_salvage_yards")[]) | null;
       /**
-       * @description Interval (or event) to which the amount applies. 
+       * @description Interval (or event) to which the amount applies.
        * @enum {string}
        */
       interval: "all_time" | "daily" | "monthly" | "per_authorization" | "weekly" | "yearly";
@@ -7363,7 +7363,7 @@ export interface components {
     /** IssuingCardholderUserTermsAcceptance */
     issuing_cardholder_user_terms_acceptance: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The Unix timestamp marking when the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
        */
       date?: number | null;
@@ -7382,7 +7382,7 @@ export interface components {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
       additional_documentation?: (string | components["schemas"]["file"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date when order was canceled.
        */
       canceled_at?: number | null;
@@ -7391,7 +7391,7 @@ export interface components {
       /** @description Reason for canceling the order. */
       cancellation_reason?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date when the cardholder expected to receive the product.
        */
       expected_at?: number | null;
@@ -7400,17 +7400,17 @@ export interface components {
       /** @description Description of the merchandise or service that was purchased. */
       product_description?: string | null;
       /**
-       * @description Whether the product was a merchandise or service. 
+       * @description Whether the product was a merchandise or service.
        * @enum {string|null}
        */
       product_type?: "merchandise" | "service" | null;
       /**
-       * @description Result of cardholder's attempt to return the product. 
+       * @description Result of cardholder's attempt to return the product.
        * @enum {string|null}
        */
       return_status?: "merchant_rejected" | "successful" | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date when the product was returned or attempted to be returned.
        */
       returned_at?: number | null;
@@ -7439,7 +7439,7 @@ export interface components {
       not_received?: components["schemas"]["issuing_dispute_not_received_evidence"];
       other?: components["schemas"]["issuing_dispute_other_evidence"];
       /**
-       * @description The reason for filing the dispute. Its value will match the field containing the evidence. 
+       * @description The reason for filing the dispute. Its value will match the field containing the evidence.
        * @enum {string}
        */
       reason: "canceled" | "duplicate" | "fraudulent" | "merchandise_not_as_described" | "not_received" | "other" | "service_not_as_described";
@@ -7459,19 +7459,19 @@ export interface components {
       /** @description Explanation of why the cardholder is disputing this transaction. */
       explanation?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date when the product was received.
        */
       received_at?: number | null;
       /** @description Description of the cardholder's attempt to return the product. */
       return_description?: string | null;
       /**
-       * @description Result of cardholder's attempt to return the product. 
+       * @description Result of cardholder's attempt to return the product.
        * @enum {string|null}
        */
       return_status?: "merchant_rejected" | "successful" | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date when the product was returned or attempted to be returned.
        */
       returned_at?: number | null;
@@ -7481,7 +7481,7 @@ export interface components {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
       additional_documentation?: (string | components["schemas"]["file"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date when the cardholder expected to receive the product.
        */
       expected_at?: number | null;
@@ -7490,7 +7490,7 @@ export interface components {
       /** @description Description of the merchandise or service that was purchased. */
       product_description?: string | null;
       /**
-       * @description Whether the product was a merchandise or service. 
+       * @description Whether the product was a merchandise or service.
        * @enum {string|null}
        */
       product_type?: "merchandise" | "service" | null;
@@ -7504,7 +7504,7 @@ export interface components {
       /** @description Description of the merchandise or service that was purchased. */
       product_description?: string | null;
       /**
-       * @description Whether the product was a merchandise or service. 
+       * @description Whether the product was a merchandise or service.
        * @enum {string|null}
        */
       product_type?: "merchandise" | "service" | null;
@@ -7514,7 +7514,7 @@ export interface components {
       /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute. */
       additional_documentation?: (string | components["schemas"]["file"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date when order was canceled.
        */
       canceled_at?: number | null;
@@ -7523,7 +7523,7 @@ export interface components {
       /** @description Explanation of why the cardholder is disputing this transaction. */
       explanation?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date when the product was received.
        */
       received_at?: number | null;
@@ -7575,12 +7575,12 @@ export interface components {
       /** @description The units for `volume_decimal`. One of `us_gallon` or `liter`. */
       unit: string;
       /**
-       * Format: decimal 
+       * Format: decimal
        * @description The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
        */
       unit_cost_decimal: string;
       /**
-       * Format: decimal 
+       * Format: decimal
        * @description The volume of the fuel that was pumped, represented as a decimal string with at most 12 decimal places.
        */
       volume_decimal?: string | null;
@@ -7624,7 +7624,7 @@ export interface components {
       received_debit?: string | null;
     };
     /**
-     * LineItem 
+     * LineItem
      * @description A line item.
      */
     item: {
@@ -7645,7 +7645,7 @@ export interface components {
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "item";
@@ -7684,7 +7684,7 @@ export interface components {
       /** @description The company's phone number (used for verification). */
       phone?: string | null;
       /**
-       * @description The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details. 
+       * @description The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
        * @enum {string}
        */
       structure?: "free_zone_establishment" | "free_zone_llc" | "government_instrumentality" | "governmental_unit" | "incorporated_non_profit" | "limited_liability_partnership" | "llc" | "multi_member_llc" | "private_company" | "private_corporation" | "private_partnership" | "public_company" | "public_corporation" | "public_partnership" | "single_member_llc" | "sole_establishment" | "sole_proprietorship" | "tax_exempt_government_instrumentality" | "unincorporated_association" | "unincorporated_non_profit";
@@ -7764,7 +7764,7 @@ export interface components {
     /** LegalEntityUBODeclaration */
     legal_entity_ubo_declaration: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The Unix timestamp marking when the beneficial owner attestation was made.
        */
       date?: number | null;
@@ -7800,7 +7800,7 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "line_item";
@@ -7822,12 +7822,12 @@ export interface components {
       /** @description The tax rates which apply to the line item. */
       tax_rates?: (components["schemas"]["tax_rate"])[];
       /**
-       * @description A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`. 
+       * @description A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`.
        * @enum {string}
        */
       type: "invoiceitem" | "subscription";
       /**
-       * Format: decimal 
+       * Format: decimal
        * @description The amount in %s representing the unit amount for this line item, excluding all tax and discounts.
        */
       unit_amount_excluding_tax?: string | null;
@@ -7844,7 +7844,7 @@ export interface components {
       amount: number;
       rate: components["schemas"]["tax_rate"];
       /**
-       * @description The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported. 
+       * @description The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
        * @enum {string|null}
        */
       taxability_reason?: "customer_exempt" | "excluded_territory" | "jurisdiction_unsupported" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "vat_exempt" | "zero_rated" | null;
@@ -7859,17 +7859,17 @@ export interface components {
       return_url?: string;
     };
     /**
-     * LoginLink 
+     * LoginLink
      * @description Login Links are single-use login link for an Express account to access their Stripe dashboard.
      */
     login_link: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "login_link";
@@ -7877,7 +7877,7 @@ export interface components {
       url: string;
     };
     /**
-     * Mandate 
+     * Mandate
      * @description A Mandate is a record of the permission a customer has given you to debit their payment method.
      */
     mandate: {
@@ -7888,7 +7888,7 @@ export interface components {
       livemode: boolean;
       multi_use?: components["schemas"]["mandate_multi_use"];
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "mandate";
@@ -7899,12 +7899,12 @@ export interface components {
       payment_method_details: components["schemas"]["mandate_payment_method_details"];
       single_use?: components["schemas"]["mandate_single_use"];
       /**
-       * @description The status of the mandate, which indicates whether it can be used to initiate a payment. 
+       * @description The status of the mandate, which indicates whether it can be used to initiate a payment.
        * @enum {string}
        */
       status: "active" | "inactive" | "pending";
       /**
-       * @description The type of the mandate. 
+       * @description The type of the mandate.
        * @enum {string}
        */
       type: "multi_use" | "single_use";
@@ -7916,12 +7916,12 @@ export interface components {
       /** @description Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'. */
       interval_description?: string | null;
       /**
-       * @description Payment schedule for the mandate. 
+       * @description Payment schedule for the mandate.
        * @enum {string}
        */
       payment_schedule: "combined" | "interval" | "sporadic";
       /**
-       * @description Transaction type of the mandate. 
+       * @description Transaction type of the mandate.
        * @enum {string}
        */
       transaction_type: "business" | "personal";
@@ -7934,7 +7934,7 @@ export interface components {
     /** mandate_bacs_debit */
     mandate_bacs_debit: {
       /**
-       * @description The status of the mandate on the Bacs network. Can be one of `pending`, `revoked`, `refused`, or `accepted`. 
+       * @description The status of the mandate on the Bacs network. Can be one of `pending`, `revoked`, `refused`, or `accepted`.
        * @enum {string}
        */
       network_status: "accepted" | "pending" | "refused" | "revoked";
@@ -7946,13 +7946,13 @@ export interface components {
     /** mandate_blik */
     mandate_blik: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date at which the mandate expires.
        */
       expires_after?: number | null;
       off_session?: components["schemas"]["mandate_options_off_session_details_blik"];
       /**
-       * @description Type of the mandate. 
+       * @description Type of the mandate.
        * @enum {string|null}
        */
       type?: "off_session" | "on_session" | null;
@@ -7970,7 +7970,7 @@ export interface components {
       /** @description Currency of each recurring payment. */
       currency?: string | null;
       /**
-       * @description Frequency interval of each recurring payment. 
+       * @description Frequency interval of each recurring payment.
        * @enum {string|null}
        */
       interval?: "day" | "month" | "week" | "year" | null;
@@ -8050,7 +8050,7 @@ export interface components {
       billing_details: components["schemas"]["treasury_shared_resource_billing_details"];
       financial_account?: components["schemas"]["outbound_payments_payment_method_details_financial_account"];
       /**
-       * @description The type of the payment method used in the OutboundPayment. 
+       * @description The type of the payment method used in the OutboundPayment.
        * @enum {string}
        */
       type: "financial_account" | "us_bank_account";
@@ -8061,7 +8061,7 @@ export interface components {
       /** @description Token of the FinancialAccount. */
       id: string;
       /**
-       * @description The rails used to send funds. 
+       * @description The rails used to send funds.
        * @enum {string}
        */
       network: "stripe";
@@ -8069,12 +8069,12 @@ export interface components {
     /** outbound_payments_payment_method_details_us_bank_account */
     outbound_payments_payment_method_details_us_bank_account: {
       /**
-       * @description Account holder type: individual or company. 
+       * @description Account holder type: individual or company.
        * @enum {string|null}
        */
       account_holder_type?: "company" | "individual" | null;
       /**
-       * @description Account type: checkings or savings. Defaults to checking if omitted. 
+       * @description Account type: checkings or savings. Defaults to checking if omitted.
        * @enum {string|null}
        */
       account_type?: "checking" | "savings" | null;
@@ -8085,7 +8085,7 @@ export interface components {
       /** @description Last four digits of the bank account number. */
       last4?: string | null;
       /**
-       * @description The US bank account network used to send funds. 
+       * @description The US bank account network used to send funds.
        * @enum {string}
        */
       network: "ach" | "us_domestic_wire";
@@ -8096,7 +8096,7 @@ export interface components {
     outbound_transfers_payment_method_details: {
       billing_details: components["schemas"]["treasury_shared_resource_billing_details"];
       /**
-       * @description The type of the payment method used in the OutboundTransfer. 
+       * @description The type of the payment method used in the OutboundTransfer.
        * @enum {string}
        */
       type: "us_bank_account";
@@ -8105,12 +8105,12 @@ export interface components {
     /** outbound_transfers_payment_method_details_us_bank_account */
     outbound_transfers_payment_method_details_us_bank_account: {
       /**
-       * @description Account holder type: individual or company. 
+       * @description Account holder type: individual or company.
        * @enum {string|null}
        */
       account_holder_type?: "company" | "individual" | null;
       /**
-       * @description Account type: checkings or savings. Defaults to checking if omitted. 
+       * @description Account type: checkings or savings. Defaults to checking if omitted.
        * @enum {string|null}
        */
       account_type?: "checking" | "savings" | null;
@@ -8121,7 +8121,7 @@ export interface components {
       /** @description Last four digits of the bank account number. */
       last4?: string | null;
       /**
-       * @description The US bank account network used to send funds. 
+       * @description The US bank account network used to send funds.
        * @enum {string}
        */
       network: "ach" | "us_domestic_wire";
@@ -8184,17 +8184,17 @@ export interface components {
       year?: number | null;
     };
     /**
-     * PaymentIntent 
+     * PaymentIntent
      * @description A PaymentIntent guides you through the process of collecting a payment from your customer.
      * We recommend that you create exactly one PaymentIntent for each order or
      * customer session in your system. You can reference the PaymentIntent later to
      * see the history of payment attempts for a particular session.
-     * 
+     *
      * A PaymentIntent transitions through
      * [multiple statuses](https://stripe.com/docs/payments/intents#intent-statuses)
      * throughout its lifetime as it interfaces with Stripe.js to perform
      * authentication flows and ultimately creates at most one successful charge.
-     * 
+     *
      * Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
      */
     payment_intent: {
@@ -8212,32 +8212,32 @@ export interface components {
       /** @description Settings to configure compatible payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods) */
       automatic_payment_methods?: components["schemas"]["payment_flows_automatic_payment_methods_payment_intent"] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Populated when `status` is `canceled`, this is the time at which the PaymentIntent was canceled. Measured in seconds since the Unix epoch.
        */
       canceled_at?: number | null;
       /**
-       * @description Reason for cancellation of this PaymentIntent, either user-provided (`duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`) or generated by Stripe internally (`failed_invoice`, `void_invoice`, or `automatic`). 
+       * @description Reason for cancellation of this PaymentIntent, either user-provided (`duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`) or generated by Stripe internally (`failed_invoice`, `void_invoice`, or `automatic`).
        * @enum {string|null}
        */
       cancellation_reason?: "abandoned" | "automatic" | "duplicate" | "failed_invoice" | "fraudulent" | "requested_by_customer" | "void_invoice" | null;
       /**
-       * @description Controls when the funds will be captured from the customer's account. 
+       * @description Controls when the funds will be captured from the customer's account.
        * @enum {string}
        */
       capture_method: "automatic" | "automatic_async" | "manual";
       /**
-       * @description The client secret of this PaymentIntent. Used for client-side retrieval using a publishable key. 
-       * 
+       * @description The client secret of this PaymentIntent. Used for client-side retrieval using a publishable key.
+       *
        * The client secret can be used to complete a payment from your frontend. It should not be stored, logged, or exposed to anyone other than the customer. Make sure that you have TLS enabled on any page that includes the client secret.
-       * 
+       *
        * Refer to our docs to [accept a payment](https://stripe.com/docs/payments/accept-a-payment?ui=elements) and learn about how `client_secret` should be handled.
        */
       client_secret?: string | null;
       /** @enum {string} */
       confirmation_method: "automatic" | "manual";
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -8245,9 +8245,9 @@ export interface components {
       currency: string;
       /**
        * @description ID of the Customer this PaymentIntent belongs to, if one exists.
-       * 
+       *
        * Payment methods attached to other Customers cannot be used with this PaymentIntent.
-       * 
+       *
        * If present in combination with [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage), this PaymentIntent's payment method will be attached to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete.
        */
       customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
@@ -8270,7 +8270,7 @@ export interface components {
       /** @description If present, this property tells you what actions you need to take in order for your customer to fulfill a payment using the provided source. */
       next_action?: components["schemas"]["payment_intent_next_action"] | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "payment_intent";
@@ -8290,10 +8290,10 @@ export interface components {
       review?: (string | components["schemas"]["review"]) | null;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string|null}
        */
       setup_future_usage?: "off_session" | "on_session" | null;
@@ -8304,7 +8304,7 @@ export interface components {
       /** @description Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
       statement_descriptor_suffix?: string | null;
       /**
-       * @description Status of this PaymentIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `requires_capture`, `canceled`, or `succeeded`. Read more about each PaymentIntent [status](https://stripe.com/docs/payments/intents#intent-statuses). 
+       * @description Status of this PaymentIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `requires_capture`, `canceled`, or `succeeded`. Read more about each PaymentIntent [status](https://stripe.com/docs/payments/intents#intent-statuses).
        * @enum {string}
        */
       status: "canceled" | "processing" | "requires_action" | "requires_capture" | "requires_confirmation" | "requires_payment_method" | "succeeded";
@@ -8353,7 +8353,7 @@ export interface components {
     /** payment_intent_next_action_boleto */
     payment_intent_next_action_boleto: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The timestamp after which the boleto expires.
        */
       expires_at?: number | null;
@@ -8367,7 +8367,7 @@ export interface components {
     /** PaymentIntentNextActionCardAwaitNotification */
     payment_intent_next_action_card_await_notification: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The time that payment will be attempted. If customer approval is required, they need to provide approval before this time.
        */
       charge_attempt_at?: number | null;
@@ -8385,7 +8385,7 @@ export interface components {
     /** PaymentIntentNextActionCashappQRCode */
     payment_intent_next_action_cashapp_qr_code: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The date (unix timestamp) when the QR code expires.
        */
       expires_at: number;
@@ -8407,7 +8407,7 @@ export interface components {
       /** @description A string identifying this payment. Instruct your customer to include this code in the reference or memo field of their bank transfer. */
       reference?: string | null;
       /**
-       * @description Type of bank transfer 
+       * @description Type of bank transfer
        * @enum {string}
        */
       type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer";
@@ -8415,7 +8415,7 @@ export interface components {
     /** PaymentIntentNextActionDisplayOxxoDetails */
     payment_intent_next_action_display_oxxo_details: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The timestamp after which the OXXO voucher expires.
        */
       expires_after?: number | null;
@@ -8427,7 +8427,7 @@ export interface components {
     /** payment_intent_next_action_konbini */
     payment_intent_next_action_konbini: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The timestamp at which the pending Konbini payment expires.
        */
       expires_at: number;
@@ -8519,14 +8519,14 @@ export interface components {
     /** PaymentIntentNextActionVerifyWithMicrodeposits */
     payment_intent_next_action_verify_with_microdeposits: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The timestamp when the microdeposits are expected to land.
        */
       arrival_date: number;
       /** @description The URL for the hosted verification page, which allows customers to verify their bank account. */
       hosted_verification_url: string;
       /**
-       * @description The type of the microdeposit sent to the customer. Used to distinguish between different verification methods. 
+       * @description The type of the microdeposit sent to the customer. Used to distinguish between different verification methods.
        * @enum {string|null}
        */
       microdeposit_type?: "amounts" | "descriptor_code" | null;
@@ -8607,15 +8607,15 @@ export interface components {
       mandate_options?: components["schemas"]["payment_intent_payment_method_options_mandate_options_acss_debit"];
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session" | "on_session";
       /**
-       * @description Bank account verification method. 
+       * @description Bank account verification method.
        * @enum {string}
        */
       verification_method?: "automatic" | "instant" | "microdeposits";
@@ -8624,10 +8624,10 @@ export interface components {
     payment_intent_payment_method_options_au_becs_debit: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session" | "on_session";
@@ -8639,34 +8639,34 @@ export interface components {
     /** payment_intent_payment_method_options_card */
     payment_intent_payment_method_options_card: {
       /**
-       * @description Controls when the funds will be captured from the customer's account. 
+       * @description Controls when the funds will be captured from the customer's account.
        * @enum {string}
        */
       capture_method?: "manual";
       /**
        * @description Installment details for this payment (Mexico only).
-       * 
+       *
        * For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
        */
       installments?: components["schemas"]["payment_method_options_card_installments"] | null;
       /** @description Configuration options for setting up an eMandate for cards issued in India. */
       mandate_options?: components["schemas"]["payment_method_options_card_mandate_options"] | null;
       /**
-       * @description Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time. 
+       * @description Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
        * @enum {string|null}
        */
       network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
       /**
-       * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine. 
+       * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
        * @enum {string|null}
        */
       request_three_d_secure?: "any" | "automatic" | "challenge_only" | null;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session" | "on_session";
@@ -8679,10 +8679,10 @@ export interface components {
     payment_intent_payment_method_options_eps: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -8690,7 +8690,7 @@ export interface components {
     /** payment_intent_payment_method_options_link */
     payment_intent_payment_method_options_link: {
       /**
-       * @description Controls when the funds will be captured from the customer's account. 
+       * @description Controls when the funds will be captured from the customer's account.
        * @enum {string}
        */
       capture_method?: "manual";
@@ -8698,10 +8698,10 @@ export interface components {
       persistent_token?: string | null;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session";
@@ -8713,12 +8713,12 @@ export interface components {
       /** @description Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'. */
       interval_description?: string | null;
       /**
-       * @description Payment schedule for the mandate. 
+       * @description Payment schedule for the mandate.
        * @enum {string|null}
        */
       payment_schedule?: "combined" | "interval" | "sporadic" | null;
       /**
-       * @description Transaction type of the mandate. 
+       * @description Transaction type of the mandate.
        * @enum {string|null}
        */
       transaction_type?: "business" | "personal" | null;
@@ -8726,13 +8726,13 @@ export interface components {
     /** payment_intent_payment_method_options_mandate_options_blik */
     payment_intent_payment_method_options_mandate_options_blik: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date at which the mandate expires.
        */
       expires_after?: number | null;
       off_session?: components["schemas"]["mandate_options_off_session_details_blik"];
       /**
-       * @description Type of the mandate. 
+       * @description Type of the mandate.
        * @enum {string|null}
        */
       type?: "off_session" | "on_session" | null;
@@ -8744,10 +8744,10 @@ export interface components {
       mandate_options?: components["schemas"]["payment_intent_payment_method_options_mandate_options_sepa_debit"];
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session" | "on_session";
@@ -8757,15 +8757,15 @@ export interface components {
       financial_connections?: components["schemas"]["linked_account_options_us_bank_account"];
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session" | "on_session";
       /**
-       * @description Bank account verification method. 
+       * @description Bank account verification method.
        * @enum {string}
        */
       verification_method?: "automatic" | "instant" | "microdeposits";
@@ -8774,7 +8774,7 @@ export interface components {
     payment_intent_processing: {
       card?: components["schemas"]["payment_intent_card_processing"];
       /**
-       * @description Type of the payment method for which payment is in `processing` state, one of `card`. 
+       * @description Type of the payment method for which payment is in `processing` state, one of `card`.
        * @enum {string}
        */
       type: "card";
@@ -8784,7 +8784,7 @@ export interface components {
       /** @description Whether customer approval has been requested for this payment. For payments greater than INR 15000 or mandate amount, the customer must provide explicit approval of the payment with their bank. */
       approval_requested?: boolean | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description If customer approval is required, they need to provide approval before this time.
        */
       completes_at?: number | null;
@@ -8792,32 +8792,32 @@ export interface components {
     /** PaymentIntentTypeSpecificPaymentMethodOptionsClient */
     payment_intent_type_specific_payment_method_options_client: {
       /**
-       * @description Controls when the funds will be captured from the customer's account. 
+       * @description Controls when the funds will be captured from the customer's account.
        * @enum {string}
        */
       capture_method?: "manual" | "manual_preferred";
       installments?: components["schemas"]["payment_flows_installment_options"];
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session" | "on_session";
       /**
-       * @description Bank account verification method. 
+       * @description Bank account verification method.
        * @enum {string}
        */
       verification_method?: "automatic" | "instant" | "microdeposits";
     };
     /**
-     * PaymentLink 
+     * PaymentLink
      * @description A payment link is a shareable URL that will take your customers to a hosted payment page. A payment link can be shared and used multiple times.
-     * 
+     *
      * When a customer opens a payment link it will open a new [checkout session](https://stripe.com/docs/api/checkout/sessions) to render the payment page. You can use [checkout session events](https://stripe.com/docs/api/events/types#event_types-checkout.session.completed) to track payments through payment links.
-     * 
+     *
      * Related guide: [Payment Links API](https://stripe.com/docs/payment-links)
      */
     payment_link: {
@@ -8832,7 +8832,7 @@ export interface components {
       application_fee_percent?: number | null;
       automatic_tax: components["schemas"]["payment_links_resource_automatic_tax"];
       /**
-       * @description Configuration for collecting the customer's billing address. 
+       * @description Configuration for collecting the customer's billing address.
        * @enum {string}
        */
       billing_address_collection: "auto" | "required";
@@ -8844,7 +8844,7 @@ export interface components {
       custom_fields: (components["schemas"]["payment_links_resource_custom_fields"])[];
       custom_text: components["schemas"]["payment_links_resource_custom_text"];
       /**
-       * @description Configuration for Customer creation during checkout. 
+       * @description Configuration for Customer creation during checkout.
        * @enum {string}
        */
       customer_creation: "always" | "if_required";
@@ -8853,7 +8853,7 @@ export interface components {
       /** @description Configuration for creating invoice for payment mode payment links. */
       invoice_creation?: components["schemas"]["payment_links_resource_invoice_creation"] | null;
       /**
-       * PaymentLinksResourceListLineItems 
+       * PaymentLinksResourceListLineItems
        * @description The line items representing what is being sold.
        */
       line_items?: {
@@ -8862,7 +8862,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -8876,7 +8876,7 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "payment_link";
@@ -8885,7 +8885,7 @@ export interface components {
       /** @description Indicates the parameters to be passed to PaymentIntent creation during checkout. */
       payment_intent_data?: components["schemas"]["payment_links_resource_payment_intent_data"] | null;
       /**
-       * @description Configuration for collecting a payment method during checkout. 
+       * @description Configuration for collecting a payment method during checkout.
        * @enum {string}
        */
       payment_method_collection: "always" | "if_required";
@@ -8897,7 +8897,7 @@ export interface components {
       /** @description The shipping rate options applied to the session. */
       shipping_options: (components["schemas"]["payment_links_resource_shipping_option"])[];
       /**
-       * @description Indicates the type of transaction being performed which customizes relevant text on the page, such as the submit button. 
+       * @description Indicates the type of transaction being performed which customizes relevant text on the page, such as the submit button.
        * @enum {string}
        */
       submit_type: "auto" | "book" | "donate" | "pay";
@@ -8914,7 +8914,7 @@ export interface components {
       hosted_confirmation?: components["schemas"]["payment_links_resource_completion_behavior_confirmation_page"];
       redirect?: components["schemas"]["payment_links_resource_completion_behavior_redirect"];
       /**
-       * @description The specified behavior after the purchase is complete. 
+       * @description The specified behavior after the purchase is complete.
        * @enum {string}
        */
       type: "hosted_confirmation" | "redirect";
@@ -8937,12 +8937,12 @@ export interface components {
     /** PaymentLinksResourceConsentCollection */
     payment_links_resource_consent_collection: {
       /**
-       * @description If set to `auto`, enables the collection of customer consent for promotional communications. 
+       * @description If set to `auto`, enables the collection of customer consent for promotional communications.
        * @enum {string|null}
        */
       promotions?: "auto" | "none" | null;
       /**
-       * @description If set to `required`, it requires cutomers to accept the terms of service before being able to pay. If set to `none`, customers won't be shown a checkbox to accept the terms of service. 
+       * @description If set to `required`, it requires cutomers to accept the terms of service before being able to pay. If set to `none`, customers won't be shown a checkbox to accept the terms of service.
        * @enum {string|null}
        */
       terms_of_service?: "none" | "required" | null;
@@ -8961,7 +8961,7 @@ export interface components {
       /** @description Configuration for `type=text` fields. */
       text?: components["schemas"]["payment_links_resource_custom_fields_text"] | null;
       /**
-       * @description The type of the field. 
+       * @description The type of the field.
        * @enum {string}
        */
       type: "dropdown" | "numeric" | "text";
@@ -8983,7 +8983,7 @@ export interface components {
       /** @description Custom text for the label, displayed to the customer. Up to 50 characters. */
       custom?: string | null;
       /**
-       * @description The type of the label. 
+       * @description The type of the label.
        * @enum {string}
        */
       type: "custom";
@@ -9041,12 +9041,12 @@ export interface components {
     /** PaymentLinksResourcePaymentIntentData */
     payment_links_resource_payment_intent_data: {
       /**
-       * @description Indicates when the funds will be captured from the customer's account. 
+       * @description Indicates when the funds will be captured from the customer's account.
        * @enum {string|null}
        */
       capture_method?: "automatic" | "automatic_async" | "manual" | null;
       /**
-       * @description Indicates that you intend to make future payments with the payment method collected during checkout. 
+       * @description Indicates that you intend to make future payments with the payment method collected during checkout.
        * @enum {string|null}
        */
       setup_future_usage?: "off_session" | "on_session" | null;
@@ -9088,11 +9088,11 @@ export interface components {
       destination: string | components["schemas"]["account"];
     };
     /**
-     * PaymentMethod 
+     * PaymentMethod
      * @description PaymentMethod objects represent your customer's payment instruments.
      * You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
      * Customer objects to store instrument details for future payments.
-     * 
+     *
      * Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
      */
     payment_method: {
@@ -9110,7 +9110,7 @@ export interface components {
       card_present?: components["schemas"]["payment_method_card_present"];
       cashapp?: components["schemas"]["payment_method_cashapp"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -9135,7 +9135,7 @@ export interface components {
         [key: string]: string | undefined;
       }) | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "payment_method";
@@ -9149,7 +9149,7 @@ export interface components {
       sepa_debit?: components["schemas"]["payment_method_sepa_debit"];
       sofort?: components["schemas"]["payment_method_sofort"];
       /**
-       * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. 
+       * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
        * @enum {string}
        */
       type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "card_present" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "interac_present" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay" | "zip";
@@ -9215,7 +9215,7 @@ export interface components {
       exp_year: number;
       /**
        * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
-       * 
+       *
        * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
        */
       fingerprint?: string | null;
@@ -9264,7 +9264,7 @@ export interface components {
       exp_year: number;
       /**
        * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
-       * 
+       *
        * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
        */
       fingerprint?: string | null;
@@ -9275,7 +9275,7 @@ export interface components {
       /** @description Contains information about card networks that can be used to process the payment. */
       networks?: components["schemas"]["payment_method_card_present_networks"] | null;
       /**
-       * @description How card details were read in this transaction. 
+       * @description How card details were read in this transaction.
        * @enum {string|null}
        */
       read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2" | null;
@@ -9298,7 +9298,7 @@ export interface components {
       masterpass?: components["schemas"]["payment_method_card_wallet_masterpass"];
       samsung_pay?: components["schemas"]["payment_method_card_wallet_samsung_pay"];
       /**
-       * @description The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type. 
+       * @description The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
        * @enum {string}
        */
       type: "amex_express_checkout" | "apple_pay" | "google_pay" | "link" | "masterpass" | "samsung_pay" | "visa_checkout";
@@ -9406,7 +9406,7 @@ export interface components {
     /** payment_method_details_ach_debit */
     payment_method_details_ach_debit: {
       /**
-       * @description Type of entity that holds the account. This can be either `individual` or `company`. 
+       * @description Type of entity that holds the account. This can be either `individual` or `company`.
        * @enum {string|null}
        */
       account_holder_type?: "company" | "individual" | null;
@@ -9481,7 +9481,7 @@ export interface components {
       iban_last4?: string | null;
       /**
        * @description Preferred language of the Bancontact authorization page that the customer is redirected to.
-       * Can be one of `en`, `de`, `fr`, or `nl` 
+       * Can be one of `en`, `de`, `fr`, or `nl`
        * @enum {string|null}
        */
       preferred_language?: "de" | "en" | "fr" | "nl" | null;
@@ -9512,7 +9512,7 @@ export interface components {
       exp_year: number;
       /**
        * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
-       * 
+       *
        * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
        */
       fingerprint?: string | null;
@@ -9520,7 +9520,7 @@ export interface components {
       funding?: string | null;
       /**
        * @description Installment details for this payment (Mexico only).
-       * 
+       *
        * For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
        */
       installments?: components["schemas"]["payment_method_details_card_installments"] | null;
@@ -9557,12 +9557,12 @@ export interface components {
       count?: number | null;
       /**
        * @description For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
-       * One of `month`. 
+       * One of `month`.
        * @enum {string|null}
        */
       interval?: "month" | null;
       /**
-       * @description Type of installment plan, one of `fixed_count`. 
+       * @description Type of installment plan, one of `fixed_count`.
        * @enum {string}
        */
       type: "fixed_count";
@@ -9579,7 +9579,7 @@ export interface components {
       /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       brand?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description When using manual capture, a future timestamp after which the charge will be automatically refunded if uncaptured.
        */
       capture_before?: number;
@@ -9595,7 +9595,7 @@ export interface components {
       exp_year: number;
       /**
        * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
-       * 
+       *
        * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
        */
       fingerprint?: string | null;
@@ -9612,7 +9612,7 @@ export interface components {
       /** @description Defines whether the authorized amount can be over-captured or not */
       overcapture_supported: boolean;
       /**
-       * @description How card details were read in this transaction. 
+       * @description How card details were read in this transaction.
        * @enum {string|null}
        */
       read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2" | null;
@@ -9622,7 +9622,7 @@ export interface components {
     /** payment_method_details_card_present_receipt */
     payment_method_details_card_present_receipt: {
       /**
-       * @description The type of account being debited or credited 
+       * @description The type of account being debited or credited
        * @enum {string}
        */
       account_type?: "checking" | "credit" | "prepaid" | "unknown";
@@ -9654,7 +9654,7 @@ export interface components {
       masterpass?: components["schemas"]["payment_method_details_card_wallet_masterpass"];
       samsung_pay?: components["schemas"]["payment_method_details_card_wallet_samsung_pay"];
       /**
-       * @description The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type. 
+       * @description The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
        * @enum {string}
        */
       type: "amex_express_checkout" | "apple_pay" | "google_pay" | "link" | "masterpass" | "samsung_pay" | "visa_checkout";
@@ -9704,7 +9704,7 @@ export interface components {
     /** payment_method_details_eps */
     payment_method_details_eps: {
       /**
-       * @description The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`. 
+       * @description The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
        * @enum {string|null}
        */
       bank?: "arzte_und_apotheker_bank" | "austrian_anadi_bank_ag" | "bank_austria" | "bankhaus_carl_spangler" | "bankhaus_schelhammer_und_schattera_ag" | "bawag_psk_ag" | "bks_bank_ag" | "brull_kallmus_bank_ag" | "btv_vier_lander_bank" | "capital_bank_grawe_gruppe_ag" | "deutsche_bank_ag" | "dolomitenbank" | "easybank_ag" | "erste_bank_und_sparkassen" | "hypo_alpeadriabank_international_ag" | "hypo_bank_burgenland_aktiengesellschaft" | "hypo_noe_lb_fur_niederosterreich_u_wien" | "hypo_oberosterreich_salzburg_steiermark" | "hypo_tirol_bank_ag" | "hypo_vorarlberg_bank_ag" | "marchfelder_bank" | "oberbank_ag" | "raiffeisen_bankengruppe_osterreich" | "schoellerbank_ag" | "sparda_bank_wien" | "volksbank_gruppe" | "volkskreditbank_ag" | "vr_bank_braunau" | null;
@@ -9718,7 +9718,7 @@ export interface components {
     /** payment_method_details_fpx */
     payment_method_details_fpx: {
       /**
-       * @description The customer's bank. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `pb_enterprise`, or `bank_of_china`. 
+       * @description The customer's bank. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `pb_enterprise`, or `bank_of_china`.
        * @enum {string}
        */
       bank: "affin_bank" | "agrobank" | "alliance_bank" | "ambank" | "bank_islam" | "bank_muamalat" | "bank_of_china" | "bank_rakyat" | "bsn" | "cimb" | "deutsche_bank" | "hong_leong_bank" | "hsbc" | "kfh" | "maybank2e" | "maybank2u" | "ocbc" | "pb_enterprise" | "public_bank" | "rhb" | "standard_chartered" | "uob";
@@ -9748,12 +9748,12 @@ export interface components {
     /** payment_method_details_ideal */
     payment_method_details_ideal: {
       /**
-       * @description The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`. 
+       * @description The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
        * @enum {string|null}
        */
       bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe" | null;
       /**
-       * @description The Bank Identifier Code of the customer's bank. 
+       * @description The Bank Identifier Code of the customer's bank.
        * @enum {string|null}
        */
       bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
@@ -9785,7 +9785,7 @@ export interface components {
       exp_year: number;
       /**
        * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
-       * 
+       *
        * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
        */
       fingerprint?: string | null;
@@ -9800,7 +9800,7 @@ export interface components {
       /** @description EMV tag 5F2D. Preferred languages specified by the integrated circuit chip. */
       preferred_locales?: (string)[] | null;
       /**
-       * @description How card details were read in this transaction. 
+       * @description How card details were read in this transaction.
        * @enum {string|null}
        */
       read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2" | null;
@@ -9810,7 +9810,7 @@ export interface components {
     /** payment_method_details_interac_present_receipt */
     payment_method_details_interac_present_receipt: {
       /**
-       * @description The type of account being debited or credited 
+       * @description The type of account being debited or credited
        * @enum {string}
        */
       account_type?: "checking" | "savings" | "unknown";
@@ -9852,7 +9852,7 @@ export interface components {
     /** payment_method_details_konbini_store */
     payment_method_details_konbini_store: {
       /**
-       * @description The name of the convenience store chain where the payment was completed. 
+       * @description The name of the convenience store chain where the payment was completed.
        * @enum {string|null}
        */
       chain?: "familymart" | "lawson" | "ministop" | "seicomart" | null;
@@ -9880,7 +9880,7 @@ export interface components {
     /** payment_method_details_p24 */
     payment_method_details_p24: {
       /**
-       * @description The customer's bank. Can be one of `ing`, `citi_handlowy`, `tmobile_usbugi_bankowe`, `plus_bank`, `etransfer_pocztowy24`, `banki_spbdzielcze`, `bank_nowy_bfg_sa`, `getin_bank`, `blik`, `noble_pay`, `ideabank`, `envelobank`, `santander_przelew24`, `nest_przelew`, `mbank_mtransfer`, `inteligo`, `pbac_z_ipko`, `bnp_paribas`, `credit_agricole`, `toyota_bank`, `bank_pekao_sa`, `volkswagen_bank`, `bank_millennium`, `alior_bank`, or `boz`. 
+       * @description The customer's bank. Can be one of `ing`, `citi_handlowy`, `tmobile_usbugi_bankowe`, `plus_bank`, `etransfer_pocztowy24`, `banki_spbdzielcze`, `bank_nowy_bfg_sa`, `getin_bank`, `blik`, `noble_pay`, `ideabank`, `envelobank`, `santander_przelew24`, `nest_przelew`, `mbank_mtransfer`, `inteligo`, `pbac_z_ipko`, `bnp_paribas`, `credit_agricole`, `toyota_bank`, `bank_pekao_sa`, `volkswagen_bank`, `bank_millennium`, `alior_bank`, or `boz`.
        * @enum {string|null}
        */
       bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "volkswagen_bank" | null;
@@ -9960,7 +9960,7 @@ export interface components {
       iban_last4?: string | null;
       /**
        * @description Preferred language of the SOFORT authorization page that the customer is redirected to.
-       * Can be one of `de`, `en`, `es`, `fr`, `it`, `nl`, or `pl` 
+       * Can be one of `de`, `en`, `es`, `fr`, `it`, `nl`, or `pl`
        * @enum {string|null}
        */
       preferred_language?: "de" | "en" | "es" | "fr" | "it" | "nl" | "pl" | null;
@@ -9975,12 +9975,12 @@ export interface components {
     /** payment_method_details_us_bank_account */
     payment_method_details_us_bank_account: {
       /**
-       * @description Account holder type: individual or company. 
+       * @description Account holder type: individual or company.
        * @enum {string|null}
        */
       account_holder_type?: "company" | "individual" | null;
       /**
-       * @description Account type: checkings or savings. Defaults to checking if omitted. 
+       * @description Account type: checkings or savings. Defaults to checking if omitted.
        * @enum {string|null}
        */
       account_type?: "checking" | "savings" | null;
@@ -10007,7 +10007,7 @@ export interface components {
     /** payment_method_eps */
     payment_method_eps: {
       /**
-       * @description The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`. 
+       * @description The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
        * @enum {string|null}
        */
       bank?: "arzte_und_apotheker_bank" | "austrian_anadi_bank_ag" | "bank_austria" | "bankhaus_carl_spangler" | "bankhaus_schelhammer_und_schattera_ag" | "bawag_psk_ag" | "bks_bank_ag" | "brull_kallmus_bank_ag" | "btv_vier_lander_bank" | "capital_bank_grawe_gruppe_ag" | "deutsche_bank_ag" | "dolomitenbank" | "easybank_ag" | "erste_bank_und_sparkassen" | "hypo_alpeadriabank_international_ag" | "hypo_bank_burgenland_aktiengesellschaft" | "hypo_noe_lb_fur_niederosterreich_u_wien" | "hypo_oberosterreich_salzburg_steiermark" | "hypo_tirol_bank_ag" | "hypo_vorarlberg_bank_ag" | "marchfelder_bank" | "oberbank_ag" | "raiffeisen_bankengruppe_osterreich" | "schoellerbank_ag" | "sparda_bank_wien" | "volksbank_gruppe" | "volkskreditbank_ag" | "vr_bank_braunau" | null;
@@ -10015,7 +10015,7 @@ export interface components {
     /** payment_method_fpx */
     payment_method_fpx: {
       /**
-       * @description The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `pb_enterprise`, or `bank_of_china`. 
+       * @description The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `pb_enterprise`, or `bank_of_china`.
        * @enum {string}
        */
       bank: "affin_bank" | "agrobank" | "alliance_bank" | "ambank" | "bank_islam" | "bank_muamalat" | "bank_of_china" | "bank_rakyat" | "bsn" | "cimb" | "deutsche_bank" | "hong_leong_bank" | "hsbc" | "kfh" | "maybank2e" | "maybank2u" | "ocbc" | "pb_enterprise" | "public_bank" | "rhb" | "standard_chartered" | "uob";
@@ -10027,12 +10027,12 @@ export interface components {
     /** payment_method_ideal */
     payment_method_ideal: {
       /**
-       * @description The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`. 
+       * @description The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
        * @enum {string|null}
        */
       bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe" | null;
       /**
-       * @description The Bank Identifier Code of the customer's bank, if the bank was provided. 
+       * @description The Bank Identifier Code of the customer's bank, if the bank was provided.
        * @enum {string|null}
        */
       bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
@@ -10051,7 +10051,7 @@ export interface components {
       exp_year: number;
       /**
        * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
-       * 
+       *
        * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
        */
       fingerprint?: string | null;
@@ -10064,7 +10064,7 @@ export interface components {
       /** @description EMV tag 5F2D. Preferred languages specified by the integrated circuit chip. */
       preferred_locales?: (string)[] | null;
       /**
-       * @description How card details were read in this transaction. 
+       * @description How card details were read in this transaction.
        * @enum {string|null}
        */
       read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2" | null;
@@ -10086,7 +10086,7 @@ export interface components {
     /** payment_method_options_affirm */
     payment_method_options_affirm: {
       /**
-       * @description Controls when the funds will be captured from the customer's account. 
+       * @description Controls when the funds will be captured from the customer's account.
        * @enum {string}
        */
       capture_method?: "manual";
@@ -10094,10 +10094,10 @@ export interface components {
       preferred_locale?: string;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -10105,7 +10105,7 @@ export interface components {
     /** payment_method_options_afterpay_clearpay */
     payment_method_options_afterpay_clearpay: {
       /**
-       * @description Controls when the funds will be captured from the customer's account. 
+       * @description Controls when the funds will be captured from the customer's account.
        * @enum {string}
        */
       capture_method?: "manual";
@@ -10116,10 +10116,10 @@ export interface components {
       reference?: string | null;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -10128,10 +10128,10 @@ export interface components {
     payment_method_options_alipay: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session";
@@ -10140,10 +10140,10 @@ export interface components {
     payment_method_options_bacs_debit: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session" | "on_session";
@@ -10151,16 +10151,16 @@ export interface components {
     /** payment_method_options_bancontact */
     payment_method_options_bancontact: {
       /**
-       * @description Preferred language of the Bancontact authorization page that the customer is redirected to. 
+       * @description Preferred language of the Bancontact authorization page that the customer is redirected to.
        * @enum {string}
        */
       preferred_language: "de" | "en" | "fr" | "nl";
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session";
@@ -10171,10 +10171,10 @@ export interface components {
       expires_after_days: number;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session" | "on_session";
@@ -10193,19 +10193,19 @@ export interface components {
       /** @description Amount to be charged for future payments. */
       amount: number;
       /**
-       * @description One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param. 
+       * @description One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
        * @enum {string}
        */
       amount_type: "fixed" | "maximum";
       /** @description A description of the mandate or subscription that is meant to be displayed to the customer. */
       description?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
        */
       end_date?: number | null;
       /**
-       * @description Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`. 
+       * @description Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
        * @enum {string}
        */
       interval: "day" | "month" | "sporadic" | "week" | "year";
@@ -10214,7 +10214,7 @@ export interface components {
       /** @description Unique identifier for the mandate or subscription. */
       reference: string;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Start date of the mandate or subscription. Start date should not be lesser than yesterday.
        */
       start_date: number;
@@ -10231,16 +10231,16 @@ export interface components {
     /** payment_method_options_cashapp */
     payment_method_options_cashapp: {
       /**
-       * @description Controls when the funds will be captured from the customer's account. 
+       * @description Controls when the funds will be captured from the customer's account.
        * @enum {string}
        */
       capture_method?: "manual";
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session" | "on_session";
@@ -10249,16 +10249,16 @@ export interface components {
     payment_method_options_customer_balance: {
       bank_transfer?: components["schemas"]["payment_method_options_customer_balance_bank_transfer"];
       /**
-       * @description The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`. 
+       * @description The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
        * @enum {string|null}
        */
       funding_type?: "bank_transfer" | null;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -10268,12 +10268,12 @@ export interface components {
       eu_bank_transfer?: components["schemas"]["payment_method_options_customer_balance_eu_bank_account"];
       /**
        * @description List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
-       * 
+       *
        * Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
        */
       requested_address_types?: ("aba" | "iban" | "sepa" | "sort_code" | "spei" | "swift" | "zengin")[];
       /**
-       * @description The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`. 
+       * @description The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
        * @enum {string|null}
        */
       type?: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer" | null;
@@ -10281,7 +10281,7 @@ export interface components {
     /** payment_method_options_customer_balance_eu_bank_account */
     payment_method_options_customer_balance_eu_bank_account: {
       /**
-       * @description The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`. 
+       * @description The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
        * @enum {string}
        */
       country: "BE" | "DE" | "ES" | "FR" | "IE" | "NL";
@@ -10290,10 +10290,10 @@ export interface components {
     payment_method_options_fpx: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -10302,10 +10302,10 @@ export interface components {
     payment_method_options_giropay: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -10314,10 +10314,10 @@ export interface components {
     payment_method_options_grabpay: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -10326,10 +10326,10 @@ export interface components {
     payment_method_options_ideal: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session";
@@ -10339,7 +10339,7 @@ export interface components {
     /** payment_method_options_klarna */
     payment_method_options_klarna: {
       /**
-       * @description Controls when the funds will be captured from the customer's account. 
+       * @description Controls when the funds will be captured from the customer's account.
        * @enum {string}
        */
       capture_method?: "manual";
@@ -10347,10 +10347,10 @@ export interface components {
       preferred_locale?: string | null;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -10362,7 +10362,7 @@ export interface components {
       /** @description The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST. */
       expires_after_days?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The timestamp at which the Konbini payment instructions will expire. Only one of `expires_after_days` or `expires_at` may be set.
        */
       expires_at?: number | null;
@@ -10370,10 +10370,10 @@ export interface components {
       product_description?: string | null;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -10384,10 +10384,10 @@ export interface components {
       expires_after_days: number;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -10396,10 +10396,10 @@ export interface components {
     payment_method_options_p24: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -10408,10 +10408,10 @@ export interface components {
     payment_method_options_paynow: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -10419,7 +10419,7 @@ export interface components {
     /** payment_method_options_paypal */
     payment_method_options_paypal: {
       /**
-       * @description Controls when the funds will be captured from the customer's account. 
+       * @description Controls when the funds will be captured from the customer's account.
        * @enum {string}
        */
       capture_method?: "manual";
@@ -10429,10 +10429,10 @@ export interface components {
       reference?: string | null;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session";
@@ -10445,10 +10445,10 @@ export interface components {
       expires_at?: number | null;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -10457,10 +10457,10 @@ export interface components {
     payment_method_options_promptpay: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -10468,16 +10468,16 @@ export interface components {
     /** payment_method_options_sofort */
     payment_method_options_sofort: {
       /**
-       * @description Preferred language of the SOFORT authorization page that the customer is redirected to. 
+       * @description Preferred language of the SOFORT authorization page that the customer is redirected to.
        * @enum {string|null}
        */
       preferred_language?: "de" | "en" | "es" | "fr" | "it" | "nl" | "pl" | null;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none" | "off_session";
@@ -10487,16 +10487,16 @@ export interface components {
       /** @description The app ID registered with WeChat Pay. Only required when client is ios or android. */
       app_id?: string | null;
       /**
-       * @description The client type that the end customer will pay from 
+       * @description The client type that the end customer will pay from
        * @enum {string|null}
        */
       client?: "android" | "ios" | "web" | null;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -10505,10 +10505,10 @@ export interface components {
     payment_method_options_zip: {
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-       * 
+       *
        * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-       * 
-       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+       *
+       * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
        * @enum {string}
        */
       setup_future_usage?: "none";
@@ -10518,7 +10518,7 @@ export interface components {
     /** payment_method_p24 */
     payment_method_p24: {
       /**
-       * @description The customer's bank, if provided. 
+       * @description The customer's bank, if provided.
        * @enum {string|null}
        */
       bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "volkswagen_bank" | null;
@@ -10562,12 +10562,12 @@ export interface components {
     /** payment_method_us_bank_account */
     payment_method_us_bank_account: {
       /**
-       * @description Account holder type: individual or company. 
+       * @description Account holder type: individual or company.
        * @enum {string|null}
        */
       account_holder_type?: "company" | "individual" | null;
       /**
-       * @description Account type: checkings or savings. Defaults to checking if omitted. 
+       * @description Account type: checkings or savings. Defaults to checking if omitted.
        * @enum {string|null}
        */
       account_type?: "checking" | "savings" | null;
@@ -10589,12 +10589,12 @@ export interface components {
     /** payment_method_us_bank_account_blocked */
     payment_method_us_bank_account_blocked: {
       /**
-       * @description The ACH network code that resulted in this block. 
+       * @description The ACH network code that resulted in this block.
        * @enum {string|null}
        */
       network_code?: "R02" | "R03" | "R04" | "R05" | "R07" | "R08" | "R10" | "R11" | "R16" | "R20" | "R29" | "R31" | null;
       /**
-       * @description The reason why this PaymentMethod's fingerprint has been blocked 
+       * @description The reason why this PaymentMethod's fingerprint has been blocked
        * @enum {string|null}
        */
       reason?: "bank_account_closed" | "bank_account_frozen" | "bank_account_invalid_details" | "bank_account_restricted" | "bank_account_unusable" | "debit_not_authorized" | null;
@@ -10623,7 +10623,7 @@ export interface components {
        */
       enabled: boolean;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The timestamp at which the recovery URL will expire.
        */
       expires_at?: number | null;
@@ -10635,7 +10635,7 @@ export interface components {
       /** @description Indicates whether automatic tax is enabled for the session */
       enabled: boolean;
       /**
-       * @description The status of the most recent automated tax calculation for this session. 
+       * @description The status of the most recent automated tax calculation for this session.
        * @enum {string|null}
        */
       status?: "complete" | "failed" | "requires_location_inputs" | null;
@@ -10644,12 +10644,12 @@ export interface components {
     payment_pages_checkout_session_consent: {
       /**
        * @description If `opt_in`, the customer consents to receiving promotional communications
-       * from the merchant about this Checkout Session. 
+       * from the merchant about this Checkout Session.
        * @enum {string|null}
        */
       promotions?: "opt_in" | "opt_out" | null;
       /**
-       * @description If `accepted`, the customer in this Checkout Session has agreed to the merchant's terms of service. 
+       * @description If `accepted`, the customer in this Checkout Session has agreed to the merchant's terms of service.
        * @enum {string|null}
        */
       terms_of_service?: "accepted" | null;
@@ -10659,12 +10659,12 @@ export interface components {
       /**
        * @description If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
        * Session will determine whether to display an option to opt into promotional communication
-       * from the merchant depending on the customer's locale. Only available to US merchants. 
+       * from the merchant depending on the customer's locale. Only available to US merchants.
        * @enum {string|null}
        */
       promotions?: "auto" | "none" | null;
       /**
-       * @description If set to `required`, it requires customers to accept the terms of service before being able to pay. 
+       * @description If set to `required`, it requires customers to accept the terms of service before being able to pay.
        * @enum {string|null}
        */
       terms_of_service?: "none" | "required" | null;
@@ -10676,7 +10676,7 @@ export interface components {
       /** @description Total of all items in source currency after discounts and taxes are applied. */
       amount_total: number;
       /**
-       * Format: decimal 
+       * Format: decimal
        * @description Exchange rate used to convert source currency amounts to customer currency amounts
        */
       fx_rate: string;
@@ -10697,7 +10697,7 @@ export interface components {
       /** @description Configuration for `type=text` fields. */
       text?: components["schemas"]["payment_pages_checkout_session_custom_fields_text"] | null;
       /**
-       * @description The type of the field. 
+       * @description The type of the field.
        * @enum {string}
        */
       type: "dropdown" | "numeric" | "text";
@@ -10714,7 +10714,7 @@ export interface components {
       /** @description Custom text for the label, displayed to the customer. Up to 50 characters. */
       custom?: string | null;
       /**
-       * @description The type of the label. 
+       * @description The type of the label.
        * @enum {string}
        */
       type: "custom";
@@ -10770,7 +10770,7 @@ export interface components {
       /** @description The customer's phone number after a completed Checkout Session. */
       phone?: string | null;
       /**
-       * @description The customer’s tax exempt status after a completed Checkout Session. 
+       * @description The customer’s tax exempt status after a completed Checkout Session.
        * @enum {string|null}
        */
       tax_exempt?: "exempt" | "none" | "reverse" | null;
@@ -10836,7 +10836,7 @@ export interface components {
     /** PaymentPagesCheckoutSessionTaxID */
     payment_pages_checkout_session_tax_id: {
       /**
-       * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown` 
+       * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
        * @enum {string}
        */
       type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
@@ -10868,21 +10868,21 @@ export interface components {
     /** Polymorphic */
     payment_source: components["schemas"]["account"] | components["schemas"]["bank_account"] | components["schemas"]["card"] | components["schemas"]["source"];
     /**
-     * Payout 
+     * Payout
      * @description A `Payout` object is created when you receive funds from Stripe, or when you
      * initiate a payout to either a bank account or debit card of a [connected
      * Stripe account](/docs/connect/bank-debit-card-payouts). You can retrieve individual payouts,
      * as well as list all payouts. Payouts are made on [varying
      * schedules](/docs/connect/manage-payout-schedule), depending on your country and
      * industry.
-     * 
+     *
      * Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
      */
     payout: {
       /** @description Amount (in %s) to be transferred to your bank account or debit card. */
       amount: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date the payout is expected to arrive in the bank. This factors in delays like weekends or bank holidays.
        */
       arrival_date: number;
@@ -10891,7 +10891,7 @@ export interface components {
       /** @description ID of the balance transaction that describes the impact of this payout on your account balance. */
       balance_transaction?: (string | components["schemas"]["balance_transaction"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -10918,14 +10918,14 @@ export interface components {
       /** @description The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces](https://stripe.com/blog/instant-payouts-for-marketplaces) for more information.) */
       method: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "payout";
       /** @description If the payout reverses another, this is the ID of the original payout. */
       original_payout?: (string | components["schemas"]["payout"]) | null;
       /**
-       * @description If `completed`, the [Balance Transactions API](https://stripe.com/docs/api/balance_transactions/list#balance_transaction_list-payout) may be used to list all Balance Transactions that were paid out in this payout. 
+       * @description If `completed`, the [Balance Transactions API](https://stripe.com/docs/api/balance_transactions/list#balance_transaction_list-payout) may be used to list all Balance Transactions that were paid out in this payout.
        * @enum {string}
        */
       reconciliation_status: "completed" | "in_progress" | "not_applicable";
@@ -10938,7 +10938,7 @@ export interface components {
       /** @description Current status of the payout: `paid`, `pending`, `in_transit`, `canceled` or `failed`. A payout is `pending` until it is submitted to the bank, when it becomes `in_transit`. The status then changes to `paid` if the transaction goes through, or to `failed` or `canceled` (within 5 business days). Some failed payouts may initially show as `paid` but then change to `failed`. */
       status: string;
       /**
-       * @description Can be `bank_account` or `card`. 
+       * @description Can be `bank_account` or `card`.
        * @enum {string}
        */
       type: "bank_account" | "card";
@@ -10948,7 +10948,7 @@ export interface components {
       /** @description An array of conditions that are covered for the transaction, if applicable. */
       dispute_categories?: (("fraudulent" | "product_not_received")[]) | null;
       /**
-       * @description Indicates whether the transaction is eligible for PayPal's seller protection. 
+       * @description Indicates whether the transaction is eligible for PayPal's seller protection.
        * @enum {string}
        */
       status: "eligible" | "not_eligible" | "partially_eligible";
@@ -10956,23 +10956,23 @@ export interface components {
     /** Period */
     period: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The end date of this usage period. All usage up to and including this point in time is included.
        */
       end?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The start date of this usage period. All usage after this point in time is included.
        */
       start?: number | null;
     };
     /**
-     * Person 
+     * Person
      * @description This is an object representing a person associated with a Stripe account.
-     * 
+     *
      * A platform cannot access a Standard or Express account's persons after the account starts onboarding, such as after generating an account link for the account.
      * See the [Standard onboarding](https://stripe.com/docs/connect/standard-accounts) or [Express onboarding documentation](https://stripe.com/docs/connect/express-accounts) for information about platform pre-filling and account onboarding steps.
-     * 
+     *
      * Related guide: [Handling identity verification with the API](https://stripe.com/docs/connect/identity-verification-api#person-information)
      */
     person: {
@@ -10982,7 +10982,7 @@ export interface components {
       address_kana?: components["schemas"]["legal_entity_japan_address"] | null;
       address_kanji?: components["schemas"]["legal_entity_japan_address"] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -11021,14 +11021,14 @@ export interface components {
       /** @description The country where the person is a national. */
       nationality?: string | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "person";
       /** @description The person's phone number. */
       phone?: string | null;
       /**
-       * @description Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction. 
+       * @description Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
        * @enum {string}
        */
       political_exposure?: "existing" | "none";
@@ -11085,38 +11085,38 @@ export interface components {
       pending_verification: (string)[];
     };
     /**
-     * Plan 
+     * Plan
      * @description You can now model subscriptions more flexibly using the [Prices API](https://stripe.com/docs/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
-     * 
+     *
      * Plans define the base price, currency, and billing cycle for recurring purchases of products.
      * [Products](https://stripe.com/docs/api#products) help you track inventory or provisioning, and plans help you track pricing. Different physical goods or levels of service should be represented by products, and pricing options should be represented by plans. This approach lets you change prices without having to change your provisioning scheme.
-     * 
+     *
      * For example, you might have a single "gold" product that has plans for $10/month, $100/year, €9/month, and €90/year.
-     * 
+     *
      * Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) and more about [products and prices](https://stripe.com/docs/products-prices/overview).
      */
     plan: {
       /** @description Whether the plan can be used for new purchases. */
       active: boolean;
       /**
-       * @description Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`. 
+       * @description Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
        * @enum {string|null}
        */
       aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum" | null;
       /** @description The unit amount in %s to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`. */
       amount?: number | null;
       /**
-       * Format: decimal 
+       * Format: decimal
        * @description The unit amount in %s to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
        */
       amount_decimal?: string | null;
       /**
-       * @description Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes. 
+       * @description Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
        * @enum {string}
        */
       billing_scheme: "per_unit" | "tiered";
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -11125,7 +11125,7 @@ export interface components {
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`. 
+       * @description The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
        * @enum {string}
        */
       interval: "day" | "month" | "week" | "year";
@@ -11140,7 +11140,7 @@ export interface components {
       /** @description A brief description of the plan, hidden from customers. */
       nickname?: string | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "plan";
@@ -11149,7 +11149,7 @@ export interface components {
       /** @description Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
       tiers?: (components["schemas"]["plan_tier"])[];
       /**
-       * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows. 
+       * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows.
        * @enum {string|null}
        */
       tiers_mode?: "graduated" | "volume" | null;
@@ -11158,7 +11158,7 @@ export interface components {
       /** @description Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
       trial_period_days?: number | null;
       /**
-       * @description Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`. 
+       * @description Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
        * @enum {string}
        */
       usage_type: "licensed" | "metered";
@@ -11168,14 +11168,14 @@ export interface components {
       /** @description Price for the entire tier. */
       flat_amount?: number | null;
       /**
-       * Format: decimal 
+       * Format: decimal
        * @description Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
        */
       flat_amount_decimal?: string | null;
       /** @description Per unit price for units relevant to the tier. */
       unit_amount?: number | null;
       /**
-       * Format: decimal 
+       * Format: decimal
        * @description Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
        */
       unit_amount_decimal?: string | null;
@@ -11189,7 +11189,7 @@ export interface components {
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "platform_tax_fee";
@@ -11243,7 +11243,7 @@ export interface components {
       /** @description Configuration when `flow.type=subscription_update_confirm`. */
       subscription_update_confirm?: components["schemas"]["portal_flows_flow_subscription_update_confirm"] | null;
       /**
-       * @description Type of flow that the customer will go through. 
+       * @description Type of flow that the customer will go through.
        * @enum {string}
        */
       type: "payment_method_update" | "subscription_cancel" | "subscription_update" | "subscription_update_confirm";
@@ -11255,7 +11255,7 @@ export interface components {
       /** @description Configuration when `after_completion.type=redirect`. */
       redirect?: components["schemas"]["portal_flows_after_completion_redirect"] | null;
       /**
-       * @description The specified type of behavior after the flow is completed. 
+       * @description The specified type of behavior after the flow is completed.
        * @enum {string}
        */
       type: "hosted_confirmation" | "portal_homepage" | "redirect";
@@ -11304,7 +11304,7 @@ export interface components {
     portal_login_page: {
       /**
        * @description If `true`, a shareable `url` will be generated that will take your customers to a hosted login page for the customer portal.
-       * 
+       *
        * If `false`, the previously generated `url`, if any, will be deactivated.
        */
       enabled: boolean;
@@ -11322,12 +11322,12 @@ export interface components {
       /** @description Whether the feature is enabled. */
       enabled: boolean;
       /**
-       * @description Whether to cancel subscriptions immediately or at the end of the billing period. 
+       * @description Whether to cancel subscriptions immediately or at the end of the billing period.
        * @enum {string}
        */
       mode: "at_period_end" | "immediately";
       /**
-       * @description Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`. 
+       * @description Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`.
        * @enum {string}
        */
       proration_behavior: "always_invoice" | "create_prorations" | "none";
@@ -11353,7 +11353,7 @@ export interface components {
       /** @description The list of products that support subscription updates. */
       products?: (components["schemas"]["portal_subscription_update_product"])[] | null;
       /**
-       * @description Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`. 
+       * @description Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
        * @enum {string}
        */
       proration_behavior: "always_invoice" | "create_prorations" | "none";
@@ -11366,24 +11366,24 @@ export interface components {
       product: string;
     };
     /**
-     * Price 
+     * Price
      * @description Prices define the unit cost, currency, and (optional) billing cycle for both recurring and one-time purchases of products.
      * [Products](https://stripe.com/docs/api#products) help you track inventory or provisioning, and prices help you track payment terms. Different physical goods or levels of service should be represented by products, and pricing options should be represented by prices. This approach lets you change prices without having to change your provisioning scheme.
-     * 
+     *
      * For example, you might have a single "gold" product that has prices for $10/month, $100/year, and €9 once.
-     * 
+     *
      * Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription), [create an invoice](https://stripe.com/docs/billing/invoices/create), and more about [products and prices](https://stripe.com/docs/products-prices/overview).
      */
     price: {
       /** @description Whether the price can be used for new purchases. */
       active: boolean;
       /**
-       * @description Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `unit_amount` or `unit_amount_decimal`) will be charged per unit in `quantity` (for prices with `usage_type=licensed`), or per unit of total usage (for prices with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes. 
+       * @description Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `unit_amount` or `unit_amount_decimal`) will be charged per unit in `quantity` (for prices with `usage_type=licensed`), or per unit of total usage (for prices with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
        * @enum {string}
        */
       billing_scheme: "per_unit" | "tiered";
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -11408,7 +11408,7 @@ export interface components {
       /** @description A brief description of the price, hidden from customers. */
       nickname?: string | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "price";
@@ -11417,28 +11417,28 @@ export interface components {
       /** @description The recurring components of a price such as `interval` and `usage_type`. */
       recurring?: components["schemas"]["recurring"] | null;
       /**
-       * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
+       * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
        * @enum {string|null}
        */
       tax_behavior?: "exclusive" | "inclusive" | "unspecified" | null;
       /** @description Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
       tiers?: (components["schemas"]["price_tier"])[];
       /**
-       * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows. 
+       * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows.
        * @enum {string|null}
        */
       tiers_mode?: "graduated" | "volume" | null;
       /** @description Apply a transformation to the reported usage or set quantity before computing the amount billed. Cannot be combined with `tiers`. */
       transform_quantity?: components["schemas"]["transform_quantity"] | null;
       /**
-       * @description One of `one_time` or `recurring` depending on whether the price is for a one-time purchase or a recurring (subscription) purchase. 
+       * @description One of `one_time` or `recurring` depending on whether the price is for a one-time purchase or a recurring (subscription) purchase.
        * @enum {string}
        */
       type: "one_time" | "recurring";
       /** @description The unit amount in %s to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`. */
       unit_amount?: number | null;
       /**
-       * Format: decimal 
+       * Format: decimal
        * @description The unit amount in %s to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
        */
       unit_amount_decimal?: string | null;
@@ -11448,14 +11448,14 @@ export interface components {
       /** @description Price for the entire tier. */
       flat_amount?: number | null;
       /**
-       * Format: decimal 
+       * Format: decimal
        * @description Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
        */
       flat_amount_decimal?: string | null;
       /** @description Per unit price for units relevant to the tier. */
       unit_amount?: number | null;
       /**
-       * Format: decimal 
+       * Format: decimal
        * @description Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
        */
       unit_amount_decimal?: string | null;
@@ -11463,11 +11463,11 @@ export interface components {
       up_to?: number | null;
     };
     /**
-     * Product 
+     * Product
      * @description Products describe the specific goods or services you offer to your customers.
      * For example, you might offer a Standard and Premium version of your goods or service; each version would be a separate Product.
      * They can be used in conjunction with [Prices](https://stripe.com/docs/api#prices) to configure pricing in Payment Links, Checkout, and Subscriptions.
-     * 
+     *
      * Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription),
      * [share a Payment Link](https://stripe.com/docs/payment-links),
      * [accept payments with Checkout](https://stripe.com/docs/payments/accept-a-payment#create-product-prices-upfront),
@@ -11477,7 +11477,7 @@ export interface components {
       /** @description Whether the product is currently available for purchase. */
       active: boolean;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -11498,7 +11498,7 @@ export interface components {
       /** @description The product's name, meant to be displayable to the customer. */
       name: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "product";
@@ -11513,7 +11513,7 @@ export interface components {
       /** @description A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal. */
       unit_label?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was last updated. Measured in seconds since the Unix epoch.
        */
       updated: number;
@@ -11521,7 +11521,7 @@ export interface components {
       url?: string | null;
     };
     /**
-     * PromotionCode 
+     * PromotionCode
      * @description A Promotion Code represents a customer-redeemable code for a [coupon](https://stripe.com/docs/api#coupons). It can be used to
      * create multiple codes for a single coupon.
      */
@@ -11532,14 +11532,14 @@ export interface components {
       code: string;
       coupon: components["schemas"]["coupon"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
       /** @description The customer that this promotion code can be used by. */
       customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date at which the promotion code can no longer be redeemed.
        */
       expires_at?: number | null;
@@ -11554,7 +11554,7 @@ export interface components {
         [key: string]: string | undefined;
       }) | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "promotion_code";
@@ -11581,7 +11581,7 @@ export interface components {
       minimum_amount_currency?: string | null;
     };
     /**
-     * Quote 
+     * Quote
      * @description A Quote is a way to model prices that you'd like to provide to a customer.
      * Once accepted, it will automatically create an invoice, subscription or subscription schedule.
      */
@@ -11598,13 +11598,13 @@ export interface components {
       application_fee_percent?: number | null;
       automatic_tax: components["schemas"]["quotes_resource_automatic_tax"];
       /**
-       * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or on finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`. 
+       * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or on finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
        * @enum {string}
        */
       collection_method: "charge_automatically" | "send_invoice";
       computed: components["schemas"]["quotes_resource_computed"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -11619,7 +11619,7 @@ export interface components {
       /** @description The discounts applied to this quote. */
       discounts: (string | components["schemas"]["discount"])[];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The date on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.
        */
       expires_at: number;
@@ -11636,7 +11636,7 @@ export interface components {
       /** @description All invoices will be billed using the specified settings. */
       invoice_settings?: components["schemas"]["invoice_setting_quote_setting"] | null;
       /**
-       * QuotesResourceListLineItems 
+       * QuotesResourceListLineItems
        * @description A list of items the customer is being quoted for.
        */
       line_items?: {
@@ -11645,7 +11645,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -11661,14 +11661,14 @@ export interface components {
       /** @description A unique number that identifies this particular quote. This number is assigned once the quote is [finalized](https://stripe.com/docs/quotes/overview#finalize). */
       number?: string | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "quote";
       /** @description The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details. */
       on_behalf_of?: (string | components["schemas"]["account"]) | null;
       /**
-       * @description The status of the quote. 
+       * @description The status of the quote.
        * @enum {string}
        */
       status: "accepted" | "canceled" | "draft" | "open";
@@ -11689,7 +11689,7 @@ export interface components {
       /** @description Automatically calculate taxes */
       enabled: boolean;
       /**
-       * @description The status of the most recent automated tax calculation for this quote. 
+       * @description The status of the most recent automated tax calculation for this quote.
        * @enum {string|null}
        */
       status?: "complete" | "failed" | "requires_location_inputs" | null;
@@ -11714,7 +11714,7 @@ export interface components {
       /** @description Total after discounts and taxes are applied. */
       amount_total: number;
       /**
-       * @description The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`. 
+       * @description The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
        * @enum {string}
        */
       interval: "day" | "month" | "week" | "year";
@@ -11725,17 +11725,17 @@ export interface components {
     /** QuotesResourceStatusTransitions */
     quotes_resource_status_transitions: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The time that the quote was accepted. Measured in seconds since Unix epoch.
        */
       accepted_at?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The time that the quote was canceled. Measured in seconds since Unix epoch.
        */
       canceled_at?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The time that the quote was finalized. Measured in seconds since Unix epoch.
        */
       finalized_at?: number | null;
@@ -11745,7 +11745,7 @@ export interface components {
       /** @description The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription. */
       description?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. This date is ignored if it is in the past when the quote is accepted. Measured in seconds since the Unix epoch.
        */
       effective_date?: number | null;
@@ -11785,7 +11785,7 @@ export interface components {
       /** @description Total after discounts and taxes are applied. */
       amount_total: number;
       /**
-       * QuotesResourceListLineItems 
+       * QuotesResourceListLineItems
        * @description The line items that will appear on the next invoice after this quote is accepted. This does not include pending invoice items that exist on the customer but may still be included in the next invoice.
        */
       line_items?: {
@@ -11794,7 +11794,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -11804,10 +11804,10 @@ export interface components {
       total_details: components["schemas"]["quotes_resource_total_details"];
     };
     /**
-     * RadarEarlyFraudWarning 
+     * RadarEarlyFraudWarning
      * @description An early fraud warning indicates that the card issuer has notified us that a
      * charge may be fraudulent.
-     * 
+     *
      * Related guide: [Early fraud warnings](https://stripe.com/docs/disputes/measuring#early-fraud-warnings)
      */
     "radar.early_fraud_warning": {
@@ -11816,7 +11816,7 @@ export interface components {
       /** @description ID of the charge this early fraud warning is for, optionally expanded. */
       charge: string | components["schemas"]["charge"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -11827,7 +11827,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "radar.early_fraud_warning";
@@ -11835,16 +11835,16 @@ export interface components {
       payment_intent?: string | components["schemas"]["payment_intent"];
     };
     /**
-     * RadarListList 
+     * RadarListList
      * @description Value lists allow you to group values together which can then be referenced in rules.
-     * 
+     *
      * Related guide: [Default Stripe lists](https://stripe.com/docs/radar/lists#managing-list-items)
      */
     "radar.value_list": {
       /** @description The name of the value list for use in rules. */
       alias: string;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -11853,12 +11853,12 @@ export interface components {
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description The type of items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, or `customer_id`. 
+       * @description The type of items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, or `customer_id`.
        * @enum {string}
        */
       item_type: "card_bin" | "card_fingerprint" | "case_sensitive_string" | "country" | "customer_id" | "email" | "ip_address" | "string";
       /**
-       * RadarListListItemList 
+       * RadarListListItemList
        * @description List of items contained within this value list.
        */
       list_items: {
@@ -11867,7 +11867,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -11883,20 +11883,20 @@ export interface components {
       /** @description The name of the value list. */
       name: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "radar.value_list";
     };
     /**
-     * RadarListListItem 
+     * RadarListListItem
      * @description Value list items allow you to add specific values to a given Radar value list, which can then be used in rules.
-     * 
+     *
      * Related guide: [Managing list items](https://stripe.com/docs/radar/lists#managing-list-items)
      */
     "radar.value_list_item": {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -11907,7 +11907,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "radar.value_list_item";
@@ -11917,7 +11917,7 @@ export interface components {
       value_list: string;
     };
     /**
-     * RadarRadarOptions 
+     * RadarRadarOptions
      * @description Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
      */
     radar_radar_options: {
@@ -11953,7 +11953,7 @@ export interface components {
       /** @description The FinancialAccount ID. */
       id: string;
       /**
-       * @description The rails the ReceivedCredit was sent over. A FinancialAccount can only send funds over `stripe`. 
+       * @description The rails the ReceivedCredit was sent over. A FinancialAccount can only send funds over `stripe`.
        * @enum {string}
        */
       network: "stripe";
@@ -11961,29 +11961,29 @@ export interface components {
     /** Recurring */
     recurring: {
       /**
-       * @description Specifies a usage aggregation strategy for prices of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`. 
+       * @description Specifies a usage aggregation strategy for prices of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
        * @enum {string|null}
        */
       aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum" | null;
       /**
-       * @description The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`. 
+       * @description The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
        * @enum {string}
        */
       interval: "day" | "month" | "week" | "year";
       /** @description The number of intervals (specified in the `interval` attribute) between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. */
       interval_count: number;
       /**
-       * @description Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`. 
+       * @description Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
        * @enum {string}
        */
       usage_type: "licensed" | "metered";
     };
     /**
-     * Refund 
+     * Refund
      * @description `Refund` objects allow you to refund a charge that has previously been created
      * but not yet refunded. Funds will be refunded to the credit or debit card that
      * was originally charged.
-     * 
+     *
      * Related guide: [Refunds](https://stripe.com/docs/refunds)
      */
     refund: {
@@ -11994,7 +11994,7 @@ export interface components {
       /** @description ID of the charge that was refunded. */
       charge?: (string | components["schemas"]["charge"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -12016,14 +12016,14 @@ export interface components {
       }) | null;
       next_action?: components["schemas"]["refund_next_action"];
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "refund";
       /** @description ID of the PaymentIntent that was refunded. */
       payment_intent?: (string | components["schemas"]["payment_intent"]) | null;
       /**
-       * @description Reason for the refund, either user-provided (`duplicate`, `fraudulent`, or `requested_by_customer`) or generated by Stripe internally (`expired_uncaptured_charge`). 
+       * @description Reason for the refund, either user-provided (`duplicate`, `fraudulent`, or `requested_by_customer`) or generated by Stripe internally (`expired_uncaptured_charge`).
        * @enum {string|null}
        */
       reason?: "duplicate" | "expired_uncaptured_charge" | "fraudulent" | "requested_by_customer" | null;
@@ -12047,25 +12047,25 @@ export interface components {
     refund_next_action_display_details: {
       email_sent: components["schemas"]["email_sent"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The expiry timestamp.
        */
       expires_at: number;
     };
     /**
-     * reporting_report_run 
+     * reporting_report_run
      * @description The Report Run object represents an instance of a report type generated with
      * specific run parameters. Once the object is created, Stripe begins processing the report.
      * When the report has finished running, it will give you a reference to a file
      * where you can retrieve your results. For an overview, see
      * [API Access to Reports](https://stripe.com/docs/reporting/statements/api).
-     * 
+     *
      * Note that certain report types can only be run based on your live-mode data (not test-mode
      * data), and will error when queried without a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).
      */
     "reporting.report_run": {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -12079,7 +12079,7 @@ export interface components {
       /** @description `true` if the report is run on live mode data and `false` if it is run on test mode data. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "reporting.report_run";
@@ -12098,31 +12098,31 @@ export interface components {
        */
       status: string;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp at which this run successfully finished (populated when
        *  `status=succeeded`). Measured in seconds since the Unix epoch.
        */
       succeeded_at?: number | null;
     };
     /**
-     * reporting_report_type 
+     * reporting_report_type
      * @description The Report Type resource corresponds to a particular type of report, such as
      * the "Activity summary" or "Itemized payouts" reports. These objects are
      * identified by an ID belonging to a set of enumerated values. See
      * [API Access to Reports documentation](https://stripe.com/docs/reporting/statements/api)
      * for those Report Type IDs, along with required and optional parameters.
-     * 
+     *
      * Note that certain report types can only be run based on your live-mode data (not test-mode
      * data), and will error when queried without a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).
      */
     "reporting.report_type": {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Most recent time for which this Report Type is available. Measured in seconds since the Unix epoch.
        */
       data_available_end: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Earliest time for which this Report Type is available. Measured in seconds since the Unix epoch.
        */
       data_available_start: number;
@@ -12135,12 +12135,12 @@ export interface components {
       /** @description Human-readable name of the Report Type */
       name: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "reporting.report_type";
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description When this Report Type was latest updated. Measured in seconds since the Unix epoch.
        */
       updated: number;
@@ -12157,15 +12157,15 @@ export interface components {
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "reserve_transaction";
     };
     /**
-     * RadarReview 
+     * RadarReview
      * @description Reviews can be used to supplement automated fraud detection with human expertise.
-     * 
+     *
      * Learn more about [Radar](/radar) and reviewing payments
      * [here](https://stripe.com/docs/radar/reviews).
      */
@@ -12175,12 +12175,12 @@ export interface components {
       /** @description The charge associated with this review. */
       charge?: (string | components["schemas"]["charge"]) | null;
       /**
-       * @description The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, `disputed`, or `redacted`. 
+       * @description The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, `disputed`, or `redacted`.
        * @enum {string|null}
        */
       closed_reason?: "approved" | "disputed" | "redacted" | "refunded" | "refunded_as_fraud" | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -12193,14 +12193,14 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "review";
       /** @description If `true`, the review needs action. */
       open: boolean;
       /**
-       * @description The reason the review was opened. One of `rule` or `manual`. 
+       * @description The reason the review was opened. One of `rule` or `manual`.
        * @enum {string}
        */
       opened_reason: "manual" | "rule";
@@ -12221,7 +12221,7 @@ export interface components {
       predicate: string;
     };
     /**
-     * ScheduledQueryRun 
+     * ScheduledQueryRun
      * @description If you have [scheduled a Sigma query](https://stripe.com/docs/sigma/scheduled-queries), you'll
      * receive a `sigma.scheduled_query_run.created` webhook each time the query
      * runs. The webhook contains a `ScheduledQueryRun` object, which you can use to
@@ -12229,12 +12229,12 @@ export interface components {
      */
     scheduled_query_run: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description When the query was run, Sigma contained a snapshot of your Stripe data at this time.
        */
       data_load_time: number;
@@ -12246,12 +12246,12 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "scheduled_query_run";
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the result expires and is no longer available for download.
        */
       result_available_until: number;
@@ -12270,7 +12270,7 @@ export interface components {
     /** SecretServiceResourceScope */
     secret_service_resource_scope: {
       /**
-       * @description The secret scope type. 
+       * @description The secret scope type.
        * @enum {string}
        */
       type: "account" | "user";
@@ -12285,7 +12285,7 @@ export interface components {
       setup_attempt?: (string | components["schemas"]["setup_attempt"]) | null;
     };
     /**
-     * PaymentFlowsSetupIntentSetupAttempt 
+     * PaymentFlowsSetupIntentSetupAttempt
      * @description A SetupAttempt describes one attempted confirmation of a SetupIntent,
      * whether that confirmation was successful or unsuccessful. You can use
      * SetupAttempts to inspect details of a specific attempt at setting up a
@@ -12296,12 +12296,12 @@ export interface components {
       application?: (string | components["schemas"]["application"]) | null;
       /**
        * @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
-       * 
+       *
        * It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
        */
       attach_to_self?: boolean;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -12309,7 +12309,7 @@ export interface components {
       customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
       /**
        * @description Indicates the directions of money movement for which this payment method is intended to be used.
-       * 
+       *
        * Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.
        */
       flow_directions?: (("inbound" | "outbound")[]) | null;
@@ -12318,7 +12318,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "setup_attempt";
@@ -12379,7 +12379,7 @@ export interface components {
       iban_last4?: string | null;
       /**
        * @description Preferred language of the Bancontact authorization page that the customer is redirected to.
-       * Can be one of `en`, `de`, `fr`, or `nl` 
+       * Can be one of `en`, `de`, `fr`, or `nl`
        * @enum {string|null}
        */
       preferred_language?: "de" | "en" | "fr" | "nl" | null;
@@ -12407,7 +12407,7 @@ export interface components {
       exp_year?: number | null;
       /**
        * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
-       * 
+       *
        * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
        */
       fingerprint?: string | null;
@@ -12432,7 +12432,7 @@ export interface components {
       apple_pay?: components["schemas"]["payment_method_details_card_wallet_apple_pay"];
       google_pay?: components["schemas"]["payment_method_details_card_wallet_google_pay"];
       /**
-       * @description The type of the card wallet, one of `apple_pay`, `google_pay`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type. 
+       * @description The type of the card wallet, one of `apple_pay`, `google_pay`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
        * @enum {string}
        */
       type: "apple_pay" | "google_pay" | "link";
@@ -12442,12 +12442,12 @@ export interface components {
     /** setup_attempt_payment_method_details_ideal */
     setup_attempt_payment_method_details_ideal: {
       /**
-       * @description The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`. 
+       * @description The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
        * @enum {string|null}
        */
       bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe" | null;
       /**
-       * @description The Bank Identifier Code of the customer's bank. 
+       * @description The Bank Identifier Code of the customer's bank.
        * @enum {string|null}
        */
       bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
@@ -12487,7 +12487,7 @@ export interface components {
       iban_last4?: string | null;
       /**
        * @description Preferred language of the Sofort authorization page that the customer is redirected to.
-       * Can be one of `en`, `de`, `fr`, or `nl` 
+       * Can be one of `en`, `de`, `fr`, or `nl`
        * @enum {string|null}
        */
       preferred_language?: "de" | "en" | "fr" | "nl" | null;
@@ -12500,16 +12500,16 @@ export interface components {
     /** setup_attempt_payment_method_details_us_bank_account */
     setup_attempt_payment_method_details_us_bank_account: Record<string, never>;
     /**
-     * SetupIntent 
+     * SetupIntent
      * @description A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
      * For example, you could use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
      * Later, you can use [PaymentIntents](https://stripe.com/docs/api#payment_intents) to drive the payment flow.
-     * 
+     *
      * Create a SetupIntent as soon as you're ready to collect your customer's payment credentials.
      * Do not maintain long-lived, unconfirmed SetupIntents as they may no longer be valid.
      * The SetupIntent then transitions through multiple [statuses](https://stripe.com/docs/payments/intents#intent-statuses) as it guides
      * you through the setup process.
-     * 
+     *
      * Successful SetupIntents result in payment credentials that are optimized for future payments.
      * For example, cardholders in [certain regions](/guides/strong-customer-authentication) may need to be run through
      * [Strong Customer Authentication](https://stripe.com/docs/strong-customer-authentication) at the time of payment method collection
@@ -12518,10 +12518,10 @@ export interface components {
      * it will automatically attach the resulting payment method to that Customer.
      * We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
      * PaymentIntents to save payment methods in order to prevent saving invalid or unoptimized payment methods.
-     * 
+     *
      * By using SetupIntents, you ensure that your customers experience the minimum set of required friction,
      * even as regulations change over time.
-     * 
+     *
      * Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents)
      */
     setup_intent: {
@@ -12529,31 +12529,31 @@ export interface components {
       application?: (string | components["schemas"]["application"]) | null;
       /**
        * @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
-       * 
+       *
        * It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
        */
       attach_to_self?: boolean;
       /** @description Settings for automatic payment methods compatible with this Setup Intent */
       automatic_payment_methods?: components["schemas"]["payment_flows_automatic_payment_methods_setup_intent"] | null;
       /**
-       * @description Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`. 
+       * @description Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`.
        * @enum {string|null}
        */
       cancellation_reason?: "abandoned" | "duplicate" | "requested_by_customer" | null;
       /**
        * @description The client secret of this SetupIntent. Used for client-side retrieval using a publishable key.
-       * 
+       *
        * The client secret can be used to complete payment setup from your frontend. It should not be stored, logged, or exposed to anyone other than the customer. Make sure that you have TLS enabled on any page that includes the client secret.
        */
       client_secret?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
       /**
        * @description ID of the Customer this SetupIntent belongs to, if one exists.
-       * 
+       *
        * If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
        */
       customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
@@ -12561,7 +12561,7 @@ export interface components {
       description?: string | null;
       /**
        * @description Indicates the directions of money movement for which this payment method is intended to be used.
-       * 
+       *
        * Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.
        */
       flow_directions?: (("inbound" | "outbound")[]) | null;
@@ -12582,7 +12582,7 @@ export interface components {
       /** @description If present, this property tells you what actions you need to take in order for your customer to continue payment setup. */
       next_action?: components["schemas"]["setup_intent_next_action"] | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "setup_intent";
@@ -12597,13 +12597,13 @@ export interface components {
       /** @description ID of the single_use Mandate generated by the SetupIntent. */
       single_use_mandate?: (string | components["schemas"]["mandate"]) | null;
       /**
-       * @description [Status](https://stripe.com/docs/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`. 
+       * @description [Status](https://stripe.com/docs/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`.
        * @enum {string}
        */
       status: "canceled" | "processing" | "requires_action" | "requires_confirmation" | "requires_payment_method" | "succeeded";
       /**
        * @description Indicates how the payment method is intended to be used in the future.
-       * 
+       *
        * Use `on_session` if you intend to only reuse the payment method when the customer is in your checkout flow. Use `off_session` if your customer may or may not be in your checkout flow. If not provided, this value defaults to `off_session`.
        */
       usage: string;
@@ -12628,14 +12628,14 @@ export interface components {
     /** SetupIntentNextActionVerifyWithMicrodeposits */
     setup_intent_next_action_verify_with_microdeposits: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The timestamp when the microdeposits are expected to land.
        */
       arrival_date: number;
       /** @description The URL for the hosted verification page, which allows customers to verify their bank account. */
       hosted_verification_url: string;
       /**
-       * @description The type of the microdeposit sent to the customer. Used to distinguish between different verification methods. 
+       * @description The type of the microdeposit sent to the customer. Used to distinguish between different verification methods.
        * @enum {string|null}
        */
       microdeposit_type?: "amounts" | "descriptor_code" | null;
@@ -12653,13 +12653,13 @@ export interface components {
     /** setup_intent_payment_method_options_acss_debit */
     setup_intent_payment_method_options_acss_debit: {
       /**
-       * @description Currency supported by the bank account 
+       * @description Currency supported by the bank account
        * @enum {string|null}
        */
       currency?: "cad" | "usd" | null;
       mandate_options?: components["schemas"]["setup_intent_payment_method_options_mandate_options_acss_debit"];
       /**
-       * @description Bank account verification method. 
+       * @description Bank account verification method.
        * @enum {string}
        */
       verification_method?: "automatic" | "instant" | "microdeposits";
@@ -12673,12 +12673,12 @@ export interface components {
       /** @description Configuration options for setting up an eMandate for cards issued in India. */
       mandate_options?: components["schemas"]["setup_intent_payment_method_options_card_mandate_options"] | null;
       /**
-       * @description Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the setup intent. Can be only set confirm-time. 
+       * @description Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the setup intent. Can be only set confirm-time.
        * @enum {string|null}
        */
       network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
       /**
-       * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine. 
+       * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
        * @enum {string|null}
        */
       request_three_d_secure?: "any" | "automatic" | "challenge_only" | null;
@@ -12688,7 +12688,7 @@ export interface components {
       /** @description Amount to be charged for future payments. */
       amount: number;
       /**
-       * @description One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param. 
+       * @description One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
        * @enum {string}
        */
       amount_type: "fixed" | "maximum";
@@ -12697,12 +12697,12 @@ export interface components {
       /** @description A description of the mandate or subscription that is meant to be displayed to the customer. */
       description?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
        */
       end_date?: number | null;
       /**
-       * @description Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`. 
+       * @description Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
        * @enum {string}
        */
       interval: "day" | "month" | "sporadic" | "week" | "year";
@@ -12711,7 +12711,7 @@ export interface components {
       /** @description Unique identifier for the mandate or subscription. */
       reference: string;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Start date of the mandate or subscription. Start date should not be lesser than yesterday.
        */
       start_date: number;
@@ -12732,12 +12732,12 @@ export interface components {
       /** @description Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'. */
       interval_description?: string | null;
       /**
-       * @description Payment schedule for the mandate. 
+       * @description Payment schedule for the mandate.
        * @enum {string|null}
        */
       payment_schedule?: "combined" | "interval" | "sporadic" | null;
       /**
-       * @description Transaction type of the mandate. 
+       * @description Transaction type of the mandate.
        * @enum {string|null}
        */
       transaction_type?: "business" | "personal" | null;
@@ -12745,13 +12745,13 @@ export interface components {
     /** setup_intent_payment_method_options_mandate_options_blik */
     setup_intent_payment_method_options_mandate_options_blik: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date at which the mandate expires.
        */
       expires_after?: number | null;
       off_session?: components["schemas"]["mandate_options_off_session_details_blik"];
       /**
-       * @description Type of the mandate. 
+       * @description Type of the mandate.
        * @enum {string|null}
        */
       type?: "off_session" | "on_session" | null;
@@ -12771,7 +12771,7 @@ export interface components {
     setup_intent_payment_method_options_us_bank_account: {
       financial_connections?: components["schemas"]["linked_account_options_us_bank_account"];
       /**
-       * @description Bank account verification method. 
+       * @description Bank account verification method.
        * @enum {string}
        */
       verification_method?: "automatic" | "instant" | "microdeposits";
@@ -12779,7 +12779,7 @@ export interface components {
     /** SetupIntentTypeSpecificPaymentMethodOptionsClient */
     setup_intent_type_specific_payment_method_options_client: {
       /**
-       * @description Bank account verification method. 
+       * @description Bank account verification method.
        * @enum {string}
        */
       verification_method?: "automatic" | "instant" | "microdeposits";
@@ -12797,7 +12797,7 @@ export interface components {
       tracking_number?: string | null;
     };
     /**
-     * ShippingRate 
+     * ShippingRate
      * @description Shipping rates describe the price of shipping presented to your customers and can be
      * applied to [Checkout Sessions](https://stripe.com/docs/payments/checkout/shipping)
      * and [Orders](https://stripe.com/docs/orders/shipping) to collect shipping costs.
@@ -12806,7 +12806,7 @@ export interface components {
       /** @description Whether the shipping rate can be used for new purchases. Defaults to `true`. */
       active: boolean;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -12824,19 +12824,19 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "shipping_rate";
       /**
-       * @description Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. 
+       * @description Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
        * @enum {string|null}
        */
       tax_behavior?: "exclusive" | "inclusive" | "unspecified" | null;
       /** @description A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`. */
       tax_code?: (string | components["schemas"]["tax_code"]) | null;
       /**
-       * @description The type of calculation to use on the shipping rate. Can only be `fixed_amount` for now. 
+       * @description The type of calculation to use on the shipping rate. Can only be `fixed_amount` for now.
        * @enum {string}
        */
       type: "fixed_amount";
@@ -12846,7 +12846,7 @@ export interface components {
       /** @description A non-negative integer in cents representing how much to charge. */
       amount: number;
       /**
-       * @description Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. 
+       * @description Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
        * @enum {string}
        */
       tax_behavior: "exclusive" | "inclusive" | "unspecified";
@@ -12861,7 +12861,7 @@ export interface components {
     /** ShippingRateDeliveryEstimateBound */
     shipping_rate_delivery_estimate_bound: {
       /**
-       * @description A unit of time. 
+       * @description A unit of time.
        * @enum {string}
        */
       unit: "business_day" | "day" | "hour" | "month" | "week";
@@ -12885,16 +12885,16 @@ export interface components {
       message: string;
     };
     /**
-     * Source 
+     * Source
      * @description `Source` objects allow you to accept a variety of payment methods. They
      * represent a customer's payment instrument, and can be used with the Stripe API
      * just like a `Card` object: once chargeable, they can be charged, or can be
      * attached to customers.
-     * 
+     *
      * Stripe doesn't recommend using the deprecated [Sources API](https://stripe.com/docs/api/sources).
      * We recommend that you adopt the [PaymentMethods API](https://stripe.com/docs/api/payment_methods).
      * This newer API provides access to our latest features and payment method types.
-     * 
+     *
      * Related guides: [Sources API](https://stripe.com/docs/sources) and [Sources & Customers](https://stripe.com/docs/sources/customers).
      */
     source: {
@@ -12912,7 +12912,7 @@ export interface components {
       client_secret: string;
       code_verification?: components["schemas"]["source_code_verification_flow"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -12936,7 +12936,7 @@ export interface components {
       }) | null;
       multibanco?: components["schemas"]["source_type_multibanco"];
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "source";
@@ -12954,7 +12954,7 @@ export interface components {
       status: string;
       three_d_secure?: components["schemas"]["source_type_three_d_secure"];
       /**
-       * @description The `type` of the source. The `type` is a payment method, one of `ach_credit_transfer`, `ach_debit`, `alipay`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `multibanco`, `klarna`, `p24`, `sepa_debit`, `sofort`, `three_d_secure`, or `wechat`. An additional hash is included on the source with a name matching this value. It contains additional information specific to the [payment method](https://stripe.com/docs/sources) used. 
+       * @description The `type` of the source. The `type` is a payment method, one of `ach_credit_transfer`, `ach_debit`, `alipay`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `multibanco`, `klarna`, `p24`, `sepa_debit`, `sofort`, `three_d_secure`, or `wechat`. An additional hash is included on the source with a name matching this value. It contains additional information specific to the [payment method](https://stripe.com/docs/sources) used.
        * @enum {string}
        */
       type: "ach_credit_transfer" | "ach_debit" | "acss_debit" | "alipay" | "au_becs_debit" | "bancontact" | "card" | "card_present" | "eps" | "giropay" | "ideal" | "klarna" | "multibanco" | "p24" | "sepa_debit" | "sofort" | "three_d_secure" | "wechat";
@@ -12970,7 +12970,7 @@ export interface components {
       status: string;
     };
     /**
-     * SourceMandateNotification 
+     * SourceMandateNotification
      * @description Source mandate notifications should be created when a notification related to
      * a source mandate must be sent to the payer. They will trigger a webhook or
      * deliver an email to the customer.
@@ -12981,7 +12981,7 @@ export interface components {
       amount?: number | null;
       bacs_debit?: components["schemas"]["source_mandate_notification_bacs_debit_data"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -12990,7 +12990,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "source_mandate_notification";
@@ -13095,7 +13095,7 @@ export interface components {
       url: string;
     };
     /**
-     * SourceTransaction 
+     * SourceTransaction
      * @description Some payment methods have no required amount that a customer must send.
      * Customers can be instructed to send any amount, and it can be made up of
      * multiple transactions. As such, sources can have multiple associated
@@ -13107,7 +13107,7 @@ export interface components {
       amount: number;
       chf_credit_transfer?: components["schemas"]["source_transaction_chf_credit_transfer_data"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -13119,7 +13119,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "source_transaction";
@@ -13130,7 +13130,7 @@ export interface components {
       /** @description The status of the transaction, one of `succeeded`, `pending`, or `failed`. */
       status: string;
       /**
-       * @description The type of source this transaction is attached to. 
+       * @description The type of source this transaction is attached to.
        * @enum {string}
        */
       type: "ach_credit_transfer" | "ach_debit" | "alipay" | "bancontact" | "card" | "card_present" | "eps" | "giropay" | "ideal" | "klarna" | "multibanco" | "p24" | "sepa_debit" | "sofort" | "three_d_secure" | "wechat";
@@ -13383,9 +13383,9 @@ export interface components {
       statement_descriptor?: string;
     };
     /**
-     * Subscription 
+     * Subscription
      * @description Subscriptions allow you to charge a customer on a recurring basis.
-     * 
+     *
      * Related guide: [Creating subscriptions](https://stripe.com/docs/billing/subscriptions/creating)
      */
     subscription: {
@@ -13395,45 +13395,45 @@ export interface components {
       application_fee_percent?: number | null;
       automatic_tax: components["schemas"]["subscription_automatic_tax"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
        */
       billing_cycle_anchor: number;
       /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
       billing_thresholds?: components["schemas"]["subscription_billing_thresholds"] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description A date in the future at which the subscription will automatically get canceled
        */
       cancel_at?: number | null;
       /** @description If the subscription has been canceled with the `at_period_end` flag set to `true`, `cancel_at_period_end` on the subscription will be true. You can use this attribute to determine whether a subscription that has a status of active is scheduled to be canceled at the end of the current period. */
       cancel_at_period_end: boolean;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description If the subscription has been canceled, the date of that cancellation. If the subscription was canceled with `cancel_at_period_end`, `canceled_at` will reflect the time of the most recent update request, not the end of the subscription period when the subscription is automatically moved to a canceled state.
        */
       canceled_at?: number | null;
       /** @description Details about why this subscription was cancelled */
       cancellation_details?: components["schemas"]["cancellation_details"] | null;
       /**
-       * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. 
+       * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
        * @enum {string}
        */
       collection_method: "charge_automatically" | "send_invoice";
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description End of the current period that the subscription has been invoiced for. At the end of this period, a new invoice will be created.
        */
       current_period_end: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Start of the current period that the subscription has been invoiced for.
        */
       current_period_start: number;
@@ -13452,14 +13452,14 @@ export interface components {
       /** @description Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a subscription overrides a discount applied on a customer-wide basis. */
       discount?: components["schemas"]["discount"] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description If the subscription has ended, the date the subscription ended.
        */
       ended_at?: number | null;
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * SubscriptionItemList 
+       * SubscriptionItemList
        * @description List of subscription items, each with an attached price.
        */
       items: {
@@ -13468,7 +13468,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -13484,12 +13484,12 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Specifies the approximate timestamp on which any pending invoice items will be billed according to the schedule provided at `pending_invoice_item_interval`.
        */
       next_pending_invoice_item_invoice?: number | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "subscription";
@@ -13508,20 +13508,20 @@ export interface components {
       /** @description The schedule attached to the subscription */
       schedule?: (string | components["schemas"]["subscription_schedule"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Date when the subscription was first created. The date might differ from the `created` date due to backdating.
        */
       start_date: number;
       /**
-       * @description Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`, `past_due`, `canceled`, or `unpaid`. 
-       * 
-       * For `collection_method=charge_automatically` a subscription moves into `incomplete` if the initial payment attempt fails. A subscription in this state can only have metadata and default_source updated. Once the first invoice is paid, the subscription moves into an `active` state. If the first invoice is not paid within 23 hours, the subscription transitions to `incomplete_expired`. This is a terminal state, the open invoice will be voided and no further invoices will be generated. 
-       * 
-       * A subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over. 
-       * 
-       * If subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings). 
-       * 
-       * If subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices. 
+       * @description Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`, `past_due`, `canceled`, or `unpaid`.
+       *
+       * For `collection_method=charge_automatically` a subscription moves into `incomplete` if the initial payment attempt fails. A subscription in this state can only have metadata and default_source updated. Once the first invoice is paid, the subscription moves into an `active` state. If the first invoice is not paid within 23 hours, the subscription transitions to `incomplete_expired`. This is a terminal state, the open invoice will be voided and no further invoices will be generated.
+       *
+       * A subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.
+       *
+       * If subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).
+       *
+       * If subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.
        * @enum {string}
        */
       status: "active" | "canceled" | "incomplete" | "incomplete_expired" | "past_due" | "paused" | "trialing" | "unpaid";
@@ -13530,14 +13530,14 @@ export interface components {
       /** @description The account (if any) the subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices. */
       transfer_data?: components["schemas"]["subscription_transfer_data"] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description If the subscription has a trial, the end of that trial.
        */
       trial_end?: number | null;
       /** @description Settings related to subscription trials. */
       trial_settings?: components["schemas"]["subscriptions_trials_resource_trial_settings"] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description If the subscription has a trial, the beginning of that trial.
        */
       trial_start?: number | null;
@@ -13555,7 +13555,7 @@ export interface components {
       reset_billing_cycle_anchor?: boolean | null;
     };
     /**
-     * SubscriptionItem 
+     * SubscriptionItem
      * @description Subscription items allow you to create customer subscriptions with more than
      * one plan, making it easy to represent complex billing relationships.
      */
@@ -13571,7 +13571,7 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "subscription_item";
@@ -13592,12 +13592,12 @@ export interface components {
     subscription_payment_method_options_card: {
       mandate_options?: components["schemas"]["invoice_mandate_options_card"];
       /**
-       * @description Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time. 
+       * @description Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time.
        * @enum {string|null}
        */
       network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
       /**
-       * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine. 
+       * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
        * @enum {string|null}
        */
       request_three_d_secure?: "any" | "automatic" | null;
@@ -13605,7 +13605,7 @@ export interface components {
     /** SubscriptionPendingInvoiceItemInterval */
     subscription_pending_invoice_item_interval: {
       /**
-       * @description Specifies invoicing frequency. Either `day`, `week`, `month` or `year`. 
+       * @description Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
        * @enum {string}
        */
       interval: "day" | "month" | "week" | "year";
@@ -13613,26 +13613,26 @@ export interface components {
       interval_count: number;
     };
     /**
-     * SubscriptionSchedule 
+     * SubscriptionSchedule
      * @description A subscription schedule allows you to create and manage the lifecycle of a subscription by predefining expected changes.
-     * 
+     *
      * Related guide: [Subscription schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules)
      */
     subscription_schedule: {
       /** @description ID of the Connect Application that created the schedule. */
       application?: (string | components["schemas"]["application"] | components["schemas"]["deleted_application"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the subscription schedule was canceled. Measured in seconds since the Unix epoch.
        */
       canceled_at?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the subscription schedule was completed. Measured in seconds since the Unix epoch.
        */
       completed_at?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -13642,7 +13642,7 @@ export interface components {
       customer: string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"];
       default_settings: components["schemas"]["subscription_schedules_resource_default_settings"];
       /**
-       * @description Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription. 
+       * @description Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
        * @enum {string}
        */
       end_behavior: "cancel" | "none" | "release" | "renew";
@@ -13655,21 +13655,21 @@ export interface components {
         [key: string]: string | undefined;
       }) | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "subscription_schedule";
       /** @description Configuration for the subscription schedule's phases. */
       phases: (components["schemas"]["subscription_schedule_phase_configuration"])[];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the subscription schedule was released. Measured in seconds since the Unix epoch.
        */
       released_at?: number | null;
       /** @description ID of the subscription once managed by the subscription schedule (if it is released). */
       released_subscription?: string | null;
       /**
-       * @description The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://stripe.com/docs/billing/subscriptions/subscription-schedules). 
+       * @description The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://stripe.com/docs/billing/subscriptions/subscription-schedules).
        * @enum {string}
        */
       status: "active" | "canceled" | "completed" | "not_started" | "released";
@@ -13679,7 +13679,7 @@ export interface components {
       test_clock?: (string | components["schemas"]["test_helpers.test_clock"]) | null;
     };
     /**
-     * SubscriptionScheduleAddInvoiceItem 
+     * SubscriptionScheduleAddInvoiceItem
      * @description An Add Invoice Item describes the prices and quantities that will be added as pending invoice items when entering a phase.
      */
     subscription_schedule_add_invoice_item: {
@@ -13691,7 +13691,7 @@ export interface components {
       tax_rates?: (components["schemas"]["tax_rate"])[] | null;
     };
     /**
-     * SubscriptionScheduleConfigurationItem 
+     * SubscriptionScheduleConfigurationItem
      * @description A phase item describes the price and quantity of a phase.
      */
     subscription_schedule_configuration_item: {
@@ -13711,18 +13711,18 @@ export interface components {
     /** SubscriptionScheduleCurrentPhase */
     subscription_schedule_current_phase: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The end of this phase of the subscription schedule.
        */
       end_date: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The start of this phase of the subscription schedule.
        */
       start_date: number;
     };
     /**
-     * SubscriptionSchedulePhaseConfiguration 
+     * SubscriptionSchedulePhaseConfiguration
      * @description A phase describes the plans, coupon, and trialing status of a subscription for a predefined time period.
      */
     subscription_schedule_phase_configuration: {
@@ -13732,14 +13732,14 @@ export interface components {
       application_fee_percent?: number | null;
       automatic_tax?: components["schemas"]["schedules_phase_automatic_tax"];
       /**
-       * @description Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle). 
+       * @description Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
        * @enum {string|null}
        */
       billing_cycle_anchor?: "automatic" | "phase_start" | null;
       /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
       billing_thresholds?: components["schemas"]["subscription_billing_thresholds"] | null;
       /**
-       * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. 
+       * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
        * @enum {string|null}
        */
       collection_method?: "charge_automatically" | "send_invoice" | null;
@@ -13754,7 +13754,7 @@ export interface components {
       /** @description Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription. */
       description?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The end of this phase of the subscription schedule.
        */
       end_date: number;
@@ -13769,19 +13769,19 @@ export interface components {
       /** @description The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details. */
       on_behalf_of?: (string | components["schemas"]["account"]) | null;
       /**
-       * @description If the subscription schedule will prorate when transitioning to this phase. Possible values are `create_prorations` and `none`. 
+       * @description If the subscription schedule will prorate when transitioning to this phase. Possible values are `create_prorations` and `none`.
        * @enum {string}
        */
       proration_behavior: "always_invoice" | "create_prorations" | "none";
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The start of this phase of the subscription schedule.
        */
       start_date: number;
       /** @description The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices. */
       transfer_data?: components["schemas"]["subscription_transfer_data"] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description When the trial ends within the phase.
        */
       trial_end?: number | null;
@@ -13792,14 +13792,14 @@ export interface components {
       application_fee_percent?: number | null;
       automatic_tax?: components["schemas"]["subscription_schedules_resource_default_settings_automatic_tax"];
       /**
-       * @description Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle). 
+       * @description Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
        * @enum {string}
        */
       billing_cycle_anchor: "automatic" | "phase_start";
       /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
       billing_thresholds?: components["schemas"]["subscription_billing_thresholds"] | null;
       /**
-       * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. 
+       * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
        * @enum {string|null}
        */
       collection_method?: "charge_automatically" | "send_invoice" | null;
@@ -13827,18 +13827,18 @@ export interface components {
       destination: string | components["schemas"]["account"];
     };
     /**
-     * SubscriptionsResourcePauseCollection 
+     * SubscriptionsResourcePauseCollection
      * @description The Pause Collection settings determine how we will pause collection for this subscription and for how long the subscription
      * should be paused.
      */
     subscriptions_resource_pause_collection: {
       /**
-       * @description The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`. 
+       * @description The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
        * @enum {string}
        */
       behavior: "keep_as_draft" | "mark_uncollectible" | "void";
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The time after which the subscription will resume collecting payments.
        */
       resumes_at?: number | null;
@@ -13865,31 +13865,31 @@ export interface components {
       /** @description The list of payment method types to provide to every invoice created by the subscription. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). */
       payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "paypal" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | null;
       /**
-       * @description Either `off`, or `on_subscription`. With `on_subscription` Stripe updates `subscription.default_payment_method` when a subscription payment succeeds. 
+       * @description Either `off`, or `on_subscription`. With `on_subscription` Stripe updates `subscription.default_payment_method` when a subscription payment succeeds.
        * @enum {string|null}
        */
       save_default_payment_method?: "off" | "on_subscription" | null;
     };
     /**
-     * SubscriptionsResourcePendingUpdate 
+     * SubscriptionsResourcePendingUpdate
      * @description Pending Updates store the changes pending from a previous update that will be applied
      * to the Subscription upon successful payment.
      */
     subscriptions_resource_pending_update: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
        */
       billing_cycle_anchor?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The point after which the changes reflected by this update will be discarded and no longer applied.
        */
       expires_at: number;
       /** @description List of subscription items, each with an attached plan, that will be set if the update is applied. */
       subscription_items?: (components["schemas"]["subscription_item"])[] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Unix timestamp representing the end of the trial period the customer will get before being charged for the first time, if the update is applied.
        */
       trial_end?: number | null;
@@ -13897,27 +13897,27 @@ export interface components {
       trial_from_plan?: boolean | null;
     };
     /**
-     * SubscriptionsTrialsResourceEndBehavior 
+     * SubscriptionsTrialsResourceEndBehavior
      * @description Defines how a subscription behaves when a free trial ends.
      */
     subscriptions_trials_resource_end_behavior: {
       /**
-       * @description Indicates how the subscription should change when the trial ends if the user did not provide a payment method. 
+       * @description Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
        * @enum {string}
        */
       missing_payment_method: "cancel" | "create_invoice" | "pause";
     };
     /**
-     * SubscriptionsTrialsResourceTrialSettings 
+     * SubscriptionsTrialsResourceTrialSettings
      * @description Configures how this subscription behaves during the trial period.
      */
     subscriptions_trials_resource_trial_settings: {
       end_behavior: components["schemas"]["subscriptions_trials_resource_end_behavior"];
     };
     /**
-     * TaxProductResourceTaxCalculation 
+     * TaxProductResourceTaxCalculation
      * @description A Tax Calculation allows you to calculate the tax to collect from your customer.
-     * 
+     *
      * Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom)
      */
     "tax.calculation": {
@@ -13929,14 +13929,14 @@ export interface components {
       customer?: string | null;
       customer_details: components["schemas"]["tax_product_resource_customer_details"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp of date at which the tax calculation will expire.
        */
       expires_at?: number | null;
       /** @description Unique identifier for the calculation. */
       id?: string | null;
       /**
-       * TaxProductResourceTaxCalculationLineItemList 
+       * TaxProductResourceTaxCalculationLineItemList
        * @description The list of items the customer is purchasing.
        */
       line_items?: {
@@ -13945,7 +13945,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -13955,7 +13955,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "tax.calculation";
@@ -13968,7 +13968,7 @@ export interface components {
       /** @description Breakdown of individual tax amounts that add up to the total. */
       tax_breakdown: (components["schemas"]["tax_product_resource_tax_breakdown"])[];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp of date at which the tax rules and rates in effect applies for the calculation.
        */
       tax_date: number;
@@ -13984,7 +13984,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "tax.calculation_line_item";
@@ -13995,7 +13995,7 @@ export interface components {
       /** @description A custom identifier for this line item. */
       reference?: string | null;
       /**
-       * @description Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes. 
+       * @description Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes.
        * @enum {string}
        */
       tax_behavior: "exclusive" | "inclusive";
@@ -14005,14 +14005,14 @@ export interface components {
       tax_code: string;
     };
     /**
-     * TaxProductResourceTaxTransaction 
+     * TaxProductResourceTaxTransaction
      * @description A Tax Transaction records the tax collected from or refunded to your customer.
-     * 
+     *
      * Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom#tax-transaction)
      */
     "tax.transaction": {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -14024,7 +14024,7 @@ export interface components {
       /** @description Unique identifier for the transaction. */
       id: string;
       /**
-       * TaxProductResourceTaxTransactionLineItemList 
+       * TaxProductResourceTaxTransactionLineItemList
        * @description The tax collected or refunded, by line item.
        */
       line_items?: {
@@ -14033,7 +14033,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -14047,7 +14047,7 @@ export interface components {
         [key: string]: string | undefined;
       }) | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "tax.transaction";
@@ -14058,12 +14058,12 @@ export interface components {
       /** @description The shipping cost details for the transaction. */
       shipping_cost?: components["schemas"]["tax_product_resource_tax_transaction_shipping_cost"] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp of date at which the tax rules and rates in effect applies for the calculation.
        */
       tax_date: number;
       /**
-       * @description If `reversal`, this transaction reverses an earlier transaction. 
+       * @description If `reversal`, this transaction reverses an earlier transaction.
        * @enum {string}
        */
       type: "reversal" | "transaction";
@@ -14083,7 +14083,7 @@ export interface components {
         [key: string]: string | undefined;
       }) | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "tax.transaction_line_item";
@@ -14094,20 +14094,20 @@ export interface components {
       /** @description If `type=reversal`, contains information about what was reversed. */
       reversal?: components["schemas"]["tax_product_resource_tax_transaction_line_item_resource_reversal"] | null;
       /**
-       * @description Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes. 
+       * @description Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes.
        * @enum {string}
        */
       tax_behavior: "exclusive" | "inclusive";
       /** @description The [tax code](https://stripe.com/docs/tax/tax-categories) ID used for this resource. */
       tax_code: string;
       /**
-       * @description If `reversal`, this line item reverses an earlier transaction. 
+       * @description If `reversal`, this line item reverses an earlier transaction.
        * @enum {string}
        */
       type: "reversal" | "transaction";
     };
     /**
-     * TaxProductResourceTaxCode 
+     * TaxProductResourceTaxCode
      * @description [Tax codes](https://stripe.com/docs/tax/tax-categories) classify goods and services for tax purposes.
      */
     tax_code: {
@@ -14118,7 +14118,7 @@ export interface components {
       /** @description A short name for the tax code. */
       name: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "tax_code";
@@ -14128,17 +14128,17 @@ export interface components {
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "tax_deducted_at_source";
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The end of the invoicing period. This TDS applies to Stripe fees collected during this invoicing period.
        */
       period_end: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The start of the invoicing period. This TDS applies to Stripe fees collected during this invoicing period.
        */
       period_start: number;
@@ -14146,17 +14146,17 @@ export interface components {
       tax_deduction_account_number: string;
     };
     /**
-     * tax_id 
+     * tax_id
      * @description You can add one or multiple tax IDs to a [customer](https://stripe.com/docs/api/customers).
      * A customer's tax IDs are displayed on invoices and credit notes issued for the customer.
-     * 
+     *
      * Related guide: [Customer tax identification numbers](https://stripe.com/docs/billing/taxes/tax-ids)
      */
     tax_id: {
       /** @description Two-letter ISO code representing the country of the tax ID. */
       country?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -14167,12 +14167,12 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "tax_id";
       /**
-       * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`. Note that some legacy tax IDs have type `unknown` 
+       * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`. Note that some legacy tax IDs have type `unknown`
        * @enum {string}
        */
       type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
@@ -14184,7 +14184,7 @@ export interface components {
     /** tax_id_verification */
     tax_id_verification: {
       /**
-       * @description Verification status, one of `pending`, `verified`, `unverified`, or `unavailable`. 
+       * @description Verification status, one of `pending`, `verified`, `unverified`, or `unavailable`.
        * @enum {string}
        */
       status: "pending" | "unavailable" | "unverified" | "verified";
@@ -14198,7 +14198,7 @@ export interface components {
       /** @description The customer's postal address (for example, home or business location). */
       address?: components["schemas"]["tax_product_resource_postal_address"] | null;
       /**
-       * @description The type of customer address provided. 
+       * @description The type of customer address provided.
        * @enum {string|null}
        */
       address_source?: "billing" | "shipping" | null;
@@ -14207,7 +14207,7 @@ export interface components {
       /** @description The customer's tax IDs (for example, EU VAT numbers). */
       tax_ids: (components["schemas"]["tax_product_resource_customer_details_resource_tax_id"])[];
       /**
-       * @description The taxability override used for taxation. 
+       * @description The taxability override used for taxation.
        * @enum {string}
        */
       taxability_override: "customer_exempt" | "none" | "reverse_charge";
@@ -14215,7 +14215,7 @@ export interface components {
     /** TaxProductResourceCustomerDetailsResourceTaxId */
     tax_product_resource_customer_details_resource_tax_id: {
       /**
-       * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown` 
+       * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
        * @enum {string}
        */
       type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
@@ -14229,7 +14229,7 @@ export interface components {
       /** @description A human-readable name for the jurisdiction imposing the tax. */
       display_name: string;
       /**
-       * @description Indicates the level of the jurisdiction imposing the tax. 
+       * @description Indicates the level of the jurisdiction imposing the tax.
        * @enum {string}
        */
       level: "city" | "country" | "county" | "district" | "state";
@@ -14242,14 +14242,14 @@ export interface components {
       amount: number;
       jurisdiction: components["schemas"]["tax_product_resource_jurisdiction"];
       /**
-       * @description Indicates whether the jurisdiction was determined by the origin (merchant's address) or destination (customer's address). 
+       * @description Indicates whether the jurisdiction was determined by the origin (merchant's address) or destination (customer's address).
        * @enum {string}
        */
       sourcing: "destination" | "origin";
       /** @description Details regarding the rate for this tax. This field will be `null` when the tax is not imposed, for example if the product is exempt from tax. */
       tax_rate_details?: components["schemas"]["tax_product_resource_line_item_tax_rate_details"] | null;
       /**
-       * @description The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported. 
+       * @description The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
        * @enum {string}
        */
       taxability_reason: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated";
@@ -14263,7 +14263,7 @@ export interface components {
       /** @description The tax rate percentage as a string. For example, 8.5% is represented as "8.5". */
       percentage_decimal: string;
       /**
-       * @description The tax type, such as `vat` or `sales_tax`. 
+       * @description The tax type, such as `vat` or `sales_tax`.
        * @enum {string}
        */
       tax_type: "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
@@ -14291,7 +14291,7 @@ export interface components {
       inclusive: boolean;
       tax_rate_details: components["schemas"]["tax_product_resource_tax_rate_details"];
       /**
-       * @description The reasoning behind this tax, for example, if the product is tax exempt. We might extend the possible values for this field to support new tax rules. 
+       * @description The reasoning behind this tax, for example, if the product is tax exempt. We might extend the possible values for this field to support new tax rules.
        * @enum {string}
        */
       taxability_reason: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated";
@@ -14307,7 +14307,7 @@ export interface components {
       /** @description The ID of an existing [ShippingRate](https://stripe.com/docs/api/shipping_rates/object) */
       shipping_rate?: string;
       /**
-       * @description Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes. 
+       * @description Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes.
        * @enum {string}
        */
       tax_behavior: "exclusive" | "inclusive";
@@ -14325,7 +14325,7 @@ export interface components {
       /** @description State, county, province, or region. */
       state?: string | null;
       /**
-       * @description The tax type, such as `vat` or `sales_tax`. 
+       * @description The tax type, such as `vat` or `sales_tax`.
        * @enum {string|null}
        */
       tax_type?: "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat" | null;
@@ -14347,7 +14347,7 @@ export interface components {
       /** @description The amount of tax calculated for shipping, in integer cents. */
       amount_tax: number;
       /**
-       * @description Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes. 
+       * @description Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes.
        * @enum {string}
        */
       tax_behavior: "exclusive" | "inclusive";
@@ -14355,9 +14355,9 @@ export interface components {
       tax_code: string;
     };
     /**
-     * TaxRate 
+     * TaxRate
      * @description Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
-     * 
+     *
      * Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
      */
     tax_rate: {
@@ -14366,7 +14366,7 @@ export interface components {
       /** @description Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). */
       country?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -14389,7 +14389,7 @@ export interface components {
         [key: string]: string | undefined;
       }) | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "tax_rate";
@@ -14398,13 +14398,13 @@ export interface components {
       /** @description [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States. */
       state?: string | null;
       /**
-       * @description The high-level tax type, such as `vat` or `sales_tax`. 
+       * @description The high-level tax type, such as `vat` or `sales_tax`.
        * @enum {string|null}
        */
       tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat" | null;
     };
     /**
-     * TerminalConfigurationConfiguration 
+     * TerminalConfigurationConfiguration
      * @description A Configurations object represents how features should be configured for terminal readers.
      */
     "terminal.configuration": {
@@ -14416,7 +14416,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "terminal.configuration";
@@ -14424,16 +14424,16 @@ export interface components {
       verifone_p400?: components["schemas"]["terminal_configuration_configuration_resource_device_type_specific_config"];
     };
     /**
-     * TerminalConnectionToken 
+     * TerminalConnectionToken
      * @description A Connection Token is used by the Stripe Terminal SDK to connect to a reader.
-     * 
+     *
      * Related guide: [Fleet management](https://stripe.com/docs/terminal/fleet/locations)
      */
     "terminal.connection_token": {
       /** @description The id of the location that this connection token is scoped to. Note that location scoping only applies to internet-connected readers. For more details, see [the docs on scoping connection tokens](https://stripe.com/docs/terminal/fleet/locations#connection-tokens). */
       location?: string;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "terminal.connection_token";
@@ -14441,9 +14441,9 @@ export interface components {
       secret: string;
     };
     /**
-     * TerminalLocationLocation 
+     * TerminalLocationLocation
      * @description A Location represents a grouping of readers.
-     * 
+     *
      * Related guide: [Fleet management](https://stripe.com/docs/terminal/fleet/locations)
      */
     "terminal.location": {
@@ -14461,15 +14461,15 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "terminal.location";
     };
     /**
-     * TerminalReaderReader 
+     * TerminalReaderReader
      * @description A Reader represents a physical device for accepting payment details.
-     * 
+     *
      * Related guide: [Connecting to a reader](https://stripe.com/docs/terminal/payments/connect-reader)
      */
     "terminal.reader": {
@@ -14478,7 +14478,7 @@ export interface components {
       /** @description The current software version of the reader. */
       device_sw_version?: string | null;
       /**
-       * @description Type of reader, one of `bbpos_wisepad3`, `stripe_m2`, `bbpos_chipper2x`, `bbpos_wisepos_e`, `verifone_P400`, or `simulated_wisepos_e`. 
+       * @description Type of reader, one of `bbpos_wisepad3`, `stripe_m2`, `bbpos_chipper2x`, `bbpos_wisepos_e`, `verifone_P400`, or `simulated_wisepos_e`.
        * @enum {string}
        */
       device_type: "bbpos_chipper2x" | "bbpos_wisepad3" | "bbpos_wisepos_e" | "simulated_wisepos_e" | "stripe_m2" | "verifone_P400";
@@ -14497,7 +14497,7 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "terminal.reader";
@@ -14538,7 +14538,7 @@ export interface components {
       usd?: components["schemas"]["terminal_configuration_configuration_resource_currency_specific_config"];
     };
     /**
-     * TerminalReaderReaderResourceCart 
+     * TerminalReaderReaderResourceCart
      * @description Represents a cart to be displayed on the reader
      */
     terminal_reader_reader_resource_cart: {
@@ -14552,7 +14552,7 @@ export interface components {
       total: number;
     };
     /**
-     * TerminalReaderReaderResourceLineItem 
+     * TerminalReaderReaderResourceLineItem
      * @description Represents a line item to be displayed on the reader
      */
     terminal_reader_reader_resource_line_item: {
@@ -14564,7 +14564,7 @@ export interface components {
       quantity: number;
     };
     /**
-     * TerminalReaderReaderResourceProcessConfig 
+     * TerminalReaderReaderResourceProcessConfig
      * @description Represents a per-transaction override of a reader configuration
      */
     terminal_reader_reader_resource_process_config: {
@@ -14573,7 +14573,7 @@ export interface components {
       tipping?: components["schemas"]["terminal_reader_reader_resource_tipping_config"];
     };
     /**
-     * TerminalReaderReaderResourceProcessPaymentIntentAction 
+     * TerminalReaderReaderResourceProcessPaymentIntentAction
      * @description Represents a reader action to process a payment intent
      */
     terminal_reader_reader_resource_process_payment_intent_action: {
@@ -14582,7 +14582,7 @@ export interface components {
       process_config?: components["schemas"]["terminal_reader_reader_resource_process_config"];
     };
     /**
-     * TerminalReaderReaderResourceProcessSetupIntentAction 
+     * TerminalReaderReaderResourceProcessSetupIntentAction
      * @description Represents a reader action to process a setup intent
      */
     terminal_reader_reader_resource_process_setup_intent_action: {
@@ -14592,7 +14592,7 @@ export interface components {
       setup_intent: string | components["schemas"]["setup_intent"];
     };
     /**
-     * TerminalReaderReaderResourceReaderAction 
+     * TerminalReaderReaderResourceReaderAction
      * @description Represents an action performed by the reader
      */
     terminal_reader_reader_resource_reader_action: {
@@ -14605,18 +14605,18 @@ export interface components {
       refund_payment?: components["schemas"]["terminal_reader_reader_resource_refund_payment_action"];
       set_reader_display?: components["schemas"]["terminal_reader_reader_resource_set_reader_display_action"];
       /**
-       * @description Status of the action performed by the reader. 
+       * @description Status of the action performed by the reader.
        * @enum {string}
        */
       status: "failed" | "in_progress" | "succeeded";
       /**
-       * @description Type of action performed by the reader. 
+       * @description Type of action performed by the reader.
        * @enum {string}
        */
       type: "process_payment_intent" | "process_setup_intent" | "refund_payment" | "set_reader_display";
     };
     /**
-     * TerminalReaderReaderResourceRefundPaymentAction 
+     * TerminalReaderReaderResourceRefundPaymentAction
      * @description Represents a reader action to refund a payment
      */
     terminal_reader_reader_resource_refund_payment_action: {
@@ -14631,7 +14631,7 @@ export interface components {
       /** @description Payment intent that is being refunded. */
       payment_intent?: string | components["schemas"]["payment_intent"];
       /**
-       * @description The reason for the refund. 
+       * @description The reason for the refund.
        * @enum {string}
        */
       reason?: "duplicate" | "fraudulent" | "requested_by_customer";
@@ -14643,20 +14643,20 @@ export interface components {
       reverse_transfer?: boolean;
     };
     /**
-     * TerminalReaderReaderResourceSetReaderDisplayAction 
+     * TerminalReaderReaderResourceSetReaderDisplayAction
      * @description Represents a reader action to set the reader display
      */
     terminal_reader_reader_resource_set_reader_display_action: {
       /** @description Cart object to be displayed by the reader. */
       cart?: components["schemas"]["terminal_reader_reader_resource_cart"] | null;
       /**
-       * @description Type of information to be displayed by the reader. 
+       * @description Type of information to be displayed by the reader.
        * @enum {string}
        */
       type: "cart";
     };
     /**
-     * TerminalReaderReaderResourceTippingConfig 
+     * TerminalReaderReaderResourceTippingConfig
      * @description Represents a per-transaction tipping configuration
      */
     terminal_reader_reader_resource_tipping_config: {
@@ -14664,24 +14664,24 @@ export interface components {
       amount_eligible?: number;
     };
     /**
-     * TestClock 
+     * TestClock
      * @description A test clock enables deterministic control over objects in testmode. With a test clock, you can create
      * objects at a frozen time in the past or future, and advance to a specific future time to observe webhooks and state changes. After the clock advances,
      * you can either validate the current state of your scenario (and test your assumptions), change the current state of your scenario (and test more complex scenarios), or keep advancing forward in time.
      */
     "test_helpers.test_clock": {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which this clock is scheduled to auto delete.
        */
       deletes_after: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which all objects belonging to this clock are frozen.
        */
       frozen_time: number;
@@ -14692,12 +14692,12 @@ export interface components {
       /** @description The custom name supplied at creation. */
       name?: string | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "test_helpers.test_clock";
       /**
-       * @description The status of the Test Clock. 
+       * @description The status of the Test Clock.
        * @enum {string}
        */
       status: "advancing" | "internal_failure" | "ready";
@@ -14706,23 +14706,23 @@ export interface components {
     three_d_secure_details: {
       /**
        * @description For authenticated transactions: how the customer was authenticated by
-       * the issuing bank. 
+       * the issuing bank.
        * @enum {string|null}
        */
       authentication_flow?: "challenge" | "frictionless" | null;
       /**
-       * @description Indicates the outcome of 3D Secure authentication. 
+       * @description Indicates the outcome of 3D Secure authentication.
        * @enum {string|null}
        */
       result?: "attempt_acknowledged" | "authenticated" | "exempted" | "failed" | "not_supported" | "processing_error" | null;
       /**
        * @description Additional information about why 3D Secure succeeded or failed based
-       * on the `result`. 
+       * on the `result`.
        * @enum {string|null}
        */
       result_reason?: "abandoned" | "bypassed" | "canceled" | "card_not_enrolled" | "network_not_supported" | "protocol_error" | "rejected" | null;
       /**
-       * @description The version of 3D Secure that was used. 
+       * @description The version of 3D Secure that was used.
        * @enum {string|null}
        */
       version?: "1.0.2" | "2.1.0" | "2.2.0" | null;
@@ -14733,7 +14733,7 @@ export interface components {
       supported: boolean;
     };
     /**
-     * Token 
+     * Token
      * @description Tokenization is the process Stripe uses to collect sensitive card or bank
      * account details, or personally identifiable information (PII), directly from
      * your customers in a secure manner. A token representing this information is
@@ -14741,14 +14741,14 @@ export interface components {
      * [recommended payments integrations](https://stripe.com/docs/payments) to perform this process
      * client-side. This ensures that no sensitive card data touches your server,
      * and allows your integration to operate in a PCI-compliant way.
-     * 
+     *
      * If you cannot use client-side tokenization, you can also create tokens using
      * the API with either your publishable or secret API key. Keep in mind that if
      * your integration uses this method, you are responsible for any PCI compliance
      * that may be required, and you must keep your secret API key safe. Unlike with
      * client-side tokenization, your customer's information is not sent directly to
      * Stripe, so we cannot determine how it is handled or stored.
-     * 
+     *
      * Tokens cannot be stored or used more than once. To store card or bank account
      * information for later use, you can create [Customer](https://stripe.com/docs/api#customers)
      * objects or [Custom accounts](https://stripe.com/docs/api#external_accounts). Note that
@@ -14761,7 +14761,7 @@ export interface components {
       /** @description IP address of the client that generated the token. */
       client_ip?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -14770,7 +14770,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "token";
@@ -14780,11 +14780,11 @@ export interface components {
       used: boolean;
     };
     /**
-     * Topup 
+     * Topup
      * @description To top up your Stripe balance, you create a top-up object. You can retrieve
      * individual top-ups, as well as list all top-ups. Top-ups are identified by a
      * unique, random ID.
-     * 
+     *
      * Related guide: [Topping up your platform account](https://stripe.com/docs/connect/top-ups)
      */
     topup: {
@@ -14793,7 +14793,7 @@ export interface components {
       /** @description ID of the balance transaction that describes the impact of this top-up on your account balance. May not be specified depending on status of top-up. */
       balance_transaction?: (string | components["schemas"]["balance_transaction"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -14816,7 +14816,7 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "topup";
@@ -14825,7 +14825,7 @@ export interface components {
       /** @description Extra information about a top-up. This will appear on your source's bank statement. It must contain at least one letter. */
       statement_descriptor?: string | null;
       /**
-       * @description The status of the top-up is either `canceled`, `failed`, `pending`, `reversed`, or `succeeded`. 
+       * @description The status of the top-up is either `canceled`, `failed`, `pending`, `reversed`, or `succeeded`.
        * @enum {string}
        */
       status: "canceled" | "failed" | "pending" | "reversed" | "succeeded";
@@ -14833,16 +14833,16 @@ export interface components {
       transfer_group?: string | null;
     };
     /**
-     * Transfer 
+     * Transfer
      * @description A `Transfer` object is created when you move funds between Stripe accounts as
      * part of Connect.
-     * 
+     *
      * Before April 6, 2017, transfers also represented movement of funds from a
      * Stripe account to a card or bank account. This behavior has since been split
      * out into a [Payout](https://stripe.com/docs/api#payout_object) object, with corresponding payout endpoints. For more
      * information, read about the
      * [transfer/payout split](https://stripe.com/docs/transfer-payout-split).
-     * 
+     *
      * Related guide: [Creating separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers)
      */
     transfer: {
@@ -14853,7 +14853,7 @@ export interface components {
       /** @description Balance transaction that describes the impact of this transfer on your account balance. */
       balance_transaction?: (string | components["schemas"]["balance_transaction"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time that this record of the transfer was first created.
        */
       created: number;
@@ -14874,12 +14874,12 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "transfer";
       /**
-       * TransferReversalList 
+       * TransferReversalList
        * @description A list of reversals that have been applied to the transfer.
        */
       reversals: {
@@ -14888,7 +14888,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -14916,19 +14916,19 @@ export interface components {
       destination: string | components["schemas"]["account"];
     };
     /**
-     * TransferReversal 
+     * TransferReversal
      * @description [Stripe Connect](https://stripe.com/docs/connect) platforms can reverse transfers made to a
      * connected account, either entirely or partially, and can also specify whether
      * to refund any related application fees. Transfer reversals add to the
      * platform's balance and subtract from the destination account's balance.
-     * 
+     *
      * Reversing a transfer that was made for a [destination
      * charge](/docs/connect/destination-charges) is allowed only up to the amount of
      * the charge. It is possible to reverse a
      * [transfer_group](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options)
      * transfer only if the destination account has enough balance to cover the
      * reversal.
-     * 
+     *
      * Related guide: [Reversing transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#reversing-transfers)
      */
     transfer_reversal: {
@@ -14937,7 +14937,7 @@ export interface components {
       /** @description Balance transaction that describes the impact on your account balance. */
       balance_transaction?: (string | components["schemas"]["balance_transaction"]) | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -14952,7 +14952,7 @@ export interface components {
         [key: string]: string | undefined;
       }) | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "transfer_reversal";
@@ -14977,7 +14977,7 @@ export interface components {
       /** @description Divide usage by this number. */
       divide_by: number;
       /**
-       * @description After division, either round the result `up` or `down`. 
+       * @description After division, either round the result `up` or `down`.
        * @enum {string}
        */
       round: "down" | "up";
@@ -14987,20 +14987,20 @@ export interface components {
       /** @description Divide usage by this number. */
       divide_by: number;
       /**
-       * @description After division, either round the result `up` or `down`. 
+       * @description After division, either round the result `up` or `down`.
        * @enum {string}
        */
       round: "down" | "up";
     };
     /**
-     * TreasuryReceivedCreditsResourceCreditReversal 
+     * TreasuryReceivedCreditsResourceCreditReversal
      * @description You can reverse some [ReceivedCredits](https://stripe.com/docs/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
      */
     "treasury.credit_reversal": {
       /** @description Amount (in cents) transferred. */
       amount: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -15019,19 +15019,19 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description The rails used to reverse the funds. 
+       * @description The rails used to reverse the funds.
        * @enum {string}
        */
       network: "ach" | "stripe";
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "treasury.credit_reversal";
       /** @description The ReceivedCredit being reversed. */
       received_credit: string;
       /**
-       * @description Status of the CreditReversal 
+       * @description Status of the CreditReversal
        * @enum {string}
        */
       status: "canceled" | "posted" | "processing";
@@ -15040,14 +15040,14 @@ export interface components {
       transaction?: (string | components["schemas"]["treasury.transaction"]) | null;
     };
     /**
-     * TreasuryReceivedDebitsResourceDebitReversal 
+     * TreasuryReceivedDebitsResourceDebitReversal
      * @description You can reverse some [ReceivedDebits](https://stripe.com/docs/api#received_debits) depending on their network and source flow. Reversing a ReceivedDebit leads to the creation of a new object known as a DebitReversal.
      */
     "treasury.debit_reversal": {
       /** @description Amount (in cents) transferred. */
       amount: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -15068,19 +15068,19 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description The rails used to reverse the funds. 
+       * @description The rails used to reverse the funds.
        * @enum {string}
        */
       network: "ach" | "card";
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "treasury.debit_reversal";
       /** @description The ReceivedDebit being reversed. */
       received_debit: string;
       /**
-       * @description Status of the DebitReversal 
+       * @description Status of the DebitReversal
        * @enum {string}
        */
       status: "failed" | "processing" | "succeeded";
@@ -15089,7 +15089,7 @@ export interface components {
       transaction?: (string | components["schemas"]["treasury.transaction"]) | null;
     };
     /**
-     * TreasuryFinancialAccountsResourceFinancialAccount 
+     * TreasuryFinancialAccountsResourceFinancialAccount
      * @description Stripe Treasury provides users with a container for money called a FinancialAccount that is separate from their Payments balance.
      * FinancialAccounts serve as the source and destination of Treasury’s money movement APIs.
      */
@@ -15100,7 +15100,7 @@ export interface components {
       /** @description Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). */
       country: string;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -15116,7 +15116,7 @@ export interface components {
         [key: string]: string | undefined;
       }) | null;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "treasury.financial_account";
@@ -15127,7 +15127,7 @@ export interface components {
       /** @description The array of paths to restricted Features in the Features hash. */
       restricted_features?: ("card_issuing" | "deposit_insurance" | "financial_addresses.aba" | "inbound_transfers.ach" | "intra_stripe_flows" | "outbound_payments.ach" | "outbound_payments.us_domestic_wire" | "outbound_transfers.ach" | "outbound_transfers.us_domestic_wire" | "remote_deposit_capture")[];
       /**
-       * @description The enum specifying what state the account is in. 
+       * @description The enum specifying what state the account is in.
        * @enum {string}
        */
       status: "closed" | "open";
@@ -15136,7 +15136,7 @@ export interface components {
       supported_currencies: (string)[];
     };
     /**
-     * TreasuryFinancialAccountsResourceFinancialAccountFeatures 
+     * TreasuryFinancialAccountsResourceFinancialAccountFeatures
      * @description Encodes whether a FinancialAccount has access to a particular Feature, with a `status` enum and associated `status_details`.
      * Stripe or the platform can control Features via the requested field.
      */
@@ -15147,7 +15147,7 @@ export interface components {
       inbound_transfers?: components["schemas"]["treasury_financial_accounts_resource_inbound_transfers"];
       intra_stripe_flows?: components["schemas"]["treasury_financial_accounts_resource_toggle_settings"];
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "treasury.financial_account_features";
@@ -15155,7 +15155,7 @@ export interface components {
       outbound_transfers?: components["schemas"]["treasury_financial_accounts_resource_outbound_transfers"];
     };
     /**
-     * TreasuryInboundTransfersResourceInboundTransfer 
+     * TreasuryInboundTransfersResourceInboundTransfer
      * @description Use [InboundTransfers](https://stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://stripe.com/docs/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
      */
     "treasury.inbound_transfer": {
@@ -15164,7 +15164,7 @@ export interface components {
       /** @description Returns `true` if the InboundTransfer is able to be canceled. */
       cancelable: boolean;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -15188,7 +15188,7 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "treasury.inbound_transfer";
@@ -15201,7 +15201,7 @@ export interface components {
       /** @description Statement descriptor shown when funds are debited from the source. Not all payment networks support `statement_descriptor`. */
       statement_descriptor: string;
       /**
-       * @description Status of the InboundTransfer: `processing`, `succeeded`, `failed`, and `canceled`. An InboundTransfer is `processing` if it is created and pending. The status changes to `succeeded` once the funds have been "confirmed" and a `transaction` is created and posted. The status changes to `failed` if the transfer fails. 
+       * @description Status of the InboundTransfer: `processing`, `succeeded`, `failed`, and `canceled`. An InboundTransfer is `processing` if it is created and pending. The status changes to `succeeded` once the funds have been "confirmed" and a `transaction` is created and posted. The status changes to `failed` if the transfer fails.
        * @enum {string}
        */
       status: "canceled" | "failed" | "processing" | "succeeded";
@@ -15210,9 +15210,9 @@ export interface components {
       transaction?: (string | components["schemas"]["treasury.transaction"]) | null;
     };
     /**
-     * TreasuryOutboundPaymentsResourceOutboundPayment 
+     * TreasuryOutboundPaymentsResourceOutboundPayment
      * @description Use OutboundPayments to send funds to another party's external bank account or [FinancialAccount](https://stripe.com/docs/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://stripe.com/docs/api#outbound_transfers).
-     * 
+     *
      * Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
      */
     "treasury.outbound_payment": {
@@ -15221,7 +15221,7 @@ export interface components {
       /** @description Returns `true` if the object can be canceled, and `false` otherwise. */
       cancelable: boolean;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -15238,7 +15238,7 @@ export interface components {
       /** @description Details about the end user. */
       end_user_details?: components["schemas"]["treasury_outbound_payments_resource_outbound_payment_resource_end_user_details"] | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The date when funds are expected to arrive in the destination account.
        */
       expected_arrival_date: number;
@@ -15255,7 +15255,7 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "treasury.outbound_payment";
@@ -15264,7 +15264,7 @@ export interface components {
       /** @description The description that appears on the receiving end for an OutboundPayment (for example, bank statement for external bank transfer). */
       statement_descriptor: string;
       /**
-       * @description Current status of the OutboundPayment: `processing`, `failed`, `posted`, `returned`, `canceled`. An OutboundPayment is `processing` if it has been created and is pending. The status changes to `posted` once the OutboundPayment has been "confirmed" and funds have left the account, or to `failed` or `canceled`. If an OutboundPayment fails to arrive at its destination, its status will change to `returned`. 
+       * @description Current status of the OutboundPayment: `processing`, `failed`, `posted`, `returned`, `canceled`. An OutboundPayment is `processing` if it has been created and is pending. The status changes to `posted` once the OutboundPayment has been "confirmed" and funds have left the account, or to `failed` or `canceled`. If an OutboundPayment fails to arrive at its destination, its status will change to `returned`.
        * @enum {string}
        */
       status: "canceled" | "failed" | "posted" | "processing" | "returned";
@@ -15273,9 +15273,9 @@ export interface components {
       transaction: string | components["schemas"]["treasury.transaction"];
     };
     /**
-     * TreasuryOutboundTransfersResourceOutboundTransfer 
+     * TreasuryOutboundTransfersResourceOutboundTransfer
      * @description Use OutboundTransfers to transfer funds from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://stripe.com/docs/api#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
-     * 
+     *
      * Simulate OutboundTransfer state changes with the `/v1/test_helpers/treasury/outbound_transfers` endpoints. These methods can only be called on test mode objects.
      */
     "treasury.outbound_transfer": {
@@ -15284,7 +15284,7 @@ export interface components {
       /** @description Returns `true` if the object can be canceled, and `false` otherwise. */
       cancelable: boolean;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -15296,7 +15296,7 @@ export interface components {
       destination_payment_method?: string | null;
       destination_payment_method_details: components["schemas"]["outbound_transfers_payment_method_details"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The date when funds are expected to arrive in the destination account.
        */
       expected_arrival_date: number;
@@ -15313,7 +15313,7 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "treasury.outbound_transfer";
@@ -15322,7 +15322,7 @@ export interface components {
       /** @description Information about the OutboundTransfer to be sent to the recipient account. */
       statement_descriptor: string;
       /**
-       * @description Current status of the OutboundTransfer: `processing`, `failed`, `canceled`, `posted`, `returned`. An OutboundTransfer is `processing` if it has been created and is pending. The status changes to `posted` once the OutboundTransfer has been "confirmed" and funds have left the account, or to `failed` or `canceled`. If an OutboundTransfer fails to arrive at its destination, its status will change to `returned`. 
+       * @description Current status of the OutboundTransfer: `processing`, `failed`, `canceled`, `posted`, `returned`. An OutboundTransfer is `processing` if it has been created and is pending. The status changes to `posted` once the OutboundTransfer has been "confirmed" and funds have left the account, or to `failed` or `canceled`. If an OutboundTransfer fails to arrive at its destination, its status will change to `returned`.
        * @enum {string}
        */
       status: "canceled" | "failed" | "posted" | "processing" | "returned";
@@ -15331,14 +15331,14 @@ export interface components {
       transaction: string | components["schemas"]["treasury.transaction"];
     };
     /**
-     * TreasuryReceivedCreditsResourceReceivedCredit 
+     * TreasuryReceivedCreditsResourceReceivedCredit
      * @description ReceivedCredits represent funds sent to a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) (for example, via ACH or wire). These money movements are not initiated from the FinancialAccount.
      */
     "treasury.received_credit": {
       /** @description Amount (in cents) transferred. */
       amount: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -15347,7 +15347,7 @@ export interface components {
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       description: string;
       /**
-       * @description Reason for the failure. A ReceivedCredit might fail because the receiving FinancialAccount is closed or frozen. 
+       * @description Reason for the failure. A ReceivedCredit might fail because the receiving FinancialAccount is closed or frozen.
        * @enum {string|null}
        */
       failure_code?: "account_closed" | "account_frozen" | "other" | null;
@@ -15362,19 +15362,19 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description The rails used to send the funds. 
+       * @description The rails used to send the funds.
        * @enum {string}
        */
       network: "ach" | "card" | "stripe" | "us_domestic_wire";
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "treasury.received_credit";
       /** @description Details describing when a ReceivedCredit may be reversed. */
       reversal_details?: components["schemas"]["treasury_received_credits_resource_reversal_details"] | null;
       /**
-       * @description Status of the ReceivedCredit. ReceivedCredits are created either `succeeded` (approved) or `failed` (declined). If a ReceivedCredit is declined, the failure reason can be found in the `failure_code` field. 
+       * @description Status of the ReceivedCredit. ReceivedCredits are created either `succeeded` (approved) or `failed` (declined). If a ReceivedCredit is declined, the failure reason can be found in the `failure_code` field.
        * @enum {string}
        */
       status: "failed" | "succeeded";
@@ -15382,14 +15382,14 @@ export interface components {
       transaction?: (string | components["schemas"]["treasury.transaction"]) | null;
     };
     /**
-     * TreasuryReceivedDebitsResourceReceivedDebit 
+     * TreasuryReceivedDebitsResourceReceivedDebit
      * @description ReceivedDebits represent funds pulled from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts). These are not initiated from the FinancialAccount.
      */
     "treasury.received_debit": {
       /** @description Amount (in cents) transferred. */
       amount: number;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -15398,7 +15398,7 @@ export interface components {
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       description: string;
       /**
-       * @description Reason for the failure. A ReceivedDebit might fail because the FinancialAccount doesn't have sufficient funds, is closed, or is frozen. 
+       * @description Reason for the failure. A ReceivedDebit might fail because the FinancialAccount doesn't have sufficient funds, is closed, or is frozen.
        * @enum {string|null}
        */
       failure_code?: "account_closed" | "account_frozen" | "insufficient_funds" | "other" | null;
@@ -15413,19 +15413,19 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description The network used for the ReceivedDebit. 
+       * @description The network used for the ReceivedDebit.
        * @enum {string}
        */
       network: "ach" | "card" | "stripe";
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "treasury.received_debit";
       /** @description Details describing when a ReceivedDebit might be reversed. */
       reversal_details?: components["schemas"]["treasury_received_debits_resource_reversal_details"] | null;
       /**
-       * @description Status of the ReceivedDebit. ReceivedDebits are created with a status of either `succeeded` (approved) or `failed` (declined). The failure reason can be found under the `failure_code`. 
+       * @description Status of the ReceivedDebit. ReceivedDebits are created with a status of either `succeeded` (approved) or `failed` (declined). The failure reason can be found under the `failure_code`.
        * @enum {string}
        */
       status: "failed" | "succeeded";
@@ -15433,7 +15433,7 @@ export interface components {
       transaction?: (string | components["schemas"]["treasury.transaction"]) | null;
     };
     /**
-     * TreasuryTransactionsResourceTransaction 
+     * TreasuryTransactionsResourceTransaction
      * @description Transactions represent changes to a [FinancialAccount's](https://stripe.com/docs/api#financial_accounts) balance.
      */
     "treasury.transaction": {
@@ -15441,7 +15441,7 @@ export interface components {
       amount: number;
       balance_impact: components["schemas"]["treasury_transactions_resource_balance_impact"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -15450,7 +15450,7 @@ export interface components {
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       description: string;
       /**
-       * TreasuryTransactionsResourceTransactionEntryList 
+       * TreasuryTransactionsResourceTransactionEntryList
        * @description A list of TransactionEntries that are part of this Transaction. This cannot be expanded in any list endpoints.
        */
       entries?: {
@@ -15459,7 +15459,7 @@ export interface components {
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
-         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
          * @enum {string}
          */
         object: "list";
@@ -15473,7 +15473,7 @@ export interface components {
       /** @description Details of the flow that created the Transaction. */
       flow_details?: components["schemas"]["treasury_transactions_resource_flow_details"] | null;
       /**
-       * @description Type of the flow that created the Transaction. 
+       * @description Type of the flow that created the Transaction.
        * @enum {string}
        */
       flow_type: "credit_reversal" | "debit_reversal" | "inbound_transfer" | "issuing_authorization" | "other" | "outbound_payment" | "outbound_transfer" | "received_credit" | "received_debit";
@@ -15482,32 +15482,32 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "treasury.transaction";
       /**
-       * @description Status of the Transaction. 
+       * @description Status of the Transaction.
        * @enum {string}
        */
       status: "open" | "posted" | "void";
       status_transitions: components["schemas"]["treasury_transactions_resource_abstract_transaction_resource_status_transitions"];
     };
     /**
-     * TreasuryTransactionsResourceTransactionEntry 
+     * TreasuryTransactionsResourceTransactionEntry
      * @description TransactionEntries represent individual units of money movements within a single [Transaction](https://stripe.com/docs/api#transactions).
      */
     "treasury.transaction_entry": {
       balance_impact: components["schemas"]["treasury_transactions_resource_balance_impact"];
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description When the TransactionEntry will impact the FinancialAccount's balance.
        */
       effective_at: number;
@@ -15518,7 +15518,7 @@ export interface components {
       /** @description Details of the flow associated with the TransactionEntry. */
       flow_details?: components["schemas"]["treasury_transactions_resource_flow_details"] | null;
       /**
-       * @description Type of the flow associated with the TransactionEntry. 
+       * @description Type of the flow associated with the TransactionEntry.
        * @enum {string}
        */
       flow_type: "credit_reversal" | "debit_reversal" | "inbound_transfer" | "issuing_authorization" | "other" | "outbound_payment" | "outbound_transfer" | "received_credit" | "received_debit";
@@ -15527,20 +15527,20 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "treasury.transaction_entry";
       /** @description The Transaction associated with this object. */
       transaction: string | components["schemas"]["treasury.transaction"];
       /**
-       * @description The specific money movement that generated the TransactionEntry. 
+       * @description The specific money movement that generated the TransactionEntry.
        * @enum {string}
        */
       type: "credit_reversal" | "credit_reversal_posting" | "debit_reversal" | "inbound_transfer" | "inbound_transfer_return" | "issuing_authorization_hold" | "issuing_authorization_release" | "other" | "outbound_payment" | "outbound_payment_cancellation" | "outbound_payment_failure" | "outbound_payment_posting" | "outbound_payment_return" | "outbound_transfer" | "outbound_transfer_cancellation" | "outbound_transfer_failure" | "outbound_transfer_posting" | "outbound_transfer_return" | "received_credit" | "received_debit";
     };
     /**
-     * TreasuryFinancialAccountsResourceABARecord 
+     * TreasuryFinancialAccountsResourceABARecord
      * @description ABA Records contain U.S. bank account details per the ABA format.
      */
     treasury_financial_accounts_resource_aba_record: {
@@ -15556,14 +15556,14 @@ export interface components {
       routing_number: string;
     };
     /**
-     * TreasuryFinancialAccountsResourceAbaToggleSettings 
+     * TreasuryFinancialAccountsResourceAbaToggleSettings
      * @description Toggle settings for enabling/disabling the ABA address feature
      */
     treasury_financial_accounts_resource_aba_toggle_settings: {
       /** @description Whether the FinancialAccount should have the Feature. */
       requested: boolean;
       /**
-       * @description Whether the Feature is operational. 
+       * @description Whether the Feature is operational.
        * @enum {string}
        */
       status: "active" | "pending" | "restricted";
@@ -15571,14 +15571,14 @@ export interface components {
       status_details: (components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"])[];
     };
     /**
-     * TreasuryFinancialAccountsResourceAchToggleSettings 
+     * TreasuryFinancialAccountsResourceAchToggleSettings
      * @description Toggle settings for enabling/disabling an ACH specific feature
      */
     treasury_financial_accounts_resource_ach_toggle_settings: {
       /** @description Whether the FinancialAccount should have the Feature. */
       requested: boolean;
       /**
-       * @description Whether the Feature is operational. 
+       * @description Whether the Feature is operational.
        * @enum {string}
        */
       status: "active" | "pending" | "restricted";
@@ -15586,7 +15586,7 @@ export interface components {
       status_details: (components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"])[];
     };
     /**
-     * TreasuryFinancialAccountsResourceBalance 
+     * TreasuryFinancialAccountsResourceBalance
      * @description Balance information for the FinancialAccount
      */
     treasury_financial_accounts_resource_balance: {
@@ -15609,7 +15609,7 @@ export interface components {
       reasons: ("account_rejected" | "closed_by_platform" | "other")[];
     };
     /**
-     * TreasuryFinancialAccountsResourceFinancialAddress 
+     * TreasuryFinancialAccountsResourceFinancialAddress
      * @description FinancialAddresses contain identifying information that resolves to a FinancialAccount.
      */
     treasury_financial_accounts_resource_financial_address: {
@@ -15617,27 +15617,27 @@ export interface components {
       /** @description The list of networks that the address supports */
       supported_networks?: ("ach" | "us_domestic_wire")[];
       /**
-       * @description The type of financial address 
+       * @description The type of financial address
        * @enum {string}
        */
       type: "aba";
     };
     /**
-     * TreasuryFinancialAccountsResourceFinancialAddressesFeatures 
+     * TreasuryFinancialAccountsResourceFinancialAddressesFeatures
      * @description Settings related to Financial Addresses features on a Financial Account
      */
     treasury_financial_accounts_resource_financial_addresses_features: {
       aba?: components["schemas"]["treasury_financial_accounts_resource_aba_toggle_settings"];
     };
     /**
-     * TreasuryFinancialAccountsResourceInboundTransfers 
+     * TreasuryFinancialAccountsResourceInboundTransfers
      * @description InboundTransfers contains inbound transfers features for a FinancialAccount.
      */
     treasury_financial_accounts_resource_inbound_transfers: {
       ach?: components["schemas"]["treasury_financial_accounts_resource_ach_toggle_settings"];
     };
     /**
-     * TreasuryFinancialAccountsResourceOutboundPayments 
+     * TreasuryFinancialAccountsResourceOutboundPayments
      * @description Settings related to Outbound Payments features on a Financial Account
      */
     treasury_financial_accounts_resource_outbound_payments: {
@@ -15645,7 +15645,7 @@ export interface components {
       us_domestic_wire?: components["schemas"]["treasury_financial_accounts_resource_toggle_settings"];
     };
     /**
-     * TreasuryFinancialAccountsResourceOutboundTransfers 
+     * TreasuryFinancialAccountsResourceOutboundTransfers
      * @description OutboundTransfers contains outbound transfers features for a FinancialAccount.
      */
     treasury_financial_accounts_resource_outbound_transfers: {
@@ -15653,17 +15653,17 @@ export interface components {
       us_domestic_wire?: components["schemas"]["treasury_financial_accounts_resource_toggle_settings"];
     };
     /**
-     * TreasuryFinancialAccountsResourcePlatformRestrictions 
+     * TreasuryFinancialAccountsResourcePlatformRestrictions
      * @description Restrictions that a Connect Platform has placed on this FinancialAccount.
      */
     treasury_financial_accounts_resource_platform_restrictions: {
       /**
-       * @description Restricts all inbound money movement. 
+       * @description Restricts all inbound money movement.
        * @enum {string|null}
        */
       inbound_flows?: "restricted" | "unrestricted" | null;
       /**
-       * @description Restricts all outbound money movement. 
+       * @description Restricts all outbound money movement.
        * @enum {string|null}
        */
       outbound_flows?: "restricted" | "unrestricted" | null;
@@ -15674,14 +15674,14 @@ export interface components {
       closed?: components["schemas"]["treasury_financial_accounts_resource_closed_status_details"] | null;
     };
     /**
-     * TreasuryFinancialAccountsResourceToggleSettings 
+     * TreasuryFinancialAccountsResourceToggleSettings
      * @description Toggle settings for enabling/disabling a feature
      */
     treasury_financial_accounts_resource_toggle_settings: {
       /** @description Whether the FinancialAccount should have the Feature. */
       requested: boolean;
       /**
-       * @description Whether the Feature is operational. 
+       * @description Whether the Feature is operational.
        * @enum {string}
        */
       status: "active" | "pending" | "restricted";
@@ -15689,22 +15689,22 @@ export interface components {
       status_details: (components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"])[];
     };
     /**
-     * TreasuryFinancialAccountsResourceTogglesSettingStatusDetails 
+     * TreasuryFinancialAccountsResourceTogglesSettingStatusDetails
      * @description Additional details on the FinancialAccount Features information.
      */
     treasury_financial_accounts_resource_toggles_setting_status_details: {
       /**
-       * @description Represents the reason why the status is `pending` or `restricted`. 
+       * @description Represents the reason why the status is `pending` or `restricted`.
        * @enum {string}
        */
       code: "activating" | "capability_not_requested" | "financial_account_closed" | "rejected_other" | "rejected_unsupported_business" | "requirements_past_due" | "requirements_pending_verification" | "restricted_by_platform" | "restricted_other";
       /**
-       * @description Represents what the user should do, if anything, to activate the Feature. 
+       * @description Represents what the user should do, if anything, to activate the Feature.
        * @enum {string|null}
        */
       resolution?: "contact_stripe" | "provide_information" | "remove_restriction" | null;
       /**
-       * @description The `platform_restrictions` that are restricting this Feature. 
+       * @description The `platform_restrictions` that are restricting this Feature.
        * @enum {string}
        */
       restriction?: "inbound_flows" | "outbound_flows";
@@ -15712,7 +15712,7 @@ export interface components {
     /** TreasuryInboundTransfersResourceFailureDetails */
     treasury_inbound_transfers_resource_failure_details: {
       /**
-       * @description Reason for the failure. 
+       * @description Reason for the failure.
        * @enum {string}
        */
       code: "account_closed" | "account_frozen" | "bank_account_restricted" | "bank_ownership_changed" | "debit_not_authorized" | "incorrect_account_holder_address" | "incorrect_account_holder_name" | "incorrect_account_holder_tax_id" | "insufficient_funds" | "invalid_account_number" | "invalid_currency" | "no_account" | "other";
@@ -15725,17 +15725,17 @@ export interface components {
     /** TreasuryInboundTransfersResourceInboundTransferResourceStatusTransitions */
     treasury_inbound_transfers_resource_inbound_transfer_resource_status_transitions: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp describing when an InboundTransfer changed status to `canceled`.
        */
       canceled_at?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp describing when an InboundTransfer changed status to `failed`.
        */
       failed_at?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp describing when an InboundTransfer changed status to `succeeded`.
        */
       succeeded_at?: number | null;
@@ -15750,22 +15750,22 @@ export interface components {
     /** TreasuryOutboundPaymentsResourceOutboundPaymentResourceStatusTransitions */
     treasury_outbound_payments_resource_outbound_payment_resource_status_transitions: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp describing when an OutboundPayment changed status to `canceled`.
        */
       canceled_at?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp describing when an OutboundPayment changed status to `failed`.
        */
       failed_at?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp describing when an OutboundPayment changed status to `posted`.
        */
       posted_at?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp describing when an OutboundPayment changed status to `returned`.
        */
       returned_at?: number | null;
@@ -15773,7 +15773,7 @@ export interface components {
     /** TreasuryOutboundPaymentsResourceReturnedStatus */
     treasury_outbound_payments_resource_returned_status: {
       /**
-       * @description Reason for the return. 
+       * @description Reason for the return.
        * @enum {string}
        */
       code: "account_closed" | "account_frozen" | "bank_account_restricted" | "bank_ownership_changed" | "declined" | "incorrect_account_holder_name" | "invalid_account_number" | "invalid_currency" | "no_account" | "other";
@@ -15783,7 +15783,7 @@ export interface components {
     /** TreasuryOutboundTransfersResourceReturnedDetails */
     treasury_outbound_transfers_resource_returned_details: {
       /**
-       * @description Reason for the return. 
+       * @description Reason for the return.
        * @enum {string}
        */
       code: "account_closed" | "account_frozen" | "bank_account_restricted" | "bank_ownership_changed" | "declined" | "incorrect_account_holder_name" | "invalid_account_number" | "invalid_currency" | "no_account" | "other";
@@ -15793,22 +15793,22 @@ export interface components {
     /** TreasuryOutboundTransfersResourceStatusTransitions */
     treasury_outbound_transfers_resource_status_transitions: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp describing when an OutboundTransfer changed status to `canceled`
        */
       canceled_at?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp describing when an OutboundTransfer changed status to `failed`
        */
       failed_at?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp describing when an OutboundTransfer changed status to `posted`
        */
       posted_at?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp describing when an OutboundTransfer changed status to `returned`
        */
       returned_at?: number | null;
@@ -15831,12 +15831,12 @@ export interface components {
     /** TreasuryReceivedCreditsResourceReversalDetails */
     treasury_received_credits_resource_reversal_details: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time before which a ReceivedCredit can be reversed.
        */
       deadline?: number | null;
       /**
-       * @description Set if a ReceivedCredit cannot be reversed. 
+       * @description Set if a ReceivedCredit cannot be reversed.
        * @enum {string|null}
        */
       restricted_reason?: "already_reversed" | "deadline_passed" | "network_restricted" | "other" | "source_flow_restricted" | null;
@@ -15847,7 +15847,7 @@ export interface components {
       outbound_payment?: components["schemas"]["treasury.outbound_payment"];
       payout?: components["schemas"]["payout"];
       /**
-       * @description The type of the source flow that originated the ReceivedCredit. 
+       * @description The type of the source flow that originated the ReceivedCredit.
        * @enum {string}
        */
       type: "credit_reversal" | "other" | "outbound_payment" | "payout";
@@ -15855,7 +15855,7 @@ export interface components {
     /** TreasuryReceivedCreditsResourceStatusTransitions */
     treasury_received_credits_resource_status_transitions: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp describing when the CreditReversal changed status to `posted`
        */
       posted_at?: number | null;
@@ -15879,12 +15879,12 @@ export interface components {
     /** TreasuryReceivedDebitsResourceReversalDetails */
     treasury_received_debits_resource_reversal_details: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time before which a ReceivedDebit can be reversed.
        */
       deadline?: number | null;
       /**
-       * @description Set if a ReceivedDebit can't be reversed. 
+       * @description Set if a ReceivedDebit can't be reversed.
        * @enum {string|null}
        */
       restricted_reason?: "already_reversed" | "deadline_passed" | "network_restricted" | "other" | "source_flow_restricted" | null;
@@ -15892,7 +15892,7 @@ export interface components {
     /** TreasuryReceivedDebitsResourceStatusTransitions */
     treasury_received_debits_resource_status_transitions: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp describing when the DebitReversal changed status to `completed`.
        */
       completed_at?: number | null;
@@ -15908,7 +15908,7 @@ export interface components {
     /** TreasurySharedResourceInitiatingPaymentMethodDetailsInitiatingPaymentMethodDetails */
     treasury_shared_resource_initiating_payment_method_details_initiating_payment_method_details: {
       /**
-       * @description Set when `type` is `balance`. 
+       * @description Set when `type` is `balance`.
        * @enum {string}
        */
       balance?: "payments";
@@ -15917,7 +15917,7 @@ export interface components {
       /** @description Set when `type` is `issuing_card`. This is an [Issuing Card](https://stripe.com/docs/api#issuing_cards) ID. */
       issuing_card?: string;
       /**
-       * @description Polymorphic type matching the originating money movement's source. This can be an external account, a Stripe balance, or a FinancialAccount. 
+       * @description Polymorphic type matching the originating money movement's source. This can be an external account, a Stripe balance, or a FinancialAccount.
        * @enum {string}
        */
       type: "balance" | "financial_account" | "issuing_card" | "stripe" | "us_bank_account";
@@ -15935,18 +15935,18 @@ export interface components {
     /** TreasuryTransactionsResourceAbstractTransactionResourceStatusTransitions */
     treasury_transactions_resource_abstract_transaction_resource_status_transitions: {
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp describing when the Transaction changed status to `posted`.
        */
       posted_at?: number | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Timestamp describing when the Transaction changed status to `void`.
        */
       void_at?: number | null;
     };
     /**
-     * TreasuryTransactionsResourceBalanceImpact 
+     * TreasuryTransactionsResourceBalanceImpact
      * @description Change to a FinancialAccount's balance
      */
     treasury_transactions_resource_balance_impact: {
@@ -15968,7 +15968,7 @@ export interface components {
       received_credit?: components["schemas"]["treasury.received_credit"];
       received_debit?: components["schemas"]["treasury.received_debit"];
       /**
-       * @description Type of the flow that created the Transaction. Set to the same value as `flow_type`. 
+       * @description Type of the flow that created the Transaction. Set to the same value as `flow_type`.
        * @enum {string}
        */
       type: "credit_reversal" | "debit_reversal" | "inbound_transfer" | "issuing_authorization" | "other" | "outbound_payment" | "outbound_transfer" | "received_credit" | "received_debit";
@@ -15981,10 +15981,10 @@ export interface components {
       supported: ("ach" | "us_domestic_wire")[];
     };
     /**
-     * UsageRecord 
+     * UsageRecord
      * @description Usage records allow you to report customer usage and metrics to Stripe for
      * metered billing of subscription prices.
-     * 
+     *
      * Related guide: [Metered billing](https://stripe.com/docs/billing/subscriptions/metered-billing)
      */
     usage_record: {
@@ -15993,7 +15993,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "usage_record";
@@ -16002,7 +16002,7 @@ export interface components {
       /** @description The ID of the subscription item this usage record contains data for. */
       subscription_item: string;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description The timestamp when this usage occurred.
        */
       timestamp: number;
@@ -16016,7 +16016,7 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "usage_record_summary";
@@ -16029,19 +16029,19 @@ export interface components {
     /** verification_session_redaction */
     verification_session_redaction: {
       /**
-       * @description Indicates whether this object and its related objects have been redacted or not. 
+       * @description Indicates whether this object and its related objects have been redacted or not.
        * @enum {string}
        */
       status: "processing" | "redacted";
     };
     /**
-     * NotificationWebhookEndpoint 
+     * NotificationWebhookEndpoint
      * @description You can configure [webhook endpoints](https://stripe.com/docs/webhooks/) via the API to be
      * notified about events that happen in your Stripe account or connected
      * accounts.
-     * 
+     *
      * Most users configure webhooks from [the dashboard](https://dashboard.stripe.com/webhooks), which provides a user interface for registering and testing your webhook endpoints.
-     * 
+     *
      * Related guide: [Setting up webhooks](https://stripe.com/docs/webhooks/configure)
      */
     webhook_endpoint: {
@@ -16050,7 +16050,7 @@ export interface components {
       /** @description The ID of the associated Connect application. */
       application?: string | null;
       /**
-       * Format: unix-time 
+       * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
@@ -16067,7 +16067,7 @@ export interface components {
         [key: string]: string | undefined;
       };
       /**
-       * @description String representing the object's type. Objects of the same type share the same value. 
+       * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "webhook_endpoint";
@@ -16126,7 +16126,7 @@ export interface operations {
           /** @description The identifier of the account to create an account link for. */
           account: string;
           /**
-           * @description Which information the platform needs to collect from the user. One of `currently_due` or `eventually_due`. Default is `currently_due`. 
+           * @description Which information the platform needs to collect from the user. One of `currently_due` or `eventually_due`. Default is `currently_due`.
            * @enum {string}
            */
           collect?: "currently_due" | "eventually_due";
@@ -16137,7 +16137,7 @@ export interface operations {
           /** @description The URL that the user will be redirected to upon leaving or completing the linked flow. */
           return_url?: string;
           /**
-           * @description The type of account link the user is requesting. Possible values are `account_onboarding` or `account_update`. 
+           * @description The type of account link the user is requesting. Possible values are `account_onboarding` or `account_update`.
            * @enum {string}
            */
           type: "account_onboarding" | "account_update";
@@ -16193,7 +16193,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -16213,7 +16213,7 @@ export interface operations {
   /**
    * @description <p>With <a href="/docs/connect">Connect</a>, you can create Stripe accounts for your users.
    * To do this, you’ll first need to <a href="https://dashboard.stripe.com/account/applications/settings">register your platform</a>.</p>
-   * 
+   *
    * <p>If you’ve already collected information for your connected accounts, you <a href="/docs/connect/best-practices#onboarding">can pre-fill that information</a> when
    * creating the account. Connect Onboarding won’t ask for the pre-filled information during account onboarding.
    * You can pre-fill any information on the account.</p>
@@ -16246,7 +16246,7 @@ export interface operations {
             routing_number?: string;
           }) | string;
           /**
-           * business_profile_specs 
+           * business_profile_specs
            * @description Business information about the account.
            */
           business_profile?: {
@@ -16268,12 +16268,12 @@ export interface operations {
             url?: string;
           };
           /**
-           * @description The business type. 
+           * @description The business type.
            * @enum {string}
            */
           business_type?: "company" | "government_entity" | "individual" | "non_profit";
           /**
-           * capabilities_param 
+           * capabilities_param
            * @description Each key of the dictionary represents a capability, and each capability maps to its settings (e.g. whether it has been requested or not). Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive.
            */
           capabilities?: {
@@ -16423,7 +16423,7 @@ export interface operations {
             };
           };
           /**
-           * company_specs 
+           * company_specs
            * @description Information about the company or business. This field is available for any `business_type`.
            */
           company?: {
@@ -16492,7 +16492,7 @@ export interface operations {
           /** @description Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts). */
           default_currency?: string;
           /**
-           * documents_specs 
+           * documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
            */
           documents?: {
@@ -16532,7 +16532,7 @@ export interface operations {
           /** @description A card or bank account to attach to the account for receiving [payouts](https://stripe.com/docs/connect/bank-debit-card-payouts) (you won’t be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation. <br><br>By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/docs/api#account_create_bank_account) or [card creation](https://stripe.com/docs/api#account_create_card) APIs. */
           external_account?: string;
           /**
-           * individual_specs 
+           * individual_specs
            * @description Information about the person represented by the account. This field is null unless `business_type` is set to `individual`.
            */
           individual?: {
@@ -16617,7 +16617,7 @@ export interface operations {
             [key: string]: string | undefined;
           }) | "";
           /**
-           * settings_specs 
+           * settings_specs
            * @description Options for customizing how the account functions within Stripe.
            */
           settings?: {
@@ -16681,7 +16681,7 @@ export interface operations {
             };
           };
           /**
-           * tos_acceptance_specs 
+           * tos_acceptance_specs
            * @description Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance).
            */
           tos_acceptance?: {
@@ -16692,7 +16692,7 @@ export interface operations {
             user_agent?: string;
           };
           /**
-           * @description The type of Stripe account to create. May be one of `custom`, `express` or `standard`. 
+           * @description The type of Stripe account to create. May be one of `custom`, `express` or `standard`.
            * @enum {string}
            */
           type?: "custom" | "express" | "standard";
@@ -16748,12 +16748,12 @@ export interface operations {
   /**
    * @description <p>Updates a <a href="/docs/connect/accounts">connected account</a> by setting the values of the parameters passed. Any parameters not provided are
    * left unchanged.</p>
-   * 
+   *
    * <p>For Custom accounts, you can update any information on the account. For other accounts, you can update all information until that
    * account has started to go through Connect Onboarding. Once you create an <a href="/docs/api/account_links">Account Link</a>
    * for a Standard or Express account, some parameters can no longer be changed. These are marked as <strong>Custom Only</strong> or <strong>Custom and Express</strong>
    * below.</p>
-   * 
+   *
    * <p>To update your own account, use the <a href="https://dashboard.stripe.com/account">Dashboard</a>. Refer to our
    * <a href="/docs/connect/updating-accounts">Connect</a> documentation to learn more about updating accounts.</p>
    */
@@ -16769,7 +16769,7 @@ export interface operations {
           /** @description An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
           account_token?: string;
           /**
-           * business_profile_specs 
+           * business_profile_specs
            * @description Business information about the account.
            */
           business_profile?: {
@@ -16791,12 +16791,12 @@ export interface operations {
             url?: string;
           };
           /**
-           * @description The business type. 
+           * @description The business type.
            * @enum {string}
            */
           business_type?: "company" | "government_entity" | "individual" | "non_profit";
           /**
-           * capabilities_param 
+           * capabilities_param
            * @description Each key of the dictionary represents a capability, and each capability maps to its settings (e.g. whether it has been requested or not). Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive.
            */
           capabilities?: {
@@ -16946,7 +16946,7 @@ export interface operations {
             };
           };
           /**
-           * company_specs 
+           * company_specs
            * @description Information about the company or business. This field is available for any `business_type`.
            */
           company?: {
@@ -17013,7 +17013,7 @@ export interface operations {
           /** @description Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts). */
           default_currency?: string;
           /**
-           * documents_specs 
+           * documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
            */
           documents?: {
@@ -17053,7 +17053,7 @@ export interface operations {
           /** @description A card or bank account to attach to the account for receiving [payouts](https://stripe.com/docs/connect/bank-debit-card-payouts) (you won’t be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation. <br><br>By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/docs/api#account_create_bank_account) or [card creation](https://stripe.com/docs/api#account_create_card) APIs. */
           external_account?: string;
           /**
-           * individual_specs 
+           * individual_specs
            * @description Information about the person represented by the account. This field is null unless `business_type` is set to `individual`.
            */
           individual?: {
@@ -17138,7 +17138,7 @@ export interface operations {
             [key: string]: string | undefined;
           }) | "";
           /**
-           * settings_specs_update 
+           * settings_specs_update
            * @description Options for customizing how the account functions within Stripe.
            */
           settings?: {
@@ -17202,7 +17202,7 @@ export interface operations {
             };
           };
           /**
-           * tos_acceptance_specs 
+           * tos_acceptance_specs
            * @description Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance).
            */
           tos_acceptance?: {
@@ -17232,9 +17232,9 @@ export interface operations {
   };
   /**
    * @description <p>With <a href="/docs/connect">Connect</a>, you can delete accounts you manage.</p>
-   * 
+   *
    * <p>Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.</p>
-   * 
+   *
    * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
    */
   DeleteAccountsAccount: {
@@ -17356,7 +17356,7 @@ export interface operations {
   };
   /**
    * @description <p>Updates the metadata, account holder name, account holder type of a bank account belonging to a <a href="/docs/connect/custom-accounts">Custom account</a>, and optionally sets it as the default for its currency. Other bank account details are not editable by design.</p>
-   * 
+   *
    * <p>You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.</p>
    */
   PostAccountsAccountBankAccountsId: {
@@ -17372,12 +17372,12 @@ export interface operations {
           /** @description The name of the person or business that owns the bank account. */
           account_holder_name?: string;
           /**
-           * @description The type of entity that holds the account. This can be either `individual` or `company`. 
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
            * @enum {string}
            */
           account_holder_type?: "" | "company" | "individual";
           /**
-           * @description The bank account type. This can only be `checking` or `savings` in most countries. In Japan, this can only be `futsu` or `toza`. 
+           * @description The bank account type. This can only be `checking` or `savings` in most countries. In Japan, this can only be `futsu` or `toza`.
            * @enum {string}
            */
           account_type?: "checking" | "futsu" | "savings" | "toza";
@@ -17396,7 +17396,7 @@ export interface operations {
           /** @description When set to true, this becomes the default external account for its currency. */
           default_for_currency?: boolean;
           /**
-           * external_account_documents_param 
+           * external_account_documents_param
            * @description Documents that may be submitted to satisfy various informational requests.
            */
           documents?: {
@@ -17488,7 +17488,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -17602,7 +17602,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -17712,7 +17712,7 @@ export interface operations {
   };
   /**
    * @description <p>Updates the metadata, account holder name, account holder type of a bank account belonging to a <a href="/docs/connect/custom-accounts">Custom account</a>, and optionally sets it as the default for its currency. Other bank account details are not editable by design.</p>
-   * 
+   *
    * <p>You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.</p>
    */
   PostAccountsAccountExternalAccountsId: {
@@ -17728,12 +17728,12 @@ export interface operations {
           /** @description The name of the person or business that owns the bank account. */
           account_holder_name?: string;
           /**
-           * @description The type of entity that holds the account. This can be either `individual` or `company`. 
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
            * @enum {string}
            */
           account_holder_type?: "" | "company" | "individual";
           /**
-           * @description The bank account type. This can only be `checking` or `savings` in most countries. In Japan, this can only be `futsu` or `toza`. 
+           * @description The bank account type. This can only be `checking` or `savings` in most countries. In Japan, this can only be `futsu` or `toza`.
            * @enum {string}
            */
           account_type?: "checking" | "futsu" | "savings" | "toza";
@@ -17752,7 +17752,7 @@ export interface operations {
           /** @description When set to true, this becomes the default external account for its currency. */
           default_for_currency?: boolean;
           /**
-           * external_account_documents_param 
+           * external_account_documents_param
            * @description Documents that may be submitted to satisfy various informational requests.
            */
           documents?: {
@@ -17821,7 +17821,7 @@ export interface operations {
   };
   /**
    * @description <p>Creates a single-use login link for an Express account to access their Stripe dashboard.</p>
-   * 
+   *
    * <p><strong>You may only create login links for <a href="/docs/connect/express-accounts">Express accounts</a> connected to your platform</strong>.</p>
    */
   PostAccountsAccountLoginLinks: {
@@ -17891,7 +17891,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -17919,7 +17919,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * address_specs 
+           * address_specs
            * @description The person's address.
            */
           address?: {
@@ -17931,7 +17931,7 @@ export interface operations {
             state?: string;
           };
           /**
-           * japan_address_kana_specs 
+           * japan_address_kana_specs
            * @description The Kana variation of the person's address (Japan only).
            */
           address_kana?: {
@@ -17944,7 +17944,7 @@ export interface operations {
             town?: string;
           };
           /**
-           * japan_address_kanji_specs 
+           * japan_address_kanji_specs
            * @description The Kanji variation of the person's address (Japan only).
            */
           address_kanji?: {
@@ -17963,7 +17963,7 @@ export interface operations {
             year: number;
           } | "";
           /**
-           * person_documents_specs 
+           * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
            */
           documents?: {
@@ -18019,7 +18019,7 @@ export interface operations {
           /** @description Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction. */
           political_exposure?: string;
           /**
-           * address_specs 
+           * address_specs
            * @description The person's registered address.
            */
           registered_address?: {
@@ -18031,7 +18031,7 @@ export interface operations {
             state?: string;
           };
           /**
-           * relationship_specs 
+           * relationship_specs
            * @description The relationship that this person has with the account's legal entity.
            */
           relationship?: {
@@ -18045,7 +18045,7 @@ export interface operations {
           /** @description The last four digits of the person's Social Security number (U.S. only). */
           ssn_last_4?: string;
           /**
-           * person_verification_specs 
+           * person_verification_specs
            * @description The person's verification status.
            */
           verification?: {
@@ -18122,7 +18122,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * address_specs 
+           * address_specs
            * @description The person's address.
            */
           address?: {
@@ -18134,7 +18134,7 @@ export interface operations {
             state?: string;
           };
           /**
-           * japan_address_kana_specs 
+           * japan_address_kana_specs
            * @description The Kana variation of the person's address (Japan only).
            */
           address_kana?: {
@@ -18147,7 +18147,7 @@ export interface operations {
             town?: string;
           };
           /**
-           * japan_address_kanji_specs 
+           * japan_address_kanji_specs
            * @description The Kanji variation of the person's address (Japan only).
            */
           address_kanji?: {
@@ -18166,7 +18166,7 @@ export interface operations {
             year: number;
           } | "";
           /**
-           * person_documents_specs 
+           * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
            */
           documents?: {
@@ -18222,7 +18222,7 @@ export interface operations {
           /** @description Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction. */
           political_exposure?: string;
           /**
-           * address_specs 
+           * address_specs
            * @description The person's registered address.
            */
           registered_address?: {
@@ -18234,7 +18234,7 @@ export interface operations {
             state?: string;
           };
           /**
-           * relationship_specs 
+           * relationship_specs
            * @description The relationship that this person has with the account's legal entity.
            */
           relationship?: {
@@ -18248,7 +18248,7 @@ export interface operations {
           /** @description The last four digits of the person's Social Security number (U.S. only). */
           ssn_last_4?: string;
           /**
-           * person_verification_specs 
+           * person_verification_specs
            * @description The person's verification status.
            */
           verification?: {
@@ -18347,7 +18347,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -18375,7 +18375,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * address_specs 
+           * address_specs
            * @description The person's address.
            */
           address?: {
@@ -18387,7 +18387,7 @@ export interface operations {
             state?: string;
           };
           /**
-           * japan_address_kana_specs 
+           * japan_address_kana_specs
            * @description The Kana variation of the person's address (Japan only).
            */
           address_kana?: {
@@ -18400,7 +18400,7 @@ export interface operations {
             town?: string;
           };
           /**
-           * japan_address_kanji_specs 
+           * japan_address_kanji_specs
            * @description The Kanji variation of the person's address (Japan only).
            */
           address_kanji?: {
@@ -18419,7 +18419,7 @@ export interface operations {
             year: number;
           } | "";
           /**
-           * person_documents_specs 
+           * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
            */
           documents?: {
@@ -18475,7 +18475,7 @@ export interface operations {
           /** @description Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction. */
           political_exposure?: string;
           /**
-           * address_specs 
+           * address_specs
            * @description The person's registered address.
            */
           registered_address?: {
@@ -18487,7 +18487,7 @@ export interface operations {
             state?: string;
           };
           /**
-           * relationship_specs 
+           * relationship_specs
            * @description The relationship that this person has with the account's legal entity.
            */
           relationship?: {
@@ -18501,7 +18501,7 @@ export interface operations {
           /** @description The last four digits of the person's Social Security number (U.S. only). */
           ssn_last_4?: string;
           /**
-           * person_verification_specs 
+           * person_verification_specs
            * @description The person's verification status.
            */
           verification?: {
@@ -18578,7 +18578,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * address_specs 
+           * address_specs
            * @description The person's address.
            */
           address?: {
@@ -18590,7 +18590,7 @@ export interface operations {
             state?: string;
           };
           /**
-           * japan_address_kana_specs 
+           * japan_address_kana_specs
            * @description The Kana variation of the person's address (Japan only).
            */
           address_kana?: {
@@ -18603,7 +18603,7 @@ export interface operations {
             town?: string;
           };
           /**
-           * japan_address_kanji_specs 
+           * japan_address_kanji_specs
            * @description The Kanji variation of the person's address (Japan only).
            */
           address_kanji?: {
@@ -18622,7 +18622,7 @@ export interface operations {
             year: number;
           } | "";
           /**
-           * person_documents_specs 
+           * person_documents_specs
            * @description Documents that may be submitted to satisfy various informational requests.
            */
           documents?: {
@@ -18678,7 +18678,7 @@ export interface operations {
           /** @description Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction. */
           political_exposure?: string;
           /**
-           * address_specs 
+           * address_specs
            * @description The person's registered address.
            */
           registered_address?: {
@@ -18690,7 +18690,7 @@ export interface operations {
             state?: string;
           };
           /**
-           * relationship_specs 
+           * relationship_specs
            * @description The relationship that this person has with the account's legal entity.
            */
           relationship?: {
@@ -18704,7 +18704,7 @@ export interface operations {
           /** @description The last four digits of the person's Social Security number (U.S. only). */
           ssn_last_4?: string;
           /**
-           * person_verification_specs 
+           * person_verification_specs
            * @description The person's verification status.
            */
           verification?: {
@@ -18767,7 +18767,7 @@ export interface operations {
   };
   /**
    * @description <p>With <a href="/docs/connect">Connect</a>, you may flag accounts as suspicious.</p>
-   * 
+   *
    * <p>Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.</p>
    */
   PostAccountsAccountReject: {
@@ -18830,7 +18830,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -18967,7 +18967,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -19018,7 +19018,7 @@ export interface operations {
   };
   /**
    * @description <p>Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
-   * 
+   *
    * <p>This request only accepts metadata as an argument.</p>
    */
   PostApplicationFeesFeeRefundsId: {
@@ -19149,7 +19149,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -19169,10 +19169,10 @@ export interface operations {
   /**
    * @description <p>Refunds an application fee that has previously been collected but not yet refunded.
    * Funds will be refunded to the Stripe account from which the fee was originally collected.</p>
-   * 
+   *
    * <p>You can optionally refund only part of an application fee.
    * You can do so multiple times, until the entire fee has been refunded.</p>
-   * 
+   *
    * <p>Once entirely refunded, an application fee can’t be refunded again.
    * This method will raise an error when called on an already-refunded application fee,
    * or when trying to refund more money than is left on an application fee.</p>
@@ -19246,7 +19246,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -19271,7 +19271,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description The Unix timestamp for the expiry time of the secret, after which the secret deletes.
            */
           expires_at?: number;
@@ -19280,7 +19280,7 @@ export interface operations {
           /** @description The plaintext secret value to be stored. */
           payload: string;
           /**
-           * scope_param 
+           * scope_param
            * @description Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.
            */
           scope: {
@@ -19316,7 +19316,7 @@ export interface operations {
           /** @description A name for the secret that's unique within the scope. */
           name: string;
           /**
-           * scope_param 
+           * scope_param
            * @description Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.
            */
           scope: {
@@ -19411,7 +19411,7 @@ export interface operations {
   };
   /**
    * @description <p>Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.</p>
-   * 
+   *
    * <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p>
    */
   GetBalanceHistory: {
@@ -19455,7 +19455,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -19474,7 +19474,7 @@ export interface operations {
   };
   /**
    * @description <p>Retrieves the balance transaction with the given ID.</p>
-   * 
+   *
    * <p>Note that this endpoint previously used the path <code>/v1/balance/history/:id</code>.</p>
    */
   GetBalanceHistoryId: {
@@ -19509,7 +19509,7 @@ export interface operations {
   };
   /**
    * @description <p>Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.</p>
-   * 
+   *
    * <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p>
    */
   GetBalanceTransactions: {
@@ -19553,7 +19553,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -19572,7 +19572,7 @@ export interface operations {
   };
   /**
    * @description <p>Retrieves the balance transaction with the given ID.</p>
-   * 
+   *
    * <p>Note that this endpoint previously used the path <code>/v1/balance/history/:id</code>.</p>
    */
   GetBalanceTransactionsId: {
@@ -19637,7 +19637,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -19660,7 +19660,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * business_profile_create_param 
+           * business_profile_create_param
            * @description The business information shown to customers in the portal.
            */
           business_profile: {
@@ -19673,7 +19673,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * features_creation_param 
+           * features_creation_param
            * @description Information about the features available in the portal.
            */
           features: {
@@ -19720,7 +19720,7 @@ export interface operations {
             };
           };
           /**
-           * login_page_create_param 
+           * login_page_create_param
            * @description The hosted login page for this configuration. Learn more about the portal login page in our [integration docs](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal#share).
            */
           login_page?: {
@@ -19792,7 +19792,7 @@ export interface operations {
           /** @description Whether the configuration is active and can be used to create portal sessions. */
           active?: boolean;
           /**
-           * business_profile_update_param 
+           * business_profile_update_param
            * @description The business information shown to customers in the portal.
            */
           business_profile?: {
@@ -19805,7 +19805,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * features_updating_param 
+           * features_updating_param
            * @description Information about the features available in the portal.
            */
           features?: {
@@ -19852,7 +19852,7 @@ export interface operations {
             };
           };
           /**
-           * login_page_update_param 
+           * login_page_update_param
            * @description The hosted login page for this configuration. Learn more about the portal login page in our [integration docs](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal#share).
            */
           login_page?: {
@@ -19892,7 +19892,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * flow_data_param 
+           * flow_data_param
            * @description Information about a specific flow for the customer to go through. See the [docs](https://stripe.com/docs/customer-management/portal-deep-links) to learn more about using customer portal deep links and flows.
            */
           flow_data?: {
@@ -19934,7 +19934,7 @@ export interface operations {
             type: "payment_method_update" | "subscription_cancel" | "subscription_update" | "subscription_update_confirm";
           };
           /**
-           * @description The IETF language tag of the locale Customer Portal is displayed in. If blank or auto, the customer’s `preferred_locales` or browser’s locale is used. 
+           * @description The IETF language tag of the locale Customer Portal is displayed in. If blank or auto, the customer’s `preferred_locales` or browser’s locale is used.
            * @enum {string}
            */
           locale?: "auto" | "bg" | "cs" | "da" | "de" | "el" | "en" | "en-AU" | "en-CA" | "en-GB" | "en-IE" | "en-IN" | "en-NZ" | "en-SG" | "es" | "es-419" | "et" | "fi" | "fil" | "fr" | "fr-CA" | "hr" | "hu" | "id" | "it" | "ja" | "ko" | "lt" | "lv" | "ms" | "mt" | "nb" | "nl" | "pl" | "pt" | "pt-BR" | "ro" | "ru" | "sk" | "sl" | "sv" | "th" | "tr" | "vi" | "zh" | "zh-HK" | "zh-TW";
@@ -20000,7 +20000,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -20071,7 +20071,7 @@ export interface operations {
           /** @description The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#on-behalf-of). */
           on_behalf_of?: string;
           /**
-           * radar_options 
+           * radar_options
            * @description Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
            */
           radar_options?: {
@@ -20080,7 +20080,7 @@ export interface operations {
           /** @description The email address to which this charge's [receipt](https://stripe.com/docs/dashboard/receipts) will be sent. The receipt will not be sent until the charge is paid, and no receipts will be sent for test mode charges. If this charge is for a [Customer](https://stripe.com/docs/api/customers/object), the email address specified here will override the customer's email address. If `receipt_email` is specified for a charge in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
           receipt_email?: string;
           /**
-           * optional_fields_shipping 
+           * optional_fields_shipping
            * @description Shipping information for the charge. Helps prevent fraud on charges for physical goods.
            */
           shipping?: {
@@ -20105,7 +20105,7 @@ export interface operations {
           /** @description Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
           statement_descriptor_suffix?: string;
           /**
-           * transfer_data_specs 
+           * transfer_data_specs
            * @description An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
            */
           transfer_data?: {
@@ -20165,7 +20165,7 @@ export interface operations {
             has_more: boolean;
             next_page?: string | null;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. 
+             * @description String representing the object's type. Objects of the same type share the same value.
              * @enum {string}
              */
             object: "search_result";
@@ -20231,7 +20231,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * fraud_details 
+           * fraud_details
            * @description A set of key-value pairs you can attach to a charge giving information about its riskiness. If you believe a charge is fraudulent, include a `user_report` key with a value of `fraudulent`. If you believe a charge is safe, include a `user_report` key with a value of `safe`. Stripe will use the information you send to improve our fraud detection algorithms.
            */
           fraud_details?: {
@@ -20245,7 +20245,7 @@ export interface operations {
           /** @description This is the email address that the receipt for this charge will be sent to. If this field is updated, then a new email receipt will be sent to the updated address. */
           receipt_email?: string;
           /**
-           * optional_fields_shipping 
+           * optional_fields_shipping
            * @description Shipping information for the charge. Helps prevent fraud on charges for physical goods.
            */
           shipping?: {
@@ -20285,9 +20285,9 @@ export interface operations {
   };
   /**
    * @description <p>Capture the payment of an existing, uncaptured charge that was created with the <code>capture</code> option set to false.</p>
-   * 
+   *
    * <p>Uncaptured payments expire a set number of days after they are created (<a href="/docs/charges/placing-a-hold">7 by default</a>), after which they are marked as refunded and capture attempts will fail.</p>
-   * 
+   *
    * <p>Don’t use this method to capture a PaymentIntent-initiated charge. Use <a href="/docs/api/payment_intents/capture">Capture a PaymentIntent</a>.</p>
    */
   PostChargesChargeCapture: {
@@ -20314,7 +20314,7 @@ export interface operations {
           /** @description Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
           statement_descriptor_suffix?: string;
           /**
-           * transfer_data_specs 
+           * transfer_data_specs
            * @description An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
            */
           transfer_data?: {
@@ -20381,7 +20381,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * dispute_evidence_params 
+           * dispute_evidence_params
            * @description Evidence to upload, to respond to a dispute. Updating any field in the hash will submit all fields in the hash for review. The combined character count of all fields is limited to 150,000.
            */
           evidence?: {
@@ -20470,13 +20470,13 @@ export interface operations {
   };
   /**
    * @description <p>When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.</p>
-   * 
+   *
    * <p>Creating a new refund will refund a charge that has previously been created but not yet refunded.
    * Funds will be refunded to the credit or debit card that was originally charged.</p>
-   * 
+   *
    * <p>You can optionally refund only part of a charge.
    * You can do so multiple times, until the entire charge has been refunded.</p>
-   * 
+   *
    * <p>Once entirely refunded, a charge can’t be refunded again.
    * This method will raise an error when called on an already-refunded charge,
    * or when trying to refund more money than is left on a charge.</p>
@@ -20554,7 +20554,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -20596,7 +20596,7 @@ export interface operations {
             [key: string]: string | undefined;
           }) | "";
           /**
-           * @description Origin of the refund 
+           * @description Origin of the refund
            * @enum {string}
            */
           origin?: "customer_balance";
@@ -20729,7 +20729,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -20752,7 +20752,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * after_expiration_params 
+           * after_expiration_params
            * @description Configure actions after a Checkout Session has expired.
            */
           after_expiration?: {
@@ -20765,14 +20765,14 @@ export interface operations {
           /** @description Enables user redeemable promotion codes. */
           allow_promotion_codes?: boolean;
           /**
-           * automatic_tax_params 
+           * automatic_tax_params
            * @description Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
            */
           automatic_tax?: {
             enabled: boolean;
           };
           /**
-           * @description Specify whether Checkout should collect the customer's billing address. 
+           * @description Specify whether Checkout should collect the customer's billing address.
            * @enum {string}
            */
           billing_address_collection?: "auto" | "required";
@@ -20785,7 +20785,7 @@ export interface operations {
            */
           client_reference_id?: string;
           /**
-           * consent_collection_params 
+           * consent_collection_params
            * @description Configure fields for the Checkout Session to gather active consent from customers.
            */
           consent_collection?: {
@@ -20827,7 +20827,7 @@ export interface operations {
               type: "dropdown" | "numeric" | "text";
             })[];
           /**
-           * custom_text_param 
+           * custom_text_param
            * @description Display additional text for your customers using custom text.
            */
           custom_text?: {
@@ -20843,25 +20843,25 @@ export interface operations {
            * payment method will be used to prefill the email, name, card details, and billing address
            * on the Checkout page. In `subscription` mode, the customer’s [default payment method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method)
            * will be used if it’s a card, and otherwise the most recent card will be used. A valid billing address, billing name and billing email are required on the payment method for Checkout to prefill the customer's card details.
-           * 
+           *
            * If the Customer already has a valid [email](https://stripe.com/docs/api/customers/object#customer_object-email) set, the email will be prefilled and not editable in Checkout.
            * If the Customer does not have a valid `email`, Checkout will set the email entered during the session on the Customer.
-           * 
+           *
            * If blank for Checkout Sessions in `payment` or `subscription` mode, Checkout will create a new Customer object based on information provided during the payment flow.
-           * 
+           *
            * You can set [`payment_intent_data.setup_future_usage`](https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_intent_data-setup_future_usage) to have Checkout automatically attach the payment method to the Customer you pass in for future reuse.
            */
           customer?: string;
           /**
            * @description Configure whether a Checkout Session creates a [Customer](https://stripe.com/docs/api/customers) during Session confirmation.
-           * 
+           *
            * When a Customer is not created, you can still retrieve email, address, and other customer data entered in Checkout
            * with [customer_details](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-customer_details).
-           * 
+           *
            * Sessions that don't create Customers instead are grouped by [guest customers](https://stripe.com/docs/payments/checkout/guest-customers)
            * in the Dashboard. Promotion codes limited to first time customers will return invalid for these Sessions.
-           * 
-           * Can only be set in `payment` and `setup` mode. 
+           *
+           * Can only be set in `payment` and `setup` mode.
            * @enum {string}
            */
           customer_creation?: "always" | "if_required";
@@ -20874,7 +20874,7 @@ export interface operations {
            */
           customer_email?: string;
           /**
-           * customer_update_params 
+           * customer_update_params
            * @description Controls what fields on Customer can be updated by the Checkout Session. Can only be provided when `customer` is provided.
            */
           customer_update?: {
@@ -20893,12 +20893,12 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description The Epoch time in seconds at which the Checkout Session will expire. It can be anywhere from 30 minutes to 24 hours after Checkout Session creation. By default, this value is 24 hours from creation.
            */
           expires_at?: number;
           /**
-           * invoice_creation_params 
+           * invoice_creation_params
            * @description Generate a post-purchase Invoice for one-time payments.
            */
           invoice_creation?: {
@@ -20923,9 +20923,9 @@ export interface operations {
           };
           /**
            * @description A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
-           * 
+           *
            * For `payment` mode, there is a maximum of 100 line items, however it is recommended to consolidate line items if there are more than a few dozen.
-           * 
+           *
            * For `subscription` mode, there is a maximum of 20 line items with recurring Prices and 20 line items with one-time Prices. Line items with one-time Prices will be on the initial invoice only.
            */
           line_items?: ({
@@ -20967,7 +20967,7 @@ export interface operations {
               tax_rates?: (string)[];
             })[];
           /**
-           * @description The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used. 
+           * @description The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
            * @enum {string}
            */
           locale?: "auto" | "bg" | "cs" | "da" | "de" | "el" | "en" | "en-GB" | "es" | "es-419" | "et" | "fi" | "fil" | "fr" | "fr-CA" | "hr" | "hu" | "id" | "it" | "ja" | "ko" | "lt" | "lv" | "ms" | "mt" | "nb" | "nl" | "pl" | "pt" | "pt-BR" | "ro" | "ru" | "sk" | "sl" | "sv" | "th" | "tr" | "vi" | "zh" | "zh-HK" | "zh-TW";
@@ -20976,12 +20976,12 @@ export interface operations {
             [key: string]: string | undefined;
           };
           /**
-           * @description The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item. 
+           * @description The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
            * @enum {string}
            */
           mode?: "payment" | "setup" | "subscription";
           /**
-           * payment_intent_data_params 
+           * payment_intent_data_params
            * @description A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
            */
           payment_intent_data?: {
@@ -21024,15 +21024,15 @@ export interface operations {
           /**
            * @description Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.
            * This may occur if the Checkout Session includes a free trial or a discount.
-           * 
+           *
            * Can only be set in `subscription` mode.
-           * 
-           * If you'd like information on how to collect a payment method outside of Checkout, read the guide on configuring [subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials). 
+           *
+           * If you'd like information on how to collect a payment method outside of Checkout, read the guide on configuring [subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
            * @enum {string}
            */
           payment_method_collection?: "always" | "if_required";
           /**
-           * payment_method_options_param 
+           * payment_method_options_param
            * @description Payment-method-specific configuration.
            */
           payment_method_options?: {
@@ -21229,22 +21229,22 @@ export interface operations {
           };
           /**
            * @description A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
-           * 
+           *
            * In `payment` and `subscription` mode, you can omit this attribute to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
            * It is required in `setup` mode.
-           * 
+           *
            * Read more about the supported payment methods and their requirements in our [payment
            * method details guide](/docs/payments/checkout/payment-methods).
-           * 
+           *
            * If multiple payment methods are passed, Checkout will dynamically reorder them to
            * prioritize the most relevant payment methods based on the customer's location and
            * other characteristics.
            */
           payment_method_types?: ("acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay" | "zip")[];
           /**
-           * phone_number_collection_params 
+           * phone_number_collection_params
            * @description Controls phone number collection settings for the session.
-           * 
+           *
            * We recommend that you review your privacy policy and check with your legal contacts
            * before using this feature. Learn more about [collecting phone numbers with Checkout](https://stripe.com/docs/payments/checkout/phone-numbers).
            */
@@ -21252,7 +21252,7 @@ export interface operations {
             enabled: boolean;
           };
           /**
-           * setup_intent_data_param 
+           * setup_intent_data_param
            * @description A subset of parameters to be passed to SetupIntent creation for Checkout Sessions in `setup` mode.
            */
           setup_intent_data?: {
@@ -21263,7 +21263,7 @@ export interface operations {
             on_behalf_of?: string;
           };
           /**
-           * shipping_address_collection_params 
+           * shipping_address_collection_params
            * @description When set, provides configuration for Checkout to collect a shipping address from a customer.
            */
           shipping_address_collection?: {
@@ -21316,12 +21316,12 @@ export interface operations {
            * @description Describes the type of transaction being performed by Checkout in order to customize
            * relevant text on the page, such as the submit button. `submit_type` can only be
            * specified on Checkout Sessions in `payment` mode, but not Checkout Sessions
-           * in `subscription` or `setup` mode. 
+           * in `subscription` or `setup` mode.
            * @enum {string}
            */
           submit_type?: "auto" | "book" | "donate" | "pay";
           /**
-           * subscription_data_params 
+           * subscription_data_params
            * @description A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
            */
           subscription_data?: {
@@ -21361,7 +21361,7 @@ export interface operations {
            */
           success_url: string;
           /**
-           * tax_id_collection_params 
+           * tax_id_collection_params
            * @description Controls tax ID collection settings for the session.
            */
           tax_id_collection?: {
@@ -21418,7 +21418,7 @@ export interface operations {
   };
   /**
    * @description <p>A Session can be expired when it is in one of these statuses: <code>open</code> </p>
-   * 
+   *
    * <p>After it expires, a customer can’t complete a Session and customers loading the Session see a message saying the Session is expired.</p>
    */
   PostCheckoutSessionsSessionExpire: {
@@ -21482,7 +21482,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -21527,7 +21527,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -21610,7 +21610,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -21629,7 +21629,7 @@ export interface operations {
   };
   /**
    * @description <p>You can create coupons easily via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.</p>
-   * 
+   *
    * <p>A coupon has either a <code>percent_off</code> or an <code>amount_off</code> and <code>currency</code>. If you set an <code>amount_off</code>, that amount will be subtracted from any invoice’s subtotal. For example, an invoice with a subtotal of <currency>100</currency> will have a final total of <currency>0</currency> if a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to it and an invoice with a subtotal of <currency>300</currency> will have a final total of <currency>100</currency> if a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to it.</p>
    */
   PostCoupons: {
@@ -21639,7 +21639,7 @@ export interface operations {
           /** @description A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed). */
           amount_off?: number;
           /**
-           * applies_to_params 
+           * applies_to_params
            * @description A hash containing directions for what this Coupon will apply discounts to.
            */
           applies_to?: {
@@ -21654,7 +21654,7 @@ export interface operations {
             } | undefined;
           };
           /**
-           * @description Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`. 
+           * @description Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
            * @enum {string}
            */
           duration?: "forever" | "once" | "repeating";
@@ -21675,7 +21675,7 @@ export interface operations {
           /** @description A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed). */
           percent_off?: number;
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description Unix timestamp specifying the last time at which the coupon can be redeemed. After the redeem_by date, the coupon can no longer be applied to new customers.
            */
           redeem_by?: number;
@@ -21829,7 +21829,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -21850,15 +21850,15 @@ export interface operations {
    * @description <p>Issue a credit note to adjust the amount of a finalized invoice. For a <code>status=open</code> invoice, a credit note reduces
    * its <code>amount_due</code>. For a <code>status=paid</code> invoice, a credit note does not affect its <code>amount_due</code>. Instead, it can result
    * in any combination of the following:</p>
-   * 
+   *
    * <ul>
    * <li>Refund: create a new refund (using <code>refund_amount</code>) or link an existing refund (using <code>refund</code>).</li>
    * <li>Customer balance credit: credit the customer’s balance (using <code>credit_amount</code>) which will be automatically applied to their next invoice when it’s finalized.</li>
    * <li>Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using <code>out_of_band_amount</code>).</li>
    * </ul>
-   * 
+   *
    * <p>For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.</p>
-   * 
+   *
    * <p>You may issue multiple credit notes for an invoice. Each credit note will increment the invoice’s <code>pre_payment_credit_notes_amount</code>
    * or <code>post_payment_credit_notes_amount</code> depending on its <code>status</code> at the time of credit note creation.</p>
    */
@@ -21871,7 +21871,7 @@ export interface operations {
           /** @description The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice. */
           credit_amount?: number;
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
            */
           effective_at?: number;
@@ -21901,7 +21901,7 @@ export interface operations {
           /** @description The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe. */
           out_of_band_amount?: number;
           /**
-           * @description Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory` 
+           * @description Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
            * @enum {string}
            */
           reason?: "duplicate" | "fraudulent" | "order_change" | "product_unsatisfactory";
@@ -21910,7 +21910,7 @@ export interface operations {
           /** @description The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice. */
           refund_amount?: number;
           /**
-           * credit_note_shipping_cost 
+           * credit_note_shipping_cost
            * @description When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
            */
           shipping_cost?: {
@@ -22069,7 +22069,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -22118,7 +22118,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -22270,7 +22270,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -22304,7 +22304,7 @@ export interface operations {
           /** @description An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice. */
           balance?: number;
           /**
-           * cash_balance_param 
+           * cash_balance_param
            * @description Balance information and default balance settings for this customer.
            */
           cash_balance?: {
@@ -22324,7 +22324,7 @@ export interface operations {
           /** @description The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers. */
           invoice_prefix?: string;
           /**
-           * customer_param 
+           * customer_param
            * @description Default invoice settings for this customer.
            */
           invoice_settings?: {
@@ -22370,14 +22370,14 @@ export interface operations {
           } | "";
           source?: string;
           /**
-           * tax_param 
+           * tax_param
            * @description Tax details about the customer.
            */
           tax?: {
             ip_address?: string | "";
           };
           /**
-           * @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`. 
+           * @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
            * @enum {string}
            */
           tax_exempt?: "" | "exempt" | "none" | "reverse";
@@ -22440,7 +22440,7 @@ export interface operations {
             has_more: boolean;
             next_page?: string | null;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. 
+             * @description String representing the object's type. Objects of the same type share the same value.
              * @enum {string}
              */
             object: "search_result";
@@ -22491,7 +22491,7 @@ export interface operations {
   };
   /**
    * @description <p>Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the <strong>source</strong> parameter, that becomes the customer’s active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the <strong>source</strong> parameter: for each of the customer’s current subscriptions, if the subscription bills automatically and is in the <code>past_due</code> state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the <strong>default_source</strong> for a customer will not trigger this behavior.</p>
-   * 
+   *
    * <p>This request accepts mostly the same arguments as the customer creation call.</p>
    */
   PostCustomersCustomer: {
@@ -22546,7 +22546,7 @@ export interface operations {
             object?: "card";
           }) | string;
           /**
-           * cash_balance_param 
+           * cash_balance_param
            * @description Balance information and default balance settings for this customer.
            */
           cash_balance?: {
@@ -22565,9 +22565,9 @@ export interface operations {
           default_card?: string;
           /**
            * @description If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
-           * 
+           *
            * Provide the ID of a payment source already attached to this customer to make it this customer's default payment source.
-           * 
+           *
            * If you want to add a new payment source and make it the default, see the [source](https://stripe.com/docs/api/customers/update#update_customer-source) property.
            */
           default_source?: string;
@@ -22580,7 +22580,7 @@ export interface operations {
           /** @description The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers. */
           invoice_prefix?: string;
           /**
-           * customer_param 
+           * customer_param
            * @description Default invoice settings for this customer.
            */
           invoice_settings?: {
@@ -22625,14 +22625,14 @@ export interface operations {
           } | "";
           source?: string;
           /**
-           * tax_param 
+           * tax_param
            * @description Tax details about the customer.
            */
           tax?: {
             ip_address?: string | "";
           };
           /**
-           * @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`. 
+           * @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
            * @enum {string}
            */
           tax_exempt?: "" | "exempt" | "none" | "reverse";
@@ -22713,7 +22713,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -22840,7 +22840,7 @@ export interface operations {
     };
   };
   /**
-   * @deprecated 
+   * @deprecated
    * @description <p>You can see a list of the bank accounts belonging to a Customer. Note that the 10 most recent sources are always available by default on the Customer. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional bank accounts.</p>
    */
   GetCustomersCustomerBankAccounts: {
@@ -22874,7 +22874,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -22893,7 +22893,7 @@ export interface operations {
   };
   /**
    * @description <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
-   * 
+   *
    * <p>If the card’s owner has no default card, then the new card will become the default.
    * However, if the owner already has a default, then it will not change.
    * To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p>
@@ -22967,7 +22967,7 @@ export interface operations {
     };
   };
   /**
-   * @deprecated 
+   * @deprecated
    * @description <p>By default, you can see the 10 most recent sources stored on a Customer directly on the object, but you can also retrieve details about a specific bank account stored on the Stripe account.</p>
    */
   GetCustomersCustomerBankAccountsId: {
@@ -23015,7 +23015,7 @@ export interface operations {
           /** @description The name of the person or business that owns the bank account. */
           account_holder_name?: string;
           /**
-           * @description The type of entity that holds the account. This can be either `individual` or `company`. 
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
            * @enum {string}
            */
           account_holder_type?: "company" | "individual";
@@ -23141,7 +23141,7 @@ export interface operations {
     };
   };
   /**
-   * @deprecated 
+   * @deprecated
    * @description <p>You can see a list of the cards belonging to a customer.
    * Note that the 10 most recent sources are always available on the <code>Customer</code> object.
    * If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional cards.</p>
@@ -23176,7 +23176,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -23195,7 +23195,7 @@ export interface operations {
   };
   /**
    * @description <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
-   * 
+   *
    * <p>If the card’s owner has no default card, then the new card will become the default.
    * However, if the owner already has a default, then it will not change.
    * To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p>
@@ -23269,7 +23269,7 @@ export interface operations {
     };
   };
   /**
-   * @deprecated 
+   * @deprecated
    * @description <p>You can always see the 10 most recent cards directly on a customer; this method lets you retrieve details about a specific card stored on the customer.</p>
    */
   GetCustomersCustomerCardsId: {
@@ -23317,7 +23317,7 @@ export interface operations {
           /** @description The name of the person or business that owns the bank account. */
           account_holder_name?: string;
           /**
-           * @description The type of entity that holds the account. This can be either `individual` or `company`. 
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
            * @enum {string}
            */
           account_holder_type?: "company" | "individual";
@@ -23453,7 +23453,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * balance_settings_param 
+           * balance_settings_param
            * @description A hash of settings for this cash balance.
            */
           settings?: {
@@ -23510,7 +23510,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -23631,7 +23631,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * bank_transfer_params 
+           * bank_transfer_params
            * @description Additional parameters for `bank_transfer` funding types
            */
           bank_transfer: {
@@ -23648,7 +23648,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * @description The `funding_type` to get the instructions for. 
+           * @description The `funding_type` to get the instructions for.
            * @enum {string}
            */
           funding_type: "bank_transfer";
@@ -23703,7 +23703,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -23786,7 +23786,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -23805,7 +23805,7 @@ export interface operations {
   };
   /**
    * @description <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
-   * 
+   *
    * <p>If the card’s owner has no default card, then the new card will become the default.
    * However, if the owner already has a default, then it will not change.
    * To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p>
@@ -23924,7 +23924,7 @@ export interface operations {
           /** @description The name of the person or business that owns the bank account. */
           account_holder_name?: string;
           /**
-           * @description The type of entity that holds the account. This can be either `individual` or `company`. 
+           * @description The type of entity that holds the account. This can be either `individual` or `company`.
            * @enum {string}
            */
           account_holder_type?: "company" | "individual";
@@ -24081,7 +24081,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -24127,19 +24127,19 @@ export interface operations {
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number;
           /**
-           * automatic_tax_config 
+           * automatic_tax_config
            * @description Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
            */
           automatic_tax?: {
             enabled: boolean;
           };
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description For new subscriptions, a past timestamp to backdate the subscription's start date to. If set, the first invoice will contain a proration for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
            */
           backdate_start_date?: number;
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description A future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
            */
           billing_cycle_anchor?: number;
@@ -24149,14 +24149,14 @@ export interface operations {
             reset_billing_cycle_anchor?: boolean;
           } | "";
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
            */
           cancel_at?: number;
           /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
           cancel_at_period_end?: boolean;
           /**
-           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`. 
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
            * @enum {string}
            */
           collection_method?: "charge_automatically" | "send_invoice";
@@ -24210,21 +24210,21 @@ export interface operations {
           off_session?: boolean;
           /**
            * @description Only applies to subscriptions with `collection_method=charge_automatically`.
-           * 
+           *
            * Use `allow_incomplete` to create subscriptions with `status=incomplete` if the first invoice cannot be paid. Creating subscriptions with this status allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
-           * 
+           *
            * Use `default_incomplete` to create Subscriptions with `status=incomplete` when the first invoice requires payment, otherwise start as active. Subscriptions transition to `status=active` when successfully confirming the payment intent on the first invoice. This allows simpler management of scenarios where additional user actions are needed to pay a subscription’s invoice. Such as failed payments, [SCA regulation](https://stripe.com/docs/billing/migration/strong-customer-authentication), or collecting a mandate for a bank debit payment method. If the payment intent is not confirmed within 23 hours subscriptions transition to `status=incomplete_expired`, which is a terminal state.
-           * 
+           *
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
-           * 
+           *
            * `pending_if_incomplete` is only used with updates and cannot be passed when creating a subscription.
-           * 
-           * Subscriptions with `collection_method=send_invoice` are automatically activated regardless of the first invoice status. 
+           *
+           * Subscriptions with `collection_method=send_invoice` are automatically activated regardless of the first invoice status.
            * @enum {string}
            */
           payment_behavior?: "allow_incomplete" | "default_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /**
-           * payment_settings 
+           * payment_settings
            * @description Payment settings to pass to invoices created by the subscription.
            */
           payment_settings?: {
@@ -24290,12 +24290,12 @@ export interface operations {
           /** @description The API ID of a promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. */
           promotion_code?: string;
           /**
-           * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) resulting from the `billing_cycle_anchor`. If no value is passed, the default is `create_prorations`. 
+           * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) resulting from the `billing_cycle_anchor`. If no value is passed, the default is `create_prorations`.
            * @enum {string}
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /**
-           * transfer_data_specs 
+           * transfer_data_specs
            * @description If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges.
            */
           transfer_data?: {
@@ -24309,7 +24309,7 @@ export interface operations {
           /** @description Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
           trial_period_days?: number;
           /**
-           * trial_settings_config 
+           * trial_settings_config
            * @description Settings related to subscription trials.
            */
           trial_settings?: {
@@ -24399,14 +24399,14 @@ export interface operations {
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number;
           /**
-           * automatic_tax_config 
+           * automatic_tax_config
            * @description Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
            */
           automatic_tax?: {
             enabled: boolean;
           };
           /**
-           * @description Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle). 
+           * @description Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
            * @enum {string}
            */
           billing_cycle_anchor?: "now" | "unchanged";
@@ -24420,7 +24420,7 @@ export interface operations {
           /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
           cancel_at_period_end?: boolean;
           /**
-           * cancellation_details_param 
+           * cancellation_details_param
            * @description Details about why this subscription was cancelled
            */
           cancellation_details?: {
@@ -24429,7 +24429,7 @@ export interface operations {
             feedback?: "" | "customer_service" | "low_quality" | "missing_features" | "other" | "switched_service" | "too_complex" | "too_expensive" | "unused";
           };
           /**
-           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`. 
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
            * @enum {string}
            */
           collection_method?: "charge_automatically" | "send_invoice";
@@ -24491,17 +24491,17 @@ export interface operations {
           }) | "";
           /**
            * @description Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
-           * 
+           *
            * Use `default_incomplete` to transition the subscription to `status=past_due` when payment is required and await explicit confirmation of the invoice's payment intent. This allows simpler management of scenarios where additional user actions are needed to pay a subscription’s invoice. Such as failed payments, [SCA regulation](https://stripe.com/docs/billing/migration/strong-customer-authentication), or collecting a mandate for a bank debit payment method.
-           * 
+           *
            * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
-           * 
-           * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more. 
+           *
+           * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
            * @enum {string}
            */
           payment_behavior?: "allow_incomplete" | "default_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /**
-           * payment_settings 
+           * payment_settings
            * @description Payment settings to pass to invoices created by the subscription.
            */
           payment_settings?: {
@@ -24567,12 +24567,12 @@ export interface operations {
           /** @description The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. */
           promotion_code?: string;
           /**
-           * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`. 
+           * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
            * @enum {string}
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#upcoming_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations.
            */
           proration_date?: number;
@@ -24586,7 +24586,7 @@ export interface operations {
           /** @description Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
           trial_from_plan?: boolean;
           /**
-           * trial_settings_config 
+           * trial_settings_config
            * @description Settings related to subscription trials.
            */
           trial_settings?: {
@@ -24616,9 +24616,9 @@ export interface operations {
   };
   /**
    * @description <p>Cancels a customer’s subscription. If you set the <code>at_period_end</code> parameter to <code>true</code>, the subscription will remain active until the end of the period, at which point it will be canceled and not renewed. Otherwise, with the default <code>false</code> value, the subscription is terminated immediately. In either case, the customer will not be charged again for the subscription.</p>
-   * 
+   *
    * <p>Note, however, that any pending invoice items that you’ve created will still be charged for at the end of the period, unless manually <a href="#delete_invoiceitem">deleted</a>. If you’ve set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.</p>
-   * 
+   *
    * <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p>
    */
   DeleteCustomersCustomerSubscriptionsSubscriptionExposedId: {
@@ -24746,7 +24746,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -24776,7 +24776,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat` 
+           * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
            * @enum {string}
            */
           type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
@@ -24898,7 +24898,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -24948,7 +24948,7 @@ export interface operations {
   };
   /**
    * @description <p>When you get a dispute, contacting your customer is always the best first step. If that doesn’t work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your <a href="https://dashboard.stripe.com/disputes">dashboard</a>, but if you prefer, you can use the API to submit evidence programmatically.</p>
-   * 
+   *
    * <p>Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our <a href="/docs/disputes/categories">guide to dispute types</a>.</p>
    */
   PostDisputesDispute: {
@@ -24961,7 +24961,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * dispute_evidence_params 
+           * dispute_evidence_params
            * @description Evidence to upload, to respond to a dispute. Updating any field in the hash will submit all fields in the hash for review. The combined character count of all fields is limited to 150,000.
            */
           evidence?: {
@@ -25021,7 +25021,7 @@ export interface operations {
   };
   /**
    * @description <p>Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.</p>
-   * 
+   *
    * <p>The status of the dispute will change from <code>needs_response</code> to <code>lost</code>. <em>Closing a dispute is irreversible</em>.</p>
    */
   PostDisputesDisputeClose: {
@@ -25154,7 +25154,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -25230,7 +25230,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -25317,7 +25317,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -25342,7 +25342,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description A future timestamp after which the link will no longer be usable.
            */
           expires_at?: number;
@@ -25473,7 +25473,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -25492,7 +25492,7 @@ export interface operations {
   };
   /**
    * @description <p>To upload a file to Stripe, you’ll need to send a request of type <code>multipart/form-data</code>. The request should contain the file you would like to upload, as well as the parameters for creating a file.</p>
-   * 
+   *
    * <p>All of Stripe’s officially supported Client libraries should have support for sending <code>multipart/form-data</code>.</p>
    */
   PostFiles: {
@@ -25502,12 +25502,12 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * Format: binary 
+           * Format: binary
            * @description A file to upload. The file should follow the specifications of RFC 2388 (which defines file transfers for the `multipart/form-data` protocol).
            */
           file: string;
           /**
-           * file_link_creation_params 
+           * file_link_creation_params
            * @description Optional parameters to automatically create a [file link](https://stripe.com/docs/api#file_links) for the newly created file.
            */
           file_link_data?: {
@@ -25519,7 +25519,7 @@ export interface operations {
             }) | "";
           };
           /**
-           * @description The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file. 
+           * @description The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
            * @enum {string}
            */
           purpose: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "identity_document" | "pci_document" | "tax_document_user_upload" | "terminal_reader_splashscreen";
@@ -25608,7 +25608,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -25720,7 +25720,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -25775,7 +25775,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * accountholder_params 
+           * accountholder_params
            * @description The account holder to link accounts for.
            */
           account_holder: {
@@ -25787,7 +25787,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * filters_params 
+           * filters_params
            * @description Filters to restrict the kinds of accounts to collect.
            */
           filters?: {
@@ -25795,7 +25795,7 @@ export interface operations {
           };
           /**
            * @description List of data features that you would like to request access to.
-           * 
+           *
            * Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
            */
           permissions: ("balances" | "ownership" | "payment_method" | "transactions")[];
@@ -25888,7 +25888,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -25972,7 +25972,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -25991,11 +25991,11 @@ export interface operations {
   };
   /**
    * @description <p>Creates a VerificationSession object.</p>
-   * 
+   *
    * <p>After the VerificationSession is created, display a verification modal using the session <code>client_secret</code> or send your users to the session’s <code>url</code>.</p>
-   * 
+   *
    * <p>If your API key is in test mode, verification checks won’t actually process, though everything else will occur as if in live mode.</p>
-   * 
+   *
    * <p>Related guide: <a href="/docs/identity/verify-identity-documents">Verify your users’ identity documents</a></p>
    */
   PostIdentityVerificationSessions: {
@@ -26009,7 +26009,7 @@ export interface operations {
             [key: string]: string | undefined;
           };
           /**
-           * session_options_param 
+           * session_options_param
            * @description A set of options for the session’s verification checks.
            */
           options?: {
@@ -26023,7 +26023,7 @@ export interface operations {
           /** @description The URL that the user will be redirected to upon completing the verification flow. */
           return_url?: string;
           /**
-           * @description The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed. 
+           * @description The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
            * @enum {string}
            */
           type: "document" | "id_number";
@@ -26047,7 +26047,7 @@ export interface operations {
   };
   /**
    * @description <p>Retrieves the details of a VerificationSession that was previously created.</p>
-   * 
+   *
    * <p>When the session status is <code>requires_input</code>, you can use this method to retrieve a valid
    * <code>client_secret</code> or <code>url</code> to allow re-submission.</p>
    */
@@ -26083,7 +26083,7 @@ export interface operations {
   };
   /**
    * @description <p>Updates a VerificationSession object.</p>
-   * 
+   *
    * <p>When the session status is <code>requires_input</code>, you can use this method to update the
    * verification check and options.</p>
    */
@@ -26103,7 +26103,7 @@ export interface operations {
             [key: string]: string | undefined;
           };
           /**
-           * session_options_param 
+           * session_options_param
            * @description A set of options for the session’s verification checks.
            */
           options?: {
@@ -26115,7 +26115,7 @@ export interface operations {
             }) | "";
           };
           /**
-           * @description The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed. 
+           * @description The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
            * @enum {string}
            */
           type?: "document" | "id_number";
@@ -26139,7 +26139,7 @@ export interface operations {
   };
   /**
    * @description <p>A VerificationSession object can be canceled when it is in <code>requires_input</code> <a href="/docs/identity/how-sessions-work">status</a>.</p>
-   * 
+   *
    * <p>Once canceled, future submission attempts are disabled. This cannot be undone. <a href="/docs/identity/verification-sessions#cancel">Learn more</a>.</p>
    */
   PostIdentityVerificationSessionsSessionCancel: {
@@ -26175,21 +26175,21 @@ export interface operations {
    * @description <p>Redact a VerificationSession to remove all collected information from Stripe. This will redact
    * the VerificationSession and all objects related to it, including VerificationReports, Events,
    * request logs, etc.</p>
-   * 
+   *
    * <p>A VerificationSession object can be redacted when it is in <code>requires_input</code> or <code>verified</code>
    * <a href="/docs/identity/how-sessions-work">status</a>. Redacting a VerificationSession in <code>requires_action</code>
    * state will automatically cancel it.</p>
-   * 
+   *
    * <p>The redaction process may take up to four days. When the redaction process is in progress, the
    * VerificationSession’s <code>redaction.status</code> field will be set to <code>processing</code>; when the process is
    * finished, it will change to <code>redacted</code> and an <code>identity.verification_session.redacted</code> event
    * will be emitted.</p>
-   * 
+   *
    * <p>Redaction is irreversible. Redacted objects are still accessible in the Stripe API, but all the
    * fields that contain personal data will be replaced by the string <code>[redacted]</code> or a similar
    * placeholder. The <code>metadata</code> field will also be erased. Redacted objects cannot be updated or
    * used for any purpose.</p>
-   * 
+   *
    * <p><a href="/docs/identity/verification-sessions#redact">Learn more</a>.</p>
    */
   PostIdentityVerificationSessionsSessionRedact: {
@@ -26261,7 +26261,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -26307,7 +26307,7 @@ export interface operations {
             [key: string]: string | undefined;
           }) | "";
           /**
-           * period 
+           * period
            * @description The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
            */
           period?: {
@@ -26319,7 +26319,7 @@ export interface operations {
           /** @description The ID of the price object. */
           price?: string;
           /**
-           * one_time_price_data 
+           * one_time_price_data
            * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
            */
           price_data?: {
@@ -26336,7 +26336,7 @@ export interface operations {
           /** @description The ID of a subscription to add this invoice item to. When left blank, the invoice item will be be added to the next upcoming scheduled invoice. When set, scheduled invoices for subscriptions other than the specified subscription will ignore the invoice item. Use this when you want to express that an invoice item has been accrued within the context of a particular subscription. */
           subscription?: string;
           /**
-           * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
+           * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
            * @enum {string}
            */
           tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -26347,7 +26347,7 @@ export interface operations {
           /** @description The integer unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount` will reduce the `amount_due` on the invoice. */
           unit_amount?: number;
           /**
-           * Format: decimal 
+           * Format: decimal
            * @description Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
            */
           unit_amount_decimal?: string;
@@ -26428,7 +26428,7 @@ export interface operations {
             [key: string]: string | undefined;
           }) | "";
           /**
-           * period 
+           * period
            * @description The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
            */
           period?: {
@@ -26440,7 +26440,7 @@ export interface operations {
           /** @description The ID of the price object. */
           price?: string;
           /**
-           * one_time_price_data 
+           * one_time_price_data
            * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
            */
           price_data?: {
@@ -26455,7 +26455,7 @@ export interface operations {
           /** @description Non-negative integer. The quantity of units for the invoice item. */
           quantity?: number;
           /**
-           * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
+           * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
            * @enum {string}
            */
           tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -26466,7 +26466,7 @@ export interface operations {
           /** @description The integer unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This unit_amount will be multiplied by the quantity to get the full amount. If you want to apply a credit to the customer's account, pass a negative unit_amount. */
           unit_amount?: number;
           /**
-           * Format: decimal 
+           * Format: decimal
            * @description Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
            */
           unit_amount_decimal?: string;
@@ -26563,7 +26563,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -26592,14 +26592,14 @@ export interface operations {
           /** @description Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. */
           auto_advance?: boolean;
           /**
-           * automatic_tax_param 
+           * automatic_tax_param
            * @description Settings for automatic tax lookup for this invoice.
            */
           automatic_tax?: {
             enabled: boolean;
           };
           /**
-           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. Defaults to `charge_automatically`. 
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. Defaults to `charge_automatically`.
            * @enum {string}
            */
           collection_method?: "charge_automatically" | "send_invoice";
@@ -26628,12 +26628,12 @@ export interface operations {
               discount?: string;
             })[] | "";
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description The date on which payment for this invoice is due. Valid only for invoices where `collection_method=send_invoice`.
            */
           due_date?: number;
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description The date when this invoice is in effect. Same as `finalized_at` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the invoice PDF and receipt.
            */
           effective_at?: number;
@@ -26642,7 +26642,7 @@ export interface operations {
           /** @description Footer to be displayed on the invoice. */
           footer?: string;
           /**
-           * from_invoice 
+           * from_invoice
            * @description Revise an existing invoice. The new invoice will be created in `status=draft`. See the [revision documentation](https://stripe.com/docs/invoicing/invoice-revisions) for more details.
            */
           from_invoice?: {
@@ -26657,7 +26657,7 @@ export interface operations {
           /** @description The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details. */
           on_behalf_of?: string;
           /**
-           * payment_settings 
+           * payment_settings
            * @description Configuration settings for the PaymentIntent that is generated when the invoice is finalized.
            */
           payment_settings?: {
@@ -26716,7 +26716,7 @@ export interface operations {
             payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "paypal" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
           };
           /**
-           * @description How to handle pending invoice items on invoice creation. One of `include` or `exclude`. `include` will include any pending invoice items, and will create an empty draft invoice if no pending invoice items exist. `exclude` will always create an empty invoice draft regardless if there are pending invoice items or not. Defaults to `exclude` if the parameter is omitted. 
+           * @description How to handle pending invoice items on invoice creation. One of `include` or `exclude`. `include` will include any pending invoice items, and will create an empty draft invoice if no pending invoice items exist. `exclude` will always create an empty invoice draft regardless if there are pending invoice items or not. Defaults to `exclude` if the parameter is omitted.
            * @enum {string}
            */
           pending_invoice_items_behavior?: "exclude" | "include" | "include_and_require";
@@ -26726,7 +26726,7 @@ export interface operations {
             amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax";
           }) | "";
           /**
-           * shipping_cost 
+           * shipping_cost
            * @description Settings for the cost of shipping for this invoice.
            */
           shipping_cost?: {
@@ -26772,7 +26772,7 @@ export interface operations {
             };
           };
           /**
-           * recipient_shipping_with_optional_fields_address 
+           * recipient_shipping_with_optional_fields_address
            * @description Shipping details for the invoice. The Invoice PDF will use the `shipping_details` value if it is set, otherwise the PDF will render the shipping address from the customer.
            */
           shipping_details?: {
@@ -26793,7 +26793,7 @@ export interface operations {
           /** @description The ID of the subscription to invoice, if any. If set, the created invoice will only include pending invoice items for that subscription. The subscription's billing cycle and regular subscription events won't be affected. */
           subscription?: string;
           /**
-           * transfer_data_specs 
+           * transfer_data_specs
            * @description If specified, the funds from the invoice will be transferred to the destination and the ID of the resulting transfer will be found on the invoice's charge.
            */
           transfer_data?: {
@@ -26851,7 +26851,7 @@ export interface operations {
             has_more: boolean;
             next_page?: string | null;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. 
+             * @description String representing the object's type. Objects of the same type share the same value.
              * @enum {string}
              */
             object: "search_result";
@@ -26871,9 +26871,9 @@ export interface operations {
   };
   /**
    * @description <p>At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.</p>
-   * 
+   *
    * <p>Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer’s discount.</p>
-   * 
+   *
    * <p>You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass a <code>proration_date</code> parameter when doing the actual subscription update. The value passed in should be the same as the <code>subscription_proration_date</code> returned on the upcoming invoice resource. The recommended way to get only the prorations being previewed is to consider only proration line items where <code>period[start]</code> is equal to the <code>subscription_proration_date</code> on the upcoming invoice resource.</p>
    */
   GetInvoicesUpcoming: {
@@ -27228,7 +27228,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -27279,7 +27279,7 @@ export interface operations {
   /**
    * @description <p>Draft invoices are fully editable. Once an invoice is <a href="/docs/billing/invoices/workflow#finalized">finalized</a>,
    * monetary values, as well as <code>collection_method</code>, become uneditable.</p>
-   * 
+   *
    * <p>If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
    * sending reminders for, or <a href="/docs/billing/invoices/reconciliation">automatically reconciling</a> invoices, pass
    * <code>auto_advance=false</code>.</p>
@@ -27300,14 +27300,14 @@ export interface operations {
           /** @description Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. */
           auto_advance?: boolean;
           /**
-           * automatic_tax_param 
+           * automatic_tax_param
            * @description Settings for automatic tax lookup for this invoice.
            */
           automatic_tax?: {
             enabled: boolean;
           };
           /**
-           * @description Either `charge_automatically` or `send_invoice`. This field can be updated only on `draft` invoices. 
+           * @description Either `charge_automatically` or `send_invoice`. This field can be updated only on `draft` invoices.
            * @enum {string}
            */
           collection_method?: "charge_automatically" | "send_invoice";
@@ -27332,7 +27332,7 @@ export interface operations {
               discount?: string;
             })[] | "";
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description The date on which payment for this invoice is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices.
            */
           due_date?: number;
@@ -27349,7 +27349,7 @@ export interface operations {
           /** @description The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details. */
           on_behalf_of?: string | "";
           /**
-           * payment_settings 
+           * payment_settings
            * @description Configuration settings for the PaymentIntent that is generated when the invoice is finalized.
            */
           payment_settings?: {
@@ -27585,7 +27585,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -27645,8 +27645,8 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * @description In cases where the source used to pay the invoice has insufficient funds, passing `forgive=true` controls whether a charge should be attempted for the full amount available on the source, up to the amount to fully pay the invoice. This effectively forgives the difference between the amount available on the source and the amount due. 
-           * 
+           * @description In cases where the source used to pay the invoice has insufficient funds, passing `forgive=true` controls whether a charge should be attempted for the full amount available on the source, up to the amount to fully pay the invoice. This effectively forgives the difference between the amount available on the source and the amount due.
+           *
            * Passing `forgive=false` will fail the charge if the source hasn't been pre-funded with the right amount. An example for this case is with ACH Credit Transfers and wires: if the amount wired is less than the amount due by a small amount, you might want to forgive the difference. Defaults to `false`.
            */
           forgive?: boolean;
@@ -27680,7 +27680,7 @@ export interface operations {
   };
   /**
    * @description <p>Stripe will automatically send invoices to customers according to your <a href="https://dashboard.stripe.com/account/billing/automatic">subscriptions settings</a>. However, if you’d like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.</p>
-   * 
+   *
    * <p>Requests made in test-mode result in no emails being sent, despite sending an <code>invoice.sent</code> event.</p>
    */
   PostInvoicesInvoiceSend: {
@@ -27783,7 +27783,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -27866,7 +27866,7 @@ export interface operations {
     };
   };
   /**
-   * @description <p>Approves a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real-time authorization</a> flow. 
+   * @description <p>Approves a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real-time authorization</a> flow.
    * You can also respond directly to the webhook request to approve an authorization (preferred). More details can be found <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
    */
   PostIssuingAuthorizationsAuthorizationApprove: {
@@ -27984,7 +27984,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -28007,7 +28007,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * billing_specs 
+           * billing_specs
            * @description The cardholder's billing address.
            */
           billing: {
@@ -28022,7 +28022,7 @@ export interface operations {
             };
           };
           /**
-           * company_param 
+           * company_param
            * @description Additional information about a `company` cardholder.
            */
           company?: {
@@ -28033,7 +28033,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * individual_param 
+           * individual_param
            * @description Additional information about an `individual` cardholder.
            */
           individual?: {
@@ -28078,7 +28078,7 @@ export interface operations {
            */
           preferred_locales?: ("de" | "en" | "es" | "fr" | "it")[];
           /**
-           * authorization_controls_param_v2 
+           * authorization_controls_param_v2
            * @description Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
            */
           spending_controls?: {
@@ -28093,12 +28093,12 @@ export interface operations {
             spending_limits_currency?: string;
           };
           /**
-           * @description Specifies whether to permit authorizations on this cardholder's cards. Defaults to `active`. 
+           * @description Specifies whether to permit authorizations on this cardholder's cards. Defaults to `active`.
            * @enum {string}
            */
           status?: "active" | "inactive";
           /**
-           * @description One of `individual` or `company`. See [Choose a cardholder type](https://stripe.com/docs/issuing/other/choose-cardholder) for more details. 
+           * @description One of `individual` or `company`. See [Choose a cardholder type](https://stripe.com/docs/issuing/other/choose-cardholder) for more details.
            * @enum {string}
            */
           type?: "company" | "individual";
@@ -28162,7 +28162,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * billing_specs 
+           * billing_specs
            * @description The cardholder's billing address.
            */
           billing?: {
@@ -28177,7 +28177,7 @@ export interface operations {
             };
           };
           /**
-           * company_param 
+           * company_param
            * @description Additional information about a `company` cardholder.
            */
           company?: {
@@ -28188,7 +28188,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * individual_param 
+           * individual_param
            * @description Additional information about an `individual` cardholder.
            */
           individual?: {
@@ -28231,7 +28231,7 @@ export interface operations {
            */
           preferred_locales?: ("de" | "en" | "es" | "fr" | "it")[];
           /**
-           * authorization_controls_param_v2 
+           * authorization_controls_param_v2
            * @description Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
            */
           spending_controls?: {
@@ -28246,7 +28246,7 @@ export interface operations {
             spending_limits_currency?: string;
           };
           /**
-           * @description Specifies whether to permit authorizations on this cardholder's cards. 
+           * @description Specifies whether to permit authorizations on this cardholder's cards.
            * @enum {string}
            */
           status?: "active" | "inactive";
@@ -28315,7 +28315,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -28351,12 +28351,12 @@ export interface operations {
           /** @description The card this is meant to be a replacement for (if any). */
           replacement_for?: string;
           /**
-           * @description If `replacement_for` is specified, this should indicate why that card is being replaced. 
+           * @description If `replacement_for` is specified, this should indicate why that card is being replaced.
            * @enum {string}
            */
           replacement_reason?: "damaged" | "expired" | "lost" | "stolen";
           /**
-           * shipping_specs 
+           * shipping_specs
            * @description The address where the card will be shipped.
            */
           shipping?: {
@@ -28382,7 +28382,7 @@ export interface operations {
             type?: "bulk" | "individual";
           };
           /**
-           * authorization_controls_param 
+           * authorization_controls_param
            * @description Rules that control spending for this card. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
            */
           spending_controls?: {
@@ -28396,12 +28396,12 @@ export interface operations {
               })[];
           };
           /**
-           * @description Whether authorizations can be approved on this card. May be blocked from activating cards depending on past-due Cardholder requirements. Defaults to `inactive`. 
+           * @description Whether authorizations can be approved on this card. May be blocked from activating cards depending on past-due Cardholder requirements. Defaults to `inactive`.
            * @enum {string}
            */
           status?: "active" | "inactive";
           /**
-           * @description The type of card to issue. Possible values are `physical` or `virtual`. 
+           * @description The type of card to issue. Possible values are `physical` or `virtual`.
            * @enum {string}
            */
           type: "physical" | "virtual";
@@ -28465,7 +28465,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * @description Reason why the `status` of this card is `canceled`. 
+           * @description Reason why the `status` of this card is `canceled`.
            * @enum {string}
            */
           cancellation_reason?: "lost" | "stolen";
@@ -28476,14 +28476,14 @@ export interface operations {
             [key: string]: string | undefined;
           }) | "";
           /**
-           * encrypted_pin_param 
+           * encrypted_pin_param
            * @description The desired new PIN for this card.
            */
           pin?: {
             encrypted_number?: string;
           };
           /**
-           * authorization_controls_param 
+           * authorization_controls_param
            * @description Rules that control spending for this card. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
            */
           spending_controls?: {
@@ -28497,7 +28497,7 @@ export interface operations {
               })[];
           };
           /**
-           * @description Dictates whether authorizations can be approved on this card. May be blocked from activating cards depending on past-due Cardholder requirements. Defaults to `inactive`. If this card is being canceled because it was lost or stolen, this information should be provided as `cancellation_reason`. 
+           * @description Dictates whether authorizations can be approved on this card. May be blocked from activating cards depending on past-due Cardholder requirements. Defaults to `inactive`. If this card is being canceled because it was lost or stolen, this information should be provided as `cancellation_reason`.
            * @enum {string}
            */
           status?: "active" | "canceled" | "inactive";
@@ -28558,7 +28558,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -28583,7 +28583,7 @@ export interface operations {
           /** @description The dispute amount in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If not set, defaults to the full transaction amount. */
           amount?: number;
           /**
-           * evidence_param 
+           * evidence_param
            * @description Evidence provided for the dispute.
            */
           evidence?: {
@@ -28656,7 +28656,7 @@ export interface operations {
           /** @description The ID of the issuing transaction to create a dispute for. For transaction on Treasury FinancialAccounts, use `treasury.received_debit`. */
           transaction?: string;
           /**
-           * treasury_param 
+           * treasury_param
            * @description Params for disputes related to Treasury FinancialAccounts
            */
           treasury?: {
@@ -28724,7 +28724,7 @@ export interface operations {
           /** @description The dispute amount in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
           amount?: number;
           /**
-           * evidence_param 
+           * evidence_param
            * @description Evidence provided for the dispute.
            */
           evidence?: {
@@ -28881,7 +28881,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -29004,7 +29004,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -29092,7 +29092,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * accountholder_params 
+           * accountholder_params
            * @description The account holder to link accounts for.
            */
           account_holder: {
@@ -29104,7 +29104,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * filters_params 
+           * filters_params
            * @description Filters to restrict the kinds of accounts to collect.
            */
           filters?: {
@@ -29112,7 +29112,7 @@ export interface operations {
           };
           /**
            * @description List of data features that you would like to request access to.
-           * 
+           *
            * Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
            */
           permissions: ("balances" | "ownership" | "payment_method" | "transactions")[];
@@ -29203,7 +29203,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -29315,7 +29315,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -29432,7 +29432,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -29451,11 +29451,11 @@ export interface operations {
   };
   /**
    * @description <p>Creates a PaymentIntent object.</p>
-   * 
+   *
    * <p>After the PaymentIntent is created, attach a payment method and <a href="/docs/api/payment_intents/confirm">confirm</a>
    * to continue the payment. You can read more about the different payment flows
    * available via the Payment Intents API <a href="/docs/payments/payment-intents">here</a>.</p>
-   * 
+   *
    * <p>When <code>confirm=true</code> is used during creation, it is equivalent to creating
    * and confirming the PaymentIntent in the same call. You may use any parameters
    * available in the <a href="/docs/api/payment_intents/confirm">confirm API</a> when <code>confirm=true</code>
@@ -29470,14 +29470,14 @@ export interface operations {
           /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
           application_fee_amount?: number;
           /**
-           * automatic_payment_methods_param 
+           * automatic_payment_methods_param
            * @description When enabled, this PaymentIntent will accept payment methods that you have enabled in the Dashboard and are compatible with this PaymentIntent's other parameters.
            */
           automatic_payment_methods?: {
             enabled: boolean;
           };
           /**
-           * @description Controls when the funds will be captured from the customer's account. 
+           * @description Controls when the funds will be captured from the customer's account.
            * @enum {string}
            */
           capture_method?: "automatic" | "automatic_async" | "manual";
@@ -29489,9 +29489,9 @@ export interface operations {
           currency: string;
           /**
            * @description ID of the Customer this PaymentIntent belongs to, if one exists.
-           * 
+           *
            * Payment methods attached to other Customers cannot be used with this PaymentIntent.
-           * 
+           *
            * If present in combination with [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage), this PaymentIntent's payment method will be attached to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete.
            */
           customer?: string;
@@ -29504,7 +29504,7 @@ export interface operations {
           /** @description ID of the mandate to be used for this payment. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
           mandate?: string;
           /**
-           * secret_key_param 
+           * secret_key_param
            * @description This hash contains details about the Mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
            */
           mandate_data?: {
@@ -29533,12 +29533,12 @@ export interface operations {
           on_behalf_of?: string;
           /**
            * @description ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
-           * 
+           *
            * If this parameter is omitted with `confirm=true`, `customer.default_source` will be attached as this PaymentIntent's payment instrument to improve the migration experience for users of the Charges API. We recommend that you explicitly provide the `payment_method` going forward.
            */
           payment_method?: string;
           /**
-           * payment_method_data_params 
+           * payment_method_data_params
            * @description If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear
            * in the [payment_method](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-payment_method)
            * property on the PaymentIntent.
@@ -29675,7 +29675,7 @@ export interface operations {
             zip?: Record<string, never>;
           };
           /**
-           * payment_method_options_param 
+           * payment_method_options_param
            * @description Payment-method-specific configuration for this PaymentIntent.
            */
           payment_method_options?: {
@@ -29931,7 +29931,7 @@ export interface operations {
           /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. If this is not provided, defaults to ["card"]. Use automatic_payment_methods to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). */
           payment_method_types?: (string)[];
           /**
-           * radar_options 
+           * radar_options
            * @description Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
            */
           radar_options?: {
@@ -29943,15 +29943,15 @@ export interface operations {
           return_url?: string;
           /**
            * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-           * 
+           *
            * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-           * 
-           * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication). 
+           *
+           * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
            * @enum {string}
            */
           setup_future_usage?: "off_session" | "on_session";
           /**
-           * optional_fields_shipping 
+           * optional_fields_shipping
            * @description Shipping information for this PaymentIntent.
            */
           shipping?: {
@@ -29974,7 +29974,7 @@ export interface operations {
           /** @description Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
           statement_descriptor_suffix?: string;
           /**
-           * transfer_data_creation_params 
+           * transfer_data_creation_params
            * @description The parameters used to automatically create a Transfer when the payment succeeds.
            * For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
            */
@@ -30037,7 +30037,7 @@ export interface operations {
             has_more: boolean;
             next_page?: string | null;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. 
+             * @description String representing the object's type. Objects of the same type share the same value.
              * @enum {string}
              */
             object: "search_result";
@@ -30057,9 +30057,9 @@ export interface operations {
   };
   /**
    * @description <p>Retrieves the details of a PaymentIntent that has previously been created. </p>
-   * 
+   *
    * <p>Client-side retrieval using a publishable key is allowed when the <code>client_secret</code> is provided in the query string. </p>
-   * 
+   *
    * <p>When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the <a href="#payment_intent_object">payment intent</a> object reference for more details.</p>
    */
   GetPaymentIntentsIntent: {
@@ -30096,7 +30096,7 @@ export interface operations {
   };
   /**
    * @description <p>Updates properties on a PaymentIntent object without confirming.</p>
-   * 
+   *
    * <p>Depending on which properties you update, you may need to confirm the
    * PaymentIntent again. For example, updating the <code>payment_method</code> will
    * always require you to confirm the PaymentIntent again. If you prefer to
@@ -30117,7 +30117,7 @@ export interface operations {
           /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
           application_fee_amount?: number | "";
           /**
-           * @description Controls when the funds will be captured from the customer's account. 
+           * @description Controls when the funds will be captured from the customer's account.
            * @enum {string}
            */
           capture_method?: "automatic" | "automatic_async" | "manual";
@@ -30125,9 +30125,9 @@ export interface operations {
           currency?: string;
           /**
            * @description ID of the Customer this PaymentIntent belongs to, if one exists.
-           * 
+           *
            * Payment methods attached to other Customers cannot be used with this PaymentIntent.
-           * 
+           *
            * If present in combination with [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage), this PaymentIntent's payment method will be attached to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete.
            */
           customer?: string;
@@ -30142,7 +30142,7 @@ export interface operations {
           /** @description ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. */
           payment_method?: string;
           /**
-           * payment_method_data_params 
+           * payment_method_data_params
            * @description If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear
            * in the [payment_method](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-payment_method)
            * property on the PaymentIntent.
@@ -30279,7 +30279,7 @@ export interface operations {
             zip?: Record<string, never>;
           };
           /**
-           * payment_method_options_param 
+           * payment_method_options_param
            * @description Payment-method-specific configuration for this PaymentIntent.
            */
           payment_method_options?: {
@@ -30538,12 +30538,12 @@ export interface operations {
           receipt_email?: string | "";
           /**
            * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-           * 
+           *
            * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-           * 
+           *
            * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-           * 
-           * If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`. 
+           *
+           * If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
            * @enum {string}
            */
           setup_future_usage?: "" | "off_session" | "on_session";
@@ -30568,7 +30568,7 @@ export interface operations {
           /** @description Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
           statement_descriptor_suffix?: string;
           /**
-           * transfer_data_update_params 
+           * transfer_data_update_params
            * @description The parameters used to automatically create a Transfer when the payment succeeds. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
            */
           transfer_data?: {
@@ -30606,11 +30606,11 @@ export interface operations {
         "application/x-www-form-urlencoded": {
           /**
            * @description Amount intended to be applied to this PaymentIntent from the customer’s cash balance.
-           * 
+           *
            * A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency).
-           * 
+           *
            * The maximum amount is the amount of the PaymentIntent.
-           * 
+           *
            * When omitted, the amount defaults to the remaining amount requested on the PaymentIntent.
            */
           amount?: number;
@@ -30638,9 +30638,9 @@ export interface operations {
   };
   /**
    * @description <p>A PaymentIntent object can be canceled when it is in one of these statuses: <code>requires_payment_method</code>, <code>requires_capture</code>, <code>requires_confirmation</code>, <code>requires_action</code> or, <a href="/docs/payments/intents">in rare cases</a>, <code>processing</code>. </p>
-   * 
+   *
    * <p>Once canceled, no additional charges will be made by the PaymentIntent and any operations on the PaymentIntent will fail with an error. For PaymentIntents with a <code>status</code> of <code>requires_capture</code>, the remaining <code>amount_capturable</code> will automatically be refunded. </p>
-   * 
+   *
    * <p>You cannot cancel the PaymentIntent for a Checkout Session. <a href="/docs/api/checkout/sessions/expire">Expire the Checkout Session</a> instead.</p>
    */
   PostPaymentIntentsIntentCancel: {
@@ -30653,7 +30653,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * @description Reason for canceling this PaymentIntent. Possible values are `duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned` 
+           * @description Reason for canceling this PaymentIntent. Possible values are `duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`
            * @enum {string}
            */
           cancellation_reason?: "abandoned" | "duplicate" | "fraudulent" | "requested_by_customer";
@@ -30679,9 +30679,9 @@ export interface operations {
   };
   /**
    * @description <p>Capture the funds of an existing uncaptured PaymentIntent when its status is <code>requires_capture</code>.</p>
-   * 
+   *
    * <p>Uncaptured PaymentIntents will be canceled a set number of days after they are created (7 by default).</p>
-   * 
+   *
    * <p>Learn more about <a href="/docs/payments/capture-later">separate authorization and capture</a>.</p>
    */
   PostPaymentIntentsIntentCapture: {
@@ -30708,7 +30708,7 @@ export interface operations {
           /** @description Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
           statement_descriptor_suffix?: string;
           /**
-           * transfer_data_update_params 
+           * transfer_data_update_params
            * @description The parameters used to automatically create a Transfer when the payment
            * is captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
            */
@@ -30768,7 +30768,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * @description Controls when the funds will be captured from the customer's account. 
+           * @description Controls when the funds will be captured from the customer's account.
            * @enum {string}
            */
           capture_method?: "automatic" | "automatic_async" | "manual";
@@ -30813,7 +30813,7 @@ export interface operations {
           /** @description ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. */
           payment_method?: string;
           /**
-           * payment_method_data_params 
+           * payment_method_data_params
            * @description If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear
            * in the [payment_method](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-payment_method)
            * property on the PaymentIntent.
@@ -30950,7 +30950,7 @@ export interface operations {
             zip?: Record<string, never>;
           };
           /**
-           * payment_method_options_param 
+           * payment_method_options_param
            * @description Payment-method-specific configuration for this PaymentIntent.
            */
           payment_method_options?: {
@@ -31206,7 +31206,7 @@ export interface operations {
           /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. Use automatic_payment_methods to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). */
           payment_method_types?: (string)[];
           /**
-           * radar_options 
+           * radar_options
            * @description Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
            */
           radar_options?: {
@@ -31222,12 +31222,12 @@ export interface operations {
           return_url?: string;
           /**
            * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-           * 
+           *
            * Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-           * 
+           *
            * When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-           * 
-           * If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`. 
+           *
+           * If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
            * @enum {string}
            */
           setup_future_usage?: "" | "off_session" | "on_session";
@@ -31273,13 +31273,13 @@ export interface operations {
    * PaymentIntent’s status must be <code>requires_capture</code> and
    * <a href="/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported">incremental_authorization_supported</a>
    * must be <code>true</code>.</p>
-   * 
+   *
    * <p>Incremental authorizations attempt to increase the authorized amount on
    * your customer’s card to the new, higher <code>amount</code> provided. As with the
    * initial authorization, incremental authorizations may be declined. A
    * single PaymentIntent can call this endpoint multiple times to further
    * increase the authorized amount.</p>
-   * 
+   *
    * <p>If the incremental authorization succeeds, the PaymentIntent object is
    * returned with the updated
    * <a href="/docs/api/payment_intents/object#payment_intent_object-amount">amount</a>.
@@ -31287,10 +31287,10 @@ export interface operations {
    * <a href="/docs/error-codes#card-declined">card_declined</a> error is returned, and no
    * fields on the PaymentIntent or Charge are updated. The PaymentIntent
    * object remains capturable for the previously authorized amount.</p>
-   * 
+   *
    * <p>Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
    * Once captured, a PaymentIntent can no longer be incremented.</p>
-   * 
+   *
    * <p>Learn more about <a href="/docs/terminal/features/incremental-authorizations">incremental authorizations</a>.</p>
    */
   PostPaymentIntentsIntentIncrementAuthorization: {
@@ -31317,7 +31317,7 @@ export interface operations {
           /** @description For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
           statement_descriptor?: string;
           /**
-           * transfer_data_update_params 
+           * transfer_data_update_params
            * @description The parameters used to automatically create a Transfer when the payment is captured.
            * For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
            */
@@ -31408,7 +31408,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -31431,7 +31431,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * after_completion_params 
+           * after_completion_params
            * @description Behavior after the purchase is complete.
            */
           after_completion?: {
@@ -31453,19 +31453,19 @@ export interface operations {
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field. */
           application_fee_percent?: number;
           /**
-           * automatic_tax_params 
+           * automatic_tax_params
            * @description Configuration for automatic tax collection.
            */
           automatic_tax?: {
             enabled: boolean;
           };
           /**
-           * @description Configuration for collecting the customer's billing address. 
+           * @description Configuration for collecting the customer's billing address.
            * @enum {string}
            */
           billing_address_collection?: "auto" | "required";
           /**
-           * consent_collection_params 
+           * consent_collection_params
            * @description Configure fields to gather active consent from customers.
            */
           consent_collection?: {
@@ -31507,7 +31507,7 @@ export interface operations {
               type: "dropdown" | "numeric" | "text";
             })[];
           /**
-           * custom_text_param 
+           * custom_text_param
            * @description Display additional text for your customers using custom text.
            */
           custom_text?: {
@@ -31519,14 +31519,14 @@ export interface operations {
             } | "";
           };
           /**
-           * @description Configures whether [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link create a [Customer](https://stripe.com/docs/api/customers). 
+           * @description Configures whether [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link create a [Customer](https://stripe.com/docs/api/customers).
            * @enum {string}
            */
           customer_creation?: "always" | "if_required";
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * invoice_creation_create_params 
+           * invoice_creation_create_params
            * @description Generate a post-purchase Invoice for one-time payments.
            */
           invoice_creation?: {
@@ -31567,7 +31567,7 @@ export interface operations {
           /** @description The account on behalf of which to charge. */
           on_behalf_of?: string;
           /**
-           * payment_intent_data_params 
+           * payment_intent_data_params
            * @description A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
            */
           payment_intent_data?: {
@@ -31578,26 +31578,26 @@ export interface operations {
           };
           /**
            * @description Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.This may occur if the Checkout Session includes a free trial or a discount.
-           * 
+           *
            * Can only be set in `subscription` mode.
-           * 
-           * If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials). 
+           *
+           * If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
            * @enum {string}
            */
           payment_method_collection?: "always" | "if_required";
           /** @description The list of payment method types that customers can use. If no value is passed, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods) (20+ payment methods [supported](https://stripe.com/docs/payments/payment-methods/integration-options#payment-method-product-support)). */
           payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[];
           /**
-           * phone_number_collection_params 
+           * phone_number_collection_params
            * @description Controls phone number collection settings during checkout.
-           * 
+           *
            * We recommend that you review your privacy policy and check with your legal contacts.
            */
           phone_number_collection?: {
             enabled: boolean;
           };
           /**
-           * shipping_address_collection_params 
+           * shipping_address_collection_params
            * @description Configuration for collecting the customer's shipping address.
            */
           shipping_address_collection?: {
@@ -31608,12 +31608,12 @@ export interface operations {
               shipping_rate?: string;
             })[];
           /**
-           * @description Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`). 
+           * @description Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
            * @enum {string}
            */
           submit_type?: "auto" | "book" | "donate" | "pay";
           /**
-           * subscription_data_params 
+           * subscription_data_params
            * @description When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
            */
           subscription_data?: {
@@ -31621,14 +31621,14 @@ export interface operations {
             trial_period_days?: number;
           };
           /**
-           * tax_id_collection_params 
+           * tax_id_collection_params
            * @description Controls tax ID collection during checkout.
            */
           tax_id_collection?: {
             enabled: boolean;
           };
           /**
-           * transfer_data_params 
+           * transfer_data_params
            * @description The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to.
            */
           transfer_data?: {
@@ -31697,7 +31697,7 @@ export interface operations {
           /** @description Whether the payment link's `url` is active. If `false`, customers visiting the URL will be shown a page saying that the link has been deactivated. */
           active?: boolean;
           /**
-           * after_completion_params 
+           * after_completion_params
            * @description Behavior after the purchase is complete.
            */
           after_completion?: {
@@ -31715,14 +31715,14 @@ export interface operations {
           /** @description Enables user redeemable promotion codes. */
           allow_promotion_codes?: boolean;
           /**
-           * automatic_tax_params 
+           * automatic_tax_params
            * @description Configuration for automatic tax collection.
            */
           automatic_tax?: {
             enabled: boolean;
           };
           /**
-           * @description Configuration for collecting the customer's billing address. 
+           * @description Configuration for collecting the customer's billing address.
            * @enum {string}
            */
           billing_address_collection?: "auto" | "required";
@@ -31757,7 +31757,7 @@ export interface operations {
               type: "dropdown" | "numeric" | "text";
             })[]) | "";
           /**
-           * custom_text_param 
+           * custom_text_param
            * @description Display additional text for your customers using custom text.
            */
           custom_text?: {
@@ -31769,14 +31769,14 @@ export interface operations {
             } | "";
           };
           /**
-           * @description Configures whether [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link create a [Customer](https://stripe.com/docs/api/customers). 
+           * @description Configures whether [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link create a [Customer](https://stripe.com/docs/api/customers).
            * @enum {string}
            */
           customer_creation?: "always" | "if_required";
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * invoice_creation_update_params 
+           * invoice_creation_update_params
            * @description Generate a post-purchase Invoice for one-time payments.
            */
           invoice_creation?: {
@@ -31816,10 +31816,10 @@ export interface operations {
           };
           /**
            * @description Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.This may occur if the Checkout Session includes a free trial or a discount.
-           * 
+           *
            * Can only be set in `subscription` mode.
-           * 
-           * If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials). 
+           *
+           * If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
            * @enum {string}
            */
           payment_method_collection?: "always" | "if_required";
@@ -31879,7 +31879,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -31928,7 +31928,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -31947,7 +31947,7 @@ export interface operations {
   };
   /**
    * @description <p>Creates a PaymentMethod object. Read the <a href="/docs/stripe-js/reference#stripe-create-payment-method">Stripe.js reference</a> to learn how to create PaymentMethods via Stripe.js.</p>
-   * 
+   *
    * <p>Instead of creating a PaymentMethod directly, we recommend using the <a href="/docs/payments/accept-a-payment">PaymentIntents</a> API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent</a> API to collect payment method details ahead of a future payment.</p>
    */
   PostPaymentMethods: {
@@ -31955,7 +31955,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * payment_method_param 
+           * payment_method_param
            * @description If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
            */
           acss_debit?: {
@@ -31964,22 +31964,22 @@ export interface operations {
             transit_number: string;
           };
           /**
-           * param 
+           * param
            * @description If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
            */
           affirm?: Record<string, never>;
           /**
-           * param 
+           * param
            * @description If this is an `AfterpayClearpay` PaymentMethod, this hash contains details about the AfterpayClearpay payment method.
            */
           afterpay_clearpay?: Record<string, never>;
           /**
-           * param 
+           * param
            * @description If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
            */
           alipay?: Record<string, never>;
           /**
-           * param 
+           * param
            * @description If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
            */
           au_becs_debit?: {
@@ -31987,7 +31987,7 @@ export interface operations {
             bsb_number: string;
           };
           /**
-           * param 
+           * param
            * @description If this is a `bacs_debit` PaymentMethod, this hash contains details about the Bacs Direct Debit bank account.
            */
           bacs_debit?: {
@@ -31995,12 +31995,12 @@ export interface operations {
             sort_code?: string;
           };
           /**
-           * param 
+           * param
            * @description If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
            */
           bancontact?: Record<string, never>;
           /**
-           * billing_details_inner_params 
+           * billing_details_inner_params
            * @description Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
            */
           billing_details?: {
@@ -32017,12 +32017,12 @@ export interface operations {
             phone?: string;
           };
           /**
-           * param 
+           * param
            * @description If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
            */
           blik?: Record<string, never>;
           /**
-           * param 
+           * param
            * @description If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
            */
           boleto?: {
@@ -32038,19 +32038,19 @@ export interface operations {
             token: string;
           };
           /**
-           * param 
+           * param
            * @description If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
            */
           cashapp?: Record<string, never>;
           /** @description The `Customer` to whom the original PaymentMethod is attached. */
           customer?: string;
           /**
-           * param 
+           * param
            * @description If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
            */
           customer_balance?: Record<string, never>;
           /**
-           * param 
+           * param
            * @description If this is an `eps` PaymentMethod, this hash contains details about the EPS payment method.
            */
           eps?: {
@@ -32060,7 +32060,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * param 
+           * param
            * @description If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
            */
           fpx?: {
@@ -32068,17 +32068,17 @@ export interface operations {
             bank: "affin_bank" | "agrobank" | "alliance_bank" | "ambank" | "bank_islam" | "bank_muamalat" | "bank_of_china" | "bank_rakyat" | "bsn" | "cimb" | "deutsche_bank" | "hong_leong_bank" | "hsbc" | "kfh" | "maybank2e" | "maybank2u" | "ocbc" | "pb_enterprise" | "public_bank" | "rhb" | "standard_chartered" | "uob";
           };
           /**
-           * param 
+           * param
            * @description If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
            */
           giropay?: Record<string, never>;
           /**
-           * param 
+           * param
            * @description If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
            */
           grabpay?: Record<string, never>;
           /**
-           * param 
+           * param
            * @description If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
            */
           ideal?: {
@@ -32086,12 +32086,12 @@ export interface operations {
             bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
           };
           /**
-           * param 
+           * param
            * @description If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
            */
           interac_present?: Record<string, never>;
           /**
-           * param 
+           * param
            * @description If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method.
            */
           klarna?: {
@@ -32103,12 +32103,12 @@ export interface operations {
             };
           };
           /**
-           * param 
+           * param
            * @description If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
            */
           konbini?: Record<string, never>;
           /**
-           * param 
+           * param
            * @description If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
            */
           link?: Record<string, never>;
@@ -32117,12 +32117,12 @@ export interface operations {
             [key: string]: string | undefined;
           };
           /**
-           * param 
+           * param
            * @description If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
            */
           oxxo?: Record<string, never>;
           /**
-           * param 
+           * param
            * @description If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
            */
           p24?: {
@@ -32132,41 +32132,41 @@ export interface operations {
           /** @description The PaymentMethod to share. */
           payment_method?: string;
           /**
-           * param 
+           * param
            * @description If this is a `paynow` PaymentMethod, this hash contains details about the PayNow payment method.
            */
           paynow?: Record<string, never>;
           /**
-           * param 
+           * param
            * @description If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
            */
           paypal?: Record<string, never>;
           /**
-           * param 
+           * param
            * @description If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
            */
           pix?: Record<string, never>;
           /**
-           * param 
+           * param
            * @description If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
            */
           promptpay?: Record<string, never>;
           /**
-           * radar_options 
+           * radar_options
            * @description Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
            */
           radar_options?: {
             session?: string;
           };
           /**
-           * param 
+           * param
            * @description If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
            */
           sepa_debit?: {
             iban: string;
           };
           /**
-           * param 
+           * param
            * @description If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
            */
           sofort?: {
@@ -32174,12 +32174,12 @@ export interface operations {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL";
           };
           /**
-           * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type. 
+           * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
            * @enum {string}
            */
           type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay" | "zip";
           /**
-           * payment_method_param 
+           * payment_method_param
            * @description If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
            */
           us_bank_account?: {
@@ -32192,12 +32192,12 @@ export interface operations {
             routing_number?: string;
           };
           /**
-           * param 
+           * param
            * @description If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
            */
           wechat_pay?: Record<string, never>;
           /**
-           * param 
+           * param
            * @description If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
            */
           zip?: Record<string, never>;
@@ -32261,7 +32261,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * billing_details_inner_params 
+           * billing_details_inner_params
            * @description Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
            */
           billing_details?: {
@@ -32278,7 +32278,7 @@ export interface operations {
             phone?: string;
           };
           /**
-           * update_api_param 
+           * update_api_param
            * @description If this is a `card` PaymentMethod, this hash contains the user's card details.
            */
           card?: {
@@ -32288,7 +32288,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * param 
+           * param
            * @description If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
            */
           link?: Record<string, never>;
@@ -32297,7 +32297,7 @@ export interface operations {
             [key: string]: string | undefined;
           }) | "";
           /**
-           * update_param 
+           * update_param
            * @description If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
            */
           us_bank_account?: {
@@ -32324,7 +32324,7 @@ export interface operations {
   };
   /**
    * @description <p>Attaches a PaymentMethod object to a Customer.</p>
-   * 
+   *
    * <p>To attach a new PaymentMethod to a customer for future payments, we recommend you use a <a href="/docs/api/setup_intents">SetupIntent</a>
    * or a PaymentIntent with <a href="/docs/api/payment_intents/create#create_payment_intent-setup_future_usage">setup_future_usage</a>.
    * These approaches will perform any necessary steps to set up the PaymentMethod for future payments. Using the <code>/v1/payment_methods/:id/attach</code>
@@ -32332,7 +32332,7 @@ export interface operations {
    * future use, which makes later declines and payment friction more likely.
    * See <a href="/docs/payments/payment-intents#future-usage">Optimizing cards for future payments</a> for more information about setting up
    * future payments.</p>
-   * 
+   *
    * <p>To use this PaymentMethod as the default for invoice or subscription payments,
    * set <a href="/docs/api/customers/update#update_customer-invoice_settings-default_payment_method"><code>invoice_settings.default_payment_method</code></a>,
    * on the Customer to the PaymentMethod’s ID.</p>
@@ -32442,7 +32442,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -32461,9 +32461,9 @@ export interface operations {
   };
   /**
    * @description <p>To send funds to your own bank account, you create a new payout object. Your <a href="#balance">Stripe balance</a> must be able to cover the payout amount, or you’ll receive an “Insufficient Funds” error.</p>
-   * 
+   *
    * <p>If your API key is in test mode, money won’t actually be sent, though everything else will occur as if in live mode.</p>
-   * 
+   *
    * <p>If you are creating a manual payout on a Stripe account that uses multiple payment source types, you’ll need to specify the source type balance that the payout should draw from. The <a href="#balance_object">balance object</a> details available and pending amounts by source type.</p>
    */
   PostPayouts: {
@@ -32485,12 +32485,12 @@ export interface operations {
             [key: string]: string | undefined;
           };
           /**
-           * @description The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces for more information](https://stripe.com/blog/instant-payouts-for-marketplaces).) 
+           * @description The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces for more information](https://stripe.com/blog/instant-payouts-for-marketplaces).)
            * @enum {string}
            */
           method?: "instant" | "standard";
           /**
-           * @description The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the balances API. One of `bank_account`, `card`, or `fpx`. 
+           * @description The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the balances API. One of `bank_account`, `card`, or `fpx`.
            * @enum {string}
            */
           source_type?: "bank_account" | "card" | "fpx";
@@ -32611,7 +32611,7 @@ export interface operations {
   };
   /**
    * @description <p>Reverses a payout by debiting the destination bank account. Only payouts for connected accounts to US bank accounts may be reversed at this time. If the payout is in the <code>pending</code> status, <code>/v1/payouts/:id/cancel</code> should be used instead.</p>
-   * 
+   *
    * <p>By requesting a reversal via <code>/v1/payouts/:id/reverse</code>, you confirm that the authorized signatory of the selected bank account has authorized the debit on the bank account and that no other authorization is required.</p>
    */
   PostPayoutsPayoutReverse: {
@@ -32687,7 +32687,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -32712,19 +32712,19 @@ export interface operations {
           /** @description Whether the plan is currently available for new subscriptions. Defaults to `true`. */
           active?: boolean;
           /**
-           * @description Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`. 
+           * @description Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
            * @enum {string}
            */
           aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum";
           /** @description A positive integer in cents (or local equivalent) (or 0 for a free plan) representing how much to charge on a recurring basis. */
           amount?: number;
           /**
-           * Format: decimal 
+           * Format: decimal
            * @description Same as `amount`, but accepts a decimal value with at most 12 decimal places. Only one of `amount` and `amount_decimal` can be set.
            */
           amount_decimal?: string;
           /**
-           * @description Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes. 
+           * @description Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `amount`) will be charged per unit in `quantity` (for plans with `usage_type=licensed`), or per unit of total usage (for plans with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
            * @enum {string}
            */
           billing_scheme?: "per_unit" | "tiered";
@@ -32735,7 +32735,7 @@ export interface operations {
           /** @description An identifier randomly generated by Stripe. Used to identify this plan when subscribing a customer. You can optionally override this ID, but the ID must be unique across all plans in your Stripe account. You can, however, use the same plan ID in both live and test modes. */
           id?: string;
           /**
-           * @description Specifies billing frequency. Either `day`, `week`, `month` or `year`. 
+           * @description Specifies billing frequency. Either `day`, `week`, `month` or `year`.
            * @enum {string}
            */
           interval: "day" | "month" | "week" | "year";
@@ -32769,12 +32769,12 @@ export interface operations {
               up_to: "inf" | number;
             })[];
           /**
-           * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows. 
+           * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows.
            * @enum {string}
            */
           tiers_mode?: "graduated" | "volume";
           /**
-           * transform_usage_param 
+           * transform_usage_param
            * @description Apply a transformation to the reported usage or set quantity before computing the billed price. Cannot be combined with `tiers`.
            */
           transform_usage?: {
@@ -32785,7 +32785,7 @@ export interface operations {
           /** @description Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
           trial_period_days?: number;
           /**
-           * @description Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`. 
+           * @description Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
            * @enum {string}
            */
           usage_type?: "licensed" | "metered";
@@ -32960,7 +32960,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -32985,7 +32985,7 @@ export interface operations {
           /** @description Whether the price can be used for new purchases. Defaults to `true`. */
           active?: boolean;
           /**
-           * @description Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `unit_amount` or `unit_amount_decimal`) will be charged per unit in `quantity` (for prices with `usage_type=licensed`), or per unit of total usage (for prices with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes. 
+           * @description Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `unit_amount` or `unit_amount_decimal`) will be charged per unit in `quantity` (for prices with `usage_type=licensed`), or per unit of total usage (for prices with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
            * @enum {string}
            */
           billing_scheme?: "per_unit" | "tiered";
@@ -33018,7 +33018,7 @@ export interface operations {
             }) | undefined;
           };
           /**
-           * custom_unit_amount 
+           * custom_unit_amount
            * @description When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
            */
           custom_unit_amount?: {
@@ -33040,7 +33040,7 @@ export interface operations {
           /** @description The ID of the product that this price will belong to. */
           product?: string;
           /**
-           * inline_product_params 
+           * inline_product_params
            * @description These fields can be used to create a new product that this price will belong to.
            */
           product_data?: {
@@ -33055,7 +33055,7 @@ export interface operations {
             unit_label?: string;
           };
           /**
-           * recurring 
+           * recurring
            * @description The recurring components of a price such as `interval` and `usage_type`.
            */
           recurring?: {
@@ -33068,7 +33068,7 @@ export interface operations {
             usage_type?: "licensed" | "metered";
           };
           /**
-           * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
+           * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
            * @enum {string}
            */
           tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -33083,14 +33083,14 @@ export interface operations {
               up_to: "inf" | number;
             })[];
           /**
-           * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows. 
+           * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows.
            * @enum {string}
            */
           tiers_mode?: "graduated" | "volume";
           /** @description If set to true, will atomically remove the lookup key from the existing price, and assign it to this price. */
           transfer_lookup_key?: boolean;
           /**
-           * transform_usage_param 
+           * transform_usage_param
            * @description Apply a transformation to the reported usage or set quantity before computing the billed price. Cannot be combined with `tiers`.
            */
           transform_quantity?: {
@@ -33101,7 +33101,7 @@ export interface operations {
           /** @description A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge. One of `unit_amount` or `custom_unit_amount` is required, unless `billing_scheme=tiered`. */
           unit_amount?: number;
           /**
-           * Format: decimal 
+           * Format: decimal
            * @description Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
            */
           unit_amount_decimal?: string;
@@ -33156,7 +33156,7 @@ export interface operations {
             has_more: boolean;
             next_page?: string | null;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. 
+             * @description String representing the object's type. Objects of the same type share the same value.
              * @enum {string}
              */
             object: "search_result";
@@ -33254,7 +33254,7 @@ export interface operations {
           /** @description A brief description of the price, hidden from customers. */
           nickname?: string;
           /**
-           * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed. 
+           * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
            * @enum {string}
            */
           tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -33322,7 +33322,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -33347,7 +33347,7 @@ export interface operations {
           /** @description Whether the product is currently available for purchase. Defaults to `true`. */
           active?: boolean;
           /**
-           * price_data_without_product 
+           * price_data_without_product
            * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object. This Price will be set as the default price for this product.
            */
           default_price_data?: {
@@ -33404,7 +33404,7 @@ export interface operations {
           /** @description The product's name, meant to be displayable to the customer. */
           name: string;
           /**
-           * package_dimensions_specs 
+           * package_dimensions_specs
            * @description The dimensions of this product for shipping purposes.
            */
           package_dimensions?: {
@@ -33417,7 +33417,7 @@ export interface operations {
           shippable?: boolean;
           /**
            * @description An arbitrary string to be displayed on your customer's credit card or bank statement. While most banks display this information consistently, some may display it incorrectly or not at all.
-           * 
+           *
            * This may be up to 22 characters. The statement description may not include `<`, `>`, `\`, `"`, `'` characters, and will appear on your customer's statement in capital letters. Non-ASCII characters are automatically stripped.
            *  It must contain at least one letter.
            */
@@ -33479,7 +33479,7 @@ export interface operations {
             has_more: boolean;
             next_page?: string | null;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. 
+             * @description String representing the object's type. Objects of the same type share the same value.
              * @enum {string}
              */
             object: "search_result";
@@ -33565,7 +33565,7 @@ export interface operations {
           shippable?: boolean;
           /**
            * @description An arbitrary string to be displayed on your customer's credit card or bank statement. While most banks display this information consistently, some may display it incorrectly or not at all.
-           * 
+           *
            * This may be up to 22 characters. The statement description may not include `<`, `>`, `\`, `"`, `'` characters, and will appear on your customer's statement in capital letters. Non-ASCII characters are automatically stripped.
            *  It must contain at least one letter. May only be set if `type=service`.
            */
@@ -33664,7 +33664,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -33697,7 +33697,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description The timestamp at which this promotion code will expire. If the coupon has specified a `redeems_by`, then this value cannot be after the coupon's `redeems_by`.
            */
           expires_at?: number;
@@ -33708,7 +33708,7 @@ export interface operations {
             [key: string]: string | undefined;
           };
           /**
-           * restrictions_params 
+           * restrictions_params
            * @description Settings that restrict the redemption of the promotion code.
            */
           restrictions?: {
@@ -33789,7 +33789,7 @@ export interface operations {
             [key: string]: string | undefined;
           }) | "";
           /**
-           * restrictions_params 
+           * restrictions_params
            * @description Settings that restrict the redemption of the promotion code.
            */
           restrictions?: {
@@ -33851,7 +33851,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -33878,14 +33878,14 @@ export interface operations {
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field. */
           application_fee_percent?: number | "";
           /**
-           * automatic_tax_param 
+           * automatic_tax_param
            * @description Settings for automatic tax lookup for this quote and resulting invoices and subscriptions.
            */
           automatic_tax?: {
             enabled: boolean;
           };
           /**
-           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or at invoice finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`. 
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or at invoice finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
            * @enum {string}
            */
           collection_method?: "charge_automatically" | "send_invoice";
@@ -33903,14 +33903,14 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch. If no value is passed, the default expiration date configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used.
            */
           expires_at?: number;
           /** @description A footer that will be displayed on the quote PDF. If no value is passed, the default footer configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used. */
           footer?: string;
           /**
-           * from_quote_params 
+           * from_quote_params
            * @description Clone an existing quote. The new quote will be created in `status=draft`. When using this parameter, you cannot specify any other parameters except for `expires_at`.
            */
           from_quote?: {
@@ -33920,7 +33920,7 @@ export interface operations {
           /** @description A header that will be displayed on the quote PDF. If no value is passed, the default header configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used. */
           header?: string;
           /**
-           * quote_param 
+           * quote_param
            * @description All invoices will be billed using the specified settings.
            */
           invoice_settings?: {
@@ -33955,7 +33955,7 @@ export interface operations {
           /** @description The account on behalf of which to charge. */
           on_behalf_of?: string | "";
           /**
-           * subscription_data_create_params 
+           * subscription_data_create_params
            * @description When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
            */
           subscription_data?: {
@@ -34035,14 +34035,14 @@ export interface operations {
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field. */
           application_fee_percent?: number | "";
           /**
-           * automatic_tax_param 
+           * automatic_tax_param
            * @description Settings for automatic tax lookup for this quote and resulting invoices and subscriptions.
            */
           automatic_tax?: {
             enabled: boolean;
           };
           /**
-           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or at invoice finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`. 
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or at invoice finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
            * @enum {string}
            */
           collection_method?: "charge_automatically" | "send_invoice";
@@ -34060,7 +34060,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.
            */
           expires_at?: number;
@@ -34069,7 +34069,7 @@ export interface operations {
           /** @description A header that will be displayed on the quote PDF. */
           header?: string;
           /**
-           * quote_param 
+           * quote_param
            * @description All invoices will be billed using the specified settings.
            */
           invoice_settings?: {
@@ -34105,7 +34105,7 @@ export interface operations {
           /** @description The account on behalf of which to charge. */
           on_behalf_of?: string | "";
           /**
-           * subscription_data_update_params 
+           * subscription_data_update_params
            * @description When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
            */
           subscription_data?: {
@@ -34229,7 +34229,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -34259,7 +34259,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.
            */
           expires_at?: number;
@@ -34313,7 +34313,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -34393,7 +34393,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -34412,7 +34412,7 @@ export interface operations {
   };
   /**
    * @description <p>Retrieves the details of an early fraud warning that has previously been created. </p>
-   * 
+   *
    * <p>Please refer to the <a href="#early_fraud_warning_object">early fraud warning</a> object reference for more details.</p>
    */
   GetRadarEarlyFraudWarningsEarlyFraudWarning: {
@@ -34483,7 +34483,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -34625,7 +34625,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -34652,7 +34652,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * @description Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, or `customer_id`. Use `string` if the item type is unknown or mixed. 
+           * @description Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, or `customer_id`. Use `string` if the item type is unknown or mixed.
            * @enum {string}
            */
           item_type?: "card_bin" | "card_fingerprint" | "case_sensitive_string" | "country" | "customer_id" | "email" | "ip_address" | "string";
@@ -34814,7 +34814,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -34852,7 +34852,7 @@ export interface operations {
             [key: string]: string | undefined;
           }) | "";
           /**
-           * @description Origin of the refund 
+           * @description Origin of the refund
            * @enum {string}
            */
           origin?: "customer_balance";
@@ -34912,7 +34912,7 @@ export interface operations {
   };
   /**
    * @description <p>Updates the specified refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
-   * 
+   *
    * <p>This request only accepts <code>metadata</code> as an argument.</p>
    */
   PostRefundsRefund: {
@@ -34950,7 +34950,7 @@ export interface operations {
   };
   /**
    * @description <p>Cancels a refund with a status of <code>requires_action</code>.</p>
-   * 
+   *
    * <p>Refunds in other states cannot be canceled, and only refunds for payment methods that require customer action will enter the <code>requires_action</code> state.</p>
    */
   PostRefundsRefundCancel: {
@@ -35016,7 +35016,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -35041,7 +35041,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * run_parameter_specs 
+           * run_parameter_specs
            * @description Parameters specifying how the report should be run. Different Report Types have different required and optional parameters, listed in the [API Access to Reports](https://stripe.com/docs/reporting/statements/api) documentation.
            */
           parameters?: {
@@ -35131,7 +35131,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -35213,7 +35213,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -35335,7 +35335,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -35358,7 +35358,7 @@ export interface operations {
       query?: {
         /**
          * @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
-         * 
+         *
          * It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
          */
         attach_to_self?: boolean;
@@ -35397,7 +35397,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -35416,7 +35416,7 @@ export interface operations {
   };
   /**
    * @description <p>Creates a SetupIntent object.</p>
-   * 
+   *
    * <p>After the SetupIntent is created, attach a payment method and <a href="/docs/api/setup_intents/confirm">confirm</a>
    * to collect any required permissions to charge the payment method later.</p>
    */
@@ -35426,12 +35426,12 @@ export interface operations {
         "application/x-www-form-urlencoded": {
           /**
            * @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
-           * 
+           *
            * It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
            */
           attach_to_self?: boolean;
           /**
-           * automatic_payment_methods_param 
+           * automatic_payment_methods_param
            * @description When enabled, this SetupIntent will accept payment methods that you have enabled in the Dashboard and are compatible with this SetupIntent's other parameters.
            */
           automatic_payment_methods?: {
@@ -35441,7 +35441,7 @@ export interface operations {
           confirm?: boolean;
           /**
            * @description ID of the Customer this SetupIntent belongs to, if one exists.
-           * 
+           *
            * If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
            */
           customer?: string;
@@ -35451,12 +35451,12 @@ export interface operations {
           expand?: (string)[];
           /**
            * @description Indicates the directions of money movement for which this payment method is intended to be used.
-           * 
+           *
            * Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.
            */
           flow_directions?: ("inbound" | "outbound")[];
           /**
-           * secret_key_param 
+           * secret_key_param
            * @description This hash contains details about the Mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm).
            */
           mandate_data?: {
@@ -35484,7 +35484,7 @@ export interface operations {
           /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
           payment_method?: string;
           /**
-           * payment_method_data_params 
+           * payment_method_data_params
            * @description When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-payment_method)
            * value in the SetupIntent.
            */
@@ -35620,7 +35620,7 @@ export interface operations {
             zip?: Record<string, never>;
           };
           /**
-           * payment_method_options_param 
+           * payment_method_options_param
            * @description Payment-method-specific configuration for this SetupIntent.
            */
           payment_method_options?: {
@@ -35715,7 +35715,7 @@ export interface operations {
           /** @description The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm). */
           return_url?: string;
           /**
-           * setup_intent_single_use_params 
+           * setup_intent_single_use_params
            * @description If this hash is populated, this SetupIntent will generate a single_use Mandate on success.
            */
           single_use?: {
@@ -35723,7 +35723,7 @@ export interface operations {
             currency: string;
           };
           /**
-           * @description Indicates how the payment method is intended to be used in the future. If not provided, this value defaults to `off_session`. 
+           * @description Indicates how the payment method is intended to be used in the future. If not provided, this value defaults to `off_session`.
            * @enum {string}
            */
           usage?: "off_session" | "on_session";
@@ -35747,9 +35747,9 @@ export interface operations {
   };
   /**
    * @description <p>Retrieves the details of a SetupIntent that has previously been created. </p>
-   * 
+   *
    * <p>Client-side retrieval using a publishable key is allowed when the <code>client_secret</code> is provided in the query string. </p>
-   * 
+   *
    * <p>When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the <a href="#setup_intent_object">SetupIntent</a> object reference for more details.</p>
    */
   GetSetupIntentsIntent: {
@@ -35796,13 +35796,13 @@ export interface operations {
         "application/x-www-form-urlencoded": {
           /**
            * @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
-           * 
+           *
            * It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
            */
           attach_to_self?: boolean;
           /**
            * @description ID of the Customer this SetupIntent belongs to, if one exists.
-           * 
+           *
            * If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
            */
           customer?: string;
@@ -35812,7 +35812,7 @@ export interface operations {
           expand?: (string)[];
           /**
            * @description Indicates the directions of money movement for which this payment method is intended to be used.
-           * 
+           *
            * Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.
            */
           flow_directions?: ("inbound" | "outbound")[];
@@ -35823,7 +35823,7 @@ export interface operations {
           /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
           payment_method?: string;
           /**
-           * payment_method_data_params 
+           * payment_method_data_params
            * @description When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-payment_method)
            * value in the SetupIntent.
            */
@@ -35959,7 +35959,7 @@ export interface operations {
             zip?: Record<string, never>;
           };
           /**
-           * payment_method_options_param 
+           * payment_method_options_param
            * @description Payment-method-specific configuration for this SetupIntent.
            */
           payment_method_options?: {
@@ -36071,7 +36071,7 @@ export interface operations {
   };
   /**
    * @description <p>A SetupIntent object can be canceled when it is in one of these statuses: <code>requires_payment_method</code>, <code>requires_confirmation</code>, or <code>requires_action</code>. </p>
-   * 
+   *
    * <p>Once canceled, setup is abandoned and any operations on the SetupIntent will fail with an error.</p>
    */
   PostSetupIntentsIntentCancel: {
@@ -36084,7 +36084,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * @description Reason for canceling this SetupIntent. Possible values are `abandoned`, `requested_by_customer`, or `duplicate` 
+           * @description Reason for canceling this SetupIntent. Possible values are `abandoned`, `requested_by_customer`, or `duplicate`
            * @enum {string}
            */
           cancellation_reason?: "abandoned" | "duplicate" | "requested_by_customer";
@@ -36113,11 +36113,11 @@ export interface operations {
    * provided payment method. For example, you would confirm a SetupIntent
    * when a customer hits the “Save” button on a payment method management
    * page on your website.</p>
-   * 
+   *
    * <p>If the selected payment method does not require any additional
    * steps from the customer, the SetupIntent will transition to the
    * <code>succeeded</code> status.</p>
-   * 
+   *
    * <p>Otherwise, it will transition to the <code>requires_action</code> status and
    * suggest additional actions via <code>next_action</code>. If setup fails,
    * the SetupIntent will transition to the
@@ -36168,7 +36168,7 @@ export interface operations {
           /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
           payment_method?: string;
           /**
-           * payment_method_data_params 
+           * payment_method_data_params
            * @description When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-payment_method)
            * value in the SetupIntent.
            */
@@ -36304,7 +36304,7 @@ export interface operations {
             zip?: Record<string, never>;
           };
           /**
-           * payment_method_options_param 
+           * payment_method_options_param
            * @description Payment-method-specific configuration for this SetupIntent.
            */
           payment_method_options?: {
@@ -36493,7 +36493,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -36516,7 +36516,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * delivery_estimate 
+           * delivery_estimate
            * @description The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
            */
           delivery_estimate?: {
@@ -36538,7 +36538,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * fixed_amount 
+           * fixed_amount
            * @description Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
            */
           fixed_amount?: {
@@ -36557,14 +36557,14 @@ export interface operations {
             [key: string]: string | undefined;
           };
           /**
-           * @description Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. 
+           * @description Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
            * @enum {string}
            */
           tax_behavior?: "exclusive" | "inclusive" | "unspecified";
           /** @description A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`. */
           tax_code?: string;
           /**
-           * @description The type of calculation to use on the shipping rate. Can only be `fixed_amount` for now. 
+           * @description The type of calculation to use on the shipping rate. Can only be `fixed_amount` for now.
            * @enum {string}
            */
           type?: "fixed_amount";
@@ -36632,7 +36632,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * fixed_amount_update 
+           * fixed_amount_update
            * @description Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
            */
           fixed_amount?: {
@@ -36649,7 +36649,7 @@ export interface operations {
             [key: string]: string | undefined;
           }) | "";
           /**
-           * @description Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. 
+           * @description Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
            * @enum {string}
            */
           tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -36699,7 +36699,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -36761,12 +36761,12 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * @description The authentication `flow` of the source to create. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`. It is generally inferred unless a type supports multiple flows. 
+           * @description The authentication `flow` of the source to create. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`. It is generally inferred unless a type supports multiple flows.
            * @enum {string}
            */
           flow?: "code_verification" | "none" | "receiver" | "redirect";
           /**
-           * mandate_params 
+           * mandate_params
            * @description Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
            */
           mandate?: {
@@ -36805,7 +36805,7 @@ export interface operations {
           /** @description The source to share. */
           original_source?: string;
           /**
-           * owner 
+           * owner
            * @description Information about the owner of the payment instrument that may be used or required by particular source types.
            */
           owner?: {
@@ -36823,7 +36823,7 @@ export interface operations {
             phone?: string;
           };
           /**
-           * receiver_params 
+           * receiver_params
            * @description Optional parameters for the receiver flow. Can be set only if the source is a receiver (`flow` is `receiver`).
            */
           receiver?: {
@@ -36831,14 +36831,14 @@ export interface operations {
             refund_attributes_method?: "email" | "manual" | "none";
           };
           /**
-           * redirect_params 
+           * redirect_params
            * @description Parameters required for the redirect flow. Required if the source is authenticated by a redirect (`flow` is `redirect`).
            */
           redirect?: {
             return_url: string;
           };
           /**
-           * shallow_order_specs 
+           * shallow_order_specs
            * @description Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
            */
           source_order?: {
@@ -36929,7 +36929,7 @@ export interface operations {
   };
   /**
    * @description <p>Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
-   * 
+   *
    * <p>This request accepts the <code>metadata</code> and <code>owner</code> as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our <a href="/docs/sources">payment method guides</a> for more detail.</p>
    */
   PostSourcesSource: {
@@ -36946,7 +36946,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * mandate_params 
+           * mandate_params
            * @description Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
            */
           mandate?: {
@@ -36984,7 +36984,7 @@ export interface operations {
             [key: string]: string | undefined;
           }) | "";
           /**
-           * owner 
+           * owner
            * @description Information about the owner of the payment instrument that may be used or required by particular source types.
            */
           owner?: {
@@ -37002,7 +37002,7 @@ export interface operations {
             phone?: string;
           };
           /**
-           * order_params 
+           * order_params
            * @description Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
            */
           source_order?: {
@@ -37113,7 +37113,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -37224,7 +37224,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -37258,19 +37258,19 @@ export interface operations {
           };
           /**
            * @description Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
-           * 
+           *
            * Use `default_incomplete` to transition the subscription to `status=past_due` when payment is required and await explicit confirmation of the invoice's payment intent. This allows simpler management of scenarios where additional user actions are needed to pay a subscription’s invoice. Such as failed payments, [SCA regulation](https://stripe.com/docs/billing/migration/strong-customer-authentication), or collecting a mandate for a bank debit payment method.
-           * 
+           *
            * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
-           * 
-           * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more. 
+           *
+           * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
            * @enum {string}
            */
           payment_behavior?: "allow_incomplete" | "default_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /** @description The ID of the price object. */
           price?: string;
           /**
-           * recurring_price_data 
+           * recurring_price_data
            * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
            */
           price_data?: {
@@ -37289,12 +37289,12 @@ export interface operations {
             unit_amount_decimal?: string;
           };
           /**
-           * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`. 
+           * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
            * @enum {string}
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint.
            */
           proration_date?: number;
@@ -37377,19 +37377,19 @@ export interface operations {
           off_session?: boolean;
           /**
            * @description Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
-           * 
+           *
            * Use `default_incomplete` to transition the subscription to `status=past_due` when payment is required and await explicit confirmation of the invoice's payment intent. This allows simpler management of scenarios where additional user actions are needed to pay a subscription’s invoice. Such as failed payments, [SCA regulation](https://stripe.com/docs/billing/migration/strong-customer-authentication), or collecting a mandate for a bank debit payment method.
-           * 
+           *
            * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
-           * 
-           * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more. 
+           *
+           * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
            * @enum {string}
            */
           payment_behavior?: "allow_incomplete" | "default_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /** @description The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided. */
           price?: string;
           /**
-           * recurring_price_data 
+           * recurring_price_data
            * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
            */
           price_data?: {
@@ -37408,12 +37408,12 @@ export interface operations {
             unit_amount_decimal?: string;
           };
           /**
-           * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`. 
+           * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
            * @enum {string}
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint.
            */
           proration_date?: number;
@@ -37452,12 +37452,12 @@ export interface operations {
           /** @description Delete all usage for the given subscription item. Allowed only when the current plan's `usage_type` is `metered`. */
           clear_usage?: boolean;
           /**
-           * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`. 
+           * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
            * @enum {string}
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint.
            */
           proration_date?: number;
@@ -37481,7 +37481,7 @@ export interface operations {
   };
   /**
    * @description <p>For the specified subscription item, returns a list of summary objects. Each object in the list provides usage information that’s been summarized from multiple usage records and over a subscription billing period (e.g., 15 usage records in the month of September).</p>
-   * 
+   *
    * <p>The list is sorted in reverse-chronological order (newest first). The first list item represents the most current usage period that hasn’t ended yet. Since new usage records can still be added, the returned summary information for the subscription item’s ID should be seen as unstable until the subscription billing period ends.</p>
    */
   GetSubscriptionItemsSubscriptionItemUsageRecordSummaries: {
@@ -37514,7 +37514,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -37533,11 +37533,11 @@ export interface operations {
   };
   /**
    * @description <p>Creates a usage record for a specified subscription item and date, and fills it with a quantity.</p>
-   * 
+   *
    * <p>Usage records provide <code>quantity</code> information that Stripe uses to track how much a customer is using your service. With usage information and the pricing model set up by the <a href="https://stripe.com/docs/billing/subscriptions/metered-billing">metered billing</a> plan, Stripe helps you send accurate invoices to your customers.</p>
-   * 
+   *
    * <p>The default calculation for usage is to add up all the <code>quantity</code> values of the usage records within a billing period. You can change this default behavior with the billing plan’s <code>aggregate_usage</code> <a href="/docs/api/plans/create#create_plan-aggregate_usage">parameter</a>. When there is more than one usage record with the same timestamp, Stripe adds the <code>quantity</code> values together. In most cases, this is the desired resolution, however, you can change this behavior with the <code>action</code> parameter.</p>
-   * 
+   *
    * <p>The default pricing model for metered billing is <a href="/docs/api/plans/object#plan_object-billing_scheme">per-unit pricing</a>. For finer granularity, you can configure metered billing to have a <a href="https://stripe.com/docs/billing/subscriptions/tiers">tiered pricing</a> model.</p>
    */
   PostSubscriptionItemsSubscriptionItemUsageRecords: {
@@ -37550,7 +37550,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * @description Valid values are `increment` (default) or `set`. When using `increment` the specified `quantity` will be added to the usage at the specified timestamp. The `set` action will overwrite the usage quantity at that timestamp. If the subscription has [billing thresholds](https://stripe.com/docs/api/subscriptions/object#subscription_object-billing_thresholds), `increment` is the only allowed value. 
+           * @description Valid values are `increment` (default) or `set`. When using `increment` the specified `quantity` will be added to the usage at the specified timestamp. The `set` action will overwrite the usage quantity at that timestamp. If the subscription has [billing thresholds](https://stripe.com/docs/api/subscriptions/object#subscription_object-billing_thresholds), `increment` is the only allowed value.
            * @enum {string}
            */
           action?: "increment" | "set";
@@ -37638,7 +37638,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -37663,7 +37663,7 @@ export interface operations {
           /** @description The identifier of the customer to create the subscription schedule for. */
           customer?: string;
           /**
-           * default_settings_params 
+           * default_settings_params
            * @description Object representing the subscription schedule's default settings.
            */
           default_settings?: {
@@ -37693,7 +37693,7 @@ export interface operations {
             } | "";
           };
           /**
-           * @description Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription. 
+           * @description Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
            * @enum {string}
            */
           end_behavior?: "cancel" | "none" | "release" | "renew";
@@ -37851,7 +37851,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * default_settings_params 
+           * default_settings_params
            * @description Object representing the subscription schedule's default settings.
            */
           default_settings?: {
@@ -37881,7 +37881,7 @@ export interface operations {
             } | "";
           };
           /**
-           * @description Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription. 
+           * @description Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
            * @enum {string}
            */
           end_behavior?: "cancel" | "none" | "release" | "renew";
@@ -37974,7 +37974,7 @@ export interface operations {
               trial_end?: number | "now";
             })[];
           /**
-           * @description If the update changes the current phase, indicates whether the changes should be prorated. The default value is `create_prorations`. 
+           * @description If the update changes the current phase, indicates whether the changes should be prorated. The default value is `create_prorations`.
            * @enum {string}
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
@@ -38122,7 +38122,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -38141,10 +38141,10 @@ export interface operations {
   };
   /**
    * @description <p>Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.</p>
-   * 
+   *
    * <p>When you create a subscription with <code>collection_method=charge_automatically</code>, the first invoice is finalized as part of the request.
    * The <code>payment_behavior</code> parameter determines the exact behavior of the initial payment.</p>
-   * 
+   *
    * <p>To start subscriptions where the first invoice always begins in a <code>draft</code> status, use <a href="/docs/billing/subscriptions/subscription-schedules#managing">subscription schedules</a> instead.
    * Schedules provide the flexibility to model more complex billing configurations that change over time.</p>
    */
@@ -38171,19 +38171,19 @@ export interface operations {
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number;
           /**
-           * automatic_tax_config 
+           * automatic_tax_config
            * @description Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
            */
           automatic_tax?: {
             enabled: boolean;
           };
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description For new subscriptions, a past timestamp to backdate the subscription's start date to. If set, the first invoice will contain a proration for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
            */
           backdate_start_date?: number;
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description A future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
            */
           billing_cycle_anchor?: number;
@@ -38193,14 +38193,14 @@ export interface operations {
             reset_billing_cycle_anchor?: boolean;
           } | "";
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
            */
           cancel_at?: number;
           /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
           cancel_at_period_end?: boolean;
           /**
-           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`. 
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
            * @enum {string}
            */
           collection_method?: "charge_automatically" | "send_invoice";
@@ -38260,21 +38260,21 @@ export interface operations {
           on_behalf_of?: string | "";
           /**
            * @description Only applies to subscriptions with `collection_method=charge_automatically`.
-           * 
+           *
            * Use `allow_incomplete` to create subscriptions with `status=incomplete` if the first invoice cannot be paid. Creating subscriptions with this status allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
-           * 
+           *
            * Use `default_incomplete` to create Subscriptions with `status=incomplete` when the first invoice requires payment, otherwise start as active. Subscriptions transition to `status=active` when successfully confirming the payment intent on the first invoice. This allows simpler management of scenarios where additional user actions are needed to pay a subscription’s invoice. Such as failed payments, [SCA regulation](https://stripe.com/docs/billing/migration/strong-customer-authentication), or collecting a mandate for a bank debit payment method. If the payment intent is not confirmed within 23 hours subscriptions transition to `status=incomplete_expired`, which is a terminal state.
-           * 
+           *
            * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not create a subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
-           * 
+           *
            * `pending_if_incomplete` is only used with updates and cannot be passed when creating a subscription.
-           * 
-           * Subscriptions with `collection_method=send_invoice` are automatically activated regardless of the first invoice status. 
+           *
+           * Subscriptions with `collection_method=send_invoice` are automatically activated regardless of the first invoice status.
            * @enum {string}
            */
           payment_behavior?: "allow_incomplete" | "default_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /**
-           * payment_settings 
+           * payment_settings
            * @description Payment settings to pass to invoices created by the subscription.
            */
           payment_settings?: {
@@ -38340,12 +38340,12 @@ export interface operations {
           /** @description The API ID of a promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. */
           promotion_code?: string;
           /**
-           * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) resulting from the `billing_cycle_anchor`. If no value is passed, the default is `create_prorations`. 
+           * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) resulting from the `billing_cycle_anchor`. If no value is passed, the default is `create_prorations`.
            * @enum {string}
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /**
-           * transfer_data_specs 
+           * transfer_data_specs
            * @description If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges.
            */
           transfer_data?: {
@@ -38359,7 +38359,7 @@ export interface operations {
           /** @description Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
           trial_period_days?: number;
           /**
-           * trial_settings_config 
+           * trial_settings_config
            * @description Settings related to subscription trials.
            */
           trial_settings?: {
@@ -38420,7 +38420,7 @@ export interface operations {
             has_more: boolean;
             next_page?: string | null;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. 
+             * @description String representing the object's type. Objects of the same type share the same value.
              * @enum {string}
              */
             object: "search_result";
@@ -38498,14 +38498,14 @@ export interface operations {
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number;
           /**
-           * automatic_tax_config 
+           * automatic_tax_config
            * @description Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
            */
           automatic_tax?: {
             enabled: boolean;
           };
           /**
-           * @description Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle). 
+           * @description Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
            * @enum {string}
            */
           billing_cycle_anchor?: "now" | "unchanged";
@@ -38519,7 +38519,7 @@ export interface operations {
           /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
           cancel_at_period_end?: boolean;
           /**
-           * cancellation_details_param 
+           * cancellation_details_param
            * @description Details about why this subscription was cancelled
            */
           cancellation_details?: {
@@ -38528,7 +38528,7 @@ export interface operations {
             feedback?: "" | "customer_service" | "low_quality" | "missing_features" | "other" | "switched_service" | "too_complex" | "too_expensive" | "unused";
           };
           /**
-           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`. 
+           * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
            * @enum {string}
            */
           collection_method?: "charge_automatically" | "send_invoice";
@@ -38594,17 +38594,17 @@ export interface operations {
           }) | "";
           /**
            * @description Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
-           * 
+           *
            * Use `default_incomplete` to transition the subscription to `status=past_due` when payment is required and await explicit confirmation of the invoice's payment intent. This allows simpler management of scenarios where additional user actions are needed to pay a subscription’s invoice. Such as failed payments, [SCA regulation](https://stripe.com/docs/billing/migration/strong-customer-authentication), or collecting a mandate for a bank debit payment method.
-           * 
+           *
            * Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
-           * 
-           * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more. 
+           *
+           * Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
            * @enum {string}
            */
           payment_behavior?: "allow_incomplete" | "default_incomplete" | "error_if_incomplete" | "pending_if_incomplete";
           /**
-           * payment_settings 
+           * payment_settings
            * @description Payment settings to pass to invoices created by the subscription.
            */
           payment_settings?: {
@@ -38670,12 +38670,12 @@ export interface operations {
           /** @description The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. */
           promotion_code?: string;
           /**
-           * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`. 
+           * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
            * @enum {string}
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#upcoming_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations.
            */
           proration_date?: number;
@@ -38689,7 +38689,7 @@ export interface operations {
           /** @description Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more. */
           trial_from_plan?: boolean;
           /**
-           * trial_settings_config 
+           * trial_settings_config
            * @description Settings related to subscription trials.
            */
           trial_settings?: {
@@ -38719,9 +38719,9 @@ export interface operations {
   };
   /**
    * @description <p>Cancels a customer’s subscription immediately. The customer will not be charged again for the subscription.</p>
-   * 
+   *
    * <p>Note, however, that any pending invoice items that you’ve created will still be charged for at the end of the period, unless manually <a href="#delete_invoiceitem">deleted</a>. If you’ve set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.</p>
-   * 
+   *
    * <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p>
    */
   DeleteSubscriptionsSubscriptionExposedId: {
@@ -38734,7 +38734,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * cancellation_details_param 
+           * cancellation_details_param
            * @description Details about why this subscription was cancelled
            */
           cancellation_details?: {
@@ -38804,19 +38804,19 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * @description Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). Setting the value to `unchanged` advances the subscription's billing cycle anchor to the period that surrounds the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle). 
+           * @description Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). Setting the value to `unchanged` advances the subscription's billing cycle anchor to the period that surrounds the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
            * @enum {string}
            */
           billing_cycle_anchor?: "now" | "unchanged";
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`. 
+           * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
            * @enum {string}
            */
           proration_behavior?: "always_invoice" | "create_prorations" | "none";
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description If set, the proration will be calculated as though the subscription was resumed at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint.
            */
           proration_date?: number;
@@ -38848,7 +38848,7 @@ export interface operations {
           /** @description The ID of an existing customer to use for this calculation. If provided, the customer's address and tax IDs are copied to `customer_details`. */
           customer?: string;
           /**
-           * customer_details 
+           * customer_details
            * @description Details about the customer, including address and tax IDs.
            */
           customer_details?: {
@@ -38885,7 +38885,7 @@ export interface operations {
               tax_code?: string;
             })[];
           /**
-           * shipping_cost 
+           * shipping_cost
            * @description Shipping cost details to be used for the calculation.
            */
           shipping_cost?: {
@@ -38947,7 +38947,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -39020,7 +39020,7 @@ export interface operations {
             [key: string]: string | undefined;
           };
           /**
-           * @description If `partial`, the provided line item or shipping cost amounts are reversed. If `full`, the original transaction is fully reversed. 
+           * @description If `partial`, the provided line item or shipping cost amounts are reversed. If `full`, the original transaction is fully reversed.
            * @enum {string}
            */
           mode: "full" | "partial";
@@ -39029,7 +39029,7 @@ export interface operations {
           /** @description A custom identifier for this reversal, such as `myOrder_123-refund_1`, which must be unique across all transactions. The reference helps identify this reversal transaction in exported [tax reports](https://stripe.com/docs/tax/reports). */
           reference: string;
           /**
-           * transaction_shipping_cost_reversal 
+           * transaction_shipping_cost_reversal
            * @description The shipping cost to reverse.
            */
           shipping_cost?: {
@@ -39117,7 +39117,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -39162,7 +39162,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -39249,7 +39249,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -39294,7 +39294,7 @@ export interface operations {
           /** @description [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States. */
           state?: string;
           /**
-           * @description The high-level tax type, such as `vat` or `sales_tax`. 
+           * @description The high-level tax type, such as `vat` or `sales_tax`.
            * @enum {string}
            */
           tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
@@ -39376,7 +39376,7 @@ export interface operations {
           /** @description [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States. */
           state?: string;
           /**
-           * @description The high-level tax type, such as `vat` or `sales_tax`. 
+           * @description The high-level tax type, such as `vat` or `sales_tax`.
            * @enum {string}
            */
           tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
@@ -39428,7 +39428,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -39451,7 +39451,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * bbpos_wise_pose 
+           * bbpos_wise_pose
            * @description An object containing device type specific settings for BBPOS WisePOS E readers
            */
           bbpos_wisepos_e?: {
@@ -39547,7 +39547,7 @@ export interface operations {
             };
           } | "";
           /**
-           * verifone_p400 
+           * verifone_p400
            * @description An object containing device type specific settings for Verifone P400 readers
            */
           verifone_p400?: {
@@ -39809,7 +39809,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -39835,7 +39835,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * create_location_address_param 
+           * create_location_address_param
            * @description The full address of the location.
            */
           address: {
@@ -39916,7 +39916,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * optional_fields_address 
+           * optional_fields_address
            * @description The full address of the location.
            */
           address?: {
@@ -40017,7 +40017,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -40208,7 +40208,7 @@ export interface operations {
           /** @description PaymentIntent ID */
           payment_intent: string;
           /**
-           * process_config 
+           * process_config
            * @description Configuration overrides
            */
           process_config?: {
@@ -40325,7 +40325,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * cart 
+           * cart
            * @description Cart
            */
           cart?: {
@@ -40341,7 +40341,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * @description Type 
+           * @description Type
            * @enum {string}
            */
           type: "cart";
@@ -40562,7 +40562,7 @@ export interface operations {
           /** @description Simulated on-reader tip amount. */
           amount_tip?: number;
           /**
-           * card_present 
+           * card_present
            * @description Simulated data for the card_present payment method.
            */
           card_present?: {
@@ -40571,14 +40571,14 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * interac_present 
+           * interac_present
            * @description Simulated data for the interac_present payment method.
            */
           interac_present?: {
             number?: string;
           };
           /**
-           * @description Simulated payment type. 
+           * @description Simulated payment type.
            * @enum {string}
            */
           type?: "card_present" | "interac_present";
@@ -40628,7 +40628,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -40653,7 +40653,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description The initial frozen time for this test clock.
            */
           frozen_time: number;
@@ -40748,7 +40748,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * Format: unix-time 
+           * Format: unix-time
            * @description The time to advance the test clock. Must be after the test clock's current frozen time. Cannot be more than two intervals in the future from the shortest subscription in this test clock. If there are no subscriptions in this test clock, it cannot be more than two years in the future.
            */
           frozen_time: number;
@@ -40783,7 +40783,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * failure_details_params 
+           * failure_details_params
            * @description Details about a failed InboundTransfer.
            */
           failure_details?: {
@@ -40941,7 +40941,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * returned_details_params 
+           * returned_details_params
            * @description Optional hash to set the the return code.
            */
           returned_details?: {
@@ -41039,7 +41039,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * returned_details_params 
+           * returned_details_params
            * @description Details about a returned OutboundTransfer.
            */
           returned_details?: {
@@ -41080,7 +41080,7 @@ export interface operations {
           /** @description The FinancialAccount to send funds to. */
           financial_account: string;
           /**
-           * source_params 
+           * source_params
            * @description Initiating payment method details for the object.
            */
           initiating_payment_method_details?: {
@@ -41094,7 +41094,7 @@ export interface operations {
             };
           };
           /**
-           * @description The rails used for the object. 
+           * @description The rails used for the object.
            * @enum {string}
            */
           network: "ach" | "us_domestic_wire";
@@ -41132,7 +41132,7 @@ export interface operations {
           /** @description The FinancialAccount to pull funds from. */
           financial_account: string;
           /**
-           * source_params 
+           * source_params
            * @description Initiating payment method details for the object.
            */
           initiating_payment_method_details?: {
@@ -41146,7 +41146,7 @@ export interface operations {
             };
           };
           /**
-           * @description The rails used for the object. 
+           * @description The rails used for the object.
            * @enum {string}
            */
           network: "ach";
@@ -41177,7 +41177,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * connect_js_account_token_specs 
+           * connect_js_account_token_specs
            * @description Information for the account this token will represent.
            */
           account?: {
@@ -41327,7 +41327,7 @@ export interface operations {
             tos_shown_and_accepted?: boolean;
           };
           /**
-           * token_create_bank_account 
+           * token_create_bank_account
            * @description The bank account this token will represent.
            */
           bank_account?: {
@@ -41358,7 +41358,7 @@ export interface operations {
           /** @description The customer (owned by the application's account) for which to create a token. This can be used only with an [OAuth access token](https://stripe.com/docs/connect/standard-accounts) or [Stripe-Account header](https://stripe.com/docs/connect/authentication). For more details, see [Cloning Saved Payment Methods](https://stripe.com/docs/connect/cloning-saved-payment-methods). */
           customer?: string;
           /**
-           * cvc_params 
+           * cvc_params
            * @description The updated CVC value this token will represent.
            */
           cvc_update?: {
@@ -41367,7 +41367,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * person_token_specs 
+           * person_token_specs
            * @description Information for the person this token will represent.
            */
           person?: {
@@ -41472,7 +41472,7 @@ export interface operations {
             };
           };
           /**
-           * pii_token_specs 
+           * pii_token_specs
            * @description The PII this token will represent.
            */
           pii?: {
@@ -41571,7 +41571,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -41765,7 +41765,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -41804,7 +41804,7 @@ export interface operations {
           /** @description You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-availability) for details. */
           source_transaction?: string;
           /**
-           * @description The source balance to use for this transfer. One of `bank_account`, `card`, or `fpx`. For most users, this will default to `card`. 
+           * @description The source balance to use for this transfer. One of `bank_account`, `card`, or `fpx`. For most users, this will default to `card`.
            * @enum {string}
            */
           source_type?: "bank_account" | "card" | "fpx";
@@ -41860,7 +41860,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -41879,9 +41879,9 @@ export interface operations {
   };
   /**
    * @description <p>When you create a new reversal, you must specify a transfer to create it on.</p>
-   * 
+   *
    * <p>When reversing transfers, you can optionally reverse part of the transfer. You can do so as many times as you wish until the entire transfer has been reversed.</p>
-   * 
+   *
    * <p>Once entirely reversed, a transfer can’t be reversed again. This method will return an error when called on an already-reversed transfer, or when trying to reverse more money than is left on a transfer.</p>
    */
   PostTransfersIdReversals: {
@@ -41956,7 +41956,7 @@ export interface operations {
   };
   /**
    * @description <p>Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
-   * 
+   *
    * <p>This request accepts only metadata as an argument.</p>
    */
   PostTransfersTransfer: {
@@ -42028,7 +42028,7 @@ export interface operations {
   };
   /**
    * @description <p>Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
-   * 
+   *
    * <p>This request only accepts metadata and description as arguments.</p>
    */
   PostTransfersTransferReversalsId: {
@@ -42100,7 +42100,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -42216,7 +42216,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -42329,7 +42329,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -42354,7 +42354,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * feature_access 
+           * feature_access
            * @description Encodes whether a FinancialAccount has access to a particular feature. Stripe or the platform can control features via the requested field.
            */
           features?: {
@@ -42412,7 +42412,7 @@ export interface operations {
             [key: string]: string | undefined;
           };
           /**
-           * platform_restrictions 
+           * platform_restrictions
            * @description The set of functionalities that the platform can restrict on the FinancialAccount.
            */
           platform_restrictions?: {
@@ -42485,7 +42485,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * feature_access 
+           * feature_access
            * @description Encodes whether a FinancialAccount has access to a particular feature, with a status enum and associated `status_details`. Stripe or the platform may control features via the requested field.
            */
           features?: {
@@ -42543,7 +42543,7 @@ export interface operations {
             [key: string]: string | undefined;
           };
           /**
-           * platform_restrictions 
+           * platform_restrictions
            * @description The set of functionalities that the platform can restrict on the FinancialAccount.
            */
           platform_restrictions?: {
@@ -42612,14 +42612,14 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * access 
+           * access
            * @description Encodes the FinancialAccount's ability to be used with the Issuing product, including attaching cards to and drawing funds from the FinancialAccount.
            */
           card_issuing?: {
             requested: boolean;
           };
           /**
-           * access 
+           * access
            * @description Represents whether this FinancialAccount is eligible for deposit insurance. Various factors determine the insurance amount.
            */
           deposit_insurance?: {
@@ -42628,7 +42628,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: (string)[];
           /**
-           * financial_addresses 
+           * financial_addresses
            * @description Contains Features that add FinancialAddresses to the FinancialAccount.
            */
           financial_addresses?: {
@@ -42638,7 +42638,7 @@ export interface operations {
             };
           };
           /**
-           * inbound_transfers 
+           * inbound_transfers
            * @description Contains settings related to adding funds to a FinancialAccount from another Account with the same owner.
            */
           inbound_transfers?: {
@@ -42648,14 +42648,14 @@ export interface operations {
             };
           };
           /**
-           * access 
+           * access
            * @description Represents the ability for the FinancialAccount to send money to, or receive money from other FinancialAccounts (for example, via OutboundPayment).
            */
           intra_stripe_flows?: {
             requested: boolean;
           };
           /**
-           * outbound_payments 
+           * outbound_payments
            * @description Includes Features related to initiating money movement out of the FinancialAccount to someone else's bucket of money.
            */
           outbound_payments?: {
@@ -42669,7 +42669,7 @@ export interface operations {
             };
           };
           /**
-           * outbound_transfers 
+           * outbound_transfers
            * @description Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.
            */
           outbound_transfers?: {
@@ -42733,7 +42733,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -42887,7 +42887,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -42920,7 +42920,7 @@ export interface operations {
           /** @description The PaymentMethod to use as the payment instrument for the OutboundPayment. Exclusive with `destination_payment_method_data`. */
           destination_payment_method?: string;
           /**
-           * payment_method_data 
+           * payment_method_data
            * @description Hash used to generate the PaymentMethod to be used for this OutboundPayment. Exclusive with `destination_payment_method`.
            */
           destination_payment_method_data?: {
@@ -42956,7 +42956,7 @@ export interface operations {
             };
           };
           /**
-           * payment_method_options 
+           * payment_method_options
            * @description Payment method-specific configuration for this OutboundPayment.
            */
           destination_payment_method_options?: {
@@ -42966,7 +42966,7 @@ export interface operations {
             }) | "";
           };
           /**
-           * end_user_details_params 
+           * end_user_details_params
            * @description End user details.
            */
           end_user_details?: {
@@ -43095,7 +43095,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -43126,7 +43126,7 @@ export interface operations {
           /** @description The PaymentMethod to use as the payment instrument for the OutboundTransfer. */
           destination_payment_method?: string;
           /**
-           * payment_method_options 
+           * payment_method_options
            * @description Hash describing payment method configuration details.
            */
           destination_payment_method_options?: {
@@ -43262,7 +43262,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -43343,7 +43343,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -43438,7 +43438,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -43536,7 +43536,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -43612,7 +43612,7 @@ export interface operations {
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
-             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`. 
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
              */
             object: "list";
@@ -43635,7 +43635,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /**
-           * @description Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version. 
+           * @description Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version.
            * @enum {string}
            */
           api_version?: "2011-01-01" | "2011-06-21" | "2011-06-28" | "2011-08-01" | "2011-09-15" | "2011-11-17" | "2012-02-23" | "2012-03-25" | "2012-06-18" | "2012-06-28" | "2012-07-09" | "2012-09-24" | "2012-10-26" | "2012-11-07" | "2013-02-11" | "2013-02-13" | "2013-07-05" | "2013-08-12" | "2013-08-13" | "2013-10-29" | "2013-12-03" | "2014-01-31" | "2014-03-13" | "2014-03-28" | "2014-05-19" | "2014-06-13" | "2014-06-17" | "2014-07-22" | "2014-07-26" | "2014-08-04" | "2014-08-20" | "2014-09-08" | "2014-10-07" | "2014-11-05" | "2014-11-20" | "2014-12-08" | "2014-12-17" | "2014-12-22" | "2015-01-11" | "2015-01-26" | "2015-02-10" | "2015-02-16" | "2015-02-18" | "2015-03-24" | "2015-04-07" | "2015-06-15" | "2015-07-07" | "2015-07-13" | "2015-07-28" | "2015-08-07" | "2015-08-19" | "2015-09-03" | "2015-09-08" | "2015-09-23" | "2015-10-01" | "2015-10-12" | "2015-10-16" | "2016-02-03" | "2016-02-19" | "2016-02-22" | "2016-02-23" | "2016-02-29" | "2016-03-07" | "2016-06-15" | "2016-07-06" | "2016-10-19" | "2017-01-27" | "2017-02-14" | "2017-04-06" | "2017-05-25" | "2017-06-05" | "2017-08-15" | "2017-12-14" | "2018-01-23" | "2018-02-05" | "2018-02-06" | "2018-02-28" | "2018-05-21" | "2018-07-27" | "2018-08-23" | "2018-09-06" | "2018-09-24" | "2018-10-31" | "2018-11-08" | "2019-02-11" | "2019-02-19" | "2019-03-14" | "2019-05-16" | "2019-08-14" | "2019-09-09" | "2019-10-08" | "2019-10-17" | "2019-11-05" | "2019-12-03" | "2020-03-02" | "2020-08-27" | "2022-08-01" | "2022-11-15";
