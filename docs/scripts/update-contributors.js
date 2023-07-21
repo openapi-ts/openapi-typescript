@@ -90,6 +90,7 @@ const OPENAPI_TS_CONTRIBUTORS = [
     "pvanagtmaal",
     "toomuchdesign",
     "psychedelicious",
+    "tkrotoff",
   ]),
 ];
 
