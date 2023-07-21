@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.3.7
+
+### Patch Changes
+
+- [#1236](https://github.com/drwpow/openapi-typescript/pull/1236) [`95a4c8c`](https://github.com/drwpow/openapi-typescript/commit/95a4c8c573c8eea2c911359879419eb07e10bd63) Thanks [@drwpow](https://github.com/drwpow)! - Improve oneOf and enum handling
+
 ## 6.3.6
 
 ### Patch Changes
