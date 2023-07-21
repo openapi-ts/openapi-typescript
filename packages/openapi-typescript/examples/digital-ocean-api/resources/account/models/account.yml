@@ -16,6 +16,11 @@ properties:
     type: string
     example: sammy@digitalocean.com
 
+  name:
+    description: The display name for the current user.
+    type: string
+    example: Sammy the Shark
+
   uuid:
     description: The unique universal identifier for the current user.
     type: string

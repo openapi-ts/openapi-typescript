@@ -20,9 +20,9 @@ export interface paths {
      * @description <p>With <a href="/docs/connect">Connect</a>, you can create Stripe accounts for your users.
      * To do this, you’ll first need to <a href="https://dashboard.stripe.com/account/applications/settings">register your platform</a>.</p>
      *
-     * <p>If you’ve already collected information for your connected accounts, you <a href="/docs/connect/best-practices#onboarding">can pre-fill that information</a> when
-     * creating the account. Connect Onboarding won’t ask for the pre-filled information during account onboarding.
-     * You can pre-fill any information on the account.</p>
+     * <p>If you’ve already collected information for your connected accounts, you <a href="/docs/connect/best-practices#onboarding">can prefill that information</a> when
+     * creating the account. Connect Onboarding won’t ask for the prefilled information during account onboarding.
+     * You can prefill any information on the account.</p>
      */
     post: operations["PostAccounts"];
   };
@@ -1612,6 +1612,12 @@ export interface paths {
     /** @description <p>Retrieves the line items of a persisted tax calculation as a collection.</p> */
     get: operations["GetTaxCalculationsCalculationLineItems"];
   };
+  "/v1/tax/settings": {
+    /** @description <p>Retrieves Tax <code>Settings</code> for a merchant.</p> */
+    get: operations["GetTaxSettings"];
+    /** @description <p>Updates Tax <code>Settings</code> parameters used in tax calculations. All parameters are editable but none can be removed once set.</p> */
+    post: operations["PostTaxSettings"];
+  };
   "/v1/tax/transactions/create_from_calculation": {
     /** @description <p>Creates a Tax <code>Transaction</code> from a calculation.</p> */
     post: operations["PostTaxTransactionsCreateFromCalculation"];
@@ -2748,7 +2754,7 @@ export interface components {
        * @enum {string}
        */
       object: "balance";
-      /** @description Funds that are not yet available in the balance, due to the 7-day rolling pay cycle. The pending balance for each currency, and for each payment type, can be found in the `source_types` property. */
+      /** @description Funds that are not yet available in the balance. The pending balance for each currency, and for each payment type, can be found in the `source_types` property. */
       pending: components["schemas"]["balance_amount"][];
     };
     /** BalanceAmount */
@@ -4619,7 +4625,7 @@ export interface components {
       object: "customer_cash_balance_transaction";
       refunded_from_payment?: components["schemas"]["customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction"];
       /**
-       * @description The type of the cash balance transaction. One of `applied_to_payment`, `unapplied_from_payment`, `refunded_from_payment`, `funded`, `return_initiated`, or `return_canceled`. New types may be added in future. See [Customer Balance](https://stripe.com/docs/payments/customer-balance#types) to learn more about these types.
+       * @description The type of the cash balance transaction. New types may be added in future. See [Customer Balance](https://stripe.com/docs/payments/customer-balance#types) to learn more about these types.
        * @enum {string}
        */
       type: "applied_to_payment" | "funded" | "funding_reversed" | "refunded_from_payment" | "return_canceled" | "return_initiated" | "unapplied_from_payment";
@@ -6680,10 +6686,10 @@ export interface components {
     /** InvoicesResourceInvoiceTaxID */
     invoices_resource_invoice_tax_id: {
       /**
-       * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
+       * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
        * @enum {string}
        */
-      type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+      type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
       /** @description The value of the tax ID. */
       value?: string | null;
     };
@@ -7847,7 +7853,7 @@ export interface components {
        * @description The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
        * @enum {string|null}
        */
-      taxability_reason?: "customer_exempt" | "excluded_territory" | "jurisdiction_unsupported" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "vat_exempt" | "zero_rated" | null;
+      taxability_reason?: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated" | null;
       /** @description The amount on which tax is calculated, in %s. */
       taxable_amount?: number | null;
     };
@@ -8150,11 +8156,25 @@ export interface components {
     };
     /** PaymentFlowsAutomaticPaymentMethodsPaymentIntent */
     payment_flows_automatic_payment_methods_payment_intent: {
+      /**
+       * @description Controls whether this PaymentIntent will accept redirect-based payment methods.
+       *
+       * Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/payment_intents/confirm) this PaymentIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the payment.
+       * @enum {string}
+       */
+      allow_redirects?: "always" | "never";
       /** @description Automatically calculates compatible payment methods */
       enabled: boolean;
     };
     /** PaymentFlowsAutomaticPaymentMethodsSetupIntent */
     payment_flows_automatic_payment_methods_setup_intent: {
+      /**
+       * @description Controls whether this SetupIntent will accept redirect-based payment methods.
+       *
+       * Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/setup_intents/confirm) this SetupIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the setup.
+       * @enum {string}
+       */
+      allow_redirects?: "always" | "never";
       /** @description Automatically calculates compatible payment methods */
       enabled?: boolean | null;
     };
@@ -9440,6 +9460,8 @@ export interface components {
     payment_method_details_affirm: Record<string, never>;
     /** payment_method_details_afterpay_clearpay */
     payment_method_details_afterpay_clearpay: {
+      /** @description The Afterpay order ID associated with this payment intent. */
+      order_id?: string | null;
       /** @description Order identifier shown to the merchant in Afterpay’s online portal. */
       reference?: string | null;
     };
@@ -10836,10 +10858,10 @@ export interface components {
     /** PaymentPagesCheckoutSessionTaxID */
     payment_pages_checkout_session_tax_id: {
       /**
-       * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
+       * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
        * @enum {string}
        */
-      type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+      type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
       /** @description The value of the tax ID. */
       value?: string | null;
     };
@@ -10971,7 +10993,7 @@ export interface components {
      * @description This is an object representing a person associated with a Stripe account.
      *
      * A platform cannot access a Standard or Express account's persons after the account starts onboarding, such as after generating an account link for the account.
-     * See the [Standard onboarding](https://stripe.com/docs/connect/standard-accounts) or [Express onboarding documentation](https://stripe.com/docs/connect/express-accounts) for information about platform pre-filling and account onboarding steps.
+     * See the [Standard onboarding](https://stripe.com/docs/connect/standard-accounts) or [Express onboarding documentation](https://stripe.com/docs/connect/express-accounts) for information about platform prefilling and account onboarding steps.
      *
      * Related guide: [Handling identity verification with the API](https://stripe.com/docs/connect/identity-verification-api#person-information)
      */
@@ -12798,9 +12820,8 @@ export interface components {
     };
     /**
      * ShippingRate
-     * @description Shipping rates describe the price of shipping presented to your customers and can be
-     * applied to [Checkout Sessions](https://stripe.com/docs/payments/checkout/shipping)
-     * and [Orders](https://stripe.com/docs/orders/shipping) to collect shipping costs.
+     * @description Shipping rates describe the price of shipping presented to your customers and
+     * applied to a purchase. For more information, see [Charge for shipping](https://stripe.com/docs/payments/during-payment/charge-shipping).
      */
     shipping_rate: {
       /** @description Whether the shipping rate can be used for new purchases. Defaults to `true`. */
@@ -13988,7 +14009,7 @@ export interface components {
        * @enum {string}
        */
       object: "tax.calculation_line_item";
-      /** @description A Product ID. */
+      /** @description The ID of an existing [Product](https://stripe.com/docs/api/products/object). */
       product?: string | null;
       /** @description The number of units of the item being purchased. For reversals, this is the quantity reversed. */
       quantity: number;
@@ -14003,6 +14024,30 @@ export interface components {
       tax_breakdown?: components["schemas"]["tax_product_resource_line_item_tax_breakdown"][] | null;
       /** @description The [tax code](https://stripe.com/docs/tax/tax-categories) ID used for this resource. */
       tax_code: string;
+    };
+    /**
+     * TaxProductResourceTaxSettings
+     * @description You can use Tax `Settings` to manage configurations used by Stripe Tax calculations.
+     *
+     * Related guide: [Using the Settings API](https://stripe.com/docs/tax/settings-api)
+     */
+    "tax.settings": {
+      defaults: components["schemas"]["tax_product_resource_tax_settings_defaults"];
+      /** @description The place where your business is located. */
+      head_office?: components["schemas"]["tax_product_resource_tax_settings_head_office"] | null;
+      /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
+      livemode: boolean;
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
+      object: "tax.settings";
+      /**
+       * @description The `active` status indicates you have all required settings to calculate tax. A status can transition out of `active` when new required settings are introduced.
+       * @enum {string}
+       */
+      status: "active" | "pending";
+      status_details: components["schemas"]["tax_product_resource_tax_settings_status_details"];
     };
     /**
      * TaxProductResourceTaxTransaction
@@ -14087,6 +14132,8 @@ export interface components {
        * @enum {string}
        */
       object: "tax.transaction_line_item";
+      /** @description The ID of an existing [Product](https://stripe.com/docs/api/products/object). */
+      product?: string | null;
       /** @description The number of units of the item being purchased. For reversals, this is the quantity reversed. */
       quantity: number;
       /** @description A custom identifier for this line item in the transaction. */
@@ -14172,10 +14219,10 @@ export interface components {
        */
       object: "tax_id";
       /**
-       * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`. Note that some legacy tax IDs have type `unknown`
+       * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`. Note that some legacy tax IDs have type `unknown`
        * @enum {string}
        */
-      type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+      type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
       /** @description Value of the tax ID. */
       value: string;
       /** @description Tax ID verification information. */
@@ -14215,10 +14262,10 @@ export interface components {
     /** TaxProductResourceCustomerDetailsResourceTaxId */
     tax_product_resource_customer_details_resource_tax_id: {
       /**
-       * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
+       * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
        * @enum {string}
        */
-      type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+      type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
       /** @description The value of the tax ID. */
       value: string;
     };
@@ -14266,7 +14313,7 @@ export interface components {
        * @description The tax type, such as `vat` or `sales_tax`.
        * @enum {string}
        */
-      tax_type: "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
+      tax_type: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
     };
     /** TaxProductResourcePostalAddress */
     tax_product_resource_postal_address: {
@@ -14304,7 +14351,7 @@ export interface components {
       amount: number;
       /** @description The amount of tax calculated for shipping, in integer cents. */
       amount_tax: number;
-      /** @description The ID of an existing [ShippingRate](https://stripe.com/docs/api/shipping_rates/object) */
+      /** @description The ID of an existing [ShippingRate](https://stripe.com/docs/api/shipping_rates/object). */
       shipping_rate?: string;
       /**
        * @description Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes.
@@ -14328,7 +14375,33 @@ export interface components {
        * @description The tax type, such as `vat` or `sales_tax`.
        * @enum {string|null}
        */
-      tax_type?: "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat" | null;
+      tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat" | null;
+    };
+    /** TaxProductResourceTaxSettingsDefaults */
+    tax_product_resource_tax_settings_defaults: {
+      /**
+       * @description Default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) used to specify whether the price is considered inclusive of taxes or exclusive of taxes. If the item's price has a tax behavior set, it will take precedence over the default tax behavior.
+       * @enum {string|null}
+       */
+      tax_behavior?: "exclusive" | "inclusive" | "inferred_by_currency" | null;
+      /** @description Default [tax code](https://stripe.com/docs/tax/tax-categories) used to classify your products and prices. */
+      tax_code?: string | null;
+    };
+    /** TaxProductResourceTaxSettingsHeadOffice */
+    tax_product_resource_tax_settings_head_office: {
+      address: components["schemas"]["address"];
+    };
+    /** TaxProductResourceTaxSettingsStatusDetails */
+    tax_product_resource_tax_settings_status_details: {
+      active?: components["schemas"]["tax_product_resource_tax_settings_status_details_resource_active"];
+      pending?: components["schemas"]["tax_product_resource_tax_settings_status_details_resource_pending"];
+    };
+    /** TaxProductResourceTaxSettingsStatusDetailsResourceActive */
+    tax_product_resource_tax_settings_status_details_resource_active: Record<string, never>;
+    /** TaxProductResourceTaxSettingsStatusDetailsResourcePending */
+    tax_product_resource_tax_settings_status_details_resource_pending: {
+      /** @description The list of missing fields that are required to perform calculations. It includes the entry `head_office` when the status is `pending`. It is recommended to set the optional values even if they aren't listed as required for calculating taxes. Calculations can fail if missing fields aren't explicitly provided on every call. */
+      missing_fields?: string[] | null;
     };
     /** TaxProductResourceTaxTransactionLineItemResourceReversal */
     tax_product_resource_tax_transaction_line_item_resource_reversal: {
@@ -14346,6 +14419,8 @@ export interface components {
       amount: number;
       /** @description The amount of tax calculated for shipping, in integer cents. */
       amount_tax: number;
+      /** @description The ID of an existing [ShippingRate](https://stripe.com/docs/api/shipping_rates/object). */
+      shipping_rate?: string;
       /**
        * @description Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes.
        * @enum {string}
@@ -14401,7 +14476,7 @@ export interface components {
        * @description The high-level tax type, such as `vat` or `sales_tax`.
        * @enum {string|null}
        */
-      tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat" | null;
+      tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "service_tax" | "vat" | null;
     };
     /**
      * TerminalConfigurationConfiguration
@@ -16214,9 +16289,9 @@ export interface operations {
    * @description <p>With <a href="/docs/connect">Connect</a>, you can create Stripe accounts for your users.
    * To do this, you’ll first need to <a href="https://dashboard.stripe.com/account/applications/settings">register your platform</a>.</p>
    *
-   * <p>If you’ve already collected information for your connected accounts, you <a href="/docs/connect/best-practices#onboarding">can pre-fill that information</a> when
-   * creating the account. Connect Onboarding won’t ask for the pre-filled information during account onboarding.
-   * You can pre-fill any information on the account.</p>
+   * <p>If you’ve already collected information for your connected accounts, you <a href="/docs/connect/best-practices#onboarding">can prefill that information</a> when
+   * creating the account. Connect Onboarding won’t ask for the prefilled information during account onboarding.
+   * You can prefill any information on the account.</p>
    */
   PostAccounts: {
     requestBody?: {
@@ -22384,7 +22459,7 @@ export interface operations {
           /** @description The customer's tax IDs. */
           tax_id_data?: ({
               /** @enum {string} */
-              type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+              type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
               value: string;
             })[];
           /** @description ID of the test clock to attach to the customer. */
@@ -24776,10 +24851,10 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /**
-           * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
+           * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
            * @enum {string}
            */
-          type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+          type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
           /** @description Value of the tax ID. */
           value: string;
         };
@@ -26920,7 +26995,7 @@ export interface operations {
           tax_exempt?: "" | "exempt" | "none" | "reverse";
           tax_ids?: ({
               /** @enum {string} */
-              type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+              type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
               value: string;
             })[];
         };
@@ -27096,7 +27171,7 @@ export interface operations {
           tax_exempt?: "" | "exempt" | "none" | "reverse";
           tax_ids?: ({
               /** @enum {string} */
-              type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+              type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
               value: string;
             })[];
         };
@@ -29474,6 +29549,8 @@ export interface operations {
            * @description When enabled, this PaymentIntent will accept payment methods that you have enabled in the Dashboard and are compatible with this PaymentIntent's other parameters.
            */
           automatic_payment_methods?: {
+            /** @enum {string} */
+            allow_redirects?: "always" | "never";
             enabled: boolean;
           };
           /**
@@ -35435,6 +35512,8 @@ export interface operations {
            * @description When enabled, this SetupIntent will accept payment methods that you have enabled in the Dashboard and are compatible with this SetupIntent's other parameters.
            */
           automatic_payment_methods?: {
+            /** @enum {string} */
+            allow_redirects?: "always" | "never";
             enabled: boolean;
           };
           /** @description Set to `true` to attempt to confirm this SetupIntent immediately. This parameter defaults to `false`. If the payment method attached is a card, a return_url may be provided in case additional authentication is required. */
@@ -35727,6 +35806,8 @@ export interface operations {
            * @enum {string}
            */
           usage?: "off_session" | "on_session";
+          /** @description Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions. */
+          use_stripe_sdk?: boolean;
         };
       };
     };
@@ -36400,6 +36481,8 @@ export interface operations {
            * This parameter is only used for cards and other redirect-based payment methods.
            */
           return_url?: string;
+          /** @description Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions. */
+          use_stripe_sdk?: boolean;
         };
       };
     };
@@ -38866,7 +38949,7 @@ export interface operations {
             ip_address?: string;
             tax_ids?: ({
                 /** @enum {string} */
-                type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "no_vat" | "nz_gst" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
                 value: string;
               })[];
             /** @enum {string} */
@@ -38954,6 +39037,83 @@ export interface operations {
             /** @description The URL where this list can be accessed. */
             url: string;
           };
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  /** @description <p>Retrieves Tax <code>Settings</code> for a merchant.</p> */
+  GetTaxSettings: {
+    parameters: {
+      query?: {
+        /** @description Specifies which fields in the response should be expanded. */
+        expand?: string[];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/x-www-form-urlencoded": Record<string, never>;
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["tax.settings"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  /** @description <p>Updates Tax <code>Settings</code> parameters used in tax calculations. All parameters are editable but none can be removed once set.</p> */
+  PostTaxSettings: {
+    requestBody?: {
+      content: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * defaults_param
+           * @description Default configuration to be used on Stripe Tax calculations.
+           */
+          defaults?: {
+            /** @enum {string} */
+            tax_behavior?: "exclusive" | "inclusive" | "inferred_by_currency";
+            tax_code?: string;
+          };
+          /** @description Specifies which fields in the response should be expanded. */
+          expand?: string[];
+          /**
+           * head_office_param
+           * @description The place where your business is located.
+           */
+          head_office?: {
+            /** validated_country_address */
+            address: {
+              city?: string;
+              country?: string;
+              line1?: string;
+              line2?: string;
+              postal_code?: string;
+              state?: string;
+            };
+          };
+        };
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["tax.settings"];
         };
       };
       /** @description Error response. */
@@ -39297,7 +39457,7 @@ export interface operations {
            * @description The high-level tax type, such as `vat` or `sales_tax`.
            * @enum {string}
            */
-          tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
+          tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "service_tax" | "vat";
         };
       };
     };
@@ -39379,7 +39539,7 @@ export interface operations {
            * @description The high-level tax type, such as `vat` or `sales_tax`.
            * @enum {string}
            */
-          tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
+          tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "service_tax" | "vat";
         };
       };
     };
@@ -43644,7 +43804,7 @@ export interface operations {
           /** @description An optional description of what the webhook is used for. */
           description?: string;
           /** @description The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection. */
-          enabled_events: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "invoiceitem.updated" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "order.created" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "recipient.created" | "recipient.deleted" | "recipient.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "sku.created" | "sku.deleted" | "sku.updated" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
+          enabled_events: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "invoiceitem.updated" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "order.created" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "recipient.created" | "recipient.deleted" | "recipient.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "sku.created" | "sku.deleted" | "sku.updated" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -43717,7 +43877,7 @@ export interface operations {
           /** @description Disable the webhook endpoint if set to true. */
           disabled?: boolean;
           /** @description The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection. */
-          enabled_events?: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "invoiceitem.updated" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "order.created" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "recipient.created" | "recipient.deleted" | "recipient.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "sku.created" | "sku.deleted" | "sku.updated" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
+          enabled_events?: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "invoiceitem.updated" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "order.created" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "recipient.created" | "recipient.deleted" | "recipient.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "sku.created" | "sku.deleted" | "sku.updated" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
