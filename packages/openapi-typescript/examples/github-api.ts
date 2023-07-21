@@ -12558,7 +12558,9 @@ export interface components {
        * @description The assignee that has been granted access to GitHub Copilot.
        * @enum {object}
        */
-      assignee: [object Object];
+      assignee: {
+        [key: string]: unknown;
+      } & (components["schemas"]["simple-user"] | components["schemas"]["team"] | components["schemas"]["organization"]);
       /** @description The team that granted access to GitHub Copilot to the assignee. This will be null if the user was assigned a seat individually. */
       assigning_team?: components["schemas"]["team"];
       /**
@@ -13321,7 +13323,7 @@ export interface components {
      * Organization ruleset conditions
      * @description Conditions for an organization ruleset
      */
-    "org-ruleset-conditions": (components["schemas"]["repository-ruleset-conditions"] & components["schemas"]["repository-ruleset-conditions-repository-name-target"]) | (components["schemas"]["repository-ruleset-conditions"] & components["schemas"]["repository-ruleset-conditions-repository-id-target"]);
+    "org-ruleset-conditions": Record<string, never> & ((components["schemas"]["repository-ruleset-conditions"] & components["schemas"]["repository-ruleset-conditions-repository-name-target"]) | (components["schemas"]["repository-ruleset-conditions"] & components["schemas"]["repository-ruleset-conditions-repository-id-target"]));
     /**
      * creation
      * @description Only allow users with bypass permission to create matching refs.
@@ -13539,7 +13541,7 @@ export interface components {
      * Repository Rule
      * @description A repository rule.
      */
-    "repository-rule": components["schemas"]["repository-rule-creation"] | components["schemas"]["repository-rule-update"] | components["schemas"]["repository-rule-deletion"] | components["schemas"]["repository-rule-required-linear-history"] | components["schemas"]["repository-rule-required-deployments"] | components["schemas"]["repository-rule-required-signatures"] | components["schemas"]["repository-rule-pull-request"] | components["schemas"]["repository-rule-required-status-checks"] | components["schemas"]["repository-rule-non-fast-forward"] | components["schemas"]["repository-rule-commit-message-pattern"] | components["schemas"]["repository-rule-commit-author-email-pattern"] | components["schemas"]["repository-rule-committer-email-pattern"] | components["schemas"]["repository-rule-branch-name-pattern"] | components["schemas"]["repository-rule-tag-name-pattern"];
+    "repository-rule": Record<string, never> & (components["schemas"]["repository-rule-creation"] | components["schemas"]["repository-rule-update"] | components["schemas"]["repository-rule-deletion"] | components["schemas"]["repository-rule-required-linear-history"] | components["schemas"]["repository-rule-required-deployments"] | components["schemas"]["repository-rule-required-signatures"] | components["schemas"]["repository-rule-pull-request"] | components["schemas"]["repository-rule-required-status-checks"] | components["schemas"]["repository-rule-non-fast-forward"] | components["schemas"]["repository-rule-commit-message-pattern"] | components["schemas"]["repository-rule-commit-author-email-pattern"] | components["schemas"]["repository-rule-committer-email-pattern"] | components["schemas"]["repository-rule-branch-name-pattern"] | components["schemas"]["repository-rule-tag-name-pattern"]);
     /**
      * Repository ruleset
      * @description A set of rules to apply when specified conditions are met.
@@ -21108,7 +21110,7 @@ export interface components {
      * Repository Rule
      * @description A repository rule with ruleset details.
      */
-    "repository-rule-detailed": (components["schemas"]["repository-rule-creation"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-update"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-deletion"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-required-linear-history"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-required-deployments"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-required-signatures"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-pull-request"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-required-status-checks"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-non-fast-forward"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-commit-message-pattern"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-commit-author-email-pattern"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-committer-email-pattern"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-branch-name-pattern"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-tag-name-pattern"] & components["schemas"]["repository-rule-ruleset-info"]);
+    "repository-rule-detailed": Record<string, never> & ((components["schemas"]["repository-rule-creation"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-update"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-deletion"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-required-linear-history"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-required-deployments"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-required-signatures"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-pull-request"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-required-status-checks"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-non-fast-forward"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-commit-message-pattern"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-commit-author-email-pattern"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-committer-email-pattern"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-branch-name-pattern"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-tag-name-pattern"] & components["schemas"]["repository-rule-ruleset-info"]));
     "secret-scanning-alert": {
       number?: components["schemas"]["alert-number"];
       created_at?: components["schemas"]["alert-created-at"];
@@ -92610,7 +92612,89 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": OneOf<[{
+        "application/json": ({
+          /** @description The name of the check. For example, "code-coverage". */
+          name: string;
+          /** @description The SHA of the commit. */
+          head_sha: string;
+          /** @description The URL of the integrator's site that has the full details of the check. If the integrator does not provide this, then the homepage of the GitHub app is used. */
+          details_url?: string;
+          /** @description A reference for the run on the integrator's system. */
+          external_id?: string;
+          /**
+           * @description The current status.
+           * @default queued
+           * @enum {string}
+           */
+          status?: "queued" | "in_progress" | "completed";
+          /**
+           * Format: date-time
+           * @description The time that the check run began. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+           */
+          started_at?: string;
+          /**
+           * @description **Required if you provide `completed_at` or a `status` of `completed`**. The final conclusion of the check.
+           * **Note:** Providing `conclusion` will automatically set the `status` parameter to `completed`. You cannot change a check run conclusion to `stale`, only GitHub can set this.
+           * @enum {string}
+           */
+          conclusion?: "action_required" | "cancelled" | "failure" | "neutral" | "success" | "skipped" | "stale" | "timed_out";
+          /**
+           * Format: date-time
+           * @description The time the check completed. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+           */
+          completed_at?: string;
+          /** @description Check runs can accept a variety of data in the `output` object, including a `title` and `summary` and can optionally provide descriptive details about the run. */
+          output?: {
+            /** @description The title of the check run. */
+            title: string;
+            /** @description The summary of the check run. This parameter supports Markdown. **Maximum length**: 65535 characters. */
+            summary: string;
+            /** @description The details of the check run. This parameter supports Markdown. **Maximum length**: 65535 characters. */
+            text?: string;
+            /** @description Adds information from your analysis to specific lines of code. Annotations are visible on GitHub in the **Checks** and **Files changed** tab of the pull request. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/checks/runs#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. GitHub Actions are limited to 10 warning annotations and 10 error annotations per step. For details about how you can view annotations on GitHub, see "[About status checks](https://docs.github.com/articles/about-status-checks#checks)". */
+            annotations?: ({
+                /** @description The path of the file to add an annotation to. For example, `assets/css/main.css`. */
+                path: string;
+                /** @description The start line of the annotation. Line numbers start at 1. */
+                start_line: number;
+                /** @description The end line of the annotation. */
+                end_line: number;
+                /** @description The start column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values. Column numbers start at 1. */
+                start_column?: number;
+                /** @description The end column of the annotation. Annotations only support `start_column` and `end_column` on the same line. Omit this parameter if `start_line` and `end_line` have different values. */
+                end_column?: number;
+                /**
+                 * @description The level of the annotation.
+                 * @enum {string}
+                 */
+                annotation_level: "notice" | "warning" | "failure";
+                /** @description A short description of the feedback for these lines of code. The maximum size is 64 KB. */
+                message: string;
+                /** @description The title that represents the annotation. The maximum size is 255 characters. */
+                title?: string;
+                /** @description Details about this annotation. The maximum size is 64 KB. */
+                raw_details?: string;
+              })[];
+            /** @description Adds images to the output displayed in the GitHub pull request UI. */
+            images?: {
+                /** @description The alternative text for the image. */
+                alt: string;
+                /** @description The full URL of the image. */
+                image_url: string;
+                /** @description A short image description. */
+                caption?: string;
+              }[];
+          };
+          /** @description Displays a button on GitHub that can be clicked to alert your app to do additional tasks. For example, a code linting app can display a button that automatically fixes detected errors. The button created in this object is displayed after the check run completes. When a user clicks the button, GitHub sends the [`check_run.requested_action` webhook](https://docs.github.com/webhooks/event-payloads/#check_run) to your app. Each action includes a `label`, `identifier` and `description`. A maximum of three actions are accepted. To learn more about check runs and requested actions, see "[Check runs and requested actions](https://docs.github.com/rest/reference/checks#check-runs-and-requested-actions)." */
+          actions?: {
+              /** @description The text to be displayed on a button in the web UI. The maximum size is 20 characters. */
+              label: string;
+              /** @description A short explanation of what this action would do. The maximum size is 40 characters. */
+              description: string;
+              /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
+              identifier: string;
+            }[];
+        }) & (OneOf<[{
           /** @enum {unknown} */
           status: "completed";
           [key: string]: unknown;
@@ -92618,7 +92702,7 @@ export interface operations {
           /** @enum {unknown} */
           status?: "queued" | "in_progress";
           [key: string]: unknown;
-        }]>;
+        }]>);
       };
     };
     responses: {
