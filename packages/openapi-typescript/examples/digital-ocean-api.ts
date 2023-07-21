@@ -825,6 +825,11 @@ export interface external {
      */
     email: string;
     /**
+     * @description The display name for the current user.
+     * @example Sammy the Shark
+     */
+    name?: string;
+    /**
      * @description The unique universal identifier for the current user.
      * @example b6fr89dbf6d9156cace5f3c78dc9851d957381ef
      */

@@ -20,7 +20,7 @@ export interface paths {
   "/app": {
     /**
      * Get the authenticated app
-     * @description Returns the GitHub App associated with the authentication credentials used. To see how many app installations are associated with this GitHub App, see the `installations_count` in the response. For more details about your app's installations, see the "[List installations for the authenticated app](https://docs.github.com/rest/reference/apps#list-installations-for-the-authenticated-app)" endpoint.
+     * @description Returns the GitHub App associated with the authentication credentials used. To see how many app installations are associated with this GitHub App, see the `installations_count` in the response. For more details about your app's installations, see the "[List installations for the authenticated app](https://docs.github.com/rest/apps/apps#list-installations-for-the-authenticated-app)" endpoint.
      *
      * You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
      */
@@ -320,7 +320,7 @@ export interface paths {
   "/gitignore/templates": {
     /**
      * Get all gitignore templates
-     * @description List all templates available to pass as an option when [creating a repository](https://docs.github.com/rest/reference/repos#create-a-repository-for-the-authenticated-user).
+     * @description List all templates available to pass as an option when [creating a repository](https://docs.github.com/rest/repos/repos#create-a-repository-for-the-authenticated-user).
      */
     get: operations["gitignore/get-all-templates"];
   };
@@ -363,7 +363,7 @@ export interface paths {
      * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
      * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
      * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-     * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+     * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
      */
     get: operations["issues/list"];
   };
@@ -465,7 +465,7 @@ export interface paths {
     get: operations["activity/list-notifications-for-authenticated-user"];
     /**
      * Mark notifications as read
-     * @description Marks all notifications as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List notifications for the authenticated user](https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
+     * @description Marks all notifications as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List notifications for the authenticated user](https://docs.github.com/rest/activity/notifications#list-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
      */
     put: operations["activity/mark-notifications-as-read"];
   };
@@ -484,7 +484,7 @@ export interface paths {
   "/notifications/threads/{thread_id}/subscription": {
     /**
      * Get a thread subscription for the authenticated user
-     * @description This checks to see if the current user is subscribed to a thread. You can also [get a repository subscription](https://docs.github.com/rest/reference/activity#get-a-repository-subscription).
+     * @description This checks to see if the current user is subscribed to a thread. You can also [get a repository subscription](https://docs.github.com/rest/activity/watching#get-a-repository-subscription).
      *
      * Note that subscriptions are only generated if a user is participating in a conversation--for example, they've replied to the thread, were **@mentioned**, or manually subscribe to a thread.
      */
@@ -495,12 +495,12 @@ export interface paths {
      *
      * You can also use this endpoint to subscribe to threads that you are currently not receiving notifications for or to subscribed to threads that you have previously ignored.
      *
-     * Unsubscribing from a conversation in a repository that you are not watching is functionally equivalent to the [Delete a thread subscription](https://docs.github.com/rest/reference/activity#delete-a-thread-subscription) endpoint.
+     * Unsubscribing from a conversation in a repository that you are not watching is functionally equivalent to the [Delete a thread subscription](https://docs.github.com/rest/activity/notifications#delete-a-thread-subscription) endpoint.
      */
     put: operations["activity/set-thread-subscription"];
     /**
      * Delete a thread subscription
-     * @description Mutes all future notifications for a conversation until you comment on the thread or get an **@mention**. If you are watching the repository of the thread, you will still receive notifications. To ignore future notifications for a repository you are watching, use the [Set a thread subscription](https://docs.github.com/rest/reference/activity#set-a-thread-subscription) endpoint and set `ignore` to `true`.
+     * @description Mutes all future notifications for a conversation until you comment on the thread or get an **@mention**. If you are watching the repository of the thread, you will still receive notifications. To ignore future notifications for a repository you are watching, use the [Set a thread subscription](https://docs.github.com/rest/activity/notifications#set-a-thread-subscription) endpoint and set `ignore` to `true`.
      */
     delete: operations["activity/delete-thread-subscription"];
   };
@@ -699,7 +699,7 @@ export interface paths {
      *
      * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      *
-     * #### Example using registration token
+     * Example using registration token:
      *
      * Configure your self-hosted runner, replacing `TOKEN` with the registration token provided by this endpoint.
      *
@@ -716,7 +716,7 @@ export interface paths {
      *
      * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      *
-     * #### Example using remove token
+     * Example using remove token:
      *
      * To remove your self-hosted runner from an organization, replace `TOKEN` with the remove token provided by this
      * endpoint.
@@ -902,19 +902,19 @@ export interface paths {
     get: operations["actions/list-selected-repos-for-org-secret"];
     /**
      * Set selected repositories for an organization secret
-     * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
+     * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
      */
     put: operations["actions/set-selected-repos-for-org-secret"];
   };
   "/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}": {
     /**
      * Add selected repository to an organization secret
-     * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
+     * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
      */
     put: operations["actions/add-selected-repo-to-org-secret"];
     /**
      * Remove selected repository from an organization secret
-     * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
+     * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
      */
     delete: operations["actions/remove-selected-repo-from-org-secret"];
   };
@@ -1171,21 +1171,111 @@ export interface paths {
     get: operations["codespaces/list-selected-repos-for-org-secret"];
     /**
      * Set selected repositories for an organization secret
-     * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/codespaces#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+     * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      */
     put: operations["codespaces/set-selected-repos-for-org-secret"];
   };
   "/orgs/{org}/codespaces/secrets/{secret_name}/repositories/{repository_id}": {
     /**
      * Add selected repository to an organization secret
-     * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/codespaces#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+     * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      */
     put: operations["codespaces/add-selected-repo-to-org-secret"];
     /**
      * Remove selected repository from an organization secret
-     * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/codespaces#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+     * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
      */
     delete: operations["codespaces/remove-selected-repo-from-org-secret"];
+  };
+  "/orgs/{org}/copilot/billing": {
+    /**
+     * Get Copilot for Business seat information and settings for an organization
+     * @description **Note**: This endpoint is in beta and is subject to change.
+     *
+     * Gets information about an organization's Copilot for Business subscription, including seat breakdown
+     * and code matching policies. To configure these settings, go to your organization's settings on GitHub.com.
+     * For more information, see "[Configuring GitHub Copilot settings in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization)".
+     *
+     * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
+     * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+     */
+    get: operations["copilot/get-copilot-organization-details"];
+  };
+  "/orgs/{org}/copilot/billing/seats": {
+    /**
+     * List all Copilot for Business seat assignments for an organization
+     * @description **Note**: This endpoint is in beta and is subject to change.
+     *
+     * Lists all Copilot for Business seat assignments for an organization that are currently being billed (either active or pending cancellation at the start of the next billing cycle).
+     *
+     * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
+     * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+     */
+    get: operations["copilot/list-copilot-seats"];
+  };
+  "/orgs/{org}/copilot/billing/selected_teams": {
+    /**
+     * Add teams to the Copilot for Business subscription for an organization
+     * @description **Note**: This endpoint is in beta and is subject to change.
+     *
+     *  Purchases a GitHub Copilot for Business seat for all users within each specified team.
+     *  The organization will be billed accordingly. For more information about Copilot for Business pricing, see "[About billing for GitHub Copilot for Business](https://docs.github.com/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot#pricing-for-github-copilot-for-business)".
+     *
+     *  Only organization owners and members with admin permissions can configure GitHub Copilot in their organization. You must
+     *  authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+     *
+     *  In order for an admin to use this endpoint, the organization must have a Copilot for Business subscription and a configured suggestion matching policy.
+     *  For more information about setting up a Copilot for Business subscription, see "[Setting up a Copilot for Business subscription for your organization](https://docs.github.com/billing/managing-billing-for-github-copilot/managing-your-github-copilot-subscription-for-your-organization-or-enterprise#setting-up-a-copilot-for-business-subscription-for-your-organization)".
+     *  For more information about setting a suggestion matching policy, see "[Configuring suggestion matching policies for GitHub Copilot in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization#configuring-suggestion-matching-policies-for-github-copilot-in-your-organization)".
+     */
+    post: operations["copilot/add-copilot-for-business-seats-for-teams"];
+    /**
+     * Remove teams from the Copilot for Business subscription for an organization
+     * @description **Note**: This endpoint is in beta and is subject to change.
+     *
+     * Cancels the Copilot for Business seat assignment for all members of each team specified.
+     * This will cause the members of the specified team(s) to lose access to GitHub Copilot at the end of the current billing cycle, and the organization will not be billed further for those users.
+     *
+     * For more information about Copilot for Business pricing, see "[About billing for GitHub Copilot for Business](https://docs.github.com/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot#pricing-for-github-copilot-for-business)".
+     *
+     * For more information about disabling access to Copilot for Business, see "[Disabling access to GitHub Copilot for specific users in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization#disabling-access-to-github-copilot-for-specific-users-in-your-organization)".
+     *
+     * Only organization owners and members with admin permissions can configure GitHub Copilot in their organization. You must
+     * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+     */
+    delete: operations["copilot/cancel-copilot-seat-assignment-for-teams"];
+  };
+  "/orgs/{org}/copilot/billing/selected_users": {
+    /**
+     * Add users to the Copilot for Business subscription for an organization
+     * @description **Note**: This endpoint is in beta and is subject to change.
+     *
+     * Purchases a GitHub Copilot for Business seat for each user specified.
+     * The organization will be billed accordingly. For more information about Copilot for Business pricing, see "[About billing for GitHub Copilot for Business](https://docs.github.com/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot#pricing-for-github-copilot-for-business)".
+     *
+     * Only organization owners and members with admin permissions can configure GitHub Copilot in their organization. You must
+     * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+     *
+     * In order for an admin to use this endpoint, the organization must have a Copilot for Business subscription and a configured suggestion matching policy.
+     * For more information about setting up a Copilot for Business subscription, see "[Setting up a Copilot for Business subscription for your organization](https://docs.github.com/billing/managing-billing-for-github-copilot/managing-your-github-copilot-subscription-for-your-organization-or-enterprise#setting-up-a-copilot-for-business-subscription-for-your-organization)".
+     * For more information about setting a suggestion matching policy, see "[Configuring suggestion matching policies for GitHub Copilot in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization#configuring-suggestion-matching-policies-for-github-copilot-in-your-organization)".
+     */
+    post: operations["copilot/add-copilot-for-business-seats-for-users"];
+    /**
+     * Remove users from the Copilot for Business subscription for an organization
+     * @description **Note**: This endpoint is in beta and is subject to change.
+     *
+     * Cancels the Copilot for Business seat assignment for each user specified.
+     * This will cause the specified users to lose access to GitHub Copilot at the end of the current billing cycle, and the organization will not be billed further for those users.
+     *
+     * For more information about Copilot for Business pricing, see "[About billing for GitHub Copilot for Business](https://docs.github.com/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot#pricing-for-github-copilot-for-business)"
+     *
+     * For more information about disabling access to Copilot for Business, see "[Disabling access to GitHub Copilot for specific users in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization#disabling-access-to-github-copilot-for-specific-users-in-your-organization)".
+     *
+     * Only organization owners and members with admin permissions can configure GitHub Copilot in their organization. You must
+     * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+     */
+    delete: operations["copilot/cancel-copilot-seat-assignment-for-users"];
   };
   "/orgs/{org}/dependabot/alerts": {
     /**
@@ -1314,19 +1404,19 @@ export interface paths {
     get: operations["dependabot/list-selected-repos-for-org-secret"];
     /**
      * Set selected repositories for an organization secret
-     * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/dependabot#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+     * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
      */
     put: operations["dependabot/set-selected-repos-for-org-secret"];
   };
   "/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}": {
     /**
      * Add selected repository to an organization secret
-     * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/dependabot#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+     * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
      */
     put: operations["dependabot/add-selected-repo-to-org-secret"];
     /**
      * Remove selected repository from an organization secret
-     * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/dependabot#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+     * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
      */
     delete: operations["dependabot/remove-selected-repo-from-org-secret"];
   };
@@ -1361,28 +1451,28 @@ export interface paths {
   "/orgs/{org}/hooks/{hook_id}": {
     /**
      * Get an organization webhook
-     * @description Returns a webhook configured in an organization. To get only the webhook `config` properties, see "[Get a webhook configuration for an organization](/rest/reference/orgs#get-a-webhook-configuration-for-an-organization)."
+     * @description Returns a webhook configured in an organization. To get only the webhook `config` properties, see "[Get a webhook configuration for an organization](/rest/orgs/webhooks#get-a-webhook-configuration-for-an-organization)."
      */
     get: operations["orgs/get-webhook"];
     /** Delete an organization webhook */
     delete: operations["orgs/delete-webhook"];
     /**
      * Update an organization webhook
-     * @description Updates a webhook configured in an organization. When you update a webhook, the `secret` will be overwritten. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "[Update a webhook configuration for an organization](/rest/reference/orgs#update-a-webhook-configuration-for-an-organization)."
+     * @description Updates a webhook configured in an organization. When you update a webhook, the `secret` will be overwritten. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "[Update a webhook configuration for an organization](/rest/orgs/webhooks#update-a-webhook-configuration-for-an-organization)."
      */
     patch: operations["orgs/update-webhook"];
   };
   "/orgs/{org}/hooks/{hook_id}/config": {
     /**
      * Get a webhook configuration for an organization
-     * @description Returns the webhook configuration for an organization. To get more information about the webhook, including the `active` state and `events`, use "[Get an organization webhook ](/rest/reference/orgs#get-an-organization-webhook)."
+     * @description Returns the webhook configuration for an organization. To get more information about the webhook, including the `active` state and `events`, use "[Get an organization webhook ](/rest/orgs/webhooks#get-an-organization-webhook)."
      *
      * Access tokens must have the `admin:org_hook` scope, and GitHub Apps must have the `organization_hooks:read` permission.
      */
     get: operations["orgs/get-webhook-config-for-org"];
     /**
      * Update a webhook configuration for an organization
-     * @description Updates the webhook configuration for an organization. To update more information about the webhook, including the `active` state and `events`, use "[Update an organization webhook ](/rest/reference/orgs#update-an-organization-webhook)."
+     * @description Updates the webhook configuration for an organization. To update more information about the webhook, including the `active` state and `events`, use "[Update an organization webhook ](/rest/orgs/webhooks#update-an-organization-webhook)."
      *
      * Access tokens must have the `admin:org_hook` scope, and GitHub Apps must have the `organization_hooks:write` permission.
      */
@@ -1487,7 +1577,7 @@ export interface paths {
      * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
      * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
      * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-     * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+     * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
      */
     get: operations["issues/list-for-org"];
   };
@@ -1537,6 +1627,17 @@ export interface paths {
      */
     post: operations["codespaces/stop-in-organization"];
   };
+  "/orgs/{org}/members/{username}/copilot": {
+    /**
+     * Get Copilot for Business seat assignment details for a user
+     * @description **Note**: This endpoint is in beta and is subject to change.
+     *
+     * Gets the GitHub Copilot for Business seat assignment details for a member of an organization who currently has access to GitHub Copilot.
+     *
+     * Organization owners and members with admin permissions can view GitHub Copilot seat assignment details for members in their organization. You must authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+     */
+    get: operations["copilot/get-copilot-seat-assignment-details-for-user"];
+  };
   "/orgs/{org}/memberships/{username}": {
     /**
      * Get organization membership for a user
@@ -1547,7 +1648,7 @@ export interface paths {
      * Set organization membership for a user
      * @description Only authenticated organization owners can add a member to the organization or update the member's role.
      *
-     * *   If the authenticated user is _adding_ a member to the organization, the invited user will receive an email inviting them to the organization. The user's [membership status](https://docs.github.com/rest/reference/orgs#get-organization-membership-for-a-user) will be `pending` until they accept the invitation.
+     * *   If the authenticated user is _adding_ a member to the organization, the invited user will receive an email inviting them to the organization. The user's [membership status](https://docs.github.com/rest/orgs/members#get-organization-membership-for-a-user) will be `pending` until they accept the invitation.
      *
      * *   Authenticated users can _update_ a user's membership by passing the `role` parameter. If the authenticated user changes a member's role to `admin`, the affected user will receive an email notifying them that they've been made an organization owner. If the authenticated user changes an owner's role to `member`, no email will be sent.
      *
@@ -2161,7 +2262,7 @@ export interface paths {
      * **Note:**
      * The response contains the `state` of the membership and the member's `role`.
      *
-     * The `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see see [Create a team](https://docs.github.com/rest/reference/teams#create-a-team).
+     * The `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see see [Create a team](https://docs.github.com/rest/teams/teams#create-a-team).
      */
     get: operations["teams/get-membership-for-user-in-org"];
     /**
@@ -2411,7 +2512,7 @@ export interface paths {
     delete: operations["repos/delete"];
     /**
      * Update a repository
-     * @description **Note**: To edit a repository's topics, use the [Replace all repository topics](https://docs.github.com/rest/reference/repos#replace-all-repository-topics) endpoint.
+     * @description **Note**: To edit a repository's topics, use the [Replace all repository topics](https://docs.github.com/rest/repos/repos#replace-all-repository-topics) endpoint.
      */
     patch: operations["repos/update"];
   };
@@ -2638,10 +2739,9 @@ export interface paths {
   "/repos/{owner}/{repo}/actions/runners/registration-token": {
     /**
      * Create a registration token for a repository
-     * @description Returns a token that you can pass to the `config` script. The token expires after one hour. You must authenticate
-     * using an access token with the `repo` scope to use this endpoint.
+     * @description Returns a token that you can pass to the `config` script. The token expires after one hour. You must authenticate using an access token with the `repo` scope to use this endpoint.
      *
-     * #### Example using registration token
+     * Example using registration token:
      *
      * Configure your self-hosted runner, replacing `TOKEN` with the registration token provided by this endpoint.
      *
@@ -2657,7 +2757,7 @@ export interface paths {
      * @description Returns a token that you can pass to remove a self-hosted runner from a repository. The token expires after one hour.
      * You must authenticate using an access token with the `repo` scope to use this endpoint.
      *
-     * #### Example using remove token
+     * Example using remove token:
      *
      * To remove your self-hosted runner from a repository, replace TOKEN with the remove token provided by this endpoint.
      *
@@ -3140,6 +3240,11 @@ export interface paths {
   };
   "/repos/{owner}/{repo}/automated-security-fixes": {
     /**
+     * Check if automated security fixes are enabled for a repository
+     * @description Shows whether automated security fixes are enabled, disabled or paused for a repository. The authenticated user must have admin read access to the repository. For more information, see "[Configuring automated security fixes](https://docs.github.com/articles/configuring-automated-security-fixes)".
+     */
+    get: operations["repos/check-automated-security-fixes"];
+    /**
      * Enable automated security fixes
      * @description Enables automated security fixes for a repository. The authenticated user must have admin access to the repository. For more information, see "[Configuring automated security fixes](https://docs.github.com/articles/configuring-automated-security-fixes)".
      */
@@ -3480,14 +3585,14 @@ export interface paths {
      * Create a check suite
      * @description **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array and a `null` value for `head_branch`.
      *
-     * By default, check suites are automatically created when you create a [check run](https://docs.github.com/rest/reference/checks#check-runs). You only need to use this endpoint for manually creating check suites when you've disabled automatic creation using "[Update repository preferences for check suites](https://docs.github.com/rest/reference/checks#update-repository-preferences-for-check-suites)". Your GitHub App must have the `checks:write` permission to create check suites.
+     * By default, check suites are automatically created when you create a [check run](https://docs.github.com/rest/reference/checks#check-runs). You only need to use this endpoint for manually creating check suites when you've disabled automatic creation using "[Update repository preferences for check suites](https://docs.github.com/rest/checks/suites#update-repository-preferences-for-check-suites)". Your GitHub App must have the `checks:write` permission to create check suites.
      */
     post: operations["checks/create-suite"];
   };
   "/repos/{owner}/{repo}/check-suites/preferences": {
     /**
      * Update repository preferences for check suites
-     * @description Changes the default automatic flow when creating check suites. By default, a check suite is automatically created each time code is pushed to a repository. When you disable the automatic creation of check suites, you can manually [Create a check suite](https://docs.github.com/rest/reference/checks#create-a-check-suite). You must have admin permissions in the repository to set preferences for check suites.
+     * @description Changes the default automatic flow when creating check suites. By default, a check suite is automatically created each time code is pushed to a repository. When you disable the automatic creation of check suites, you can manually [Create a check suite](https://docs.github.com/rest/checks/suites#create-a-check-suite). You must have admin permissions in the repository to set preferences for check suites.
      */
     patch: operations["checks/set-suites-preferences"];
   };
@@ -3749,14 +3854,14 @@ export interface paths {
      *
      * The `202 Accepted` response includes an `id` value.
      * You can use this ID to check the status of the upload by using it in the `/sarifs/{sarif_id}` endpoint.
-     * For more information, see "[Get information about a SARIF upload](/rest/reference/code-scanning#get-information-about-a-sarif-upload)."
+     * For more information, see "[Get information about a SARIF upload](/rest/code-scanning/code-scanning#get-information-about-a-sarif-upload)."
      */
     post: operations["code-scanning/upload-sarif"];
   };
   "/repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}": {
     /**
      * Get information about a SARIF upload
-     * @description Gets information about a SARIF upload, including the status and the URL of the analysis that was uploaded so that you can retrieve details of the analysis. For more information, see "[Get a code scanning analysis for a repository](/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository)." You must use an access token with the `security_events` scope to use this endpoint with private repos, the `public_repo` scope also grants permission to read security events on public repos only. GitHub Apps must have the `security_events` read permission to use this endpoint.
+     * @description Gets information about a SARIF upload, including the status and the URL of the analysis that was uploaded so that you can retrieve details of the analysis. For more information, see "[Get a code scanning analysis for a repository](/rest/code-scanning/code-scanning#get-a-code-scanning-analysis-for-a-repository)." You must use an access token with the `security_events` scope to use this endpoint with private repos, the `public_repo` scope also grants permission to read security events on public repos only. GitHub Apps must have the `security_events` read permission to use this endpoint.
      */
     get: operations["code-scanning/get-sarif"];
   };
@@ -3852,7 +3957,7 @@ export interface paths {
      * token with the `repo` scope to use this endpoint. GitHub Apps must have write access to the `codespaces_secrets`
      * repository permission to use this endpoint.
      *
-     * #### Example of encrypting a secret using Node.js
+     * Example of encrypting a secret using Node.js:
      *
      * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
      *
@@ -3877,7 +3982,7 @@ export interface paths {
      * });
      * ```
      *
-     * #### Example of encrypting a secret using Python
+     * Example of encrypting a secret using Python:
      *
      * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
      *
@@ -3893,7 +3998,7 @@ export interface paths {
      *   return b64encode(encrypted).decode("utf-8")
      * ```
      *
-     * #### Example of encrypting a secret using C#
+     * Example of encrypting a secret using C#:
      *
      * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
      *
@@ -3906,7 +4011,7 @@ export interface paths {
      * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
      * ```
      *
-     * #### Example of encrypting a secret using Ruby
+     * Example of encrypting a secret using Ruby:
      *
      * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
      *
@@ -4292,26 +4397,26 @@ export interface paths {
      * **Notes**:
      * *   To get a repository's contents recursively, you can [recursively get the tree](https://docs.github.com/rest/reference/git#trees).
      * *   This API has an upper limit of 1,000 files for a directory. If you need to retrieve more files, use the [Git Trees
-     * API](https://docs.github.com/rest/reference/git#get-a-tree).
+     * API](https://docs.github.com/rest/git/trees#get-a-tree).
      *  *  Download URLs expire and are meant to be used just once. To ensure the download URL does not expire, please use the contents API to obtain a fresh download URL for each download.
-     * #### Size limits
+     *  Size limits:
      * If the requested file's size is:
      * * 1 MB or smaller: All features of this endpoint are supported.
      * * Between 1-100 MB: Only the `raw` or `object` [custom media types](https://docs.github.com/rest/repos/contents#custom-media-types-for-repository-contents) are supported. Both will work as normal, except that when using the `object` media type, the `content` field will be an empty string and the `encoding` field will be `"none"`. To get the contents of these larger files, use the `raw` media type.
      *  * Greater than 100 MB: This endpoint is not supported.
      *
-     * #### If the content is a directory
+     *  If the content is a directory:
      * The response will be an array of objects, one object for each item in the directory.
      * When listing the contents of a directory, submodules have their "type" specified as "file". Logically, the value
      * _should_ be "submodule". This behavior exists in API v3 [for backwards compatibility purposes](https://git.io/v1YCW).
      * In the next major version of the API, the type will be returned as "submodule".
      *
-     * #### If the content is a symlink
+     *  If the content is a symlink:
      * If the requested `:path` points to a symlink, and the symlink's target is a normal file in the repository, then the
      * API responds with the content of the file (in the format shown in the example. Otherwise, the API responds with an object
      * describing the symlink itself.
      *
-     * #### If the content is a submodule
+     *  If the content is a submodule:
      * The `submodule_git_url` identifies the location of the submodule repository, and the `sha` identifies a specific
      * commit within the submodule repository. Git uses the given URL when cloning the submodule repository, and checks out
      * the submodule at that specific commit.
@@ -4540,7 +4645,8 @@ export interface paths {
      *
      * Users with `repo` or `repo_deployment` scopes can create a deployment for a given ref.
      *
-     * #### Merged branch response
+     * Merged branch response:
+     *
      * You will see this response when GitHub automatically merges the base branch into the topic branch instead of creating
      * a deployment. This auto-merge happens when:
      * *   Auto-merge option is enabled in the repository
@@ -4550,11 +4656,13 @@ export interface paths {
      * If there are no new commits in the base branch, a new request to create a deployment should give a successful
      * response.
      *
-     * #### Merge conflict response
+     * Merge conflict response:
+     *
      * This error happens when the `auto_merge` option is enabled and when the default branch (in this case `master`), can't
      * be merged into the branch that's being deployed (in this case `topic-branch`), due to merge conflicts.
      *
-     * #### Failed commit status checks
+     * Failed commit status checks:
+     *
      * This error happens when the `required_contexts` parameter indicates that one or more contexts need to have a `success`
      * status for the commit to be deployed, but one or more of the required contexts do not have a state of `success`.
      */
@@ -4847,7 +4955,7 @@ export interface paths {
      *
      * When you use this endpoint without providing a `:ref`, it will return an array of all the references from your Git database, including notes and stashes if they exist on the server. Anything in the namespace is returned, not just `heads` and `tags`.
      *
-     * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
+     * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
      *
      * If you request matching references for a branch named `feature` but the branch `feature` doesn't exist, the response can still include other matching head refs that start with the word `feature`, such as `featureA` and `featureB`.
      */
@@ -4858,7 +4966,7 @@ export interface paths {
      * Get a reference
      * @description Returns a single reference from your Git database. The `:ref` in the URL must be formatted as `heads/<branch name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't match an existing ref, a `404` is returned.
      *
-     * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
+     * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
      */
     get: operations["git/get-ref"];
   };
@@ -4878,7 +4986,7 @@ export interface paths {
   "/repos/{owner}/{repo}/git/tags": {
     /**
      * Create a tag object
-     * @description Note that creating a tag object does not create the reference that makes a tag in Git. If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then [create](https://docs.github.com/rest/reference/git#create-a-reference) the `refs/tags/[tag]` reference. If you want to create a lightweight tag, you only have to [create](https://docs.github.com/rest/reference/git#create-a-reference) the tag reference - this call would be unnecessary.
+     * @description Note that creating a tag object does not create the reference that makes a tag in Git. If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then [create](https://docs.github.com/rest/git/refs#create-a-reference) the `refs/tags/[tag]` reference. If you want to create a lightweight tag, you only have to [create](https://docs.github.com/rest/git/refs#create-a-reference) the tag reference - this call would be unnecessary.
      *
      * **Signature verification object**
      *
@@ -4950,7 +5058,7 @@ export interface paths {
      * Create a tree
      * @description The tree creation API accepts nested entries. If you specify both a tree and a nested path modifying that tree, this endpoint will overwrite the contents of the tree with the new path contents, and create a new tree structure.
      *
-     * If you use this endpoint to add, delete, or modify the file contents in a tree, you will need to commit the tree and then update a branch to point to the commit. For more information see "[Create a commit](https://docs.github.com/rest/reference/git#create-a-commit)" and "[Update a reference](https://docs.github.com/rest/reference/git#update-a-reference)."
+     * If you use this endpoint to add, delete, or modify the file contents in a tree, you will need to commit the tree and then update a branch to point to the commit. For more information see "[Create a commit](https://docs.github.com/rest/git/commits#create-a-commit)" and "[Update a reference](https://docs.github.com/rest/git/refs#update-a-reference)."
      *
      * Returns an error if you try to delete a file that does not exist.
      */
@@ -5219,7 +5327,7 @@ export interface paths {
      * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
      * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
      * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-     * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+     * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
      */
     get: operations["issues/list-for-repo"];
     /**
@@ -5304,7 +5412,7 @@ export interface paths {
      * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
      * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
      * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-     * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+     * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
      */
     get: operations["issues/get"];
     /**
@@ -5506,7 +5614,7 @@ export interface paths {
      * Get the license for a repository
      * @description This method returns the contents of the repository's license file, if one is detected.
      *
-     * Similar to [Get repository content](https://docs.github.com/rest/reference/repos#get-repository-content), this method also supports [custom media types](https://docs.github.com/rest/overview/media-types) for retrieving the raw license content or rendered license HTML.
+     * Similar to [Get repository content](https://docs.github.com/rest/repos/contents#get-repository-content), this method also supports [custom media types](https://docs.github.com/rest/overview/media-types) for retrieving the raw license content or rendered license HTML.
      */
     get: operations["licenses/get-for-repo"];
   };
@@ -5562,7 +5670,7 @@ export interface paths {
     get: operations["activity/list-repo-notifications-for-authenticated-user"];
     /**
      * Mark repository notifications as read
-     * @description Marks all notifications in a repository as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List repository notifications for the authenticated user](https://docs.github.com/rest/reference/activity#list-repository-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
+     * @description Marks all notifications in a repository as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List repository notifications for the authenticated user](https://docs.github.com/rest/activity/notifications#list-repository-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
      */
     put: operations["activity/mark-repo-notifications-as-read"];
   };
@@ -5771,7 +5879,7 @@ export interface paths {
     /**
      * Create a review comment for a pull request
      * @description
-     * Creates a review comment in the pull request diff. To add a regular comment to a pull request timeline, see "[Create an issue comment](https://docs.github.com/rest/reference/issues#create-an-issue-comment)." We recommend creating a review comment using `line`, `side`, and optionally `start_line` and `start_side` if your comment applies to more than one line in the pull request diff.
+     * Creates a review comment in the pull request diff. To add a regular comment to a pull request timeline, see "[Create an issue comment](https://docs.github.com/rest/issues/comments#create-an-issue-comment)." We recommend creating a review comment using `line`, `side`, and optionally `start_line` and `start_side` if your comment applies to more than one line in the pull request diff.
      *
      * The `position` parameter is deprecated. If you use `position`, the `line`, `side`, `start_line`, and `start_side` parameters are not required.
      *
@@ -5847,7 +5955,7 @@ export interface paths {
      *
      * Pull request reviews created in the `PENDING` state are not submitted and therefore do not include the `submitted_at` property in the response. To create a pending review for a pull request, leave the `event` parameter blank. For more information about submitting a `PENDING` review, see "[Submit a review for a pull request](https://docs.github.com/rest/pulls#submit-a-review-for-a-pull-request)."
      *
-     * **Note:** To comment on a specific line in a file, you need to first determine the _position_ of that line in the diff. The GitHub REST API offers the `application/vnd.github.v3.diff` [media type](https://docs.github.com/rest/overview/media-types#commits-commit-comparison-and-pull-requests). To see a pull request diff, add this media type to the `Accept` header of a call to the [single pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) endpoint.
+     * **Note:** To comment on a specific line in a file, you need to first determine the _position_ of that line in the diff. The GitHub REST API offers the `application/vnd.github.v3.diff` [media type](https://docs.github.com/rest/overview/media-types#commits-commit-comparison-and-pull-requests). To see a pull request diff, add this media type to the `Accept` header of a call to the [single pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) endpoint.
      *
      * The `position` value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment. The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.
      */
@@ -5919,7 +6027,7 @@ export interface paths {
   "/repos/{owner}/{repo}/releases": {
     /**
      * List releases
-     * @description This returns a list of releases, which does not include regular Git tags that have not been associated with a release. To get a list of Git tags, use the [Repository Tags API](https://docs.github.com/rest/reference/repos#list-repository-tags).
+     * @description This returns a list of releases, which does not include regular Git tags that have not been associated with a release. To get a list of Git tags, use the [Repository Tags API](https://docs.github.com/rest/repos/repos#list-repository-tags).
      *
      * Information about published releases are available to everyone. Only users with push access will receive listings for draft releases.
      */
@@ -6247,12 +6355,12 @@ export interface paths {
     get: operations["activity/get-repo-subscription"];
     /**
      * Set a repository subscription
-     * @description If you would like to watch a repository, set `subscribed` to `true`. If you would like to ignore notifications made within a repository, set `ignored` to `true`. If you would like to stop watching a repository, [delete the repository's subscription](https://docs.github.com/rest/reference/activity#delete-a-repository-subscription) completely.
+     * @description If you would like to watch a repository, set `subscribed` to `true`. If you would like to ignore notifications made within a repository, set `ignored` to `true`. If you would like to stop watching a repository, [delete the repository's subscription](https://docs.github.com/rest/activity/watching#delete-a-repository-subscription) completely.
      */
     put: operations["activity/set-repo-subscription"];
     /**
      * Delete a repository subscription
-     * @description This endpoint should only be used to stop watching a repository. To control whether or not you wish to receive notifications from a repository, [set the repository's subscription manually](https://docs.github.com/rest/reference/activity#set-a-repository-subscription).
+     * @description This endpoint should only be used to stop watching a repository. To control whether or not you wish to receive notifications from a repository, [set the repository's subscription manually](https://docs.github.com/rest/activity/watching#set-a-repository-subscription).
      */
     delete: operations["activity/delete-repo-subscription"];
   };
@@ -6346,6 +6454,7 @@ export interface paths {
     /**
      * Transfer a repository
      * @description A transfer request will need to be accepted by the new owner when transferring a personal repository to another user. The response will contain the original `owner`, and the transfer will continue asynchronously. For more details on the requirements to transfer personal and organization-owned repositories, see [about repository transfers](https://docs.github.com/articles/about-repository-transfers/).
+     * You must use a personal access token (classic) or an OAuth token for this endpoint. An installation access token or a fine-grained personal access token cannot be used because they are only granted access to a single account.
      */
     post: operations["repos/transfer"];
   };
@@ -6382,7 +6491,7 @@ export interface paths {
   "/repos/{template_owner}/{template_repo}/generate": {
     /**
      * Create a repository using a template
-     * @description Creates a new repository using a repository template. Use the `template_owner` and `template_repo` route parameters to specify the repository to use as the template. If the repository is not public, the authenticated user must own or be a member of an organization that owns the repository. To check if a repository is available to use as a template, get the repository's information using the [Get a repository](https://docs.github.com/rest/reference/repos#get-a-repository) endpoint and check that the `is_template` key is `true`.
+     * @description Creates a new repository using a repository template. Use the `template_owner` and `template_repo` route parameters to specify the repository to use as the template. If the repository is not public, the authenticated user must own or be a member of an organization that owns the repository. To check if a repository is available to use as a template, get the repository's information using the [Get a repository](https://docs.github.com/rest/repos/repos#get-a-repository) endpoint and check that the `is_template` key is `true`.
      *
      * **OAuth scope requirements**
      *
@@ -6558,7 +6667,7 @@ export interface paths {
      *
      * This query searches for the keyword `addClass` within a file's contents. The query limits the search to files where the language is JavaScript in the `jquery/jquery` repository.
      *
-     * #### Considerations for code search
+     * Considerations for code search:
      *
      * Due to the complexity of searching code, there are a few restrictions on how searches are performed:
      *
@@ -6669,13 +6778,13 @@ export interface paths {
     /**
      * Get a team (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the [Get a team by name](https://docs.github.com/rest/reference/teams#get-a-team-by-name) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the [Get a team by name](https://docs.github.com/rest/teams/teams#get-a-team-by-name) endpoint.
      */
     get: operations["teams/get-legacy"];
     /**
      * Delete a team (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Delete a team](https://docs.github.com/rest/reference/teams#delete-a-team) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Delete a team](https://docs.github.com/rest/teams/teams#delete-a-team) endpoint.
      *
      * To delete a team, the authenticated user must be an organization owner or team maintainer.
      *
@@ -6685,7 +6794,7 @@ export interface paths {
     /**
      * Update a team (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a team](https://docs.github.com/rest/reference/teams#update-a-team) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a team](https://docs.github.com/rest/teams/teams#update-a-team) endpoint.
      *
      * To edit a team, the authenticated user must either be an organization owner or a team maintainer.
      *
@@ -6697,7 +6806,7 @@ export interface paths {
     /**
      * List discussions (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List discussions`](https://docs.github.com/rest/reference/teams#list-discussions) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List discussions`](https://docs.github.com/rest/teams/discussions#list-discussions) endpoint.
      *
      * List all discussions on a team's page. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
      */
@@ -6705,7 +6814,7 @@ export interface paths {
     /**
      * Create a discussion (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create a discussion`](https://docs.github.com/rest/reference/teams#create-a-discussion) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create a discussion`](https://docs.github.com/rest/teams/discussions#create-a-discussion) endpoint.
      *
      * Creates a new discussion post on a team's page. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
      *
@@ -6717,7 +6826,7 @@ export interface paths {
     /**
      * Get a discussion (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get a discussion](https://docs.github.com/rest/reference/teams#get-a-discussion) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get a discussion](https://docs.github.com/rest/teams/discussions#get-a-discussion) endpoint.
      *
      * Get a specific discussion on a team's page. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
      */
@@ -6725,7 +6834,7 @@ export interface paths {
     /**
      * Delete a discussion (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Delete a discussion`](https://docs.github.com/rest/reference/teams#delete-a-discussion) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Delete a discussion`](https://docs.github.com/rest/teams/discussions#delete-a-discussion) endpoint.
      *
      * Delete a discussion from a team's page. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
      */
@@ -6733,7 +6842,7 @@ export interface paths {
     /**
      * Update a discussion (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a discussion](https://docs.github.com/rest/reference/teams#update-a-discussion) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a discussion](https://docs.github.com/rest/teams/discussions#update-a-discussion) endpoint.
      *
      * Edits the title and body text of a discussion post. Only the parameters you provide are updated. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
      */
@@ -6743,7 +6852,7 @@ export interface paths {
     /**
      * List discussion comments (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [List discussion comments](https://docs.github.com/rest/reference/teams#list-discussion-comments) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [List discussion comments](https://docs.github.com/rest/teams/discussion-comments#list-discussion-comments) endpoint.
      *
      * List all comments on a team discussion. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
      */
@@ -6751,7 +6860,7 @@ export interface paths {
     /**
      * Create a discussion comment (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Create a discussion comment](https://docs.github.com/rest/reference/teams#create-a-discussion-comment) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Create a discussion comment](https://docs.github.com/rest/teams/discussion-comments#create-a-discussion-comment) endpoint.
      *
      * Creates a new comment on a team discussion. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
      *
@@ -6763,7 +6872,7 @@ export interface paths {
     /**
      * Get a discussion comment (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get a discussion comment](https://docs.github.com/rest/reference/teams#get-a-discussion-comment) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get a discussion comment](https://docs.github.com/rest/teams/discussion-comments#get-a-discussion-comment) endpoint.
      *
      * Get a specific comment on a team discussion. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
      */
@@ -6771,7 +6880,7 @@ export interface paths {
     /**
      * Delete a discussion comment (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Delete a discussion comment](https://docs.github.com/rest/reference/teams#delete-a-discussion-comment) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Delete a discussion comment](https://docs.github.com/rest/teams/discussion-comments#delete-a-discussion-comment) endpoint.
      *
      * Deletes a comment on a team discussion. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
      */
@@ -6779,7 +6888,7 @@ export interface paths {
     /**
      * Update a discussion comment (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a discussion comment](https://docs.github.com/rest/reference/teams#update-a-discussion-comment) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a discussion comment](https://docs.github.com/rest/teams/discussion-comments#update-a-discussion-comment) endpoint.
      *
      * Edits the body text of a discussion comment. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
      */
@@ -6789,7 +6898,7 @@ export interface paths {
     /**
      * List reactions for a team discussion comment (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion comment`](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion-comment) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion comment`](https://docs.github.com/rest/reactions/reactions#list-reactions-for-a-team-discussion-comment) endpoint.
      *
      * List the reactions to a [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments). OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
      */
@@ -6797,7 +6906,7 @@ export interface paths {
     /**
      * Create reaction for a team discussion comment (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new "[Create reaction for a team discussion comment](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion-comment)" endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new "[Create reaction for a team discussion comment](https://docs.github.com/rest/reactions/reactions#create-reaction-for-a-team-discussion-comment)" endpoint.
      *
      * Create a reaction to a [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments). OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). A response with an HTTP `200` status means that you already added the reaction type to this team discussion comment.
      */
@@ -6807,7 +6916,7 @@ export interface paths {
     /**
      * List reactions for a team discussion (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion`](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion`](https://docs.github.com/rest/reactions/reactions#list-reactions-for-a-team-discussion) endpoint.
      *
      * List the reactions to a [team discussion](https://docs.github.com/rest/reference/teams#discussions). OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
      */
@@ -6815,7 +6924,7 @@ export interface paths {
     /**
      * Create reaction for a team discussion (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create reaction for a team discussion`](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create reaction for a team discussion`](https://docs.github.com/rest/reactions/reactions#create-reaction-for-a-team-discussion) endpoint.
      *
      * Create a reaction to a [team discussion](https://docs.github.com/rest/reference/teams#discussions). OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). A response with an HTTP `200` status means that you already added the reaction type to this team discussion.
      */
@@ -6825,7 +6934,7 @@ export interface paths {
     /**
      * List pending team invitations (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List pending team invitations`](https://docs.github.com/rest/reference/teams#list-pending-team-invitations) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List pending team invitations`](https://docs.github.com/rest/teams/members#list-pending-team-invitations) endpoint.
      *
      * The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the following values: `direct_member`, `admin`, `billing_manager`, `hiring_manager`, or `reinstate`. If the invitee is not a GitHub member, the `login` field in the return hash will be `null`.
      */
@@ -6835,7 +6944,7 @@ export interface paths {
     /**
      * List team members (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List team members`](https://docs.github.com/rest/reference/teams#list-team-members) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List team members`](https://docs.github.com/rest/teams/members#list-team-members) endpoint.
      *
      * Team members will include the members of child teams.
      */
@@ -6847,7 +6956,7 @@ export interface paths {
      * @deprecated
      * @description The "Get team member" endpoint (described below) is deprecated.
      *
-     * We recommend using the [Get team membership for a user](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user) endpoint instead. It allows you to get both active and pending memberships.
+     * We recommend using the [Get team membership for a user](https://docs.github.com/rest/teams/members#get-team-membership-for-a-user) endpoint instead. It allows you to get both active and pending memberships.
      *
      * To list members in a team, the team must be visible to the authenticated user.
      */
@@ -6857,7 +6966,7 @@ export interface paths {
      * @deprecated
      * @description The "Add team member" endpoint (described below) is deprecated.
      *
-     * We recommend using the [Add or update team membership for a user](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user) endpoint instead. It allows you to invite new organization members to your teams.
+     * We recommend using the [Add or update team membership for a user](https://docs.github.com/rest/teams/members#add-or-update-team-membership-for-a-user) endpoint instead. It allows you to invite new organization members to your teams.
      *
      * Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
      *
@@ -6873,7 +6982,7 @@ export interface paths {
      * @deprecated
      * @description The "Remove team member" endpoint (described below) is deprecated.
      *
-     * We recommend using the [Remove team membership for a user](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user) endpoint instead. It allows you to remove both active and pending memberships.
+     * We recommend using the [Remove team membership for a user](https://docs.github.com/rest/teams/members#remove-team-membership-for-a-user) endpoint instead. It allows you to remove both active and pending memberships.
      *
      * Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
      *
@@ -6887,7 +6996,7 @@ export interface paths {
     /**
      * Get team membership for a user (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get team membership for a user](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get team membership for a user](https://docs.github.com/rest/teams/members#get-team-membership-for-a-user) endpoint.
      *
      * Team members will include the members of child teams.
      *
@@ -6896,13 +7005,13 @@ export interface paths {
      * **Note:**
      * The response contains the `state` of the membership and the member's `role`.
      *
-     * The `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see [Create a team](https://docs.github.com/rest/reference/teams#create-a-team).
+     * The `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see [Create a team](https://docs.github.com/rest/teams/teams#create-a-team).
      */
     get: operations["teams/get-membership-for-user-legacy"];
     /**
      * Add or update team membership for a user (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Add or update team membership for a user](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Add or update team membership for a user](https://docs.github.com/rest/teams/members#add-or-update-team-membership-for-a-user) endpoint.
      *
      * Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
      *
@@ -6918,7 +7027,7 @@ export interface paths {
     /**
      * Remove team membership for a user (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove team membership for a user](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove team membership for a user](https://docs.github.com/rest/teams/members#remove-team-membership-for-a-user) endpoint.
      *
      * Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
      *
@@ -6932,7 +7041,7 @@ export interface paths {
     /**
      * List team projects (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List team projects`](https://docs.github.com/rest/reference/teams#list-team-projects) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List team projects`](https://docs.github.com/rest/teams/teams#list-team-projects) endpoint.
      *
      * Lists the organization projects for a team.
      */
@@ -6942,7 +7051,7 @@ export interface paths {
     /**
      * Check team permissions for a project (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Check team permissions for a project](https://docs.github.com/rest/reference/teams#check-team-permissions-for-a-project) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Check team permissions for a project](https://docs.github.com/rest/teams/teams#check-team-permissions-for-a-project) endpoint.
      *
      * Checks whether a team has `read`, `write`, or `admin` permissions for an organization project. The response includes projects inherited from a parent team.
      */
@@ -6950,7 +7059,7 @@ export interface paths {
     /**
      * Add or update team project permissions (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Add or update team project permissions](https://docs.github.com/rest/reference/teams#add-or-update-team-project-permissions) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Add or update team project permissions](https://docs.github.com/rest/teams/teams#add-or-update-team-project-permissions) endpoint.
      *
      * Adds an organization project to a team. To add a project to a team or update the team's permission on a project, the authenticated user must have `admin` permissions for the project. The project and team must be part of the same organization.
      */
@@ -6958,7 +7067,7 @@ export interface paths {
     /**
      * Remove a project from a team (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove a project from a team](https://docs.github.com/rest/reference/teams#remove-a-project-from-a-team) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove a project from a team](https://docs.github.com/rest/teams/teams#remove-a-project-from-a-team) endpoint.
      *
      * Removes an organization project from a team. An organization owner or a team maintainer can remove any project from the team. To remove a project from a team as an organization member, the authenticated user must have `read` access to both the team and project, or `admin` access to the team or project. **Note:** This endpoint removes the project from the team, but does not delete it.
      */
@@ -6968,7 +7077,7 @@ export interface paths {
     /**
      * List team repositories (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [List team repositories](https://docs.github.com/rest/reference/teams#list-team-repositories) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [List team repositories](https://docs.github.com/rest/teams/teams#list-team-repositories) endpoint.
      */
     get: operations["teams/list-repos-legacy"];
   };
@@ -7006,7 +7115,7 @@ export interface paths {
     /**
      * List child teams (Legacy)
      * @deprecated
-     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List child teams`](https://docs.github.com/rest/reference/teams#list-child-teams) endpoint.
+     * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List child teams`](https://docs.github.com/rest/teams/teams#list-child-teams) endpoint.
      */
     get: operations["teams/list-child-legacy"];
   };
@@ -7487,7 +7596,7 @@ export interface paths {
      * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
      * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
      * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-     * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+     * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
      */
     get: operations["issues/list-for-authenticated-user"];
   };
@@ -7719,7 +7828,7 @@ export interface paths {
   "/user/public_emails": {
     /**
      * List public email addresses for the authenticated user
-     * @description Lists your publicly visible email address, which you can set with the [Set primary email visibility for the authenticated user](https://docs.github.com/rest/reference/users#set-primary-email-visibility-for-the-authenticated-user) endpoint. This endpoint is accessible with the `user:email` scope.
+     * @description Lists your publicly visible email address, which you can set with the [Set primary email visibility for the authenticated user](https://docs.github.com/rest/users/emails#set-primary-email-visibility-for-the-authenticated-user) endpoint. This endpoint is accessible with the `user:email` scope.
      */
     get: operations["users/list-public-emails-for-authenticated-user"];
   };
@@ -7953,7 +8062,7 @@ export interface paths {
      * List organizations for a user
      * @description List [public organization memberships](https://docs.github.com/articles/publicizing-or-concealing-organization-membership) for the specified user.
      *
-     * This method only lists _public_ memberships, regardless of authentication. If you need to fetch all of the organization memberships (public and private) for the authenticated user, use the [List organizations for the authenticated user](https://docs.github.com/rest/reference/orgs#list-organizations-for-the-authenticated-user) API instead.
+     * This method only lists _public_ memberships, regardless of authentication. If you need to fetch all of the organization memberships (public and private) for the authenticated user, use the [List organizations for the authenticated user](https://docs.github.com/rest/orgs/orgs#list-organizations-for-the-authenticated-user) API instead.
      */
     get: operations["orgs/list-for-user"];
   };
@@ -12231,6 +12340,251 @@ export interface components {
       created_at?: string;
     };
     /**
+     * Copilot for Business Seat Breakdown
+     * @description The breakdown of Copilot for Business seats for the organization.
+     */
+    "copilot-seat-breakdown": {
+      /** @description The total number of seats being billed for the organization as of the current billing cycle. */
+      total?: number;
+      /** @description Seats added during the current billing cycle. */
+      added_this_cycle?: number;
+      /** @description The number of seats that are pending cancellation at the end of the current billing cycle. */
+      pending_cancellation?: number;
+      /** @description The number of seats that have been assigned to users that have not yet accepted an invitation to this organization. */
+      pending_invitation?: number;
+      /** @description The number of seats that have used Copilot during the current billing cycle. */
+      active_this_cycle?: number;
+      /** @description The number of seats that have not used Copilot during the current billing cycle. */
+      inactive_this_cycle?: number;
+    };
+    /**
+     * Copilot for Business Organization Details
+     * @description Information about the seat breakdown and policies set for an organization with a Copilot for Business subscription.
+     */
+    "copilot-organization-details": {
+      seat_breakdown: components["schemas"]["copilot-seat-breakdown"];
+      /**
+       * @description The organization policy for allowing or disallowing Copilot to make suggestions that match public code.
+       * @enum {string}
+       */
+      public_code_suggestions: "allow" | "block" | "unconfigured" | "unknown";
+      /**
+       * @description The mode of assigning new seats.
+       * @enum {string}
+       */
+      seat_management_setting: "assign_all" | "assign_selected" | "disabled";
+      [key: string]: unknown;
+    };
+    /**
+     * Team Simple
+     * @description Groups of organization members that gives permissions on specified repositories.
+     */
+    "nullable-team-simple": ({
+      /**
+       * @description Unique identifier of the team
+       * @example 1
+       */
+      id: number;
+      /** @example MDQ6VGVhbTE= */
+      node_id: string;
+      /**
+       * Format: uri
+       * @description URL for the team
+       * @example https://api.github.com/organizations/1/team/1
+       */
+      url: string;
+      /** @example https://api.github.com/organizations/1/team/1/members{/member} */
+      members_url: string;
+      /**
+       * @description Name of the team
+       * @example Justice League
+       */
+      name: string;
+      /**
+       * @description Description of the team
+       * @example A great team.
+       */
+      description: string | null;
+      /**
+       * @description Permission that the team will have for its repositories
+       * @example admin
+       */
+      permission: string;
+      /**
+       * @description The level of privacy this team should have
+       * @example closed
+       */
+      privacy?: string;
+      /**
+       * @description The notification setting the team has set
+       * @example notifications_enabled
+       */
+      notification_setting?: string;
+      /**
+       * Format: uri
+       * @example https://github.com/orgs/rails/teams/core
+       */
+      html_url: string;
+      /**
+       * Format: uri
+       * @example https://api.github.com/organizations/1/team/1/repos
+       */
+      repositories_url: string;
+      /** @example justice-league */
+      slug: string;
+      /**
+       * @description Distinguished Name (DN) that team maps to within LDAP environment
+       * @example uid=example,ou=users,dc=github,dc=com
+       */
+      ldap_dn?: string;
+    }) | null;
+    /**
+     * Team
+     * @description Groups of organization members that gives permissions on specified repositories.
+     */
+    team: {
+      id: number;
+      node_id: string;
+      name: string;
+      slug: string;
+      description: string | null;
+      privacy?: string;
+      notification_setting?: string;
+      permission: string;
+      permissions?: {
+        pull: boolean;
+        triage: boolean;
+        push: boolean;
+        maintain: boolean;
+        admin: boolean;
+      };
+      /** Format: uri */
+      url: string;
+      /**
+       * Format: uri
+       * @example https://github.com/orgs/rails/teams/core
+       */
+      html_url: string;
+      members_url: string;
+      /** Format: uri */
+      repositories_url: string;
+      parent: components["schemas"]["nullable-team-simple"];
+    };
+    /**
+     * Organization
+     * @description GitHub account for managing multiple users, teams, and repositories
+     */
+    organization: {
+      /**
+       * @description Unique login name of the organization
+       * @example new-org
+       */
+      login: string;
+      /**
+       * Format: uri
+       * @description URL for the organization
+       * @example https://api.github.com/orgs/github
+       */
+      url: string;
+      id: number;
+      node_id: string;
+      /** Format: uri */
+      repos_url: string;
+      /** Format: uri */
+      events_url: string;
+      hooks_url: string;
+      issues_url: string;
+      members_url: string;
+      public_members_url: string;
+      avatar_url: string;
+      description: string | null;
+      /**
+       * Format: uri
+       * @description Display blog url for the organization
+       * @example blog.example-org.com
+       */
+      blog?: string;
+      /** Format: uri */
+      html_url: string;
+      /**
+       * @description Display name for the organization
+       * @example New Org
+       */
+      name?: string;
+      /**
+       * @description Display company name for the organization
+       * @example Acme corporation
+       */
+      company?: string;
+      /**
+       * @description Display location for the organization
+       * @example Berlin, Germany
+       */
+      location?: string;
+      /**
+       * Format: email
+       * @description Display email for the organization
+       * @example org@example.com
+       */
+      email?: string;
+      /** @description Specifies if organization projects are enabled for this org */
+      has_organization_projects: boolean;
+      /** @description Specifies if repository projects are enabled for repositories that belong to this org */
+      has_repository_projects: boolean;
+      is_verified?: boolean;
+      public_repos: number;
+      public_gists: number;
+      followers: number;
+      following: number;
+      type: string;
+      /** Format: date-time */
+      created_at: string;
+      /** Format: date-time */
+      updated_at: string;
+      plan?: {
+        name?: string;
+        space?: number;
+        private_repos?: number;
+        filled_seats?: number;
+        seats?: number;
+      };
+    };
+    /**
+     * Copilot for Business Seat Detail
+     * @description Information about a Copilot for Business seat assignment for a user, team, or organization.
+     */
+    "copilot-seat-details": {
+      /**
+       * @description The assignee that has been granted access to GitHub Copilot.
+       * @enum {object}
+       */
+      assignee: [object Object];
+      /** @description The team that granted access to GitHub Copilot to the assignee. This will be null if the user was assigned a seat individually. */
+      assigning_team?: components["schemas"]["team"];
+      /**
+       * Format: date
+       * @description The pending cancellation date for the seat, in `YYYY-MM-DD` format. This will be null unless the assignee's Copilot access has been canceled during the current billing cycle. If the seat has been cancelled, this corresponds to the start of the organization's next billing cycle.
+       */
+      pending_cancellation_date?: string | null;
+      /**
+       * Format: date-time
+       * @description Timestamp of user's last GitHub Copilot activity, in ISO 8601 format.
+       */
+      last_activity_at?: string | null;
+      /** @description Last editor that was used by the user for a GitHub Copilot completion. */
+      last_activity_editor?: string | null;
+      /**
+       * Format: date-time
+       * @description Timestamp of when the assignee was last granted access to GitHub Copilot, in ISO 8601 format.
+       */
+      created_at: string;
+      /**
+       * Format: date-time
+       * @description Timestamp of when the assignee's GitHub Copilot access was last updated, in ISO 8601 format.
+       */
+      updated_at?: string;
+    };
+    /**
      * Dependabot Secret for an Organization
      * @description Secrets for GitHub Dependabot for an organization.
      */
@@ -12634,101 +12988,6 @@ export interface components {
       expiry?: components["schemas"]["interaction-expiry"];
     };
     /**
-     * Team Simple
-     * @description Groups of organization members that gives permissions on specified repositories.
-     */
-    "nullable-team-simple": ({
-      /**
-       * @description Unique identifier of the team
-       * @example 1
-       */
-      id: number;
-      /** @example MDQ6VGVhbTE= */
-      node_id: string;
-      /**
-       * Format: uri
-       * @description URL for the team
-       * @example https://api.github.com/organizations/1/team/1
-       */
-      url: string;
-      /** @example https://api.github.com/organizations/1/team/1/members{/member} */
-      members_url: string;
-      /**
-       * @description Name of the team
-       * @example Justice League
-       */
-      name: string;
-      /**
-       * @description Description of the team
-       * @example A great team.
-       */
-      description: string | null;
-      /**
-       * @description Permission that the team will have for its repositories
-       * @example admin
-       */
-      permission: string;
-      /**
-       * @description The level of privacy this team should have
-       * @example closed
-       */
-      privacy?: string;
-      /**
-       * @description The notification setting the team has set
-       * @example notifications_enabled
-       */
-      notification_setting?: string;
-      /**
-       * Format: uri
-       * @example https://github.com/orgs/rails/teams/core
-       */
-      html_url: string;
-      /**
-       * Format: uri
-       * @example https://api.github.com/organizations/1/team/1/repos
-       */
-      repositories_url: string;
-      /** @example justice-league */
-      slug: string;
-      /**
-       * @description Distinguished Name (DN) that team maps to within LDAP environment
-       * @example uid=example,ou=users,dc=github,dc=com
-       */
-      ldap_dn?: string;
-    }) | null;
-    /**
-     * Team
-     * @description Groups of organization members that gives permissions on specified repositories.
-     */
-    team: {
-      id: number;
-      node_id: string;
-      name: string;
-      slug: string;
-      description: string | null;
-      privacy?: string;
-      notification_setting?: string;
-      permission: string;
-      permissions?: {
-        pull: boolean;
-        triage: boolean;
-        push: boolean;
-        maintain: boolean;
-        admin: boolean;
-      };
-      /** Format: uri */
-      url: string;
-      /**
-       * Format: uri
-       * @example https://github.com/orgs/rails/teams/core
-       */
-      html_url: string;
-      members_url: string;
-      /** Format: uri */
-      repositories_url: string;
-      parent: components["schemas"]["nullable-team-simple"];
-    };
-    /**
      * Org Membership
      * @description Org Membership
      */
@@ -13060,7 +13319,7 @@ export interface components {
     };
     /**
      * Organization ruleset conditions
-     * @description Conditions for a organization ruleset
+     * @description Conditions for an organization ruleset
      */
     "org-ruleset-conditions": (components["schemas"]["repository-ruleset-conditions"] & components["schemas"]["repository-ruleset-conditions-repository-name-target"]) | (components["schemas"]["repository-ruleset-conditions"] & components["schemas"]["repository-ruleset-conditions-repository-id-target"]);
     /**
@@ -13070,15 +13329,6 @@ export interface components {
     "repository-rule-creation": {
       /** @enum {string} */
       type: "creation";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
     };
     /**
      * update
@@ -13087,15 +13337,6 @@ export interface components {
     "repository-rule-update": {
       /** @enum {string} */
       type: "update";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description Branch can pull changes from its upstream repository */
         update_allows_fetch_and_merge: boolean;
@@ -13108,15 +13349,6 @@ export interface components {
     "repository-rule-deletion": {
       /** @enum {string} */
       type: "deletion";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
     };
     /**
      * required_linear_history
@@ -13125,15 +13357,6 @@ export interface components {
     "repository-rule-required-linear-history": {
       /** @enum {string} */
       type: "required_linear_history";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
     };
     /**
      * required_deployments
@@ -13142,15 +13365,6 @@ export interface components {
     "repository-rule-required-deployments": {
       /** @enum {string} */
       type: "required_deployments";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description The environments that must be successfully deployed to before branches can be merged. */
         required_deployment_environments: string[];
@@ -13163,15 +13377,6 @@ export interface components {
     "repository-rule-required-signatures": {
       /** @enum {string} */
       type: "required_signatures";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
     };
     /**
      * pull_request
@@ -13180,15 +13385,6 @@ export interface components {
     "repository-rule-pull-request": {
       /** @enum {string} */
       type: "pull_request";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description New, reviewable commits pushed will dismiss previous pull request review approvals. */
         dismiss_stale_reviews_on_push: boolean;
@@ -13219,15 +13415,6 @@ export interface components {
     "repository-rule-required-status-checks": {
       /** @enum {string} */
       type: "required_status_checks";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description Status checks that are required. */
         required_status_checks: components["schemas"]["repository-rule-params-status-check-configuration"][];
@@ -13242,15 +13429,6 @@ export interface components {
     "repository-rule-non-fast-forward": {
       /** @enum {string} */
       type: "non_fast_forward";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
     };
     /**
      * commit_message_pattern
@@ -13259,15 +13437,6 @@ export interface components {
     "repository-rule-commit-message-pattern": {
       /** @enum {string} */
       type: "commit_message_pattern";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description How this rule will appear to users. */
         name?: string;
@@ -13289,15 +13458,6 @@ export interface components {
     "repository-rule-commit-author-email-pattern": {
       /** @enum {string} */
       type: "commit_author_email_pattern";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description How this rule will appear to users. */
         name?: string;
@@ -13319,15 +13479,6 @@ export interface components {
     "repository-rule-committer-email-pattern": {
       /** @enum {string} */
       type: "committer_email_pattern";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description How this rule will appear to users. */
         name?: string;
@@ -13349,15 +13500,6 @@ export interface components {
     "repository-rule-branch-name-pattern": {
       /** @enum {string} */
       type: "branch_name_pattern";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description How this rule will appear to users. */
         name?: string;
@@ -13379,15 +13521,6 @@ export interface components {
     "repository-rule-tag-name-pattern": {
       /** @enum {string} */
       type: "tag_name_pattern";
-      /**
-       * @description The type of source of the ruleset that this rule is configured in
-       * @enum {string}
-       */
-      ruleset_source_type?: "Repository" | "Organization";
-      /** @description The name of the source of the ruleset that this rule is configured in */
-      ruleset_source?: string;
-      /** @description The ID of the ruleset that this rule is configured in */
-      ruleset_id?: number;
       parameters?: {
         /** @description How this rule will appear to users. */
         name?: string;
@@ -13432,10 +13565,11 @@ export interface components {
       /** @description The actors that can bypass the rules in this ruleset */
       bypass_actors?: components["schemas"]["repository-ruleset-bypass-actor"][];
       /**
-       * @description Whether the user making this API request is able to bypass the ruleset. This field is only returned when
+       * @description The bypass type of the user making the API request for this ruleset. This field is only returned when
        * querying the repository-level endpoint.
+       * @enum {string}
        */
-      current_user_can_bypass?: boolean;
+      current_user_can_bypass?: "always" | "pull_requests_only" | "never";
       node_id?: string;
       _links?: {
         self?: {
@@ -14792,11 +14926,6 @@ export interface components {
       master_branch?: string;
     };
     /**
-     * @description The CodeQL query suite to use.
-     * @enum {string}
-     */
-    "code-scanning-query-suite": "default" | "extended";
-    /**
      * Project Card
      * @description Project cards represent a scope of work.
      */
@@ -16062,6 +16191,22 @@ export interface components {
       is_alphanumeric: boolean;
     };
     /**
+     * Check Automated Security Fixes
+     * @description Check Automated Security Fixes
+     */
+    "check-automated-security-fixes": {
+      /**
+       * @description Whether automated security fixes are enabled for the repository.
+       * @example true
+       */
+      enabled: boolean;
+      /**
+       * @description Whether automated security fixes are paused for the repository.
+       * @example false
+       */
+      paused: boolean;
+    };
+    /**
      * Protected Branch Required Status Check
      * @description Protected Branch Required Status Check
      */
@@ -16999,7 +17144,11 @@ export interface components {
        * @enum {string}
        */
       state: "configured" | "not-configured";
-      query_suite?: components["schemas"]["code-scanning-query-suite"];
+      /**
+       * @description CodeQL query suite to be used.
+       * @enum {string}
+       */
+      query_suite?: "default" | "extended";
       /** @description CodeQL languages to be analyzed. Supported values are: `c-cpp`, `csharp`, `go`, `java-kotlin`, `javascript-typescript`, `python`, and `ruby`. */
       languages?: ("c-cpp" | "csharp" | "go" | "java-kotlin" | "javascript-typescript" | "python" | "ruby" | "swift")[];
     };
@@ -20940,6 +21089,26 @@ export interface components {
       /** @description The generated body describing the contents of the release supporting markdown formatting */
       body: string;
     };
+    /**
+     * repository ruleset data for rule
+     * @description User-defined metadata to store domain-specific information limited to 8 keys with scalar values.
+     */
+    "repository-rule-ruleset-info": {
+      /**
+       * @description The type of source for the ruleset that includes this rule.
+       * @enum {string}
+       */
+      ruleset_source_type?: "Repository" | "Organization";
+      /** @description The name of the source of the ruleset that includes this rule. */
+      ruleset_source?: string;
+      /** @description The ID of the ruleset that includes this rule. */
+      ruleset_id?: number;
+    };
+    /**
+     * Repository Rule
+     * @description A repository rule with ruleset details.
+     */
+    "repository-rule-detailed": (components["schemas"]["repository-rule-creation"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-update"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-deletion"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-required-linear-history"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-required-deployments"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-required-signatures"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-pull-request"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-required-status-checks"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-non-fast-forward"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-commit-message-pattern"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-commit-author-email-pattern"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-committer-email-pattern"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-branch-name-pattern"] & components["schemas"]["repository-rule-ruleset-info"]) | (components["schemas"]["repository-rule-tag-name-pattern"] & components["schemas"]["repository-rule-ruleset-info"]);
     "secret-scanning-alert": {
       number?: components["schemas"]["alert-number"];
       created_at?: components["schemas"]["alert-created-at"];
@@ -21172,6 +21341,12 @@ export interface components {
           type?: components["schemas"]["security-advisory-credit-types"];
         }[] | null;
       credits_detailed: readonly components["schemas"]["repository-advisory-credit"][] | null;
+      /** @description A list of users that collaborate on the advisory. */
+      collaborating_users: components["schemas"]["simple-user"][] | null;
+      /** @description A list of teams that collaborate on the advisory. */
+      collaborating_teams: components["schemas"]["team"][] | null;
+      /** @description A temporary private fork of the advisory's repository for collaborating on a fix. */
+      private_fork: components["schemas"]["simple-repository"] | null;
     };
     "repository-advisory-create": {
       /** @description A short summary of the advisory. */
@@ -21283,6 +21458,10 @@ export interface components {
        * @enum {string}
        */
       state?: "published" | "closed" | "draft";
+      /** @description A list of usernames who have been granted write access to the advisory. */
+      collaborating_users?: string[] | null;
+      /** @description A list of team slugs which have been granted write access to the advisory. */
+      collaborating_teams?: string[] | null;
     };
     /**
      * Stargazer
@@ -24612,7 +24791,7 @@ export interface components {
       organization?: components["schemas"]["organization-simple"];
       /** @description The pusher type for the event. Can be either `user` or a deploy key. */
       pusher_type: string;
-      /** @description The [`git ref`](https://docs.github.com/rest/reference/git#get-a-reference) resource. */
+      /** @description The [`git ref`](https://docs.github.com/rest/git/refs#get-a-reference) resource. */
       ref: string;
       /**
        * @description The type of Git ref object created in the repository.
@@ -24629,7 +24808,7 @@ export interface components {
       organization?: components["schemas"]["organization-simple"];
       /** @description The pusher type for the event. Can be either `user` or a deploy key. */
       pusher_type: string;
-      /** @description The [`git ref`](https://docs.github.com/rest/reference/git#get-a-reference) resource. */
+      /** @description The [`git ref`](https://docs.github.com/rest/git/refs#get-a-reference) resource. */
       ref: string;
       /**
        * @description The type of Git ref object deleted in the repository.
@@ -26824,7 +27003,7 @@ export interface components {
      */
     "webhook-fork": {
       enterprise?: components["schemas"]["enterprise"];
-      /** @description The created [`repository`](https://docs.github.com/rest/reference/repos#get-a-repository) resource. */
+      /** @description The created [`repository`](https://docs.github.com/rest/repos/repos#get-a-repository) resource. */
       forkee: ({
         /**
          * @description Whether to allow auto-merge for pull requests.
@@ -80084,7 +80263,7 @@ export interface components {
     "delivery-id": number;
     /** @description Page number of the results to fetch. */
     page?: number;
-    /** @description Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
+    /** @description Only show results that were last updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
     since?: string;
     /** @description The unique identifier of the installation. */
     "installation-id": number;
@@ -80173,7 +80352,7 @@ export interface components {
     participating?: boolean;
     /** @description Only show notifications updated before the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. */
     before?: string;
-    /** @description The unique identifier of the notification thread. This corresponds to the value returned in the `id` field when you retrieve notifications (for example with the [`GET /notifications` operation](https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user)). */
+    /** @description The unique identifier of the notification thread. This corresponds to the value returned in the `id` field when you retrieve notifications (for example with the [`GET /notifications` operation](https://docs.github.com/rest/activity/notifications#list-notifications-for-the-authenticated-user)). */
     "thread-id": number;
     /** @description An organization ID. Only return organizations with an ID greater than this ID. */
     "since-org"?: number;
@@ -80419,7 +80598,7 @@ export interface operations {
   };
   /**
    * Get the authenticated app
-   * @description Returns the GitHub App associated with the authentication credentials used. To see how many app installations are associated with this GitHub App, see the `installations_count` in the response. For more details about your app's installations, see the "[List installations for the authenticated app](https://docs.github.com/rest/reference/apps#list-installations-for-the-authenticated-app)" endpoint.
+   * @description Returns the GitHub App associated with the authentication credentials used. To see how many app installations are associated with this GitHub App, see the `installations_count` in the response. For more details about your app's installations, see the "[List installations for the authenticated app](https://docs.github.com/rest/apps/apps#list-installations-for-the-authenticated-app)" endpoint.
    *
    * You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
    */
@@ -81587,7 +81766,7 @@ export interface operations {
   };
   /**
    * Get all gitignore templates
-   * @description List all templates available to pass as an option when [creating a repository](https://docs.github.com/rest/reference/repos#create-a-repository-for-the-authenticated-user).
+   * @description List all templates available to pass as an option when [creating a repository](https://docs.github.com/rest/repos/repos#create-a-repository-for-the-authenticated-user).
    */
   "gitignore/get-all-templates": {
     responses: {
@@ -81678,7 +81857,7 @@ export interface operations {
    * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
    * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
    * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-   * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+   * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
    */
   "issues/list": {
     parameters: {
@@ -82063,7 +82242,7 @@ export interface operations {
   };
   /**
    * Mark notifications as read
-   * @description Marks all notifications as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List notifications for the authenticated user](https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
+   * @description Marks all notifications as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List notifications for the authenticated user](https://docs.github.com/rest/activity/notifications#list-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
    */
   "activity/mark-notifications-as-read": {
     requestBody?: {
@@ -82136,7 +82315,7 @@ export interface operations {
   };
   /**
    * Get a thread subscription for the authenticated user
-   * @description This checks to see if the current user is subscribed to a thread. You can also [get a repository subscription](https://docs.github.com/rest/reference/activity#get-a-repository-subscription).
+   * @description This checks to see if the current user is subscribed to a thread. You can also [get a repository subscription](https://docs.github.com/rest/activity/watching#get-a-repository-subscription).
    *
    * Note that subscriptions are only generated if a user is participating in a conversation--for example, they've replied to the thread, were **@mentioned**, or manually subscribe to a thread.
    */
@@ -82164,7 +82343,7 @@ export interface operations {
    *
    * You can also use this endpoint to subscribe to threads that you are currently not receiving notifications for or to subscribed to threads that you have previously ignored.
    *
-   * Unsubscribing from a conversation in a repository that you are not watching is functionally equivalent to the [Delete a thread subscription](https://docs.github.com/rest/reference/activity#delete-a-thread-subscription) endpoint.
+   * Unsubscribing from a conversation in a repository that you are not watching is functionally equivalent to the [Delete a thread subscription](https://docs.github.com/rest/activity/notifications#delete-a-thread-subscription) endpoint.
    */
   "activity/set-thread-subscription": {
     parameters: {
@@ -82197,7 +82376,7 @@ export interface operations {
   };
   /**
    * Delete a thread subscription
-   * @description Mutes all future notifications for a conversation until you comment on the thread or get an **@mention**. If you are watching the repository of the thread, you will still receive notifications. To ignore future notifications for a repository you are watching, use the [Set a thread subscription](https://docs.github.com/rest/reference/activity#set-a-thread-subscription) endpoint and set `ignore` to `true`.
+   * @description Mutes all future notifications for a conversation until you comment on the thread or get an **@mention**. If you are watching the repository of the thread, you will still receive notifications. To ignore future notifications for a repository you are watching, use the [Set a thread subscription](https://docs.github.com/rest/activity/notifications#set-a-thread-subscription) endpoint and set `ignore` to `true`.
    */
   "activity/delete-thread-subscription": {
     parameters: {
@@ -82880,7 +83059,7 @@ export interface operations {
    *
    * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    *
-   * #### Example using registration token
+   * Example using registration token:
    *
    * Configure your self-hosted runner, replacing `TOKEN` with the registration token provided by this endpoint.
    *
@@ -82909,7 +83088,7 @@ export interface operations {
    *
    * You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    *
-   * #### Example using remove token
+   * Example using remove token:
    *
    * To remove your self-hosted runner from an organization, replace `TOKEN` with the remove token provided by this
    * endpoint.
@@ -83246,7 +83425,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://docs.github.com/rest/reference/actions#get-an-organization-public-key) endpoint. */
+          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://docs.github.com/rest/actions/secrets#get-an-organization-public-key) endpoint. */
           encrypted_value?: string;
           /** @description ID of the key you used to encrypt the secret. */
           key_id?: string;
@@ -83255,7 +83434,7 @@ export interface operations {
            * @enum {string}
            */
           visibility: "all" | "private" | "selected";
-          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret) endpoints. */
+          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/actions/secrets#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/actions/secrets#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/actions/secrets#remove-selected-repository-from-an-organization-secret) endpoints. */
           selected_repository_ids?: number[];
         };
       };
@@ -83316,7 +83495,7 @@ export interface operations {
   };
   /**
    * Set selected repositories for an organization secret
-   * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
+   * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
    */
   "actions/set-selected-repos-for-org-secret": {
     parameters: {
@@ -83328,7 +83507,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Add selected repository to an organization secret](https://docs.github.com/rest/actions/secrets#add-selected-repository-to-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret) endpoints. */
+          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Add selected repository to an organization secret](https://docs.github.com/rest/actions/secrets#add-selected-repository-to-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/actions/secrets#remove-selected-repository-from-an-organization-secret) endpoints. */
           selected_repository_ids: number[];
         };
       };
@@ -83340,7 +83519,7 @@ export interface operations {
   };
   /**
    * Add selected repository to an organization secret
-   * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
+   * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
    */
   "actions/add-selected-repo-to-org-secret": {
     parameters: {
@@ -83359,7 +83538,7 @@ export interface operations {
   };
   /**
    * Remove selected repository from an organization secret
-   * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
+   * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/actions/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.
    */
   "actions/remove-selected-repo-from-org-secret": {
     parameters: {
@@ -84032,7 +84211,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description The value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://docs.github.com/rest/reference/codespaces#get-an-organization-public-key) endpoint. */
+          /** @description The value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://docs.github.com/rest/codespaces/organization-secrets#get-an-organization-public-key) endpoint. */
           encrypted_value?: string;
           /** @description The ID of the key you used to encrypt the secret. */
           key_id?: string;
@@ -84041,7 +84220,7 @@ export interface operations {
            * @enum {string}
            */
           visibility: "all" | "private" | "selected";
-          /** @description An array of repository IDs that can access the organization secret. You can only provide a list of repository IDs when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/reference/codespaces#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/codespaces#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/codespaces#remove-selected-repository-from-an-organization-secret) endpoints. */
+          /** @description An array of repository IDs that can access the organization secret. You can only provide a list of repository IDs when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#remove-selected-repository-from-an-organization-secret) endpoints. */
           selected_repository_ids?: number[];
         };
       };
@@ -84106,7 +84285,7 @@ export interface operations {
   };
   /**
    * Set selected repositories for an organization secret
-   * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/codespaces#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+   * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    */
   "codespaces/set-selected-repos-for-org-secret": {
     parameters: {
@@ -84118,7 +84297,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/codespaces#set-selected-repositories-for-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/codespaces#remove-selected-repository-from-an-organization-secret) endpoints. */
+          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Set selected repositories for an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#set-selected-repositories-for-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#remove-selected-repository-from-an-organization-secret) endpoints. */
           selected_repository_ids: number[];
         };
       };
@@ -84133,7 +84312,7 @@ export interface operations {
   };
   /**
    * Add selected repository to an organization secret
-   * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/codespaces#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+   * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    */
   "codespaces/add-selected-repo-to-org-secret": {
     parameters: {
@@ -84154,7 +84333,7 @@ export interface operations {
   };
   /**
    * Remove selected repository from an organization secret
-   * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/codespaces#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
+   * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/codespaces/organization-secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint.
    */
   "codespaces/remove-selected-repo-from-org-secret": {
     parameters: {
@@ -84171,6 +84350,253 @@ export interface operations {
       /** @description Conflict when visibility type not set to selected */
       409: never;
       422: components["responses"]["validation_failed"];
+    };
+  };
+  /**
+   * Get Copilot for Business seat information and settings for an organization
+   * @description **Note**: This endpoint is in beta and is subject to change.
+   *
+   * Gets information about an organization's Copilot for Business subscription, including seat breakdown
+   * and code matching policies. To configure these settings, go to your organization's settings on GitHub.com.
+   * For more information, see "[Configuring GitHub Copilot settings in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization)".
+   *
+   * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
+   * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+   */
+  "copilot/get-copilot-organization-details": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["copilot-organization-details"];
+        };
+      };
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * List all Copilot for Business seat assignments for an organization
+   * @description **Note**: This endpoint is in beta and is subject to change.
+   *
+   * Lists all Copilot for Business seat assignments for an organization that are currently being billed (either active or pending cancellation at the start of the next billing cycle).
+   *
+   * Only organization owners and members with admin permissions can configure and view details about the organization's Copilot for Business subscription. You must
+   * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+   */
+  "copilot/list-copilot-seats": {
+    parameters: {
+      query?: {
+        page?: components["parameters"]["page"];
+        /** @description The number of results per page (max 100). */
+        per_page?: number;
+      };
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    responses: {
+      /** @description Response */
+      200: {
+        content: {
+          "application/json": {
+            /** @description Total number of Copilot For Business seats for the organization currently being billed. */
+            total_seats?: number;
+            seats?: components["schemas"]["copilot-seat-details"][];
+          };
+        };
+      };
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Add teams to the Copilot for Business subscription for an organization
+   * @description **Note**: This endpoint is in beta and is subject to change.
+   *
+   *  Purchases a GitHub Copilot for Business seat for all users within each specified team.
+   *  The organization will be billed accordingly. For more information about Copilot for Business pricing, see "[About billing for GitHub Copilot for Business](https://docs.github.com/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot#pricing-for-github-copilot-for-business)".
+   *
+   *  Only organization owners and members with admin permissions can configure GitHub Copilot in their organization. You must
+   *  authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+   *
+   *  In order for an admin to use this endpoint, the organization must have a Copilot for Business subscription and a configured suggestion matching policy.
+   *  For more information about setting up a Copilot for Business subscription, see "[Setting up a Copilot for Business subscription for your organization](https://docs.github.com/billing/managing-billing-for-github-copilot/managing-your-github-copilot-subscription-for-your-organization-or-enterprise#setting-up-a-copilot-for-business-subscription-for-your-organization)".
+   *  For more information about setting a suggestion matching policy, see "[Configuring suggestion matching policies for GitHub Copilot in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization#configuring-suggestion-matching-policies-for-github-copilot-in-your-organization)".
+   */
+  "copilot/add-copilot-for-business-seats-for-teams": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description List of team names within the organization to which to grant access to GitHub Copilot. */
+          selected_teams: string[];
+        };
+      };
+    };
+    responses: {
+      /** @description OK */
+      201: {
+        content: {
+          "application/json": {
+            seats_created: number;
+          };
+        };
+      };
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      /** @description Copilot for Business is not enabled for this organization, billing has not been set up for this organization, a public code suggestions policy has not been set for this organization, or the organization's Copilot access setting is set to enable Copilot for all users or is unconfigured. */
+      422: never;
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Remove teams from the Copilot for Business subscription for an organization
+   * @description **Note**: This endpoint is in beta and is subject to change.
+   *
+   * Cancels the Copilot for Business seat assignment for all members of each team specified.
+   * This will cause the members of the specified team(s) to lose access to GitHub Copilot at the end of the current billing cycle, and the organization will not be billed further for those users.
+   *
+   * For more information about Copilot for Business pricing, see "[About billing for GitHub Copilot for Business](https://docs.github.com/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot#pricing-for-github-copilot-for-business)".
+   *
+   * For more information about disabling access to Copilot for Business, see "[Disabling access to GitHub Copilot for specific users in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization#disabling-access-to-github-copilot-for-specific-users-in-your-organization)".
+   *
+   * Only organization owners and members with admin permissions can configure GitHub Copilot in their organization. You must
+   * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+   */
+  "copilot/cancel-copilot-seat-assignment-for-teams": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description The names of teams from which to revoke access to GitHub Copilot. */
+          selected_teams: string[];
+        };
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": {
+            seats_cancelled: number;
+          };
+        };
+      };
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      /** @description Copilot for Business is not enabled for this organization, billing has not been set up for this organization, a public code suggestions policy has not been set for this organization, or the organization's Copilot access setting is set to enable Copilot for all users or is unconfigured. */
+      422: never;
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Add users to the Copilot for Business subscription for an organization
+   * @description **Note**: This endpoint is in beta and is subject to change.
+   *
+   * Purchases a GitHub Copilot for Business seat for each user specified.
+   * The organization will be billed accordingly. For more information about Copilot for Business pricing, see "[About billing for GitHub Copilot for Business](https://docs.github.com/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot#pricing-for-github-copilot-for-business)".
+   *
+   * Only organization owners and members with admin permissions can configure GitHub Copilot in their organization. You must
+   * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+   *
+   * In order for an admin to use this endpoint, the organization must have a Copilot for Business subscription and a configured suggestion matching policy.
+   * For more information about setting up a Copilot for Business subscription, see "[Setting up a Copilot for Business subscription for your organization](https://docs.github.com/billing/managing-billing-for-github-copilot/managing-your-github-copilot-subscription-for-your-organization-or-enterprise#setting-up-a-copilot-for-business-subscription-for-your-organization)".
+   * For more information about setting a suggestion matching policy, see "[Configuring suggestion matching policies for GitHub Copilot in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization#configuring-suggestion-matching-policies-for-github-copilot-in-your-organization)".
+   */
+  "copilot/add-copilot-for-business-seats-for-users": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description The usernames of the organization members to be granted access to GitHub Copilot. */
+          selected_usernames: string[];
+        };
+      };
+    };
+    responses: {
+      /** @description OK */
+      201: {
+        content: {
+          "application/json": {
+            seats_created: number;
+          };
+        };
+      };
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      /** @description Copilot for Business is not enabled for this organization, billing has not been set up for this organization, a public code suggestions policy has not been set for this organization, or the organization's Copilot access setting is set to enable Copilot for all users or is unconfigured. */
+      422: never;
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
+   * Remove users from the Copilot for Business subscription for an organization
+   * @description **Note**: This endpoint is in beta and is subject to change.
+   *
+   * Cancels the Copilot for Business seat assignment for each user specified.
+   * This will cause the specified users to lose access to GitHub Copilot at the end of the current billing cycle, and the organization will not be billed further for those users.
+   *
+   * For more information about Copilot for Business pricing, see "[About billing for GitHub Copilot for Business](https://docs.github.com/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot#pricing-for-github-copilot-for-business)"
+   *
+   * For more information about disabling access to Copilot for Business, see "[Disabling access to GitHub Copilot for specific users in your organization](https://docs.github.com/copilot/configuring-github-copilot/configuring-github-copilot-settings-in-your-organization#disabling-access-to-github-copilot-for-specific-users-in-your-organization)".
+   *
+   * Only organization owners and members with admin permissions can configure GitHub Copilot in their organization. You must
+   * authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+   */
+  "copilot/cancel-copilot-seat-assignment-for-users": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          /** @description The usernames of the organization members for which to revoke access to GitHub Copilot. */
+          selected_usernames: string[];
+        };
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": {
+            seats_cancelled: number;
+          };
+        };
+      };
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      /** @description Copilot for Business is not enabled for this organization, billing has not been set up for this organization, a public code suggestions policy has not been set for this organization, the seat management setting is set to enable Copilot for all users or is unconfigured, or a user's seat cannot be cancelled because it was assigned to them via a team. */
+      422: never;
+      500: components["responses"]["internal_error"];
     };
   };
   /**
@@ -84374,7 +84800,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://docs.github.com/rest/reference/dependabot#get-an-organization-public-key) endpoint. */
+          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an organization public key](https://docs.github.com/rest/dependabot/secrets#get-an-organization-public-key) endpoint. */
           encrypted_value?: string;
           /** @description ID of the key you used to encrypt the secret. */
           key_id?: string;
@@ -84383,7 +84809,7 @@ export interface operations {
            * @enum {string}
            */
           visibility: "all" | "private" | "selected";
-          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/reference/dependabot#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/dependabot#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/dependabot#remove-selected-repository-from-an-organization-secret) endpoints. */
+          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can manage the list of selected repositories using the [List selected repositories for an organization secret](https://docs.github.com/rest/dependabot/secrets#list-selected-repositories-for-an-organization-secret), [Set selected repositories for an organization secret](https://docs.github.com/rest/dependabot/secrets#set-selected-repositories-for-an-organization-secret), and [Remove selected repository from an organization secret](https://docs.github.com/rest/dependabot/secrets#remove-selected-repository-from-an-organization-secret) endpoints. */
           selected_repository_ids?: string[];
         };
       };
@@ -84444,7 +84870,7 @@ export interface operations {
   };
   /**
    * Set selected repositories for an organization secret
-   * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/dependabot#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+   * @description Replaces all repositories for an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
    */
   "dependabot/set-selected-repos-for-org-secret": {
     parameters: {
@@ -84456,7 +84882,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Set selected repositories for an organization secret](https://docs.github.com/rest/reference/dependabot#set-selected-repositories-for-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/reference/dependabot#remove-selected-repository-from-an-organization-secret) endpoints. */
+          /** @description An array of repository ids that can access the organization secret. You can only provide a list of repository ids when the `visibility` is set to `selected`. You can add and remove individual repositories using the [Set selected repositories for an organization secret](https://docs.github.com/rest/dependabot/secrets#set-selected-repositories-for-an-organization-secret) and [Remove selected repository from an organization secret](https://docs.github.com/rest/dependabot/secrets#remove-selected-repository-from-an-organization-secret) endpoints. */
           selected_repository_ids: number[];
         };
       };
@@ -84468,7 +84894,7 @@ export interface operations {
   };
   /**
    * Add selected repository to an organization secret
-   * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/dependabot#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+   * @description Adds a repository to an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
    */
   "dependabot/add-selected-repo-to-org-secret": {
     parameters: {
@@ -84487,7 +84913,7 @@ export interface operations {
   };
   /**
    * Remove selected repository from an organization secret
-   * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/reference/dependabot#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
+   * @description Removes a repository from an organization secret when the `visibility` for repository access is set to `selected`. The visibility is set when you [Create or update an organization secret](https://docs.github.com/rest/dependabot/secrets#create-or-update-an-organization-secret). You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `dependabot_secrets` organization permission to use this endpoint.
    */
   "dependabot/remove-selected-repo-from-org-secret": {
     parameters: {
@@ -84655,7 +85081,7 @@ export interface operations {
   };
   /**
    * Get an organization webhook
-   * @description Returns a webhook configured in an organization. To get only the webhook `config` properties, see "[Get a webhook configuration for an organization](/rest/reference/orgs#get-a-webhook-configuration-for-an-organization)."
+   * @description Returns a webhook configured in an organization. To get only the webhook `config` properties, see "[Get a webhook configuration for an organization](/rest/orgs/webhooks#get-a-webhook-configuration-for-an-organization)."
    */
   "orgs/get-webhook": {
     parameters: {
@@ -84690,7 +85116,7 @@ export interface operations {
   };
   /**
    * Update an organization webhook
-   * @description Updates a webhook configured in an organization. When you update a webhook, the `secret` will be overwritten. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "[Update a webhook configuration for an organization](/rest/reference/orgs#update-a-webhook-configuration-for-an-organization)."
+   * @description Updates a webhook configured in an organization. When you update a webhook, the `secret` will be overwritten. If you previously had a `secret` set, you must provide the same `secret` or set a new `secret` or the secret will be removed. If you are only updating individual webhook `config` properties, use "[Update a webhook configuration for an organization](/rest/orgs/webhooks#update-a-webhook-configuration-for-an-organization)."
    */
   "orgs/update-webhook": {
     parameters: {
@@ -84739,7 +85165,7 @@ export interface operations {
   };
   /**
    * Get a webhook configuration for an organization
-   * @description Returns the webhook configuration for an organization. To get more information about the webhook, including the `active` state and `events`, use "[Get an organization webhook ](/rest/reference/orgs#get-an-organization-webhook)."
+   * @description Returns the webhook configuration for an organization. To get more information about the webhook, including the `active` state and `events`, use "[Get an organization webhook ](/rest/orgs/webhooks#get-an-organization-webhook)."
    *
    * Access tokens must have the `admin:org_hook` scope, and GitHub Apps must have the `organization_hooks:read` permission.
    */
@@ -84761,7 +85187,7 @@ export interface operations {
   };
   /**
    * Update a webhook configuration for an organization
-   * @description Updates the webhook configuration for an organization. To update more information about the webhook, including the `active` state and `events`, use "[Update an organization webhook ](/rest/reference/orgs#update-an-organization-webhook)."
+   * @description Updates the webhook configuration for an organization. To update more information about the webhook, including the `active` state and `events`, use "[Update an organization webhook ](/rest/orgs/webhooks#update-an-organization-webhook)."
    *
    * Access tokens must have the `admin:org_hook` scope, and GitHub Apps must have the `organization_hooks:write` permission.
    */
@@ -85115,7 +85541,7 @@ export interface operations {
    * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
    * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
    * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-   * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+   * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
    */
   "issues/list-for-org": {
     parameters: {
@@ -85303,6 +85729,36 @@ export interface operations {
     };
   };
   /**
+   * Get Copilot for Business seat assignment details for a user
+   * @description **Note**: This endpoint is in beta and is subject to change.
+   *
+   * Gets the GitHub Copilot for Business seat assignment details for a member of an organization who currently has access to GitHub Copilot.
+   *
+   * Organization owners and members with admin permissions can view GitHub Copilot seat assignment details for members in their organization. You must authenticate using an access token with the `manage_billing:copilot` scope to use this endpoint.
+   */
+  "copilot/get-copilot-seat-assignment-details-for-user": {
+    parameters: {
+      path: {
+        org: components["parameters"]["org"];
+        username: components["parameters"]["username"];
+      };
+    };
+    responses: {
+      /** @description The user's GitHub Copilot seat details, including usage. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["copilot-seat-details"];
+        };
+      };
+      401: components["responses"]["requires_authentication"];
+      403: components["responses"]["forbidden"];
+      404: components["responses"]["not_found"];
+      /** @description Copilot for Business is not enabled for this organization or the user has a pending organization invitation. */
+      422: never;
+      500: components["responses"]["internal_error"];
+    };
+  };
+  /**
    * Get organization membership for a user
    * @description In order to get a user's membership with an organization, the authenticated user must be an organization member. The `state` parameter in the response can be used to identify the user's membership status.
    */
@@ -85328,7 +85784,7 @@ export interface operations {
    * Set organization membership for a user
    * @description Only authenticated organization owners can add a member to the organization or update the member's role.
    *
-   * *   If the authenticated user is _adding_ a member to the organization, the invited user will receive an email inviting them to the organization. The user's [membership status](https://docs.github.com/rest/reference/orgs#get-organization-membership-for-a-user) will be `pending` until they accept the invitation.
+   * *   If the authenticated user is _adding_ a member to the organization, the invited user will receive an email inviting them to the organization. The user's [membership status](https://docs.github.com/rest/orgs/members#get-organization-membership-for-a-user) will be `pending` until they accept the invitation.
    *
    * *   Authenticated users can _update_ a user's membership by passing the `role` parameter. If the authenticated user changes a member's role to `admin`, the affected user will receive an email notifying them that they've been made an organization owner. If the authenticated user changes an owner's role to `member`, no email will be sent.
    *
@@ -87605,7 +88061,7 @@ export interface operations {
    * **Note:**
    * The response contains the `state` of the membership and the member's `role`.
    *
-   * The `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see see [Create a team](https://docs.github.com/rest/reference/teams#create-a-team).
+   * The `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see see [Create a team](https://docs.github.com/rest/teams/teams#create-a-team).
    */
   "teams/get-membership-for-user-in-org": {
     parameters: {
@@ -87970,6 +88426,18 @@ export interface operations {
         org: components["parameters"]["org"];
         security_product: components["parameters"]["security-product"];
         enablement: components["parameters"]["org-security-product-enablement"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": {
+          /**
+           * @description CodeQL query suite to be used. If you specify the `query_suite` parameter, the default setup will be configured with this query suite only on all repositories that didn't have default setup already configured. It will not change the query suite on repositories that already have default setup configured.
+           * If you don't specify any `query_suite` in your request, the preferred query suite of the organization will be applied.
+           * @enum {string}
+           */
+          query_suite?: "default" | "extended";
+        };
       };
     };
     responses: {
@@ -88695,7 +89163,7 @@ export interface operations {
   };
   /**
    * Update a repository
-   * @description **Note**: To edit a repository's topics, use the [Replace all repository topics](https://docs.github.com/rest/reference/repos#replace-all-repository-topics) endpoint.
+   * @description **Note**: To edit a repository's topics, use the [Replace all repository topics](https://docs.github.com/rest/repos/repos#replace-all-repository-topics) endpoint.
    */
   "repos/update": {
     parameters: {
@@ -89548,10 +90016,9 @@ export interface operations {
   };
   /**
    * Create a registration token for a repository
-   * @description Returns a token that you can pass to the `config` script. The token expires after one hour. You must authenticate
-   * using an access token with the `repo` scope to use this endpoint.
+   * @description Returns a token that you can pass to the `config` script. The token expires after one hour. You must authenticate using an access token with the `repo` scope to use this endpoint.
    *
-   * #### Example using registration token
+   * Example using registration token:
    *
    * Configure your self-hosted runner, replacing `TOKEN` with the registration token provided by this endpoint.
    *
@@ -89580,7 +90047,7 @@ export interface operations {
    * @description Returns a token that you can pass to remove a self-hosted runner from a repository. The token expires after one hour.
    * You must authenticate using an access token with the `repo` scope to use this endpoint.
    *
-   * #### Example using remove token
+   * Example using remove token:
    *
    * To remove your self-hosted runner from a repository, replace TOKEN with the remove token provided by this endpoint.
    *
@@ -90456,7 +90923,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://docs.github.com/rest/reference/actions#get-a-repository-public-key) endpoint. */
+          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://docs.github.com/rest/actions/secrets#get-a-repository-public-key) endpoint. */
           encrypted_value?: string;
           /** @description ID of the key you used to encrypt the secret. */
           key_id?: string;
@@ -90970,6 +91437,28 @@ export interface operations {
       /** @description Response */
       204: never;
       404: components["responses"]["not_found"];
+    };
+  };
+  /**
+   * Check if automated security fixes are enabled for a repository
+   * @description Shows whether automated security fixes are enabled, disabled or paused for a repository. The authenticated user must have admin read access to the repository. For more information, see "[Configuring automated security fixes](https://docs.github.com/articles/configuring-automated-security-fixes)".
+   */
+  "repos/check-automated-security-fixes": {
+    parameters: {
+      path: {
+        owner: components["parameters"]["owner"];
+        repo: components["parameters"]["repo"];
+      };
+    };
+    responses: {
+      /** @description Response if dependabot is enabled */
+      200: {
+        content: {
+          "application/json": components["schemas"]["check-automated-security-fixes"];
+        };
+      };
+      /** @description Not Found if dependabot is not enabled for the repository */
+      404: never;
     };
   };
   /**
@@ -92216,7 +92705,7 @@ export interface operations {
             summary: string;
             /** @description Can contain Markdown. */
             text?: string;
-            /** @description Adds information from your analysis to specific lines of code. Annotations are visible in GitHub's pull request UI. Annotations are visible in GitHub's pull request UI. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/reference/checks#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. GitHub Actions are limited to 10 warning annotations and 10 error annotations per step. For details about annotations in the UI, see "[About status checks](https://docs.github.com/articles/about-status-checks#checks)". */
+            /** @description Adds information from your analysis to specific lines of code. Annotations are visible in GitHub's pull request UI. Annotations are visible in GitHub's pull request UI. The Checks API limits the number of annotations to a maximum of 50 per API request. To create more than 50 annotations, you have to make multiple requests to the [Update a check run](https://docs.github.com/rest/checks/runs#update-a-check-run) endpoint. Each time you update the check run, annotations are appended to the list of annotations that already exist for the check run. GitHub Actions are limited to 10 warning annotations and 10 error annotations per step. For details about annotations in the UI, see "[About status checks](https://docs.github.com/articles/about-status-checks#checks)". */
             annotations?: ({
                 /** @description The path of the file to add an annotation to. For example, `assets/css/main.css`. */
                 path: string;
@@ -92349,7 +92838,7 @@ export interface operations {
    * Create a check suite
    * @description **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array and a `null` value for `head_branch`.
    *
-   * By default, check suites are automatically created when you create a [check run](https://docs.github.com/rest/reference/checks#check-runs). You only need to use this endpoint for manually creating check suites when you've disabled automatic creation using "[Update repository preferences for check suites](https://docs.github.com/rest/reference/checks#update-repository-preferences-for-check-suites)". Your GitHub App must have the `checks:write` permission to create check suites.
+   * By default, check suites are automatically created when you create a [check run](https://docs.github.com/rest/reference/checks#check-runs). You only need to use this endpoint for manually creating check suites when you've disabled automatic creation using "[Update repository preferences for check suites](https://docs.github.com/rest/checks/suites#update-repository-preferences-for-check-suites)". Your GitHub App must have the `checks:write` permission to create check suites.
    */
   "checks/create-suite": {
     parameters: {
@@ -92383,7 +92872,7 @@ export interface operations {
   };
   /**
    * Update repository preferences for check suites
-   * @description Changes the default automatic flow when creating check suites. By default, a check suite is automatically created each time code is pushed to a repository. When you disable the automatic creation of check suites, you can manually [Create a check suite](https://docs.github.com/rest/reference/checks#create-a-check-suite). You must have admin permissions in the repository to set preferences for check suites.
+   * @description Changes the default automatic flow when creating check suites. By default, a check suite is automatically created each time code is pushed to a repository. When you disable the automatic creation of check suites, you can manually [Create a check suite](https://docs.github.com/rest/checks/suites#create-a-check-suite). You must have admin permissions in the repository to set preferences for check suites.
    */
   "checks/set-suites-preferences": {
     parameters: {
@@ -92985,7 +93474,7 @@ export interface operations {
    *
    * The `202 Accepted` response includes an `id` value.
    * You can use this ID to check the status of the upload by using it in the `/sarifs/{sarif_id}` endpoint.
-   * For more information, see "[Get information about a SARIF upload](/rest/reference/code-scanning#get-information-about-a-sarif-upload)."
+   * For more information, see "[Get information about a SARIF upload](/rest/code-scanning/code-scanning#get-information-about-a-sarif-upload)."
    */
   "code-scanning/upload-sarif": {
     parameters: {
@@ -93040,7 +93529,7 @@ export interface operations {
   };
   /**
    * Get information about a SARIF upload
-   * @description Gets information about a SARIF upload, including the status and the URL of the analysis that was uploaded so that you can retrieve details of the analysis. For more information, see "[Get a code scanning analysis for a repository](/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository)." You must use an access token with the `security_events` scope to use this endpoint with private repos, the `public_repo` scope also grants permission to read security events on public repos only. GitHub Apps must have the `security_events` read permission to use this endpoint.
+   * @description Gets information about a SARIF upload, including the status and the URL of the analysis that was uploaded so that you can retrieve details of the analysis. For more information, see "[Get a code scanning analysis for a repository](/rest/code-scanning/code-scanning#get-a-code-scanning-analysis-for-a-repository)." You must use an access token with the `security_events` scope to use this endpoint with private repos, the `public_repo` scope also grants permission to read security events on public repos only. GitHub Apps must have the `security_events` read permission to use this endpoint.
    */
   "code-scanning/get-sarif": {
     parameters: {
@@ -93391,7 +93880,7 @@ export interface operations {
    * token with the `repo` scope to use this endpoint. GitHub Apps must have write access to the `codespaces_secrets`
    * repository permission to use this endpoint.
    *
-   * #### Example of encrypting a secret using Node.js
+   * Example of encrypting a secret using Node.js:
    *
    * Encrypt your secret using the [libsodium-wrappers](https://www.npmjs.com/package/libsodium-wrappers) library.
    *
@@ -93416,7 +93905,7 @@ export interface operations {
    * });
    * ```
    *
-   * #### Example of encrypting a secret using Python
+   * Example of encrypting a secret using Python:
    *
    * Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
    *
@@ -93432,7 +93921,7 @@ export interface operations {
    *   return b64encode(encrypted).decode("utf-8")
    * ```
    *
-   * #### Example of encrypting a secret using C#
+   * Example of encrypting a secret using C#:
    *
    * Encrypt your secret using the [Sodium.Core](https://www.nuget.org/packages/Sodium.Core/) package.
    *
@@ -93445,7 +93934,7 @@ export interface operations {
    * Console.WriteLine(Convert.ToBase64String(sealedPublicKeyBox));
    * ```
    *
-   * #### Example of encrypting a secret using Ruby
+   * Example of encrypting a secret using Ruby:
    *
    * Encrypt your secret using the [rbnacl](https://github.com/RubyCrypto/rbnacl) gem.
    *
@@ -93474,7 +93963,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://docs.github.com/rest/reference/codespaces#get-a-repository-public-key) endpoint. */
+          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://docs.github.com/rest/codespaces/repository-secrets#get-a-repository-public-key) endpoint. */
           encrypted_value?: string;
           /** @description ID of the key you used to encrypt the secret. */
           key_id?: string;
@@ -94398,26 +94887,26 @@ export interface operations {
    * **Notes**:
    * *   To get a repository's contents recursively, you can [recursively get the tree](https://docs.github.com/rest/reference/git#trees).
    * *   This API has an upper limit of 1,000 files for a directory. If you need to retrieve more files, use the [Git Trees
-   * API](https://docs.github.com/rest/reference/git#get-a-tree).
+   * API](https://docs.github.com/rest/git/trees#get-a-tree).
    *  *  Download URLs expire and are meant to be used just once. To ensure the download URL does not expire, please use the contents API to obtain a fresh download URL for each download.
-   * #### Size limits
+   *  Size limits:
    * If the requested file's size is:
    * * 1 MB or smaller: All features of this endpoint are supported.
    * * Between 1-100 MB: Only the `raw` or `object` [custom media types](https://docs.github.com/rest/repos/contents#custom-media-types-for-repository-contents) are supported. Both will work as normal, except that when using the `object` media type, the `content` field will be an empty string and the `encoding` field will be `"none"`. To get the contents of these larger files, use the `raw` media type.
    *  * Greater than 100 MB: This endpoint is not supported.
    *
-   * #### If the content is a directory
+   *  If the content is a directory:
    * The response will be an array of objects, one object for each item in the directory.
    * When listing the contents of a directory, submodules have their "type" specified as "file". Logically, the value
    * _should_ be "submodule". This behavior exists in API v3 [for backwards compatibility purposes](https://git.io/v1YCW).
    * In the next major version of the API, the type will be returned as "submodule".
    *
-   * #### If the content is a symlink
+   *  If the content is a symlink:
    * If the requested `:path` points to a symlink, and the symlink's target is a normal file in the repository, then the
    * API responds with the content of the file (in the format shown in the example. Otherwise, the API responds with an object
    * describing the symlink itself.
    *
-   * #### If the content is a submodule
+   *  If the content is a submodule:
    * The `submodule_git_url` identifies the location of the submodule repository, and the `sha` identifies a specific
    * commit within the submodule repository. Git uses the given URL when cloning the submodule repository, and checks out
    * the submodule at that specific commit.
@@ -94898,7 +95387,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://docs.github.com/rest/reference/dependabot#get-a-repository-public-key) endpoint. */
+          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get a repository public key](https://docs.github.com/rest/dependabot/secrets#get-a-repository-public-key) endpoint. */
           encrypted_value?: string;
           /** @description ID of the key you used to encrypt the secret. */
           key_id?: string;
@@ -95087,7 +95576,8 @@ export interface operations {
    *
    * Users with `repo` or `repo_deployment` scopes can create a deployment for a given ref.
    *
-   * #### Merged branch response
+   * Merged branch response:
+   *
    * You will see this response when GitHub automatically merges the base branch into the topic branch instead of creating
    * a deployment. This auto-merge happens when:
    * *   Auto-merge option is enabled in the repository
@@ -95097,11 +95587,13 @@ export interface operations {
    * If there are no new commits in the base branch, a new request to create a deployment should give a successful
    * response.
    *
-   * #### Merge conflict response
+   * Merge conflict response:
+   *
    * This error happens when the `auto_merge` option is enabled and when the default branch (in this case `master`), can't
    * be merged into the branch that's being deployed (in this case `topic-branch`), due to merge conflicts.
    *
-   * #### Failed commit status checks
+   * Failed commit status checks:
+   *
    * This error happens when the `required_contexts` parameter indicates that one or more contexts need to have a `success`
    * status for the commit to be deployed, but one or more of the required contexts do not have a state of `success`.
    */
@@ -96087,7 +96579,7 @@ export interface operations {
    *
    * When you use this endpoint without providing a `:ref`, it will return an array of all the references from your Git database, including notes and stashes if they exist on the server. Anything in the namespace is returned, not just `heads` and `tags`.
    *
-   * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
+   * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
    *
    * If you request matching references for a branch named `feature` but the branch `feature` doesn't exist, the response can still include other matching head refs that start with the word `feature`, such as `featureA` and `featureB`.
    */
@@ -96115,7 +96607,7 @@ export interface operations {
    * Get a reference
    * @description Returns a single reference from your Git database. The `:ref` in the URL must be formatted as `heads/<branch name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't match an existing ref, a `404` is returned.
    *
-   * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
+   * **Note:** You need to explicitly [request a pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) to trigger a test merge commit, which checks the mergeability of pull requests. For more information, see "[Checking mergeability of pull requests](https://docs.github.com/rest/guides/getting-started-with-the-git-database-api#checking-mergeability-of-pull-requests)".
    */
   "git/get-ref": {
     parameters: {
@@ -96223,7 +96715,7 @@ export interface operations {
   };
   /**
    * Create a tag object
-   * @description Note that creating a tag object does not create the reference that makes a tag in Git. If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then [create](https://docs.github.com/rest/reference/git#create-a-reference) the `refs/tags/[tag]` reference. If you want to create a lightweight tag, you only have to [create](https://docs.github.com/rest/reference/git#create-a-reference) the tag reference - this call would be unnecessary.
+   * @description Note that creating a tag object does not create the reference that makes a tag in Git. If you want to create an annotated tag in Git, you have to do this call to create the tag object, and then [create](https://docs.github.com/rest/git/refs#create-a-reference) the `refs/tags/[tag]` reference. If you want to create a lightweight tag, you only have to [create](https://docs.github.com/rest/git/refs#create-a-reference) the tag reference - this call would be unnecessary.
    *
    * **Signature verification object**
    *
@@ -96357,7 +96849,7 @@ export interface operations {
    * Create a tree
    * @description The tree creation API accepts nested entries. If you specify both a tree and a nested path modifying that tree, this endpoint will overwrite the contents of the tree with the new path contents, and create a new tree structure.
    *
-   * If you use this endpoint to add, delete, or modify the file contents in a tree, you will need to commit the tree and then update a branch to point to the commit. For more information see "[Create a commit](https://docs.github.com/rest/reference/git#create-a-commit)" and "[Update a reference](https://docs.github.com/rest/reference/git#update-a-reference)."
+   * If you use this endpoint to add, delete, or modify the file contents in a tree, you will need to commit the tree and then update a branch to point to the commit. For more information see "[Create a commit](https://docs.github.com/rest/git/commits#create-a-commit)" and "[Update a reference](https://docs.github.com/rest/git/refs#update-a-reference)."
    *
    * Returns an error if you try to delete a file that does not exist.
    */
@@ -97279,7 +97771,7 @@ export interface operations {
    * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
    * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
    * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-   * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+   * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
    */
   "issues/list-for-repo": {
     parameters: {
@@ -97634,7 +98126,7 @@ export interface operations {
    * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
    * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
    * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-   * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+   * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
    */
   "issues/get": {
     parameters: {
@@ -97955,7 +98447,7 @@ export interface operations {
     requestBody?: {
       content: {
         "application/json": OneOf<[{
-          /** @description The names of the labels to set for the issue. The labels you set replace any existing labels. You can pass an empty array to remove all labels. Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key. You can also add labels to the existing labels for an issue. For more information, see "[Add labels to an issue](https://docs.github.com/rest/reference/issues#add-labels-to-an-issue)." */
+          /** @description The names of the labels to set for the issue. The labels you set replace any existing labels. You can pass an empty array to remove all labels. Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key. You can also add labels to the existing labels for an issue. For more information, see "[Add labels to an issue](https://docs.github.com/rest/issues/labels#add-labels-to-an-issue)." */
           labels?: string[];
         }, string[], {
           labels?: {
@@ -97994,7 +98486,7 @@ export interface operations {
     requestBody?: {
       content: {
         "application/json": OneOf<[{
-          /** @description The names of the labels to add to the issue's existing labels. You can pass an empty array to remove all labels. Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key. You can also replace all of the labels for an issue. For more information, see "[Set labels for an issue](https://docs.github.com/rest/reference/issues#set-labels-for-an-issue)." */
+          /** @description The names of the labels to add to the issue's existing labels. You can pass an empty array to remove all labels. Alternatively, you can pass a single label as a `string` or an `array` of labels directly, but GitHub recommends passing an object with the `labels` key. You can also replace all of the labels for an issue. For more information, see "[Set labels for an issue](https://docs.github.com/rest/issues/labels#set-labels-for-an-issue)." */
           labels?: string[];
         }, string[], {
           labels?: {
@@ -98543,7 +99035,7 @@ export interface operations {
    * Get the license for a repository
    * @description This method returns the contents of the repository's license file, if one is detected.
    *
-   * Similar to [Get repository content](https://docs.github.com/rest/reference/repos#get-repository-content), this method also supports [custom media types](https://docs.github.com/rest/overview/media-types) for retrieving the raw license content or rendered license HTML.
+   * Similar to [Get repository content](https://docs.github.com/rest/repos/contents#get-repository-content), this method also supports [custom media types](https://docs.github.com/rest/overview/media-types) for retrieving the raw license content or rendered license HTML.
    */
   "licenses/get-for-repo": {
     parameters: {
@@ -98851,7 +99343,7 @@ export interface operations {
   };
   /**
    * Mark repository notifications as read
-   * @description Marks all notifications in a repository as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List repository notifications for the authenticated user](https://docs.github.com/rest/reference/activity#list-repository-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
+   * @description Marks all notifications in a repository as "read" for the current user. If the number of notifications is too large to complete in one request, you will receive a `202 Accepted` status and GitHub will run an asynchronous process to mark notifications as "read." To check whether any "unread" notifications remain, you can use the [List repository notifications for the authenticated user](https://docs.github.com/rest/activity/notifications#list-repository-notifications-for-the-authenticated-user) endpoint and pass the query parameter `all=false`.
    */
   "activity/mark-repo-notifications-as-read": {
     parameters: {
@@ -99736,7 +100228,7 @@ export interface operations {
   /**
    * Create a review comment for a pull request
    * @description
-   * Creates a review comment in the pull request diff. To add a regular comment to a pull request timeline, see "[Create an issue comment](https://docs.github.com/rest/reference/issues#create-an-issue-comment)." We recommend creating a review comment using `line`, `side`, and optionally `start_line` and `start_side` if your comment applies to more than one line in the pull request diff.
+   * Creates a review comment in the pull request diff. To add a regular comment to a pull request timeline, see "[Create an issue comment](https://docs.github.com/rest/issues/comments#create-an-issue-comment)." We recommend creating a review comment using `line`, `side`, and optionally `start_line` and `start_side` if your comment applies to more than one line in the pull request diff.
    *
    * The `position` parameter is deprecated. If you use `position`, the `line`, `side`, `start_line`, and `start_side` parameters are not required.
    *
@@ -100108,7 +100600,7 @@ export interface operations {
    *
    * Pull request reviews created in the `PENDING` state are not submitted and therefore do not include the `submitted_at` property in the response. To create a pending review for a pull request, leave the `event` parameter blank. For more information about submitting a `PENDING` review, see "[Submit a review for a pull request](https://docs.github.com/rest/pulls#submit-a-review-for-a-pull-request)."
    *
-   * **Note:** To comment on a specific line in a file, you need to first determine the _position_ of that line in the diff. The GitHub REST API offers the `application/vnd.github.v3.diff` [media type](https://docs.github.com/rest/overview/media-types#commits-commit-comparison-and-pull-requests). To see a pull request diff, add this media type to the `Accept` header of a call to the [single pull request](https://docs.github.com/rest/reference/pulls#get-a-pull-request) endpoint.
+   * **Note:** To comment on a specific line in a file, you need to first determine the _position_ of that line in the diff. The GitHub REST API offers the `application/vnd.github.v3.diff` [media type](https://docs.github.com/rest/overview/media-types#commits-commit-comparison-and-pull-requests). To see a pull request diff, add this media type to the `Accept` header of a call to the [single pull request](https://docs.github.com/rest/pulls/pulls#get-a-pull-request) endpoint.
    *
    * The `position` value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment. The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.
    */
@@ -100440,7 +100932,7 @@ export interface operations {
   };
   /**
    * List releases
-   * @description This returns a list of releases, which does not include regular Git tags that have not been associated with a release. To get a list of Git tags, use the [Repository Tags API](https://docs.github.com/rest/reference/repos#list-repository-tags).
+   * @description This returns a list of releases, which does not include regular Git tags that have not been associated with a release. To get a list of Git tags, use the [Repository Tags API](https://docs.github.com/rest/repos/repos#list-repository-tags).
    *
    * Information about published releases are available to everyone. Only users with push access will receive listings for draft releases.
    */
@@ -100968,7 +101460,7 @@ export interface operations {
       /** @description Response */
       200: {
         content: {
-          "application/json": components["schemas"]["repository-rule"][];
+          "application/json": components["schemas"]["repository-rule-detailed"][];
         };
       };
     };
@@ -101699,7 +102191,7 @@ export interface operations {
   };
   /**
    * Set a repository subscription
-   * @description If you would like to watch a repository, set `subscribed` to `true`. If you would like to ignore notifications made within a repository, set `ignored` to `true`. If you would like to stop watching a repository, [delete the repository's subscription](https://docs.github.com/rest/reference/activity#delete-a-repository-subscription) completely.
+   * @description If you would like to watch a repository, set `subscribed` to `true`. If you would like to ignore notifications made within a repository, set `ignored` to `true`. If you would like to stop watching a repository, [delete the repository's subscription](https://docs.github.com/rest/activity/watching#delete-a-repository-subscription) completely.
    */
   "activity/set-repo-subscription": {
     parameters: {
@@ -101729,7 +102221,7 @@ export interface operations {
   };
   /**
    * Delete a repository subscription
-   * @description This endpoint should only be used to stop watching a repository. To control whether or not you wish to receive notifications from a repository, [set the repository's subscription manually](https://docs.github.com/rest/reference/activity#set-a-repository-subscription).
+   * @description This endpoint should only be used to stop watching a repository. To control whether or not you wish to receive notifications from a repository, [set the repository's subscription manually](https://docs.github.com/rest/activity/watching#set-a-repository-subscription).
    */
   "activity/delete-repo-subscription": {
     parameters: {
@@ -102040,6 +102532,7 @@ export interface operations {
   /**
    * Transfer a repository
    * @description A transfer request will need to be accepted by the new owner when transferring a personal repository to another user. The response will contain the original `owner`, and the transfer will continue asynchronously. For more details on the requirements to transfer personal and organization-owned repositories, see [about repository transfers](https://docs.github.com/articles/about-repository-transfers/).
+   * You must use a personal access token (classic) or an OAuth token for this endpoint. An installation access token or a fine-grained personal access token cannot be used because they are only granted access to a single account.
    */
   "repos/transfer": {
     parameters: {
@@ -102144,7 +102637,7 @@ export interface operations {
   };
   /**
    * Create a repository using a template
-   * @description Creates a new repository using a repository template. Use the `template_owner` and `template_repo` route parameters to specify the repository to use as the template. If the repository is not public, the authenticated user must own or be a member of an organization that owns the repository. To check if a repository is available to use as a template, get the repository's information using the [Get a repository](https://docs.github.com/rest/reference/repos#get-a-repository) endpoint and check that the `is_template` key is `true`.
+   * @description Creates a new repository using a repository template. Use the `template_owner` and `template_repo` route parameters to specify the repository to use as the template. If the repository is not public, the authenticated user must own or be a member of an organization that owns the repository. To check if a repository is available to use as a template, get the repository's information using the [Get a repository](https://docs.github.com/rest/repos/repos#get-a-repository) endpoint and check that the `is_template` key is `true`.
    *
    * **OAuth scope requirements**
    *
@@ -102385,7 +102878,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an environment public key](https://docs.github.com/rest/reference/actions#get-an-environment-public-key) endpoint. */
+          /** @description Value for your secret, encrypted with [LibSodium](https://libsodium.gitbook.io/doc/bindings_for_other_languages) using the public key retrieved from the [Get an environment public key](https://docs.github.com/rest/actions/secrets#get-an-environment-public-key) endpoint. */
           encrypted_value: string;
           /** @description ID of the key you used to encrypt the secret. */
           key_id: string;
@@ -102563,7 +103056,7 @@ export interface operations {
    *
    * This query searches for the keyword `addClass` within a file's contents. The query limits the search to files where the language is JavaScript in the `jquery/jquery` repository.
    *
-   * #### Considerations for code search
+   * Considerations for code search:
    *
    * Due to the complexity of searching code, there are a few restrictions on how searches are performed:
    *
@@ -102854,7 +103347,7 @@ export interface operations {
   /**
    * Get a team (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the [Get a team by name](https://docs.github.com/rest/reference/teams#get-a-team-by-name) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the [Get a team by name](https://docs.github.com/rest/teams/teams#get-a-team-by-name) endpoint.
    */
   "teams/get-legacy": {
     parameters: {
@@ -102875,7 +103368,7 @@ export interface operations {
   /**
    * Delete a team (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Delete a team](https://docs.github.com/rest/reference/teams#delete-a-team) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Delete a team](https://docs.github.com/rest/teams/teams#delete-a-team) endpoint.
    *
    * To delete a team, the authenticated user must be an organization owner or team maintainer.
    *
@@ -102897,7 +103390,7 @@ export interface operations {
   /**
    * Update a team (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a team](https://docs.github.com/rest/reference/teams#update-a-team) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a team](https://docs.github.com/rest/teams/teams#update-a-team) endpoint.
    *
    * To edit a team, the authenticated user must either be an organization owner or a team maintainer.
    *
@@ -102965,7 +103458,7 @@ export interface operations {
   /**
    * List discussions (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List discussions`](https://docs.github.com/rest/reference/teams#list-discussions) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List discussions`](https://docs.github.com/rest/teams/discussions#list-discussions) endpoint.
    *
    * List all discussions on a team's page. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
    */
@@ -102995,7 +103488,7 @@ export interface operations {
   /**
    * Create a discussion (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create a discussion`](https://docs.github.com/rest/reference/teams#create-a-discussion) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create a discussion`](https://docs.github.com/rest/teams/discussions#create-a-discussion) endpoint.
    *
    * Creates a new discussion post on a team's page. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
    *
@@ -103034,7 +103527,7 @@ export interface operations {
   /**
    * Get a discussion (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get a discussion](https://docs.github.com/rest/reference/teams#get-a-discussion) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get a discussion](https://docs.github.com/rest/teams/discussions#get-a-discussion) endpoint.
    *
    * Get a specific discussion on a team's page. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
    */
@@ -103057,7 +103550,7 @@ export interface operations {
   /**
    * Delete a discussion (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Delete a discussion`](https://docs.github.com/rest/reference/teams#delete-a-discussion) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Delete a discussion`](https://docs.github.com/rest/teams/discussions#delete-a-discussion) endpoint.
    *
    * Delete a discussion from a team's page. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
    */
@@ -103076,7 +103569,7 @@ export interface operations {
   /**
    * Update a discussion (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a discussion](https://docs.github.com/rest/reference/teams#update-a-discussion) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a discussion](https://docs.github.com/rest/teams/discussions#update-a-discussion) endpoint.
    *
    * Edits the title and body text of a discussion post. Only the parameters you provide are updated. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
    */
@@ -103109,7 +103602,7 @@ export interface operations {
   /**
    * List discussion comments (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [List discussion comments](https://docs.github.com/rest/reference/teams#list-discussion-comments) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [List discussion comments](https://docs.github.com/rest/teams/discussion-comments#list-discussion-comments) endpoint.
    *
    * List all comments on a team discussion. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
    */
@@ -103140,7 +103633,7 @@ export interface operations {
   /**
    * Create a discussion comment (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Create a discussion comment](https://docs.github.com/rest/reference/teams#create-a-discussion-comment) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Create a discussion comment](https://docs.github.com/rest/teams/discussion-comments#create-a-discussion-comment) endpoint.
    *
    * Creates a new comment on a team discussion. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
    *
@@ -103173,7 +103666,7 @@ export interface operations {
   /**
    * Get a discussion comment (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get a discussion comment](https://docs.github.com/rest/reference/teams#get-a-discussion-comment) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get a discussion comment](https://docs.github.com/rest/teams/discussion-comments#get-a-discussion-comment) endpoint.
    *
    * Get a specific comment on a team discussion. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
    */
@@ -103197,7 +103690,7 @@ export interface operations {
   /**
    * Delete a discussion comment (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Delete a discussion comment](https://docs.github.com/rest/reference/teams#delete-a-discussion-comment) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Delete a discussion comment](https://docs.github.com/rest/teams/discussion-comments#delete-a-discussion-comment) endpoint.
    *
    * Deletes a comment on a team discussion. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
    */
@@ -103217,7 +103710,7 @@ export interface operations {
   /**
    * Update a discussion comment (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a discussion comment](https://docs.github.com/rest/reference/teams#update-a-discussion-comment) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Update a discussion comment](https://docs.github.com/rest/teams/discussion-comments#update-a-discussion-comment) endpoint.
    *
    * Edits the body text of a discussion comment. OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
    */
@@ -103249,7 +103742,7 @@ export interface operations {
   /**
    * List reactions for a team discussion comment (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion comment`](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion-comment) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion comment`](https://docs.github.com/rest/reactions/reactions#list-reactions-for-a-team-discussion-comment) endpoint.
    *
    * List the reactions to a [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments). OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
    */
@@ -103282,7 +103775,7 @@ export interface operations {
   /**
    * Create reaction for a team discussion comment (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new "[Create reaction for a team discussion comment](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion-comment)" endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new "[Create reaction for a team discussion comment](https://docs.github.com/rest/reactions/reactions#create-reaction-for-a-team-discussion-comment)" endpoint.
    *
    * Create a reaction to a [team discussion comment](https://docs.github.com/rest/reference/teams#discussion-comments). OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). A response with an HTTP `200` status means that you already added the reaction type to this team discussion comment.
    */
@@ -103317,7 +103810,7 @@ export interface operations {
   /**
    * List reactions for a team discussion (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion`](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List reactions for a team discussion`](https://docs.github.com/rest/reactions/reactions#list-reactions-for-a-team-discussion) endpoint.
    *
    * List the reactions to a [team discussion](https://docs.github.com/rest/reference/teams#discussions). OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).
    */
@@ -103349,7 +103842,7 @@ export interface operations {
   /**
    * Create reaction for a team discussion (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create reaction for a team discussion`](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Create reaction for a team discussion`](https://docs.github.com/rest/reactions/reactions#create-reaction-for-a-team-discussion) endpoint.
    *
    * Create a reaction to a [team discussion](https://docs.github.com/rest/reference/teams#discussions). OAuth access tokens require the `write:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). A response with an HTTP `200` status means that you already added the reaction type to this team discussion.
    */
@@ -103383,7 +103876,7 @@ export interface operations {
   /**
    * List pending team invitations (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List pending team invitations`](https://docs.github.com/rest/reference/teams#list-pending-team-invitations) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List pending team invitations`](https://docs.github.com/rest/teams/members#list-pending-team-invitations) endpoint.
    *
    * The return hash contains a `role` field which refers to the Organization Invitation role and will be one of the following values: `direct_member`, `admin`, `billing_manager`, `hiring_manager`, or `reinstate`. If the invitee is not a GitHub member, the `login` field in the return hash will be `null`.
    */
@@ -103412,7 +103905,7 @@ export interface operations {
   /**
    * List team members (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List team members`](https://docs.github.com/rest/reference/teams#list-team-members) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List team members`](https://docs.github.com/rest/teams/members#list-team-members) endpoint.
    *
    * Team members will include the members of child teams.
    */
@@ -103446,7 +103939,7 @@ export interface operations {
    * @deprecated
    * @description The "Get team member" endpoint (described below) is deprecated.
    *
-   * We recommend using the [Get team membership for a user](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user) endpoint instead. It allows you to get both active and pending memberships.
+   * We recommend using the [Get team membership for a user](https://docs.github.com/rest/teams/members#get-team-membership-for-a-user) endpoint instead. It allows you to get both active and pending memberships.
    *
    * To list members in a team, the team must be visible to the authenticated user.
    */
@@ -103469,7 +103962,7 @@ export interface operations {
    * @deprecated
    * @description The "Add team member" endpoint (described below) is deprecated.
    *
-   * We recommend using the [Add or update team membership for a user](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user) endpoint instead. It allows you to invite new organization members to your teams.
+   * We recommend using the [Add or update team membership for a user](https://docs.github.com/rest/teams/members#add-or-update-team-membership-for-a-user) endpoint instead. It allows you to invite new organization members to your teams.
    *
    * Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
    *
@@ -103501,7 +103994,7 @@ export interface operations {
    * @deprecated
    * @description The "Remove team member" endpoint (described below) is deprecated.
    *
-   * We recommend using the [Remove team membership for a user](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user) endpoint instead. It allows you to remove both active and pending memberships.
+   * We recommend using the [Remove team membership for a user](https://docs.github.com/rest/teams/members#remove-team-membership-for-a-user) endpoint instead. It allows you to remove both active and pending memberships.
    *
    * Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
    *
@@ -103526,7 +104019,7 @@ export interface operations {
   /**
    * Get team membership for a user (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get team membership for a user](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get team membership for a user](https://docs.github.com/rest/teams/members#get-team-membership-for-a-user) endpoint.
    *
    * Team members will include the members of child teams.
    *
@@ -103535,7 +104028,7 @@ export interface operations {
    * **Note:**
    * The response contains the `state` of the membership and the member's `role`.
    *
-   * The `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see [Create a team](https://docs.github.com/rest/reference/teams#create-a-team).
+   * The `role` for organization owners is set to `maintainer`. For more information about `maintainer` roles, see [Create a team](https://docs.github.com/rest/teams/teams#create-a-team).
    */
   "teams/get-membership-for-user-legacy": {
     parameters: {
@@ -103557,7 +104050,7 @@ export interface operations {
   /**
    * Add or update team membership for a user (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Add or update team membership for a user](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Add or update team membership for a user](https://docs.github.com/rest/teams/members#add-or-update-team-membership-for-a-user) endpoint.
    *
    * Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
    *
@@ -103605,7 +104098,7 @@ export interface operations {
   /**
    * Remove team membership for a user (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove team membership for a user](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove team membership for a user](https://docs.github.com/rest/teams/members#remove-team-membership-for-a-user) endpoint.
    *
    * Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
    *
@@ -103630,7 +104123,7 @@ export interface operations {
   /**
    * List team projects (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List team projects`](https://docs.github.com/rest/reference/teams#list-team-projects) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List team projects`](https://docs.github.com/rest/teams/teams#list-team-projects) endpoint.
    *
    * Lists the organization projects for a team.
    */
@@ -103660,7 +104153,7 @@ export interface operations {
   /**
    * Check team permissions for a project (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Check team permissions for a project](https://docs.github.com/rest/reference/teams#check-team-permissions-for-a-project) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Check team permissions for a project](https://docs.github.com/rest/teams/teams#check-team-permissions-for-a-project) endpoint.
    *
    * Checks whether a team has `read`, `write`, or `admin` permissions for an organization project. The response includes projects inherited from a parent team.
    */
@@ -103685,7 +104178,7 @@ export interface operations {
   /**
    * Add or update team project permissions (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Add or update team project permissions](https://docs.github.com/rest/reference/teams#add-or-update-team-project-permissions) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Add or update team project permissions](https://docs.github.com/rest/teams/teams#add-or-update-team-project-permissions) endpoint.
    *
    * Adds an organization project to a team. To add a project to a team or update the team's permission on a project, the authenticated user must have `admin` permissions for the project. The project and team must be part of the same organization.
    */
@@ -103726,7 +104219,7 @@ export interface operations {
   /**
    * Remove a project from a team (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove a project from a team](https://docs.github.com/rest/reference/teams#remove-a-project-from-a-team) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove a project from a team](https://docs.github.com/rest/teams/teams#remove-a-project-from-a-team) endpoint.
    *
    * Removes an organization project from a team. An organization owner or a team maintainer can remove any project from the team. To remove a project from a team as an organization member, the authenticated user must have `read` access to both the team and project, or `admin` access to the team or project. **Note:** This endpoint removes the project from the team, but does not delete it.
    */
@@ -103747,7 +104240,7 @@ export interface operations {
   /**
    * List team repositories (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [List team repositories](https://docs.github.com/rest/reference/teams#list-team-repositories) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [List team repositories](https://docs.github.com/rest/teams/teams#list-team-repositories) endpoint.
    */
   "teams/list-repos-legacy": {
     parameters: {
@@ -103860,7 +104353,7 @@ export interface operations {
   /**
    * List child teams (Legacy)
    * @deprecated
-   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List child teams`](https://docs.github.com/rest/reference/teams#list-child-teams) endpoint.
+   * @description **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List child teams`](https://docs.github.com/rest/teams/teams#list-child-teams) endpoint.
    */
   "teams/list-child-legacy": {
     parameters: {
@@ -104337,7 +104830,7 @@ export interface operations {
           encrypted_value?: string;
           /** @description ID of the key you used to encrypt the secret. */
           key_id: string;
-          /** @description An array of repository ids that can access the user secret. You can manage the list of selected repositories using the [List selected repositories for a user secret](https://docs.github.com/rest/reference/codespaces#list-selected-repositories-for-a-user-secret), [Set selected repositories for a user secret](https://docs.github.com/rest/reference/codespaces#set-selected-repositories-for-a-user-secret), and [Remove a selected repository from a user secret](https://docs.github.com/rest/reference/codespaces#remove-a-selected-repository-from-a-user-secret) endpoints. */
+          /** @description An array of repository ids that can access the user secret. You can manage the list of selected repositories using the [List selected repositories for a user secret](https://docs.github.com/rest/codespaces/secrets#list-selected-repositories-for-a-user-secret), [Set selected repositories for a user secret](https://docs.github.com/rest/codespaces/secrets#set-selected-repositories-for-a-user-secret), and [Remove a selected repository from a user secret](https://docs.github.com/rest/codespaces/secrets#remove-a-selected-repository-from-a-user-secret) endpoints. */
           selected_repository_ids?: (number | string)[];
         };
       };
@@ -104421,7 +104914,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description An array of repository ids for which a codespace can access the secret. You can manage the list of selected repositories using the [List selected repositories for a user secret](https://docs.github.com/rest/reference/codespaces#list-selected-repositories-for-a-user-secret), [Add a selected repository to a user secret](https://docs.github.com/rest/reference/codespaces#add-a-selected-repository-to-a-user-secret), and [Remove a selected repository from a user secret](https://docs.github.com/rest/reference/codespaces#remove-a-selected-repository-from-a-user-secret) endpoints. */
+          /** @description An array of repository ids for which a codespace can access the secret. You can manage the list of selected repositories using the [List selected repositories for a user secret](https://docs.github.com/rest/codespaces/secrets#list-selected-repositories-for-a-user-secret), [Add a selected repository to a user secret](https://docs.github.com/rest/codespaces/secrets#add-a-selected-repository-to-a-user-secret), and [Remove a selected repository from a user secret](https://docs.github.com/rest/codespaces/secrets#remove-a-selected-repository-from-a-user-secret) endpoints. */
           selected_repository_ids: number[];
         };
       };
@@ -105271,7 +105764,7 @@ export interface operations {
    * **Note**: GitHub's REST API considers every pull request an issue, but not every issue is a pull request. For this
    * reason, "Issues" endpoints may return both issues and pull requests in the response. You can identify pull requests by
    * the `pull_request` key. Be aware that the `id` of a pull request returned from "Issues" endpoints will be an _issue id_. To find out the pull
-   * request id, use the "[List pull requests](https://docs.github.com/rest/reference/pulls#list-pull-requests)" endpoint.
+   * request id, use the "[List pull requests](https://docs.github.com/rest/pulls/pulls#list-pull-requests)" endpoint.
    */
   "issues/list-for-authenticated-user": {
     parameters: {
@@ -106037,7 +106530,7 @@ export interface operations {
   };
   /**
    * List public email addresses for the authenticated user
-   * @description Lists your publicly visible email address, which you can set with the [Set primary email visibility for the authenticated user](https://docs.github.com/rest/reference/users#set-primary-email-visibility-for-the-authenticated-user) endpoint. This endpoint is accessible with the `user:email` scope.
+   * @description Lists your publicly visible email address, which you can set with the [Set primary email visibility for the authenticated user](https://docs.github.com/rest/users/emails#set-primary-email-visibility-for-the-authenticated-user) endpoint. This endpoint is accessible with the `user:email` scope.
    */
   "users/list-public-emails-for-authenticated-user": {
     parameters: {
@@ -107012,7 +107505,7 @@ export interface operations {
    * List organizations for a user
    * @description List [public organization memberships](https://docs.github.com/articles/publicizing-or-concealing-organization-membership) for the specified user.
    *
-   * This method only lists _public_ memberships, regardless of authentication. If you need to fetch all of the organization memberships (public and private) for the authenticated user, use the [List organizations for the authenticated user](https://docs.github.com/rest/reference/orgs#list-organizations-for-the-authenticated-user) API instead.
+   * This method only lists _public_ memberships, regardless of authentication. If you need to fetch all of the organization memberships (public and private) for the authenticated user, use the [List organizations for the authenticated user](https://docs.github.com/rest/orgs/orgs#list-organizations-for-the-authenticated-user) API instead.
    */
   "orgs/list-for-user": {
     parameters: {

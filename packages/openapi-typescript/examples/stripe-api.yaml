@@ -1938,9 +1938,9 @@ components:
           type: string
         pending:
           description: >-
-            Funds that are not yet available in the balance, due to the 7-day
-            rolling pay cycle. The pending balance for each currency, and for
-            each payment type, can be found in the `source_types` property.
+            Funds that are not yet available in the balance. The pending balance
+            for each currency, and for each payment type, can be found in the
+            `source_types` property.
           items:
             $ref: '#/components/schemas/balance_amount'
           type: array
@@ -7025,10 +7025,8 @@ components:
             #/components/schemas/customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction
         type:
           description: >-
-            The type of the cash balance transaction. One of
-            `applied_to_payment`, `unapplied_from_payment`,
-            `refunded_from_payment`, `funded`, `return_initiated`, or
-            `return_canceled`. New types may be added in future. See [Customer
+            The type of the cash balance transaction. New types may be added in
+            future. See [Customer
             Balance](https://stripe.com/docs/payments/customer-balance#types) to
             learn more about these types.
           enum:
@@ -12175,16 +12173,16 @@ components:
           description: >-
             The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`,
             `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`,
-            `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`,
-            `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`,
-            `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`,
-            `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`,
-            `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`,
-            `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`,
-            `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`,
-            `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`,
-            `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`,
-            `ph_tin`, or `unknown`
+            `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`,
+            `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`,
+            `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`,
+            `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`,
+            `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`,
+            `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`,
+            `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`,
+            `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`,
+            `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`,
+            `eg_tin`, `ph_tin`, or `unknown`
           enum:
             - ad_nrt
             - ae_trn
@@ -12234,6 +12232,7 @@ components:
             - nz_gst
             - pe_ruc
             - ph_tin
+            - ro_tin
             - rs_pib
             - ru_inn
             - ru_kpp
@@ -17177,8 +17176,6 @@ components:
             tax rules are supported.
           enum:
             - customer_exempt
-            - excluded_territory
-            - jurisdiction_unsupported
             - not_collecting
             - not_subject_to_tax
             - not_supported
@@ -17192,10 +17189,10 @@ components:
             - reverse_charge
             - standard_rated
             - taxable_basis_reduced
-            - vat_exempt
             - zero_rated
           nullable: true
           type: string
+          x-stripeBypassValidation: true
         taxable_amount:
           description: 'The amount on which tax is calculated, in %s.'
           nullable: true
@@ -17895,6 +17892,23 @@ components:
     payment_flows_automatic_payment_methods_payment_intent:
       description: ''
       properties:
+        allow_redirects:
+          description: >-
+            Controls whether this PaymentIntent will accept redirect-based
+            payment methods.
+
+
+            Redirect-based payment methods may require your customer to be
+            redirected to a payment method's app or site for authentication or
+            additional steps. To
+            [confirm](https://stripe.com/docs/api/payment_intents/confirm) this
+            PaymentIntent, you may be required to provide a `return_url` to
+            redirect customers back to your site after they authenticate or
+            complete the payment.
+          enum:
+            - always
+            - never
+          type: string
         enabled:
           description: Automatically calculates compatible payment methods
           type: boolean
@@ -17906,6 +17920,23 @@ components:
     payment_flows_automatic_payment_methods_setup_intent:
       description: ''
       properties:
+        allow_redirects:
+          description: >-
+            Controls whether this SetupIntent will accept redirect-based payment
+            methods.
+
+
+            Redirect-based payment methods may require your customer to be
+            redirected to a payment method's app or site for authentication or
+            additional steps. To
+            [confirm](https://stripe.com/docs/api/setup_intents/confirm) this
+            SetupIntent, you may be required to provide a `return_url` to
+            redirect customers back to your site after they authenticate or
+            complete the setup.
+          enum:
+            - always
+            - never
+          type: string
         enabled:
           description: Automatically calculates compatible payment methods
           nullable: true
@@ -21754,6 +21785,11 @@ components:
     payment_method_details_afterpay_clearpay:
       description: ''
       properties:
+        order_id:
+          description: The Afterpay order ID associated with this payment intent.
+          maxLength: 5000
+          nullable: true
+          type: string
         reference:
           description: Order identifier shown to the merchant in Afterpay’s online portal.
           maxLength: 5000
@@ -23656,7 +23692,7 @@ components:
           description: >-
             Preferred language of the Affirm authorization page that the
             customer is redirected to.
-          maxLength: 10
+          maxLength: 30
           type: string
         setup_future_usage:
           description: >-
@@ -25759,16 +25795,16 @@ components:
           description: >-
             The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`,
             `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`,
-            `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`,
-            `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`,
-            `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`,
-            `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`,
-            `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`,
-            `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`,
-            `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`,
-            `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`,
-            `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`,
-            `ph_tin`, or `unknown`
+            `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`,
+            `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`,
+            `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`,
+            `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`,
+            `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`,
+            `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`,
+            `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`,
+            `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`,
+            `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`,
+            `eg_tin`, `ph_tin`, or `unknown`
           enum:
             - ad_nrt
             - ae_trn
@@ -25818,6 +25854,7 @@ components:
             - nz_gst
             - pe_ruc
             - ph_tin
+            - ro_tin
             - rs_pib
             - ru_inn
             - ru_kpp
@@ -26211,7 +26248,7 @@ components:
         onboarding](https://stripe.com/docs/connect/standard-accounts) or
         [Express onboarding
         documentation](https://stripe.com/docs/connect/express-accounts) for
-        information about platform pre-filling and account onboarding steps.
+        information about platform prefilling and account onboarding steps.
 
 
         Related guide: [Handling identity verification with the
@@ -31041,13 +31078,10 @@ components:
     shipping_rate:
       description: >-
         Shipping rates describe the price of shipping presented to your
-        customers and can be
+        customers and
 
-        applied to [Checkout
-        Sessions](https://stripe.com/docs/payments/checkout/shipping)
-
-        and [Orders](https://stripe.com/docs/orders/shipping) to collect
-        shipping costs.
+        applied to a purchase. For more information, see [Charge for
+        shipping](https://stripe.com/docs/payments/during-payment/charge-shipping).
       properties:
         active:
           description: >-
@@ -34194,7 +34228,9 @@ components:
             - tax.calculation_line_item
           type: string
         product:
-          description: A Product ID.
+          description: >-
+            The ID of an existing
+            [Product](https://stripe.com/docs/api/products/object).
           maxLength: 5000
           nullable: true
           type: string
@@ -34242,6 +34278,60 @@ components:
       x-expandableFields:
         - tax_breakdown
       x-resourceId: tax.calculation_line_item
+    tax.settings:
+      description: >-
+        You can use Tax `Settings` to manage configurations used by Stripe Tax
+        calculations.
+
+
+        Related guide: [Using the Settings
+        API](https://stripe.com/docs/tax/settings-api)
+      properties:
+        defaults:
+          $ref: '#/components/schemas/tax_product_resource_tax_settings_defaults'
+        head_office:
+          anyOf:
+            - $ref: >-
+                #/components/schemas/tax_product_resource_tax_settings_head_office
+          description: The place where your business is located.
+          nullable: true
+        livemode:
+          description: >-
+            Has the value `true` if the object exists in live mode or the value
+            `false` if the object exists in test mode.
+          type: boolean
+        object:
+          description: >-
+            String representing the object's type. Objects of the same type
+            share the same value.
+          enum:
+            - tax.settings
+          type: string
+        status:
+          description: >-
+            The `active` status indicates you have all required settings to
+            calculate tax. A status can transition out of `active` when new
+            required settings are introduced.
+          enum:
+            - active
+            - pending
+          type: string
+        status_details:
+          $ref: >-
+            #/components/schemas/tax_product_resource_tax_settings_status_details
+      required:
+        - defaults
+        - livemode
+        - object
+        - status
+        - status_details
+      title: TaxProductResourceTaxSettings
+      type: object
+      x-expandableFields:
+        - defaults
+        - head_office
+        - status_details
+      x-resourceId: tax.settings
     tax.transaction:
       description: >-
         A Tax Transaction records the tax collected from or refunded to your
@@ -34419,6 +34509,13 @@ components:
             share the same value.
           enum:
             - tax.transaction_line_item
+          type: string
+        product:
+          description: >-
+            The ID of an existing
+            [Product](https://stripe.com/docs/api/products/object).
+          maxLength: 5000
+          nullable: true
           type: string
         quantity:
           description: >-
@@ -34604,10 +34701,11 @@ components:
             `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`,
             `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`,
             `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`,
-            `pe_ruc`, `ph_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`,
-            `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`,
-            `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or
-            `za_vat`. Note that some legacy tax IDs have type `unknown`
+            `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`,
+            `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`,
+            `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`,
+            `vn_tin`, or `za_vat`. Note that some legacy tax IDs have type
+            `unknown`
           enum:
             - ad_nrt
             - ae_trn
@@ -34657,6 +34755,7 @@ components:
             - nz_gst
             - pe_ruc
             - ph_tin
+            - ro_tin
             - rs_pib
             - ru_inn
             - ru_kpp
@@ -34776,16 +34875,16 @@ components:
           description: >-
             The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`,
             `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`,
-            `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `rs_pib`, `sv_nit`,
-            `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`,
-            `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`,
-            `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`,
-            `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`,
-            `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`,
-            `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`,
-            `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`,
-            `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`,
-            `ph_tin`, or `unknown`
+            `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`,
+            `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`,
+            `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`,
+            `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`,
+            `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`,
+            `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`,
+            `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`,
+            `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`,
+            `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`,
+            `eg_tin`, `ph_tin`, or `unknown`
           enum:
             - ad_nrt
             - ae_trn
@@ -34835,6 +34934,7 @@ components:
             - nz_gst
             - pe_ruc
             - ph_tin
+            - ro_tin
             - rs_pib
             - ru_inn
             - ru_kpp
@@ -34981,6 +35081,8 @@ components:
         tax_type:
           description: 'The tax type, such as `vat` or `sales_tax`.'
           enum:
+            - amusement_tax
+            - communications_tax
             - gst
             - hst
             - igst
@@ -35104,7 +35206,7 @@ components:
         shipping_rate:
           description: >-
             The ID of an existing
-            [ShippingRate](https://stripe.com/docs/api/shipping_rates/object)
+            [ShippingRate](https://stripe.com/docs/api/shipping_rates/object).
           maxLength: 5000
           type: string
         tax_behavior:
@@ -35159,6 +35261,8 @@ components:
         tax_type:
           description: 'The tax type, such as `vat` or `sales_tax`.'
           enum:
+            - amusement_tax
+            - communications_tax
             - gst
             - hst
             - igst
@@ -35174,6 +35278,81 @@ components:
       required:
         - percentage_decimal
       title: TaxProductResourceTaxRateDetails
+      type: object
+      x-expandableFields: []
+    tax_product_resource_tax_settings_defaults:
+      description: ''
+      properties:
+        tax_behavior:
+          description: >-
+            Default [tax
+            behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior)
+            used to specify whether the price is considered inclusive of taxes
+            or exclusive of taxes. If the item's price has a tax behavior set,
+            it will take precedence over the default tax behavior.
+          enum:
+            - exclusive
+            - inclusive
+            - inferred_by_currency
+          nullable: true
+          type: string
+        tax_code:
+          description: >-
+            Default [tax code](https://stripe.com/docs/tax/tax-categories) used
+            to classify your products and prices.
+          maxLength: 5000
+          nullable: true
+          type: string
+      title: TaxProductResourceTaxSettingsDefaults
+      type: object
+      x-expandableFields: []
+    tax_product_resource_tax_settings_head_office:
+      description: ''
+      properties:
+        address:
+          $ref: '#/components/schemas/address'
+      required:
+        - address
+      title: TaxProductResourceTaxSettingsHeadOffice
+      type: object
+      x-expandableFields:
+        - address
+    tax_product_resource_tax_settings_status_details:
+      description: ''
+      properties:
+        active:
+          $ref: >-
+            #/components/schemas/tax_product_resource_tax_settings_status_details_resource_active
+        pending:
+          $ref: >-
+            #/components/schemas/tax_product_resource_tax_settings_status_details_resource_pending
+      title: TaxProductResourceTaxSettingsStatusDetails
+      type: object
+      x-expandableFields:
+        - active
+        - pending
+    tax_product_resource_tax_settings_status_details_resource_active:
+      description: ''
+      properties: {}
+      title: TaxProductResourceTaxSettingsStatusDetailsResourceActive
+      type: object
+      x-expandableFields: []
+    tax_product_resource_tax_settings_status_details_resource_pending:
+      description: ''
+      properties:
+        missing_fields:
+          description: >-
+            The list of missing fields that are required to perform
+            calculations. It includes the entry `head_office` when the status is
+            `pending`. It is recommended to set the optional values even if they
+            aren't listed as required for calculating taxes. Calculations can
+            fail if missing fields aren't explicitly provided on every call.
+          items:
+            maxLength: 5000
+            type: string
+          nullable: true
+          type: array
+      title: TaxProductResourceTaxSettingsStatusDetailsResourcePending
       type: object
       x-expandableFields: []
     tax_product_resource_tax_transaction_line_item_resource_reversal:
@@ -35211,6 +35390,12 @@ components:
         amount_tax:
           description: 'The amount of tax calculated for shipping, in integer cents.'
           type: integer
+        shipping_rate:
+          description: >-
+            The ID of an existing
+            [ShippingRate](https://stripe.com/docs/api/shipping_rates/object).
+          maxLength: 5000
+          type: string
         tax_behavior:
           description: >-
             Specifies whether the `amount` includes taxes. If
@@ -35349,6 +35534,7 @@ components:
             - qst
             - rst
             - sales_tax
+            - service_tax
             - vat
           nullable: true
           type: string
@@ -39637,13 +39823,13 @@ paths:
 
 
         <p>If you’ve already collected information for your connected accounts,
-        you <a href="/docs/connect/best-practices#onboarding">can pre-fill that
+        you <a href="/docs/connect/best-practices#onboarding">can prefill that
         information</a> when
 
-        creating the account. Connect Onboarding won’t ask for the pre-filled
+        creating the account. Connect Onboarding won’t ask for the prefilled
         information during account onboarding.
 
-        You can pre-fill any information on the account.</p>
+        You can prefill any information on the account.</p>
       operationId: PostAccounts
       requestBody:
         content:
@@ -53402,6 +53588,7 @@ paths:
                           - nz_gst
                           - pe_ruc
                           - ph_tin
+                          - ro_tin
                           - rs_pib
                           - ru_inn
                           - ru_kpp
@@ -58907,10 +59094,10 @@ paths:
                     `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`,
                     `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`,
                     `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`,
-                    `ph_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`,
-                    `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`,
-                    `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or
-                    `za_vat`
+                    `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`,
+                    `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`,
+                    `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`,
+                    or `za_vat`
                   enum:
                     - ad_nrt
                     - ae_trn
@@ -58960,6 +59147,7 @@ paths:
                     - nz_gst
                     - pe_ruc
                     - ph_tin
+                    - ro_tin
                     - rs_pib
                     - ru_inn
                     - ru_kpp
@@ -63793,6 +63981,7 @@ paths:
                         - nz_gst
                         - pe_ruc
                         - ph_tin
+                        - ro_tin
                         - rs_pib
                         - ru_inn
                         - ru_kpp
@@ -64479,6 +64668,7 @@ paths:
                         - nz_gst
                         - pe_ruc
                         - ph_tin
+                        - ro_tin
                         - rs_pib
                         - ru_inn
                         - ru_kpp
@@ -73865,6 +74055,11 @@ paths:
                     that you have enabled in the Dashboard and are compatible
                     with this PaymentIntent's other parameters.
                   properties:
+                    allow_redirects:
+                      enum:
+                        - always
+                        - never
+                      type: string
                     enabled:
                       type: boolean
                   required:
@@ -74514,7 +74709,7 @@ paths:
                                 - manual
                               type: string
                             preferred_locale:
-                              maxLength: 10
+                              maxLength: 30
                               type: string
                             setup_future_usage:
                               enum:
@@ -76306,7 +76501,7 @@ paths:
                                 - manual
                               type: string
                             preferred_locale:
-                              maxLength: 10
+                              maxLength: 30
                               type: string
                             setup_future_usage:
                               enum:
@@ -78227,7 +78422,7 @@ paths:
                                 - manual
                               type: string
                             preferred_locale:
-                              maxLength: 10
+                              maxLength: 30
                               type: string
                             setup_future_usage:
                               enum:
@@ -89551,6 +89746,11 @@ paths:
                     that you have enabled in the Dashboard and are compatible
                     with this SetupIntent's other parameters.
                   properties:
+                    allow_redirects:
+                      enum:
+                        - always
+                        - never
+                      type: string
                     enabled:
                       type: boolean
                   required:
@@ -90349,6 +90549,12 @@ paths:
                     - off_session
                     - on_session
                   type: string
+                use_stripe_sdk:
+                  description: >-
+                    Set to `true` when confirming server-side and using
+                    Stripe.js, iOS, or Android client-side SDKs to handle the
+                    next actions.
+                  type: boolean
               type: object
         required: false
       responses:
@@ -92059,6 +92265,12 @@ paths:
                     This parameter is only used for cards and other
                     redirect-based payment methods.
                   type: string
+                use_stripe_sdk:
+                  description: >-
+                    Set to `true` when confirming server-side and using
+                    Stripe.js, iOS, or Android client-side SDKs to handle the
+                    next actions.
+                  type: boolean
               type: object
         required: false
       responses:
@@ -98052,6 +98264,7 @@ paths:
                               - nz_gst
                               - pe_ruc
                               - ph_tin
+                              - ro_tin
                               - rs_pib
                               - ru_inn
                               - ru_kpp
@@ -98269,6 +98482,129 @@ paths:
                 type: object
                 x-expandableFields:
                   - data
+          description: Successful response.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Error response.
+  /v1/tax/settings:
+    get:
+      description: <p>Retrieves Tax <code>Settings</code> for a merchant.</p>
+      operationId: GetTaxSettings
+      parameters:
+        - description: Specifies which fields in the response should be expanded.
+          explode: true
+          in: query
+          name: expand
+          required: false
+          schema:
+            items:
+              maxLength: 5000
+              type: string
+            type: array
+          style: deepObject
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              additionalProperties: false
+              properties: {}
+              type: object
+        required: false
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tax.settings'
+          description: Successful response.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Error response.
+    post:
+      description: >-
+        <p>Updates Tax <code>Settings</code> parameters used in tax
+        calculations. All parameters are editable but none can be removed once
+        set.</p>
+      operationId: PostTaxSettings
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding:
+              defaults:
+                explode: true
+                style: deepObject
+              expand:
+                explode: true
+                style: deepObject
+              head_office:
+                explode: true
+                style: deepObject
+            schema:
+              additionalProperties: false
+              properties:
+                defaults:
+                  description: Default configuration to be used on Stripe Tax calculations.
+                  properties:
+                    tax_behavior:
+                      enum:
+                        - exclusive
+                        - inclusive
+                        - inferred_by_currency
+                      type: string
+                    tax_code:
+                      type: string
+                  title: defaults_param
+                  type: object
+                expand:
+                  description: Specifies which fields in the response should be expanded.
+                  items:
+                    maxLength: 5000
+                    type: string
+                  type: array
+                head_office:
+                  description: The place where your business is located.
+                  properties:
+                    address:
+                      properties:
+                        city:
+                          maxLength: 5000
+                          type: string
+                        country:
+                          maxLength: 5000
+                          type: string
+                        line1:
+                          maxLength: 5000
+                          type: string
+                        line2:
+                          maxLength: 5000
+                          type: string
+                        postal_code:
+                          maxLength: 5000
+                          type: string
+                        state:
+                          maxLength: 5000
+                          type: string
+                      title: validated_country_address
+                      type: object
+                  required:
+                    - address
+                  title: head_office_param
+                  type: object
+              type: object
+        required: false
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tax.settings'
           description: Successful response.
         default:
           content:
@@ -99015,6 +99351,7 @@ paths:
                     - qst
                     - rst
                     - sales_tax
+                    - service_tax
                     - vat
                   type: string
               required:
@@ -99181,6 +99518,7 @@ paths:
                     - qst
                     - rst
                     - sales_tax
+                    - service_tax
                     - vat
                   type: string
               type: object
@@ -107916,6 +108254,7 @@ paths:
                       - subscription_schedule.expiring
                       - subscription_schedule.released
                       - subscription_schedule.updated
+                      - tax.settings.updated
                       - tax_rate.created
                       - tax_rate.updated
                       - terminal.reader.action_failed
@@ -108310,6 +108649,7 @@ paths:
                       - subscription_schedule.expiring
                       - subscription_schedule.released
                       - subscription_schedule.updated
+                      - tax.settings.updated
                       - tax_rate.created
                       - tax_rate.updated
                       - terminal.reader.action_failed
