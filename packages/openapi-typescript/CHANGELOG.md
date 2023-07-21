@@ -1,5 +1,13 @@
 # openapi-typescript
 
+## 6.3.6
+
+### Patch Changes
+
+- [#1231](https://github.com/drwpow/openapi-typescript/pull/1231) [`e1ce2d6`](https://github.com/drwpow/openapi-typescript/commit/e1ce2d67a5350ff2871ae01503df2280454b7a80) Thanks [@tkrotoff](https://github.com/tkrotoff)! - Do not append trailing spaces to JSDoc tags
+
+- [#1232](https://github.com/drwpow/openapi-typescript/pull/1232) [`31c030d`](https://github.com/drwpow/openapi-typescript/commit/31c030d5f1bf2739dbc146e42372cf9aec922f93) Thanks [@tkrotoff](https://github.com/tkrotoff)! - Remove unnecessary array parenthesis
+
 ## 6.3.5
 
 ### Patch Changes
