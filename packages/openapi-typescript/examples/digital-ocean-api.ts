@@ -690,9 +690,9 @@ export interface external {
   };
   "resources/1-clicks/models/oneClicks_create.yml": {
     /**
-     * addon_slugs 
-     * @description An array of 1-Click Application slugs to be installed to the Kubernetes cluster. 
-     * @default [] 
+     * addon_slugs
+     * @description An array of 1-Click Application slugs to be installed to the Kubernetes cluster.
+     * @default []
      * @example [
      *   "kube-state-metrics",
      *   "loki"
@@ -700,28 +700,28 @@ export interface external {
      */
     addon_slugs: (string)[];
     /**
-     * cluster_uuid 
-     * @description A unique ID for the Kubernetes cluster to which the 1-Click Applications will be installed. 
+     * cluster_uuid
+     * @description A unique ID for the Kubernetes cluster to which the 1-Click Applications will be installed.
      * @example 50a994b6-c303-438f-9495-7e896cfe6b08
      */
     cluster_uuid: string;
   }
   "resources/1-clicks/models/oneClicks.yml": {
     /**
-     * slug 
-     * @description The slug identifier for the 1-Click application. 
+     * slug
+     * @description The slug identifier for the 1-Click application.
      * @example monitoring
      */
     slug: string;
     /**
-     * type 
-     * @description The type of the 1-Click application. 
+     * type
+     * @description The type of the 1-Click application.
      * @example kubernetes
      */
     type: string;
   }
   /**
-   * Install Kubernetes 1-Click Applications 
+   * Install Kubernetes 1-Click Applications
    * @description To install a Kubernetes 1-Click application on a cluster, send a POST request to
    * `/v2/1-clicks/kubernetes`. The `addon_slugs` and `cluster_uuid` must be provided as body
    * parameter in order to specify which 1-Click application(s) to install. To list all available
@@ -742,11 +742,11 @@ export interface external {
     };
   }
   /**
-   * List 1-Click Applications 
+   * List 1-Click Applications
    * @description To list all available 1-Click applications, send a GET request to `/v2/1-clicks`. The `type` may
    * be provided as query paramater in order to restrict results to a certain type of 1-Click, for
    * example: `/v2/1-clicks?type=droplet`. Current supported types are `kubernetes` and `droplet`.
-   * 
+   *
    * The response will be a JSON object with a key called `1_clicks`. This will be set to an array of
    * 1-Click application data, each of which will contain the the slug and type for the 1-Click.
    */
@@ -788,7 +788,7 @@ export interface external {
     content: {
       "application/json": {
         /**
-         * @description A message about the result of the request. 
+         * @description A message about the result of the request.
          * @example Successfully kicked off addon job.
          */
         message?: string;
@@ -796,7 +796,7 @@ export interface external {
     };
   }
   /**
-   * Get User Information 
+   * Get User Information
    * @description To show information about the current user account, send a GET request to `/v2/account`.
    */
   "resources/account/account_get.yml": {
@@ -810,52 +810,52 @@ export interface external {
   }
   "resources/account/models/account.yml": {
     /**
-     * @description The total number of Droplets current user or team may have active at one time. 
+     * @description The total number of Droplets current user or team may have active at one time.
      * @example 25
      */
     droplet_limit: number;
     /**
-     * @description The total number of Floating IPs the current user or team may have. 
+     * @description The total number of Floating IPs the current user or team may have.
      * @example 5
      */
     floating_ip_limit: number;
     /**
-     * @description The email address used by the current user to register for DigitalOcean. 
+     * @description The email address used by the current user to register for DigitalOcean.
      * @example sammy@digitalocean.com
      */
     email: string;
     /**
-     * @description The unique universal identifier for the current user. 
+     * @description The unique universal identifier for the current user.
      * @example b6fr89dbf6d9156cace5f3c78dc9851d957381ef
      */
     uuid: string;
     /**
-     * @description If true, the user has verified their account via email. False otherwise. 
-     * @default false 
+     * @description If true, the user has verified their account via email. False otherwise.
+     * @default false
      * @example true
      */
     email_verified: boolean;
     /**
-     * @description This value is one of "active", "warning" or "locked". 
-     * @default active 
-     * @example active 
+     * @description This value is one of "active", "warning" or "locked".
+     * @default active
+     * @example active
      * @enum {string}
      */
     status: "active" | "warning" | "locked";
     /**
-     * @description A human-readable message giving more details about the status of the account. 
+     * @description A human-readable message giving more details about the status of the account.
      * @example
      */
     status_message: string;
     /** @description When authorized in a team context, includes information about the current team. */
     team?: {
       /**
-       * @description The unique universal identifier for the current team. 
+       * @description The unique universal identifier for the current team.
        * @example 5df3e3004a17e242b7c20ca6c9fc25b701a47ece
        */
       uuid?: string;
       /**
-       * @description The name for the current team. 
+       * @description The name for the current team.
        * @example My Team
        */
       name?: string;
@@ -874,7 +874,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Action 
+   * Retrieve an Existing Action
    * @description To retrieve a specific action object, send a GET request to `/v2/actions/$ACTION_ID`.
    */
   "resources/actions/actions_get.yml": {
@@ -893,7 +893,7 @@ export interface external {
     };
   }
   /**
-   * List All Actions 
+   * List All Actions
    * @description This will be the entire list of actions taken on your account, so it will be quite large. As with any large collection returned by the API, the results will be paginated with only 20 on each page by default.
    */
   "resources/actions/actions_list.yml": {
@@ -913,41 +913,41 @@ export interface external {
   }
   "resources/actions/models/action.yml": {
     /**
-     * @description A unique numeric ID that can be used to identify and reference an action. 
+     * @description A unique numeric ID that can be used to identify and reference an action.
      * @example 36804636
      */
     id?: number;
     /**
-     * @description The current status of the action. This can be "in-progress", "completed", or "errored". 
-     * @default in-progress 
-     * @example completed 
+     * @description The current status of the action. This can be "in-progress", "completed", or "errored".
+     * @default in-progress
+     * @example completed
      * @enum {string}
      */
     status?: "in-progress" | "completed" | "errored";
     /**
-     * @description This is the type of action that the object represents. For example, this could be "transfer" to represent the state of an image transfer action. 
+     * @description This is the type of action that the object represents. For example, this could be "transfer" to represent the state of an image transfer action.
      * @example create
      */
     type?: string;
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the action was initiated. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the action was initiated.
      * @example "2020-11-14T16:29:21.000Z"
      */
     started_at?: string;
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the action was completed. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the action was completed.
      * @example "2020-11-14T16:30:06.000Z"
      */
     completed_at?: string | null;
     /**
-     * @description A unique identifier for the resource that the action is associated with. 
+     * @description A unique identifier for the resource that the action is associated with.
      * @example 3164444
      */
     resource_id?: number | null;
     /**
-     * @description The type of resource that the action is associated with. 
+     * @description The type of resource that the action is associated with.
      * @example droplet
      */
     resource_type?: string;
@@ -982,7 +982,7 @@ export interface external {
     };
   }
   /**
-   * Update destinations for alerts 
+   * Update destinations for alerts
    * @description Updates the emails and slack webhook destinations for app alerts. Emails must be associated to a user with access to the app.
    */
   "resources/apps/apps_assign_alertDestinations.yml": {
@@ -1007,7 +1007,7 @@ export interface external {
     };
   }
   /**
-   * Cancel a Deployment 
+   * Cancel a Deployment
    * @description Immediately cancel an in-progress deployment.
    */
   "resources/apps/apps_cancel_deployment.yml": {
@@ -1027,7 +1027,7 @@ export interface external {
     };
   }
   /**
-   * Commit App Rollback 
+   * Commit App Rollback
    * @description Commit an app rollback. This action permanently applies the rollback and unpins the app to resume new deployments.
    */
   "resources/apps/apps_commit_rollback.yml": {
@@ -1046,7 +1046,7 @@ export interface external {
     };
   }
   /**
-   * Create an App Deployment 
+   * Create an App Deployment
    * @description Creating an app deployment will pull the latest changes from your repository and schedule a new deployment for your app.
    */
   "resources/apps/apps_create_deployment.yml": {
@@ -1070,12 +1070,12 @@ export interface external {
     };
   }
   /**
-   * Rollback App 
+   * Rollback App
    * @description Rollback an app to a previous deployment. A new deployment will be created to perform the rollback.
    * The app will be pinned to the rollback deployment preventing any new deployments from being created,
    * either manually or through Auto Deploy on Push webhooks. To resume deployments, the rollback must be
    * either committed or reverted.
-   * 
+   *
    * It is recommended to use the Validate App Rollback endpoint to double check if the rollback is
    * valid and if there are any warnings.
    */
@@ -1100,7 +1100,7 @@ export interface external {
     };
   }
   /**
-   * Create a New App 
+   * Create a New App
    * @description Create a new app by submitting an app specification. For documentation on app specifications (`AppSpec` objects), please refer to [the product documentation](https://docs.digitalocean.com/products/app-platform/reference/app-spec/).
    */
   "resources/apps/apps_create.yml": {
@@ -1151,7 +1151,7 @@ export interface external {
     };
   }
   /**
-   * Delete an App 
+   * Delete an App
    * @description Delete an existing app. Once deleted, all active deployments will be permanently shut down and the app deleted. If needed, be sure to back up your app specification so that you may re-create it at a later time.
    */
   "resources/apps/apps_delete.yml": {
@@ -1170,7 +1170,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an App Deployment 
+   * Retrieve an App Deployment
    * @description Retrieve information about an app deployment.
    */
   "resources/apps/apps_get_deployment.yml": {
@@ -1190,7 +1190,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Instance Size 
+   * Retrieve an Instance Size
    * @description Retrieve information about a specific instance size for `service`, `worker`, and `job` components.
    */
   "resources/apps/apps_get_instanceSize.yml": {
@@ -1209,7 +1209,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve Active Deployment Aggregate Logs 
+   * Retrieve Active Deployment Aggregate Logs
    * @description Retrieve the logs of the active deployment if one exists. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment. Note log_type=BUILD logs will return logs associated with the current active deployment (being served). To view build logs associated with in-progress build, the query must explicitly reference the deployment id.
    */
   "resources/apps/apps_get_logs_active_deployment_aggregate.yml": {
@@ -1233,7 +1233,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve Active Deployment Logs 
+   * Retrieve Active Deployment Logs
    * @description Retrieve the logs of the active deployment if one exists. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment. Note log_type=BUILD logs will return logs associated with the current active deployment (being served). To view build logs associated with in-progress build, the query must explicitly reference the deployment id.
    */
   "resources/apps/apps_get_logs_active_deployment.yml": {
@@ -1258,7 +1258,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve Aggregate Deployment Logs 
+   * Retrieve Aggregate Deployment Logs
    * @description Retrieve the logs of a past, in-progress, or active deployment. If a component name is specified, the logs will be limited to only that component. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment.
    */
   "resources/apps/apps_get_logs_aggregate.yml": {
@@ -1283,7 +1283,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve Deployment Logs 
+   * Retrieve Deployment Logs
    * @description Retrieve the logs of a past, in-progress, or active deployment. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment.
    */
   "resources/apps/apps_get_logs.yml": {
@@ -1309,14 +1309,14 @@ export interface external {
     };
   }
   /**
-   * Retrieve App Daily Bandwidth Metrics 
+   * Retrieve App Daily Bandwidth Metrics
    * @description Retrieve daily bandwidth usage metrics for a single app.
    */
   "resources/apps/apps_get_metrics_bandwidth_usage.yml": {
     parameters: {
       query?: {
         /**
-         * @description Optional day to query. Only the date component of the timestamp will be considered. Default: yesterday. 
+         * @description Optional day to query. Only the date component of the timestamp will be considered. Default: yesterday.
          * @example "2023-01-17T00:00:00.000Z"
          */
         date?: string;
@@ -1335,7 +1335,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an App Tier 
+   * Retrieve an App Tier
    * @description Retrieve information about a specific app tier.
    */
   "resources/apps/apps_get_tier.yml": {
@@ -1354,7 +1354,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing App 
+   * Retrieve an Existing App
    * @description Retrieve details about an existing app by either its ID or name. To retrieve an app by its name, do not include an ID in the request path. Information about the current active deployment as well as any in progress ones will also be included in the response.
    */
   "resources/apps/apps_get.yml": {
@@ -1376,7 +1376,7 @@ export interface external {
     };
   }
   /**
-   * List all app alerts 
+   * List all app alerts
    * @description List alerts associated to the app and any components. This includes configuration information about the alerts including emails, slack webhooks, and triggering events or conditions.
    */
   "resources/apps/apps_list_alerts.yml": {
@@ -1395,7 +1395,7 @@ export interface external {
     };
   }
   /**
-   * List App Deployments 
+   * List App Deployments
    * @description List all deployments of an app.
    */
   "resources/apps/apps_list_deployments.yml": {
@@ -1418,7 +1418,7 @@ export interface external {
     };
   }
   /**
-   * List Instance Sizes 
+   * List Instance Sizes
    * @description List all instance sizes for `service`, `worker`, and `job` components.
    */
   "resources/apps/apps_list_instanceSizes.yml": {
@@ -1431,7 +1431,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve Multiple Apps' Daily Bandwidth Metrics 
+   * Retrieve Multiple Apps' Daily Bandwidth Metrics
    * @description Retrieve daily bandwidth usage metrics for multiple apps.
    */
   "resources/apps/apps_list_metrics_bandwidth_usage.yml": {
@@ -1459,7 +1459,7 @@ export interface external {
     };
   }
   /**
-   * List App Regions 
+   * List App Regions
    * @description List all regions supported by App Platform.
    */
   "resources/apps/apps_list_regions.yml": {
@@ -1472,7 +1472,7 @@ export interface external {
     };
   }
   /**
-   * List App Tiers 
+   * List App Tiers
    * @description List all app tiers.
    */
   "resources/apps/apps_list_tiers.yml": {
@@ -1485,7 +1485,7 @@ export interface external {
     };
   }
   /**
-   * List All Apps 
+   * List All Apps
    * @description List all apps on your account. Information about the current active deployment as well as any in progress ones will also be included for each app.
    */
   "resources/apps/apps_list.yml": {
@@ -1505,7 +1505,7 @@ export interface external {
     };
   }
   /**
-   * Revert App Rollback 
+   * Revert App Rollback
    * @description Revert an app rollback. This action reverts the active rollback by creating a new deployment from the
    * latest app spec prior to the rollback and unpins the app to resume new deployments.
    */
@@ -1525,7 +1525,7 @@ export interface external {
     };
   }
   /**
-   * Update an App 
+   * Update an App
    * @description Update an existing app by submitting a new app specification. For documentation on app specifications (`AppSpec` objects), please refer to [the product documentation](https://docs.digitalocean.com/products/app-platform/reference/app-spec/).
    */
   "resources/apps/apps_update.yml": {
@@ -1549,7 +1549,7 @@ export interface external {
     };
   }
   /**
-   * Propose an App Spec 
+   * Propose an App Spec
    * @description To propose and validate a spec for a new or existing app, send a POST request to the `/v2/apps/propose` endpoint. The request returns some information about the proposed app, including app cost and upgrade cost. If an existing app ID is specified, the app spec is treated as a proposed update to the existing app.
    */
   "resources/apps/apps_validate_appSpec.yml": {
@@ -1595,7 +1595,7 @@ export interface external {
     };
   }
   /**
-   * Validate App Rollback 
+   * Validate App Rollback
    * @description Check whether an app can be rolled back to a specific deployment. This endpoint can also be used
    * to check if there are any warnings or validation conditions that will cause the rollback to proceed
    * under unideal circumstances. For example, if a component must be rebuilt as part of the rollback
@@ -1625,12 +1625,12 @@ export interface external {
   "resources/apps/models/app_alert_phase.yml": "UNKNOWN" | "PENDING" | "CONFIGURING" | "ACTIVE" | "ERROR"
   "resources/apps/models/app_alert_progress_step_reason.yml": {
     /**
-     * The error code 
+     * The error code
      * @example Title of Error
      */
     code?: string;
     /**
-     * The error message 
+     * The error message
      * @example This is an error
      */
     message?: string;
@@ -1638,20 +1638,20 @@ export interface external {
   "resources/apps/models/app_alert_progress_step_status.yml": "UNKNOWN" | "PENDING" | "RUNNING" | "ERROR" | "SUCCESS"
   "resources/apps/models/app_alert_progress_step.yml": {
     /**
-     * The name of this step 
+     * The name of this step
      * @example example_step
      */
     name?: string;
     status?: external["resources/apps/models/app_alert_progress_step_status.yml"];
     /**
-     * The start time of this step 
-     * Format: date-time 
+     * The start time of this step
+     * Format: date-time
      * @example "2020-11-19T20:27:18.000Z"
      */
     started_at?: string;
     /**
-     * The start time of this step 
-     * Format: date-time 
+     * The start time of this step
+     * Format: date-time
      * @example "2020-11-19T20:27:18.000Z"
      */
     ended_at?: string;
@@ -1663,12 +1663,12 @@ export interface external {
   }
   "resources/apps/models/app_alert_slack_webhook.yml": {
     /**
-     * URL of the Slack webhook 
+     * URL of the Slack webhook
      * @example https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
      */
     url?: string;
     /**
-     * Name of the Slack Webhook Channel 
+     * Name of the Slack Webhook Channel
      * @example Channel Name
      */
     channel?: string;
@@ -1679,14 +1679,14 @@ export interface external {
   "resources/apps/models/app_alert_spec.yml": {
     rule?: external["resources/apps/models/app_alert_spec_rule.yml"];
     /**
-     * @description Is the alert disabled? 
+     * @description Is the alert disabled?
      * @example false
      */
     disabled?: boolean;
     operator?: external["resources/apps/models/app_alert_spec_operator.yml"];
     /**
-     * Format: float 
-     * @description Threshold value for alert 
+     * Format: float
+     * @description Threshold value for alert
      * @example 2.32
      */
     value?: number;
@@ -1694,18 +1694,18 @@ export interface external {
   }
   "resources/apps/models/app_alert.yml": {
     /**
-     * The ID of the alert 
+     * The ID of the alert
      * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
      */
     id?: string;
     /**
-     * Name of component the alert belongs to 
+     * Name of component the alert belongs to
      * @example backend
      */
     component_name?: string;
     spec?: external["resources/apps/models/app_alert_spec.yml"];
     /**
-     * Emails for alerts to go to 
+     * Emails for alerts to go to
      * @example [
      *   "sammy@digitalocean.com"
      * ]
@@ -1718,7 +1718,7 @@ export interface external {
   }
   "resources/apps/models/app_component_base.yml": {
     /**
-     * @description The name. Must be unique across all components within the same app. 
+     * @description The name. Must be unique across all components within the same app.
      * @example api
      */
     name?: string;
@@ -1727,29 +1727,29 @@ export interface external {
     gitlab?: external["resources/apps/models/apps_gitlab_source_spec.yml"];
     image?: external["resources/apps/models/apps_image_source_spec.yml"];
     /**
-     * @description The path to the Dockerfile relative to the root of the repo. If set, it will be used to build this component. Otherwise, App Platform will attempt to build it using buildpacks. 
+     * @description The path to the Dockerfile relative to the root of the repo. If set, it will be used to build this component. Otherwise, App Platform will attempt to build it using buildpacks.
      * @example path/to/Dockerfile
      */
     dockerfile_path?: string;
     /**
-     * @description An optional build command to run while building this component from source. 
+     * @description An optional build command to run while building this component from source.
      * @example npm run build
      */
     build_command?: string;
     /**
-     * @description An optional run command to override the component's default. 
+     * @description An optional run command to override the component's default.
      * @example bin/api
      */
     run_command?: string;
     /**
-     * @description An optional path to the working directory to use for the build. For Dockerfile builds, this will be used as the build context. Must be relative to the root of the repo. 
+     * @description An optional path to the working directory to use for the build. For Dockerfile builds, this will be used as the build context. Must be relative to the root of the repo.
      * @example path/to/dir
      */
     source_dir?: string;
     /** @description A list of environment variables made available to the component. */
     envs?: (external["resources/apps/models/app_variable_definition.yml"])[];
     /**
-     * @description An environment slug describing the type of this app. For a full list, please refer to [the product documentation](https://www.digitalocean.com/docs/app-platform/). 
+     * @description An environment slug describing the type of this app. For a full list, please refer to [the product documentation](https://www.digitalocean.com/docs/app-platform/).
      * @example node-js
      */
     environment_slug?: string;
@@ -1757,107 +1757,107 @@ export interface external {
   }
   "resources/apps/models/app_component_instance_base.yml": {
     /**
-     * Format: int64 
-     * @description The amount of instances that this component should be scaled to. Default: 1 
-     * @default 1 
+     * Format: int64
+     * @description The amount of instances that this component should be scaled to. Default: 1
+     * @default 1
      * @example 2
      */
     instance_count?: number;
     /**
-     * @description The instance size to use for this component. Default: `basic-xxs` 
-     * @default basic-xxs 
-     * @example basic-xxs 
+     * @description The instance size to use for this component. Default: `basic-xxs`
+     * @default basic-xxs
+     * @example basic-xxs
      * @enum {string}
      */
     instance_size_slug?: "basic-xxs" | "basic-xs" | "basic-s" | "basic-m" | "professional-xs" | "professional-s" | "professional-m" | "professional-1l" | "professional-l" | "professional-xl";
   }
   "resources/apps/models/app_database_spec.yml": {
     /**
-     * @description The name of the underlying DigitalOcean DBaaS cluster. This is required for production databases. For dev databases, if cluster_name is not set, a new cluster will be provisioned. 
+     * @description The name of the underlying DigitalOcean DBaaS cluster. This is required for production databases. For dev databases, if cluster_name is not set, a new cluster will be provisioned.
      * @example cluster_name
      */
     cluster_name?: string;
     /**
-     * @description The name of the MySQL or PostgreSQL database to configure. 
+     * @description The name of the MySQL or PostgreSQL database to configure.
      * @example my_db
      */
     db_name?: string;
     /**
-     * @description The name of the MySQL or PostgreSQL user to configure. 
+     * @description The name of the MySQL or PostgreSQL user to configure.
      * @example superuser
      */
     db_user?: string;
     /**
      * @description - MYSQL: MySQL
      * - PG: PostgreSQL
-     * - REDIS: Redis 
-     * @default UNSET 
-     * @example PG 
+     * - REDIS: Redis
+     * @default UNSET
+     * @example PG
      * @enum {string}
      */
     engine?: "UNSET" | "MYSQL" | "PG" | "REDIS";
     /**
-     * @description The name. Must be unique across all components within the same app. 
+     * @description The name. Must be unique across all components within the same app.
      * @example prod-db
      */
     name: string;
     /**
-     * @description Whether this is a production or dev database. 
+     * @description Whether this is a production or dev database.
      * @example true
      */
     production?: boolean;
     /**
-     * @description The version of the database engine 
+     * @description The version of the database engine
      * @example 12
      */
     version?: string;
   }
   "resources/apps/models/app_domain_spec.yml": {
     /**
-     * @description The hostname for the domain 
+     * @description The hostname for the domain
      * @example app.example.com
      */
     domain: string;
     /**
      * @description - DEFAULT: The default `.ondigitalocean.app` domain assigned to this app
      * - PRIMARY: The primary domain for this app that is displayed as the default in the control panel, used in bindable environment variables, and any other places that reference an app's live URL. Only one domain may be set as primary.
-     * - ALIAS: A non-primary domain 
-     * @default UNSPECIFIED 
-     * @example DEFAULT 
+     * - ALIAS: A non-primary domain
+     * @default UNSPECIFIED
+     * @example DEFAULT
      * @enum {string}
      */
     type?: "UNSPECIFIED" | "DEFAULT" | "PRIMARY" | "ALIAS";
     /**
-     * @description Indicates whether the domain includes all sub-domains, in addition to the given domain 
+     * @description Indicates whether the domain includes all sub-domains, in addition to the given domain
      * @example true
      */
     wildcard?: boolean;
     /**
-     * Format: hostname 
+     * Format: hostname
      * @description Optional. If the domain uses DigitalOcean DNS and you would like App
      * Platform to automatically manage it for you, set this to the name of the
      * domain on your account.
-     * 
+     *
      * For example, If the domain you are adding is `app.domain.com`, the zone
-     * could be `domain.com`. 
+     * could be `domain.com`.
      * @example example.com
      */
     zone?: string;
     /**
-     * @description The minimum version of TLS a client application can use to access resources for the domain.  Must be one of the following values wrapped within quotations: `"1.2"` or `"1.3"`. 
-     * @example 1.3 
+     * @description The minimum version of TLS a client application can use to access resources for the domain.  Must be one of the following values wrapped within quotations: `"1.2"` or `"1.3"`.
+     * @example 1.3
      * @enum {string}
      */
     minimum_tls_version?: "1.2" | "1.3";
   }
   "resources/apps/models/app_domain_validation.yml": {
     /**
-     * TXT record name 
+     * TXT record name
      * @example _acme-challenge.app.example.com
      */
     txt_name?: string;
     /**
-     * TXT record value 
+     * TXT record value
      * @example lXLOcN6cPv0nproViNcUHcahD9TrIPlNgdwesj0pYpk
      */
     txt_value?: string;
@@ -1867,12 +1867,12 @@ export interface external {
     /** @description A list of HTTP routes that should be routed to this component. */
     routes?: (external["resources/apps/models/app_route_spec.yml"])[];
     /**
-     * @description The name. Must be unique across all components within the same app. 
+     * @description The name. Must be unique across all components within the same app.
      * @example api
      */
     name: string;
     /**
-     * @description An optional path to the working directory to use for the build. For Dockerfile builds, this will be used as the build context. Must be relative to the root of the repo. 
+     * @description An optional path to the working directory to use for the build. For Dockerfile builds, this will be used as the build context. Must be relative to the root of the repo.
      * @example path/to/dir
      */
     source_dir?: string;
@@ -1889,53 +1889,53 @@ export interface external {
   }
   "resources/apps/models/app_ingress_spec_rule_routing_component.yml": {
     /**
-     * @description The name of the component to route to. 
+     * @description The name of the component to route to.
      * @example web
      */
     name: string;
     /**
-     * @description An optional flag to preserve the path that is forwarded to the backend service. By default, the HTTP request path will be trimmed from the left when forwarded to the component. For example, a component with `path=/api` will have requests to `/api/list` trimmed to `/list`. If this value is `true`, the path will remain `/api/list`. Note: this is not applicable for Functions Components and is mutually exclusive with `rewrite`. 
+     * @description An optional flag to preserve the path that is forwarded to the backend service. By default, the HTTP request path will be trimmed from the left when forwarded to the component. For example, a component with `path=/api` will have requests to `/api/list` trimmed to `/list`. If this value is `true`, the path will remain `/api/list`. Note: this is not applicable for Functions Components and is mutually exclusive with `rewrite`.
      * @example true
      */
     preserve_path_prefix?: string;
     /**
-     * @description An optional field that will rewrite the path of the component to be what is specified here. By default, the HTTP request path will be trimmed from the left when forwarded to the component. For example, a component with `path=/api` will have requests to `/api/list` trimmed to `/list`. If you specified the rewrite to be `/v1/`, requests to `/api/list` would be rewritten to `/v1/list`. Note: this is mutually exclusive with `preserve_path_prefix`. 
+     * @description An optional field that will rewrite the path of the component to be what is specified here. By default, the HTTP request path will be trimmed from the left when forwarded to the component. For example, a component with `path=/api` will have requests to `/api/list` trimmed to `/list`. If you specified the rewrite to be `/v1/`, requests to `/api/list` would be rewritten to `/v1/list`. Note: this is mutually exclusive with `preserve_path_prefix`.
      * @example /api/v1/
      */
     rewrite?: string;
   }
   "resources/apps/models/app_ingress_spec_rule_routing_redirect.yml": {
     /**
-     * @description An optional URI path to redirect to. Note: if this is specified the whole URI of the original request will be overwritten to this value, irrespective of the original request URI being matched. 
+     * @description An optional URI path to redirect to. Note: if this is specified the whole URI of the original request will be overwritten to this value, irrespective of the original request URI being matched.
      * @example /about
      */
     uri?: string;
     /**
-     * @description The authority/host to redirect to. This can be a hostname or IP address. Note: use `port` to set the port. 
+     * @description The authority/host to redirect to. This can be a hostname or IP address. Note: use `port` to set the port.
      * @example example.com
      */
     authority?: string;
     /**
-     * Format: int64 
-     * @description The port to redirect to. 
+     * Format: int64
+     * @description The port to redirect to.
      * @example 443
      */
     port?: number;
     /**
-     * @description The scheme to redirect to. Supported values are `http` or `https`. Default: `https`. 
+     * @description The scheme to redirect to. Supported values are `http` or `https`. Default: `https`.
      * @example https
      */
     scheme?: string;
     /**
-     * Format: int64 
-     * @description The redirect code to use. Defaults to `302`. Supported values are 300, 301, 302, 303, 304, 307, 308. 
+     * Format: int64
+     * @description The redirect code to use. Defaults to `302`. Supported values are 300, 301, 302, 303, 304, 307, 308.
      * @example 302
      */
     redirect_code?: number;
   }
   "resources/apps/models/app_ingress_spec_rule_string_match.yml": {
     /**
-     * @description Prefix-based match. For example, `/api` will match `/api`, `/api/`, and any nested paths such as `/api/v1/endpoint`. 
+     * @description Prefix-based match. For example, `/api` will match `/api`, `/api/`, and any nested paths such as `/api/v1/endpoint`.
      * @example /api
      */
     prefix: string;
@@ -1955,21 +1955,21 @@ export interface external {
      * @description - UNSPECIFIED: Default job type, will auto-complete to POST_DEPLOY kind.
      * - PRE_DEPLOY: Indicates a job that runs before an app deployment.
      * - POST_DEPLOY: Indicates a job that runs after an app deployment.
-     * - FAILED_DEPLOY: Indicates a job that runs after a component fails to deploy. 
-     * @default UNSPECIFIED 
-     * @example PRE_DEPLOY 
+     * - FAILED_DEPLOY: Indicates a job that runs after a component fails to deploy.
+     * @default UNSPECIFIED
+     * @example PRE_DEPLOY
      * @enum {string}
      */
     kind?: "UNSPECIFIED" | "PRE_DEPLOY" | "POST_DEPLOY" | "FAILED_DEPLOY";
   })
   "resources/apps/models/app_log_destination_datadog_spec.yml": {
     /**
-     * @description Datadog HTTP log intake endpoint. 
+     * @description Datadog HTTP log intake endpoint.
      * @example https://mydatadogendpoint.com
      */
     endpoint?: string;
     /**
-     * @description Datadog API key. 
+     * @description Datadog API key.
      * @example abcdefghijklmnopqrstuvwxyz0123456789
      */
     api_key: string;
@@ -1983,34 +1983,34 @@ export interface external {
   }
   "resources/apps/models/app_log_destination_logtail_spec.yml": {
     /**
-     * @description Logtail token. 
+     * @description Logtail token.
      * @example abcdefghijklmnopqrstuvwxyz0123456789
      */
     token?: string;
   }
   "resources/apps/models/app_log_destination_papertrail_spec.yml": {
     /**
-     * @description Papertrail syslog endpoint. 
+     * @description Papertrail syslog endpoint.
      * @example https://mypapertrailendpoint.com
      */
     endpoint: string;
   }
   "resources/apps/models/app_metrics_bandwidth_usage_details.yml": {
     /**
-     * @description The ID of the app. 
+     * @description The ID of the app.
      * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
      */
     app_id?: string;
     /**
-     * Format: uint64 
-     * @description The used bandwidth amount in bytes. 
+     * Format: uint64
+     * @description The used bandwidth amount in bytes.
      * @example 513668
      */
     bandwidth_bytes?: string;
   }
   "resources/apps/models/app_metrics_bandwidth_usage_request.yml": {
     /**
-     * @description A list of app IDs to query bandwidth metrics for. 
+     * @description A list of app IDs to query bandwidth metrics for.
      * @example [
      *   "4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf",
      *   "c2a93513-8d9b-4223-9d61-5e7272c81cf5"
@@ -2018,8 +2018,8 @@ export interface external {
      */
     app_ids: (string)[];
     /**
-     * Format: date-time 
-     * @description Optional day to query. Only the date component of the timestamp will be considered. Default: yesterday. 
+     * Format: date-time
+     * @description Optional day to query. Only the date component of the timestamp will be considered. Default: yesterday.
      * @example "2023-01-17T00:00:00.000Z"
      */
     date?: string;
@@ -2028,43 +2028,43 @@ export interface external {
     /** @description A list of bandwidth usage details by app. */
     app_bandwidth_usage?: (external["resources/apps/models/app_metrics_bandwidth_usage_details.yml"])[];
     /**
-     * Format: date-time 
-     * @description The date for the metrics data. 
+     * Format: date-time
+     * @description The date for the metrics data.
      * @example "2023-01-17T00:00:00.000Z"
      */
     date?: string;
   }
   "resources/apps/models/app_propose_response.yml": {
     /**
-     * @description Indicates whether the app is a static app. 
+     * @description Indicates whether the app is a static app.
      * @example true
      */
     app_is_static?: boolean;
     /**
-     * @description Indicates whether the app name is available. 
+     * @description Indicates whether the app name is available.
      * @example true
      */
     app_name_available?: boolean;
     /**
-     * @description The suggested name if the proposed app name is unavailable. 
+     * @description The suggested name if the proposed app name is unavailable.
      * @example newName
      */
     app_name_suggestion?: string;
     /**
-     * @description The maximum number of free static apps the account can have. We will charge you for any additional static apps. 
+     * @description The maximum number of free static apps the account can have. We will charge you for any additional static apps.
      * @example 2
      */
     existing_static_apps?: string;
     spec?: external["resources/apps/models/app_spec.yml"];
     /**
-     * Format: int32 
-     * @description The monthly cost of the proposed app in USD using the next pricing plan tier. For example, if you propose an app that uses the Basic tier, the `app_tier_upgrade_cost` field displays the monthly cost of the app if it were to use the Professional tier. If the proposed app already uses the most expensive tier, the field is empty. 
+     * Format: int32
+     * @description The monthly cost of the proposed app in USD using the next pricing plan tier. For example, if you propose an app that uses the Basic tier, the `app_tier_upgrade_cost` field displays the monthly cost of the app if it were to use the Professional tier. If the proposed app already uses the most expensive tier, the field is empty.
      * @example 5
      */
     app_cost?: number;
     /**
-     * Format: int32 
-     * @description The monthly cost of the proposed app in USD using the previous pricing plan tier. For example, if you propose an app that uses the Professional tier, the `app_tier_downgrade_cost` field displays the monthly cost of the app if it were to use the Basic tier. If the proposed app already uses the lest expensive tier, the field is empty. 
+     * Format: int32
+     * @description The monthly cost of the proposed app in USD using the previous pricing plan tier. For example, if you propose an app that uses the Professional tier, the `app_tier_downgrade_cost` field displays the monthly cost of the app if it were to use the Basic tier. If the proposed app already uses the lest expensive tier, the field is empty.
      * @example 17
      */
     app_tier_downgrade_cost?: number;
@@ -2072,7 +2072,7 @@ export interface external {
   "resources/apps/models/app_propose.yml": {
     spec: external["resources/apps/models/app_spec.yml"];
     /**
-     * @description An optional ID of an existing app. If set, the spec will be treated as a proposed update to the specified app. The existing app is not modified using this method. 
+     * @description An optional ID of an existing app. If set, the spec will be treated as a proposed update to the specified app. The existing app is not modified using this method.
      * @example b6bdf840-2854-4f87-a36c-5f231c617c84
      */
     app_id?: string;
@@ -2083,7 +2083,7 @@ export interface external {
   "resources/apps/models/app_rollback_validation_condition.yml": {
     /**
      * @description A code identifier that represents the failing condition.
-     * 
+     *
      * Failing conditions:
      *   - `incompatible_phase` - indicates that the deployment's phase is not suitable for rollback.
      *   - `incompatible_result` - indicates that the deployment's result is not suitable for rollback.
@@ -2091,17 +2091,17 @@ export interface external {
      *   - `app_pinned` - indicates that there is already a rollback in progress and the app is pinned.
      *   - `database_config_conflict` - indicates that the deployment's database config is different than the current config.
      *   - `region_conflict` - indicates that the deployment's region differs from the current app region.
-     *   
+     *
      * Warning conditions:
      *   - `static_site_requires_rebuild` - indicates that the deployment contains at least one static site that will require a rebuild.
      *   - `image_source_missing_digest` - indicates that the deployment contains at least one component with an image source that is missing a digest.
-     *  
-     * @example exceeded_revision_limit 
+     *
+     * @example exceeded_revision_limit
      * @enum {string}
      */
     code?: "incompatible_phase" | "incompatible_result" | "exceeded_revision_limit" | "app_pinned" | "database_config_conflict" | "region_conflict" | "static_site_requires_rebuild" | "image_source_missing_digest";
     /**
-     * @description A human-readable message describing the failing condition. 
+     * @description A human-readable message describing the failing condition.
      * @example the deployment is past the maximum historical revision limit of 0 for the "starter" app tier
      */
     message?: string;
@@ -2114,55 +2114,55 @@ export interface external {
   }
   "resources/apps/models/app_route_spec.yml": {
     /**
-     * @description An HTTP path prefix. Paths must start with / and must be unique across all components within an app. 
+     * @description An HTTP path prefix. Paths must start with / and must be unique across all components within an app.
      * @example /api
      */
     path?: string;
     /**
-     * @description An optional flag to preserve the path that is forwarded to the backend service. By default, the HTTP request path will be trimmed from the left when forwarded to the component. For example, a component with `path=/api` will have requests to `/api/list` trimmed to `/list`. If this value is `true`, the path will remain `/api/list`. 
+     * @description An optional flag to preserve the path that is forwarded to the backend service. By default, the HTTP request path will be trimmed from the left when forwarded to the component. For example, a component with `path=/api` will have requests to `/api/list` trimmed to `/list`. If this value is `true`, the path will remain `/api/list`.
      * @example true
      */
     preserve_path_prefix?: boolean;
   }
   "resources/apps/models/app_service_spec_health_check.yml": {
     /**
-     * Format: int32 
-     * @description The number of failed health checks before considered unhealthy. 
+     * Format: int32
+     * @description The number of failed health checks before considered unhealthy.
      * @example 2
      */
     failure_threshold?: number;
     /**
-     * Format: int64 
-     * @description The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port. 
+     * Format: int64
+     * @description The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port.
      * @example 80
      */
     port?: number;
     /**
-     * @description The route path used for the HTTP health check ping. If not set, the HTTP health check will be disabled and a TCP health check used instead. 
+     * @description The route path used for the HTTP health check ping. If not set, the HTTP health check will be disabled and a TCP health check used instead.
      * @example /health
      */
     http_path?: string;
     /**
-     * Format: int32 
-     * @description The number of seconds to wait before beginning health checks. 
+     * Format: int32
+     * @description The number of seconds to wait before beginning health checks.
      * @example 30
      */
     initial_delay_seconds?: number;
     /**
-     * Format: int32 
-     * @description The number of seconds to wait between health checks. 
+     * Format: int32
+     * @description The number of seconds to wait between health checks.
      * @example 60
      */
     period_seconds?: number;
     /**
-     * Format: int32 
-     * @description The number of successful health checks before considered healthy. 
+     * Format: int32
+     * @description The number of successful health checks before considered healthy.
      * @example 3
      */
     success_threshold?: number;
     /**
-     * Format: int32 
-     * @description The number of seconds after which the check times out. 
+     * Format: int32
+     * @description The number of seconds after which the check times out.
      * @example 45
      */
     timeout_seconds?: number;
@@ -2171,14 +2171,14 @@ export interface external {
     cors?: external["resources/apps/models/apps_cors_policy.yml"];
     health_check?: external["resources/apps/models/app_service_spec_health_check.yml"];
     /**
-     * Format: int64 
+     * Format: int64
      * @description The internal port on which this service's run command will listen. Default: 8080
-     * If there is not an environment variable with the name `PORT`, one will be automatically added with its value set to the value of this field. 
+     * If there is not an environment variable with the name `PORT`, one will be automatically added with its value set to the value of this field.
      * @example 3000
      */
     http_port?: number;
     /**
-     * @description The ports on which this service will listen for internal traffic. 
+     * @description The ports on which this service will listen for internal traffic.
      * @example [
      *   80,
      *   443
@@ -2190,13 +2190,13 @@ export interface external {
   }
   "resources/apps/models/app_spec.yml": {
     /**
-     * @description The name of the app. Must be unique across all apps in the same account. 
+     * @description The name of the app. Must be unique across all apps in the same account.
      * @example web-app-01
      */
     name: string;
     /**
-     * @description The slug form of the geographical origin of the app. Default: `nearest available` 
-     * @example nyc 
+     * @description The slug form of the geographical origin of the app. Default: `nearest available`
+     * @example nyc
      * @enum {string}
      */
     region?: "ams" | "nyc" | "fra" | "sfo" | "sgp" | "blr" | "tor" | "lon" | "syd";
@@ -2221,24 +2221,24 @@ export interface external {
   }
   "resources/apps/models/app_static_site_spec.yml": WithRequired<external["resources/apps/models/app_component_base.yml"] & {
     /**
-     * @description The name of the index document to use when serving this static site. Default: index.html 
-     * @default index.html 
+     * @description The name of the index document to use when serving this static site. Default: index.html
+     * @default index.html
      * @example main.html
      */
     index_document?: string;
     /**
-     * @description The name of the error document to use when serving this static site. Default: 404.html. If no such file exists within the built assets, App Platform will supply one. 
-     * @default 404.html 
+     * @description The name of the error document to use when serving this static site. Default: 404.html. If no such file exists within the built assets, App Platform will supply one.
+     * @default 404.html
      * @example error.html
      */
     error_document?: string;
     /**
-     * @description The name of the document to use as the fallback for any requests to documents that are not found when serving this static site. Only 1 of `catchall_document` or `error_document` can be set. 
+     * @description The name of the document to use as the fallback for any requests to documents that are not found when serving this static site. Only 1 of `catchall_document` or `error_document` can be set.
      * @example index.html
      */
     catchall_document?: string;
     /**
-     * @description An optional path to where the built assets will be located, relative to the build context. If not set, App Platform will automatically scan for these directory names: `_static`, `dist`, `public`, `build`. 
+     * @description An optional path to where the built assets will be located, relative to the build context. If not set, App Platform will automatically scan for these directory names: `_static`, `dist`, `public`, `build`.
      * @example dist/
      */
     output_dir?: string;
@@ -2248,29 +2248,29 @@ export interface external {
   }, "name">
   "resources/apps/models/app_variable_definition.yml": {
     /**
-     * @description The variable name 
+     * @description The variable name
      * @example BASE_URL
      */
     key: string;
     /**
      * @description - RUN_TIME: Made available only at run-time
      * - BUILD_TIME: Made available only at build-time
-     * - RUN_AND_BUILD_TIME: Made available at both build and run-time 
-     * @default RUN_AND_BUILD_TIME 
-     * @example BUILD_TIME 
+     * - RUN_AND_BUILD_TIME: Made available at both build and run-time
+     * @default RUN_AND_BUILD_TIME
+     * @example BUILD_TIME
      * @enum {string}
      */
     scope?: "UNSET" | "RUN_TIME" | "BUILD_TIME" | "RUN_AND_BUILD_TIME";
     /**
      * @description - GENERAL: A plain-text environment variable
-     * - SECRET: A secret encrypted environment variable 
-     * @default GENERAL 
-     * @example GENERAL 
+     * - SECRET: A secret encrypted environment variable
+     * @default GENERAL
+     * @example GENERAL
      * @enum {string}
      */
     type?: "GENERAL" | "SECRET";
     /**
-     * @description The value. If the type is `SECRET`, the value will be encrypted on first submission. On following submissions, the encrypted value should be used. 
+     * @description The value. If the type is `SECRET`, the value will be encrypted on first submission. On following submissions, the encrypted value should be used.
      * @example http://example.com
      */
     value?: string;
@@ -2279,66 +2279,66 @@ export interface external {
   "resources/apps/models/app.yml": {
     active_deployment?: external["resources/apps/models/apps_deployment.yml"];
     /**
-     * The creation time of the app 
-     * Format: date-time 
+     * The creation time of the app
+     * Format: date-time
      * @example "2020-11-19T20:27:18.000Z"
      */
     created_at?: string;
     /**
-     * The default hostname on which the app is accessible 
+     * The default hostname on which the app is accessible
      * @example digitalocean.com
      */
     default_ingress?: string;
     /** Contains all domains for the app */
     domains?: readonly (external["resources/apps/models/apps_domain.yml"])[];
     /**
-     * The ID of the application 
+     * The ID of the application
      * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
      */
     id?: string;
     in_progress_deployment?: external["resources/apps/models/apps_deployment.yml"];
     /**
-     * The creation time of the last deployment 
-     * Format: date-time 
+     * The creation time of the last deployment
+     * Format: date-time
      * @example "2020-11-19T20:27:18.000Z"
      */
     last_deployment_created_at?: string;
     /**
-     * The live domain of the app 
+     * The live domain of the app
      * @example live_domain
      */
     live_domain?: string;
     /**
-     * The live URL of the app 
+     * The live URL of the app
      * @example google.com
      */
     live_url?: string;
     /**
-     * The live URL base of the app, the URL excluding the path 
+     * The live URL base of the app, the URL excluding the path
      * @example digitalocean.com
      */
     live_url_base?: string;
     /**
-     * The ID of the account to which the application belongs 
+     * The ID of the account to which the application belongs
      * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
      */
     owner_uuid?: string;
     pending_deployment?: external["resources/apps/models/apps_deployment.yml"];
     /**
-     * The ID of the project the app is assigned to. This will be empty if there is a lookup failure. 
+     * The ID of the project the app is assigned to. This will be empty if there is a lookup failure.
      * @example 88b72d1a-b78a-4d9f-9090-b53c4399073f
      */
     project_id?: string;
     region?: external["resources/apps/models/apps_region.yml"];
     spec: external["resources/apps/models/app_spec.yml"];
     /**
-     * The current pricing tier slug of the app 
+     * The current pricing tier slug of the app
      * @example basic
      */
     tier_slug?: string;
     /**
-     * Time of the app's last configuration update 
-     * Format: date-time 
+     * Time of the app's last configuration update
+     * Format: date-time
      * @example "2020-12-01T00:42:16.000Z"
      */
     updated_at?: string;
@@ -2358,7 +2358,7 @@ export interface external {
   }
   "resources/apps/models/apps_cors_policy.yml": {
     /**
-     * @description The set of allowed CORS origins. 
+     * @description The set of allowed CORS origins.
      * @example [
      *   {
      *     "exact": "https://www.example.com"
@@ -2370,7 +2370,7 @@ export interface external {
      */
     allow_origins?: (external["resources/apps/models/apps_string_match.yml"])[];
     /**
-     * @description The set of allowed HTTP methods. This configures the `Access-Control-Allow-Methods` header. 
+     * @description The set of allowed HTTP methods. This configures the `Access-Control-Allow-Methods` header.
      * @example [
      *   "GET",
      *   "OPTIONS",
@@ -2382,7 +2382,7 @@ export interface external {
      */
     allow_methods?: (string)[];
     /**
-     * @description The set of allowed HTTP request headers. This configures the `Access-Control-Allow-Headers` header. 
+     * @description The set of allowed HTTP request headers. This configures the `Access-Control-Allow-Headers` header.
      * @example [
      *   "Content-Type",
      *   "X-Custom-Header"
@@ -2390,7 +2390,7 @@ export interface external {
      */
     allow_headers?: (string)[];
     /**
-     * @description The set of HTTP response headers that browsers are allowed to access. This configures the `Access-Control-Expose-Headers` header. 
+     * @description The set of HTTP response headers that browsers are allowed to access. This configures the `Access-Control-Expose-Headers` header.
      * @example [
      *   "Content-Encoding",
      *   "X-Custom-Header"
@@ -2398,12 +2398,12 @@ export interface external {
      */
     expose_headers?: (string)[];
     /**
-     * @description An optional duration specifying how long browsers can cache the results of a preflight request. This configures the `Access-Control-Max-Age` header. 
+     * @description An optional duration specifying how long browsers can cache the results of a preflight request. This configures the `Access-Control-Max-Age` header.
      * @example 5h30m
      */
     max_age?: string;
     /**
-     * @description Whether browsers should expose the response to the client-side JavaScript code when the request’s credentials mode is include. This configures the `Access-Control-Allow-Credentials` header. 
+     * @description Whether browsers should expose the response to the client-side JavaScript code when the request’s credentials mode is include. This configures the `Access-Control-Allow-Credentials` header.
      * @example false
      */
     allow_credentials?: boolean;
@@ -2415,43 +2415,43 @@ export interface external {
   }
   "resources/apps/models/apps_create_deployment_request.yml": {
     /**
-     * Indicates whether to force a build of app from source even if an existing cached build is suitable for re-use 
+     * Indicates whether to force a build of app from source even if an existing cached build is suitable for re-use
      * @example true
      */
     force_build?: boolean;
   }
   "resources/apps/models/apps_delete_app_response.yml": {
     /**
-     * The ID of the app that was deleted 
+     * The ID of the app that was deleted
      * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
      */
     id?: string;
   }
   "resources/apps/models/apps_deployment_functions.yml": {
     /**
-     * The name of this functions component 
+     * The name of this functions component
      * @example my-functions-component
      */
     name?: string;
     /**
-     * @description The commit hash of the repository that was used to build this functions component. 
+     * @description The commit hash of the repository that was used to build this functions component.
      * @example 54d4a727f457231062439895000d45437c7bb405
      */
     source_commit_hash?: string;
     /**
-     * @description The namespace where the functions are deployed. 
+     * @description The namespace where the functions are deployed.
      * @example ap-b2a93513-8d9b-4223-9d61-5e7272c81c32
      */
     namespace?: string;
   }
   "resources/apps/models/apps_deployment_job.yml": {
     /**
-     * The name of this job 
+     * The name of this job
      * @example migrate-db
      */
     name?: string;
     /**
-     * The commit hash of the repository that was used to build this job 
+     * The commit hash of the repository that was used to build this job
      * @example 54d4a727f457231062439895000d45437c7bb405
      */
     source_commit_hash?: string;
@@ -2459,12 +2459,12 @@ export interface external {
   "resources/apps/models/apps_deployment_phase.yml": "UNKNOWN" | "PENDING_BUILD" | "BUILDING" | "PENDING_DEPLOY" | "DEPLOYING" | "ACTIVE" | "SUPERSEDED" | "ERROR" | "CANCELED"
   "resources/apps/models/apps_deployment_progress_step_reason.yml": {
     /**
-     * The error code 
+     * The error code
      * @example Title of Error
      */
     code?: string;
     /**
-     * The error message 
+     * The error message
      * @example This is an error
      */
     message?: string;
@@ -2472,33 +2472,33 @@ export interface external {
   "resources/apps/models/apps_deployment_progress_step_status.yml": "UNKNOWN" | "PENDING" | "RUNNING" | "ERROR" | "SUCCESS"
   "resources/apps/models/apps_deployment_progress_step.yml": {
     /**
-     * The component name that this step is associated with 
+     * The component name that this step is associated with
      * @example component
      */
     component_name?: string;
     /**
-     * The end time of this step 
-     * Format: date-time 
+     * The end time of this step
+     * Format: date-time
      * @example "2020-11-19T20:27:18.000Z"
      */
     ended_at?: string;
     /**
      * @description The base of a human-readable description of the step intended to be combined with the component name for presentation. For example:
-     * 
+     *
      * `message_base` = "Building service"
-     * `component_name` = "api" 
+     * `component_name` = "api"
      * @example Building service
      */
     message_base?: string;
     /**
-     * The name of this step 
+     * The name of this step
      * @example example_step
      */
     name?: string;
     reason?: external["resources/apps/models/apps_deployment_progress_step_reason.yml"];
     /**
-     * The start time of this step 
-     * Format: date-time 
+     * The start time of this step
+     * Format: date-time
      * @example "2020-11-19T20:27:18.000Z"
      */
     started_at?: string;
@@ -2508,36 +2508,36 @@ export interface external {
   }
   "resources/apps/models/apps_deployment_progress.yml": {
     /**
-     * Number of unsuccessful steps 
-     * Format: int32 
+     * Number of unsuccessful steps
+     * Format: int32
      * @example 3
      */
     error_steps?: number;
     /**
-     * Number of pending steps 
-     * Format: int32 
+     * Number of pending steps
+     * Format: int32
      * @example 2
      */
     pending_steps?: number;
     /**
-     * Number of currently running steps 
-     * Format: int32 
+     * Number of currently running steps
+     * Format: int32
      * @example 2
      */
     running_steps?: number;
     /** The deployment's steps */
     steps?: (external["resources/apps/models/apps_deployment_progress_step.yml"])[];
     /**
-     * Number of successful steps 
-     * Format: int32 
+     * Number of successful steps
+     * Format: int32
      * @example 4
      */
     success_steps?: number;
     /** A flattened summary of the steps */
     summary_steps?: (external["resources/apps/models/apps_deployment_progress_step.yml"])[];
     /**
-     * Total number of steps 
-     * Format: int32 
+     * Total number of steps
+     * Format: int32
      * @example 5
      */
     total_steps?: number;
@@ -2547,59 +2547,59 @@ export interface external {
   }
   "resources/apps/models/apps_deployment_service.yml": {
     /**
-     * The name of this service 
+     * The name of this service
      * @example web
      */
     name?: string;
     /**
-     * The commit hash of the repository that was used to build this service 
+     * The commit hash of the repository that was used to build this service
      * @example 54d4a727f457231062439895000d45437c7bb405
      */
     source_commit_hash?: string;
   }
   "resources/apps/models/apps_deployment_static_site.yml": {
     /**
-     * The name of this static site 
+     * The name of this static site
      * @example web
      */
     name?: string;
     /**
-     * The commit hash of the repository that was used to build this static site 
+     * The commit hash of the repository that was used to build this static site
      * @example 54d4a727f457231062439895000d45437c7bb405
      */
     source_commit_hash?: string;
   }
   "resources/apps/models/apps_deployment_worker.yml": {
     /**
-     * The name of this worker 
+     * The name of this worker
      * @example queue-runner
      */
     name?: string;
     /**
-     * The commit hash of the repository that was used to build this worker 
+     * The commit hash of the repository that was used to build this worker
      * @example 54d4a727f457231062439895000d45437c7bb405
      */
     source_commit_hash?: string;
   }
   "resources/apps/models/apps_deployment.yml": {
     /**
-     * What caused this deployment to be created 
+     * What caused this deployment to be created
      * @example commit 9a4df0b pushed to github/digitalocean/sample-golang
      */
     cause?: string;
     /**
-     * The ID of a previous deployment that this deployment was cloned from 
+     * The ID of a previous deployment that this deployment was cloned from
      * @example 3aa4d20e-5527-4c00-b496-601fbd22520a
      */
     cloned_from?: string;
     /**
-     * The creation time of the deployment 
-     * Format: date-time 
+     * The creation time of the deployment
+     * Format: date-time
      * @example "2020-07-28T18:00:00.000Z"
      */
     created_at?: string;
     /**
-     * The ID of the deployment 
+     * The ID of the deployment
      * @example b6bdf840-2854-4f87-a36c-5f231c617c84
      */
     id?: string;
@@ -2609,8 +2609,8 @@ export interface external {
     functions?: (external["resources/apps/models/apps_deployment_functions.yml"])[];
     phase?: external["resources/apps/models/apps_deployment_phase.yml"];
     /**
-     * When the deployment phase was last updated 
-     * Format: date-time 
+     * When the deployment phase was last updated
+     * Format: date-time
      * @example "1901-01-01T00:00:00.000Z"
      */
     phase_last_updated_at?: string;
@@ -2621,13 +2621,13 @@ export interface external {
     /** Static Site components that are part of this deployment */
     static_sites?: (external["resources/apps/models/apps_deployment_static_site.yml"])[];
     /**
-     * The current pricing tier slug of the deployment 
+     * The current pricing tier slug of the deployment
      * @example basic
      */
     tier_slug?: string;
     /**
-     * When the deployment was last updated 
-     * Format: date-time 
+     * When the deployment was last updated
+     * Format: date-time
      * @example "2020-07-28T18:00:00.000Z"
      */
     updated_at?: string;
@@ -2645,7 +2645,7 @@ export interface external {
   }
   "resources/apps/models/apps_domain.yml": {
     /**
-     * The ID of the domain 
+     * The ID of the domain
      * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
      */
     id?: string;
@@ -2657,8 +2657,8 @@ export interface external {
     /** Validation values have changed and require manual intervention */
     rotate_validation_records?: boolean;
     /**
-     * Current SSL certificate expiration time 
-     * Format: date-time 
+     * Current SSL certificate expiration time
+     * Format: date-time
      * @example 2024-01-29T23:59:59Z
      */
     certificate_expires_at?: string;
@@ -2670,7 +2670,7 @@ export interface external {
     /** A list of URLs to archived log files */
     historic_urls?: (string)[];
     /**
-     * @description A URL of the real-time live logs. This URL may use either the `https://` or `wss://` protocols and will keep pushing live logs as they become available. 
+     * @description A URL of the real-time live logs. This URL may use either the `https://` or `wss://` protocols and will keep pushing live logs as they become available.
      * @example ws://logs/build
      */
     live_url?: string;
@@ -2680,71 +2680,71 @@ export interface external {
   }
   "resources/apps/models/apps_git_source_spec.yml": {
     /**
-     * @description The name of the branch to use 
+     * @description The name of the branch to use
      * @example main
      */
     branch?: string;
     /**
-     * @description The clone URL of the repo. Example: `https://github.com/digitalocean/sample-golang.git` 
+     * @description The clone URL of the repo. Example: `https://github.com/digitalocean/sample-golang.git`
      * @example https://github.com/digitalocean/sample-golang.git
      */
     repo_clone_url?: string;
   }
   "resources/apps/models/apps_github_source_spec.yml": {
     /**
-     * @description The name of the branch to use 
+     * @description The name of the branch to use
      * @example main
      */
     branch?: string;
     /**
-     * @description Whether to automatically deploy new commits made to the repo 
+     * @description Whether to automatically deploy new commits made to the repo
      * @example true
      */
     deploy_on_push?: boolean;
     /**
-     * @description The name of the repo in the format owner/repo. Example: `digitalocean/sample-golang` 
+     * @description The name of the repo in the format owner/repo. Example: `digitalocean/sample-golang`
      * @example digitalocean/sample-golang
      */
     repo?: string;
   }
   "resources/apps/models/apps_gitlab_source_spec.yml": {
     /**
-     * @description The name of the branch to use 
+     * @description The name of the branch to use
      * @example main
      */
     branch?: string;
     /**
-     * @description Whether to automatically deploy new commits made to the repo 
+     * @description Whether to automatically deploy new commits made to the repo
      * @example true
      */
     deploy_on_push?: boolean;
     /**
-     * @description The name of the repo in the format owner/repo. Example: `digitalocean/sample-golang` 
+     * @description The name of the repo in the format owner/repo. Example: `digitalocean/sample-golang`
      * @example digitalocean/sample-golang
      */
     repo?: string;
   }
   "resources/apps/models/apps_image_source_spec.yml": {
     /**
-     * @description The registry name. Must be left empty for the `DOCR` registry type. 
+     * @description The registry name. Must be left empty for the `DOCR` registry type.
      * @example registry.hub.docker.com
      */
     registry?: string;
     /**
      * @description - DOCKER_HUB: The DockerHub container registry type.
-     * - DOCR: The DigitalOcean container registry type. 
-     * @example DOCR 
+     * - DOCR: The DigitalOcean container registry type.
+     * @example DOCR
      * @enum {string}
      */
     registry_type?: "DOCKER_HUB" | "DOCR";
     /**
-     * @description The repository name. 
+     * @description The repository name.
      * @example origin/master
      */
     repository?: string;
     /**
-     * @description The repository tag. Defaults to `latest` if not provided. 
-     * @default latest 
+     * @description The repository tag. Defaults to `latest` if not provided.
+     * @default latest
      * @example latest
      */
     tag?: string;
@@ -2752,49 +2752,49 @@ export interface external {
   "resources/apps/models/apps_instance_size.yml": {
     cpu_type?: external["resources/apps/models/instance_size_cpu_type.yml"];
     /**
-     * The number of allotted vCPU cores 
-     * Format: int64 
+     * The number of allotted vCPU cores
+     * Format: int64
      * @example 3
      */
     cpus?: string;
     /**
-     * The allotted memory in bytes 
-     * Format: int64 
+     * The allotted memory in bytes
+     * Format: int64
      * @example 1048
      */
     memory_bytes?: string;
     /**
-     * A human-readable name of the instance size 
+     * A human-readable name of the instance size
      * @example name
      */
     name?: string;
     /**
-     * The slug of the instance size 
+     * The slug of the instance size
      * @example basic
      */
     slug?: string;
     /**
-     * The slug of the corresponding downgradable instance size on the lower tier 
+     * The slug of the corresponding downgradable instance size on the lower tier
      * @example basic
      */
     tier_downgrade_to?: string;
     /**
-     * The slug of the tier to which this instance size belongs 
+     * The slug of the tier to which this instance size belongs
      * @example basic
      */
     tier_slug?: string;
     /**
-     * The slug of the corresponding upgradable instance size on the higher tier 
+     * The slug of the corresponding upgradable instance size on the higher tier
      * @example basic
      */
     tier_upgrade_to?: string;
     /**
-     * The cost of this instance size in USD per month 
+     * The cost of this instance size in USD per month
      * @example 23
      */
     usd_per_month?: string;
     /**
-     * The cost of this instance size in USD per second 
+     * The cost of this instance size in USD per second
      * @example 0.00000001232
      */
     usd_per_second?: string;
@@ -2804,7 +2804,7 @@ export interface external {
   }
   "resources/apps/models/apps_list_instance_sizes_response.yml": {
     /**
-     * Format: float 
+     * Format: float
      * @example 2.32
      */
     discount_percent?: number;
@@ -2818,44 +2818,44 @@ export interface external {
   }
   "resources/apps/models/apps_region.yml": {
     /**
-     * The continent that this region is in 
+     * The continent that this region is in
      * @example europe
      */
     continent?: string;
     /**
-     * Data centers that are in this region 
+     * Data centers that are in this region
      * @example [
      *   "ams"
      * ]
      */
     data_centers?: readonly (string)[];
     /**
-     * @description Whether or not the region is presented as the default. 
+     * @description Whether or not the region is presented as the default.
      * @example true
      */
     default?: boolean;
     /**
-     * Whether or not the region is open for new apps 
+     * Whether or not the region is open for new apps
      * @example true
      */
     disabled?: boolean;
     /**
-     * The flag of this region 
+     * The flag of this region
      * @example ams
      */
     flag?: string;
     /**
-     * A human-readable name of the region 
+     * A human-readable name of the region
      * @example ams
      */
     label?: string;
     /**
-     * Reason that this region is not available 
+     * Reason that this region is not available
      * @example to crowded
      */
     reason?: string;
     /**
-     * The slug form of the region name 
+     * The slug form of the region name
      * @example basic
      */
     slug?: string;
@@ -2866,59 +2866,59 @@ export interface external {
   } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"]
   "resources/apps/models/apps_rollback_app_request.yml": {
     /**
-     * @description The ID of the deployment to rollback to. 
+     * @description The ID of the deployment to rollback to.
      * @example 3aa4d20e-5527-4c00-b496-601fbd22520a
      */
     deployment_id?: string;
     /**
-     * @description Whether to skip pinning the rollback deployment. If false, the rollback deployment will be pinned and any new deployments including Auto Deploy on Push hooks will be disabled until the rollback is either manually committed or reverted via the CommitAppRollback or RevertAppRollback endpoints respectively. If true, the rollback will be immediately committed and the app will remain unpinned. 
+     * @description Whether to skip pinning the rollback deployment. If false, the rollback deployment will be pinned and any new deployments including Auto Deploy on Push hooks will be disabled until the rollback is either manually committed or reverted via the CommitAppRollback or RevertAppRollback endpoints respectively. If true, the rollback will be immediately committed and the app will remain unpinned.
      * @example false
      */
     skip_pin?: boolean;
   }
   "resources/apps/models/apps_string_match.yml": {
     /**
-     * @description Exact string match. Only 1 of `exact`, `prefix`, or `regex` must be set. 
+     * @description Exact string match. Only 1 of `exact`, `prefix`, or `regex` must be set.
      * @example https://www.example.com
      */
     exact?: string;
     /**
-     * @description Prefix-based match. Only 1 of `exact`, `prefix`, or `regex` must be set. 
+     * @description Prefix-based match. Only 1 of `exact`, `prefix`, or `regex` must be set.
      * @example https://www.example.com
      */
     prefix?: string;
     /**
-     * @description RE2 style regex-based match. Only 1 of `exact`, `prefix`, or `regex` must be set. For more information about RE2 syntax, see: https://github.com/google/re2/wiki/Syntax 
+     * @description RE2 style regex-based match. Only 1 of `exact`, `prefix`, or `regex` must be set. For more information about RE2 syntax, see: https://github.com/google/re2/wiki/Syntax
      * @example ^.*example.com
      */
     regex?: string;
   }
   "resources/apps/models/apps_tier.yml": {
     /**
-     * The amount of included build time in seconds 
-     * Format: int64 
+     * The amount of included build time in seconds
+     * Format: int64
      * @example 233
      */
     build_seconds?: string;
     /**
-     * The amount of included outbound bandwidth in bytes 
-     * Format: int64 
+     * The amount of included outbound bandwidth in bytes
+     * Format: int64
      * @example 123
      */
     egress_bandwidth_bytes?: string;
     /**
-     * A human-readable name of the tier 
+     * A human-readable name of the tier
      * @example test
      */
     name?: string;
     /**
-     * The slug of the tier 
+     * The slug of the tier
      * @example test
      */
     slug?: string;
     /**
-     * The allotted disk space in bytes 
-     * Format: int64 
+     * The allotted disk space in bytes
+     * Format: int64
      * @example 10000000
      */
     storage_bytes?: string;
@@ -3161,7 +3161,7 @@ export interface external {
     };
   }
   /**
-   * Get Customer Balance 
+   * Get Customer Balance
    * @description To retrieve the balances on a customer's account, send a GET request to `/v2/customers/my/balance`.
    */
   "resources/billing/balance_get.yml": {
@@ -3175,7 +3175,7 @@ export interface external {
     };
   }
   /**
-   * List Billing History 
+   * List Billing History
    * @description To retrieve a list of all billing history entries, send a GET request to `/v2/customers/my/billing_history`.
    */
   "resources/billing/billingHistory_list.yml": {
@@ -3189,7 +3189,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Invoice by UUID 
+   * Retrieve an Invoice by UUID
    * @description To retrieve the invoice items for an invoice, send a GET request to `/v2/customers/my/invoices/$INVOICE_UUID`.
    */
   "resources/billing/invoices_get_byUUID.yml": {
@@ -3208,7 +3208,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Invoice CSV by UUID 
+   * Retrieve an Invoice CSV by UUID
    * @description To retrieve a CSV for an invoice, send a GET request to `/v2/customers/my/invoices/$INVOICE_UUID/csv`.
    */
   "resources/billing/invoices_get_csvByUUID.yml": {
@@ -3227,7 +3227,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Invoice PDF by UUID 
+   * Retrieve an Invoice PDF by UUID
    * @description To retrieve a PDF for an invoice, send a GET request to `/v2/customers/my/invoices/$INVOICE_UUID/pdf`.
    */
   "resources/billing/invoices_get_pdfByUUID.yml": {
@@ -3246,7 +3246,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Invoice Summary by UUID 
+   * Retrieve an Invoice Summary by UUID
    * @description To retrieve a summary for an invoice, send a GET request to `/v2/customers/my/invoices/$INVOICE_UUID/summary`.
    */
   "resources/billing/invoices_get_summaryByUUID.yml": {
@@ -3265,7 +3265,7 @@ export interface external {
     };
   }
   /**
-   * List All Invoices 
+   * List All Invoices
    * @description To retrieve a list of all invoices, send a GET request to `/v2/customers/my/invoices`.
    */
   "resources/billing/invoices_list.yml": {
@@ -3285,211 +3285,211 @@ export interface external {
   }
   "resources/billing/models/balance.yml": {
     /**
-     * @description Balance as of the `generated_at` time.  This value includes the `account_balance` and `month_to_date_usage`. 
+     * @description Balance as of the `generated_at` time.  This value includes the `account_balance` and `month_to_date_usage`.
      * @example 23.44
      */
     month_to_date_balance?: string;
     /**
-     * @description Current balance of the customer's most recent billing activity.  Does not reflect `month_to_date_usage`. 
+     * @description Current balance of the customer's most recent billing activity.  Does not reflect `month_to_date_usage`.
      * @example 12.23
      */
     account_balance?: string;
     /**
-     * @description Amount used in the current billing period as of the `generated_at` time. 
+     * @description Amount used in the current billing period as of the `generated_at` time.
      * @example 11.21
      */
     month_to_date_usage?: string;
     /**
-     * Format: date-time 
-     * @description The time at which balances were most recently generated. 
+     * Format: date-time
+     * @description The time at which balances were most recently generated.
      * @example "2019-07-09T15:01:12.000Z"
      */
     generated_at?: string;
   }
   "resources/billing/models/billing_address.yml": {
     /**
-     * @description Street address line 1 
+     * @description Street address line 1
      * @example 101 Shark Row
      */
     address_line1?: string;
     /**
-     * @description Street address line 2 
+     * @description Street address line 2
      * @example
      */
     address_line2?: string;
     /**
-     * @description City 
+     * @description City
      * @example Atlantis
      */
     city?: string;
     /**
-     * @description Region 
+     * @description Region
      * @example OC
      */
     region?: string;
     /**
-     * @description Postal code 
+     * @description Postal code
      * @example 12345
      */
     postal_code?: string;
     /**
-     * @description Country (ISO2) code 
+     * @description Country (ISO2) code
      * @example US
      */
     country_iso2_code?: string;
     /**
-     * @description Timestamp billing address was created 
+     * @description Timestamp billing address was created
      * @example "2019-09-03T16:34:46.000Z"
      */
     created_at?: string;
     /**
-     * @description Timestamp billing address was updated 
+     * @description Timestamp billing address was updated
      * @example "2019-09-03T16:34:46.000Z"
      */
     updated_at?: string;
   }
   "resources/billing/models/billing_history.yml": {
     /**
-     * @description Description of the billing history entry. 
+     * @description Description of the billing history entry.
      * @example Invoice for May 2018
      */
     description?: string;
     /**
-     * @description Amount of the billing history entry. 
+     * @description Amount of the billing history entry.
      * @example 12.34
      */
     amount?: string;
     /**
-     * @description ID of the invoice associated with the billing history entry, if  applicable. 
+     * @description ID of the invoice associated with the billing history entry, if  applicable.
      * @example 123
      */
     invoice_id?: string;
     /**
-     * @description UUID of the invoice associated with the billing history entry, if  applicable. 
+     * @description UUID of the invoice associated with the billing history entry, if  applicable.
      * @example example-uuid
      */
     invoice_uuid?: string;
     /**
-     * Format: date-time 
-     * @description Time the billing history entry occurred. 
+     * Format: date-time
+     * @description Time the billing history entry occurred.
      * @example "2018-06-01T08:44:38.000Z"
      */
     date?: string;
     /**
-     * @description Type of billing history entry. 
-     * @example Invoice 
+     * @description Type of billing history entry.
+     * @example Invoice
      * @enum {string}
      */
     type?: "ACHFailure" | "Adjustment" | "AttemptFailed" | "Chargeback" | "Credit" | "CreditExpiration" | "Invoice" | "Payment" | "Refund" | "Reversal";
   }
   "resources/billing/models/invoice_item.yml": {
     /**
-     * @description Name of the product being billed in the invoice item. 
+     * @description Name of the product being billed in the invoice item.
      * @example Kubernetes Clusters
      */
     product?: string;
     /**
-     * @description UUID of the resource billing in the invoice item if available. 
+     * @description UUID of the resource billing in the invoice item if available.
      * @example 711157cb-37c8-4817-b371-44fa3504a39c
      */
     resource_uuid?: string;
     /**
-     * @description ID of the resource billing in the invoice item if available. 
+     * @description ID of the resource billing in the invoice item if available.
      * @example 2353624
      */
     resource_id?: string;
     /**
-     * @description Description of the invoice item when it is a grouped set of usage, such  as DOKS or databases. 
+     * @description Description of the invoice item when it is a grouped set of usage, such  as DOKS or databases.
      * @example my-doks-cluster
      */
     group_description?: string;
     /**
-     * @description Description of the invoice item. 
+     * @description Description of the invoice item.
      * @example a56e086a317d8410c8b4cfd1f4dc9f82
      */
     description?: string;
     /**
-     * @description Billed amount of this invoice item. Billed in USD. 
+     * @description Billed amount of this invoice item. Billed in USD.
      * @example 12.34
      */
     amount?: string;
     /**
-     * @description Duration of time this invoice item was used and subsequently billed. 
+     * @description Duration of time this invoice item was used and subsequently billed.
      * @example 744
      */
     duration?: string;
     /**
-     * @description Unit of time for duration. 
+     * @description Unit of time for duration.
      * @example Hours
      */
     duration_unit?: string;
     /**
-     * @description Time the invoice item began to be billed for usage. 
+     * @description Time the invoice item began to be billed for usage.
      * @example "2020-01-01T00:00:00.000Z"
      */
     start_time?: string;
     /**
-     * @description Time the invoice item stopped being billed for usage. 
+     * @description Time the invoice item stopped being billed for usage.
      * @example "2020-02-01T00:00:00.000Z"
      */
     end_time?: string;
     /**
-     * @description Name of the DigitalOcean Project this resource belongs to. 
+     * @description Name of the DigitalOcean Project this resource belongs to.
      * @example web
      */
     project_name?: string;
   }
   "resources/billing/models/invoice_preview.yml": {
     /**
-     * @description The UUID of the invoice. The canonical reference for the invoice. 
+     * @description The UUID of the invoice. The canonical reference for the invoice.
      * @example fdabb512-6faf-443c-ba2e-665452332a9e
      */
     invoice_uuid?: string;
     /**
-     * @description Total amount of the invoice, in USD.  This will reflect month-to-date usage in the invoice preview. 
+     * @description Total amount of the invoice, in USD.  This will reflect month-to-date usage in the invoice preview.
      * @example 23.45
      */
     amount?: string;
     /**
-     * @description Billing period of usage for which the invoice is issued, in `YYYY-MM`  format. 
+     * @description Billing period of usage for which the invoice is issued, in `YYYY-MM`  format.
      * @example 2020-01
      */
     invoice_period?: string;
     /**
-     * @description Time the invoice was last updated.  This is only included with the invoice preview. 
+     * @description Time the invoice was last updated.  This is only included with the invoice preview.
      * @example "2020-01-23T06:31:50.000Z"
      */
     updated_at?: string;
   }
   "resources/billing/models/invoice_summary.yml": {
     /**
-     * @description UUID of the invoice 
+     * @description UUID of the invoice
      * @example 22737513-0ea7-4206-8ceb-98a575af7681
      */
     invoice_uuid?: string;
     /**
-     * @description Billing period of usage for which the invoice is issued, in `YYYY-MM`  format. 
+     * @description Billing period of usage for which the invoice is issued, in `YYYY-MM`  format.
      * @example 2020-01
      */
     billing_period?: string;
     /**
-     * @description Total amount of the invoice, in USD.  This will reflect month-to-date usage in the invoice preview. 
+     * @description Total amount of the invoice, in USD.  This will reflect month-to-date usage in the invoice preview.
      * @example 27.13
      */
     amount?: string;
     /**
-     * @description Name of the DigitalOcean customer being invoiced. 
+     * @description Name of the DigitalOcean customer being invoiced.
      * @example Sammy Shark
      */
     user_name?: string;
     user_billing_address?: external["resources/billing/models/billing_address.yml"];
     /**
-     * @description Company of the DigitalOcean customer being invoiced, if set. 
+     * @description Company of the DigitalOcean customer being invoiced, if set.
      * @example DigitalOcean
      */
     user_company?: string;
     /**
-     * @description Email of the DigitalOcean customer being invoiced. 
+     * @description Email of the DigitalOcean customer being invoiced.
      * @example sammy@digitalocean.com
      */
     user_email?: string;
@@ -3500,34 +3500,34 @@ export interface external {
   }
   "resources/billing/models/product_charge_item.yml": {
     /**
-     * @description Amount of the charge 
+     * @description Amount of the charge
      * @example 10.00
      */
     amount?: string;
     /**
-     * @description Description of the charge 
+     * @description Description of the charge
      * @example Spaces Subscription
      */
     name?: string;
     /**
-     * @description Number of times the charge was applied 
+     * @description Number of times the charge was applied
      * @example 1
      */
     count?: string;
   }
   "resources/billing/models/product_usage_charges.yml": {
     /**
-     * @description Description of usage charges 
+     * @description Description of usage charges
      * @example Product usage charges
      */
     name?: string;
     /**
-     * @description Total amount charged 
+     * @description Total amount charged
      * @example 12.34
      */
     amount?: string;
     /**
-     * @description List of amount, and grouped aggregates by resource type. 
+     * @description List of amount, and grouped aggregates by resource type.
      * @example [
      *   {
      *     "amount": "10.00",
@@ -3545,12 +3545,12 @@ export interface external {
   }
   "resources/billing/models/simple_charge.yml": {
     /**
-     * @description Name of the charge 
+     * @description Name of the charge
      * @example Overages
      */
     name?: string;
     /**
-     * @description Total amount charged in USD 
+     * @description Total amount charged in USD
      * @example 3.45
      */
     amount?: string;
@@ -3638,12 +3638,12 @@ export interface external {
     };
   }
   /**
-   * Create a New CDN Endpoint 
+   * Create a New CDN Endpoint
    * @description To create a new CDN endpoint, send a POST request to `/v2/cdn/endpoints`. The
    * origin attribute must be set to the fully qualified domain name (FQDN) of a
    * DigitalOcean Space. Optionally, the TTL may be configured by setting the `ttl`
    * attribute.
-   * 
+   *
    * A custom subdomain may be configured by specifying the `custom_domain` and
    * `certificate_id` attributes.
    */
@@ -3662,10 +3662,10 @@ export interface external {
     };
   }
   /**
-   * Delete a CDN Endpoint 
+   * Delete a CDN Endpoint
    * @description To delete a specific CDN endpoint, send a DELETE request to
    * `/v2/cdn/endpoints/$ENDPOINT_ID`.
-   * 
+   *
    * A status of 204 will be given. This indicates that the request was processed
    * successfully, but that no response body is needed.
    */
@@ -3685,7 +3685,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing CDN Endpoint 
+   * Retrieve an Existing CDN Endpoint
    * @description To show information about an existing CDN endpoint, send a GET request to `/v2/cdn/endpoints/$ENDPOINT_ID`.
    */
   "resources/cdn/cdn_get_endpoint.yml": {
@@ -3704,7 +3704,7 @@ export interface external {
     };
   }
   /**
-   * List All CDN Endpoints 
+   * List All CDN Endpoints
    * @description To list all of the CDN endpoints available on your account, send a GET request to `/v2/cdn/endpoints`.
    */
   "resources/cdn/cdn_list_endpoints.yml": {
@@ -3723,13 +3723,13 @@ export interface external {
     };
   }
   /**
-   * Purge the Cache for an Existing CDN Endpoint 
+   * Purge the Cache for an Existing CDN Endpoint
    * @description To purge cached content from a CDN endpoint, send a DELETE request to
    * `/v2/cdn/endpoints/$ENDPOINT_ID/cache`. The body of the request should include
    * a `files` attribute containing a list of cached file paths to be purged. A
    * path may be for a single file or may contain a wildcard (`*`) to recursively
    * purge all files under a directory. When only a wildcard is provided, all
-   * cached files will be purged. There is a rate limit of 50 files per 20 seconds 
+   * cached files will be purged. There is a rate limit of 50 files per 20 seconds
    * that can be purged.
    */
   "resources/cdn/cdn_purge_cache.yml": {
@@ -3753,7 +3753,7 @@ export interface external {
     };
   }
   /**
-   * Update a CDN Endpoint 
+   * Update a CDN Endpoint
    * @description To update the TTL, certificate ID, or the FQDN of the custom subdomain for
    * an existing CDN endpoint, send a PUT request to
    * `/v2/cdn/endpoints/$ENDPOINT_ID`.
@@ -3780,52 +3780,52 @@ export interface external {
   }
   "resources/cdn/models/cdn_endpoint.yml": {
     /**
-     * Format: uuid 
-     * @description A unique ID that can be used to identify and reference a CDN endpoint. 
+     * Format: uuid
+     * @description A unique ID that can be used to identify and reference a CDN endpoint.
      * @example 892071a0-bb95-49bc-8021-3afd67a210bf
      */
     id?: string;
     /**
-     * Format: hostname 
-     * @description The fully qualified domain name (FQDN) for the origin server which provides the content for the CDN. This is currently restricted to a Space. 
+     * Format: hostname
+     * @description The fully qualified domain name (FQDN) for the origin server which provides the content for the CDN. This is currently restricted to a Space.
      * @example static-images.nyc3.digitaloceanspaces.com
      */
     origin: string;
     /**
-     * Format: hostname 
-     * @description The fully qualified domain name (FQDN) from which the CDN-backed content is served. 
+     * Format: hostname
+     * @description The fully qualified domain name (FQDN) from which the CDN-backed content is served.
      * @example static-images.nyc3.cdn.digitaloceanspaces.com
      */
     endpoint?: string;
     /**
-     * @description The amount of time the content is cached by the CDN's edge servers in seconds. TTL must be one of 60, 600, 3600, 86400, or 604800. Defaults to 3600 (one hour) when excluded. 
-     * @default 3600 
-     * @example 3600 
+     * @description The amount of time the content is cached by the CDN's edge servers in seconds. TTL must be one of 60, 600, 3600, 86400, or 604800. Defaults to 3600 (one hour) when excluded.
+     * @default 3600
+     * @example 3600
      * @enum {integer}
      */
     ttl?: 60 | 600 | 3600 | 86400 | 604800;
     /**
-     * Format: uuid 
-     * @description The ID of a DigitalOcean managed TLS certificate used for SSL when a custom subdomain is provided. 
+     * Format: uuid
+     * @description The ID of a DigitalOcean managed TLS certificate used for SSL when a custom subdomain is provided.
      * @example 892071a0-bb95-49bc-8021-3afd67a210bf
      */
     certificate_id?: string;
     /**
-     * Format: hostname 
-     * @description The fully qualified domain name (FQDN) of the custom subdomain used with the CDN endpoint. 
+     * Format: hostname
+     * @description The fully qualified domain name (FQDN) of the custom subdomain used with the CDN endpoint.
      * @example static.example.com
      */
     custom_domain?: string;
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the CDN endpoint was created. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the CDN endpoint was created.
      * @example 2018-03-21T16:02:37Z
      */
     created_at?: string;
   }
   "resources/cdn/models/purge_cache.yml": {
     /**
-     * @description An array of strings containing the path to the content to be purged from the CDN cache. 
+     * @description An array of strings containing the path to the content to be purged from the CDN cache.
      * @example [
      *   "path/to/image.png",
      *   "path/to/css/*"
@@ -3835,21 +3835,21 @@ export interface external {
   }
   "resources/cdn/models/update_endpoint.yml": {
     /**
-     * @description The amount of time the content is cached by the CDN's edge servers in seconds. TTL must be one of 60, 600, 3600, 86400, or 604800. Defaults to 3600 (one hour) when excluded. 
-     * @default 3600 
-     * @example 3600 
+     * @description The amount of time the content is cached by the CDN's edge servers in seconds. TTL must be one of 60, 600, 3600, 86400, or 604800. Defaults to 3600 (one hour) when excluded.
+     * @default 3600
+     * @example 3600
      * @enum {integer}
      */
     ttl?: 60 | 600 | 3600 | 86400 | 604800;
     /**
-     * Format: uuid 
-     * @description The ID of a DigitalOcean managed TLS certificate used for SSL when a custom subdomain is provided. 
+     * Format: uuid
+     * @description The ID of a DigitalOcean managed TLS certificate used for SSL when a custom subdomain is provided.
      * @example 892071a0-bb95-49bc-8021-3afd67a210bf
      */
     certificate_id?: string;
     /**
-     * Format: hostname 
-     * @description The fully qualified domain name (FQDN) of the custom subdomain used with the CDN endpoint. 
+     * Format: hostname
+     * @description The fully qualified domain name (FQDN) of the custom subdomain used with the CDN endpoint.
      * @example static.example.com
      */
     custom_domain?: string;
@@ -3882,14 +3882,14 @@ export interface external {
     };
   }
   /**
-   * Create a New Certificate 
+   * Create a New Certificate
    * @description To upload new SSL certificate which you have previously generated, send a POST
    * request to `/v2/certificates`.
-   * 
+   *
    * When uploading a user-generated certificate, the `private_key`,
    * `leaf_certificate`, and optionally the `certificate_chain` attributes should
    * be provided. The type must be set to `custom`.
-   * 
+   *
    * When using Let's Encrypt to create a certificate, the `dns_names` attribute
    * must be provided, and the type must be set to `lets_encrypt`.
    */
@@ -3908,7 +3908,7 @@ export interface external {
     };
   }
   /**
-   * Delete a Certificate 
+   * Delete a Certificate
    * @description To delete a specific certificate, send a DELETE request to
    * `/v2/certificates/$CERTIFICATE_ID`.
    */
@@ -3928,7 +3928,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Certificate 
+   * Retrieve an Existing Certificate
    * @description To show information about an existing certificate, send a GET request to `/v2/certificates/$CERTIFICATE_ID`.
    */
   "resources/certificates/certificates_get.yml": {
@@ -3947,7 +3947,7 @@ export interface external {
     };
   }
   /**
-   * List All Certificates 
+   * List All Certificates
    * @description To list all of the certificates available on your account, send a GET request to `/v2/certificates`.
    */
   "resources/certificates/certificates_list.yml": {
@@ -3968,20 +3968,20 @@ export interface external {
   "resources/certificates/models/certificate_create.yml": {
     certificate_create_base: {
       /**
-       * @description A unique human-readable name referring to a certificate. 
+       * @description A unique human-readable name referring to a certificate.
        * @example web-cert-01
        */
       name: string;
       /**
-       * @description A string representing the type of the certificate. The value will be `custom` for a user-uploaded certificate or `lets_encrypt` for one automatically generated with Let's Encrypt. 
-       * @example lets_encrypt 
+       * @description A string representing the type of the certificate. The value will be `custom` for a user-uploaded certificate or `lets_encrypt` for one automatically generated with Let's Encrypt.
+       * @example lets_encrypt
        * @enum {string}
        */
       type?: "custom" | "lets_encrypt";
     };
     /** Custom Certificate Request */    certificate_request_custom: certificate_create_base[] & {
       /**
-       * @description The contents of a PEM-formatted private-key corresponding to the SSL certificate. 
+       * @description The contents of a PEM-formatted private-key corresponding to the SSL certificate.
        * @example -----BEGIN PRIVATE KEY-----
        * MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBIZMz8pnK6V52
        * SVf+CYssOfCQHAx5f0Ou5rYbq3xNh8VHAIYJCQ1QxQIxKSP6+uODSYrb2KWyurP1
@@ -4013,7 +4013,7 @@ export interface external {
        */
       private_key: string;
       /**
-       * @description The contents of a PEM-formatted public SSL certificate. 
+       * @description The contents of a PEM-formatted public SSL certificate.
        * @example -----BEGIN CERTIFICATE-----
        * MIIFFjCCA/6gAwIBAgISA0AznUJmXhu08/89ZuSPC/kRMA0GCSqGSIb3DQEBCwUA
        * MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
@@ -4047,7 +4047,7 @@ export interface external {
        */
       leaf_certificate: string;
       /**
-       * @description The full PEM-formatted trust chain between the certificate authority's certificate and your domain's SSL certificate. 
+       * @description The full PEM-formatted trust chain between the certificate authority's certificate and your domain's SSL certificate.
        * @example -----BEGIN CERTIFICATE-----
        * MIIFFjCCA/6gAwIBAgISA0AznUJmXhu08/89ZuSPC/kRMA0GCSqGSIb3DQEBCwUA
        * MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
@@ -4110,7 +4110,7 @@ export interface external {
     };
     /** Let's Encrypt Certificate Request */    certificate_request_lets_encrypt: certificate_create_base[] & {
       /**
-       * @description An array of fully qualified domain names (FQDNs) for which the certificate was issued. A certificate covering all subdomains can be issued using a wildcard (e.g. `*.example.com`). 
+       * @description An array of fully qualified domain names (FQDNs) for which the certificate was issued. A certificate covering all subdomains can be issued using a wildcard (e.g. `*.example.com`).
        * @example [
        *   "www.example.com",
        *   "example.com"
@@ -4121,35 +4121,35 @@ export interface external {
   };
   "resources/certificates/models/certificate.yml": {
     /**
-     * Format: uuid 
-     * @description A unique ID that can be used to identify and reference a certificate. 
+     * Format: uuid
+     * @description A unique ID that can be used to identify and reference a certificate.
      * @example 892071a0-bb95-49bc-8021-3afd67a210bf
      */
     id?: string;
     /**
-     * @description A unique human-readable name referring to a certificate. 
+     * @description A unique human-readable name referring to a certificate.
      * @example web-cert-01
      */
     name?: string;
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents the certificate's expiration date. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents the certificate's expiration date.
      * @example "2017-02-22T00:23:00.000Z"
      */
     not_after?: string;
     /**
-     * @description A unique identifier generated from the SHA-1 fingerprint of the certificate. 
+     * @description A unique identifier generated from the SHA-1 fingerprint of the certificate.
      * @example dfcc9f57d86bf58e321c2c6c31c7a971be244ac7
      */
     sha1_fingerprint?: string;
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the certificate was created. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the certificate was created.
      * @example "2017-02-08T16:02:37.000Z"
      */
     created_at?: string;
     /**
-     * @description An array of fully qualified domain names (FQDNs) for which the certificate was issued. 
+     * @description An array of fully qualified domain names (FQDNs) for which the certificate was issued.
      * @example [
      *   "www.example.com",
      *   "example.com"
@@ -4157,14 +4157,14 @@ export interface external {
      */
     dns_names?: (string)[];
     /**
-     * @description A string representing the current state of the certificate. It may be `pending`, `verified`, or `error`. 
-     * @example verified 
+     * @description A string representing the current state of the certificate. It may be `pending`, `verified`, or `error`.
+     * @example verified
      * @enum {string}
      */
     state?: "pending" | "verified" | "error";
     /**
-     * @description A string representing the type of the certificate. The value will be `custom` for a user-uploaded certificate or `lets_encrypt` for one automatically generated with Let's Encrypt. 
-     * @example lets_encrypt 
+     * @description A string representing the type of the certificate. The value will be `custom` for a user-uploaded certificate or `lets_encrypt` for one automatically generated with Let's Encrypt.
+     * @example lets_encrypt
      * @enum {string}
      */
     type?: "custom" | "lets_encrypt";
@@ -4210,13 +4210,13 @@ export interface external {
     };
   }
   /**
-   * Add a New Connection Pool (PostgreSQL) 
+   * Add a New Connection Pool (PostgreSQL)
    * @description For PostgreSQL database clusters, connection pools can be used to allow a
    * database to share its idle connections. The popular PostgreSQL connection
    * pooling utility PgBouncer is used to provide this service. [See here for more information](https://www.digitalocean.com/docs/databases/postgresql/how-to/manage-connection-pools/)
    * about how and why to use PgBouncer connection pooling including
    * details about the available transaction modes.
-   * 
+   *
    * To add a new connection pool to a PostgreSQL database cluster, send a POST
    * request to `/v2/databases/$DATABASE_ID/pools` specifying a name for the pool,
    * the user to connect with, the database to connect to, as well as its desired
@@ -4252,15 +4252,15 @@ export interface external {
     };
   }
   /**
-   * Add a Database User 
+   * Add a Database User
    * @description To add a new database user, send a POST request to `/v2/databases/$DATABASE_ID/users`
    * with the desired username.
-   * 
+   *
    * Note: User management is not supported for Redis clusters.
-   * 
+   *
    * When adding a user to a MySQL cluster, additional options can be configured in the
    * `mysql_settings` object.
-   * 
+   *
    * The response will be a JSON object with a key called `user`. The value of this will be an
    * object that contains the standard attributes associated with a database user including
    * its randomly generated password.
@@ -4277,7 +4277,7 @@ export interface external {
           /**
            * @description For MongoDB clusters, set to `true` to create a read-only user.
            * This option is not currently supported for other database engines.
-           *  
+           *
            * @example true
            */
           readonly?: boolean;
@@ -4294,12 +4294,12 @@ export interface external {
     };
   }
   /**
-   * Add a New Database 
+   * Add a New Database
    * @description To add a new database to an existing cluster, send a POST request to
    * `/v2/databases/$DATABASE_ID/dbs`.
-   * 
+   *
    * Note: Database management is not supported for Redis clusters.
-   * 
+   *
    * The response will be a JSON object with a key called `db`. The value of this will be
    * an object that contains the standard attributes associated with a database.
    */
@@ -4329,7 +4329,7 @@ export interface external {
     };
   }
   /**
-   * Create a New Database Cluster 
+   * Create a New Database Cluster
    * @description To create a database cluster, send a POST request to `/v2/databases`.
    * The response will be a JSON object with a key called `database`. The value of this will be an object that contains the standard attributes associated with a database cluster. The initial value of the database cluster's `status` attribute will be `creating`. When the cluster is ready to receive traffic, this will transition to `online`.
    * The embedded `connection` and `private_connection` objects will contain the information needed to access the database cluster.
@@ -4354,11 +4354,11 @@ export interface external {
     };
   }
   /**
-   * Create a Read-only Replica 
+   * Create a Read-only Replica
    * @description To create a read-only replica for a PostgreSQL or MySQL database cluster, send a POST request to `/v2/databases/$DATABASE_ID/replicas` specifying the name it should be given, the size of the node to be used, and the region where it will be located.
-   * 
+   *
    * **Note**: Read-only replicas are not supported for Redis clusters.
-   * 
+   *
    * The response will be a JSON object with a key called `replica`. The value of this will be an object that contains the standard attributes associated with a database replica. The initial value of the read-only replica's `status` attribute will be `forking`. When the replica is ready to receive traffic, this will transition to `active`.
    */
   "resources/databases/databases_create_replica.yml": {
@@ -4389,10 +4389,10 @@ export interface external {
     };
   }
   /**
-   * Delete a Connection Pool (PostgreSQL) 
+   * Delete a Connection Pool (PostgreSQL)
    * @description To delete a specific connection pool for a PostgreSQL database cluster, send
    * a DELETE request to `/v2/databases/$DATABASE_ID/pools/$POOL_NAME`.
-   * 
+   *
    * A status of 204 will be given. This indicates that the request was processed
    * successfully, but that no response body is needed.
    */
@@ -4413,9 +4413,9 @@ export interface external {
     };
   }
   /**
-   * Stop an Online Migration 
+   * Stop an Online Migration
    * @description To stop an online migration, send a DELETE request to `/v2/databases/$DATABASE_ID/online-migration/$MIGRATION_ID`.
-   * 
+   *
    * A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
    */
   "resources/databases/databases_delete_onlineMigration.yml": {
@@ -4435,13 +4435,13 @@ export interface external {
     };
   }
   /**
-   * Remove a Database User 
+   * Remove a Database User
    * @description To remove a specific database user, send a DELETE request to
    * `/v2/databases/$DATABASE_ID/users/$USERNAME`.
-   * 
+   *
    * A status of 204 will be given. This indicates that the request was processed
    * successfully, but that no response body is needed.
-   * 
+   *
    * Note: User management is not supported for Redis clusters.
    */
   "resources/databases/databases_delete_user.yml": {
@@ -4461,13 +4461,13 @@ export interface external {
     };
   }
   /**
-   * Delete a Database 
+   * Delete a Database
    * @description To delete a specific database, send a DELETE request to
    * `/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.
-   * 
+   *
    * A status of 204 will be given. This indicates that the request was processed
    * successfully, but that no response body is needed.
-   * 
+   *
    * Note: Database management is not supported for Redis clusters.
    */
   "resources/databases/databases_delete.yml": {
@@ -4487,7 +4487,7 @@ export interface external {
     };
   }
   /**
-   * Destroy a Database Cluster 
+   * Destroy a Database Cluster
    * @description To destroy a specific database, send a DELETE request to `/v2/databases/$DATABASE_ID`.
    * A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
    */
@@ -4507,11 +4507,11 @@ export interface external {
     };
   }
   /**
-   * Destroy a Read-only Replica 
+   * Destroy a Read-only Replica
    * @description To destroy a specific read-only replica, send a DELETE request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.
-   * 
+   *
    * **Note**: Read-only replicas are not supported for Redis clusters.
-   * 
+   *
    * A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
    */
   "resources/databases/databases_destroy_replica.yml": {
@@ -4531,10 +4531,10 @@ export interface external {
     };
   }
   /**
-   * Retrieve the Public Certificate 
+   * Retrieve the Public Certificate
    * @description To retrieve the public certificate used to secure the connection to the database cluster send a GET request to
    * `/v2/databases/$DATABASE_ID/ca`.
-   * 
+   *
    * The response will be a JSON object with a `ca` key. This will be set to an object
    * containing the base64 encoding of the public key certificate.
    */
@@ -4554,7 +4554,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Database Cluster 
+   * Retrieve an Existing Database Cluster
    * @description To show information about an existing database cluster, send a GET request to `/v2/databases/$DATABASE_ID`.
    * The response will be a JSON object with a database key. This will be set to an object containing the standard database cluster attributes.
    * The embedded connection and private_connection objects will contain the information needed to access the database cluster.
@@ -4576,7 +4576,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Database Cluster Configuration 
+   * Retrieve an Existing Database Cluster Configuration
    * @description Shows configuration parameters for an existing database cluster by sending a GET request to
    * `/v2/databases/$DATABASE_ID/config`.
    * The response is a JSON object with a `config` key, which is set to an object
@@ -4598,7 +4598,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve Existing Connection Pool (PostgreSQL) 
+   * Retrieve Existing Connection Pool (PostgreSQL)
    * @description To show information about an existing connection pool for a PostgreSQL database cluster, send a GET request to `/v2/databases/$DATABASE_ID/pools/$POOL_NAME`.
    * The response will be a JSON object with a `pool` key.
    */
@@ -4619,7 +4619,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve the Eviction Policy for a Redis Cluster 
+   * Retrieve the Eviction Policy for a Redis Cluster
    * @description To retrieve the configured eviction policy for an existing Redis cluster, send a GET request to `/v2/databases/$DATABASE_ID/eviction_policy`.
    * The response will be a JSON object with an `eviction_policy` key. This will be set to a string representing the eviction policy.
    */
@@ -4639,7 +4639,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve the Status of an Online Migration 
+   * Retrieve the Status of an Online Migration
    * @description To retrieve the status of the most recent online migration, send a GET request to `/v2/databases/$DATABASE_ID/online-migration`.
    */
   "resources/databases/databases_get_migrationStatus.yml": {
@@ -4658,11 +4658,11 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Read-only Replica 
+   * Retrieve an Existing Read-only Replica
    * @description To show information about an existing database replica, send a GET request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.
-   * 
+   *
    * **Note**: Read-only replicas are not supported for Redis clusters.
-   * 
+   *
    * The response will be a JSON object with a `replica key`. This will be set to an object containing the standard database replica attributes.
    */
   "resources/databases/databases_get_replica.yml": {
@@ -4682,7 +4682,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve the SQL Modes for a MySQL Cluster 
+   * Retrieve the SQL Modes for a MySQL Cluster
    * @description To retrieve the configured SQL modes for an existing MySQL cluster, send a GET request to `/v2/databases/$DATABASE_ID/sql_mode`.
    * The response will be a JSON object with a `sql_mode` key. This will be set to a string representing the configured SQL modes.
    */
@@ -4702,15 +4702,15 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Database User 
+   * Retrieve an Existing Database User
    * @description To show information about an existing database user, send a GET request to
    * `/v2/databases/$DATABASE_ID/users/$USERNAME`.
-   * 
+   *
    * Note: User management is not supported for Redis clusters.
-   * 
+   *
    * The response will be a JSON object with a `user` key. This will be set to an object
    * containing the standard database user attributes.
-   * 
+   *
    * For MySQL clusters, additional options will be contained in the mysql_settings
    * object.
    */
@@ -4731,12 +4731,12 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Database 
+   * Retrieve an Existing Database
    * @description To show information about an existing database cluster, send a GET request to
    * `/v2/databases/$DATABASE_ID/dbs/$DB_NAME`.
-   * 
+   *
    * Note: Database management is not supported for Redis clusters.
-   * 
+   *
    * The response will be a JSON object with a `db` key. This will be set to an object
    * containing the standard database attributes.
    */
@@ -4757,7 +4757,7 @@ export interface external {
     };
   }
   /**
-   * List Backups for a Database Cluster 
+   * List Backups for a Database Cluster
    * @description To list all of the available backups of a PostgreSQL or MySQL database cluster, send a GET request to `/v2/databases/$DATABASE_ID/backups`.
    * **Note**: Backups are not supported for Redis clusters.
    * The result will be a JSON object with a `backups key`. This will be set to an array of backup objects, each of which will contain the size of the backup and the timestamp at which it was created.
@@ -4778,7 +4778,7 @@ export interface external {
     };
   }
   /**
-   * List All Database Clusters 
+   * List All Database Clusters
    * @description To list all of the database clusters available on your account, send a GET request to `/v2/databases`. To limit the results to database clusters with a specific tag, include the `tag_name` query parameter set to the name of the tag. For example, `/v2/databases?tag_name=$TAG_NAME`.
    * The result will be a JSON object with a `databases` key. This will be set to an array of database objects, each of which will contain the standard database attributes.
    * The embedded `connection` and `private_connection` objects will contain the information needed to access the database cluster:
@@ -4800,7 +4800,7 @@ export interface external {
     };
   }
   /**
-   * List Connection Pools (PostgreSQL) 
+   * List Connection Pools (PostgreSQL)
    * @description To list all of the connection pools available to a PostgreSQL database cluster, send a GET request to `/v2/databases/$DATABASE_ID/pools`.
    * The result will be a JSON object with a `pools` key. This will be set to an array of connection pool objects.
    */
@@ -4820,7 +4820,7 @@ export interface external {
     };
   }
   /**
-   * List Firewall Rules (Trusted Sources) for a Database Cluster 
+   * List Firewall Rules (Trusted Sources) for a Database Cluster
    * @description To list all of a database cluster's firewall rules (known as "trusted sources" in the control panel), send a GET request to `/v2/databases/$DATABASE_ID/firewall`.
    * The result will be a JSON object with a `rules` key.
    */
@@ -4840,7 +4840,7 @@ export interface external {
     };
   }
   /**
-   * List Database Options 
+   * List Database Options
    * @description To list all of the options available for the offered database engines, send a GET request to `/v2/databases/options`.
    * The result will be a JSON object with an `options` key.
    */
@@ -4855,11 +4855,11 @@ export interface external {
     };
   }
   /**
-   * List All Read-only Replicas 
+   * List All Read-only Replicas
    * @description To list all of the read-only replicas associated with a database cluster, send a GET request to `/v2/databases/$DATABASE_ID/replicas`.
-   * 
+   *
    * **Note**: Read-only replicas are not supported for Redis clusters.
-   * 
+   *
    * The result will be a JSON object with a `replicas` key. This will be set to an array of database replica objects, each of which will contain the standard database replica attributes.
    */
   "resources/databases/databases_list_replicas.yml": {
@@ -4878,15 +4878,15 @@ export interface external {
     };
   }
   /**
-   * List all Database Users 
+   * List all Database Users
    * @description To list all of the users for your database cluster, send a GET request to
    * `/v2/databases/$DATABASE_ID/users`.
-   * 
+   *
    * Note: User management is not supported for Redis clusters.
-   * 
+   *
    * The result will be a JSON object with a `users` key. This will be set to an array
    * of database user objects, each of which will contain the standard database user attributes.
-   * 
+   *
    * For MySQL clusters, additional options will be contained in the mysql_settings object.
    */
   "resources/databases/databases_list_users.yml": {
@@ -4905,13 +4905,13 @@ export interface external {
     };
   }
   /**
-   * List All Databases 
+   * List All Databases
    * @description To list all of the databases in a clusters, send a GET request to
    * `/v2/databases/$DATABASE_ID/dbs`.
-   * 
+   *
    * The result will be a JSON object with a `dbs` key. This will be set to an array
    * of database objects, each of which will contain the standard database attributes.
-   * 
+   *
    * Note: Database management is not supported for Redis clusters.
    */
   "resources/databases/databases_list.yml": {
@@ -4930,7 +4930,7 @@ export interface external {
     };
   }
   /**
-   * Update the Database Configuration for an Existing Database 
+   * Update the Database Configuration for an Existing Database
    * @description To update the configuration for an existing database cluster, send a PATCH request to
    * `/v2/databases/$DATABASE_ID/config`.
    */
@@ -4963,11 +4963,11 @@ export interface external {
     };
   }
   /**
-   * Promote a Read-only Replica to become a Primary Cluster 
+   * Promote a Read-only Replica to become a Primary Cluster
    * @description To promote a specific read-only replica, send a PUT request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME/promote`.
-   * 
+   *
    * **Note**: Read-only replicas are not supported for Redis clusters.
-   * 
+   *
    * A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
    */
   "resources/databases/databases_promote_replica.yml": {
@@ -4987,14 +4987,14 @@ export interface external {
     };
   }
   /**
-   * Reset a Database User's Password or Authentication Method 
+   * Reset a Database User's Password or Authentication Method
    * @description To reset the password for a database user, send a POST request to
    * `/v2/databases/$DATABASE_ID/users/$USERNAME/reset_auth`.
-   * 
+   *
    * For `mysql` databases, the authentication method can be specifying by
    * including a key in the JSON body called `mysql_settings` with the `auth_plugin`
    * value specified.
-   * 
+   *
    * The response will be a JSON object with a `user` key. This will be set to an
    * object containing the standard database user attributes.
    */
@@ -5029,7 +5029,7 @@ export interface external {
     };
   }
   /**
-   * Resize a Database Cluster 
+   * Resize a Database Cluster
    * @description To resize a database cluster, send a PUT request to `/v2/databases/$DATABASE_ID/resize`. The body of the request must specify both the size and num_nodes attributes.
    * A successful request will receive a 202 Accepted status code with no body in response. Querying the database cluster will show that its status attribute will now be set to resizing. This will transition back to online when the resize operation has completed.
    */
@@ -5060,7 +5060,7 @@ export interface external {
     };
   }
   /**
-   * Update Connection Pools (PostgreSQL) 
+   * Update Connection Pools (PostgreSQL)
    * @description To update a connection pool for a PostgreSQL database cluster, send a PUT request to  `/v2/databases/$DATABASE_ID/pools/$POOL_NAME`.
    */
   "resources/databases/databases_update_connectionPool.yml": {
@@ -5093,7 +5093,7 @@ export interface external {
     };
   }
   /**
-   * Configure the Eviction Policy for a Redis Cluster 
+   * Configure the Eviction Policy for a Redis Cluster
    * @description To configure an eviction policy for an existing Redis cluster, send a PUT request to `/v2/databases/$DATABASE_ID/eviction_policy` specifying the desired policy.
    */
   "resources/databases/databases_update_evictionPolicy.yml": {
@@ -5124,7 +5124,7 @@ export interface external {
     };
   }
   /**
-   * Update Firewall Rules (Trusted Sources) for a Database 
+   * Update Firewall Rules (Trusted Sources) for a Database
    * @description To update a database cluster's firewall rules (known as "trusted sources" in the control panel), send a PUT request to `/v2/databases/$DATABASE_ID/firewall` specifying which resources should be able to open connections to the database. You may limit connections to specific Droplets, Kubernetes clusters, or IP addresses. When a tag is provided, any Droplet or Kubernetes node with that tag applied to it will have access. The firewall is limited to 100 rules (or trusted sources). When possible, we recommend [placing your databases into a VPC network](https://www.digitalocean.com/docs/networking/vpc/) to limit access to them instead of using a firewall.
    * A successful
    */
@@ -5173,7 +5173,7 @@ export interface external {
     };
   }
   /**
-   * Configure a Database Cluster's Maintenance Window 
+   * Configure a Database Cluster's Maintenance Window
    * @description To configure the window when automatic maintenance should be performed for a database cluster, send a PUT request to `/v2/databases/$DATABASE_ID/maintenance`.
    * A successful request will receive a 204 No Content status code with no body in response.
    */
@@ -5204,7 +5204,7 @@ export interface external {
     };
   }
   /**
-   * Start an Online Migration 
+   * Start an Online Migration
    * @description To start an online migration, send a PUT request to `/v2/databases/$DATABASE_ID/online-migration` endpoint. Migrating a cluster establishes a connection with an existing cluster and replicates its contents to the target cluster. Online migration is only available for MySQL, PostgreSQL, and Redis clusters.
    */
   "resources/databases/databases_update_onlineMigration.yml": {
@@ -5240,11 +5240,11 @@ export interface external {
     };
   }
   /**
-   * Migrate a Database Cluster to a New Region 
+   * Migrate a Database Cluster to a New Region
    * @description To migrate a database cluster to a new region, send a `PUT` request to
    * `/v2/databases/$DATABASE_ID/migrate`. The body of the request must specify a
    * `region` attribute.
-   * 
+   *
    * A successful request will receive a 202 Accepted status code with no body in
    * response. Querying the database cluster will show that its `status` attribute
    * will now be set to `migrating`. This will transition back to `online` when the
@@ -5260,7 +5260,7 @@ export interface external {
       content: {
         "application/json": {
           /**
-           * @description A slug identifier for the region to which the database cluster will be migrated. 
+           * @description A slug identifier for the region to which the database cluster will be migrated.
            * @example lon1
            */
           region: string;
@@ -5277,7 +5277,7 @@ export interface external {
     };
   }
   /**
-   * Update SQL Mode for a Cluster 
+   * Update SQL Mode for a Cluster
    * @description To configure the SQL modes for an existing MySQL cluster, send a PUT request to `/v2/databases/$DATABASE_ID/sql_mode` specifying the desired modes. See the official MySQL 8 documentation for a [full list of supported SQL modes](https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sql-mode-full).
    * A successful request will receive a 204 No Content status code with no body in response.
    */
@@ -5307,7 +5307,7 @@ export interface external {
     };
   }
   /**
-   * Upgrade Major Version for a Database 
+   * Upgrade Major Version for a Database
    * @description To upgrade the major version of a database, send a PUT request to `/v2/databases/$DATABASE_ID/upgrade`, specifying the target version.
    * A successful request will receive a 204 No Content status code with no body in response.
    */
@@ -5338,71 +5338,71 @@ export interface external {
   }
   "resources/databases/models/backup.yml": {
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format at which the backup was created. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format at which the backup was created.
      * @example "2019-01-31T19:25:22.000Z"
      */
     created_at: string;
     /**
-     * @description The size of the database backup in GBs. 
+     * @description The size of the database backup in GBs.
      * @example 0.03364864
      */
     size_gigabytes: number;
   }
   "resources/databases/models/ca.yml": {
     /**
-     * @description base64 encoding of the certificate used to secure database connections 
+     * @description base64 encoding of the certificate used to secure database connections
      * @example LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUVRVENDQXFtZ0F3SUJBZ0lVRUZZWTdBWFZQS0Raam9jb1lpMk00Y0dvcU0wd0RRWUpLb1pJaHZjTkFRRU0KQlFBd09qRTRNRFlHQTFVRUF3d3ZOek0zT1RaaE1XRXRaamhrTUMwME9HSmpMV0V4Wm1NdFpqbGhNVFZsWXprdwpORGhsSUZCeWIycGxZM1FnUTBFd0hoY05NakF3TnpFM01UVTFNREEyV2hjTk16QXdOekUxTVRVMU1EQTJXakE2Ck1UZ3dOZ1lEVlFRRERDODNNemM1Tm1FeFlTMW1PR1F3TFRRNFltTXRZVEZtWXkxbU9XRXhOV1ZqT1RBME9HVWcKVUhKdmFtVmpkQ0JEUVRDQ0FhSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnR1BBRENDQVlvQ2dnR0JBTVdScXhycwpMZnpNdHZyUmxKVEw4MldYMVBLZkhKbitvYjNYcmVBY3FZd1dBUUp2Q3IycmhxSXZieVZzMGlaU0NzOHI4c3RGClljQ0R1bkxJNmUwTy9laERZYTBIT2RrMkFFRzE1ckVOVmNha2NSczcyQWlHVHNrdkNXS2VkUjFTUWswVWt0WCsKQUg4S1ExS3F5bzNtZ2Y2cVV1WUpzc3JNTXFselk3YTN1RVpEb2ZqTjN5Q3MvM21pTVJKcVcyNm1JV0IrUUlEbAo5YzdLRVF5MTZvdCtjeHVnd0lLMm9oZHMzaFY1bjBKMFVBM0I3QWRBdXY5aUl5L3JHaHlTNm5CNTdaWm9JZnAyCnFybXdOY0UrVjlIdXhQSGtRVjFOQjUwOFFudWZ4Z0E5VCtqU2VrdGVUbWFORkxqNjFXL3BtcndrTytOaWFXUTIKaGgzVXBKOEozY1BoNkErbHRnUmpSV2NEb2lsYVNwRVVpU09WemNNYVFvalZKYVJlNk9NbnZYc29NaSs3ZzdneApWcittQ0lUcGcvck9DaXpBWWQ2UFAxLzdYTjk1ZXNmU2tBQnM5c3hJakpjTUFqbDBYTEFzRmtGZVdyeHNIajlVCmJnaDNWYXdtcnpUeXhZT0RQcXV1cS9JcGlwc0RRT3Fpb2ZsUStkWEJJL3NUT0NNbVp6K0pNcG5HYXdJREFRQUIKb3o4d1BUQWRCZ05WSFE0RUZnUVVSekdDRlE3WEtUdHRDN3JzNS8ydFlQcExTZGN3RHdZRFZSMFRCQWd3QmdFQgovd0lCQURBTEJnTlZIUThFQkFNQ0FRWXdEUVlKS29aSWh2Y05BUUVNQlFBRGdnR0JBSWFKQ0dSVVNxUExtcmcvCmk3MW10b0NHUDdzeG1BVXVCek1oOEdrU25uaVdaZnZGMTRwSUtqTlkwbzVkWmpHKzZqK1VjalZtK0RIdGE1RjYKOWJPeEk5S0NFeEI1blBjRXpMWjNZYitNOTcrellxbm9zUm85S21DVFJBb2JrNTZ0WU1FS1h1aVJja2tkMm1yUQo4cGw2N2xxdThjM1V4c0dHZEZVT01wMkk3ZTNpdUdWVm5UR0ZWM3JQZUdaQ0J3WGVyUUQyY0F4UjkzS3BnWVZ2ClhUUzk5dnpSbm1HOHhhUm9EVy9FbEdXZ2xWd0Q5a1JrbXhUUkdoYTdDWVZCcjFQVWY2dVVFVjhmVFIxc1hFZnIKLytMR1JoSVVsSUhWT3l2Yzk3YnZYQURPbWF1MWZDVE5lWGtRdTNyZnZFSlBmaFlLeVIwT0V3eWVvdlhRNzl0LwpTV2ZGTjBreU1Pc1UrNVNIdHJKSEh1eWNWcU0yQlVVK083VjM1UnNwOU9MZGRZMFFVbTZldFpEVEhhSUhYYzRRCnl1Rm1OL1NhSFZtNE0wL3BTVlJQdVd6TmpxMnZyRllvSDRtbGhIZk95TUNJMjc2elE2aWhGNkdDSHlkOUJqajcKUm1UWGEyNHM3NWhmSi9YTDV2bnJSdEtpVHJlVHF6V21EOVhnUmNMQ0gyS1hJaVRtSWc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
      */
     certificate: string;
   }
   "resources/databases/models/connection_pool_update.yml": {
     /**
-     * @description The PGBouncer transaction mode for the connection pool. The allowed values are session, transaction, and statement. 
+     * @description The PGBouncer transaction mode for the connection pool. The allowed values are session, transaction, and statement.
      * @example transaction
      */
     mode: string;
     /**
-     * Format: int32 
-     * @description The desired size of the PGBouncer connection pool. The maximum allowed size is determined by the size of the cluster's primary node. 25 backend server connections are allowed for every 1GB of RAM. Three are reserved for maintenance. For example, a primary node with 1 GB of RAM allows for a maximum of 22 backend server connections while one with 4 GB would allow for 97. Note that these are shared across all connection pools in a cluster. 
+     * Format: int32
+     * @description The desired size of the PGBouncer connection pool. The maximum allowed size is determined by the size of the cluster's primary node. 25 backend server connections are allowed for every 1GB of RAM. Three are reserved for maintenance. For example, a primary node with 1 GB of RAM allows for a maximum of 22 backend server connections while one with 4 GB would allow for 97. Note that these are shared across all connection pools in a cluster.
      * @example 10
      */
     size: number;
     /**
-     * @description The database for use with the connection pool. 
+     * @description The database for use with the connection pool.
      * @example defaultdb
      */
     db: string;
     /**
-     * @description The name of the user for use with the connection pool. When excluded, all sessions connect to the database as the inbound user. 
+     * @description The name of the user for use with the connection pool. When excluded, all sessions connect to the database as the inbound user.
      * @example doadmin
      */
     user?: string;
   }
   "resources/databases/models/connection_pool.yml": {
     /**
-     * @description A unique name for the connection pool. Must be between 3 and 60 characters. 
+     * @description A unique name for the connection pool. Must be between 3 and 60 characters.
      * @example backend-pool
      */
     name: string;
     /**
-     * @description The PGBouncer transaction mode for the connection pool. The allowed values are session, transaction, and statement. 
+     * @description The PGBouncer transaction mode for the connection pool. The allowed values are session, transaction, and statement.
      * @example transaction
      */
     mode: string;
     /**
-     * Format: int32 
-     * @description The desired size of the PGBouncer connection pool. The maximum allowed size is determined by the size of the cluster's primary node. 25 backend server connections are allowed for every 1GB of RAM. Three are reserved for maintenance. For example, a primary node with 1 GB of RAM allows for a maximum of 22 backend server connections while one with 4 GB would allow for 97. Note that these are shared across all connection pools in a cluster. 
+     * Format: int32
+     * @description The desired size of the PGBouncer connection pool. The maximum allowed size is determined by the size of the cluster's primary node. 25 backend server connections are allowed for every 1GB of RAM. Three are reserved for maintenance. For example, a primary node with 1 GB of RAM allows for a maximum of 22 backend server connections while one with 4 GB would allow for 97. Note that these are shared across all connection pools in a cluster.
      * @example 10
      */
     size: number;
     /**
-     * @description The database for use with the connection pool. 
+     * @description The database for use with the connection pool.
      * @example defaultdb
      */
     db: string;
     /**
-     * @description The name of the user for use with the connection pool. When excluded, all sessions connect to the database as the inbound user. 
+     * @description The name of the user for use with the connection pool. When excluded, all sessions connect to the database as the inbound user.
      * @example doadmin
      */
     user?: string;
@@ -5415,99 +5415,99 @@ export interface external {
   }
   "resources/databases/models/database_backup.yml": {
     /**
-     * @description The name of an existing database cluster from which the backup will be restored. 
+     * @description The name of an existing database cluster from which the backup will be restored.
      * @example backend
      */
     database_name: string;
     /**
-     * Format: date-time 
-     * @description The timestamp of an existing database cluster backup in ISO8601 combined date and time format. The most recent backup will be used if excluded. 
+     * Format: date-time
+     * @description The timestamp of an existing database cluster backup in ISO8601 combined date and time format. The most recent backup will be used if excluded.
      * @example "2019-01-31T19:25:22.000Z"
      */
     backup_created_at?: string;
   }
   "resources/databases/models/database_cluster_resize.yml": {
     /**
-     * @description A slug identifier representing desired the size of the nodes in the database cluster. 
+     * @description A slug identifier representing desired the size of the nodes in the database cluster.
      * @example db-s-4vcpu-8gb
      */
     size: string;
     /**
-     * Format: int32 
-     * @description The number of nodes in the database cluster. Valid values are are 1-3. In addition to the primary node, up to two standby nodes may be added for highly available configurations. 
+     * Format: int32
+     * @description The number of nodes in the database cluster. Valid values are are 1-3. In addition to the primary node, up to two standby nodes may be added for highly available configurations.
      * @example 3
      */
     num_nodes: number;
   }
   "resources/databases/models/database_cluster.yml": {
     /**
-     * Format: uuid 
-     * @description A unique ID that can be used to identify and reference a database cluster. 
+     * Format: uuid
+     * @description A unique ID that can be used to identify and reference a database cluster.
      * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
      */
     id?: string;
     /**
-     * @description A unique, human-readable name referring to a database cluster. 
+     * @description A unique, human-readable name referring to a database cluster.
      * @example backend
      */
     name: string;
     /**
-     * @description A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, and "mongodb" for MongoDB. 
-     * @example mysql 
+     * @description A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, and "mongodb" for MongoDB.
+     * @example mysql
      * @enum {string}
      */
     engine: "pg" | "mysql" | "redis" | "mongodb";
     /**
-     * @description A string representing the version of the database engine in use for the cluster. 
+     * @description A string representing the version of the database engine in use for the cluster.
      * @example 8
      */
     version?: string;
     /**
-     * @description A string representing the semantic version of the database engine in use for the cluster. 
+     * @description A string representing the semantic version of the database engine in use for the cluster.
      * @example 8.0.28
      */
     semantic_version?: string;
     /**
-     * @description The number of nodes in the database cluster. 
+     * @description The number of nodes in the database cluster.
      * @example 2
      */
     num_nodes: number;
     /**
-     * @description The slug identifier representing the size of the nodes in the database cluster. 
+     * @description The slug identifier representing the size of the nodes in the database cluster.
      * @example db-s-2vcpu-4gb
      */
     size: string;
     /**
-     * @description The slug identifier for the region where the database cluster is located. 
+     * @description The slug identifier for the region where the database cluster is located.
      * @example nyc3
      */
     region: string;
     /**
-     * @description A string representing the current status of the database cluster. 
-     * @example creating 
+     * @description A string representing the current status of the database cluster.
+     * @example creating
      * @enum {string}
      */
     status?: "creating" | "online" | "resizing" | "migrating" | "forking";
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the database cluster was created. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the database cluster was created.
      * @example "2019-01-11T18:37:36.000Z"
      */
     created_at?: string;
     /**
-     * @description A string specifying the UUID of the VPC to which the database cluster will be assigned. If excluded, the cluster when creating a new database cluster, it will be assigned to your account's default VPC for the region. 
+     * @description A string specifying the UUID of the VPC to which the database cluster will be assigned. If excluded, the cluster when creating a new database cluster, it will be assigned to your account's default VPC for the region.
      * @example d455e75d-4858-4eec-8c95-da2f0a5f93a7
      */
     private_network_uuid?: string;
     /**
-     * @description An array of tags that have been applied to the database cluster. 
+     * @description An array of tags that have been applied to the database cluster.
      * @example [
      *   "production"
      * ]
      */
     tags?: (string)[] | null;
     /**
-     * @description An array of strings containing the names of databases created in the database cluster. 
+     * @description An array of strings containing the names of databases created in the database cluster.
      * @example [
      *   "doadmin"
      * ]
@@ -5518,19 +5518,19 @@ export interface external {
     users?: readonly (external["resources/databases/models/database_user.yml"])[] | null;
     maintenance_window?: external["resources/databases/models/database_maintenance_window.yml"];
     /**
-     * Format: uuid 
-     * @description The ID of the project that the database cluster is assigned to. If excluded when creating a new database cluster, it will be assigned to your default project. 
+     * Format: uuid
+     * @description The ID of the project that the database cluster is assigned to. If excluded when creating a new database cluster, it will be assigned to your default project.
      * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
      */
     project_id?: string;
     rules?: (external["resources/databases/models/firewall_rule.yml"])[];
     /**
-     * @description A timestamp referring to the date when the particular version will no longer be supported. If null, the version does not have an end of life timeline. 
+     * @description A timestamp referring to the date when the particular version will no longer be supported. If null, the version does not have an end of life timeline.
      * @example 2023-11-09T00:00:00Z
      */
     version_end_of_life?: string;
     /**
-     * @description A timestamp referring to the date when the particular version will no longer be available for creating new clusters. If null, the version does not have an end of availability timeline. 
+     * @description A timestamp referring to the date when the particular version will no longer be available for creating new clusters. If null, the version does not have an end of availability timeline.
      * @example 2023-05-09T00:00:00Z
      */
     version_end_of_availability?: string;
@@ -5540,37 +5540,37 @@ export interface external {
   }
   "resources/databases/models/database_connection.yml": {
     /**
-     * @description A connection string in the format accepted by the `psql` command. This is provided as a convenience and should be able to be constructed by the other attributes. 
+     * @description A connection string in the format accepted by the `psql` command. This is provided as a convenience and should be able to be constructed by the other attributes.
      * @example postgres://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require
      */
     uri?: string;
     /**
-     * @description The name of the default database. 
+     * @description The name of the default database.
      * @example defaultdb
      */
     database?: string;
     /**
-     * @description The FQDN pointing to the database cluster's current primary node. 
+     * @description The FQDN pointing to the database cluster's current primary node.
      * @example backend-do-user-19081923-0.db.ondigitalocean.com
      */
     host?: string;
     /**
-     * @description The port on which the database cluster is listening. 
+     * @description The port on which the database cluster is listening.
      * @example 25060
      */
     port?: number;
     /**
-     * @description The default user for the database. 
+     * @description The default user for the database.
      * @example doadmin
      */
     user?: string;
     /**
-     * @description The randomly generated password for the default user. 
+     * @description The randomly generated password for the default user.
      * @example wv78n3zpz42xezdk
      */
     password?: string;
     /**
-     * @description A boolean value indicating if the connection should be made over SSL. 
+     * @description A boolean value indicating if the connection should be made over SSL.
      * @example true
      */
     ssl?: boolean;
@@ -5579,7 +5579,7 @@ export interface external {
     /** @example 1 */
     num_nodes?: number;
     /**
-     * @description An array of objects containing the slugs available with various node counts 
+     * @description An array of objects containing the slugs available with various node counts
      * @example [
      *   "db-s-1vcpu-1gb",
      *   "db-s-1vcpu-2gb"
@@ -5593,22 +5593,22 @@ export interface external {
   }
   "resources/databases/models/database_maintenance_window.yml": {
     /**
-     * @description The day of the week on which to apply maintenance updates. 
+     * @description The day of the week on which to apply maintenance updates.
      * @example tuesday
      */
     day: string;
     /**
-     * @description The hour in UTC at which maintenance updates will be applied in 24 hour format. 
+     * @description The hour in UTC at which maintenance updates will be applied in 24 hour format.
      * @example 14:00
      */
     hour: string;
     /**
-     * @description A boolean value indicating whether any maintenance is scheduled to be performed in the next window. 
+     * @description A boolean value indicating whether any maintenance is scheduled to be performed in the next window.
      * @example true
      */
     pending?: boolean;
     /**
-     * @description A list of strings, each containing information about a pending maintenance update. 
+     * @description A list of strings, each containing information about a pending maintenance update.
      * @example [
      *   "Update TimescaleDB to version 1.2.1",
      *   "Upgrade to PostgreSQL 11.2 and 10.7 bugfix releases"
@@ -5618,7 +5618,7 @@ export interface external {
   } | null
   "resources/databases/models/database_region_options.yml": {
     /**
-     * @description An array of strings containing the names of available regions 
+     * @description An array of strings containing the names of available regions
      * @example [
      *   "ams3",
      *   "blr1"
@@ -5628,47 +5628,47 @@ export interface external {
   }
   "resources/databases/models/database_replica.yml": {
     /**
-     * Format: uuid 
-     * @description A unique ID that can be used to identify and reference a database replica. 
+     * Format: uuid
+     * @description A unique ID that can be used to identify and reference a database replica.
      * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
      */
     id?: string;
     /**
-     * @description The name to give the read-only replicating 
+     * @description The name to give the read-only replicating
      * @example read-nyc3-01
      */
     name: string;
     /**
-     * @description A slug identifier for the region where the read-only replica will be located. If excluded, the replica will be placed in the same region as the cluster. 
+     * @description A slug identifier for the region where the read-only replica will be located. If excluded, the replica will be placed in the same region as the cluster.
      * @example nyc3
      */
     region?: string;
     /**
-     * @description A slug identifier representing the size of the node for the read-only replica. The size of the replica must be at least as large as the node size for the database cluster from which it is replicating. 
+     * @description A slug identifier representing the size of the node for the read-only replica. The size of the replica must be at least as large as the node size for the database cluster from which it is replicating.
      * @example db-s-2vcpu-4gb
      */
     size?: string;
     /**
-     * @description A string representing the current status of the database cluster. 
-     * @example creating 
+     * @description A string representing the current status of the database cluster.
+     * @example creating
      * @enum {string}
      */
     status?: "creating" | "online" | "resizing" | "migrating" | "forking";
     /**
-     * @description A flat array of tag names as strings to apply to the read-only replica after it is created. Tag names can either be existing or new tags. 
+     * @description A flat array of tag names as strings to apply to the read-only replica after it is created. Tag names can either be existing or new tags.
      * @example [
      *   "production"
      * ]
      */
     tags?: (string)[];
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the database cluster was created. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the database cluster was created.
      * @example "2019-01-11T18:37:36.000Z"
      */
     created_at?: string;
     /**
-     * @description A string specifying the UUID of the VPC to which the read-only replica will be assigned. If excluded, the replica will be assigned to your account's default VPC for the region. 
+     * @description A string specifying the UUID of the VPC to which the read-only replica will be assigned. If excluded, the replica will be assigned to your account's default VPC for the region.
      * @example 9423cbad-9211-442f-820b-ef6915e99b5f
      */
     private_network_uuid?: string;
@@ -5677,20 +5677,20 @@ export interface external {
   }
   "resources/databases/models/database_user.yml": {
     /**
-     * @description The name of a database user. 
+     * @description The name of a database user.
      * @example app-01
      */
     name: string;
     /**
      * @description A string representing the database user's role. The value will be either
      * "primary" or "normal".
-     *  
-     * @example normal 
+     *
+     * @example normal
      * @enum {string}
      */
     role?: "primary" | "normal";
     /**
-     * @description A randomly generated password for the database user. 
+     * @description A randomly generated password for the database user.
      * @example jge5lfxtzhx42iff
      */
     password?: string;
@@ -5699,24 +5699,24 @@ export interface external {
   "resources/databases/models/database_version_availabilities.yml": (external["resources/databases/models/database_version_availability.yml"])[]
   "resources/databases/models/database_version_availability.yml": {
     /**
-     * @description A timestamp referring to the date when the particular version will no longer be supported. If null, the version does not have an end of life timeline. 
+     * @description A timestamp referring to the date when the particular version will no longer be supported. If null, the version does not have an end of life timeline.
      * @example 2023-11-09T00:00:00Z
      */
     end_of_life?: string;
     /**
-     * @description A timestamp referring to the date when the particular version will no longer be available for creating new clusters. If null, the version does not have an end of availability timeline. 
+     * @description A timestamp referring to the date when the particular version will no longer be available for creating new clusters. If null, the version does not have an end of availability timeline.
      * @example 2023-05-09T00:00:00Z
      */
     end_of_availability?: string;
     /**
-     * @description The engine version. 
+     * @description The engine version.
      * @example 8
      */
     version?: string;
   }
   "resources/databases/models/database_version_options.yml": {
     /**
-     * @description An array of strings containing the names of available regions 
+     * @description An array of strings containing the names of available regions
      * @example [
      *   "4.4",
      *   "5.0"
@@ -5726,7 +5726,7 @@ export interface external {
   }
   "resources/databases/models/database.yml": {
     /**
-     * @description The name of the database. 
+     * @description The name of the database.
      * @example alpha
      */
     name: string;
@@ -5734,29 +5734,29 @@ export interface external {
   "resources/databases/models/eviction_policy_model.yml": "noeviction" | "allkeys_lru" | "allkeys_random" | "volatile_lru" | "volatile_random" | "volatile_ttl"
   "resources/databases/models/firewall_rule.yml": {
     /**
-     * @description A unique ID for the firewall rule itself. 
+     * @description A unique ID for the firewall rule itself.
      * @example 79f26d28-ea8a-41f2-8ad8-8cfcdd020095
      */
     uuid?: string;
     /**
-     * @description A unique ID for the database cluster to which the rule is applied. 
+     * @description A unique ID for the database cluster to which the rule is applied.
      * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
      */
     cluster_uuid?: string;
     /**
-     * @description The type of resource that the firewall rule allows to access the database cluster. 
-     * @example droplet 
+     * @description The type of resource that the firewall rule allows to access the database cluster.
+     * @example droplet
      * @enum {string}
      */
     type: "droplet" | "k8s" | "ip_addr" | "tag" | "app";
     /**
-     * @description The ID of the specific resource, the name of a tag applied to a group of resources, or the IP address that the firewall rule allows to access the database cluster. 
+     * @description The ID of the specific resource, the name of a tag applied to a group of resources, or the IP address that the firewall rule allows to access the database cluster.
      * @example ff2a6c52-5a44-4b63-b99c-0e98e7a63d61
      */
     value: string;
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the firewall rule was created. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the firewall rule was created.
      * @example "2019-01-11T18:37:36.000Z"
      */
     created_at?: string;
@@ -5768,164 +5768,164 @@ export interface external {
      * or `caching_sha2_password`. If excluded when creating a new user, the
      * default for the version of MySQL in use will be used. As of MySQL 8.0, the
      * default is `caching_sha2_password`.
-     *  
-     * @example mysql_native_password 
+     *
+     * @example mysql_native_password
      * @enum {string}
      */
     auth_plugin: "mysql_native_password" | "caching_sha2_password";
   }
   "resources/databases/models/mysql.yml": {
     /**
-     * @description The hour of day (in UTC) when backup for the service starts. New backup only starts if previous backup has already completed. 
+     * @description The hour of day (in UTC) when backup for the service starts. New backup only starts if previous backup has already completed.
      * @example 3
      */
     backup_hour?: number;
     /**
-     * @description The minute of the backup hour when backup for the service starts. New backup  only starts if previous backup has already completed. 
+     * @description The minute of the backup hour when backup for the service starts. New backup  only starts if previous backup has already completed.
      * @example 30
      */
     backup_minute?: number;
     /**
-     * @description Global SQL mode. If empty, uses MySQL server defaults. Must only include uppercase alphabetic characters, underscores, and commas. 
+     * @description Global SQL mode. If empty, uses MySQL server defaults. Must only include uppercase alphabetic characters, underscores, and commas.
      * @example ANSI,TRADITIONAL
      */
     sql_mode?: string;
     /**
-     * @description The number of seconds that the mysqld server waits for a connect packet before responding with bad handshake. 
+     * @description The number of seconds that the mysqld server waits for a connect packet before responding with bad handshake.
      * @example 10
      */
     connect_timeout?: number;
     /**
-     * @description Default server time zone, in the form of an offset from UTC (from -12:00 to +12:00), a time zone name (EST), or 'SYSTEM' to use the MySQL server default. 
+     * @description Default server time zone, in the form of an offset from UTC (from -12:00 to +12:00), a time zone name (EST), or 'SYSTEM' to use the MySQL server default.
      * @example +03:00
      */
     default_time_zone?: string;
     /**
-     * @description The maximum permitted result length, in bytes, for the GROUP_CONCAT() function. 
+     * @description The maximum permitted result length, in bytes, for the GROUP_CONCAT() function.
      * @example 1024
      */
     group_concat_max_len?: number;
     /**
-     * @description The time, in seconds, before cached statistics expire. 
+     * @description The time, in seconds, before cached statistics expire.
      * @example 86400
      */
     information_schema_stats_expiry?: number;
     /**
-     * @description The minimum length of words that an InnoDB FULLTEXT index stores. 
+     * @description The minimum length of words that an InnoDB FULLTEXT index stores.
      * @example 3
      */
     innodb_ft_min_token_size?: number;
     /**
-     * @description The InnoDB FULLTEXT index stopword list for all InnoDB tables. 
+     * @description The InnoDB FULLTEXT index stopword list for all InnoDB tables.
      * @example db_name/table_name
      */
     innodb_ft_server_stopword_table?: string;
     /**
-     * @description The time, in seconds, that an InnoDB transaction waits for a row lock. before giving up. 
+     * @description The time, in seconds, that an InnoDB transaction waits for a row lock. before giving up.
      * @example 50
      */
     innodb_lock_wait_timeout?: number;
     /**
-     * @description The size of the buffer, in bytes, that InnoDB uses to write to the log files. on disk. 
+     * @description The size of the buffer, in bytes, that InnoDB uses to write to the log files. on disk.
      * @example 16777216
      */
     innodb_log_buffer_size?: number;
     /**
-     * @description The upper limit, in bytes, of the size of the temporary log files used during online DDL operations for InnoDB tables. 
+     * @description The upper limit, in bytes, of the size of the temporary log files used during online DDL operations for InnoDB tables.
      * @example 134217728
      */
     innodb_online_alter_log_max_size?: number;
     /**
-     * @description When enabled, records information about all deadlocks in InnoDB user transactions  in the error log. Disabled by default. 
+     * @description When enabled, records information about all deadlocks in InnoDB user transactions  in the error log. Disabled by default.
      * @example true
      */
     innodb_print_all_deadlocks?: boolean;
     /**
-     * @description When enabled, transaction timeouts cause InnoDB to abort and roll back the entire transaction. 
+     * @description When enabled, transaction timeouts cause InnoDB to abort and roll back the entire transaction.
      * @example true
      */
     innodb_rollback_on_timeout?: boolean;
     /**
-     * @description The time, in seconds, the server waits for activity on an interactive. connection before closing it. 
+     * @description The time, in seconds, the server waits for activity on an interactive. connection before closing it.
      * @example 3600
      */
     interactive_timeout?: number;
     /**
-     * @description The storage engine for in-memory internal temporary tables. 
-     * @example TempTable 
+     * @description The storage engine for in-memory internal temporary tables.
+     * @example TempTable
      * @enum {string}
      */
     internal_tmp_mem_storage_engine?: "TempTable" | "MEMORY";
     /**
-     * @description The time, in seconds, to wait for more data from an existing connection. aborting the read. 
+     * @description The time, in seconds, to wait for more data from an existing connection. aborting the read.
      * @example 30
      */
     net_read_timeout?: number;
     /**
-     * @description The number of seconds to wait for a block to be written to a connection before aborting the write. 
+     * @description The number of seconds to wait for a block to be written to a connection before aborting the write.
      * @example 30
      */
     net_write_timeout?: number;
     /**
-     * @description Require primary key to be defined for new tables or old tables modified with ALTER TABLE and fail if missing. It is recommended to always have primary keys because various functionality may break if any large table is missing them. 
+     * @description Require primary key to be defined for new tables or old tables modified with ALTER TABLE and fail if missing. It is recommended to always have primary keys because various functionality may break if any large table is missing them.
      * @example true
      */
     sql_require_primary_key?: boolean;
     /**
-     * @description The number of seconds the server waits for activity on a noninteractive connection before closing it. 
+     * @description The number of seconds the server waits for activity on a noninteractive connection before closing it.
      * @example 28800
      */
     wait_timeout?: number;
     /**
-     * @description The size of the largest message, in bytes, that can be received by the server. Default is 67108864 (64M). 
+     * @description The size of the largest message, in bytes, that can be received by the server. Default is 67108864 (64M).
      * @example 67108864
      */
     max_allowed_packet?: number;
     /**
-     * @description The maximum size, in bytes, of internal in-memory tables. Also set tmp_table_size. Default is 16777216 (16M) 
+     * @description The maximum size, in bytes, of internal in-memory tables. Also set tmp_table_size. Default is 16777216 (16M)
      * @example 16777216
      */
     max_heap_table_size?: number;
     /**
-     * @description The sort buffer size, in bytes, for ORDER BY optimization. Default is 262144. (256K). 
+     * @description The sort buffer size, in bytes, for ORDER BY optimization. Default is 262144. (256K).
      * @example 262144
      */
     sort_buffer_size?: number;
     /**
-     * @description The maximum size, in bytes, of internal in-memory tables. Also set max_heap_table_size. Default is 16777216 (16M). 
+     * @description The maximum size, in bytes, of internal in-memory tables. Also set max_heap_table_size. Default is 16777216 (16M).
      * @example 16777216
      */
     tmp_table_size?: number;
     /**
-     * @description When enabled, captures slow queries. When disabled, also truncates the mysql.slow_log table. Default is false. 
+     * @description When enabled, captures slow queries. When disabled, also truncates the mysql.slow_log table. Default is false.
      * @example true
      */
     slow_query_log?: boolean;
     /**
-     * @description The time, in seconds, for a query to take to execute before  being captured by slow_query_logs. Default is 10 seconds. 
+     * @description The time, in seconds, for a query to take to execute before  being captured by slow_query_logs. Default is 10 seconds.
      * @example 10
      */
     long_query_time?: number;
     /**
-     * @description The minimum amount of time, in seconds, to keep binlog entries before deletion.  This may be extended for services that require binlog entries for longer than the default, for example if using the MySQL Debezium Kafka connector. 
+     * @description The minimum amount of time, in seconds, to keep binlog entries before deletion.  This may be extended for services that require binlog entries for longer than the default, for example if using the MySQL Debezium Kafka connector.
      * @example 600
      */
     binlog_retention_period?: number;
   }
   "resources/databases/models/online_migration.yml": {
     /**
-     * @description The ID of the most recent migration. 
+     * @description The ID of the most recent migration.
      * @example 77b28fc8-19ff-11eb-8c9c-c68e24557488
      */
     id?: string;
     /**
-     * @description The current status of the migration. 
-     * @example running 
+     * @description The current status of the migration.
+     * @example running
      * @enum {string}
      */
     status?: "running" | "canceled" | "error" | "done";
     /**
-     * @description The time the migration was initiated, in ISO 8601 format. 
+     * @description The time the migration was initiated, in ISO 8601 format.
      * @example "2020-10-29T15:57:38.000Z"
      */
     created_at?: string;
@@ -5946,12 +5946,12 @@ export interface external {
   }
   "resources/databases/models/pgbouncer.yml": {
     /**
-     * @description Run server_reset_query (DISCARD ALL) in all pooling modes. 
+     * @description Run server_reset_query (DISCARD ALL) in all pooling modes.
      * @example false
      */
     server_reset_query_always?: boolean;
     /**
-     * @description List of parameters to ignore when given in startup packet. 
+     * @description List of parameters to ignore when given in startup packet.
      * @example [
      *   "extra_float_digits",
      *   "search_path"
@@ -5959,305 +5959,305 @@ export interface external {
      */
     ignore_startup_parameters?: ("extra_float_digits" | "search_path")[];
     /**
-     * @description If current server connections are below this number, adds more. Improves behavior when usual load comes suddenly back after period of total inactivity. The value is effectively capped at the pool size. 
+     * @description If current server connections are below this number, adds more. Improves behavior when usual load comes suddenly back after period of total inactivity. The value is effectively capped at the pool size.
      * @example 1
      */
     min_pool_size?: number;
     /**
-     * @description The pooler closes any unused server connection that has been connected longer than this amount of seconds. 
+     * @description The pooler closes any unused server connection that has been connected longer than this amount of seconds.
      * @example 3600
      */
     server_lifetime?: number;
     /**
-     * @description Drops server connections if they have been idle more than this many seconds.  If 0, timeout is disabled.  
+     * @description Drops server connections if they have been idle more than this many seconds.  If 0, timeout is disabled.
      * @example 600
      */
     server_idle_timeout?: number;
     /**
-     * @description If non-zero, automatically creates a pool of that size per user when a pool doesn't exist. 
+     * @description If non-zero, automatically creates a pool of that size per user when a pool doesn't exist.
      * @example 1
      */
     autodb_pool_size?: number;
     /**
-     * @description PGBouncer pool mode 
-     * @example session 
+     * @description PGBouncer pool mode
+     * @example session
      * @enum {string}
      */
     autodb_pool_mode?: "session" | "transaction" | "statement";
     /**
-     * @description Only allows a maximum this many server connections per database (regardless of user). If 0, allows unlimited connections. 
+     * @description Only allows a maximum this many server connections per database (regardless of user). If 0, allows unlimited connections.
      * @example 1
      */
     autodb_max_db_connections?: number;
     /**
-     * @description If the automatically-created database pools have been unused this many seconds, they are freed. If 0, timeout is disabled. 
+     * @description If the automatically-created database pools have been unused this many seconds, they are freed. If 0, timeout is disabled.
      * @example 3600
      */
     autodb_idle_timeout?: number;
   }
   "resources/databases/models/postgres.yml": {
     /**
-     * @description Specifies the maximum age (in transactions) that a table's pg_class.relfrozenxid field can attain before a VACUUM operation is forced to prevent transaction ID wraparound within the table. Note that the system will launch autovacuum processes to prevent wraparound even when autovacuum is otherwise disabled. This parameter will cause the server to be restarted. 
+     * @description Specifies the maximum age (in transactions) that a table's pg_class.relfrozenxid field can attain before a VACUUM operation is forced to prevent transaction ID wraparound within the table. Note that the system will launch autovacuum processes to prevent wraparound even when autovacuum is otherwise disabled. This parameter will cause the server to be restarted.
      * @example 200000000
      */
     autovacuum_freeze_max_age?: number;
     /**
-     * @description Specifies the maximum number of autovacuum processes (other than the autovacuum launcher) that may be running at any one time. The default is three. This parameter can only be set at server start. 
+     * @description Specifies the maximum number of autovacuum processes (other than the autovacuum launcher) that may be running at any one time. The default is three. This parameter can only be set at server start.
      * @example 5
      */
     autovacuum_max_workers?: number;
     /**
-     * @description Specifies the minimum delay, in seconds, between autovacuum runs on any given database. The default is one minute. 
+     * @description Specifies the minimum delay, in seconds, between autovacuum runs on any given database. The default is one minute.
      * @example 43200
      */
     autovacuum_naptime?: number;
     /**
-     * @description Specifies the minimum number of updated or deleted tuples needed to trigger a VACUUM in any one table. The default is 50 tuples. 
+     * @description Specifies the minimum number of updated or deleted tuples needed to trigger a VACUUM in any one table. The default is 50 tuples.
      * @example 50
      */
     autovacuum_vacuum_threshold?: number;
     /**
-     * @description Specifies the minimum number of inserted, updated, or deleted tuples needed to trigger an ANALYZE in any one table. The default is 50 tuples. 
+     * @description Specifies the minimum number of inserted, updated, or deleted tuples needed to trigger an ANALYZE in any one table. The default is 50 tuples.
      * @example 50
      */
     autovacuum_analyze_threshold?: number;
     /**
-     * @description Specifies a fraction, in a decimal value, of the table size to add to autovacuum_vacuum_threshold when deciding whether to trigger a VACUUM. The default is 0.2 (20% of table size). 
+     * @description Specifies a fraction, in a decimal value, of the table size to add to autovacuum_vacuum_threshold when deciding whether to trigger a VACUUM. The default is 0.2 (20% of table size).
      * @example 0.2
      */
     autovacuum_vacuum_scale_factor?: number;
     /**
-     * @description Specifies a fraction, in a decimal value, of the table size to add to autovacuum_analyze_threshold when deciding whether to trigger an ANALYZE. The default is 0.2 (20% of table size). 
+     * @description Specifies a fraction, in a decimal value, of the table size to add to autovacuum_analyze_threshold when deciding whether to trigger an ANALYZE. The default is 0.2 (20% of table size).
      * @example 0.2
      */
     autovacuum_analyze_scale_factor?: number;
     /**
-     * @description Specifies the cost delay value, in milliseconds, that will be used in automatic VACUUM operations. If -1, uses the regular vacuum_cost_delay value, which is 20 milliseconds. 
+     * @description Specifies the cost delay value, in milliseconds, that will be used in automatic VACUUM operations. If -1, uses the regular vacuum_cost_delay value, which is 20 milliseconds.
      * @example 20
      */
     autovacuum_vacuum_cost_delay?: number;
     /**
-     * @description Specifies the cost limit value that will be used in automatic VACUUM operations. If -1 is specified (which is the default), the regular vacuum_cost_limit value will be used. 
+     * @description Specifies the cost limit value that will be used in automatic VACUUM operations. If -1 is specified (which is the default), the regular vacuum_cost_limit value will be used.
      * @example -1
      */
     autovacuum_vacuum_cost_limit?: number;
     /**
-     * @description The hour of day (in UTC) when backup for the service starts. New backup only starts if previous backup has already completed. 
+     * @description The hour of day (in UTC) when backup for the service starts. New backup only starts if previous backup has already completed.
      * @example 3
      */
     backup_hour?: number;
     /**
-     * @description The minute of the backup hour when backup for the service starts. New backup is only started if previous backup has already completed. 
+     * @description The minute of the backup hour when backup for the service starts. New backup is only started if previous backup has already completed.
      * @example 30
      */
     backup_minute?: number;
     /**
-     * @description Specifies the delay, in milliseconds, between activity rounds for the background writer. Default is 200 ms. 
+     * @description Specifies the delay, in milliseconds, between activity rounds for the background writer. Default is 200 ms.
      * @example 200
      */
     bgwriter_delay?: number;
     /**
-     * @description The amount of kilobytes that need to be written by the background writer before attempting to force the OS to issue these writes to underlying storage. Specified in kilobytes, default is 512.  Setting of 0 disables forced writeback. 
+     * @description The amount of kilobytes that need to be written by the background writer before attempting to force the OS to issue these writes to underlying storage. Specified in kilobytes, default is 512.  Setting of 0 disables forced writeback.
      * @example 512
      */
     bgwriter_flush_after?: number;
     /**
-     * @description The maximum number of buffers that the background writer can write. Setting this to zero disables background writing. Default is 100. 
+     * @description The maximum number of buffers that the background writer can write. Setting this to zero disables background writing. Default is 100.
      * @example 100
      */
     bgwriter_lru_maxpages?: number;
     /**
-     * @description The average recent need for new buffers is multiplied by bgwriter_lru_multiplier to arrive at an estimate of the number that will be needed during the next round, (up to bgwriter_lru_maxpages). 1.0 represents a “just in time” policy of writing exactly the number of buffers predicted to be needed. Larger values provide some cushion against spikes in demand, while smaller values intentionally leave writes to be done by server processes. The default is 2.0. 
+     * @description The average recent need for new buffers is multiplied by bgwriter_lru_multiplier to arrive at an estimate of the number that will be needed during the next round, (up to bgwriter_lru_maxpages). 1.0 represents a “just in time” policy of writing exactly the number of buffers predicted to be needed. Larger values provide some cushion against spikes in demand, while smaller values intentionally leave writes to be done by server processes. The default is 2.0.
      * @example 2
      */
     bgwriter_lru_multiplier?: number;
     /**
-     * @description The amount of time, in milliseconds, to wait on a lock before checking to see if there is a deadlock condition. 
+     * @description The amount of time, in milliseconds, to wait on a lock before checking to see if there is a deadlock condition.
      * @example 1000
      */
     deadlock_timeout?: number;
     /**
-     * @description Specifies the default TOAST compression method for values of compressible columns (the default is lz4). 
-     * @example lz4 
+     * @description Specifies the default TOAST compression method for values of compressible columns (the default is lz4).
+     * @example lz4
      * @enum {string}
      */
     default_toast_compression?: "lz4" | "pglz";
     /**
-     * @description Time out sessions with open transactions after this number of milliseconds 
+     * @description Time out sessions with open transactions after this number of milliseconds
      * @example 10000
      */
     idle_in_transaction_session_timeout?: number;
     /**
-     * @description Activates, in a boolean, the system-wide use of Just-in-Time Compilation (JIT). 
+     * @description Activates, in a boolean, the system-wide use of Just-in-Time Compilation (JIT).
      * @example true
      */
     jit?: boolean;
     /**
-     * @description Causes each action executed by autovacuum to be logged if it ran for at least the specified number of milliseconds. Setting this to zero logs all autovacuum actions. Minus-one (the default) disables logging autovacuum actions. 
+     * @description Causes each action executed by autovacuum to be logged if it ran for at least the specified number of milliseconds. Setting this to zero logs all autovacuum actions. Minus-one (the default) disables logging autovacuum actions.
      * @example -1
      */
     log_autovacuum_min_duration?: number;
     /**
-     * @description Controls the amount of detail written in the server log for each message that is logged. 
-     * @example VERBOSE 
+     * @description Controls the amount of detail written in the server log for each message that is logged.
+     * @example VERBOSE
      * @enum {string}
      */
     log_error_verbosity?: "TERSE" | "DEFAULT" | "VERBOSE";
     /**
-     * @description Selects one of the available log-formats. These can support popular log analyzers like pgbadger, pganalyze, etc. 
-     * @example pid=%p,user=%u,db=%d,app=%a,client=%h 
+     * @description Selects one of the available log-formats. These can support popular log analyzers like pgbadger, pganalyze, etc.
+     * @example pid=%p,user=%u,db=%d,app=%a,client=%h
      * @enum {string}
      */
     log_line_prefix?: "pid=%p,user=%u,db=%d,app=%a,client=%h" | "%m [%p] %q[user=%u,db=%d,app=%a]" | "%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h";
     /**
-     * @description Log statements that take more than this number of milliseconds to run. If -1, disables. 
+     * @description Log statements that take more than this number of milliseconds to run. If -1, disables.
      * @example -1
      */
     log_min_duration_statement?: number;
     /**
-     * @description PostgreSQL maximum number of files that can be open per process. 
+     * @description PostgreSQL maximum number of files that can be open per process.
      * @example 2048
      */
     max_files_per_process?: number;
     /**
-     * @description PostgreSQL maximum prepared transactions. Once increased, this parameter cannot be lowered from its set value. 
+     * @description PostgreSQL maximum prepared transactions. Once increased, this parameter cannot be lowered from its set value.
      * @example 20
      */
     max_prepared_transactions?: number;
     /**
-     * @description PostgreSQL maximum predicate locks per transaction. 
+     * @description PostgreSQL maximum predicate locks per transaction.
      * @example 128
      */
     max_pred_locks_per_transaction?: number;
     /**
-     * @description PostgreSQL maximum locks per transaction. Once increased, this parameter cannot be lowered from its set value. 
+     * @description PostgreSQL maximum locks per transaction. Once increased, this parameter cannot be lowered from its set value.
      * @example 128
      */
     max_locks_per_transaction?: number;
     /**
-     * @description Maximum depth of the stack in bytes. 
+     * @description Maximum depth of the stack in bytes.
      * @example 2097152
      */
     max_stack_depth?: number;
     /**
-     * @description Max standby archive delay in milliseconds. 
+     * @description Max standby archive delay in milliseconds.
      * @example 43200
      */
     max_standby_archive_delay?: number;
     /**
-     * @description Max standby streaming delay in milliseconds. 
+     * @description Max standby streaming delay in milliseconds.
      * @example 43200
      */
     max_standby_streaming_delay?: number;
     /**
-     * @description PostgreSQL maximum replication slots. 
+     * @description PostgreSQL maximum replication slots.
      * @example 16
      */
     max_replication_slots?: number;
     /**
-     * @description PostgreSQL maximum logical replication workers (taken from the pool of max_parallel_workers). 
+     * @description PostgreSQL maximum logical replication workers (taken from the pool of max_parallel_workers).
      * @example 16
      */
     max_logical_replication_workers?: number;
     /**
-     * @description Sets the maximum number of workers that the system can support for parallel queries. 
+     * @description Sets the maximum number of workers that the system can support for parallel queries.
      * @example 12
      */
     max_parallel_workers?: number;
     /**
-     * @description Sets the maximum number of workers that can be started by a single Gather or Gather Merge node. 
+     * @description Sets the maximum number of workers that can be started by a single Gather or Gather Merge node.
      * @example 16
      */
     max_parallel_workers_per_gather?: number;
     /**
-     * @description Sets the maximum number of background processes that the system can support. Once increased, this parameter cannot be lowered from its set value. 
+     * @description Sets the maximum number of background processes that the system can support. Once increased, this parameter cannot be lowered from its set value.
      * @example 16
      */
     max_worker_processes?: number;
     /**
-     * @description Controls which role to use for pg_partman's scheduled background tasks. Must consist of alpha-numeric characters, dots, underscores, or dashes. May not start with dash or dot. Maximum of 64 characters. 
+     * @description Controls which role to use for pg_partman's scheduled background tasks. Must consist of alpha-numeric characters, dots, underscores, or dashes. May not start with dash or dot. Maximum of 64 characters.
      * @example myrolename
      */
     "pg_partman_bgw.role"?: string;
     /**
-     * @description Sets the time interval to run pg_partman's scheduled tasks. 
+     * @description Sets the time interval to run pg_partman's scheduled tasks.
      * @example 3600
      */
     "pg_partman_bgw.interval"?: number;
     /**
-     * @description Controls which statements are counted. Specify 'top' to track top-level statements (those issued directly by clients), 'all' to also track nested statements (such as statements invoked within functions), or 'none' to disable statement statistics collection. The default value is top. 
-     * @example all 
+     * @description Controls which statements are counted. Specify 'top' to track top-level statements (those issued directly by clients), 'all' to also track nested statements (such as statements invoked within functions), or 'none' to disable statement statistics collection. The default value is top.
+     * @example all
      * @enum {string}
      */
     "pg_stat_statements.track"?: "all" | "top" | "none";
     /**
-     * @description PostgreSQL temporary file limit in KiB. If -1, sets to unlimited. 
+     * @description PostgreSQL temporary file limit in KiB. If -1, sets to unlimited.
      * @example 5000000
      */
     temp_file_limit?: number;
     /**
-     * @description PostgreSQL service timezone 
+     * @description PostgreSQL service timezone
      * @example Europe/Helsinki
      */
     timezone?: string;
     /**
-     * @description Specifies the number of bytes reserved to track the currently executing command for each active session. 
+     * @description Specifies the number of bytes reserved to track the currently executing command for each active session.
      * @example 1024
      */
     track_activity_query_size?: number;
     /**
-     * @description Record commit time of transactions. 
-     * @example off 
+     * @description Record commit time of transactions.
+     * @example off
      * @enum {string}
      */
     track_commit_timestamp?: "off" | "on";
     /**
-     * @description Enables tracking of function call counts and time used. 
-     * @example all 
+     * @description Enables tracking of function call counts and time used.
+     * @example all
      * @enum {string}
      */
     track_functions?: "all" | "pl" | "none";
     /**
-     * @description Enables timing of database I/O calls. This parameter is off by default, because it will repeatedly query the operating system for the current time, which may cause significant overhead on some platforms. 
-     * @example off 
+     * @description Enables timing of database I/O calls. This parameter is off by default, because it will repeatedly query the operating system for the current time, which may cause significant overhead on some platforms.
+     * @example off
      * @enum {string}
      */
     track_io_timing?: "off" | "on";
     /**
-     * @description PostgreSQL maximum WAL senders. Once increased, this parameter cannot be lowered from its set value. 
+     * @description PostgreSQL maximum WAL senders. Once increased, this parameter cannot be lowered from its set value.
      * @example 32
      */
     max_wal_senders?: number;
     /**
-     * @description Terminate replication connections that are inactive for longer than this amount of time, in milliseconds. Setting this value to zero disables the timeout. Must be either 0 or between 5000 and 10800000. 
+     * @description Terminate replication connections that are inactive for longer than this amount of time, in milliseconds. Setting this value to zero disables the timeout. Must be either 0 or between 5000 and 10800000.
      * @example 60000
      */
     wal_sender_timeout?: number;
     /**
-     * @description WAL flush interval in milliseconds. Note that setting this value to lower than the default 200ms may negatively impact performance 
+     * @description WAL flush interval in milliseconds. Note that setting this value to lower than the default 200ms may negatively impact performance
      * @example 50
      */
     wal_writer_delay?: number;
     /**
-     * @description Percentage of total RAM that the database server uses for shared memory buffers.  Valid range is 20-60 (float), which corresponds to 20% - 60%.  This setting adjusts the shared_buffers configuration value. 
+     * @description Percentage of total RAM that the database server uses for shared memory buffers.  Valid range is 20-60 (float), which corresponds to 20% - 60%.  This setting adjusts the shared_buffers configuration value.
      * @example 41.5
      */
     shared_buffers_percentage?: number;
     pgbouncer?: external["resources/databases/models/pgbouncer.yml"];
     /**
-     * @description The maximum amount of memory, in MB, used by a query operation (such as a sort or hash table) before writing to temporary disk files. Default is 1MB + 0.075% of total RAM (up to 32MB). 
+     * @description The maximum amount of memory, in MB, used by a query operation (such as a sort or hash table) before writing to temporary disk files. Default is 1MB + 0.075% of total RAM (up to 32MB).
      * @example 4
      */
     work_mem?: number;
     timescaledb?: external["resources/databases/models/timescaledb.yml"];
     /**
-     * @description Synchronous replication type. Note that the service plan also needs to support synchronous replication. 
-     * @example off 
+     * @description Synchronous replication type. Note that the service plan also needs to support synchronous replication.
+     * @example off
      * @enum {string}
      */
     synchronous_replication?: "off" | "quorum";
     /**
-     * @description Enable the pg_stat_monitor extension. <b>Enabling this extension will cause the cluster to be restarted.</b> When this extension is enabled, pg_stat_statements results for utility commands are unreliable. 
+     * @description Enable the pg_stat_monitor extension. <b>Enabling this extension will cause the cluster to be restarted.</b> When this extension is enabled, pg_stat_statements results for utility commands are unreliable.
      * @example false
      */
     stat_monitor_enable?: boolean;
@@ -6265,59 +6265,59 @@ export interface external {
   "resources/databases/models/redis.yml": {
     redis_maxmemory_policy?: external["resources/databases/models/eviction_policy_model.yml"];
     /**
-     * @description Set output buffer limit for pub / sub clients in MB. The value is the hard limit, the soft limit is 1/4 of the hard limit. When setting the limit, be mindful of the available memory in the selected service plan. 
+     * @description Set output buffer limit for pub / sub clients in MB. The value is the hard limit, the soft limit is 1/4 of the hard limit. When setting the limit, be mindful of the available memory in the selected service plan.
      * @example 64
      */
     redis_pubsub_client_output_buffer_limit?: number;
     /**
-     * @description Set number of redis databases. Changing this will cause a restart of redis service. 
+     * @description Set number of redis databases. Changing this will cause a restart of redis service.
      * @example 16
      */
     redis_number_of_databases?: number;
     /**
-     * @description Redis IO thread count 
+     * @description Redis IO thread count
      * @example 1
      */
     redis_io_threads?: number;
     /**
-     * @description Counter logarithm factor for volatile-lfu and allkeys-lfu maxmemory-policies 
-     * @default 10 
+     * @description Counter logarithm factor for volatile-lfu and allkeys-lfu maxmemory-policies
+     * @default 10
      * @example 10
      */
     redis_lfu_log_factor?: number;
     /**
-     * @description LFU maxmemory-policy counter decay time in minutes 
-     * @default 1 
+     * @description LFU maxmemory-policy counter decay time in minutes
+     * @default 1
      * @example 1
      */
     redis_lfu_decay_time?: number;
     /**
-     * @description Require SSL to access Redis 
-     * @default true 
+     * @description Require SSL to access Redis
+     * @default true
      * @example true
      */
     redis_ssl?: boolean;
     /**
-     * @description Redis idle connection timeout in seconds 
-     * @default 300 
+     * @description Redis idle connection timeout in seconds
+     * @default 300
      * @example 300
      */
     redis_timeout?: number;
     /**
-     * @description Set notify-keyspace-events option 
-     * @default  
+     * @description Set notify-keyspace-events option
+     * @default
      * @example K
      */
     redis_notify_keyspace_events?: string;
     /**
-     * @description When persistence is 'rdb', Redis does RDB dumps each 10 minutes if any key is changed. Also RDB dumps are done according to backup schedule for backup purposes. When persistence is 'off', no RDB dumps and backups are done, so data can be lost at any moment if service is restarted for any reason, or if service is powered off. Also service can't be forked. 
-     * @example rdb 
+     * @description When persistence is 'rdb', Redis does RDB dumps each 10 minutes if any key is changed. Also RDB dumps are done according to backup schedule for backup purposes. When persistence is 'off', no RDB dumps and backups are done, so data can be lost at any moment if service is restarted for any reason, or if service is powered off. Also service can't be forked.
+     * @example rdb
      * @enum {string}
      */
     redis_persistence?: "off" | "rdb";
     /**
-     * @description Determines default pub/sub channels' ACL for new users if ACL is not supplied. When this option is not defined, all_channels is assumed to keep backward compatibility. This option doesn't affect Redis configuration acl-pubsub-default. 
-     * @example allchannels 
+     * @description Determines default pub/sub channels' ACL for new users if ACL is not supplied. When this option is not defined, all_channels is assumed to keep backward compatibility. This option doesn't affect Redis configuration acl-pubsub-default.
+     * @example allchannels
      * @enum {string}
      */
     redis_acl_channels_default?: "allchannels" | "resetchannels";
@@ -6325,47 +6325,47 @@ export interface external {
   "resources/databases/models/source_database.yml": {
     source?: {
       /**
-       * @description The FQDN pointing to the database cluster's current primary node. 
+       * @description The FQDN pointing to the database cluster's current primary node.
        * @example backend-do-user-19081923-0.db.ondigitalocean.com
        */
       host?: string;
       /**
-       * @description The port on which the database cluster is listening. 
+       * @description The port on which the database cluster is listening.
        * @example 25060
        */
       port?: number;
       /**
-       * @description The name of the default database. 
+       * @description The name of the default database.
        * @example defaultdb
        */
       dbname?: string;
       /**
-       * @description The default user for the database. 
+       * @description The default user for the database.
        * @example doadmin
        */
       username?: string;
       /**
-       * @description The randomly generated password for the default user. 
+       * @description The randomly generated password for the default user.
        * @example wv78n3zpz42xezdk
        */
       password?: string;
     };
     /**
-     * @description Enables SSL encryption when connecting to the source database. 
+     * @description Enables SSL encryption when connecting to the source database.
      * @example false
      */
     disable_ssl?: boolean;
   }
   "resources/databases/models/sql_mode.yml": {
     /**
-     * @description A string specifying the configured SQL modes for the MySQL cluster. 
+     * @description A string specifying the configured SQL modes for the MySQL cluster.
      * @example ANSI,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,STRICT_ALL_TABLES
      */
     sql_mode: string;
   }
   "resources/databases/models/timescaledb.yml": {
     /**
-     * @description The number of background workers for timescaledb operations.  Set to the sum of your number of databases and the total number of concurrent background workers you want running at any given point in time. 
+     * @description The number of background workers for timescaledb operations.  Set to the sum of your number of databases and the total number of concurrent background workers you want running at any given point in time.
      * @example 8
      */
     max_background_workers?: number;
@@ -6591,13 +6591,13 @@ export interface external {
     };
   }
   /**
-   * Create a New Domain Record 
+   * Create a New Domain Record
    * @description To create a new record to a domain, send a POST request to
    * `/v2/domains/$DOMAIN_NAME/records`.
-   * 
+   *
    * The request must include all of the required fields for the domain record type
    * being added.
-   * 
+   *
    * See the [attribute table](#tag/Domain-Records) for details regarding record
    * types and their respective required attributes.
    */
@@ -6635,7 +6635,7 @@ export interface external {
     };
   }
   /**
-   * Create a New Domain 
+   * Create a New Domain
    * @description To create a new domain, send a POST request to `/v2/domains`. Set the "name"
    * attribute to the domain name you are adding. Optionally, you may set the
    * "ip_address" attribute, and an A record will be automatically created pointing
@@ -6661,10 +6661,10 @@ export interface external {
     };
   }
   /**
-   * Delete a Domain Record 
+   * Delete a Domain Record
    * @description To delete a record for a domain, send a DELETE request to
    * `/v2/domains/$DOMAIN_NAME/records/$DOMAIN_RECORD_ID`.
-   * 
+   *
    * The record will be deleted and the response status will be a 204. This
    * indicates a successful request with no body returned.
    */
@@ -6685,7 +6685,7 @@ export interface external {
     };
   }
   /**
-   * Delete a Domain 
+   * Delete a Domain
    * @description To delete a domain, send a DELETE request to `/v2/domains/$DOMAIN_NAME`.
    */
   "resources/domains/domains_delete.yml": {
@@ -6704,7 +6704,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Domain Record 
+   * Retrieve an Existing Domain Record
    * @description To retrieve a specific domain record, send a GET request to `/v2/domains/$DOMAIN_NAME/records/$RECORD_ID`.
    */
   "resources/domains/domains_get_record.yml": {
@@ -6724,7 +6724,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Domain 
+   * Retrieve an Existing Domain
    * @description To get details about a specific domain, send a GET request to `/v2/domains/$DOMAIN_NAME`.
    */
   "resources/domains/domains_get.yml": {
@@ -6743,7 +6743,7 @@ export interface external {
     };
   }
   /**
-   * List All Domain Records 
+   * List All Domain Records
    * @description To get a listing of all records configured for a domain, send a GET request to `/v2/domains/$DOMAIN_NAME/records`.
    * The list of records returned can be filtered by using the `name` and `type` query parameters. For example, to only include A records for a domain, send a GET request to `/v2/domains/$DOMAIN_NAME/records?type=A`. `name` must be a fully qualified record name. For example, to only include records matching `sub.example.com`, send a GET request to `/v2/domains/$DOMAIN_NAME/records?name=sub.example.com`. Both name and type may be used together.
    */
@@ -6769,7 +6769,7 @@ export interface external {
     };
   }
   /**
-   * List All Domains 
+   * List All Domains
    * @description To retrieve a list of all of the domains in your account, send a GET request to `/v2/domains`.
    */
   "resources/domains/domains_list.yml": {
@@ -6788,11 +6788,11 @@ export interface external {
     };
   }
   /**
-   * Update a Domain Record 
+   * Update a Domain Record
    * @description To update an existing record, send a PATCH request to
    * `/v2/domains/$DOMAIN_NAME/records/$DOMAIN_RECORD_ID`. Any attribute valid for
    * the record type can be set to a new value for the record.
-   * 
+   *
    * See the [attribute table](#tag/Domain-Records) for details regarding record
    * types and their respective attributes.
    */
@@ -6824,11 +6824,11 @@ export interface external {
     };
   }
   /**
-   * Update a Domain Record 
+   * Update a Domain Record
    * @description To update an existing record, send a PUT request to
    * `/v2/domains/$DOMAIN_NAME/records/$DOMAIN_RECORD_ID`. Any attribute valid for
    * the record type can be set to a new value for the record.
-   * 
+   *
    * See the [attribute table](#tag/Domain-Records) for details regarding record
    * types and their respective attributes.
    */
@@ -6873,74 +6873,74 @@ export interface external {
   };
   "resources/domains/models/domain_record.yml": {
     /**
-     * @description A unique identifier for each domain record. 
+     * @description A unique identifier for each domain record.
      * @example 28448429
      */
     id?: number;
     /**
-     * @description The type of the DNS record. For example: A, CNAME, TXT, ... 
+     * @description The type of the DNS record. For example: A, CNAME, TXT, ...
      * @example NS
      */
     type: string;
     /**
-     * @description The host name, alias, or service being defined by the record. 
+     * @description The host name, alias, or service being defined by the record.
      * @example @
      */
     name?: string;
     /**
-     * @description Variable data depending on record type. For example, the "data" value for an A record would be the IPv4 address to which the domain will be mapped. For a CAA record, it would contain the domain name of the CA being granted permission to issue certificates. 
+     * @description Variable data depending on record type. For example, the "data" value for an A record would be the IPv4 address to which the domain will be mapped. For a CAA record, it would contain the domain name of the CA being granted permission to issue certificates.
      * @example ns1.digitalocean.com
      */
     data?: string;
     /**
-     * @description The priority for SRV and MX records. 
+     * @description The priority for SRV and MX records.
      * @example null
      */
     priority?: number | null;
     /**
-     * @description The port for SRV records. 
+     * @description The port for SRV records.
      * @example null
      */
     port?: number | null;
     /**
-     * @description This value is the time to live for the record, in seconds. This defines the time frame that clients can cache queried information before a refresh should be requested. 
+     * @description This value is the time to live for the record, in seconds. This defines the time frame that clients can cache queried information before a refresh should be requested.
      * @example 1800
      */
     ttl?: number;
     /**
-     * @description The weight for SRV records. 
+     * @description The weight for SRV records.
      * @example null
      */
     weight?: number | null;
     /**
-     * @description An unsigned integer between 0-255 used for CAA records. 
+     * @description An unsigned integer between 0-255 used for CAA records.
      * @example null
      */
     flags?: number | null;
     /**
-     * @description The parameter tag for CAA records. Valid values are "issue", "issuewild", or "iodef" 
+     * @description The parameter tag for CAA records. Valid values are "issue", "issuewild", or "iodef"
      * @example null
      */
     tag?: string | null;
   }
   "resources/domains/models/domain.yml": {
     /**
-     * @description The name of the domain itself. This should follow the standard domain format of domain.TLD. For instance, `example.com` is a valid domain name. 
+     * @description The name of the domain itself. This should follow the standard domain format of domain.TLD. For instance, `example.com` is a valid domain name.
      * @example example.com
      */
     name?: string;
     /**
-     * @description This optional attribute may contain an IP address. When provided, an A record will be automatically created pointing to the apex domain. 
+     * @description This optional attribute may contain an IP address. When provided, an A record will be automatically created pointing to the apex domain.
      * @example 192.0.2.1
      */
     ip_address?: string;
     /**
-     * @description This value is the time to live for the records on this domain, in seconds. This defines the time frame that clients can cache queried information before a refresh should be requested. 
+     * @description This value is the time to live for the records on this domain, in seconds. This defines the time frame that clients can cache queried information before a refresh should be requested.
      * @example 1800
      */
     ttl?: number | null;
     /**
-     * @description This attribute contains the complete contents of the zone file for the selected domain. Individual domain record resources should be used to get more granular control over records. However, this attribute can also be used to get information about the SOA record, which is created automatically and is not accessible as an individual record resource. 
+     * @description This attribute contains the complete contents of the zone file for the selected domain. Individual domain record resources should be used to get more granular control over records. However, this attribute can also be used to get information about the SOA record, which is created automatically and is not accessible as an individual record resource.
      * @example $ORIGIN example.com.
      * $TTL 1800
      * example.com. IN SOA ns1.digitalocean.com. hostmaster.example.com. 1415982609 10800 3600 604800 1800
@@ -7031,10 +7031,10 @@ export interface external {
     };
   }
   /**
-   * Retrieve a Droplet Action 
+   * Retrieve a Droplet Action
    * @description To retrieve a Droplet action, send a GET request to
    * `/v2/droplets/$DROPLET_ID/actions/$ACTION_ID`.
-   * 
+   *
    * The response will be a JSON object with a key called `action`. The value will
    * be a Droplet action object.
    */
@@ -7055,10 +7055,10 @@ export interface external {
     };
   }
   /**
-   * List Actions for a Droplet 
+   * List Actions for a Droplet
    * @description To retrieve a list of all actions that have been executed for a Droplet, send
    * a GET request to `/v2/droplets/$DROPLET_ID/actions`.
-   * 
+   *
    * The results will be returned as a JSON object with an `actions` key. This will
    * be set to an array filled with `action` objects containing the standard
    * `action` attributes.
@@ -7083,13 +7083,13 @@ export interface external {
     };
   }
   /**
-   * Acting on Tagged Droplets 
+   * Acting on Tagged Droplets
    * @description Some actions can be performed in bulk on tagged Droplets. The actions can be
    * initiated by sending a POST to `/v2/droplets/actions?tag_name=$TAG_NAME` with
    * the action arguments.
-   * 
+   *
    * Only a sub-set of action types are supported:
-   * 
+   *
    * - `power_cycle`
    * - `power_on`
    * - `power_off`
@@ -7124,11 +7124,11 @@ export interface external {
     };
   }
   /**
-   * Initiate a Droplet Action 
+   * Initiate a Droplet Action
    * @description To initiate an action on a Droplet send a POST request to
    * `/v2/droplets/$DROPLET_ID/actions`. In the JSON body to the request,
    * set the `type` attribute to on of the supported action types:
-   * 
+   *
    * | Action                                   | Details |
    * | ---------------------------------------- | ----------- |
    * | <nobr>`enable_backups`</nobr>            | Enables backups for a Droplet |
@@ -7173,10 +7173,10 @@ export interface external {
     };
   }
   /**
-   * Create a New Droplet 
+   * Create a New Droplet
    * @description To create a new Droplet, send a POST request to `/v2/droplets` setting the
    * required attributes.
-   * 
+   *
    * A Droplet will be created using the provided information. The response body
    * will contain a JSON object with a key called `droplet`. The value will be an
    * object containing the standard attributes for your new Droplet. The response
@@ -7184,14 +7184,14 @@ export interface external {
    * just that the request has been accepted for processing. The `actions` returned
    * as part of the response's `links` object can be used to check the status
    * of the Droplet create event.
-   * 
+   *
    * ### Create Multiple Droplets
-   * 
+   *
    * Creating multiple Droplets is very similar to creating a single Droplet.
    * Instead of sending `name` as a string, send `names` as an array of strings. A
    * Droplet will be created for each name you send using the associated
    * information. Up to ten Droplets may be created this way at a time.
-   * 
+   *
    * Rather than returning a single Droplet, the response body will contain a JSON
    * array with a key called `droplets`. This will be set to an array of JSON
    * objects, each of which will contain the standard Droplet attributes. The
@@ -7215,11 +7215,11 @@ export interface external {
     };
   }
   /**
-   * Deleting Droplets by Tag 
+   * Deleting Droplets by Tag
    * @description To delete **all** Droplets assigned to a specific tag, include the `tag_name`
    * query parameter set to the name of the tag in your DELETE request. For
    * example,  `/v2/droplets?tag_name=$TAG_NAME`.
-   * 
+   *
    * A successful request will receive a 204 status code with no body in response.
    * This indicates that the request was processed successfully.
    */
@@ -7239,11 +7239,11 @@ export interface external {
     };
   }
   /**
-   * Retry a Droplet Destroy with Associated Resources Request 
+   * Retry a Droplet Destroy with Associated Resources Request
    * @description If the status of a request to destroy a Droplet with its associated resources
    * reported any errors, it can be retried by sending a POST request to the
    * `/v2/droplets/$DROPLET_ID/destroy_with_associated_resources/retry` endpoint.
-   * 
+   *
    * Only one destroy can be active at a time per Droplet. If a retry is issued
    * while another destroy is in progress for the Droplet a 409 status code will
    * be returned. A successful response will include a 202 response code and no
@@ -7266,14 +7266,14 @@ export interface external {
     };
   }
   /**
-   * Destroy a Droplet and All of its Associated Resources (Dangerous) 
+   * Destroy a Droplet and All of its Associated Resources (Dangerous)
    * @description To destroy a Droplet along with all of its associated resources, send a DELETE
    * request to the `/v2/droplets/$DROPLET_ID/destroy_with_associated_resources/dangerous`
    * endpoint. The headers of this request must include an `X-Dangerous` key set to
    * `true`. To preview which resources will be destroyed, first query the
    * Droplet's associated resources. This operation _can not_ be reverse and should
    * be used with caution.
-   * 
+   *
    * A successful response will include a 202 response code and no content. Use the
    * status endpoint to check on the success or failure of the destruction of the
    * individual resources.
@@ -7297,7 +7297,7 @@ export interface external {
     };
   }
   /**
-   * Selectively Destroy a Droplet and its Associated Resources 
+   * Selectively Destroy a Droplet and its Associated Resources
    * @description To destroy a Droplet along with a sub-set of its associated resources, send a
    * DELETE request to the `/v2/droplets/$DROPLET_ID/destroy_with_associated_resources/selective`
    * endpoint. The JSON body of the request should include `reserved_ips`, `snapshots`, `volumes`,
@@ -7305,7 +7305,7 @@ export interface external {
    * resources to be destroyed. The IDs can be found by querying the Droplet's
    * associated resources. Any associated resource not included in the request
    * will remain and continue to accrue changes on your account.
-   * 
+   *
    * A successful response will include a 202 response code and no content. Use
    * the status endpoint to check on the success or failure of the destruction of
    * the individual resources.
@@ -7331,9 +7331,9 @@ export interface external {
     };
   }
   /**
-   * Delete an Existing Droplet 
+   * Delete an Existing Droplet
    * @description To delete a Droplet, send a DELETE request to `/v2/droplets/$DROPLET_ID`.
-   * 
+   *
    * A successful request will receive a 204 status code with no body in response.
    * This indicates that the request was processed successfully.
    */
@@ -7353,7 +7353,7 @@ export interface external {
     };
   }
   /**
-   * Check Status of a Droplet Destroy with Associated Resources Request 
+   * Check Status of a Droplet Destroy with Associated Resources Request
    * @description To check on the status of a request to destroy a Droplet with its associated
    * resources, send a GET request to the
    * `/v2/droplets/$DROPLET_ID/destroy_with_associated_resources/status` endpoint.
@@ -7374,7 +7374,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Droplet 
+   * Retrieve an Existing Droplet
    * @description To show information about an individual Droplet, send a GET request to
    * `/v2/droplets/$DROPLET_ID`.
    */
@@ -7394,11 +7394,11 @@ export interface external {
     };
   }
   /**
-   * List Associated Resources for a Droplet 
+   * List Associated Resources for a Droplet
    * @description To list the associated billable resources that can be destroyed along with a
    * Droplet, send a GET request to the
    * `/v2/droplets/$DROPLET_ID/destroy_with_associated_resources` endpoint.
-   * 
+   *
    * The response will be a JSON object containing `snapshots`, `volumes`, and
    * `volume_snapshots` keys. Each will be set to an array of objects containing
    * information about the associated resources.
@@ -7419,10 +7419,10 @@ export interface external {
     };
   }
   /**
-   * List Backups for a Droplet 
+   * List Backups for a Droplet
    * @description To retrieve any backups associated with a Droplet, send a GET request to
    * `/v2/droplets/$DROPLET_ID/backups`.
-   * 
+   *
    * You will get back a JSON object that has a `backups` key. This will be set to
    * an array of backup objects, each of which contain the standard
    * Droplet backup attributes.
@@ -7447,10 +7447,10 @@ export interface external {
     };
   }
   /**
-   * List all Firewalls Applied to a Droplet 
+   * List all Firewalls Applied to a Droplet
    * @description To retrieve a list of all firewalls available to a Droplet, send a GET request
    * to `/v2/droplets/$DROPLET_ID/firewalls`
-   * 
+   *
    * The response will be a JSON object that has a key called `firewalls`. This will
    * be set to an array of `firewall` objects, each of which contain the standard
    * `firewall` attributes.
@@ -7475,10 +7475,10 @@ export interface external {
     };
   }
   /**
-   * List All Available Kernels for a Droplet 
+   * List All Available Kernels for a Droplet
    * @description To retrieve a list of all kernels available to a Droplet, send a GET request
    * to `/v2/droplets/$DROPLET_ID/kernels`
-   * 
+   *
    * The response will be a JSON object that has a key called `kernels`. This will
    * be set to an array of `kernel` objects, each of which contain the standard
    * `kernel` attributes.
@@ -7503,11 +7503,11 @@ export interface external {
     };
   }
   /**
-   * List Neighbors for a Droplet 
+   * List Neighbors for a Droplet
    * @description To retrieve a list of any "neighbors" (i.e. Droplets that are co-located on
    * the same physical hardware) for a specific Droplet, send a GET request to
    * `/v2/droplets/$DROPLET_ID/neighbors`.
-   * 
+   *
    * The results will be returned as a JSON object with a key of `droplets`. This
    * will be set to an array containing objects representing any other Droplets
    * that share the same physical hardware. An empty array indicates that the
@@ -7529,10 +7529,10 @@ export interface external {
     };
   }
   /**
-   * List All Droplet Neighbors 
+   * List All Droplet Neighbors
    * @description To retrieve a list of all Droplets that are co-located on the same physical
    * hardware, send a GET request to `/v2/reports/droplet_neighbors_ids`.
-   * 
+   *
    * The results will be returned as a JSON object with a key of `neighbor_ids`.
    * This will be set to an array of arrays. Each array will contain a set of
    * Droplet IDs for Droplets that share a physical server. An empty array
@@ -7550,10 +7550,10 @@ export interface external {
     };
   }
   /**
-   * List Snapshots for a Droplet 
+   * List Snapshots for a Droplet
    * @description To retrieve the snapshots that have been created from a Droplet, send a GET
    * request to `/v2/droplets/$DROPLET_ID/snapshots`.
-   * 
+   *
    * You will get back a JSON object that has a `snapshots` key. This will be set
    * to an array of snapshot objects, each of which contain the standard Droplet
    * snapshot attributes.
@@ -7578,15 +7578,15 @@ export interface external {
     };
   }
   /**
-   * List All Droplets 
+   * List All Droplets
    * @description To list all Droplets in your account, send a GET request to `/v2/droplets`.
-   * 
+   *
    * The response body will be a JSON object with a key of `droplets`. This will be
    * set to an array containing objects each representing a Droplet. These will
    * contain the standard Droplet attributes.
-   * 
+   *
    * ### Filtering Results by Tag
-   * 
+   *
    * It's possible to request filtered results by including certain query parameters.
    * To only list Droplets assigned to a specific tag, include the `tag_name` query
    * parameter set to the name of the tag in your GET request. For example,
@@ -7621,53 +7621,53 @@ export interface external {
       volume_snapshots?: (external["resources/droplets/models/destroyed_associated_resource.yml"])[];
     };
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format indicating when the requested action was completed. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format indicating when the requested action was completed.
      * @example "2020-04-01T18:11:49.000Z"
      */
     completed_at?: string;
     /**
-     * @description A count of the associated resources that failed to be destroyed, if any. 
+     * @description A count of the associated resources that failed to be destroyed, if any.
      * @example 0
      */
     failures?: number;
   }
   "resources/droplets/models/associated_resource.yml": {
     /**
-     * @description The unique identifier for the resource associated with the Droplet. 
+     * @description The unique identifier for the resource associated with the Droplet.
      * @example 61486916
      */
     id?: string;
     /**
-     * @description The name of the resource associated with the Droplet. 
+     * @description The name of the resource associated with the Droplet.
      * @example ubuntu-s-1vcpu-1gb-nyc1-01-1585758823330
      */
     name?: string;
     /**
-     * @description The cost of the resource in USD per month if the resource is retained after the Droplet is destroyed. 
+     * @description The cost of the resource in USD per month if the resource is retained after the Droplet is destroyed.
      * @example 0.05
      */
     cost?: string;
   }
   "resources/droplets/models/destroyed_associated_resource.yml": {
     /**
-     * @description The unique identifier for the resource scheduled for deletion. 
+     * @description The unique identifier for the resource scheduled for deletion.
      * @example 61486916
      */
     id?: string;
     /**
-     * @description The name of the resource scheduled for deletion. 
+     * @description The name of the resource scheduled for deletion.
      * @example ubuntu-s-1vcpu-1gb-nyc1-01-1585758823330
      */
     name?: string;
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format indicating when the resource was destroyed if the request was successful. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format indicating when the resource was destroyed if the request was successful.
      * @example "2020-04-01T18:11:49.000Z"
      */
     destroyed_at?: string;
     /**
-     * @description A string indicating that the resource was not successfully destroyed and providing additional information. 
+     * @description A string indicating that the resource was not successfully destroyed and providing additional information.
      * @example
      */
     error_message?: string;
@@ -7675,55 +7675,55 @@ export interface external {
   "resources/droplets/models/droplet_actions.yml": {
     /** @description Specifies the action that will be taken on the Droplet. */    droplet_action: {
       /**
-       * @description The type of action to initiate for the Droplet. 
-       * @example reboot 
+       * @description The type of action to initiate for the Droplet.
+       * @example reboot
        * @enum {string}
        */
       type: "enable_backups" | "disable_backups" | "reboot" | "power_cycle" | "shutdown" | "power_off" | "power_on" | "restore" | "password_reset" | "resize" | "rebuild" | "rename" | "change_kernel" | "enable_ipv6" | "snapshot";
     };
     droplet_action_restore: droplet_action[] & {
       /**
-       * @description The ID of a backup of the current Droplet instance to restore from. 
+       * @description The ID of a backup of the current Droplet instance to restore from.
        * @example 12389723
        */
       image?: number;
     };
     droplet_action_resize: droplet_action[] & {
       /**
-       * @description When `true`, the Droplet's disk will be resized in addition to its RAM and CPU. This is a permanent change and cannot be reversed as a Droplet's disk size cannot be decreased. 
+       * @description When `true`, the Droplet's disk will be resized in addition to its RAM and CPU. This is a permanent change and cannot be reversed as a Droplet's disk size cannot be decreased.
        * @example true
        */
       disk?: boolean;
       /**
-       * @description The slug identifier for the size to which you wish to resize the Droplet. 
+       * @description The slug identifier for the size to which you wish to resize the Droplet.
        * @example s-2vcpu-2gb
        */
       size?: string;
     };
     droplet_action_rebuild: droplet_action[] & ({
       /**
-       * @description The image ID of a public or private image or the slug identifier for a public image. The Droplet will be rebuilt using this image as its base. 
+       * @description The image ID of a public or private image or the slug identifier for a public image. The Droplet will be rebuilt using this image as its base.
        * @example ubuntu-20-04-x64
        */
       image?: string | number;
     });
     droplet_action_rename: droplet_action[] & {
       /**
-       * @description The new name for the Droplet. 
+       * @description The new name for the Droplet.
        * @example nifty-new-name
        */
       name?: string;
     };
     droplet_action_change_kernel: droplet_action[] & {
       /**
-       * @description A unique number used to identify and reference a specific kernel. 
+       * @description A unique number used to identify and reference a specific kernel.
        * @example 12389723
        */
       kernel?: number;
     };
     droplet_action_snapshot: droplet_action[] & {
       /**
-       * @description The name to give the new snapshot of the Droplet. 
+       * @description The name to give the new snapshot of the Droplet.
        * @example Nifty New Snapshot
        */
       name?: string;
@@ -7731,23 +7731,23 @@ export interface external {
   };
   "resources/droplets/models/droplet_create.yml": {
     /**
-     * @description The slug identifier for the region that you wish to deploy the Droplet in. If the specific datacenter is not not important, a slug prefix (e.g. `nyc`) can be used to deploy the Droplet in any of the that region's locations (`nyc1`, `nyc2`, or `nyc3`). If the region is omitted from the create request completely, the Droplet may deploy in any region. 
+     * @description The slug identifier for the region that you wish to deploy the Droplet in. If the specific datacenter is not not important, a slug prefix (e.g. `nyc`) can be used to deploy the Droplet in any of the that region's locations (`nyc1`, `nyc2`, or `nyc3`). If the region is omitted from the create request completely, the Droplet may deploy in any region.
      * @example nyc3
      */
     region?: string;
     /**
-     * @description The slug identifier for the size that you wish to select for this Droplet. 
+     * @description The slug identifier for the size that you wish to select for this Droplet.
      * @example s-1vcpu-1gb
      */
     size: string;
     /**
-     * @description The image ID of a public or private image or the slug identifier for a public image. This image will be the base image for your Droplet. 
+     * @description The image ID of a public or private image or the slug identifier for a public image. This image will be the base image for your Droplet.
      * @example ubuntu-20-04-x64
      */
     image: string | number;
     /**
-     * @description An array containing the IDs or fingerprints of the SSH keys that you wish to embed in the Droplet's root account upon creation. 
-     * @default [] 
+     * @description An array containing the IDs or fingerprints of the SSH keys that you wish to embed in the Droplet's root account upon creation.
+     * @default []
      * @example [
      *   289794,
      *   "3b:16:e4:bf:8b:00:8b:b8:59:8c:a9:d3:f0:19:fa:45"
@@ -7755,26 +7755,26 @@ export interface external {
      */
     ssh_keys?: (string | number)[];
     /**
-     * @description A boolean indicating whether automated backups should be enabled for the Droplet. 
-     * @default false 
+     * @description A boolean indicating whether automated backups should be enabled for the Droplet.
+     * @default false
      * @example true
      */
     backups?: boolean;
     /**
-     * @description A boolean indicating whether to enable IPv6 on the Droplet. 
-     * @default false 
+     * @description A boolean indicating whether to enable IPv6 on the Droplet.
+     * @default false
      * @example true
      */
     ipv6?: boolean;
     /**
-     * @description A boolean indicating whether to install the DigitalOcean agent for monitoring. 
-     * @default false 
+     * @description A boolean indicating whether to install the DigitalOcean agent for monitoring.
+     * @default false
      * @example true
      */
     monitoring?: boolean;
     /**
-     * @description A flat array of tag names as strings to apply to the Droplet after it is created. Tag names can either be existing or new tags. 
-     * @default [] 
+     * @description A flat array of tag names as strings to apply to the Droplet after it is created. Tag names can either be existing or new tags.
+     * @default []
      * @example [
      *   "env:prod",
      *   "web"
@@ -7782,41 +7782,41 @@ export interface external {
      */
     tags?: (string)[] | null;
     /**
-     * @description A string containing 'user data' which may be used to configure the Droplet on first boot, often a 'cloud-config' file or Bash script. It must be plain text and may not exceed 64 KiB in size. 
+     * @description A string containing 'user data' which may be used to configure the Droplet on first boot, often a 'cloud-config' file or Bash script. It must be plain text and may not exceed 64 KiB in size.
      * @example #cloud-config
      * runcmd:
      *   - touch /test.txt
      */
     user_data?: string;
     /**
-     * @deprecated 
-     * @description This parameter has been deprecated. Use `vpc_uuid` instead to specify a VPC network for the Droplet. If no `vpc_uuid` is provided, the Droplet will be placed in your account's default VPC for the region. 
-     * @default false 
+     * @deprecated
+     * @description This parameter has been deprecated. Use `vpc_uuid` instead to specify a VPC network for the Droplet. If no `vpc_uuid` is provided, the Droplet will be placed in your account's default VPC for the region.
+     * @default false
      * @example true
      */
     private_networking?: boolean;
     /**
-     * @description An array of IDs for block storage volumes that will be attached to the Droplet once created. The volumes must not already be attached to an existing Droplet. 
-     * @default [] 
+     * @description An array of IDs for block storage volumes that will be attached to the Droplet once created. The volumes must not already be attached to an existing Droplet.
+     * @default []
      * @example [
      *   "12e97116-7280-11ed-b3d0-0a58ac146812"
      * ]
      */
     volumes?: (string)[];
     /**
-     * @description A string specifying the UUID of the VPC to which the Droplet will be assigned. If excluded, the Droplet will be assigned to your account's default VPC for the region. 
+     * @description A string specifying the UUID of the VPC to which the Droplet will be assigned. If excluded, the Droplet will be assigned to your account's default VPC for the region.
      * @example 760e09ef-dc84-11e8-981e-3cfdfeaae000
      */
     vpc_uuid?: string;
     /**
-     * @description A boolean indicating whether to install the DigitalOcean agent used for providing access to the Droplet web console in the control panel. By default, the agent is installed on new Droplets but installation errors (i.e. OS not supported) are ignored. To prevent it from being installed, set to `false`. To make installation errors fatal, explicitly set it to `true`. 
+     * @description A boolean indicating whether to install the DigitalOcean agent used for providing access to the Droplet web console in the control panel. By default, the agent is installed on new Droplets but installation errors (i.e. OS not supported) are ignored. To prevent it from being installed, set to `false`. To make installation errors fatal, explicitly set it to `true`.
      * @example true
      */
     with_droplet_agent?: boolean;
   }
   "resources/droplets/models/droplet_multi_create.yml": {
     /**
-     * @description An array of human human-readable strings you wish to use when displaying the Droplet name. Each name, if set to a domain name managed in the DigitalOcean DNS management system, will configure a PTR record for the Droplet. Each name set during creation will also determine the hostname for the Droplet in its internal configuration. 
+     * @description An array of human human-readable strings you wish to use when displaying the Droplet name. Each name, if set to a domain name managed in the DigitalOcean DNS management system, will configure a PTR record for the Droplet. Each name set during creation will also determine the hostname for the Droplet in its internal configuration.
      * @example [
      *   "sub-01.example.com",
      *   "sub-02.example.com"
@@ -7826,71 +7826,71 @@ export interface external {
   } & external["resources/droplets/models/droplet_create.yml"]
   "resources/droplets/models/droplet_single_create.yml": {
     /**
-     * @description The human-readable string you wish to use when displaying the Droplet name. The name, if set to a domain name managed in the DigitalOcean DNS management system, will configure a PTR record for the Droplet. The name set during creation will also determine the hostname for the Droplet in its internal configuration. 
+     * @description The human-readable string you wish to use when displaying the Droplet name. The name, if set to a domain name managed in the DigitalOcean DNS management system, will configure a PTR record for the Droplet. The name set during creation will also determine the hostname for the Droplet in its internal configuration.
      * @example example.com
      */
     name: string;
   } & external["resources/droplets/models/droplet_create.yml"]
   "resources/droplets/models/droplet_snapshot.yml": {
     /**
-     * @description The unique identifier for the snapshot or backup. 
+     * @description The unique identifier for the snapshot or backup.
      * @example 6372321
      */
     id: number;
   } & external["resources/snapshots/models/snapshots_base.yml"] & ({
     /**
-     * @description Describes the kind of image. It may be one of `snapshot` or `backup`. This specifies whether an image is a user-generated Droplet snapshot or automatically created Droplet backup. 
-     * @example snapshot 
+     * @description Describes the kind of image. It may be one of `snapshot` or `backup`. This specifies whether an image is a user-generated Droplet snapshot or automatically created Droplet backup.
+     * @example snapshot
      * @enum {string}
      */
     type: "snapshot" | "backup";
   })
   "resources/droplets/models/droplet.yml": {
     /**
-     * @description A unique identifier for each Droplet instance. This is automatically generated upon Droplet creation. 
+     * @description A unique identifier for each Droplet instance. This is automatically generated upon Droplet creation.
      * @example 3164444
      */
     id: number;
     /**
-     * @description The human-readable name set for the Droplet instance. 
+     * @description The human-readable name set for the Droplet instance.
      * @example example.com
      */
     name: string;
     /**
-     * @description Memory of the Droplet in megabytes. 
+     * @description Memory of the Droplet in megabytes.
      * @example 1024
      */
     memory: number;
     /**
-     * @description The number of virtual CPUs. 
+     * @description The number of virtual CPUs.
      * @example 1
      */
     vcpus: number;
     /**
-     * @description The size of the Droplet's disk in gigabytes. 
+     * @description The size of the Droplet's disk in gigabytes.
      * @example 25
      */
     disk: number;
     /**
-     * @description A boolean value indicating whether the Droplet has been locked, preventing actions by users. 
+     * @description A boolean value indicating whether the Droplet has been locked, preventing actions by users.
      * @example false
      */
     locked: boolean;
     /**
-     * @description A status string indicating the state of the Droplet instance. This may be "new", "active", "off", or "archive". 
-     * @example active 
+     * @description A status string indicating the state of the Droplet instance. This may be "new", "active", "off", or "archive".
+     * @example active
      * @enum {string}
      */
     status: "new" | "active" | "off" | "archive";
     kernel?: external["resources/droplets/models/kernel.yml"];
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the Droplet was created. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the Droplet was created.
      * @example 2020-07-21T18:37:44Z
      */
     created_at: string;
     /**
-     * @description An array of features enabled on this Droplet. 
+     * @description An array of features enabled on this Droplet.
      * @example [
      *   "backups",
      *   "private_networking",
@@ -7899,7 +7899,7 @@ export interface external {
      */
     features: (string)[];
     /**
-     * @description An array of backup IDs of any backups that have been taken of the Droplet instance.  Droplet backups are enabled at the time of the instance creation. 
+     * @description An array of backup IDs of any backups that have been taken of the Droplet instance.  Droplet backups are enabled at the time of the instance creation.
      * @example [
      *   53893572
      * ]
@@ -7908,20 +7908,20 @@ export interface external {
     /** @description The details of the Droplet's backups feature, if backups are configured for the Droplet. This object contains keys for the start and end times of the window during which the backup will start. */
     next_backup_window: {
       /**
-       * Format: date-time 
-       * @description A time value given in ISO8601 combined date and time format specifying the start of the Droplet's backup window. 
+       * Format: date-time
+       * @description A time value given in ISO8601 combined date and time format specifying the start of the Droplet's backup window.
        * @example 2019-12-04T00:00:00Z
        */
       start?: string;
       /**
-       * Format: date-time 
-       * @description A time value given in ISO8601 combined date and time format specifying the end of the Droplet's backup window. 
+       * Format: date-time
+       * @description A time value given in ISO8601 combined date and time format specifying the end of the Droplet's backup window.
        * @example 2019-12-04T23:00:00Z
        */
       end?: string;
     } | null;
     /**
-     * @description An array of snapshot IDs of any snapshots created from the Droplet instance. 
+     * @description An array of snapshot IDs of any snapshots created from the Droplet instance.
      * @example [
      *   67512819
      * ]
@@ -7929,7 +7929,7 @@ export interface external {
     snapshot_ids: (number)[];
     image: external["resources/images/models/image.yml"];
     /**
-     * @description A flat array including the unique identifier for each Block Storage volume attached to the Droplet. 
+     * @description A flat array including the unique identifier for each Block Storage volume attached to the Droplet.
      * @example [
      *   "506f78a4-e098-11e5-ad9f-000f53306ae1"
      * ]
@@ -7937,7 +7937,7 @@ export interface external {
     volume_ids: (string)[];
     size: external["resources/sizes/models/size.yml"];
     /**
-     * @description The unique slug identifier for the size of this Droplet. 
+     * @description The unique slug identifier for the size of this Droplet.
      * @example s-1vcpu-1gb
      */
     size_slug: string;
@@ -7948,7 +7948,7 @@ export interface external {
     };
     region: external["resources/regions/models/region.yml"];
     /**
-     * @description An array of Tags the Droplet has been tagged with. 
+     * @description An array of Tags the Droplet has been tagged with.
      * @example [
      *   "web",
      *   "env:prod"
@@ -7956,31 +7956,31 @@ export interface external {
      */
     tags: (string)[];
     /**
-     * @description A string specifying the UUID of the VPC to which the Droplet is assigned. 
+     * @description A string specifying the UUID of the VPC to which the Droplet is assigned.
      * @example 760e09ef-dc84-11e8-981e-3cfdfeaae000
      */
     vpc_uuid?: string;
   }
   "resources/droplets/models/kernel.yml": {
     /**
-     * @description A unique number used to identify and reference a specific kernel. 
+     * @description A unique number used to identify and reference a specific kernel.
      * @example 7515
      */
     id?: number;
     /**
-     * @description The display name of the kernel. This is shown in the web UI and is generally a descriptive title for the kernel in question. 
+     * @description The display name of the kernel. This is shown in the web UI and is generally a descriptive title for the kernel in question.
      * @example DigitalOcean GrubLoader v0.2 (20160714)
      */
     name?: string;
     /**
-     * @description A standard kernel version string representing the version, patch, and release information. 
+     * @description A standard kernel version string representing the version, patch, and release information.
      * @example 2016.07.13-DigitalOcean_loader_Ubuntu
      */
     version?: string;
   } | null
   "resources/droplets/models/neighbor_ids.yml": {
     /**
-     * @description An array of arrays. Each array will contain a set of Droplet IDs for Droplets that share a physical server. 
+     * @description An array of arrays. Each array will contain a set of Droplet IDs for Droplets that share a physical server.
      * @example [
      *   [
      *     168671828,
@@ -7997,93 +7997,93 @@ export interface external {
   }
   "resources/droplets/models/network_v4.yml": {
     /**
-     * Format: ipv4 
-     * @description The IP address of the IPv4 network interface. 
+     * Format: ipv4
+     * @description The IP address of the IPv4 network interface.
      * @example 104.236.32.182
      */
     ip_address?: string;
     /**
-     * Format: ipv4 
-     * @description The netmask of the IPv4 network interface. 
+     * Format: ipv4
+     * @description The netmask of the IPv4 network interface.
      * @example 255.255.192.0
      */
     netmask?: string;
     /**
      * @description The gateway of the specified IPv4 network interface.
-     * 
+     *
      * For private interfaces, a gateway is not provided. This is denoted by
      * returning `nil` as its value.
-     *  
+     *
      * @example 104.236.0.1
      */
     gateway?: string;
     /**
-     * @description The type of the IPv4 network interface. 
-     * @example public 
+     * @description The type of the IPv4 network interface.
+     * @example public
      * @enum {string}
      */
     type?: "public" | "private";
   }
   "resources/droplets/models/network_v6.yml": {
     /**
-     * Format: ipv6 
-     * @description The IP address of the IPv6 network interface. 
+     * Format: ipv6
+     * @description The IP address of the IPv6 network interface.
      * @example 2604:a880:0:1010::18a:a001
      */
     ip_address?: string;
     /**
-     * @description The netmask of the IPv6 network interface. 
+     * @description The netmask of the IPv6 network interface.
      * @example 64
      */
     netmask?: number;
     /**
-     * Format: ipv6 
-     * @description The gateway of the specified IPv6 network interface. 
+     * Format: ipv6
+     * @description The gateway of the specified IPv6 network interface.
      * @example 2604:a880:0:1010::1
      */
     gateway?: string;
     /**
      * @description The type of the IPv6 network interface.
-     * 
+     *
      * **Note**: IPv6 private  networking is not currently supported.
-     *  
-     * @example public 
+     *
+     * @example public
      * @enum {string}
      */
     type?: "public";
   }
   "resources/droplets/models/selective_destroy_associated_resource.yml": {
     /**
-     * @deprecated 
-     * @description An array of unique identifiers for the floating IPs to be scheduled for deletion. 
+     * @deprecated
+     * @description An array of unique identifiers for the floating IPs to be scheduled for deletion.
      * @example [
      *   "6186916"
      * ]
      */
     floating_ips?: (string)[];
     /**
-     * @description An array of unique identifiers for the reserved IPs to be scheduled for deletion. 
+     * @description An array of unique identifiers for the reserved IPs to be scheduled for deletion.
      * @example [
      *   "6186916"
      * ]
      */
     reserved_ips?: (string)[];
     /**
-     * @description An array of unique identifiers for the snapshots to be scheduled for deletion. 
+     * @description An array of unique identifiers for the snapshots to be scheduled for deletion.
      * @example [
      *   "61486916"
      * ]
      */
     snapshots?: (string)[];
     /**
-     * @description An array of unique identifiers for the volumes to be scheduled for deletion. 
+     * @description An array of unique identifiers for the volumes to be scheduled for deletion.
      * @example [
      *   "ba49449a-7435-11ea-b89e-0a58ac14480f"
      * ]
      */
     volumes?: (string)[];
     /**
-     * @description An array of unique identifiers for the volume snapshots to be scheduled for deletion. 
+     * @description An array of unique identifiers for the volume snapshots to be scheduled for deletion.
      * @example [
      *   "edb0478d-7436-11ea-86e6-0a58ac144b91"
      * ]
@@ -8275,12 +8275,12 @@ export interface external {
     };
   }
   /**
-   * Add Rules to a Firewall 
+   * Add Rules to a Firewall
    * @description To add additional access rules to a firewall, send a POST request to
    * `/v2/firewalls/$FIREWALL_ID/rules`. The body of the request may include an
    * inbound_rules and/or outbound_rules attribute containing an array of rules to
    * be added.
-   * 
+   *
    * No response body will be sent back, but the response code will indicate
    * success. Specifically, the response code will be a 204, which means that the
    * action was successful with no returned body data.
@@ -8333,11 +8333,11 @@ export interface external {
     };
   }
   /**
-   * Add Tags to a Firewall 
+   * Add Tags to a Firewall
    * @description To assign a tag representing a group of Droplets to a firewall, send a POST
    * request to `/v2/firewalls/$FIREWALL_ID/tags`. In the body of the request,
    * there should be a `tags` attribute containing a list of tag names.
-   * 
+   *
    * No response body will be sent back, but the response code will indicate
    * success. Specifically, the response code will be a 204, which means that the
    * action was successful with no returned body data.
@@ -8373,11 +8373,11 @@ export interface external {
     };
   }
   /**
-   * Add Droplets to a Firewall 
+   * Add Droplets to a Firewall
    * @description To assign a Droplet to a firewall, send a POST request to
    * `/v2/firewalls/$FIREWALL_ID/droplets`. In the body of the request, there
    * should be a `droplet_ids` attribute containing a list of Droplet IDs.
-   * 
+   *
    * No response body will be sent back, but the response code will indicate
    * success. Specifically, the response code will be a 204, which means that the
    * action was successful with no returned body data.
@@ -8399,7 +8399,7 @@ export interface external {
          */
         "application/json": {
           /**
-           * @description An array containing the IDs of the Droplets to be assigned to the firewall. 
+           * @description An array containing the IDs of the Droplets to be assigned to the firewall.
            * @example [
            *   49696269
            * ]
@@ -8419,7 +8419,7 @@ export interface external {
     };
   }
   /**
-   * Create a New Firewall 
+   * Create a New Firewall
    * @description To create a new firewall, send a POST request to `/v2/firewalls`. The request
    * must contain at least one inbound or outbound access rule.
    */
@@ -8482,11 +8482,11 @@ export interface external {
     };
   }
   /**
-   * Remove Droplets from a Firewall 
+   * Remove Droplets from a Firewall
    * @description To remove a Droplet from a firewall, send a DELETE request to
    * `/v2/firewalls/$FIREWALL_ID/droplets`. In the body of the request, there should
    * be a `droplet_ids` attribute containing a list of Droplet IDs.
-   * 
+   *
    * No response body will be sent back, but the response code will indicate
    * success. Specifically, the response code will be a 204, which means that the
    * action was successful with no returned body data.
@@ -8508,7 +8508,7 @@ export interface external {
          */
         "application/json": {
           /**
-           * @description An array containing the IDs of the Droplets to be removed from the firewall. 
+           * @description An array containing the IDs of the Droplets to be removed from the firewall.
            * @example [
            *   49696269
            * ]
@@ -8528,12 +8528,12 @@ export interface external {
     };
   }
   /**
-   * Remove Rules from a Firewall 
+   * Remove Rules from a Firewall
    * @description To remove access rules from a firewall, send a DELETE request to
    * `/v2/firewalls/$FIREWALL_ID/rules`. The body of the request may include an
    * `inbound_rules` and/or `outbound_rules` attribute containing an array of rules
    * to be removed.
-   * 
+   *
    * No response body will be sent back, but the response code will indicate
    * success. Specifically, the response code will be a 204, which means that the
    * action was successful with no returned body data.
@@ -8586,11 +8586,11 @@ export interface external {
     };
   }
   /**
-   * Remove Tags from a Firewall 
+   * Remove Tags from a Firewall
    * @description To remove a tag representing a group of Droplets from a firewall, send a
    * DELETE request to `/v2/firewalls/$FIREWALL_ID/tags`. In the body of the
    * request, there should be a `tags` attribute containing a list of tag names.
-   * 
+   *
    * No response body will be sent back, but the response code will indicate
    * success. Specifically, the response code will be a 204, which means that the
    * action was successful with no returned body data.
@@ -8626,9 +8626,9 @@ export interface external {
     };
   }
   /**
-   * Delete a Firewall 
+   * Delete a Firewall
    * @description To delete a firewall send a DELETE request to `/v2/firewalls/$FIREWALL_ID`.
-   * 
+   *
    * No response body will be sent back, but the response code will indicate
    * success. Specifically, the response code will be a 204, which means that the
    * action was successful with no returned body data.
@@ -8649,7 +8649,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Firewall 
+   * Retrieve an Existing Firewall
    * @description To show information about an existing firewall, send a GET request to `/v2/firewalls/$FIREWALL_ID`.
    */
   "resources/firewalls/firewalls_get.yml": {
@@ -8668,7 +8668,7 @@ export interface external {
     };
   }
   /**
-   * List All Firewalls 
+   * List All Firewalls
    * @description To list all of the firewalls available on your account, send a GET request to `/v2/firewalls`.
    */
   "resources/firewalls/firewalls_list.yml": {
@@ -8687,7 +8687,7 @@ export interface external {
     };
   }
   /**
-   * Update a Firewall 
+   * Update a Firewall
    * @description To update the configuration of an existing firewall, send a PUT request to
    * `/v2/firewalls/$FIREWALL_ID`. The request should contain a full representation
    * of the firewall including existing attributes. **Note that any attributes that
@@ -8763,24 +8763,24 @@ export interface external {
   "resources/firewalls/models/firewall_rule.yml": unknown
   "resources/firewalls/models/firewall.yml": ({
     /**
-     * @description A unique ID that can be used to identify and reference a firewall. 
+     * @description A unique ID that can be used to identify and reference a firewall.
      * @example bb4b2611-3d72-467b-8602-280330ecd65c
      */
     id?: string;
     /**
-     * @description A status string indicating the current state of the firewall. This can be "waiting", "succeeded", or "failed". 
-     * @example waiting 
+     * @description A status string indicating the current state of the firewall. This can be "waiting", "succeeded", or "failed".
+     * @example waiting
      * @enum {string}
      */
     status?: "waiting" | "succeeded" | "failed";
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the firewall was created. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the firewall was created.
      * @example 2020-05-23T21:24:00Z
      */
     created_at?: string;
     /**
-     * @description An array of objects each containing the fields "droplet_id", "removing", and "status". It is provided to detail exactly which Droplets are having their security policies updated. When empty, all changes have been successfully applied. 
+     * @description An array of objects each containing the fields "droplet_id", "removing", and "status". It is provided to detail exactly which Droplets are having their security policies updated. When empty, all changes have been successfully applied.
      * @example [
      *   {
      *     "droplet_id": 8043964,
@@ -8798,12 +8798,12 @@ export interface external {
         status?: string;
       })[];
     /**
-     * @description A human-readable name for a firewall. The name must begin with an alphanumeric character. Subsequent characters must either be alphanumeric characters, a period (.), or a dash (-). 
+     * @description A human-readable name for a firewall. The name must begin with an alphanumeric character. Subsequent characters must either be alphanumeric characters, a period (.), or a dash (-).
      * @example firewall
      */
     name?: string;
     /**
-     * @description An array containing the IDs of the Droplets assigned to the firewall. 
+     * @description An array containing the IDs of the Droplets assigned to the firewall.
      * @example [
      *   8043964
      * ]
@@ -8863,14 +8863,14 @@ export interface external {
     };
   }
   /**
-   * Create a New Floating IP 
+   * Create a New Floating IP
    * @description On creation, a floating IP must be either assigned to a Droplet or reserved to a region.
    * * To create a new floating IP assigned to a Droplet, send a POST
    *   request to `/v2/floating_ips` with the `droplet_id` attribute.
-   * 
+   *
    * * To create a new floating IP reserved to a region, send a POST request to
    *   `/v2/floating_ips` with the `region` attribute.
-   * 
+   *
    * **Note**:  In addition to the standard rate limiting, only 12 floating IPs may be created per 60 seconds.
    */
   "resources/floating_ips/floatingIPs_create.yml": {
@@ -8888,10 +8888,10 @@ export interface external {
     };
   }
   /**
-   * Delete a Floating IP 
+   * Delete a Floating IP
    * @description To delete a floating IP and remove it from your account, send a DELETE request
    * to `/v2/floating_ips/$FLOATING_IP_ADDR`.
-   * 
+   *
    * A successful request will receive a 204 status code with no body in response.
    * This indicates that the request was processed successfully.
    */
@@ -8911,7 +8911,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Floating IP 
+   * Retrieve an Existing Floating IP
    * @description To show information about a floating IP, send a GET request to `/v2/floating_ips/$FLOATING_IP_ADDR`.
    */
   "resources/floating_ips/floatingIPs_get.yml": {
@@ -8930,7 +8930,7 @@ export interface external {
     };
   }
   /**
-   * List All Floating IPs 
+   * List All Floating IPs
    * @description To list all of the floating IPs available on your account, send a GET request to `/v2/floating_ips`.
    */
   "resources/floating_ips/floatingIPs_list.yml": {
@@ -8949,7 +8949,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Floating IP Action 
+   * Retrieve an Existing Floating IP Action
    * @description To retrieve the status of a floating IP action, send a GET request to `/v2/floating_ips/$FLOATING_IP/actions/$ACTION_ID`.
    */
   "resources/floating_ips/floatingIPsAction_get.yml": {
@@ -8969,7 +8969,7 @@ export interface external {
     };
   }
   /**
-   * List All Actions for a Floating IP 
+   * List All Actions for a Floating IP
    * @description To retrieve all actions that have been executed on a floating IP, send a GET request to `/v2/floating_ips/$FLOATING_IP/actions`.
    */
   "resources/floating_ips/floatingIPsAction_list.yml": {
@@ -8988,11 +8988,11 @@ export interface external {
     };
   }
   /**
-   * Initiate a Floating IP Action 
+   * Initiate a Floating IP Action
    * @description To initiate an action on a floating IP send a POST request to
    * `/v2/floating_ips/$FLOATING_IP/actions`. In the JSON body to the request,
    * set the `type` attribute to on of the supported action types:
-   * 
+   *
    * | Action     | Details
    * |------------|--------
    * | `assign`   | Assigns a floating IP to a Droplet
@@ -9025,7 +9025,7 @@ export interface external {
   "resources/floating_ips/models/floating_ip_actions.yml": {
     floatingIPsAction: {
       /**
-       * @description The type of action to initiate for the floating IP. 
+       * @description The type of action to initiate for the floating IP.
        * @enum {string}
        */
       type: "assign" | "unassign";
@@ -9037,7 +9037,7 @@ export interface external {
       type: undefined;
     } & Omit<floatingIPsAction[], "type"> & {
       /**
-       * @description The ID of the Droplet that the floating IP will be assigned to. 
+       * @description The ID of the Droplet that the floating IP will be assigned to.
        * @example 758604968
        */
       droplet_id: number;
@@ -9045,44 +9045,44 @@ export interface external {
   };
   "resources/floating_ips/models/floating_ip_create.yml": OneOf<[{
     /**
-     * @description The ID of the Droplet that the floating IP will be assigned to. 
+     * @description The ID of the Droplet that the floating IP will be assigned to.
      * @example 2457247
      */
     droplet_id: number;
   }, {
     /**
-     * @description The slug identifier for the region the floating IP will be reserved to. 
+     * @description The slug identifier for the region the floating IP will be reserved to.
      * @example nyc3
      */
     region: string;
     /**
-     * Format: uuid 
-     * @description The UUID of the project to which the floating IP will be assigned. 
+     * Format: uuid
+     * @description The UUID of the project to which the floating IP will be assigned.
      * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
      */
     project_id?: string;
   }]>
   "resources/floating_ips/models/floating_ip.yml": {
     /**
-     * Format: ipv4 
-     * @description The public IP address of the floating IP. It also serves as its identifier. 
+     * Format: ipv4
+     * @description The public IP address of the floating IP. It also serves as its identifier.
      * @example 45.55.96.47
      */
     ip?: string;
     region?: external["resources/regions/models/region.yml"] & Record<string, never>;
     /**
-     * @description The Droplet that the floating IP has been assigned to. When you query a floating IP, if it is assigned to a Droplet, the entire Droplet object will be returned. If it is not assigned, the value will be null. 
+     * @description The Droplet that the floating IP has been assigned to. When you query a floating IP, if it is assigned to a Droplet, the entire Droplet object will be returned. If it is not assigned, the value will be null.
      * @example null
      */
     droplet?: (Record<string, unknown> | null) | external["resources/droplets/models/droplet.yml"];
     /**
-     * @description A boolean value indicating whether or not the floating IP has pending actions preventing new ones from being submitted. 
+     * @description A boolean value indicating whether or not the floating IP has pending actions preventing new ones from being submitted.
      * @example true
      */
     locked?: boolean;
     /**
-     * Format: uuid 
-     * @description The UUID of the project to which the reserved IP currently belongs. 
+     * Format: uuid
+     * @description The UUID of the project to which the reserved IP currently belongs.
      * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
      */
     project_id?: string;
@@ -9101,8 +9101,8 @@ export interface external {
       "application/json": {
         action?: external["resources/actions/models/action.yml"] & {
           /**
-           * Format: uuid 
-           * @description The UUID of the project to which the reserved IP currently belongs. 
+           * Format: uuid
+           * @description The UUID of the project to which the reserved IP currently belongs.
            * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
            */
           project_id?: string;
@@ -9163,7 +9163,7 @@ export interface external {
     };
   }
   /**
-   * Create Namespace 
+   * Create Namespace
    * @description Creates a new serverless functions namespace in the desired region and associates it with the provided label. A namespace is a collection of functions and their associated packages, triggers, and project specifications. To create a namespace, send a POST request to `/v2/functions/namespaces` with the `region` and `label` properties.
    */
   "resources/functions/functions_create_namespace.yml": {
@@ -9183,7 +9183,7 @@ export interface external {
     };
   }
   /**
-   * Create Trigger 
+   * Create Trigger
    * @description Creates a new trigger for a given function in a namespace. To create a trigger, send a POST request to `/v2/functions/namespaces/$NAMESPACE_ID/triggers` with the `name`, `function`, `type`, `is_enabled` and `scheduled_details` properties.
    */
   "resources/functions/functions_create_trigger.yml": {
@@ -9209,7 +9209,7 @@ export interface external {
     };
   }
   /**
-   * Delete Namespace 
+   * Delete Namespace
    * @description Deletes the given namespace.  When a namespace is deleted all assets, in the namespace are deleted, this includes packages, functions and triggers. Deleting a namespace is a destructive operation and assets in the namespace are not recoverable after deletion. Some metadata is retained, such as activations, or soft deleted for reporting purposes.
    * To delete namespace, send a DELETE request to `/v2/functions/namespaces/$NAMESPACE_ID`.
    * A successful deletion returns a 204 response.
@@ -9230,7 +9230,7 @@ export interface external {
     };
   }
   /**
-   * Delete Trigger 
+   * Delete Trigger
    * @description Deletes the given trigger.
    * To delete trigger, send a DELETE request to `/v2/functions/namespaces/$NAMESPACE_ID/triggers/$TRIGGER_NAME`.
    * A successful deletion returns a 204 response.
@@ -9252,7 +9252,7 @@ export interface external {
     };
   }
   /**
-   * Get Namespace 
+   * Get Namespace
    * @description Gets the namespace details for the given namespace UUID. To get namespace details, send a GET request to `/v2/functions/namespaces/$NAMESPACE_ID` with no parameters.
    */
   "resources/functions/functions_get_namespace.yml": {
@@ -9272,7 +9272,7 @@ export interface external {
     };
   }
   /**
-   * Get Trigger 
+   * Get Trigger
    * @description Gets the trigger details. To get the trigger details, send a GET request to `/v2/functions/namespaces/$NAMESPACE_ID/triggers/$TRIGGER_NAME`.
    */
   "resources/functions/functions_get_trigger.yml": {
@@ -9292,7 +9292,7 @@ export interface external {
     };
   }
   /**
-   * List Namespaces 
+   * List Namespaces
    * @description Returns a list of namespaces associated with the current user. To get all namespaces, send a GET request to `/v2/functions/namespaces`.
    */
   "resources/functions/functions_list_namespaces.yml": {
@@ -9305,7 +9305,7 @@ export interface external {
     };
   }
   /**
-   * List Triggers 
+   * List Triggers
    * @description Returns a list of triggers associated with the current user and namespace. To get all triggers, send a GET request to `/v2/functions/namespaces/$NAMESPACE_ID/triggers`.
    */
   "resources/functions/functions_list_triggers.yml": {
@@ -9324,7 +9324,7 @@ export interface external {
     };
   }
   /**
-   * Update Trigger 
+   * Update Trigger
    * @description Updates the details of the given trigger. To update a trigger, send a PUT request to `/v2/functions/namespaces/$NAMESPACE_ID/triggers/$TRIGGER_NAME` with new values for the `is_enabled ` or `scheduled_details` properties.
    */
   "resources/functions/functions_update_trigger.yml": {
@@ -9351,34 +9351,34 @@ export interface external {
   }
   "resources/functions/models/create_namespace.yml": {
     /**
-     * @description The [datacenter region](https://docs.digitalocean.com/products/platform/availability-matrix/#available-datacenters) in which to create the namespace. 
+     * @description The [datacenter region](https://docs.digitalocean.com/products/platform/availability-matrix/#available-datacenters) in which to create the namespace.
      * @example nyc1
      */
     region: string;
     /**
-     * @description The namespace's unique name. 
+     * @description The namespace's unique name.
      * @example my namespace
      */
     label: string;
   }
   "resources/functions/models/create_trigger.yml": {
     /**
-     * @description The trigger's unique name within the namespace. 
+     * @description The trigger's unique name within the namespace.
      * @example my trigger
      */
     name: string;
     /**
-     * @description Name of function(action) that exists in the given namespace. 
+     * @description Name of function(action) that exists in the given namespace.
      * @example hello
      */
     function: string;
     /**
-     * @description One of different type of triggers. Currently only SCHEDULED is supported. 
+     * @description One of different type of triggers. Currently only SCHEDULED is supported.
      * @example SCHEDULED
      */
     type: string;
     /**
-     * @description Indicates weather the trigger is paused or unpaused. 
+     * @description Indicates weather the trigger is paused or unpaused.
      * @example true
      */
     is_enabled: boolean;
@@ -9386,50 +9386,50 @@ export interface external {
   }
   "resources/functions/models/namespace_info.yml": {
     /**
-     * @description The namespace's API hostname. Each function in a namespace is provided an endpoint at the namespace's hostname. 
+     * @description The namespace's API hostname. Each function in a namespace is provided an endpoint at the namespace's hostname.
      * @example https://api_host.io
      */
     api_host?: string;
     /**
-     * @description A unique string format of UUID with a prefix fn-. 
+     * @description A unique string format of UUID with a prefix fn-.
      * @example fn-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
      */
     namespace?: string;
     /**
-     * @description UTC time string. 
+     * @description UTC time string.
      * @example "2022-09-14T04:16:45.000Z"
      */
     created_at?: string;
     /**
-     * @description UTC time string. 
+     * @description UTC time string.
      * @example "2022-09-14T04:16:45.000Z"
      */
     updated_at?: string;
     /**
-     * @description The namespace's unique name. 
+     * @description The namespace's unique name.
      * @example my namespace
      */
     label?: string;
     /**
-     * @description The namespace's datacenter region. 
+     * @description The namespace's datacenter region.
      * @example nyc1
      */
     region?: string;
     /**
-     * @description The namespace's Universally Unique Identifier. 
+     * @description The namespace's Universally Unique Identifier.
      * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
      */
     uuid?: string;
     /**
-     * @description A random alpha numeric string. This key is used in conjunction with the namespace's UUID to authenticate 
-     * a user to use the namespace via `doctl`, DigitalOcean's official CLI. 
+     * @description A random alpha numeric string. This key is used in conjunction with the namespace's UUID to authenticate
+     * a user to use the namespace via `doctl`, DigitalOcean's official CLI.
      * @example d1zcd455h01mqjfs4s2eaewyejehi5f2uj4etqq3h7cera8iwkub6xg5of1wdde2
      */
     key?: string;
   }
   "resources/functions/models/scheduled_details.yml": {
     /**
-     * @description valid cron expression string which is required for SCHEDULED type triggers. 
+     * @description valid cron expression string which is required for SCHEDULED type triggers.
      * @example * * * * *
      */
     cron: string;
@@ -9441,49 +9441,49 @@ export interface external {
   }
   "resources/functions/models/trigger_info.yml": {
     /**
-     * @description A unique string format of UUID with a prefix fn-. 
+     * @description A unique string format of UUID with a prefix fn-.
      * @example fn-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
      */
     namespace?: string;
     /**
-     * @description The trigger's unique name within the namespace. 
+     * @description The trigger's unique name within the namespace.
      * @example my trigger
      */
     name?: string;
     /**
-     * @description Name of function(action) that exists in the given namespace. 
+     * @description Name of function(action) that exists in the given namespace.
      * @example hello
      */
     function?: string;
     /**
-     * @description String which indicates the type of trigger source like SCHEDULED. 
+     * @description String which indicates the type of trigger source like SCHEDULED.
      * @example SCHEDULED
      */
     type?: string;
     /**
-     * @description Indicates weather the trigger is paused or unpaused. 
+     * @description Indicates weather the trigger is paused or unpaused.
      * @example true
      */
     is_enabled?: boolean;
     /**
-     * @description UTC time string. 
+     * @description UTC time string.
      * @example "2022-11-11T04:16:45.000Z"
      */
     created_at?: string;
     /**
-     * @description UTC time string. 
+     * @description UTC time string.
      * @example "2022-11-11T04:16:45.000Z"
      */
     updated_at?: string;
     scheduled_details?: external["resources/functions/models/scheduled_details.yml"];
     scheduled_runs?: {
       /**
-       * @description Indicates last run time. null value indicates trigger not run yet. 
+       * @description Indicates last run time. null value indicates trigger not run yet.
        * @example "2022-11-11T04:16:45.000Z"
        */
       last_run_at?: string | null;
       /**
-       * @description Indicates next run time. null value indicates trigger will not run. 
+       * @description Indicates next run time. null value indicates trigger will not run.
        * @example "2022-11-11T04:16:45.000Z"
        */
       next_run_at?: string | null;
@@ -9491,7 +9491,7 @@ export interface external {
   }
   "resources/functions/models/update_trigger.yml": {
     /**
-     * @description Indicates weather the trigger is paused or unpaused. 
+     * @description Indicates weather the trigger is paused or unpaused.
      * @example true
      */
     is_enabled?: boolean;
@@ -9621,7 +9621,7 @@ export interface external {
   }
   "resources/images/attributes.yml": unknown
   /**
-   * Retrieve an Existing Action 
+   * Retrieve an Existing Action
    * @description To retrieve the status of an image action, send a GET request to `/v2/images/$IMAGE_ID/actions/$IMAGE_ACTION_ID`.
    */
   "resources/images/imageActions_get.yml": {
@@ -9641,7 +9641,7 @@ export interface external {
     };
   }
   /**
-   * List All Actions for an Image 
+   * List All Actions for an Image
    * @description To retrieve all actions that have been executed on an image, send a GET request to `/v2/images/$IMAGE_ID/actions`.
    */
   "resources/images/imageActions_list.yml": {
@@ -9660,16 +9660,16 @@ export interface external {
     };
   }
   /**
-   * Initiate an Image Action 
+   * Initiate an Image Action
    * @description The following actions are available on an Image.
-   * 
+   *
    * ## Convert an Image to a Snapshot
-   * 
+   *
    * To convert an image, for example, a backup to a snapshot, send a POST request
    * to `/v2/images/$IMAGE_ID/actions`. Set the `type` attribute to `convert`.
-   * 
+   *
    * ## Transfer an Image
-   * 
+   *
    * To transfer an image to another region, send a POST request to
    * `/v2/images/$IMAGE_ID/actions`. Set the `type` attribute to `transfer` and set
    * `region` attribute to the slug identifier of the region you wish to transfer
@@ -9696,7 +9696,7 @@ export interface external {
     };
   }
   /**
-   * Create a Custom Image 
+   * Create a Custom Image
    * @description To create a new custom image, send a POST request to /v2/images.
    * The body must contain a url attribute pointing to a Linux virtual machine
    * image to be imported into DigitalOcean.
@@ -9719,7 +9719,7 @@ export interface external {
     };
   }
   /**
-   * Delete an Image 
+   * Delete an Image
    * @description To delete a snapshot or custom image, send a `DELETE` request to `/v2/images/$IMAGE_ID`.
    */
   "resources/images/images_delete.yml": {
@@ -9738,7 +9738,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Image 
+   * Retrieve an Existing Image
    * @description To retrieve information about an image, send a `GET` request to
    * `/v2/images/$IDENTIFIER`.
    */
@@ -9748,9 +9748,9 @@ export interface external {
         /**
          * @description A unique number (id) or string (slug) used to identify and reference a
          * specific image.
-         * 
+         *
          * **Public** images can be identified by image `id` or `slug`.
-         * 
+         *
          * **Private** images *must* be identified by image `id`.
          */
         image_id: number | string;
@@ -9766,30 +9766,30 @@ export interface external {
     };
   }
   /**
-   * List All Images 
+   * List All Images
    * @description To list all of the images available on your account, send a GET request to /v2/images.
-   * 
+   *
    * ## Filtering Results
    * -----
-   * 
+   *
    * It's possible to request filtered results by including certain query parameters.
-   * 
+   *
    * **Image Type**
-   * 
+   *
    * Either 1-Click Application or OS Distribution images can be filtered by using the `type` query parameter.
-   * 
+   *
    * > Important: The `type` query parameter does not directly relate to the `type` attribute.
-   * 
+   *
    * To retrieve only ***distribution*** images, include the `type` query parameter set to distribution, `/v2/images?type=distribution`.
-   * 
+   *
    * To retrieve only ***application*** images, include the `type` query parameter set to application, `/v2/images?type=application`.
-   * 
+   *
    * **User Images**
-   * 
+   *
    * To retrieve only the private images of a user, include the `private` query parameter set to true, `/v2/images?private=true`.
-   * 
+   *
    * **Tags**
-   * 
+   *
    * To list all images assigned to a specific tag, include the `tag_name` query parameter set to the name of the tag in your GET request. For example, `/v2/images?tag_name=$TAG_NAME`.
    */
   "resources/images/images_list.yml": {
@@ -9811,7 +9811,7 @@ export interface external {
     };
   }
   /**
-   * Update an Image 
+   * Update an Image
    * @description To update an image, send a `PUT` request to `/v2/images/$IMAGE_ID`.
    * Set the `name` attribute to the new value you would like to use.
    * For custom images, the `description` and `distribution` attributes may also be updated.
@@ -9839,8 +9839,8 @@ export interface external {
   "resources/images/models/image_action.yml": {
     image_action_base: {
       /**
-       * @description The action to be taken on the image. Can be either `convert` or `transfer`. 
-       * @example convert 
+       * @description The action to be taken on the image. Can be either `convert` or `transfer`.
+       * @example convert
        * @enum {string}
        */
       type: "convert" | "transfer";
@@ -9851,7 +9851,7 @@ export interface external {
   };
   "resources/images/models/image_new_custom.yml": WithRequired<external["resources/images/models/image_update.yml"] & {
     /**
-     * @description A URL from which the custom Linux virtual machine image may be retrieved.  The image it points to must be in the raw, qcow2, vhdx, vdi, or vmdk format.  It may be compressed using gzip or bzip2 and must be smaller than 100 GB after being decompressed. 
+     * @description A URL from which the custom Linux virtual machine image may be retrieved.  The image it points to must be in the raw, qcow2, vhdx, vdi, or vmdk format.  It may be compressed using gzip or bzip2 and must be smaller than 100 GB after being decompressed.
      * @example http://cloud-images.ubuntu.com/minimal/releases/bionic/release/ubuntu-18.04-minimal-cloudimg-amd64.img
      */
     url?: string;
@@ -9865,43 +9865,43 @@ export interface external {
   }
   "resources/images/models/image.yml": {
     /**
-     * @description A unique number that can be used to identify and reference a specific image. 
+     * @description A unique number that can be used to identify and reference a specific image.
      * @example 7555620
      */
     id?: number;
     name?: external["resources/images/attributes.yml"]["image_name"];
     /**
-     * @description Describes the kind of image. It may be one of `base`, `snapshot`, `backup`, `custom`, or `admin`. Respectively, this specifies whether an image is a DigitalOcean base OS image, user-generated Droplet snapshot, automatically created Droplet backup, user-provided virtual machine image, or an image used for DigitalOcean managed resources (e.g. DOKS worker nodes). 
-     * @example snapshot 
+     * @description Describes the kind of image. It may be one of `base`, `snapshot`, `backup`, `custom`, or `admin`. Respectively, this specifies whether an image is a DigitalOcean base OS image, user-generated Droplet snapshot, automatically created Droplet backup, user-provided virtual machine image, or an image used for DigitalOcean managed resources (e.g. DOKS worker nodes).
+     * @example snapshot
      * @enum {string}
      */
     type?: "base" | "snapshot" | "backup" | "custom" | "admin";
     distribution?: external["shared/attributes/distribution.yml"];
     /**
-     * @description A uniquely identifying string that is associated with each of the DigitalOcean-provided public images. These can be used to reference a public image as an alternative to the numeric id. 
+     * @description A uniquely identifying string that is associated with each of the DigitalOcean-provided public images. These can be used to reference a public image as an alternative to the numeric id.
      * @example nifty1
      */
     slug?: string | null;
     /**
-     * @description This is a boolean value that indicates whether the image in question is public or not. An image that is public is available to all accounts. A non-public image is only accessible from your account. 
+     * @description This is a boolean value that indicates whether the image in question is public or not. An image that is public is available to all accounts. A non-public image is only accessible from your account.
      * @example true
      */
     public?: boolean;
     regions?: external["shared/attributes/regions_array.yml"];
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the image was created. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the image was created.
      * @example "2020-05-04T22:23:02.000Z"
      */
     created_at?: string;
     /**
-     * @description The minimum disk size in GB required for a Droplet to use this image. 
+     * @description The minimum disk size in GB required for a Droplet to use this image.
      * @example 20
      */
     min_disk_size?: number | null;
     /**
-     * Format: float 
-     * @description The size of the image in gigabytes. 
+     * Format: float
+     * @description The size of the image in gigabytes.
      * @example 2.34
      */
     size_gigabytes?: number | null;
@@ -9909,14 +9909,14 @@ export interface external {
     tags?: external["shared/attributes/tags_array.yml"];
     /**
      * @description A status string indicating the state of a custom image. This may be `NEW`,
-     *  `available`, `pending`, `deleted`, or `retired`. 
-     * @example NEW 
+     *  `available`, `pending`, `deleted`, or `retired`.
+     * @example NEW
      * @enum {string}
      */
     status?: "NEW" | "available" | "pending" | "deleted" | "retired";
     /**
      * @description A string containing information about errors that may occur when importing
-     *  a custom image. 
+     *  a custom image.
      * @example
      */
     error_message?: string;
@@ -10005,7 +10005,7 @@ export interface external {
   }
   "resources/kubernetes/examples.yml": unknown
   /**
-   * Add a Node Pool to a Kubernetes Cluster 
+   * Add a Node Pool to a Kubernetes Cluster
    * @description To add an additional node pool to a Kubernetes clusters, send a POST request
    * to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools` with the following
    * attributes.
@@ -10044,7 +10044,7 @@ export interface external {
     };
   }
   /**
-   * Add Container Registry to Kubernetes Clusters 
+   * Add Container Registry to Kubernetes Clusters
    * @description To integrate the container registry with Kubernetes clusters, send a POST request to `/v2/kubernetes/registry`.
    */
   "resources/kubernetes/kubernetes_add_registry.yml": {
@@ -10062,11 +10062,11 @@ export interface external {
     };
   }
   /**
-   * Create a New Kubernetes Cluster 
+   * Create a New Kubernetes Cluster
    * @description To create a new Kubernetes cluster, send a POST request to
    * `/v2/kubernetes/clusters`. The request must contain at least one node pool
    * with at least one worker.
-   * 
+   *
    * The request may contain a maintenance window policy describing a time period
    * when disruptive maintenance tasks may be carried out. Omitting the policy
    * implies that a window will be chosen automatically. See
@@ -10088,10 +10088,10 @@ export interface external {
     };
   }
   /**
-   * Delete a Kubernetes Cluster 
+   * Delete a Kubernetes Cluster
    * @description To delete a Kubernetes cluster and all services deployed to it, send a DELETE
    * request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID`.
-   * 
+   *
    * A 204 status code with no body will be returned in response to a successful
    * request.
    */
@@ -10111,14 +10111,14 @@ export interface external {
     };
   }
   /**
-   * Delete a Node in a Kubernetes Cluster 
+   * Delete a Node in a Kubernetes Cluster
    * @description To delete a single node in a pool, send a DELETE request to
    * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools/$NODE_POOL_ID/nodes/$NODE_ID`.
-   * 
+   *
    * Appending the `skip_drain=1` query parameter to the request causes node
    * draining to be skipped. Omitting the query parameter or setting its value to
    * `0` carries out draining prior to deletion.
-   * 
+   *
    * Appending the `replace=1` query parameter to the request causes the node to
    * be replaced by a new one after deletion. Omitting the query parameter or
    * setting its value to `0` deletes without replacement.
@@ -10145,10 +10145,10 @@ export interface external {
     };
   }
   /**
-   * Delete a Node Pool in a Kubernetes Cluster 
+   * Delete a Node Pool in a Kubernetes Cluster
    * @description To delete a node pool, send a DELETE request to
    * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools/$NODE_POOL_ID`.
-   * 
+   *
    * A 204 status code with no body will be returned in response to a successful
    * request. Nodes in the pool will subsequently be drained and deleted.
    */
@@ -10169,7 +10169,7 @@ export interface external {
     };
   }
   /**
-   * Delete a Cluster and All of its Associated Resources (Dangerous) 
+   * Delete a Cluster and All of its Associated Resources (Dangerous)
    * @description To delete a Kubernetes cluster with all of its associated resources, send a
    * DELETE request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/destroy_with_associated_resources/dangerous`.
    * A 204 status code with no body will be returned in response to a successful request.
@@ -10190,14 +10190,14 @@ export interface external {
     };
   }
   /**
-   * Selectively Delete a Cluster and its Associated Resources 
+   * Selectively Delete a Cluster and its Associated Resources
    * @description To delete a Kubernetes cluster along with a subset of its associated resources,
    * send a DELETE request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/destroy_with_associated_resources/selective`.
-   * 
+   *
    * The JSON body of the request should include `load_balancers`, `volumes`, or
    * `volume_snapshots` keys each set to an array of IDs for the associated
    * resources to be destroyed.
-   * 
+   *
    * The IDs can be found by querying the cluster's associated resources endpoint.
    * Any associated resource not included in the request will remain and continue
    * to accrue changes on your account.
@@ -10223,7 +10223,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve Available Upgrades for an Existing Kubernetes Cluster 
+   * Retrieve Available Upgrades for an Existing Kubernetes Cluster
    * @description To determine whether a cluster can be upgraded, and the versions to which it
    * can be upgraded, send a GET request to
    * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/upgrades`.
@@ -10244,7 +10244,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Kubernetes Cluster 
+   * Retrieve an Existing Kubernetes Cluster
    * @description To show information about an existing Kubernetes cluster, send a GET request
    * to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID`.
    */
@@ -10264,12 +10264,12 @@ export interface external {
     };
   }
   /**
-   * Fetch Clusterlint Diagnostics for a Kubernetes Cluster 
+   * Fetch Clusterlint Diagnostics for a Kubernetes Cluster
    * @description To request clusterlint diagnostics for your cluster, send a GET request to
    * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/clusterlint`. If the `run_id` query
    * parameter is provided, then the diagnostics for the specific run is fetched.
    * By default, the latest results are shown.
-   * 
+   *
    * To find out how to address clusterlint feedback, please refer to
    * [the clusterlint check documentation](https://github.com/digitalocean/clusterlint/blob/master/checks.md).
    */
@@ -10292,7 +10292,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve User Information for a Kubernetes Cluster 
+   * Retrieve User Information for a Kubernetes Cluster
    * @description To show information the user associated with a Kubernetes cluster, send a GET
    * request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/user`.
    */
@@ -10312,18 +10312,18 @@ export interface external {
     };
   }
   /**
-   * Retrieve Credentials for a Kubernetes Cluster 
+   * Retrieve Credentials for a Kubernetes Cluster
    * @description This endpoint returns a JSON object . It can be used to programmatically
    * construct Kubernetes clients which cannot parse kubeconfig files.
-   * 
+   *
    * The resulting JSON object contains token-based authentication for clusters
    * supporting it, and certificate-based authentication otherwise. For a list of
    * supported versions and more information, see "[How to Connect to a DigitalOcean
    * Kubernetes Cluster with kubectl](https://www.digitalocean.com/docs/kubernetes/how-to/connect-with-kubectl/)".
-   * 
+   *
    * To retrieve credentials for accessing a Kubernetes cluster, send a GET
    * request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/credentials`.
-   * 
+   *
    * Clusters supporting token-based authentication may define an expiration by
    * passing a duration in seconds as a query parameter to
    * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/kubeconfig?expiry_seconds=$DURATION_IN_SECONDS`.
@@ -10349,19 +10349,19 @@ export interface external {
     };
   }
   /**
-   * Retrieve the kubeconfig for a Kubernetes Cluster 
+   * Retrieve the kubeconfig for a Kubernetes Cluster
    * @description This endpoint returns a kubeconfig file in YAML format. It can be used to
    * connect to and administer the cluster using the Kubernetes command line tool,
    * `kubectl`, or other programs supporting kubeconfig files (e.g., client libraries).
-   * 
+   *
    * The resulting kubeconfig file uses token-based authentication for clusters
    * supporting it, and certificate-based authentication otherwise. For a list of
    * supported versions and more information, see "[How to Connect to a DigitalOcean
    * Kubernetes Cluster with kubectl](https://www.digitalocean.com/docs/kubernetes/how-to/connect-with-kubectl/)".
-   * 
+   *
    * To retrieve a kubeconfig file for use with a Kubernetes cluster, send a GET
    * request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/kubeconfig`.
-   * 
+   *
    * Clusters supporting token-based authentication may define an expiration by
    * passing a duration in seconds as a query parameter to
    * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/kubeconfig?expiry_seconds=$DURATION_IN_SECONDS`.
@@ -10387,7 +10387,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve a Node Pool for a Kubernetes Cluster 
+   * Retrieve a Node Pool for a Kubernetes Cluster
    * @description To show information about a specific node pool in a Kubernetes cluster, send
    * a GET request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools/$NODE_POOL_ID`.
    */
@@ -10408,7 +10408,7 @@ export interface external {
     };
   }
   /**
-   * List Associated Resources for Cluster Deletion 
+   * List Associated Resources for Cluster Deletion
    * @description To list the associated billable resources that can be destroyed along with a cluster, send a GET request to the `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/destroy_with_associated_resources` endpoint.
    */
   "resources/kubernetes/kubernetes_list_associatedResources.yml": {
@@ -10427,7 +10427,7 @@ export interface external {
     };
   }
   /**
-   * List All Kubernetes Clusters 
+   * List All Kubernetes Clusters
    * @description To list all of the Kubernetes clusters on your account, send a GET request
    * to `/v2/kubernetes/clusters`.
    */
@@ -10447,7 +10447,7 @@ export interface external {
     };
   }
   /**
-   * List All Node Pools in a Kubernetes Clusters 
+   * List All Node Pools in a Kubernetes Clusters
    * @description To list all of the node pools in a Kubernetes clusters, send a GET request to
    * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools`.
    */
@@ -10467,7 +10467,7 @@ export interface external {
     };
   }
   /**
-   * List Available Regions, Node Sizes, and Versions of Kubernetes 
+   * List Available Regions, Node Sizes, and Versions of Kubernetes
    * @description To list the versions of Kubernetes available for use, the regions that support Kubernetes, and the available node sizes, send a GET request to `/v2/kubernetes/options`.
    */
   "resources/kubernetes/kubernetes_list_options.yml": {
@@ -10481,8 +10481,8 @@ export interface external {
     };
   }
   /**
-   * Recycle a Kubernetes Node Pool 
-   * @deprecated 
+   * Recycle a Kubernetes Node Pool
+   * @deprecated
    * @description The endpoint has been deprecated. Please use the DELETE
    * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools/$NODE_POOL_ID/nodes/$NODE_ID`
    * method instead.
@@ -10516,7 +10516,7 @@ export interface external {
     };
   }
   /**
-   * Remove Container Registry from Kubernetes Clusters 
+   * Remove Container Registry from Kubernetes Clusters
    * @description To remove the container registry from Kubernetes clusters, send a DELETE request to `/v2/kubernetes/registry`.
    */
   "resources/kubernetes/kubernetes_remove_registry.yml": {
@@ -10534,16 +10534,16 @@ export interface external {
     };
   }
   /**
-   * Run Clusterlint Checks on a Kubernetes Cluster 
+   * Run Clusterlint Checks on a Kubernetes Cluster
    * @description Clusterlint helps operators conform to Kubernetes best practices around
    * resources, security and reliability to avoid common problems while operating
    * or upgrading the clusters.
-   * 
+   *
    * To request a clusterlint run on your cluster, send a POST request to
    * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/clusterlint`. This will run all
    * checks present in the `doks` group by default, if a request body is not
    * specified. Optionally specify the below attributes.
-   * 
+   *
    * For information about the available checks, please refer to
    * [the clusterlint check documentation](https://github.com/digitalocean/clusterlint/blob/master/checks.md).
    */
@@ -10568,7 +10568,7 @@ export interface external {
     };
   }
   /**
-   * Update a Kubernetes Cluster 
+   * Update a Kubernetes Cluster
    * @description To update a Kubernetes cluster, send a PUT request to
    * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID` and specify one or more of the
    * attributes below.
@@ -10594,7 +10594,7 @@ export interface external {
     };
   }
   /**
-   * Update a Node Pool in a Kubernetes Cluster 
+   * Update a Node Pool in a Kubernetes Cluster
    * @description To update the name of a node pool, edit the tags applied to it, or adjust its
    * number of nodes, send a PUT request to
    * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools/$NODE_POOL_ID` with the
@@ -10622,11 +10622,11 @@ export interface external {
     };
   }
   /**
-   * Upgrade a Kubernetes Cluster 
+   * Upgrade a Kubernetes Cluster
    * @description To immediately upgrade a Kubernetes cluster to a newer patch release of
    * Kubernetes, send a POST request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/upgrade`.
    * The body of the request must specify a version attribute.
-   * 
+   *
    * Available upgrade versions for a cluster can be fetched from
    * `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/upgrades`.
    */
@@ -10640,7 +10640,7 @@ export interface external {
       content: {
         "application/json": {
           /**
-           * @description The slug identifier for the version of Kubernetes that the cluster will be upgraded to. 
+           * @description The slug identifier for the version of Kubernetes that the cluster will be upgraded to.
            * @example 1.16.13-do.0
            */
           version?: string;
@@ -10659,7 +10659,7 @@ export interface external {
   "resources/kubernetes/models/associated_kubernetes_resources.yml": {
     /** @description An object containing the IDs of resources associated with a Kubernetes cluster. */    associated_kubernetes_resources: {
       /**
-       * @description A list of names and IDs for associated load balancers that can be destroyed along with the cluster. 
+       * @description A list of names and IDs for associated load balancers that can be destroyed along with the cluster.
        * @example [
        *   {
        *     "id": "4de7ac8b-495b-4884-9a69-1050c6793cd6",
@@ -10669,7 +10669,7 @@ export interface external {
        */
       load_balancers?: (associated_kubernetes_resource[])[];
       /**
-       * @description A list of names and IDs for associated volumes that can be destroyed along with the cluster. 
+       * @description A list of names and IDs for associated volumes that can be destroyed along with the cluster.
        * @example [
        *   {
        *     "id": "ba49449a-7435-11ea-b89e-0a58ac14480f",
@@ -10679,7 +10679,7 @@ export interface external {
        */
       volumes?: (associated_kubernetes_resource[])[];
       /**
-       * @description A list of names and IDs for associated volume snapshots that can be destroyed along with the cluster. 
+       * @description A list of names and IDs for associated volume snapshots that can be destroyed along with the cluster.
        * @example [
        *   {
        *     "id": "edb0478d-7436-11ea-86e6-0a58ac144b91",
@@ -10691,33 +10691,33 @@ export interface external {
     };
     associated_kubernetes_resource: {
       /**
-       * @description The ID of a resource associated with a Kubernetes cluster. 
+       * @description The ID of a resource associated with a Kubernetes cluster.
        * @example edb0478d-7436-11ea-86e6-0a58ac144b91
        */
       id?: string;
       /**
-       * @description The name of a resource associated with a Kubernetes cluster. 
+       * @description The name of a resource associated with a Kubernetes cluster.
        * @example volume-001
        */
       name?: string;
     };
     /** @description An object containing the IDs of resources to be destroyed along with their associated with a Kubernetes cluster. */    destroy_associated_kubernetes_resources: {
       /**
-       * @description A list of IDs for associated load balancers to destroy along with the cluster. 
+       * @description A list of IDs for associated load balancers to destroy along with the cluster.
        * @example [
        *   "4de7ac8b-495b-4884-9a69-1050c6793cd6"
        * ]
        */
       load_balancers?: (string)[];
       /**
-       * @description A list of IDs for associated volumes to destroy along with the cluster. 
+       * @description A list of IDs for associated volumes to destroy along with the cluster.
        * @example [
        *   "ba49449a-7435-11ea-b89e-0a58ac14480f"
        * ]
        */
       volumes?: (string)[];
       /**
-       * @description A list of IDs for associated volume snapshots to destroy along with the cluster. 
+       * @description A list of IDs for associated volume snapshots to destroy along with the cluster.
        * @example [
        *   "edb0478d-7436-11ea-86e6-0a58ac144b91"
        * ]
@@ -10727,7 +10727,7 @@ export interface external {
   };
   "resources/kubernetes/models/cluster_registries.yml": {
     /**
-     * @description An array containing the UUIDs of Kubernetes clusters. 
+     * @description An array containing the UUIDs of Kubernetes clusters.
      * @example [
      *   "bd5f5959-5e1e-4205-a714-a914373942af",
      *   "50c2f44c-011d-493e-aee5-361a4a0d1844"
@@ -10737,12 +10737,12 @@ export interface external {
   }
   "resources/kubernetes/models/cluster_update.yml": {
     /**
-     * @description A human-readable name for a Kubernetes cluster. 
+     * @description A human-readable name for a Kubernetes cluster.
      * @example prod-cluster-01
      */
     name: string;
     /**
-     * @description An array of tags applied to the Kubernetes cluster. All clusters are automatically tagged `k8s` and `k8s:$K8S_CLUSTER_ID`. 
+     * @description An array of tags applied to the Kubernetes cluster. All clusters are automatically tagged `k8s` and `k8s:$K8S_CLUSTER_ID`.
      * @example [
      *   "k8s",
      *   "k8s:bd5f5959-5e1e-4205-a714-a914373942af",
@@ -10753,75 +10753,75 @@ export interface external {
     tags?: (string)[];
     maintenance_policy?: external["resources/kubernetes/models/maintenance_policy.yml"];
     /**
-     * @description A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window. 
-     * @default false 
+     * @description A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window.
+     * @default false
      * @example true
      */
     auto_upgrade?: boolean;
     /**
-     * @description A boolean value indicating whether surge upgrade is enabled/disabled for the cluster. Surge upgrade makes cluster upgrades fast and reliable by bringing up new nodes before destroying the outdated nodes. 
-     * @default false 
+     * @description A boolean value indicating whether surge upgrade is enabled/disabled for the cluster. Surge upgrade makes cluster upgrades fast and reliable by bringing up new nodes before destroying the outdated nodes.
+     * @default false
      * @example true
      */
     surge_upgrade?: boolean;
     /**
-     * @description A boolean value indicating whether the control plane is run in a highly available configuration in the cluster. Highly available control planes incur less downtime. The property cannot be disabled. 
-     * @default false 
+     * @description A boolean value indicating whether the control plane is run in a highly available configuration in the cluster. Highly available control planes incur less downtime. The property cannot be disabled.
+     * @default false
      * @example true
      */
     ha?: boolean;
   }
   "resources/kubernetes/models/cluster.yml": {
     /**
-     * Format: uuid 
-     * @description A unique ID that can be used to identify and reference a Kubernetes cluster. 
+     * Format: uuid
+     * @description A unique ID that can be used to identify and reference a Kubernetes cluster.
      * @example bd5f5959-5e1e-4205-a714-a914373942af
      */
     id?: string;
     /**
-     * @description A human-readable name for a Kubernetes cluster. 
+     * @description A human-readable name for a Kubernetes cluster.
      * @example prod-cluster-01
      */
     name: string;
     /**
-     * @description The slug identifier for the region where the Kubernetes cluster is located. 
+     * @description The slug identifier for the region where the Kubernetes cluster is located.
      * @example nyc1
      */
     region: string;
     /**
-     * @description The slug identifier for the version of Kubernetes used for the cluster. If set to a minor version (e.g. "1.14"), the latest version within it will be used (e.g. "1.14.6-do.1"); if set to "latest", the latest published version will be used. See the `/v2/kubernetes/options` endpoint to find all currently available versions. 
+     * @description The slug identifier for the version of Kubernetes used for the cluster. If set to a minor version (e.g. "1.14"), the latest version within it will be used (e.g. "1.14.6-do.1"); if set to "latest", the latest published version will be used. See the `/v2/kubernetes/options` endpoint to find all currently available versions.
      * @example 1.18.6-do.0
      */
     version: string;
     /**
-     * Format: cidr 
-     * @description The range of IP addresses in the overlay network of the Kubernetes cluster in CIDR notation. 
+     * Format: cidr
+     * @description The range of IP addresses in the overlay network of the Kubernetes cluster in CIDR notation.
      * @example 10.244.0.0/16
      */
     cluster_subnet?: string;
     /**
-     * @description The range of assignable IP addresses for services running in the Kubernetes cluster in CIDR notation. 
+     * @description The range of assignable IP addresses for services running in the Kubernetes cluster in CIDR notation.
      * @example 10.245.0.0/16
      */
     service_subnet?: string;
     /**
-     * Format: uuid 
-     * @description A string specifying the UUID of the VPC to which the Kubernetes cluster is assigned. 
+     * Format: uuid
+     * @description A string specifying the UUID of the VPC to which the Kubernetes cluster is assigned.
      * @example c33931f2-a26a-4e61-b85c-4e95a2ec431b
      */
     vpc_uuid?: string;
     /**
-     * @description The public IPv4 address of the Kubernetes master node. This will not be set if high availability is configured on the cluster (v1.21+) 
+     * @description The public IPv4 address of the Kubernetes master node. This will not be set if high availability is configured on the cluster (v1.21+)
      * @example 68.183.121.157
      */
     ipv4?: string;
     /**
-     * @description The base URL of the API server on the Kubernetes master node. 
+     * @description The base URL of the API server on the Kubernetes master node.
      * @example https://bd5f5959-5e1e-4205-a714-a914373942af.k8s.ondigitalocean.com
      */
     endpoint?: string;
     /**
-     * @description An array of tags applied to the Kubernetes cluster. All clusters are automatically tagged `k8s` and `k8s:$K8S_CLUSTER_ID`. 
+     * @description An array of tags applied to the Kubernetes cluster. All clusters are automatically tagged `k8s` and `k8s:$K8S_CLUSTER_ID`.
      * @example [
      *   "k8s",
      *   "k8s:bd5f5959-5e1e-4205-a714-a914373942af",
@@ -10834,58 +10834,58 @@ export interface external {
     node_pools: (external["resources/kubernetes/models/node_pool.yml"]["kubernetes_node_pool"])[];
     maintenance_policy?: external["resources/kubernetes/models/maintenance_policy.yml"];
     /**
-     * @description A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window. 
-     * @default false 
+     * @description A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window.
+     * @default false
      * @example true
      */
     auto_upgrade?: boolean;
     /** @description An object containing a `state` attribute whose value is set to a string indicating the current status of the cluster. */
     status?: {
       /**
-       * @description A string indicating the current status of the cluster. 
-       * @example provisioning 
+       * @description A string indicating the current status of the cluster.
+       * @example provisioning
        * @enum {string}
        */
       readonly state?: "running" | "provisioning" | "degraded" | "error" | "deleted" | "upgrading" | "deleting";
       /**
-       * @description An optional message providing additional information about the current cluster state. 
+       * @description An optional message providing additional information about the current cluster state.
        * @example provisioning
        */
       readonly message?: string;
     };
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the Kubernetes cluster was created. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the Kubernetes cluster was created.
      * @example 2018-11-15T16:00:11Z
      */
     created_at?: string;
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the Kubernetes cluster was last updated. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the Kubernetes cluster was last updated.
      * @example 2018-11-15T16:00:11Z
      */
     updated_at?: string;
     /**
-     * @description A boolean value indicating whether surge upgrade is enabled/disabled for the cluster. Surge upgrade makes cluster upgrades fast and reliable by bringing up new nodes before destroying the outdated nodes. 
-     * @default false 
+     * @description A boolean value indicating whether surge upgrade is enabled/disabled for the cluster. Surge upgrade makes cluster upgrades fast and reliable by bringing up new nodes before destroying the outdated nodes.
+     * @default false
      * @example true
      */
     surge_upgrade?: boolean;
     /**
-     * @description A boolean value indicating whether the control plane is run in a highly available configuration in the cluster. Highly available control planes incur less downtime. The property cannot be disabled. 
-     * @default false 
+     * @description A boolean value indicating whether the control plane is run in a highly available configuration in the cluster. Highly available control planes incur less downtime. The property cannot be disabled.
+     * @default false
      * @example true
      */
     ha?: boolean;
     /**
-     * @description A read-only boolean value indicating if a container registry is integrated with the cluster. 
+     * @description A read-only boolean value indicating if a container registry is integrated with the cluster.
      * @example true
      */
     registry_enabled?: boolean;
   }
   "resources/kubernetes/models/clusterlint_request.yml": {
     /**
-     * @description An array of check groups that will be run when clusterlint executes checks. 
+     * @description An array of check groups that will be run when clusterlint executes checks.
      * @example [
      *   "basic",
      *   "doks",
@@ -10894,7 +10894,7 @@ export interface external {
      */
     include_groups?: (string)[];
     /**
-     * @description An array of checks that will be run when clusterlint executes checks. 
+     * @description An array of checks that will be run when clusterlint executes checks.
      * @example [
      *   "bare-pods",
      *   "resource-requirements"
@@ -10902,14 +10902,14 @@ export interface external {
      */
     include_checks?: (string)[];
     /**
-     * @description An array of check groups that will be omitted when clusterlint executes checks. 
+     * @description An array of check groups that will be omitted when clusterlint executes checks.
      * @example [
      *   "workload-health"
      * ]
      */
     exclude_groups?: (string)[];
     /**
-     * @description An array of checks that will be run when clusterlint executes checks. 
+     * @description An array of checks that will be run when clusterlint executes checks.
      * @example [
      *   "default-namespace"
      * ]
@@ -10918,53 +10918,53 @@ export interface external {
   }
   "resources/kubernetes/models/clusterlint_results.yml": {
     /**
-     * @description Id of the clusterlint run that can be used later to fetch the diagnostics. 
+     * @description Id of the clusterlint run that can be used later to fetch the diagnostics.
      * @example 50c2f44c-011d-493e-aee5-361a4a0d1844
      */
     run_id?: string;
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the schedule clusterlint run request was made. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the schedule clusterlint run request was made.
      * @example 2019-10-30T05:34:07Z
      */
     requested_at?: string;
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the schedule clusterlint run request was completed. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the schedule clusterlint run request was completed.
      * @example 2019-10-30T05:34:11Z
      */
     completed_at?: string;
     /** @description An array of diagnostics reporting potential problems for the given cluster. */
     diagnostics?: ({
         /**
-         * @description The clusterlint check that resulted in the diagnostic. 
+         * @description The clusterlint check that resulted in the diagnostic.
          * @example unused-config-map
          */
         check_name?: string;
         /**
-         * @description Can be one of error, warning or suggestion. 
+         * @description Can be one of error, warning or suggestion.
          * @example warning
          */
         severity?: string;
         /**
-         * @description Feedback about the object for users to fix. 
+         * @description Feedback about the object for users to fix.
          * @example Unused config map
          */
         message?: string;
         /** @description Metadata about the Kubernetes API object the diagnostic is reported on. */
         object?: {
           /**
-           * @description Name of the object 
+           * @description Name of the object
            * @example foo
            */
           name?: string;
           /**
-           * @description The kind of Kubernetes API object 
+           * @description The kind of Kubernetes API object
            * @example config map
            */
           kind?: string;
           /**
-           * @description The namespace the object resides in the cluster. 
+           * @description The namespace the object resides in the cluster.
            * @example kube-system
            */
           namespace?: string;
@@ -10973,71 +10973,71 @@ export interface external {
   }
   "resources/kubernetes/models/credentials.yml": {
     /**
-     * Format: uri 
-     * @description The URL used to access the cluster API server. 
+     * Format: uri
+     * @description The URL used to access the cluster API server.
      * @example https://bd5f5959-5e1e-4205-a714-a914373942af.k8s.ondigitalocean.com
      */
     server?: string;
     /**
-     * Format: byte 
-     * @description A base64 encoding of bytes representing the certificate authority data for accessing the cluster. 
+     * Format: byte
+     * @description A base64 encoding of bytes representing the certificate authority data for accessing the cluster.
      * @example LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURKekNDQWcrZ0F3SUJBZ0lDQm5Vd0RRWUpLb1pJaHZjTkFRRUxCUUF3TXpFVk1CTUdBMVVFQ2hNTVJHbG4KYVhSaGJFOWpaV0Z1TVJvd0dBWURWUVFERXhGck9ITmhZWE1nUTJ4MWMzUmxjaUJEUVRBZUZ3MHlNREE0TURNeApOVEkxTWpoYUZ3MDBNREE0TURNeE5USTFNamhhTURNeEZUQVRCZ05WQkFvVERFUnBaMmwwWVd4UFkyVmhiakVhCk1CZ0dBMVVFQXhNUmF6aHpZV0Z6SUVOc2RYTjBaWElnUTBFd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUIKRHdBd2dnRUtBb0lCQVFDc21oa2JrSEpUcGhZQlN0R05VVE1ORVZTd2N3bmRtajArelQvcUZaNGsrOVNxUnYrSgpBd0lCaGpBU0JnTlZIUk1CQWY4RUNEQUdBUUgvQWdFQU1CMEdBMVVkRGdRV0JCUlRzazhhZ1hCUnFyZXdlTXJxClhwa3E1NXg5dVRBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQXB6V2F6bXNqYWxXTEx3ZjVpbWdDblNINDlKcGkKYWkvbzFMdEJvVEpleGdqZzE1ZVppaG5BMUJMc0lWNE9BZGM3UEFsL040L0hlbENrTDVxandjamRnNVdaYnMzYwozcFVUQ0g5bVVwMFg1SVdhT1VKV292Q1hGUlM1R2VKYXlkSDVPUXhqTURzR2N2UlNvZGQrVnQ2MXE3aWdFZ2I1CjBOZ1l5RnRnc2p0MHpJN3hURzZFNnlsOVYvUmFoS3lIQks2eExlM1RnUGU4SXhWa2RwT3QzR0FhSDRaK0pLR3gKYisyMVZia1NnRE1QQTlyR0VKNVZwVXlBV0FEVXZDRVFHV0hmNGpQN2ZGZlc3T050S0JWY3h3YWFjcVBVdUhzWApwRG5DZVR3V1NuUVp6L05xNmQxWUtsMFdtbkwzTEowemJzRVFGbEQ4MkkwL09MY2dZSDVxMklOZHhBPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
      */
     certificate_authority_data?: string;
     /**
-     * Format: byte 
-     * @deprecated 
+     * Format: byte
+     * @deprecated
      * @description A base64 encoding of bytes representing the x509 client
      * certificate data for access the cluster. This is only returned for clusters
      * without support for token-based authentication.
-     * 
+     *
      * Newly created Kubernetes clusters do not return credentials using
      * certificate-based authentication. For additional information,
      * [see here](https://www.digitalocean.com/docs/kubernetes/how-to/connect-to-cluster/#authenticate).
-     *  
+     *
      * @example null
      */
     client_certificate_data?: string | null;
     /**
-     * Format: byte 
-     * @deprecated 
+     * Format: byte
+     * @deprecated
      * @description A base64 encoding of bytes representing the x509 client key
      * data for access the cluster. This is only returned for clusters without
      * support for token-based authentication.
-     * 
+     *
      * Newly created Kubernetes clusters do not return credentials using
      * certificate-based authentication. For additional information,
      * [see here](https://www.digitalocean.com/docs/kubernetes/how-to/connect-to-cluster/#authenticate).
-     *  
+     *
      * @example null
      */
     client_key_data?: string | null;
     /**
-     * @description An access token used to authenticate with the cluster. This is only returned for clusters with support for token-based authentication. 
+     * @description An access token used to authenticate with the cluster. This is only returned for clusters with support for token-based authentication.
      * @example $DIGITALOCEAN_TOKEN
      */
     token?: string;
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the access token expires. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the access token expires.
      * @example "2019-11-09T11:50:28.889Z"
      */
     expires_at?: string;
   }
   "resources/kubernetes/models/maintenance_policy.yml": ({
     /**
-     * @description The start time in UTC of the maintenance window policy in 24-hour clock format / HH:MM notation (e.g., `15:00`). 
+     * @description The start time in UTC of the maintenance window policy in 24-hour clock format / HH:MM notation (e.g., `15:00`).
      * @example 12:00
      */
     start_time?: string;
     /**
-     * @description The duration of the maintenance window policy in human-readable format. 
+     * @description The duration of the maintenance window policy in human-readable format.
      * @example 4h0m0s
      */
     duration?: string;
     /**
-     * @description The day of the maintenance window policy. May be one of `monday` through `sunday`, or `any` to indicate an arbitrary week day. 
-     * @example any 
+     * @description The day of the maintenance window policy. May be one of `monday` through `sunday`, or `any` to indicate an arbitrary week day.
+     * @example any
      * @enum {string}
      */
     day?: "any" | "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
@@ -11045,39 +11045,39 @@ export interface external {
   "resources/kubernetes/models/node_pool.yml": unknown
   "resources/kubernetes/models/node.yml": {
     /**
-     * Format: uuid 
-     * @description A unique ID that can be used to identify and reference the node. 
+     * Format: uuid
+     * @description A unique ID that can be used to identify and reference the node.
      * @example e78247f8-b1bb-4f7a-8db9-2a5f8d4b8f8f
      */
     id?: string;
     /**
-     * @description An automatically generated, human-readable name for the node. 
+     * @description An automatically generated, human-readable name for the node.
      * @example adoring-newton-3niq
      */
     name?: string;
     /** @description An object containing a `state` attribute whose value is set to a string indicating the current status of the node. */
     status?: {
       /**
-       * @description A string indicating the current status of the node. 
-       * @example provisioning 
+       * @description A string indicating the current status of the node.
+       * @example provisioning
        * @enum {string}
        */
       state?: "provisioning" | "running" | "draining" | "deleting";
     };
     /**
-     * @description The ID of the Droplet used for the worker node. 
+     * @description The ID of the Droplet used for the worker node.
      * @example 205545370
      */
     droplet_id?: string;
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the node was created. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the node was created.
      * @example 2018-11-15T16:00:11Z
      */
     created_at?: string;
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the node was last updated. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the node was last updated.
      * @example 2018-11-15T16:00:11Z
      */
     updated_at?: string;
@@ -11086,13 +11086,13 @@ export interface external {
   "resources/kubernetes/models/user.yml": {
     kubernetes_cluster_user?: {
       /**
-       * Format: email 
-       * @description The username for the cluster admin user. 
+       * Format: email
+       * @description The username for the cluster admin user.
        * @example sammy@digitalocean.com
        */
       username?: string;
       /**
-       * @description A list of in-cluster groups that the user belongs to. 
+       * @description A list of in-cluster groups that the user belongs to.
        * @example [
        *   "k8saas:authenticated"
        * ]
@@ -11206,7 +11206,7 @@ export interface external {
     content: {
       "application/json": {
         /**
-         * @description ID of the clusterlint run that can be used later to fetch the diagnostics. 
+         * @description ID of the clusterlint run that can be used later to fetch the diagnostics.
          * @example 50c2f44c-011d-493e-aee5-361a4a0d1844
          */
         run_id?: string;
@@ -11296,14 +11296,14 @@ export interface external {
   }
   "resources/load_balancers/examples.yml": unknown
   /**
-   * Add Droplets to a Load Balancer 
+   * Add Droplets to a Load Balancer
    * @description To assign a Droplet to a load balancer instance, send a POST request to
    * `/v2/load_balancers/$LOAD_BALANCER_ID/droplets`. In the body of the request,
    * there should be a `droplet_ids` attribute containing a list of Droplet IDs.
    * Individual Droplets can not be added to a load balancer configured with a
    * Droplet tag. Attempting to do so will result in a "422 Unprocessable Entity"
    * response from the API.
-   * 
+   *
    * No response body will be sent back, but the response code will indicate
    * success. Specifically, the response code will be a 204, which means that the
    * action was successful with no returned body data.
@@ -11331,12 +11331,12 @@ export interface external {
     };
   }
   /**
-   * Add Forwarding Rules to a Load Balancer 
+   * Add Forwarding Rules to a Load Balancer
    * @description To add an additional forwarding rule to a load balancer instance, send a POST
    * request to `/v2/load_balancers/$LOAD_BALANCER_ID/forwarding_rules`. In the body
    * of the request, there should be a `forwarding_rules` attribute containing an
    * array of rules to be added.
-   * 
+   *
    * No response body will be sent back, but the response code will indicate
    * success. Specifically, the response code will be a 204, which means that the
    * action was successful with no returned body data.
@@ -11364,18 +11364,18 @@ export interface external {
     };
   }
   /**
-   * Create a New Load Balancer 
+   * Create a New Load Balancer
    * @description To create a new load balancer instance, send a POST request to
    * `/v2/load_balancers`.
-   * 
+   *
    * You can specify the Droplets that will sit behind the load balancer using one
    * of two methods:
-   * 
+   *
    * * Set `droplet_ids` to a list of specific Droplet IDs.
    * * Set `tag` to the name of a tag. All Droplets with this tag applied will be
    *   assigned to the load balancer. Additional Droplets will be automatically
    *   assigned as they are tagged.
-   * 
+   *
    * These methods are mutually exclusive.
    */
   "resources/load_balancers/loadBalancers_create.yml": {
@@ -11393,11 +11393,11 @@ export interface external {
     };
   }
   /**
-   * Delete a Load Balancer 
+   * Delete a Load Balancer
    * @description To delete a load balancer instance, disassociating any Droplets assigned to it
    * and removing it from your account, send a DELETE request to
    * `/v2/load_balancers/$LOAD_BALANCER_ID`.
-   * 
+   *
    * A successful request will receive a 204 status code with no body in response.
    * This indicates that the request was processed successfully.
    */
@@ -11417,7 +11417,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Load Balancer 
+   * Retrieve an Existing Load Balancer
    * @description To show information about a load balancer instance, send a GET request to
    * `/v2/load_balancers/$LOAD_BALANCER_ID`.
    */
@@ -11437,7 +11437,7 @@ export interface external {
     };
   }
   /**
-   * List All Load Balancers 
+   * List All Load Balancers
    * @description To list all of the load balancer instances on your account, send a GET request
    * to `/v2/load_balancers`.
    */
@@ -11457,11 +11457,11 @@ export interface external {
     };
   }
   /**
-   * Remove Droplets from a Load Balancer 
+   * Remove Droplets from a Load Balancer
    * @description To remove a Droplet from a load balancer instance, send a DELETE request to
    * `/v2/load_balancers/$LOAD_BALANCER_ID/droplets`. In the body of the request,
    * there should be a `droplet_ids` attribute containing a list of Droplet IDs.
-   * 
+   *
    * No response body will be sent back, but the response code will indicate
    * success. Specifically, the response code will be a 204, which means that the
    * action was successful with no returned body data.
@@ -11489,12 +11489,12 @@ export interface external {
     };
   }
   /**
-   * Remove Forwarding Rules from a Load Balancer 
+   * Remove Forwarding Rules from a Load Balancer
    * @description To remove forwarding rules from a load balancer instance, send a DELETE
    * request to `/v2/load_balancers/$LOAD_BALANCER_ID/forwarding_rules`. In the
    * body of the request, there should be a `forwarding_rules` attribute containing
    * an array of rules to be removed.
-   * 
+   *
    * No response body will be sent back, but the response code will indicate
    * success. Specifically, the response code will be a 204, which means that the
    * action was successful with no returned body data.
@@ -11522,7 +11522,7 @@ export interface external {
     };
   }
   /**
-   * Update a Load Balancer 
+   * Update a Load Balancer
    * @description To update a load balancer's settings, send a PUT request to
    * `/v2/load_balancers/$LOAD_BALANCER_ID`. The request should contain a full
    * representation of the load balancer including existing attributes. It may
@@ -11554,88 +11554,88 @@ export interface external {
   "resources/load_balancers/models/forwarding_rule.yml": {
     /**
      * @description The protocol used for traffic to the load balancer. The possible values are: `http`, `https`, `http2`, `http3`, `tcp`, or `udp`. If you set the  `entry_protocol` to `udp`, the `target_protocol` must be set to `udp`.  When using UDP, the load balancer requires that you set up a health  check with a port that uses TCP, HTTP, or HTTPS to work properly.
-     *  
-     * @example https 
+     *
+     * @example https
      * @enum {string}
      */
     entry_protocol: "http" | "https" | "http2" | "http3" | "tcp" | "udp";
     /**
-     * @description An integer representing the port on which the load balancer instance will listen. 
+     * @description An integer representing the port on which the load balancer instance will listen.
      * @example 443
      */
     entry_port: number;
     /**
      * @description The protocol used for traffic from the load balancer to the backend Droplets. The possible values are: `http`, `https`, `http2`, `tcp`, or `udp`. If you set the `target_protocol` to `udp`, the `entry_protocol` must be set to  `udp`. When using UDP, the load balancer requires that you set up a health  check with a port that uses TCP, HTTP, or HTTPS to work properly.
-     *  
-     * @example http 
+     *
+     * @example http
      * @enum {string}
      */
     target_protocol: "http" | "https" | "http2" | "tcp" | "udp";
     /**
-     * @description An integer representing the port on the backend Droplets to which the load balancer will send traffic. 
+     * @description An integer representing the port on the backend Droplets to which the load balancer will send traffic.
      * @example 80
      */
     target_port: number;
     /**
-     * @description The ID of the TLS certificate used for SSL termination if enabled. 
+     * @description The ID of the TLS certificate used for SSL termination if enabled.
      * @example 892071a0-bb95-49bc-8021-3afd67a210bf
      */
     certificate_id?: string;
     /**
-     * @description A boolean value indicating whether SSL encrypted traffic will be passed through to the backend Droplets. 
+     * @description A boolean value indicating whether SSL encrypted traffic will be passed through to the backend Droplets.
      * @example false
      */
     tls_passthrough?: boolean;
   }
   "resources/load_balancers/models/health_check.yml": {
     /**
-     * @description The protocol used for health checks sent to the backend Droplets. The possible values are `http`, `https`, or `tcp`. 
-     * @default http 
-     * @example http 
+     * @description The protocol used for health checks sent to the backend Droplets. The possible values are `http`, `https`, or `tcp`.
+     * @default http
+     * @example http
      * @enum {string}
      */
     protocol?: "http" | "https" | "tcp";
     /**
-     * @description An integer representing the port on the backend Droplets on which the health check will attempt a connection. 
-     * @default 80 
+     * @description An integer representing the port on the backend Droplets on which the health check will attempt a connection.
+     * @default 80
      * @example 80
      */
     port?: number;
     /**
-     * @description The path on the backend Droplets to which the load balancer instance will send a request. 
-     * @default / 
+     * @description The path on the backend Droplets to which the load balancer instance will send a request.
+     * @default /
      * @example /
      */
     path?: string;
     /**
-     * @description The number of seconds between between two consecutive health checks. 
-     * @default 10 
+     * @description The number of seconds between between two consecutive health checks.
+     * @default 10
      * @example 10
      */
     check_interval_seconds?: number;
     /**
-     * @description The number of seconds the load balancer instance will wait for a response until marking a health check as failed. 
-     * @default 5 
+     * @description The number of seconds the load balancer instance will wait for a response until marking a health check as failed.
+     * @default 5
      * @example 5
      */
     response_timeout_seconds?: number;
     /**
-     * @description The number of times a health check must fail for a backend Droplet to be marked "unhealthy" and be removed from the pool. 
-     * @default 5 
+     * @description The number of times a health check must fail for a backend Droplet to be marked "unhealthy" and be removed from the pool.
+     * @default 5
      * @example 5
      */
     unhealthy_threshold?: number;
     /**
-     * @description The number of times a health check must pass for a backend Droplet to be marked "healthy" and be re-added to the pool. 
-     * @default 3 
+     * @description The number of times a health check must pass for a backend Droplet to be marked "healthy" and be re-added to the pool.
+     * @default 3
      * @example 3
      */
     healthy_threshold?: number;
   }
   "resources/load_balancers/models/lb_firewall.yml": {
     /**
-     * @description the rules for denying traffic to the load balancer (in the form 'ip:1.2.3.4' or 'cidr:1.2.0.0/16') 
-     * @default [] 
+     * @description the rules for denying traffic to the load balancer (in the form 'ip:1.2.3.4' or 'cidr:1.2.0.0/16')
+     * @default []
      * @example [
      *   "ip:1.2.3.4",
      *   "cidr:2.3.0.0/16"
@@ -11643,8 +11643,8 @@ export interface external {
      */
     deny?: (string)[];
     /**
-     * @description the rules for allowing traffic to the load balancer (in the form 'ip:1.2.3.4' or 'cidr:1.2.0.0/16') 
-     * @default [] 
+     * @description the rules for allowing traffic to the load balancer (in the form 'ip:1.2.3.4' or 'cidr:1.2.0.0/16')
+     * @default []
      * @example [
      *   "ip:1.2.3.4",
      *   "cidr:2.3.0.0/16"
@@ -11654,62 +11654,62 @@ export interface external {
   }
   "resources/load_balancers/models/load_balancer_base.yml": {
     /**
-     * Format: uuid 
-     * @description A unique ID that can be used to identify and reference a load balancer. 
+     * Format: uuid
+     * @description A unique ID that can be used to identify and reference a load balancer.
      * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
      */
     id?: string;
     /**
-     * @description A human-readable name for a load balancer instance. 
+     * @description A human-readable name for a load balancer instance.
      * @example example-lb-01
      */
     name?: string;
     /**
-     * @description The ID of the project that the load balancer is associated with. If no ID is provided at creation, the load balancer associates with the user's default project. If an invalid project ID is provided, the load balancer will not be created. 
+     * @description The ID of the project that the load balancer is associated with. If no ID is provided at creation, the load balancer associates with the user's default project. If an invalid project ID is provided, the load balancer will not be created.
      * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
      */
     project_id?: string;
     /**
-     * @description An attribute containing the public-facing IP address of the load balancer. 
+     * @description An attribute containing the public-facing IP address of the load balancer.
      * @example 104.131.186.241
      */
     ip?: string;
     /**
-     * @description How many nodes the load balancer contains. Each additional node increases the load balancer's ability to manage more connections. Load balancers can be scaled up or down, and you can change the number of nodes after creation up to once per hour. This field is currently not available in the AMS2, NYC2, or SFO1 regions. Use the `size` field to scale load balancers that reside in these regions. 
-     * @default 1 
+     * @description How many nodes the load balancer contains. Each additional node increases the load balancer's ability to manage more connections. Load balancers can be scaled up or down, and you can change the number of nodes after creation up to once per hour. This field is currently not available in the AMS2, NYC2, or SFO1 regions. Use the `size` field to scale load balancers that reside in these regions.
+     * @default 1
      * @example 3
      */
     size_unit?: number;
     /**
-     * @deprecated 
+     * @deprecated
      * @description This field has been replaced by the `size_unit` field for all regions except in AMS2, NYC2, and SFO1. Each available load balancer size now equates to the load balancer having a set number of nodes.
      * * `lb-small` = 1 node
      * * `lb-medium` = 3 nodes
      * * `lb-large` = 6 nodes
-     * 
-     * You can resize load balancers after creation up to once per hour. You cannot resize a load balancer within the first hour of its creation. 
-     * @default lb-small 
-     * @example lb-small 
+     *
+     * You can resize load balancers after creation up to once per hour. You cannot resize a load balancer within the first hour of its creation.
+     * @default lb-small
+     * @example lb-small
      * @enum {string}
      */
     size?: "lb-small" | "lb-medium" | "lb-large";
     /**
-     * @deprecated 
-     * @description This field has been deprecated. You can no longer specify an algorithm for load balancers. 
-     * @default round_robin 
-     * @example round_robin 
+     * @deprecated
+     * @description This field has been deprecated. You can no longer specify an algorithm for load balancers.
+     * @default round_robin
+     * @example round_robin
      * @enum {string}
      */
     algorithm?: "round_robin" | "least_connections";
     /**
-     * @description A status string indicating the current state of the load balancer. This can be `new`, `active`, or `errored`. 
-     * @example new 
+     * @description A status string indicating the current state of the load balancer. This can be `new`, `active`, or `errored`.
+     * @example new
      * @enum {string}
      */
     status?: "new" | "active" | "errored";
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the load balancer was created. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the load balancer was created.
      * @example 2017-02-01T22:22:58Z
      */
     created_at?: string;
@@ -11718,38 +11718,38 @@ export interface external {
     health_check?: external["resources/load_balancers/models/health_check.yml"];
     sticky_sessions?: external["resources/load_balancers/models/sticky_sessions.yml"];
     /**
-     * @description A boolean value indicating whether HTTP requests to the load balancer on port 80 will be redirected to HTTPS on port 443. 
-     * @default false 
+     * @description A boolean value indicating whether HTTP requests to the load balancer on port 80 will be redirected to HTTPS on port 443.
+     * @default false
      * @example true
      */
     redirect_http_to_https?: boolean;
     /**
-     * @description A boolean value indicating whether PROXY Protocol is in use. 
-     * @default false 
+     * @description A boolean value indicating whether PROXY Protocol is in use.
+     * @default false
      * @example true
      */
     enable_proxy_protocol?: boolean;
     /**
-     * @description A boolean value indicating whether HTTP keepalive connections are maintained to target Droplets. 
-     * @default false 
+     * @description A boolean value indicating whether HTTP keepalive connections are maintained to target Droplets.
+     * @default false
      * @example true
      */
     enable_backend_keepalive?: boolean;
     /**
-     * @description An integer value which configures the idle timeout for HTTP requests to the target droplets. 
-     * @default 60 
+     * @description An integer value which configures the idle timeout for HTTP requests to the target droplets.
+     * @default 60
      * @example 90
      */
     http_idle_timeout_seconds?: number;
     /**
-     * Format: uuid 
-     * @description A string specifying the UUID of the VPC to which the load balancer is assigned. 
+     * Format: uuid
+     * @description A string specifying the UUID of the VPC to which the load balancer is assigned.
      * @example c33931f2-a26a-4e61-b85c-4e95a2ec431b
      */
     vpc_uuid?: string;
     /**
-     * @description A boolean value indicating whether to disable automatic DNS record creation for Let's Encrypt certificates that are added to the load balancer. 
-     * @default false 
+     * @description A boolean value indicating whether to disable automatic DNS record creation for Let's Encrypt certificates that are added to the load balancer.
+     * @default false
      * @example true
      */
     disable_lets_encrypt_dns_records?: boolean;
@@ -11773,19 +11773,19 @@ export interface external {
   }
   "resources/load_balancers/models/sticky_sessions.yml": {
     /**
-     * @description An attribute indicating how and if requests from a client will be persistently served by the same backend Droplet. The possible values are `cookies` or `none`. 
-     * @default none 
-     * @example cookies 
+     * @description An attribute indicating how and if requests from a client will be persistently served by the same backend Droplet. The possible values are `cookies` or `none`.
+     * @default none
+     * @example cookies
      * @enum {string}
      */
     type?: "cookies" | "none";
     /**
-     * @description The name of the cookie sent to the client. This attribute is only returned when using `cookies` for the sticky sessions type. 
+     * @description The name of the cookie sent to the client. This attribute is only returned when using `cookies` for the sticky sessions type.
      * @example DO-LB
      */
     cookie_name?: string;
     /**
-     * @description The number of seconds until the cookie set by the load balancer expires. This attribute is only returned when using `cookies` for the sticky sessions type. 
+     * @description The number of seconds until the cookie set by the load balancer expires. This attribute is only returned when using `cookies` for the sticky sessions type.
      * @example 300
      */
     cookie_ttl_seconds?: number;
@@ -11845,7 +11845,7 @@ export interface external {
   "resources/monitoring/models/alert_policy_request.yml": {
     alerts: external["resources/monitoring/models/alerts.yml"];
     /**
-     * @example GreaterThan 
+     * @example GreaterThan
      * @enum {string}
      */
     compare: "GreaterThan" | "LessThan";
@@ -11866,17 +11866,17 @@ export interface external {
      */
     tags: (string)[];
     /**
-     * @example v1/insights/droplet/cpu 
+     * @example v1/insights/droplet/cpu
      * @enum {string}
      */
     type: "v1/insights/droplet/load_1" | "v1/insights/droplet/load_5" | "v1/insights/droplet/load_15" | "v1/insights/droplet/memory_utilization_percent" | "v1/insights/droplet/disk_utilization_percent" | "v1/insights/droplet/cpu" | "v1/insights/droplet/disk_read" | "v1/insights/droplet/disk_write" | "v1/insights/droplet/public_outbound_bandwidth" | "v1/insights/droplet/public_inbound_bandwidth" | "v1/insights/droplet/private_outbound_bandwidth" | "v1/insights/droplet/private_inbound_bandwidth" | "v1/insights/lbaas/avg_cpu_utilization_percent" | "v1/insights/lbaas/connection_utilization_percent" | "v1/insights/lbaas/droplet_health" | "v1/insights/lbaas/tls_connections_per_second_utilization_percent" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_4xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_4xx" | "v1/insights/lbaas/high_http_request_response_time" | "v1/insights/lbaas/high_http_request_response_time_50p" | "v1/insights/lbaas/high_http_request_response_time_95p" | "v1/insights/lbaas/high_http_request_response_time_99p" | "v1/dbaas/alerts/load_15_alerts" | "v1/dbaas/alerts/memory_utilization_alerts" | "v1/dbaas/alerts/disk_utilization_alerts" | "v1/dbaas/alerts/cpu_alerts";
     /**
-     * Format: float 
+     * Format: float
      * @example 80
      */
     value: number;
     /**
-     * @example 5m 
+     * @example 5m
      * @enum {string}
      */
     window: "5m" | "10m" | "30m" | "1h";
@@ -11884,7 +11884,7 @@ export interface external {
   "resources/monitoring/models/alert_policy.yml": {
     alerts: external["resources/monitoring/models/alerts.yml"];
     /**
-     * @example GreaterThan 
+     * @example GreaterThan
      * @enum {string}
      */
     compare: "GreaterThan" | "LessThan";
@@ -11905,26 +11905,26 @@ export interface external {
      */
     tags: (string)[];
     /**
-     * @example v1/insights/droplet/cpu 
+     * @example v1/insights/droplet/cpu
      * @enum {string}
      */
     type: "v1/insights/droplet/load_1" | "v1/insights/droplet/load_5" | "v1/insights/droplet/load_15" | "v1/insights/droplet/memory_utilization_percent" | "v1/insights/droplet/disk_utilization_percent" | "v1/insights/droplet/cpu" | "v1/insights/droplet/disk_read" | "v1/insights/droplet/disk_write" | "v1/insights/droplet/public_outbound_bandwidth" | "v1/insights/droplet/public_inbound_bandwidth" | "v1/insights/droplet/private_outbound_bandwidth" | "v1/insights/droplet/private_inbound_bandwidth" | "v1/insights/lbaas/avg_cpu_utilization_percent" | "v1/insights/lbaas/connection_utilization_percent" | "v1/insights/lbaas/droplet_health" | "v1/insights/lbaas/tls_connections_per_second_utilization_percent" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_4xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_4xx" | "v1/insights/lbaas/high_http_request_response_time" | "v1/insights/lbaas/high_http_request_response_time_50p" | "v1/insights/lbaas/high_http_request_response_time_95p" | "v1/insights/lbaas/high_http_request_response_time_99p" | "v1/dbaas/alerts/load_15_alerts" | "v1/dbaas/alerts/memory_utilization_alerts" | "v1/dbaas/alerts/disk_utilization_alerts" | "v1/dbaas/alerts/cpu_alerts";
     /** @example 78b3da62-27e5-49ba-ac70-5db0b5935c64 */
     uuid: string;
     /**
-     * Format: float 
+     * Format: float
      * @example 80
      */
     value: number;
     /**
-     * @example 5m 
+     * @example 5m
      * @enum {string}
      */
     window: "5m" | "10m" | "30m" | "1h";
   }
   "resources/monitoring/models/alerts.yml": {
     /**
-     * @description An email to notify on an alert trigger. 
+     * @description An email to notify on an alert trigger.
      * @example [
      *   "bob@exmaple.com"
      * ]
@@ -11940,14 +11940,14 @@ export interface external {
     /** @description Result of query. */
     result: (external["resources/monitoring/models/metrics_result.yml"])[];
     /**
-     * @example matrix 
+     * @example matrix
      * @enum {string}
      */
     resultType: "matrix";
   }
   "resources/monitoring/models/metrics_result.yml": {
     /**
-     * @description An object containing the metric labels. 
+     * @description An object containing the metric labels.
      * @example {
      *   "host_id": "19201920"
      * }
@@ -11972,31 +11972,31 @@ export interface external {
   "resources/monitoring/models/metrics.yml": {
     data: external["resources/monitoring/models/metrics_data.yml"];
     /**
-     * @example success 
+     * @example success
      * @enum {string}
      */
     status: "success" | "error";
   }
   "resources/monitoring/models/slack_details.yml": {
     /**
-     * @description Slack channel to notify of an alert trigger. 
+     * @description Slack channel to notify of an alert trigger.
      * @example Production Alerts
      */
     channel: string;
     /**
-     * @description Slack Webhook URL. 
+     * @description Slack Webhook URL.
      * @example https://hooks.slack.com/services/T1234567/AAAAAAAA/ZZZZZZ
      */
     url: string;
   }
   /**
-   * Create Alert Policy 
+   * Create Alert Policy
    * @description To create a new alert, send a POST request to `/v2/monitoring/alerts`.
    */
   "resources/monitoring/monitoring_create_alertPolicy.yml": {
     /**
      * @description The `type` field dictates what type of entity that the alert policy applies to and hence what type of entity is passed in the `entities` array. If both the `tags` array and `entities` array are empty the alert policy applies to all entities of the relevant type that are owned by the user account. Otherwise the following table shows the valid entity types for each type of alert policy:
-     * 
+     *
      * Type | Description | Valid Entity Type
      * -----|-------------|--------------------
      * `v1/insights/droplet/memory_utilization_percent` | alert on the percent of memory utilization | Droplet ID
@@ -12042,7 +12042,7 @@ export interface external {
     };
   }
   /**
-   * Delete an Alert Policy 
+   * Delete an Alert Policy
    * @description To delete an alert policy, send a DELETE request to `/v2/monitoring/alerts/{alert_uuid}`
    */
   "resources/monitoring/monitoring_delete_alertPolicy.yml": {
@@ -12061,7 +12061,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Alert Policy 
+   * Retrieve an Existing Alert Policy
    * @description To retrieve a given alert policy, send a GET request to `/v2/monitoring/alerts/{alert_uuid}`
    */
   "resources/monitoring/monitoring_get_alertPolicy.yml": {
@@ -12080,7 +12080,7 @@ export interface external {
     };
   }
   /**
-   * Get Droplet Bandwidth Metrics 
+   * Get Droplet Bandwidth Metrics
    * @description To retrieve bandwidth metrics for a given Droplet, send a GET request to `/v2/monitoring/metrics/droplet/bandwidth`. Use the `interface` query parameter to specify if the results should be for the `private` or `public` interface. Use the `direction` query parameter to specify if the results should be for `inbound` or `outbound` traffic.
    */
   "resources/monitoring/monitoring_get_dropletBandwidthMetrics.yml": {
@@ -12102,7 +12102,7 @@ export interface external {
     };
   }
   /**
-   * Get Droplet CPU Metrics 
+   * Get Droplet CPU Metrics
    * @description To retrieve CPU metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/cpu`.
    */
   "resources/monitoring/monitoring_get_DropletCpuMetrics.yml": {
@@ -12122,7 +12122,7 @@ export interface external {
     };
   }
   /**
-   * Get Droplet Filesystem Free Metrics 
+   * Get Droplet Filesystem Free Metrics
    * @description To retrieve filesystem free metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/filesystem_free`.
    */
   "resources/monitoring/monitoring_get_dropletFilesystemFreeMetrics.yml": {
@@ -12142,7 +12142,7 @@ export interface external {
     };
   }
   /**
-   * Get Droplet Filesystem Size Metrics 
+   * Get Droplet Filesystem Size Metrics
    * @description To retrieve filesystem size metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/filesystem_size`.
    */
   "resources/monitoring/monitoring_get_dropletFilesystemSizeMetrics.yml": {
@@ -12162,7 +12162,7 @@ export interface external {
     };
   }
   /**
-   * Get Droplet Load1 Metrics 
+   * Get Droplet Load1 Metrics
    * @description To retrieve 1 minute load average metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/load_1`.
    */
   "resources/monitoring/monitoring_get_dropletLoad1Metrics.yml": {
@@ -12182,7 +12182,7 @@ export interface external {
     };
   }
   /**
-   * Get Droplet Load5 Metrics 
+   * Get Droplet Load5 Metrics
    * @description To retrieve 5 minute load average metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/load_5`.
    */
   "resources/monitoring/monitoring_get_dropletLoad5Metrics.yml": {
@@ -12202,7 +12202,7 @@ export interface external {
     };
   }
   /**
-   * Get Droplet Load15 Metrics 
+   * Get Droplet Load15 Metrics
    * @description To retrieve 15 minute load average metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/load_15`.
    */
   "resources/monitoring/monitoring_get_dropletLoad15Metrics.yml": {
@@ -12222,7 +12222,7 @@ export interface external {
     };
   }
   /**
-   * Get Droplet Available Memory Metrics 
+   * Get Droplet Available Memory Metrics
    * @description To retrieve available memory metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/memory_available`.
    */
   "resources/monitoring/monitoring_get_dropletMemoryAvailableMetrics.yml": {
@@ -12242,7 +12242,7 @@ export interface external {
     };
   }
   /**
-   * Get Droplet Cached Memory Metrics 
+   * Get Droplet Cached Memory Metrics
    * @description To retrieve cached memory metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/memory_cached`.
    */
   "resources/monitoring/monitoring_get_dropletMemoryCachedMetrics.yml": {
@@ -12262,7 +12262,7 @@ export interface external {
     };
   }
   /**
-   * Get Droplet Free Memory Metrics 
+   * Get Droplet Free Memory Metrics
    * @description To retrieve free memory metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/memory_free`.
    */
   "resources/monitoring/monitoring_get_dropletMemoryFreeMetrics.yml": {
@@ -12282,7 +12282,7 @@ export interface external {
     };
   }
   /**
-   * Get Droplet Total Memory Metrics 
+   * Get Droplet Total Memory Metrics
    * @description To retrieve total memory metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/memory_total`.
    */
   "resources/monitoring/monitoring_get_dropletMemoryTotalMetrics.yml": {
@@ -12302,7 +12302,7 @@ export interface external {
     };
   }
   /**
-   * List Alert Policies 
+   * List Alert Policies
    * @description Returns all alert policies that are configured for the given account. To List all alert policies, send a GET request to `/v2/monitoring/alerts`.
    */
   "resources/monitoring/monitoring_list_alertPolicy.yml": {
@@ -12321,7 +12321,7 @@ export interface external {
     };
   }
   /**
-   * Update an Alert Policy 
+   * Update an Alert Policy
    * @description To update en existing policy, send a PUT request to `v2/monitoring/alerts/{alert_uuid}`.
    */
   "resources/monitoring/monitoring_update_alertPolicy.yml": {
@@ -12332,7 +12332,7 @@ export interface external {
     };
     /**
      * @description The `type` field dictates what type of entity that the alert policy applies to and hence what type of entity is passed in the `entities` array. If both the `tags` array and `entities` array are empty the alert policy applies to all entities of the relevant type that are owned by the user account. Otherwise the following table shows the valid entity types for each type of alert policy:
-     * 
+     *
      * Type | Description | Valid Entity Type
      * -----|-------------|--------------------
      * `v1/insights/droplet/memory_utilization_percent` | alert on the percent of memory utilization | Droplet ID
@@ -12451,7 +12451,7 @@ export interface external {
   }
   "resources/projects/models/project_assignment.yml": {
     /**
-     * @description A list of uniform resource names (URNs) to be added to a project. 
+     * @description A list of uniform resource names (URNs) to be added to a project.
      * @example [
      *   "do:droplet:13457723"
      * ]
@@ -12462,23 +12462,23 @@ export interface external {
   "resources/projects/models/resource.yml": {
     urn?: external["shared/attributes/urn.yml"];
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the project was created. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the project was created.
      * @example 2018-09-28T19:26:37Z
      */
     assigned_at?: string;
     /** @description The links object contains the `self` object, which contains the resource relationship. */
     links?: {
       /**
-       * Format: uri 
-       * @description A URI that can be used to retrieve the resource. 
+       * Format: uri
+       * @description A URI that can be used to retrieve the resource.
        * @example https://api.digitalocean.com/v2/droplets/13457723
        */
       self?: string;
     };
     /**
-     * @description The status of assigning and fetching the resources. 
-     * @example ok 
+     * @description The status of assigning and fetching the resources.
+     * @example ok
      * @enum {string}
      */
     status?: "ok" | "not_found" | "assigned" | "already_assigned" | "service_down";
@@ -12487,7 +12487,7 @@ export interface external {
     project_id: string;
   };
   /**
-   * Assign Resources to Default Project 
+   * Assign Resources to Default Project
    * @description To assign resources to your default project, send a POST request to `/v2/projects/default/resources`.
    */
   "resources/projects/projects_assign_resources_default.yml": {
@@ -12506,7 +12506,7 @@ export interface external {
     };
   }
   /**
-   * Assign Resources to a Project 
+   * Assign Resources to a Project
    * @description To assign resources to a project, send a POST request to `/v2/projects/$PROJECT_ID/resources`.
    */
   "resources/projects/projects_assign_resources.yml": {
@@ -12530,7 +12530,7 @@ export interface external {
     };
   }
   /**
-   * Create a Project 
+   * Create a Project
    * @description To create a project, send a POST request to `/v2/projects`.
    */
   "resources/projects/projects_create.yml": {
@@ -12548,11 +12548,11 @@ export interface external {
     };
   }
   /**
-   * Delete an Existing Project 
+   * Delete an Existing Project
    * @description To delete a project, send a DELETE request to `/v2/projects/$PROJECT_ID`. To
    * be deleted, a project must not have any resources assigned to it. Any existing
    * resources must first be reassigned or destroyed, or you will receive a 412 error.
-   * 
+   *
    * A successful request will receive a 204 status code with no body in response.
    * This indicates that the request was processed successfully.
    */
@@ -12573,7 +12573,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve the Default Project 
+   * Retrieve the Default Project
    * @description To get your default project, send a GET request to `/v2/projects/default`.
    */
   "resources/projects/projects_get_default.yml": {
@@ -12587,7 +12587,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Project 
+   * Retrieve an Existing Project
    * @description To get a project, send a GET request to `/v2/projects/$PROJECT_ID`.
    */
   "resources/projects/projects_get.yml": {
@@ -12606,7 +12606,7 @@ export interface external {
     };
   }
   /**
-   * List Default Project Resources 
+   * List Default Project Resources
    * @description To list all your resources in your default project, send a GET request to `/v2/projects/default/resources`.
    */
   "resources/projects/projects_list_resources_default.yml": {
@@ -12620,7 +12620,7 @@ export interface external {
     };
   }
   /**
-   * List Project Resources 
+   * List Project Resources
    * @description To list all your resources in a project, send a GET request to `/v2/projects/$PROJECT_ID/resources`.
    */
   "resources/projects/projects_list_resources.yml": {
@@ -12643,7 +12643,7 @@ export interface external {
     };
   }
   /**
-   * List All Projects 
+   * List All Projects
    * @description To list all your projects, send a GET request to `/v2/projects`.
    */
   "resources/projects/projects_list.yml": {
@@ -12662,7 +12662,7 @@ export interface external {
     };
   }
   /**
-   * Patch the Default Project 
+   * Patch the Default Project
    * @description To update only specific attributes of your default project, send a PATCH request to `/v2/projects/default`. At least one of the following attributes needs to be sent.
    */
   "resources/projects/projects_patch_default.yml": {
@@ -12686,7 +12686,7 @@ export interface external {
     };
   }
   /**
-   * Patch a Project 
+   * Patch a Project
    * @description To update only specific attributes of a project, send a PATCH request to `/v2/projects/$PROJECT_ID`. At least one of the following attributes needs to be sent.
    */
   "resources/projects/projects_patch.yml": {
@@ -12715,7 +12715,7 @@ export interface external {
     };
   }
   /**
-   * Update the Default Project 
+   * Update the Default Project
    * @description To update you default project, send a PUT request to `/v2/projects/default`. All of the following attributes must be sent.
    */
   "resources/projects/projects_update_default.yml": {
@@ -12734,7 +12734,7 @@ export interface external {
     };
   }
   /**
-   * Update a Project 
+   * Update a Project
    * @description To update a project, send a PUT request to `/v2/projects/$PROJECT_ID`. All of the following attributes must be sent.
    */
   "resources/projects/projects_update.yml": {
@@ -12829,17 +12829,17 @@ export interface external {
   }
   "resources/regions/models/region.yml": {
     /**
-     * @description The display name of the region.  This will be a full name that is used in the control panel and other interfaces. 
+     * @description The display name of the region.  This will be a full name that is used in the control panel and other interfaces.
      * @example New York 3
      */
     name: string;
     /**
-     * @description A human-readable string that is used as a unique identifier for each region. 
+     * @description A human-readable string that is used as a unique identifier for each region.
      * @example nyc3
      */
     slug: string;
     /**
-     * @description This attribute is set to an array which contains features available in this region 
+     * @description This attribute is set to an array which contains features available in this region
      * @example [
      *   "private_networking",
      *   "backups",
@@ -12852,12 +12852,12 @@ export interface external {
      */
     features: unknown;
     /**
-     * @description This is a boolean value that represents whether new Droplets can be created in this region. 
+     * @description This is a boolean value that represents whether new Droplets can be created in this region.
      * @example true
      */
     available: boolean;
     /**
-     * @description This attribute is set to an array which contains the identifying slugs for the sizes available in this region. 
+     * @description This attribute is set to an array which contains the identifying slugs for the sizes available in this region.
      * @example [
      *   "s-1vcpu-1gb",
      *   "s-1vcpu-2gb",
@@ -12878,7 +12878,7 @@ export interface external {
     sizes: unknown;
   }
   /**
-   * List All Data Center Regions 
+   * List All Data Center Regions
    * @description To list all of the regions that are available, send a GET request to `/v2/regions`.
    * The response will be a JSON object with a key called `regions`. The value of this will be an array of `region` objects, each of which will contain the standard region attributes.
    */
@@ -12913,7 +12913,7 @@ export interface external {
     auths?: {
       "registry.digitalocean.com"?: {
         /**
-         * @description A base64 encoded string containing credentials for the container registry. 
+         * @description A base64 encoded string containing credentials for the container registry.
          * @example YjdkMDNhNjk0N2IyMTdlZmI2ZjNlYzNiZDM1MDQ1ODI6YjdkMDNhNjk0N2IyMTdlZmI2ZjNlYzNiZDM1MDQ1ODIK
          */
         auth?: string;
@@ -12922,88 +12922,88 @@ export interface external {
   }
   "resources/registry/models/garbage_collection.yml": {
     /**
-     * @description A string specifying the UUID of the garbage collection. 
+     * @description A string specifying the UUID of the garbage collection.
      * @example eff0feee-49c7-4e8f-ba5c-a320c109c8a8
      */
     uuid?: string;
     /**
-     * @description The name of the container registry. 
+     * @description The name of the container registry.
      * @example example
      */
     registry_name?: string;
     /**
-     * @description The current status of this garbage collection. 
-     * @example requested 
+     * @description The current status of this garbage collection.
+     * @example requested
      * @enum {string}
      */
     status?: "requested" | "waiting for write JWTs to expire" | "scanning manifests" | "deleting unreferenced blobs" | "cancelling" | "failed" | "succeeded" | "cancelled";
     /**
-     * Format: date-time 
-     * @description The time the garbage collection was created. 
+     * Format: date-time
+     * @description The time the garbage collection was created.
      * @example "2020-10-30T21:03:24.000Z"
      */
     created_at?: string;
     /**
-     * Format: date-time 
-     * @description The time the garbage collection was last updated. 
+     * Format: date-time
+     * @description The time the garbage collection was last updated.
      * @example "2020-10-30T21:03:44.000Z"
      */
     updated_at?: string;
     /**
-     * @description The number of blobs deleted as a result of this garbage collection. 
+     * @description The number of blobs deleted as a result of this garbage collection.
      * @example 42
      */
     blobs_deleted?: number;
     /**
-     * @description The number of bytes freed as a result of this garbage collection. 
+     * @description The number of bytes freed as a result of this garbage collection.
      * @example 667
      */
     freed_bytes?: number;
   }
   "resources/registry/models/registry_create.yml": {
     /**
-     * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters. 
+     * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
      * @example example
      */
     name: string;
     /**
-     * @description The slug of the subscription tier to sign up for. Valid values can be retrieved using the options endpoint. 
-     * @example basic 
+     * @description The slug of the subscription tier to sign up for. Valid values can be retrieved using the options endpoint.
+     * @example basic
      * @enum {string}
      */
     subscription_tier_slug: "starter" | "basic" | "professional";
     /**
-     * @description Slug of the region where registry data is stored. When not provided, a region will be selected. 
-     * @example fra1 
+     * @description Slug of the region where registry data is stored. When not provided, a region will be selected.
+     * @example fra1
      * @enum {string}
      */
     region?: "nyc3" | "sfo3" | "ams3" | "sgp1" | "fra1";
   }
   "resources/registry/models/registry.yml": {
     /**
-     * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters. 
+     * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
      * @example example
      */
     name?: string;
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the registry was created. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the registry was created.
      * @example 2020-03-21T16:02:37Z
      */
     created_at?: string;
     /**
-     * @description Slug of the region where registry data is stored 
+     * @description Slug of the region where registry data is stored
      * @example fra1
      */
     region?: string;
     /**
-     * @description The amount of storage used in the registry in bytes. 
+     * @description The amount of storage used in the registry in bytes.
      * @example 29393920
      */
     storage_usage_bytes?: number;
     /**
-     * Format: date-time 
-     * @description The time at which the storage usage was updated. Storage usage is calculated asynchronously, and may not immediately reflect pushes to the registry. 
+     * Format: date-time
+     * @description The time at which the storage usage was updated. Storage usage is calculated asynchronously, and may not immediately reflect pushes to the registry.
      * @example 2020-11-04T21:39:49.530562231Z
      */
     storage_usage_bytes_updated_at?: string;
@@ -13011,50 +13011,50 @@ export interface external {
   }
   "resources/registry/models/repository_blob.yml": {
     /**
-     * @description The digest of the blob 
+     * @description The digest of the blob
      * @example sha256:cb8a924afdf0229ef7515d9e5b3024e23b3eb03ddbba287f4a19c6ac90b8d221
      */
     digest?: string;
     /**
-     * @description The compressed size of the blob in bytes. 
+     * @description The compressed size of the blob in bytes.
      * @example 2803255
      */
     compressed_size_bytes?: number;
   }
   "resources/registry/models/repository_manifest.yml": {
     /**
-     * @description The name of the container registry. 
+     * @description The name of the container registry.
      * @example example
      */
     registry_name?: string;
     /**
-     * @description The name of the repository. 
+     * @description The name of the repository.
      * @example repo-1
      */
     repository?: string;
     /**
-     * @description The manifest digest 
+     * @description The manifest digest
      * @example sha256:cb8a924afdf0229ef7515d9e5b3024e23b3eb03ddbba287f4a19c6ac90b8d221
      */
     digest?: string;
     /**
-     * @description The compressed size of the manifest in bytes. 
+     * @description The compressed size of the manifest in bytes.
      * @example 2803255
      */
     compressed_size_bytes?: number;
     /**
-     * @description The uncompressed size of the manifest in bytes (this size is calculated asynchronously so it may not be immediately available). 
+     * @description The uncompressed size of the manifest in bytes (this size is calculated asynchronously so it may not be immediately available).
      * @example 5861888
      */
     size_bytes?: number;
     /**
-     * Format: date-time 
-     * @description The time the manifest was last updated. 
+     * Format: date-time
+     * @description The time the manifest was last updated.
      * @example 2020-04-09T23:54:25Z
      */
     updated_at?: string;
     /**
-     * @description All tags associated with this manifest 
+     * @description All tags associated with this manifest
      * @example [
      *   "latest",
      *   "v1",
@@ -13067,79 +13067,79 @@ export interface external {
   }
   "resources/registry/models/repository_tag.yml": {
     /**
-     * @description The name of the container registry. 
+     * @description The name of the container registry.
      * @example example
      */
     registry_name?: string;
     /**
-     * @description The name of the repository. 
+     * @description The name of the repository.
      * @example repo-1
      */
     repository?: string;
     /**
-     * @description The name of the tag. 
+     * @description The name of the tag.
      * @example latest
      */
     tag?: string;
     /**
-     * @description The digest of the manifest associated with the tag. 
+     * @description The digest of the manifest associated with the tag.
      * @example sha256:cb8a924afdf0229ef7515d9e5b3024e23b3eb03ddbba287f4a19c6ac90b8d221
      */
     manifest_digest?: string;
     /**
-     * @description The compressed size of the tag in bytes. 
+     * @description The compressed size of the tag in bytes.
      * @example 2803255
      */
     compressed_size_bytes?: number;
     /**
-     * @description The uncompressed size of the tag in bytes (this size is calculated asynchronously so it may not be immediately available). 
+     * @description The uncompressed size of the tag in bytes (this size is calculated asynchronously so it may not be immediately available).
      * @example 5861888
      */
     size_bytes?: number;
     /**
-     * Format: date-time 
-     * @description The time the tag was last updated. 
+     * Format: date-time
+     * @description The time the tag was last updated.
      * @example 2020-04-09T23:54:25Z
      */
     updated_at?: string;
   }
   "resources/registry/models/repository_v2.yml": {
     /**
-     * @description The name of the container registry. 
+     * @description The name of the container registry.
      * @example example
      */
     registry_name?: string;
     /**
-     * @description The name of the repository. 
+     * @description The name of the repository.
      * @example repo-1
      */
     name?: string;
     latest_manifest?: external["resources/registry/models/repository_manifest.yml"];
     /**
-     * @description The number of tags in the repository. 
+     * @description The number of tags in the repository.
      * @example 1
      */
     tag_count?: number;
     /**
-     * @description The number of manifests in the repository. 
+     * @description The number of manifests in the repository.
      * @example 1
      */
     manifest_count?: number;
   }
   "resources/registry/models/repository.yml": {
     /**
-     * @description The name of the container registry. 
+     * @description The name of the container registry.
      * @example example
      */
     registry_name?: string;
     /**
-     * @description The name of the repository. 
+     * @description The name of the repository.
      * @example repo-1
      */
     name?: string;
     latest_tag?: external["resources/registry/models/repository_tag.yml"];
     /**
-     * @description The number of tags in the repository. 
+     * @description The number of tags in the repository.
      * @example 1
      */
     tag_count?: number;
@@ -13148,28 +13148,28 @@ export interface external {
   "resources/registry/models/subscription.yml": {
     tier?: external["resources/registry/models/subscription_tier.yml"]["subscription_tier_base"];
     /**
-     * Format: date-time 
-     * @description The time at which the subscription was created. 
+     * Format: date-time
+     * @description The time at which the subscription was created.
      * @example 2020-01-23T21:19:12Z
      */
     created_at?: string;
     /**
-     * Format: date-time 
-     * @description The time at which the subscription was last updated. 
+     * Format: date-time
+     * @description The time at which the subscription was last updated.
      * @example 2020-11-05T15:53:24Z
      */
     updated_at?: string;
   }
   "resources/registry/models/update_registry.yml": {
     /**
-     * @description A boolean value indicating that the garbage collection should be cancelled. 
+     * @description A boolean value indicating that the garbage collection should be cancelled.
      * @example true
      */
     cancel?: boolean;
   }
   "resources/registry/models/validate_registry.yml": {
     /**
-     * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters. 
+     * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
      * @example example
      */
     name: string;
@@ -13186,9 +13186,9 @@ export interface external {
     token_pagination_page_token?: string;
   };
   /**
-   * Create Container Registry 
+   * Create Container Registry
    * @description To create your container registry, send a POST request to `/v2/registry`.
-   * 
+   *
    * The `name` becomes part of the URL for images stored in the registry. For
    * example, if your registry is called `example`, an image in it will have the
    * URL `registry.digitalocean.com/example/image:tag`.
@@ -13208,15 +13208,15 @@ export interface external {
     };
   }
   /**
-   * Delete Container Registry Repository Manifest 
+   * Delete Container Registry Repository Manifest
    * @description To delete a container repository manifest by digest, send a DELETE request to
    * `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests/$MANIFEST_DIGEST`.
-   * 
+   *
    * Note that if your repository name contains `/` characters, it must be
    * URL-encoded in the request URL. For example, to delete
    * `registry.digitalocean.com/example/my/repo@sha256:abcd`, the path would be
    * `/v2/registry/example/repositories/my%2Frepo/digests/sha256:abcd`.
-   * 
+   *
    * A successful request will receive a 204 status code with no body in response.
    * This indicates that the request was processed successfully.
    */
@@ -13238,15 +13238,15 @@ export interface external {
     };
   }
   /**
-   * Delete Container Registry Repository Tag 
+   * Delete Container Registry Repository Tag
    * @description To delete a container repository tag, send a DELETE request to
    * `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags/$TAG`.
-   * 
+   *
    * Note that if your repository name contains `/` characters, it must be
    * URL-encoded in the request URL. For example, to delete
    * `registry.digitalocean.com/example/my/repo:mytag`, the path would be
    * `/v2/registry/example/repositories/my%2Frepo/tags/mytag`.
-   * 
+   *
    * A successful request will receive a 204 status code with no body in response.
    * This indicates that the request was processed successfully.
    */
@@ -13268,7 +13268,7 @@ export interface external {
     };
   }
   /**
-   * Delete Container Registry 
+   * Delete Container Registry
    * @description To delete your container registry, destroying all container image data stored in it, send a DELETE request to `/v2/registry`.
    */
   "resources/registry/registry_delete.yml": {
@@ -13282,25 +13282,25 @@ export interface external {
     };
   }
   /**
-   * Get Docker Credentials for Container Registry 
+   * Get Docker Credentials for Container Registry
    * @description In order to access your container registry with the Docker client or from a
    * Kubernetes cluster, you will need to configure authentication. The necessary
    * JSON configuration can be retrieved by sending a GET request to
    * `/v2/registry/docker-credentials`.
-   * 
+   *
    * The response will be in the format of a Docker `config.json` file. To use the
    * config in your Kubernetes cluster, create a Secret with:
-   * 
+   *
    *     kubectl create secret generic docr \
    *       --from-file=.dockerconfigjson=config.json \
    *       --type=kubernetes.io/dockerconfigjson
-   * 
+   *
    * By default, the returned credentials have read-only access to your registry
    * and cannot be used to push images. This is appropriate for most Kubernetes
    * clusters. To retrieve read/write credentials, suitable for use with the Docker
    * client or in a CI system, read_write may be provided as query parameter. For
    * example: `/v2/registry/docker-credentials?read_write=true`
-   * 
+   *
    * By default, the returned credentials will not expire. To retrieve credentials
    * with an expiry set, expiry_seconds may be provided as a query parameter. For
    * example: `/v2/registry/docker-credentials?expiry_seconds=3600` will return
@@ -13322,7 +13322,7 @@ export interface external {
     };
   }
   /**
-   * Get Active Garbage Collection 
+   * Get Active Garbage Collection
    * @description To get information about the currently-active garbage collection for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collection`.
    */
   "resources/registry/registry_get_garbageCollection.yml": {
@@ -13341,7 +13341,7 @@ export interface external {
     };
   }
   /**
-   * List Registry Options (Subscription Tiers and Available Regions) 
+   * List Registry Options (Subscription Tiers and Available Regions)
    * @description This endpoint serves to provide additional information as to which option values are available when creating a container registry.
    * There are multiple subscription tiers available for container registry. Each tier allows a different number of image repositories to be created in your registry, and has a different amount of storage and transfer included.
    * There are multiple regions available for container registry and controls where your data is stored.
@@ -13357,7 +13357,7 @@ export interface external {
     };
   }
   /**
-   * Get Subscription Information 
+   * Get Subscription Information
    * @description A subscription is automatically created when you configure your container registry. To get information about your subscription, send a GET request to `/v2/registry/subscription`.
    */
   "resources/registry/registry_get_subscription.yml": {
@@ -13370,7 +13370,7 @@ export interface external {
     };
   }
   /**
-   * Get Container Registry Information 
+   * Get Container Registry Information
    * @description To get information about your container registry, send a GET request to `/v2/registry`.
    */
   "resources/registry/registry_get.yml": {
@@ -13383,7 +13383,7 @@ export interface external {
     };
   }
   /**
-   * List Garbage Collections 
+   * List Garbage Collections
    * @description To get information about past garbage collections for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collections`.
    */
   "resources/registry/registry_list_garbageCollections.yml": {
@@ -13406,10 +13406,10 @@ export interface external {
     };
   }
   /**
-   * List All Container Registry Repositories 
-   * @deprecated 
+   * List All Container Registry Repositories
+   * @deprecated
    * @description This endpoint has been deprecated in favor of the _List All Container Registry Repositories [V2]_ endpoint.
-   * 
+   *
    * To list all repositories in your container registry, send a GET
    * request to `/v2/registry/$REGISTRY_NAME/repositories`.
    */
@@ -13433,7 +13433,7 @@ export interface external {
     };
   }
   /**
-   * List All Container Registry Repositories (V2) 
+   * List All Container Registry Repositories (V2)
    * @description To list all repositories in your container registry, send a GET request to `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
    */
   "resources/registry/registry_list_repositoriesV2.yml": {
@@ -13458,10 +13458,10 @@ export interface external {
     };
   }
   /**
-   * List All Container Registry Repository Manifests 
+   * List All Container Registry Repository Manifests
    * @description To list all manifests in your container registry repository, send a GET
    * request to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests`.
-   * 
+   *
    * Note that if your repository name contains `/` characters, it must be
    * URL-encoded in the request URL. For example, to list manifests for
    * `registry.digitalocean.com/example/my/repo`, the path would be
@@ -13488,10 +13488,10 @@ export interface external {
     };
   }
   /**
-   * List All Container Registry Repository Tags 
+   * List All Container Registry Repository Tags
    * @description To list all tags in your container registry repository, send a GET
    * request to `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/tags`.
-   * 
+   *
    * Note that if your repository name contains `/` characters, it must be
    * URL-encoded in the request URL. For example, to list tags for
    * `registry.digitalocean.com/example/my/repo`, the path would be
@@ -13518,18 +13518,18 @@ export interface external {
     };
   }
   /**
-   * Start Garbage Collection 
+   * Start Garbage Collection
    * @description Garbage collection enables users to clear out unreferenced blobs (layer &
    * manifest data) after deleting one or more manifests from a repository. If
    * there are no unreferenced blobs resulting from the deletion of one or more
    * manifests, garbage collection is effectively a noop.
    * [See here for more information](https://www.digitalocean.com/docs/container-registry/how-to/clean-up-container-registry/)
    * about how and why you should clean up your container registry periodically.
-   * 
+   *
    * To request a garbage collection run on your registry, send a POST request to
    * `/v2/registry/$REGISTRY_NAME/garbage-collection`. This will initiate the
    * following sequence of events on your registry.
-   * 
+   *
    * * Set the registry to read-only mode, meaning no further write-scoped
    *   JWTs will be issued to registry clients. Existing write-scoped JWTs will
    *   continue to work until they expire which can take up to 15 minutes.
@@ -13557,7 +13557,7 @@ export interface external {
     };
   }
   /**
-   * Update Garbage Collection 
+   * Update Garbage Collection
    * @description To cancel the currently-active garbage collection for a registry, send a PUT request to `/v2/registry/$REGISTRY_NAME/garbage-collection/$GC_UUID` and specify one or more of the attributes below.
    */
   "resources/registry/registry_update_garbageCollection.yml": {
@@ -13582,7 +13582,7 @@ export interface external {
     };
   }
   /**
-   * Update Subscription Tier 
+   * Update Subscription Tier
    * @description After creating your registry, you can switch to a different subscription tier to better suit your needs. To do this, send a POST request to `/v2/registry/subscription`.
    */
   "resources/registry/registry_update_subscription.yml": {
@@ -13590,8 +13590,8 @@ export interface external {
       content: {
         "application/json": {
           /**
-           * @description The slug of the subscription tier to sign up for. 
-           * @example basic 
+           * @description The slug of the subscription tier to sign up for.
+           * @example basic
            * @enum {string}
            */
           tier_slug?: "starter" | "basic" | "professional";
@@ -13607,10 +13607,10 @@ export interface external {
     };
   }
   /**
-   * Validate a Container Registry Name 
+   * Validate a Container Registry Name
    * @description To validate that a container registry name is available for use, send a POST
    * request to `/v2/registry/validate-name`.
-   * 
+   *
    * If the name is both formatted correctly and available, the response code will
    * be 204 and contain no body. If the name is already in use, the response will
    * be a 409 Conflict.
@@ -13759,7 +13759,7 @@ export interface external {
   "resources/reserved_ips/models/reserved_ip_actions.yml": {
     reserved_ip_action_type: {
       /**
-       * @description The type of action to initiate for the reserved IP. 
+       * @description The type of action to initiate for the reserved IP.
        * @enum {string}
        */
       type: "assign" | "unassign";
@@ -13771,7 +13771,7 @@ export interface external {
       type: undefined;
     } & Omit<reserved_ip_action_type[], "type"> & {
       /**
-       * @description The ID of the Droplet that the reserved IP will be assigned to. 
+       * @description The ID of the Droplet that the reserved IP will be assigned to.
        * @example 758604968
        */
       droplet_id: number;
@@ -13779,44 +13779,44 @@ export interface external {
   };
   "resources/reserved_ips/models/reserved_ip_create.yml": OneOf<[{
     /**
-     * @description The ID of the Droplet that the reserved IP will be assigned to. 
+     * @description The ID of the Droplet that the reserved IP will be assigned to.
      * @example 2457247
      */
     droplet_id: number;
   }, {
     /**
-     * @description The slug identifier for the region the reserved IP will be reserved to. 
+     * @description The slug identifier for the region the reserved IP will be reserved to.
      * @example nyc3
      */
     region: string;
     /**
-     * Format: uuid 
-     * @description The UUID of the project to which the reserved IP will be assigned. 
+     * Format: uuid
+     * @description The UUID of the project to which the reserved IP will be assigned.
      * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
      */
     project_id?: string;
   }]>
   "resources/reserved_ips/models/reserved_ip.yml": {
     /**
-     * Format: ipv4 
-     * @description The public IP address of the reserved IP. It also serves as its identifier. 
+     * Format: ipv4
+     * @description The public IP address of the reserved IP. It also serves as its identifier.
      * @example 45.55.96.47
      */
     ip?: string;
     region?: external["resources/regions/models/region.yml"] & Record<string, never>;
     /**
-     * @description The Droplet that the reserved IP has been assigned to. When you query a reserved IP, if it is assigned to a Droplet, the entire Droplet object will be returned. If it is not assigned, the value will be null. 
+     * @description The Droplet that the reserved IP has been assigned to. When you query a reserved IP, if it is assigned to a Droplet, the entire Droplet object will be returned. If it is not assigned, the value will be null.
      * @example null
      */
     droplet?: (Record<string, unknown> | null) | external["resources/droplets/models/droplet.yml"];
     /**
-     * @description A boolean value indicating whether or not the reserved IP has pending actions preventing new ones from being submitted. 
+     * @description A boolean value indicating whether or not the reserved IP has pending actions preventing new ones from being submitted.
      * @example true
      */
     locked?: boolean;
     /**
-     * Format: uuid 
-     * @description The UUID of the project to which the reserved IP currently belongs. 
+     * Format: uuid
+     * @description The UUID of the project to which the reserved IP currently belongs.
      * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
      */
     project_id?: string;
@@ -13825,14 +13825,14 @@ export interface external {
     reserved_ip: string;
   };
   /**
-   * Create a New Reserved IP 
+   * Create a New Reserved IP
    * @description On creation, a reserved IP must be either assigned to a Droplet or reserved to a region.
    * * To create a new reserved IP assigned to a Droplet, send a POST
    *   request to `/v2/reserved_ips` with the `droplet_id` attribute.
-   * 
+   *
    * * To create a new reserved IP reserved to a region, send a POST request to
    *   `/v2/reserved_ips` with the `region` attribute.
-   * 
+   *
    * **Note**:  In addition to the standard rate limiting, only 12 reserved IPs may be created per 60 seconds.
    */
   "resources/reserved_ips/reservedIPs_create.yml": {
@@ -13850,10 +13850,10 @@ export interface external {
     };
   }
   /**
-   * Delete a Reserved IP 
+   * Delete a Reserved IP
    * @description To delete a reserved IP and remove it from your account, send a DELETE request
    * to `/v2/reserved_ips/$RESERVED_IP_ADDR`.
-   * 
+   *
    * A successful request will receive a 204 status code with no body in response.
    * This indicates that the request was processed successfully.
    */
@@ -13873,7 +13873,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Reserved IP 
+   * Retrieve an Existing Reserved IP
    * @description To show information about a reserved IP, send a GET request to `/v2/reserved_ips/$RESERVED_IP_ADDR`.
    */
   "resources/reserved_ips/reservedIPs_get.yml": {
@@ -13892,7 +13892,7 @@ export interface external {
     };
   }
   /**
-   * List All Reserved IPs 
+   * List All Reserved IPs
    * @description To list all of the reserved IPs available on your account, send a GET request to `/v2/reserved_ips`.
    */
   "resources/reserved_ips/reservedIPs_list.yml": {
@@ -13911,7 +13911,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Reserved IP Action 
+   * Retrieve an Existing Reserved IP Action
    * @description To retrieve the status of a reserved IP action, send a GET request to `/v2/reserved_ips/$RESERVED_IP/actions/$ACTION_ID`.
    */
   "resources/reserved_ips/reservedIPsActions_get.yml": {
@@ -13931,7 +13931,7 @@ export interface external {
     };
   }
   /**
-   * List All Actions for a Reserved IP 
+   * List All Actions for a Reserved IP
    * @description To retrieve all actions that have been executed on a reserved IP, send a GET request to `/v2/reserved_ips/$RESERVED_IP/actions`.
    */
   "resources/reserved_ips/reservedIPsActions_list.yml": {
@@ -13950,11 +13950,11 @@ export interface external {
     };
   }
   /**
-   * Initiate a Reserved IP Action 
+   * Initiate a Reserved IP Action
    * @description To initiate an action on a reserved IP send a POST request to
    * `/v2/reserved_ips/$RESERVED_IP/actions`. In the JSON body to the request,
    * set the `type` attribute to on of the supported action types:
-   * 
+   *
    * | Action     | Details
    * |------------|--------
    * | `assign`   | Assigns a reserved IP to a Droplet
@@ -13995,8 +13995,8 @@ export interface external {
       "application/json": {
         action?: external["resources/actions/models/action.yml"] & {
           /**
-           * Format: uuid 
-           * @description The UUID of the project to which the reserved IP currently belongs. 
+           * Format: uuid
+           * @description The UUID of the project to which the reserved IP currently belongs.
            * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
            */
           project_id?: string;
@@ -14058,45 +14058,45 @@ export interface external {
   }
   "resources/sizes/models/size.yml": {
     /**
-     * @description A human-readable string that is used to uniquely identify each size. 
+     * @description A human-readable string that is used to uniquely identify each size.
      * @example s-1vcpu-1gb
      */
     slug: string;
     /**
-     * @description The amount of RAM allocated to Droplets created of this size. The value is represented in megabytes. 
+     * @description The amount of RAM allocated to Droplets created of this size. The value is represented in megabytes.
      * @example 1024
      */
     memory: number;
     /**
-     * @description The integer of number CPUs allocated to Droplets of this size. 
+     * @description The integer of number CPUs allocated to Droplets of this size.
      * @example 1
      */
     vcpus: number;
     /**
-     * @description The amount of disk space set aside for Droplets of this size. The value is represented in gigabytes. 
+     * @description The amount of disk space set aside for Droplets of this size. The value is represented in gigabytes.
      * @example 25
      */
     disk: number;
     /**
-     * Format: float 
-     * @description The amount of transfer bandwidth that is available for Droplets created in this size. This only counts traffic on the public interface. The value is given in terabytes. 
+     * Format: float
+     * @description The amount of transfer bandwidth that is available for Droplets created in this size. This only counts traffic on the public interface. The value is given in terabytes.
      * @example 1
      */
     transfer: number;
     /**
-     * Format: float 
-     * @description This attribute describes the monthly cost of this Droplet size if the Droplet is kept for an entire month. The value is measured in US dollars. 
+     * Format: float
+     * @description This attribute describes the monthly cost of this Droplet size if the Droplet is kept for an entire month. The value is measured in US dollars.
      * @example 5
      */
     price_monthly: number;
     /**
-     * Format: float 
-     * @description This describes the price of the Droplet size as measured hourly. The value is measured in US dollars. 
+     * Format: float
+     * @description This describes the price of the Droplet size as measured hourly. The value is measured in US dollars.
      * @example 0.00743999984115362
      */
     price_hourly: number;
     /**
-     * @description An array containing the region slugs where this size is available for Droplet creates. 
+     * @description An array containing the region slugs where this size is available for Droplet creates.
      * @example [
      *   "ams2",
      *   "ams3",
@@ -14115,13 +14115,13 @@ export interface external {
      */
     regions: (string)[];
     /**
-     * @description This is a boolean value that represents whether new Droplets can be created with this size. 
-     * @default true 
+     * @description This is a boolean value that represents whether new Droplets can be created with this size.
+     * @default true
      * @example true
      */
     available: boolean;
     /**
-     * @description A string describing the class of Droplets created from this size. For example: Basic, General Purpose, CPU-Optimized, Memory-Optimized, or Storage-Optimized. 
+     * @description A string describing the class of Droplets created from this size. For example: Basic, General Purpose, CPU-Optimized, Memory-Optimized, or Storage-Optimized.
      * @example Basic
      */
     description: string;
@@ -14139,7 +14139,7 @@ export interface external {
     };
   }
   /**
-   * List All Droplet Sizes 
+   * List All Droplet Sizes
    * @description To list all of available Droplet sizes, send a GET request to `/v2/sizes`.
    * The response will be a JSON object with a key called `sizes`. The value of this will be an array of `size` objects each of which contain the standard size attributes.
    */
@@ -14160,18 +14160,18 @@ export interface external {
   }
   "resources/snapshots/models/snapshots_base.yml": {
     /**
-     * @description A human-readable name for the snapshot. 
+     * @description A human-readable name for the snapshot.
      * @example web-01-1595954862243
      */
     name: string;
     /**
-     * Format: date-time 
-     * @description A time value given in ISO8601 combined date and time format that represents when the snapshot was created. 
+     * Format: date-time
+     * @description A time value given in ISO8601 combined date and time format that represents when the snapshot was created.
      * @example 2020-07-28T16:47:44Z
      */
     created_at: string;
     /**
-     * @description An array of the regions that the snapshot is available in. The regions are represented by their identifying slug values. 
+     * @description An array of the regions that the snapshot is available in. The regions are represented by their identifying slug values.
      * @example [
      *   "nyc3",
      *   "sfo3"
@@ -14179,37 +14179,37 @@ export interface external {
      */
     regions: (string)[];
     /**
-     * @description The minimum size in GB required for a volume or Droplet to use this snapshot. 
+     * @description The minimum size in GB required for a volume or Droplet to use this snapshot.
      * @example 25
      */
     min_disk_size: number;
     /**
-     * Format: float 
-     * @description The billable size of the snapshot in gigabytes. 
+     * Format: float
+     * @description The billable size of the snapshot in gigabytes.
      * @example 2.34
      */
     size_gigabytes: number;
   }
   "resources/snapshots/models/snapshots.yml": {
     /**
-     * @description The unique identifier for the snapshot. 
+     * @description The unique identifier for the snapshot.
      * @example 6372321
      */
     id: string;
   } & external["resources/snapshots/models/snapshots_base.yml"] & ({
     /**
-     * @description The unique identifier for the resource that the snapshot originated from. 
+     * @description The unique identifier for the resource that the snapshot originated from.
      * @example 200776916
      */
     resource_id: string;
     /**
-     * @description The type of resource that the snapshot originated from. 
-     * @example droplet 
+     * @description The type of resource that the snapshot originated from.
+     * @example droplet
      * @enum {string}
      */
     resource_type: "droplet" | "volume";
     /**
-     * @description An array of Tags the snapshot has been tagged with. 
+     * @description An array of Tags the snapshot has been tagged with.
      * @example [
      *   "web",
      *   "env:prod"
@@ -14247,11 +14247,11 @@ export interface external {
     };
   }
   /**
-   * Delete a Snapshot 
+   * Delete a Snapshot
    * @description Both Droplet and volume snapshots are managed through the `/v2/snapshots/`
    * endpoint. To delete a snapshot, send a DELETE request to
    * `/v2/snapshots/$SNAPSHOT_ID`.
-   * 
+   *
    * A status of 204 will be given. This indicates that the request was processed
    * successfully, but that no response body is needed.
    */
@@ -14271,10 +14271,10 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Snapshot 
+   * Retrieve an Existing Snapshot
    * @description To retrieve information about a snapshot, send a GET request to
    * `/v2/snapshots/$SNAPSHOT_ID`.
-   * 
+   *
    * The response will be a JSON object with a key called `snapshot`. The value of
    * this will be an snapshot object containing the standard snapshot attributes.
    */
@@ -14294,25 +14294,25 @@ export interface external {
     };
   }
   /**
-   * List All Snapshots 
+   * List All Snapshots
    * @description To list all of the snapshots available on your account, send a GET request to
    * `/v2/snapshots`.
-   * 
+   *
    * The response will be a JSON object with a key called `snapshots`. This will be
    * set to an array of `snapshot` objects, each of which will contain the standard
    * snapshot attributes.
-   * 
+   *
    * ### Filtering Results by Resource Type
-   * 
+   *
    * It's possible to request filtered results by including certain query parameters.
-   * 
+   *
    * #### List Droplet Snapshots
-   * 
+   *
    * To retrieve only snapshots based on Droplets, include the `resource_type`
    * query parameter set to `droplet`. For example, `/v2/snapshots?resource_type=droplet`.
-   * 
+   *
    * #### List Volume Snapshots
-   * 
+   *
    * To retrieve only snapshots based on volumes, include the `resource_type`
    * query parameter set to `volume`. For example, `/v2/snapshots?resource_type=volume`.
    */
@@ -14343,7 +14343,7 @@ export interface external {
     id?: external["resources/ssh_keys/attributes/ssh_key_id.yml"];
     fingerprint?: external["resources/ssh_keys/attributes/ssh_key_fingerprint.yml"];
     /**
-     * @description The entire public key string that was uploaded. Embedded into the root user's `authorized_keys` file if you include this key during Droplet creation. 
+     * @description The entire public key string that was uploaded. Embedded into the root user's `authorized_keys` file if you include this key during Droplet creation.
      * @example ssh-rsa AEXAMPLEaC1yc2EAAAADAQABAAAAQQDDHr/jh2Jy4yALcK4JyWbVkPRaWmhck3IgCoeOO3z1e2dBowLh64QAM+Qb72pxekALga2oi4GvT+TlWNhzPH4V example
      */
     public_key: string;
@@ -14387,7 +14387,7 @@ export interface external {
     };
   }
   /**
-   * Create a New SSH Key 
+   * Create a New SSH Key
    * @description To add a new SSH public key to your DigitalOcean account, send a POST request to `/v2/account/keys`. Set the `name` attribute to the name you wish to use and the `public_key` attribute to the full public key you are adding.
    */
   "resources/ssh_keys/sshKeys_create.yml": {
@@ -14405,7 +14405,7 @@ export interface external {
     };
   }
   /**
-   * Delete an SSH Key 
+   * Delete an SSH Key
    * @description To destroy a public SSH key that you have in your account, send a DELETE request to `/v2/account/keys/$KEY_ID` or `/v2/account/keys/$KEY_FINGERPRINT`.
    * A 204 status will be returned, indicating that the action was successful and that the response body is empty.
    */
@@ -14425,7 +14425,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing SSH Key 
+   * Retrieve an Existing SSH Key
    * @description To get information about a key, send a GET request to `/v2/account/keys/$KEY_ID` or `/v2/account/keys/$KEY_FINGERPRINT`.
    * The response will be a JSON object with the key `ssh_key` and value an ssh_key object which contains the standard ssh_key attributes.
    */
@@ -14445,7 +14445,7 @@ export interface external {
     };
   }
   /**
-   * List All SSH Keys 
+   * List All SSH Keys
    * @description To list all of the keys in your account, send a GET request to `/v2/account/keys`. The response will be a JSON object with a key set to `ssh_keys`. The value of this will be an array of ssh_key objects, each of which contains the standard ssh_key attributes.
    */
   "resources/ssh_keys/sshKeys_list.yml": {
@@ -14464,7 +14464,7 @@ export interface external {
     };
   }
   /**
-   * Update an SSH Key's Name 
+   * Update an SSH Key's Name
    * @description To update the name of an SSH key, send a PUT request to either `/v2/account/keys/$SSH_KEY_ID` or `/v2/account/keys/$SSH_KEY_FINGERPRINT`. Set the `name` attribute to the new name you want to use.
    */
   "resources/ssh_keys/sshKeys_update.yml": {
@@ -14492,19 +14492,19 @@ export interface external {
   }
   "resources/tags/models/tags_metadata.yml": {
     /**
-     * @description The number of tagged objects for this type of resource. 
+     * @description The number of tagged objects for this type of resource.
      * @example 5
      */
     count?: number;
     /**
-     * @description The URI for the last tagged object for this type of resource. 
+     * @description The URI for the last tagged object for this type of resource.
      * @example https://api.digitalocean.com/v2/images/7555620
      */
     last_tagged_uri?: string;
   }
   "resources/tags/models/tags_resource.yml": {
     /**
-     * @description An array of objects containing resource_id and resource_type  attributes. 
+     * @description An array of objects containing resource_id and resource_type  attributes.
      * @example [
      *   {
      *     "resource_id": "9569411",
@@ -14522,13 +14522,13 @@ export interface external {
      */
     resources: ({
         /**
-         * @description The identifier of a resource. 
+         * @description The identifier of a resource.
          * @example 3d80cb72-342b-4aaa-b92e-4e4abb24a933
          */
         resource_id?: string;
         /**
-         * @description The type of the resource. 
-         * @example volume 
+         * @description The type of the resource.
+         * @example volume
          * @enum {string}
          */
         resource_type?: "droplet" | "image" | "volume" | "volume_snapshot";
@@ -14538,18 +14538,18 @@ export interface external {
     /**
      * @description The name of the tag. Tags may contain letters, numbers, colons, dashes, and underscores.
      * There is a limit of 255 characters per tag.
-     * 
+     *
      * **Note:** Tag names are case stable, which means the capitalization you use when you first create a tag is canonical.
-     * 
+     *
      * When working with tags in the API, you must use the tag's canonical capitalization. For example, if you create a tag named "PROD", the URL to add that tag to a resource would be `https://api.digitalocean.com/v2/tags/PROD/resources` (not `/v2/tags/prod/resources`).
-     * 
+     *
      * Tagged resources in the control panel will always display the canonical capitalization. For example, if you create a tag named "PROD", you can tag resources in the control panel by entering "prod". The tag will still display with its canonical capitalization, "PROD".
-     *  
+     *
      * @example extra-awesome
      */
     name?: string;
     /**
-     * @description An embedded object containing key value pairs of resource type and resource statistics. It also includes a count of the total number of resources tagged with the current tag as well as a `last_tagged_uri` attribute set to the last resource tagged with the current tag. 
+     * @description An embedded object containing key value pairs of resource type and resource statistics. It also includes a count of the total number of resources tagged with the current tag as well as a `last_tagged_uri` attribute set to the last resource tagged with the current tag.
      * @example {
      *   "count": 5,
      *   "last_tagged_uri": "https://api.digitalocean.com/v2/images/7555620",
@@ -14634,7 +14634,7 @@ export interface external {
     };
   }
   /**
-   * Tag a Resource 
+   * Tag a Resource
    * @description Resources can be tagged by sending a POST request to `/v2/tags/$TAG_NAME/resources` with an array of json objects containing `resource_id` and `resource_type` attributes.
    * Currently only tagging of Droplets, Databases, Images, Volumes, and Volume Snapshots is supported. `resource_type` is expected to be the string `droplet`, `database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expected to be the ID of the resource as a string.
    */
@@ -14659,7 +14659,7 @@ export interface external {
     };
   }
   /**
-   * Create a New Tag 
+   * Create a New Tag
    * @description To create a tag you can send a POST request to `/v2/tags` with a `name` attribute.
    */
   "resources/tags/tags_create.yml": {
@@ -14678,7 +14678,7 @@ export interface external {
     };
   }
   /**
-   * Delete a Tag 
+   * Delete a Tag
    * @description A tag can be deleted by sending a `DELETE` request to `/v2/tags/$TAG_NAME`. Deleting a tag also untags all the resources that have previously been tagged by the Tag
    */
   "resources/tags/tags_delete.yml": {
@@ -14697,7 +14697,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve a Tag 
+   * Retrieve a Tag
    * @description To retrieve an individual tag, you can send a `GET` request to `/v2/tags/$TAG_NAME`.
    */
   "resources/tags/tags_get.yml": {
@@ -14716,7 +14716,7 @@ export interface external {
     };
   }
   /**
-   * List All Tags 
+   * List All Tags
    * @description To list all of your tags, you can send a GET request to `/v2/tags`.
    */
   "resources/tags/tags_list.yml": {
@@ -14735,7 +14735,7 @@ export interface external {
     };
   }
   /**
-   * Untag a Resource 
+   * Untag a Resource
    * @description Resources can be untagged by sending a DELETE request to `/v2/tags/$TAG_NAME/resources` with an array of json objects containing `resource_id` and `resource_type` attributes.
    * Currently only untagging of Droplets, Databases, Images, Volumes, and Volume Snapshots is supported. `resource_type` is expected to be the string `droplet`, `database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expected to be the ID of the resource as a string.
    */
@@ -14760,7 +14760,7 @@ export interface external {
     };
   }
   /**
-   * Create a New Alert 
+   * Create a New Alert
    * @description To create an Uptime alert, send a POST request to `/v2/uptime/checks/$CHECK_ID/alerts` specifying the attributes
    * in the table below in the JSON body.
    */
@@ -14794,7 +14794,7 @@ export interface external {
     };
   }
   /**
-   * Create a New Check 
+   * Create a New Check
    * @description To create an Uptime check, send a POST request to `/v2/uptime/checks` specifying the attributes
    * in the table below in the JSON body.
    */
@@ -14813,7 +14813,7 @@ export interface external {
     };
   }
   /**
-   * Delete an Alert 
+   * Delete an Alert
    * @description To delete an Uptime alert, send a DELETE request to `/v2/uptime/checks/$CHECK_ID/alerts/$ALERT_ID`. A 204 status
    * code with no body will be returned in response to a successful request.
    */
@@ -14834,11 +14834,11 @@ export interface external {
     };
   }
   /**
-   * Delete a Check 
+   * Delete a Check
    * @description To delete an Uptime check, send a DELETE request to `/v2/uptime/checks/$CHECK_ID`. A 204 status
    * code with no body will be returned in response to a successful request.
-   * 
-   * 
+   *
+   *
    * Deleting a check will also delete alerts associated with the check.
    */
   "resources/uptime/delete_check.yml": {
@@ -14857,7 +14857,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Alert 
+   * Retrieve an Existing Alert
    * @description To show information about an existing alert, send a GET request to `/v2/uptime/checks/$CHECK_ID/alerts/$ALERT_ID`.
    */
   "resources/uptime/get_alert.yml": {
@@ -14877,7 +14877,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve Check State 
+   * Retrieve Check State
    * @description To show information about an existing check's state, send a GET request to `/v2/uptime/checks/$CHECK_ID/state`.
    */
   "resources/uptime/get_check_state.yml": {
@@ -14896,7 +14896,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Check 
+   * Retrieve an Existing Check
    * @description To show information about an existing check, send a GET request to `/v2/uptime/checks/$CHECK_ID`.
    */
   "resources/uptime/get_check.yml": {
@@ -14915,7 +14915,7 @@ export interface external {
     };
   }
   /**
-   * List All Alerts 
+   * List All Alerts
    * @description To list all of the alerts for an Uptime check, send a GET request to `/v2/uptime/checks/$CHECK_ID/alerts`.
    */
   "resources/uptime/list_alerts.yml": {
@@ -14938,7 +14938,7 @@ export interface external {
     };
   }
   /**
-   * List All Checks 
+   * List All Checks
    * @description To list all of the Uptime checks on your account, send a GET request to `/v2/uptime/checks`.
    */
   "resources/uptime/list_checks.yml": {
@@ -14961,7 +14961,7 @@ export interface external {
   "resources/uptime/models/check.yml": unknown
   "resources/uptime/models/notification.yml": {
     /**
-     * @description An email to notify on an alert trigger. 
+     * @description An email to notify on an alert trigger.
      * @example [
      *   "bob@example.com"
      * ]
@@ -14970,14 +14970,14 @@ export interface external {
     /** @description Slack integration details. */
     slack: ({
         /**
-         * Format: string 
-         * @description Slack channel to notify of an alert trigger. 
+         * Format: string
+         * @description Slack channel to notify of an alert trigger.
          * @example Production Alerts
          */
         channel: string;
         /**
-         * Format: string 
-         * @description Slack Webhook URL. 
+         * Format: string
+         * @description Slack Webhook URL.
          * @example https://hooks.slack.com/services/T1234567/AAAAAAAA/ZZZZZZ
          */
         url: string;
@@ -15049,7 +15049,7 @@ export interface external {
     };
   }
   /**
-   * Update an Alert 
+   * Update an Alert
    * @description To update the settings of an Uptime alert, send a PUT request to `/v2/uptime/checks/$CHECK_ID/alerts/$ALERT_ID`.
    */
   "resources/uptime/update_alert.yml": {
@@ -15074,7 +15074,7 @@ export interface external {
     };
   }
   /**
-   * Update a Check 
+   * Update a Check
    * @description To update the settings of an Uptime check, send a PUT request to `/v2/uptime/checks/$CHECK_ID`.
    */
   "resources/uptime/update_check.yml": {
@@ -15105,8 +15105,8 @@ export interface external {
   }
   "resources/volumes/models/volume_action_post_base.yml": {
     /**
-     * @description The volume action to initiate. 
-     * @example attach 
+     * @description The volume action to initiate.
+     * @example attach
      * @enum {string}
      */
     type: "attach" | "detach" | "resize";
@@ -15121,32 +15121,32 @@ export interface external {
   }
   "resources/volumes/models/volume_base.yml": {
     /**
-     * @description The unique identifier for the block storage volume. 
+     * @description The unique identifier for the block storage volume.
      * @example 506f78a4-e098-11e5-ad9f-000f53306ae1
      */
     id?: string;
     /**
-     * @description An array containing the IDs of the Droplets the volume is attached to. Note that at this time, a volume can only be attached to a single Droplet. 
+     * @description An array containing the IDs of the Droplets the volume is attached to. Note that at this time, a volume can only be attached to a single Droplet.
      * @example []
      */
     droplet_ids?: readonly (number)[] | null;
     /**
-     * @description A human-readable name for the block storage volume. Must be lowercase and be composed only of numbers, letters and "-", up to a limit of 64 characters. The name must begin with a letter. 
+     * @description A human-readable name for the block storage volume. Must be lowercase and be composed only of numbers, letters and "-", up to a limit of 64 characters. The name must begin with a letter.
      * @example example
      */
     name?: string;
     /**
-     * @description An optional free-form text field to describe a block storage volume. 
+     * @description An optional free-form text field to describe a block storage volume.
      * @example Block store for examples
      */
     description?: string;
     /**
-     * @description The size of the block storage volume in GiB (1024^3). This field does not apply  when creating a volume from a snapshot. 
+     * @description The size of the block storage volume in GiB (1024^3). This field does not apply  when creating a volume from a snapshot.
      * @example 10
      */
     size_gigabytes?: number;
     /**
-     * @description A time value given in ISO8601 combined date and time format that represents when the block storage volume was created. 
+     * @description A time value given in ISO8601 combined date and time format that represents when the block storage volume was created.
      * @example "2020-03-02T17:00:49.000Z"
      */
     created_at?: string;
@@ -15184,19 +15184,19 @@ export interface external {
      */
     region?: external["resources/regions/models/region.yml"];
     /**
-     * @description The type of filesystem currently in-use on the volume. 
+     * @description The type of filesystem currently in-use on the volume.
      * @example ext4
      */
     filesystem_type?: string;
     /**
-     * @description The label currently applied to the filesystem. 
+     * @description The label currently applied to the filesystem.
      * @example example
      */
     filesystem_label?: string;
   }
   "resources/volumes/models/volumeAction.yml": ({
     /**
-     * @description This is the type of action that the object represents. For example, this could be "attach_volume" to represent the state of a volume attach action. 
+     * @description This is the type of action that the object represents. For example, this could be "attach_volume" to represent the state of a volume attach action.
      * @example attach_volume
      */
     type?: string;
@@ -15290,7 +15290,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Volume Action 
+   * Retrieve an Existing Volume Action
    * @description To retrieve the status of a volume action, send a GET request to `/v2/volumes/$VOLUME_ID/actions/$ACTION_ID`.
    */
   "resources/volumes/volumeActions_get.yml": {
@@ -15314,7 +15314,7 @@ export interface external {
     };
   }
   /**
-   * List All Actions for a Volume 
+   * List All Actions for a Volume
    * @description To retrieve all actions that have been executed on a volume, send a GET request to `/v2/volumes/$VOLUME_ID/actions`.
    */
   "resources/volumes/volumeActions_list.yml": {
@@ -15337,42 +15337,42 @@ export interface external {
     };
   }
   /**
-   * Initiate A Block Storage Action By Volume Id 
+   * Initiate A Block Storage Action By Volume Id
    * @description To initiate an action on a block storage volume by Id, send a POST request to
    * `~/v2/volumes/$VOLUME_ID/actions`. The body should contain the appropriate
    * attributes for the respective action.
-   * 
+   *
    * ## Attach a Block Storage Volume to a Droplet
-   * 
+   *
    * | Attribute  | Details                                                             |
    * | ---------- | ------------------------------------------------------------------- |
    * | type       | This must be `attach`                                               |
    * | droplet_id | Set to the Droplet's ID                                             |
    * | region     | Set to the slug representing the region where the volume is located |
-   * 
+   *
    * Each volume may only be attached to a single Droplet. However, up to seven
    * volumes may be attached to a Droplet at a time. Pre-formatted volumes will be
    * automatically mounted to Ubuntu, Debian, Fedora, Fedora Atomic, and CentOS
    * Droplets created on or after April 26, 2018 when attached. On older Droplets,
    * [additional configuration](https://www.digitalocean.com/community/tutorials/how-to-partition-and-format-digitalocean-block-storage-volumes-in-linux#mounting-the-filesystems)
    * is required.
-   * 
+   *
    * ## Remove a Block Storage Volume from a Droplet
-   * 
+   *
    * | Attribute  | Details                                                             |
    * | ---------- | ------------------------------------------------------------------- |
    * | type       | This must be `detach`                                               |
    * | droplet_id | Set to the Droplet's ID                                             |
    * | region     | Set to the slug representing the region where the volume is located |
-   * 
+   *
    * ## Resize a Volume
-   * 
+   *
    * | Attribute      | Details                                                             |
    * | -------------- | ------------------------------------------------------------------- |
    * | type           | This must be `resize`                                               |
    * | size_gigabytes | The new size of the block storage volume in GiB (1024^3)            |
    * | region         | Set to the slug representing the region where the volume is located |
-   * 
+   *
    * Volumes may only be resized upwards. The maximum size for a volume is 16TiB.
    */
   "resources/volumes/volumeActions_post_byId.yml": {
@@ -15400,29 +15400,29 @@ export interface external {
     };
   }
   /**
-   * Initiate A Block Storage Action By Volume Name 
+   * Initiate A Block Storage Action By Volume Name
    * @description To initiate an action on a block storage volume by Name, send a POST request to
    * `~/v2/volumes/actions`. The body should contain the appropriate
    * attributes for the respective action.
-   * 
+   *
    * ## Attach a Block Storage Volume to a Droplet
-   * 
+   *
    * | Attribute   | Details                                                             |
    * | ----------- | ------------------------------------------------------------------- |
    * | type        | This must be `attach`                                               |
    * | volume_name | The name of the block storage volume                                |
    * | droplet_id  | Set to the Droplet's ID                                             |
    * | region      | Set to the slug representing the region where the volume is located |
-   * 
+   *
    * Each volume may only be attached to a single Droplet. However, up to five
    * volumes may be attached to a Droplet at a time. Pre-formatted volumes will be
    * automatically mounted to Ubuntu, Debian, Fedora, Fedora Atomic, and CentOS
    * Droplets created on or after April 26, 2018 when attached. On older Droplets,
    * [additional configuration](https://www.digitalocean.com/community/tutorials/how-to-partition-and-format-digitalocean-block-storage-volumes-in-linux#mounting-the-filesystems)
    * is required.
-   * 
+   *
    * ## Remove a Block Storage Volume from a Droplet
-   * 
+   *
    * | Attribute   | Details                                                             |
    * | ----------- | ------------------------------------------------------------------- |
    * | type        | This must be `detach`                                               |
@@ -15452,7 +15452,7 @@ export interface external {
     };
   }
   /**
-   * Create a New Block Storage Volume 
+   * Create a New Block Storage Volume
    * @description To create a new volume, send a POST request to `/v2/volumes`. Optionally, a `filesystem_type` attribute may be provided in order to automatically format the volume's filesystem. Pre-formatted volumes are automatically mounted when attached to Ubuntu, Debian, Fedora, Fedora Atomic, and CentOS Droplets created on or after April 26, 2018. Attaching pre-formatted volumes to Droplets without support for auto-mounting is not recommended.
    */
   "resources/volumes/volumes_create.yml": {
@@ -15472,7 +15472,7 @@ export interface external {
     };
   }
   /**
-   * Delete a Block Storage Volume by Name 
+   * Delete a Block Storage Volume by Name
    * @description Block storage volumes may also be deleted by name by sending a DELETE request with the volume's **name** and the **region slug** for the region it is located in as query parameters to `/v2/volumes?name=$VOLUME_NAME&region=nyc1`.
    * No response body will be sent back, but the response code will indicate success. Specifically, the response code will be a 204, which means that the action was successful with no returned body data.
    */
@@ -15493,7 +15493,7 @@ export interface external {
     };
   }
   /**
-   * Delete a Block Storage Volume 
+   * Delete a Block Storage Volume
    * @description To delete a block storage volume, destroying all data and removing it from your account, send a DELETE request to `/v2/volumes/$VOLUME_ID`.
    * No response body will be sent back, but the response code will indicate success. Specifically, the response code will be a 204, which means that the action was successful with no returned body data.
    */
@@ -15513,7 +15513,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Block Storage Volume 
+   * Retrieve an Existing Block Storage Volume
    * @description To show information about a block storage volume, send a GET request to `/v2/volumes/$VOLUME_ID`.
    */
   "resources/volumes/volumes_get.yml": {
@@ -15532,7 +15532,7 @@ export interface external {
     };
   }
   /**
-   * List All Block Storage Volumes 
+   * List All Block Storage Volumes
    * @description To list all of the block storage volumes available on your account, send a GET request to `/v2/volumes`.
    * ## Filtering Results
    * ### By Region
@@ -15561,7 +15561,7 @@ export interface external {
     };
   }
   /**
-   * Create Snapshot from a Volume 
+   * Create Snapshot from a Volume
    * @description To create a snapshot from a volume, sent a POST request to `/v2/volumes/$VOLUME_ID/snapshots`.
    */
   "resources/volumes/volumeSnapshots_create.yml": {
@@ -15579,7 +15579,7 @@ export interface external {
          */
         "application/json": {
           /**
-           * @description A human-readable name for the volume snapshot. 
+           * @description A human-readable name for the volume snapshot.
            * @example big-data-snapshot1475261774
            */
           name: string;
@@ -15598,10 +15598,10 @@ export interface external {
     };
   }
   /**
-   * Delete a Volume Snapshot 
+   * Delete a Volume Snapshot
    * @description To delete a volume snapshot, send a DELETE request to
    * `/v2/snapshots/$SNAPSHOT_ID`.
-   * 
+   *
    * A status of 204 will be given. This indicates that the request was processed
    * successfully, but that no response body is needed.
    */
@@ -15621,7 +15621,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing Volume Snapshot 
+   * Retrieve an Existing Volume Snapshot
    * @description To retrieve the details of a snapshot that has been created from a volume, send a GET request to `/v2/volumes/snapshots/$SNAPSHOT_ID`.
    */
   "resources/volumes/volumeSnapshots_get_byId.yml": {
@@ -15640,7 +15640,7 @@ export interface external {
     };
   }
   /**
-   * List Snapshots for a Volume 
+   * List Snapshots for a Volume
    * @description To retrieve the snapshots that have been created from a volume, send a GET request to `/v2/volumes/$VOLUME_ID/snapshots`.
    */
   "resources/volumes/volumeSnapshots_list.yml": {
@@ -15664,13 +15664,13 @@ export interface external {
   }
   "resources/vpcs/models/vpc_member.yml": {
     /**
-     * @description The name of the resource. 
+     * @description The name of the resource.
      * @example nyc1-load-balancer-01
      */
     name?: string;
     urn?: external["shared/attributes/urn.yml"];
     /**
-     * @description A time value given in ISO8601 combined date and time format that represents when the resource was created. 
+     * @description A time value given in ISO8601 combined date and time format that represents when the resource was created.
      * @example 2020-03-13T19:30:48Z
      */
     created_at?: string;
@@ -15717,10 +15717,10 @@ export interface external {
     };
   }
   /**
-   * Create a New VPC 
+   * Create a New VPC
    * @description To create a VPC, send a POST request to `/v2/vpcs` specifying the attributes
    * in the table below in the JSON body.
-   * 
+   *
    * **Note:** If you do not currently have a VPC network in a specific datacenter
    * region, the first one that you create will be set as the default for that
    * region. The default VPC for a region cannot be changed or deleted.
@@ -15740,10 +15740,10 @@ export interface external {
     };
   }
   /**
-   * Delete a VPC 
+   * Delete a VPC
    * @description To delete a VPC, send a DELETE request to `/v2/vpcs/$VPC_ID`. A 204 status
    * code with no body will be returned in response to a successful request.
-   * 
+   *
    * The default VPC for a region can not be deleted. Additionally, a VPC can only
    * be deleted if it does not contain any member resources. Attempting to delete
    * a region's default VPC or a VPC that still has members will result in a
@@ -15765,7 +15765,7 @@ export interface external {
     };
   }
   /**
-   * Retrieve an Existing VPC 
+   * Retrieve an Existing VPC
    * @description To show information about an existing VPC, send a GET request to `/v2/vpcs/$VPC_ID`.
    */
   "resources/vpcs/vpcs_get.yml": {
@@ -15784,10 +15784,10 @@ export interface external {
     };
   }
   /**
-   * List the Member Resources of a VPC 
+   * List the Member Resources of a VPC
    * @description To list all of the resources that are members of a VPC, send a GET request to
    * `/v2/vpcs/$VPC_ID/members`.
-   * 
+   *
    * To only list resources of a specific type that are members of the VPC,
    * included a `resource_type` query parameter. For example, to only list Droplets
    * in the VPC, send a GET request to `/v2/vpcs/$VPC_ID/members?resource_type=droplet`.
@@ -15813,7 +15813,7 @@ export interface external {
     };
   }
   /**
-   * List All VPCs 
+   * List All VPCs
    * @description To list all of the VPCs on your account, send a GET request to `/v2/vpcs`.
    */
   "resources/vpcs/vpcs_list.yml": {
@@ -15833,7 +15833,7 @@ export interface external {
     };
   }
   /**
-   * Partially Update a VPC 
+   * Partially Update a VPC
    * @description To update a subset of information about a VPC, send a PATCH request to
    * `/v2/vpcs/$VPC_ID`.
    */
@@ -15858,7 +15858,7 @@ export interface external {
     };
   }
   /**
-   * Update a VPC 
+   * Update a VPC
    * @description To update information about a VPC, send a PUT request to `/v2/vpcs/$VPC_ID`.
    */
   "resources/vpcs/vpcs_update.yml": {
@@ -15888,27 +15888,27 @@ export interface external {
   "shared/attributes/urn.yml": string
   "shared/headers.yml": {
     /**
-     * @description Indicates if the content is expected to be displayed *inline* in the  browser, that is, as a Web page or as part of a Web page, or as an  *attachment*, that is downloaded and saved locally. 
+     * @description Indicates if the content is expected to be displayed *inline* in the  browser, that is, as a Web page or as part of a Web page, or as an  *attachment*, that is downloaded and saved locally.
      * @example attachment; filename="DigitalOcean Invoice 2020 Jul (6173678-418071234).csv"
      */    "content-disposition": unknown;
     /**
-     * @description The default limit on number of requests that can be made per hour and per minute. Current rate limits are 5000 requests per hour and 250 requests per minute. 
+     * @description The default limit on number of requests that can be made per hour and per minute. Current rate limits are 5000 requests per hour and 250 requests per minute.
      * @example 5000
      */    "ratelimit-limit": unknown;
     /**
-     * @description The number of requests in your hourly quota that remain before you hit your request limit. See https://developers.digitalocean.com/documentation/v2/#rate-limit for information about how requests expire. 
+     * @description The number of requests in your hourly quota that remain before you hit your request limit. See https://developers.digitalocean.com/documentation/v2/#rate-limit for information about how requests expire.
      * @example 4816
      */    "ratelimit-remaining": unknown;
     /**
-     * @description The time when the oldest request will expire. The value is given in Unix epoch time. See https://developers.digitalocean.com/documentation/v2/#rate-limit for information about how requests expire. 
+     * @description The time when the oldest request will expire. The value is given in Unix epoch time. See https://developers.digitalocean.com/documentation/v2/#rate-limit for information about how requests expire.
      * @example 1444931833
      */    "ratelimit-reset": unknown;
     /**
-     * @description Optionally, some endpoints may include a request ID that should be provided  when reporting bugs or opening support tickets to help identify the issue. 
+     * @description Optionally, some endpoints may include a request ID that should be provided  when reporting bugs or opening support tickets to help identify the issue.
      * @example 515850a0-a812-50bf-aa3c-d0d21d287e40
      */    "x-request-id": unknown;
     /**
-     * @description The type of data that is returned from a request.  
+     * @description The type of data that is returned from a request.
      * @example application/json; charset=utf-8
      */    "content-type": unknown;
   };
@@ -15920,59 +15920,59 @@ export interface external {
   }
   "shared/models/action_link.yml": {
     /**
-     * @description A unique numeric ID that can be used to identify and reference an action. 
+     * @description A unique numeric ID that can be used to identify and reference an action.
      * @example 7515
      */
     id?: number;
     /**
-     * @description A string specifying the type of the related action. 
+     * @description A string specifying the type of the related action.
      * @example create
      */
     rel?: string;
     /**
-     * Format: uri 
-     * @description A URL that can be used to access the action. 
+     * Format: uri
+     * @description A URL that can be used to access the action.
      * @example https://api.digitalocean.com/v2/actions/7515
      */
     href?: string;
   }
   "shared/models/error_with_root_causes.yml": {
     /**
-     * @description A message providing information about the error. 
+     * @description A message providing information about the error.
      * @example not_found
      */
     error: string;
     /**
-     * @description A list of error messages. 
+     * @description A list of error messages.
      * @example null
      */
     messages?: (string)[] | null;
     /**
-     * @description A list of underlying causes for the error, including details to help  resolve it when possible. 
+     * @description A list of underlying causes for the error, including details to help  resolve it when possible.
      * @example []
      */
     root_causes: (string)[];
   }
   "shared/models/error.yml": {
     /**
-     * @description A short identifier corresponding to the HTTP status code returned. For  example, the ID for a response returning a 404 status code would be "not_found." 
+     * @description A short identifier corresponding to the HTTP status code returned. For  example, the ID for a response returning a 404 status code would be "not_found."
      * @example not_found
      */
     id: string;
     /**
-     * @description A message providing additional information about the error, including  details to help resolve it when possible. 
+     * @description A message providing additional information about the error, including  details to help resolve it when possible.
      * @example The resource you were accessing could not be found.
      */
     message: string;
     /**
-     * @description Optionally, some endpoints may include a request ID that should be  provided when reporting bugs or opening support tickets to help  identify the issue. 
+     * @description Optionally, some endpoints may include a request ID that should be  provided when reporting bugs or opening support tickets to help  identify the issue.
      * @example 4d9d8375-3c56-4925-a3e7-eb137fed17e9
      */
     request_id?: string;
   }
   "shared/models/meta_properties.yml": {
     /**
-     * @description Number of objects returned by the request. 
+     * @description Number of objects returned by the request.
      * @example 1
      */
     total?: number;
@@ -15996,28 +15996,28 @@ export interface external {
     forward_links: link_to_last_page[] & link_to_next_page[];
     link_to_first_page: {
       /**
-       * @description URI of the first page of the results. 
+       * @description URI of the first page of the results.
        * @example https://api.digitalocean.com/v2/images?page=1
        */
       first?: string;
     };
     link_to_prev_page: {
       /**
-       * @description URI of the previous page of the results. 
+       * @description URI of the previous page of the results.
        * @example https://api.digitalocean.com/v2/images?page=1
        */
       prev?: string;
     };
     link_to_next_page: {
       /**
-       * @description URI of the next page of the results. 
+       * @description URI of the next page of the results.
        * @example https://api.digitalocean.com/v2/images?page=2
        */
       next?: string;
     };
     link_to_last_page: {
       /**
-       * @description URI of the last page of the results. 
+       * @description URI of the last page of the results.
        * @example https://api.digitalocean.com/v2/images?page=2
        */
       last?: string;

@@ -55,13 +55,13 @@ export function getSchemaObjectComment(v: CommentObject, indentLv?: number): str
   const output: string[] = [];
 
   // * Not JSDOC tags: [title, format]
-  if (v.title) output.push(`${v.title} `);
-  if (v.summary) output.push(`${v.summary} `);
-  if (v.format) output.push(`Format: ${v.format} `);
+  if (v.title) output.push(v.title);
+  if (v.summary) output.push(v.summary);
+  if (v.format) output.push(`Format: ${v.format}`);
 
   // * JSDOC tags without value
   // 'Deprecated' without value
-  if (v.deprecated) output.push(`@deprecated `);
+  if (v.deprecated) output.push("@deprecated");
 
   // * JSDOC tags with value
   const supportedJsDocTags: (keyof CommentObject)[] = ["description", "default", "example"];
@@ -74,11 +74,11 @@ export function getSchemaObjectComment(v: CommentObject, indentLv?: number): str
       continue;
     }
     const serialized = typeof v[field] === "object" ? JSON.stringify(v[field], null, 2) : v[field];
-    output.push(`@${field} ${serialized} `);
+    output.push(`@${field} ${serialized}`);
   }
 
   // * JSDOC 'Constant' without value
-  if ("const" in v) output.push(`@constant `);
+  if ("const" in v) output.push("@constant");
 
   // * JSDOC 'Enum' with type
   if (v.enum) {
@@ -99,8 +99,14 @@ export function comment(text: string, indentLv?: number): string {
   if (!commentText.includes("\n")) return `/** ${commentText} */`;
 
   // if multi-line comment
-  const ln = indent(" * ", indentLv ?? 0);
-  return ["/**", `${ln}${commentText.replace(LB_RE, `\n${ln}`)}`, indent(" */", indentLv ?? 0)].join("\n");
+  const star = indent(" *", indentLv ?? 0);
+
+  const body = commentText.split(LB_RE).map((ln) => {
+    ln = ln.trimEnd();
+    return ln.length > 0 ? `${star} ${ln}` : star;
+  });
+
+  return ["/**", body.join("\n"), indent(" */", indentLv ?? 0)].join("\n");
 }
 
 /** handle any valid $ref */

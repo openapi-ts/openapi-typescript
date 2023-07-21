@@ -1,5 +1,5 @@
 import { bench } from "vitest";
-import { escObjKey, parseRef, tsIntersectionOf, tsUnionOf } from "../src/utils.js";
+import { comment, escObjKey, getSchemaObjectComment, parseRef, tsIntersectionOf, tsUnionOf } from "../src/utils.js";
 
 describe("utils", () => {
   describe("tsUnionOf", () => {
@@ -110,6 +110,62 @@ describe("utils", () => {
 
     it("_ no escapes", () => {
       expect(escObjKey("_ref_")).toStrictEqual("_ref_");
+    });
+  });
+
+  describe("comment", () => {
+    it("basic", () => {
+      expect(comment("A comment")).toStrictEqual("/** A comment */");
+      expect(comment("A multi-line \n\n comment")).toStrictEqual(
+        // prettier-ignore
+        "/**\n" +
+        " * A multi-line\n" +
+        " *\n" +
+        " *  comment\n"+
+        " */"
+      );
+    });
+  });
+
+  describe("getSchemaObjectComment", () => {
+    it("object with 1 property", () => {
+      expect(
+        getSchemaObjectComment({
+          title: "A title",
+        })
+      ).toStrictEqual("/** A title */");
+    });
+
+    it("object with 2 properties", () => {
+      expect(
+        getSchemaObjectComment({
+          title: "A title",
+          description: "A description",
+        })
+      ).toStrictEqual(
+        // prettier-ignore
+        "/**\n" +
+        " * A title\n" +
+        " * @description A description\n"+
+        " */"
+      );
+    });
+
+    it("object with a multi-line property", () => {
+      expect(
+        getSchemaObjectComment({
+          title: "A title",
+          description: "A multi-line \n\n description",
+        })
+      ).toStrictEqual(
+        // prettier-ignore
+        "/**\n" +
+        " * A title\n" +
+        " * @description A multi-line\n" +
+        " *\n" +
+        " *  description\n" +
+        " */"
+      );
     });
   });
 });
