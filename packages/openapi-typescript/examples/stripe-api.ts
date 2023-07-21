@@ -2302,36 +2302,36 @@ export interface components {
     /** AccountCapabilityFutureRequirements */
     account_capability_future_requirements: {
       /** @description Fields that are due and can be satisfied by providing the corresponding alternative fields instead. */
-      alternatives?: (components["schemas"]["account_requirements_alternative"])[] | null;
+      alternatives?: components["schemas"]["account_requirements_alternative"][] | null;
       /**
        * Format: unix-time
        * @description Date on which `future_requirements` merges with the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on the capability's enablement state prior to transitioning.
        */
       current_deadline?: number | null;
       /** @description Fields that need to be collected to keep the capability enabled. If not collected by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash. */
-      currently_due: (string)[];
+      currently_due: string[];
       /** @description This is typed as a string for consistency with `requirements.disabled_reason`, but it safe to assume `future_requirements.disabled_reason` is empty because fields in `future_requirements` will never disable the account. */
       disabled_reason?: string | null;
       /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
-      errors: (components["schemas"]["account_requirements_error"])[];
+      errors: components["schemas"]["account_requirements_error"][];
       /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well. */
-      eventually_due: (string)[];
+      eventually_due: string[];
       /** @description Fields that weren't collected by `requirements.current_deadline`. These fields need to be collected to enable the capability on the account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`. */
-      past_due: (string)[];
+      past_due: string[];
       /** @description Fields that may become required depending on the results of verification or review. Will be an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`. */
-      pending_verification: (string)[];
+      pending_verification: string[];
     };
     /** AccountCapabilityRequirements */
     account_capability_requirements: {
       /** @description Fields that are due and can be satisfied by providing the corresponding alternative fields instead. */
-      alternatives?: (components["schemas"]["account_requirements_alternative"])[] | null;
+      alternatives?: components["schemas"]["account_requirements_alternative"][] | null;
       /**
        * Format: unix-time
        * @description Date by which the fields in `currently_due` must be collected to keep the capability enabled for the account. These fields may disable the capability sooner if the next threshold is reached before they are collected.
        */
       current_deadline?: number | null;
       /** @description Fields that need to be collected to keep the capability enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the capability is disabled. */
-      currently_due: (string)[];
+      currently_due: string[];
       /**
        * @description If the capability is disabled, this string describes why. Can be `requirements.past_due`, `requirements.pending_verification`, `listed`, `platform_paused`, `rejected.fraud`, `rejected.listed`, `rejected.terms_of_service`, `rejected.other`, `under_review`, or `other`.
        *
@@ -2343,13 +2343,13 @@ export interface components {
        */
       disabled_reason?: string | null;
       /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
-      errors: (components["schemas"]["account_requirements_error"])[];
+      errors: components["schemas"]["account_requirements_error"][];
       /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set. */
-      eventually_due: (string)[];
+      eventually_due: string[];
       /** @description Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the capability on the account. */
-      past_due: (string)[];
+      past_due: string[];
       /** @description Fields that may become required depending on the results of verification or review. Will be an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. */
-      pending_verification: (string)[];
+      pending_verification: string[];
     };
     /** AccountCardIssuingSettings */
     account_card_issuing_settings: {
@@ -2382,24 +2382,24 @@ export interface components {
     /** AccountFutureRequirements */
     account_future_requirements: {
       /** @description Fields that are due and can be satisfied by providing the corresponding alternative fields instead. */
-      alternatives?: (components["schemas"]["account_requirements_alternative"])[] | null;
+      alternatives?: components["schemas"]["account_requirements_alternative"][] | null;
       /**
        * Format: unix-time
        * @description Date on which `future_requirements` merges with the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on its enablement state prior to transitioning.
        */
       current_deadline?: number | null;
       /** @description Fields that need to be collected to keep the account enabled. If not collected by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash. */
-      currently_due?: (string)[] | null;
+      currently_due?: string[] | null;
       /** @description This is typed as a string for consistency with `requirements.disabled_reason`, but it safe to assume `future_requirements.disabled_reason` is empty because fields in `future_requirements` will never disable the account. */
       disabled_reason?: string | null;
       /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
-      errors?: (components["schemas"]["account_requirements_error"])[] | null;
+      errors?: components["schemas"]["account_requirements_error"][] | null;
       /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well. */
-      eventually_due?: (string)[] | null;
+      eventually_due?: string[] | null;
       /** @description Fields that weren't collected by `requirements.current_deadline`. These fields need to be collected to enable the capability on the account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`. */
-      past_due?: (string)[] | null;
+      past_due?: string[] | null;
       /** @description Fields that may become required depending on the results of verification or review. Will be an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`. */
-      pending_verification?: (string)[] | null;
+      pending_verification?: string[] | null;
     };
     /**
      * AccountLink
@@ -2451,31 +2451,31 @@ export interface components {
     /** AccountRequirements */
     account_requirements: {
       /** @description Fields that are due and can be satisfied by providing the corresponding alternative fields instead. */
-      alternatives?: (components["schemas"]["account_requirements_alternative"])[] | null;
+      alternatives?: components["schemas"]["account_requirements_alternative"][] | null;
       /**
        * Format: unix-time
        * @description Date by which the fields in `currently_due` must be collected to keep the account enabled. These fields may disable the account sooner if the next threshold is reached before they are collected.
        */
       current_deadline?: number | null;
       /** @description Fields that need to be collected to keep the account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled. */
-      currently_due?: (string)[] | null;
+      currently_due?: string[] | null;
       /** @description If the account is disabled, this string describes why. Can be `requirements.past_due`, `requirements.pending_verification`, `listed`, `platform_paused`, `rejected.fraud`, `rejected.listed`, `rejected.terms_of_service`, `rejected.other`, `under_review`, or `other`. */
       disabled_reason?: string | null;
       /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
-      errors?: (components["schemas"]["account_requirements_error"])[] | null;
+      errors?: components["schemas"]["account_requirements_error"][] | null;
       /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set. */
-      eventually_due?: (string)[] | null;
+      eventually_due?: string[] | null;
       /** @description Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the account. */
-      past_due?: (string)[] | null;
+      past_due?: string[] | null;
       /** @description Fields that may become required depending on the results of verification or review. Will be an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. */
-      pending_verification?: (string)[] | null;
+      pending_verification?: string[] | null;
     };
     /** AccountRequirementsAlternative */
     account_requirements_alternative: {
       /** @description Fields that can be provided to satisfy all fields in `original_fields_due`. */
-      alternative_fields_due: (string)[];
+      alternative_fields_due: string[];
       /** @description Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`. */
-      original_fields_due: (string)[];
+      original_fields_due: string[];
     };
     /** AccountRequirementsError */
     account_requirements_error: {
@@ -2657,7 +2657,7 @@ export interface components {
        */
       refunds: {
         /** @description Details about each object. */
-        data: (components["schemas"]["fee_refund"])[];
+        data: components["schemas"]["fee_refund"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -2735,11 +2735,11 @@ export interface components {
      */
     balance: {
       /** @description Funds that are available to be transferred or paid out, whether automatically by Stripe or explicitly via the [Transfers API](https://stripe.com/docs/api#transfers) or [Payouts API](https://stripe.com/docs/api#payouts). The available balance for each currency and payment type can be found in the `source_types` property. */
-      available: (components["schemas"]["balance_amount"])[];
+      available: components["schemas"]["balance_amount"][];
       /** @description Funds held due to negative balances on connected Custom accounts. The connect reserve balance for each currency and payment type can be found in the `source_types` property. */
-      connect_reserved?: (components["schemas"]["balance_amount"])[];
+      connect_reserved?: components["schemas"]["balance_amount"][];
       /** @description Funds that can be paid out using Instant Payouts. */
-      instant_available?: (components["schemas"]["balance_amount"])[];
+      instant_available?: components["schemas"]["balance_amount"][];
       issuing?: components["schemas"]["balance_detail"];
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
@@ -2749,7 +2749,7 @@ export interface components {
        */
       object: "balance";
       /** @description Funds that are not yet available in the balance, due to the 7-day rolling pay cycle. The pending balance for each currency, and for each payment type, can be found in the `source_types` property. */
-      pending: (components["schemas"]["balance_amount"])[];
+      pending: components["schemas"]["balance_amount"][];
     };
     /** BalanceAmount */
     balance_amount: {
@@ -2771,7 +2771,7 @@ export interface components {
     /** BalanceDetail */
     balance_detail: {
       /** @description Funds that are available for use. */
-      available: (components["schemas"]["balance_amount"])[];
+      available: components["schemas"]["balance_amount"][];
     };
     /**
      * BalanceTransaction
@@ -2802,7 +2802,7 @@ export interface components {
       /** @description Fees (in %s) paid for this transaction. */
       fee: number;
       /** @description Detailed breakdown of fees (in %s) paid for this transaction. */
-      fee_details: (components["schemas"]["fee"])[];
+      fee_details: components["schemas"]["fee"][];
       /** @description Unique identifier for the object. */
       id: string;
       /** @description Net amount of the transaction, in %s. */
@@ -2962,7 +2962,7 @@ export interface components {
     /** BankConnectionsResourceLinkAccountSessionFilters */
     bank_connections_resource_link_account_session_filters: {
       /** @description List of countries from which to filter accounts. */
-      countries?: (string)[] | null;
+      countries?: string[] | null;
     };
     /** BankConnectionsResourceOwnershipRefresh */
     bank_connections_resource_ownership_refresh: {
@@ -3326,7 +3326,7 @@ export interface components {
        */
       refunds?: {
         /** @description Details about each object. */
-        data: (components["schemas"]["refund"])[];
+        data: components["schemas"]["refund"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -3444,7 +3444,7 @@ export interface components {
       /** @description Currency conversion details for automatic currency conversion sessions */
       currency_conversion?: components["schemas"]["payment_pages_checkout_session_currency_conversion"] | null;
       /** @description Collect additional information from your customer using custom fields. Up to 2 fields are supported. */
-      custom_fields: (components["schemas"]["payment_pages_checkout_session_custom_fields"])[];
+      custom_fields: components["schemas"]["payment_pages_checkout_session_custom_fields"][];
       custom_text: components["schemas"]["payment_pages_checkout_session_custom_text"];
       /**
        * @description The ID of the customer for this Session.
@@ -3486,7 +3486,7 @@ export interface components {
        */
       line_items?: {
         /** @description Details about each object. */
-        data: (components["schemas"]["item"])[];
+        data: components["schemas"]["item"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -3533,7 +3533,7 @@ export interface components {
        * @description A list of the types of payment methods (e.g. card) this Checkout
        * Session is allowed to accept.
        */
-      payment_method_types: (string)[];
+      payment_method_types: string[];
       /**
        * @description The payment status of the Checkout Session, one of `paid`, `unpaid`, or `no_payment_required`.
        * You can use this value to decide when to fulfill your customer's order.
@@ -3552,7 +3552,7 @@ export interface components {
       /** @description Shipping information for this Checkout Session. */
       shipping_details?: components["schemas"]["shipping"] | null;
       /** @description The shipping rate options applied to this Session. */
-      shipping_options: (components["schemas"]["payment_pages_checkout_session_shipping_option"])[];
+      shipping_options: components["schemas"]["payment_pages_checkout_session_shipping_option"][];
       /**
        * @description The status of the Checkout Session, one of `open`, `complete`, or `expired`.
        * @enum {string|null}
@@ -4028,22 +4028,22 @@ export interface components {
       object: "country_spec";
       /** @description Currencies that can be accepted in the specific country (for transfers). */
       supported_bank_account_currencies: {
-        [key: string]: (string)[] | undefined;
+        [key: string]: string[] | undefined;
       };
       /** @description Currencies that can be accepted in the specified country (for payments). */
-      supported_payment_currencies: (string)[];
+      supported_payment_currencies: string[];
       /** @description Payment methods available in the specified country. You may need to enable some payment methods (e.g., [ACH](https://stripe.com/docs/ach)) on your account before they appear in this list. The `stripe` payment method refers to [charging through your platform](https://stripe.com/docs/connect/destination-charges). */
-      supported_payment_methods: (string)[];
+      supported_payment_methods: string[];
       /** @description Countries that can accept transfers from the specified country. */
-      supported_transfer_countries: (string)[];
+      supported_transfer_countries: string[];
       verification_fields: components["schemas"]["country_spec_verification_fields"];
     };
     /** CountrySpecVerificationFieldDetails */
     country_spec_verification_field_details: {
       /** @description Additional fields which are only required for some users. */
-      additional: (string)[];
+      additional: string[];
       /** @description Fields which every account must eventually provide. */
-      minimum: (string)[];
+      minimum: string[];
     };
     /** CountrySpecVerificationFields */
     country_spec_verification_fields: {
@@ -4110,7 +4110,7 @@ export interface components {
     /** CouponAppliesTo */
     coupon_applies_to: {
       /** @description A list of product IDs this coupon applies to */
-      products: (string)[];
+      products: string[];
     };
     /** CouponCurrencyOption */
     coupon_currency_option: {
@@ -4142,7 +4142,7 @@ export interface components {
       /** @description The integer amount in %s representing the total amount of discount that was credited. */
       discount_amount: number;
       /** @description The aggregate amounts calculated per discount for all line items. */
-      discount_amounts: (components["schemas"]["discounts_resource_discount_amount"])[];
+      discount_amounts: components["schemas"]["discounts_resource_discount_amount"][];
       /**
        * Format: unix-time
        * @description The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
@@ -4158,7 +4158,7 @@ export interface components {
        */
       lines: {
         /** @description Details about each object. */
-        data: (components["schemas"]["credit_note_line_item"])[];
+        data: components["schemas"]["credit_note_line_item"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -4207,7 +4207,7 @@ export interface components {
       /** @description The integer amount in %s representing the amount of the credit note, excluding all tax and invoice level discounts. */
       subtotal_excluding_tax?: number | null;
       /** @description The aggregate amounts calculated per tax rate for all line items. */
-      tax_amounts: (components["schemas"]["credit_note_tax_amount"])[];
+      tax_amounts: components["schemas"]["credit_note_tax_amount"][];
       /** @description The integer amount in %s representing the total amount of the credit note, including tax and all discount. */
       total: number;
       /** @description The integer amount in %s representing the total amount of the credit note, excluding tax, but including discounts. */
@@ -4234,7 +4234,7 @@ export interface components {
       /** @description The integer amount in %s representing the discount being credited for this line item. */
       discount_amount: number;
       /** @description The amount of discount calculated per discount for this line item */
-      discount_amounts: (components["schemas"]["discounts_resource_discount_amount"])[];
+      discount_amounts: components["schemas"]["discounts_resource_discount_amount"][];
       /** @description Unique identifier for the object. */
       id: string;
       /** @description ID of the invoice line item being credited */
@@ -4249,9 +4249,9 @@ export interface components {
       /** @description The number of units of product being credited. */
       quantity?: number | null;
       /** @description The amount of tax calculated per tax rate for this line item */
-      tax_amounts: (components["schemas"]["credit_note_tax_amount"])[];
+      tax_amounts: components["schemas"]["credit_note_tax_amount"][];
       /** @description The tax rates which apply to the line item. */
-      tax_rates: (components["schemas"]["tax_rate"])[];
+      tax_rates: components["schemas"]["tax_rate"][];
       /**
        * @description The type of the credit note line item, one of `invoice_line_item` or `custom_line_item`. When the type is `invoice_line_item` there is an additional `invoice_line_item` property on the resource the value of which is the id of the credited line item on the invoice.
        * @enum {string}
@@ -4296,7 +4296,7 @@ export interface components {
        */
       tax_behavior?: "exclusive" | "inclusive" | "unspecified" | null;
       /** @description Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
-      tiers?: (components["schemas"]["price_tier"])[];
+      tiers?: components["schemas"]["price_tier"][];
       /** @description The unit amount in %s to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`. */
       unit_amount?: number | null;
       /**
@@ -4379,7 +4379,7 @@ export interface components {
       /** @description The customer's phone number. */
       phone?: string | null;
       /** @description The customer's preferred locales (languages), ordered by preference. */
-      preferred_locales?: (string)[] | null;
+      preferred_locales?: string[] | null;
       /** @description Mailing and shipping address for the customer. Appears on invoices emailed to this customer. */
       shipping?: components["schemas"]["shipping"] | null;
       /**
@@ -4405,7 +4405,7 @@ export interface components {
        */
       subscriptions?: {
         /** @description Details about each object. */
-        data: (components["schemas"]["subscription"])[];
+        data: components["schemas"]["subscription"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -4428,7 +4428,7 @@ export interface components {
        */
       tax_ids?: {
         /** @description Details about each object. */
-        data: (components["schemas"]["tax_id"])[];
+        data: components["schemas"]["tax_id"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -5082,7 +5082,7 @@ export interface components {
       /** @description Disputed amount. Usually the amount of the charge, but can differ (usually because of currency fluctuation or because only part of the order is disputed). */
       amount: number;
       /** @description List of zero, one, or two balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute. */
-      balance_transactions: (components["schemas"]["balance_transaction"])[];
+      balance_transactions: components["schemas"]["balance_transaction"][];
       /** @description ID of the charge that was disputed. */
       charge: string | components["schemas"]["charge"];
       /**
@@ -5319,13 +5319,13 @@ export interface components {
     /** ExternalAccountRequirements */
     external_account_requirements: {
       /** @description Fields that need to be collected to keep the external account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled. */
-      currently_due?: (string)[] | null;
+      currently_due?: string[] | null;
       /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
-      errors?: (components["schemas"]["account_requirements_error"])[] | null;
+      errors?: components["schemas"]["account_requirements_error"][] | null;
       /** @description Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the external account. */
-      past_due?: (string)[] | null;
+      past_due?: string[] | null;
       /** @description Fields that may become required depending on the results of verification or review. Will be an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. */
-      pending_verification?: (string)[] | null;
+      pending_verification?: string[] | null;
     };
     /** Fee */
     fee: {
@@ -5405,7 +5405,7 @@ export interface components {
        */
       links?: {
         /** @description Details about each object. */
-        data: (components["schemas"]["file_link"])[];
+        data: components["schemas"]["file_link"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -5591,7 +5591,7 @@ export interface components {
        */
       owners: {
         /** @description Details about each object. */
-        data: (components["schemas"]["financial_connections.account_owner"])[];
+        data: components["schemas"]["financial_connections.account_owner"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -5616,7 +5616,7 @@ export interface components {
        */
       accounts: {
         /** @description Details about each object. */
-        data: (components["schemas"]["financial_connections.account"])[];
+        data: components["schemas"]["financial_connections.account"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -5647,7 +5647,7 @@ export interface components {
     /** FinancialReportingFinanceReportRunRunParameters */
     financial_reporting_finance_report_run_run_parameters: {
       /** @description The set of output columns requested for inclusion in the report run. */
-      columns?: (string)[];
+      columns?: string[];
       /** @description Connected account ID by which to filter the report run. */
       connected_account?: string;
       /** @description Currency of objects to be included in the report run. */
@@ -5699,7 +5699,7 @@ export interface components {
       /** @description The country of the bank account to fund */
       country: string;
       /** @description A list of financial addresses that can be used to fund a particular balance */
-      financial_addresses: (components["schemas"]["funding_instructions_bank_transfer_financial_address"])[];
+      financial_addresses: components["schemas"]["funding_instructions_bank_transfer_financial_address"][];
       /**
        * @description The bank_transfer type
        * @enum {string}
@@ -5855,7 +5855,7 @@ export interface components {
       /** @description Expiration date of the document. */
       expiration_date?: components["schemas"]["gelato_data_document_report_expiration_date"] | null;
       /** @description Array of [File](https://stripe.com/docs/api/files) ids containing images for this document. */
-      files?: (string)[] | null;
+      files?: string[] | null;
       /** @description First name as it appears in the document. */
       first_name?: string | null;
       /** @description Issued date of the document. */
@@ -6233,7 +6233,7 @@ export interface components {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /** @description Custom fields displayed on the invoice. */
-      custom_fields?: (components["schemas"]["invoice_setting_custom_field"])[] | null;
+      custom_fields?: components["schemas"]["invoice_setting_custom_field"][] | null;
       /** @description The ID of the customer who will be billed. */
       customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
       /** @description The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated. */
@@ -6252,13 +6252,13 @@ export interface components {
        */
       customer_tax_exempt?: "exempt" | "none" | "reverse" | null;
       /** @description The customer's tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as `customer.tax_ids`. Once the invoice is finalized, this field will no longer be updated. */
-      customer_tax_ids?: (components["schemas"]["invoices_resource_invoice_tax_id"])[] | null;
+      customer_tax_ids?: components["schemas"]["invoices_resource_invoice_tax_id"][] | null;
       /** @description ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings. */
       default_payment_method?: (string | components["schemas"]["payment_method"]) | null;
       /** @description ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source. */
       default_source?: (string | components["schemas"]["bank_account"] | components["schemas"]["card"] | components["schemas"]["source"]) | null;
       /** @description The tax rates applied to this invoice, if any. */
-      default_tax_rates: (components["schemas"]["tax_rate"])[];
+      default_tax_rates: components["schemas"]["tax_rate"][];
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard. */
       description?: string | null;
       /** @description Describes the current discount applied to this invoice, if there is one. Not populated if there are multiple discounts. */
@@ -6297,7 +6297,7 @@ export interface components {
        */
       lines: {
         /** @description Details about each object. */
-        data: (components["schemas"]["line_item"])[];
+        data: components["schemas"]["line_item"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -6385,11 +6385,11 @@ export interface components {
       /** @description Total after discounts and taxes. */
       total: number;
       /** @description The aggregate amounts calculated per discount across all line items. */
-      total_discount_amounts?: (components["schemas"]["discounts_resource_discount_amount"])[] | null;
+      total_discount_amounts?: components["schemas"]["discounts_resource_discount_amount"][] | null;
       /** @description The integer amount in %s representing the total amount of the invoice including all discounts but excluding all tax. */
       total_excluding_tax?: number | null;
       /** @description The aggregate amounts calculated per tax rate for all line items. */
-      total_tax_amounts: (components["schemas"]["invoice_tax_amount"])[];
+      total_tax_amounts: components["schemas"]["invoice_tax_amount"][];
       /** @description The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to for the invoice. */
       transfer_data?: components["schemas"]["invoice_transfer_data"] | null;
       /**
@@ -6406,7 +6406,7 @@ export interface components {
     /** InvoiceItemThresholdReason */
     invoice_item_threshold_reason: {
       /** @description The IDs of the line items that triggered the threshold invoice. */
-      line_item_ids: (string)[];
+      line_item_ids: string[];
       /** @description The quantity threshold boundary that applied to the given line item. */
       usage_gte: number;
     };
@@ -6518,7 +6518,7 @@ export interface components {
     /** InvoiceSettingCustomerSetting */
     invoice_setting_customer_setting: {
       /** @description Default custom fields to be displayed on invoices for this customer. */
-      custom_fields?: (components["schemas"]["invoice_setting_custom_field"])[] | null;
+      custom_fields?: components["schemas"]["invoice_setting_custom_field"][] | null;
       /** @description ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices. */
       default_payment_method?: (string | components["schemas"]["payment_method"]) | null;
       /** @description Default footer to be displayed on invoices for this customer. */
@@ -6567,7 +6567,7 @@ export interface components {
       /** @description The total invoice amount threshold boundary if it triggered the threshold invoice. */
       amount_gte?: number | null;
       /** @description Indicates which line items triggered a threshold invoice. */
-      item_reasons: (components["schemas"]["invoice_item_threshold_reason"])[];
+      item_reasons: components["schemas"]["invoice_item_threshold_reason"][];
     };
     /** InvoiceTransferData */
     invoice_transfer_data: {
@@ -6635,7 +6635,7 @@ export interface components {
       /** @description The subscription item that this invoice item has been created for, if any. */
       subscription_item?: string;
       /** @description The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. */
-      tax_rates?: (components["schemas"]["tax_rate"])[] | null;
+      tax_rates?: components["schemas"]["tax_rate"][] | null;
       /** @description ID of the test clock this invoice item belongs to. */
       test_clock?: (string | components["schemas"]["test_helpers.test_clock"]) | null;
       /** @description Unit amount (in the `currency` specified) of the invoice item. */
@@ -6692,7 +6692,7 @@ export interface components {
       /** @description Invoice containing the credited invoice line items */
       invoice: string;
       /** @description Credited invoice line items */
-      invoice_line_items: (string)[];
+      invoice_line_items: string[];
     };
     /** InvoicesResourceLineItemsProrationDetails */
     invoices_resource_line_items_proration_details: {
@@ -6710,7 +6710,7 @@ export interface components {
       /** @description The ID of the ShippingRate for this invoice. */
       shipping_rate?: (string | components["schemas"]["shipping_rate"]) | null;
       /** @description The taxes applied to the shipping rate. */
-      taxes?: (components["schemas"]["line_items_tax_amount"])[];
+      taxes?: components["schemas"]["line_items_tax_amount"][];
     };
     /** InvoicesStatusTransitions */
     invoices_status_transitions: {
@@ -6756,7 +6756,7 @@ export interface components {
        */
       authorization_method: "chip" | "contactless" | "keyed_in" | "online" | "swipe";
       /** @description List of balance transactions associated with this authorization. */
-      balance_transactions: (components["schemas"]["balance_transaction"])[];
+      balance_transactions: components["schemas"]["balance_transaction"][];
       card: components["schemas"]["issuing.card"];
       /** @description The cardholder to whom this authorization belongs. */
       cardholder?: (string | components["schemas"]["issuing.cardholder"]) | null;
@@ -6790,14 +6790,14 @@ export interface components {
       /** @description The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook. */
       pending_request?: components["schemas"]["issuing_authorization_pending_request"] | null;
       /** @description History of every time a `pending_request` authorization was approved/declined, either by you directly or by Stripe (e.g. based on your spending_controls). If the merchant changes the authorization by performing an incremental authorization, you can look at this field to see the previous requests for the authorization. This field can be helpful in determining why a given authorization was approved/declined. */
-      request_history: (components["schemas"]["issuing_authorization_request"])[];
+      request_history: components["schemas"]["issuing_authorization_request"][];
       /**
        * @description The current status of the authorization in its lifecycle.
        * @enum {string}
        */
       status: "closed" | "pending" | "reversed";
       /** @description List of [transactions](https://stripe.com/docs/api/issuing/transactions) associated with this authorization. */
-      transactions: (components["schemas"]["issuing.transaction"])[];
+      transactions: components["schemas"]["issuing.transaction"][];
       /** @description [Treasury](https://stripe.com/docs/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://stripe.com/docs/api/treasury/financial_accounts). */
       treasury?: components["schemas"]["issuing_authorization_treasury"] | null;
       verification_data: components["schemas"]["issuing_authorization_verification_data"];
@@ -6939,7 +6939,7 @@ export interface components {
       /** @description Disputed amount in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Usually the amount of the `transaction`, but can differ (usually because of currency fluctuation). */
       amount: number;
       /** @description List of balance transactions associated with the dispute. */
-      balance_transactions?: (components["schemas"]["balance_transaction"])[] | null;
+      balance_transactions?: components["schemas"]["balance_transaction"][] | null;
       /**
        * Format: unix-time
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -7159,9 +7159,9 @@ export interface components {
     /** IssuingAuthorizationTreasury */
     issuing_authorization_treasury: {
       /** @description The array of [ReceivedCredits](https://stripe.com/docs/api/treasury/received_credits) associated with this authorization */
-      received_credits: (string)[];
+      received_credits: string[];
       /** @description The array of [ReceivedDebits](https://stripe.com/docs/api/treasury/received_debits) associated with this authorization */
-      received_debits: (string)[];
+      received_debits: string[];
       /** @description The Treasury [Transaction](https://stripe.com/docs/api/treasury/transactions) associated with this authorization */
       transaction?: string | null;
     };
@@ -7205,7 +7205,7 @@ export interface components {
       /** @description Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`. */
       blocked_categories?: (("ac_refrigeration_repair" | "accounting_bookkeeping_services" | "advertising_services" | "agricultural_cooperative" | "airlines_air_carriers" | "airports_flying_fields" | "ambulance_services" | "amusement_parks_carnivals" | "antique_reproductions" | "antique_shops" | "aquariums" | "architectural_surveying_services" | "art_dealers_and_galleries" | "artists_supply_and_craft_shops" | "auto_and_home_supply_stores" | "auto_body_repair_shops" | "auto_paint_shops" | "auto_service_shops" | "automated_cash_disburse" | "automated_fuel_dispensers" | "automobile_associations" | "automotive_parts_and_accessories_stores" | "automotive_tire_stores" | "bail_and_bond_payments" | "bakeries" | "bands_orchestras" | "barber_and_beauty_shops" | "betting_casino_gambling" | "bicycle_shops" | "billiard_pool_establishments" | "boat_dealers" | "boat_rentals_and_leases" | "book_stores" | "books_periodicals_and_newspapers" | "bowling_alleys" | "bus_lines" | "business_secretarial_schools" | "buying_shopping_services" | "cable_satellite_and_other_pay_television_and_radio" | "camera_and_photographic_supply_stores" | "candy_nut_and_confectionery_stores" | "car_and_truck_dealers_new_used" | "car_and_truck_dealers_used_only" | "car_rental_agencies" | "car_washes" | "carpentry_services" | "carpet_upholstery_cleaning" | "caterers" | "charitable_and_social_service_organizations_fundraising" | "chemicals_and_allied_products" | "child_care_services" | "childrens_and_infants_wear_stores" | "chiropodists_podiatrists" | "chiropractors" | "cigar_stores_and_stands" | "civic_social_fraternal_associations" | "cleaning_and_maintenance" | "clothing_rental" | "colleges_universities" | "commercial_equipment" | "commercial_footwear" | "commercial_photography_art_and_graphics" | "commuter_transport_and_ferries" | "computer_network_services" | "computer_programming" | "computer_repair" | "computer_software_stores" | "computers_peripherals_and_software" | "concrete_work_services" | "construction_materials" | "consulting_public_relations" | "correspondence_schools" | "cosmetic_stores" | "counseling_services" | "country_clubs" | "courier_services" | "court_costs" | "credit_reporting_agencies" | "cruise_lines" | "dairy_products_stores" | "dance_hall_studios_schools" | "dating_escort_services" | "dentists_orthodontists" | "department_stores" | "detective_agencies" | "digital_goods_applications" | "digital_goods_games" | "digital_goods_large_volume" | "digital_goods_media" | "direct_marketing_catalog_merchant" | "direct_marketing_combination_catalog_and_retail_merchant" | "direct_marketing_inbound_telemarketing" | "direct_marketing_insurance_services" | "direct_marketing_other" | "direct_marketing_outbound_telemarketing" | "direct_marketing_subscription" | "direct_marketing_travel" | "discount_stores" | "doctors" | "door_to_door_sales" | "drapery_window_covering_and_upholstery_stores" | "drinking_places" | "drug_stores_and_pharmacies" | "drugs_drug_proprietaries_and_druggist_sundries" | "dry_cleaners" | "durable_goods" | "duty_free_stores" | "eating_places_restaurants" | "educational_services" | "electric_razor_stores" | "electric_vehicle_charging" | "electrical_parts_and_equipment" | "electrical_services" | "electronics_repair_shops" | "electronics_stores" | "elementary_secondary_schools" | "emergency_services_gcas_visa_use_only" | "employment_temp_agencies" | "equipment_rental" | "exterminating_services" | "family_clothing_stores" | "fast_food_restaurants" | "financial_institutions" | "fines_government_administrative_entities" | "fireplace_fireplace_screens_and_accessories_stores" | "floor_covering_stores" | "florists" | "florists_supplies_nursery_stock_and_flowers" | "freezer_and_locker_meat_provisioners" | "fuel_dealers_non_automotive" | "funeral_services_crematories" | "furniture_home_furnishings_and_equipment_stores_except_appliances" | "furniture_repair_refinishing" | "furriers_and_fur_shops" | "general_services" | "gift_card_novelty_and_souvenir_shops" | "glass_paint_and_wallpaper_stores" | "glassware_crystal_stores" | "golf_courses_public" | "government_licensed_horse_dog_racing_us_region_only" | "government_licensed_online_casions_online_gambling_us_region_only" | "government_owned_lotteries_non_us_region" | "government_owned_lotteries_us_region_only" | "government_services" | "grocery_stores_supermarkets" | "hardware_equipment_and_supplies" | "hardware_stores" | "health_and_beauty_spas" | "hearing_aids_sales_and_supplies" | "heating_plumbing_a_c" | "hobby_toy_and_game_shops" | "home_supply_warehouse_stores" | "hospitals" | "hotels_motels_and_resorts" | "household_appliance_stores" | "industrial_supplies" | "information_retrieval_services" | "insurance_default" | "insurance_underwriting_premiums" | "intra_company_purchases" | "jewelry_stores_watches_clocks_and_silverware_stores" | "landscaping_services" | "laundries" | "laundry_cleaning_services" | "legal_services_attorneys" | "luggage_and_leather_goods_stores" | "lumber_building_materials_stores" | "manual_cash_disburse" | "marinas_service_and_supplies" | "marketplaces" | "masonry_stonework_and_plaster" | "massage_parlors" | "medical_and_dental_labs" | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies" | "medical_services" | "membership_organizations" | "mens_and_boys_clothing_and_accessories_stores" | "mens_womens_clothing_stores" | "metal_service_centers" | "miscellaneous" | "miscellaneous_apparel_and_accessory_shops" | "miscellaneous_auto_dealers" | "miscellaneous_business_services" | "miscellaneous_food_stores" | "miscellaneous_general_merchandise" | "miscellaneous_general_services" | "miscellaneous_home_furnishing_specialty_stores" | "miscellaneous_publishing_and_printing" | "miscellaneous_recreation_services" | "miscellaneous_repair_shops" | "miscellaneous_specialty_retail" | "mobile_home_dealers" | "motion_picture_theaters" | "motor_freight_carriers_and_trucking" | "motor_homes_dealers" | "motor_vehicle_supplies_and_new_parts" | "motorcycle_shops_and_dealers" | "motorcycle_shops_dealers" | "music_stores_musical_instruments_pianos_and_sheet_music" | "news_dealers_and_newsstands" | "non_fi_money_orders" | "non_fi_stored_value_card_purchase_load" | "nondurable_goods" | "nurseries_lawn_and_garden_supply_stores" | "nursing_personal_care" | "office_and_commercial_furniture" | "opticians_eyeglasses" | "optometrists_ophthalmologist" | "orthopedic_goods_prosthetic_devices" | "osteopaths" | "package_stores_beer_wine_and_liquor" | "paints_varnishes_and_supplies" | "parking_lots_garages" | "passenger_railways" | "pawn_shops" | "pet_shops_pet_food_and_supplies" | "petroleum_and_petroleum_products" | "photo_developing" | "photographic_photocopy_microfilm_equipment_and_supplies" | "photographic_studios" | "picture_video_production" | "piece_goods_notions_and_other_dry_goods" | "plumbing_heating_equipment_and_supplies" | "political_organizations" | "postal_services_government_only" | "precious_stones_and_metals_watches_and_jewelry" | "professional_services" | "public_warehousing_and_storage" | "quick_copy_repro_and_blueprint" | "railroads" | "real_estate_agents_and_managers_rentals" | "record_stores" | "recreational_vehicle_rentals" | "religious_goods_stores" | "religious_organizations" | "roofing_siding_sheet_metal" | "secretarial_support_services" | "security_brokers_dealers" | "service_stations" | "sewing_needlework_fabric_and_piece_goods_stores" | "shoe_repair_hat_cleaning" | "shoe_stores" | "small_appliance_repair" | "snowmobile_dealers" | "special_trade_services" | "specialty_cleaning" | "sporting_goods_stores" | "sporting_recreation_camps" | "sports_and_riding_apparel_stores" | "sports_clubs_fields" | "stamp_and_coin_stores" | "stationary_office_supplies_printing_and_writing_paper" | "stationery_stores_office_and_school_supply_stores" | "swimming_pools_sales" | "t_ui_travel_germany" | "tailors_alterations" | "tax_payments_government_agencies" | "tax_preparation_services" | "taxicabs_limousines" | "telecommunication_equipment_and_telephone_sales" | "telecommunication_services" | "telegraph_services" | "tent_and_awning_shops" | "testing_laboratories" | "theatrical_ticket_agencies" | "timeshares" | "tire_retreading_and_repair" | "tolls_bridge_fees" | "tourist_attractions_and_exhibits" | "towing_services" | "trailer_parks_campgrounds" | "transportation_services" | "travel_agencies_tour_operators" | "truck_stop_iteration" | "truck_utility_trailer_rentals" | "typesetting_plate_making_and_related_services" | "typewriter_stores" | "u_s_federal_government_agencies_or_departments" | "uniforms_commercial_clothing" | "used_merchandise_and_secondhand_stores" | "utilities" | "variety_stores" | "veterinary_services" | "video_amusement_game_supplies" | "video_game_arcades" | "video_tape_rental_stores" | "vocational_trade_schools" | "watch_jewelry_repair" | "welding_repair" | "wholesale_clubs" | "wig_and_toupee_stores" | "wires_money_orders" | "womens_accessory_and_specialty_shops" | "womens_ready_to_wear_stores" | "wrecking_and_salvage_yards")[]) | null;
       /** @description Limit spending with amount-based rules that apply across any cards this card replaced (i.e., its `replacement_for` card and _that_ card's `replacement_for` card, up the chain). */
-      spending_limits?: (components["schemas"]["issuing_card_spending_limit"])[] | null;
+      spending_limits?: components["schemas"]["issuing_card_spending_limit"][] | null;
       /** @description Currency of the amounts within `spending_limits`. Always the same as the currency of the card. */
       spending_limits_currency?: string | null;
     };
@@ -7295,7 +7295,7 @@ export interface components {
       /** @description Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`. */
       blocked_categories?: (("ac_refrigeration_repair" | "accounting_bookkeeping_services" | "advertising_services" | "agricultural_cooperative" | "airlines_air_carriers" | "airports_flying_fields" | "ambulance_services" | "amusement_parks_carnivals" | "antique_reproductions" | "antique_shops" | "aquariums" | "architectural_surveying_services" | "art_dealers_and_galleries" | "artists_supply_and_craft_shops" | "auto_and_home_supply_stores" | "auto_body_repair_shops" | "auto_paint_shops" | "auto_service_shops" | "automated_cash_disburse" | "automated_fuel_dispensers" | "automobile_associations" | "automotive_parts_and_accessories_stores" | "automotive_tire_stores" | "bail_and_bond_payments" | "bakeries" | "bands_orchestras" | "barber_and_beauty_shops" | "betting_casino_gambling" | "bicycle_shops" | "billiard_pool_establishments" | "boat_dealers" | "boat_rentals_and_leases" | "book_stores" | "books_periodicals_and_newspapers" | "bowling_alleys" | "bus_lines" | "business_secretarial_schools" | "buying_shopping_services" | "cable_satellite_and_other_pay_television_and_radio" | "camera_and_photographic_supply_stores" | "candy_nut_and_confectionery_stores" | "car_and_truck_dealers_new_used" | "car_and_truck_dealers_used_only" | "car_rental_agencies" | "car_washes" | "carpentry_services" | "carpet_upholstery_cleaning" | "caterers" | "charitable_and_social_service_organizations_fundraising" | "chemicals_and_allied_products" | "child_care_services" | "childrens_and_infants_wear_stores" | "chiropodists_podiatrists" | "chiropractors" | "cigar_stores_and_stands" | "civic_social_fraternal_associations" | "cleaning_and_maintenance" | "clothing_rental" | "colleges_universities" | "commercial_equipment" | "commercial_footwear" | "commercial_photography_art_and_graphics" | "commuter_transport_and_ferries" | "computer_network_services" | "computer_programming" | "computer_repair" | "computer_software_stores" | "computers_peripherals_and_software" | "concrete_work_services" | "construction_materials" | "consulting_public_relations" | "correspondence_schools" | "cosmetic_stores" | "counseling_services" | "country_clubs" | "courier_services" | "court_costs" | "credit_reporting_agencies" | "cruise_lines" | "dairy_products_stores" | "dance_hall_studios_schools" | "dating_escort_services" | "dentists_orthodontists" | "department_stores" | "detective_agencies" | "digital_goods_applications" | "digital_goods_games" | "digital_goods_large_volume" | "digital_goods_media" | "direct_marketing_catalog_merchant" | "direct_marketing_combination_catalog_and_retail_merchant" | "direct_marketing_inbound_telemarketing" | "direct_marketing_insurance_services" | "direct_marketing_other" | "direct_marketing_outbound_telemarketing" | "direct_marketing_subscription" | "direct_marketing_travel" | "discount_stores" | "doctors" | "door_to_door_sales" | "drapery_window_covering_and_upholstery_stores" | "drinking_places" | "drug_stores_and_pharmacies" | "drugs_drug_proprietaries_and_druggist_sundries" | "dry_cleaners" | "durable_goods" | "duty_free_stores" | "eating_places_restaurants" | "educational_services" | "electric_razor_stores" | "electric_vehicle_charging" | "electrical_parts_and_equipment" | "electrical_services" | "electronics_repair_shops" | "electronics_stores" | "elementary_secondary_schools" | "emergency_services_gcas_visa_use_only" | "employment_temp_agencies" | "equipment_rental" | "exterminating_services" | "family_clothing_stores" | "fast_food_restaurants" | "financial_institutions" | "fines_government_administrative_entities" | "fireplace_fireplace_screens_and_accessories_stores" | "floor_covering_stores" | "florists" | "florists_supplies_nursery_stock_and_flowers" | "freezer_and_locker_meat_provisioners" | "fuel_dealers_non_automotive" | "funeral_services_crematories" | "furniture_home_furnishings_and_equipment_stores_except_appliances" | "furniture_repair_refinishing" | "furriers_and_fur_shops" | "general_services" | "gift_card_novelty_and_souvenir_shops" | "glass_paint_and_wallpaper_stores" | "glassware_crystal_stores" | "golf_courses_public" | "government_licensed_horse_dog_racing_us_region_only" | "government_licensed_online_casions_online_gambling_us_region_only" | "government_owned_lotteries_non_us_region" | "government_owned_lotteries_us_region_only" | "government_services" | "grocery_stores_supermarkets" | "hardware_equipment_and_supplies" | "hardware_stores" | "health_and_beauty_spas" | "hearing_aids_sales_and_supplies" | "heating_plumbing_a_c" | "hobby_toy_and_game_shops" | "home_supply_warehouse_stores" | "hospitals" | "hotels_motels_and_resorts" | "household_appliance_stores" | "industrial_supplies" | "information_retrieval_services" | "insurance_default" | "insurance_underwriting_premiums" | "intra_company_purchases" | "jewelry_stores_watches_clocks_and_silverware_stores" | "landscaping_services" | "laundries" | "laundry_cleaning_services" | "legal_services_attorneys" | "luggage_and_leather_goods_stores" | "lumber_building_materials_stores" | "manual_cash_disburse" | "marinas_service_and_supplies" | "marketplaces" | "masonry_stonework_and_plaster" | "massage_parlors" | "medical_and_dental_labs" | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies" | "medical_services" | "membership_organizations" | "mens_and_boys_clothing_and_accessories_stores" | "mens_womens_clothing_stores" | "metal_service_centers" | "miscellaneous" | "miscellaneous_apparel_and_accessory_shops" | "miscellaneous_auto_dealers" | "miscellaneous_business_services" | "miscellaneous_food_stores" | "miscellaneous_general_merchandise" | "miscellaneous_general_services" | "miscellaneous_home_furnishing_specialty_stores" | "miscellaneous_publishing_and_printing" | "miscellaneous_recreation_services" | "miscellaneous_repair_shops" | "miscellaneous_specialty_retail" | "mobile_home_dealers" | "motion_picture_theaters" | "motor_freight_carriers_and_trucking" | "motor_homes_dealers" | "motor_vehicle_supplies_and_new_parts" | "motorcycle_shops_and_dealers" | "motorcycle_shops_dealers" | "music_stores_musical_instruments_pianos_and_sheet_music" | "news_dealers_and_newsstands" | "non_fi_money_orders" | "non_fi_stored_value_card_purchase_load" | "nondurable_goods" | "nurseries_lawn_and_garden_supply_stores" | "nursing_personal_care" | "office_and_commercial_furniture" | "opticians_eyeglasses" | "optometrists_ophthalmologist" | "orthopedic_goods_prosthetic_devices" | "osteopaths" | "package_stores_beer_wine_and_liquor" | "paints_varnishes_and_supplies" | "parking_lots_garages" | "passenger_railways" | "pawn_shops" | "pet_shops_pet_food_and_supplies" | "petroleum_and_petroleum_products" | "photo_developing" | "photographic_photocopy_microfilm_equipment_and_supplies" | "photographic_studios" | "picture_video_production" | "piece_goods_notions_and_other_dry_goods" | "plumbing_heating_equipment_and_supplies" | "political_organizations" | "postal_services_government_only" | "precious_stones_and_metals_watches_and_jewelry" | "professional_services" | "public_warehousing_and_storage" | "quick_copy_repro_and_blueprint" | "railroads" | "real_estate_agents_and_managers_rentals" | "record_stores" | "recreational_vehicle_rentals" | "religious_goods_stores" | "religious_organizations" | "roofing_siding_sheet_metal" | "secretarial_support_services" | "security_brokers_dealers" | "service_stations" | "sewing_needlework_fabric_and_piece_goods_stores" | "shoe_repair_hat_cleaning" | "shoe_stores" | "small_appliance_repair" | "snowmobile_dealers" | "special_trade_services" | "specialty_cleaning" | "sporting_goods_stores" | "sporting_recreation_camps" | "sports_and_riding_apparel_stores" | "sports_clubs_fields" | "stamp_and_coin_stores" | "stationary_office_supplies_printing_and_writing_paper" | "stationery_stores_office_and_school_supply_stores" | "swimming_pools_sales" | "t_ui_travel_germany" | "tailors_alterations" | "tax_payments_government_agencies" | "tax_preparation_services" | "taxicabs_limousines" | "telecommunication_equipment_and_telephone_sales" | "telecommunication_services" | "telegraph_services" | "tent_and_awning_shops" | "testing_laboratories" | "theatrical_ticket_agencies" | "timeshares" | "tire_retreading_and_repair" | "tolls_bridge_fees" | "tourist_attractions_and_exhibits" | "towing_services" | "trailer_parks_campgrounds" | "transportation_services" | "travel_agencies_tour_operators" | "truck_stop_iteration" | "truck_utility_trailer_rentals" | "typesetting_plate_making_and_related_services" | "typewriter_stores" | "u_s_federal_government_agencies_or_departments" | "uniforms_commercial_clothing" | "used_merchandise_and_secondhand_stores" | "utilities" | "variety_stores" | "veterinary_services" | "video_amusement_game_supplies" | "video_game_arcades" | "video_tape_rental_stores" | "vocational_trade_schools" | "watch_jewelry_repair" | "welding_repair" | "wholesale_clubs" | "wig_and_toupee_stores" | "wires_money_orders" | "womens_accessory_and_specialty_shops" | "womens_ready_to_wear_stores" | "wrecking_and_salvage_yards")[]) | null;
       /** @description Limit spending with amount-based rules that apply across this cardholder's cards. */
-      spending_limits?: (components["schemas"]["issuing_cardholder_spending_limit"])[] | null;
+      spending_limits?: components["schemas"]["issuing_cardholder_spending_limit"][] | null;
       /** @description Currency of the amounts within `spending_limits`. */
       spending_limits_currency?: string | null;
     };
@@ -7549,7 +7549,7 @@ export interface components {
       /** @description Whether the ticket is refundable. */
       refundable?: boolean | null;
       /** @description The legs of the trip. */
-      segments?: (components["schemas"]["issuing_transaction_flight_data_leg"])[] | null;
+      segments?: components["schemas"]["issuing_transaction_flight_data_leg"][] | null;
       /** @description The travel agency that issued the ticket. */
       travel_agency?: string | null;
     };
@@ -7601,7 +7601,7 @@ export interface components {
       /** @description Information about lodging that was purchased with this transaction. */
       lodging?: components["schemas"]["issuing_transaction_lodging_data"] | null;
       /** @description The line items in the purchase. */
-      receipt?: (components["schemas"]["issuing_transaction_receipt_data"])[] | null;
+      receipt?: components["schemas"]["issuing_transaction_receipt_data"][] | null;
       /** @description A merchant-specific order number. */
       reference?: string | null;
     };
@@ -7641,7 +7641,7 @@ export interface components {
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. Defaults to product name. */
       description: string;
       /** @description The discounts applied to the line item. */
-      discounts?: (components["schemas"]["line_items_discount_amount"])[];
+      discounts?: components["schemas"]["line_items_discount_amount"][];
       /** @description Unique identifier for the object. */
       id: string;
       /**
@@ -7654,7 +7654,7 @@ export interface components {
       /** @description The quantity of products being purchased. */
       quantity?: number | null;
       /** @description The taxes applied to the line item. */
-      taxes?: (components["schemas"]["line_items_tax_amount"])[];
+      taxes?: components["schemas"]["line_items_tax_amount"][];
     };
     /** LegalEntityCompany */
     legal_entity_company: {
@@ -7784,7 +7784,7 @@ export interface components {
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null;
       /** @description The amount of discount calculated per discount for this line item. */
-      discount_amounts?: (components["schemas"]["discounts_resource_discount_amount"])[] | null;
+      discount_amounts?: components["schemas"]["discounts_resource_discount_amount"][] | null;
       /** @description If true, discounts will apply to this line item. Always false for prorations. */
       discountable: boolean;
       /** @description The discounts applied to the invoice line item. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount. */
@@ -7818,9 +7818,9 @@ export interface components {
       /** @description The subscription item that generated this line item. Left empty if the line item is not an explicit result of a subscription. */
       subscription_item?: string | components["schemas"]["subscription_item"];
       /** @description The amount of tax calculated per tax rate for this line item */
-      tax_amounts?: (components["schemas"]["invoice_tax_amount"])[];
+      tax_amounts?: components["schemas"]["invoice_tax_amount"][];
       /** @description The tax rates which apply to the line item. */
-      tax_rates?: (components["schemas"]["tax_rate"])[];
+      tax_rates?: components["schemas"]["tax_rate"][];
       /**
        * @description A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`.
        * @enum {string}
@@ -8018,7 +8018,7 @@ export interface components {
     /** networks */
     networks: {
       /** @description All available networks for the card. */
-      available: (string)[];
+      available: string[];
       /** @description The preferred network for the card. */
       preferred?: string | null;
     };
@@ -8281,7 +8281,7 @@ export interface components {
       /** @description Payment-method-specific configuration for this PaymentIntent. */
       payment_method_options?: components["schemas"]["payment_intent_payment_method_options"] | null;
       /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
-      payment_method_types: (string)[];
+      payment_method_types: string[];
       /** @description If present, this property tells you about the processing state of the payment. */
       processing?: components["schemas"]["payment_intent_processing"] | null;
       /** @description Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
@@ -8401,7 +8401,7 @@ export interface components {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency?: string | null;
       /** @description A list of financial addresses that can be used to fund the customer balance */
-      financial_addresses?: (components["schemas"]["funding_instructions_bank_transfer_financial_address"])[];
+      financial_addresses?: components["schemas"]["funding_instructions_bank_transfer_financial_address"][];
       /** @description A link to a hosted page that guides your customer through completing the transfer. */
       hosted_instructions_url?: string | null;
       /** @description A string identifying this payment. Instruct your customer to include this code in the reference or memo field of their bank transfer. */
@@ -8841,7 +8841,7 @@ export interface components {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /** @description Collect additional information from your customer using custom fields. Up to 2 fields are supported. */
-      custom_fields: (components["schemas"]["payment_links_resource_custom_fields"])[];
+      custom_fields: components["schemas"]["payment_links_resource_custom_fields"][];
       custom_text: components["schemas"]["payment_links_resource_custom_text"];
       /**
        * @description Configuration for Customer creation during checkout.
@@ -8858,7 +8858,7 @@ export interface components {
        */
       line_items?: {
         /** @description Details about each object. */
-        data: (components["schemas"]["item"])[];
+        data: components["schemas"]["item"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -8895,7 +8895,7 @@ export interface components {
       /** @description Configuration for collecting the customer's shipping address. */
       shipping_address_collection?: components["schemas"]["payment_links_resource_shipping_address_collection"] | null;
       /** @description The shipping rate options applied to the session. */
-      shipping_options: (components["schemas"]["payment_links_resource_shipping_option"])[];
+      shipping_options: components["schemas"]["payment_links_resource_shipping_option"][];
       /**
        * @description Indicates the type of transaction being performed which customizes relevant text on the page, such as the submit button.
        * @enum {string}
@@ -8969,7 +8969,7 @@ export interface components {
     /** PaymentLinksResourceCustomFieldsDropdown */
     payment_links_resource_custom_fields_dropdown: {
       /** @description The options available for the customer to select. Up to 200 options allowed. */
-      options: (components["schemas"]["payment_links_resource_custom_fields_dropdown_option"])[];
+      options: components["schemas"]["payment_links_resource_custom_fields_dropdown_option"][];
     };
     /** PaymentLinksResourceCustomFieldsDropdownOption */
     payment_links_resource_custom_fields_dropdown_option: {
@@ -9026,7 +9026,7 @@ export interface components {
       /** @description The account tax IDs associated with the invoice. */
       account_tax_ids?: ((string | components["schemas"]["tax_id"] | components["schemas"]["deleted_tax_id"])[]) | null;
       /** @description A list of up to 4 custom fields to be displayed on the invoice. */
-      custom_fields?: (components["schemas"]["invoice_setting_custom_field"])[] | null;
+      custom_fields?: components["schemas"]["invoice_setting_custom_field"][] | null;
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null;
       /** @description Footer to be displayed on the invoice. */
@@ -9283,7 +9283,7 @@ export interface components {
     /** payment_method_card_present_networks */
     payment_method_card_present_networks: {
       /** @description All available networks for the card. */
-      available: (string)[];
+      available: string[];
       /** @description The preferred network for the card. */
       preferred?: string | null;
     };
@@ -9798,7 +9798,7 @@ export interface components {
       /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
       network?: string | null;
       /** @description EMV tag 5F2D. Preferred languages specified by the integrated circuit chip. */
-      preferred_locales?: (string)[] | null;
+      preferred_locales?: string[] | null;
       /**
        * @description How card details were read in this transaction.
        * @enum {string|null}
@@ -10062,7 +10062,7 @@ export interface components {
       /** @description Contains information about card networks that can be used to process the payment. */
       networks?: components["schemas"]["payment_method_card_present_networks"] | null;
       /** @description EMV tag 5F2D. Preferred languages specified by the integrated circuit chip. */
-      preferred_locales?: (string)[] | null;
+      preferred_locales?: string[] | null;
       /**
        * @description How card details were read in this transaction.
        * @enum {string|null}
@@ -10182,7 +10182,7 @@ export interface components {
     /** payment_method_options_card_installments */
     payment_method_options_card_installments: {
       /** @description Installment plans that may be selected for this PaymentIntent. */
-      available_plans?: (components["schemas"]["payment_method_details_card_installments_plan"])[] | null;
+      available_plans?: components["schemas"]["payment_method_details_card_installments_plan"][] | null;
       /** @description Whether Installments are enabled for this PaymentIntent. */
       enabled: boolean;
       /** @description Installment plan selected for this PaymentIntent. */
@@ -10219,7 +10219,7 @@ export interface components {
        */
       start_date: number;
       /** @description Specifies the type of mandates supported. Possible values are `india`. */
-      supported_types?: ("india")[] | null;
+      supported_types?: "india"[] | null;
     };
     /** payment_method_options_card_present */
     payment_method_options_card_present: {
@@ -10705,7 +10705,7 @@ export interface components {
     /** PaymentPagesCheckoutSessionCustomFieldsDropdown */
     payment_pages_checkout_session_custom_fields_dropdown: {
       /** @description The options available for the customer to select. Up to 200 options allowed. */
-      options: (components["schemas"]["payment_pages_checkout_session_custom_fields_option"])[];
+      options: components["schemas"]["payment_pages_checkout_session_custom_fields_option"][];
       /** @description The option selected by the customer. This will be the `value` for the option. */
       value?: string | null;
     };
@@ -10775,7 +10775,7 @@ export interface components {
        */
       tax_exempt?: "exempt" | "none" | "reverse" | null;
       /** @description The customer’s tax IDs after a completed Checkout Session. */
-      tax_ids?: (components["schemas"]["payment_pages_checkout_session_tax_id"])[] | null;
+      tax_ids?: components["schemas"]["payment_pages_checkout_session_tax_id"][] | null;
     };
     /** PaymentPagesCheckoutSessionInvoiceCreation */
     payment_pages_checkout_session_invoice_creation: {
@@ -10788,7 +10788,7 @@ export interface components {
       /** @description The account tax IDs associated with the invoice. */
       account_tax_ids?: ((string | components["schemas"]["tax_id"] | components["schemas"]["deleted_tax_id"])[]) | null;
       /** @description Custom fields displayed on the invoice. */
-      custom_fields?: (components["schemas"]["invoice_setting_custom_field"])[] | null;
+      custom_fields?: components["schemas"]["invoice_setting_custom_field"][] | null;
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null;
       /** @description Footer displayed on the invoice. */
@@ -10824,7 +10824,7 @@ export interface components {
       /** @description The ID of the ShippingRate for this order. */
       shipping_rate?: (string | components["schemas"]["shipping_rate"]) | null;
       /** @description The taxes applied to the shipping rate. */
-      taxes?: (components["schemas"]["line_items_tax_amount"])[];
+      taxes?: components["schemas"]["line_items_tax_amount"][];
     };
     /** PaymentPagesCheckoutSessionShippingOption */
     payment_pages_checkout_session_shipping_option: {
@@ -10861,9 +10861,9 @@ export interface components {
     /** PaymentPagesCheckoutSessionTotalDetailsResourceBreakdown */
     payment_pages_checkout_session_total_details_resource_breakdown: {
       /** @description The aggregated discounts. */
-      discounts: (components["schemas"]["line_items_discount_amount"])[];
+      discounts: components["schemas"]["line_items_discount_amount"][];
       /** @description The aggregated tax amounts by rate. */
-      taxes: (components["schemas"]["line_items_tax_amount"])[];
+      taxes: components["schemas"]["line_items_tax_amount"][];
     };
     /** Polymorphic */
     payment_source: components["schemas"]["account"] | components["schemas"]["bank_account"] | components["schemas"]["card"] | components["schemas"]["source"];
@@ -10996,7 +10996,7 @@ export interface components {
       /** @description The Kanji variation of the person's first name (Japan only). */
       first_name_kanji?: string | null;
       /** @description A list of alternate names or aliases that the person is known by. */
-      full_name_aliases?: (string)[];
+      full_name_aliases?: string[];
       future_requirements?: components["schemas"]["person_future_requirements"] | null;
       /** @description The person's gender (International regulations require either "male" or "female"). */
       gender?: string | null;
@@ -11042,17 +11042,17 @@ export interface components {
     /** PersonFutureRequirements */
     person_future_requirements: {
       /** @description Fields that are due and can be satisfied by providing the corresponding alternative fields instead. */
-      alternatives?: (components["schemas"]["account_requirements_alternative"])[] | null;
+      alternatives?: components["schemas"]["account_requirements_alternative"][] | null;
       /** @description Fields that need to be collected to keep the person's account enabled. If not collected by the account's `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash, and may immediately become `past_due`, but the account may also be given a grace period depending on the account's enablement state prior to transition. */
-      currently_due: (string)[];
+      currently_due: string[];
       /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
-      errors: (components["schemas"]["account_requirements_error"])[];
+      errors: components["schemas"]["account_requirements_error"][];
       /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `future_requirements[current_deadline]` becomes set. */
-      eventually_due: (string)[];
+      eventually_due: string[];
       /** @description Fields that weren't collected by the account's `requirements.current_deadline`. These fields need to be collected to enable the person's account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`. */
-      past_due: (string)[];
+      past_due: string[];
       /** @description Fields that may become required depending on the results of verification or review. Will be an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`. */
-      pending_verification: (string)[];
+      pending_verification: string[];
     };
     /** PersonRelationship */
     person_relationship: {
@@ -11072,17 +11072,17 @@ export interface components {
     /** PersonRequirements */
     person_requirements: {
       /** @description Fields that are due and can be satisfied by providing the corresponding alternative fields instead. */
-      alternatives?: (components["schemas"]["account_requirements_alternative"])[] | null;
+      alternatives?: components["schemas"]["account_requirements_alternative"][] | null;
       /** @description Fields that need to be collected to keep the person's account enabled. If not collected by the account's `current_deadline`, these fields appear in `past_due` as well, and the account is disabled. */
-      currently_due: (string)[];
+      currently_due: string[];
       /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
-      errors: (components["schemas"]["account_requirements_error"])[];
+      errors: components["schemas"]["account_requirements_error"][];
       /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `current_deadline` becomes set. */
-      eventually_due: (string)[];
+      eventually_due: string[];
       /** @description Fields that weren't collected by the account's `current_deadline`. These fields need to be collected to enable the person's account. */
-      past_due: (string)[];
+      past_due: string[];
       /** @description Fields that may become required depending on the results of verification or review. Will be an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. */
-      pending_verification: (string)[];
+      pending_verification: string[];
     };
     /**
      * Plan
@@ -11147,7 +11147,7 @@ export interface components {
       /** @description The product whose pricing this plan determines. */
       product?: (string | components["schemas"]["product"] | components["schemas"]["deleted_product"]) | null;
       /** @description Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
-      tiers?: (components["schemas"]["plan_tier"])[];
+      tiers?: components["schemas"]["plan_tier"][];
       /**
        * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows.
        * @enum {string|null}
@@ -11273,9 +11273,9 @@ export interface components {
     /** PortalFlowsFlowSubscriptionUpdateConfirm */
     portal_flows_flow_subscription_update_confirm: {
       /** @description The coupon or promotion code to apply to this subscription update. Currently, only up to one may be specified. */
-      discounts?: (components["schemas"]["portal_flows_subscription_update_confirm_discount"])[] | null;
+      discounts?: components["schemas"]["portal_flows_subscription_update_confirm_discount"][] | null;
       /** @description The [subscription item](https://stripe.com/docs/api/subscription_items) to be updated through this flow. Currently, only up to one may be specified and subscriptions with multiple items are not updatable. */
-      items: (components["schemas"]["portal_flows_subscription_update_confirm_item"])[];
+      items: components["schemas"]["portal_flows_subscription_update_confirm_item"][];
       /** @description The ID of the subscription to be updated. */
       subscription: string;
     };
@@ -11351,7 +11351,7 @@ export interface components {
       /** @description Whether the feature is enabled. */
       enabled: boolean;
       /** @description The list of products that support subscription updates. */
-      products?: (components["schemas"]["portal_subscription_update_product"])[] | null;
+      products?: components["schemas"]["portal_subscription_update_product"][] | null;
       /**
        * @description Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
        * @enum {string}
@@ -11361,7 +11361,7 @@ export interface components {
     /** PortalSubscriptionUpdateProduct */
     portal_subscription_update_product: {
       /** @description The list of price IDs which, when subscribed to, a subscription can be updated. */
-      prices: (string)[];
+      prices: string[];
       /** @description The product ID. */
       product: string;
     };
@@ -11422,7 +11422,7 @@ export interface components {
        */
       tax_behavior?: "exclusive" | "inclusive" | "unspecified" | null;
       /** @description Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
-      tiers?: (components["schemas"]["price_tier"])[];
+      tiers?: components["schemas"]["price_tier"][];
       /**
        * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows.
        * @enum {string|null}
@@ -11488,7 +11488,7 @@ export interface components {
       /** @description Unique identifier for the object. */
       id: string;
       /** @description A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
-      images: (string)[];
+      images: string[];
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -11641,7 +11641,7 @@ export interface components {
        */
       line_items?: {
         /** @description Details about each object. */
-        data: (components["schemas"]["item"])[];
+        data: components["schemas"]["item"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -11765,9 +11765,9 @@ export interface components {
     /** QuotesResourceTotalDetailsResourceBreakdown */
     quotes_resource_total_details_resource_breakdown: {
       /** @description The aggregated discounts. */
-      discounts: (components["schemas"]["line_items_discount_amount"])[];
+      discounts: components["schemas"]["line_items_discount_amount"][];
       /** @description The aggregated tax amounts by rate. */
-      taxes: (components["schemas"]["line_items_tax_amount"])[];
+      taxes: components["schemas"]["line_items_tax_amount"][];
     };
     /** QuotesResourceTransferData */
     quotes_resource_transfer_data: {
@@ -11790,7 +11790,7 @@ export interface components {
        */
       line_items?: {
         /** @description Details about each object. */
-        data: (components["schemas"]["item"])[];
+        data: components["schemas"]["item"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -11863,7 +11863,7 @@ export interface components {
        */
       list_items: {
         /** @description Details about each object. */
-        data: (components["schemas"]["radar.value_list_item"])[];
+        data: components["schemas"]["radar.value_list_item"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -12127,7 +12127,7 @@ export interface components {
        */
       data_available_start: number;
       /** @description List of column names that are included by default when this Report Type gets run. (If the Report Type doesn't support the `columns` parameter, this will be null.) */
-      default_columns?: (string)[] | null;
+      default_columns?: string[] | null;
       /** @description The [ID of the Report Type](https://stripe.com/docs/reporting/statements/api#available-report-types), such as `balance.summary.1`. */
       id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -12593,7 +12593,7 @@ export interface components {
       /** @description Payment-method-specific configuration for this SetupIntent. */
       payment_method_options?: components["schemas"]["setup_intent_payment_method_options"] | null;
       /** @description The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. */
-      payment_method_types: (string)[];
+      payment_method_types: string[];
       /** @description ID of the single_use Mandate generated by the SetupIntent. */
       single_use_mandate?: (string | components["schemas"]["mandate"]) | null;
       /**
@@ -12716,7 +12716,7 @@ export interface components {
        */
       start_date: number;
       /** @description Specifies the type of mandates supported. Possible values are `india`. */
-      supported_types?: ("india")[] | null;
+      supported_types?: "india"[] | null;
     };
     /** setup_intent_payment_method_options_link */
     setup_intent_payment_method_options_link: {
@@ -13031,7 +13031,7 @@ export interface components {
       /** @description The email address of the customer placing the order. */
       email?: string;
       /** @description List of items constituting the order. */
-      items?: (components["schemas"]["source_order_item"])[] | null;
+      items?: components["schemas"]["source_order_item"][] | null;
       shipping?: components["schemas"]["shipping"];
     };
     /** SourceOrderItem */
@@ -13446,7 +13446,7 @@ export interface components {
       /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
       default_source?: (string | components["schemas"]["bank_account"] | components["schemas"]["card"] | components["schemas"]["source"]) | null;
       /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. */
-      default_tax_rates?: (components["schemas"]["tax_rate"])[] | null;
+      default_tax_rates?: components["schemas"]["tax_rate"][] | null;
       /** @description The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces. */
       description?: string | null;
       /** @description Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a subscription overrides a discount applied on a customer-wide basis. */
@@ -13464,7 +13464,7 @@ export interface components {
        */
       items: {
         /** @description Details about each object. */
-        data: (components["schemas"]["subscription_item"])[];
+        data: components["schemas"]["subscription_item"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -13581,7 +13581,7 @@ export interface components {
       /** @description The `subscription` this `subscription_item` belongs to. */
       subscription: string;
       /** @description The tax rates which apply to this `subscription_item`. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`. */
-      tax_rates?: (components["schemas"]["tax_rate"])[] | null;
+      tax_rates?: components["schemas"]["tax_rate"][] | null;
     };
     /** SubscriptionItemBillingThresholds */
     subscription_item_billing_thresholds: {
@@ -13660,7 +13660,7 @@ export interface components {
        */
       object: "subscription_schedule";
       /** @description Configuration for the subscription schedule's phases. */
-      phases: (components["schemas"]["subscription_schedule_phase_configuration"])[];
+      phases: components["schemas"]["subscription_schedule_phase_configuration"][];
       /**
        * Format: unix-time
        * @description Time at which the subscription schedule was released. Measured in seconds since the Unix epoch.
@@ -13688,7 +13688,7 @@ export interface components {
       /** @description The quantity of the invoice item. */
       quantity?: number | null;
       /** @description The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item. */
-      tax_rates?: (components["schemas"]["tax_rate"])[] | null;
+      tax_rates?: components["schemas"]["tax_rate"][] | null;
     };
     /**
      * SubscriptionScheduleConfigurationItem
@@ -13706,7 +13706,7 @@ export interface components {
       /** @description Quantity of the plan to which the customer should be subscribed. */
       quantity?: number;
       /** @description The tax rates which apply to this `phase_item`. When set, the `default_tax_rates` on the phase do not apply to this `phase_item`. */
-      tax_rates?: (components["schemas"]["tax_rate"])[] | null;
+      tax_rates?: components["schemas"]["tax_rate"][] | null;
     };
     /** SubscriptionScheduleCurrentPhase */
     subscription_schedule_current_phase: {
@@ -13727,7 +13727,7 @@ export interface components {
      */
     subscription_schedule_phase_configuration: {
       /** @description A list of prices and quantities that will generate invoice items appended to the next invoice for this phase. */
-      add_invoice_items: (components["schemas"]["subscription_schedule_add_invoice_item"])[];
+      add_invoice_items: components["schemas"]["subscription_schedule_add_invoice_item"][];
       /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account during this phase of the schedule. */
       application_fee_percent?: number | null;
       automatic_tax?: components["schemas"]["schedules_phase_automatic_tax"];
@@ -13750,7 +13750,7 @@ export interface components {
       /** @description ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings. */
       default_payment_method?: (string | components["schemas"]["payment_method"]) | null;
       /** @description The default tax rates to apply to the subscription during this phase of the subscription schedule. */
-      default_tax_rates?: (components["schemas"]["tax_rate"])[] | null;
+      default_tax_rates?: components["schemas"]["tax_rate"][] | null;
       /** @description Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription. */
       description?: string | null;
       /**
@@ -13761,7 +13761,7 @@ export interface components {
       /** @description The invoice settings applicable during this phase. */
       invoice_settings?: components["schemas"]["invoice_setting_phase_setting"] | null;
       /** @description Subscription items to configure the subscription to during this phase of the subscription schedule. */
-      items: (components["schemas"]["subscription_schedule_configuration_item"])[];
+      items: components["schemas"]["subscription_schedule_configuration_item"][];
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered. Updating the underlying subscription's `metadata` directly will not affect the current phase's `metadata`. */
       metadata?: ({
         [key: string]: string | undefined;
@@ -13887,7 +13887,7 @@ export interface components {
        */
       expires_at: number;
       /** @description List of subscription items, each with an attached plan, that will be set if the update is applied. */
-      subscription_items?: (components["schemas"]["subscription_item"])[] | null;
+      subscription_items?: components["schemas"]["subscription_item"][] | null;
       /**
        * Format: unix-time
        * @description Unix timestamp representing the end of the trial period the customer will get before being charged for the first time, if the update is applied.
@@ -13941,7 +13941,7 @@ export interface components {
        */
       line_items?: {
         /** @description Details about each object. */
-        data: (components["schemas"]["tax.calculation_line_item"])[];
+        data: components["schemas"]["tax.calculation_line_item"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -13966,7 +13966,7 @@ export interface components {
       /** @description The amount of tax already included in the line item prices. */
       tax_amount_inclusive: number;
       /** @description Breakdown of individual tax amounts that add up to the total. */
-      tax_breakdown: (components["schemas"]["tax_product_resource_tax_breakdown"])[];
+      tax_breakdown: components["schemas"]["tax_product_resource_tax_breakdown"][];
       /**
        * Format: unix-time
        * @description Timestamp of date at which the tax rules and rates in effect applies for the calculation.
@@ -14000,7 +14000,7 @@ export interface components {
        */
       tax_behavior: "exclusive" | "inclusive";
       /** @description Detailed account of taxes relevant to this line item. */
-      tax_breakdown?: (components["schemas"]["tax_product_resource_line_item_tax_breakdown"])[] | null;
+      tax_breakdown?: components["schemas"]["tax_product_resource_line_item_tax_breakdown"][] | null;
       /** @description The [tax code](https://stripe.com/docs/tax/tax-categories) ID used for this resource. */
       tax_code: string;
     };
@@ -14029,7 +14029,7 @@ export interface components {
        */
       line_items?: {
         /** @description Details about each object. */
-        data: (components["schemas"]["tax.transaction_line_item"])[];
+        data: components["schemas"]["tax.transaction_line_item"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -14205,7 +14205,7 @@ export interface components {
       /** @description The customer's IP address (IPv4 or IPv6). */
       ip_address?: string | null;
       /** @description The customer's tax IDs (for example, EU VAT numbers). */
-      tax_ids: (components["schemas"]["tax_product_resource_customer_details_resource_tax_id"])[];
+      tax_ids: components["schemas"]["tax_product_resource_customer_details_resource_tax_id"][];
       /**
        * @description The taxability override used for taxation.
        * @enum {string}
@@ -14312,7 +14312,7 @@ export interface components {
        */
       tax_behavior: "exclusive" | "inclusive";
       /** @description Detailed account of taxes relevant to shipping cost. */
-      tax_breakdown?: (components["schemas"]["tax_product_resource_line_item_tax_breakdown"])[];
+      tax_breakdown?: components["schemas"]["tax_product_resource_line_item_tax_breakdown"][];
       /** @description The [tax code](https://stripe.com/docs/tax/tax-categories) ID used for shipping. */
       tax_code: string;
     };
@@ -14509,9 +14509,9 @@ export interface components {
     /** TerminalConfigurationConfigurationResourceCurrencySpecificConfig */
     terminal_configuration_configuration_resource_currency_specific_config: {
       /** @description Fixed amounts displayed when collecting a tip */
-      fixed_amounts?: (number)[] | null;
+      fixed_amounts?: number[] | null;
       /** @description Percentages displayed when collecting a tip */
-      percentages?: (number)[] | null;
+      percentages?: number[] | null;
       /** @description Below this amount, fixed amounts will be displayed; above it, percentages will be displayed */
       smart_tip_threshold?: number;
     };
@@ -14545,7 +14545,7 @@ export interface components {
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
       /** @description List of line items in the cart. */
-      line_items: (components["schemas"]["terminal_reader_reader_resource_line_item"])[];
+      line_items: components["schemas"]["terminal_reader_reader_resource_line_item"][];
       /** @description Tax amount for the entire cart. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
       tax?: number | null;
       /** @description Total amount for the entire cart, including tax. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
@@ -14884,7 +14884,7 @@ export interface components {
        */
       reversals: {
         /** @description Details about each object. */
-        data: (components["schemas"]["transfer_reversal"])[];
+        data: components["schemas"]["transfer_reversal"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -15106,7 +15106,7 @@ export interface components {
       created: number;
       features?: components["schemas"]["treasury.financial_account_features"];
       /** @description The set of credentials that resolve to a FinancialAccount. */
-      financial_addresses: (components["schemas"]["treasury_financial_accounts_resource_financial_address"])[];
+      financial_addresses: components["schemas"]["treasury_financial_accounts_resource_financial_address"][];
       /** @description Unique identifier for the object. */
       id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -15133,7 +15133,7 @@ export interface components {
       status: "closed" | "open";
       status_details: components["schemas"]["treasury_financial_accounts_resource_status_details"];
       /** @description The currencies the FinancialAccount can hold a balance in. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. */
-      supported_currencies: (string)[];
+      supported_currencies: string[];
     };
     /**
      * TreasuryFinancialAccountsResourceFinancialAccountFeatures
@@ -15455,7 +15455,7 @@ export interface components {
        */
       entries?: {
         /** @description Details about each object. */
-        data: (components["schemas"]["treasury.transaction_entry"])[];
+        data: components["schemas"]["treasury.transaction_entry"][];
         /** @description True if this list has another page of items after this one that can be fetched. */
         has_more: boolean;
         /**
@@ -15568,7 +15568,7 @@ export interface components {
        */
       status: "active" | "pending" | "restricted";
       /** @description Additional details; includes at least one entry when the status is not `active`. */
-      status_details: (components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"])[];
+      status_details: components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"][];
     };
     /**
      * TreasuryFinancialAccountsResourceAchToggleSettings
@@ -15583,7 +15583,7 @@ export interface components {
        */
       status: "active" | "pending" | "restricted";
       /** @description Additional details; includes at least one entry when the status is not `active`. */
-      status_details: (components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"])[];
+      status_details: components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"][];
     };
     /**
      * TreasuryFinancialAccountsResourceBalance
@@ -15686,7 +15686,7 @@ export interface components {
        */
       status: "active" | "pending" | "restricted";
       /** @description Additional details; includes at least one entry when the status is not `active`. */
-      status_details: (components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"])[];
+      status_details: components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"][];
     };
     /**
      * TreasuryFinancialAccountsResourceTogglesSettingStatusDetails
@@ -16057,7 +16057,7 @@ export interface components {
       /** @description An optional description of what the webhook is used for. */
       description?: string | null;
       /** @description The list of events to enable for this endpoint. `['*']` indicates that all events are enabled, except those that require explicit selection. */
-      enabled_events: (string)[];
+      enabled_events: string[];
       /** @description Unique identifier for the object. */
       id: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -16095,7 +16095,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
     };
     requestBody?: {
@@ -16131,7 +16131,7 @@ export interface operations {
            */
           collect?: "currently_due" | "eventually_due";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The URL the user will be redirected to if the account link is expired, has been previously-visited, or is otherwise invalid. The URL you specify should attempt to generate a new account link with the same parameters used to create the original account link, then redirect the user to the new account link's URL so they can continue with Connect Onboarding. If a new account link cannot be generated or the redirect fails you should display a useful error to the user. */
           refresh_url?: string;
           /** @description The URL that the user will be redirected to upon leaving or completing the linked flow. */
@@ -16172,7 +16172,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -16189,7 +16189,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["account"])[];
+            data: components["schemas"]["account"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -16238,7 +16238,7 @@ export interface operations {
             documents?: {
               /** documents_param */
               bank_account_ownership_verification?: {
-                files?: (string)[];
+                files?: string[];
               };
             };
             /** @enum {string} */
@@ -16498,37 +16498,37 @@ export interface operations {
           documents?: {
             /** documents_param */
             bank_account_ownership_verification?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             company_license?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             company_memorandum_of_association?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             company_ministerial_decree?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             company_registration_verification?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             company_tax_id_verification?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             proof_of_registration?: {
-              files?: (string)[];
+              files?: string[];
             };
           };
           /** @description The email address of the account holder. This is only to make the account easier to identify to you. Stripe only emails Custom accounts with your consent. */
           email?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description A card or bank account to attach to the account for receiving [payouts](https://stripe.com/docs/connect/bank-debit-card-payouts) (you won’t be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation. <br><br>By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/docs/api#account_create_bank_account) or [card creation](https://stripe.com/docs/api#account_create_card) APIs. */
           external_account?: string;
           /**
@@ -16574,7 +16574,7 @@ export interface operations {
             first_name?: string;
             first_name_kana?: string;
             first_name_kanji?: string;
-            full_name_aliases?: (string)[] | "";
+            full_name_aliases?: string[] | "";
             gender?: string;
             id_number?: string;
             id_number_secondary?: string;
@@ -16719,7 +16719,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         account: string;
@@ -17019,37 +17019,37 @@ export interface operations {
           documents?: {
             /** documents_param */
             bank_account_ownership_verification?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             company_license?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             company_memorandum_of_association?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             company_ministerial_decree?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             company_registration_verification?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             company_tax_id_verification?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             proof_of_registration?: {
-              files?: (string)[];
+              files?: string[];
             };
           };
           /** @description The email address of the account holder. This is only to make the account easier to identify to you. Stripe only emails Custom accounts with your consent. */
           email?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description A card or bank account to attach to the account for receiving [payouts](https://stripe.com/docs/connect/bank-debit-card-payouts) (you won’t be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/docs/api#account_create_bank_account) creation. <br><br>By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/docs/api#account_create_bank_account) or [card creation](https://stripe.com/docs/api#account_create_card) APIs. */
           external_account?: string;
           /**
@@ -17095,7 +17095,7 @@ export interface operations {
             first_name?: string;
             first_name_kana?: string;
             first_name_kanji?: string;
-            full_name_aliases?: (string)[] | "";
+            full_name_aliases?: string[] | "";
             gender?: string;
             id_number?: string;
             id_number_secondary?: string;
@@ -17287,7 +17287,7 @@ export interface operations {
             documents?: {
               /** documents_param */
               bank_account_ownership_verification?: {
-                files?: (string)[];
+                files?: string[];
               };
             };
             /** @enum {string} */
@@ -17297,7 +17297,7 @@ export interface operations {
           /** @description When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           external_account?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -17327,7 +17327,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         account: string;
@@ -17402,7 +17402,7 @@ export interface operations {
           documents?: {
             /** documents_param */
             bank_account_ownership_verification?: {
-              files?: (string)[];
+              files?: string[];
             };
           };
           /** @description Two digit number representing the card’s expiration month. */
@@ -17410,7 +17410,7 @@ export interface operations {
           /** @description Four digit number representing the card’s expiration year. */
           exp_year?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -17468,7 +17468,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         account: string;
@@ -17484,7 +17484,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["capability"])[];
+            data: components["schemas"]["capability"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -17510,7 +17510,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         account: string;
@@ -17549,7 +17549,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays. */
           requested?: boolean;
         };
@@ -17577,7 +17577,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -17643,7 +17643,7 @@ export interface operations {
             documents?: {
               /** documents_param */
               bank_account_ownership_verification?: {
-                files?: (string)[];
+                files?: string[];
               };
             };
             /** @enum {string} */
@@ -17653,7 +17653,7 @@ export interface operations {
           /** @description When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency. */
           default_for_currency?: boolean;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           external_account?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -17683,7 +17683,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         account: string;
@@ -17758,7 +17758,7 @@ export interface operations {
           documents?: {
             /** documents_param */
             bank_account_ownership_verification?: {
-              files?: (string)[];
+              files?: string[];
             };
           };
           /** @description Two digit number representing the card’s expiration month. */
@@ -17766,7 +17766,7 @@ export interface operations {
           /** @description Four digit number representing the card’s expiration year. */
           exp_year?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -17834,7 +17834,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -17860,7 +17860,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description Filters on the list of people returned based on the person's relationship to the account's company. */
@@ -17887,7 +17887,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["person"])[];
+            data: components["schemas"]["person"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -17969,21 +17969,21 @@ export interface operations {
           documents?: {
             /** documents_param */
             company_authorization?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             passport?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             visa?: {
-              files?: (string)[];
+              files?: string[];
             };
           };
           /** @description The person's email address. */
           email?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The person's first name. */
           first_name?: string;
           /** @description The Kana variation of the person's first name (Japan only). */
@@ -17991,7 +17991,7 @@ export interface operations {
           /** @description The Kanji variation of the person's first name (Japan only). */
           first_name_kanji?: string;
           /** @description A list of alternate names or aliases that the person is known by. */
-          full_name_aliases?: (string)[] | "";
+          full_name_aliases?: string[] | "";
           /** @description The person's gender (International regulations require either "male" or "female"). */
           gender?: string;
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -18083,7 +18083,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         account: string;
@@ -18172,21 +18172,21 @@ export interface operations {
           documents?: {
             /** documents_param */
             company_authorization?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             passport?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             visa?: {
-              files?: (string)[];
+              files?: string[];
             };
           };
           /** @description The person's email address. */
           email?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The person's first name. */
           first_name?: string;
           /** @description The Kana variation of the person's first name (Japan only). */
@@ -18194,7 +18194,7 @@ export interface operations {
           /** @description The Kanji variation of the person's first name (Japan only). */
           first_name_kanji?: string;
           /** @description A list of alternate names or aliases that the person is known by. */
-          full_name_aliases?: (string)[] | "";
+          full_name_aliases?: string[] | "";
           /** @description The person's gender (International regulations require either "male" or "female"). */
           gender?: string;
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -18316,7 +18316,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description Filters on the list of people returned based on the person's relationship to the account's company. */
@@ -18343,7 +18343,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["person"])[];
+            data: components["schemas"]["person"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -18425,21 +18425,21 @@ export interface operations {
           documents?: {
             /** documents_param */
             company_authorization?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             passport?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             visa?: {
-              files?: (string)[];
+              files?: string[];
             };
           };
           /** @description The person's email address. */
           email?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The person's first name. */
           first_name?: string;
           /** @description The Kana variation of the person's first name (Japan only). */
@@ -18447,7 +18447,7 @@ export interface operations {
           /** @description The Kanji variation of the person's first name (Japan only). */
           first_name_kanji?: string;
           /** @description A list of alternate names or aliases that the person is known by. */
-          full_name_aliases?: (string)[] | "";
+          full_name_aliases?: string[] | "";
           /** @description The person's gender (International regulations require either "male" or "female"). */
           gender?: string;
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -18539,7 +18539,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         account: string;
@@ -18628,21 +18628,21 @@ export interface operations {
           documents?: {
             /** documents_param */
             company_authorization?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             passport?: {
-              files?: (string)[];
+              files?: string[];
             };
             /** documents_param */
             visa?: {
-              files?: (string)[];
+              files?: string[];
             };
           };
           /** @description The person's email address. */
           email?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The person's first name. */
           first_name?: string;
           /** @description The Kana variation of the person's first name (Japan only). */
@@ -18650,7 +18650,7 @@ export interface operations {
           /** @description The Kanji variation of the person's first name (Japan only). */
           first_name_kanji?: string;
           /** @description A list of alternate names or aliases that the person is known by. */
-          full_name_aliases?: (string)[] | "";
+          full_name_aliases?: string[] | "";
           /** @description The person's gender (International regulations require either "male" or "female"). */
           gender?: string;
           /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
@@ -18780,7 +18780,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The reason for rejecting the account. Can be `fraud`, `terms_of_service`, or `other`. */
           reason: string;
         };
@@ -18809,7 +18809,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -18826,7 +18826,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["apple_pay_domain"])[];
+            data: components["schemas"]["apple_pay_domain"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -18854,7 +18854,7 @@ export interface operations {
         "application/x-www-form-urlencoded": {
           domain_name: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -18878,7 +18878,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         domain: string;
@@ -18946,7 +18946,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -18963,7 +18963,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["application_fee"])[];
+            data: components["schemas"]["application_fee"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -18989,7 +18989,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         fee: string;
@@ -19032,7 +19032,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -19060,7 +19060,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         id: string;
@@ -19098,7 +19098,7 @@ export interface operations {
           amount?: number;
           directive?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -19124,7 +19124,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -19145,7 +19145,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["fee_refund"])[];
+            data: components["schemas"]["fee_refund"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -19189,7 +19189,7 @@ export interface operations {
           /** @description A positive integer, in _cents (or local equivalent)_, representing how much of this fee to refund. Can refund only up to the remaining unrefunded amount of the fee. */
           amount?: number;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -19219,7 +19219,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user. */
@@ -19242,7 +19242,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["apps.secret"])[];
+            data: components["schemas"]["apps.secret"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -19269,7 +19269,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * Format: unix-time
            * @description The Unix timestamp for the expiry time of the secret, after which the secret deletes.
@@ -19312,7 +19312,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description A name for the secret that's unique within the scope. */
           name: string;
           /**
@@ -19347,7 +19347,7 @@ export interface operations {
     parameters: {
       query: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A name for the secret that's unique within the scope. */
         name: string;
         /** @description Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user. */
@@ -19386,7 +19386,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
     };
     requestBody?: {
@@ -19428,7 +19428,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID. */
@@ -19451,7 +19451,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["balance_transaction"])[];
+            data: components["schemas"]["balance_transaction"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -19481,7 +19481,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         id: string;
@@ -19526,7 +19526,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID. */
@@ -19549,7 +19549,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["balance_transaction"])[];
+            data: components["schemas"]["balance_transaction"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -19579,7 +19579,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         id: string;
@@ -19614,7 +19614,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description Only return the default or non-default configurations (e.g., pass `true` to only list the default configuration). */
         is_default?: boolean;
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -19633,7 +19633,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["billing_portal.configuration"])[];
+            data: components["schemas"]["billing_portal.configuration"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -19671,7 +19671,7 @@ export interface operations {
           /** @description The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session. */
           default_return_url?: string | "";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * features_creation_param
            * @description Information about the features available in the portal.
@@ -19711,10 +19711,10 @@ export interface operations {
             subscription_update?: {
               default_allowed_updates: (("price" | "promotion_code" | "quantity")[]) | "";
               enabled: boolean;
-              products: ({
-                  prices: (string)[];
+              products: {
+                  prices: string[];
                   product: string;
-                })[] | "";
+                }[] | "";
               /** @enum {string} */
               proration_behavior?: "always_invoice" | "create_prorations" | "none";
             };
@@ -19753,7 +19753,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         configuration: string;
@@ -19803,7 +19803,7 @@ export interface operations {
           /** @description The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session. */
           default_return_url?: string | "";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * features_updating_param
            * @description Information about the features available in the portal.
@@ -19843,10 +19843,10 @@ export interface operations {
             subscription_update?: {
               default_allowed_updates?: (("price" | "promotion_code" | "quantity")[]) | "";
               enabled?: boolean;
-              products?: ({
-                  prices: (string)[];
+              products?: {
+                  prices: string[];
                   product: string;
-                })[] | "";
+                }[] | "";
               /** @enum {string} */
               proration_behavior?: "always_invoice" | "create_prorations" | "none";
             };
@@ -19890,7 +19890,7 @@ export interface operations {
           /** @description The ID of an existing customer. */
           customer: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * flow_data_param
            * @description Information about a specific flow for the customer to go through. See the [docs](https://stripe.com/docs/customer-management/portal-deep-links) to learn more about using customer portal deep links and flows.
@@ -19919,15 +19919,15 @@ export interface operations {
             };
             /** flow_data_subscription_update_confirm_param */
             subscription_update_confirm?: {
-              discounts?: ({
+              discounts?: {
                   coupon?: string;
                   promotion_code?: string;
-                })[];
-              items: ({
+                }[];
+              items: {
                   id: string;
                   price?: string;
                   quantity?: number;
-                })[];
+                }[];
               subscription: string;
             };
             /** @enum {string} */
@@ -19975,7 +19975,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description Only return charges that were created by the PaymentIntent specified by this PaymentIntent ID. */
@@ -19996,7 +19996,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["charge"])[];
+            data: components["schemas"]["charge"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -20063,7 +20063,7 @@ export interface operations {
             amount?: number;
           } | string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -20142,7 +20142,7 @@ export interface operations {
     parameters: {
       query: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results. */
@@ -20161,7 +20161,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["charge"])[];
+            data: components["schemas"]["charge"][];
             has_more: boolean;
             next_page?: string | null;
             /**
@@ -20188,7 +20188,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         charge: string;
@@ -20229,7 +20229,7 @@ export interface operations {
           /** @description An arbitrary string which you can attach to a charge object. It is displayed when in the web interface alongside the charge. Note that if you use Stripe to send automatic email receipts to your customers, your receipt emails will include the `description` of the charge(s) that they are describing. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * fraud_details
            * @description A set of key-value pairs you can attach to a charge giving information about its riskiness. If you believe a charge is fraudulent, include a `user_report` key with a value of `fraudulent`. If you believe a charge is safe, include a `user_report` key with a value of `safe`. Stripe will use the information you send to improve our fraud detection algorithms.
@@ -20306,7 +20306,7 @@ export interface operations {
           /** @description An application fee amount to add on to this charge, which must be less than or equal to the original amount. */
           application_fee_amount?: number;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The email address to send this charge's receipt to. This will override the previously-specified email address for this charge, if one was set. Receipts will not be sent in test mode. */
           receipt_email?: string;
           /** @description For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
@@ -20345,7 +20345,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         charge: string;
@@ -20414,7 +20414,7 @@ export interface operations {
             uncategorized_text?: string;
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -20449,7 +20449,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -20492,7 +20492,7 @@ export interface operations {
         "application/x-www-form-urlencoded": {
           amount?: number;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description For payment methods without native refund support (e.g., Konbini, PromptPay), use this email from the customer to receive refund instructions. */
           instructions_email?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -20529,7 +20529,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -20550,7 +20550,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["refund"])[];
+            data: components["schemas"]["refund"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -20588,7 +20588,7 @@ export interface operations {
           /** @description Customer whose customer balance to refund from. */
           customer?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description For payment methods without native refund support (e.g., Konbini, PromptPay), use this email from the customer to receive refund instructions. */
           instructions_email?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -20628,7 +20628,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         charge: string;
@@ -20667,7 +20667,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           metadata?: ({
             [key: string]: string | undefined;
           }) | "";
@@ -20702,7 +20702,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description Only return the Checkout Session for the PaymentIntent specified. */
@@ -20725,7 +20725,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["checkout.session"])[];
+            data: components["schemas"]["checkout.session"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -20800,10 +20800,10 @@ export interface operations {
           custom_fields?: ({
               /** custom_field_dropdown_param */
               dropdown?: {
-                options: ({
+                options: {
                     label: string;
                     value: string;
-                  })[];
+                  }[];
               };
               key: string;
               /** custom_field_label_param */
@@ -20886,12 +20886,12 @@ export interface operations {
             shipping?: "auto" | "never";
           };
           /** @description The coupon or promotion code to apply to this Session. Currently, only up to one may be specified. */
-          discounts?: ({
+          discounts?: {
               coupon?: string;
               promotion_code?: string;
-            })[];
+            }[];
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * Format: unix-time
            * @description The Epoch time in seconds at which the Checkout Session will expire. It can be anywhere from 30 minutes to 24 hours after Checkout Session creation. By default, this value is 24 hours from creation.
@@ -20905,11 +20905,11 @@ export interface operations {
             enabled: boolean;
             /** invoice_data_params */
             invoice_data?: {
-              account_tax_ids?: (string)[] | "";
-              custom_fields?: ({
+              account_tax_ids?: string[] | "";
+              custom_fields?: {
                   name: string;
                   value: string;
-                })[] | "";
+                }[] | "";
               description?: string;
               footer?: string;
               metadata?: {
@@ -20935,7 +20935,7 @@ export interface operations {
                 maximum?: number;
                 minimum?: number;
               };
-              dynamic_tax_rates?: (string)[];
+              dynamic_tax_rates?: string[];
               price?: string;
               /** price_data_with_product_data */
               price_data?: {
@@ -20944,7 +20944,7 @@ export interface operations {
                 /** product_data */
                 product_data?: {
                   description?: string;
-                  images?: (string)[];
+                  images?: string[];
                   metadata?: {
                     [key: string]: string | undefined;
                   };
@@ -20964,7 +20964,7 @@ export interface operations {
                 unit_amount_decimal?: string;
               };
               quantity?: number;
-              tax_rates?: (string)[];
+              tax_rates?: string[];
             })[];
           /**
            * @description The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
@@ -21328,7 +21328,7 @@ export interface operations {
             application_fee_percent?: number;
             /** Format: unix-time */
             billing_cycle_anchor?: number;
-            default_tax_rates?: (string)[];
+            default_tax_rates?: string[];
             description?: string;
             metadata?: {
               [key: string]: string | undefined;
@@ -21390,7 +21390,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         session: string;
@@ -21431,7 +21431,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -21457,7 +21457,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -21478,7 +21478,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["item"])[];
+            data: components["schemas"]["item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -21506,7 +21506,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -21523,7 +21523,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["country_spec"])[];
+            data: components["schemas"]["country_spec"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -21549,7 +21549,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         country: string;
@@ -21589,7 +21589,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -21606,7 +21606,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["coupon"])[];
+            data: components["schemas"]["coupon"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -21643,7 +21643,7 @@ export interface operations {
            * @description A hash containing directions for what this Coupon will apply discounts to.
            */
           applies_to?: {
-            products?: (string)[];
+            products?: string[];
           };
           /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed). */
           currency?: string;
@@ -21661,7 +21661,7 @@ export interface operations {
           /** @description Required only if `duration` is `repeating`, in which case it must be a positive integer that specifies the number of months the discount will be in effect. */
           duration_in_months?: number;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Unique string of your choice that will be used to identify this coupon when applying it to a customer. If you don't want to specify a particular code, you can leave the ID blank and we'll generate a random code for you. */
           id?: string;
           /** @description A positive integer specifying the number of times the coupon can be redeemed before it's no longer valid. For example, you might have a 50% off coupon that the first 20 readers of your blog can use. */
@@ -21702,7 +21702,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         coupon: string;
@@ -21745,7 +21745,7 @@ export interface operations {
             } | undefined;
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -21806,7 +21806,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description Only return credit notes for the invoice specified by this invoice ID. */
         invoice?: string;
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -21825,7 +21825,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["credit_note"])[];
+            data: components["schemas"]["credit_note"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -21876,7 +21876,7 @@ export interface operations {
            */
           effective_at?: number;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description ID of the invoice. */
           invoice: string;
           /** @description Line items that make up the credit note. */
@@ -21885,7 +21885,7 @@ export interface operations {
               description?: string;
               invoice_line_item?: string;
               quantity?: number;
-              tax_rates?: (string)[] | "";
+              tax_rates?: string[] | "";
               /** @enum {string} */
               type: "custom_line_item" | "invoice_line_item";
               unit_amount?: number;
@@ -21945,7 +21945,7 @@ export interface operations {
         /** @description The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF. */
         effective_at?: number;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description ID of the invoice. */
         invoice: string;
         /** @description Line items that make up the credit note. */
@@ -21954,7 +21954,7 @@ export interface operations {
             description?: string;
             invoice_line_item?: string;
             quantity?: number;
-            tax_rates?: (string)[] | "";
+            tax_rates?: string[] | "";
             /** @enum {string} */
             type: "custom_line_item" | "invoice_line_item";
             unit_amount?: number;
@@ -22014,7 +22014,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description ID of the invoice. */
         invoice: string;
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -22025,7 +22025,7 @@ export interface operations {
             description?: string;
             invoice_line_item?: string;
             quantity?: number;
-            tax_rates?: (string)[] | "";
+            tax_rates?: string[] | "";
             /** @enum {string} */
             type: "custom_line_item" | "invoice_line_item";
             unit_amount?: number;
@@ -22065,7 +22065,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["credit_note_line_item"])[];
+            data: components["schemas"]["credit_note_line_item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -22093,7 +22093,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -22114,7 +22114,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["credit_note_line_item"])[];
+            data: components["schemas"]["credit_note_line_item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -22140,7 +22140,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         id: string;
@@ -22177,7 +22177,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Credit note memo. */
           memo?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -22213,7 +22213,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -22247,7 +22247,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -22266,7 +22266,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["customer"])[];
+            data: components["schemas"]["customer"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -22320,7 +22320,7 @@ export interface operations {
           /** @description Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to *512 characters*. */
           email?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers. */
           invoice_prefix?: string;
           /**
@@ -22328,10 +22328,10 @@ export interface operations {
            * @description Default invoice settings for this customer.
            */
           invoice_settings?: {
-            custom_fields?: ({
+            custom_fields?: {
                 name: string;
                 value: string;
-              })[] | "";
+              }[] | "";
             default_payment_method?: string;
             footer?: string;
             rendering_options?: ({
@@ -22351,7 +22351,7 @@ export interface operations {
           /** @description The customer's phone number. */
           phone?: string;
           /** @description Customer's preferred languages, ordered by preference. */
-          preferred_locales?: (string)[];
+          preferred_locales?: string[];
           /** @description The API ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount. */
           promotion_code?: string;
           /** @description The customer's shipping information. Appears on invoices emailed to this customer. */
@@ -22417,7 +22417,7 @@ export interface operations {
     parameters: {
       query: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results. */
@@ -22436,7 +22436,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["customer"])[];
+            data: components["schemas"]["customer"][];
             has_more: boolean;
             next_page?: string | null;
             /**
@@ -22463,7 +22463,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         customer: string;
@@ -22576,7 +22576,7 @@ export interface operations {
           /** @description Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to *512 characters*. */
           email?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers. */
           invoice_prefix?: string;
           /**
@@ -22584,10 +22584,10 @@ export interface operations {
            * @description Default invoice settings for this customer.
            */
           invoice_settings?: {
-            custom_fields?: ({
+            custom_fields?: {
                 name: string;
                 value: string;
-              })[] | "";
+              }[] | "";
             default_payment_method?: string;
             footer?: string;
             rendering_options?: ({
@@ -22606,7 +22606,7 @@ export interface operations {
           /** @description The customer's phone number. */
           phone?: string;
           /** @description Customer's preferred languages, ordered by preference. */
-          preferred_locales?: (string)[];
+          preferred_locales?: string[];
           /** @description The API ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount. */
           promotion_code?: string;
           /** @description The customer's shipping information. Appears on invoices emailed to this customer. */
@@ -22688,7 +22688,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -22709,7 +22709,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["customer_balance_transaction"])[];
+            data: components["schemas"]["customer_balance_transaction"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -22747,7 +22747,7 @@ export interface operations {
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -22775,7 +22775,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         customer: string;
@@ -22816,7 +22816,7 @@ export interface operations {
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -22849,7 +22849,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -22870,7 +22870,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["bank_account"])[];
+            data: components["schemas"]["bank_account"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -22941,7 +22941,7 @@ export interface operations {
             object?: "card";
           }) | string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -22974,7 +22974,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         customer: string;
@@ -23036,7 +23036,7 @@ export interface operations {
           /** @description Four digit number representing the card’s expiration year. */
           exp_year?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -23088,7 +23088,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -23119,9 +23119,9 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account. */
-          amounts?: (number)[];
+          amounts?: number[];
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -23152,7 +23152,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -23172,7 +23172,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["card"])[];
+            data: components["schemas"]["card"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -23243,7 +23243,7 @@ export interface operations {
             object?: "card";
           }) | string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -23276,7 +23276,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         customer: string;
@@ -23338,7 +23338,7 @@ export interface operations {
           /** @description Four digit number representing the card’s expiration year. */
           exp_year?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -23390,7 +23390,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -23414,7 +23414,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         customer: string;
@@ -23451,7 +23451,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * balance_settings_param
            * @description A hash of settings for this cash balance.
@@ -23485,7 +23485,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -23506,7 +23506,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["customer_cash_balance_transaction"])[];
+            data: components["schemas"]["customer_cash_balance_transaction"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -23532,7 +23532,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         customer: string;
@@ -23563,7 +23563,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         customer: string;
@@ -23646,7 +23646,7 @@ export interface operations {
           /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * @description The `funding_type` to get the instructions for.
            * @enum {string}
@@ -23677,7 +23677,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -23699,7 +23699,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["payment_method"])[];
+            data: components["schemas"]["payment_method"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -23725,7 +23725,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         customer: string;
@@ -23759,7 +23759,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description Filter sources according to a particular object type. */
@@ -23853,7 +23853,7 @@ export interface operations {
             object?: "card";
           }) | string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -23883,7 +23883,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         customer: string;
@@ -23945,7 +23945,7 @@ export interface operations {
           /** @description Four digit number representing the card’s expiration year. */
           exp_year?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -23997,7 +23997,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -24028,9 +24028,9 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account. */
-          amounts?: (number)[];
+          amounts?: number[];
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -24056,7 +24056,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -24077,7 +24077,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["subscription"])[];
+            data: components["schemas"]["subscription"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -24122,7 +24122,7 @@ export interface operations {
                 unit_amount_decimal?: string;
               };
               quantity?: number;
-              tax_rates?: (string)[] | "";
+              tax_rates?: string[] | "";
             })[];
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number;
@@ -24171,9 +24171,9 @@ export interface operations {
           /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
           default_source?: string;
           /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. */
-          default_tax_rates?: (string)[] | "";
+          default_tax_rates?: string[] | "";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description A list of up to 20 subscription items, each with an attached price. */
           items?: ({
               billing_thresholds?: {
@@ -24200,7 +24200,7 @@ export interface operations {
                 unit_amount_decimal?: string;
               };
               quantity?: number;
-              tax_rates?: (string)[] | "";
+              tax_rates?: string[] | "";
             })[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
@@ -24342,7 +24342,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         customer: string;
@@ -24394,7 +24394,7 @@ export interface operations {
                 unit_amount_decimal?: string;
               };
               quantity?: number;
-              tax_rates?: (string)[] | "";
+              tax_rates?: string[] | "";
             })[];
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number;
@@ -24442,9 +24442,9 @@ export interface operations {
           /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
           default_source?: string;
           /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. Pass an empty string to remove previously-defined tax rates. */
-          default_tax_rates?: (string)[] | "";
+          default_tax_rates?: string[] | "";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description A list of up to 20 subscription items, each with an attached price. */
           items?: ({
               billing_thresholds?: {
@@ -24474,7 +24474,7 @@ export interface operations {
                 unit_amount_decimal?: string;
               };
               quantity?: number;
-              tax_rates?: (string)[] | "";
+              tax_rates?: string[] | "";
             })[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
@@ -24632,7 +24632,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Can be set to `true` if `at_period_end` is not set to `true`. Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items. */
           invoice_now?: boolean;
           /** @description Can be set to `true` if `at_period_end` is not set to `true`. Will generate a proration invoice item that credits remaining unused time until the subscription period end. */
@@ -24659,7 +24659,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         customer: string;
@@ -24721,7 +24721,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -24742,7 +24742,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["tax_id"])[];
+            data: components["schemas"]["tax_id"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -24774,7 +24774,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
            * @enum {string}
@@ -24805,7 +24805,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         customer: string;
@@ -24875,7 +24875,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description Only return disputes associated to the PaymentIntent specified by this PaymentIntent ID. */
@@ -24894,7 +24894,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["dispute"])[];
+            data: components["schemas"]["dispute"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -24920,7 +24920,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         dispute: string;
@@ -24994,7 +24994,7 @@ export interface operations {
             uncategorized_text?: string;
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -25034,7 +25034,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -25061,7 +25061,7 @@ export interface operations {
           /** @description The ID of the Customer you'd like to modify using the resulting ephemeral key. */
           customer?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The ID of the Issuing Card you'd like to access using the resulting ephemeral key. */
           issuing_card?: string;
           /** @description The ID of the Identity VerificationSession you'd like to access using the resulting ephemeral key */
@@ -25095,7 +25095,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -25129,7 +25129,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -25137,7 +25137,7 @@ export interface operations {
         /** @description A string containing a specific event name, or group of events using * as a wildcard. The list will be filtered to include only events with a matching event property. */
         type?: string;
         /** @description An array of up to 20 strings containing specific event names. The list will be filtered to include only events with a matching event property. You may pass either `type` or `types`, but not both. */
-        types?: (string)[];
+        types?: string[];
       };
     };
     requestBody?: {
@@ -25150,7 +25150,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["event"])[];
+            data: components["schemas"]["event"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -25176,7 +25176,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         id: string;
@@ -25209,7 +25209,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with the exchange rate for currency X your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and total number of supported payout currencies, and the default is the max. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with the exchange rate for currency X, your subsequent call can include `starting_after=X` in order to fetch the next page of the list. */
@@ -25226,7 +25226,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["exchange_rate"])[];
+            data: components["schemas"]["exchange_rate"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -25252,7 +25252,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         rate_id: string;
@@ -25291,7 +25291,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description Filter links by their expiration status. By default, all links are returned. */
         expired?: boolean;
         /** @description Only return links for the given file. */
@@ -25313,7 +25313,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["file_link"])[];
+            data: components["schemas"]["file_link"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -25340,7 +25340,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * Format: unix-time
            * @description A future timestamp after which the link will no longer be usable.
@@ -25375,7 +25375,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         link: string;
@@ -25412,7 +25412,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description A future timestamp after which the link will no longer be usable, or `now` to expire the link immediately. */
           expires_at?: "now" | number | "";
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -25450,7 +25450,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description The file purpose to filter queries by. If none is provided, files will not be filtered by purpose. */
@@ -25469,7 +25469,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["file"])[];
+            data: components["schemas"]["file"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -25500,7 +25500,7 @@ export interface operations {
       content: {
         "multipart/form-data": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * Format: binary
            * @description A file to upload. The file should follow the specifications of RFC 2388 (which defines file transfers for the `multipart/form-data` protocol).
@@ -25546,7 +25546,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         file: string;
@@ -25584,7 +25584,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description If present, only return accounts that were collected as part of the given session. */
@@ -25604,7 +25604,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["financial_connections.account"])[];
+            data: components["schemas"]["financial_connections.account"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -25630,7 +25630,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         account: string;
@@ -25667,7 +25667,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -25693,7 +25693,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description The ID of the ownership object to fetch owners from. */
@@ -25716,7 +25716,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["financial_connections.account_owner"])[];
+            data: components["schemas"]["financial_connections.account_owner"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -25748,7 +25748,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The list of account features that you would like to refresh. */
           features: ("balance" | "ownership")[];
         };
@@ -25785,13 +25785,13 @@ export interface operations {
             type: "account" | "customer";
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * filters_params
            * @description Filters to restrict the kinds of accounts to collect.
            */
           filters?: {
-            countries: (string)[];
+            countries: string[];
           };
           /**
            * @description List of data features that you would like to request access to.
@@ -25824,7 +25824,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         session: string;
@@ -25863,7 +25863,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -25884,7 +25884,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["identity.verification_report"])[];
+            data: components["schemas"]["identity.verification_report"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -25910,7 +25910,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         report: string;
@@ -25949,7 +25949,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -25968,7 +25968,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["identity.verification_session"])[];
+            data: components["schemas"]["identity.verification_session"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -26003,7 +26003,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -26055,7 +26055,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         session: string;
@@ -26097,7 +26097,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -26152,7 +26152,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -26202,7 +26202,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -26236,7 +26236,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description Only return invoice items belonging to this invoice. If none is provided, all invoice items will be returned. If specifying an invoice, no customer identifier is needed. */
         invoice?: string;
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -26257,7 +26257,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["invoiceitem"])[];
+            data: components["schemas"]["invoiceitem"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -26294,12 +26294,12 @@ export interface operations {
           /** @description Controls whether discounts apply to this invoice item. Defaults to false for prorations or negative invoice items, and true for all other invoice items. */
           discountable?: boolean;
           /** @description The coupons to redeem into discounts for the invoice item or invoice line item. */
-          discounts?: ({
+          discounts?: {
               coupon?: string;
               discount?: string;
-            })[] | "";
+            }[] | "";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The ID of an existing invoice to add this invoice item to. When left blank, the invoice item will be added to the next upcoming scheduled invoice. This is useful when adding invoice items in response to an invoice.created webhook. You can only add invoice items to draft invoices and there is a maximum of 250 items per invoice. */
           invoice?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -26343,7 +26343,7 @@ export interface operations {
           /** @description A [tax code](https://stripe.com/docs/tax/tax-categories) ID. */
           tax_code?: string | "";
           /** @description The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. */
-          tax_rates?: (string)[];
+          tax_rates?: string[];
           /** @description The integer unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount` will reduce the `amount_due` on the invoice. */
           unit_amount?: number;
           /**
@@ -26374,7 +26374,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         invoiceitem: string;
@@ -26417,12 +26417,12 @@ export interface operations {
           /** @description Controls whether discounts apply to this invoice item. Defaults to false for prorations or negative invoice items, and true for all other invoice items. Cannot be set to true for prorations. */
           discountable?: boolean;
           /** @description The coupons & existing discounts which apply to the invoice item or invoice line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts. */
-          discounts?: ({
+          discounts?: {
               coupon?: string;
               discount?: string;
-            })[] | "";
+            }[] | "";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -26462,7 +26462,7 @@ export interface operations {
           /** @description A [tax code](https://stripe.com/docs/tax/tax-categories) ID. */
           tax_code?: string | "";
           /** @description The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. Pass an empty string to remove previously-defined tax rates. */
-          tax_rates?: (string)[] | "";
+          tax_rates?: string[] | "";
           /** @description The integer unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This unit_amount will be multiplied by the quantity to get the full amount. If you want to apply a credit to the customer's account, pass a negative unit_amount. */
           unit_amount?: number;
           /**
@@ -26538,7 +26538,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -26559,7 +26559,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["invoice"])[];
+            data: components["schemas"]["invoice"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -26586,7 +26586,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description The account tax IDs associated with the invoice. Only editable when the invoice is a draft. */
-          account_tax_ids?: (string)[] | "";
+          account_tax_ids?: string[] | "";
           /** @description A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees). */
           application_fee_amount?: number;
           /** @description Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. */
@@ -26606,10 +26606,10 @@ export interface operations {
           /** @description The currency to create this invoice in. Defaults to that of `customer` if not specified. */
           currency?: string;
           /** @description A list of up to 4 custom fields to be displayed on the invoice. */
-          custom_fields?: ({
+          custom_fields?: {
               name: string;
               value: string;
-            })[] | "";
+            }[] | "";
           /** @description The ID of the customer who will be billed. */
           customer?: string;
           /** @description The number of days from when the invoice is created until it is due. Valid only for invoices where `collection_method=send_invoice`. */
@@ -26619,14 +26619,14 @@ export interface operations {
           /** @description ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source. */
           default_source?: string;
           /** @description The tax rates that will apply to any line item that does not have `tax_rates` set. */
-          default_tax_rates?: (string)[];
+          default_tax_rates?: string[];
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard. */
           description?: string;
           /** @description The coupons to redeem into discounts for the invoice. If not specified, inherits the discount from the invoice's customer. Pass an empty string to avoid inheriting any discounts. */
-          discounts?: ({
+          discounts?: {
               coupon?: string;
               discount?: string;
-            })[] | "";
+            }[] | "";
           /**
            * Format: unix-time
            * @description The date on which payment for this invoice is due. Valid only for invoices where `collection_method=send_invoice`.
@@ -26638,7 +26638,7 @@ export interface operations {
            */
           effective_at?: number;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Footer to be displayed on the invoice. */
           footer?: string;
           /**
@@ -26828,7 +26828,7 @@ export interface operations {
     parameters: {
       query: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results. */
@@ -26847,7 +26847,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["invoice"])[];
+            data: components["schemas"]["invoice"][];
             has_more: boolean;
             next_page?: string | null;
             /**
@@ -26925,22 +26925,22 @@ export interface operations {
             })[];
         };
         /** @description The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the customer or subscription. This only works for coupons directly applied to the invoice. To apply a coupon to a subscription, you must use the `coupon` parameter instead. Pass an empty string to avoid inheriting any discounts. To preview the upcoming invoice for a subscription that hasn't been created, use `coupon` instead. */
-        discounts?: ({
+        discounts?: {
             coupon?: string;
             discount?: string;
-          })[] | "";
+          }[] | "";
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description List of invoice items to add or update in the upcoming invoice preview. */
         invoice_items?: ({
             amount?: number;
             currency?: string;
             description?: string;
             discountable?: boolean;
-            discounts?: ({
+            discounts?: {
                 coupon?: string;
                 discount?: string;
-              })[] | "";
+              }[] | "";
             invoiceitem?: string;
             metadata?: ({
               [key: string]: string | undefined;
@@ -26967,7 +26967,7 @@ export interface operations {
             /** @enum {string} */
             tax_behavior?: "exclusive" | "inclusive" | "unspecified";
             tax_code?: string | "";
-            tax_rates?: (string)[] | "";
+            tax_rates?: string[] | "";
             unit_amount?: number;
             /** Format: decimal */
             unit_amount_decimal?: string;
@@ -26985,7 +26985,7 @@ export interface operations {
         /** @description This simulates the subscription being canceled or expired immediately. */
         subscription_cancel_now?: boolean;
         /** @description If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. */
-        subscription_default_tax_rates?: (string)[] | "";
+        subscription_default_tax_rates?: string[] | "";
         /** @description A list of up to 20 subscription items, each with an attached price. */
         subscription_items?: ({
             billing_thresholds?: {
@@ -27015,7 +27015,7 @@ export interface operations {
               unit_amount_decimal?: string;
             };
             quantity?: number;
-            tax_rates?: (string)[] | "";
+            tax_rates?: string[] | "";
           })[];
         /** @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`. */
         subscription_proration_behavior?: "always_invoice" | "create_prorations" | "none";
@@ -27101,24 +27101,24 @@ export interface operations {
             })[];
         };
         /** @description The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the customer or subscription. This only works for coupons directly applied to the invoice. To apply a coupon to a subscription, you must use the `coupon` parameter instead. Pass an empty string to avoid inheriting any discounts. To preview the upcoming invoice for a subscription that hasn't been created, use `coupon` instead. */
-        discounts?: ({
+        discounts?: {
             coupon?: string;
             discount?: string;
-          })[] | "";
+          }[] | "";
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description List of invoice items to add or update in the upcoming invoice preview. */
         invoice_items?: ({
             amount?: number;
             currency?: string;
             description?: string;
             discountable?: boolean;
-            discounts?: ({
+            discounts?: {
                 coupon?: string;
                 discount?: string;
-              })[] | "";
+              }[] | "";
             invoiceitem?: string;
             metadata?: ({
               [key: string]: string | undefined;
@@ -27145,7 +27145,7 @@ export interface operations {
             /** @enum {string} */
             tax_behavior?: "exclusive" | "inclusive" | "unspecified";
             tax_code?: string | "";
-            tax_rates?: (string)[] | "";
+            tax_rates?: string[] | "";
             unit_amount?: number;
             /** Format: decimal */
             unit_amount_decimal?: string;
@@ -27167,7 +27167,7 @@ export interface operations {
         /** @description This simulates the subscription being canceled or expired immediately. */
         subscription_cancel_now?: boolean;
         /** @description If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. */
-        subscription_default_tax_rates?: (string)[] | "";
+        subscription_default_tax_rates?: string[] | "";
         /** @description A list of up to 20 subscription items, each with an attached price. */
         subscription_items?: ({
             billing_thresholds?: {
@@ -27197,7 +27197,7 @@ export interface operations {
               unit_amount_decimal?: string;
             };
             quantity?: number;
-            tax_rates?: (string)[] | "";
+            tax_rates?: string[] | "";
           })[];
         /** @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`. */
         subscription_proration_behavior?: "always_invoice" | "create_prorations" | "none";
@@ -27224,7 +27224,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["line_item"])[];
+            data: components["schemas"]["line_item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -27250,7 +27250,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         invoice: string;
@@ -27294,7 +27294,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description The account tax IDs associated with the invoice. Only editable when the invoice is a draft. */
-          account_tax_ids?: (string)[] | "";
+          account_tax_ids?: string[] | "";
           /** @description A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees). */
           application_fee_amount?: number;
           /** @description Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. */
@@ -27312,10 +27312,10 @@ export interface operations {
            */
           collection_method?: "charge_automatically" | "send_invoice";
           /** @description A list of up to 4 custom fields to be displayed on the invoice. If a value for `custom_fields` is specified, the list specified will replace the existing custom field list on this invoice. Pass an empty string to remove previously-defined fields. */
-          custom_fields?: ({
+          custom_fields?: {
               name: string;
               value: string;
-            })[] | "";
+            }[] | "";
           /** @description The number of days from which the invoice is created until it is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices. */
           days_until_due?: number;
           /** @description ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings. */
@@ -27323,14 +27323,14 @@ export interface operations {
           /** @description ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source. */
           default_source?: string;
           /** @description The tax rates that will apply to any line item that does not have `tax_rates` set. Pass an empty string to remove previously-defined tax rates. */
-          default_tax_rates?: (string)[] | "";
+          default_tax_rates?: string[] | "";
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard. */
           description?: string;
           /** @description The discounts that will apply to the invoice. Pass an empty string to remove previously-defined discounts. */
-          discounts?: ({
+          discounts?: {
               coupon?: string;
               discount?: string;
-            })[] | "";
+            }[] | "";
           /**
            * Format: unix-time
            * @description The date on which payment for this invoice is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices.
@@ -27339,7 +27339,7 @@ export interface operations {
           /** @description The date when this invoice is in effect. Same as `finalized_at` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the invoice PDF and receipt. */
           effective_at?: number | "";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Footer to be displayed on the invoice. */
           footer?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -27534,7 +27534,7 @@ export interface operations {
           /** @description Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. */
           auto_advance?: boolean;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -27560,7 +27560,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -27581,7 +27581,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["line_item"])[];
+            data: components["schemas"]["line_item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -27613,7 +27613,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -27643,7 +27643,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * @description In cases where the source used to pay the invoice has insufficient funds, passing `forgive=true` controls whether a charge should be attempted for the full amount available on the source, up to the amount to fully pay the invoice. This effectively forgives the difference between the amount available on the source and the amount due.
            *
@@ -27693,7 +27693,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -27723,7 +27723,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -27760,7 +27760,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -27779,7 +27779,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["issuing.authorization"])[];
+            data: components["schemas"]["issuing.authorization"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -27805,7 +27805,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         authorization: string;
@@ -27842,7 +27842,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -27881,7 +27881,7 @@ export interface operations {
           /** @description If the authorization's `pending_request.is_amount_controllable` property is `true`, you may provide this value to control how much to hold for the authorization. Must be positive (use [`decline`](https://stripe.com/docs/api/issuing/authorizations/decline) to decline an authorization request). */
           amount?: number;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -27918,7 +27918,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -27957,7 +27957,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description Only return cardholders that have the given phone number. */
@@ -27980,7 +27980,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["issuing.cardholder"])[];
+            data: components["schemas"]["issuing.cardholder"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -28031,7 +28031,7 @@ export interface operations {
           /** @description The cardholder's email address. */
           email?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * individual_param
            * @description Additional information about an `individual` cardholder.
@@ -28125,7 +28125,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         cardholder: string;
@@ -28186,7 +28186,7 @@ export interface operations {
           /** @description The cardholder's email address. */
           email?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * individual_param
            * @description Additional information about an `individual` cardholder.
@@ -28288,7 +28288,7 @@ export interface operations {
         /** @description Only return cards that have the given expiration year. */
         exp_year?: number;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description Only return cards that have the given last four digits. */
         last4?: string;
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -28311,7 +28311,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["issuing.card"])[];
+            data: components["schemas"]["issuing.card"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -28342,7 +28342,7 @@ export interface operations {
           /** @description The currency for the card. */
           currency: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           financial_account?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
@@ -28428,7 +28428,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         card: string;
@@ -28470,7 +28470,7 @@ export interface operations {
            */
           cancellation_reason?: "lost" | "stolen";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -28533,7 +28533,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -28554,7 +28554,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["issuing.dispute"])[];
+            data: components["schemas"]["issuing.dispute"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -28648,7 +28648,7 @@ export interface operations {
             }) | "";
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -28685,7 +28685,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         dispute: string;
@@ -28789,7 +28789,7 @@ export interface operations {
             }) | "";
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -28823,7 +28823,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -28860,7 +28860,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -28877,7 +28877,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["issuing.settlement"])[];
+            data: components["schemas"]["issuing.settlement"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -28903,7 +28903,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         settlement: string;
@@ -28940,7 +28940,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -28981,7 +28981,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -29000,7 +29000,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["issuing.transaction"])[];
+            data: components["schemas"]["issuing.transaction"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -29026,7 +29026,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         transaction: string;
@@ -29063,7 +29063,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -29102,13 +29102,13 @@ export interface operations {
             type: "account" | "customer";
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * filters_params
            * @description Filters to restrict the kinds of accounts to collect.
            */
           filters?: {
-            countries: (string)[];
+            countries: string[];
           };
           /**
            * @description List of data features that you would like to request access to.
@@ -29141,7 +29141,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         session: string;
@@ -29179,7 +29179,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description If present, only return accounts that were collected as part of the given session. */
@@ -29199,7 +29199,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["financial_connections.account"])[];
+            data: components["schemas"]["financial_connections.account"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -29225,7 +29225,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         account: string;
@@ -29262,7 +29262,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -29288,7 +29288,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description The ID of the ownership object to fetch owners from. */
@@ -29311,7 +29311,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["financial_connections.account_owner"])[];
+            data: components["schemas"]["financial_connections.account_owner"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -29343,7 +29343,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The list of account features that you would like to refresh. */
           features: ("balance" | "ownership")[];
         };
@@ -29369,7 +29369,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         mandate: string;
@@ -29411,7 +29411,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -29428,7 +29428,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["payment_intent"])[];
+            data: components["schemas"]["payment_intent"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -29500,7 +29500,7 @@ export interface operations {
           /** @description Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
           error_on_requires_action?: boolean;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description ID of the mandate to be used for this payment. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
           mandate?: string;
           /**
@@ -29773,7 +29773,7 @@ export interface operations {
                 reference: string;
                 /** Format: unix-time */
                 start_date: number;
-                supported_types?: ("india")[];
+                supported_types?: "india"[];
               };
               /** @enum {string} */
               network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
@@ -29929,7 +29929,7 @@ export interface operations {
             } | "";
           };
           /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. If this is not provided, defaults to ["card"]. Use automatic_payment_methods to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). */
-          payment_method_types?: (string)[];
+          payment_method_types?: string[];
           /**
            * radar_options
            * @description Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
@@ -30014,7 +30014,7 @@ export interface operations {
     parameters: {
       query: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results. */
@@ -30033,7 +30033,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["payment_intent"])[];
+            data: components["schemas"]["payment_intent"][];
             has_more: boolean;
             next_page?: string | null;
             /**
@@ -30068,7 +30068,7 @@ export interface operations {
         /** @description The client secret of the PaymentIntent. Required if a publishable key is used to retrieve the source. */
         client_secret?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         intent: string;
@@ -30134,7 +30134,7 @@ export interface operations {
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -30377,7 +30377,7 @@ export interface operations {
                 reference: string;
                 /** Format: unix-time */
                 start_date: number;
-                supported_types?: ("india")[];
+                supported_types?: "india"[];
               };
               /** @enum {string} */
               network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
@@ -30533,7 +30533,7 @@ export interface operations {
             } | "";
           };
           /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. Use automatic_payment_methods to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). */
-          payment_method_types?: (string)[];
+          payment_method_types?: string[];
           /** @description Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
           receipt_email?: string | "";
           /**
@@ -30617,7 +30617,7 @@ export interface operations {
           /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -30658,7 +30658,7 @@ export interface operations {
            */
           cancellation_reason?: "abandoned" | "duplicate" | "fraudulent" | "requested_by_customer";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -30698,7 +30698,7 @@ export interface operations {
           /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
           application_fee_amount?: number;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -30777,7 +30777,7 @@ export interface operations {
           /** @description Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). */
           error_on_requires_action?: boolean;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description ID of the mandate to be used for this payment. */
           mandate?: string;
           /** @description This hash contains details about the Mandate to create */
@@ -31048,7 +31048,7 @@ export interface operations {
                 reference: string;
                 /** Format: unix-time */
                 start_date: number;
-                supported_types?: ("india")[];
+                supported_types?: "india"[];
               };
               /** @enum {string} */
               network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
@@ -31204,7 +31204,7 @@ export interface operations {
             } | "";
           };
           /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. Use automatic_payment_methods to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). */
-          payment_method_types?: (string)[];
+          payment_method_types?: string[];
           /**
            * radar_options
            * @description Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
@@ -31309,7 +31309,7 @@ export interface operations {
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -31353,13 +31353,13 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account. */
-          amounts?: (number)[];
+          amounts?: number[];
           /** @description The client secret of the PaymentIntent. */
           client_secret?: string;
           /** @description A six-character code starting with SM present in the microdeposit sent to the bank account. */
           descriptor_code?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -31387,7 +31387,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -31404,7 +31404,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["payment_link"])[];
+            data: components["schemas"]["payment_link"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -31480,10 +31480,10 @@ export interface operations {
           custom_fields?: ({
               /** custom_field_dropdown_param */
               dropdown?: {
-                options: ({
+                options: {
                     label: string;
                     value: string;
-                  })[];
+                  }[];
               };
               key: string;
               /** custom_field_label_param */
@@ -31524,7 +31524,7 @@ export interface operations {
            */
           customer_creation?: "always" | "if_required";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * invoice_creation_create_params
            * @description Generate a post-purchase Invoice for one-time payments.
@@ -31533,11 +31533,11 @@ export interface operations {
             enabled: boolean;
             /** invoice_settings_params */
             invoice_data?: {
-              account_tax_ids?: (string)[] | "";
-              custom_fields?: ({
+              account_tax_ids?: string[] | "";
+              custom_fields?: {
                   name: string;
                   value: string;
-                })[] | "";
+                }[] | "";
               description?: string;
               footer?: string;
               metadata?: ({
@@ -31550,7 +31550,7 @@ export interface operations {
             };
           };
           /** @description The line items representing what is being sold. Each line item represents an item being sold. Up to 20 line items are supported. */
-          line_items: ({
+          line_items: {
               /** adjustable_quantity_params */
               adjustable_quantity?: {
                 enabled: boolean;
@@ -31559,7 +31559,7 @@ export interface operations {
               };
               price: string;
               quantity: number;
-            })[];
+            }[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link. */
           metadata?: {
             [key: string]: string | undefined;
@@ -31604,9 +31604,9 @@ export interface operations {
             allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
           };
           /** @description The shipping rate options to apply to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link. */
-          shipping_options?: ({
+          shipping_options?: {
               shipping_rate?: string;
-            })[];
+            }[];
           /**
            * @description Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
            * @enum {string}
@@ -31658,7 +31658,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         payment_link: string;
@@ -31730,10 +31730,10 @@ export interface operations {
           custom_fields?: (({
               /** custom_field_dropdown_param */
               dropdown?: {
-                options: ({
+                options: {
                     label: string;
                     value: string;
-                  })[];
+                  }[];
               };
               key: string;
               /** custom_field_label_param */
@@ -31774,7 +31774,7 @@ export interface operations {
            */
           customer_creation?: "always" | "if_required";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * invoice_creation_update_params
            * @description Generate a post-purchase Invoice for one-time payments.
@@ -31783,11 +31783,11 @@ export interface operations {
             enabled: boolean;
             /** invoice_settings_params */
             invoice_data?: {
-              account_tax_ids?: (string)[] | "";
-              custom_fields?: ({
+              account_tax_ids?: string[] | "";
+              custom_fields?: {
                   name: string;
                   value: string;
-                })[] | "";
+                }[] | "";
               description?: string;
               footer?: string;
               metadata?: ({
@@ -31800,7 +31800,7 @@ export interface operations {
             };
           };
           /** @description The line items representing what is being sold. Each line item represents an item being sold. Up to 20 line items are supported. */
-          line_items?: ({
+          line_items?: {
               /** adjustable_quantity_params */
               adjustable_quantity?: {
                 enabled: boolean;
@@ -31809,7 +31809,7 @@ export interface operations {
               };
               id: string;
               quantity?: number;
-            })[];
+            }[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link. */
           metadata?: {
             [key: string]: string | undefined;
@@ -31854,7 +31854,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -31875,7 +31875,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["item"])[];
+            data: components["schemas"]["item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -31905,7 +31905,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -31924,7 +31924,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["payment_method"])[];
+            data: components["schemas"]["payment_method"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -32058,7 +32058,7 @@ export interface operations {
             bank?: "arzte_und_apotheker_bank" | "austrian_anadi_bank_ag" | "bank_austria" | "bankhaus_carl_spangler" | "bankhaus_schelhammer_und_schattera_ag" | "bawag_psk_ag" | "bks_bank_ag" | "brull_kallmus_bank_ag" | "btv_vier_lander_bank" | "capital_bank_grawe_gruppe_ag" | "deutsche_bank_ag" | "dolomitenbank" | "easybank_ag" | "erste_bank_und_sparkassen" | "hypo_alpeadriabank_international_ag" | "hypo_bank_burgenland_aktiengesellschaft" | "hypo_noe_lb_fur_niederosterreich_u_wien" | "hypo_oberosterreich_salzburg_steiermark" | "hypo_tirol_bank_ag" | "hypo_vorarlberg_bank_ag" | "marchfelder_bank" | "oberbank_ag" | "raiffeisen_bankengruppe_osterreich" | "schoellerbank_ag" | "sparda_bank_wien" | "volksbank_gruppe" | "volkskreditbank_ag" | "vr_bank_braunau";
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * param
            * @description If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
@@ -32224,7 +32224,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         payment_method: string;
@@ -32286,7 +32286,7 @@ export interface operations {
             exp_year?: number;
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * param
            * @description If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
@@ -32349,7 +32349,7 @@ export interface operations {
           /** @description The ID of the customer to which to attach the PaymentMethod. */
           customer: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -32379,7 +32379,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -32419,7 +32419,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -32438,7 +32438,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["payout"])[];
+            data: components["schemas"]["payout"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -32479,7 +32479,7 @@ export interface operations {
           /** @description The ID of a bank account or a card to send the payout to. If no destination is supplied, the default external account for the specified currency will be used. */
           destination?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -32519,7 +32519,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         payout: string;
@@ -32556,7 +32556,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -32590,7 +32590,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -32624,7 +32624,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -32663,7 +32663,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description Only return plans for the given product. */
@@ -32683,7 +32683,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["plan"])[];
+            data: components["schemas"]["plan"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -32731,7 +32731,7 @@ export interface operations {
           /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description An identifier randomly generated by Stripe. Used to identify this plan when subscribing a customer. You can optionally override this ID, but the ID must be unique across all plans in your Stripe account. You can, however, use the same plan ID in both live and test modes. */
           id?: string;
           /**
@@ -32812,7 +32812,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         plan: string;
@@ -32851,7 +32851,7 @@ export interface operations {
           /** @description Whether the plan is currently available for new subscriptions. */
           active?: boolean;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -32925,11 +32925,11 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description Only return the price with these lookup_keys, if any exist. */
-        lookup_keys?: (string)[];
+        lookup_keys?: string[];
         /** @description Only return prices for the given product. */
         product?: string;
         /** @description Only return prices with these recurring fields. */
@@ -32956,7 +32956,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["price"])[];
+            data: components["schemas"]["price"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -33028,7 +33028,7 @@ export interface operations {
             preset?: number;
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description A lookup key used to retrieve prices dynamically from a static string. This may be up to 200 characters. */
           lookup_key?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -33133,7 +33133,7 @@ export interface operations {
     parameters: {
       query: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results. */
@@ -33152,7 +33152,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["price"])[];
+            data: components["schemas"]["price"][];
             has_more: boolean;
             next_page?: string | null;
             /**
@@ -33179,7 +33179,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         price: string;
@@ -33244,7 +33244,7 @@ export interface operations {
             }) | undefined;
           }) | "";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description A lookup key used to retrieve prices dynamically from a static string. This may be up to 200 characters. */
           lookup_key?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -33294,9 +33294,9 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description Only return products with the given IDs. Cannot be used with [starting_after](https://stripe.com/docs/api#list_products-starting_after) or [ending_before](https://stripe.com/docs/api#list_products-ending_before). */
-        ids?: (string)[];
+        ids?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description Only return products that can be shipped (i.e., physical, not digital products). */
@@ -33318,7 +33318,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["product"])[];
+            data: components["schemas"]["product"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -33392,11 +33392,11 @@ export interface operations {
           /** @description The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description An identifier will be randomly generated by Stripe. You can optionally override this ID, but the ID must be unique across all products in your Stripe account. */
           id?: string;
           /** @description A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
-          images?: (string)[];
+          images?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -33456,7 +33456,7 @@ export interface operations {
     parameters: {
       query: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results. */
@@ -33475,7 +33475,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["product"])[];
+            data: components["schemas"]["product"][];
             has_more: boolean;
             next_page?: string | null;
             /**
@@ -33502,7 +33502,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         id: string;
@@ -33545,9 +33545,9 @@ export interface operations {
           /** @description The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
-          images?: (string)[] | "";
+          images?: string[] | "";
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -33643,7 +33643,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -33660,7 +33660,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["promotion_code"])[];
+            data: components["schemas"]["promotion_code"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -33695,7 +33695,7 @@ export interface operations {
           /** @description The customer that this promotion code can be used by. If not set, the promotion code can be used by all customers. */
           customer?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * Format: unix-time
            * @description The timestamp at which this promotion code will expire. If the coupon has specified a `redeems_by`, then this value cannot be after the coupon's `redeems_by`.
@@ -33744,7 +33744,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         promotion_code: string;
@@ -33783,7 +33783,7 @@ export interface operations {
           /** @description Whether the promotion code is currently active. A promotion code can only be reactivated when the coupon is still valid and the promotion code is otherwise redeemable. */
           active?: boolean;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -33826,7 +33826,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -33847,7 +33847,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["quote"])[];
+            data: components["schemas"]["quote"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -33892,16 +33892,16 @@ export interface operations {
           /** @description The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed. */
           customer?: string;
           /** @description The tax rates that will apply to any line item that does not have `tax_rates` set. */
-          default_tax_rates?: (string)[] | "";
+          default_tax_rates?: string[] | "";
           /** @description A description that will be displayed on the quote PDF. If no value is passed, the default description configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used. */
           description?: string;
           /** @description The discounts applied to the quote. You can only set up to one discount. */
-          discounts?: ({
+          discounts?: {
               coupon?: string;
               discount?: string;
-            })[] | "";
+            }[] | "";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * Format: unix-time
            * @description A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch. If no value is passed, the default expiration date configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used.
@@ -33946,7 +33946,7 @@ export interface operations {
                 unit_amount_decimal?: string;
               };
               quantity?: number;
-              tax_rates?: (string)[] | "";
+              tax_rates?: string[] | "";
             })[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
@@ -33994,7 +33994,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         quote: string;
@@ -34049,16 +34049,16 @@ export interface operations {
           /** @description The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed. */
           customer?: string;
           /** @description The tax rates that will apply to any line item that does not have `tax_rates` set. */
-          default_tax_rates?: (string)[] | "";
+          default_tax_rates?: string[] | "";
           /** @description A description that will be displayed on the quote PDF. */
           description?: string;
           /** @description The discounts applied to the quote. You can only set up to one discount. */
-          discounts?: ({
+          discounts?: {
               coupon?: string;
               discount?: string;
-            })[] | "";
+            }[] | "";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * Format: unix-time
            * @description A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.
@@ -34096,7 +34096,7 @@ export interface operations {
                 unit_amount_decimal?: string;
               };
               quantity?: number;
-              tax_rates?: (string)[] | "";
+              tax_rates?: string[] | "";
             })[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
@@ -34148,7 +34148,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -34178,7 +34178,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -34204,7 +34204,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -34225,7 +34225,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["item"])[];
+            data: components["schemas"]["item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -34257,7 +34257,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * Format: unix-time
            * @description A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.
@@ -34288,7 +34288,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -34309,7 +34309,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["item"])[];
+            data: components["schemas"]["item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -34335,7 +34335,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         quote: string;
@@ -34370,7 +34370,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description Only return early fraud warnings for charges that were created by the PaymentIntent specified by this PaymentIntent ID. */
@@ -34389,7 +34389,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["radar.early_fraud_warning"])[];
+            data: components["schemas"]["radar.early_fraud_warning"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -34419,7 +34419,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         early_fraud_warning: string;
@@ -34458,7 +34458,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -34479,7 +34479,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["radar.value_list_item"])[];
+            data: components["schemas"]["radar.value_list_item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -34506,7 +34506,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The value of the item (whose type must match the type of the parent value list). */
           value: string;
           /** @description The identifier of the value list which the created item will be added to. */
@@ -34534,7 +34534,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         item: string;
@@ -34604,7 +34604,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -34621,7 +34621,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["radar.value_list"])[];
+            data: components["schemas"]["radar.value_list"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -34650,7 +34650,7 @@ export interface operations {
           /** @description The name of the value list for use in rules. */
           alias: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * @description Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, or `customer_id`. Use `string` if the item type is unknown or mixed.
            * @enum {string}
@@ -34685,7 +34685,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         value_list: string;
@@ -34724,7 +34724,7 @@ export interface operations {
           /** @description The name of the value list for use in rules. */
           alias?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -34791,7 +34791,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description Only return refunds for the PaymentIntent specified by this ID. */
@@ -34810,7 +34810,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["refund"])[];
+            data: components["schemas"]["refund"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -34844,7 +34844,7 @@ export interface operations {
           /** @description Customer whose customer balance to refund from. */
           customer?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description For payment methods without native refund support (e.g., Konbini, PromptPay), use this email from the customer to receive refund instructions. */
           instructions_email?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -34884,7 +34884,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         refund: string;
@@ -34925,7 +34925,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -34963,7 +34963,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -34995,7 +34995,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -35012,7 +35012,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["reporting.report_run"])[];
+            data: components["schemas"]["reporting.report_run"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -35039,13 +35039,13 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * run_parameter_specs
            * @description Parameters specifying how the report should be run. Different Report Types have different required and optional parameters, listed in the [API Access to Reports](https://stripe.com/docs/reporting/statements/api) documentation.
            */
           parameters?: {
-            columns?: (string)[];
+            columns?: string[];
             connected_account?: string;
             currency?: string;
             /** Format: unix-time */
@@ -35083,7 +35083,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         report_run: string;
@@ -35114,7 +35114,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
     };
     requestBody?: {
@@ -35127,7 +35127,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["reporting.report_type"])[];
+            data: components["schemas"]["reporting.report_type"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -35153,7 +35153,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         report_type: string;
@@ -35192,7 +35192,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -35209,7 +35209,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["review"])[];
+            data: components["schemas"]["review"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -35235,7 +35235,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         review: string;
@@ -35272,7 +35272,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -35309,7 +35309,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /**
@@ -35331,7 +35331,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["setup_attempt"])[];
+            data: components["schemas"]["setup_attempt"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -35374,7 +35374,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description Only return SetupIntents associated with the specified payment method. */
@@ -35393,7 +35393,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["setup_intent"])[];
+            data: components["schemas"]["setup_intent"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -35448,7 +35448,7 @@ export interface operations {
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * @description Indicates the directions of money movement for which this payment method is intended to be used.
            *
@@ -35675,7 +35675,7 @@ export interface operations {
                 reference: string;
                 /** Format: unix-time */
                 start_date: number;
-                supported_types?: ("india")[];
+                supported_types?: "india"[];
               };
               /** @enum {string} */
               network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
@@ -35711,7 +35711,7 @@ export interface operations {
             };
           };
           /** @description The list of payment method types (e.g. card) that this SetupIntent is allowed to use. If this is not provided, defaults to ["card"]. */
-          payment_method_types?: (string)[];
+          payment_method_types?: string[];
           /** @description The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm). */
           return_url?: string;
           /**
@@ -35758,7 +35758,7 @@ export interface operations {
         /** @description The client secret of the SetupIntent. Required if a publishable key is used to retrieve the SetupIntent. */
         client_secret?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         intent: string;
@@ -35809,7 +35809,7 @@ export interface operations {
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * @description Indicates the directions of money movement for which this payment method is intended to be used.
            *
@@ -36014,7 +36014,7 @@ export interface operations {
                 reference: string;
                 /** Format: unix-time */
                 start_date: number;
-                supported_types?: ("india")[];
+                supported_types?: "india"[];
               };
               /** @enum {string} */
               network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
@@ -36050,7 +36050,7 @@ export interface operations {
             };
           };
           /** @description The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. If this is not provided, defaults to ["card"]. */
-          payment_method_types?: (string)[];
+          payment_method_types?: string[];
         };
       };
     };
@@ -36089,7 +36089,7 @@ export interface operations {
            */
           cancellation_reason?: "abandoned" | "duplicate" | "requested_by_customer";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -36136,7 +36136,7 @@ export interface operations {
           /** @description The client secret of the SetupIntent. */
           client_secret?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description This hash contains details about the Mandate to create */
           mandate_data?: ({
             /** customer_acceptance_param */
@@ -36359,7 +36359,7 @@ export interface operations {
                 reference: string;
                 /** Format: unix-time */
                 start_date: number;
-                supported_types?: ("india")[];
+                supported_types?: "india"[];
               };
               /** @enum {string} */
               network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
@@ -36429,13 +36429,13 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account. */
-          amounts?: (number)[];
+          amounts?: number[];
           /** @description The client secret of the SetupIntent. */
           client_secret?: string;
           /** @description A six-character code starting with SM present in the microdeposit sent to the bank account. */
           descriptor_code?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -36472,7 +36472,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -36489,7 +36489,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["shipping_rate"])[];
+            data: components["schemas"]["shipping_rate"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -36536,7 +36536,7 @@ export interface operations {
           /** @description The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions. */
           display_name: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * fixed_amount
            * @description Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
@@ -36591,7 +36591,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         shipping_rate_token: string;
@@ -36630,7 +36630,7 @@ export interface operations {
           /** @description Whether the shipping rate can be used for new purchases. Defaults to `true`. */
           active?: boolean;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * fixed_amount_update
            * @description Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
@@ -36678,7 +36678,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -36695,7 +36695,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["scheduled_query_run"])[];
+            data: components["schemas"]["scheduled_query_run"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -36721,7 +36721,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         scheduled_query_run: string;
@@ -36759,7 +36759,7 @@ export interface operations {
           /** @description The `Customer` to whom the original source is attached to. Must be set when the original source is not a `Source` (e.g., `Card`). */
           customer?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * @description The authentication `flow` of the source to create. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`. It is generally inferred unless a type supports multiple flows.
            * @enum {string}
@@ -36901,7 +36901,7 @@ export interface operations {
         /** @description The client secret of the source. Required if a publishable key is used to retrieve the source. */
         client_secret?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         source: string;
@@ -36944,7 +36944,7 @@ export interface operations {
           /** @description Amount associated with the source. */
           amount?: number;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * mandate_params
            * @description Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
@@ -37055,7 +37055,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         mandate_notification: string;
@@ -37089,7 +37089,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -37109,7 +37109,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["source_transaction"])[];
+            data: components["schemas"]["source_transaction"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -37135,7 +37135,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         source: string;
@@ -37173,9 +37173,9 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The values needed to verify the source. */
-          values: (string)[];
+          values: string[];
         };
       };
     };
@@ -37201,7 +37201,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -37220,7 +37220,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["subscription_item"])[];
+            data: components["schemas"]["subscription_item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -37251,7 +37251,7 @@ export interface operations {
             usage_gte: number;
           } | "";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -37303,7 +37303,7 @@ export interface operations {
           /** @description The identifier of the subscription to modify. */
           subscription: string;
           /** @description A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates. */
-          tax_rates?: (string)[] | "";
+          tax_rates?: string[] | "";
         };
       };
     };
@@ -37327,7 +37327,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         item: string;
@@ -37368,7 +37368,7 @@ export interface operations {
             usage_gte: number;
           } | "";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -37420,7 +37420,7 @@ export interface operations {
           /** @description The quantity you'd like to apply to the subscription item you're creating. */
           quantity?: number;
           /** @description A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates. */
-          tax_rates?: (string)[] | "";
+          tax_rates?: string[] | "";
         };
       };
     };
@@ -37490,7 +37490,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -37510,7 +37510,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["usage_record_summary"])[];
+            data: components["schemas"]["usage_record_summary"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -37555,7 +37555,7 @@ export interface operations {
            */
           action?: "increment" | "set";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The usage quantity for the specified timestamp. */
           quantity: number;
           /** @description The timestamp for the usage event. This timestamp must be within the current billing period of the subscription of the provided `subscription_item`, and must not be in the future. When passing `"now"`, Stripe records usage for the current time. Default is `"now"` if a value is not provided. */
@@ -37608,7 +37608,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description Only return subscription schedules that were released during the given date interval. */
@@ -37634,7 +37634,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["subscription_schedule"])[];
+            data: components["schemas"]["subscription_schedule"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -37698,7 +37698,7 @@ export interface operations {
            */
           end_behavior?: "cancel" | "none" | "release" | "renew";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Migrate an existing subscription to be managed by a subscription schedule. If this parameter is set, a subscription schedule will be created using the subscription's item(s), set to auto-renew using the subscription's interval. When using this parameter, other parameters (such as phase values) cannot be set. To create a subscription schedule with other modifications, we recommend making two separate API calls. */
           from_subscription?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -37720,7 +37720,7 @@ export interface operations {
                     unit_amount_decimal?: string;
                   };
                   quantity?: number;
-                  tax_rates?: (string)[] | "";
+                  tax_rates?: string[] | "";
                 })[];
               application_fee_percent?: number;
               /** automatic_tax_config */
@@ -37738,7 +37738,7 @@ export interface operations {
               coupon?: string;
               currency?: string;
               default_payment_method?: string;
-              default_tax_rates?: (string)[] | "";
+              default_tax_rates?: string[] | "";
               description?: string;
               /** Format: unix-time */
               end_date?: number;
@@ -37771,7 +37771,7 @@ export interface operations {
                     unit_amount_decimal?: string;
                   };
                   quantity?: number;
-                  tax_rates?: (string)[] | "";
+                  tax_rates?: string[] | "";
                 })[];
               iterations?: number;
               metadata?: {
@@ -37814,7 +37814,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         schedule: string;
@@ -37886,7 +37886,7 @@ export interface operations {
            */
           end_behavior?: "cancel" | "none" | "release" | "renew";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -37906,7 +37906,7 @@ export interface operations {
                     unit_amount_decimal?: string;
                   };
                   quantity?: number;
-                  tax_rates?: (string)[] | "";
+                  tax_rates?: string[] | "";
                 })[];
               application_fee_percent?: number;
               /** automatic_tax_config */
@@ -37923,7 +37923,7 @@ export interface operations {
               collection_method?: "charge_automatically" | "send_invoice";
               coupon?: string;
               default_payment_method?: string;
-              default_tax_rates?: (string)[] | "";
+              default_tax_rates?: string[] | "";
               description?: string;
               end_date?: number | "now";
               /** invoice_settings */
@@ -37955,7 +37955,7 @@ export interface operations {
                     unit_amount_decimal?: string;
                   };
                   quantity?: number;
-                  tax_rates?: (string)[] | "";
+                  tax_rates?: string[] | "";
                 })[];
               iterations?: number;
               metadata?: {
@@ -38007,7 +38007,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description If the subscription schedule is `active`, indicates if a final invoice will be generated that contains any un-invoiced metered usage and new/pending proration invoice items. Defaults to `true`. */
           invoice_now?: boolean;
           /** @description If the subscription schedule is `active`, indicates if the cancellation should be prorated. Defaults to `true`. */
@@ -38041,7 +38041,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Keep any cancellation on the subscription that the schedule has set */
           preserve_cancel_date?: boolean;
         };
@@ -38095,7 +38095,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description Filter for subscriptions that contain this recurring price ID. */
@@ -38118,7 +38118,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["subscription"])[];
+            data: components["schemas"]["subscription"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -38166,7 +38166,7 @@ export interface operations {
                 unit_amount_decimal?: string;
               };
               quantity?: number;
-              tax_rates?: (string)[] | "";
+              tax_rates?: string[] | "";
             })[];
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number;
@@ -38217,11 +38217,11 @@ export interface operations {
           /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
           default_source?: string;
           /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. */
-          default_tax_rates?: (string)[] | "";
+          default_tax_rates?: string[] | "";
           /** @description The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description A list of up to 20 subscription items, each with an attached price. */
           items?: ({
               billing_thresholds?: {
@@ -38248,7 +38248,7 @@ export interface operations {
                 unit_amount_decimal?: string;
               };
               quantity?: number;
-              tax_rates?: (string)[] | "";
+              tax_rates?: string[] | "";
             })[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
@@ -38397,7 +38397,7 @@ export interface operations {
     parameters: {
       query: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results. */
@@ -38416,7 +38416,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["subscription"])[];
+            data: components["schemas"]["subscription"][];
             has_more: boolean;
             next_page?: string | null;
             /**
@@ -38443,7 +38443,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         subscription_exposed_id: string;
@@ -38493,7 +38493,7 @@ export interface operations {
                 unit_amount_decimal?: string;
               };
               quantity?: number;
-              tax_rates?: (string)[] | "";
+              tax_rates?: string[] | "";
             })[];
           /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number;
@@ -38541,11 +38541,11 @@ export interface operations {
           /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
           default_source?: string;
           /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. Pass an empty string to remove previously-defined tax rates. */
-          default_tax_rates?: (string)[] | "";
+          default_tax_rates?: string[] | "";
           /** @description The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description A list of up to 20 subscription items, each with an attached price. */
           items?: ({
               billing_thresholds?: {
@@ -38575,7 +38575,7 @@ export interface operations {
                 unit_amount_decimal?: string;
               };
               quantity?: number;
-              tax_rates?: (string)[] | "";
+              tax_rates?: string[] | "";
             })[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
@@ -38743,7 +38743,7 @@ export interface operations {
             feedback?: "" | "customer_service" | "low_quality" | "missing_features" | "other" | "switched_service" | "too_complex" | "too_expensive" | "unused";
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items. */
           invoice_now?: boolean;
           /** @description Will generate a proration invoice item that credits remaining unused time until the subscription period end. */
@@ -38809,7 +38809,7 @@ export interface operations {
            */
           billing_cycle_anchor?: "now" | "unchanged";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * @description Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
            * @enum {string}
@@ -38873,7 +38873,7 @@ export interface operations {
             taxability_override?: "customer_exempt" | "none" | "reverse_charge";
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description A list of items the customer is purchasing. */
           line_items: ({
               amount: number;
@@ -38922,7 +38922,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -38943,7 +38943,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["tax.calculation_line_item"])[];
+            data: components["schemas"]["tax.calculation_line_item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -38972,7 +38972,7 @@ export interface operations {
           /** @description Tax Calculation ID to be used as input when creating the transaction. */
           calculation: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -39003,7 +39003,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The line item amounts to reverse. */
           line_items?: ({
               amount: number;
@@ -39059,7 +39059,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         transaction: string;
@@ -39092,7 +39092,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -39113,7 +39113,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["tax.transaction_line_item"])[];
+            data: components["schemas"]["tax.transaction_line_item"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -39141,7 +39141,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -39158,7 +39158,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["tax_code"])[];
+            data: components["schemas"]["tax_code"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -39184,7 +39184,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         id: string;
@@ -39226,7 +39226,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description Optional flag to filter by tax rates that are inclusive (or those that are not inclusive). */
         inclusive?: boolean;
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -39245,7 +39245,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["tax_rate"])[];
+            data: components["schemas"]["tax_rate"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -39280,7 +39280,7 @@ export interface operations {
           /** @description The display name of the tax rate, which will be shown to users. */
           display_name: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description This specifies if the tax rate is inclusive or exclusive. */
           inclusive: boolean;
           /** @description The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer’s invoice. */
@@ -39321,7 +39321,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         tax_rate: string;
@@ -39366,7 +39366,7 @@ export interface operations {
           /** @description The display name of the tax rate, which will be shown to users. */
           display_name?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer’s invoice. */
           jurisdiction?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -39405,7 +39405,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description if present, only return the account default or non-default configurations. */
         is_account_default?: boolean;
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -39424,7 +39424,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["terminal.configuration"])[];
+            data: components["schemas"]["terminal.configuration"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -39458,91 +39458,91 @@ export interface operations {
             splashscreen?: string | "";
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Tipping configurations for readers supporting on-reader tips */
           tipping?: {
             /** currency_specific_config */
             aud?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             cad?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             chf?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             czk?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             dkk?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             eur?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             gbp?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             hkd?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             myr?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             nok?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             nzd?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             sek?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             sgd?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             usd?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
           } | "";
@@ -39576,7 +39576,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         configuration: string;
@@ -39617,91 +39617,91 @@ export interface operations {
             splashscreen?: string | "";
           }) | "";
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Tipping configurations for readers supporting on-reader tips */
           tipping?: {
             /** currency_specific_config */
             aud?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             cad?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             chf?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             czk?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             dkk?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             eur?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             gbp?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             hkd?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             myr?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             nok?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             nzd?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             sek?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             sgd?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
             /** currency_specific_config */
             usd?: {
-              fixed_amounts?: (number)[];
-              percentages?: (number)[];
+              fixed_amounts?: number[];
+              percentages?: number[];
               smart_tip_threshold?: number;
             };
           } | "";
@@ -39760,7 +39760,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The id of the location that this connection token is scoped to. If specified the connection token will only be usable with readers assigned to that location, otherwise the connection token will be usable with all readers. Note that location scoping only applies to internet-connected readers. For more details, see [the docs on scoping connection tokens](https://stripe.com/docs/terminal/fleet/locations#connection-tokens). */
           location?: string;
         };
@@ -39788,7 +39788,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -39805,7 +39805,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["terminal.location"])[];
+            data: components["schemas"]["terminal.location"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -39851,7 +39851,7 @@ export interface operations {
           /** @description A name for the location. */
           display_name: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -39879,7 +39879,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         location: string;
@@ -39932,7 +39932,7 @@ export interface operations {
           /** @description A name for the location. */
           display_name?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -39991,7 +39991,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A location ID to filter the response list to only readers at the specific location */
@@ -40013,7 +40013,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description A list of readers */
-            data: (components["schemas"]["terminal.reader"])[];
+            data: components["schemas"]["terminal.reader"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -40040,7 +40040,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Custom label given to the reader for easier identification. If no label is specified, the registration code will be used. */
           label?: string;
           /** @description The location to assign the reader to. */
@@ -40074,7 +40074,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         reader: string;
@@ -40111,7 +40111,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The new label of the reader. */
           label?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -40174,7 +40174,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -40204,7 +40204,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description PaymentIntent ID */
           payment_intent: string;
           /**
@@ -40249,7 +40249,7 @@ export interface operations {
           /** @description Customer Consent Collected */
           customer_consent_collected: boolean;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description SetupIntent ID */
           setup_intent: string;
         };
@@ -40285,7 +40285,7 @@ export interface operations {
           /** @description ID of the Charge to refund. */
           charge?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -40330,16 +40330,16 @@ export interface operations {
            */
           cart?: {
             currency: string;
-            line_items: ({
+            line_items: {
                 amount: number;
                 description: string;
                 quantity: number;
-              })[];
+              }[];
             tax?: number;
             total: number;
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * @description Type
            * @enum {string}
@@ -40378,7 +40378,7 @@ export interface operations {
           /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description A description of the test funding. This simulates free-text references supplied by customers when making bank transfers to their cash balance. You can use this to test how Stripe's [reconciliation algorithm](https://stripe.com/docs/payments/customer-balance/reconciliation) applies to different user inputs. */
           reference?: string;
         };
@@ -40410,7 +40410,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -40440,7 +40440,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -40470,7 +40470,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -40500,7 +40500,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -40530,7 +40530,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -40569,7 +40569,7 @@ export interface operations {
             number?: string;
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * interac_present
            * @description Simulated data for the interac_present payment method.
@@ -40607,7 +40607,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -40624,7 +40624,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["test_helpers.test_clock"])[];
+            data: components["schemas"]["test_helpers.test_clock"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -40651,7 +40651,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * Format: unix-time
            * @description The initial frozen time for this test clock.
@@ -40682,7 +40682,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         test_clock: string;
@@ -40746,7 +40746,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * Format: unix-time
            * @description The time to advance the test clock. Must be after the test clock's current frozen time. Cannot be more than two intervals in the future from the shortest subscription in this test clock. If there are no subscriptions in this test clock, it cannot be more than two years in the future.
@@ -40781,7 +40781,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * failure_details_params
            * @description Details about a failed InboundTransfer.
@@ -40819,7 +40819,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -40849,7 +40849,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -40879,7 +40879,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -40909,7 +40909,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -40939,7 +40939,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * returned_details_params
            * @description Optional hash to set the the return code.
@@ -40977,7 +40977,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -41007,7 +41007,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -41037,7 +41037,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * returned_details_params
            * @description Details about a returned OutboundTransfer.
@@ -41076,7 +41076,7 @@ export interface operations {
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The FinancialAccount to send funds to. */
           financial_account: string;
           /**
@@ -41128,7 +41128,7 @@ export interface operations {
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The FinancialAccount to pull funds from. */
           financial_account: string;
           /**
@@ -41286,7 +41286,7 @@ export interface operations {
               first_name?: string;
               first_name_kana?: string;
               first_name_kanji?: string;
-              full_name_aliases?: (string)[] | "";
+              full_name_aliases?: string[] | "";
               gender?: string;
               id_number?: string;
               id_number_secondary?: string;
@@ -41365,7 +41365,7 @@ export interface operations {
             cvc: string;
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * person_token_specs
            * @description Information for the person this token will represent.
@@ -41409,22 +41409,22 @@ export interface operations {
             documents?: {
               /** documents_param */
               company_authorization?: {
-                files?: (string)[];
+                files?: string[];
               };
               /** documents_param */
               passport?: {
-                files?: (string)[];
+                files?: string[];
               };
               /** documents_param */
               visa?: {
-                files?: (string)[];
+                files?: string[];
               };
             };
             email?: string;
             first_name?: string;
             first_name_kana?: string;
             first_name_kanji?: string;
-            full_name_aliases?: (string)[] | "";
+            full_name_aliases?: string[] | "";
             gender?: string;
             id_number?: string;
             id_number_secondary?: string;
@@ -41501,7 +41501,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         token: string;
@@ -41548,7 +41548,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -41567,7 +41567,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["topup"])[];
+            data: components["schemas"]["topup"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -41600,7 +41600,7 @@ export interface operations {
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -41634,7 +41634,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         topup: string;
@@ -41673,7 +41673,7 @@ export interface operations {
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -41707,7 +41707,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -41741,7 +41741,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -41761,7 +41761,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["transfer"])[];
+            data: components["schemas"]["transfer"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -41796,7 +41796,7 @@ export interface operations {
           /** @description The ID of a connected Stripe account. <a href="/docs/connect/separate-charges-and-transfers">See the Connect documentation</a> for details. */
           destination: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -41835,7 +41835,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -41856,7 +41856,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["transfer_reversal"])[];
+            data: components["schemas"]["transfer_reversal"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -41898,7 +41898,7 @@ export interface operations {
           /** @description An arbitrary string which you can attach to a reversal object. It is displayed alongside the reversal in the Dashboard. This will be unset if you POST an empty value. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -41928,7 +41928,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         transfer: string;
@@ -41971,7 +41971,7 @@ export interface operations {
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -41999,7 +41999,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         id: string;
@@ -42042,7 +42042,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -42072,7 +42072,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description Returns objects associated with this FinancialAccount. */
         financial_account: string;
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -42096,7 +42096,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["treasury.credit_reversal"])[];
+            data: components["schemas"]["treasury.credit_reversal"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -42123,7 +42123,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -42153,7 +42153,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         credit_reversal: string;
@@ -42186,7 +42186,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description Returns objects associated with this FinancialAccount. */
         financial_account: string;
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -42212,7 +42212,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["treasury.debit_reversal"])[];
+            data: components["schemas"]["treasury.debit_reversal"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -42239,7 +42239,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -42269,7 +42269,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         debit_reversal: string;
@@ -42308,7 +42308,7 @@ export interface operations {
         /** @description An object ID cursor for use in pagination. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit ranging from 1 to 100 (defaults to 10). */
         limit?: number;
         /** @description An object ID cursor for use in pagination. */
@@ -42325,7 +42325,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["treasury.financial_account"])[];
+            data: components["schemas"]["treasury.financial_account"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -42352,7 +42352,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * feature_access
            * @description Encodes whether a FinancialAccount has access to a particular feature. Stripe or the platform can control features via the requested field.
@@ -42422,7 +42422,7 @@ export interface operations {
             outbound_flows?: "restricted" | "unrestricted";
           };
           /** @description The currencies the FinancialAccount can hold a balance in. */
-          supported_currencies: (string)[];
+          supported_currencies: string[];
         };
       };
     };
@@ -42446,7 +42446,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         financial_account: string;
@@ -42483,7 +42483,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * feature_access
            * @description Encodes whether a FinancialAccount has access to a particular feature, with a status enum and associated `status_details`. Stripe or the platform may control features via the requested field.
@@ -42575,7 +42575,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         financial_account: string;
@@ -42626,7 +42626,7 @@ export interface operations {
             requested: boolean;
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /**
            * financial_addresses
            * @description Contains Features that add FinancialAddresses to the FinancialAccount.
@@ -42707,7 +42707,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description Returns objects associated with this FinancialAccount. */
         financial_account: string;
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -42729,7 +42729,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["treasury.inbound_transfer"])[];
+            data: components["schemas"]["treasury.inbound_transfer"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -42762,7 +42762,7 @@ export interface operations {
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The FinancialAccount to send funds to. */
           financial_account: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -42796,7 +42796,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         id: string;
@@ -42833,7 +42833,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -42861,7 +42861,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description Returns objects associated with this FinancialAccount. */
         financial_account: string;
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -42883,7 +42883,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["treasury.outbound_payment"])[];
+            data: components["schemas"]["treasury.outbound_payment"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -42974,7 +42974,7 @@ export interface operations {
             present: boolean;
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The FinancialAccount to pull funds from. */
           financial_account: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -43006,7 +43006,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         id: string;
@@ -43043,7 +43043,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -43069,7 +43069,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description Returns objects associated with this FinancialAccount. */
         financial_account: string;
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -43091,7 +43091,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["treasury.outbound_transfer"])[];
+            data: components["schemas"]["treasury.outbound_transfer"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -43136,7 +43136,7 @@ export interface operations {
             }) | "";
           };
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description The FinancialAccount to pull funds from. */
           financial_account: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -43168,7 +43168,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         outbound_transfer: string;
@@ -43205,7 +43205,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
         };
       };
     };
@@ -43231,7 +43231,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description The FinancialAccount that received the funds. */
         financial_account: string;
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -43258,7 +43258,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["treasury.received_credit"])[];
+            data: components["schemas"]["treasury.received_credit"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -43284,7 +43284,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         id: string;
@@ -43317,7 +43317,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description The FinancialAccount that funds were pulled from. */
         financial_account: string;
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -43339,7 +43339,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["treasury.received_debit"])[];
+            data: components["schemas"]["treasury.received_debit"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -43365,7 +43365,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         id: string;
@@ -43410,7 +43410,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description Returns objects associated with this FinancialAccount. */
         financial_account: string;
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -43434,7 +43434,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["treasury.transaction_entry"])[];
+            data: components["schemas"]["treasury.transaction_entry"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -43460,7 +43460,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         id: string;
@@ -43499,7 +43499,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description Returns objects associated with this FinancialAccount. */
         financial_account: string;
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
@@ -43532,7 +43532,7 @@ export interface operations {
         content: {
           "application/json": {
             /** @description Details about each object. */
-            data: (components["schemas"]["treasury.transaction"])[];
+            data: components["schemas"]["treasury.transaction"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -43558,7 +43558,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         id: string;
@@ -43591,7 +43591,7 @@ export interface operations {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
@@ -43608,7 +43608,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data: (components["schemas"]["webhook_endpoint"])[];
+            data: components["schemas"]["webhook_endpoint"][];
             /** @description True if this list has another page of items after this one that can be fetched. */
             has_more: boolean;
             /**
@@ -43646,7 +43646,7 @@ export interface operations {
           /** @description The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection. */
           enabled_events: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "invoiceitem.updated" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "order.created" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "recipient.created" | "recipient.deleted" | "recipient.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "sku.created" | "sku.deleted" | "sku.updated" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -43676,7 +43676,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
-        expand?: (string)[];
+        expand?: string[];
       };
       path: {
         webhook_endpoint: string;
@@ -43719,7 +43719,7 @@ export interface operations {
           /** @description The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection. */
           enabled_events?: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "invoiceitem.updated" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "order.created" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "recipient.created" | "recipient.deleted" | "recipient.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "sku.created" | "sku.deleted" | "sku.updated" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
           /** @description Specifies which fields in the response should be expanded. */
-          expand?: (string)[];
+          expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
