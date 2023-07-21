@@ -18,7 +18,7 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          tags?: (string)[];
+          tags?: string[];
         };
       };
       responses: {
@@ -240,7 +240,7 @@ export interface components {
       body: string;
       publish_date?: number;
     };
-    StringArray: (string)[];
+    StringArray: string[];
     User: {
       email: string;
       age?: number;
@@ -250,7 +250,7 @@ export interface components {
   responses: {
     AllPostsGet: {
       content: {
-        "application/json": (components["schemas"]["Post"])[];
+        "application/json": components["schemas"]["Post"][];
       };
     };
     CreatePost: {
