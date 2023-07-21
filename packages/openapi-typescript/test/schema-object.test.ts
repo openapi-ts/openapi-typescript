@@ -97,7 +97,7 @@ describe("Schema Object", () => {
       test("basic", () => {
         const schema: SchemaObject = { type: "array", items: { type: "string" } };
         const generated = transformSchemaObject(schema, options);
-        expect(generated).toBe("(string)[]");
+        expect(generated).toBe("string[]");
       });
 
       test("tuple array", () => {
@@ -109,7 +109,7 @@ describe("Schema Object", () => {
       test("ref", () => {
         const schema: SchemaObject = { type: "array", items: { $ref: 'components["schemas"]["ArrayItem"]' } };
         const generated = transformSchemaObject(schema, options);
-        expect(generated).toBe('(components["schemas"]["ArrayItem"])[]');
+        expect(generated).toBe('components["schemas"]["ArrayItem"][]');
       });
     });
 
@@ -267,7 +267,7 @@ describe("Schema Object", () => {
 
         test("array", () => {
           const generated = transformSchemaObject({ type: "array", items: { type: "string" }, nullable: true }, options);
-          expect(generated).toBe("(string)[] | null");
+          expect(generated).toBe("string[] | null");
         });
 
         test("object", () => {
@@ -301,7 +301,7 @@ describe("Schema Object", () => {
 
         test("array", () => {
           const generated = transformSchemaObject({ type: ["array", "null"], items: { type: "string" } } as any, options);
-          expect(generated).toBe("(string)[] | null");
+          expect(generated).toBe("string[] | null");
         });
 
         test("object", () => {
@@ -405,7 +405,7 @@ describe("Schema Object", () => {
 } | {
   number: number;
 } | {
-  array: (string)[];
+  array: string[];
 } | {
   object: {
     string: string;
@@ -606,10 +606,10 @@ describe("Schema Object", () => {
 
     test("supportArrayLength", () => {
       const opts = { ...options, ctx: { ...options.ctx, supportArrayLength: true } };
-      expect(transformSchemaObject({ type: "array", items: { type: "string" } }, options)).toBe(`(string)[]`);
-      expect(transformSchemaObject({ type: "array", items: { type: "string" }, minItems: 1 }, opts)).toBe(`[string, ...(string)[]]`);
+      expect(transformSchemaObject({ type: "array", items: { type: "string" } }, options)).toBe(`string[]`);
+      expect(transformSchemaObject({ type: "array", items: { type: "string" }, minItems: 1 }, opts)).toBe(`[string, ...string[]]`);
       expect(transformSchemaObject({ type: "array", items: { type: "string" }, maxItems: 2 }, opts)).toBe(`[] | [string] | [string, string]`);
-      expect(transformSchemaObject({ type: "array", items: { type: "string" }, maxItems: 20 }, opts)).toBe(`(string)[]`);
+      expect(transformSchemaObject({ type: "array", items: { type: "string" }, maxItems: 20 }, opts)).toBe(`string[]`);
     });
 
     test("prefixItems", () => {
@@ -642,9 +642,9 @@ describe("Schema Object", () => {
           ctx: { ...options.ctx, immutableTypes: true },
         });
         expect(generated).toBe(`{
-  readonly array?: readonly ({
+  readonly array?: readonly {
       [key: string]: unknown;
-    })[] | null;
+    }[] | null;
 }`);
       });
     });
