@@ -51,11 +51,13 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
     });
   }
 
-  // enum (valid for any type)
-  if (schemaObject.enum) {
-    let items = schemaObject.enum as any[];
+  // enum (valid for any type, but for objects, treat as oneOf below)
+  if (typeof schemaObject === "object" && !!(schemaObject as any).enum && (schemaObject as any).type !== "object") {
+    let items = (schemaObject as any).enum as any[];
     if ("type" in schemaObject) {
-      if (schemaObject.type === "string" || (Array.isArray(schemaObject.type) && schemaObject.type.includes("string" as any))) items = items.map((t) => escStr(t));
+      if (schemaObject.type === "string" || (Array.isArray(schemaObject.type) && schemaObject.type.includes("string" as any))) {
+        items = items.map((t) => escStr(t));
+      }
     }
     // if no type, assume "string"
     else {
@@ -65,10 +67,20 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
   }
 
   // oneOf (no discriminator)
-  if ("oneOf" in schemaObject && !schemaObject.oneOf.some((t) => "$ref" in t && ctx.discriminators[t.$ref])) {
-    const maybeTypes = schemaObject.oneOf.map((item) => transformSchemaObject(item, { path, ctx }));
-    if (maybeTypes.some((t) => typeof t === "string" && t.includes("{"))) return tsOneOf(...maybeTypes); // OneOf<> helper needed if any objects present ("{")
-    return tsUnionOf(...maybeTypes); // otherwise, TS union works for primitives
+  const oneOf = ((typeof schemaObject === "object" && (schemaObject as any).oneOf) || (schemaObject as any).enum || undefined) as (SchemaObject | ReferenceObject)[] | undefined; // note: for objects, treat enum as oneOf
+  if (oneOf && !oneOf.some((t) => "$ref" in t && ctx.discriminators[t.$ref])) {
+    const oneOfNormalized = oneOf.map((item) => transformSchemaObject(item, { path, ctx }));
+    // OneOf<> helper needed if any objects present ("{")
+    const oneOfTypes = oneOfNormalized.some((t) => typeof t === "string" && t.includes("{")) ? tsOneOf(...oneOfNormalized) : tsUnionOf(...oneOfNormalized);
+
+    if ("type" in schemaObject && schemaObject.type === "object") {
+      const coreSchema = { ...schemaObject };
+      delete (coreSchema as any).oneOf;
+      delete coreSchema.enum;
+      return tsIntersectionOf(transformSchemaObject(coreSchema, { path, ctx }), oneOfTypes);
+    } else {
+      return oneOfTypes;
+    }
   }
 
   if ("type" in schemaObject) {

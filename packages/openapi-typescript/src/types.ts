@@ -447,18 +447,21 @@ export type SchemaObject = {
 
 export interface StringSubtype {
   type: "string";
+  enum?: (string | ReferenceObject)[];
 }
 
 export interface NumberSubtype {
   type: "number";
   minimum?: number;
   maximum?: number;
+  enum?: (number | ReferenceObject)[];
 }
 
 export interface IntegerSubtype {
   type: "integer";
   minimum?: number;
   maximum?: number;
+  enum?: (number | ReferenceObject)[];
 }
 
 export interface ArraySubtype {
@@ -467,10 +470,12 @@ export interface ArraySubtype {
   items?: SchemaObject | ReferenceObject | (SchemaObject | ReferenceObject)[];
   minItems?: number;
   maxItems?: number;
+  enum?: (SchemaObject | ReferenceObject)[];
 }
 
 export interface BooleanSubtype {
   type: "boolean";
+  enum?: (boolean | ReferenceObject)[];
 }
 
 export interface NullSubtype {
@@ -484,6 +489,7 @@ export interface ObjectSubtype {
   required?: string[];
   allOf?: (SchemaObject | ReferenceObject)[];
   anyOf?: (SchemaObject | ReferenceObject)[];
+  enum?: (SchemaObject | ReferenceObject)[];
 }
 
 /**

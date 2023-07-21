@@ -386,6 +386,39 @@ describe("Schema Object", () => {
 }]>`);
       });
 
+      test("oneOf + properties", () => {
+        const schema = {
+          type: "object",
+          oneOf: [
+            { type: "object", properties: { foo: { type: "string" } } },
+            { type: "object", properties: { bar: { type: "string" } } },
+          ],
+          properties: {
+            baz: { type: "string" },
+          },
+        } as SchemaObject;
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe(`{
+  baz?: string;
+} & OneOf<[{
+  foo?: string;
+}, {
+  bar?: string;
+}]>`);
+      });
+
+      test("enum (acting as oneOf)", () => {
+        const schema: SchemaObject = {
+          type: "object",
+          additionalProperties: true,
+          enum: [{ $ref: "#/components/schemas/simple-user" }, { $ref: "#/components/schemas/team" }, { $ref: "#/components/schemas/organization" }],
+        };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe(`{
+  [key: string]: unknown;
+} & (#/components/schemas/simple-user | #/components/schemas/team | #/components/schemas/organization)`);
+      });
+
       test("falls back to union at high complexity", () => {
         const schema: SchemaObject = {
           oneOf: [
