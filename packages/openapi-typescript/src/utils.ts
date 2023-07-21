@@ -168,9 +168,14 @@ export function encodeRef(ref: string): string {
   return ref.replace(TILDE_RE, "~0").replace(FS_RE, "~1");
 }
 
+/** if the type has & or | we should parenthesise it for safety */
+function parenthesise(type: string) {
+  return TS_UNION_INTERSECTION_RE.test(type) ? `(${type})` : type;
+}
+
 /** T[] */
 export function tsArrayOf(type: string): string {
-  return `(${type})[]`;
+  return `${parenthesise(type)}[]`;
 }
 
 /** X & Y & Z; */
@@ -178,7 +183,7 @@ export function tsIntersectionOf(...types: string[]): string {
   types = types.filter((t) => t !== "unknown");
   if (types.length === 0) return "unknown";
   if (types.length === 1) return String(types[0]); // don’t add parentheses around one thing
-  return types.map((t) => (TS_UNION_INTERSECTION_RE.test(t) ? `(${t})` : t)).join(" & ");
+  return types.map((t) => parenthesise(t)).join(" & ");
 }
 
 /** NonNullable<T> */
@@ -258,11 +263,7 @@ export function tsUnionOf(...types: (string | number | boolean)[]): string {
   let out = "";
   for (let i = 0; i < memberArr.length; i++) {
     const t = memberArr[i];
-
-    // if the type has & or | we should parenthesise it for safety
-    const escaped = TS_UNION_INTERSECTION_RE.test(t) ? `(${t})` : t;
-
-    out += escaped;
+    out += parenthesise(t);
     if (i !== memberArr.length - 1) out += " | ";
   }
 

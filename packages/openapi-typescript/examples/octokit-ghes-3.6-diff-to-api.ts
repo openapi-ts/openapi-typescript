@@ -1174,7 +1174,7 @@ export interface components {
       id?: number;
       name?: string;
       active?: boolean;
-      events?: (string)[];
+      events?: string[];
       config?: {
         url?: string;
         content_type?: string;
@@ -1191,7 +1191,7 @@ export interface components {
       id?: number;
       name?: string;
       active?: boolean;
-      events?: (string)[];
+      events?: string[];
       config?: {
         url?: string;
         content_type?: string;
@@ -1451,7 +1451,7 @@ export interface components {
       /** Format: uri */
       url: string;
       /** @description A list of scopes that this authorization is in. */
-      scopes: (string)[] | null;
+      scopes: string[] | null;
       token: string;
       token_last_eight: string | null;
       hashed_token: string | null;
@@ -1581,7 +1581,7 @@ export interface components {
       /** @example Organization */
       target_type: string;
       permissions: components["schemas"]["app-permissions"];
-      events: (string)[];
+      events: string[];
       /** Format: date-time */
       created_at: string;
       /** Format: date-time */
@@ -1596,7 +1596,7 @@ export interface components {
        *   ".github/issue_TEMPLATE.md"
        * ]
        */
-      single_file_paths?: (string)[];
+      single_file_paths?: string[];
       /** @example github-actions */
       app_slug: string;
       suspended_by: components["schemas"]["nullable-simple-user"];
@@ -1777,7 +1777,7 @@ export interface components {
       permissions?: components["schemas"]["app-permissions"];
       /** @enum {string} */
       repository_selection?: "all" | "selected";
-      repositories?: (components["schemas"]["repository"])[];
+      repositories?: components["schemas"]["repository"][];
       /** @example README.md */
       single_file?: string;
       /** @example true */
@@ -1788,7 +1788,7 @@ export interface components {
        *   ".github/issue_TEMPLATE.md"
        * ]
        */
-      single_file_paths?: (string)[];
+      single_file_paths?: string[];
     };
     /**
      * Application Grant
@@ -1823,7 +1823,7 @@ export interface components {
        *   "public_repo"
        * ]
        */
-      scopes: (string)[];
+      scopes: string[];
       user?: components["schemas"]["nullable-simple-user"];
     };
     /**
@@ -1938,7 +1938,7 @@ export interface components {
       /** @description Whether GitHub-owned actions are allowed. For example, this includes the actions in the `actions` organization. */
       github_owned_allowed: boolean;
       /** @description Specifies a list of string-matching patterns to allow specific action(s). Wildcards, tags, and SHAs are allowed. For example, `monalisa/octocat@*`, `monalisa/octocat@v2`, `monalisa/*`." */
-      patterns_allowed: (string)[];
+      patterns_allowed: string[];
     };
     "audit-log-event": {
       /** @description The time the audit log event occurred, given as a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time). */
@@ -1961,8 +1961,8 @@ export interface components {
       /** @description The username of the account being blocked. */
       blocked_user?: string;
       business?: string;
-      config?: (Record<string, never>)[];
-      config_was?: (Record<string, never>)[];
+      config?: Record<string, never>[];
+      config_was?: Record<string, never>[];
       content_type?: string;
       /** @description The time the audit log event was recorded, given as a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time). */
       created_at?: number;
@@ -1970,8 +1970,8 @@ export interface components {
       /** @description A unique identifier for an audit event. */
       _document_id?: string;
       emoji?: string;
-      events?: (Record<string, never>)[];
-      events_were?: (Record<string, never>)[];
+      events?: Record<string, never>[];
+      events_were?: Record<string, never>[];
       explanation?: string;
       fingerprint?: string;
       hook_id?: number;
@@ -2051,14 +2051,14 @@ export interface components {
        *   "2a01:111:f403:f90c::/62"
        * ]
        */
-      packages?: (string)[];
+      packages?: string[];
       /**
        * @example [
        *   "192.168.7.15/32",
        *   "192.168.7.16/32"
        * ]
        */
-      dependabot?: (string)[];
+      dependabot?: string[];
       /** @example 3.6.0 */
       installed_version?: string;
     };
@@ -2215,7 +2215,7 @@ export interface components {
           message?: string;
           code: string;
           index?: number;
-          value?: (string | null) | (number | null) | ((string)[] | null);
+          value?: (string | null) | (number | null) | (string[] | null);
         })[];
     };
     /**
@@ -2225,7 +2225,7 @@ export interface components {
     "validation-error-simple": {
       message: string;
       documentation_url: string;
-      errors?: (string)[];
+      errors?: string[];
     };
     /**
      * ExternalGroup
@@ -2260,7 +2260,7 @@ export interface components {
        *   }
        * ]
        */
-      teams: ({
+      teams: {
           /**
            * @description The id for a team
            * @example 1
@@ -2271,7 +2271,7 @@ export interface components {
            * @example team-test
            */
           team_name: string;
-        })[];
+        }[];
       /**
        * @description An array of external members linked to this group
        * @example [
@@ -2289,7 +2289,7 @@ export interface components {
        *   }
        * ]
        */
-      members: ({
+      members: {
           /**
            * @description The internal user ID of the identity
            * @example 1
@@ -2310,7 +2310,7 @@ export interface components {
            * @example mona_lisa@github.com
            */
           member_email: string;
-        })[];
+        }[];
     };
     /**
      * ExternalGroups
@@ -2332,7 +2332,7 @@ export interface components {
        *   }
        * ]
        */
-      groups?: ({
+      groups?: {
           /**
            * @description The internal ID of the group
            * @example 1
@@ -2348,7 +2348,7 @@ export interface components {
            * @example 2019-06-03 22:27:15:000 -700
            */
           updated_at: string;
-        })[];
+        }[];
     };
     "org-pre-receive-hook": {
       id?: number;
@@ -2506,7 +2506,7 @@ export interface components {
        * @example 1
        */
       run_attempt?: number;
-      referenced_workflows?: (components["schemas"]["referenced-workflow"])[] | null;
+      referenced_workflows?: components["schemas"]["referenced-workflow"][] | null;
       /** @example push */
       event: string;
       /** @example completed */
@@ -2525,7 +2525,7 @@ export interface components {
       url: string;
       /** @example https://github.com/github/hello-world/suites/4 */
       html_url: string;
-      pull_requests: (components["schemas"]["pull-request-minimal"])[] | null;
+      pull_requests: components["schemas"]["pull-request-minimal"][] | null;
       /** Format: date-time */
       created_at: string;
       /** Format: date-time */
@@ -2743,7 +2743,7 @@ export interface components {
         license: string | null;
         /** @example https://github.com/github/actions */
         source_repository_url: string | null;
-        vulnerabilities: ({
+        vulnerabilities: {
             /** @example critical */
             severity: string;
             /** @example GHSA-rf4j-j272-fj86 */
@@ -2752,7 +2752,7 @@ export interface components {
             advisory_summary: string;
             /** @example https://github.com/advisories/GHSA-rf4j-j272-fj86 */
             advisory_url: string;
-          })[];
+          }[];
       })[];
     /**
      * Full Repository
@@ -2940,7 +2940,7 @@ export interface components {
        *   "API"
        * ]
        */
-      topics?: (string)[];
+      topics?: string[];
       /** @example true */
       has_issues: boolean;
       /** @example true */
@@ -3122,7 +3122,7 @@ export interface components {
       /** Format: date-time */
       published_at: string | null;
       author: components["schemas"]["simple-user"];
-      assets: (components["schemas"]["release-asset"])[];
+      assets: components["schemas"]["release-asset"][];
       body_html?: string;
       body_text?: string;
       mentions_count?: number;
@@ -3329,7 +3329,7 @@ export interface components {
       default_branch?: string;
       open_issues_count?: number;
       is_template?: boolean;
-      topics?: (string)[];
+      topics?: string[];
       has_issues?: boolean;
       has_projects?: boolean;
       has_wiki?: boolean;
@@ -3386,20 +3386,20 @@ export interface components {
       web_commit_signoff_required?: boolean;
     };
     "scim-group-list-enterprise": {
-      schemas: (string)[];
+      schemas: string[];
       totalResults: number;
       itemsPerPage: number;
       startIndex: number;
       Resources: ({
-          schemas: (string)[];
+          schemas: string[];
           id: string;
           externalId?: string | null;
           displayName?: string;
-          members?: ({
+          members?: {
               value?: string;
               $ref?: string;
               display?: string;
-            })[];
+            }[];
           meta?: {
             resourceType?: string;
             created?: string;
@@ -3409,15 +3409,15 @@ export interface components {
         })[];
     };
     "scim-enterprise-group": {
-      schemas: (string)[];
+      schemas: string[];
       id: string;
       externalId?: string | null;
       displayName?: string;
-      members?: ({
+      members?: {
           value?: string;
           $ref?: string;
           display?: string;
-        })[];
+        }[];
       meta?: {
         resourceType?: string;
         created?: string;
@@ -3426,12 +3426,12 @@ export interface components {
       };
     };
     "scim-user-list-enterprise": {
-      schemas: (string)[];
+      schemas: string[];
       totalResults: number;
       itemsPerPage: number;
       startIndex: number;
-      Resources: ({
-          schemas: (string)[];
+      Resources: {
+          schemas: string[];
           id: string;
           externalId?: string;
           userName?: string;
@@ -3439,14 +3439,14 @@ export interface components {
             givenName?: string;
             familyName?: string;
           };
-          emails?: ({
+          emails?: {
               value?: string;
               primary?: boolean;
               type?: string;
-            })[];
-          groups?: ({
+            }[];
+          groups?: {
               value?: string;
-            })[];
+            }[];
           active?: boolean;
           meta?: {
             resourceType?: string;
@@ -3454,10 +3454,10 @@ export interface components {
             lastModified?: string;
             location?: string;
           };
-        })[];
+        }[];
     };
     "scim-enterprise-user": {
-      schemas: (string)[];
+      schemas: string[];
       id: string;
       externalId?: string;
       userName?: string;
@@ -3465,14 +3465,14 @@ export interface components {
         givenName?: string;
         familyName?: string;
       };
-      emails?: ({
+      emails?: {
           value?: string;
           type?: string;
           primary?: boolean;
-        })[];
-      groups?: ({
+        }[];
+      groups?: {
           value?: string;
-        })[];
+        }[];
       active?: boolean;
       meta?: {
         resourceType?: string;
@@ -3483,18 +3483,18 @@ export interface components {
     };
     "configuration-status": {
       status?: string;
-      progress?: ({
+      progress?: {
           status: string;
           key: string;
-        })[];
+        }[];
     };
     "maintenance-status": {
       status?: string;
       scheduled_time?: string;
-      connection_services?: ({
+      connection_services?: {
           name: string;
           number: number;
-        })[];
+        }[];
     };
     "enterprise-settings": {
       enterprise?: {
@@ -3539,13 +3539,13 @@ export interface components {
         ldap?: {
           host?: string | null;
           port?: number;
-          base?: (unknown)[];
+          base?: unknown[];
           uid?: string | null;
           bind_dn?: string | null;
           password?: string | null;
           method?: string;
           search_strategy?: string;
-          user_groups?: (unknown)[];
+          user_groups?: unknown[];
           admin_group?: string | null;
           virtual_attribute_enabled?: boolean;
           recursive_group_search?: boolean;
@@ -3632,7 +3632,7 @@ export interface components {
         };
         load_balancer?: string | null;
       };
-      run_list?: (string)[];
+      run_list?: string[];
     };
     "ssh-key": {
       key?: string;
@@ -3725,7 +3725,7 @@ export interface components {
        *   ".github/issue_TEMPLATE.md"
        * ]
        */
-      single_file_paths?: (string)[];
+      single_file_paths?: string[];
       /**
        * Format: uri
        * @example https://api.github.com/users/octocat/repos
@@ -3995,7 +3995,7 @@ export interface components {
        * @example true
        */
       is_template?: boolean;
-      topics?: (string)[];
+      topics?: string[];
       /**
        * @description Whether issues are enabled.
        * @default true
@@ -4134,7 +4134,7 @@ export interface components {
         default_branch?: string;
         open_issues_count?: number;
         is_template?: boolean;
-        topics?: (string)[];
+        topics?: string[];
         has_issues?: boolean;
         has_projects?: boolean;
         has_wiki?: boolean;
@@ -5138,7 +5138,7 @@ export interface components {
        * @example true
        */
       is_template?: boolean;
-      topics?: (string)[];
+      topics?: string[];
       /**
        * @description Whether issues are enabled.
        * @default true
@@ -5277,7 +5277,7 @@ export interface components {
         default_branch?: string;
         open_issues_count?: number;
         is_template?: boolean;
-        topics?: (string)[];
+        topics?: string[];
         has_issues?: boolean;
         has_projects?: boolean;
         has_wiki?: boolean;
@@ -5473,7 +5473,7 @@ export interface components {
       detail?: string | null;
       status?: number;
       scimType?: string | null;
-      schemas?: (string)[];
+      schemas?: string[];
     };
     /**
      * Release Asset
@@ -5824,7 +5824,7 @@ export interface operations {
           Link: components["headers"]["link"];
         };
         content: {
-          "application/json": (components["schemas"]["global-hook"])[];
+          "application/json": components["schemas"]["global-hook"][];
         };
       };
     };
@@ -5848,7 +5848,7 @@ export interface operations {
             insecure_ssl?: string;
           };
           /** @description The [events](https://docs.github.com/enterprise-server@3.6/webhooks/event-payloads) that trigger this webhook. A global webhook can be triggered by `user` and `organization` events. Default: `user` and `organization`. */
-          events?: (string)[];
+          events?: string[];
           /**
            * @description Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
            * @default true
@@ -5919,7 +5919,7 @@ export interface operations {
             insecure_ssl?: string;
           };
           /** @description The [events](https://docs.github.com/enterprise-server@3.6/webhooks/event-payloads) that trigger this webhook. A global webhook can be triggered by `user` and `organization` events. Default: `user` and `organization`. */
-          events?: (string)[];
+          events?: string[];
           /**
            * @description Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
            * @default true
@@ -5971,7 +5971,7 @@ export interface operations {
           Link: components["headers"]["link"];
         };
         content: {
-          "application/json": (components["schemas"]["public-key-full"])[];
+          "application/json": components["schemas"]["public-key-full"][];
         };
       };
     };
@@ -6145,7 +6145,7 @@ export interface operations {
       /** @description Response */
       200: {
         content: {
-          "application/json": (components["schemas"]["pre-receive-environment"])[];
+          "application/json": components["schemas"]["pre-receive-environment"][];
         };
       };
     };
@@ -6211,11 +6211,11 @@ export interface operations {
         content: {
           "application/json": {
             message?: string;
-            errors?: ({
+            errors?: {
                 resource?: string;
                 code?: string;
                 message?: string;
-              })[];
+              }[];
           };
         };
       };
@@ -6253,11 +6253,11 @@ export interface operations {
         content: {
           "application/json": {
             message?: string;
-            errors?: ({
+            errors?: {
                 resource?: string;
                 code?: string;
                 message?: string;
-              })[];
+              }[];
           };
         };
       };
@@ -6292,11 +6292,11 @@ export interface operations {
         content: {
           "application/json": {
             message?: string;
-            errors?: ({
+            errors?: {
                 resource?: string;
                 code?: string;
                 message?: string;
-              })[];
+              }[];
           };
         };
       };
@@ -6336,7 +6336,7 @@ export interface operations {
       /** @description Response */
       200: {
         content: {
-          "application/json": (components["schemas"]["pre-receive-hook"])[];
+          "application/json": components["schemas"]["pre-receive-hook"][];
         };
       };
     };
@@ -6458,7 +6458,7 @@ export interface operations {
           Link: components["headers"]["link"];
         };
         content: {
-          "application/json": (components["schemas"]["authorization"])[];
+          "application/json": components["schemas"]["authorization"][];
         };
       };
     };
@@ -6565,7 +6565,7 @@ export interface operations {
       content: {
         "application/json": {
           /** @description A list of [scopes](https://docs.github.com/enterprise-server@3.6/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/). */
-          scopes?: (string)[];
+          scopes?: string[];
         };
       };
     };
@@ -6618,7 +6618,7 @@ export interface operations {
           Link: components["headers"]["link"];
         };
         content: {
-          "application/json": (components["schemas"]["installation"])[];
+          "application/json": components["schemas"]["installation"][];
         };
       };
     };
@@ -6661,14 +6661,14 @@ export interface operations {
       content: {
         "application/json": {
           /** @description List of repository names that the token should have access to */
-          repositories?: (string)[];
+          repositories?: string[];
           /**
            * @description List of repository IDs that the token should have access to
            * @example [
            *   1
            * ]
            */
-          repository_ids?: (number)[];
+          repository_ids?: number[];
           permissions?: components["schemas"]["app-permissions"];
         };
       };
@@ -6709,7 +6709,7 @@ export interface operations {
           Link: components["headers"]["link"];
         };
         content: {
-          "application/json": (components["schemas"]["application-grant"])[];
+          "application/json": components["schemas"]["application-grant"][];
         };
       };
       304: components["responses"]["not_modified"];
@@ -6848,14 +6848,14 @@ export interface operations {
            */
           target_id?: number;
           /** @description The list of repository names to scope the user-to-server access token to. `repositories` may not be specified if `repository_ids` is specified. */
-          repositories?: (string)[];
+          repositories?: string[];
           /**
            * @description The list of repository IDs to scope the user-to-server access token to. `repository_ids` may not be specified if `repositories` is specified.
            * @example [
            *   1
            * ]
            */
-          repository_ids?: (number)[];
+          repository_ids?: number[];
           permissions?: components["schemas"]["app-permissions"];
         };
       };
@@ -6894,7 +6894,7 @@ export interface operations {
           Link: components["headers"]["link"];
         };
         content: {
-          "application/json": (components["schemas"]["authorization"])[];
+          "application/json": components["schemas"]["authorization"][];
         };
       };
       304: components["responses"]["not_modified"];
@@ -6929,7 +6929,7 @@ export interface operations {
            *   "user"
            * ]
            */
-          scopes?: (string)[] | null;
+          scopes?: string[] | null;
           /**
            * @description A note to remind you what the OAuth token is for.
            * @example Update all gems
@@ -6995,7 +6995,7 @@ export interface operations {
            *   "user"
            * ]
            */
-          scopes?: (string)[] | null;
+          scopes?: string[] | null;
           /**
            * @description A note to remind you what the OAuth token is for.
            * @example Update all gems
@@ -7065,7 +7065,7 @@ export interface operations {
            *   "user"
            * ]
            */
-          scopes?: (string)[] | null;
+          scopes?: string[] | null;
           /**
            * @description A note to remind you what the OAuth token is for.
            * @example Update all gems
@@ -7167,11 +7167,11 @@ export interface operations {
            *   "user"
            * ]
            */
-          scopes?: (string)[] | null;
+          scopes?: string[] | null;
           /** @description A list of scopes to add to this authorization. */
-          add_scopes?: (string)[];
+          add_scopes?: string[];
           /** @description A list of scopes to remove from this authorization. */
-          remove_scopes?: (string)[];
+          remove_scopes?: string[];
           /**
            * @description A note to remind you what the OAuth token is for.
            * @example Update all gems
@@ -7481,7 +7481,7 @@ export interface operations {
       /** @description Response */
       200: {
         content: {
-          "application/json": (components["schemas"]["audit-log-event"])[];
+          "application/json": components["schemas"]["audit-log-event"][];
         };
       };
     };
@@ -7514,7 +7514,7 @@ export interface operations {
           Link: components["headers"]["link"];
         };
         content: {
-          "application/json": (components["schemas"]["organization-secret-scanning-alert"])[];
+          "application/json": components["schemas"]["organization-secret-scanning-alert"][];
         };
       };
       404: components["responses"]["not_found"];
@@ -7560,7 +7560,7 @@ export interface operations {
              * @example 3
              */
             total_count?: number;
-            custom_roles?: (components["schemas"]["organization-custom-repository-role"])[];
+            custom_roles?: components["schemas"]["organization-custom-repository-role"][];
           };
         };
       };
@@ -7756,7 +7756,7 @@ export interface operations {
       /** @description Response */
       200: {
         content: {
-          "application/json": (components["schemas"]["audit-log-event"])[];
+          "application/json": components["schemas"]["audit-log-event"][];
         };
       };
     };
@@ -7859,7 +7859,7 @@ export interface operations {
         content: {
           "application/json": {
             total_count: number;
-            installations: (components["schemas"]["installation"])[];
+            installations: components["schemas"]["installation"][];
           };
         };
       };
@@ -7886,7 +7886,7 @@ export interface operations {
       /** @description Response */
       200: {
         content: {
-          "application/json": (components["schemas"]["org-pre-receive-hook"])[];
+          "application/json": components["schemas"]["org-pre-receive-hook"][];
         };
       };
     };
@@ -7988,7 +7988,7 @@ export interface operations {
           Link: components["headers"]["link"];
         };
         content: {
-          "application/json": (components["schemas"]["organization-secret-scanning-alert"])[];
+          "application/json": components["schemas"]["organization-secret-scanning-alert"][];
         };
       };
       404: components["responses"]["not_found"];
@@ -8015,9 +8015,9 @@ export interface operations {
           /** @description The description of the team. */
           description?: string;
           /** @description List GitHub IDs for organization members who will become team maintainers. */
-          maintainers?: (string)[];
+          maintainers?: string[];
           /** @description The full name (e.g., "organization-name/repository-name") of repositories to add the team to. */
-          repo_names?: (string)[];
+          repo_names?: string[];
           /**
            * @description The level of privacy this team should have. The options are:
            * **For a non-nested team:**
@@ -8277,7 +8277,7 @@ export interface operations {
         content: {
           "application/json": {
             total_count: number;
-            workflow_runs: (components["schemas"]["workflow-run"])[];
+            workflow_runs: components["schemas"]["workflow-run"][];
           };
         };
       };
@@ -8369,7 +8369,7 @@ export interface operations {
         content: {
           "application/json": {
             total_count: number;
-            workflow_runs: (components["schemas"]["workflow-run"])[];
+            workflow_runs: components["schemas"]["workflow-run"][];
           };
         };
       };
@@ -8395,7 +8395,7 @@ export interface operations {
       /** @description Response */
       200: {
         content: {
-          "application/json": (components["schemas"]["autolink"])[];
+          "application/json": components["schemas"]["autolink"][];
         };
       };
     };
@@ -8505,7 +8505,7 @@ export interface operations {
       /** @description Response */
       200: {
         content: {
-          "application/json": (components["schemas"]["code-scanning-analysis"])[];
+          "application/json": components["schemas"]["code-scanning-analysis"][];
         };
       };
       403: components["responses"]["code_scanning_forbidden_read"];
@@ -8546,7 +8546,7 @@ export interface operations {
           Link: components["headers"]["link"];
         };
         content: {
-          "application/json": (components["schemas"]["collaborator"])[];
+          "application/json": components["schemas"]["collaborator"][];
         };
       };
       404: components["responses"]["not_found"];
@@ -8681,7 +8681,7 @@ export interface operations {
           Link: components["headers"]["link"];
         };
         content: {
-          "application/json": (components["schemas"]["deploy-key"])[];
+          "application/json": components["schemas"]["deploy-key"][];
         };
       };
     };
@@ -8767,7 +8767,7 @@ export interface operations {
       /** @description Response */
       200: {
         content: {
-          "application/json": (components["schemas"]["repository-pre-receive-hook"])[];
+          "application/json": components["schemas"]["repository-pre-receive-hook"][];
         };
       };
     };
@@ -8869,7 +8869,7 @@ export interface operations {
           Link: components["headers"]["link"];
         };
         content: {
-          "application/json": (components["schemas"]["release"])[];
+          "application/json": components["schemas"]["release"][];
         };
       };
       404: components["responses"]["not_found"];
@@ -9103,7 +9103,7 @@ export interface operations {
       /** @description Response */
       200: {
         content: {
-          "application/json": (components["schemas"]["secret-scanning-alert"])[];
+          "application/json": components["schemas"]["secret-scanning-alert"][];
         };
       };
       /** @description Repository is public or secret scanning is disabled for the repository */
@@ -9202,7 +9202,7 @@ export interface operations {
           Link?: string;
         };
         content: {
-          "application/json": (components["schemas"]["minimal-repository"])[];
+          "application/json": components["schemas"]["minimal-repository"][];
         };
       };
       304: components["responses"]["not_modified"];
@@ -9252,13 +9252,13 @@ export interface operations {
       content: {
         "application/json": {
           /** @description The SCIM schema URIs. */
-          schemas: (string)[];
+          schemas: string[];
           /** @description The name of the SCIM group. This must match the GitHub organization that the group maps to. */
           displayName: string;
-          members?: ({
+          members?: {
               /** @description The SCIM user ID for a user. */
               value: string;
-            })[];
+            }[];
         };
       };
     };
@@ -9312,13 +9312,13 @@ export interface operations {
       content: {
         "application/json": {
           /** @description The SCIM schema URIs. */
-          schemas: (string)[];
+          schemas: string[];
           /** @description The name of the SCIM group. This must match the GitHub organization that the group maps to. */
           displayName: string;
-          members?: ({
+          members?: {
               /** @description The SCIM user ID for a user. */
               value: string;
-            })[];
+            }[];
         };
       };
     };
@@ -9364,7 +9364,7 @@ export interface operations {
       content: {
         "application/json": {
           /** @description The SCIM schema URIs. */
-          schemas: (string)[];
+          schemas: string[];
           /** @description Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
           Operations: ({
               /** @enum {string} */
@@ -9445,7 +9445,7 @@ export interface operations {
       content: {
         "application/json": {
           /** @description The SCIM schema URIs. */
-          schemas: (string)[];
+          schemas: string[];
           /** @description The username for the user. */
           userName: string;
           name: {
@@ -9455,18 +9455,18 @@ export interface operations {
             familyName: string;
           };
           /** @description List of user emails. */
-          emails: ({
+          emails: {
               /** @description The email address. */
               value: string;
               /** @description The type of email address. */
               type: string;
               /** @description Whether this email address is the primary address. */
               primary: boolean;
-            })[];
+            }[];
           /** @description List of SCIM group IDs the user is a member of. */
-          groups?: ({
+          groups?: {
               value?: string;
-            })[];
+            }[];
         };
       };
     };
@@ -9520,7 +9520,7 @@ export interface operations {
       content: {
         "application/json": {
           /** @description The SCIM schema URIs. */
-          schemas: (string)[];
+          schemas: string[];
           /** @description The username for the user. */
           userName: string;
           name: {
@@ -9530,18 +9530,18 @@ export interface operations {
             familyName: string;
           };
           /** @description List of user emails. */
-          emails: ({
+          emails: {
               /** @description The email address. */
               value: string;
               /** @description The type of email address. */
               type: string;
               /** @description Whether this email address is the primary address. */
               primary: boolean;
-            })[];
+            }[];
           /** @description List of SCIM group IDs the user is a member of. */
-          groups?: ({
+          groups?: {
               value?: string;
-            })[];
+            }[];
         };
       };
     };
@@ -9602,9 +9602,9 @@ export interface operations {
       content: {
         "application/json": {
           /** @description The SCIM schema URIs. */
-          schemas: (string)[];
+          schemas: string[];
           /** @description Array of [SCIM operations](https://tools.ietf.org/html/rfc7644#section-3.5.2). */
-          Operations: (Record<string, never>)[];
+          Operations: Record<string, never>[];
         };
       };
     };
@@ -9739,7 +9739,7 @@ export interface operations {
       /** @description Response */
       200: {
         content: {
-          "application/json": (components["schemas"]["ssh-key"])[];
+          "application/json": components["schemas"]["ssh-key"][];
         };
       };
     };
@@ -9761,7 +9761,7 @@ export interface operations {
       /** @description Response */
       201: {
         content: {
-          "application/json": (components["schemas"]["ssh-key"])[];
+          "application/json": components["schemas"]["ssh-key"][];
         };
       };
     };
@@ -9783,7 +9783,7 @@ export interface operations {
       /** @description Response */
       200: {
         content: {
-          "application/json": (components["schemas"]["ssh-key"])[];
+          "application/json": components["schemas"]["ssh-key"][];
         };
       };
     };
@@ -9865,7 +9865,7 @@ export interface operations {
         content: {
           "application/json": {
             total_count: number;
-            installations: (components["schemas"]["installation"])[];
+            installations: components["schemas"]["installation"][];
           };
         };
       };
