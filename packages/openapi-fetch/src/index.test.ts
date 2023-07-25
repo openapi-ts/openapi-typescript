@@ -227,6 +227,8 @@ describe("client", () => {
     });
 
     describe("body", () => {
+      // these are pure type tests; no runtime assertions needed
+      /* eslint-disable vitest/expect-expect */
       it("requires necessary requestBodies", async () => {
         const client = createClient<paths>({ baseUrl: "https://myapi.com/v1" });
         mockFetch({ status: 200, body: JSON.stringify({ message: "OK" }) });
@@ -285,6 +287,7 @@ describe("client", () => {
         });
       });
     });
+    /* eslint-enable vitest/expect-expect */
   });
 
   describe("options", () => {
@@ -408,7 +411,7 @@ describe("client", () => {
       expect(response.status).toBe(204);
 
       // assert error is empty
-      expect(error).toBe(undefined);
+      expect(error).toBeUndefined();
     });
 
     it("treats `default` as an error", async () => {
@@ -478,7 +481,7 @@ describe("client", () => {
       expect(response.status).toBe(200);
 
       // assert error is empty
-      expect(error).toBe(undefined);
+      expect(error).toBeUndefined();
     });
 
     it("sends correct options, returns error", async () => {
@@ -500,7 +503,7 @@ describe("client", () => {
       expect(response.status).toBe(404);
 
       // assert data is empty
-      expect(data).toBe(undefined);
+      expect(data).toBeUndefined();
     });
 
     // note: this was a previous bug in the type inference
@@ -543,7 +546,7 @@ describe("client", () => {
       expect(response.status).toBe(201);
 
       // assert error is empty
-      expect(error).toBe(undefined);
+      expect(error).toBeUndefined();
     });
 
     it("supports sepecifying utf-8 encoding", async () => {
@@ -563,7 +566,7 @@ describe("client", () => {
       expect(response.status).toBe(201);
 
       // assert error is empty
-      expect(error).toBe(undefined);
+      expect(error).toBeUndefined();
     });
   });
 
@@ -588,7 +591,7 @@ describe("client", () => {
       expect(data).toEqual({});
 
       // assert error is empty
-      expect(error).toBe(undefined);
+      expect(error).toBeUndefined();
     });
 
     it("returns empty object on Content-Length: 0", async () => {
@@ -604,7 +607,7 @@ describe("client", () => {
       expect(data).toEqual({});
 
       // assert error is empty
-      expect(error).toBe(undefined);
+      expect(error).toBeUndefined();
     });
   });
 

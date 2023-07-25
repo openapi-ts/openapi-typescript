@@ -4,8 +4,8 @@ module.exports = {
   parserOptions: {
     project: ["./tsconfig.json"],
   },
-  extends: ["eslint:recommended", "plugin:@typescript-eslint/strict"],
-  plugins: ["@typescript-eslint", "prettier"],
+  extends: ["eslint:recommended", "plugin:@typescript-eslint/strict", "plugin:vitest/recommended"],
+  plugins: ["@typescript-eslint", "no-only-tests", "prettier", "vitest"],
   rules: {
     "@typescript-eslint/consistent-indexed-object-style": "off", // sometimes naming keys is more user-friendly
     "@typescript-eslint/no-dynamic-delete": "off", // delete is OK
@@ -19,6 +19,8 @@ module.exports = {
       rules: {
         "@typescript-eslint/ban-ts-comment": "off", // allow @ts-ignore only in tests
         "@typescript-eslint/no-empty-function": "off", // don’t enforce this in tests
+        "no-only-tests/no-only-tests": "error",
+        "vitest/valid-title": "off", // doesn’t work?
       },
     },
   ],
