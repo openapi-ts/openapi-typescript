@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.7.0
+
+### Minor Changes
+
+- [#1243](https://github.com/drwpow/openapi-typescript/pull/1243) [`541abf4`](https://github.com/drwpow/openapi-typescript/commit/541abf4966cf6020de5e4bf4b93cfa9741ec9a00) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ Breaking: rename all methods to UPPERCASE (`GET()`, `POST()`, etc.)
+
 ## 0.6.2
 
 ### Patch Changes
