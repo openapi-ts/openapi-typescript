@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.6.2
+
+### Patch Changes
+
+- [#1239](https://github.com/drwpow/openapi-typescript/pull/1239) [`4c93067`](https://github.com/drwpow/openapi-typescript/commit/4c9306720daa65b1c1977030737a52121fd46668) Thanks [@drwpow](https://github.com/drwpow)! - Fix params.header inference
+
 ## 0.6.1
 
 ### Patch Changes
