@@ -101,6 +101,28 @@ paths:
           $ref: '#/components/responses/CreatePost'
         500:
           $ref: '#/components/responses/Error'
+  /header-params:
+    get:
+      operationId: getHeaderParams
+      parameters:
+        - name: x-required-header
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                required:
+                  - status
+        500:
+          $ref: '#/components/responses/Error'
   /self:
     get:
       responses:
@@ -280,6 +302,7 @@ components:
               - body
               - publish_date
     CreateTag:
+      required: true
       content:
         application/json:
           schema:

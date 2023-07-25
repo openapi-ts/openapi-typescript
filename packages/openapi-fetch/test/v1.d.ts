@@ -109,6 +109,9 @@ export interface paths {
       };
     };
   };
+  "/header-params": {
+    get: operations["getHeaderParams"];
+  };
   "/self": {
     get: {
       responses: {
@@ -337,7 +340,7 @@ export interface components {
         };
       };
     };
-    CreateTag?: {
+    CreateTag: {
       content: {
         "application/json": {
           description?: string;
@@ -379,4 +382,23 @@ export interface components {
 
 export type external = Record<string, never>;
 
-export type operations = Record<string, never>;
+export interface operations {
+
+  getHeaderParams: {
+    parameters: {
+      header: {
+        "x-required-header": string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": {
+            status: string;
+          };
+        };
+      };
+      500: components["responses"]["Error"];
+    };
+  };
+}

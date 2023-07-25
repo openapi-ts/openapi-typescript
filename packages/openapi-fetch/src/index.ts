@@ -65,36 +65,6 @@ export type FetchResponse<T> =
   | { data: T extends { responses: any } ? NonNullable<FilterKeys<Success<T["responses"]>, MediaType>> : unknown; error?: never; response: Response }
   | { data?: never; error: T extends { responses: any } ? NonNullable<FilterKeys<Error<T["responses"]>, MediaType>> : unknown; response: Response };
 
-/** serialize query params to string */
-export function defaultQuerySerializer<T = unknown>(q: T): string {
-  const search = new URLSearchParams();
-  if (q && typeof q === "object") {
-    for (const [k, v] of Object.entries(q)) {
-      if (v === undefined || v === null) continue;
-      search.set(k, v);
-    }
-  }
-  return search.toString();
-}
-
-/** serialize body object to string */
-export function defaultBodySerializer<T>(body: T): string {
-  return JSON.stringify(body);
-}
-
-/** Construct URL string from baseUrl and handle path and query params */
-export function createFinalURL<O>(url: string, options: { baseUrl?: string; params: { query?: Record<string, unknown>; path?: Record<string, unknown> }; querySerializer: QuerySerializer<O> }): string {
-  let finalURL = `${options.baseUrl ? options.baseUrl.replace(TRAILING_SLASH_RE, "") : ""}${url as string}`;
-  if (options.params.path) {
-    for (const [k, v] of Object.entries(options.params.path)) finalURL = finalURL.replace(`{${k}}`, encodeURIComponent(String(v)));
-  }
-  if (options.params.query) {
-    const search = options.querySerializer(options.params.query as any);
-    if (search) finalURL += `?${search}`;
-  }
-  return finalURL;
-}
-
 export default function createClient<Paths extends {}>(clientOptions: ClientOptions = {}) {
   const { fetch = globalThis.fetch, querySerializer: globalQuerySerializer, bodySerializer: globalBodySerializer, ...options } = clientOptions;
 
@@ -108,25 +78,13 @@ export default function createClient<Paths extends {}>(clientOptions: ClientOpti
 
     // URL
     const finalURL = createFinalURL(url as string, { baseUrl: options.baseUrl, params, querySerializer });
-
-    // headers
-    const baseHeaders = new Headers(defaultHeaders); // clone defaults (don’t overwrite!)
-    const headerOverrides = new Headers(headers);
-    for (const [k, v] of headerOverrides.entries()) {
-      if (v === undefined || v === null) baseHeaders.delete(k); // allow `undefined` | `null` to erase value
-      else baseHeaders.set(k, v);
-    }
+    const finalHeaders = mergeHeaders(defaultHeaders as any, headers as any, (params as any).header);
 
     // fetch!
-    const requestInit: RequestInit = {
-      redirect: "follow",
-      ...options,
-      ...init,
-      headers: baseHeaders,
-    };
+    const requestInit: RequestInit = { redirect: "follow", ...options, ...init, headers: finalHeaders };
     if (requestBody) requestInit.body = bodySerializer(requestBody as any);
     // remove `Content-Type` if serialized body is FormData; browser will correctly set Content-Type & boundary expression
-    if (requestInit.body instanceof FormData) baseHeaders.delete("Content-Type");
+    if (requestInit.body instanceof FormData) finalHeaders.delete("Content-Type");
     const response = await fetch(finalURL, requestInit);
 
     // handle empty content
@@ -189,4 +147,51 @@ export default function createClient<Paths extends {}>(clientOptions: ClientOpti
       return coreFetch<P, "trace">(url, { ...init, method: "TRACE" } as any);
     },
   };
+}
+
+// utils
+
+/** serialize query params to string */
+export function defaultQuerySerializer<T = unknown>(q: T): string {
+  const search = new URLSearchParams();
+  if (q && typeof q === "object") {
+    for (const [k, v] of Object.entries(q)) {
+      if (v === undefined || v === null) continue;
+      search.set(k, v);
+    }
+  }
+  return search.toString();
+}
+
+/** serialize body object to string */
+export function defaultBodySerializer<T>(body: T): string {
+  return JSON.stringify(body);
+}
+
+/** Construct URL string from baseUrl and handle path and query params */
+export function createFinalURL<O>(url: string, options: { baseUrl?: string; params: { query?: Record<string, unknown>; path?: Record<string, unknown> }; querySerializer: QuerySerializer<O> }): string {
+  let finalURL = `${options.baseUrl ? options.baseUrl.replace(TRAILING_SLASH_RE, "") : ""}${url as string}`;
+  if (options.params.path) {
+    for (const [k, v] of Object.entries(options.params.path)) finalURL = finalURL.replace(`{${k}}`, encodeURIComponent(String(v)));
+  }
+  if (options.params.query) {
+    const search = options.querySerializer(options.params.query as any);
+    if (search) finalURL += `?${search}`;
+  }
+  return finalURL;
+}
+
+/** merge headers a and b, with b taking priority */
+export function mergeHeaders(...allHeaders: (Record<string, unknown> | Headers)[]): Headers {
+  const headers = new Headers();
+  for (const headerSet of allHeaders) {
+    if (!headerSet || typeof headerSet !== "object") continue;
+    const iterator = headerSet instanceof Headers ? headerSet.entries() : Object.entries(headerSet);
+    for (const [k, v] of iterator) {
+      if (v !== undefined && v !== null) {
+        headers.set(k, v as any);
+      }
+    }
+  }
+  return headers;
 }
