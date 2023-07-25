@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.3.8
+
+### Patch Changes
+
+- [#1246](https://github.com/drwpow/openapi-typescript/pull/1246) [`17a375e`](https://github.com/drwpow/openapi-typescript/commit/17a375ec5d13b89f526a63f6d9b9f15db85b75e9) Thanks [@drwpow](https://github.com/drwpow)! - Fix remote path item object $refs
+
 ## 6.3.7
 
 ### Patch Changes
