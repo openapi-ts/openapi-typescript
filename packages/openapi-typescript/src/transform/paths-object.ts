@@ -1,5 +1,5 @@
 import type { GlobalContext, PathsObject, PathItemObject, ParameterObject, ReferenceObject, OperationObject } from "../types.js";
-import { escStr, getEntries, indent } from "../utils.js";
+import { escStr, getEntries, getSchemaObjectComment, indent } from "../utils.js";
 import transformParameterObject from "./parameter-object.js";
 import transformPathItemObject from "./path-item-object.js";
 
@@ -20,7 +20,16 @@ export default function transformPathsObject(pathsObject: PathsObject, ctx: Glob
   const output: string[] = ["{"];
   indentLv++;
   for (const [url, pathItemObject] of getEntries(pathsObject, ctx.alphabetize, ctx.excludeDeprecated)) {
+    if (!pathItemObject || typeof pathItemObject !== "object") continue;
     let path = url;
+
+    // handle $ref
+    if ("$ref" in pathItemObject) {
+      const c = getSchemaObjectComment(pathItemObject, indentLv);
+      if (c) output.push(indent(c, indentLv));
+      output.push(indent(`${escStr(path)}: ${pathItemObject.$ref};`, indentLv));
+      continue;
+    }
 
     const pathParams = new Map([...extractPathParams(pathItemObject), ...OPERATIONS.flatMap((op) => Array.from(extractPathParams(pathItemObject[op as keyof PathItemObject])))]);
 

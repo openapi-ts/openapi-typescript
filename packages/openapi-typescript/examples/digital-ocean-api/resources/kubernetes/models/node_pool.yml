@@ -66,8 +66,10 @@ kubernetes_node_pool_base:
       type: object
       nullable: true
       example: null
-      description: An object containing a set of Kubernetes labels. The keys and
-        are values are both user-defined.
+      description: An object of key/value mappings specifying labels to apply
+        to all nodes in a pool. Labels will automatically be applied to all
+        existing nodes and any subsequent nodes added to the pool. Note that
+        when a label is removed, it is not deleted from the nodes in the pool.
 
     taints:
       type: array
@@ -75,7 +77,7 @@ kubernetes_node_pool_base:
         $ref: "#/kubernetes_node_pool_taint"
       description: An array of taints to apply to all nodes in a pool. Taints
         will automatically be applied to all existing nodes and any subsequent
-        nodes added to the pool. When a taint is removed, it is removed from
+        nodes added to the pool. When a taint is removed, it is deleted from
         all nodes in the pool.
 
     auto_scale:

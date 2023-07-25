@@ -250,6 +250,8 @@ components:
           maxLength: 5000
           nullable: true
           type: string
+        monthly_estimated_revenue:
+          $ref: '#/components/schemas/account_monthly_estimated_revenue'
         name:
           description: The customer-facing business name.
           maxLength: 5000
@@ -291,6 +293,7 @@ components:
       title: AccountBusinessProfile
       type: object
       x-expandableFields:
+        - monthly_estimated_revenue
         - support_address
     account_capabilities:
       description: ''
@@ -1032,6 +1035,28 @@ components:
       type: object
       x-expandableFields: []
       x-resourceId: account_link
+    account_monthly_estimated_revenue:
+      description: ''
+      properties:
+        amount:
+          description: >-
+            A non-negative integer representing how much to charge in the
+            [smallest currency
+            unit](https://stripe.com/docs/currencies#zero-decimal).
+          type: integer
+        currency:
+          description: >-
+            Three-letter [ISO currency
+            code](https://www.iso.org/iso-4217-currency-codes.html), in
+            lowercase. Must be a [supported
+            currency](https://stripe.com/docs/currencies).
+          type: string
+      required:
+        - amount
+        - currency
+      title: AccountMonthlyEstimatedRevenue
+      type: object
+      x-expandableFields: []
     account_payments_settings:
       description: ''
       properties:
@@ -39941,6 +39966,17 @@ paths:
                     mcc:
                       maxLength: 4
                       type: string
+                    monthly_estimated_revenue:
+                      properties:
+                        amount:
+                          type: integer
+                        currency:
+                          type: string
+                      required:
+                        - amount
+                        - currency
+                      title: monthly_estimated_revenue_specs
+                      type: object
                     name:
                       maxLength: 5000
                       type: string
@@ -41086,6 +41122,17 @@ paths:
                     mcc:
                       maxLength: 4
                       type: string
+                    monthly_estimated_revenue:
+                      properties:
+                        amount:
+                          type: integer
+                        currency:
+                          type: string
+                      required:
+                        - amount
+                        - currency
+                      title: monthly_estimated_revenue_specs
+                      type: object
                     name:
                       maxLength: 5000
                       type: string
