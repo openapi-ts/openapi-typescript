@@ -235,7 +235,7 @@ describe("client", () => {
 
         // expect error on missing `body`
         // @ts-expect-error
-        await client.GET("/blogposts", {});
+        await client.PUT("/blogposts", {});
 
         // expect error on missing fields
         // @ts-expect-error
@@ -401,9 +401,8 @@ describe("client", () => {
     it("returns empty object on 204", async () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 204, body: "" });
-      const { data, error, response } = await client.PUT("/tag/{name}", {
+      const { data, error, response } = await client.DELETE("/tag/{name}", {
         params: { path: { name: "New Tag" } },
-        body: { description: "This is a new tag" },
       });
 
       // assert correct data was returned

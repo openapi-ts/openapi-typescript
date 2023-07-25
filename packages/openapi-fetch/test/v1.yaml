@@ -190,6 +190,12 @@ paths:
           $ref: '#/components/responses/CreateTag'
         500:
           $ref: '#/components/responses/Error'
+    delete:
+      responses:
+        204:
+          description: No Content
+        500:
+          $ref: '#/components/responses/Error'
   /default-as-error:
     get:
       responses:
