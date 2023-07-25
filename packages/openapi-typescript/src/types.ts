@@ -138,7 +138,7 @@ export interface ComponentsObject extends Extensable {
  * Holds the relative paths to the individual endpoints and their operations. The path is appended to the URL from the Server Object in order to construct the full URL. The Paths MAY be empty, due to Access Control List (ACL) constraints.
  */
 export interface PathsObject {
-  [pathname: string]: PathItemObject;
+  [pathname: string]: PathItemObject | ReferenceObject; // note: paths object does support $refs; the schema just defines it in a weird way
 }
 
 /**
@@ -673,7 +673,7 @@ export type Subschema =
     }
   | { hint: "RequestBodyObject"; schema: RequestBodyObject }
   | { hint: "ResponseObject"; schema: ResponseObject }
-  | { hint: "SchemaMap"; schema: NonNullable<ComponentsObject["schemas"]> }
+  | { hint: "SchemaMap"; schema: Record<string, SchemaObject | ReferenceObject | PathItemObject> } // subschemas are less structured
   | { hint: "SchemaObject"; schema: SchemaObject };
 
 /** Context passed to all submodules */

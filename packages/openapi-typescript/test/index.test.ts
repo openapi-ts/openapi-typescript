@@ -355,6 +355,44 @@ export interface external {
 export type operations = Record<string, never>;
 `);
     });
+
+    /** test that path item objects accept $refs at the top level */
+    test("path object $refs", async () => {
+      const generated = await openapiTS(new URL("./fixtures/path-object-refs.yaml", import.meta.url));
+      expect(generated).toBe(`${BOILERPLATE}
+export interface paths {
+  /** @description Remote Ref */
+  "/get-item": external["_path-object-refs-paths.yaml"]["GetItemOperation"];
+}
+
+export type webhooks = Record<string, never>;
+
+export type components = Record<string, never>;
+
+export interface external {
+  "_path-object-refs-paths.yaml": {
+    GetItemOperation: {
+      get: {
+        responses: {
+          /** @description OK */
+          200: {
+            content: {
+              "application/json": external["_path-object-refs-paths.yaml"]["Item"];
+            };
+          };
+        };
+      };
+    };
+    Item: {
+      id: string;
+      name: string;
+    };
+  };
+}
+
+export type operations = Record<string, never>;
+`);
+    });
   });
 
   describe("3.1", () => {

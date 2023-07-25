@@ -2107,6 +2107,7 @@ export interface components {
     account_business_profile: {
       /** @description [The merchant category code for the account](https://stripe.com/docs/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide. */
       mcc?: string | null;
+      monthly_estimated_revenue?: components["schemas"]["account_monthly_estimated_revenue"];
       /** @description The customer-facing business name. */
       name?: string | null;
       /** @description Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes. */
@@ -2432,6 +2433,13 @@ export interface components {
       object: "account_link";
       /** @description The URL for the account link. */
       url: string;
+    };
+    /** AccountMonthlyEstimatedRevenue */
+    account_monthly_estimated_revenue: {
+      /** @description A non-negative integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
+      amount: number;
+      /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+      currency: string;
     };
     /** AccountPaymentsSettings */
     account_payments_settings: {
@@ -16326,6 +16334,11 @@ export interface operations {
            */
           business_profile?: {
             mcc?: string;
+            /** monthly_estimated_revenue_specs */
+            monthly_estimated_revenue?: {
+              amount: number;
+              currency: string;
+            };
             name?: string;
             product_description?: string;
             /** address_specs */
@@ -16849,6 +16862,11 @@ export interface operations {
            */
           business_profile?: {
             mcc?: string;
+            /** monthly_estimated_revenue_specs */
+            monthly_estimated_revenue?: {
+              amount: number;
+              currency: string;
+            };
             name?: string;
             product_description?: string;
             /** address_specs */

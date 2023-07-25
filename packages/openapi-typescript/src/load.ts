@@ -11,6 +11,7 @@ interface SchemaMap {
   [id: string]: Subschema;
 }
 
+const EXT_RE = /\.(yaml|yml|json)$/i;
 export const VIRTUAL_JSON_URL = `file:///_json`; // fake URL reserved for dynamic JSON
 
 function parseYAML(schema: any): any {
@@ -208,7 +209,9 @@ export default async function load(schema: URL | Subschema | Readable, options: 
     const node = rawNode as unknown as ReferenceObject;
 
     const ref = parseRef(node.$ref);
-    if (ref.filename === ".") return; // local $ref; ignore
+    if (ref.filename === ".") {
+      return; // local $ref; ignore
+    }
     // $ref with custom "x-*" property
     if (ref.path.some((i) => i.startsWith("x-"))) {
       delete (node as any).$ref;
@@ -261,7 +264,11 @@ export default async function load(schema: URL | Subschema | Readable, options: 
 
         // local $ref: convert into TS path
         if (ref.filename === ".") {
-          node.$ref = makeTSIndex(ref.path);
+          if (subschemaID === ".") {
+            node.$ref = makeTSIndex(ref.path);
+          } else {
+            node.$ref = makeTSIndex(["external", subschemaID, ...ref.path]);
+          }
         }
         // external $ref
         else {
@@ -330,8 +337,13 @@ export function getHint({ path, external, startFrom }: GetHintOptions): Subschem
     }
   }
   switch (path[0] as keyof OpenAPI3) {
-    case "paths":
+    case "paths": {
+      // if entire path item object is $ref’d, treat as schema map
+      if (EXT_RE.test(path[2])) {
+        return "SchemaMap";
+      }
       return getHintFromPathItemObject(path.slice(2), external); // skip URL at [1]
+    }
     case "components":
       return getHintFromComponentsObject(path.slice(1), external);
   }

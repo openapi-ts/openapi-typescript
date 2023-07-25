@@ -162,4 +162,16 @@ describe("Path Item Object", () => {
       },
     });
   });
+
+  test("$ref", () => {
+    const schema: PathItemObject = {
+      get: {
+        $ref: 'components["schemas"]["GetUserOperation"]',
+      },
+    };
+    const generated = transformPathItemObject(schema, options);
+    expect(generated).toBe(`{
+  get: components["schemas"]["GetUserOperation"]
+}`);
+  });
 });

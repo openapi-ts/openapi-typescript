@@ -7,7 +7,7 @@ export interface TransformPathItemObjectOptions {
   ctx: GlobalContext;
 }
 
-type Method = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
+export type Method = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
 
 export default function transformPathItemObject(pathItem: PathItemObject, { path, ctx }: TransformPathItemObjectOptions): string {
   let { indentLv } = ctx;

@@ -3984,7 +3984,7 @@ export interface external {
        */
       type?: "custom" | "lets_encrypt";
     };
-    /** Custom Certificate Request */    certificate_request_custom: certificate_create_base[] & {
+    /** Custom Certificate Request */    certificate_request_custom: external["resources/certificates/models/certificate_create.yml"]["certificate_create_base"] & {
       /**
        * @description The contents of a PEM-formatted private-key corresponding to the SSL certificate.
        * @example -----BEGIN PRIVATE KEY-----
@@ -4113,7 +4113,7 @@ export interface external {
        */
       certificate_chain?: string;
     };
-    /** Let's Encrypt Certificate Request */    certificate_request_lets_encrypt: certificate_create_base[] & {
+    /** Let's Encrypt Certificate Request */    certificate_request_lets_encrypt: external["resources/certificates/models/certificate_create.yml"]["certificate_create_base"] & {
       /**
        * @description An array of fully qualified domain names (FQDNs) for which the certificate was issued. A certificate covering all subdomains can be issued using a wildcard (e.g. `*.example.com`).
        * @example [
@@ -7686,14 +7686,14 @@ export interface external {
        */
       type: "enable_backups" | "disable_backups" | "reboot" | "power_cycle" | "shutdown" | "power_off" | "power_on" | "restore" | "password_reset" | "resize" | "rebuild" | "rename" | "change_kernel" | "enable_ipv6" | "snapshot";
     };
-    droplet_action_restore: droplet_action[] & {
+    droplet_action_restore: external["resources/droplets/models/droplet_actions.yml"]["droplet_action"] & {
       /**
        * @description The ID of a backup of the current Droplet instance to restore from.
        * @example 12389723
        */
       image?: number;
     };
-    droplet_action_resize: droplet_action[] & {
+    droplet_action_resize: external["resources/droplets/models/droplet_actions.yml"]["droplet_action"] & {
       /**
        * @description When `true`, the Droplet's disk will be resized in addition to its RAM and CPU. This is a permanent change and cannot be reversed as a Droplet's disk size cannot be decreased.
        * @example true
@@ -7705,28 +7705,28 @@ export interface external {
        */
       size?: string;
     };
-    droplet_action_rebuild: droplet_action[] & ({
+    droplet_action_rebuild: external["resources/droplets/models/droplet_actions.yml"]["droplet_action"] & ({
       /**
        * @description The image ID of a public or private image or the slug identifier for a public image. The Droplet will be rebuilt using this image as its base.
        * @example ubuntu-20-04-x64
        */
       image?: string | number;
     });
-    droplet_action_rename: droplet_action[] & {
+    droplet_action_rename: external["resources/droplets/models/droplet_actions.yml"]["droplet_action"] & {
       /**
        * @description The new name for the Droplet.
        * @example nifty-new-name
        */
       name?: string;
     };
-    droplet_action_change_kernel: droplet_action[] & {
+    droplet_action_change_kernel: external["resources/droplets/models/droplet_actions.yml"]["droplet_action"] & {
       /**
        * @description A unique number used to identify and reference a specific kernel.
        * @example 12389723
        */
       kernel?: number;
     };
-    droplet_action_snapshot: droplet_action[] & {
+    droplet_action_snapshot: external["resources/droplets/models/droplet_actions.yml"]["droplet_action"] & {
       /**
        * @description The name to give the new snapshot of the Droplet.
        * @example Nifty New Snapshot
@@ -9037,10 +9037,10 @@ export interface external {
     };
     floating_ip_action_unassign: {
       type: undefined;
-    } & Omit<floatingIPsAction[], "type"> & Record<string, never>;
+    } & Omit<external["resources/floating_ips/models/floating_ip_actions.yml"]["floatingIPsAction"], "type"> & Record<string, never>;
     floating_ip_action_assign: {
       type: undefined;
-    } & Omit<floatingIPsAction[], "type"> & {
+    } & Omit<external["resources/floating_ips/models/floating_ip_actions.yml"]["floatingIPsAction"], "type"> & {
       /**
        * @description The ID of the Droplet that the floating IP will be assigned to.
        * @example 758604968
@@ -9850,7 +9850,7 @@ export interface external {
        */
       type: "convert" | "transfer";
     };
-    image_action_transfer: image_action_base[] & {
+    image_action_transfer: external["resources/images/models/image_action.yml"]["image_action_base"] & {
       region: external["shared/attributes/region_slug.yml"];
     };
   };
@@ -10672,7 +10672,7 @@ export interface external {
        *   }
        * ]
        */
-      load_balancers?: associated_kubernetes_resource[][];
+      load_balancers?: external["resources/kubernetes/models/associated_kubernetes_resources.yml"]["associated_kubernetes_resource"][];
       /**
        * @description A list of names and IDs for associated volumes that can be destroyed along with the cluster.
        * @example [
@@ -10682,7 +10682,7 @@ export interface external {
        *   }
        * ]
        */
-      volumes?: associated_kubernetes_resource[][];
+      volumes?: external["resources/kubernetes/models/associated_kubernetes_resources.yml"]["associated_kubernetes_resource"][];
       /**
        * @description A list of names and IDs for associated volume snapshots that can be destroyed along with the cluster.
        * @example [
@@ -10692,7 +10692,7 @@ export interface external {
        *   }
        * ]
        */
-      volume_snapshots?: associated_kubernetes_resource[][];
+      volume_snapshots?: external["resources/kubernetes/models/associated_kubernetes_resources.yml"]["associated_kubernetes_resource"][];
     };
     associated_kubernetes_resource: {
       /**
@@ -13771,10 +13771,10 @@ export interface external {
     };
     reserved_ip_action_unassign: {
       type: undefined;
-    } & Omit<reserved_ip_action_type[], "type"> & Record<string, never>;
+    } & Omit<external["resources/reserved_ips/models/reserved_ip_actions.yml"]["reserved_ip_action_type"], "type"> & Record<string, never>;
     reserved_ip_action_assign: {
       type: undefined;
-    } & Omit<reserved_ip_action_type[], "type"> & {
+    } & Omit<external["resources/reserved_ips/models/reserved_ip_actions.yml"]["reserved_ip_action_type"], "type"> & {
       /**
        * @description The ID of the Droplet that the reserved IP will be assigned to.
        * @example 758604968
@@ -15984,7 +15984,7 @@ export interface external {
   }
   "shared/pages.yml": {
     pagination: {
-      links?: page_links[];
+      links?: external["shared/pages.yml"]["page_links"];
     };
     page_links: {
       /**
@@ -15997,8 +15997,8 @@ export interface external {
        */
       pages?: unknown;
     };
-    backward_links: link_to_first_page[] & link_to_prev_page[];
-    forward_links: link_to_last_page[] & link_to_next_page[];
+    backward_links: external["shared/pages.yml"]["link_to_first_page"] & external["shared/pages.yml"]["link_to_prev_page"];
+    forward_links: external["shared/pages.yml"]["link_to_last_page"] & external["shared/pages.yml"]["link_to_next_page"];
     link_to_first_page: {
       /**
        * @description URI of the first page of the results.

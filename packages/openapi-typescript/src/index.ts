@@ -11,6 +11,7 @@ import transformRequestBodyObject from "./transform/request-body-object.js";
 import transformResponseObject from "./transform/response-object.js";
 import transformSchemaObject from "./transform/schema-object.js";
 import { error, escObjKey, getDefaultFetch, getEntries, getSchemaObjectComment, indent } from "./utils.js";
+import transformPathItemObject, { Method } from "./transform/path-item-object.js";
 export * from "./types.js"; // expose all types to consumers
 
 const EMPTY_OBJECT_RE = /^\s*\{?\s*\}?\s*$/;
@@ -177,11 +178,26 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
         case "SchemaMap": {
           subschemaOutput += "{\n";
           indentLv++;
-          for (const [name, schemaObject] of getEntries(subschema.schema!)) {
-            const c = getSchemaObjectComment(schemaObject, indentLv);
+
+          outer: for (const [name, schemaObject] of getEntries(subschema.schema!)) {
+            if (!schemaObject || typeof schemaObject !== "object") continue;
+            const c = getSchemaObjectComment(schemaObject as any, indentLv);
             if (c) subschemaOutput += indent(c, indentLv);
+
+            // This might be a Path Item Object; only way to test is if top-level contains a method (not allowed on Schema Object)
+            if (!("type" in schemaObject) && !("$ref" in schemaObject)) {
+              for (const method of ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as Method[]) {
+                if (method in schemaObject) {
+                  subschemaOutput += indent(`${escObjKey(name)}: ${transformPathItemObject(schemaObject as any, { path: `${path}${name}`, ctx: { ...ctx, indentLv } })};\n`, indentLv);
+                  continue outer;
+                }
+              }
+            }
+
+            // Otherwise, this is a Schema Object
             subschemaOutput += indent(`${escObjKey(name)}: ${transformSchemaObject(schemaObject, { path: `${path}${name}`, ctx: { ...ctx, indentLv } })};\n`, indentLv);
           }
+
           indentLv--;
           subschemaOutput += indent("};", indentLv);
           break;

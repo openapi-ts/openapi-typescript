@@ -4,26 +4,18 @@ import { fileURLToPath } from "node:url";
 import degit from "degit";
 import { fetch } from "undici";
 import { error } from "../src/utils.js";
-
-export const singleFile = {
-  "github-api": "https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.yaml",
-  "github-api-next": "https://raw.githubusercontent.com/github/rest-api-description/main/descriptions-next/api.github.com/api.github.com.yaml",
-  "octokit-ghes-3.6-diff-to-api": "https://raw.githubusercontent.com/octokit/octokit-next.js/main/cache/types-openapi/ghes-3.6-diff-to-api.github.com.json",
-  "stripe-api": "https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.yaml",
-};
-export const multiFile = {
-  "digital-ocean-api": {
-    repo: "https://github.com/digitalocean/openapi/specification",
-    entry: "./DigitalOcean-public.v2.yaml",
-  },
-};
+import { multiFile, singleFile } from "./schemas.js";
 
 const ONE_DAY = 1000 * 60 * 60 * 24;
 const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
 
 export async function download() {
+  const allSchemas = Object.keys({ ...singleFile, ...multiFile });
+  let done = 0;
+  console.log("Downloading schemas..."); // eslint-disable-line no-console
   await Promise.all([
     ...Object.entries(singleFile).map(async ([k, url]) => {
+      const start = performance.now();
       const ext = path.extname(url);
       const dest = new URL(`${k}${ext}`, EXAMPLES_DIR);
       if (fs.existsSync(dest)) {
@@ -37,8 +29,11 @@ export async function download() {
       }
       fs.mkdirSync(new URL(".", dest), { recursive: true });
       fs.writeFileSync(dest, await result.text());
+      done++;
+      console.log(`✔︎ [${done}/${allSchemas.length}] Downloaded ${k} (${Math.round(performance.now() - start)}ms)`); // eslint-disable-line no-console
     }),
     ...Object.entries(multiFile).map(async ([k, meta]) => {
+      const start = performance.now();
       const dest = new URL(k, EXAMPLES_DIR);
       if (fs.existsSync(dest)) {
         const { mtime } = fs.statSync(dest);
@@ -48,8 +43,11 @@ export async function download() {
         force: true,
       });
       await emitter.clone(fileURLToPath(new URL(k, EXAMPLES_DIR)));
+      done++;
+      console.log(`✔︎ [${done}/${allSchemas.length}] Downloaded ${k} (${Math.round(performance.now() - start)}ms)`); // eslint-disable-line no-console
     }),
   ]);
+  console.log("Downloading schemas done."); // eslint-disable-line no-console
 }
 
 download();
