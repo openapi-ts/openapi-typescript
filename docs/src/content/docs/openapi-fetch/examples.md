@@ -201,16 +201,15 @@ function useUser({ params, body, reactQuery }: UseQueryOptions<paths[typeof GET_
       params.path.user_id,
       // add any other hook dependencies here
     ],
-    queryFn: () =>
-      client
-        .get(GET_USER, {
-          params,
-          // body - isn’t used for GET, but needed for other request types
-        })
-        .then((res) => {
-          if (res.data) return res.data;
-          throw new Error(res.error.message); // React Query expects errors to be thrown to show a message
-        }),
+    queryFn: async ({ signal }) => {
+      const { data, error } = await client.get(GET_USER, {
+        params,
+        // body - isn’t used for GET, but needed for other request types
+        signal, // allows React Query to cancel request
+      });
+      if (res.data) return res.data;
+      throw new Error(res.error.message); // React Query expects errors to be thrown to show a message
+    },
   });
 }
 
