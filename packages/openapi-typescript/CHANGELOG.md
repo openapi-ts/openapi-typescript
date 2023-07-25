@@ -1,5 +1,13 @@
 # openapi-typescript
 
+## 6.3.9
+
+### Patch Changes
+
+- [#1248](https://github.com/drwpow/openapi-typescript/pull/1248) [`c145f5f`](https://github.com/drwpow/openapi-typescript/commit/c145f5f6164b52a8b437b2e944f60927d546edbf) Thanks [@drwpow](https://github.com/drwpow)! - Fix Record<string, never> appearing in union
+
+- [#1248](https://github.com/drwpow/openapi-typescript/pull/1248) [`c145f5f`](https://github.com/drwpow/openapi-typescript/commit/c145f5f6164b52a8b437b2e944f60927d546edbf) Thanks [@drwpow](https://github.com/drwpow)! - Improve oneOf generated types
+
 ## 6.3.8
 
 ### Patch Changes
