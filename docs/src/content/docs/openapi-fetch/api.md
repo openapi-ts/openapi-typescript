@@ -21,7 +21,7 @@ createClient<paths>(options);
 
 ## Fetch options
 
-The following options apply to all request methods (`.get()`, `.post()`, etc.)
+The following options apply to all request methods (`.GET()`, `.POST()`, etc.)
 
 ```ts
 client.get("/my-url", options);
@@ -43,7 +43,7 @@ client.get("/my-url", options);
 This library uses <a href="https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams" target="_blank" rel="noopener noreferrer">URLSearchParams</a> to <a href="https://swagger.io/docs/specification/serialization/" target="_blank" rel="noopener noreferrer">serialize query parameters</a>. For complex query param types (e.g. arrays) you’ll need to provide your own `querySerializer()` method that transforms query params into a URL-safe string:
 
 ```ts
-const { data, error } = await get("/search", {
+const { data, error } = await GET("/search", {
   params: {
     query: { tags: ["food", "california", "healthy"] },
   },
@@ -66,7 +66,7 @@ const { data, error } = await get("/search", {
 Similar to [querySerializer](#querySerializer), bodySerializer works for requestBody. You probably only need this when using `multipart/form-data`:
 
 ```ts
-const { data, error } = await put("/submit", {
+const { data, error } = await PUT("/submit", {
   body: {
     name: "",
     query: { version: 2 },

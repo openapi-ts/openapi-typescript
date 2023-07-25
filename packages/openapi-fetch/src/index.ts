@@ -115,35 +115,35 @@ export default function createClient<Paths extends {}>(clientOptions: ClientOpti
 
   return {
     /** Call a GET endpoint */
-    async get<P extends PathsWith<Paths, "get">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "get">>) {
+    async GET<P extends PathsWith<Paths, "get">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "get">>) {
       return coreFetch<P, "get">(url, { ...init, method: "GET" } as any);
     },
     /** Call a PUT endpoint */
-    async put<P extends PathsWith<Paths, "put">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "put">>) {
+    async PUT<P extends PathsWith<Paths, "put">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "put">>) {
       return coreFetch<P, "put">(url, { ...init, method: "PUT" } as any);
     },
     /** Call a POST endpoint */
-    async post<P extends PathsWith<Paths, "post">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "post">>) {
+    async POST<P extends PathsWith<Paths, "post">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "post">>) {
       return coreFetch<P, "post">(url, { ...init, method: "POST" } as any);
     },
     /** Call a DELETE endpoint */
-    async del<P extends PathsWith<Paths, "delete">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "delete">>) {
+    async DELETE<P extends PathsWith<Paths, "delete">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "delete">>) {
       return coreFetch<P, "delete">(url, { ...init, method: "DELETE" } as any);
     },
     /** Call a OPTIONS endpoint */
-    async options<P extends PathsWith<Paths, "options">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "options">>) {
+    async OPTIONS<P extends PathsWith<Paths, "options">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "options">>) {
       return coreFetch<P, "options">(url, { ...init, method: "OPTIONS" } as any);
     },
     /** Call a HEAD endpoint */
-    async head<P extends PathsWith<Paths, "head">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "head">>) {
+    async HEAD<P extends PathsWith<Paths, "head">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "head">>) {
       return coreFetch<P, "head">(url, { ...init, method: "HEAD" } as any);
     },
     /** Call a PATCH endpoint */
-    async patch<P extends PathsWith<Paths, "patch">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "patch">>) {
+    async PATCH<P extends PathsWith<Paths, "patch">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "patch">>) {
       return coreFetch<P, "patch">(url, { ...init, method: "PATCH" } as any);
     },
     /** Call a TRACE endpoint */
-    async trace<P extends PathsWith<Paths, "trace">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "trace">>) {
+    async TRACE<P extends PathsWith<Paths, "trace">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "trace">>) {
       return coreFetch<P, "trace">(url, { ...init, method: "TRACE" } as any);
     },
   };

@@ -19,10 +19,10 @@ The syntax is inspired by popular libraries like react-query or Apollo client, b
 import createClient from "openapi-fetch";
 import { paths } from "./v1"; // generated from openapi-typescript
 
-const { get, put } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
+const { GET, PUT } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 
 // Type-checked request
-await put("/blogposts", {
+await PUT("/blogposts", {
   body: {
     title: "My New Post",
     // ❌ Property 'publish_date' is missing in type …
@@ -30,7 +30,7 @@ await put("/blogposts", {
 });
 
 // Type-checked response
-const { data, error } = await get("/blogposts/{post_id}", { params: { path: { post_id: "123" } } });
+const { data, error } = await GET("/blogposts/{post_id}", { params: { path: { post_id: "123" } } });
 console.log(data.title); // ❌ 'data' is possibly 'undefined'
 console.log(error.message); // ❌ 'error' is possibly 'undefined'
 console.log(data?.foo); // ❌ Property 'foo' does not exist on type …
@@ -90,16 +90,16 @@ Here’s how you’d fetch GET `/blogposts/{post_id}` and PUT `/blogposts`:
 import createClient from "openapi-fetch";
 import { paths } from "./v1";
 
-const { get, put } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
+const { GET, PUT } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 
-const { data, error } = await get("/blogposts/{post_id}", {
+const { data, error } = await GET("/blogposts/{post_id}", {
   params: {
     path: { post_id: "my-post" },
     query: { version: 2 },
   },
 });
 
-const { data, error } = await put("/blogposts", {
+const { data, error } = await PUT("/blogposts", {
   body: {
     title: "New Post",
     body: "<p>New post body</p>",
@@ -110,7 +110,7 @@ const { data, error } = await put("/blogposts", {
 
 ### Pathname
 
-The pathname of `get()`, `put()`, `post()`, etc. **must match your schema literally.** Note in the example, the URL is `/blogposts/{post_id}`. This library will replace all `path` params for you (so they can be typechecked)
+The pathname of `GET()`, `PUT()`, `POST()`, etc. **must match your schema literally.** Note in the example, the URL is `/blogposts/{post_id}`. This library will replace all `path` params for you (so they can be typechecked)
 
 > ✨ **Tip**
 >
@@ -121,9 +121,9 @@ The pathname of `get()`, `put()`, `post()`, etc. **must match your schema litera
 
 ### Request
 
-The `get()` request shown needed the `params` object that groups <a href="https://spec.openapis.org/oas/latest.html#parameter-object" target="_blank" rel="noopener noreferrer">parameters by type</a> (`path` or `query`). If a required param is missing, or the wrong type, a type error will be thrown.
+The `GET()` request shown needed the `params` object that groups <a href="https://spec.openapis.org/oas/latest.html#parameter-object" target="_blank" rel="noopener noreferrer">parameters by type</a> (`path` or `query`). If a required param is missing, or the wrong type, a type error will be thrown.
 
-The `post()` request required a `body` object that provided all necessary <a href="https://spec.openapis.org/oas/latest.html#request-body-object" target="_blank" rel="noopener noreferrer">requestBody</a> data.
+The `POST()` request required a `body` object that provided all necessary <a href="https://spec.openapis.org/oas/latest.html#request-body-object" target="_blank" rel="noopener noreferrer">requestBody</a> data.
 
 ### Response
 
