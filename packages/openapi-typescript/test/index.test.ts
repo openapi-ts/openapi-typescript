@@ -488,6 +488,7 @@ export type operations = Record<string, never>;
         components: {
           schemas: {
             Pet: {
+              type: "object", // note: this is “wrong” but added because this should be ignored (fixes a bug)
               oneOf: [{ $ref: "#/components/schemas/Cat" }, { $ref: "#/components/schemas/Dog" }, { $ref: "#/components/schemas/Lizard" }],
               discriminator: {
                 propertyName: "petType",
@@ -497,7 +498,7 @@ export type operations = Record<string, never>;
                   lizard: "#/components/schemas/Lizard",
                 },
               },
-            },
+            } as any,
             Cat: {
               type: "object",
               properties: {

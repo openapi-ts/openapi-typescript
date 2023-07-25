@@ -67,20 +67,27 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
   }
 
   // oneOf (no discriminator)
-  const oneOf = ((typeof schemaObject === "object" && (schemaObject as any).oneOf) || (schemaObject as any).enum || undefined) as (SchemaObject | ReferenceObject)[] | undefined; // note: for objects, treat enum as oneOf
+  const oneOf = ((typeof schemaObject === "object" && !(schemaObject as any).discriminator && (schemaObject as any).oneOf) || (schemaObject as any).enum || undefined) as (SchemaObject | ReferenceObject)[] | undefined; // note: for objects, treat enum as oneOf
   if (oneOf && !oneOf.some((t) => "$ref" in t && ctx.discriminators[t.$ref])) {
     const oneOfNormalized = oneOf.map((item) => transformSchemaObject(item, { path, ctx }));
+    if (schemaObject.nullable) oneOfNormalized.push("null");
+
+    // handle oneOf + polymorphic array type
+    if ("type" in schemaObject && Array.isArray(schemaObject.type)) {
+      const coreTypes = schemaObject.type.map((t) => transformSchemaObject({ ...schemaObject, oneOf: undefined, type: t }, { path, ctx }));
+      return tsUnionOf(...oneOfNormalized, ...coreTypes);
+    }
+
     // OneOf<> helper needed if any objects present ("{")
     const oneOfTypes = oneOfNormalized.some((t) => typeof t === "string" && t.includes("{")) ? tsOneOf(...oneOfNormalized) : tsUnionOf(...oneOfNormalized);
 
+    // handle oneOf + object type
     if ("type" in schemaObject && schemaObject.type === "object") {
-      const coreSchema = { ...schemaObject };
-      delete (coreSchema as any).oneOf;
-      delete coreSchema.enum;
-      return tsIntersectionOf(transformSchemaObject(coreSchema, { path, ctx }), oneOfTypes);
-    } else {
-      return oneOfTypes;
+      return tsIntersectionOf(transformSchemaObject({ ...schemaObject, oneOf: undefined, enum: undefined } as any, { path, ctx }), oneOfTypes);
     }
+
+    // default
+    return oneOfTypes;
   }
 
   if ("type" in schemaObject) {
@@ -183,7 +190,7 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
 
   // discriminators
   for (const k of ["oneOf", "allOf", "anyOf"] as ("oneOf" | "allOf" | "anyOf")[]) {
-    if (!(k in schemaObject)) continue;
+    if (!(schemaObject as any)[k]) continue;
     const discriminatorRef: ReferenceObject | undefined = (schemaObject as any)[k].find((t: SchemaObject | ReferenceObject) => "$ref" in t && ctx.discriminators[t.$ref]);
     if (discriminatorRef) {
       const discriminator = ctx.discriminators[discriminatorRef.$ref];
@@ -216,7 +223,7 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
   }
   // oneOf (discriminator)
   if ("oneOf" in schemaObject && Array.isArray(schemaObject.oneOf)) {
-    const oneOfType = tsOneOf(...collectCompositions(schemaObject.oneOf));
+    const oneOfType = tsUnionOf(...collectCompositions(schemaObject.oneOf));
     finalType = finalType ? tsIntersectionOf(finalType, oneOfType) : oneOfType;
   } else {
     // allOf

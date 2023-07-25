@@ -368,6 +368,12 @@ describe("Schema Object", () => {
         expect(generated).toBe("0 | 1");
       });
 
+      test("nullable: true", () => {
+        const schema: SchemaObject = { nullable: true, oneOf: [{ type: "integer" }, { type: "string" }] };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe("number | string | null");
+      });
+
       test("complex", () => {
         const schema: SchemaObject = {
           oneOf: [
@@ -405,6 +411,15 @@ describe("Schema Object", () => {
 }, {
   bar?: string;
 }]>`);
+      });
+
+      test("oneOf + array type", () => {
+        const schema = {
+          oneOf: [{ type: "integer" }, { type: "string" }],
+          type: ["null", "integer", "string"],
+        };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe("number | string | null");
       });
 
       test("enum (acting as oneOf)", () => {

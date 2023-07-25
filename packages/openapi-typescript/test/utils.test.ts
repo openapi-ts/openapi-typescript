@@ -89,34 +89,34 @@ describe("utils", () => {
 
   describe("escObjKey", () => {
     it("basic", () => {
-      expect(escObjKey("some-prop")).toStrictEqual('"some-prop"');
+      expect(escObjKey("some-prop")).toBe('"some-prop"');
     });
 
     it("@ escapes", () => {
-      expect(escObjKey("@type")).toStrictEqual('"@type"');
+      expect(escObjKey("@type")).toBe('"@type"');
     });
 
     it("number escapes", () => {
-      expect(escObjKey("123var")).toStrictEqual('"123var"');
+      expect(escObjKey("123var")).toBe('"123var"');
     });
 
     it("only number no escapes", () => {
-      expect(escObjKey("123")).toStrictEqual("123");
+      expect(escObjKey("123")).toBe("123");
     });
 
     it("$ no escapes", () => {
-      expect(escObjKey("$ref")).toStrictEqual("$ref");
+      expect(escObjKey("$ref")).toBe("$ref");
     });
 
     it("_ no escapes", () => {
-      expect(escObjKey("_ref_")).toStrictEqual("_ref_");
+      expect(escObjKey("_ref_")).toBe("_ref_");
     });
   });
 
   describe("comment", () => {
     it("basic", () => {
-      expect(comment("A comment")).toStrictEqual("/** A comment */");
-      expect(comment("A multi-line \n\n comment")).toStrictEqual(
+      expect(comment("A comment")).toBe("/** A comment */");
+      expect(comment("A multi-line \n\n comment")).toBe(
         // prettier-ignore
         "/**\n" +
         " * A multi-line\n" +
@@ -133,7 +133,7 @@ describe("utils", () => {
         getSchemaObjectComment({
           title: "A title",
         })
-      ).toStrictEqual("/** A title */");
+      ).toBe("/** A title */");
     });
 
     it("object with 2 properties", () => {
@@ -142,7 +142,7 @@ describe("utils", () => {
           title: "A title",
           description: "A description",
         })
-      ).toStrictEqual(
+      ).toBe(
         // prettier-ignore
         "/**\n" +
         " * A title\n" +
