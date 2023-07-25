@@ -14,10 +14,10 @@ The syntax is inspired by popular libraries like react-query or Apollo client, b
 import createClient from "openapi-fetch";
 import { paths } from "./v1"; // (generated from openapi-typescript)
 
-const { get, post } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
+const { GET, POST } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 
 // Type-checked request
-await post("/create-post", {
+await POST("/create-post", {
   body: {
     title: "My New Post",
     // ❌ Property 'publish_date' is missing in type …
@@ -25,7 +25,7 @@ await post("/create-post", {
 });
 
 // Type-checked response
-const { data, error } = await get("/blogposts/my-blog-post");
+const { data, error } = await GET("/blogposts/my-blog-post");
 
 console.log(data.title); // ❌ 'data' is possibly 'undefined'
 console.log(error.message); // ❌ 'error' is possibly 'undefined'
@@ -86,16 +86,16 @@ Here’s how you’d fetch GET `/blogposts/{post_id}` and PUT `/blogposts`:
 import createClient from "openapi-fetch";
 import { paths } from "./v1";
 
-const { get, put } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
+const { GET, PUT } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 
-const { data, error } = await get("/blogposts/{post_id}", {
+const { data, error } = await GET("/blogposts/{post_id}", {
   params: {
     path: { post_id: "my-post" },
     query: { version: 2 },
   },
 });
 
-const { data, error } = await put("/blogposts", {
+const { data, error } = await PUT("/blogposts", {
   body: {
     title: "New Post",
     body: "<p>New post body</p>",

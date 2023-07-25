@@ -30,9 +30,9 @@ export const client = computed(authToken, (currentToken) =>
 // src/some-other-file.ts
 import { client } from "./lib/api";
 
-const { get, post } = client.get();
+const { GET, POST } = client.get();
 
-get("/some-authenticated-url", {
+GET("/some-authenticated-url", {
   /* … */
 });
 ```
@@ -63,7 +63,7 @@ export default new Proxy(baseClient, {
 // src/some-other-file.ts
 import client from "./lib/api";
 
-client.get("/some-authenticated-url", {
+client.GET("/some-authenticated-url", {
   /* … */
 });
 ```
@@ -89,7 +89,7 @@ export default createClient({
 // src/some-other-file.ts
 import client from "./lib/api";
 
-client.get("/my/endpoint", {
+client.GET("/my/endpoint", {
   /* … */
 });
 ```
@@ -202,7 +202,7 @@ function useUser({ params, body, reactQuery }: UseQueryOptions<paths[typeof GET_
       // add any other hook dependencies here
     ],
     queryFn: async ({ signal }) => {
-      const { data, error } = await client.get(GET_USER, {
+      const { data, error } = await client.GET(GET_USER, {
         params,
         // body - isn’t used for GET, but needed for other request types
         signal, // allows React Query to cancel request
