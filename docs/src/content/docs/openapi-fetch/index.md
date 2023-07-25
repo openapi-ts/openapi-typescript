@@ -5,11 +5,11 @@ description: Get Started with openapi-fetch
 
 <img src="/assets/openapi-fetch.svg" alt="openapi-fetch" width="216" height="40" />
 
-openapi-fetch applies your OpenAPI types to the native fetch API via TypeScript. Weighs in at **1 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
+openapi-fetch applies your OpenAPI types to the native fetch API via TypeScript. Weighs in at **2 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
 
 | Library                        | Size (min) |
 | :----------------------------- | ---------: |
-| **openapi-fetch**              |     `1 kB` |
+| **openapi-fetch**              |     `2 kB` |
 | **openapi-typescript-fetch**   |     `4 kB` |
 | **openapi-typescript-codegen** |   `345 kB` |
 

@@ -5,9 +5,21 @@ description: Node.js API
 
 The Node API may be useful if dealing with dynamically-created schemas, or you’re using within context of a larger application. Pass in either a JSON-friendly object to load a schema from memory, or a string to load a schema from a local file or remote URL (it will load the file quickly using built-in Node methods).
 
+## Setup
+
 ```bash
 npm i --save-dev openapi-typescript
 ```
+
+Note that the Node.js API requires [ESM support](https://nodejs.org/api/esm.html) in Node. This can be enabled by adding
+
+```json
+  "type": "module"
+```
+
+To your `package.json`. Or it can be consumed in a `.mjs` file extension (rather than `.js` or `.cjs`)
+
+## Usage
 
 ```js
 import fs from "node:fs";
@@ -113,72 +125,3 @@ Resultant diff with correctly-typed `file` property:
 Any [Schema Object](https://spec.openapis.org/oas/latest.html#schema-object) present in your schema will be run through this formatter (even remote ones!). Also be sure to check the `metadata` parameter for additional context that may be helpful.
 
 There are many other uses for this besides checking `format`. Because this must return a **string** you can produce any arbitrary TypeScript code you’d like (even your own custom types).
-
-## Node.js API with browser build target
-
-Projects with a browser build target (e.g. a React app) may be unable to run a Node.js script, due to differences between Node.js and and browser module systems. Some minor configuration is needed.
-
-Here's an example script implementing the above transforms:
-
-```ts
-// scripts/generateTypes.ts
-import fs from "node:fs";
-import openapiTS from "openapi-typescript";
-
-const OPENAPI_URL = "https://petstore3.swagger.io/api/v3/openapi.json";
-const OUTPUT_FILE = "src/services/api/schema.d.ts";
-
-async function main() {
-  process.stdout.write(`Generating types "${OPENAPI_URL}" --> "${OUTPUT_FILE}"...`);
-  const types = await openapiTS(OPENAPI_URL, {
-    transform: (schemaObject, metadata): string | undefined => {
-      if ("format" in schemaObject && schemaObject.format === "binary") {
-        return schemaObject.nullable ? "Blob | null" : "Blob";
-      }
-      if ("format" in schemaObject && schemaObject.format === "date-time") {
-        return schemaObject.nullable ? "Date | null" : "Date";
-      }
-    },
-  });
-  fs.writeFileSync(OUTPUT_FILE, types);
-  process.stdout.write(` OK!\r\n`);
-}
-
-main();
-```
-
-Add a `package.json` to the scripts folder declaring the module type:
-
-```json
-// scripts/package.json
-{
-  "type": "module"
-}
-```
-
-Now you can run your script using `ts-node`. The `--esm` flag tells `ts-node` how to handle the imports:
-
-```bash
-npx ts-node --esm scripts/generateTypes.ts
-```
-
-If you the project uses JSX (e.g. React), you may need to pass in `compilerOptions` with correct `"jsx"`property:
-
-```bash
-npx ts-node --esm -compilerOptions {\"jsx\":\"preserve\"} scripts/generateTypes.ts
-```
-
-A alternative to the CLI flags is to add a `ts-node` section to your `tsconfig.json`:
-
-```json
-// tsconfig.json
-{
-  ... // your existing config
-  "ts-node": {
-    "compilerOptions": { // `ts-node`-specific compiler options
-      "jsx": "preserve" // this may not be the correct value for your project
-    },
-    "esm": true // support ECMAScript modules
-  }
-}
-```
