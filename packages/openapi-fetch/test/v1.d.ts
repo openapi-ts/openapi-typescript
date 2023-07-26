@@ -112,6 +112,29 @@ export interface paths {
   "/header-params": {
     get: operations["getHeaderParams"];
   };
+  "/media": {
+    put: {
+      requestBody: {
+        content: {
+          "application/json": {
+            /** Format: blob */
+            media: string;
+            name: string;
+          };
+        };
+      };
+      responses: {
+        "2XX": {
+          content: {
+            "application/json": {
+              status: string;
+            };
+          };
+        };
+        "4XX": components["responses"]["Error"];
+      };
+    };
+  };
   "/self": {
     get: {
       responses: {
