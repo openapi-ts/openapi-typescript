@@ -43,7 +43,7 @@ Notice **there are no generics, and no manual typing.** Your endpoint’s exact 
 - ✅ No manual typing of your API
 - ✅ Eliminates `any` types that hide bugs
 - ✅ Also eliminates `as` type overrides that can also hide bugs
-- ✅ All of this in a **1 kB** client package 🎉
+- ✅ All of this in a **2 kB** client package 🎉
 
 ## Setup
 
