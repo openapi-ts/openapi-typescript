@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.7.1
+
+### Patch Changes
+
+- [#1251](https://github.com/drwpow/openapi-typescript/pull/1251) [`80717a7`](https://github.com/drwpow/openapi-typescript/commit/80717a75ad20f2224a9a61d2a5b3d2b2bbd7c78b) Thanks [@drwpow](https://github.com/drwpow)! - Fix 2XX, 4XX, 5XX responses
+
 ## 0.7.0
 
 ### Minor Changes
