@@ -9,5 +9,5 @@ _How can a reviewer review your changes? What should be kept in mind for this re
 ## Checklist
 
 - [ ] Unit tests updated
-- [ ] README updated
-- [ ] `examples/` directory updated (only applicable for openapi-typescript)
+- [ ] `docs/` updated (if necessary)
+- [ ] `pnpm run update:examples` run (only applicable for openapi-typescript)
