@@ -1,6 +1,6 @@
 <img src="../../docs/public/assets/openapi-fetch.svg" alt="openapi-fetch" width="216" height="40" />
 
-openapi-fetch applies your OpenAPI types to the native fetch API via TypeScript. Weighs in at **2 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
+openapi-fetch applies your OpenAPI types to the native fetch API via TypeScript. Weighs **2 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
 
 | Library                        | Size (min) |
 | :----------------------------- | ---------: |
@@ -8,7 +8,7 @@ openapi-fetch applies your OpenAPI types to the native fetch API via TypeScript.
 | **openapi-typescript-fetch**   |     `4 kB` |
 | **openapi-typescript-codegen** |   `345 kB` |
 
-The syntax is inspired by popular libraries like react-query or Apollo client, but without all the bells and whistles and in a 1 kb package.
+The syntax is inspired by popular libraries like react-query or Apollo client, but without all the bells and whistles and in a 2 kb package.
 
 ```ts
 import createClient from "openapi-fetch";
