@@ -70,7 +70,7 @@ client.GET("/some-authenticated-url", {
 
 ## Caching
 
-openapi-fetch doesn’t provide any caching utilities (it’s 1 kb, remember?). But this library is so lightweight, caching can be added easily.
+openapi-fetch doesn’t provide any caching utilities. But this library is so lightweight, caching can be added easily.
 
 ### Built-in Fetch caching
 
