@@ -123,6 +123,36 @@ paths:
                   - status
         500:
           $ref: '#/components/responses/Error'
+  /media:
+    put:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                media:
+                  type: string
+                  format: blob
+                name:
+                  type: string
+              required:
+                - media
+                - name
+      responses:
+        2XX:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                required:
+                  - status
+        4XX:
+          $ref: '#/components/responses/Error'
   /self:
     get:
       responses:

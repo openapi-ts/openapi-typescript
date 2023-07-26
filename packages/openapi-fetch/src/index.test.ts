@@ -516,6 +516,21 @@ describe("client", () => {
       // assert array type (and only array type) was inferred
       expect(data.length).toBe(0);
     });
+
+    it("handles literal 2XX and 4XX codes", async () => {
+      const client = createClient<paths>();
+      mockFetch({ status: 201, body: '{"status": "success"}' });
+      const { data, error } = await client.PUT("/media", { body: { media: "base64", name: "myImage" } });
+
+      if (data) {
+        // assert 2XX type inferred correctly
+        expect(data.status).toBe("success");
+      } else {
+        // assert 4XX type inferred correctly
+        // (this should be a dead code path but tests TS types)
+        expect(error.message).toBe("Error");
+      }
+    });
   });
 
   describe("POST()", () => {
