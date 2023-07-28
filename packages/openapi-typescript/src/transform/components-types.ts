@@ -1,3 +1,4 @@
+import camelCase from "camelcase";
 import type { ComponentsObject, GlobalContext } from "../types.js";
 import { escObjKey, getEntries, getSchemaObjectComment, indent, tsReadonly } from "../utils.js";
 import transformSchemaObject from "./schema-object.js";
@@ -18,7 +19,7 @@ export default function transformComponentsObjectToTypes(components: ComponentsO
         ctx: { ...ctx, indentLv: indentLv },
       });
 
-      output.push(indent(`export type ${key} = ${schemaType};\n`, indentLv));
+      output.push(indent(`export type ${camelCase(key, { pascalCase: true })} = ${schemaType};\n`, indentLv));
     }
   } else {
     output.push(indent("schemas: never;", indentLv));
