@@ -19,7 +19,7 @@ export default function transformComponentsObjectToTypes(components: ComponentsO
         ctx: { ...ctx, indentLv: indentLv },
       });
 
-      output.push(indent(`export type ${camelCase(key, { pascalCase: true })} = ${schemaType};\n`, indentLv));
+      output.push(indent(`export type ${camelCase(name, { pascalCase: true })} = ${schemaType};\n`, indentLv));
     }
   } else {
     output.push(indent("schemas: never;", indentLv));
