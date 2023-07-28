@@ -55,6 +55,7 @@ _Thanks, [@psmyrdek](https://github.com/psmyrdek)!_
 | `--support-array-length`  |       | `false`  | Generate tuples using array `minItems` / `maxItems`                                                                          |
 | `--alphabetize`           |       | `false`  | Sort types alphabetically                                                                                                    |
 | `--exclude-deprecated`    |       | `false`  | Exclude deprecated fields from types                                                                                         |
+| `--root-types`            |       | `false`  | Export schemas types at root level                                                                                           |
 
 ### `--path-params-as-types`
 
