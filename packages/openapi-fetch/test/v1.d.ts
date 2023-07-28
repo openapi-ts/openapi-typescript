@@ -424,6 +424,155 @@ export interface components {
 
 export type $defs = Record<string, never>;
 
+export interface types {
+  schemas: {
+    Post: {
+      title: string;
+      body: string;
+      publish_date?: number;
+    };
+    StringArray: string[];
+    User: {
+      email: string;
+      age?: number;
+      avatar?: string;
+    };
+  };
+  responses: {
+    AllPostsGet: {
+      content: {
+        "application/json": components["schemas"]["Post"][];
+      };
+    };
+    CreatePost: {
+      content: {
+        "application/json": {
+          status: string;
+        };
+      };
+    };
+    CreateTag: {
+      content: {
+        "application/json": {
+          status: string;
+        };
+      };
+    };
+    CreateReply: {
+      content: {
+        "application/json;charset=utf-8": {
+          message: string;
+        };
+      };
+    };
+    Contact: {
+      content: {
+        "text/html": string;
+      };
+    };
+    Error: {
+      content: {
+        "application/json": {
+          code: number;
+          message: string;
+        };
+      };
+    };
+    PatchPost: {
+      content: {
+        "application/json": {
+          status: string;
+        };
+      };
+    };
+    PostDelete: {
+      content: {
+        "application/json": {
+          status: string;
+        };
+      };
+    };
+    PostGet: {
+      content: {
+        "application/json": components["schemas"]["Post"];
+      };
+    };
+    StringArray: {
+      content: {
+        "application/json": components["schemas"]["StringArray"];
+      };
+    };
+    Tag: {
+      content: {
+        "application/json": string;
+      };
+    };
+    User: {
+      content: {
+        "application/json": components["schemas"]["User"];
+      };
+    };
+  };
+  parameters: never;
+  requestBodies: {
+    CreatePost: {
+      content: {
+        "application/json": {
+          title: string;
+          body: string;
+          publish_date: number;
+        };
+      };
+    };
+    CreatePostOptional?: {
+      content: {
+        "application/json": {
+          title: string;
+          body: string;
+          publish_date: number;
+        };
+      };
+    };
+    CreateTag: {
+      content: {
+        "application/json": {
+          description?: string;
+        };
+      };
+    };
+    CreateReply: {
+      content: {
+        "application/json;charset=utf-8": {
+          message: string;
+          replied_at: number;
+        };
+      };
+    };
+    Contact: {
+      content: {
+        "multipart/form-data": {
+          name: string;
+          email: string;
+          subject: string;
+          message: string;
+        };
+      };
+    };
+    PatchPost: {
+      content: {
+        "application/json": {
+          properties?: null;
+          title?: string;
+          body?: string;
+          publish_date?: number;
+        };
+      };
+    };
+  };
+  headers: never;
+  pathItems: never;
+}
+
 export type external = Record<string, never>;
 
 export interface operations {

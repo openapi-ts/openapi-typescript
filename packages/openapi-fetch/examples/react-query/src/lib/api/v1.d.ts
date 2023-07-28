@@ -100,6 +100,74 @@ export interface components {
 
 export type $defs = Record<string, never>;
 
+export interface types {
+  schemas: {
+    /**
+     * Breed model
+     * @description Breed
+     */
+    Breed: {
+      /**
+       * Breed
+       * Format: string
+       * @description Breed
+       */
+      breed?: string;
+      /**
+       * Country
+       * Format: string
+       * @description Country
+       */
+      country?: string;
+      /**
+       * Origin
+       * Format: string
+       * @description Origin
+       */
+      origin?: string;
+      /**
+       * Coat
+       * Format: string
+       * @description Coat
+       */
+      coat?: string;
+      /**
+       * Pattern
+       * Format: string
+       * @description Pattern
+       */
+      pattern?: string;
+    };
+    /**
+     * CatFact model
+     * @description CatFact
+     */
+    CatFact: {
+      /**
+       * Fact
+       * Format: string
+       * @description Fact
+       */
+      fact?: string;
+      /**
+       * Length
+       * Format: int32
+       * @description Length
+       */
+      length?: number;
+    };
+    Error: {
+      code: number;
+      message: string;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}
+
 export type external = Record<string, never>;
 
 export interface operations {

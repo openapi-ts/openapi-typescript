@@ -27,7 +27,7 @@ export function transformSchema(schema: OpenAPI3, ctx: GlobalContext): Record<st
   else output.$defs = "";
 
   // types
-  if (schema.components) output.types = transformComponentsObjectToTypes(schema.components, ctx);
+  if (schema.components) output.types = transformComponentsObject(schema.components, ctx);
   else output.types = "";
 
   console.log(output.types);
