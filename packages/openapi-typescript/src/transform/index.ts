@@ -1,6 +1,5 @@
 import type { GlobalContext, OpenAPI3 } from "../types.js";
 import transformComponentsObject from "./components-object.js";
-import transformComponentsObjectToTypes from "./components-types.js";
 import transformPathsObject from "./paths-object.js";
 import transformSchemaObjectMap from "./schema-object-map.js";
 import transformWebhooksObject from "./webhooks-object.js";
