@@ -28,6 +28,7 @@ Options
   --path-params-as-types       (optional) Substitute path parameter names with their respective types
   --alphabetize                (optional) Sort types alphabetically
   --exclude-deprecated         (optional) Exclude deprecated fields from types
+  --root-types                 (optional) Export schemas types at root level
 `;
 
 const OUTPUT_FILE = "FILE";
@@ -44,19 +45,7 @@ if (args.includes("-it")) errorAndExit(`The -it alias has been deprecated. Use "
 
 const flags = parser(args, {
   array: ["header"],
-  boolean: [
-    "help",
-    "version",
-    "defaultNonNullable",
-    "emptyObjectsUnknown",
-    "immutableTypes",
-    "contentNever",
-    "exportType",
-    "supportArrayLength",
-    "pathParamsAsTypes",
-    "alphabetize",
-    "excludeDeprecated",
-  ],
+  boolean: ["help", "version", "defaultNonNullable", "emptyObjectsUnknown", "immutableTypes", "contentNever", "exportType", "supportArrayLength", "pathParamsAsTypes", "alphabetize", "excludeDeprecated", "rootTypes"],
   string: ["auth", "header", "headersObject", "httpMethod"],
   alias: {
     header: ["x"],
@@ -107,6 +96,7 @@ async function generateSchema(pathToSpec) {
     pathParamsAsTypes: flags.pathParamsAsTypes,
     alphabetize: flags.alphabetize,
     excludeDeprecated: flags.excludeDeprecated,
+    rootTypes: flags.rootTypes,
   });
 
   // output

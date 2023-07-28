@@ -118,7 +118,7 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
   if (options.inject) output.push(options.inject);
 
   // 2c. root schema
-  const types = transformComponentsObjectToTypes((allSchemas["."].schema as OpenAPI3).components!, ctx);
+  const schemasExportedTypes = options.rootTypes ? transformComponentsObjectToTypes((allSchemas["."].schema as OpenAPI3).components!, ctx) : "";
 
   const rootTypes = transformSchema(allSchemas["."].schema as OpenAPI3, ctx);
   for (const k of Object.keys(rootTypes)) {
@@ -249,7 +249,7 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
     output.splice(1, 0, "/** WithRequired type helpers */", "type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };", "");
   }
 
-  return output.join("\n").concat(types);
+  return output.join("\n").concat(schemasExportedTypes);
 }
 
 export default openapiTS;

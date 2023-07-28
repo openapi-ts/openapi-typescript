@@ -648,6 +648,8 @@ export interface OpenAPITSOptions {
   httpMethod?: string;
   /** (optional) Export type instead of interface */
   exportType?: boolean;
+  /** (optional) Generate schemas types at root level */
+  rootTypes?: boolean;
   /** (optional) Generate tuples using array minItems / maxItems */
   supportArrayLength?: boolean;
   /** (optional) Substitute path parameter names with their respective types */
