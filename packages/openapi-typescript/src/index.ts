@@ -12,7 +12,7 @@ import transformResponseObject from "./transform/response-object.js";
 import transformSchemaObject from "./transform/schema-object.js";
 import transformSchemaObjectMap from "./transform/schema-object-map.js";
 import { error, escObjKey, getDefaultFetch, getEntries, getSchemaObjectComment, indent } from "./utils.js";
-
+import transformComponentsObjectToTypes from "./transform/components-types.js";
 export * from "./types.js"; // expose all types to consumers
 
 const EMPTY_OBJECT_RE = /^\s*\{?\s*\}?\s*$/;
@@ -118,6 +118,8 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
   if (options.inject) output.push(options.inject);
 
   // 2c. root schema
+  const types = transformComponentsObjectToTypes((allSchemas["."].schema as OpenAPI3).components!, ctx);
+
   const rootTypes = transformSchema(allSchemas["."].schema as OpenAPI3, ctx);
   for (const k of Object.keys(rootTypes)) {
     if (rootTypes[k] && !EMPTY_OBJECT_RE.test(rootTypes[k])) {
@@ -238,7 +240,7 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
       "type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };",
       "type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;",
       "type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;",
-      "",
+      ""
     );
   }
 
@@ -247,7 +249,7 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
     output.splice(1, 0, "/** WithRequired type helpers */", "type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };", "");
   }
 
-  return output.join("\n");
+  return output.join("\n").concat(types);
 }
 
 export default openapiTS;
