@@ -6,6 +6,12 @@
     "name": "Drew Powers",
     "email": "drew@pow.rs"
   },
+  "contributors": [
+    {
+      "name": "Jean Smaug",
+      "url": "https://maximeblanc.fr"
+    }
+  ],
   "license": "MIT",
   "bin": {
     "openapi-typescript": "bin/cli.js"
