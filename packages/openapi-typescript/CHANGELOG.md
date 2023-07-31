@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.4.0
+
+### Minor Changes
+
+- [#1263](https://github.com/drwpow/openapi-typescript/pull/1263) [`1bf2d4d`](https://github.com/drwpow/openapi-typescript/commit/1bf2d4db73b93fd1d36ffb56bdfb90321b0bfaba) Thanks [@drwpow](https://github.com/drwpow)! - Ship CJS bundle
+
 ## 6.3.9
 
 ### Patch Changes
