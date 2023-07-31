@@ -12,11 +12,13 @@
   },
   "type": "module",
   "main": "./dist/index.js",
-  "files": [
-    "bin",
-    "dist",
-    "src"
-  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./*": "./*"
+  },
   "homepage": "https://openapi-ts.pages.dev",
   "repository": {
     "type": "git",
@@ -38,7 +40,9 @@
     "url": "https://github.com/drwpow/openapi-typescript/issues"
   },
   "scripts": {
-    "build": "del dist && tsc -p tsconfig.build.json",
+    "build": "run-s -s build:*",
+    "build:esm": "tsc -p tsconfig.build.json",
+    "build:cjs": "esbuild --bundle --platform=node --target=es2019 --outfile=dist/index.cjs --external:js-yaml --external:undici src/index.ts --footer:js=\"module.exports = module.exports.default;\"",
     "dev": "tsc -p tsconfig.build.json --watch",
     "download:schemas": "vite-node ./scripts/download-schemas.ts",
     "format": "prettier --write \"src/**/*\"",
@@ -67,6 +71,7 @@
     "@types/node": "^20.4.0",
     "degit": "^2.8.4",
     "del-cli": "^5.0.0",
+    "esbuild": "^0.18.17",
     "execa": "^6.1.0",
     "vite": "^4.4.1",
     "vite-node": "^0.33.0",
