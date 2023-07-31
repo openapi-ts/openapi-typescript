@@ -1,0 +1,4 @@
+examples/
+scripts/
+test/
+vitest.config.ts
