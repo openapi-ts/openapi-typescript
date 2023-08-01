@@ -27,9 +27,7 @@ Let’s say we want to write our mocks in the following object structure, so we 
 ```
 {
   [pathname]: {
-    [HTTP method]: {
-      [HTTP status code]: { [some mock data] }
-    }
+    [HTTP method]: { status: [status], body: { …[some mock data] } };
   }
 }
 ```
@@ -44,23 +42,22 @@ describe("My API test", () => {
   it("mocks correctly", async () => {
     mockResponses({
       "/users/{user_id}": {
-        get: {
-          200: { id: "user-id", name: "User Name" }, // ✅ Correct 200 response
-          404: { code: "404", message: "User not found" }, // ✅ Correct 404 response
-        },
+        // ✅ Correct 200 response
+        get: { status: 200, body: { id: "user-id", name: "User Name" } },
+        // ✅ Correct 403 response
+        delete: { status: 403, body: { code: "403", message: "Unauthorized" } },
       },
       "/users": {
-        put: {
-          201: { status: "success" }, // ✅ Correct 201 response
-        },
+        // ✅ Correct 201 response
+        put: { 201: { status: "success" } },
       },
     });
 
-    // test 1: GET /users/{user_id}: 200 returned by default
+    // test 1: GET /users/{user_id}: 200
     await fetch("/users/user-123");
 
-    // test 2: GET /users/{user_id}: 404 returned if `x-test-status` header sent
-    await fetch("/users/user-123", { headers: { "x-test-status": 404 } });
+    // test 2: DELETE /users/{user_id}: 403
+    await fetch("/users/user-123", { method: "DELETE" });
 
     // test 3: PUT /users: 200
     await fetch("/users", {
@@ -95,15 +92,22 @@ type FilterKeys<Obj, Matchers> = { [K in keyof Obj]: K extends Matchers ? Obj[K]
 type PathResponses<T> = T extends { responses: any } ? T["responses"] : unknown;
 type OperationContent<T> = T extends { content: any } ? T["content"] : unknown;
 type MediaType = `${string}/${string}`;
+type MockedResponse<T, Status extends keyof T = keyof T> = FilterKeys<
+  OperationContent<T[Status]>,
+  MediaType
+> extends never
+  ? { status: Status; body?: never }
+  : {
+      status: Status;
+      body: FilterKeys<OperationContent<T[Status]>, MediaType>;
+    };
 
 /**
  * Mock fetch() calls and type against OpenAPI schema
  */
 export function mockResponses(responses: {
   [Path in keyof Partial<paths>]: {
-    [Method in keyof Partial<paths[Path]>]: {
-      [Status in keyof Partial<PathResponses<paths[Path][Method]>>]: FilterKeys<OperationContent<PathResponses<paths[Path][Method]>[Status]>, MediaType>;
-    };
+    [Method in keyof Partial<paths[Path]>]: MockedResponse<PathResponses<paths[Path][Method]>>;
   };
 }) {
   fetchMock.mockResponse((req) => {
@@ -112,13 +116,11 @@ export function mockResponses(responses: {
     if (!mockedPath || (!responses as any)[mockedPath]) throw new Error(`No mocked response for ${req.url}`); // throw error if response not mocked (remove or modify if you’d like different behavior)
     const method = req.method.toLowerCase();
     if (!(responses as any)[mockedPath][method]) throw new Error(`${req.method} called but not mocked on ${mockedPath}`); // likewise throw error if other parts of response aren’t mocked
-    const desiredStatus = req.headers.get("x-status-code");
-    const body = (responses as any)[mockedPath][method];
-    return {
-      status: desiredStatus ? parseInt(desiredStatus, 10) : 200,
-      body: JSON.stringify((desiredStatus && body[desiredStatus]) ?? body[200]),
-    };
-  });
+    if (!(responses as any)[mockedPath][method]) {
+      throw new Error(`${req.method} called but not mocked on ${mockedPath}`);
+    }
+    const { status, body } = (responses as any)[mockedPath][method];
+    return { status, body: JSON.stringify(body) };
 }
 
 // helper function that matches a realistic URL (/users/123) to an OpenAPI path (/users/{user_id}
@@ -146,9 +148,7 @@ export function findPath(actual: string, testPaths: string[]): string | undefine
 ```ts
 export function mockResponses(responses: {
   [Path in keyof Partial<paths>]: {
-    [Method in keyof Partial<paths[Path]>]: {
-      [Status in keyof Partial<PathResponses<paths[Path][Method]>>]: FilterKeys<OperationContent<PathResponses<paths[Path][Method]>[Status]>, MediaType>;
-    };
+    [Method in keyof Partial<paths[Path]>]: MockedResponse<PathResponses<paths[Path][Method]>>;
   };
 });
 ```
