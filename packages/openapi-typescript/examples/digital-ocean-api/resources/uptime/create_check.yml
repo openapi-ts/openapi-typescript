@@ -1,4 +1,4 @@
-operationId: uptime_check_create
+operationId: uptime_create_check
 
 summary: Create a New Check
 

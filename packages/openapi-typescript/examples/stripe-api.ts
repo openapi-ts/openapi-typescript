@@ -6385,6 +6385,8 @@ export interface components {
       status_transitions: components["schemas"]["invoices_status_transitions"];
       /** @description The subscription that this invoice was prepared for, if any. */
       subscription?: (string | components["schemas"]["subscription"]) | null;
+      /** @description Details about the subscription that created this invoice. */
+      subscription_details?: components["schemas"]["subscription_details_data"] | null;
       /** @description Only set for upcoming invoices that preview prorations. The time used to calculate prorations. */
       subscription_proration_date?: number;
       /** @description Total of all subscriptions, invoice items, and prorations on the invoice before any invoice level discount or exclusive tax is applied. Item discounts are already incorporated */
@@ -8722,8 +8724,6 @@ export interface components {
        * @enum {string}
        */
       capture_method?: "manual";
-      /** @description Token used for persistent Link logins. */
-      persistent_token?: string | null;
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
        *
@@ -8856,7 +8856,7 @@ export interface components {
       allow_promotion_codes: boolean;
       /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. */
       application_fee_amount?: number | null;
-      /** @description This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. */
+      /** @description This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. */
       application_fee_percent?: number | null;
       automatic_tax: components["schemas"]["payment_links_resource_automatic_tax"];
       /**
@@ -10110,8 +10110,6 @@ export interface components {
     payment_method_link: {
       /** @description Account owner's email address. */
       email?: string | null;
-      /** @description Token used for persistent Link logins. */
-      persistent_token?: string;
     };
     /** payment_method_options_affirm */
     payment_method_options_affirm: {
@@ -11624,7 +11622,7 @@ export interface components {
       application?: (string | components["schemas"]["application"] | components["schemas"]["deleted_application"]) | null;
       /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. Only applicable if there are no line items with recurring prices on the quote. */
       application_fee_amount?: number | null;
-      /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. Only applicable if there are line items with recurring prices on the quote. */
+      /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. Only applicable if there are line items with recurring prices on the quote. */
       application_fee_percent?: number | null;
       automatic_tax: components["schemas"]["quotes_resource_automatic_tax"];
       /**
@@ -11803,7 +11801,7 @@ export interface components {
     quotes_resource_transfer_data: {
       /** @description The amount in %s that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination. */
       amount?: number | null;
-      /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the destination account. By default, the entire amount will be transferred to the destination. */
+      /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount will be transferred to the destination. */
       amount_percent?: number | null;
       /** @description The account where funds from the payment will be transferred to upon payment success. */
       destination: string | components["schemas"]["account"];
@@ -11883,10 +11881,10 @@ export interface components {
       /** @description Unique identifier for the object. */
       id: string;
       /**
-       * @description The type of items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, or `customer_id`.
+       * @description The type of items in the value list. One of `card_fingerprint`, `us_bank_account_fingerprint`, `sepa_debit_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, or `customer_id`.
        * @enum {string}
        */
-      item_type: "card_bin" | "card_fingerprint" | "case_sensitive_string" | "country" | "customer_id" | "email" | "ip_address" | "string";
+      item_type: "card_bin" | "card_fingerprint" | "case_sensitive_string" | "country" | "customer_id" | "email" | "ip_address" | "sepa_debit_fingerprint" | "string" | "us_bank_account_fingerprint";
       /**
        * RadarListListItemList
        * @description List of items contained within this value list.
@@ -12749,10 +12747,7 @@ export interface components {
       supported_types?: "india"[] | null;
     };
     /** setup_intent_payment_method_options_link */
-    setup_intent_payment_method_options_link: {
-      /** @description Token used for persistent Link logins. */
-      persistent_token?: string | null;
-    };
+    setup_intent_payment_method_options_link: Record<string, never>;
     /** setup_intent_payment_method_options_mandate_options_acss_debit */
     setup_intent_payment_method_options_mandate_options_acss_debit: {
       /** @description A URL for custom mandate text */
@@ -13420,7 +13415,7 @@ export interface components {
     subscription: {
       /** @description ID of the Connect Application that created the subscription. */
       application?: (string | components["schemas"]["application"] | components["schemas"]["deleted_application"]) | null;
-      /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. */
+      /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. */
       application_fee_percent?: number | null;
       automatic_tax: components["schemas"]["subscription_automatic_tax"];
       /**
@@ -13582,6 +13577,13 @@ export interface components {
       amount_gte?: number | null;
       /** @description Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`. */
       reset_billing_cycle_anchor?: boolean | null;
+    };
+    /** SubscriptionDetailsData */
+    subscription_details_data: {
+      /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will reflect the metadata of the subscription at the time of invoice creation. *Note: This attribute is populated only for invoices created on or after June 29, 2023.* */
+      metadata?: ({
+        [key: string]: string | undefined;
+      }) | null;
     };
     /**
      * SubscriptionItem
@@ -13757,7 +13759,7 @@ export interface components {
     subscription_schedule_phase_configuration: {
       /** @description A list of prices and quantities that will generate invoice items appended to the next invoice for this phase. */
       add_invoice_items: components["schemas"]["subscription_schedule_add_invoice_item"][];
-      /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account during this phase of the schedule. */
+      /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account during this phase of the schedule. */
       application_fee_percent?: number | null;
       automatic_tax?: components["schemas"]["schedules_phase_automatic_tax"];
       /**
@@ -13817,7 +13819,7 @@ export interface components {
     };
     /** SubscriptionSchedulesResourceDefaultSettings */
     subscription_schedules_resource_default_settings: {
-      /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account during this phase of the schedule. */
+      /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account during this phase of the schedule. */
       application_fee_percent?: number | null;
       automatic_tax?: components["schemas"]["subscription_schedules_resource_default_settings_automatic_tax"];
       /**
@@ -13850,7 +13852,7 @@ export interface components {
     };
     /** SubscriptionTransferData */
     subscription_transfer_data: {
-      /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the destination account. By default, the entire amount is transferred to the destination. */
+      /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination. */
       amount_percent?: number | null;
       /** @description The account where funds from the payment will be transferred to upon payment success. */
       destination: string | components["schemas"]["account"];
@@ -16723,7 +16725,7 @@ export interface operations {
                 /** Format: unix-time */
                 date?: number;
                 ip?: string;
-                user_agent?: string;
+                user_agent?: string | "";
               };
             };
             /** card_payments_settings_specs */
@@ -16764,7 +16766,7 @@ export interface operations {
                 /** Format: unix-time */
                 date?: number;
                 ip?: string;
-                user_agent?: string;
+                user_agent?: string | "";
               };
             };
           };
@@ -17249,7 +17251,7 @@ export interface operations {
                 /** Format: unix-time */
                 date?: number;
                 ip?: string;
-                user_agent?: string;
+                user_agent?: string | "";
               };
             };
             /** card_payments_settings_specs */
@@ -17290,7 +17292,7 @@ export interface operations {
                 /** Format: unix-time */
                 date?: number;
                 ip?: string;
-                user_agent?: string;
+                user_agent?: string | "";
               };
             };
           };
@@ -18062,15 +18064,15 @@ export interface operations {
           documents?: {
             /** documents_param */
             company_authorization?: {
-              files?: string[];
+              files?: (string | "")[];
             };
             /** documents_param */
             passport?: {
-              files?: string[];
+              files?: (string | "")[];
             };
             /** documents_param */
             visa?: {
-              files?: string[];
+              files?: (string | "")[];
             };
           };
           /** @description The person's email address. */
@@ -18265,15 +18267,15 @@ export interface operations {
           documents?: {
             /** documents_param */
             company_authorization?: {
-              files?: string[];
+              files?: (string | "")[];
             };
             /** documents_param */
             passport?: {
-              files?: string[];
+              files?: (string | "")[];
             };
             /** documents_param */
             visa?: {
-              files?: string[];
+              files?: (string | "")[];
             };
           };
           /** @description The person's email address. */
@@ -18518,15 +18520,15 @@ export interface operations {
           documents?: {
             /** documents_param */
             company_authorization?: {
-              files?: string[];
+              files?: (string | "")[];
             };
             /** documents_param */
             passport?: {
-              files?: string[];
+              files?: (string | "")[];
             };
             /** documents_param */
             visa?: {
-              files?: string[];
+              files?: (string | "")[];
             };
           };
           /** @description The person's email address. */
@@ -18721,15 +18723,15 @@ export interface operations {
           documents?: {
             /** documents_param */
             company_authorization?: {
-              files?: string[];
+              files?: (string | "")[];
             };
             /** documents_param */
             passport?: {
-              files?: string[];
+              files?: (string | "")[];
             };
             /** documents_param */
             visa?: {
-              files?: string[];
+              files?: (string | "")[];
             };
           };
           /** @description The person's email address. */
@@ -19757,7 +19759,7 @@ export interface operations {
            * @description The business information shown to customers in the portal.
            */
           business_profile: {
-            headline?: string;
+            headline?: string | "";
             privacy_policy_url?: string;
             terms_of_service_url?: string;
           };
@@ -19889,7 +19891,7 @@ export interface operations {
            * @description The business information shown to customers in the portal.
            */
           business_profile?: {
-            headline?: string;
+            headline?: string | "";
             privacy_policy_url?: string | "";
             terms_of_service_url?: string | "";
           };
@@ -24217,7 +24219,7 @@ export interface operations {
               quantity?: number;
               tax_rates?: string[] | "";
             })[];
-          /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
+          /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number;
           /**
            * automatic_tax_config
@@ -24489,7 +24491,7 @@ export interface operations {
               quantity?: number;
               tax_rates?: string[] | "";
             })[];
-          /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
+          /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number;
           /**
            * automatic_tax_config
@@ -24517,7 +24519,7 @@ export interface operations {
            * @description Details about why this subscription was cancelled
            */
           cancellation_details?: {
-            comment?: string;
+            comment?: string | "";
             /** @enum {string} */
             feedback?: "" | "customer_service" | "low_quality" | "missing_features" | "other" | "switched_service" | "too_complex" | "too_expensive" | "unused";
           };
@@ -24533,7 +24535,7 @@ export interface operations {
           /** @description ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. This takes precedence over `default_source`. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
           default_payment_method?: string;
           /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
-          default_source?: string;
+          default_source?: string | "";
           /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. Pass an empty string to remove previously-defined tax rates. */
           default_tax_rates?: string[] | "";
           /** @description Specifies which fields in the response should be expanded. */
@@ -26754,7 +26756,7 @@ export interface operations {
            * @description Configuration settings for the PaymentIntent that is generated when the invoice is finalized.
            */
           payment_settings?: {
-            default_mandate?: string;
+            default_mandate?: string | "";
             /** payment_method_options */
             payment_method_options?: {
               acss_debit?: ({
@@ -26879,7 +26881,7 @@ export interface operations {
               state?: string;
             };
             name: string;
-            phone?: string;
+            phone?: string | "";
           };
           /** @description Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`. */
           statement_descriptor?: string;
@@ -26980,9 +26982,9 @@ export interface operations {
         coupon?: string;
         /** @description The currency to preview this invoice in. Defaults to that of `customer` if not specified. */
         currency?: string;
-        /** @description The identifier of the customer whose upcoming invoice you'd like to retrieve. */
+        /** @description The identifier of the customer whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set. */
         customer?: string;
-        /** @description Details about the customer you want to invoice or overrides for an existing customer. */
+        /** @description Details about the customer you want to invoice or overrides for an existing customer. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set. */
         customer_details?: {
           address?: {
             city?: string;
@@ -27156,9 +27158,9 @@ export interface operations {
         coupon?: string;
         /** @description The currency to preview this invoice in. Defaults to that of `customer` if not specified. */
         currency?: string;
-        /** @description The identifier of the customer whose upcoming invoice you'd like to retrieve. */
+        /** @description The identifier of the customer whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set. */
         customer?: string;
-        /** @description Details about the customer you want to invoice or overrides for an existing customer. */
+        /** @description Details about the customer you want to invoice or overrides for an existing customer. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set. */
         customer_details?: {
           address?: {
             city?: string;
@@ -27414,7 +27416,7 @@ export interface operations {
           /** @description ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings. */
           default_payment_method?: string;
           /** @description ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source. */
-          default_source?: string;
+          default_source?: string | "";
           /** @description The tax rates that will apply to any line item that does not have `tax_rates` set. Pass an empty string to remove previously-defined tax rates. */
           default_tax_rates?: string[] | "";
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard. */
@@ -27446,7 +27448,7 @@ export interface operations {
            * @description Configuration settings for the PaymentIntent that is generated when the invoice is finalized.
            */
           payment_settings?: {
-            default_mandate?: string;
+            default_mandate?: string | "";
             /** payment_method_options */
             payment_method_options?: {
               acss_debit?: ({
@@ -27549,7 +27551,7 @@ export interface operations {
             };
           }) | "";
           /** @description Shipping details for the invoice. The Invoice PDF will use the `shipping_details` value if it is set, otherwise the PDF will render the shipping address from the customer. */
-          shipping_details?: {
+          shipping_details?: ({
             /** optional_fields_address */
             address: {
               city?: string;
@@ -27560,8 +27562,8 @@ export interface operations {
               state?: string;
             };
             name: string;
-            phone?: string;
-          } | "";
+            phone?: string | "";
+          }) | "";
           /** @description Extra information about a charge for the customer's credit card statement. It must contain at least one letter. If not specified and this invoice is part of a subscription, the default `statement_descriptor` will be set to the first subscription item's product's `statement_descriptor`. */
           statement_descriptor?: string;
           /** @description If specified, the funds from the invoice will be transferred to the destination and the ID of the resulting transfer will be found on the invoice's charge. This will be unset if you POST an empty value. */
@@ -27744,7 +27746,7 @@ export interface operations {
            */
           forgive?: boolean;
           /** @description ID of the mandate to be used for this invoice. It must correspond to the payment method used to pay the invoice, including the payment_method param or the invoice's default_payment_method or default_source, if set. */
-          mandate?: string;
+          mandate?: string | "";
           /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `true` (off-session). */
           off_session?: boolean;
           /** @description Boolean representing whether an invoice is paid outside of Stripe. This will result in no charge being made. Defaults to `false`. */
@@ -28137,7 +28139,7 @@ export interface operations {
                 /** Format: unix-time */
                 date?: number;
                 ip?: string;
-                user_agent?: string;
+                user_agent?: string | "";
               };
             };
             /** date_of_birth_specs */
@@ -28292,7 +28294,7 @@ export interface operations {
                 /** Format: unix-time */
                 date?: number;
                 ip?: string;
-                user_agent?: string;
+                user_agent?: string | "";
               };
             };
             /** date_of_birth_specs */
@@ -28684,10 +28686,10 @@ export interface operations {
               additional_documentation?: string | "";
               canceled_at?: number | "";
               cancellation_policy_provided?: boolean | "";
-              cancellation_reason?: string;
+              cancellation_reason?: string | "";
               expected_at?: number | "";
-              explanation?: string;
-              product_description?: string;
+              explanation?: string | "";
+              product_description?: string | "";
               /** @enum {string} */
               product_type?: "" | "merchandise" | "service";
               /** @enum {string} */
@@ -28699,18 +28701,18 @@ export interface operations {
               card_statement?: string | "";
               cash_receipt?: string | "";
               check_image?: string | "";
-              explanation?: string;
+              explanation?: string | "";
               original_transaction?: string;
             }) | "";
             fraudulent?: ({
               additional_documentation?: string | "";
-              explanation?: string;
+              explanation?: string | "";
             }) | "";
             merchandise_not_as_described?: ({
               additional_documentation?: string | "";
-              explanation?: string;
+              explanation?: string | "";
               received_at?: number | "";
-              return_description?: string;
+              return_description?: string | "";
               /** @enum {string} */
               return_status?: "" | "merchant_rejected" | "successful";
               returned_at?: number | "";
@@ -28718,15 +28720,15 @@ export interface operations {
             not_received?: ({
               additional_documentation?: string | "";
               expected_at?: number | "";
-              explanation?: string;
-              product_description?: string;
+              explanation?: string | "";
+              product_description?: string | "";
               /** @enum {string} */
               product_type?: "" | "merchandise" | "service";
             }) | "";
             other?: ({
               additional_documentation?: string | "";
-              explanation?: string;
-              product_description?: string;
+              explanation?: string | "";
+              product_description?: string | "";
               /** @enum {string} */
               product_type?: "" | "merchandise" | "service";
             }) | "";
@@ -28735,8 +28737,8 @@ export interface operations {
             service_not_as_described?: ({
               additional_documentation?: string | "";
               canceled_at?: number | "";
-              cancellation_reason?: string;
-              explanation?: string;
+              cancellation_reason?: string | "";
+              explanation?: string | "";
               received_at?: number | "";
             }) | "";
           };
@@ -28825,10 +28827,10 @@ export interface operations {
               additional_documentation?: string | "";
               canceled_at?: number | "";
               cancellation_policy_provided?: boolean | "";
-              cancellation_reason?: string;
+              cancellation_reason?: string | "";
               expected_at?: number | "";
-              explanation?: string;
-              product_description?: string;
+              explanation?: string | "";
+              product_description?: string | "";
               /** @enum {string} */
               product_type?: "" | "merchandise" | "service";
               /** @enum {string} */
@@ -28840,18 +28842,18 @@ export interface operations {
               card_statement?: string | "";
               cash_receipt?: string | "";
               check_image?: string | "";
-              explanation?: string;
+              explanation?: string | "";
               original_transaction?: string;
             }) | "";
             fraudulent?: ({
               additional_documentation?: string | "";
-              explanation?: string;
+              explanation?: string | "";
             }) | "";
             merchandise_not_as_described?: ({
               additional_documentation?: string | "";
-              explanation?: string;
+              explanation?: string | "";
               received_at?: number | "";
-              return_description?: string;
+              return_description?: string | "";
               /** @enum {string} */
               return_status?: "" | "merchant_rejected" | "successful";
               returned_at?: number | "";
@@ -28859,15 +28861,15 @@ export interface operations {
             not_received?: ({
               additional_documentation?: string | "";
               expected_at?: number | "";
-              explanation?: string;
-              product_description?: string;
+              explanation?: string | "";
+              product_description?: string | "";
               /** @enum {string} */
               product_type?: "" | "merchandise" | "service";
             }) | "";
             other?: ({
               additional_documentation?: string | "";
-              explanation?: string;
-              product_description?: string;
+              explanation?: string | "";
+              product_description?: string | "";
               /** @enum {string} */
               product_type?: "" | "merchandise" | "service";
             }) | "";
@@ -28876,8 +28878,8 @@ export interface operations {
             service_not_as_described?: ({
               additional_documentation?: string | "";
               canceled_at?: number | "";
-              cancellation_reason?: string;
-              explanation?: string;
+              cancellation_reason?: string | "";
+              explanation?: string | "";
               received_at?: number | "";
             }) | "";
           };
@@ -29674,8 +29676,8 @@ export interface operations {
                 state?: string;
               } | "";
               email?: string | "";
-              name?: string;
-              phone?: string;
+              name?: string | "";
+              phone?: string | "";
             };
             /** param */
             blik?: Record<string, never>;
@@ -29935,17 +29937,16 @@ export interface operations {
               setup_future_usage?: "none";
             }) | "";
             konbini?: ({
-              confirmation_number?: string;
+              confirmation_number?: string | "";
               expires_after_days?: number | "";
               expires_at?: number | "";
-              product_description?: string;
+              product_description?: string | "";
               /** @enum {string} */
               setup_future_usage?: "none";
             }) | "";
             link?: ({
               /** @enum {string} */
               capture_method?: "" | "manual";
-              persistent_token?: string;
               /** @enum {string} */
               setup_future_usage?: "" | "none" | "off_session";
             }) | "";
@@ -30026,7 +30027,7 @@ export interface operations {
           /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. If this is not provided, defaults to ["card"]. Use automatic_payment_methods to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). */
           payment_method_types?: string[];
           /**
-           * radar_options
+           * radar_options_with_hidden_options
            * @description Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
            */
           radar_options?: {
@@ -30278,8 +30279,8 @@ export interface operations {
                 state?: string;
               } | "";
               email?: string | "";
-              name?: string;
-              phone?: string;
+              name?: string | "";
+              phone?: string | "";
             };
             /** param */
             blik?: Record<string, never>;
@@ -30539,17 +30540,16 @@ export interface operations {
               setup_future_usage?: "none";
             }) | "";
             konbini?: ({
-              confirmation_number?: string;
+              confirmation_number?: string | "";
               expires_after_days?: number | "";
               expires_at?: number | "";
-              product_description?: string;
+              product_description?: string | "";
               /** @enum {string} */
               setup_future_usage?: "none";
             }) | "";
             link?: ({
               /** @enum {string} */
               capture_method?: "" | "manual";
-              persistent_token?: string;
               /** @enum {string} */
               setup_future_usage?: "" | "none" | "off_session";
             }) | "";
@@ -30949,8 +30949,8 @@ export interface operations {
                 state?: string;
               } | "";
               email?: string | "";
-              name?: string;
-              phone?: string;
+              name?: string | "";
+              phone?: string | "";
             };
             /** param */
             blik?: Record<string, never>;
@@ -31210,17 +31210,16 @@ export interface operations {
               setup_future_usage?: "none";
             }) | "";
             konbini?: ({
-              confirmation_number?: string;
+              confirmation_number?: string | "";
               expires_after_days?: number | "";
               expires_at?: number | "";
-              product_description?: string;
+              product_description?: string | "";
               /** @enum {string} */
               setup_future_usage?: "none";
             }) | "";
             link?: ({
               /** @enum {string} */
               capture_method?: "" | "manual";
-              persistent_token?: string;
               /** @enum {string} */
               setup_future_usage?: "" | "none" | "off_session";
             }) | "";
@@ -31301,7 +31300,7 @@ export interface operations {
           /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. Use automatic_payment_methods to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). */
           payment_method_types?: string[];
           /**
-           * radar_options
+           * radar_options_with_hidden_options
            * @description Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
            */
           radar_options?: {
@@ -31545,7 +31544,7 @@ export interface operations {
           allow_promotion_codes?: boolean;
           /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. Can only be applied when there are no line items with recurring prices. */
           application_fee_amount?: number;
-          /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field. */
+          /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field. */
           application_fee_percent?: number;
           /**
            * automatic_tax_params
@@ -32108,8 +32107,8 @@ export interface operations {
               state?: string;
             } | "";
             email?: string | "";
-            name?: string;
-            phone?: string;
+            name?: string | "";
+            phone?: string | "";
           };
           /**
            * param
@@ -32369,8 +32368,8 @@ export interface operations {
               state?: string;
             } | "";
             email?: string | "";
-            name?: string;
-            phone?: string;
+            name?: string | "";
+            phone?: string | "";
           };
           /**
            * update_api_param
@@ -33638,7 +33637,7 @@ export interface operations {
           /** @description The ID of the [Price](https://stripe.com/docs/api/prices) object that is the default price for this product. */
           default_price?: string;
           /** @description The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes. */
-          description?: string;
+          description?: string | "";
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
@@ -33668,7 +33667,7 @@ export interface operations {
           /** @description A [tax code](https://stripe.com/docs/tax/tax-categories) ID. */
           tax_code?: string | "";
           /** @description A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal. May only be set if `type=service`. */
-          unit_label?: string;
+          unit_label?: string | "";
           /** @description A URL of a publicly-accessible webpage for this product. */
           url?: string | "";
         };
@@ -33970,7 +33969,7 @@ export interface operations {
         "application/x-www-form-urlencoded": {
           /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field. */
           application_fee_amount?: number | "";
-          /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field. */
+          /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field. */
           application_fee_percent?: number | "";
           /**
            * automatic_tax_param
@@ -33989,7 +33988,7 @@ export interface operations {
           /** @description The tax rates that will apply to any line item that does not have `tax_rates` set. */
           default_tax_rates?: string[] | "";
           /** @description A description that will be displayed on the quote PDF. If no value is passed, the default description configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used. */
-          description?: string;
+          description?: string | "";
           /** @description The discounts applied to the quote. You can only set up to one discount. */
           discounts?: {
               coupon?: string;
@@ -34003,7 +34002,7 @@ export interface operations {
            */
           expires_at?: number;
           /** @description A footer that will be displayed on the quote PDF. If no value is passed, the default footer configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used. */
-          footer?: string;
+          footer?: string | "";
           /**
            * from_quote_params
            * @description Clone an existing quote. The new quote will be created in `status=draft`. When using this parameter, you cannot specify any other parameters except for `expires_at`.
@@ -34013,7 +34012,7 @@ export interface operations {
             quote: string;
           };
           /** @description A header that will be displayed on the quote PDF. If no value is passed, the default header configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used. */
-          header?: string;
+          header?: string | "";
           /**
            * quote_param
            * @description All invoices will be billed using the specified settings.
@@ -34127,7 +34126,7 @@ export interface operations {
         "application/x-www-form-urlencoded": {
           /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field. */
           application_fee_amount?: number | "";
-          /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field. */
+          /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field. */
           application_fee_percent?: number | "";
           /**
            * automatic_tax_param
@@ -34146,7 +34145,7 @@ export interface operations {
           /** @description The tax rates that will apply to any line item that does not have `tax_rates` set. */
           default_tax_rates?: string[] | "";
           /** @description A description that will be displayed on the quote PDF. */
-          description?: string;
+          description?: string | "";
           /** @description The discounts applied to the quote. You can only set up to one discount. */
           discounts?: {
               coupon?: string;
@@ -34160,9 +34159,9 @@ export interface operations {
            */
           expires_at?: number;
           /** @description A footer that will be displayed on the quote PDF. */
-          footer?: string;
+          footer?: string | "";
           /** @description A header that will be displayed on the quote PDF. */
-          header?: string;
+          header?: string | "";
           /**
            * quote_param
            * @description All invoices will be billed using the specified settings.
@@ -34204,7 +34203,7 @@ export interface operations {
            * @description When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
            */
           subscription_data?: {
-            description?: string;
+            description?: string | "";
             effective_date?: "current_period_end" | number | "";
             trial_period_days?: number | "";
           };
@@ -34747,10 +34746,10 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /**
-           * @description Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, or `customer_id`. Use `string` if the item type is unknown or mixed.
+           * @description Type of the items in the value list. One of `card_fingerprint`, `us_bank_account_fingerprint`, `sepa_debit_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, or `customer_id`. Use `string` if the item type is unknown or mixed.
            * @enum {string}
            */
-          item_type?: "card_bin" | "card_fingerprint" | "case_sensitive_string" | "country" | "customer_id" | "email" | "ip_address" | "string";
+          item_type?: "card_bin" | "card_fingerprint" | "case_sensitive_string" | "country" | "customer_id" | "email" | "ip_address" | "sepa_debit_fingerprint" | "string" | "us_bank_account_fingerprint";
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string | undefined;
@@ -35621,8 +35620,8 @@ export interface operations {
                 state?: string;
               } | "";
               email?: string | "";
-              name?: string;
-              phone?: string;
+              name?: string | "";
+              phone?: string | "";
             };
             /** param */
             blik?: Record<string, never>;
@@ -35780,9 +35779,7 @@ export interface operations {
               request_three_d_secure?: "any" | "automatic";
             };
             /** setup_intent_payment_method_options_param */
-            link?: {
-              persistent_token?: string;
-            };
+            link?: Record<string, never>;
             /** payment_method_options_param */
             paypal?: {
               billing_agreement_id?: string;
@@ -35962,8 +35959,8 @@ export interface operations {
                 state?: string;
               } | "";
               email?: string | "";
-              name?: string;
-              phone?: string;
+              name?: string | "";
+              phone?: string | "";
             };
             /** param */
             blik?: Record<string, never>;
@@ -36121,9 +36118,7 @@ export interface operations {
               request_three_d_secure?: "any" | "automatic";
             };
             /** setup_intent_payment_method_options_param */
-            link?: {
-              persistent_token?: string;
-            };
+            link?: Record<string, never>;
             /** payment_method_options_param */
             paypal?: {
               billing_agreement_id?: string;
@@ -36307,8 +36302,8 @@ export interface operations {
                 state?: string;
               } | "";
               email?: string | "";
-              name?: string;
-              phone?: string;
+              name?: string | "";
+              phone?: string | "";
             };
             /** param */
             blik?: Record<string, never>;
@@ -36466,9 +36461,7 @@ export interface operations {
               request_three_d_secure?: "any" | "automatic";
             };
             /** setup_intent_payment_method_options_param */
-            link?: {
-              persistent_token?: string;
-            };
+            link?: Record<string, never>;
             /** payment_method_options_param */
             paypal?: {
               billing_agreement_id?: string;
@@ -37782,7 +37775,7 @@ export interface operations {
             /** @enum {string} */
             collection_method?: "charge_automatically" | "send_invoice";
             default_payment_method?: string;
-            description?: string;
+            description?: string | "";
             /** subscription_schedule_default_settings_param */
             invoice_settings?: {
               days_until_due?: number;
@@ -37840,7 +37833,7 @@ export interface operations {
               currency?: string;
               default_payment_method?: string;
               default_tax_rates?: string[] | "";
-              description?: string;
+              description?: string | "";
               /** Format: unix-time */
               end_date?: number;
               /** invoice_settings */
@@ -37970,7 +37963,7 @@ export interface operations {
             /** @enum {string} */
             collection_method?: "charge_automatically" | "send_invoice";
             default_payment_method?: string;
-            description?: string;
+            description?: string | "";
             /** subscription_schedule_default_settings_param */
             invoice_settings?: {
               days_until_due?: number;
@@ -38025,7 +38018,7 @@ export interface operations {
               coupon?: string;
               default_payment_method?: string;
               default_tax_rates?: string[] | "";
-              description?: string;
+              description?: string | "";
               end_date?: number | "now";
               /** invoice_settings */
               invoice_settings?: {
@@ -38269,7 +38262,7 @@ export interface operations {
               quantity?: number;
               tax_rates?: string[] | "";
             })[];
-          /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
+          /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number;
           /**
            * automatic_tax_config
@@ -38596,7 +38589,7 @@ export interface operations {
               quantity?: number;
               tax_rates?: string[] | "";
             })[];
-          /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
+          /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions). */
           application_fee_percent?: number;
           /**
            * automatic_tax_config
@@ -38624,7 +38617,7 @@ export interface operations {
            * @description Details about why this subscription was cancelled
            */
           cancellation_details?: {
-            comment?: string;
+            comment?: string | "";
             /** @enum {string} */
             feedback?: "" | "customer_service" | "low_quality" | "missing_features" | "other" | "switched_service" | "too_complex" | "too_expensive" | "unused";
           };
@@ -38640,11 +38633,11 @@ export interface operations {
           /** @description ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. This takes precedence over `default_source`. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
           default_payment_method?: string;
           /** @description ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source). */
-          default_source?: string;
+          default_source?: string | "";
           /** @description The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. Pass an empty string to remove previously-defined tax rates. */
           default_tax_rates?: string[] | "";
           /** @description The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces. */
-          description?: string;
+          description?: string | "";
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description A list of up to 20 subscription items, each with an attached price. */
@@ -38839,7 +38832,7 @@ export interface operations {
            * @description Details about why this subscription was cancelled
            */
           cancellation_details?: {
-            comment?: string;
+            comment?: string | "";
             /** @enum {string} */
             feedback?: "" | "customer_service" | "low_quality" | "missing_features" | "other" | "switched_service" | "too_complex" | "too_expensive" | "unused";
           };
@@ -38955,12 +38948,12 @@ export interface operations {
           customer_details?: {
             /** postal_address */
             address?: {
-              city?: string;
+              city?: string | "";
               country: string;
-              line1?: string;
-              line2?: string;
-              postal_code?: string;
-              state?: string;
+              line1?: string | "";
+              line2?: string | "";
+              postal_code?: string | "";
+              state?: string | "";
             };
             /** @enum {string} */
             address_source?: "billing" | "shipping";
@@ -40106,7 +40099,7 @@ export interface operations {
             state?: string;
           };
           /** @description The ID of a configuration that will be used to customize all readers in this location. */
-          configuration_overrides?: string;
+          configuration_overrides?: string | "";
           /** @description A name for the location. */
           display_name?: string;
           /** @description Specifies which fields in the response should be expanded. */
@@ -40291,7 +40284,7 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description The new label of the reader. */
-          label?: string;
+          label?: string | "";
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: ({
             [key: string]: string | undefined;
@@ -41587,15 +41580,15 @@ export interface operations {
             documents?: {
               /** documents_param */
               company_authorization?: {
-                files?: string[];
+                files?: (string | "")[];
               };
               /** documents_param */
               passport?: {
-                files?: string[];
+                files?: (string | "")[];
               };
               /** documents_param */
               visa?: {
-                files?: string[];
+                files?: (string | "")[];
               };
             };
             email?: string;
@@ -43113,8 +43106,8 @@ export interface operations {
                 state?: string;
               } | "";
               email?: string | "";
-              name?: string;
-              phone?: string;
+              name?: string | "";
+              phone?: string | "";
             };
             financial_account?: string;
             metadata?: {
@@ -43820,7 +43813,7 @@ export interface operations {
           /** @description Whether this endpoint should receive events from connected accounts (`true`), or from your account (`false`). Defaults to `false`. */
           connect?: boolean;
           /** @description An optional description of what the webhook is used for. */
-          description?: string;
+          description?: string | "";
           /** @description The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection. */
           enabled_events: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "invoiceitem.updated" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "order.created" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "recipient.created" | "recipient.deleted" | "recipient.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "sku.created" | "sku.deleted" | "sku.updated" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
           /** @description Specifies which fields in the response should be expanded. */
@@ -43891,7 +43884,7 @@ export interface operations {
       content: {
         "application/x-www-form-urlencoded": {
           /** @description An optional description of what the webhook is used for. */
-          description?: string;
+          description?: string | "";
           /** @description Disable the webhook endpoint if set to true. */
           disabled?: boolean;
           /** @description The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection. */

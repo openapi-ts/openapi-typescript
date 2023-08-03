@@ -1,4 +1,4 @@
-operationId: uptime_alert_get
+operationId: uptime_get_alert
 
 summary: Retrieve an Existing Alert
 

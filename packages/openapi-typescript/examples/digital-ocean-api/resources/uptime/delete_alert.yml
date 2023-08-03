@@ -1,4 +1,4 @@
-operationId: uptime_alert_delete
+operationId: uptime_delete_alert
 
 summary: Delete an Alert
 

@@ -1,4 +1,4 @@
-operationId: uptime_check_delete
+operationId: uptime_delete_check
 
 summary: Delete a Check
 

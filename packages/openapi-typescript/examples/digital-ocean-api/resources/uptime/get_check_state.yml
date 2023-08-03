@@ -1,4 +1,4 @@
-operationId: uptime_check_state_get
+operationId: uptime_get_checkState
 
 summary: Retrieve Check State
 

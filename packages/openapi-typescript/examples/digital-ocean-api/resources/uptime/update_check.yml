@@ -1,4 +1,4 @@
-operationId: uptime_check_update
+operationId: uptime_update_check
 
 summary: Update a Check
 

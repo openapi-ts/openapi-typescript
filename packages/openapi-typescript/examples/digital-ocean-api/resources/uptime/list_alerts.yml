@@ -1,4 +1,4 @@
-operationId: uptime_check_alerts_list
+operationId: uptime_list_alerts
 
 summary: List All Alerts
 
