@@ -57,6 +57,12 @@ describe("Schema Object", () => {
   status?: "complete" | "incomplete";
 }`);
       });
+
+      test("enum (whitespace)", () => {
+        const schema: SchemaObject = { type: "string", enum: [" blue", "green ", " ", ""] };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe('" blue" | "green " | " " | ""');
+      });
     });
 
     describe("number", () => {
