@@ -6,7 +6,7 @@ Thanks for being willing to contribute! 🙏
 
 ## Open issues
 
-Please check out the [the open issues](https://github.com/drwpow/openapi-fetch/issues). Issues labelled [**Help Wanted**](https://github.com/drwpow/openapi-fetch/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) and [**Good First Issue**](https://github.com/drwpow/openapi-fetch/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) are especially good to help with.
+Please check out the [the open issues](https://github.com/drwpow/openapi-typescript/issues). Issues labelled [**Good First Issue**](https://github.com/drwpow/openapi-typescript/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)are especially good to start with.
 
 Contributing doesn’t have to be in code! Simply answering questions in open issues, or providing workarounds, is just as important a contribution as making pull requests.
 
@@ -26,7 +26,7 @@ However, if adding a feature or breaking change, please **open an issue first to
 
 Create a new branch for your PR with `git checkout -b your-branch-name`. Add the relevant code as well as docs and tests. When you push everything up (`git push`), navigate back to your repo GitHub and you should see a prompt to open a new PR.
 
-While best practices for commit messages are encouraged (e.g. start with an imperative verb, keep it short, use the body if needed), this repo doesn’t follow any specific guidelines like [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Clarity is favored over strict rules. Changelogs are generated separately from git (see [the Changelogs section](#changelogs)
+While best practices for commit messages are encouraged (e.g. start with an imperative verb, keep it short, use the body if needed), this repo doesn’t follow any specific guidelines. Clarity is favored over strict rules. Changelogs are generated separately from git (see [the Changelogs section](#changelogs))
 
 ### Writing the PR
 
