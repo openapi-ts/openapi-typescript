@@ -264,7 +264,7 @@ export default async function load(schema: URL | Subschema | Readable, options: 
 
         // local $ref: convert into TS path
         if (ref.filename === ".") {
-          if (subschemaID === ".") {
+          if (subschemaID === "." || ref.path[0] === "external") {
             node.$ref = makeTSIndex(ref.path);
           } else {
             node.$ref = makeTSIndex(["external", subschemaID, ...ref.path]);
