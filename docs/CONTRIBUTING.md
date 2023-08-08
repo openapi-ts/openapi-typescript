@@ -6,7 +6,7 @@ See the [README](./README.md) for basic setup.
 
 ## Corrections / small edits
 
-Corrections are always welcome! Please go straight to [opening a PR](https://github.com/drwpow/openapi-typescript/pulls) for correcting typos or misinformation language. Small edits are also welcome, which include shortening verbose language or clarifying confusing wording.
+Corrections are always welcome! Please go straight to [opening a PR](https://github.com/drwpow/openapi-typescript/pulls) for correcting typos or misinformation. Small grammar edits are also welcome such as shortening verbose language or clarifying confusing statements.
 
 ## Styling fixes
 

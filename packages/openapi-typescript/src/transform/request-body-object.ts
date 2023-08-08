@@ -27,8 +27,8 @@ export default function transformRequestBodyObject(requestBodyObject: RequestBod
             path: `${path}/${contentType}`,
             ctx: { ...ctx, indentLv },
           })};`,
-          indentLv
-        )
+          indentLv,
+        ),
       );
     } else {
       const mediaType = transformMediaTypeObject(mediaTypeObject, {

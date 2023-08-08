@@ -4,6 +4,10 @@ const DEFAULT_HEADERS = {
 };
 const TRAILING_SLASH_RE = /\/*$/;
 
+// Note: though "any" is considered bad practice in general, this library relies
+// on "any" for type inference only it can give.  Same goes for the "{}" type.
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types */
+
 /** options for each client instance */
 interface ClientOptions extends RequestInit {
   /** set the common root URL for all API requests */

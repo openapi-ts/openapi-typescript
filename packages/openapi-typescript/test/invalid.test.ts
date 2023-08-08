@@ -16,17 +16,13 @@ describe("Invalid schemas", () => {
 
   test("Swagger 2.0 throws", async () => {
     await openapiTS({ swagger: "2.0" } as any);
-    expect(consoleError).toHaveBeenCalledWith(
-      expect.stringContaining("Swagger 2.0 and older no longer supported. Please use v5.")
-    );
+    expect(consoleError).toHaveBeenCalledWith(expect.stringContaining("Swagger 2.0 and older no longer supported. Please use v5."));
     expect(procExit).toHaveBeenCalledWith(1);
   });
 
   test("OpenAPI < 3 throws", async () => {
     await openapiTS({ openapi: "2.0", info: { title: "Test", version: "1.0" } });
-    expect(consoleError).toHaveBeenCalledWith(
-      expect.stringContaining('Unsupported OpenAPI version "2.0". Only 3.x is supported.')
-    );
+    expect(consoleError).toHaveBeenCalledWith(expect.stringContaining('Unsupported OpenAPI version "2.0". Only 3.x is supported.'));
     expect(procExit).toHaveBeenCalledWith(1);
   });
 });

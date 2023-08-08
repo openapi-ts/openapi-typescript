@@ -99,8 +99,8 @@ export default function transformOperationObject(operationObject: OperationObjec
                 path: `${path}/responses/${responseCode}`,
                 ctx,
               })};`,
-              indentLv
-            )
+              indentLv,
+            ),
           );
         } else {
           const responseType = transformResponseObject(responseObject, {

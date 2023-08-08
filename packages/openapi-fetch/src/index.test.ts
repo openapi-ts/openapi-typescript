@@ -318,7 +318,7 @@ describe("client", () => {
         new Headers({
           ...headers, // assert new header got passed
           "Content-Type": "application/json", //  probably doesn’t need to get tested, but this was simpler than writing lots of code to ignore these
-        })
+        }),
       );
     });
 
@@ -333,7 +333,7 @@ describe("client", () => {
         new Headers({
           "Cache-Control": "no-cache",
           "Content-Type": "application/json",
-        })
+        }),
       );
     });
 
@@ -372,7 +372,7 @@ describe("client", () => {
     it("multipart/form-data", async () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
-      const { data } = await client.PUT("/contact", {
+      await client.PUT("/contact", {
         body: {
           name: "John Doe",
           email: "test@email.email",
@@ -445,6 +445,7 @@ describe("client", () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
         const { data } = await client.GET("/anyMethod", { parseAs: "blob" });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         expect((data as any).constructor.name).toBe("Blob");
       });
 
@@ -681,7 +682,7 @@ describe("examples", () => {
       setTimeout(() => {
         token.set(tokenVal); // simulate promise-like token setting
         resolve();
-      }, 0)
+      }, 0),
     );
     await client.get().GET("/blogposts/{post_id}", { params: { path: { post_id: "1234" } } });
     expect(fetchMocker.mock.calls[1][1].headers.get("authorization")).toBe(`Bearer ${tokenVal}`);
@@ -710,7 +711,7 @@ describe("examples", () => {
       setTimeout(() => {
         token = tokenVal; // simulate promise-like token setting
         resolve();
-      }, 0)
+      }, 0),
     );
     await client.GET("/blogposts/{post_id}", { params: { path: { post_id: "1234" } } });
     expect(fetchMocker.mock.calls[1][1].headers.get("authorization")).toBe(`Bearer ${tokenVal}`);
