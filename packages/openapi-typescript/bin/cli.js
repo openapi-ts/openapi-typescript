@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import fs from "node:fs";
-import path from "path";
+import path from "node:path";
 import { URL } from "node:url";
 import glob from "fast-glob";
 import parser from "yargs-parser";
@@ -114,7 +114,10 @@ async function generateSchema(pathToSpec) {
     let outputFilePath = new URL(flags.output, CWD); // note: may be directory
     const isDir = fs.existsSync(outputFilePath) && fs.lstatSync(outputFilePath).isDirectory();
     if (isDir) {
-      const filename = pathToSpec.replace(EXT_RE, ".ts");
+      if (typeof flags.output === 'string' && !flags.output.endsWith('/')) {
+        outputFilePath = new URL(`${flags.output}/`, CWD)
+      }
+      const filename = path.basename(pathToSpec).replace(EXT_RE, ".ts");
       const originalOutputFilePath = outputFilePath;
       outputFilePath = new URL(filename, originalOutputFilePath);
       if (outputFilePath.protocol !== 'file:') {
@@ -189,7 +192,7 @@ async function main() {
     inputSpecPaths.map(async (specPath) => {
       if (flags.output !== "." && output === OUTPUT_FILE) {
         if (isGlob) {
-          fs.mkdirSync(new URL(path.dirname(specPath), outputDir), { recursive: true }); // recursively make parent dirs
+          fs.mkdirSync(outputFile, { recursive: true }); // recursively make parent dirs
         }
         else {
           fs.mkdirSync(outputDir, { recursive: true }); // recursively make parent dirs
