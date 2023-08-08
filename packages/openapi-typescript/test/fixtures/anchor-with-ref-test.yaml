@@ -1,0 +1,25 @@
+openapi: "3.0"
+info:
+  title: test
+  version: "1.0"
+paths:
+  /:
+    get:
+      responses:
+        200:
+          description: OK
+components:
+  schemas:
+    test:
+      type: object
+      properties: &testProperties
+        metadata:
+          $ref: '#/components/schemas/metadata'
+      additionalProperties: false
+    anchorTest:
+      type: object
+      additionalProperties: false
+      properties: *testProperties
+    metadata:
+      type: object
+      additionalProperties: true
