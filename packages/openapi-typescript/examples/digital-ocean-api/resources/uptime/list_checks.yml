@@ -1,4 +1,4 @@
-operationId: uptime_checks_list
+operationId: uptime_list_checks
 
 summary: List All Checks
 

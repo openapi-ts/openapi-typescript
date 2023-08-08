@@ -1,4 +1,4 @@
-operationId: uptime_alert_update
+operationId: uptime_update_alert
 
 summary: Update an Alert
 

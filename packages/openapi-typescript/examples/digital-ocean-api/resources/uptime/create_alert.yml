@@ -1,4 +1,4 @@
-operationId: uptime_alert_create
+operationId: uptime_create_alert
 
 summary: Create a New Alert
 
