@@ -50,8 +50,8 @@ export default function transformPathsObject(pathsObject: PathsObject, ctx: Glob
           path: `#/paths/${url}`,
           ctx: { ...ctx, indentLv },
         })};`,
-        indentLv
-      )
+        indentLv,
+      ),
     );
   }
   indentLv--;

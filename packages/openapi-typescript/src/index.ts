@@ -1,4 +1,4 @@
-import type { GlobalContext, OpenAPI3, OpenAPITSOptions, Subschema } from "./types.js";
+import type { GlobalContext, OpenAPI3, OpenAPITSOptions, SchemaObject, Subschema } from "./types.js";
 import type { Readable } from "node:stream";
 import { URL } from "node:url";
 import load, { resolveSchema, VIRTUAL_JSON_URL } from "./load.js";
@@ -75,6 +75,7 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
   // 1. basic validation
   for (const k of Object.keys(allSchemas)) {
     const subschema = allSchemas[k];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (typeof (subschema.schema as any).swagger === "string") {
       error("Swagger 2.0 and older no longer supported. Please use v5.");
       process.exit(1);
@@ -156,7 +157,7 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
           // hack: sometimes subschemas contain only a single SchemaObject or ParameterObject and get incorrectly hinted
           // currently unknown what the real fix is, but this is a bandaid
           if (typeof subschema.schema === "object" && ("schema" in subschema.schema || "type" in subschema.schema)) {
-            subschemaOutput = transformSchemaObject(subschema.schema as any, { path, ctx: { ...ctx, indentLv } });
+            subschemaOutput = transformSchemaObject(subschema.schema as SchemaObject, { path, ctx: { ...ctx, indentLv } });
           } else {
             subschemaOutput += "{\n";
             indentLv++;
@@ -181,14 +182,14 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
 
           outer: for (const [name, schemaObject] of getEntries(subschema.schema!)) {
             if (!schemaObject || typeof schemaObject !== "object") continue;
-            const c = getSchemaObjectComment(schemaObject as any, indentLv);
+            const c = getSchemaObjectComment(schemaObject as SchemaObject, indentLv);
             if (c) subschemaOutput += indent(c, indentLv);
 
             // This might be a Path Item Object; only way to test is if top-level contains a method (not allowed on Schema Object)
             if (!("type" in schemaObject) && !("$ref" in schemaObject)) {
               for (const method of ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as Method[]) {
                 if (method in schemaObject) {
-                  subschemaOutput += indent(`${escObjKey(name)}: ${transformPathItemObject(schemaObject as any, { path: `${path}${name}`, ctx: { ...ctx, indentLv } })};\n`, indentLv);
+                  subschemaOutput += indent(`${escObjKey(name)}: ${transformPathItemObject(schemaObject, { path: `${path}${name}`, ctx: { ...ctx, indentLv } })};\n`, indentLv);
                   continue outer;
                 }
               }
@@ -207,7 +208,7 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
           break;
         }
         default: {
-          error(`Could not resolve subschema ${subschemaID}. Unknown type "${(subschema as any).hint}".`);
+          error(`Could not resolve subschema ${subschemaID}. Unknown type "${subschema.hint}".`);
           process.exit(1);
         }
       }
@@ -244,7 +245,7 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
       "type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };",
       "type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;",
       "type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;",
-      ""
+      "",
     );
   }
 

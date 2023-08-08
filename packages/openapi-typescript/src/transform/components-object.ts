@@ -102,8 +102,8 @@ export default function transformComponentsObject(components: ComponentsObject, 
               path: `#/components/requestBodies/${name}`,
               ctx: { ...ctx, indentLv },
             })};`,
-            indentLv
-          )
+            indentLv,
+          ),
         );
       } else {
         if (!requestBodyObject.required) key = tsOptionalProperty(key);
@@ -164,8 +164,8 @@ export default function transformComponentsObject(components: ComponentsObject, 
               path: `#/components/pathItems/${name}`,
               ctx: { ...ctx, indentLv },
             })};`,
-            indentLv
-          )
+            indentLv,
+          ),
         );
       }
     }

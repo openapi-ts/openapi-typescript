@@ -2,6 +2,9 @@ import type { URL } from "node:url";
 import type { RequestInfo, RequestInit, Response } from "undici";
 import type { TransformSchemaObjectOptions } from "./transform/schema-object.js";
 
+// Many types allow for true “any”
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export interface Extensable {
   [key: `x-${string}`]: any;
 }
@@ -442,6 +445,7 @@ export type SchemaObject = {
   | { type: ("string" | "number" | "integer" | "array" | "boolean" | "null" | "object")[] }
   | { allOf: (SchemaObject | ReferenceObject)[]; anyOf?: (SchemaObject | ReferenceObject)[]; required?: string[] }
   | { allOf?: (SchemaObject | ReferenceObject)[]; anyOf: (SchemaObject | ReferenceObject)[]; required?: string[] }
+  // eslint-disable-next-line @typescript-eslint/ban-types
   | {}
 );
 

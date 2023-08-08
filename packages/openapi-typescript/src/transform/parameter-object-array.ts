@@ -23,8 +23,8 @@ export default function transformParameterObjectArray(parameterObjectArray: (Par
           path: `${path}/${node.name}`,
           ctx: { ...ctx, indentLv: ctx.indentLv + 1 },
         })};`,
-        ctx.indentLv
-      )
+        ctx.indentLv,
+      ),
     );
   }
   return output.join("\n");

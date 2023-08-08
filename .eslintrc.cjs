@@ -9,6 +9,7 @@ module.exports = {
   rules: {
     "@typescript-eslint/consistent-indexed-object-style": "off", // sometimes naming keys is more user-friendly
     "@typescript-eslint/no-dynamic-delete": "off", // delete is OK
+    "@typescript-eslint/no-non-null-assertion": "off", // this is better than "as"
     "@typescript-eslint/no-unnecessary-condition": "off", // this gives bad advice
     "no-console": "error",
     "no-unused-vars": "off",
@@ -19,6 +20,7 @@ module.exports = {
       rules: {
         "@typescript-eslint/ban-ts-comment": "off", // allow @ts-ignore only in tests
         "@typescript-eslint/no-empty-function": "off", // don’t enforce this in tests
+        "@typescript-eslint/no-explicit-any": "off", // tests sometimes need this
         "no-only-tests/no-only-tests": "error",
         "vitest/valid-title": "off", // doesn’t work?
       },

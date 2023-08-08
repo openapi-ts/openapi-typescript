@@ -1,4 +1,3 @@
-import { bench } from "vitest";
 import { comment, escObjKey, getSchemaObjectComment, parseRef, tsIntersectionOf, tsUnionOf } from "../src/utils.js";
 
 describe("utils", () => {
@@ -122,7 +121,7 @@ describe("utils", () => {
         " * A multi-line\n" +
         " *\n" +
         " *  comment\n"+
-        " */"
+        " */",
       );
     });
   });
@@ -132,7 +131,7 @@ describe("utils", () => {
       expect(
         getSchemaObjectComment({
           title: "A title",
-        })
+        }),
       ).toBe("/** A title */");
     });
 
@@ -141,13 +140,13 @@ describe("utils", () => {
         getSchemaObjectComment({
           title: "A title",
           description: "A description",
-        })
+        }),
       ).toBe(
         // prettier-ignore
         "/**\n" +
         " * A title\n" +
         " * @description A description\n"+
-        " */"
+        " */",
       );
     });
 
@@ -156,7 +155,7 @@ describe("utils", () => {
         getSchemaObjectComment({
           title: "A title",
           description: "A multi-line \n\n description",
-        })
+        }),
       ).toStrictEqual(
         // prettier-ignore
         "/**\n" +
@@ -164,7 +163,7 @@ describe("utils", () => {
         " * @description A multi-line\n" +
         " *\n" +
         " *  description\n" +
-        " */"
+        " */",
       );
     });
   });

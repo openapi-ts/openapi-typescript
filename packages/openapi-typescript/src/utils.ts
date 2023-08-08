@@ -41,8 +41,8 @@ export function walk(obj: unknown, cb: (value: Record<string, unknown>, path: (s
     for (let i = 0; i < obj.length; i++) walk(obj[i], cb, path.concat(i));
     return;
   }
-  cb(obj as any, path);
-  for (const k of Object.keys(obj)) walk((obj as any)[k], cb, path.concat(k));
+  cb(obj as Record<string, unknown>, path);
+  for (const k of Object.keys(obj)) walk((obj as Record<string, unknown>)[k], cb, path.concat(k));
 }
 
 /**
@@ -271,7 +271,7 @@ export function tsUnionOf(...types: (string | number | boolean)[]): string {
 }
 
 /** escape string value */
-export function escStr(input: any): string {
+export function escStr(input: unknown): string {
   if (typeof input !== "string") return JSON.stringify(input);
   return `"${input.replace(LB_RE, "").replace(DOUBLE_QUOTE_RE, '\\"')}"`;
 }
@@ -315,7 +315,8 @@ export function isFilepath(url: string): boolean {
 }
 
 export function getDefaultFetch(): Fetch {
-  const globalFetch: Fetch | undefined = (globalThis as any).fetch;
+  // @ts-expect-error globalThis doesn’t have a type
+  const globalFetch: Fetch | undefined = globalThis.fetch;
   if (typeof globalFetch === "undefined") {
     return unidiciFetch;
   }

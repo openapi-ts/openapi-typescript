@@ -14,20 +14,20 @@ interface SchemaMap {
 const EXT_RE = /\.(yaml|yml|json)$/i;
 export const VIRTUAL_JSON_URL = `file:///_json`; // fake URL reserved for dynamic JSON
 
-function parseYAML(schema: any): any {
+function parseYAML(schema: string) {
   try {
     return yaml.load(schema);
-  } catch (err: any) {
-    error(`YAML: ${err.toString()}`);
+  } catch (err) {
+    error(`YAML: ${String(err)}`);
     process.exit(1);
   }
 }
 
-function parseJSON(schema: any): any {
+function parseJSON(schema: string) {
   try {
     return JSON.parse(schema);
-  } catch (err: any) {
-    error(`JSON: ${err.toString()}`);
+  } catch (err) {
+    error(`JSON: ${String(err)}`);
     process.exit(1);
   }
 }
@@ -56,7 +56,7 @@ export function resolveSchema(filename: string): URL {
  * @param {HTTPHeaderMap} httpHeaders
  * @return {Record<string, string>}  {Record<string, string>} Final HTTP headers outcome.
  */
-function parseHttpHeaders(httpHeaders: Record<string, any>): Record<string, any> {
+function parseHttpHeaders(httpHeaders: Record<string, unknown>): Record<string, unknown> {
   const finalHeaders: Record<string, string> = {};
 
   // Obtain the header key
@@ -84,7 +84,7 @@ export interface LoadOptions extends GlobalContext {
   rootURL: URL;
   schemas: SchemaMap;
   urlCache: Set<string>;
-  httpHeaders?: Record<string, any>;
+  httpHeaders?: Record<string, unknown>;
   httpMethod?: string;
   fetch: Fetch;
   parameters: Record<string, ParameterObject>;
@@ -108,14 +108,14 @@ export default async function load(schema: URL | Subschema | Readable, options: 
 
     // remote
     if (schema.protocol.startsWith("http")) {
-      const headers: Record<string, any> = { "User-Agent": "openapi-typescript" };
+      const headers: Record<string, string> = { "User-Agent": "openapi-typescript" };
       if (options.auth) headers.Authorization = options.auth;
 
       // Add custom parsed HTTP headers
       if (options.httpHeaders) {
         const parsedHeaders = parseHttpHeaders(options.httpHeaders);
         for (const [k, v] of Object.entries(parsedHeaders)) {
-          headers[k] = v;
+          headers[k] = v as string;
         }
       }
       const res = await options.fetch(schema, {
@@ -131,7 +131,7 @@ export default async function load(schema: URL | Subschema | Readable, options: 
       } else if (ext === ".yaml" || ext === ".yml" || contentType?.includes("yaml")) {
         options.schemas[schemaID] = {
           hint,
-          schema: parseYAML(await res.text()),
+          schema: parseYAML(await res.text()) as any, // eslint-disable-line @typescript-eslint/no-explicit-any
         };
       }
     }
@@ -141,7 +141,7 @@ export default async function load(schema: URL | Subschema | Readable, options: 
       if (ext === ".yaml" || ext === ".yml")
         options.schemas[schemaID] = {
           hint,
-          schema: parseYAML(contents),
+          schema: parseYAML(contents) as any, // eslint-disable-line @typescript-eslint/no-explicit-any
         };
       else if (ext === ".json")
         options.schemas[schemaID] = {
@@ -191,12 +191,12 @@ export default async function load(schema: URL | Subschema | Readable, options: 
     if ("components" in currentSchema && currentSchema.components && "examples" in currentSchema.components) delete currentSchema.components.examples;
   }
 
-  const refPromises: Promise<any>[] = [];
+  const refPromises: Promise<unknown>[] = [];
   walk(currentSchema, (rawNode, nodePath) => {
     // filter custom properties from allOf, anyOf, oneOf
     for (const k of ["allOf", "anyOf", "oneOf"]) {
       if (Array.isArray(rawNode[k])) {
-        rawNode[k] = (rawNode as any)[k].filter((o: SchemaObject | ReferenceObject) => {
+        rawNode[k] = (rawNode as Record<string, SchemaObject[]>)[k].filter((o: SchemaObject | ReferenceObject) => {
           if (!o || typeof o !== "object" || Array.isArray(o)) throw new Error(`${nodePath}.${k}: Expected array of objects. Is your schema valid?`);
           if (!("$ref" in o) || typeof o.$ref !== "string") return true;
           const ref = parseRef(o.$ref);
@@ -214,7 +214,7 @@ export default async function load(schema: URL | Subschema | Readable, options: 
     }
     // $ref with custom "x-*" property
     if (ref.path.some((i) => i.startsWith("x-"))) {
-      delete (node as any).$ref;
+      delete (node as unknown as Record<string, unknown>).$ref;
       return;
     }
 
@@ -255,7 +255,7 @@ export default async function load(schema: URL | Subschema | Readable, options: 
   // 3. transform $refs once, at the root schema, after all have been scanned & downloaded (much easier to do here when we have the context)
   if (schemaID === ".") {
     for (const subschemaID of Object.keys(options.schemas)) {
-      walk(options.schemas[subschemaID].schema, (rawNode, nodePath) => {
+      walk(options.schemas[subschemaID].schema, (rawNode) => {
         if (!("$ref" in rawNode) || typeof rawNode.$ref !== "string") return;
 
         const node = rawNode as unknown as ReferenceObject;
@@ -285,7 +285,7 @@ export default async function load(schema: URL | Subschema | Readable, options: 
       // note: 'in' is a unique required property of parameters. and parameters can live in subschemas (i.e. "parameters" doesn’t have to be part of the traceable path)
       if (typeof rawNode === "object" && "in" in rawNode) {
         const key = k === "." ? makeTSIndex(nodePath) : makeTSIndex(["external", k, ...nodePath]);
-        options.parameters[key] = rawNode as any;
+        options.parameters[key] = rawNode as unknown as ParameterObject;
       }
     });
   }

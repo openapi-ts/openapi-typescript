@@ -37,8 +37,8 @@ export default function transformResponseObject(responseObject: ResponseObject, 
               path: `${path}/headers/${name}`,
               ctx: { ...ctx, indentLv },
             })};`,
-            indentLv
-          )
+            indentLv,
+          ),
         );
       }
     }
@@ -61,8 +61,8 @@ export default function transformResponseObject(responseObject: ResponseObject, 
             path: `${path}/content/${contentType}`,
             ctx: { ...ctx, indentLv: indentLv },
           })};`,
-          indentLv
-        )
+          indentLv,
+        ),
       );
     }
     indentLv--;

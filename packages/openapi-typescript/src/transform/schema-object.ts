@@ -1,6 +1,10 @@
 import type { GlobalContext, ReferenceObject, SchemaObject } from "../types.js";
 import { escObjKey, escStr, getEntries, getSchemaObjectComment, indent, parseRef, tsArrayOf, tsIntersectionOf, tsOmit, tsOneOf, tsOptionalProperty, tsReadonly, tsTupleOf, tsUnionOf, tsWithRequired } from "../utils.js";
 
+// There’s just no getting around some really complex type intersections that TS
+// has trouble following
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export interface TransformSchemaObjectOptions {
   /** The full ID for this object (mostly used in error messages) */
   path: string;
@@ -52,10 +56,10 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
   }
 
   // enum (valid for any type, but for objects, treat as oneOf below)
-  if (typeof schemaObject === "object" && !!(schemaObject as any).enum && (schemaObject as any).type !== "object") {
-    let items = (schemaObject as any).enum as any[];
+  if (typeof schemaObject === "object" && !!schemaObject.enum && (schemaObject as any).type !== "object") {
+    let items = schemaObject.enum as string[];
     if ("type" in schemaObject) {
-      if (schemaObject.type === "string" || (Array.isArray(schemaObject.type) && schemaObject.type.includes("string" as any))) {
+      if (schemaObject.type === "string" || (Array.isArray(schemaObject.type) && (schemaObject.type as string[]).includes("string"))) {
         items = items.map((t) => escStr(t));
       }
     }
@@ -67,7 +71,7 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
   }
 
   // oneOf (no discriminator)
-  const oneOf = ((typeof schemaObject === "object" && !(schemaObject as any).discriminator && (schemaObject as any).oneOf) || (schemaObject as any).enum || undefined) as (SchemaObject | ReferenceObject)[] | undefined; // note: for objects, treat enum as oneOf
+  const oneOf = ((typeof schemaObject === "object" && !schemaObject.discriminator && (schemaObject as any).oneOf) || schemaObject.enum || undefined) as (SchemaObject | ReferenceObject)[] | undefined; // note: for objects, treat enum as oneOf
   if (oneOf && !oneOf.some((t) => "$ref" in t && ctx.discriminators[t.$ref])) {
     const oneOfNormalized = oneOf.map((item) => transformSchemaObject(item, { path, ctx }));
     if (schemaObject.nullable) oneOfNormalized.push("null");
@@ -135,7 +139,7 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
               .map((n) => {
                 const t = tsTupleOf(...Array.from({ length: n }).map(() => itemType));
                 return ctx.immutableTypes || schemaObject.readOnly ? tsReadonly(t) : t;
-              })
+              }),
           );
         }
       }
@@ -197,7 +201,7 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
       let value = parseRef(path).path.pop()!;
       if (discriminator.mapping) {
         // Mapping value can either be a fully-qualified ref (#/components/schemas/XYZ) or a schema name (XYZ)
-        const matchedValue = Object.entries(discriminator.mapping).find(([_, v]) => (!v.startsWith("#") && v === value) || (v.startsWith("#") && parseRef(v).path.pop() === value));
+        const matchedValue = Object.entries(discriminator.mapping).find(([, v]) => (!v.startsWith("#") && v === value) || (v.startsWith("#") && parseRef(v).path.pop() === value));
         if (matchedValue) value = matchedValue[0]; // why was this designed backwards!?
       }
       coreType.unshift(indent(`${escObjKey(discriminator.propertyName)}: ${escStr(value)};`, indentLv + 1));

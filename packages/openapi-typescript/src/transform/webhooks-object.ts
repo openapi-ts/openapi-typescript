@@ -13,8 +13,8 @@ export default function transformWebhooksObject(webhooksObject: WebhooksObject, 
           path: `#/webhooks/${name}`,
           ctx: { ...ctx, indentLv },
         })};`,
-        indentLv
-      )
+        indentLv,
+      ),
     );
   }
   indentLv--;
