@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.4.2
+
+### Patch Changes
+
+- [#1278](https://github.com/drwpow/openapi-typescript/pull/1278) [`d7420e3`](https://github.com/drwpow/openapi-typescript/commit/d7420e30f1697ad8cfc0fdefc93127ad2b813f99) Thanks [@pvanagtmaal](https://github.com/pvanagtmaal)! - Fix externalizing external refs
+
 ## 6.4.1
 
 ### Patch Changes
