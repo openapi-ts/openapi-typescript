@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.4.1
+
+### Patch Changes
+
+- [#1269](https://github.com/drwpow/openapi-typescript/pull/1269) [`e735ff2`](https://github.com/drwpow/openapi-typescript/commit/e735ff2b9307eaec1959d0d3bf733a240a880c48) Thanks [@pimveldhuisen](https://github.com/pimveldhuisen)! - Stop trimming whitespace other than linebreaks in string values
+
 ## 6.4.0
 
 ### Minor Changes
