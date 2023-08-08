@@ -14340,10 +14340,18 @@ export interface external {
   "resources/ssh_keys/attributes/ssh_key_fingerprint.yml": string
   "resources/ssh_keys/attributes/ssh_key_id.yml": number
   "resources/ssh_keys/attributes/ssh_key_name.yml": string
-  "resources/ssh_keys/links/sshKeys_delete_by_fingerprint.yml": never
-  "resources/ssh_keys/links/sshKeys_delete_by_id.yml": never
-  "resources/ssh_keys/links/sshKeys_get_by_fingerprint.yml": never
-  "resources/ssh_keys/links/sshKeys_get_by_id.yml": never
+  "resources/ssh_keys/links/sshKeys_delete_by_fingerprint.yml": {
+    content: never;
+  }
+  "resources/ssh_keys/links/sshKeys_delete_by_id.yml": {
+    content: never;
+  }
+  "resources/ssh_keys/links/sshKeys_get_by_fingerprint.yml": {
+    content: never;
+  }
+  "resources/ssh_keys/links/sshKeys_get_by_id.yml": {
+    content: never;
+  }
   "resources/ssh_keys/models/sshKeys.yml": {
     id?: external["resources/ssh_keys/attributes/ssh_key_id.yml"];
     fingerprint?: external["resources/ssh_keys/attributes/ssh_key_fingerprint.yml"];
@@ -16033,7 +16041,14 @@ export interface external {
     page?: number;
     region?: external["shared/attributes/region_slug.yml"];
   };
-  "shared/responses/accepted.yml": never
+  "shared/responses/accepted.yml": {
+    headers: {
+      "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
+      "ratelimit-remaining": external["shared/headers.yml"]["ratelimit-remaining"];
+      "ratelimit-reset": external["shared/headers.yml"]["ratelimit-reset"];
+    };
+    content: never;
+  }
   "shared/responses/bad_request.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -16054,8 +16069,23 @@ export interface external {
       "application/json": external["shared/models/error.yml"];
     };
   }
-  "shared/responses/no_content_with_content_type.yml": never
-  "shared/responses/no_content.yml": never
+  "shared/responses/no_content_with_content_type.yml": {
+    headers: {
+      "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
+      "ratelimit-remaining": external["shared/headers.yml"]["ratelimit-remaining"];
+      "ratelimit-reset": external["shared/headers.yml"]["ratelimit-reset"];
+      "content-type": external["shared/headers.yml"]["content-type"];
+    };
+    content: never;
+  }
+  "shared/responses/no_content.yml": {
+    headers: {
+      "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
+      "ratelimit-remaining": external["shared/headers.yml"]["ratelimit-remaining"];
+      "ratelimit-reset": external["shared/headers.yml"]["ratelimit-reset"];
+    };
+    content: never;
+  }
   "shared/responses/not_found.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];

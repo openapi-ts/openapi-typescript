@@ -5620,7 +5620,9 @@ export interface components {
       };
     };
     /** @description Not modified */
-    not_modified: never;
+    not_modified: {
+      content: never;
+    };
     /** @description Gone */
     gone: {
       content: {
@@ -5891,7 +5893,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -5949,7 +5953,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /** List public keys */
@@ -5985,7 +5991,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -6205,7 +6213,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
       /** @description Client Errors */
       422: {
         content: {
@@ -6399,7 +6409,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /** Update a pre-receive hook */
@@ -6475,7 +6487,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -6524,7 +6538,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /** Update the username for a user */
@@ -6593,7 +6609,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -6756,7 +6774,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
       304: components["responses"]["not_modified"];
       401: components["responses"]["requires_authentication"];
       403: components["responses"]["forbidden"];
@@ -7136,7 +7156,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
       304: components["responses"]["not_modified"];
       401: components["responses"]["requires_authentication"];
       403: components["responses"]["forbidden"];
@@ -7215,7 +7237,9 @@ export interface operations {
   "enterprise-admin/remove-announcement": {
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -7412,7 +7436,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -7455,7 +7481,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -7724,7 +7752,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -8091,7 +8121,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -8192,7 +8224,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -8241,7 +8275,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -9107,7 +9143,9 @@ export interface operations {
         };
       };
       /** @description Repository is public or secret scanning is disabled for the repository */
-      404: never;
+      404: {
+        content: never;
+      };
       503: components["responses"]["service_unavailable"];
     };
   };
@@ -9136,7 +9174,9 @@ export interface operations {
       };
       304: components["responses"]["not_modified"];
       /** @description Repository is public, or secret scanning is disabled for the repository, or the resource is not found */
-      404: never;
+      404: {
+        content: never;
+      };
       503: components["responses"]["service_unavailable"];
     };
   };
@@ -9172,9 +9212,13 @@ export interface operations {
         };
       };
       /** @description Repository is public, or secret scanning is disabled for the repository, or the resource is not found */
-      404: never;
+      404: {
+        content: never;
+      };
       /** @description State does not match the resolution */
-      422: never;
+      422: {
+        content: never;
+      };
       503: components["responses"]["service_unavailable"];
     };
   };
@@ -9344,7 +9388,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -9567,7 +9613,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -9649,7 +9697,9 @@ export interface operations {
   "enterprise-admin/start-configuration-process": {
     responses: {
       /** @description Response */
-      202: never;
+      202: {
+        content: never;
+      };
     };
   };
   /**
@@ -9730,7 +9780,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /** Get all authorized SSH keys */
@@ -9816,7 +9868,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      202: never;
+      202: {
+        content: never;
+      };
     };
   };
   /**
@@ -9836,7 +9890,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      202: never;
+      202: {
+        content: never;
+      };
     };
   };
   /**
@@ -9907,7 +9963,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -9922,7 +9980,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -9949,7 +10009,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -9972,7 +10034,9 @@ export interface operations {
     };
     responses: {
       /** @description Response */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
 }

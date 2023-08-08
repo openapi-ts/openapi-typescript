@@ -111,7 +111,9 @@ describe("Components Object", () => {
       };
     };
     /** @description No Content */
-    NoContent: never;
+    NoContent: {
+      content: never;
+    };
   };
   parameters: {
     Search: string;
@@ -209,7 +211,9 @@ describe("Components Object", () => {
       };
     };
     /** @description No Content */
-    readonly NoContent: never;
+    readonly NoContent: {
+      content: never;
+    };
   };
   parameters: {
     readonly Search: string;

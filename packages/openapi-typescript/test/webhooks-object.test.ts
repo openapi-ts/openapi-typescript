@@ -75,7 +75,9 @@ describe("Webhooks Object", () => {
       };
       responses: {
         /** @description Return a 200 status to indicate that the data was received successfully */
-        200: never;
+        200: {
+          content: never;
+        };
       };
     };
   };
