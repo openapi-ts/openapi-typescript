@@ -538,6 +538,24 @@ describe("Schema Object", () => {
 }`);
       });
 
+      test("discriminator without mapping and oneOf and null", () => {
+        const schema: SchemaObject = {
+          oneOf: [{ $ref: 'components["schemas"]["parent"]' }, { type: "null" }],
+        };
+        const generated = transformSchemaObject(schema, {
+          path: options.path,
+          ctx: {
+            ...options.ctx,
+            discriminators: {
+              'components["schemas"]["parent"]': {
+                propertyName: "operation",
+              },
+            },
+          },
+        });
+        expect(generated).toBe(`components["schemas"]["parent"] | null`);
+      });
+
       test("discriminator escape", () => {
         const schema: SchemaObject = {
           type: "object",
