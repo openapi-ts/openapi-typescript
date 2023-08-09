@@ -176,6 +176,18 @@ export interface paths {
         500: components["responses"]["Error"];
       };
     };
+    delete: {
+      parameters: {
+        path: {
+          name: string;
+        };
+      };
+      responses: {
+        /** @description No Content */
+        204: never;
+        500: components["responses"]["Error"];
+      };
+    };
     parameters: {
       path: {
         name: string;

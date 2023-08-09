@@ -51,7 +51,7 @@ export type Params<T> = T extends { parameters: any } ? { params: NonNullable<T[
 export type RequestBodyObj<T> = T extends { requestBody?: any } ? T["requestBody"] : never;
 export type RequestBodyContent<T> = undefined extends RequestBodyObj<T> ? FilterKeys<NonNullable<RequestBodyObj<T>>, "content"> | undefined : FilterKeys<RequestBodyObj<T>, "content">;
 export type RequestBodyMedia<T> = FilterKeys<RequestBodyContent<T>, MediaType> extends never ? FilterKeys<NonNullable<RequestBodyContent<T>>, MediaType> | undefined : FilterKeys<RequestBodyContent<T>, MediaType>;
-export type RequestBody<T> = undefined extends RequestBodyMedia<T> ? { body?: RequestBodyMedia<T> } : { body: RequestBodyMedia<T> };
+export type RequestBody<T> = RequestBodyMedia<T> extends never ? { body?: never } : undefined extends RequestBodyMedia<T> ? { body?: RequestBodyMedia<T> } : { body: RequestBodyMedia<T> };
 export type QuerySerializer<T> = (query: T extends { parameters: any } ? NonNullable<T["parameters"]["query"]> : Record<string, unknown>) => string;
 export type BodySerializer<T> = (body: RequestBodyMedia<T>) => any;
 export type RequestOptions<T> = Params<T> &
