@@ -432,9 +432,12 @@ export type SchemaObject = {
   format?: string;
   /** @deprecated in 3.1 (still valid for 3.0) */
   nullable?: boolean;
+  oneOf?: (SchemaObject | ReferenceObject)[];
+  allOf?: (SchemaObject | ReferenceObject)[];
+  anyOf?: (SchemaObject | ReferenceObject)[];
+  required?: string[];
   [key: `x-${string}`]: any;
 } & (
-  | { oneOf: (SchemaObject | ReferenceObject)[] }
   | StringSubtype
   | NumberSubtype
   | IntegerSubtype
@@ -443,8 +446,6 @@ export type SchemaObject = {
   | NullSubtype
   | ObjectSubtype
   | { type: ("string" | "number" | "integer" | "array" | "boolean" | "null" | "object")[] }
-  | { allOf: (SchemaObject | ReferenceObject)[]; anyOf?: (SchemaObject | ReferenceObject)[]; required?: string[] }
-  | { allOf?: (SchemaObject | ReferenceObject)[]; anyOf: (SchemaObject | ReferenceObject)[]; required?: string[] }
   // eslint-disable-next-line @typescript-eslint/ban-types
   | {}
 );

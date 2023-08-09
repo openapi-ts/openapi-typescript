@@ -71,7 +71,7 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
   }
 
   // oneOf (no discriminator)
-  const oneOf = ((typeof schemaObject === "object" && !schemaObject.discriminator && (schemaObject as any).oneOf) || schemaObject.enum || undefined) as (SchemaObject | ReferenceObject)[] | undefined; // note: for objects, treat enum as oneOf
+  const oneOf = ((typeof schemaObject === "object" && !schemaObject.discriminator && schemaObject.oneOf) || schemaObject.enum || undefined) as (SchemaObject | ReferenceObject)[] | undefined; // note: for objects, treat enum as oneOf
   if (oneOf && !oneOf.some((t) => "$ref" in t && ctx.discriminators[t.$ref])) {
     const oneOfNormalized = oneOf.map((item) => transformSchemaObject(item, { path, ctx }));
     if (schemaObject.nullable) oneOfNormalized.push("null");
@@ -86,7 +86,7 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
     const oneOfTypes = oneOfNormalized.some((t) => typeof t === "string" && t.includes("{")) ? tsOneOf(...oneOfNormalized) : tsUnionOf(...oneOfNormalized);
 
     // handle oneOf + object type
-    if ("type" in schemaObject && schemaObject.type === "object") {
+    if ("type" in schemaObject && schemaObject.type === "object" && (schemaObject.properties || schemaObject.additionalProperties)) {
       return tsIntersectionOf(transformSchemaObject({ ...schemaObject, oneOf: undefined, enum: undefined } as any, { path, ctx }), oneOfTypes);
     }
 
@@ -226,19 +226,19 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
     return output;
   }
   // oneOf (discriminator)
-  if ("oneOf" in schemaObject && Array.isArray(schemaObject.oneOf)) {
+  if (Array.isArray(schemaObject.oneOf) && schemaObject.oneOf.length) {
     const oneOfType = tsUnionOf(...collectCompositions(schemaObject.oneOf));
     finalType = finalType ? tsIntersectionOf(finalType, oneOfType) : oneOfType;
   } else {
     // allOf
-    if ("allOf" in schemaObject && Array.isArray(schemaObject.allOf)) {
-      finalType = tsIntersectionOf(...(finalType ? [finalType] : []), ...collectCompositions(schemaObject.allOf));
+    if (Array.isArray((schemaObject as any).allOf) && schemaObject.allOf!.length) {
+      finalType = tsIntersectionOf(...(finalType ? [finalType] : []), ...collectCompositions(schemaObject.allOf!));
       if ("required" in schemaObject && Array.isArray(schemaObject.required)) {
         finalType = tsWithRequired(finalType, schemaObject.required);
       }
     }
     // anyOf
-    if ("anyOf" in schemaObject && Array.isArray(schemaObject.anyOf)) {
+    if (Array.isArray(schemaObject.anyOf) && schemaObject.anyOf.length) {
       const anyOfTypes = tsUnionOf(...collectCompositions(schemaObject.anyOf));
       finalType = finalType ? tsIntersectionOf(finalType, anyOfTypes) : anyOfTypes;
     }

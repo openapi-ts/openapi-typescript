@@ -374,6 +374,48 @@ describe("Schema Object", () => {
         expect(generated).toBe("0 | 1");
       });
 
+      test("empty object + oneOf is ignored", () => {
+        const schema: SchemaObject = {
+          type: "object",
+          oneOf: [
+            {
+              title: "DetailsId",
+              type: "object",
+              required: ["id"],
+              properties: {
+                id: { type: "string", description: "The ID of an existing resource that exists before the pipeline is run." },
+              },
+            },
+            {
+              title: "DetailsFrom",
+              type: "object",
+              required: ["from"],
+              properties: {
+                from: {
+                  type: "object",
+                  description: "The stage and step to report on.",
+                  required: ["step"],
+                  properties: { stage: { type: "string", description: "An identifier for the stage the step being reported on resides in." }, step: { type: "string", description: "An identifier for the step to be reported on." } },
+                },
+              },
+            },
+          ],
+        };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe(`OneOf<[{
+  /** @description The ID of an existing resource that exists before the pipeline is run. */
+  id: string;
+}, {
+  /** @description The stage and step to report on. */
+  from: {
+    /** @description An identifier for the stage the step being reported on resides in. */
+    stage?: string;
+    /** @description An identifier for the step to be reported on. */
+    step: string;
+  };
+}]>`);
+      });
+
       test("nullable: true", () => {
         const schema: SchemaObject = { nullable: true, oneOf: [{ type: "integer" }, { type: "string" }] };
         const generated = transformSchemaObject(schema, options);
@@ -719,8 +761,8 @@ describe("ReferenceObject", () => {
           properties: { string: { type: "string" } },
           "x-extension": true,
         },
-        options
-      )
+        options,
+      ),
     ).toBe("{\n  string?: string;\n}");
   });
 });
