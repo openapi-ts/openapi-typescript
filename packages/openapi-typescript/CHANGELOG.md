@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.4.3
+
+### Patch Changes
+
+- [#1287](https://github.com/drwpow/openapi-typescript/pull/1287) [`8a9d8ed`](https://github.com/drwpow/openapi-typescript/commit/8a9d8ede95802370c4015846a4856fd0701ada33) Thanks [@drwpow](https://github.com/drwpow)! - Fix oneOf handling with empty object parent type
+
 ## 6.4.2
 
 ### Patch Changes
