@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.4.4
+
+### Patch Changes
+
+- [#1281](https://github.com/drwpow/openapi-typescript/pull/1281) [`ebd31ff`](https://github.com/drwpow/openapi-typescript/commit/ebd31ff3d143dbe8e4d91a4ba18b110ff6656dd0) Thanks [@pvanagtmaal](https://github.com/pvanagtmaal)! - Refactor CLI path handling, fixing several bugs
+
 ## 6.4.3
 
 ### Patch Changes
