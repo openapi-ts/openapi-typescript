@@ -13,13 +13,13 @@ async function generateSchemas() {
     ...Object.keys(singleFile).map(async (name) => {
       const start = performance.now();
       const ext = path.extname(singleFile[name as keyof typeof singleFile]);
-      await execa("node", ["./bin/cli.js", `./examples/${name}${ext}`, "-o", `./examples/${name}.ts`], { cwd });
+      await execa("./bin/cli.js", [`./examples/${name}${ext}`, "-o", `./examples/${name}.ts`], { cwd });
       done++;
       console.log(`✔︎ [${done}/${allSchemas.length}] Updated ${name} (${Math.round(performance.now() - start)}ms)`); // eslint-disable-line no-console
     }),
     ...Object.entries(multiFile).map(async ([name, meta]) => {
       const start = performance.now();
-      await execa("node", ["./bin/cli.js", `./examples/${name}${meta.entry.substring(1)}`, "-o", `./examples/${name}.ts`], { cwd });
+      await execa("./bin/cli.js", [`./examples/${name}${meta.entry.substring(1)}`, "-o", `./examples/${name}.ts`], { cwd });
       done++;
       console.log(`✔︎ [${done}/${allSchemas.length}] Updated ${name} (${Math.round(performance.now() - start)}ms)`); // eslint-disable-line no-console
     }),
