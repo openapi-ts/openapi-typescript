@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.7.2
+
+### Patch Changes
+
+- [#1242](https://github.com/drwpow/openapi-typescript/pull/1242) [`8d11701`](https://github.com/drwpow/openapi-typescript/commit/8d11701deb22d47bc8ef04b6210ea6722ecb461b) Thanks [@drwpow](https://github.com/drwpow)! - Fix impossible body typing
+
 ## 0.7.1
 
 ### Patch Changes
