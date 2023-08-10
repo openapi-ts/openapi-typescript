@@ -1,5 +1,13 @@
 # openapi-typescript
 
+## 6.4.5
+
+### Patch Changes
+
+- [#1280](https://github.com/drwpow/openapi-typescript/pull/1280) [`50441d0`](https://github.com/drwpow/openapi-typescript/commit/50441d048b8724d1ec31d20a1583c8748b7ddc99) Thanks [@pvanagtmaal](https://github.com/pvanagtmaal)! - Fix invalid typescript for empty request bodies, fix headers being left out when response body is omitted
+
+- [#1289](https://github.com/drwpow/openapi-typescript/pull/1289) [`7f452fa`](https://github.com/drwpow/openapi-typescript/commit/7f452fa00044c7191c2721b6691178158f97940f) Thanks [@adamschoenemann](https://github.com/adamschoenemann)! - Fixed a bug where references to types with discriminators with implicit mappings would generate incorrect types
+
 ## 6.4.4
 
 ### Patch Changes
