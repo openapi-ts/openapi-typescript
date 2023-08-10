@@ -1,5 +1,6 @@
 import { dump as stringifyYaml } from "js-yaml";
 import { Readable } from "node:stream";
+import { URL } from "node:url";
 import { Response, fetch as unidiciFetch } from "undici";
 import internalLoad, { type LoadOptions } from "../src/load.js";
 import type { Subschema } from "../src/types.js";
