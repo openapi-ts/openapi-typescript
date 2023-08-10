@@ -62,3 +62,19 @@ jobs:
           version: latest
       - run: pnpm i
       - run: pnpm test
+        env:
+          CI_ENV: macos
+  test-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+      - run: pnpm i
+      - run: pnpm test
+        env:
+          CI_ENV: windows

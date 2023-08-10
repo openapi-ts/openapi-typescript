@@ -63,7 +63,7 @@
     "nanostores": "^0.9.3",
     "openapi-typescript": "^6.4.2",
     "typescript": "^5.1.6",
-    "vitest": "^0.33.0",
+    "vitest": "^0.34.1",
     "vitest-fetch-mock": "^0.2.2"
   }
 }

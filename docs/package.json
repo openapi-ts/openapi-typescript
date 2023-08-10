@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@astrojs/sitemap": "^2.0.1",
-    "@types/node": "^20.4.4",
+    "@types/node": "^20.4.9",
     "html-escaper": "^3.0.3",
     "typescript": "^5.1.6"
   }
