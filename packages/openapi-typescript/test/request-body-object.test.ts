@@ -48,4 +48,14 @@ describe("Request Body Object", () => {
   };
 }`);
   });
+
+  test("empty", () => {
+    const schema: RequestBodyObject = { content: {} };
+    const generated = transformRequestBodyObject(schema, options);
+    expect(generated).toBe(`{
+  content: {
+    "*/*": never;
+  };
+}`)
+  });
 });

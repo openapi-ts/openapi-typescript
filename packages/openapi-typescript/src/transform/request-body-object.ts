@@ -13,8 +13,12 @@ export default function transformRequestBodyObject(requestBodyObject: RequestBod
   const output: string[] = ["{"];
   indentLv++;
   output.push(indent(ctx.immutableTypes ? tsReadonly("content: {") : "content: {", indentLv));
-  if (!Object.keys(requestBodyObject.content).length) return `${escStr("*/*")}: never`;
   indentLv++;
+
+  if (!Object.keys(requestBodyObject.content).length) {
+    output.push(indent(`${escStr("*/*")}: never;`, indentLv));
+  }
+
   for (const [contentType, mediaTypeObject] of getEntries(requestBodyObject.content, ctx.alphabetize, ctx.excludeDeprecated)) {
     const c = getSchemaObjectComment(mediaTypeObject, indentLv);
     if (c) output.push(indent(c, indentLv));

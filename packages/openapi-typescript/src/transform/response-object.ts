@@ -9,11 +9,6 @@ export interface TransformResponseObjectOptions {
 }
 
 export default function transformResponseObject(responseObject: ResponseObject, { path, ctx }: TransformResponseObjectOptions): string {
-  // never
-  if (!responseObject.content) {
-    return "never";
-  }
-
   const output: string[] = ["{"];
   let { indentLv } = ctx;
 
@@ -67,6 +62,10 @@ export default function transformResponseObject(responseObject: ResponseObject, 
     }
     indentLv--;
     output.push(indent("};", indentLv));
+    indentLv--;
+  } else {
+    indentLv++;
+    output.push(indent("content: never;", indentLv));
     indentLv--;
   }
 

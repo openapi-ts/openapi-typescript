@@ -330,7 +330,9 @@ export interface external {
         get: {
           responses: {
             /** @description OK */
-            200: never;
+            200: {
+              content: never;
+            };
           };
         };
       };
@@ -402,7 +404,9 @@ export interface paths {
     get: {
       responses: {
         /** @description OK */
-        200: never;
+        200: {
+          content: never;
+        };
       };
     };
   };
@@ -428,7 +432,9 @@ export interface external {
         get: {
           responses: {
             /** @description OK */
-            200: never;
+            200: {
+              content: never;
+            };
           };
         };
       };

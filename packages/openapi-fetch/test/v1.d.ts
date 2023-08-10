@@ -184,7 +184,9 @@ export interface paths {
       };
       responses: {
         /** @description No Content */
-        204: never;
+        204: {
+          content: never;
+        };
         500: components["responses"]["Error"];
       };
     };
