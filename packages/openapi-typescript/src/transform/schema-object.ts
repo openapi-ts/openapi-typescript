@@ -203,8 +203,8 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
         // Mapping value can either be a fully-qualified ref (#/components/schemas/XYZ) or a schema name (XYZ)
         const matchedValue = Object.entries(discriminator.mapping).find(([, v]) => (!v.startsWith("#") && v === value) || (v.startsWith("#") && parseRef(v).path.pop() === value));
         if (matchedValue) value = matchedValue[0]; // why was this designed backwards!?
+        coreType.unshift(indent(`${escObjKey(discriminator.propertyName)}: ${escStr(value)};`, indentLv + 1));
       }
-      coreType.unshift(indent(`${escObjKey(discriminator.propertyName)}: ${escStr(value)};`, indentLv + 1));
       break;
     }
   }
@@ -217,7 +217,7 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
     const output: string[] = [];
     for (const item of items) {
       const itemType = transformSchemaObject(item, { path, ctx: { ...ctx, indentLv } });
-      if ("$ref" in item && ctx.discriminators[item.$ref]) {
+      if ("$ref" in item && ctx.discriminators[item.$ref]?.mapping) {
         output.push(tsOmit(itemType, [ctx.discriminators[item.$ref].propertyName]));
         continue;
       }
