@@ -11958,7 +11958,7 @@ export interface external {
      * }
      */
     metric: {
-      [key: string]: string | undefined;
+      [key: string]: string;
     };
     /**
      * @example [

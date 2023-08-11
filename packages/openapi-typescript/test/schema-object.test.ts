@@ -204,6 +204,35 @@ describe("Schema Object", () => {
 }`);
       });
 
+      test("additionalProperties with all required properties", () => {
+        const schema: SchemaObject = {
+          type: "object",
+          properties: { property: { type: "boolean" } },
+          additionalProperties: { type: "string" },
+          required: ["property"]
+        };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe(`{
+  property: boolean;
+  [key: string]: string;
+}`);
+      });
+
+      test("additionalProperties with partly required properties", () => {
+        const schema: SchemaObject = {
+          type: "object",
+          properties: { property: { type: "boolean" }, property2: { type: "boolean" }},
+          additionalProperties: { type: "string" },
+          required: ["property"]
+        };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe(`{
+  property: boolean;
+  property2?: boolean;
+  [key: string]: string | undefined;
+}`);
+      });
+
       test("additionalProperties: true", () => {
         const schema: SchemaObject = { type: "object", additionalProperties: true };
         const generated = transformSchemaObject(schema, options);
@@ -219,7 +248,7 @@ describe("Schema Object", () => {
         };
         const generated = transformSchemaObject(schema, options);
         expect(generated).toBe(`{
-  [key: string]: string | undefined;
+  [key: string]: string;
 }`);
       });
 
