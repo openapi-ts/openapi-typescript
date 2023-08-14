@@ -187,7 +187,16 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
           });
         }
       }
-      coreType.push(indent(`[key: string]: ${tsUnionOf(addlType ? addlType : "unknown", "undefined")};`, indentLv)); // note: `| undefined` is required to mesh with possibly-undefined keys
+
+      // We need to add undefined when there are other optional properties in the schema.properties object
+      // that is the case when either schemaObject.required is empty and there are defined properties, or
+      // schemaObject.required is only contains a part of the schemaObject.properties
+      const numProperties = schemaObject.properties ? Object.keys(schemaObject.properties).length : 0;
+      if (schemaObject.properties && ((!schemaObject.required && numProperties) || (schemaObject.required && numProperties !== schemaObject.required.length))) {
+        coreType.push(indent(`[key: string]: ${tsUnionOf(addlType ? addlType : "unknown", "undefined")};`, indentLv));
+      } else {
+        coreType.push(indent(`[key: string]: ${addlType ? addlType : "unknown"};`, indentLv));
+      }
     }
     indentLv--;
   }

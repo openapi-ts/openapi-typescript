@@ -2068,7 +2068,7 @@ export interface components {
       individual?: components["schemas"]["person"];
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata?: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -2878,9 +2878,9 @@ export interface components {
       /** @description The last four digits of the bank account number. */
       last4: string;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
@@ -2926,7 +2926,7 @@ export interface components {
        * Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
        */
       current: {
-        [key: string]: number | undefined;
+        [key: string]: number;
       };
       /**
        * @description The `type` of the balance. An additional hash is included on the balance with a name matching this value.
@@ -2943,9 +2943,9 @@ export interface components {
        *
        * Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
        */
-      available?: ({
-        [key: string]: number | undefined;
-      }) | null;
+      available?: {
+        [key: string]: number;
+      } | null;
     };
     /** BankConnectionsResourceBalanceAPIResourceCreditBalance */
     bank_connections_resource_balance_api_resource_credit_balance: {
@@ -2956,9 +2956,9 @@ export interface components {
        *
        * Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
        */
-      used?: ({
-        [key: string]: number | undefined;
-      }) | null;
+      used?: {
+        [key: string]: number;
+      } | null;
     };
     /** BankConnectionsResourceBalanceRefresh */
     bank_connections_resource_balance_refresh: {
@@ -3028,9 +3028,9 @@ export interface components {
       livemode: boolean;
       login_page: components["schemas"]["portal_login_page"];
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
@@ -3198,9 +3198,9 @@ export interface components {
       /** @description The last four digits of the card. */
       last4: string;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /** @description Cardholder name. */
       name?: string | null;
       /**
@@ -3236,9 +3236,9 @@ export interface components {
      */
     cash_balance: {
       /** @description A hash of all cash balances available to this customer. You cannot delete a customer with any cash balances, even if the balance is 0. Amounts are represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
-      available?: ({
-        [key: string]: number | undefined;
-      }) | null;
+      available?: {
+        [key: string]: number;
+      } | null;
       /** @description The ID of the customer whose cash balance this object represents. */
       customer: string;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -3306,7 +3306,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -3519,9 +3519,9 @@ export interface components {
        */
       locale?: "auto" | "bg" | "cs" | "da" | "de" | "el" | "en" | "en-GB" | "es" | "es-419" | "et" | "fi" | "fil" | "fr" | "fr-CA" | "hr" | "hu" | "id" | "it" | "ja" | "ko" | "lt" | "lv" | "ms" | "mt" | "nb" | "nl" | "pl" | "pt" | "pt-BR" | "ro" | "ru" | "sk" | "sl" | "sv" | "th" | "tr" | "vi" | "zh" | "zh-HK" | "zh-TW" | null;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /**
        * @description The mode of the Checkout Session.
        * @enum {string}
@@ -4042,7 +4042,7 @@ export interface components {
       object: "country_spec";
       /** @description Currencies that can be accepted in the specific country (for transfers). */
       supported_bank_account_currencies: {
-        [key: string]: string[] | undefined;
+        [key: string]: string[];
       };
       /** @description Currencies that can be accepted in the specified country (for payments). */
       supported_payment_currencies: string[];
@@ -4083,7 +4083,7 @@ export interface components {
       currency?: string | null;
       /** @description Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
       currency_options?: {
-        [key: string]: components["schemas"]["coupon_currency_option"] | undefined;
+        [key: string]: components["schemas"]["coupon_currency_option"];
       };
       /**
        * @description One of `forever`, `once`, and `repeating`. Describes how long a customer who applies this coupon will get the discount.
@@ -4099,9 +4099,9 @@ export interface components {
       /** @description Maximum number of times this coupon can be redeemed, in total, across all customers, before it is no longer valid. */
       max_redemptions?: number | null;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /** @description Name of the coupon displayed to customers on for instance invoices or receipts. */
       name?: string | null;
       /**
@@ -4188,9 +4188,9 @@ export interface components {
       /** @description Customer-facing text that appears on the credit note PDF. */
       memo?: string | null;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /** @description A unique number that identifies this particular credit note and appears on the PDF of the credit note and its associated invoice. */
       number: string;
       /**
@@ -4370,7 +4370,7 @@ export interface components {
       id: string;
       /** @description The current multi-currency balances, if any, being stored on the customer. If positive in a currency, the customer has a credit to apply to their next invoice denominated in that currency. If negative, the customer has an amount owed that will be added to their next invoice denominated in that currency. These balances do not refer to any unpaid invoices. They solely track amounts that have yet to be successfully applied to any invoice. A balance in a particular currency is only applied to any invoice as an invoice in that currency is finalized. */
       invoice_credit_balance?: {
-        [key: string]: number | undefined;
+        [key: string]: number;
       };
       /** @description The prefix for the customer used to generate unique invoice numbers. */
       invoice_prefix?: string | null;
@@ -4379,7 +4379,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata?: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /** @description The customer's full name or business name. */
       name?: string | null;
@@ -4585,9 +4585,9 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
@@ -5116,7 +5116,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -5325,7 +5325,7 @@ export interface components {
       object: "exchange_rate";
       /** @description Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency. */
       rates: {
-        [key: string]: number | undefined;
+        [key: string]: number;
       };
     };
     /** Polymorphic */
@@ -5379,9 +5379,9 @@ export interface components {
       /** @description Unique identifier for the object. */
       id: string;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
@@ -5476,7 +5476,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -6104,7 +6104,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -6325,9 +6325,9 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /**
        * Format: unix-time
        * @description The time at which payment will next be attempted. This value will be `null` for invoices where `collection_method=send_invoice`.
@@ -6631,9 +6631,9 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
@@ -6794,7 +6794,7 @@ export interface components {
       merchant_data: components["schemas"]["issuing_authorization_merchant_data"];
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /** @description Details about the authorization, such as identifiers, set by the card network. */
       network_data?: components["schemas"]["issuing_authorization_network_data"] | null;
@@ -6856,7 +6856,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /** @description The full unredacted card number. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint. */
       number?: string;
@@ -6915,7 +6915,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /** @description The cardholder's name. This will be printed on cards issued to them. */
       name: string;
@@ -6970,7 +6970,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -7011,7 +7011,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /** @description The total net amount required to settle with the network. */
       net_total: number;
@@ -7077,7 +7077,7 @@ export interface components {
       merchant_data: components["schemas"]["issuing_authorization_merchant_data"];
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -7813,7 +7813,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription` this will reflect the metadata of the subscription that caused the line item to be created. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -8295,7 +8295,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. For more information, see the [documentation](https://stripe.com/docs/payments/payment-intents/creating-payment-intents#storing-information-in-metadata). */
       metadata?: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /** @description If present, this property tells you what actions you need to take in order for your customer to fulfill a payment using the provided source. */
       next_action?: components["schemas"]["payment_intent_next_action"] | null;
@@ -8901,7 +8901,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -9060,9 +9060,9 @@ export interface components {
       /** @description Footer to be displayed on the invoice. */
       footer?: string | null;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /** @description Options for invoice PDF rendering. */
       rendering_options?: components["schemas"]["invoice_setting_rendering_options"] | null;
     };
@@ -9159,9 +9159,9 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
@@ -10822,9 +10822,9 @@ export interface components {
       /** @description Footer displayed on the invoice. */
       footer?: string | null;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /** @description Options for invoice PDF rendering. */
       rendering_options?: components["schemas"]["invoice_setting_rendering_options"] | null;
     };
@@ -10940,9 +10940,9 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /** @description The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces](https://stripe.com/blog/instant-payouts-for-marketplaces) for more information.) */
       method: string;
       /**
@@ -11044,7 +11044,7 @@ export interface components {
       maiden_name?: string | null;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata?: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /** @description The country where the person is a national. */
       nationality?: string | null;
@@ -11162,9 +11162,9 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /** @description A brief description of the plan, hidden from customers. */
       nickname?: string | null;
       /**
@@ -11419,7 +11419,7 @@ export interface components {
       currency: string;
       /** @description Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
       currency_options?: {
-        [key: string]: components["schemas"]["currency_option"] | undefined;
+        [key: string]: components["schemas"]["currency_option"];
       };
       /** @description When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links. */
       custom_unit_amount?: components["schemas"]["custom_unit_amount"] | null;
@@ -11431,7 +11431,7 @@ export interface components {
       lookup_key?: string | null;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /** @description A brief description of the price, hidden from customers. */
       nickname?: string | null;
@@ -11521,7 +11521,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /** @description The product's name, meant to be displayable to the customer. */
       name: string;
@@ -11578,9 +11578,9 @@ export interface components {
       /** @description Maximum number of times this promotion code can be redeemed. */
       max_redemptions?: number | null;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
@@ -11599,7 +11599,7 @@ export interface components {
     promotion_codes_resource_restrictions: {
       /** @description Promotion code restrictions defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
       currency_options?: {
-        [key: string]: components["schemas"]["promotion_code_currency_option"] | undefined;
+        [key: string]: components["schemas"]["promotion_code_currency_option"];
       };
       /** @description A Boolean indicating if the Promotion Code should only be redeemed for Customers without any successful payments or invoices */
       first_time_transaction: boolean;
@@ -11684,7 +11684,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /** @description A unique number that identifies this particular quote. This number is assigned once the quote is [finalized](https://stripe.com/docs/quotes/overview#finalize). */
       number?: string | null;
@@ -11906,7 +11906,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /** @description The name of the value list. */
       name: string;
@@ -12039,9 +12039,9 @@ export interface components {
       /** @description For payment methods without native refund support (e.g., Konbini, PromptPay), email for the customer to receive refund instructions. */
       instructions_email?: string;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       next_action?: components["schemas"]["refund_next_action"];
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -12604,9 +12604,9 @@ export interface components {
       /** @description ID of the multi use Mandate generated by the SetupIntent. */
       mandate?: (string | components["schemas"]["mandate"]) | null;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /** @description If present, this property tells you what actions you need to take in order for your customer to continue payment setup. */
       next_action?: components["schemas"]["setup_intent_next_action"] | null;
       /**
@@ -12845,7 +12845,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -12900,7 +12900,7 @@ export interface components {
       currency: string;
       /** @description Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
       currency_options?: {
-        [key: string]: components["schemas"]["shipping_rate_currency_option"] | undefined;
+        [key: string]: components["schemas"]["shipping_rate_currency_option"];
       };
     };
     /** SigmaScheduledQueryRunError */
@@ -12955,9 +12955,9 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       multibanco?: components["schemas"]["source_type_multibanco"];
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -13505,7 +13505,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * Format: unix-time
@@ -13581,9 +13581,9 @@ export interface components {
     /** SubscriptionDetailsData */
     subscription_details_data: {
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will reflect the metadata of the subscription at the time of invoice creation. *Note: This attribute is populated only for invoices created on or after June 29, 2023.* */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
     };
     /**
      * SubscriptionItem
@@ -13599,7 +13599,7 @@ export interface components {
       id: string;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -13682,9 +13682,9 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
@@ -13729,9 +13729,9 @@ export interface components {
       /** @description Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period */
       billing_thresholds?: components["schemas"]["subscription_item_billing_thresholds"] | null;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /** @description ID of the price to which the customer should be subscribed. */
       price: string | components["schemas"]["price"] | components["schemas"]["deleted_price"];
       /** @description Quantity of the plan to which the customer should be subscribed. */
@@ -13794,9 +13794,9 @@ export interface components {
       /** @description Subscription items to configure the subscription to during this phase of the subscription schedule. */
       items: components["schemas"]["subscription_schedule_configuration_item"][];
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered. Updating the underlying subscription's `metadata` directly will not affect the current phase's `metadata`. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /** @description The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details. */
       on_behalf_of?: (string | components["schemas"]["account"]) | null;
       /**
@@ -14098,9 +14098,9 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
@@ -14134,9 +14134,9 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
@@ -14470,9 +14470,9 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
@@ -14543,7 +14543,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -14579,7 +14579,7 @@ export interface components {
       location?: (string | components["schemas"]["terminal.location"]) | null;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -14711,7 +14711,7 @@ export interface components {
       charge?: string | components["schemas"]["charge"];
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata?: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /** @description Payment intent that is being refunded. */
       payment_intent?: string | components["schemas"]["payment_intent"];
@@ -14898,7 +14898,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -14956,7 +14956,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -15033,9 +15033,9 @@ export interface components {
       /** @description Unique identifier for the object. */
       id: string;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
@@ -15101,7 +15101,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description The rails used to reverse the funds.
@@ -15150,7 +15150,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description The rails used to reverse the funds.
@@ -15197,9 +15197,9 @@ export interface components {
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
-      metadata?: ({
-        [key: string]: string | undefined;
-      }) | null;
+      metadata?: {
+        [key: string]: string;
+      } | null;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
@@ -15270,7 +15270,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -15337,7 +15337,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -15395,7 +15395,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -15677,15 +15677,15 @@ export interface components {
     treasury_financial_accounts_resource_balance: {
       /** @description Funds the user can spend right now. */
       cash: {
-        [key: string]: number | undefined;
+        [key: string]: number;
       };
       /** @description Funds not spendable yet, but will become available at a later time. */
       inbound_pending: {
-        [key: string]: number | undefined;
+        [key: string]: number;
       };
       /** @description Funds in the account, but not spendable because they are being held for pending outbound flows. */
       outbound_pending: {
-        [key: string]: number | undefined;
+        [key: string]: number;
       };
     };
     /** TreasuryFinancialAccountsResourceClosedStatusDetails */
@@ -16149,7 +16149,7 @@ export interface components {
       livemode: boolean;
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
       metadata: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -16672,9 +16672,9 @@ export interface operations {
             last_name_kana?: string;
             last_name_kanji?: string;
             maiden_name?: string;
-            metadata?: ({
-              [key: string]: string | undefined;
-            }) | "";
+            metadata?: {
+              [key: string]: string;
+            } | "";
             phone?: string;
             /** @enum {string} */
             political_exposure?: "existing" | "none";
@@ -16703,9 +16703,9 @@ export interface operations {
             };
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /**
            * settings_specs
            * @description Options for customizing how the account functions within Stripe.
@@ -17198,9 +17198,9 @@ export interface operations {
             last_name_kana?: string;
             last_name_kanji?: string;
             maiden_name?: string;
-            metadata?: ({
-              [key: string]: string | undefined;
-            }) | "";
+            metadata?: {
+              [key: string]: string;
+            } | "";
             phone?: string;
             /** @enum {string} */
             political_exposure?: "existing" | "none";
@@ -17229,9 +17229,9 @@ export interface operations {
             };
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /**
            * settings_specs_update
            * @description Options for customizing how the account functions within Stripe.
@@ -17397,7 +17397,7 @@ export interface operations {
           external_account?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
         };
       };
@@ -17507,9 +17507,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description Cardholder name. */
           name?: string;
         };
@@ -17753,7 +17753,7 @@ export interface operations {
           external_account?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
         };
       };
@@ -17863,9 +17863,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description Cardholder name. */
           name?: string;
         };
@@ -18102,9 +18102,9 @@ export interface operations {
           /** @description The person's maiden name. */
           maiden_name?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           nationality?: string;
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -18305,9 +18305,9 @@ export interface operations {
           /** @description The person's maiden name. */
           maiden_name?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           nationality?: string;
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -18558,9 +18558,9 @@ export interface operations {
           /** @description The person's maiden name. */
           maiden_name?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           nationality?: string;
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -18761,9 +18761,9 @@ export interface operations {
           /** @description The person's maiden name. */
           maiden_name?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
           nationality?: string;
           /** @description A [person token](https://stripe.com/docs/connect/account-tokens), used to securely provide details to the person. */
@@ -19129,9 +19129,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -19287,7 +19287,7 @@ export interface operations {
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
         };
       };
@@ -19823,7 +19823,7 @@ export interface operations {
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
         };
       };
@@ -19954,9 +19954,9 @@ export interface operations {
             enabled: boolean;
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -20129,7 +20129,7 @@ export interface operations {
           /** @description Whether to immediately capture the charge. Defaults to `true`. When `false`, the charge issues an authorization (or pre-authorization), and will need to be [captured](https://stripe.com/docs/api#capture_charge) later. Uncaptured charges expire after a set number of days (7 by default). For more information, see the [authorizing charges and settling later](https://stripe.com/docs/charges/placing-a-hold) documentation. */
           capture?: boolean;
           /** @description A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js). */
-          card?: ({
+          card?: {
             address_city?: string;
             address_country?: string;
             address_line1?: string;
@@ -20140,13 +20140,13 @@ export interface operations {
             exp_month: number;
             exp_year: number;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             name?: string;
             number: string;
             /** @enum {string} */
             object?: "card";
-          }) | string;
+          } | string;
           /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency?: string;
           /** @description The ID of an existing customer that will be charged in this request. */
@@ -20160,9 +20160,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#on-behalf-of). */
           on_behalf_of?: string;
           /**
@@ -20334,9 +20334,9 @@ export interface operations {
             user_report: "" | "fraudulent" | "safe";
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description This is the email address that the receipt for this charge will be sent to. If this field is updated, then a new email receipt will be sent to the updated address. */
           receipt_email?: string;
           /**
@@ -20511,9 +20511,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
           submit?: boolean;
         };
@@ -20591,9 +20591,9 @@ export interface operations {
           /** @description For payment methods without native refund support (e.g., Konbini, PromptPay), use this email from the customer to receive refund instructions. */
           instructions_email?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           payment_intent?: string;
           /** @enum {string} */
           reason?: "duplicate" | "fraudulent" | "requested_by_customer";
@@ -20687,9 +20687,9 @@ export interface operations {
           /** @description For payment methods without native refund support (e.g., Konbini, PromptPay), use this email from the customer to receive refund instructions. */
           instructions_email?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /**
            * @description Origin of the refund
            * @enum {string}
@@ -20763,9 +20763,9 @@ export interface operations {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -21008,7 +21008,7 @@ export interface operations {
               description?: string;
               footer?: string;
               metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
               };
               rendering_options?: ({
                 /** @enum {string} */
@@ -21041,7 +21041,7 @@ export interface operations {
                   description?: string;
                   images?: string[];
                   metadata?: {
-                    [key: string]: string | undefined;
+                    [key: string]: string;
                   };
                   name: string;
                   tax_code?: string;
@@ -21068,7 +21068,7 @@ export interface operations {
           locale?: "auto" | "bg" | "cs" | "da" | "de" | "el" | "en" | "en-GB" | "es" | "es-419" | "et" | "fi" | "fil" | "fr" | "fr-CA" | "hr" | "hu" | "id" | "it" | "ja" | "ko" | "lt" | "lv" | "ms" | "mt" | "nb" | "nl" | "pl" | "pt" | "pt-BR" | "ro" | "ru" | "sk" | "sl" | "sv" | "th" | "tr" | "vi" | "zh" | "zh-HK" | "zh-TW";
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /**
            * @description The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
@@ -21085,7 +21085,7 @@ export interface operations {
             capture_method?: "automatic" | "automatic_async" | "manual";
             description?: string;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             on_behalf_of?: string;
             receipt_email?: string;
@@ -21353,7 +21353,7 @@ export interface operations {
           setup_intent_data?: {
             description?: string;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             on_behalf_of?: string;
           };
@@ -21390,15 +21390,15 @@ export interface operations {
                   amount: number;
                   currency: string;
                   currency_options?: {
-                    [key: string]: ({
+                    [key: string]: {
                       amount: number;
                       /** @enum {string} */
                       tax_behavior?: "exclusive" | "inclusive" | "unspecified";
-                    }) | undefined;
+                    };
                   };
                 };
                 metadata?: {
-                  [key: string]: string | undefined;
+                  [key: string]: string;
                 };
                 /** @enum {string} */
                 tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -21426,7 +21426,7 @@ export interface operations {
             default_tax_rates?: string[];
             description?: string;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             on_behalf_of?: string;
             /** @enum {string} */
@@ -21746,7 +21746,7 @@ export interface operations {
           currency_options?: {
             [key: string]: {
               amount_off: number;
-            } | undefined;
+            };
           };
           /**
            * @description Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
@@ -21762,9 +21762,9 @@ export interface operations {
           /** @description A positive integer specifying the number of times the coupon can be redeemed before it's no longer valid. For example, you might have a 50% off coupon that the first 20 readers of your blog can use. */
           max_redemptions?: number;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
           name?: string;
           /** @description A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed). */
@@ -21837,14 +21837,14 @@ export interface operations {
           currency_options?: {
             [key: string]: {
               amount_off: number;
-            } | undefined;
+            };
           };
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
           name?: string;
         };
@@ -21991,7 +21991,7 @@ export interface operations {
           memo?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe. */
           out_of_band_amount?: number;
@@ -22060,7 +22060,7 @@ export interface operations {
         memo?: string;
         /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: {
-          [key: string]: string | undefined;
+          [key: string]: string;
         };
         /** @description The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe. */
         out_of_band_amount?: number;
@@ -22131,7 +22131,7 @@ export interface operations {
         memo?: string;
         /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
         metadata?: {
-          [key: string]: string | undefined;
+          [key: string]: string;
         };
         /** @description The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe. */
         out_of_band_amount?: number;
@@ -22277,7 +22277,7 @@ export interface operations {
           memo?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
         };
       };
@@ -22435,9 +22435,9 @@ export interface operations {
             }) | "";
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description The customer's full name or business name. */
           name?: string;
           /** @description The sequence to be used on the customer's next invoice. Defaults to 1. */
@@ -22622,7 +22622,7 @@ export interface operations {
             routing_number?: string;
           }) | string;
           /** @description A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js). */
-          card?: ({
+          card?: {
             address_city?: string;
             address_country?: string;
             address_line1?: string;
@@ -22633,13 +22633,13 @@ export interface operations {
             exp_month: number;
             exp_year: number;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             name?: string;
             number: string;
             /** @enum {string} */
             object?: "card";
-          }) | string;
+          } | string;
           /**
            * cash_balance_param
            * @description Balance information and default balance settings for this customer.
@@ -22691,9 +22691,9 @@ export interface operations {
             }) | "";
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description The customer's full name or business name. */
           name?: string;
           /** @description The sequence to be used on the customer's next invoice. Defaults to 1. */
@@ -22844,9 +22844,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -22913,9 +22913,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -23017,7 +23017,7 @@ export interface operations {
             routing_number?: string;
           }) | string;
           /** @description A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js). */
-          card?: ({
+          card?: {
             address_city?: string;
             address_country?: string;
             address_line1?: string;
@@ -23028,18 +23028,18 @@ export interface operations {
             exp_month: number;
             exp_year: number;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             name?: string;
             number: string;
             /** @enum {string} */
             object?: "card";
-          }) | string;
+          } | string;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           source?: string;
@@ -23133,9 +23133,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description Cardholder name. */
           name?: string;
           /** owner */
@@ -23319,7 +23319,7 @@ export interface operations {
             routing_number?: string;
           }) | string;
           /** @description A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js). */
-          card?: ({
+          card?: {
             address_city?: string;
             address_country?: string;
             address_line1?: string;
@@ -23330,18 +23330,18 @@ export interface operations {
             exp_month: number;
             exp_year: number;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             name?: string;
             number: string;
             /** @enum {string} */
             object?: "card";
-          }) | string;
+          } | string;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           source?: string;
@@ -23435,9 +23435,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description Cardholder name. */
           name?: string;
           /** owner */
@@ -23929,7 +23929,7 @@ export interface operations {
             routing_number?: string;
           }) | string;
           /** @description A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js). */
-          card?: ({
+          card?: {
             address_city?: string;
             address_country?: string;
             address_line1?: string;
@@ -23940,18 +23940,18 @@ export interface operations {
             exp_month: number;
             exp_year: number;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             name?: string;
             number: string;
             /** @enum {string} */
             object?: "card";
-          }) | string;
+          } | string;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description Please refer to full [documentation](https://stripe.com/docs/api) instead. */
           source?: string;
@@ -24042,9 +24042,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description Cardholder name. */
           name?: string;
           /** owner */
@@ -24275,7 +24275,7 @@ export interface operations {
                 usage_gte: number;
               } | "";
               metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
               };
               price?: string;
               /** recurring_price_data */
@@ -24298,9 +24298,9 @@ export interface operations {
               tax_rates?: string[] | "";
             })[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /**
@@ -24548,9 +24548,9 @@ export interface operations {
               clear_usage?: boolean;
               deleted?: boolean;
               id?: string;
-              metadata?: ({
-                [key: string]: string | undefined;
-              }) | "";
+              metadata?: {
+                [key: string]: string;
+              } | "";
               price?: string;
               /** recurring_price_data */
               price_data?: {
@@ -24572,9 +24572,9 @@ export interface operations {
               tax_rates?: string[] | "";
             })[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /** @description If specified, payment collection for this subscription will be paused. */
@@ -25091,9 +25091,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
           submit?: boolean;
         };
@@ -25444,9 +25444,9 @@ export interface operations {
           /** @description The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `identity_document_downloadable`, `pci_document`, `selfie`, `sigma_scheduled_query`, `tax_document_user_upload`, or `terminal_reader_splashscreen`. */
           file: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -25511,9 +25511,9 @@ export interface operations {
           /** @description A future timestamp after which the link will no longer be usable, or `now` to expire the link immediately. */
           expires_at?: "now" | number | "";
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -25609,9 +25609,9 @@ export interface operations {
             create: boolean;
             /** Format: unix-time */
             expires_at?: number;
-            metadata?: ({
-              [key: string]: string | undefined;
-            }) | "";
+            metadata?: {
+              [key: string]: string;
+            } | "";
           };
           /**
            * @description The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
@@ -26101,7 +26101,7 @@ export interface operations {
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /**
            * session_options_param
@@ -26195,7 +26195,7 @@ export interface operations {
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /**
            * session_options_param
@@ -26398,9 +26398,9 @@ export interface operations {
           /** @description The ID of an existing invoice to add this invoice item to. When left blank, the invoice item will be added to the next upcoming scheduled invoice. This is useful when adding invoice items in response to an invoice.created webhook. You can only add invoice items to draft invoices and there is a maximum of 250 items per invoice. */
           invoice?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /**
            * period
            * @description The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
@@ -26519,9 +26519,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /**
            * period
            * @description The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
@@ -26746,9 +26746,9 @@ export interface operations {
             invoice: string;
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details. */
           on_behalf_of?: string;
           /**
@@ -26849,15 +26849,15 @@ export interface operations {
                 amount: number;
                 currency: string;
                 currency_options?: {
-                  [key: string]: ({
+                  [key: string]: {
                     amount: number;
                     /** @enum {string} */
                     tax_behavior?: "exclusive" | "inclusive" | "unspecified";
-                  }) | undefined;
+                  };
                 };
               };
               metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
               };
               /** @enum {string} */
               tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -27037,9 +27037,9 @@ export interface operations {
                 discount?: string;
               }[] | "";
             invoiceitem?: string;
-            metadata?: ({
-              [key: string]: string | undefined;
-            }) | "";
+            metadata?: {
+              [key: string]: string;
+            } | "";
             /** period */
             period?: {
               /** Format: unix-time */
@@ -27089,9 +27089,9 @@ export interface operations {
             clear_usage?: boolean;
             deleted?: boolean;
             id?: string;
-            metadata?: ({
-              [key: string]: string | undefined;
-            }) | "";
+            metadata?: {
+              [key: string]: string;
+            } | "";
             price?: string;
             /** recurring_price_data */
             price_data?: {
@@ -27215,9 +27215,9 @@ export interface operations {
                 discount?: string;
               }[] | "";
             invoiceitem?: string;
-            metadata?: ({
-              [key: string]: string | undefined;
-            }) | "";
+            metadata?: {
+              [key: string]: string;
+            } | "";
             /** period */
             period?: {
               /** Format: unix-time */
@@ -27271,9 +27271,9 @@ export interface operations {
             clear_usage?: boolean;
             deleted?: boolean;
             id?: string;
-            metadata?: ({
-              [key: string]: string | undefined;
-            }) | "";
+            metadata?: {
+              [key: string]: string;
+            } | "";
             price?: string;
             /** recurring_price_data */
             price_data?: {
@@ -27438,9 +27438,9 @@ export interface operations {
           /** @description Footer to be displayed on the invoice. */
           footer?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details. */
           on_behalf_of?: string | "";
           /**
@@ -27533,15 +27533,15 @@ export interface operations {
                 amount: number;
                 currency: string;
                 currency_options?: {
-                  [key: string]: ({
+                  [key: string]: {
                     amount: number;
                     /** @enum {string} */
                     tax_behavior?: "exclusive" | "inclusive" | "unspecified";
-                  }) | undefined;
+                  };
                 };
               };
               metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
               };
               /** @enum {string} */
               tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -27939,9 +27939,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -27978,9 +27978,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -28015,9 +28015,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -28161,7 +28161,7 @@ export interface operations {
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The cardholder's name. This will be printed on cards issued to them. The maximum length of this field is 24 characters. This field cannot contain any special characters or numbers. */
           name: string;
@@ -28316,7 +28316,7 @@ export interface operations {
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://stripe.com/docs/issuing/3d-secure) for more details. */
           phone_number?: string;
@@ -28441,7 +28441,7 @@ export interface operations {
           financial_account?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The card this is meant to be a replacement for (if any). */
           replacement_for?: string;
@@ -28567,9 +28567,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /**
            * encrypted_pin_param
            * @description The desired new PIN for this card.
@@ -28746,7 +28746,7 @@ export interface operations {
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The ID of the issuing transaction to create a dispute for. For transaction on Treasury FinancialAccounts, use `treasury.received_debit`. */
           transaction?: string;
@@ -28886,9 +28886,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -28920,9 +28920,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -29038,7 +29038,7 @@ export interface operations {
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
         };
       };
@@ -29160,9 +29160,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -29622,7 +29622,7 @@ export interface operations {
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
           off_session?: boolean | ("one_off" | "recurring");
@@ -29724,7 +29724,7 @@ export interface operations {
             /** param */
             link?: Record<string, never>;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             /** param */
             oxxo?: Record<string, never>;
@@ -30232,9 +30232,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. */
           payment_method?: string;
           /**
@@ -30327,7 +30327,7 @@ export interface operations {
             /** param */
             link?: Record<string, never>;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             /** param */
             oxxo?: Record<string, never>;
@@ -30795,9 +30795,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
           statement_descriptor?: string;
           /** @description Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
@@ -30997,7 +30997,7 @@ export interface operations {
             /** param */
             link?: Record<string, never>;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             /** param */
             oxxo?: Record<string, never>;
@@ -31406,7 +31406,7 @@ export interface operations {
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
           statement_descriptor?: string;
@@ -31634,9 +31634,9 @@ export interface operations {
                 }[] | "";
               description?: string;
               footer?: string;
-              metadata?: ({
-                [key: string]: string | undefined;
-              }) | "";
+              metadata?: {
+                [key: string]: string;
+              } | "";
               rendering_options?: ({
                 /** @enum {string} */
                 amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax";
@@ -31656,7 +31656,7 @@ export interface operations {
             }[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The account on behalf of which to charge. */
           on_behalf_of?: string;
@@ -31884,9 +31884,9 @@ export interface operations {
                 }[] | "";
               description?: string;
               footer?: string;
-              metadata?: ({
-                [key: string]: string | undefined;
-              }) | "";
+              metadata?: {
+                [key: string]: string;
+              } | "";
               rendering_options?: ({
                 /** @enum {string} */
                 amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax";
@@ -31906,7 +31906,7 @@ export interface operations {
             }[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /**
            * @description Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.This may occur if the Checkout Session includes a free trial or a discount.
@@ -32208,7 +32208,7 @@ export interface operations {
           link?: Record<string, never>;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /**
            * param
@@ -32387,9 +32387,9 @@ export interface operations {
            */
           link?: Record<string, never>;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /**
            * update_param
            * @description If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
@@ -32576,7 +32576,7 @@ export interface operations {
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /**
            * @description The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces for more information](https://stripe.com/blog/instant-payouts-for-marketplaces).)
@@ -32652,9 +32652,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -32721,7 +32721,7 @@ export interface operations {
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
         };
       };
@@ -32836,22 +32836,22 @@ export interface operations {
           /** @description The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). */
           interval_count?: number;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description A brief description of the plan, hidden from customers. */
           nickname?: string;
-          product?: ({
+          product?: {
             active?: boolean;
             id?: string;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             name: string;
             statement_descriptor?: string;
             tax_code?: string;
             unit_label?: string;
-          }) | string;
+          } | string;
           /** @description Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
           tiers?: ({
               flat_amount?: number;
@@ -32947,9 +32947,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description A brief description of the plan, hidden from customers. */
           nickname?: string;
           /** @description The product the plan belongs to. This cannot be changed once it has been used in a subscription or subscription schedule. */
@@ -33087,7 +33087,7 @@ export interface operations {
           currency: string;
           /** @description Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
           currency_options?: {
-            [key: string]: ({
+            [key: string]: {
               /** custom_unit_amount */
               custom_unit_amount?: {
                 enabled: boolean;
@@ -33109,7 +33109,7 @@ export interface operations {
               unit_amount?: number;
               /** Format: decimal */
               unit_amount_decimal?: string;
-            }) | undefined;
+            };
           };
           /**
            * custom_unit_amount
@@ -33127,7 +33127,7 @@ export interface operations {
           lookup_key?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description A brief description of the price, hidden from customers. */
           nickname?: string;
@@ -33141,7 +33141,7 @@ export interface operations {
             active?: boolean;
             id?: string;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             name: string;
             statement_descriptor?: string;
@@ -33313,7 +33313,7 @@ export interface operations {
           active?: boolean;
           /** @description Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
           currency_options?: ({
-            [key: string]: ({
+            [key: string]: {
               /** custom_unit_amount */
               custom_unit_amount?: {
                 enabled: boolean;
@@ -33335,16 +33335,16 @@ export interface operations {
               unit_amount?: number;
               /** Format: decimal */
               unit_amount_decimal?: string;
-            }) | undefined;
+            };
           }) | "";
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description A lookup key used to retrieve prices dynamically from a static string. This may be up to 200 characters. */
           lookup_key?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description A brief description of the price, hidden from customers. */
           nickname?: string;
           /**
@@ -33447,7 +33447,7 @@ export interface operations {
           default_price_data?: {
             currency: string;
             currency_options?: {
-              [key: string]: ({
+              [key: string]: {
                 /** custom_unit_amount */
                 custom_unit_amount?: {
                   enabled: boolean;
@@ -33469,7 +33469,7 @@ export interface operations {
                 unit_amount?: number;
                 /** Format: decimal */
                 unit_amount_decimal?: string;
-              }) | undefined;
+              };
             };
             /** recurring_adhoc */
             recurring?: {
@@ -33493,7 +33493,7 @@ export interface operations {
           images?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The product's name, meant to be displayable to the customer. */
           name: string;
@@ -33643,9 +33643,9 @@ export interface operations {
           /** @description A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
           images?: string[] | "";
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description The product's name, meant to be displayable to the customer. */
           name?: string;
           /** @description The dimensions of this product for shipping purposes. */
@@ -33799,7 +33799,7 @@ export interface operations {
           max_redemptions?: number;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /**
            * restrictions_params
@@ -33809,7 +33809,7 @@ export interface operations {
             currency_options?: {
               [key: string]: {
                 minimum_amount?: number;
-              } | undefined;
+              };
             };
             first_time_transaction?: boolean;
             minimum_amount?: number;
@@ -33879,9 +33879,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /**
            * restrictions_params
            * @description Settings that restrict the redemption of the promotion code.
@@ -33890,7 +33890,7 @@ export interface operations {
             currency_options?: {
               [key: string]: {
                 minimum_amount?: number;
-              } | undefined;
+              };
             };
           };
         };
@@ -34044,7 +34044,7 @@ export interface operations {
             })[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The account on behalf of which to charge. */
           on_behalf_of?: string | "";
@@ -34194,7 +34194,7 @@ export interface operations {
             })[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The account on behalf of which to charge. */
           on_behalf_of?: string | "";
@@ -34752,7 +34752,7 @@ export interface operations {
           item_type?: "card_bin" | "card_fingerprint" | "case_sensitive_string" | "country" | "customer_id" | "email" | "ip_address" | "sepa_debit_fingerprint" | "string" | "us_bank_account_fingerprint";
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The human-readable name of the value list. */
           name: string;
@@ -34821,7 +34821,7 @@ export interface operations {
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The human-readable name of the value list. */
           name?: string;
@@ -34942,9 +34942,9 @@ export interface operations {
           /** @description For payment methods without native refund support (e.g., Konbini, PromptPay), use this email from the customer to receive refund instructions. */
           instructions_email?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /**
            * @description Origin of the refund
            * @enum {string}
@@ -35021,9 +35021,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -35573,7 +35573,7 @@ export interface operations {
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The Stripe account ID for which this SetupIntent is created. */
           on_behalf_of?: string;
@@ -35668,7 +35668,7 @@ export interface operations {
             /** param */
             link?: Record<string, never>;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             /** param */
             oxxo?: Record<string, never>;
@@ -35913,9 +35913,9 @@ export interface operations {
            */
           flow_directions?: ("inbound" | "outbound")[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
           payment_method?: string;
           /**
@@ -36007,7 +36007,7 @@ export interface operations {
             /** param */
             link?: Record<string, never>;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             /** param */
             oxxo?: Record<string, never>;
@@ -36350,7 +36350,7 @@ export interface operations {
             /** param */
             link?: Record<string, never>;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             /** param */
             oxxo?: Record<string, never>;
@@ -36639,16 +36639,16 @@ export interface operations {
             amount: number;
             currency: string;
             currency_options?: {
-              [key: string]: ({
+              [key: string]: {
                 amount: number;
                 /** @enum {string} */
                 tax_behavior?: "exclusive" | "inclusive" | "unspecified";
-              }) | undefined;
+              };
             };
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /**
            * @description Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
@@ -36731,17 +36731,17 @@ export interface operations {
            */
           fixed_amount?: {
             currency_options?: {
-              [key: string]: ({
+              [key: string]: {
                 amount?: number;
                 /** @enum {string} */
                 tax_behavior?: "exclusive" | "inclusive" | "unspecified";
-              }) | undefined;
+              };
             };
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /**
            * @description Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
            * @enum {string}
@@ -36894,7 +36894,7 @@ export interface operations {
             notification_method?: "deprecated_none" | "email" | "manual" | "none" | "stripe_email";
           };
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The source to share. */
           original_source?: string;
@@ -37074,9 +37074,9 @@ export interface operations {
             notification_method?: "deprecated_none" | "email" | "manual" | "none" | "stripe_email";
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /**
            * owner
            * @description Information about the owner of the payment instrument that may be used or required by particular source types.
@@ -37348,7 +37348,7 @@ export interface operations {
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /**
            * @description Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
@@ -37464,9 +37464,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /**
@@ -37796,9 +37796,9 @@ export interface operations {
           /** @description Migrate an existing subscription to be managed by a subscription schedule. If this parameter is set, a subscription schedule will be created using the subscription's item(s), set to auto-renew using the subscription's interval. When using this parameter, other parameters (such as phase values) cannot be set. To create a subscription schedule with other modifications, we recommend making two separate API calls. */
           from_subscription?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. */
           phases?: ({
               add_invoice_items?: ({
@@ -37845,7 +37845,7 @@ export interface operations {
                     usage_gte: number;
                   } | "";
                   metadata?: {
-                    [key: string]: string | undefined;
+                    [key: string]: string;
                   };
                   price?: string;
                   /** recurring_price_data */
@@ -37869,7 +37869,7 @@ export interface operations {
                 })[];
               iterations?: number;
               metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
               };
               on_behalf_of?: string;
               /** @enum {string} */
@@ -37982,9 +37982,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted. */
           phases?: ({
               add_invoice_items?: ({
@@ -38029,7 +38029,7 @@ export interface operations {
                     usage_gte: number;
                   } | "";
                   metadata?: {
-                    [key: string]: string | undefined;
+                    [key: string]: string;
                   };
                   price?: string;
                   /** recurring_price_data */
@@ -38053,7 +38053,7 @@ export interface operations {
                 })[];
               iterations?: number;
               metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
               };
               on_behalf_of?: string;
               /** @enum {string} */
@@ -38322,7 +38322,7 @@ export interface operations {
                 usage_gte: number;
               } | "";
               metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
               };
               price?: string;
               /** recurring_price_data */
@@ -38345,9 +38345,9 @@ export interface operations {
               tax_rates?: string[] | "";
             })[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /** @description The account on behalf of which to charge, for each of the subscription's invoices. */
@@ -38648,9 +38648,9 @@ export interface operations {
               clear_usage?: boolean;
               deleted?: boolean;
               id?: string;
-              metadata?: ({
-                [key: string]: string | undefined;
-              }) | "";
+              metadata?: {
+                [key: string]: string;
+              } | "";
               price?: string;
               /** recurring_price_data */
               price_data?: {
@@ -38672,9 +38672,9 @@ export interface operations {
               tax_rates?: string[] | "";
             })[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
           off_session?: boolean;
           /** @description The account on behalf of which to charge, for each of the subscription's invoices. */
@@ -39146,7 +39146,7 @@ export interface operations {
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description A custom order or sale identifier, such as 'myOrder_123'. Must be unique across all transactions, including reversals. */
           reference: string;
@@ -39176,19 +39176,19 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description The line item amounts to reverse. */
-          line_items?: ({
+          line_items?: {
               amount: number;
               amount_tax: number;
               metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
               };
               original_line_item: string;
               quantity?: number;
               reference: string;
-            })[];
+            }[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /**
            * @description If `partial`, the provided line item or shipping cost amounts are reversed. If `full`, the original transaction is fully reversed.
@@ -39458,7 +39458,7 @@ export interface operations {
           jurisdiction?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description This represents the tax rate percent out of 100. */
           percentage: number;
@@ -39541,9 +39541,9 @@ export interface operations {
           /** @description The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer’s invoice. */
           jurisdiction?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States. */
           state?: string;
           /**
@@ -40024,9 +40024,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -40105,9 +40105,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -40217,9 +40217,9 @@ export interface operations {
           /** @description The location to assign the reader to. */
           location?: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description A code generated by the reader used for registering to an account. */
           registration_code: string;
         };
@@ -40286,9 +40286,9 @@ export interface operations {
           /** @description The new label of the reader. */
           label?: string | "";
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -40459,7 +40459,7 @@ export interface operations {
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description ID of the PaymentIntent to refund. */
           payment_intent?: string;
@@ -41465,9 +41465,9 @@ export interface operations {
               last_name_kana?: string;
               last_name_kanji?: string;
               maiden_name?: string;
-              metadata?: ({
-                [key: string]: string | undefined;
-              }) | "";
+              metadata?: {
+                [key: string]: string;
+              } | "";
               phone?: string;
               /** @enum {string} */
               political_exposure?: "existing" | "none";
@@ -41603,9 +41603,9 @@ export interface operations {
             last_name_kana?: string;
             last_name_kanji?: string;
             maiden_name?: string;
-            metadata?: ({
-              [key: string]: string | undefined;
-            }) | "";
+            metadata?: {
+              [key: string]: string;
+            } | "";
             nationality?: string;
             phone?: string;
             political_exposure?: string;
@@ -41773,9 +41773,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard for the specified currency. In test mode, this can be a test bank token (see [Testing Top-ups](https://stripe.com/docs/connect/testing#testing-top-ups)). */
           source?: string;
           /** @description Extra information about a top-up for the source's bank statement. Limited to 15 ASCII characters. */
@@ -41846,9 +41846,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -41970,7 +41970,7 @@ export interface operations {
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-availability) for details. */
           source_transaction?: string;
@@ -42071,9 +42071,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description Boolean indicating whether the application fee should be refunded when reversing this transfer. If a full transfer reversal is given, the full application fee will be refunded. Otherwise, the application fee will be refunded with an amount proportional to the amount of the transfer reversed. */
           refund_application_fee?: boolean;
         };
@@ -42144,9 +42144,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -42215,9 +42215,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
         };
       };
     };
@@ -42297,7 +42297,7 @@ export interface operations {
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The ReceivedCredit to reverse. */
           received_credit: string;
@@ -42413,7 +42413,7 @@ export interface operations {
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The ReceivedDebit to reverse. */
           received_debit: string;
@@ -42580,7 +42580,7 @@ export interface operations {
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /**
            * platform_restrictions
@@ -42711,7 +42711,7 @@ export interface operations {
           };
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /**
            * platform_restrictions
@@ -42938,7 +42938,7 @@ export interface operations {
           financial_account: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The origin payment method to be debited for the InboundTransfer. */
           origin_payment_method: string;
@@ -43111,7 +43111,7 @@ export interface operations {
             };
             financial_account?: string;
             metadata?: {
-              [key: string]: string | undefined;
+              [key: string]: string;
             };
             /** @enum {string} */
             type: "financial_account" | "us_bank_account";
@@ -43150,7 +43150,7 @@ export interface operations {
           financial_account: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description The description that appears on the receiving end for this OutboundPayment (for example, bank statement for external bank transfer). Maximum 10 characters for `ach` payments, 140 characters for `wire` payments, or 500 characters for `stripe` network transfers. The default value is `payment`. */
           statement_descriptor?: string;
@@ -43312,7 +43312,7 @@ export interface operations {
           financial_account: string;
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
-            [key: string]: string | undefined;
+            [key: string]: string;
           };
           /** @description Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `wire` transfers. The default value is `transfer`. */
           statement_descriptor?: string;
@@ -43819,9 +43819,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description The URL of the webhook endpoint. */
           url: string;
         };
@@ -43892,9 +43892,9 @@ export interface operations {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
-          metadata?: ({
-            [key: string]: string | undefined;
-          }) | "";
+          metadata?: {
+            [key: string]: string;
+          } | "";
           /** @description The URL of the webhook endpoint. */
           url?: string;
         };
