@@ -106,6 +106,12 @@ describe("Schema Object", () => {
         expect(generated).toBe("string[]");
       });
 
+      test("integer array", () => {
+        const schema: SchemaObject = { type: "array", items: "integer" as any };
+        const generated = transformSchemaObject(schema, options);
+        expect(generated).toBe("number[]");
+      });
+
       test("tuple array", () => {
         const schema: SchemaObject = { type: "array", items: [{ type: "string" }, { type: "number" }], minItems: 2, maxItems: 2 };
         const generated = transformSchemaObject(schema, options);

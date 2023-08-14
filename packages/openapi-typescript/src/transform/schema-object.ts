@@ -123,6 +123,7 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
         itemType = `[${result.join(", ")}]`;
       } else if (schemaObject.items) {
         itemType = transformSchemaObject(schemaObject.items, { path, ctx: { ...ctx, indentLv } });
+        if (itemType === "integer") itemType = "number";
       }
       const min: number = typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0 ? schemaObject.minItems : 0;
       const max: number | undefined = typeof schemaObject.maxItems === "number" && schemaObject.maxItems >= 0 && min <= schemaObject.maxItems ? schemaObject.maxItems : undefined;
