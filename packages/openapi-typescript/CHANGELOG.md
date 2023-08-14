@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.5.0
+
+### Minor Changes
+
+- [#1295](https://github.com/drwpow/openapi-typescript/pull/1295) [`99a1648`](https://github.com/drwpow/openapi-typescript/commit/99a1648affd5731c2d303619f050fee2ed834eef) Thanks [@pvanagtmaal](https://github.com/pvanagtmaal)! - Avoid adding a undefined union to additionProperties
+
 ## 6.4.5
 
 ### Patch Changes
