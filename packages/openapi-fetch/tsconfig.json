@@ -12,6 +12,6 @@
     "target": "ESNext",
     "types": ["vitest/globals"]
   },
-  "include": ["src"],
+  "include": ["src", "test"],
   "exclude": ["node_modules"]
 }

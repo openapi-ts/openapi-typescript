@@ -351,6 +351,11 @@ export interface components {
         "application/json": components["schemas"]["StringArray"];
       };
     };
+    Tag: {
+      content: {
+        "application/json": string;
+      };
+    };
     User: {
       content: {
         "application/json": components["schemas"]["User"];
