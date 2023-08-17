@@ -76,7 +76,7 @@ And run `npm run test:ts` in your CI to catch type errors.
 >
 > Always use `tsc --noEmit` to check for type errors! Your build tools (Vite, esbuild, webpack, etc.) won’t typecheck as accurately as the TypeScript compiler itself.
 
-## 🏓 Usage
+## Usage
 
 Using **openapi-fetch** is as easy as reading your schema:
 

@@ -131,15 +131,20 @@ The `POST()` request required a `body` object that provided all necessary <a hre
 
 All methods return an object with **data**, **error**, and **response**.
 
-- **data** will contain that endpoint’s `2xx` response if the server returned `2xx`; otherwise it will be `undefined`
-- **error** likewise contains that endpoint’s `4xx`/`5xx` response if the server returned either; otherwise it will be `undefined`
-  - _Note: `default` will also be interpreted as `error`, since its intent is handling unexpected HTTP codes_
-- **response** has response info like `status`, `headers`, etc. It is not typechecked.
+```ts
+const { data, error, response } = await GET("/url");
+```
 
-## Version Support
+| Object     | Response                                                                                                                    |
+| :--------- | :-------------------------------------------------------------------------------------------------------------------------- |
+| `data`     | `2xx` response if OK; otherwise `undefined`                                                                                 |
+| `error`    | `5xx`, `4xx`, or `default` response if not OK; otherwise `undefined`                                                        |
+| `response` | [The original Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) which contains `status`, `headers`, etc. |
 
-openapi-fetch implements the [native fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) which is available in all major browsers.
+## Support
 
-If using in a Node.js environment, version 18 or greater is recommended (newer is better).
-
-TypeScript support is pretty far-reaching as this library doesn’t use any cutting-edge features, but using the latest version of TypeScript is always recommended for accuracy.
+| Platform       | Support                                                                                                                                            |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Browsers**   | [See fetch API support](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API#browser_compatibility) (widely-available in all major browsers) |
+| **Node**       | >= 18.0.0                                                                                                                                          |
+| **TypeScript** | >= 4.7 (>= 5.0 recommended)                                                                                                                        |

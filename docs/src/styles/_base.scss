@@ -1,20 +1,16 @@
+@use "../tokens" as *;
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* Global focus outline reset */
-*:focus:not(:focus-visible) {
-  outline: none;
-}
+* {
+  outline: 2px solid transparent;
 
-:root {
-  --user-font-scale: 1rem - 16px;
-  --max-width: calc(100% - 1rem);
-
-  @media (min-width: 50em) {
-    --max-width: 51em;
+  &:focus-visible {
+    outline-color: token("color.ui.action");
   }
 }
 
@@ -23,13 +19,19 @@ html {
 }
 
 body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  background-color: token("color.ui.bg");
+  color: token("color.ui.fg");
   display: flex;
   flex-direction: column;
-  font-family: var(--font-body);
+  font-family: token("typography.family.base");
   font-size: 1rem;
-  font-size: clamp(0.9rem, 0.75rem + 0.375vw + var(--user-font-scale), 1rem);
-  line-height: 1.5;
+  line-height: 1;
   margin: 0;
+  transition:
+    background-color 100ms linear,
+    color 100ms linear;
 }
 
 nav ul {
@@ -37,64 +39,89 @@ nav ul {
   padding: 0;
 }
 
-.content > section > * + * {
-  margin-top: 1.25rem;
-}
-
 .content > section > :first-child {
   margin-top: 0;
 }
 
-/* Typography */
+h1 {
+  @include typography("typography.h1");
+}
+
+h2 {
+  @include typography("typography.h2");
+
+  color: token("color.ui.text-subdue");
+}
+
+h3 {
+  @include typography("typography.h3");
+
+  color: token("color.ui.text-subdue");
+}
+
+h4 {
+  @include typography("typography.h4");
+
+  color: token("color.ui.text-subdue");
+}
+
+p,
+li {
+  font-size: 1rem;
+  line-height: 1.65;
+
+  @media (min-width: 600px) {
+    font-size: 1.125rem;
+  }
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
-h6 {
-  margin-bottom: 1rem;
-  font-weight: 450;
-  line-height: 1;
+h6,
+p,
+ol,
+ul,
+blockquote,
+pre {
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+
+  ol,
+  ul & {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 600px) {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+  }
 }
 
-h1,
-h2 {
-  max-width: 40ch;
+ul {
+  list-style: square;
 }
 
-:is(h2, h3):not(:first-child) {
-  margin-top: 2rem;
+ol,
+ul {
+  padding-left: 1.25rem;
 }
 
-:is(h4, h5, h6):not(:first-child) {
-  margin-top: 2rem;
-}
-
-h1 {
-  font-size: 2.25rem;
-  font-weight: 500;
-  letter-spacing: -0.03125em;
-}
-
-h2 {
-  font-size: 1.625rem;
-}
-
-h3 {
-  font-size: 1.25rem;
-  font-weight: 550;
-}
-
-h4 {
-  font-size: 1.25rem;
-}
-
-h5 {
-  font-size: 1rem;
-}
-
-p {
-  line-height: 1.65em;
+li {
+  margin-bottom: 0.75rem;
+  margin-top: 0.75rem;
+  padding-left: 0.75rem;
 }
 
 em,
@@ -107,38 +134,19 @@ i {
   line-height: 1.1em;
 }
 
-p,
-.content ul {
-  color: var(--theme-text-light);
-}
-
 small,
 .text_small {
   font-size: 0.833rem;
 }
 
 a {
-  color: var(--theme-text-accent);
-  font-weight: 400;
-  text-underline-offset: 0.08em;
-  align-items: center;
-  gap: 0.5rem;
-}
+  color: token("color.ui.action");
+  text-decoration: none;
 
-article > section :is(ul, ol) > * + * {
-  margin-top: 0.75rem;
-}
-
-article > section li > :is(p, pre, blockquote):not(:first-child) {
-  margin-top: 1rem;
-}
-
-article > section :is(ul, ol) {
-  padding-left: 1em;
-}
-
-article > section ::marker {
-  color: var(--theme-text-light);
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+  }
 }
 
 article > section iframe {
@@ -147,34 +155,9 @@ article > section iframe {
   aspect-ratio: 16 / 9;
 }
 
-a > code {
-  position: relative;
-  color: var(--theme-text-accent);
-  background: transparent;
-  text-underline-offset: var(--padding-block);
-}
-
-a > code::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: block;
-  background: var(--theme-accent);
-  opacity: var(--theme-accent-opacity);
-  border-radius: var(--border-radius);
-}
-
 a:hover,
-a:focus {
+a:focus-visible {
   text-decoration: underline;
-}
-
-a:focus {
-  outline: 2px solid currentColor;
-  outline-offset: 0.25em;
 }
 
 strong {
@@ -185,22 +168,19 @@ strong {
 /* Supporting Content */
 
 code {
-  --border-radius: 3px;
-  --padding-block: 0.2rem;
-  --padding-inline: 0.33rem;
+  @include typography("typography.mono");
 
-  background-color: var(--theme-code-inline-bg);
-  border-radius: var(--border-radius);
+  $padding-block: 0.125rem;
+  $padding-inline: 0.25rem;
+
+  background-color: token("color.ui.contrast.05");
+  border-radius: 0.25rem;
   color: inherit;
-  font-family: var(--font-mono);
-  font-size: 0.85em;
-  margin: calc(var(--padding-block) * -1) -0.125em;
-  padding: var(--padding-block) var(--padding-inline);
+  display: inline-block;
+  margin: -$padding-block -0.125em;
+  padding: $padding-block $padding-inline;
+  transition: background-color 100ms linear;
   word-break: break-word;
-}
-
-pre > code {
-  font-size: 1em;
 }
 
 table,
@@ -208,29 +188,25 @@ pre {
   $padding-block: 1rem;
   $padding-inline: 1.5rem;
 
-  font-size: 0.85em;
   line-height: 1.5;
-  // margin-left: -$padding-inline;
-  margin-left: -$padding-inline;
-  margin-right: -$padding-inline;
-  max-width: calc(100vw - 1px);
   overflow-x: auto;
   overflow-y: hidden;
   padding: 0;
   position: relative;
-  width: calc(100% + #{1.5 * $padding-inline});
+  width: 100%;
 }
 
 table {
   border-collapse: collapse;
+  font-size: inherit;
   margin: 0;
-  padding: var(--padding-block) 0;
+  padding: 1rem 0;
   width: 100%;
 }
 
 th {
-  color: hsla(var(--color-gray-40), 100%);
-  font-size: 0.72rem;
+  color: token("color.ui.text-subdue");
+  font-size: 0.75rem;
   font-weight: 400;
   letter-spacing: 0.125em;
   line-height: 1;
@@ -242,11 +218,11 @@ th {
 }
 
 thead th {
-  border-bottom: 1px solid hsla(var(--color-gray-70), 100%);
+  border-bottom: 1px solid token("color.ui.border");
 }
 
 tbody tr:not(:first-of-type) td {
-  border-top: 1px solid hsla(var(--color-gray-90), 50%);
+  border-top: 1px solid token("color.ui.border");
 }
 
 td,
@@ -264,66 +240,42 @@ td {
 }
 
 pre {
-  background-color: var(--theme-code-bg);
-  color: var(--theme-code-text);
-}
+  @include typography("typography.mono");
 
-blockquote code {
-  background-color: var(--theme-code-inline-bg--darker);
-}
-
-li {
-  line-height: 1.5;
-}
-
-@media (min-width: 37.75em) {
-  pre {
-    --padding-inline: 1.25rem;
-    border-radius: 8px;
-    margin-left: 0;
-    margin-right: 0;
-  }
+  background-color: token("color.gray.10");
+  color: token("color.gray.100");
 }
 
 blockquote {
-  background-color: var(--theme-bg-accent);
-  border-radius: 0.25rem;
+  background-color: token("color.ui.callout-bg");
+  border-left: 2px solid token("color.ui.action");
   line-height: 1.7;
   margin: 2rem 0;
   max-width: 100%;
   padding: 1.25em 1.5rem;
   width: 100%;
+
+  p {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
 }
 
 img {
   max-width: 100%;
 }
 
-.flex {
-  display: flex;
-  align-items: center;
-}
-
 button {
   align-items: center;
-  background: var(--theme-bg);
+  background: token("color.ui.action");
   border: 0;
   border-radius: 8rem;
-  color: var(--theme-text);
+  color: token("color.gray.100");
   display: flex;
   font-size: 1rem;
   gap: 0.25em;
   justify-items: center;
   padding: 0.33em 0.67em;
-}
-
-h2.heading {
-  font-size: 0.76rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  margin-bottom: 0.5rem;
-  opacity: 0.6;
-  text-transform: uppercase;
 }
 
 /* Screenreader Only Text */
@@ -339,8 +291,8 @@ h2.heading {
   width: 1px;
 }
 
-.focus:not-sr-only:focus,
-.focus:not-sr-only:focus-visible {
+.focus:not(.sr-only):focus,
+.focus:not(.sr-only):focus-visible {
   position: static;
   width: auto;
   height: auto;
@@ -357,12 +309,12 @@ h2.heading {
 
 /* Highlight TOC header link matching the current scroll position */
 .current-header-link {
-  border-color: var(--theme-accent);
+  border-color: token("color.ui.bg-offset");
   /* Indicates the current heading for forced colors users in older browsers */
   outline: 1px solid transparent;
 
   a {
-    color: var(--theme-accent);
+    color: token("color.ui.action");
   }
 
   @media (forced-colors: active) {
