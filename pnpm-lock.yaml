@@ -101,6 +101,10 @@ importers:
         version: 5.1.6
 
   packages/openapi-fetch:
+    dependencies:
+      openapi-typescript-helpers:
+        specifier: ^0.0.1
+        version: link:../openapi-typescript-helpers
     devDependencies:
       axios:
         specifier: ^1.4.0
@@ -187,6 +191,12 @@ importers:
       vitest:
         specifier: ^0.34.1
         version: 0.34.1(supports-color@9.4.0)
+
+  packages/openapi-typescript-helpers:
+    devDependencies:
+      typescript:
+        specifier: ^5.1.6
+        version: 5.1.6
 
 packages:
 

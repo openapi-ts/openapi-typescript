@@ -12,7 +12,6 @@
     "sourceMap": true,
     "strict": true,
     "target": "ESNext",
-    "types": ["vitest/globals"],
     "useDefineForClassFields": true
   }
 }

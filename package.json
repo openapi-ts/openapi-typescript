@@ -13,9 +13,11 @@
     "build:openapi-fetch": "cd packages/openapi-fetch && pnpm run build",
     "lint": "run-p -s lint:*",
     "lint:openapi-typescript": "cd packages/openapi-typescript && pnpm run lint",
+    "lint:openapi-typescript-helpers": "cd packages/openapi-typescript-helpers && pnpm run lint",
     "lint:openapi-fetch": "cd packages/openapi-fetch && pnpm run lint",
     "test": "run-p -s test:*",
     "test:openapi-typescript": "cd packages/openapi-typescript && pnpm test",
+    "test:openapi-typescript-helpers": "cd packages/openapi-typescript-helpers && pnpm test",
     "test:openapi-fetch": "cd packages/openapi-fetch && pnpm test",
     "version": "pnpm run build && changeset version && pnpm i"
   },

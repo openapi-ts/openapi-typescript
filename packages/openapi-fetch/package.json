@@ -57,6 +57,9 @@
     "prepublish": "pnpm run prepare && pnpm run build",
     "version": "pnpm run prepare && pnpm run build"
   },
+  "dependencies": {
+    "openapi-typescript-helpers": "^0.0.1"
+  },
   "devDependencies": {
     "axios": "^1.4.0",
     "del-cli": "^5.0.0",

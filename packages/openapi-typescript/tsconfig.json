@@ -2,7 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "sourceRoot": ".",
-    "outDir": "dist"
+    "outDir": "dist",
+    "types": ["vitest/globals"]
   },
   "include": ["scripts", "src", "test", "*.ts"],
   "exclude": ["examples", "node_modules"]
