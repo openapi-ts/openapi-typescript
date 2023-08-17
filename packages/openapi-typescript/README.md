@@ -4,18 +4,30 @@ openapi-typescript generates TypeScript types from static <a href="https://spec.
 
 The code is [MIT-licensed](./LICENSE) and free for use.
 
-**Features**
+## Features
 
 - ✅ Supports OpenAPI 3.0 and 3.1 (including advanced features like <a href="https://spec.openapis.org/oas/v3.1.0#discriminator-object" target="_blank" rel="noopener noreferrer">discriminators</a>)
 - ✅ Generate **runtime-free types** that outperform old-school codegen
 - ✅ Load schemas from YAML or JSON, locally or remotely
 - ✅ Native Node.js code is fast and generates types within milliseconds
 
-**Examples**
+## Examples
 
 👀 [See examples](./examples/)
 
-## Usage
+## Setup
+
+This library requires the latest version of <a href="https://nodejs.org/en" target="_blank" rel="noopener noreferrer">Node.js</a> installed (20.x or higher recommended). With that present, run the following in your project:
+
+```bash
+npm i -D openapi-typescript
+```
+
+> ✨ **Tip**
+>
+> Enabling [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) in `tsconfig.json` can go along way to improve type safety ([read more](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson))
+
+## Basic usage
 
 First, generate a local type file by running `npx openapi-typescript`:
 

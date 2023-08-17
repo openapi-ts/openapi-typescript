@@ -30,6 +30,10 @@ This library requires the latest version of <a href="https://nodejs.org/en" targ
 npm i -D openapi-typescript
 ```
 
+> ✨ **Tip**
+>
+> Enabling [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) in `tsconfig.json` can go along way to improve type safety ([read more](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson))
+
 ## Basic usage
 
 First, generate a local type file by running `npx openapi-typescript`:
@@ -61,10 +65,6 @@ type EndpointParams = paths["/my/endpoint"]["parameters"];
 type SuccessResponse = paths["/my/endpoint"]["get"]["responses"][200]["content"]["application/json"]["schema"];
 type ErrorResponse = paths["/my/endpoint"]["get"]["responses"][500]["content"]["application/json"]["schema"];
 ```
-
-> ✨ **Tip**
->
-> Using TypeScript’s bracket notation (`obj["property"]`) is a safe way to access all names in your OpenAPI schema, even the ones that aren’t “TypeScript-safe”
 
 From here, you can use these types for any of the following (but not limited to):
 

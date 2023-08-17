@@ -10,21 +10,21 @@
   },
   "dependencies": {
     "@algolia/client-search": "^4.19.1",
-    "@astrojs/preact": "^2.2.1",
-    "@astrojs/react": "^2.2.1",
+    "@astrojs/preact": "^2.2.2",
+    "@astrojs/react": "^2.2.2",
     "@docsearch/css": "^3.5.1",
     "@docsearch/react": "^3.5.1",
-    "@types/react": "^18.2.16",
+    "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
-    "astro": "^2.9.2",
-    "preact": "^10.16.0",
+    "astro": "^2.10.9",
+    "preact": "^10.17.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sass": "^1.64.1"
+    "sass": "^1.65.1"
   },
   "devDependencies": {
-    "@astrojs/sitemap": "^2.0.1",
-    "@types/node": "^20.4.9",
+    "@astrojs/sitemap": "^2.0.2",
+    "@types/node": "^20.5.0",
     "html-escaper": "^3.0.3",
     "typescript": "^5.1.6"
   }
