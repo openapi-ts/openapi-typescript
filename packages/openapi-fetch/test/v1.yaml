@@ -1,4 +1,4 @@
-openapi: 3.1
+openapi: 3.1.0
 info:
   title: Test Specification
   version: '1.0'
@@ -480,6 +480,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/StringArray'
+    Tag:
+      content:
+        application/json:
+          schema:
+            type:
+              string
     User:
       content:
         application/json:
