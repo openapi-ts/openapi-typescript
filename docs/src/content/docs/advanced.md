@@ -182,9 +182,9 @@ However, APIs are language-agnostic, and may contain a different syntax style fr
 
 Instead, treat “consistency” in a more holistic sense, recognizing that preserving the API schema as-written is better than adhering to language-specific style conventions.
 
-### Enable `noUncheckedIndexAccess` in your tsconfig.json
+### Enable `noUncheckedIndexedAccess` in your tsconfig.json
 
-openapi-typescript generates a `Record` for `additionalProperties` and tries to avoid adding a `undefined` union to the index signature. However, this may result in unsafe property access in TypeScript, **unless** the compiler flag `noUncheckedIndexAccess` is set. If set, TypeScript will error when you try to access a property that might not be set.
+openapi-typescript generates a `Record` for `additionalProperties` and tries to avoid adding a `undefined` union to the index signature. However, this may result in unsafe property access in TypeScript, **unless** the compiler flag `noUncheckedIndexedAccess` is set ([docs](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson)). If set, TypeScript will error when you try to access a property that might not be set.
 
 ### Be specific in your schema
 
