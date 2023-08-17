@@ -1,3 +1,5 @@
+import type { ErrorResponse, HttpMethod, SuccessResponse, FilterKeys, MediaType, PathsWithMethod, ResponseObjectMap, OperationRequestBodyContent } from "openapi-typescript-helpers";
+
 // settings & const
 const DEFAULT_HEADERS = {
   "Content-Type": "application/json",
@@ -19,55 +21,24 @@ interface ClientOptions extends RequestInit {
   /** global bodySerializer */
   bodySerializer?: BodySerializer<unknown>;
 }
-export interface BaseParams {
+export type QuerySerializer<T> = (query: T extends { parameters: any } ? NonNullable<T["parameters"]["query"]> : Record<string, unknown>) => string;
+export type BodySerializer<T> = (body: OperationRequestBodyContent<T>) => any;
+export type ParseAs = "json" | "text" | "blob" | "arrayBuffer" | "stream";
+export interface DefaultParamsOption {
   params?: { query?: Record<string, unknown> };
 }
-
-// const
-
-export type PathItemObject = { [M in HttpMethod]: OperationObject } & { parameters?: any };
-export type ParseAs = "json" | "text" | "blob" | "arrayBuffer" | "stream";
-export interface OperationObject {
-  parameters: any;
-  requestBody: any; // note: "any" will get overridden in inference
-  responses: any;
-}
-export type HttpMethod = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
-export type OkStatus = 200 | 201 | 202 | 203 | 204 | 206 | 207 | "2XX";
-// prettier-ignore
-export type ErrorStatus = 500 | '5XX' | 400 | 401 | 402 | 403 | 404 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 420 | 421 | 422 | 423 | 424 | 425 | 426 | 429 | 431 | 444 | 450 | 451 | 497 | 498 | 499 | '4XX' | "default";
-
-// util
-/** Get a union of paths which have method */
-export type PathsWith<Paths extends Record<string, PathItemObject>, PathnameMethod extends HttpMethod> = {
-  [Pathname in keyof Paths]: Paths[Pathname] extends { [K in PathnameMethod]: any } ? Pathname : never;
-}[keyof Paths];
-/** Find first match of multiple keys */
-export type FilterKeys<Obj, Matchers> = { [K in keyof Obj]: K extends Matchers ? Obj[K] : never }[keyof Obj];
-export type MediaType = `${string}/${string}`;
-
-// general purpose types
-export type Params<T> = T extends { parameters: any } ? { params: NonNullable<T["parameters"]> } : BaseParams;
-export type RequestBodyObj<T> = T extends { requestBody?: any } ? T["requestBody"] : never;
-export type RequestBodyContent<T> = undefined extends RequestBodyObj<T> ? FilterKeys<NonNullable<RequestBodyObj<T>>, "content"> | undefined : FilterKeys<RequestBodyObj<T>, "content">;
-export type RequestBodyMedia<T> = FilterKeys<RequestBodyContent<T>, MediaType> extends never ? FilterKeys<NonNullable<RequestBodyContent<T>>, MediaType> | undefined : FilterKeys<RequestBodyContent<T>, MediaType>;
-export type RequestBody<T> = RequestBodyMedia<T> extends never ? { body?: never } : undefined extends RequestBodyMedia<T> ? { body?: RequestBodyMedia<T> } : { body: RequestBodyMedia<T> };
-export type QuerySerializer<T> = (query: T extends { parameters: any } ? NonNullable<T["parameters"]["query"]> : Record<string, unknown>) => string;
-export type BodySerializer<T> = (body: RequestBodyMedia<T>) => any;
-export type RequestOptions<T> = Params<T> &
-  RequestBody<T> & {
+export type ParamsOption<T> = T extends { parameters: any } ? { params: NonNullable<T["parameters"]> } : DefaultParamsOption;
+export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never ? { body?: never } : undefined extends OperationRequestBodyContent<T> ? { body?: OperationRequestBodyContent<T> } : { body: OperationRequestBodyContent<T> };
+export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body">;
+export type FetchResponse<T> =
+  | { data: FilterKeys<SuccessResponse<ResponseObjectMap<T>>, MediaType>; error?: never; response: Response }
+  | { data?: never; error: FilterKeys<ErrorResponse<ResponseObjectMap<T>>, MediaType>; response: Response };
+export type RequestOptions<T> = ParamsOption<T> &
+  RequestBodyOption<T> & {
     querySerializer?: QuerySerializer<T>;
     bodySerializer?: BodySerializer<T>;
     parseAs?: ParseAs;
   };
-export type Success<T> = FilterKeys<FilterKeys<T, OkStatus>, "content">;
-export type Error<T> = FilterKeys<FilterKeys<T, ErrorStatus>, "content">;
-
-// fetch types
-export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body">;
-export type FetchResponse<T> =
-  | { data: T extends { responses: any } ? NonNullable<FilterKeys<Success<T["responses"]>, MediaType>> : unknown; error?: never; response: Response }
-  | { data?: never; error: T extends { responses: any } ? NonNullable<FilterKeys<Error<T["responses"]>, MediaType>> : unknown; response: Response };
 
 export default function createClient<Paths extends {}>(clientOptions: ClientOptions = {}) {
   const { fetch = globalThis.fetch, querySerializer: globalQuerySerializer, bodySerializer: globalBodySerializer, ...options } = clientOptions;
@@ -94,7 +65,7 @@ export default function createClient<Paths extends {}>(clientOptions: ClientOpti
     // handle empty content
     // note: we return `{}` because we want user truthy checks for `.data` or `.error` to succeed
     if (response.status === 204 || response.headers.get("Content-Length") === "0") {
-      return response.ok ? { data: {} as any, response } : { error: {} as any, response };
+      return response.ok ? { data: {} as any, response: response as any } : { error: {} as any, response: response as any };
     }
 
     // parse response (falling back to .text() when necessary)
@@ -104,7 +75,7 @@ export default function createClient<Paths extends {}>(clientOptions: ClientOpti
         const cloned = response.clone();
         data = typeof cloned[parseAs] === "function" ? await cloned[parseAs]() : await cloned.text();
       }
-      return { data, response };
+      return { data, response: response as any };
     }
 
     // handle errors (always parse as .json() or .text())
@@ -114,40 +85,40 @@ export default function createClient<Paths extends {}>(clientOptions: ClientOpti
     } catch {
       error = await response.clone().text();
     }
-    return { error, response };
+    return { error, response: response as any };
   }
 
   return {
     /** Call a GET endpoint */
-    async GET<P extends PathsWith<Paths, "get">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "get">>) {
+    async GET<P extends PathsWithMethod<Paths, "get">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "get">>) {
       return coreFetch<P, "get">(url, { ...init, method: "GET" } as any);
     },
     /** Call a PUT endpoint */
-    async PUT<P extends PathsWith<Paths, "put">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "put">>) {
+    async PUT<P extends PathsWithMethod<Paths, "put">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "put">>) {
       return coreFetch<P, "put">(url, { ...init, method: "PUT" } as any);
     },
     /** Call a POST endpoint */
-    async POST<P extends PathsWith<Paths, "post">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "post">>) {
+    async POST<P extends PathsWithMethod<Paths, "post">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "post">>) {
       return coreFetch<P, "post">(url, { ...init, method: "POST" } as any);
     },
     /** Call a DELETE endpoint */
-    async DELETE<P extends PathsWith<Paths, "delete">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "delete">>) {
+    async DELETE<P extends PathsWithMethod<Paths, "delete">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "delete">>) {
       return coreFetch<P, "delete">(url, { ...init, method: "DELETE" } as any);
     },
     /** Call a OPTIONS endpoint */
-    async OPTIONS<P extends PathsWith<Paths, "options">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "options">>) {
+    async OPTIONS<P extends PathsWithMethod<Paths, "options">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "options">>) {
       return coreFetch<P, "options">(url, { ...init, method: "OPTIONS" } as any);
     },
     /** Call a HEAD endpoint */
-    async HEAD<P extends PathsWith<Paths, "head">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "head">>) {
+    async HEAD<P extends PathsWithMethod<Paths, "head">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "head">>) {
       return coreFetch<P, "head">(url, { ...init, method: "HEAD" } as any);
     },
     /** Call a PATCH endpoint */
-    async PATCH<P extends PathsWith<Paths, "patch">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "patch">>) {
+    async PATCH<P extends PathsWithMethod<Paths, "patch">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "patch">>) {
       return coreFetch<P, "patch">(url, { ...init, method: "PATCH" } as any);
     },
     /** Call a TRACE endpoint */
-    async TRACE<P extends PathsWith<Paths, "trace">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "trace">>) {
+    async TRACE<P extends PathsWithMethod<Paths, "trace">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "trace">>) {
       return coreFetch<P, "trace">(url, { ...init, method: "TRACE" } as any);
     },
   };

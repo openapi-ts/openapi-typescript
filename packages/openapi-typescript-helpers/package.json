@@ -1,0 +1,26 @@
+{
+  "name": "openapi-typescript-helpers",
+  "description": "TypeScript helpers for consuming openapi-typescript types",
+  "version": "0.0.0",
+  "author": {
+    "name": "Drew Powers",
+    "email": "drew@pow.rs"
+  },
+  "license": "MIT",
+  "scripts": {
+    "lint": "pnpm run lint:js",
+    "lint:js": "eslint \"*.{js,ts}\"",
+    "lint:prettier": "prettier --check \"{src,test}/**/*\"",
+    "test": "tsc --noEmit"
+  },
+  "exports": {
+    ".": {
+      "default": "./index.js",
+      "types": "./index.d.ts"
+    },
+    "./*": "./*"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}

@@ -1,0 +1,42 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types */
+
+// HTTP types
+
+export type HttpMethod = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
+/** 2XX statuses */
+export type OkStatus = 200 | 201 | 202 | 203 | 204 | 206 | 207 | "2XX";
+// prettier-ignore
+/** 4XX and 5XX statuses */
+export type ErrorStatus = 500 | '5XX' | 400 | 401 | 402 | 403 | 404 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 420 | 421 | 422 | 423 | 424 | 425 | 426 | 429 | 431 | 444 | 450 | 451 | 497 | 498 | 499 | '4XX' | "default";
+
+// OpenAPI type helpers
+
+/** Given an OpenAPI **Paths Object**, find all paths that have the given method */
+export type PathsWithMethod<Paths extends Record<string, PathItemObject>, PathnameMethod extends HttpMethod> = {
+  [Pathname in keyof Paths]: Paths[Pathname] extends { [K in PathnameMethod]: any } ? Pathname : never;
+}[keyof Paths];
+/** Internal helper used in PathsWithMethod */
+export type PathItemObject = { [M in HttpMethod]: OperationObject } & { parameters?: any };
+/** Return `responses` for an Operation Object */
+export type ResponseObjectMap<T> = T extends { responses: any } ? T["responses"] : unknown;
+/** Return `content` for a Response Object */
+export type ResponseContent<T> = T extends { content: any } ? T["content"] : unknown;
+/** Return `requestBody` for an Operation Object */
+export type OperationRequestBody<T> = T extends { requestBody?: any } ? T["requestBody"] : never;
+/** Internal helper used in OperationRequestBodyContent */
+export type OperationRequestBodyMediaContent<T> = undefined extends OperationRequestBody<T> ? FilterKeys<NonNullable<OperationRequestBody<T>>, "content"> | undefined : FilterKeys<OperationRequestBody<T>, "content">;
+/** Return first `content` from a Request Object Mapping, allowing any media type */
+export type OperationRequestBodyContent<T> = FilterKeys<OperationRequestBodyMediaContent<T>, MediaType> extends never
+  ? FilterKeys<NonNullable<OperationRequestBodyMediaContent<T>>, MediaType> | undefined
+  : FilterKeys<OperationRequestBodyMediaContent<T>, MediaType>;
+/** Return first 2XX response from a Response Object Map */
+export type SuccessResponse<T> = FilterKeys<FilterKeys<T, OkStatus>, "content">;
+/** Return first 5XX or 4XX response (in that order) from a Response Object Map */
+export type ErrorResponse<T> = FilterKeys<FilterKeys<T, ErrorStatus>, "content">;
+
+// Generic TS utils
+
+/** Find first match of multiple keys */
+export type FilterKeys<Obj, Matchers> = { [K in keyof Obj]: K extends Matchers ? Obj[K] : never }[keyof Obj];
+/** Return any `[string]/[string]` media type (important because openapi-fetch allows any content response, not just JSON-like) */
+export type MediaType = `${string}/${string}`;
