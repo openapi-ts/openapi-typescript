@@ -103,7 +103,7 @@ importers:
   packages/openapi-fetch:
     dependencies:
       openapi-typescript-helpers:
-        specifier: ^0.0.0
+        specifier: ^0.0.1
         version: link:../openapi-typescript-helpers
     devDependencies:
       axios:
