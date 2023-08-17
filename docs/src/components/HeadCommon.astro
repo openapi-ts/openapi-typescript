@@ -9,11 +9,12 @@ import "../styles/app.scss";
 <link rel="sitemap" href="/sitemap-index.xml" />
 <script src="/make-scrollable-code-focusable.js" is:inline></script>
 <script is:inline>
-  const root = document.documentElement;
-  const theme = localStorage.getItem("theme");
+const theme = localStorage.getItem("theme");
+if (document.body) {
   if (theme === "dark" || (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-    root.classList.add("theme-dark");
+    document.body.setAttribute("data-color-mode", "dark");
   } else {
-    root.classList.remove("theme-dark");
+    document.body.removeAttribute("data-color-mode");
   }
+}
 </script>

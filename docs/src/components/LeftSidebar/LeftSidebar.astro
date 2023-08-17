@@ -53,62 +53,38 @@ const sidebar: Record<string, Link[]> = {
 </nav>
 
 <script is:inline>
-  window.addEventListener("DOMContentLoaded", () => {
-    var target = document.querySelector('[aria-current="page"]');
-    if (target && target.offsetTop > window.innerHeight - 100) {
-      document.querySelector(".nav-groups").scrollTop = target.offsetTop;
-    }
-  });
+window.addEventListener("DOMContentLoaded", () => {
+  var target = document.querySelector('[aria-current="page"]');
+  if (target && target.offsetTop > window.innerHeight - 100) {
+    document.querySelector(".nav-groups").scrollTop = target.offsetTop;
+  }
+});
 </script>
 
 <style lang="scss">
+  @use '../../tokens' as *;
+
   nav {
+    padding-top: 1rem;
     width: 100%;
   }
 
-  .link {
-    color: inherit;
-    display: block;
-    font-size: 0.875rem;
-    line-height: 1;
-    margin: 1px;
-    padding: 0.25rem 0.5rem;
-    text-decoration: none;
-
-    @media (min-width: 600px) {
-      padding: 0.375rem;
-    }
-
-    &:hover,
-    &:focus {
-      background-color: var(--theme-bg-hover);
-    }
-
-    &[aria-current="page"] {
-      color: var(--theme-text-accent);
-      background-color: var(--theme-bg-accent);
-      font-weight: 500;
-    }
-  }
-
   .nav-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     height: 100%;
     margin: 0;
-    padding: 0;
-    overflow-y: auto;
     max-height: 100vh;
-
-    > :first-child {
-      padding-top: var(--doc-padding);
-    }
-
-    > :last-child {
-      padding-bottom: 2rem;
-    }
-
+    overflow-y: auto;
+    padding: 0;
     @media (min-width: 50em) {
       padding: 0;
     }
+  }
+
+  .nav-link {
+    margin: 0;
   }
 
   .nav-group {
@@ -120,23 +96,9 @@ const sidebar: Record<string, Link[]> = {
   }
 
   .nav-group-subnav {
-    margin-top: 0.6;
+    margin-top: 0.5rem;
   }
 
-  .nav-group-title {
-    font-size: 0.76rem;
-    font-weight: 400;
-    line-height: 1;
-    letter-spacing: 0.08em;
-    margin-bottom: 0.5rem;
-    opacity: 0.6;
-    padding: 0 0.5rem;
-    text-transform: uppercase;
-  }
+
 </style>
 
-<style is:global>
-  :root.theme-dark .nav-link a[aria-current="page"] {
-    color: hsla(var(--color-base-white), 100%, 1);
-  }
-</style>

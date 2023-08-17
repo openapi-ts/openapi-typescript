@@ -3,7 +3,7 @@ import { useState, useCallback, useRef } from "react";
 import "@docsearch/css";
 import * as docSearchReact from "@docsearch/react";
 import { createPortal } from "react-dom";
-import "./Search.css";
+import * as css from "./Search.module.scss";
 
 /** FIXME: This is still kinda nasty, but DocSearch is not ESM ready. */
 const DocSearchModal = docSearchReact.DocSearchModal || (docSearchReact as any).default.DocSearchModal;
@@ -27,7 +27,7 @@ export default function Search() {
       setIsOpen(true);
       setInitialQuery(e.key);
     },
-    [setIsOpen, setInitialQuery]
+    [setIsOpen, setInitialQuery],
   );
 
   useDocSearchKeyboardEvents({
@@ -40,14 +40,14 @@ export default function Search() {
 
   return (
     <>
-      <button type="button" ref={searchButtonRef} onClick={onOpen} className="search-input">
-        <svg className="search-icon" viewBox="0 0 24 24" fill="none">
+      <button type="button" ref={searchButtonRef} onClick={onOpen} className={css.searchInput}>
+        <svg className={css.icon} viewBox="0 0 24 24" fill="none">
           <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
 
         <span>Search</span>
 
-        <span className="search-hint">
+        <span className={css.hint}>
           <span className="sr-only">Press </span>
 
           <kbd>/</kbd>
@@ -79,7 +79,7 @@ export default function Search() {
               });
             }}
           />,
-          document.body
+          document.body,
         )}
     </>
   );

@@ -23,14 +23,15 @@ const { contributors = [] } = Astro.props;
 
 <style lang="scss">
   .wrapper {
+    column-gap: 0.5rem;
     display: grid;
     font-size: 0.75rem;
-    gap: 0.5rem 0.25rem;
-    grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
     line-height: 1;
     list-style: none;
     margin: 0;
     padding: 0;
+    row-gap: 1rem;
   }
 
   .avatar {
@@ -44,14 +45,16 @@ const { contributors = [] } = Astro.props;
     display: flex;
     justify-content: center;
     margin: 0 !important;
+    padding: 0;
   }
 
   .link {
     align-items: center;
     display: flex;
     flex-direction: column;
-    line-height: 1;
+    font-size: 0.875rem;
     gap: 0.25rem;
+    line-height: 1;
     text-align: center;
     text-decoration: none;
 

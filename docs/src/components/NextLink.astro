@@ -9,10 +9,12 @@ const { href } = Astro.props;
 <a class="link" href={href}><small class="title">Next Page</small><slot /></a>
 
 <style lang="scss">
+  @use '../tokens' as *;
+
   .link {
     align-items: flex-start;
     border-bottom: 2px solid currentColor;
-    color: var(--theme-accent);
+    color: token('color.ui.action');
     display: flex;
     flex-direction: column;
     font-size: 1.5rem;
@@ -29,7 +31,6 @@ const { href } = Astro.props;
     width: 50%;
 
     &:hover {
-      background-color: hsla(var(--color-blue), 5%);
       text-decoration: none;
     }
 

@@ -1,4 +1,12 @@
+// base
+@use "root";
 @use "font";
 @use "base";
-@use "theme";
-@use "overrides";
+
+// components
+@use "astro-code";
+@use "sidenav";
+@use "toc";
+
+// utils
+@use "util";

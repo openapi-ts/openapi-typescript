@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npm run update-contributors && astro build",
-    "dev": "npm run update-contributors && astro dev",
+    "build": "pnpm run tokens && pnpm run update-contributors && astro build",
+    "dev": "pnpm run tokens && pnpm run update-contributors && astro dev",
+    "tokens": "co build",
     "update-contributors": "node scripts/update-contributors.js"
   },
   "dependencies": {
@@ -24,8 +25,11 @@
   },
   "devDependencies": {
     "@astrojs/sitemap": "^2.0.2",
+    "@cobalt-ui/cli": "^1.4.1",
+    "@cobalt-ui/plugin-sass": "^1.2.3",
     "@types/node": "^20.5.0",
     "html-escaper": "^3.0.3",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "vite-plugin-sass-dts": "^1.3.9"
   }
 }

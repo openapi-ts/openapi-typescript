@@ -1,6 +1,5 @@
 ---
 import SkipToContent from "./SkipToContent.astro";
-import SidebarToggle from "./SidebarToggle.jsx";
 import Search from "./Search.jsx";
 
 type Props = {
@@ -13,9 +12,6 @@ const { currentPage } = Astro.props;
 <header>
   <SkipToContent />
   <nav class="nav-wrapper">
-    <div class="menu-toggle">
-      <SidebarToggle client:idle />
-    </div>
     <div class="logo flex">
       <a href="/">
         <img src="/assets/openapi-ts.svg" />
@@ -38,17 +34,16 @@ const { currentPage } = Astro.props;
 </header>
 
 <style lang="scss">
+  @use '../../tokens' as *;
+
   header {
     align-items: center;
-    background-color: var(--theme-navbar-bg);
     display: flex;
-    height: var(--theme-navbar-height);
+    height: 3rem;
     justify-content: center;
-    width: 100%;
   }
 
   .logo {
-    color: hsla(var(--color-base-white), 100%, 1);
     display: flex;
     flex: 1;
   }
@@ -65,17 +60,10 @@ const { currentPage } = Astro.props;
     min-width: 6rem;
 
     a {
-      color: var(--theme-text);
+      color: inherit;
       display: flex;
-      padding: 0.5em 0.25em;
-      margin: -0.5em -0.25em;
-      text-decoration: none;
       font-weight: bold;
-
-      &:hover,
-      &:focus {
-        color: var(--theme-text-accent);
-      }
+      text-decoration: none;
     }
 
     img {
@@ -91,12 +79,17 @@ const { currentPage } = Astro.props;
   }
 
   .nav-wrapper {
+    --padding: 1.5rem;
+
     display: flex;
     gap: 0.5rem;
     justify-content: flex-end;
-    width: 100%;
-    max-width: 81rem;
-    padding-right: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    padding-left: var(--padding);
+    padding-right: var(--padding);
+    width: 81rem;
 
     @media (min-width: 600px) {
       gap: 1em;
@@ -111,8 +104,8 @@ const { currentPage } = Astro.props;
 
   /** Style Algolia */
   :root {
-    --docsearch-primary-color: var(--theme-accent);
-    --docsearch-logo-color: var(--theme-text);
+    --docsearch-primary-color: #{token('color.ui.bg')};
+    --docsearch-logo-color: #{token('color.blue.60')};
   }
 
   .search-item {
@@ -134,7 +127,7 @@ const { currentPage } = Astro.props;
     a {
       align-items: center;
       align-self: stretch;
-      color: var(--theme-text);
+      color: inherit;
       display: flex;
 
       &:hover {
