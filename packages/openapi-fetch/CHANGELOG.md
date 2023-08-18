@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.7.3
+
+### Patch Changes
+
+- [#1300](https://github.com/drwpow/openapi-typescript/pull/1300) [`5939e20`](https://github.com/drwpow/openapi-typescript/commit/5939e20b86ca3019cbc0a1c7f6de2b15a806cf72) Thanks [@drwpow](https://github.com/drwpow)! - Use openapi-typescript-helpers package for types
+
 ## 0.7.2
 
 ### Patch Changes
