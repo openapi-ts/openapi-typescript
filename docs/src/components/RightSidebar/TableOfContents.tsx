@@ -67,7 +67,7 @@ const TableOfContents: FunctionalComponent<{ headings: MarkdownHeading[] }> = ({
   return (
     <>
       <h2 id={onThisPageID}>On this page</h2>
-      <ul className="toc" ref={toc}>
+      <ul className="toc" ref={toc} title="Table of Contents">
         {headings
           .filter(({ depth }) => depth > 1 && depth < 4)
           .map((heading) => (

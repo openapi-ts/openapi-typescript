@@ -13,10 +13,10 @@ createClient<paths>(options);
 
 | Name              |      Type       | Description                                                                                                                                                                                   |
 | :---------------- | :-------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `baseUrl`         |    `string`     | Prefix all fetch URLs with this option (e.g. `"https://myapi.dev/v1/"`).                                                                                                                      |
-| `fetch`           |     `fetch`     | Fetch function used for requests (defaults to `globalThis.fetch`)                                                                                                                             |
-| `querySerializer` | QuerySerializer | (optional) Serialize query params for all requests (default: `new URLSearchParams()`)                                                                                                         |
-| `bodySerializer`  | BodySerializer  | (optional) Serialize request body object for all requests (default: `JSON.stringify()`)                                                                                                       |
+| `baseUrl`         |    `string`     | Prefix all fetch URLs with this option (e.g. `"https://myapi.dev/v1/"`)                                                                                                                       |
+| `fetch`           |     `fetch`     | Fetch instance used for requests (default: `globalThis.fetch`)                                                                                                                                |
+| `querySerializer` | QuerySerializer | (optional) Provide a [querySerializer](#queryserializer)                                                                                                                                      |
+| `bodySerializer`  | BodySerializer  | (optional) Provide a [bodySerializer](#bodyserializer)                                                                                                                                        |
 | (Fetch options)   |                 | Any valid fetch option (`headers`, `mode`, `cache`, `signal` …) (<a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch#options" target="_blank" rel="noopener noreferrer">docs</a>) |
 
 ## Fetch options
@@ -27,16 +27,14 @@ The following options apply to all request methods (`.GET()`, `.POST()`, etc.)
 client.get("/my-url", options);
 ```
 
-| Name              |                               Type                                | Description                                                                                                                                                                                                        |
-| :---------------- | :---------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `params`          |                           ParamsObject                            | Provide `path` and `query` params from the OpenAPI schema                                                                                                                                                          |
-| `params.path`     |                        `{ [name]: value }`                        | Provide all `path` params (params that are part of the URL)                                                                                                                                                        |
-| `params.query`    |                        `{ [name]: value }`                        | Provide all `query params (params that are part of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/URL/searchParams" target="_blank" rel="noopener noreferrer">searchParams</a>                      |
-| `body`            |                        `{ [name]:value }`                         | The <a href="https://spec.openapis.org/oas/latest.html#request-body-object" target="_blank" rel="noopener noreferrer">requestBody</a> data, if needed (PUT/POST/PATCH/DEL only)                                    |
-| `querySerializer` |                          QuerySerializer                          | (optional) Serialize query params for this request only (default: `new URLSearchParams()`)                                                                                                                         |
-| `bodySerializer`  |                          BodySerializer                           | (optional) Serialize request body for this request only (default: `JSON.stringify()`)                                                                                                                              |
-| `parseAs`         | `"json"` \| `"text"` \| `"arrayBuffer"` \| `"blob"` \| `"stream"` | Parse the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response/body" target="_blank" rel="noopener noreferrer">response body</a>, with `"stream"` skipping processing altogether (default: `"json"`) |
-| (Fetch options)   |                                                                   | Any valid fetch option (`headers`, `mode`, `cache`, `signal` …) (<a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch#options" target="_blank" rel="noopener noreferrer">docs</a>)                      |
+| Name              |                               Type                                | Description                                                                                                                                                                                                                                                                            |
+| :---------------- | :---------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `params`          |                           ParamsObject                            | <a href="https://swagger.io/specification/#parameter-locations" target="_blank" rel="noopener noreferrer">path</a> and <a href="https://swagger.io/specification/#parameter-locations" target="_blank" rel="noopener noreferrer">query</a> params for the endpoint                     |
+| `body`            |                        `{ [name]:value }`                         | <a href="https://spec.openapis.org/oas/latest.html#request-body-object" target="_blank" rel="noopener noreferrer">requestBody</a> data for the endpoint                                                                                                                                |
+| `querySerializer` |                          QuerySerializer                          | (optional) Provide a [querySerializer](#queryserializer)                                                                                                                                                                                                                               |
+| `bodySerializer`  |                          BodySerializer                           | (optional) Provide a [bodySerializer](#bodyserializer)                                                                                                                                                                                                                                 |
+| `parseAs`         | `"json"` \| `"text"` \| `"arrayBuffer"` \| `"blob"` \| `"stream"` | (optional) Parse the response using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response#instance_methods" target="_blank" rel="noopener noreferrer">a built-in instance method</a> (default: `"json"`). `"stream"` skips parsing altogether and returns the raw stream. |
+| (Fetch options)   |                                                                   | Any valid fetch option (`headers`, `mode`, `cache`, `signal`, …) (<a href="https://developer.mozilla.org/en-US/docs/Web/API/fetch#options" target="_blank" rel="noopener noreferrer">docs</a>)                                                                                         |
 
 ### querySerializer
 
@@ -63,7 +61,7 @@ const { data, error } = await GET("/search", {
 
 ### bodySerializer
 
-Similar to [querySerializer](#querySerializer), bodySerializer works for requestBody. You probably only need this when using `multipart/form-data`:
+Similar to [querySerializer](#querySerializer), bodySerializer allows you to customize how the requestBody is serialized if you don’t want the default <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify" target="_blank">JSON.stringify()</a> behavior. You probably only need this when using `multipart/form-data`:
 
 ```ts
 const { data, error } = await PUT("/submit", {

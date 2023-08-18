@@ -23,11 +23,11 @@ description: Additional info about this project
 ## Project goals
 
 1. Support converting any valid OpenAPI schema to TypeScript types, no matter how complicated.
-1. Generate **runtime-free types** for maximum performance.
-1. This library does **NOT** validate your schema, there existing libraries for that (like [`redocly lint`](https://redocly.com/docs/cli/commands/lint/)).
-1. The generated TypeScript types **must** match your schema as closely as possible (e.g. no renaming to `PascalCase`)
-1. This library should never require Java, node-gyp, or some other complex environment to work. This should require Node.js and nothing else.
-1. This library will never require a running OpenAPI server to work.
+1. Generated types should be statically-analyzable and runtime-free (with minor exceptions like <a href="https://www.typescriptlang.org/docs/handbook/enums.html" target="_blank" rel="noopener noreferrer">enums</a>).
+1. Don’t validate schemas; there are existing libraries for that like <a href="https://redocly.com/docs/cli/commands/lint/" target="_blank" rel="noopener noreferrer">Redocly</a>.
+1. Generated types should match your original schema as closely as possible, preserving original capitalization, etc.
+1. Typegen only needs Node.js to run (no Java, Python, etc.) and works in any environment.
+1. Support fetching OpenAPI schemas from files as well as local and remote servers.
 
 ## Contributors
 

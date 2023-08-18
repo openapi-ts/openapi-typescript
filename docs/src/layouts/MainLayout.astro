@@ -113,7 +113,7 @@ const nextLink: Record<string, Link | undefined> = {
             {nextLink[currentPage] && <NextLink href={nextLink[currentPage]!.url}>{nextLink[currentPage]!.text}</NextLink>}
           </PageContent>
         </div>
-        <aside id="grid-right" class="sidenav grid-sidebar" title="Table of Contents">
+        <aside id="grid-right" class="sidenav grid-sidebar">
           <RightSidebar headings={headings} githubEditUrl={githubEditUrl} />
         </aside>
       </main>

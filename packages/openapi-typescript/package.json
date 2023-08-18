@@ -1,6 +1,6 @@
 {
   "name": "openapi-typescript",
-  "description": "Generate TypeScript types from Swagger OpenAPI specs",
+  "description": "Generate runtime-free TypeScript types from Swagger OpenAPI specs",
   "version": "6.5.0",
   "author": {
     "name": "Drew Powers",
