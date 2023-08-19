@@ -10,11 +10,9 @@ import "../styles/app.scss";
 <script src="/make-scrollable-code-focusable.js" is:inline></script>
 <script is:inline>
 const theme = localStorage.getItem("theme");
-if (document.body) {
-  if (theme === "dark" || (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-    document.body.setAttribute("data-color-mode", "dark");
-  } else {
-    document.body.removeAttribute("data-color-mode");
-  }
+if (theme === "dark" || theme === 'light') {
+  document.body.setAttribute('data-color-mode', theme);
+} else {
+  document.body.removeAttribute("data-color-mode");
 }
 </script>

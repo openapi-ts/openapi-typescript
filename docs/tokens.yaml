@@ -192,7 +192,7 @@ color:
       $extensions:
         mode:
           light: '{color.ui.contrast.90#light}'
-          dark: '{color.ui.contrast.90#dark}'
+          dark: '{color.ui.contrast.80#dark}'
     text-subdue:
       $value: '{color.ui.contrast.60}'
       $extensions:
@@ -238,21 +238,21 @@ typography:
     $value:
       fontFamily: '{typography.family.base}'
       fontSize: 2.5rem
-      lineHeight: 1.4
+      lineHeight: 1.2
       letterSpacing: 0;
       fontWeight: 500
   h2:
     $value:
       fontFamily: '{typography.family.base}'
       fontSize: 1.875rem
-      lineHeight: 1.4
+      lineHeight: 1.2
       letterSpacing: 0
       fontWeight: 400
   h3:
     $value:
       fontFamily: '{typography.family.base}'
       fontSize: 1.375rem
-      lineHeight: 1.4
+      lineHeight: 1.2
       letterSpacing: 0
       fontWeight: 500
   h4:
