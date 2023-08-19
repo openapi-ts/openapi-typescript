@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.5.1
+
+### Patch Changes
+
+- [#1308](https://github.com/drwpow/openapi-typescript/pull/1308) [`ebb73b6`](https://github.com/drwpow/openapi-typescript/commit/ebb73b68c3a2f9a8c8193888735f9c0b7855722f) Thanks [@drwpow](https://github.com/drwpow)! - Fix bugs with remote $refs, add `cwd` option for JSON schema parsing
+
 ## 6.5.0
 
 ### Minor Changes
