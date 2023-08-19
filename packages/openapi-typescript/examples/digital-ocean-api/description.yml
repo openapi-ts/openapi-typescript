@@ -227,7 +227,9 @@ introduction: |
 
   If the `ratelimit-remaining` reaches zero, subsequent requests will receive
   a 429 error code until the request reset has been reached. You can see the
-  format of the response in the examples.
+  format of the response in the examples. `ratelimit-remaining` reaching zero 
+  can also indicate that the 250 requests per minute limit was met, even if 
+  the 5,000 requests per hour limit was not. 
 
   **Note:** The following endpoints have special rate limit requirements that
   are independent of the limits defined above.

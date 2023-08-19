@@ -12,9 +12,16 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RemoteType"
+  /ref-path:
+    $ref: "./nested-ref/_nested-ref-partial.yaml#~1ref-path"
 components:
+  parameters:
+    NestedParam:
+      $ref: "./nested-ref/_nested-ref-partial.yaml#StringParam"
   schemas:
+    NestedType:
+      $ref: "nested-ref/nested-ref-2/nested-ref-3/_nested-ref-3.yaml"
     RemoteType:
-      $ref: "./remote-ref-test-2.yaml#/components/schemas/SchemaType"
+      $ref: "_remote-ref-full.yaml#/components/schemas/SchemaType"
     RemotePartialType:
-      $ref: '_schema-test-partial.yaml#/PartialType'
+      $ref: "_remote-ref-partial.yaml#/PartialType"
