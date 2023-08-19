@@ -1,0 +1,25 @@
+{
+  "name": "sveltekit",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "prepare": "openapi-typescript src/lib/api/v1.json -o src/lib/api/v1.d.ts"
+  },
+  "dependencies": {
+    "openapi-fetch": "file:../..",
+    "openapi-typescript": "workspace:^"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^2.1.0",
+    "@sveltejs/kit": "^1.22.6",
+    "svelte": "^4.2.0",
+    "svelte-check": "^3.5.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.9"
+  },
+  "type": "module"
+}

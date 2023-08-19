@@ -74,7 +74,7 @@ openapi-fetch is simple vanilla JS that can be used in any project. But sometime
 
 ### React + React Query
 
-[React Query](https://tanstack.com/query/latest) is a perfect wrapper for openapi-fetch in React. At only 13 kB, it provides clientside caching and request deduping across async React components without too much client weight in return. And its type inference preserves openapi-fetch types perfectly with minimal setup.
+<a href="https://tanstack.com/query/latest" target="_blank" rel="noopener noreferrer">React Query</a> is a perfect wrapper for openapi-fetch in React. At only 13 kB, it provides clientside caching and request deduping across async React components without too much client weight in return. And its type inference preserves openapi-fetch types perfectly with minimal setup.
 
 [View a code example in GitHub](https://github.com/drwpow/openapi-typescript/tree/main/packages/openapi-fetch/examples/react-query)
 
@@ -82,9 +82,13 @@ openapi-fetch is simple vanilla JS that can be used in any project. But sometime
 
 TODO
 
-### SvelteKit
+### Svelte / SvelteKit
 
-TODO
+<a href="https://kit.svelte.dev" target="_blank" rel="noopener noreferrer">SvelteKit</a>’s automatic type inference can easily pick up openapi-fetch’s types in both clientside fetching and <a href="https://kit.svelte.dev/docs/load#page-data" target="_blank" rel="noopener noreferrer">Page Data</a> fetching. And it doesn’t need any additional libraries to work.
+
+_Note: if you’re using Svelte without SvelteKit, the root example in `src/routes/+page.svelte` doesn’t use any SvelteKit features and is generally-applicable to any setup._
+
+[View a code example in GitHub](https://github.com/drwpow/openapi-typescript/tree/main/packages/openapi-fetch/examples/sveltekit)
 
 ### Vue
 

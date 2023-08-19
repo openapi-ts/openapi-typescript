@@ -4,9 +4,9 @@ Example of using openapi-fetch with [React Query](https://tanstack.com/query/lat
 
 ## Setup
 
-```
+```sh
 pnpm i
 pnpm run dev
 ```
 
-You’ll then see the server running at `localhost:5173`
+You’ll see the server running at `localhost:5173`

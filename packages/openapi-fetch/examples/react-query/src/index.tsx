@@ -14,9 +14,11 @@ function Fact() {
     <div>
       {fact.isLoading && <div>Loading...</div>}
       {!!fact.error && <div>There was an error: {String(fact.error)}</div>}
-      <pre>
-        <code>{JSON.stringify(fact.data, undefined, 2)}</code>
-      </pre>
+      {!!fact.data && (
+        <pre>
+          <code>{JSON.stringify(fact.data, undefined, 2)}</code>
+        </pre>
+      )}
       <button type="button" onClick={() => fact.refetch()}>
         Another fact!
       </button>
