@@ -1,4 +1,4 @@
-import type { URL } from "node:url";
+import type { PathLike } from "node:fs";
 import type { RequestInfo, RequestInit, Response } from "undici";
 import type { TransformSchemaObjectOptions } from "./transform/schema-object.js";
 
@@ -614,7 +614,7 @@ export interface OpenAPITSOptions {
   /** Allow schema objects with no specified properties to have additional properties if not expressly forbidden? (default: false) */
   emptyObjectsUnknown?: boolean;
   /** Specify current working directory (cwd) to resolve remote schemas on disk (not needed for remote URL schemas) */
-  cwd?: URL;
+  cwd?: PathLike;
   /** Should schema objects with a default value not be considered optional? */
   defaultNonNullable?: boolean;
   /** Manually transform certain Schema Objects with a custom TypeScript type */
@@ -685,6 +685,7 @@ export type Subschema =
 export interface GlobalContext {
   additionalProperties: boolean;
   alphabetize: boolean;
+  cwd?: PathLike;
   emptyObjectsUnknown: boolean;
   defaultNonNullable: boolean;
   discriminators: { [$ref: string]: DiscriminatorObject };

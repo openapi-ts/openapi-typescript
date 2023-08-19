@@ -11,7 +11,7 @@ interface SchemaMap {
   [id: string]: Subschema;
 }
 
-const EXT_RE = /\.(yaml|yml|json)$/i;
+const EXT_RE = /\.(yaml|yml|json)#?\/?/i;
 export const VIRTUAL_JSON_URL = `file:///_json`; // fake URL reserved for dynamic JSON
 
 function parseYAML(schema: string) {
@@ -69,7 +69,7 @@ function parseHttpHeaders(httpHeaders: Record<string, unknown>): Record<string, 
         const stringVal = JSON.stringify(v);
         finalHeaders[k] = stringVal;
       } catch (err) {
-        error(`Cannot parse key: ${k} into JSON format. Continuing with the next HTTP header that is specified`);
+        error(`Can’t parse key: ${k} into JSON format. Continuing with the next HTTP header that is specified`);
       }
     }
   }
@@ -99,9 +99,13 @@ export default async function load(schema: URL | Subschema | Readable, options: 
     const hint = options.hint ?? "OpenAPI3";
 
     // normalize ID
-    if (schema.href !== options.rootURL.href) schemaID = relativePath(options.rootURL, schema);
+    if (schema.href !== options.rootURL.href) {
+      schemaID = relativePath(options.rootURL, schema);
+    }
 
-    if (options.urlCache.has(schemaID)) return options.schemas; // exit early if already indexed
+    if (options.urlCache.has(schemaID)) {
+      return options.schemas; // exit early if already indexed
+    }
     options.urlCache.add(schemaID);
 
     const ext = path.extname(schema.pathname).toLowerCase();
@@ -138,16 +142,17 @@ export default async function load(schema: URL | Subschema | Readable, options: 
     // local file
     else {
       const contents = fs.readFileSync(schema, "utf8");
-      if (ext === ".yaml" || ext === ".yml")
+      if (ext === ".yaml" || ext === ".yml") {
         options.schemas[schemaID] = {
           hint,
           schema: parseYAML(contents) as any, // eslint-disable-line @typescript-eslint/no-explicit-any
         };
-      else if (ext === ".json")
+      } else if (ext === ".json") {
         options.schemas[schemaID] = {
           hint,
           schema: parseJSON(contents),
         };
+      }
     }
   }
   // 1b. Readable stream
@@ -225,30 +230,23 @@ export default async function load(schema: URL | Subschema | Readable, options: 
     hintPath.push(...ref.path);
     const hint = isRemoteFullSchema ? "OpenAPI3" : getHint({ path: hintPath, external: !!ref.filename, startFrom: options.hint });
 
-    // if root schema is remote and this is a relative reference, treat as remote
-    if (schema instanceof URL) {
-      const nextURL = new URL(ref.filename, schema);
-      const nextID = relativePath(schema, nextURL);
-      if (options.urlCache.has(nextID)) return;
-      refPromises.push(load(nextURL, { ...options, hint }));
-      node.$ref = node.$ref.replace(ref.filename, nextID);
-      return;
-    }
-    // otherwise, if $ref is remote use that
     if (isRemoteURL(ref.filename) || isFilepath(ref.filename)) {
       const nextURL = new URL(ref.filename.startsWith("//") ? `https://${ref.filename}` : ref.filename);
-      if (options.urlCache.has(nextURL.href)) return;
       refPromises.push(load(nextURL, { ...options, hint }));
       node.$ref = node.$ref.replace(ref.filename, nextURL.href);
       return;
     }
-    // if this is dynamic JSON, we have no idea how to resolve external URLs, so throw here
+
+    // if this is dynamic JSON (with no cwd), we have no idea how to resolve external URLs, so throw here
     if (options.rootURL.href === VIRTUAL_JSON_URL) {
-      error(`Can’t resolve "${ref.filename}" from dynamic JSON. Load this schema from a URL instead.`);
+      error(`Can’t resolve "${ref.filename}" from dynamic JSON. Either load this schema from a filepath/URL, or set the \`cwd\` option: \`openapiTS(schema, { cwd: '/path/to/cwd' })\`.`);
       process.exit(1);
     }
-    error(`Can’t resolve "${ref.filename}"`);
-    process.exit(1);
+
+    const nextURL = new URL(ref.filename, schema instanceof URL ? schema : options.rootURL);
+    const nextID = relativePath(schema instanceof URL ? schema : options.rootURL, nextURL);
+    refPromises.push(load(nextURL, { ...options, hint }));
+    node.$ref = node.$ref.replace(ref.filename, nextID);
   });
   await Promise.all(refPromises);
 
@@ -322,7 +320,12 @@ export interface GetHintOptions {
   startFrom?: Subschema["hint"];
 }
 
-/** given a path array (an array of indices), what type of object is this? */
+/**
+ * Hinting
+ * A remote `$ref` may point to anything—A full OpenAPI schema, partial OpenAPI schema, Schema Object, Parameter Object, etc.
+ * The only way to parse its contents correctly is to trace the path from the root schema and infer the type it should be.
+ * “Hinting” is the process of tracing its lineage back to the root schema to invoke the correct transformations on it.
+ */
 export function getHint({ path, external, startFrom }: GetHintOptions): Subschema["hint"] | undefined {
   if (startFrom && startFrom !== "OpenAPI3") {
     switch (startFrom) {
@@ -332,6 +335,8 @@ export function getHint({ path, external, startFrom }: GetHintOptions): Subschem
         return getHintFromRequestBodyObject(path, external);
       case "ResponseObject":
         return getHintFromResponseObject(path, external);
+      case "SchemaMap":
+        return "SchemaObject";
       default:
         return startFrom;
     }

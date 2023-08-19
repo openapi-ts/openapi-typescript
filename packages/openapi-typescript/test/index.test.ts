@@ -1,4 +1,6 @@
-import { URL } from "node:url";
+import fs from "node:fs";
+import { URL, fileURLToPath } from "node:url";
+import yaml from "js-yaml";
 import openapiTS from "../dist/index.js";
 import type { OpenAPI3 } from "../src/types.js";
 import { readFile } from "./helpers.js";
@@ -286,10 +288,8 @@ export interface operations {
 `);
     });
 
-    /** test that remote $refs are loaded correctly */
-    test("remote $refs", async () => {
-      const generated = await openapiTS(new URL("./fixtures/remote-ref-test.yaml", import.meta.url));
-      expect(generated).toBe(`${BOILERPLATE}
+    describe("remote $refs", () => {
+      const expected = `${BOILERPLATE}
 export interface paths {
   "/": {
     get: {
@@ -303,29 +303,28 @@ export interface paths {
       };
     };
   };
+  "/ref-path": external["nested-ref/_nested-ref-partial.yaml"];
 }
 
 export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
-    RemoteType: external["remote-ref-test-2.yaml"]["components"]["schemas"]["SchemaType"];
-    RemotePartialType: external["_schema-test-partial.yaml"]["PartialType"];
+    NestedType: external["nested-ref/nested-ref-2/nested-ref-3/_nested-ref-3.yaml"];
+    RemoteType: external["_remote-ref-full.yaml"]["components"]["schemas"]["SchemaType"];
+    RemotePartialType: external["_remote-ref-partial.yaml"]["PartialType"];
   };
   responses: never;
-  parameters: never;
+  parameters: {
+    NestedParam: external["nested-ref/_nested-ref-partial.yaml"];
+  };
   requestBodies: never;
   headers: never;
   pathItems: never;
 }
 
 export interface external {
-  "_schema-test-partial.yaml": {
-    PartialType: {
-      foo: string;
-    };
-  };
-  "remote-ref-test-2.yaml": {
+  "_remote-ref-full.yaml": {
     paths: {
       "/": {
         get: {
@@ -353,10 +352,58 @@ export interface external {
       pathItems: never;
     };
   };
+  "_remote-ref-partial.yaml": {
+    PartialType: {
+      foo: string;
+    };
+  };
+  "nested-ref/_nested-ref-partial.yaml": {
+    "/ref-path": {
+      get: {
+        responses: {
+          /** @description OK */
+          200: {
+            content: {
+              "application/json": external["nested-ref/nested-ref-2/_nested-ref-2.yaml"];
+            };
+          };
+        };
+      };
+    };
+    StringParam: string;
+  };
+  "nested-ref/nested-ref-2/_nested-ref-2.yaml": {
+    string?: string;
+  };
+  "nested-ref/nested-ref-2/nested-ref-3/_nested-ref-3.yaml": external["nested-ref/nested-ref-2/_nested-ref-2.yaml"];
 }
 
 export type operations = Record<string, never>;
-`);
+`;
+
+      /** test that remote $refs are loaded correctly */
+      test("remote $refs", async () => {
+        const generated = await openapiTS(new URL("./fixtures/remote-ref-test.yaml", import.meta.url));
+        expect(generated).toBe(expected);
+      });
+
+      test("remote $refs (string path)", async () => {
+        // mock process.cwd() so this test doesn’t throw just because you’re not in a specific directory
+        vi.mock("process", () => ({ cwd: () => fileURLToPath(import.meta.url) }));
+
+        const generated = await openapiTS("test/fixtures/remote-ref-test.yaml");
+        expect(generated).toBe(expected);
+
+        // unmock process.cwd()
+        vi.unmock("process");
+      });
+
+      test("remote $refs (root schema JS object)", async () => {
+        const cwd = new URL("./fixtures/", import.meta.url);
+        const root = yaml.load(fs.readFileSync(new URL("remote-ref-test.yaml", cwd), "utf8"));
+        const generated = await openapiTS(root as any, { cwd });
+        expect(generated).toBe(expected);
+      });
     });
 
     /** test that path item objects accept $refs at the top level */

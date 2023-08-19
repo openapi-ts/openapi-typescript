@@ -705,7 +705,7 @@ export interface external {
      * @example 50a994b6-c303-438f-9495-7e896cfe6b08
      */
     cluster_uuid: string;
-  }
+  };
   "resources/1-clicks/models/oneClicks.yml": {
     /**
      * slug
@@ -719,7 +719,7 @@ export interface external {
      * @example kubernetes
      */
     type: string;
-  }
+  };
   /**
    * Install Kubernetes 1-Click Applications
    * @description To install a Kubernetes 1-Click application on a cluster, send a POST request to
@@ -865,7 +865,7 @@ export interface external {
        */
       name?: string;
     };
-  }
+  };
   "resources/account/responses/account.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -958,7 +958,7 @@ export interface external {
     resource_type?: string;
     region?: external["resources/regions/models/region.yml"];
     region_slug?: external["resources/regions/models/region.yml"]["slug"] & (string | null);
-  }
+  };
   "resources/actions/parameters.yml": {
     action_id: number;
   };
@@ -1626,8 +1626,8 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/apps/models/app_alert_email.yml": string
-  "resources/apps/models/app_alert_phase.yml": "UNKNOWN" | "PENDING" | "CONFIGURING" | "ACTIVE" | "ERROR"
+  "resources/apps/models/app_alert_email.yml": string;
+  "resources/apps/models/app_alert_phase.yml": "UNKNOWN" | "PENDING" | "CONFIGURING" | "ACTIVE" | "ERROR";
   "resources/apps/models/app_alert_progress_step_reason.yml": {
     /**
      * The error code
@@ -1639,8 +1639,8 @@ export interface external {
      * @example This is an error
      */
     message?: string;
-  }
-  "resources/apps/models/app_alert_progress_step_status.yml": "UNKNOWN" | "PENDING" | "RUNNING" | "ERROR" | "SUCCESS"
+  };
+  "resources/apps/models/app_alert_progress_step_status.yml": "UNKNOWN" | "PENDING" | "RUNNING" | "ERROR" | "SUCCESS";
   "resources/apps/models/app_alert_progress_step.yml": {
     /**
      * The name of this step
@@ -1661,11 +1661,11 @@ export interface external {
      */
     ended_at?: string;
     reason?: external["resources/apps/models/app_alert_progress_step_reason.yml"];
-  }
+  };
   "resources/apps/models/app_alert_progress.yml": {
     /** Steps of an alert's progress. */
     steps?: external["resources/apps/models/app_alert_progress_step.yml"][];
-  }
+  };
   "resources/apps/models/app_alert_slack_webhook.yml": {
     /**
      * URL of the Slack webhook
@@ -1677,10 +1677,10 @@ export interface external {
      * @example Channel Name
      */
     channel?: string;
-  }
-  "resources/apps/models/app_alert_spec_operator.yml": "UNSPECIFIED_OPERATOR" | "GREATER_THAN" | "LESS_THAN"
-  "resources/apps/models/app_alert_spec_rule.yml": "UNSPECIFIED_RULE" | "CPU_UTILIZATION" | "MEM_UTILIZATION" | "RESTART_COUNT" | "DEPLOYMENT_FAILED" | "DEPLOYMENT_LIVE" | "DOMAIN_FAILED" | "DOMAIN_LIVE" | "FUNCTIONS_ACTIVATION_COUNT" | "FUNCTIONS_AVERAGE_DURATION_MS" | "FUNCTIONS_ERROR_RATE_PER_MINUTE" | "FUNCTIONS_AVERAGE_WAIT_TIME_MS" | "FUNCTIONS_ERROR_COUNT" | "FUNCTIONS_GB_RATE_PER_SECOND"
-  "resources/apps/models/app_alert_spec_window.yml": "UNSPECIFIED_WINDOW" | "FIVE_MINUTES" | "TEN_MINUTES" | "THIRTY_MINUTES" | "ONE_HOUR"
+  };
+  "resources/apps/models/app_alert_spec_operator.yml": "UNSPECIFIED_OPERATOR" | "GREATER_THAN" | "LESS_THAN";
+  "resources/apps/models/app_alert_spec_rule.yml": "UNSPECIFIED_RULE" | "CPU_UTILIZATION" | "MEM_UTILIZATION" | "RESTART_COUNT" | "DEPLOYMENT_FAILED" | "DEPLOYMENT_LIVE" | "DOMAIN_FAILED" | "DOMAIN_LIVE" | "FUNCTIONS_ACTIVATION_COUNT" | "FUNCTIONS_AVERAGE_DURATION_MS" | "FUNCTIONS_ERROR_RATE_PER_MINUTE" | "FUNCTIONS_AVERAGE_WAIT_TIME_MS" | "FUNCTIONS_ERROR_COUNT" | "FUNCTIONS_GB_RATE_PER_SECOND";
+  "resources/apps/models/app_alert_spec_window.yml": "UNSPECIFIED_WINDOW" | "FIVE_MINUTES" | "TEN_MINUTES" | "THIRTY_MINUTES" | "ONE_HOUR";
   "resources/apps/models/app_alert_spec.yml": {
     rule?: external["resources/apps/models/app_alert_spec_rule.yml"];
     /**
@@ -1696,7 +1696,7 @@ export interface external {
      */
     value?: number;
     window?: external["resources/apps/models/app_alert_spec_window.yml"];
-  }
+  };
   "resources/apps/models/app_alert.yml": {
     /**
      * The ID of the alert
@@ -1720,7 +1720,7 @@ export interface external {
     slack_webhooks?: external["resources/apps/models/app_alert_slack_webhook.yml"][];
     phase?: external["resources/apps/models/app_alert_phase.yml"];
     progress?: external["resources/apps/models/app_alert_progress.yml"];
-  }
+  };
   "resources/apps/models/app_component_base.yml": {
     /**
      * @description The name. Must be unique across all components within the same app.
@@ -1759,7 +1759,7 @@ export interface external {
      */
     environment_slug?: string;
     log_destinations?: external["resources/apps/models/app_log_destination_definition.yml"];
-  }
+  };
   "resources/apps/models/app_component_instance_base.yml": {
     /**
      * Format: int64
@@ -1775,7 +1775,7 @@ export interface external {
      * @enum {string}
      */
     instance_size_slug?: "basic-xxs" | "basic-xs" | "basic-s" | "basic-m" | "professional-xs" | "professional-s" | "professional-m" | "professional-1l" | "professional-l" | "professional-xl";
-  }
+  };
   "resources/apps/models/app_database_spec.yml": {
     /**
      * @description The name of the underlying DigitalOcean DBaaS cluster. This is required for production databases. For dev databases, if cluster_name is not set, a new cluster will be provisioned.
@@ -1816,7 +1816,7 @@ export interface external {
      * @example 12
      */
     version?: string;
-  }
+  };
   "resources/apps/models/app_domain_spec.yml": {
     /**
      * @description The hostname for the domain
@@ -1854,7 +1854,7 @@ export interface external {
      * @enum {string}
      */
     minimum_tls_version?: "1.2" | "1.3";
-  }
+  };
   "resources/apps/models/app_domain_validation.yml": {
     /**
      * TXT record name
@@ -1866,7 +1866,7 @@ export interface external {
      * @example lXLOcN6cPv0nproViNcUHcahD9TrIPlNgdwesj0pYpk
      */
     txt_value?: string;
-  }
+  };
   "resources/apps/models/app_functions_spec.yml": {
     cors?: external["resources/apps/models/apps_cors_policy.yml"];
     /** @description A list of HTTP routes that should be routed to this component. */
@@ -1888,10 +1888,10 @@ export interface external {
     github?: external["resources/apps/models/apps_github_source_spec.yml"];
     gitlab?: external["resources/apps/models/apps_gitlab_source_spec.yml"];
     log_destinations?: external["resources/apps/models/app_log_destination_definition.yml"];
-  }
+  };
   "resources/apps/models/app_ingress_spec_rule_match.yml": {
     path: external["resources/apps/models/app_ingress_spec_rule_string_match.yml"];
-  }
+  };
   "resources/apps/models/app_ingress_spec_rule_routing_component.yml": {
     /**
      * @description The name of the component to route to.
@@ -1908,7 +1908,7 @@ export interface external {
      * @example /api/v1/
      */
     rewrite?: string;
-  }
+  };
   "resources/apps/models/app_ingress_spec_rule_routing_redirect.yml": {
     /**
      * @description An optional URI path to redirect to. Note: if this is specified the whole URI of the original request will be overwritten to this value, irrespective of the original request URI being matched.
@@ -1937,24 +1937,24 @@ export interface external {
      * @example 302
      */
     redirect_code?: number;
-  }
+  };
   "resources/apps/models/app_ingress_spec_rule_string_match.yml": {
     /**
      * @description Prefix-based match. For example, `/api` will match `/api`, `/api/`, and any nested paths such as `/api/v1/endpoint`.
      * @example /api
      */
     prefix: string;
-  }
+  };
   "resources/apps/models/app_ingress_spec_rule.yml": {
     match?: external["resources/apps/models/app_ingress_spec_rule_match.yml"];
     cors?: external["resources/apps/models/apps_cors_policy.yml"];
     component?: external["resources/apps/models/app_ingress_spec_rule_routing_component.yml"];
     redirect?: external["resources/apps/models/app_ingress_spec_rule_routing_redirect.yml"];
-  }
+  };
   "resources/apps/models/app_ingress_spec.yml": {
     /** @description Rules for configuring HTTP ingress for component routes, CORS, rewrites, and redirects. */
     rules?: external["resources/apps/models/app_ingress_spec_rule.yml"][];
-  }
+  };
   "resources/apps/models/app_job_spec.yml": external["resources/apps/models/app_component_base.yml"] & external["resources/apps/models/app_component_instance_base.yml"] & ({
     /**
      * @description - UNSPECIFIED: Default job type, will auto-complete to POST_DEPLOY kind.
@@ -1966,7 +1966,7 @@ export interface external {
      * @enum {string}
      */
     kind?: "UNSPECIFIED" | "PRE_DEPLOY" | "POST_DEPLOY" | "FAILED_DEPLOY";
-  })
+  });
   "resources/apps/models/app_log_destination_datadog_spec.yml": {
     /**
      * @description Datadog HTTP log intake endpoint.
@@ -1978,28 +1978,28 @@ export interface external {
      * @example abcdefghijklmnopqrstuvwxyz0123456789
      */
     api_key: string;
-  }
+  };
   "resources/apps/models/app_log_destination_definition.yml": {
     /** @example my_log_destination */
     name: string;
     papertrail?: external["resources/apps/models/app_log_destination_papertrail_spec.yml"];
     datadog?: external["resources/apps/models/app_log_destination_datadog_spec.yml"];
     logtail?: external["resources/apps/models/app_log_destination_logtail_spec.yml"];
-  }
+  };
   "resources/apps/models/app_log_destination_logtail_spec.yml": {
     /**
      * @description Logtail token.
      * @example abcdefghijklmnopqrstuvwxyz0123456789
      */
     token?: string;
-  }
+  };
   "resources/apps/models/app_log_destination_papertrail_spec.yml": {
     /**
      * @description Papertrail syslog endpoint.
      * @example https://mypapertrailendpoint.com
      */
     endpoint: string;
-  }
+  };
   "resources/apps/models/app_metrics_bandwidth_usage_details.yml": {
     /**
      * @description The ID of the app.
@@ -2012,7 +2012,7 @@ export interface external {
      * @example 513668
      */
     bandwidth_bytes?: string;
-  }
+  };
   "resources/apps/models/app_metrics_bandwidth_usage_request.yml": {
     /**
      * @description A list of app IDs to query bandwidth metrics for.
@@ -2028,7 +2028,7 @@ export interface external {
      * @example "2023-01-17T00:00:00.000Z"
      */
     date?: string;
-  }
+  };
   "resources/apps/models/app_metrics_bandwidth_usage.yml": {
     /** @description A list of bandwidth usage details by app. */
     app_bandwidth_usage?: external["resources/apps/models/app_metrics_bandwidth_usage_details.yml"][];
@@ -2038,7 +2038,7 @@ export interface external {
      * @example "2023-01-17T00:00:00.000Z"
      */
     date?: string;
-  }
+  };
   "resources/apps/models/app_propose_response.yml": {
     /**
      * @description Indicates whether the app is a static app.
@@ -2073,7 +2073,7 @@ export interface external {
      * @example 17
      */
     app_tier_downgrade_cost?: number;
-  }
+  };
   "resources/apps/models/app_propose.yml": {
     spec: external["resources/apps/models/app_spec.yml"];
     /**
@@ -2081,10 +2081,10 @@ export interface external {
      * @example b6bdf840-2854-4f87-a36c-5f231c617c84
      */
     app_id?: string;
-  }
+  };
   "resources/apps/models/app_response.yml": {
     app?: external["resources/apps/models/app.yml"];
-  }
+  };
   "resources/apps/models/app_rollback_validation_condition.yml": {
     /**
      * @description A code identifier that represents the failing condition.
@@ -2116,7 +2116,7 @@ export interface external {
      * ]
      */
     components?: string[];
-  }
+  };
   "resources/apps/models/app_route_spec.yml": {
     /**
      * @description An HTTP path prefix. Paths must start with / and must be unique across all components within an app.
@@ -2128,7 +2128,7 @@ export interface external {
      * @example true
      */
     preserve_path_prefix?: boolean;
-  }
+  };
   "resources/apps/models/app_service_spec_health_check.yml": {
     /**
      * Format: int32
@@ -2171,7 +2171,7 @@ export interface external {
      * @example 45
      */
     timeout_seconds?: number;
-  }
+  };
   "resources/apps/models/app_service_spec.yml": external["resources/apps/models/app_component_base.yml"] & external["resources/apps/models/app_component_instance_base.yml"] & {
     cors?: external["resources/apps/models/apps_cors_policy.yml"];
     health_check?: external["resources/apps/models/app_service_spec_health_check.yml"];
@@ -2192,7 +2192,7 @@ export interface external {
     internal_ports?: number[];
     /** @description A list of HTTP routes that should be routed to this component. */
     routes?: external["resources/apps/models/app_route_spec.yml"][];
-  }
+  };
   "resources/apps/models/app_spec.yml": {
     /**
      * @description The name of the app. Must be unique across all apps in the same account.
@@ -2223,7 +2223,7 @@ export interface external {
      */
     databases?: external["resources/apps/models/app_database_spec.yml"][];
     ingress?: external["resources/apps/models/app_ingress_spec.yml"];
-  }
+  };
   "resources/apps/models/app_static_site_spec.yml": WithRequired<external["resources/apps/models/app_component_base.yml"] & {
     /**
      * @description The name of the index document to use when serving this static site. Default: index.html
@@ -2250,7 +2250,7 @@ export interface external {
     cors?: external["resources/apps/models/apps_cors_policy.yml"];
     /** @description A list of HTTP routes that should be routed to this component. */
     routes?: external["resources/apps/models/app_route_spec.yml"][];
-  }, "name">
+  }, "name">;
   "resources/apps/models/app_variable_definition.yml": {
     /**
      * @description The variable name
@@ -2279,8 +2279,8 @@ export interface external {
      * @example http://example.com
      */
     value?: string;
-  }
-  "resources/apps/models/app_worker_spec.yml": WithRequired<external["resources/apps/models/app_component_base.yml"] & external["resources/apps/models/app_component_instance_base.yml"], "name">
+  };
+  "resources/apps/models/app_worker_spec.yml": WithRequired<external["resources/apps/models/app_component_base.yml"] & external["resources/apps/models/app_component_instance_base.yml"], "name">;
   "resources/apps/models/app.yml": {
     active_deployment?: external["resources/apps/models/apps_deployment.yml"];
     /**
@@ -2348,10 +2348,10 @@ export interface external {
      */
     updated_at?: string;
     pinned_deployment?: external["resources/apps/models/apps_deployment.yml"];
-  }
+  };
   "resources/apps/models/apps_alert_response.yml": {
     alert?: external["resources/apps/models/app_alert.yml"];
-  }
+  };
   "resources/apps/models/apps_assign_app_alert_destinations_request.yml": {
     /**
      * @example [
@@ -2360,7 +2360,7 @@ export interface external {
      */
     emails?: external["resources/apps/models/app_alert_email.yml"][];
     slack_webhooks?: external["resources/apps/models/app_alert_slack_webhook.yml"][];
-  }
+  };
   "resources/apps/models/apps_cors_policy.yml": {
     /**
      * @description The set of allowed CORS origins.
@@ -2412,26 +2412,26 @@ export interface external {
      * @example false
      */
     allow_credentials?: boolean;
-  }
+  };
   "resources/apps/models/apps_create_app_request.yml": {
     spec: external["resources/apps/models/app_spec.yml"];
     /** @description The ID of the project the app should be assigned to. If omitted, it will be assigned to your default project. */
     project_id?: string;
-  }
+  };
   "resources/apps/models/apps_create_deployment_request.yml": {
     /**
      * Indicates whether to force a build of app from source even if an existing cached build is suitable for re-use
      * @example true
      */
     force_build?: boolean;
-  }
+  };
   "resources/apps/models/apps_delete_app_response.yml": {
     /**
      * The ID of the app that was deleted
      * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
      */
     id?: string;
-  }
+  };
   "resources/apps/models/apps_deployment_functions.yml": {
     /**
      * The name of this functions component
@@ -2448,7 +2448,7 @@ export interface external {
      * @example ap-b2a93513-8d9b-4223-9d61-5e7272c81c32
      */
     namespace?: string;
-  }
+  };
   "resources/apps/models/apps_deployment_job.yml": {
     /**
      * The name of this job
@@ -2460,8 +2460,8 @@ export interface external {
      * @example 54d4a727f457231062439895000d45437c7bb405
      */
     source_commit_hash?: string;
-  }
-  "resources/apps/models/apps_deployment_phase.yml": "UNKNOWN" | "PENDING_BUILD" | "BUILDING" | "PENDING_DEPLOY" | "DEPLOYING" | "ACTIVE" | "SUPERSEDED" | "ERROR" | "CANCELED"
+  };
+  "resources/apps/models/apps_deployment_phase.yml": "UNKNOWN" | "PENDING_BUILD" | "BUILDING" | "PENDING_DEPLOY" | "DEPLOYING" | "ACTIVE" | "SUPERSEDED" | "ERROR" | "CANCELED";
   "resources/apps/models/apps_deployment_progress_step_reason.yml": {
     /**
      * The error code
@@ -2473,8 +2473,8 @@ export interface external {
      * @example This is an error
      */
     message?: string;
-  }
-  "resources/apps/models/apps_deployment_progress_step_status.yml": "UNKNOWN" | "PENDING" | "RUNNING" | "ERROR" | "SUCCESS"
+  };
+  "resources/apps/models/apps_deployment_progress_step_status.yml": "UNKNOWN" | "PENDING" | "RUNNING" | "ERROR" | "SUCCESS";
   "resources/apps/models/apps_deployment_progress_step.yml": {
     /**
      * The component name that this step is associated with
@@ -2510,7 +2510,7 @@ export interface external {
     status?: external["resources/apps/models/apps_deployment_progress_step_status.yml"];
     /** Child steps of this step */
     steps?: Record<string, never>[];
-  }
+  };
   "resources/apps/models/apps_deployment_progress.yml": {
     /**
      * Number of unsuccessful steps
@@ -2546,10 +2546,10 @@ export interface external {
      * @example 5
      */
     total_steps?: number;
-  }
+  };
   "resources/apps/models/apps_deployment_response.yml": {
     deployment?: external["resources/apps/models/apps_deployment.yml"];
-  }
+  };
   "resources/apps/models/apps_deployment_service.yml": {
     /**
      * The name of this service
@@ -2561,7 +2561,7 @@ export interface external {
      * @example 54d4a727f457231062439895000d45437c7bb405
      */
     source_commit_hash?: string;
-  }
+  };
   "resources/apps/models/apps_deployment_static_site.yml": {
     /**
      * The name of this static site
@@ -2573,7 +2573,7 @@ export interface external {
      * @example 54d4a727f457231062439895000d45437c7bb405
      */
     source_commit_hash?: string;
-  }
+  };
   "resources/apps/models/apps_deployment_worker.yml": {
     /**
      * The name of this worker
@@ -2585,7 +2585,7 @@ export interface external {
      * @example 54d4a727f457231062439895000d45437c7bb405
      */
     source_commit_hash?: string;
-  }
+  };
   "resources/apps/models/apps_deployment.yml": {
     /**
      * What caused this deployment to be created
@@ -2638,16 +2638,16 @@ export interface external {
     updated_at?: string;
     /** Worker components that are part of this deployment */
     workers?: external["resources/apps/models/apps_deployment_worker.yml"][];
-  }
+  };
   "resources/apps/models/apps_deployments_response.yml": {
     /** A list of deployments */
     deployments?: external["resources/apps/models/apps_deployment.yml"][];
-  } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"]
-  "resources/apps/models/apps_domain_phase.yml": "UNKNOWN" | "PENDING" | "CONFIGURING" | "ACTIVE" | "ERROR"
+  } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
+  "resources/apps/models/apps_domain_phase.yml": "UNKNOWN" | "PENDING" | "CONFIGURING" | "ACTIVE" | "ERROR";
   "resources/apps/models/apps_domain_progress.yml": {
     /** The steps of the domain's progress */
     steps?: Record<string, never>[];
-  }
+  };
   "resources/apps/models/apps_domain.yml": {
     /**
      * The ID of the domain
@@ -2667,10 +2667,10 @@ export interface external {
      * @example 2024-01-29T23:59:59Z
      */
     certificate_expires_at?: string;
-  }
+  };
   "resources/apps/models/apps_get_instance_size_response.yml": {
     instance_size?: external["resources/apps/models/apps_instance_size.yml"];
-  }
+  };
   "resources/apps/models/apps_get_logs_response.yml": {
     /** A list of URLs to archived log files */
     historic_urls?: string[];
@@ -2679,10 +2679,10 @@ export interface external {
      * @example ws://logs/build
      */
     live_url?: string;
-  }
+  };
   "resources/apps/models/apps_get_tier_response.yml": {
     tier?: external["resources/apps/models/apps_tier.yml"];
-  }
+  };
   "resources/apps/models/apps_git_source_spec.yml": {
     /**
      * @description The name of the branch to use
@@ -2694,7 +2694,7 @@ export interface external {
      * @example https://github.com/digitalocean/sample-golang.git
      */
     repo_clone_url?: string;
-  }
+  };
   "resources/apps/models/apps_github_source_spec.yml": {
     /**
      * @description The name of the branch to use
@@ -2711,7 +2711,7 @@ export interface external {
      * @example digitalocean/sample-golang
      */
     repo?: string;
-  }
+  };
   "resources/apps/models/apps_gitlab_source_spec.yml": {
     /**
      * @description The name of the branch to use
@@ -2728,7 +2728,7 @@ export interface external {
      * @example digitalocean/sample-golang
      */
     repo?: string;
-  }
+  };
   "resources/apps/models/apps_image_source_spec.yml": {
     /**
      * @description The registry name. Must be left empty for the `DOCR` registry type.
@@ -2753,7 +2753,7 @@ export interface external {
      * @example latest
      */
     tag?: string;
-  }
+  };
   "resources/apps/models/apps_instance_size.yml": {
     cpu_type?: external["resources/apps/models/instance_size_cpu_type.yml"];
     /**
@@ -2803,10 +2803,10 @@ export interface external {
      * @example 0.00000001232
      */
     usd_per_second?: string;
-  }
+  };
   "resources/apps/models/apps_list_alerts_response.yml": {
     alerts?: external["resources/apps/models/app_alert.yml"][];
-  }
+  };
   "resources/apps/models/apps_list_instance_sizes_response.yml": {
     /**
      * Format: float
@@ -2814,13 +2814,13 @@ export interface external {
      */
     discount_percent?: number;
     instance_sizes?: external["resources/apps/models/apps_instance_size.yml"][];
-  }
+  };
   "resources/apps/models/apps_list_regions_response.yml": {
     regions?: external["resources/apps/models/apps_region.yml"][];
-  }
+  };
   "resources/apps/models/apps_list_tiers_response.yml": {
     tiers?: external["resources/apps/models/apps_tier.yml"][];
-  }
+  };
   "resources/apps/models/apps_region.yml": {
     /**
      * The continent that this region is in
@@ -2864,11 +2864,11 @@ export interface external {
      * @example basic
      */
     slug?: string;
-  }
+  };
   "resources/apps/models/apps_response.yml": {
     /** A list of apps */
     apps?: external["resources/apps/models/app.yml"][];
-  } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"]
+  } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
   "resources/apps/models/apps_rollback_app_request.yml": {
     /**
      * @description The ID of the deployment to rollback to.
@@ -2880,7 +2880,7 @@ export interface external {
      * @example false
      */
     skip_pin?: boolean;
-  }
+  };
   "resources/apps/models/apps_string_match.yml": {
     /**
      * @description Exact string match. Only 1 of `exact`, `prefix`, or `regex` must be set.
@@ -2897,7 +2897,7 @@ export interface external {
      * @example ^.*example.com
      */
     regex?: string;
-  }
+  };
   "resources/apps/models/apps_tier.yml": {
     /**
      * The amount of included build time in seconds
@@ -2927,11 +2927,11 @@ export interface external {
      * @example 10000000
      */
     storage_bytes?: string;
-  }
+  };
   "resources/apps/models/apps_update_app_request.yml": {
     spec: external["resources/apps/models/app_spec.yml"];
-  }
-  "resources/apps/models/instance_size_cpu_type.yml": "UNSPECIFIED" | "SHARED" | "DEDICATED"
+  };
+  "resources/apps/models/instance_size_cpu_type.yml": "UNSPECIFIED" | "SHARED" | "DEDICATED";
   "resources/apps/parameters.yml": {
     accept?: "application/json" | "application/yaml";
     "content-type"?: "application/json" | "application/yaml";
@@ -3310,7 +3310,7 @@ export interface external {
      * @example "2019-07-09T15:01:12.000Z"
      */
     generated_at?: string;
-  }
+  };
   "resources/billing/models/billing_address.yml": {
     /**
      * @description Street address line 1
@@ -3352,7 +3352,7 @@ export interface external {
      * @example "2019-09-03T16:34:46.000Z"
      */
     updated_at?: string;
-  }
+  };
   "resources/billing/models/billing_history.yml": {
     /**
      * @description Description of the billing history entry.
@@ -3386,7 +3386,7 @@ export interface external {
      * @enum {string}
      */
     type?: "ACHFailure" | "Adjustment" | "AttemptFailed" | "Chargeback" | "Credit" | "CreditExpiration" | "Invoice" | "Payment" | "Refund" | "Reversal";
-  }
+  };
   "resources/billing/models/invoice_item.yml": {
     /**
      * @description Name of the product being billed in the invoice item.
@@ -3443,7 +3443,7 @@ export interface external {
      * @example web
      */
     project_name?: string;
-  }
+  };
   "resources/billing/models/invoice_preview.yml": {
     /**
      * @description The UUID of the invoice. The canonical reference for the invoice.
@@ -3465,7 +3465,7 @@ export interface external {
      * @example "2020-01-23T06:31:50.000Z"
      */
     updated_at?: string;
-  }
+  };
   "resources/billing/models/invoice_summary.yml": {
     /**
      * @description UUID of the invoice
@@ -3502,7 +3502,7 @@ export interface external {
     overages?: external["resources/billing/models/simple_charge.yml"];
     taxes?: external["resources/billing/models/simple_charge.yml"];
     credits_and_adjustments?: external["resources/billing/models/simple_charge.yml"];
-  }
+  };
   "resources/billing/models/product_charge_item.yml": {
     /**
      * @description Amount of the charge
@@ -3519,7 +3519,7 @@ export interface external {
      * @example 1
      */
     count?: string;
-  }
+  };
   "resources/billing/models/product_usage_charges.yml": {
     /**
      * @description Description of usage charges
@@ -3547,7 +3547,7 @@ export interface external {
      * ]
      */
     items?: external["resources/billing/models/product_charge_item.yml"][];
-  }
+  };
   "resources/billing/models/simple_charge.yml": {
     /**
      * @description Name of the charge
@@ -3559,7 +3559,7 @@ export interface external {
      * @example 3.45
      */
     amount?: string;
-  }
+  };
   "resources/billing/parameters.yml": {
     invoice_uuid: string;
   };
@@ -3827,7 +3827,7 @@ export interface external {
      * @example 2018-03-21T16:02:37Z
      */
     created_at?: string;
-  }
+  };
   "resources/cdn/models/purge_cache.yml": {
     /**
      * @description An array of strings containing the path to the content to be purged from the CDN cache.
@@ -3837,7 +3837,7 @@ export interface external {
      * ]
      */
     files: string[];
-  }
+  };
   "resources/cdn/models/update_endpoint.yml": {
     /**
      * @description The amount of time the content is cached by the CDN's edge servers in seconds. TTL must be one of 60, 600, 3600, 86400, or 604800. Defaults to 3600 (one hour) when excluded.
@@ -3858,7 +3858,7 @@ export interface external {
      * @example static.example.com
      */
     custom_domain?: string;
-  }
+  };
   "resources/cdn/parameters.yml": {
     cdn_endpoint_id: string;
   };
@@ -4173,7 +4173,7 @@ export interface external {
      * @enum {string}
      */
     type?: "custom" | "lets_encrypt";
-  }
+  };
   "resources/certificates/parameters.yml": {
     certificate_id: string;
   };
@@ -5353,14 +5353,14 @@ export interface external {
      * @example 0.03364864
      */
     size_gigabytes: number;
-  }
+  };
   "resources/databases/models/ca.yml": {
     /**
      * @description base64 encoding of the certificate used to secure database connections
      * @example LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUVRVENDQXFtZ0F3SUJBZ0lVRUZZWTdBWFZQS0Raam9jb1lpMk00Y0dvcU0wd0RRWUpLb1pJaHZjTkFRRU0KQlFBd09qRTRNRFlHQTFVRUF3d3ZOek0zT1RaaE1XRXRaamhrTUMwME9HSmpMV0V4Wm1NdFpqbGhNVFZsWXprdwpORGhsSUZCeWIycGxZM1FnUTBFd0hoY05NakF3TnpFM01UVTFNREEyV2hjTk16QXdOekUxTVRVMU1EQTJXakE2Ck1UZ3dOZ1lEVlFRRERDODNNemM1Tm1FeFlTMW1PR1F3TFRRNFltTXRZVEZtWXkxbU9XRXhOV1ZqT1RBME9HVWcKVUhKdmFtVmpkQ0JEUVRDQ0FhSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnR1BBRENDQVlvQ2dnR0JBTVdScXhycwpMZnpNdHZyUmxKVEw4MldYMVBLZkhKbitvYjNYcmVBY3FZd1dBUUp2Q3IycmhxSXZieVZzMGlaU0NzOHI4c3RGClljQ0R1bkxJNmUwTy9laERZYTBIT2RrMkFFRzE1ckVOVmNha2NSczcyQWlHVHNrdkNXS2VkUjFTUWswVWt0WCsKQUg4S1ExS3F5bzNtZ2Y2cVV1WUpzc3JNTXFselk3YTN1RVpEb2ZqTjN5Q3MvM21pTVJKcVcyNm1JV0IrUUlEbAo5YzdLRVF5MTZvdCtjeHVnd0lLMm9oZHMzaFY1bjBKMFVBM0I3QWRBdXY5aUl5L3JHaHlTNm5CNTdaWm9JZnAyCnFybXdOY0UrVjlIdXhQSGtRVjFOQjUwOFFudWZ4Z0E5VCtqU2VrdGVUbWFORkxqNjFXL3BtcndrTytOaWFXUTIKaGgzVXBKOEozY1BoNkErbHRnUmpSV2NEb2lsYVNwRVVpU09WemNNYVFvalZKYVJlNk9NbnZYc29NaSs3ZzdneApWcittQ0lUcGcvck9DaXpBWWQ2UFAxLzdYTjk1ZXNmU2tBQnM5c3hJakpjTUFqbDBYTEFzRmtGZVdyeHNIajlVCmJnaDNWYXdtcnpUeXhZT0RQcXV1cS9JcGlwc0RRT3Fpb2ZsUStkWEJJL3NUT0NNbVp6K0pNcG5HYXdJREFRQUIKb3o4d1BUQWRCZ05WSFE0RUZnUVVSekdDRlE3WEtUdHRDN3JzNS8ydFlQcExTZGN3RHdZRFZSMFRCQWd3QmdFQgovd0lCQURBTEJnTlZIUThFQkFNQ0FRWXdEUVlKS29aSWh2Y05BUUVNQlFBRGdnR0JBSWFKQ0dSVVNxUExtcmcvCmk3MW10b0NHUDdzeG1BVXVCek1oOEdrU25uaVdaZnZGMTRwSUtqTlkwbzVkWmpHKzZqK1VjalZtK0RIdGE1RjYKOWJPeEk5S0NFeEI1blBjRXpMWjNZYitNOTcrellxbm9zUm85S21DVFJBb2JrNTZ0WU1FS1h1aVJja2tkMm1yUQo4cGw2N2xxdThjM1V4c0dHZEZVT01wMkk3ZTNpdUdWVm5UR0ZWM3JQZUdaQ0J3WGVyUUQyY0F4UjkzS3BnWVZ2ClhUUzk5dnpSbm1HOHhhUm9EVy9FbEdXZ2xWd0Q5a1JrbXhUUkdoYTdDWVZCcjFQVWY2dVVFVjhmVFIxc1hFZnIKLytMR1JoSVVsSUhWT3l2Yzk3YnZYQURPbWF1MWZDVE5lWGtRdTNyZnZFSlBmaFlLeVIwT0V3eWVvdlhRNzl0LwpTV2ZGTjBreU1Pc1UrNVNIdHJKSEh1eWNWcU0yQlVVK083VjM1UnNwOU9MZGRZMFFVbTZldFpEVEhhSUhYYzRRCnl1Rm1OL1NhSFZtNE0wL3BTVlJQdVd6TmpxMnZyRllvSDRtbGhIZk95TUNJMjc2elE2aWhGNkdDSHlkOUJqajcKUm1UWGEyNHM3NWhmSi9YTDV2bnJSdEtpVHJlVHF6V21EOVhnUmNMQ0gyS1hJaVRtSWc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
      */
     certificate: string;
-  }
+  };
   "resources/databases/models/connection_pool_update.yml": {
     /**
      * @description The PGBouncer transaction mode for the connection pool. The allowed values are session, transaction, and statement.
@@ -5383,7 +5383,7 @@ export interface external {
      * @example doadmin
      */
     user?: string;
-  }
+  };
   "resources/databases/models/connection_pool.yml": {
     /**
      * @description A unique name for the connection pool. Must be between 3 and 60 characters.
@@ -5413,11 +5413,11 @@ export interface external {
     user?: string;
     connection?: external["resources/databases/models/database_connection.yml"];
     private_connection?: external["resources/databases/models/database_connection.yml"];
-  }
+  };
   "resources/databases/models/connection_pools.yml": {
     /** @description An array of connection pool objects. */
     pools?: readonly external["resources/databases/models/connection_pool.yml"][];
-  }
+  };
   "resources/databases/models/database_backup.yml": {
     /**
      * @description The name of an existing database cluster from which the backup will be restored.
@@ -5430,7 +5430,7 @@ export interface external {
      * @example "2019-01-31T19:25:22.000Z"
      */
     backup_created_at?: string;
-  }
+  };
   "resources/databases/models/database_cluster_resize.yml": {
     /**
      * @description A slug identifier representing desired the size of the nodes in the database cluster.
@@ -5443,7 +5443,7 @@ export interface external {
      * @example 3
      */
     num_nodes: number;
-  }
+  };
   "resources/databases/models/database_cluster.yml": {
     /**
      * Format: uuid
@@ -5539,10 +5539,10 @@ export interface external {
      * @example 2023-05-09T00:00:00Z
      */
     version_end_of_availability?: string;
-  }
+  };
   "resources/databases/models/database_config.yml": {
     config?: external["resources/databases/models/mysql.yml"] | external["resources/databases/models/postgres.yml"] | external["resources/databases/models/redis.yml"];
-  }
+  };
   "resources/databases/models/database_connection.yml": {
     /**
      * @description A connection string in the format accepted by the `psql` command. This is provided as a convenience and should be able to be constructed by the other attributes.
@@ -5579,7 +5579,7 @@ export interface external {
      * @example true
      */
     ssl?: boolean;
-  }
+  };
   "resources/databases/models/database_layout_option.yml": {
     /** @example 1 */
     num_nodes?: number;
@@ -5591,11 +5591,11 @@ export interface external {
      * ]
      */
     sizes?: readonly string[];
-  }
+  };
   "resources/databases/models/database_layout_options.yml": {
     /** @description An array of objects, each indicating the node sizes (otherwise referred to as slugs) that are available with various numbers of nodes in the database cluster. Each slugs denotes the node's identifier, CPU, and RAM (in that order). */
     layouts?: readonly external["resources/databases/models/database_layout_option.yml"][];
-  }
+  };
   "resources/databases/models/database_maintenance_window.yml": {
     /**
      * @description The day of the week on which to apply maintenance updates.
@@ -5620,7 +5620,7 @@ export interface external {
      * ]
      */
     description?: readonly string[];
-  } | null
+  } | null;
   "resources/databases/models/database_region_options.yml": {
     /**
      * @description An array of strings containing the names of available regions
@@ -5630,7 +5630,7 @@ export interface external {
      * ]
      */
     regions?: readonly string[];
-  }
+  };
   "resources/databases/models/database_replica.yml": {
     /**
      * Format: uuid
@@ -5679,7 +5679,7 @@ export interface external {
     private_network_uuid?: string;
     connection?: external["resources/databases/models/database_connection.yml"];
     private_connection?: external["resources/databases/models/database_connection.yml"];
-  }
+  };
   "resources/databases/models/database_user.yml": {
     /**
      * @description The name of a database user.
@@ -5700,8 +5700,8 @@ export interface external {
      */
     password?: string;
     mysql_settings?: external["resources/databases/models/mysql_settings.yml"];
-  }
-  "resources/databases/models/database_version_availabilities.yml": external["resources/databases/models/database_version_availability.yml"][]
+  };
+  "resources/databases/models/database_version_availabilities.yml": external["resources/databases/models/database_version_availability.yml"][];
   "resources/databases/models/database_version_availability.yml": {
     /**
      * @description A timestamp referring to the date when the particular version will no longer be supported. If null, the version does not have an end of life timeline.
@@ -5718,7 +5718,7 @@ export interface external {
      * @example 8
      */
     version?: string;
-  }
+  };
   "resources/databases/models/database_version_options.yml": {
     /**
      * @description An array of strings containing the names of available regions
@@ -5728,15 +5728,15 @@ export interface external {
      * ]
      */
     versions?: readonly string[];
-  }
+  };
   "resources/databases/models/database.yml": {
     /**
      * @description The name of the database.
      * @example alpha
      */
     name: string;
-  }
-  "resources/databases/models/eviction_policy_model.yml": "noeviction" | "allkeys_lru" | "allkeys_random" | "volatile_lru" | "volatile_random" | "volatile_ttl"
+  };
+  "resources/databases/models/eviction_policy_model.yml": "noeviction" | "allkeys_lru" | "allkeys_random" | "volatile_lru" | "volatile_random" | "volatile_ttl";
   "resources/databases/models/firewall_rule.yml": {
     /**
      * @description A unique ID for the firewall rule itself.
@@ -5765,7 +5765,7 @@ export interface external {
      * @example "2019-01-11T18:37:36.000Z"
      */
     created_at?: string;
-  }
+  };
   "resources/databases/models/mysql_settings.yml": {
     /**
      * @description A string specifying the authentication method to be used for connections
@@ -5778,7 +5778,7 @@ export interface external {
      * @enum {string}
      */
     auth_plugin: "mysql_native_password" | "caching_sha2_password";
-  }
+  };
   "resources/databases/models/mysql.yml": {
     /**
      * @description The hour of day (in UTC) when backup for the service starts. New backup only starts if previous backup has already completed.
@@ -5916,7 +5916,7 @@ export interface external {
      * @example 600
      */
     binlog_retention_period?: number;
-  }
+  };
   "resources/databases/models/online_migration.yml": {
     /**
      * @description The ID of the most recent migration.
@@ -5934,7 +5934,7 @@ export interface external {
      * @example "2020-10-29T15:57:38.000Z"
      */
     created_at?: string;
-  }
+  };
   "resources/databases/models/options.yml": {
     options?: {
       mongodb?: external["resources/databases/models/database_region_options.yml"] & external["resources/databases/models/database_version_options.yml"] & external["resources/databases/models/database_layout_options.yml"];
@@ -5948,7 +5948,7 @@ export interface external {
       redis?: external["resources/databases/models/database_version_availabilities.yml"];
       mongodb?: external["resources/databases/models/database_version_availabilities.yml"];
     };
-  }
+  };
   "resources/databases/models/pgbouncer.yml": {
     /**
      * @description Run server_reset_query (DISCARD ALL) in all pooling modes.
@@ -5999,7 +5999,7 @@ export interface external {
      * @example 3600
      */
     autodb_idle_timeout?: number;
-  }
+  };
   "resources/databases/models/postgres.yml": {
     /**
      * @description Specifies the maximum age (in transactions) that a table's pg_class.relfrozenxid field can attain before a VACUUM operation is forced to prevent transaction ID wraparound within the table. Note that the system will launch autovacuum processes to prevent wraparound even when autovacuum is otherwise disabled. This parameter will cause the server to be restarted.
@@ -6266,7 +6266,7 @@ export interface external {
      * @example false
      */
     stat_monitor_enable?: boolean;
-  }
+  };
   "resources/databases/models/redis.yml": {
     redis_maxmemory_policy?: external["resources/databases/models/eviction_policy_model.yml"];
     /**
@@ -6326,7 +6326,7 @@ export interface external {
      * @enum {string}
      */
     redis_acl_channels_default?: "allchannels" | "resetchannels";
-  }
+  };
   "resources/databases/models/source_database.yml": {
     source?: {
       /**
@@ -6360,24 +6360,24 @@ export interface external {
      * @example false
      */
     disable_ssl?: boolean;
-  }
+  };
   "resources/databases/models/sql_mode.yml": {
     /**
      * @description A string specifying the configured SQL modes for the MySQL cluster.
      * @example ANSI,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,STRICT_ALL_TABLES
      */
     sql_mode: string;
-  }
+  };
   "resources/databases/models/timescaledb.yml": {
     /**
      * @description The number of background workers for timescaledb operations.  Set to the sum of your number of databases and the total number of concurrent background workers you want running at any given point in time.
      * @example 8
      */
     max_background_workers?: number;
-  }
+  };
   "resources/databases/models/version.yml": {
     version?: external["resources/databases/models/database_cluster.yml"]["version"];
-  }
+  };
   "resources/databases/parameters.yml": {
     database_cluster_uuid: string;
     database_name: string;
@@ -6927,7 +6927,7 @@ export interface external {
      * @example null
      */
     tag?: string | null;
-  }
+  };
   "resources/domains/models/domain.yml": {
     /**
      * @description The name of the domain itself. This should follow the standard domain format of domain.TLD. For instance, `example.com` is a valid domain name.
@@ -6955,7 +6955,7 @@ export interface external {
      * example.com. 1800 IN A 1.2.3.4
      */
     zone_file?: string | null;
-  }
+  };
   "resources/domains/parameters.yml": {
     domain_name: string;
     domain_record_id: number;
@@ -7636,7 +7636,7 @@ export interface external {
      * @example 0
      */
     failures?: number;
-  }
+  };
   "resources/droplets/models/associated_resource.yml": {
     /**
      * @description The unique identifier for the resource associated with the Droplet.
@@ -7653,7 +7653,7 @@ export interface external {
      * @example 0.05
      */
     cost?: string;
-  }
+  };
   "resources/droplets/models/destroyed_associated_resource.yml": {
     /**
      * @description The unique identifier for the resource scheduled for deletion.
@@ -7676,7 +7676,7 @@ export interface external {
      * @example
      */
     error_message?: string;
-  }
+  };
   "resources/droplets/models/droplet_actions.yml": {
     /** @description Specifies the action that will be taken on the Droplet. */    droplet_action: {
       /**
@@ -7818,7 +7818,7 @@ export interface external {
      * @example true
      */
     with_droplet_agent?: boolean;
-  }
+  };
   "resources/droplets/models/droplet_multi_create.yml": {
     /**
      * @description An array of human human-readable strings you wish to use when displaying the Droplet name. Each name, if set to a domain name managed in the DigitalOcean DNS management system, will configure a PTR record for the Droplet. Each name set during creation will also determine the hostname for the Droplet in its internal configuration.
@@ -7828,14 +7828,14 @@ export interface external {
      * ]
      */
     names: string[];
-  } & external["resources/droplets/models/droplet_create.yml"]
+  } & external["resources/droplets/models/droplet_create.yml"];
   "resources/droplets/models/droplet_single_create.yml": {
     /**
      * @description The human-readable string you wish to use when displaying the Droplet name. The name, if set to a domain name managed in the DigitalOcean DNS management system, will configure a PTR record for the Droplet. The name set during creation will also determine the hostname for the Droplet in its internal configuration.
      * @example example.com
      */
     name: string;
-  } & external["resources/droplets/models/droplet_create.yml"]
+  } & external["resources/droplets/models/droplet_create.yml"];
   "resources/droplets/models/droplet_snapshot.yml": {
     /**
      * @description The unique identifier for the snapshot or backup.
@@ -7849,7 +7849,7 @@ export interface external {
      * @enum {string}
      */
     type: "snapshot" | "backup";
-  })
+  });
   "resources/droplets/models/droplet.yml": {
     /**
      * @description A unique identifier for each Droplet instance. This is automatically generated upon Droplet creation.
@@ -7965,7 +7965,7 @@ export interface external {
      * @example 760e09ef-dc84-11e8-981e-3cfdfeaae000
      */
     vpc_uuid?: string;
-  }
+  };
   "resources/droplets/models/kernel.yml": {
     /**
      * @description A unique number used to identify and reference a specific kernel.
@@ -7982,7 +7982,7 @@ export interface external {
      * @example 2016.07.13-DigitalOcean_loader_Ubuntu
      */
     version?: string;
-  } | null
+  } | null;
   "resources/droplets/models/neighbor_ids.yml": {
     /**
      * @description An array of arrays. Each array will contain a set of Droplet IDs for Droplets that share a physical server.
@@ -7999,7 +7999,7 @@ export interface external {
      * ]
      */
     neighbor_ids?: number[][];
-  }
+  };
   "resources/droplets/models/network_v4.yml": {
     /**
      * Format: ipv4
@@ -8028,7 +8028,7 @@ export interface external {
      * @enum {string}
      */
     type?: "public" | "private";
-  }
+  };
   "resources/droplets/models/network_v6.yml": {
     /**
      * Format: ipv6
@@ -8056,7 +8056,7 @@ export interface external {
      * @enum {string}
      */
     type?: "public";
-  }
+  };
   "resources/droplets/models/selective_destroy_associated_resource.yml": {
     /**
      * @deprecated
@@ -8094,7 +8094,7 @@ export interface external {
      * ]
      */
     volume_snapshots?: string[];
-  }
+  };
   "resources/droplets/parameters.yml": {
     droplet_id: number;
     droplet_tag_name?: string;
@@ -8765,7 +8765,7 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/firewalls/models/firewall_rule.yml": unknown
+  "resources/firewalls/models/firewall_rule.yml": unknown;
   "resources/firewalls/models/firewall.yml": ({
     /**
      * @description A unique ID that can be used to identify and reference a firewall.
@@ -8815,7 +8815,7 @@ export interface external {
      */
     droplet_ids?: number[] | null;
     tags?: external["shared/attributes/tags_array.yml"];
-  }) & external["resources/firewalls/models/firewall_rule.yml"]["firewall_rules"]
+  }) & external["resources/firewalls/models/firewall_rule.yml"]["firewall_rules"];
   "resources/firewalls/parameters.yml": {
     firewall_id: string;
   };
@@ -9066,7 +9066,7 @@ export interface external {
      * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
      */
     project_id?: string;
-  }]>
+  }]>;
   "resources/floating_ips/models/floating_ip.yml": {
     /**
      * Format: ipv4
@@ -9091,7 +9091,7 @@ export interface external {
      * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
      */
     project_id?: string;
-  }
+  };
   "resources/floating_ips/parameters.yml": {
     floating_ip: string;
   };
@@ -9365,7 +9365,7 @@ export interface external {
      * @example my namespace
      */
     label: string;
-  }
+  };
   "resources/functions/models/create_trigger.yml": {
     /**
      * @description The trigger's unique name within the namespace.
@@ -9388,7 +9388,7 @@ export interface external {
      */
     is_enabled: boolean;
     scheduled_details: external["resources/functions/models/scheduled_details.yml"];
-  }
+  };
   "resources/functions/models/namespace_info.yml": {
     /**
      * @description The namespace's API hostname. Each function in a namespace is provided an endpoint at the namespace's hostname.
@@ -9431,7 +9431,7 @@ export interface external {
      * @example d1zcd455h01mqjfs4s2eaewyejehi5f2uj4etqq3h7cera8iwkub6xg5of1wdde2
      */
     key?: string;
-  }
+  };
   "resources/functions/models/scheduled_details.yml": {
     /**
      * @description valid cron expression string which is required for SCHEDULED type triggers.
@@ -9443,7 +9443,7 @@ export interface external {
       /** @example Welcome to DO! */
       name?: string;
     } | null;
-  }
+  };
   "resources/functions/models/trigger_info.yml": {
     /**
      * @description A unique string format of UUID with a prefix fn-.
@@ -9493,7 +9493,7 @@ export interface external {
        */
       next_run_at?: string | null;
     };
-  }
+  };
   "resources/functions/models/update_trigger.yml": {
     /**
      * @description Indicates weather the trigger is paused or unpaused.
@@ -9501,7 +9501,7 @@ export interface external {
      */
     is_enabled?: boolean;
     scheduled_details?: external["resources/functions/models/scheduled_details.yml"];
-  }
+  };
   "resources/functions/parameters.yml": {
     namespace_id: string;
     trigger_name: string;
@@ -9624,7 +9624,7 @@ export interface external {
       };
     };
   }
-  "resources/images/attributes.yml": unknown
+  "resources/images/attributes.yml": unknown;
   /**
    * Retrieve an Existing Action
    * @description To retrieve the status of an image action, send a GET request to `/v2/images/$IMAGE_ID/actions/$IMAGE_ACTION_ID`.
@@ -9862,12 +9862,12 @@ export interface external {
     url?: string;
     region?: external["shared/attributes/region_slug.yml"];
     tags?: external["shared/attributes/tags_array.yml"];
-  }, "name" | "url" | "region">
+  }, "name" | "url" | "region">;
   "resources/images/models/image_update.yml": {
     name?: external["resources/images/attributes.yml"]["image_name"];
     distribution?: external["shared/attributes/distribution.yml"];
     description?: external["resources/images/attributes.yml"]["image_description"];
-  }
+  };
   "resources/images/models/image.yml": {
     /**
      * @description A unique number that can be used to identify and reference a specific image.
@@ -9925,7 +9925,7 @@ export interface external {
      * @example
      */
     error_message?: string;
-  }
+  };
   "resources/images/parameters.yml": Record<string, never>
   "resources/images/responses/all_images.yml": {
     headers: {
@@ -10739,7 +10739,7 @@ export interface external {
      * ]
      */
     cluster_uuids?: string[];
-  }
+  };
   "resources/kubernetes/models/cluster_update.yml": {
     /**
      * @description A human-readable name for a Kubernetes cluster.
@@ -10775,7 +10775,7 @@ export interface external {
      * @example true
      */
     ha?: boolean;
-  }
+  };
   "resources/kubernetes/models/cluster.yml": {
     /**
      * Format: uuid
@@ -10887,7 +10887,7 @@ export interface external {
      * @example true
      */
     registry_enabled?: boolean;
-  }
+  };
   "resources/kubernetes/models/clusterlint_request.yml": {
     /**
      * @description An array of check groups that will be run when clusterlint executes checks.
@@ -10920,7 +10920,7 @@ export interface external {
      * ]
      */
     exclude_checks?: string[];
-  }
+  };
   "resources/kubernetes/models/clusterlint_results.yml": {
     /**
      * @description Id of the clusterlint run that can be used later to fetch the diagnostics.
@@ -10975,7 +10975,7 @@ export interface external {
           namespace?: string;
         };
       }[];
-  }
+  };
   "resources/kubernetes/models/credentials.yml": {
     /**
      * Format: uri
@@ -11028,7 +11028,7 @@ export interface external {
      * @example "2019-11-09T11:50:28.889Z"
      */
     expires_at?: string;
-  }
+  };
   "resources/kubernetes/models/maintenance_policy.yml": ({
     /**
      * @description The start time in UTC of the maintenance window policy in 24-hour clock format / HH:MM notation (e.g., `15:00`).
@@ -11046,8 +11046,8 @@ export interface external {
      * @enum {string}
      */
     day?: "any" | "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
-  }) | null
-  "resources/kubernetes/models/node_pool.yml": unknown
+  }) | null;
+  "resources/kubernetes/models/node_pool.yml": unknown;
   "resources/kubernetes/models/node.yml": {
     /**
      * Format: uuid
@@ -11086,8 +11086,8 @@ export interface external {
      * @example 2018-11-15T16:00:11Z
      */
     updated_at?: string;
-  }
-  "resources/kubernetes/models/options.yml": unknown
+  };
+  "resources/kubernetes/models/options.yml": unknown;
   "resources/kubernetes/models/user.yml": {
     kubernetes_cluster_user?: {
       /**
@@ -11104,7 +11104,7 @@ export interface external {
        */
       groups?: string[];
     };
-  }
+  };
   "resources/kubernetes/parameters.yml": {
     kubernetes_cluster_id: string;
     kubernetes_node_pool_id: string;
@@ -11555,7 +11555,7 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/load_balancers/models/attributes.yml": unknown
+  "resources/load_balancers/models/attributes.yml": unknown;
   "resources/load_balancers/models/forwarding_rule.yml": {
     /**
      * @description The protocol used for traffic to the load balancer. The possible values are: `http`, `https`, `http2`, `http3`, `tcp`, or `udp`. If you set the  `entry_protocol` to `udp`, the `target_protocol` must be set to `udp`.  When using UDP, the load balancer requires that you set up a health  check with a port that uses TCP, HTTP, or HTTPS to work properly.
@@ -11591,7 +11591,7 @@ export interface external {
      * @example false
      */
     tls_passthrough?: boolean;
-  }
+  };
   "resources/load_balancers/models/health_check.yml": {
     /**
      * @description The protocol used for health checks sent to the backend Droplets. The possible values are `http`, `https`, or `tcp`.
@@ -11636,7 +11636,7 @@ export interface external {
      * @example 3
      */
     healthy_threshold?: number;
-  }
+  };
   "resources/load_balancers/models/lb_firewall.yml": {
     /**
      * @description the rules for denying traffic to the load balancer (in the form 'ip:1.2.3.4' or 'cidr:1.2.0.0/16')
@@ -11656,7 +11656,7 @@ export interface external {
      * ]
      */
     allow?: string[];
-  }
+  };
   "resources/load_balancers/models/load_balancer_base.yml": {
     /**
      * Format: uuid
@@ -11759,7 +11759,7 @@ export interface external {
      */
     disable_lets_encrypt_dns_records?: boolean;
     firewall?: external["resources/load_balancers/models/lb_firewall.yml"];
-  }
+  };
   "resources/load_balancers/models/load_balancer_create.yml": OneOf<[WithRequired<{
     $ref?: external["resources/load_balancers/models/attributes.yml"]["load_balancer_droplet_ids"];
   } & {
@@ -11768,14 +11768,14 @@ export interface external {
     $ref?: external["resources/load_balancers/models/attributes.yml"]["load_balancer_droplet_tag"];
   } & {
     region?: external["shared/attributes/region_slug.yml"];
-  } & external["resources/load_balancers/models/load_balancer_base.yml"], "tag" | "region">]>
+  } & external["resources/load_balancers/models/load_balancer_base.yml"], "tag" | "region">]>;
   "resources/load_balancers/models/load_balancer.yml": external["resources/load_balancers/models/load_balancer_base.yml"] & {
     region?: external["resources/regions/models/region.yml"];
   } & {
     $ref?: external["resources/load_balancers/models/attributes.yml"]["load_balancer_droplet_ids"];
   } & {
     $ref?: external["resources/load_balancers/models/attributes.yml"]["load_balancer_droplet_tag"];
-  }
+  };
   "resources/load_balancers/models/sticky_sessions.yml": {
     /**
      * @description An attribute indicating how and if requests from a client will be persistently served by the same backend Droplet. The possible values are `cookies` or `none`.
@@ -11794,7 +11794,7 @@ export interface external {
      * @example 300
      */
     cookie_ttl_seconds?: number;
-  }
+  };
   "resources/load_balancers/parameters.yml": {
     load_balancer_id: string;
   };
@@ -11885,7 +11885,7 @@ export interface external {
      * @enum {string}
      */
     window: "5m" | "10m" | "30m" | "1h";
-  }
+  };
   "resources/monitoring/models/alert_policy.yml": {
     alerts: external["resources/monitoring/models/alerts.yml"];
     /**
@@ -11926,7 +11926,7 @@ export interface external {
      * @enum {string}
      */
     window: "5m" | "10m" | "30m" | "1h";
-  }
+  };
   "resources/monitoring/models/alerts.yml": {
     /**
      * @description An email to notify on an alert trigger.
@@ -11937,10 +11937,10 @@ export interface external {
     email: string[];
     /** @description Slack integration details. */
     slack: external["resources/monitoring/models/slack_details.yml"][];
-  }
+  };
   "resources/monitoring/models/list_alert_policy.yml": {
     policies: external["resources/monitoring/models/alert_policy.yml"][];
-  }
+  };
   "resources/monitoring/models/metrics_data.yml": {
     /** @description Result of query. */
     result: external["resources/monitoring/models/metrics_result.yml"][];
@@ -11949,7 +11949,7 @@ export interface external {
      * @enum {string}
      */
     resultType: "matrix";
-  }
+  };
   "resources/monitoring/models/metrics_result.yml": {
     /**
      * @description An object containing the metric labels.
@@ -11973,7 +11973,7 @@ export interface external {
      * ]
      */
     values: ((number | string)[])[];
-  }
+  };
   "resources/monitoring/models/metrics.yml": {
     data: external["resources/monitoring/models/metrics_data.yml"];
     /**
@@ -11981,7 +11981,7 @@ export interface external {
      * @enum {string}
      */
     status: "success" | "error";
-  }
+  };
   "resources/monitoring/models/slack_details.yml": {
     /**
      * @description Slack channel to notify of an alert trigger.
@@ -11993,7 +11993,7 @@ export interface external {
      * @example https://hooks.slack.com/services/T1234567/AAAAAAAA/ZZZZZZ
      */
     url: string;
-  }
+  };
   /**
    * Create Alert Policy
    * @description To create a new alert, send a POST request to `/v2/monitoring/alerts`.
@@ -12462,8 +12462,8 @@ export interface external {
      * ]
      */
     resources?: external["shared/attributes/urn.yml"][];
-  }
-  "resources/projects/models/project.yml": unknown
+  };
+  "resources/projects/models/project.yml": unknown;
   "resources/projects/models/resource.yml": {
     urn?: external["shared/attributes/urn.yml"];
     /**
@@ -12487,7 +12487,7 @@ export interface external {
      * @enum {string}
      */
     status?: "ok" | "not_found" | "assigned" | "already_assigned" | "service_down";
-  }
+  };
   "resources/projects/parameters.yml": {
     project_id: string;
   };
@@ -12881,7 +12881,7 @@ export interface external {
      * ]
      */
     sizes: unknown;
-  }
+  };
   /**
    * List All Data Center Regions
    * @description To list all of the regions that are available, send a GET request to `/v2/regions`.
@@ -12924,7 +12924,7 @@ export interface external {
         auth?: string;
       };
     };
-  }
+  };
   "resources/registry/models/garbage_collection.yml": {
     /**
      * @description A string specifying the UUID of the garbage collection.
@@ -12964,7 +12964,7 @@ export interface external {
      * @example 667
      */
     freed_bytes?: number;
-  }
+  };
   "resources/registry/models/registry_create.yml": {
     /**
      * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
@@ -12983,7 +12983,7 @@ export interface external {
      * @enum {string}
      */
     region?: "nyc3" | "sfo3" | "ams3" | "sgp1" | "fra1";
-  }
+  };
   "resources/registry/models/registry.yml": {
     /**
      * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
@@ -13013,7 +13013,7 @@ export interface external {
      */
     storage_usage_bytes_updated_at?: string;
     subscription?: external["resources/registry/models/subscription.yml"];
-  }
+  };
   "resources/registry/models/repository_blob.yml": {
     /**
      * @description The digest of the blob
@@ -13025,7 +13025,7 @@ export interface external {
      * @example 2803255
      */
     compressed_size_bytes?: number;
-  }
+  };
   "resources/registry/models/repository_manifest.yml": {
     /**
      * @description The name of the container registry.
@@ -13069,7 +13069,7 @@ export interface external {
     tags?: string[];
     /** @description All blobs associated with this manifest */
     blobs?: external["resources/registry/models/repository_blob.yml"][];
-  }
+  };
   "resources/registry/models/repository_tag.yml": {
     /**
      * @description The name of the container registry.
@@ -13107,7 +13107,7 @@ export interface external {
      * @example 2020-04-09T23:54:25Z
      */
     updated_at?: string;
-  }
+  };
   "resources/registry/models/repository_v2.yml": {
     /**
      * @description The name of the container registry.
@@ -13130,7 +13130,7 @@ export interface external {
      * @example 1
      */
     manifest_count?: number;
-  }
+  };
   "resources/registry/models/repository.yml": {
     /**
      * @description The name of the container registry.
@@ -13148,8 +13148,8 @@ export interface external {
      * @example 1
      */
     tag_count?: number;
-  }
-  "resources/registry/models/subscription_tier.yml": unknown
+  };
+  "resources/registry/models/subscription_tier.yml": unknown;
   "resources/registry/models/subscription.yml": {
     tier?: external["resources/registry/models/subscription_tier.yml"]["subscription_tier_base"];
     /**
@@ -13164,21 +13164,21 @@ export interface external {
      * @example 2020-11-05T15:53:24Z
      */
     updated_at?: string;
-  }
+  };
   "resources/registry/models/update_registry.yml": {
     /**
      * @description A boolean value indicating that the garbage collection should be cancelled.
      * @example true
      */
     cancel?: boolean;
-  }
+  };
   "resources/registry/models/validate_registry.yml": {
     /**
      * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
      * @example example
      */
     name: string;
-  }
+  };
   "resources/registry/parameters.yml": {
     registry_expiry_seconds?: number;
     registry_read_write?: boolean;
@@ -13800,7 +13800,7 @@ export interface external {
      * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
      */
     project_id?: string;
-  }]>
+  }]>;
   "resources/reserved_ips/models/reserved_ip.yml": {
     /**
      * Format: ipv4
@@ -13825,7 +13825,7 @@ export interface external {
      * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
      */
     project_id?: string;
-  }
+  };
   "resources/reserved_ips/parameters.yml": {
     reserved_ip: string;
   };
@@ -14130,7 +14130,7 @@ export interface external {
      * @example Basic
      */
     description: string;
-  }
+  };
   "resources/sizes/responses/all_sizes.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -14194,7 +14194,7 @@ export interface external {
      * @example 2.34
      */
     size_gigabytes: number;
-  }
+  };
   "resources/snapshots/models/snapshots.yml": {
     /**
      * @description The unique identifier for the snapshot.
@@ -14221,7 +14221,7 @@ export interface external {
      * ]
      */
     tags: string[] | null;
-  })
+  });
   "resources/snapshots/parameters.yml": {
     snapshot_resource_type?: "droplet" | "volume";
     snapshot_id: number | string;
@@ -14337,9 +14337,9 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/ssh_keys/attributes/ssh_key_fingerprint.yml": string
-  "resources/ssh_keys/attributes/ssh_key_id.yml": number
-  "resources/ssh_keys/attributes/ssh_key_name.yml": string
+  "resources/ssh_keys/attributes/ssh_key_fingerprint.yml": string;
+  "resources/ssh_keys/attributes/ssh_key_id.yml": number;
+  "resources/ssh_keys/attributes/ssh_key_name.yml": string;
   "resources/ssh_keys/links/sshKeys_delete_by_fingerprint.yml": {
     content: never;
   }
@@ -14361,7 +14361,7 @@ export interface external {
      */
     public_key: string;
     name: external["resources/ssh_keys/attributes/ssh_key_name.yml"];
-  }
+  };
   "resources/ssh_keys/parameters/ssh_key_identifier.yml": unknown
   "resources/ssh_keys/responses/sshKeys_all.yml": {
     headers: {
@@ -14514,7 +14514,7 @@ export interface external {
      * @example https://api.digitalocean.com/v2/images/7555620
      */
     last_tagged_uri?: string;
-  }
+  };
   "resources/tags/models/tags_resource.yml": {
     /**
      * @description An array of objects containing resource_id and resource_type  attributes.
@@ -14546,7 +14546,7 @@ export interface external {
          */
         resource_type?: "droplet" | "image" | "volume" | "volume_snapshot";
       })[];
-  }
+  };
   "resources/tags/models/tags.yml": {
     /**
      * @description The name of the tag. Tags may contain letters, numbers, colons, dashes, and underscores.
@@ -14595,7 +14595,7 @@ export interface external {
       volume_snapshots?: external["resources/tags/models/tags_metadata.yml"];
       databases?: external["resources/tags/models/tags_metadata.yml"];
     };
-  }
+  };
   "resources/tags/parameters.yml": {
     tag_id: string;
   };
@@ -14970,8 +14970,8 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/uptime/models/alert.yml": unknown
-  "resources/uptime/models/check.yml": unknown
+  "resources/uptime/models/alert.yml": unknown;
+  "resources/uptime/models/check.yml": unknown;
   "resources/uptime/models/notification.yml": {
     /**
      * @description An email to notify on an alert trigger.
@@ -14995,8 +14995,8 @@ export interface external {
          */
         url: string;
       }[];
-  }
-  "resources/uptime/models/state.yml": unknown
+  };
+  "resources/uptime/models/state.yml": unknown;
   "resources/uptime/parameters.yml": {
     check_id: string;
     alert_id: string;
@@ -15111,11 +15111,11 @@ export interface external {
     };
   }
   "resources/volumes/examples.yml": unknown
-  "resources/volumes/models/attributes.yml": unknown
+  "resources/volumes/models/attributes.yml": unknown;
   "resources/volumes/models/volume_action_post_attach.yml": external["resources/volumes/models/volume_action_post_base.yml"] & {
     droplet_id: external["resources/volumes/models/attributes.yml"]["volume_action_droplet_id"];
     tags?: external["shared/attributes/tags_array.yml"];
-  }
+  };
   "resources/volumes/models/volume_action_post_base.yml": {
     /**
      * @description The volume action to initiate.
@@ -15124,14 +15124,14 @@ export interface external {
      */
     type: "attach" | "detach" | "resize";
     region?: external["shared/attributes/region_slug.yml"];
-  }
+  };
   "resources/volumes/models/volume_action_post_detach.yml": external["resources/volumes/models/volume_action_post_base.yml"] & {
     droplet_id: external["resources/volumes/models/attributes.yml"]["volume_action_droplet_id"];
-  }
+  };
   "resources/volumes/models/volume_action_post_resize.yml": external["resources/volumes/models/volume_action_post_base.yml"] & {
     /** @description The new size of the block storage volume in GiB (1024^3). */
     size_gigabytes: number;
-  }
+  };
   "resources/volumes/models/volume_base.yml": {
     /**
      * @description The unique identifier for the block storage volume.
@@ -15164,7 +15164,7 @@ export interface external {
      */
     created_at?: string;
     tags?: external["shared/attributes/tags_array.yml"];
-  }
+  };
   "resources/volumes/models/volume_full.yml": external["resources/volumes/models/volume_base.yml"] & {
     /**
      * @example {
@@ -15206,7 +15206,7 @@ export interface external {
      * @example example
      */
     filesystem_label?: string;
-  }
+  };
   "resources/volumes/models/volumeAction.yml": ({
     /**
      * @description This is the type of action that the object represents. For example, this could be "attach_volume" to represent the state of a volume attach action.
@@ -15215,15 +15215,15 @@ export interface external {
     type?: string;
     /** @example null */
     resource_id?: number | null;
-  }) & external["resources/actions/models/action.yml"]
+  }) & external["resources/actions/models/action.yml"];
   "resources/volumes/models/volumes_ext4.yml": external["resources/volumes/models/volume_base.yml"] & external["resources/volumes/models/attributes.yml"]["volume_snapshot_id"] & external["resources/volumes/models/attributes.yml"]["volume_write_file_system_type"] & {
     region: external["shared/attributes/region_slug.yml"];
     filesystem_label?: external["resources/volumes/models/attributes.yml"]["volume_write_file_system_label"];
-  }
+  };
   "resources/volumes/models/volumes_xfs.yml": external["resources/volumes/models/volume_base.yml"] & external["resources/volumes/models/attributes.yml"]["volume_snapshot_id"] & external["resources/volumes/models/attributes.yml"]["volume_write_file_system_type"] & {
     region: external["shared/attributes/region_slug.yml"];
     filesystem_label?: external["resources/volumes/models/attributes.yml"]["volume_write_file_system_label"];
-  }
+  };
   "resources/volumes/parameters.yml": {
     volume_id: string;
     volume_name?: string;
@@ -15687,8 +15687,8 @@ export interface external {
      * @example 2020-03-13T19:30:48Z
      */
     created_at?: string;
-  }
-  "resources/vpcs/models/vpc.yml": unknown
+  };
+  "resources/vpcs/models/vpc.yml": unknown;
   "resources/vpcs/parameters.yml": {
     vpc_id: string;
     vpc_resource_type?: string;
@@ -15894,11 +15894,11 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "shared/attributes/distribution.yml": "Arch Linux" | "CentOS" | "CoreOS" | "Debian" | "Fedora" | "Fedora Atomic" | "FreeBSD" | "Gentoo" | "openSUSE" | "RancherOS" | "Rocky Linux" | "Ubuntu" | "Unknown"
+  "shared/attributes/distribution.yml": "Arch Linux" | "CentOS" | "CoreOS" | "Debian" | "Fedora" | "Fedora Atomic" | "FreeBSD" | "Gentoo" | "openSUSE" | "RancherOS" | "Rocky Linux" | "Ubuntu" | "Unknown";
   "shared/attributes/region_slug.yml": "ams1" | "ams2" | "ams3" | "blr1" | "fra1" | "lon1" | "nyc1" | "nyc2" | "nyc3" | "sfo1" | "sfo2" | "sfo3" | "sgp1" | "tor1"
-  "shared/attributes/regions_array.yml": external["shared/attributes/region_slug.yml"][]
-  "shared/attributes/tags_array.yml": string[] | null
-  "shared/attributes/urn.yml": string
+  "shared/attributes/regions_array.yml": external["shared/attributes/region_slug.yml"][];
+  "shared/attributes/tags_array.yml": string[] | null;
+  "shared/attributes/urn.yml": string;
   "shared/headers.yml": {
     /**
      * @description Indicates if the content is expected to be displayed *inline* in the  browser, that is, as a Web page or as part of a Web page, or as an  *attachment*, that is downloaded and saved locally.
@@ -15927,10 +15927,10 @@ export interface external {
   };
   "shared/meta_optional_total.yml": {
     meta: external["shared/models/meta_properties.yml"];
-  }
+  };
   "shared/meta.yml": {
     meta: external["shared/models/meta_properties.yml"];
-  }
+  };
   "shared/models/action_link.yml": {
     /**
      * @description A unique numeric ID that can be used to identify and reference an action.
@@ -15948,7 +15948,7 @@ export interface external {
      * @example https://api.digitalocean.com/v2/actions/7515
      */
     href?: string;
-  }
+  };
   "shared/models/error_with_root_causes.yml": {
     /**
      * @description A message providing information about the error.
@@ -15965,7 +15965,7 @@ export interface external {
      * @example []
      */
     root_causes: string[];
-  }
+  };
   "shared/models/error.yml": {
     /**
      * @description A short identifier corresponding to the HTTP status code returned. For  example, the ID for a response returning a 404 status code would be "not_found."
@@ -15982,14 +15982,14 @@ export interface external {
      * @example 4d9d8375-3c56-4925-a3e7-eb137fed17e9
      */
     request_id?: string;
-  }
+  };
   "shared/models/meta_properties.yml": {
     /**
      * @description Number of objects returned by the request.
      * @example 1
      */
     total?: number;
-  }
+  };
   "shared/pages.yml": {
     pagination: {
       links?: external["shared/pages.yml"]["page_links"];

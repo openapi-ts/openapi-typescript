@@ -38,7 +38,7 @@ export interface paths {
      * for a Standard or Express account, some parameters can no longer be changed. These are marked as <strong>Custom Only</strong> or <strong>Custom and Express</strong>
      * below.</p>
      *
-     * <p>To update your own account, use the <a href="https://dashboard.stripe.com/account">Dashboard</a>. Refer to our
+     * <p>To update your own account, use the <a href="https://dashboard.stripe.com/settings/account">Dashboard</a>. Refer to our
      * <a href="/docs/connect/updating-accounts">Connect</a> documentation to learn more about updating accounts.</p>
      */
     post: operations["PostAccountsAccount"];
@@ -47,7 +47,7 @@ export interface paths {
      *
      * <p>Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.</p>
      *
-     * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
+     * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/settings/account">account information tab in your account settings</a> instead.</p>
      */
     delete: operations["DeleteAccountsAccount"];
   };
@@ -2497,7 +2497,7 @@ export interface components {
        * @description The code for the type of error.
        * @enum {string}
        */
-      code: "invalid_address_city_state_postal_code" | "invalid_dob_age_under_18" | "invalid_representative_country" | "invalid_street_address" | "invalid_tos_acceptance" | "invalid_value_other" | "verification_document_address_mismatch" | "verification_document_address_missing" | "verification_document_corrupt" | "verification_document_country_not_supported" | "verification_document_dob_mismatch" | "verification_document_duplicate_type" | "verification_document_expired" | "verification_document_failed_copy" | "verification_document_failed_greyscale" | "verification_document_failed_other" | "verification_document_failed_test_mode" | "verification_document_fraudulent" | "verification_document_id_number_mismatch" | "verification_document_id_number_missing" | "verification_document_incomplete" | "verification_document_invalid" | "verification_document_issue_or_expiry_date_missing" | "verification_document_manipulated" | "verification_document_missing_back" | "verification_document_missing_front" | "verification_document_name_mismatch" | "verification_document_name_missing" | "verification_document_nationality_mismatch" | "verification_document_not_readable" | "verification_document_not_signed" | "verification_document_not_uploaded" | "verification_document_photo_mismatch" | "verification_document_too_large" | "verification_document_type_not_supported" | "verification_failed_address_match" | "verification_failed_business_iec_number" | "verification_failed_document_match" | "verification_failed_id_number_match" | "verification_failed_keyed_identity" | "verification_failed_keyed_match" | "verification_failed_name_match" | "verification_failed_other" | "verification_failed_residential_address" | "verification_failed_tax_id_match" | "verification_failed_tax_id_not_issued" | "verification_missing_executives" | "verification_missing_owners" | "verification_requires_additional_memorandum_of_associations";
+      code: "invalid_address_city_state_postal_code" | "invalid_dob_age_under_18" | "invalid_representative_country" | "invalid_street_address" | "invalid_tos_acceptance" | "invalid_value_other" | "verification_directors_mismatch" | "verification_document_address_mismatch" | "verification_document_address_missing" | "verification_document_corrupt" | "verification_document_country_not_supported" | "verification_document_directors_mismatch" | "verification_document_dob_mismatch" | "verification_document_duplicate_type" | "verification_document_expired" | "verification_document_failed_copy" | "verification_document_failed_greyscale" | "verification_document_failed_other" | "verification_document_failed_test_mode" | "verification_document_fraudulent" | "verification_document_id_number_mismatch" | "verification_document_id_number_missing" | "verification_document_incomplete" | "verification_document_invalid" | "verification_document_issue_or_expiry_date_missing" | "verification_document_manipulated" | "verification_document_missing_back" | "verification_document_missing_front" | "verification_document_name_mismatch" | "verification_document_name_missing" | "verification_document_nationality_mismatch" | "verification_document_not_readable" | "verification_document_not_signed" | "verification_document_not_uploaded" | "verification_document_photo_mismatch" | "verification_document_too_large" | "verification_document_type_not_supported" | "verification_extraneous_directors" | "verification_failed_address_match" | "verification_failed_business_iec_number" | "verification_failed_document_match" | "verification_failed_id_number_match" | "verification_failed_keyed_identity" | "verification_failed_keyed_match" | "verification_failed_name_match" | "verification_failed_other" | "verification_failed_residential_address" | "verification_failed_tax_id_match" | "verification_failed_tax_id_not_issued" | "verification_missing_directors" | "verification_missing_executives" | "verification_missing_owners" | "verification_requires_additional_memorandum_of_associations";
       /** @description An informative message that indicates the error type and provides additional details about the error. */
       reason: string;
       /** @description The specific user onboarding requirement field (in the requirements hash) that needs to be resolved. */
@@ -2635,9 +2635,9 @@ export interface components {
     application_fee: {
       /** @description ID of the Stripe account this fee was taken from. */
       account: string | components["schemas"]["account"];
-      /** @description Amount earned, in %s. */
+      /** @description Amount earned, in cents (or local equivalent). */
       amount: number;
-      /** @description Amount in %s refunded (can be less than the amount attribute on the fee if a partial refund was issued) */
+      /** @description Amount in cents (or local equivalent) refunded (can be less than the amount attribute on the fee if a partial refund was issued) */
       amount_refunded: number;
       /** @description ID of the Connect application that earned the fee. */
       application: string | components["schemas"]["application"];
@@ -2795,7 +2795,7 @@ export interface components {
      * Related guide: [Balance transaction types](https://stripe.com/docs/reports/balance-transaction-types)
      */
     balance_transaction: {
-      /** @description Gross amount of the transaction, in %s. */
+      /** @description Gross amount of the transaction, in cents (or local equivalent). */
       amount: number;
       /**
        * Format: unix-time
@@ -2813,13 +2813,13 @@ export interface components {
       description?: string | null;
       /** @description The exchange rate used, if applicable, for this transaction. Specifically, if money was converted from currency A to currency B, then the `amount` in currency A, times `exchange_rate`, would be the `amount` in currency B. For example, suppose you charged a customer 10.00 EUR. Then the PaymentIntent's `amount` would be `1000` and `currency` would be `eur`. Suppose this was converted into 12.34 USD in your Stripe account. Then the BalanceTransaction's `amount` would be `1234`, `currency` would be `usd`, and `exchange_rate` would be `1.234`. */
       exchange_rate?: number | null;
-      /** @description Fees (in %s) paid for this transaction. */
+      /** @description Fees (in cents (or local equivalent)) paid for this transaction. */
       fee: number;
-      /** @description Detailed breakdown of fees (in %s) paid for this transaction. */
+      /** @description Detailed breakdown of fees (in cents (or local equivalent)) paid for this transaction. */
       fee_details: components["schemas"]["fee"][];
       /** @description Unique identifier for the object. */
       id: string;
-      /** @description Net amount of the transaction, in %s. */
+      /** @description Net amount of the transaction, in cents (or local equivalent). */
       net: number;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -2833,10 +2833,10 @@ export interface components {
       /** @description If the transaction's net funds are available in the Stripe balance yet. Either `available` or `pending`. */
       status: string;
       /**
-       * @description Transaction type: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. [Learn more](https://stripe.com/docs/reports/balance-transaction-types) about balance transaction types and what they represent. If you are looking to classify transactions for accounting purposes, you might want to consider `reporting_category` instead.
+       * @description Transaction type: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payment_reversal`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. [Learn more](https://stripe.com/docs/reports/balance-transaction-types) about balance transaction types and what they represent. If you are looking to classify transactions for accounting purposes, you might want to consider `reporting_category` instead.
        * @enum {string}
        */
-      type: "adjustment" | "advance" | "advance_funding" | "anticipation_repayment" | "application_fee" | "application_fee_refund" | "charge" | "connect_collection_transfer" | "contribution" | "issuing_authorization_hold" | "issuing_authorization_release" | "issuing_dispute" | "issuing_transaction" | "payment" | "payment_failure_refund" | "payment_refund" | "payout" | "payout_cancel" | "payout_failure" | "refund" | "refund_failure" | "reserve_transaction" | "reserved_funds" | "stripe_fee" | "stripe_fx_fee" | "tax_fee" | "topup" | "topup_reversal" | "transfer" | "transfer_cancel" | "transfer_failure" | "transfer_refund";
+      type: "adjustment" | "advance" | "advance_funding" | "anticipation_repayment" | "application_fee" | "application_fee_refund" | "charge" | "connect_collection_transfer" | "contribution" | "issuing_authorization_hold" | "issuing_authorization_release" | "issuing_dispute" | "issuing_transaction" | "payment" | "payment_failure_refund" | "payment_refund" | "payment_reversal" | "payout" | "payout_cancel" | "payout_failure" | "refund" | "refund_failure" | "reserve_transaction" | "reserved_funds" | "stripe_fee" | "stripe_fx_fee" | "tax_fee" | "topup" | "topup_reversal" | "transfer" | "transfer_cancel" | "transfer_failure" | "transfer_refund";
     };
     /**
      * BankAccount
@@ -3260,9 +3260,9 @@ export interface components {
     charge: {
       /** @description Amount intended to be collected by this payment. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99). */
       amount: number;
-      /** @description Amount in %s captured (can be less than the amount attribute on the charge if a partial capture was made). */
+      /** @description Amount in cents (or local equivalent) captured (can be less than the amount attribute on the charge if a partial capture was made). */
       amount_captured: number;
-      /** @description Amount in %s refunded (can be less than the amount attribute on the charge if a partial refund was issued). */
+      /** @description Amount in cents (or local equivalent) refunded (can be less than the amount attribute on the charge if a partial refund was issued). */
       amount_refunded: number;
       /** @description ID of the Connect application that created the charge. */
       application?: (string | components["schemas"]["application"]) | null;
@@ -4005,7 +4005,7 @@ export interface components {
     };
     /** ConnectCollectionTransfer */
     connect_collection_transfer: {
-      /** @description Amount transferred, in %s. */
+      /** @description Amount transferred, in cents (or local equivalent). */
       amount: number;
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
@@ -4109,7 +4109,7 @@ export interface components {
        * @enum {string}
        */
       object: "coupon";
-      /** @description Percent that will be taken off the subtotal of any invoices for this customer for the duration of the coupon. For example, a coupon with percent_off of 50 will make a %s100 invoice %s50 instead. */
+      /** @description Percent that will be taken off the subtotal of any invoices for this customer for the duration of the coupon. For example, a coupon with percent_off of 50 will make a $ (or local equivalent)100 invoice $ (or local equivalent)50 instead. */
       percent_off?: number | null;
       /**
        * Format: unix-time
@@ -4138,7 +4138,7 @@ export interface components {
      * Related guide: [Credit notes](https://stripe.com/docs/billing/invoices/credit-notes)
      */
     credit_note: {
-      /** @description The integer amount in %s representing the total amount of the credit note, including tax. */
+      /** @description The integer amount in cents (or local equivalent) representing the total amount of the credit note, including tax. */
       amount: number;
       /** @description This is the sum of all the shipping amounts. */
       amount_shipping: number;
@@ -4153,7 +4153,7 @@ export interface components {
       customer: string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"];
       /** @description Customer balance transaction related to this credit note. */
       customer_balance_transaction?: (string | components["schemas"]["customer_balance_transaction"]) | null;
-      /** @description The integer amount in %s representing the total amount of discount that was credited. */
+      /** @description The integer amount in cents (or local equivalent) representing the total amount of discount that was credited. */
       discount_amount: number;
       /** @description The aggregate amounts calculated per discount for all line items. */
       discount_amounts: components["schemas"]["discounts_resource_discount_amount"][];
@@ -4216,15 +4216,15 @@ export interface components {
        * @enum {string}
        */
       status: "issued" | "void";
-      /** @description The integer amount in %s representing the amount of the credit note, excluding exclusive tax and invoice level discounts. */
+      /** @description The integer amount in cents (or local equivalent) representing the amount of the credit note, excluding exclusive tax and invoice level discounts. */
       subtotal: number;
-      /** @description The integer amount in %s representing the amount of the credit note, excluding all tax and invoice level discounts. */
+      /** @description The integer amount in cents (or local equivalent) representing the amount of the credit note, excluding all tax and invoice level discounts. */
       subtotal_excluding_tax?: number | null;
       /** @description The aggregate amounts calculated per tax rate for all line items. */
       tax_amounts: components["schemas"]["credit_note_tax_amount"][];
-      /** @description The integer amount in %s representing the total amount of the credit note, including tax and all discount. */
+      /** @description The integer amount in cents (or local equivalent) representing the total amount of the credit note, including tax and all discount. */
       total: number;
-      /** @description The integer amount in %s representing the total amount of the credit note, excluding tax, but including discounts. */
+      /** @description The integer amount in cents (or local equivalent) representing the total amount of the credit note, excluding tax, but including discounts. */
       total_excluding_tax?: number | null;
       /**
        * @description Type of this credit note, one of `pre_payment` or `post_payment`. A `pre_payment` credit note means it was issued when the invoice was open. A `post_payment` credit note means it was issued when the invoice was paid.
@@ -4237,15 +4237,18 @@ export interface components {
        */
       voided_at?: number | null;
     };
-    /** CreditNoteLineItem */
+    /**
+     * CreditNoteLineItem
+     * @description The credit note line item object
+     */
     credit_note_line_item: {
-      /** @description The integer amount in %s representing the gross amount being credited for this line item, excluding (exclusive) tax and discounts. */
+      /** @description The integer amount in cents (or local equivalent) representing the gross amount being credited for this line item, excluding (exclusive) tax and discounts. */
       amount: number;
-      /** @description The integer amount in %s representing the amount being credited for this line item, excluding all tax and discounts. */
+      /** @description The integer amount in cents (or local equivalent) representing the amount being credited for this line item, excluding all tax and discounts. */
       amount_excluding_tax?: number | null;
       /** @description Description of the item being credited. */
       description?: string | null;
-      /** @description The integer amount in %s representing the discount being credited for this line item. */
+      /** @description The integer amount in cents (or local equivalent) representing the discount being credited for this line item. */
       discount_amount: number;
       /** @description The amount of discount calculated per discount for this line item */
       discount_amounts: components["schemas"]["discounts_resource_discount_amount"][];
@@ -4280,13 +4283,13 @@ export interface components {
       unit_amount_decimal?: string | null;
       /**
        * Format: decimal
-       * @description The amount in %s representing the unit amount being credited for this line item, excluding all tax and discounts.
+       * @description The amount in cents (or local equivalent) representing the unit amount being credited for this line item, excluding all tax and discounts.
        */
       unit_amount_excluding_tax?: string | null;
     };
     /** CreditNoteTaxAmount */
     credit_note_tax_amount: {
-      /** @description The amount, in %s, of the tax. */
+      /** @description The amount, in cents (or local equivalent), of the tax. */
       amount: number;
       /** @description Whether this tax amount is inclusive or exclusive. */
       inclusive: boolean;
@@ -4297,7 +4300,7 @@ export interface components {
        * @enum {string|null}
        */
       taxability_reason?: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated" | null;
-      /** @description The amount on which tax is calculated, in %s. */
+      /** @description The amount on which tax is calculated, in cents (or local equivalent). */
       taxable_amount?: number | null;
     };
     /** CurrencyOption */
@@ -4311,11 +4314,11 @@ export interface components {
       tax_behavior?: "exclusive" | "inclusive" | "unspecified" | null;
       /** @description Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
       tiers?: components["schemas"]["price_tier"][];
-      /** @description The unit amount in %s to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`. */
+      /** @description The unit amount in cents (or local equivalent) to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`. */
       unit_amount?: number | null;
       /**
        * Format: decimal
-       * @description The unit amount in %s to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
+       * @description The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
        */
       unit_amount_decimal?: string | null;
     };
@@ -4481,6 +4484,13 @@ export interface components {
       /** @description A flag to indicate if reconciliation mode returned is the user's default or is specific to this customer cash balance */
       using_merchant_default: boolean;
     };
+    /** CustomerBalanceResourceCashBalanceTransactionResourceAdjustedForOverdraft */
+    customer_balance_resource_cash_balance_transaction_resource_adjusted_for_overdraft: {
+      /** @description The [Balance Transaction](docs/api/balance_transactions/object) that corresponds to funds taken out of your Stripe balance. */
+      balance_transaction: string | components["schemas"]["balance_transaction"];
+      /** @description The [Cash Balance Transaction](https://stripe.com/docs/api/cash_balance_transactions/object) that brought the customer balance negative, triggering the clawback of funds. */
+      linked_transaction: string | components["schemas"]["customer_cash_balance_transaction"];
+    };
     /** CustomerBalanceResourceCashBalanceTransactionResourceAppliedToPaymentTransaction */
     customer_balance_resource_cash_balance_transaction_resource_applied_to_payment_transaction: {
       /** @description The [Payment Intent](https://stripe.com/docs/api/payment_intents/object) that funds were applied to. */
@@ -4607,6 +4617,7 @@ export interface components {
      * to payments, and refunds to the customer.
      */
     customer_cash_balance_transaction: {
+      adjusted_for_overdraft?: components["schemas"]["customer_balance_resource_cash_balance_transaction_resource_adjusted_for_overdraft"];
       applied_to_payment?: components["schemas"]["customer_balance_resource_cash_balance_transaction_resource_applied_to_payment_transaction"];
       /**
        * Format: unix-time
@@ -4636,7 +4647,7 @@ export interface components {
        * @description The type of the cash balance transaction. New types may be added in future. See [Customer Balance](https://stripe.com/docs/payments/customer-balance#types) to learn more about these types.
        * @enum {string}
        */
-      type: "applied_to_payment" | "funded" | "funding_reversed" | "refunded_from_payment" | "return_canceled" | "return_initiated" | "unapplied_from_payment";
+      type: "adjusted_for_overdraft" | "applied_to_payment" | "funded" | "funding_reversed" | "refunded_from_payment" | "return_canceled" | "return_initiated" | "unapplied_from_payment";
       unapplied_from_payment?: components["schemas"]["customer_balance_resource_cash_balance_transaction_resource_unapplied_from_payment_transaction"];
     };
     /** CustomerTax */
@@ -5077,7 +5088,7 @@ export interface components {
     };
     /** DiscountsResourceDiscountAmount */
     discounts_resource_discount_amount: {
-      /** @description The amount, in %s, of the discount. */
+      /** @description The amount, in cents (or local equivalent), of the discount. */
       amount: number;
       /** @description The discount that was applied to get this discount amount. */
       discount: string | components["schemas"]["discount"] | components["schemas"]["deleted_discount"];
@@ -5125,13 +5136,14 @@ export interface components {
       object: "dispute";
       /** @description ID of the PaymentIntent that was disputed. */
       payment_intent?: (string | components["schemas"]["payment_intent"]) | null;
+      payment_method_details?: components["schemas"]["dispute_payment_method_details"];
       /** @description Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Read more about [dispute reasons](https://stripe.com/docs/disputes/categories). */
       reason: string;
       /**
-       * @description Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `charge_refunded`, `won`, or `lost`.
+       * @description Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, or `lost`.
        * @enum {string}
        */
-      status: "charge_refunded" | "lost" | "needs_response" | "under_review" | "warning_closed" | "warning_needs_response" | "warning_under_review" | "won";
+      status: "lost" | "needs_response" | "under_review" | "warning_closed" | "warning_needs_response" | "warning_under_review" | "won";
     };
     /** DisputeEvidence */
     dispute_evidence: {
@@ -5203,6 +5215,23 @@ export interface components {
       past_due: boolean;
       /** @description The number of times evidence has been submitted. Typically, you may only submit evidence once. */
       submission_count: number;
+    };
+    /** DisputePaymentMethodDetails */
+    dispute_payment_method_details: {
+      /** @description Card specific dispute details. */
+      card?: components["schemas"]["dispute_payment_method_details_card"] | null;
+      /**
+       * @description Payment method type.
+       * @enum {string}
+       */
+      type: "card";
+    };
+    /** DisputePaymentMethodDetailsCard */
+    dispute_payment_method_details_card: {
+      /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+      brand: string;
+      /** @description The card network's specific dispute reason code, which maps to one of Stripe's primary dispute categories to simplify response guidance. The [Network code map](https://stripe.com/docs/disputes/categories#network-code-map) lists all available dispute reason codes by network. */
+      network_reason_code?: string | null;
     };
     /** EmailSent */
     email_sent: {
@@ -5363,7 +5392,7 @@ export interface components {
      * Related guide: [Refunding application fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee)
      */
     fee_refund: {
-      /** @description Amount, in %s. */
+      /** @description Amount, in cents (or local equivalent). */
       amount: number;
       /** @description Balance transaction that describes the impact on your account balance. */
       balance_transaction?: (string | components["schemas"]["balance_transaction"]) | null;
@@ -6210,15 +6239,15 @@ export interface components {
       account_tax_ids?: ((string | components["schemas"]["tax_id"] | components["schemas"]["deleted_tax_id"])[]) | null;
       /** @description Final amount due at this time for this invoice. If the invoice's total is smaller than the minimum charge amount, for example, or if there is account credit that can be applied to the invoice, the `amount_due` may be 0. If there is a positive `starting_balance` for the invoice (the customer owes money), the `amount_due` will also take that into account. The charge that gets generated for the invoice will be for the amount specified in `amount_due`. */
       amount_due: number;
-      /** @description The amount, in %s, that was paid. */
+      /** @description The amount, in cents (or local equivalent), that was paid. */
       amount_paid: number;
-      /** @description The difference between amount_due and amount_paid, in %s. */
+      /** @description The difference between amount_due and amount_paid, in cents (or local equivalent). */
       amount_remaining: number;
       /** @description This is the sum of all the shipping amounts. */
       amount_shipping: number;
       /** @description ID of the Connect Application that created the invoice. */
       application?: (string | components["schemas"]["application"] | components["schemas"]["deleted_application"]) | null;
-      /** @description The fee in %s that will be applied to the invoice and transferred to the application owner's Stripe account when the invoice is paid. */
+      /** @description The fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account when the invoice is paid. */
       application_fee_amount?: number | null;
       /** @description Number of payment attempts made for this invoice, from the perspective of the payment retry schedule. Any payment attempt counts as the first attempt, and subsequently only automatic retries increment the attempt count. In other words, manual payment attempts after the first attempt do not affect the retry schedule. */
       attempt_count: number;
@@ -6391,7 +6420,7 @@ export interface components {
       subscription_proration_date?: number;
       /** @description Total of all subscriptions, invoice items, and prorations on the invoice before any invoice level discount or exclusive tax is applied. Item discounts are already incorporated */
       subtotal: number;
-      /** @description The integer amount in %s representing the subtotal of the invoice before any invoice level discount or tax is applied. Item discounts are already incorporated */
+      /** @description The integer amount in cents (or local equivalent) representing the subtotal of the invoice before any invoice level discount or tax is applied. Item discounts are already incorporated */
       subtotal_excluding_tax?: number | null;
       /** @description The amount of tax on this invoice. This is the sum of all the tax amounts on this invoice. */
       tax?: number | null;
@@ -6402,7 +6431,7 @@ export interface components {
       total: number;
       /** @description The aggregate amounts calculated per discount across all line items. */
       total_discount_amounts?: components["schemas"]["discounts_resource_discount_amount"][] | null;
-      /** @description The integer amount in %s representing the total amount of the invoice including all discounts but excluding all tax. */
+      /** @description The integer amount in cents (or local equivalent) representing the total amount of the invoice including all discounts but excluding all tax. */
       total_excluding_tax?: number | null;
       /** @description The aggregate amounts calculated per tax rate for all line items. */
       total_tax_amounts: components["schemas"]["invoice_tax_amount"][];
@@ -6564,7 +6593,7 @@ export interface components {
     };
     /** InvoiceTaxAmount */
     invoice_tax_amount: {
-      /** @description The amount, in %s, of the tax. */
+      /** @description The amount, in cents (or local equivalent), of the tax. */
       amount: number;
       /** @description Whether this tax amount is inclusive or exclusive. */
       inclusive: boolean;
@@ -6575,7 +6604,7 @@ export interface components {
        * @enum {string|null}
        */
       taxability_reason?: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated" | null;
-      /** @description The amount on which tax is calculated, in %s. */
+      /** @description The amount on which tax is calculated, in cents (or local equivalent). */
       taxable_amount?: number | null;
     };
     /** InvoiceThresholdReason */
@@ -6587,7 +6616,7 @@ export interface components {
     };
     /** InvoiceTransferData */
     invoice_transfer_data: {
-      /** @description The amount in %s that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination. */
+      /** @description The amount in cents (or local equivalent) that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination. */
       amount?: number | null;
       /** @description The account where funds from the payment will be transferred to upon payment success. */
       destination: string | components["schemas"]["account"];
@@ -7703,7 +7732,7 @@ export interface components {
        * @description The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
        * @enum {string}
        */
-      structure?: "free_zone_establishment" | "free_zone_llc" | "government_instrumentality" | "governmental_unit" | "incorporated_non_profit" | "limited_liability_partnership" | "llc" | "multi_member_llc" | "private_company" | "private_corporation" | "private_partnership" | "public_company" | "public_corporation" | "public_partnership" | "single_member_llc" | "sole_establishment" | "sole_proprietorship" | "tax_exempt_government_instrumentality" | "unincorporated_association" | "unincorporated_non_profit";
+      structure?: "free_zone_establishment" | "free_zone_llc" | "government_instrumentality" | "governmental_unit" | "incorporated_non_profit" | "incorporated_partnership" | "limited_liability_partnership" | "llc" | "multi_member_llc" | "private_company" | "private_corporation" | "private_partnership" | "public_company" | "public_corporation" | "public_partnership" | "single_member_llc" | "sole_establishment" | "sole_proprietorship" | "tax_exempt_government_instrumentality" | "unincorporated_association" | "unincorporated_non_profit" | "unincorporated_partnership";
       /** @description Whether the company's business ID number was provided. */
       tax_id_provided?: boolean;
       /** @description The jurisdiction in which the `tax_id` is registered (Germany-based companies only). */
@@ -7791,9 +7820,9 @@ export interface components {
     };
     /** InvoiceLineItem */
     line_item: {
-      /** @description The amount, in %s. */
+      /** @description The amount, in cents (or local equivalent). */
       amount: number;
-      /** @description The integer amount in %s representing the amount for this line item, excluding all tax and discounts. */
+      /** @description The integer amount in cents (or local equivalent) representing the amount for this line item, excluding all tax and discounts. */
       amount_excluding_tax?: number | null;
       /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
       currency: string;
@@ -7844,7 +7873,7 @@ export interface components {
       type: "invoiceitem" | "subscription";
       /**
        * Format: decimal
-       * @description The amount in %s representing the unit amount for this line item, excluding all tax and discounts.
+       * @description The amount in cents (or local equivalent) representing the unit amount for this line item, excluding all tax and discounts.
        */
       unit_amount_excluding_tax?: string | null;
     };
@@ -7864,7 +7893,7 @@ export interface components {
        * @enum {string|null}
        */
       taxability_reason?: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated" | null;
-      /** @description The amount on which tax is calculated, in %s. */
+      /** @description The amount on which tax is calculated, in cents (or local equivalent). */
       taxable_amount?: number | null;
     };
     /** linked_account_options_us_bank_account */
@@ -7959,46 +7988,17 @@ export interface components {
       /** @description The URL that will contain the mandate that the customer has signed. */
       url: string;
     };
-    /** mandate_blik */
-    mandate_blik: {
-      /**
-       * Format: unix-time
-       * @description Date at which the mandate expires.
-       */
-      expires_after?: number | null;
-      off_session?: components["schemas"]["mandate_options_off_session_details_blik"];
-      /**
-       * @description Type of the mandate.
-       * @enum {string|null}
-       */
-      type?: "off_session" | "on_session" | null;
-    };
     /** mandate_cashapp */
     mandate_cashapp: Record<string, never>;
     /** mandate_link */
     mandate_link: Record<string, never>;
     /** mandate_multi_use */
     mandate_multi_use: Record<string, never>;
-    /** mandate_options_off_session_details_blik */
-    mandate_options_off_session_details_blik: {
-      /** @description Amount of each recurring payment. */
-      amount?: number | null;
-      /** @description Currency of each recurring payment. */
-      currency?: string | null;
-      /**
-       * @description Frequency interval of each recurring payment.
-       * @enum {string|null}
-       */
-      interval?: "day" | "month" | "week" | "year" | null;
-      /** @description Frequency indicator of each recurring payment. */
-      interval_count?: number | null;
-    };
     /** mandate_payment_method_details */
     mandate_payment_method_details: {
       acss_debit?: components["schemas"]["mandate_acss_debit"];
       au_becs_debit?: components["schemas"]["mandate_au_becs_debit"];
       bacs_debit?: components["schemas"]["mandate_bacs_debit"];
-      blik?: components["schemas"]["mandate_blik"];
       card?: components["schemas"]["card_mandate_payment_method_details"];
       cashapp?: components["schemas"]["mandate_cashapp"];
       link?: components["schemas"]["mandate_link"];
@@ -8663,9 +8663,7 @@ export interface components {
       setup_future_usage?: "none" | "off_session" | "on_session";
     };
     /** payment_intent_payment_method_options_blik */
-    payment_intent_payment_method_options_blik: {
-      mandate_options?: components["schemas"]["payment_intent_payment_method_options_mandate_options_blik"];
-    };
+    payment_intent_payment_method_options_blik: Record<string, never>;
     /** payment_intent_payment_method_options_card */
     payment_intent_payment_method_options_card: {
       /**
@@ -8751,20 +8749,6 @@ export interface components {
        */
       transaction_type?: "business" | "personal" | null;
     };
-    /** payment_intent_payment_method_options_mandate_options_blik */
-    payment_intent_payment_method_options_mandate_options_blik: {
-      /**
-       * Format: unix-time
-       * @description Date at which the mandate expires.
-       */
-      expires_after?: number | null;
-      off_session?: components["schemas"]["mandate_options_off_session_details_blik"];
-      /**
-       * @description Type of the mandate.
-       * @enum {string|null}
-       */
-      type?: "off_session" | "on_session" | null;
-    };
     /** payment_intent_payment_method_options_mandate_options_sepa_debit */
     payment_intent_payment_method_options_mandate_options_sepa_debit: Record<string, never>;
     /** payment_intent_payment_method_options_sepa_debit */
@@ -8783,6 +8767,11 @@ export interface components {
     /** payment_intent_payment_method_options_us_bank_account */
     payment_intent_payment_method_options_us_bank_account: {
       financial_connections?: components["schemas"]["linked_account_options_us_bank_account"];
+      /**
+       * @description Preferred transaction settlement speed
+       * @enum {string}
+       */
+      preferred_settlement_speed?: "fastest" | "standard";
       /**
        * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
        *
@@ -9110,7 +9099,7 @@ export interface components {
     };
     /** PaymentLinksResourceTransferData */
     payment_links_resource_transfer_data: {
-      /** @description The amount in %s that will be transferred to the destination account. By default, the entire amount is transferred to the destination. */
+      /** @description The amount in cents (or local equivalent) that will be transferred to the destination account. By default, the entire amount is transferred to the destination. */
       amount?: number | null;
       /** @description The connected account receiving the transfer. */
       destination: string | components["schemas"]["account"];
@@ -9563,7 +9552,7 @@ export interface components {
       /** @description If this card has network token credentials, this contains the details of the network token credentials. */
       network_token?: components["schemas"]["payment_method_details_card_network_token"] | null;
       /** @description Populated if this transaction used 3D Secure authentication. */
-      three_d_secure?: components["schemas"]["three_d_secure_details"] | null;
+      three_d_secure?: components["schemas"]["three_d_secure_details_charge"] | null;
       /** @description If this Card is part of a card wallet, this contains the details of the card wallet. */
       wallet?: components["schemas"]["payment_method_details_card_wallet"] | null;
     };
@@ -10907,7 +10896,7 @@ export interface components {
      * Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
      */
     payout: {
-      /** @description Amount (in %s) to be transferred to your bank account or debit card. */
+      /** @description Amount (in cents (or local equivalent)) to be transferred to your bank account or debit card. */
       amount: number;
       /**
        * Format: unix-time
@@ -11131,11 +11120,11 @@ export interface components {
        * @enum {string|null}
        */
       aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum" | null;
-      /** @description The unit amount in %s to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`. */
+      /** @description The unit amount in cents (or local equivalent) to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`. */
       amount?: number | null;
       /**
        * Format: decimal
-       * @description The unit amount in %s to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
+       * @description The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
        */
       amount_decimal?: string | null;
       /**
@@ -11463,11 +11452,11 @@ export interface components {
        * @enum {string}
        */
       type: "one_time" | "recurring";
-      /** @description The unit amount in %s to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`. */
+      /** @description The unit amount in cents (or local equivalent) to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`. */
       unit_amount?: number | null;
       /**
        * Format: decimal
-       * @description The unit amount in %s to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
+       * @description The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
        */
       unit_amount_decimal?: string | null;
     };
@@ -11799,7 +11788,7 @@ export interface components {
     };
     /** QuotesResourceTransferData */
     quotes_resource_transfer_data: {
-      /** @description The amount in %s that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination. */
+      /** @description The amount in cents (or local equivalent) that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination. */
       amount?: number | null;
       /** @description A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount will be transferred to the destination. */
       amount_percent?: number | null;
@@ -12015,7 +12004,7 @@ export interface components {
      * Related guide: [Refunds](https://stripe.com/docs/refunds)
      */
     refund: {
-      /** @description Amount, in %s. */
+      /** @description Amount, in cents (or local equivalent). */
       amount: number;
       /** @description Balance transaction that describes the impact on your account balance. */
       balance_transaction?: (string | components["schemas"]["balance_transaction"]) | null;
@@ -12370,7 +12359,6 @@ export interface components {
       au_becs_debit?: components["schemas"]["setup_attempt_payment_method_details_au_becs_debit"];
       bacs_debit?: components["schemas"]["setup_attempt_payment_method_details_bacs_debit"];
       bancontact?: components["schemas"]["setup_attempt_payment_method_details_bancontact"];
-      blik?: components["schemas"]["setup_attempt_payment_method_details_blik"];
       boleto?: components["schemas"]["setup_attempt_payment_method_details_boleto"];
       card?: components["schemas"]["setup_attempt_payment_method_details_card"];
       card_present?: components["schemas"]["setup_attempt_payment_method_details_card_present"];
@@ -12417,8 +12405,6 @@ export interface components {
        */
       verified_name?: string | null;
     };
-    /** setup_attempt_payment_method_details_blik */
-    setup_attempt_payment_method_details_blik: Record<string, never>;
     /** setup_attempt_payment_method_details_boleto */
     setup_attempt_payment_method_details_boleto: Record<string, never>;
     /** setup_attempt_payment_method_details_card */
@@ -12561,7 +12547,7 @@ export interface components {
        * It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
        */
       attach_to_self?: boolean;
-      /** @description Settings for automatic payment methods compatible with this Setup Intent */
+      /** @description Settings for dynamic payment methods compatible with this Setup Intent */
       automatic_payment_methods?: components["schemas"]["payment_flows_automatic_payment_methods_setup_intent"] | null;
       /**
        * @description Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`.
@@ -12671,7 +12657,6 @@ export interface components {
     /** SetupIntentPaymentMethodOptions */
     setup_intent_payment_method_options: {
       acss_debit?: components["schemas"]["setup_intent_payment_method_options_acss_debit"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
-      blik?: components["schemas"]["setup_intent_payment_method_options_blik"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
       card?: components["schemas"]["setup_intent_payment_method_options_card"];
       link?: components["schemas"]["setup_intent_payment_method_options_link"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
       paypal?: components["schemas"]["setup_intent_payment_method_options_paypal"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
@@ -12691,10 +12676,6 @@ export interface components {
        * @enum {string}
        */
       verification_method?: "automatic" | "instant" | "microdeposits";
-    };
-    /** setup_intent_payment_method_options_blik */
-    setup_intent_payment_method_options_blik: {
-      mandate_options?: components["schemas"]["setup_intent_payment_method_options_mandate_options_blik"];
     };
     /** setup_intent_payment_method_options_card */
     setup_intent_payment_method_options_card: {
@@ -12766,20 +12747,6 @@ export interface components {
        * @enum {string|null}
        */
       transaction_type?: "business" | "personal" | null;
-    };
-    /** setup_intent_payment_method_options_mandate_options_blik */
-    setup_intent_payment_method_options_mandate_options_blik: {
-      /**
-       * Format: unix-time
-       * @description Date at which the mandate expires.
-       */
-      expires_after?: number | null;
-      off_session?: components["schemas"]["mandate_options_off_session_details_blik"];
-      /**
-       * @description Type of the mandate.
-       * @enum {string|null}
-       */
-      type?: "off_session" | "on_session" | null;
     };
     /** setup_intent_payment_method_options_mandate_options_sepa_debit */
     setup_intent_payment_method_options_mandate_options_sepa_debit: Record<string, never>;
@@ -14459,7 +14426,11 @@ export interface components {
       description?: string | null;
       /** @description The display name of the tax rates as it will appear to your customer on their receipt email, PDF, and the hosted invoice page. */
       display_name: string;
-      /** @description Actual/effective tax rate percentage out of 100. For tax calculations with automatic_tax[enabled]=true, this percentage does not include the statutory tax rate of non-taxable jurisdictions. */
+      /**
+       * @description Actual/effective tax rate percentage out of 100. For tax calculations with automatic_tax[enabled]=true,
+       * this percentage reflects the rate actually used to calculate tax based on the product's taxability
+       * and whether the user is registered to collect taxes in the corresponding jurisdiction.
+       */
       effective_percentage?: number | null;
       /** @description Unique identifier for the object. */
       id: string;
@@ -14667,12 +14638,18 @@ export interface components {
       process_config?: components["schemas"]["terminal_reader_reader_resource_process_config"];
     };
     /**
+     * TerminalReaderReaderResourceProcessSetupConfig
+     * @description Represents a per-setup override of a reader configuration
+     */
+    terminal_reader_reader_resource_process_setup_config: Record<string, never>;
+    /**
      * TerminalReaderReaderResourceProcessSetupIntentAction
      * @description Represents a reader action to process a setup intent
      */
     terminal_reader_reader_resource_process_setup_intent_action: {
       /** @description ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod. */
       generated_card?: string;
+      process_config?: components["schemas"]["terminal_reader_reader_resource_process_setup_config"];
       /** @description Most recent SetupIntent processed by the reader. */
       setup_intent: string | components["schemas"]["setup_intent"];
     };
@@ -14789,6 +14766,31 @@ export interface components {
     };
     /** three_d_secure_details */
     three_d_secure_details: {
+      /**
+       * @description For authenticated transactions: how the customer was authenticated by
+       * the issuing bank.
+       * @enum {string|null}
+       */
+      authentication_flow?: "challenge" | "frictionless" | null;
+      /**
+       * @description Indicates the outcome of 3D Secure authentication.
+       * @enum {string|null}
+       */
+      result?: "attempt_acknowledged" | "authenticated" | "exempted" | "failed" | "not_supported" | "processing_error" | null;
+      /**
+       * @description Additional information about why 3D Secure succeeded or failed based
+       * on the `result`.
+       * @enum {string|null}
+       */
+      result_reason?: "abandoned" | "bypassed" | "canceled" | "card_not_enrolled" | "network_not_supported" | "protocol_error" | "rejected" | null;
+      /**
+       * @description The version of 3D Secure that was used.
+       * @enum {string|null}
+       */
+      version?: "1.0.2" | "2.1.0" | "2.2.0" | null;
+    };
+    /** three_d_secure_details_charge */
+    three_d_secure_details_charge: {
       /**
        * @description For authenticated transactions: how the customer was authenticated by
        * the issuing bank.
@@ -14931,9 +14933,9 @@ export interface components {
      * Related guide: [Creating separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers)
      */
     transfer: {
-      /** @description Amount in %s to be transferred. */
+      /** @description Amount in cents (or local equivalent) to be transferred. */
       amount: number;
-      /** @description Amount in %s reversed (can be less than the amount attribute on the transfer if a partial reversal was issued). */
+      /** @description Amount in cents (or local equivalent) reversed (can be less than the amount attribute on the transfer if a partial reversal was issued). */
       amount_reversed: number;
       /** @description Balance transaction that describes the impact of this transfer on your account balance. */
       balance_transaction?: (string | components["schemas"]["balance_transaction"]) | null;
@@ -15017,7 +15019,7 @@ export interface components {
      * Related guide: [Reversing transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#reversing-transfers)
      */
     transfer_reversal: {
-      /** @description Amount, in %s. */
+      /** @description Amount, in cents (or local equivalent). */
       amount: number;
       /** @description Balance transaction that describes the impact on your account balance. */
       balance_transaction?: (string | components["schemas"]["balance_transaction"]) | null;
@@ -16564,7 +16566,7 @@ export interface operations {
             phone?: string;
             registration_number?: string;
             /** @enum {string} */
-            structure?: "" | "free_zone_establishment" | "free_zone_llc" | "government_instrumentality" | "governmental_unit" | "incorporated_non_profit" | "limited_liability_partnership" | "llc" | "multi_member_llc" | "private_company" | "private_corporation" | "private_partnership" | "public_company" | "public_corporation" | "public_partnership" | "single_member_llc" | "sole_establishment" | "sole_proprietorship" | "tax_exempt_government_instrumentality" | "unincorporated_association" | "unincorporated_non_profit";
+            structure?: "" | "free_zone_establishment" | "free_zone_llc" | "government_instrumentality" | "governmental_unit" | "incorporated_non_profit" | "incorporated_partnership" | "limited_liability_partnership" | "llc" | "multi_member_llc" | "private_company" | "private_corporation" | "private_partnership" | "public_company" | "public_corporation" | "public_partnership" | "single_member_llc" | "sole_establishment" | "sole_proprietorship" | "tax_exempt_government_instrumentality" | "unincorporated_association" | "unincorporated_non_profit" | "unincorporated_partnership";
             tax_id?: string;
             tax_id_registrar?: string;
             vat_id?: string;
@@ -16844,7 +16846,7 @@ export interface operations {
    * for a Standard or Express account, some parameters can no longer be changed. These are marked as <strong>Custom Only</strong> or <strong>Custom and Express</strong>
    * below.</p>
    *
-   * <p>To update your own account, use the <a href="https://dashboard.stripe.com/account">Dashboard</a>. Refer to our
+   * <p>To update your own account, use the <a href="https://dashboard.stripe.com/settings/account">Dashboard</a>. Refer to our
    * <a href="/docs/connect/updating-accounts">Connect</a> documentation to learn more about updating accounts.</p>
    */
   PostAccountsAccount: {
@@ -17092,7 +17094,7 @@ export interface operations {
             phone?: string;
             registration_number?: string;
             /** @enum {string} */
-            structure?: "" | "free_zone_establishment" | "free_zone_llc" | "government_instrumentality" | "governmental_unit" | "incorporated_non_profit" | "limited_liability_partnership" | "llc" | "multi_member_llc" | "private_company" | "private_corporation" | "private_partnership" | "public_company" | "public_corporation" | "public_partnership" | "single_member_llc" | "sole_establishment" | "sole_proprietorship" | "tax_exempt_government_instrumentality" | "unincorporated_association" | "unincorporated_non_profit";
+            structure?: "" | "free_zone_establishment" | "free_zone_llc" | "government_instrumentality" | "governmental_unit" | "incorporated_non_profit" | "incorporated_partnership" | "limited_liability_partnership" | "llc" | "multi_member_llc" | "private_company" | "private_corporation" | "private_partnership" | "public_company" | "public_corporation" | "public_partnership" | "single_member_llc" | "sole_establishment" | "sole_proprietorship" | "tax_exempt_government_instrumentality" | "unincorporated_association" | "unincorporated_non_profit" | "unincorporated_partnership";
             tax_id?: string;
             tax_id_registrar?: string;
             vat_id?: string;
@@ -17330,7 +17332,7 @@ export interface operations {
    *
    * <p>Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.</p>
    *
-   * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/account">account information tab in your account settings</a> instead.</p>
+   * <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/settings/account">account information tab in your account settings</a> instead.</p>
    */
   DeleteAccountsAccount: {
     parameters: {
@@ -19532,7 +19534,7 @@ export interface operations {
         source?: string;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
-        /** @description Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. */
+        /** @description Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payment_reversal`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. */
         type?: string;
       };
     };
@@ -19630,7 +19632,7 @@ export interface operations {
         source?: string;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
-        /** @description Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. */
+        /** @description Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payment_reversal`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. */
         type?: string;
       };
     };
@@ -20029,7 +20031,7 @@ export interface operations {
             type: "payment_method_update" | "subscription_cancel" | "subscription_update" | "subscription_update_confirm";
           };
           /**
-           * @description The IETF language tag of the locale Customer Portal is displayed in. If blank or auto, the customer’s `preferred_locales` or browser’s locale is used.
+           * @description The IETF language tag of the locale customer portal is displayed in. If blank or auto, the customer’s `preferred_locales` or browser’s locale is used.
            * @enum {string}
            */
           locale?: "auto" | "bg" | "cs" | "da" | "de" | "el" | "en" | "en-AU" | "en-CA" | "en-GB" | "en-IE" | "en-IN" | "en-NZ" | "en-SG" | "es" | "es-419" | "et" | "fi" | "fil" | "fr" | "fr-CA" | "hr" | "hu" | "id" | "it" | "ja" | "ko" | "lt" | "lv" | "ms" | "mt" | "nb" | "nl" | "pl" | "pt" | "pt-BR" | "ro" | "ru" | "sk" | "sl" | "sv" | "th" | "tr" | "vi" | "zh" | "zh-HK" | "zh-TW";
@@ -27067,7 +27069,7 @@ export interface operations {
             /** Format: decimal */
             unit_amount_decimal?: string;
           })[];
-        /** @description The identifier of the unstarted schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields. */
+        /** @description The identifier of the schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields. */
         schedule?: string;
         /** @description The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions. */
         subscription?: string;
@@ -27247,7 +27249,7 @@ export interface operations {
           })[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
-        /** @description The identifier of the unstarted schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields. */
+        /** @description The identifier of the schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields. */
         schedule?: string;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
@@ -29823,19 +29825,9 @@ export interface operations {
               /** @enum {string} */
               setup_future_usage?: "" | "none" | "off_session";
             }) | "";
-            blik?: ({
+            blik?: {
               code?: string;
-              /** payment_intent_payment_method_options_mandate_options_param */
-              mandate_options?: {
-                expires_after?: number;
-                /** mandate_options_off_session_details_common_param */
-                off_session?: {
-                  /** @enum {string} */
-                  interval: "day" | "month" | "week" | "year";
-                  interval_count: number;
-                };
-              };
-            }) | "";
+            } | "";
             boleto?: ({
               expires_after_days?: number;
               /** @enum {string} */
@@ -30007,6 +29999,8 @@ export interface operations {
               networks?: {
                 requested?: ("ach" | "us_domestic_wire")[];
               };
+              /** @enum {string} */
+              preferred_settlement_speed?: "" | "fastest" | "standard";
               /** @enum {string} */
               setup_future_usage?: "" | "none" | "off_session" | "on_session";
               /** @enum {string} */
@@ -30426,19 +30420,9 @@ export interface operations {
               /** @enum {string} */
               setup_future_usage?: "" | "none" | "off_session";
             }) | "";
-            blik?: ({
+            blik?: {
               code?: string;
-              /** payment_intent_payment_method_options_mandate_options_param */
-              mandate_options?: {
-                expires_after?: number;
-                /** mandate_options_off_session_details_common_param */
-                off_session?: {
-                  /** @enum {string} */
-                  interval: "day" | "month" | "week" | "year";
-                  interval_count: number;
-                };
-              };
-            }) | "";
+            } | "";
             boleto?: ({
               expires_after_days?: number;
               /** @enum {string} */
@@ -30610,6 +30594,8 @@ export interface operations {
               networks?: {
                 requested?: ("ach" | "us_domestic_wire")[];
               };
+              /** @enum {string} */
+              preferred_settlement_speed?: "" | "fastest" | "standard";
               /** @enum {string} */
               setup_future_usage?: "" | "none" | "off_session" | "on_session";
               /** @enum {string} */
@@ -31096,19 +31082,9 @@ export interface operations {
               /** @enum {string} */
               setup_future_usage?: "" | "none" | "off_session";
             }) | "";
-            blik?: ({
+            blik?: {
               code?: string;
-              /** payment_intent_payment_method_options_mandate_options_param */
-              mandate_options?: {
-                expires_after?: number;
-                /** mandate_options_off_session_details_common_param */
-                off_session?: {
-                  /** @enum {string} */
-                  interval: "day" | "month" | "week" | "year";
-                  interval_count: number;
-                };
-              };
-            }) | "";
+            } | "";
             boleto?: ({
               expires_after_days?: number;
               /** @enum {string} */
@@ -31280,6 +31256,8 @@ export interface operations {
               networks?: {
                 requested?: ("ach" | "us_domestic_wire")[];
               };
+              /** @enum {string} */
+              preferred_settlement_speed?: "" | "fastest" | "standard";
               /** @enum {string} */
               setup_future_usage?: "" | "none" | "off_session" | "on_session";
               /** @enum {string} */
@@ -31917,7 +31895,7 @@ export interface operations {
            * @enum {string}
            */
           payment_method_collection?: "always" | "if_required";
-          /** @description The list of payment method types that customers can use. Pass an empty string to enable automatic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
+          /** @description The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
           payment_method_types?: (("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
           /** @description Configuration for collecting the customer's shipping address. */
           shipping_address_collection?: ({
@@ -35737,23 +35715,6 @@ export interface operations {
               /** @enum {string} */
               verification_method?: "automatic" | "instant" | "microdeposits";
             };
-            /** setup_intent_payment_method_options_param */
-            blik?: {
-              code?: string;
-              /** setup_intent_payment_method_options_mandate_options_param */
-              mandate_options?: {
-                expires_after?: number;
-                /** mandate_options_off_session_details_param */
-                off_session?: {
-                  amount: number;
-                  /** @enum {string} */
-                  currency: "pln";
-                  /** @enum {string} */
-                  interval: "day" | "month" | "week" | "year";
-                  interval_count: number;
-                };
-              };
-            };
             /** setup_intent_param */
             card?: {
               /** setup_intent_mandate_options_param */
@@ -36075,23 +36036,6 @@ export interface operations {
               };
               /** @enum {string} */
               verification_method?: "automatic" | "instant" | "microdeposits";
-            };
-            /** setup_intent_payment_method_options_param */
-            blik?: {
-              code?: string;
-              /** setup_intent_payment_method_options_mandate_options_param */
-              mandate_options?: {
-                expires_after?: number;
-                /** mandate_options_off_session_details_param */
-                off_session?: {
-                  amount: number;
-                  /** @enum {string} */
-                  currency: "pln";
-                  /** @enum {string} */
-                  interval: "day" | "month" | "week" | "year";
-                  interval_count: number;
-                };
-              };
             };
             /** setup_intent_param */
             card?: {
@@ -36418,23 +36362,6 @@ export interface operations {
               };
               /** @enum {string} */
               verification_method?: "automatic" | "instant" | "microdeposits";
-            };
-            /** setup_intent_payment_method_options_param */
-            blik?: {
-              code?: string;
-              /** setup_intent_payment_method_options_mandate_options_param */
-              mandate_options?: {
-                expires_after?: number;
-                /** mandate_options_off_session_details_param */
-                off_session?: {
-                  amount: number;
-                  /** @enum {string} */
-                  currency: "pln";
-                  /** @enum {string} */
-                  interval: "day" | "month" | "week" | "year";
-                  interval_count: number;
-                };
-              };
             };
             /** setup_intent_param */
             card?: {
@@ -39175,6 +39102,8 @@ export interface operations {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
+          /** @description A flat amount to reverse across the entire transaction, in negative integer cents. This value represents the total amount to refund from the transaction, including taxes. */
+          flat_amount?: number;
           /** @description The line item amounts to reverse. */
           line_items?: {
               amount: number;
@@ -40421,6 +40350,11 @@ export interface operations {
           customer_consent_collected: boolean;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
+          /**
+           * process_setup_config
+           * @description Configuration overrides
+           */
+          process_config?: Record<string, never>;
           /** @description SetupIntent ID */
           setup_intent: string;
         };
@@ -41404,7 +41338,7 @@ export interface operations {
               phone?: string;
               registration_number?: string;
               /** @enum {string} */
-              structure?: "" | "free_zone_establishment" | "free_zone_llc" | "government_instrumentality" | "governmental_unit" | "incorporated_non_profit" | "limited_liability_partnership" | "llc" | "multi_member_llc" | "private_company" | "private_corporation" | "private_partnership" | "public_company" | "public_corporation" | "public_partnership" | "single_member_llc" | "sole_establishment" | "sole_proprietorship" | "tax_exempt_government_instrumentality" | "unincorporated_association" | "unincorporated_non_profit";
+              structure?: "" | "free_zone_establishment" | "free_zone_llc" | "government_instrumentality" | "governmental_unit" | "incorporated_non_profit" | "incorporated_partnership" | "limited_liability_partnership" | "llc" | "multi_member_llc" | "private_company" | "private_corporation" | "private_partnership" | "public_company" | "public_corporation" | "public_partnership" | "single_member_llc" | "sole_establishment" | "sole_proprietorship" | "tax_exempt_government_instrumentality" | "unincorporated_association" | "unincorporated_non_profit" | "unincorporated_partnership";
               tax_id?: string;
               tax_id_registrar?: string;
               vat_id?: string;
@@ -43809,7 +43743,7 @@ export interface operations {
            * @description Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version.
            * @enum {string}
            */
-          api_version?: "2011-01-01" | "2011-06-21" | "2011-06-28" | "2011-08-01" | "2011-09-15" | "2011-11-17" | "2012-02-23" | "2012-03-25" | "2012-06-18" | "2012-06-28" | "2012-07-09" | "2012-09-24" | "2012-10-26" | "2012-11-07" | "2013-02-11" | "2013-02-13" | "2013-07-05" | "2013-08-12" | "2013-08-13" | "2013-10-29" | "2013-12-03" | "2014-01-31" | "2014-03-13" | "2014-03-28" | "2014-05-19" | "2014-06-13" | "2014-06-17" | "2014-07-22" | "2014-07-26" | "2014-08-04" | "2014-08-20" | "2014-09-08" | "2014-10-07" | "2014-11-05" | "2014-11-20" | "2014-12-08" | "2014-12-17" | "2014-12-22" | "2015-01-11" | "2015-01-26" | "2015-02-10" | "2015-02-16" | "2015-02-18" | "2015-03-24" | "2015-04-07" | "2015-06-15" | "2015-07-07" | "2015-07-13" | "2015-07-28" | "2015-08-07" | "2015-08-19" | "2015-09-03" | "2015-09-08" | "2015-09-23" | "2015-10-01" | "2015-10-12" | "2015-10-16" | "2016-02-03" | "2016-02-19" | "2016-02-22" | "2016-02-23" | "2016-02-29" | "2016-03-07" | "2016-06-15" | "2016-07-06" | "2016-10-19" | "2017-01-27" | "2017-02-14" | "2017-04-06" | "2017-05-25" | "2017-06-05" | "2017-08-15" | "2017-12-14" | "2018-01-23" | "2018-02-05" | "2018-02-06" | "2018-02-28" | "2018-05-21" | "2018-07-27" | "2018-08-23" | "2018-09-06" | "2018-09-24" | "2018-10-31" | "2018-11-08" | "2019-02-11" | "2019-02-19" | "2019-03-14" | "2019-05-16" | "2019-08-14" | "2019-09-09" | "2019-10-08" | "2019-10-17" | "2019-11-05" | "2019-12-03" | "2020-03-02" | "2020-08-27" | "2022-08-01" | "2022-11-15";
+          api_version?: "2011-01-01" | "2011-06-21" | "2011-06-28" | "2011-08-01" | "2011-09-15" | "2011-11-17" | "2012-02-23" | "2012-03-25" | "2012-06-18" | "2012-06-28" | "2012-07-09" | "2012-09-24" | "2012-10-26" | "2012-11-07" | "2013-02-11" | "2013-02-13" | "2013-07-05" | "2013-08-12" | "2013-08-13" | "2013-10-29" | "2013-12-03" | "2014-01-31" | "2014-03-13" | "2014-03-28" | "2014-05-19" | "2014-06-13" | "2014-06-17" | "2014-07-22" | "2014-07-26" | "2014-08-04" | "2014-08-20" | "2014-09-08" | "2014-10-07" | "2014-11-05" | "2014-11-20" | "2014-12-08" | "2014-12-17" | "2014-12-22" | "2015-01-11" | "2015-01-26" | "2015-02-10" | "2015-02-16" | "2015-02-18" | "2015-03-24" | "2015-04-07" | "2015-06-15" | "2015-07-07" | "2015-07-13" | "2015-07-28" | "2015-08-07" | "2015-08-19" | "2015-09-03" | "2015-09-08" | "2015-09-23" | "2015-10-01" | "2015-10-12" | "2015-10-16" | "2016-02-03" | "2016-02-19" | "2016-02-22" | "2016-02-23" | "2016-02-29" | "2016-03-07" | "2016-06-15" | "2016-07-06" | "2016-10-19" | "2017-01-27" | "2017-02-14" | "2017-04-06" | "2017-05-25" | "2017-06-05" | "2017-08-15" | "2017-12-14" | "2018-01-23" | "2018-02-05" | "2018-02-06" | "2018-02-28" | "2018-05-21" | "2018-07-27" | "2018-08-23" | "2018-09-06" | "2018-09-24" | "2018-10-31" | "2018-11-08" | "2019-02-11" | "2019-02-19" | "2019-03-14" | "2019-05-16" | "2019-08-14" | "2019-09-09" | "2019-10-08" | "2019-10-17" | "2019-11-05" | "2019-12-03" | "2020-03-02" | "2020-08-27" | "2022-08-01" | "2022-11-15" | "2023-08-16";
           /** @description Whether this endpoint should receive events from connected accounts (`true`), or from your account (`false`). Defaults to `false`. */
           connect?: boolean;
           /** @description An optional description of what the webhook is used for. */

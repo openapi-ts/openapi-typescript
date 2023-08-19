@@ -1,4 +1,4 @@
-import type { GlobalContext, OpenAPI3, OpenAPITSOptions, SchemaObject, Subschema } from "./types.js";
+import type { GlobalContext, OpenAPI3, OpenAPITSOptions, ParameterObject, SchemaObject, Subschema } from "./types.js";
 import type { Readable } from "node:stream";
 import { URL } from "node:url";
 import load, { resolveSchema, VIRTUAL_JSON_URL } from "./load.js";
@@ -40,6 +40,7 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
   const ctx: GlobalContext = {
     additionalProperties: options.additionalProperties ?? false,
     alphabetize: options.alphabetize ?? false,
+    cwd: options.cwd ?? new URL(`file://${process.cwd()}/`),
     defaultNonNullable: options.defaultNonNullable ?? false,
     discriminators: {},
     transform: typeof options.transform === "function" ? options.transform : undefined,
@@ -55,17 +56,31 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
     excludeDeprecated: options.excludeDeprecated ?? false,
   };
 
-  // note: we may be loading many large schemas into memory at once; take care to reuse references without cloning
-  const isInlineSchema = typeof schema !== "string" && schema instanceof URL === false; // eslint-disable-line @typescript-eslint/no-unnecessary-boolean-literal-compare
-
   // 1. load schema (and subschemas)
   const allSchemas: { [id: string]: Subschema } = {};
   const schemaURL: URL = typeof schema === "string" ? resolveSchema(schema) : (schema as URL);
+  let rootURL: URL = schemaURL;
+
+  // 1a. if passed as in-memory JSON, handle `cwd` option
+  const isInlineSchema = typeof schema !== "string" && schema instanceof URL === false; // eslint-disable-line @typescript-eslint/no-unnecessary-boolean-literal-compare
+  if (isInlineSchema) {
+    if (ctx.cwd) {
+      if (ctx.cwd instanceof URL) {
+        rootURL = ctx.cwd;
+      } else if (typeof ctx.cwd === "string") {
+        rootURL = new URL(ctx.cwd, `file://${process.cwd()}/`);
+      }
+      rootURL = new URL("root.yaml", rootURL); // give the root schema an arbitrary filename ("root.yaml")
+    } else {
+      rootURL = new URL(VIRTUAL_JSON_URL); // otherwise, set virtual filename (which prevents resolutions)
+    }
+  }
+
   await load(schemaURL, {
     ...ctx,
     auth: options.auth,
     schemas: allSchemas,
-    rootURL: isInlineSchema ? new URL(VIRTUAL_JSON_URL) : schemaURL, // if an inline schema is passed, use virtual URL
+    rootURL,
     urlCache: new Set(),
     httpHeaders: options.httpHeaders,
     httpMethod: options.httpMethod,
@@ -185,7 +200,7 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
             const c = getSchemaObjectComment(schemaObject as SchemaObject, indentLv);
             if (c) subschemaOutput += indent(c, indentLv);
 
-            // This might be a Path Item Object; only way to test is if top-level contains a method (not allowed on Schema Object)
+            // Test for Path Item Object
             if (!("type" in schemaObject) && !("$ref" in schemaObject)) {
               for (const method of ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as Method[]) {
                 if (method in schemaObject) {
@@ -193,6 +208,11 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
                   continue outer;
                 }
               }
+            }
+            // Test for Parameter
+            if ("in" in schemaObject) {
+              subschemaOutput += indent(`${escObjKey(name)}: ${transformParameterObject(schemaObject as ParameterObject, { path: `${path}${name}`, ctx: { ...ctx, indentLv } })};\n`, indentLv);
+              continue;
             }
 
             // Otherwise, this is a Schema Object
@@ -204,7 +224,7 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
           break;
         }
         case "SchemaObject": {
-          subschemaOutput = transformSchemaObject(subschema.schema, { path, ctx: { ...ctx, indentLv } });
+          subschemaOutput = `${transformSchemaObject(subschema.schema, { path, ctx: { ...ctx, indentLv } })};`;
           break;
         }
         default: {

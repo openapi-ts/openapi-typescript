@@ -43,12 +43,13 @@ const output = await openapiTS("https://myurl.com/v1/openapi.yaml");
 
 The Node API supports all the [CLI flags](/cli#options) in `camelCase` format, plus the following additional options:
 
-| Name            |    Type    | Default | Description                                                                      |
-| :-------------- | :--------: | :------ | :------------------------------------------------------------------------------- |
-| `commentHeader` |  `string`  |         | Override the default “This file was auto-generated …” file heading               |
-| `inject`        |  `string`  |         | Inject arbitrary TypeScript types into the start of the file                     |
-| `transform`     | `Function` |         | Override the default Schema Object ➝ TypeScript transformer in certain scenarios |
-| `postTransform` | `Function` |         | Same as `transform` but runs _after_ the TypeScript transformation               |
+| Name            |      Type       | Default | Description                                                                                                          |
+| :-------------- | :-------------: | :------ | :------------------------------------------------------------------------------------------------------------------- |
+| `commentHeader` |    `string`     |         | Override the default “This file was auto-generated …” file heading                                                   |
+| `inject`        |    `string`     |         | Inject arbitrary TypeScript types into the start of the file                                                         |
+| `transform`     |   `Function`    |         | Override the default Schema Object ➝ TypeScript transformer in certain scenarios                                     |
+| `postTransform` |   `Function`    |         | Same as `transform` but runs _after_ the TypeScript transformation                                                   |
+| `cwd`           | `string \| URL` |         | (optional) Provide the current working directory to resolve remote `$ref`s (only needed for in-memory JSON objects). |
 
 ### transform / postTransform
 

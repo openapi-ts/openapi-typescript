@@ -1253,10 +1253,12 @@ components:
             - invalid_street_address
             - invalid_tos_acceptance
             - invalid_value_other
+            - verification_directors_mismatch
             - verification_document_address_mismatch
             - verification_document_address_missing
             - verification_document_corrupt
             - verification_document_country_not_supported
+            - verification_document_directors_mismatch
             - verification_document_dob_mismatch
             - verification_document_duplicate_type
             - verification_document_expired
@@ -1282,6 +1284,7 @@ components:
             - verification_document_photo_mismatch
             - verification_document_too_large
             - verification_document_type_not_supported
+            - verification_extraneous_directors
             - verification_failed_address_match
             - verification_failed_business_iec_number
             - verification_failed_document_match
@@ -1293,6 +1296,7 @@ components:
             - verification_failed_residential_address
             - verification_failed_tax_id_match
             - verification_failed_tax_id_not_issued
+            - verification_missing_directors
             - verification_missing_executives
             - verification_missing_owners
             - verification_requires_additional_memorandum_of_associations
@@ -1654,12 +1658,12 @@ components:
             oneOf:
               - $ref: '#/components/schemas/account'
         amount:
-          description: 'Amount earned, in %s.'
+          description: 'Amount earned, in cents (or local equivalent).'
           type: integer
         amount_refunded:
           description: >-
-            Amount in %s refunded (can be less than the amount attribute on the
-            fee if a partial refund was issued)
+            Amount in cents (or local equivalent) refunded (can be less than the
+            amount attribute on the fee if a partial refund was issued)
           type: integer
         application:
           anyOf:
@@ -2046,7 +2050,7 @@ components:
         types](https://stripe.com/docs/reports/balance-transaction-types)
       properties:
         amount:
-          description: 'Gross amount of the transaction, in %s.'
+          description: 'Gross amount of the transaction, in cents (or local equivalent).'
           type: integer
         available_on:
           description: >-
@@ -2088,10 +2092,12 @@ components:
           nullable: true
           type: number
         fee:
-          description: Fees (in %s) paid for this transaction.
+          description: Fees (in cents (or local equivalent)) paid for this transaction.
           type: integer
         fee_details:
-          description: Detailed breakdown of fees (in %s) paid for this transaction.
+          description: >-
+            Detailed breakdown of fees (in cents (or local equivalent)) paid for
+            this transaction.
           items:
             $ref: '#/components/schemas/fee'
           type: array
@@ -2100,7 +2106,7 @@ components:
           maxLength: 5000
           type: string
         net:
-          description: 'Net amount of the transaction, in %s.'
+          description: 'Net amount of the transaction, in cents (or local equivalent).'
           type: integer
         object:
           description: >-
@@ -2171,11 +2177,11 @@ components:
             `contribution`, `issuing_authorization_hold`,
             `issuing_authorization_release`, `issuing_dispute`,
             `issuing_transaction`, `payment`, `payment_failure_refund`,
-            `payment_refund`, `payout`, `payout_cancel`, `payout_failure`,
-            `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`,
-            `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`,
-            `transfer`, `transfer_cancel`, `transfer_failure`, or
-            `transfer_refund`. [Learn
+            `payment_refund`, `payment_reversal`, `payout`, `payout_cancel`,
+            `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`,
+            `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`,
+            `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`,
+            or `transfer_refund`. [Learn
             more](https://stripe.com/docs/reports/balance-transaction-types)
             about balance transaction types and what they represent. If you are
             looking to classify transactions for accounting purposes, you might
@@ -2197,6 +2203,7 @@ components:
             - payment
             - payment_failure_refund
             - payment_refund
+            - payment_reversal
             - payout
             - payout_cancel
             - payout_failure
@@ -3363,13 +3370,13 @@ components:
           type: integer
         amount_captured:
           description: >-
-            Amount in %s captured (can be less than the amount attribute on the
-            charge if a partial capture was made).
+            Amount in cents (or local equivalent) captured (can be less than the
+            amount attribute on the charge if a partial capture was made).
           type: integer
         amount_refunded:
           description: >-
-            Amount in %s refunded (can be less than the amount attribute on the
-            charge if a partial refund was issued).
+            Amount in cents (or local equivalent) refunded (can be less than the
+            amount attribute on the charge if a partial refund was issued).
           type: integer
         application:
           anyOf:
@@ -5420,7 +5427,7 @@ components:
       description: ''
       properties:
         amount:
-          description: 'Amount transferred, in %s.'
+          description: 'Amount transferred, in cents (or local equivalent).'
           type: integer
         currency:
           description: >-
@@ -5690,7 +5697,8 @@ components:
           description: >-
             Percent that will be taken off the subtotal of any invoices for this
             customer for the duration of the coupon. For example, a coupon with
-            percent_off of 50 will make a %s100 invoice %s50 instead.
+            percent_off of 50 will make a $ (or local equivalent)100 invoice $
+            (or local equivalent)50 instead.
           nullable: true
           type: number
         redeem_by:
@@ -5758,8 +5766,8 @@ components:
       properties:
         amount:
           description: >-
-            The integer amount in %s representing the total amount of the credit
-            note, including tax.
+            The integer amount in cents (or local equivalent) representing the
+            total amount of the credit note, including tax.
           type: integer
         amount_shipping:
           description: This is the sum of all the shipping amounts.
@@ -5800,8 +5808,8 @@ components:
               - $ref: '#/components/schemas/customer_balance_transaction'
         discount_amount:
           description: >-
-            The integer amount in %s representing the total amount of discount
-            that was credited.
+            The integer amount in cents (or local equivalent) representing the
+            total amount of discount that was credited.
           type: integer
         discount_amounts:
           description: The aggregate amounts calculated per discount for all line items.
@@ -5942,13 +5950,15 @@ components:
           type: string
         subtotal:
           description: >-
-            The integer amount in %s representing the amount of the credit note,
-            excluding exclusive tax and invoice level discounts.
+            The integer amount in cents (or local equivalent) representing the
+            amount of the credit note, excluding exclusive tax and invoice level
+            discounts.
           type: integer
         subtotal_excluding_tax:
           description: >-
-            The integer amount in %s representing the amount of the credit note,
-            excluding all tax and invoice level discounts.
+            The integer amount in cents (or local equivalent) representing the
+            amount of the credit note, excluding all tax and invoice level
+            discounts.
           nullable: true
           type: integer
         tax_amounts:
@@ -5958,13 +5968,14 @@ components:
           type: array
         total:
           description: >-
-            The integer amount in %s representing the total amount of the credit
-            note, including tax and all discount.
+            The integer amount in cents (or local equivalent) representing the
+            total amount of the credit note, including tax and all discount.
           type: integer
         total_excluding_tax:
           description: >-
-            The integer amount in %s representing the total amount of the credit
-            note, excluding tax, but including discounts.
+            The integer amount in cents (or local equivalent) representing the
+            total amount of the credit note, excluding tax, but including
+            discounts.
           nullable: true
           type: integer
         type:
@@ -6015,18 +6026,19 @@ components:
         - tax_amounts
       x-resourceId: credit_note
     credit_note_line_item:
-      description: ''
+      description: The credit note line item object
       properties:
         amount:
           description: >-
-            The integer amount in %s representing the gross amount being
-            credited for this line item, excluding (exclusive) tax and
-            discounts.
+            The integer amount in cents (or local equivalent) representing the
+            gross amount being credited for this line item, excluding
+            (exclusive) tax and discounts.
           type: integer
         amount_excluding_tax:
           description: >-
-            The integer amount in %s representing the amount being credited for
-            this line item, excluding all tax and discounts.
+            The integer amount in cents (or local equivalent) representing the
+            amount being credited for this line item, excluding all tax and
+            discounts.
           nullable: true
           type: integer
         description:
@@ -6036,8 +6048,8 @@ components:
           type: string
         discount_amount:
           description: >-
-            The integer amount in %s representing the discount being credited
-            for this line item.
+            The integer amount in cents (or local equivalent) representing the
+            discount being credited for this line item.
           type: integer
         discount_amounts:
           description: The amount of discount calculated per discount for this line item
@@ -6101,8 +6113,9 @@ components:
           type: string
         unit_amount_excluding_tax:
           description: >-
-            The amount in %s representing the unit amount being credited for
-            this line item, excluding all tax and discounts.
+            The amount in cents (or local equivalent) representing the unit
+            amount being credited for this line item, excluding all tax and
+            discounts.
           format: decimal
           nullable: true
           type: string
@@ -6127,7 +6140,7 @@ components:
       description: ''
       properties:
         amount:
-          description: 'The amount, in %s, of the tax.'
+          description: 'The amount, in cents (or local equivalent), of the tax.'
           type: integer
         inclusive:
           description: Whether this tax amount is inclusive or exclusive.
@@ -6166,7 +6179,9 @@ components:
           type: string
           x-stripeBypassValidation: true
         taxable_amount:
-          description: 'The amount on which tax is calculated, in %s.'
+          description: >-
+            The amount on which tax is calculated, in cents (or local
+            equivalent).
           nullable: true
           type: integer
       required:
@@ -6211,15 +6226,16 @@ components:
           type: array
         unit_amount:
           description: >-
-            The unit amount in %s to be charged, represented as a whole integer
-            if possible. Only set if `billing_scheme=per_unit`.
+            The unit amount in cents (or local equivalent) to be charged,
+            represented as a whole integer if possible. Only set if
+            `billing_scheme=per_unit`.
           nullable: true
           type: integer
         unit_amount_decimal:
           description: >-
-            The unit amount in %s to be charged, represented as a decimal string
-            with at most 12 decimal places. Only set if
-            `billing_scheme=per_unit`.
+            The unit amount in cents (or local equivalent) to be charged,
+            represented as a decimal string with at most 12 decimal places. Only
+            set if `billing_scheme=per_unit`.
           format: decimal
           nullable: true
           type: string
@@ -6620,6 +6636,42 @@ components:
       title: CustomerBalanceCustomerBalanceSettings
       type: object
       x-expandableFields: []
+    customer_balance_resource_cash_balance_transaction_resource_adjusted_for_overdraft:
+      description: ''
+      properties:
+        balance_transaction:
+          anyOf:
+            - maxLength: 5000
+              type: string
+            - $ref: '#/components/schemas/balance_transaction'
+          description: >-
+            The [Balance Transaction](docs/api/balance_transactions/object) that
+            corresponds to funds taken out of your Stripe balance.
+          x-expansionResources:
+            oneOf:
+              - $ref: '#/components/schemas/balance_transaction'
+        linked_transaction:
+          anyOf:
+            - maxLength: 5000
+              type: string
+            - $ref: '#/components/schemas/customer_cash_balance_transaction'
+          description: >-
+            The [Cash Balance
+            Transaction](https://stripe.com/docs/api/cash_balance_transactions/object)
+            that brought the customer balance negative, triggering the clawback
+            of funds.
+          x-expansionResources:
+            oneOf:
+              - $ref: '#/components/schemas/customer_cash_balance_transaction'
+      required:
+        - balance_transaction
+        - linked_transaction
+      title: >-
+        CustomerBalanceResourceCashBalanceTransactionResourceAdjustedForOverdraft
+      type: object
+      x-expandableFields:
+        - balance_transaction
+        - linked_transaction
     customer_balance_resource_cash_balance_transaction_resource_applied_to_payment_transaction:
       description: ''
       properties:
@@ -6984,6 +7036,9 @@ components:
 
         to payments, and refunds to the customer.
       properties:
+        adjusted_for_overdraft:
+          $ref: >-
+            #/components/schemas/customer_balance_resource_cash_balance_transaction_resource_adjusted_for_overdraft
         applied_to_payment:
           $ref: >-
             #/components/schemas/customer_balance_resource_cash_balance_transaction_resource_applied_to_payment_transaction
@@ -7055,6 +7110,7 @@ components:
             Balance](https://stripe.com/docs/payments/customer-balance#types) to
             learn more about these types.
           enum:
+            - adjusted_for_overdraft
             - applied_to_payment
             - funded
             - funding_reversed
@@ -7079,6 +7135,7 @@ components:
       title: CustomerCashBalanceTransaction
       type: object
       x-expandableFields:
+        - adjusted_for_overdraft
         - applied_to_payment
         - customer
         - funded
@@ -7973,7 +8030,7 @@ components:
       description: ''
       properties:
         amount:
-          description: 'The amount, in %s, of the discount.'
+          description: 'The amount, in cents (or local equivalent), of the discount.'
           type: integer
         discount:
           anyOf:
@@ -8091,6 +8148,8 @@ components:
           x-expansionResources:
             oneOf:
               - $ref: '#/components/schemas/payment_intent'
+        payment_method_details:
+          $ref: '#/components/schemas/dispute_payment_method_details'
         reason:
           description: >-
             Reason given by cardholder for dispute. Possible values are
@@ -8107,10 +8166,8 @@ components:
           description: >-
             Current status of dispute. Possible values are
             `warning_needs_response`, `warning_under_review`, `warning_closed`,
-            `needs_response`, `under_review`, `charge_refunded`, `won`, or
-            `lost`.
+            `needs_response`, `under_review`, `won`, or `lost`.
           enum:
-            - charge_refunded
             - lost
             - needs_response
             - under_review
@@ -8142,6 +8199,7 @@ components:
         - evidence
         - evidence_details
         - payment_intent
+        - payment_method_details
       x-resourceId: dispute
     dispute_evidence:
       description: ''
@@ -8424,6 +8482,49 @@ components:
         - past_due
         - submission_count
       title: DisputeEvidenceDetails
+      type: object
+      x-expandableFields: []
+    dispute_payment_method_details:
+      description: ''
+      properties:
+        card:
+          anyOf:
+            - $ref: '#/components/schemas/dispute_payment_method_details_card'
+          description: Card specific dispute details.
+          nullable: true
+        type:
+          description: Payment method type.
+          enum:
+            - card
+          type: string
+      required:
+        - type
+      title: DisputePaymentMethodDetails
+      type: object
+      x-expandableFields:
+        - card
+    dispute_payment_method_details_card:
+      description: ''
+      properties:
+        brand:
+          description: >-
+            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`,
+            `mastercard`, `unionpay`, `visa`, or `unknown`.
+          maxLength: 5000
+          type: string
+        network_reason_code:
+          description: >-
+            The card network's specific dispute reason code, which maps to one
+            of Stripe's primary dispute categories to simplify response
+            guidance. The [Network code
+            map](https://stripe.com/docs/disputes/categories#network-code-map)
+            lists all available dispute reason codes by network.
+          maxLength: 5000
+          nullable: true
+          type: string
+      required:
+        - brand
+      title: DisputePaymentMethodDetailsCard
       type: object
       x-expandableFields: []
     email_sent:
@@ -8796,7 +8897,7 @@ components:
         fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee)
       properties:
         amount:
-          description: 'Amount, in %s.'
+          description: 'Amount, in cents (or local equivalent).'
           type: integer
         balance_transaction:
           anyOf:
@@ -10685,10 +10786,12 @@ components:
             invoice will be for the amount specified in `amount_due`.
           type: integer
         amount_paid:
-          description: 'The amount, in %s, that was paid.'
+          description: 'The amount, in cents (or local equivalent), that was paid.'
           type: integer
         amount_remaining:
-          description: 'The difference between amount_due and amount_paid, in %s.'
+          description: >-
+            The difference between amount_due and amount_paid, in cents (or
+            local equivalent).
           type: integer
         amount_shipping:
           description: This is the sum of all the shipping amounts.
@@ -10707,8 +10810,9 @@ components:
               - $ref: '#/components/schemas/deleted_application'
         application_fee_amount:
           description: >-
-            The fee in %s that will be applied to the invoice and transferred to
-            the application owner's Stripe account when the invoice is paid.
+            The fee in cents (or local equivalent) that will be applied to the
+            invoice and transferred to the application owner's Stripe account
+            when the invoice is paid.
           nullable: true
           type: integer
         attempt_count:
@@ -11255,9 +11359,9 @@ components:
           type: integer
         subtotal_excluding_tax:
           description: >-
-            The integer amount in %s representing the subtotal of the invoice
-            before any invoice level discount or tax is applied. Item discounts
-            are already incorporated
+            The integer amount in cents (or local equivalent) representing the
+            subtotal of the invoice before any invoice level discount or tax is
+            applied. Item discounts are already incorporated
           nullable: true
           type: integer
         tax:
@@ -11289,8 +11393,9 @@ components:
           type: array
         total_excluding_tax:
           description: >-
-            The integer amount in %s representing the total amount of the
-            invoice including all discounts but excluding all tax.
+            The integer amount in cents (or local equivalent) representing the
+            total amount of the invoice including all discounts but excluding
+            all tax.
           nullable: true
           type: integer
         total_tax_amounts:
@@ -11740,7 +11845,7 @@ components:
       description: ''
       properties:
         amount:
-          description: 'The amount, in %s, of the tax.'
+          description: 'The amount, in cents (or local equivalent), of the tax.'
           type: integer
         inclusive:
           description: Whether this tax amount is inclusive or exclusive.
@@ -11779,7 +11884,9 @@ components:
           type: string
           x-stripeBypassValidation: true
         taxable_amount:
-          description: 'The amount on which tax is calculated, in %s.'
+          description: >-
+            The amount on which tax is calculated, in cents (or local
+            equivalent).
           nullable: true
           type: integer
       required:
@@ -11815,9 +11922,9 @@ components:
       properties:
         amount:
           description: >-
-            The amount in %s that will be transferred to the destination account
-            when the invoice is paid. By default, the entire amount is
-            transferred to the destination.
+            The amount in cents (or local equivalent) that will be transferred
+            to the destination account when the invoice is paid. By default, the
+            entire amount is transferred to the destination.
           nullable: true
           type: integer
         destination:
@@ -16699,6 +16806,7 @@ components:
             - government_instrumentality
             - governmental_unit
             - incorporated_non_profit
+            - incorporated_partnership
             - limited_liability_partnership
             - llc
             - multi_member_llc
@@ -16714,6 +16822,7 @@ components:
             - tax_exempt_government_instrumentality
             - unincorporated_association
             - unincorporated_non_profit
+            - unincorporated_partnership
           type: string
           x-stripeBypassValidation: true
         tax_id_provided:
@@ -16996,12 +17105,12 @@ components:
       description: ''
       properties:
         amount:
-          description: 'The amount, in %s.'
+          description: 'The amount, in cents (or local equivalent).'
           type: integer
         amount_excluding_tax:
           description: >-
-            The integer amount in %s representing the amount for this line item,
-            excluding all tax and discounts.
+            The integer amount in cents (or local equivalent) representing the
+            amount for this line item, excluding all tax and discounts.
           nullable: true
           type: integer
         currency:
@@ -17147,8 +17256,8 @@ components:
           type: string
         unit_amount_excluding_tax:
           description: >-
-            The amount in %s representing the unit amount for this line item,
-            excluding all tax and discounts.
+            The amount in cents (or local equivalent) representing the unit
+            amount for this line item, excluding all tax and discounts.
           format: decimal
           nullable: true
           type: string
@@ -17225,7 +17334,9 @@ components:
           type: string
           x-stripeBypassValidation: true
         taxable_amount:
-          description: 'The amount on which tax is calculated, in %s.'
+          description: >-
+            The amount on which tax is calculated, in cents (or local
+            equivalent).
           nullable: true
           type: integer
       required:
@@ -17447,27 +17558,6 @@ components:
       title: mandate_bacs_debit
       type: object
       x-expandableFields: []
-    mandate_blik:
-      description: ''
-      properties:
-        expires_after:
-          description: Date at which the mandate expires.
-          format: unix-time
-          nullable: true
-          type: integer
-        off_session:
-          $ref: '#/components/schemas/mandate_options_off_session_details_blik'
-        type:
-          description: Type of the mandate.
-          enum:
-            - off_session
-            - on_session
-          nullable: true
-          type: string
-      title: mandate_blik
-      type: object
-      x-expandableFields:
-        - off_session
     mandate_cashapp:
       description: ''
       properties: {}
@@ -17486,34 +17576,6 @@ components:
       title: mandate_multi_use
       type: object
       x-expandableFields: []
-    mandate_options_off_session_details_blik:
-      description: ''
-      properties:
-        amount:
-          description: Amount of each recurring payment.
-          nullable: true
-          type: integer
-        currency:
-          description: Currency of each recurring payment.
-          maxLength: 5000
-          nullable: true
-          type: string
-        interval:
-          description: Frequency interval of each recurring payment.
-          enum:
-            - day
-            - month
-            - week
-            - year
-          nullable: true
-          type: string
-        interval_count:
-          description: Frequency indicator of each recurring payment.
-          nullable: true
-          type: integer
-      title: mandate_options_off_session_details_blik
-      type: object
-      x-expandableFields: []
     mandate_payment_method_details:
       description: ''
       properties:
@@ -17523,8 +17585,6 @@ components:
           $ref: '#/components/schemas/mandate_au_becs_debit'
         bacs_debit:
           $ref: '#/components/schemas/mandate_bacs_debit'
-        blik:
-          $ref: '#/components/schemas/mandate_blik'
         card:
           $ref: '#/components/schemas/card_mandate_payment_method_details'
         cashapp:
@@ -17553,7 +17613,6 @@ components:
         - acss_debit
         - au_becs_debit
         - bacs_debit
-        - blik
         - card
         - cashapp
         - link
@@ -19371,14 +19430,10 @@ components:
       x-expandableFields: []
     payment_intent_payment_method_options_blik:
       description: ''
-      properties:
-        mandate_options:
-          $ref: >-
-            #/components/schemas/payment_intent_payment_method_options_mandate_options_blik
+      properties: {}
       title: payment_intent_payment_method_options_blik
       type: object
-      x-expandableFields:
-        - mandate_options
+      x-expandableFields: []
     payment_intent_payment_method_options_card:
       description: ''
       properties:
@@ -19590,27 +19645,6 @@ components:
       title: payment_intent_payment_method_options_mandate_options_acss_debit
       type: object
       x-expandableFields: []
-    payment_intent_payment_method_options_mandate_options_blik:
-      description: ''
-      properties:
-        expires_after:
-          description: Date at which the mandate expires.
-          format: unix-time
-          nullable: true
-          type: integer
-        off_session:
-          $ref: '#/components/schemas/mandate_options_off_session_details_blik'
-        type:
-          description: Type of the mandate.
-          enum:
-            - off_session
-            - on_session
-          nullable: true
-          type: string
-      title: payment_intent_payment_method_options_mandate_options_blik
-      type: object
-      x-expandableFields:
-        - off_session
     payment_intent_payment_method_options_mandate_options_sepa_debit:
       description: ''
       properties: {}
@@ -19656,6 +19690,12 @@ components:
       properties:
         financial_connections:
           $ref: '#/components/schemas/linked_account_options_us_bank_account'
+        preferred_settlement_speed:
+          description: Preferred transaction settlement speed
+          enum:
+            - fastest
+            - standard
+          type: string
         setup_future_usage:
           description: >-
             Indicates that you intend to make future payments with this
@@ -20755,9 +20795,9 @@ components:
       properties:
         amount:
           description: >-
-            The amount in %s that will be transferred to the destination
-            account. By default, the entire amount is transferred to the
-            destination.
+            The amount in cents (or local equivalent) that will be transferred
+            to the destination account. By default, the entire amount is
+            transferred to the destination.
           nullable: true
           type: integer
         destination:
@@ -22065,7 +22105,7 @@ components:
           nullable: true
         three_d_secure:
           anyOf:
-            - $ref: '#/components/schemas/three_d_secure_details'
+            - $ref: '#/components/schemas/three_d_secure_details_charge'
           description: Populated if this transaction used 3D Secure authentication.
           nullable: true
         wallet:
@@ -25991,7 +26031,9 @@ components:
         Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
       properties:
         amount:
-          description: Amount (in %s) to be transferred to your bank account or debit card.
+          description: >-
+            Amount (in cents (or local equivalent)) to be transferred to your
+            bank account or debit card.
           type: integer
         arrival_date:
           description: >-
@@ -26660,15 +26702,16 @@ components:
           type: string
         amount:
           description: >-
-            The unit amount in %s to be charged, represented as a whole integer
-            if possible. Only set if `billing_scheme=per_unit`.
+            The unit amount in cents (or local equivalent) to be charged,
+            represented as a whole integer if possible. Only set if
+            `billing_scheme=per_unit`.
           nullable: true
           type: integer
         amount_decimal:
           description: >-
-            The unit amount in %s to be charged, represented as a decimal string
-            with at most 12 decimal places. Only set if
-            `billing_scheme=per_unit`.
+            The unit amount in cents (or local equivalent) to be charged,
+            represented as a decimal string with at most 12 decimal places. Only
+            set if `billing_scheme=per_unit`.
           format: decimal
           nullable: true
           type: string
@@ -27513,15 +27556,16 @@ components:
           type: string
         unit_amount:
           description: >-
-            The unit amount in %s to be charged, represented as a whole integer
-            if possible. Only set if `billing_scheme=per_unit`.
+            The unit amount in cents (or local equivalent) to be charged,
+            represented as a whole integer if possible. Only set if
+            `billing_scheme=per_unit`.
           nullable: true
           type: integer
         unit_amount_decimal:
           description: >-
-            The unit amount in %s to be charged, represented as a decimal string
-            with at most 12 decimal places. Only set if
-            `billing_scheme=per_unit`.
+            The unit amount in cents (or local equivalent) to be charged,
+            represented as a decimal string with at most 12 decimal places. Only
+            set if `billing_scheme=per_unit`.
           format: decimal
           nullable: true
           type: string
@@ -28412,9 +28456,9 @@ components:
       properties:
         amount:
           description: >-
-            The amount in %s that will be transferred to the destination account
-            when the invoice is paid. By default, the entire amount is
-            transferred to the destination.
+            The amount in cents (or local equivalent) that will be transferred
+            to the destination account when the invoice is paid. By default, the
+            entire amount is transferred to the destination.
           nullable: true
           type: integer
         amount_percent:
@@ -28919,7 +28963,7 @@ components:
         Related guide: [Refunds](https://stripe.com/docs/refunds)
       properties:
         amount:
-          description: 'Amount, in %s.'
+          description: 'Amount, in cents (or local equivalent).'
           type: integer
         balance_transaction:
           anyOf:
@@ -29821,8 +29865,6 @@ components:
           $ref: '#/components/schemas/setup_attempt_payment_method_details_bacs_debit'
         bancontact:
           $ref: '#/components/schemas/setup_attempt_payment_method_details_bancontact'
-        blik:
-          $ref: '#/components/schemas/setup_attempt_payment_method_details_blik'
         boleto:
           $ref: '#/components/schemas/setup_attempt_payment_method_details_boleto'
         card:
@@ -29864,7 +29906,6 @@ components:
         - au_becs_debit
         - bacs_debit
         - bancontact
-        - blik
         - boleto
         - card
         - card_present
@@ -29969,12 +30010,6 @@ components:
       x-expandableFields:
         - generated_sepa_debit
         - generated_sepa_debit_mandate
-    setup_attempt_payment_method_details_blik:
-      description: ''
-      properties: {}
-      title: setup_attempt_payment_method_details_blik
-      type: object
-      x-expandableFields: []
     setup_attempt_payment_method_details_boleto:
       description: ''
       properties: {}
@@ -30404,7 +30439,7 @@ components:
             - $ref: >-
                 #/components/schemas/payment_flows_automatic_payment_methods_setup_intent
           description: >-
-            Settings for automatic payment methods compatible with this Setup
+            Settings for dynamic payment methods compatible with this Setup
             Intent
           nullable: true
         cancellation_reason:
@@ -30717,11 +30752,6 @@ components:
                 #/components/schemas/setup_intent_payment_method_options_acss_debit
             - $ref: >-
                 #/components/schemas/setup_intent_type_specific_payment_method_options_client
-        blik:
-          anyOf:
-            - $ref: '#/components/schemas/setup_intent_payment_method_options_blik'
-            - $ref: >-
-                #/components/schemas/setup_intent_type_specific_payment_method_options_client
         card:
           $ref: '#/components/schemas/setup_intent_payment_method_options_card'
         link:
@@ -30750,7 +30780,6 @@ components:
       type: object
       x-expandableFields:
         - acss_debit
-        - blik
         - card
         - link
         - paypal
@@ -30778,16 +30807,6 @@ components:
           type: string
           x-stripeBypassValidation: true
       title: setup_intent_payment_method_options_acss_debit
-      type: object
-      x-expandableFields:
-        - mandate_options
-    setup_intent_payment_method_options_blik:
-      description: ''
-      properties:
-        mandate_options:
-          $ref: >-
-            #/components/schemas/setup_intent_payment_method_options_mandate_options_blik
-      title: setup_intent_payment_method_options_blik
       type: object
       x-expandableFields:
         - mandate_options
@@ -30980,27 +30999,6 @@ components:
       title: setup_intent_payment_method_options_mandate_options_acss_debit
       type: object
       x-expandableFields: []
-    setup_intent_payment_method_options_mandate_options_blik:
-      description: ''
-      properties:
-        expires_after:
-          description: Date at which the mandate expires.
-          format: unix-time
-          nullable: true
-          type: integer
-        off_session:
-          $ref: '#/components/schemas/mandate_options_off_session_details_blik'
-        type:
-          description: Type of the mandate.
-          enum:
-            - off_session
-            - on_session
-          nullable: true
-          type: string
-      title: setup_intent_payment_method_options_mandate_options_blik
-      type: object
-      x-expandableFields:
-        - off_session
     setup_intent_payment_method_options_mandate_options_sepa_debit:
       description: ''
       properties: {}
@@ -35503,8 +35501,13 @@ components:
         effective_percentage:
           description: >-
             Actual/effective tax rate percentage out of 100. For tax
-            calculations with automatic_tax[enabled]=true, this percentage does
-            not include the statutory tax rate of non-taxable jurisdictions.
+            calculations with automatic_tax[enabled]=true,
+
+            this percentage reflects the rate actually used to calculate tax
+            based on the product's taxability
+
+            and whether the user is registered to collect taxes in the
+            corresponding jurisdiction.
           nullable: true
           type: number
         id:
@@ -36017,6 +36020,12 @@ components:
       x-expandableFields:
         - payment_intent
         - process_config
+    terminal_reader_reader_resource_process_setup_config:
+      description: Represents a per-setup override of a reader configuration
+      properties: {}
+      title: TerminalReaderReaderResourceProcessSetupConfig
+      type: object
+      x-expandableFields: []
     terminal_reader_reader_resource_process_setup_intent_action:
       description: Represents a reader action to process a setup intent
       properties:
@@ -36028,6 +36037,9 @@ components:
             PaymentMethod.
           maxLength: 5000
           type: string
+        process_config:
+          $ref: >-
+            #/components/schemas/terminal_reader_reader_resource_process_setup_config
         setup_intent:
           anyOf:
             - maxLength: 5000
@@ -36042,6 +36054,7 @@ components:
       title: TerminalReaderReaderResourceProcessSetupIntentAction
       type: object
       x-expandableFields:
+        - process_config
         - setup_intent
     terminal_reader_reader_resource_reader_action:
       description: Represents an action performed by the reader
@@ -36314,6 +36327,57 @@ components:
           type: string
           x-stripeBypassValidation: true
       title: three_d_secure_details
+      type: object
+      x-expandableFields: []
+    three_d_secure_details_charge:
+      description: ''
+      properties:
+        authentication_flow:
+          description: >-
+            For authenticated transactions: how the customer was authenticated
+            by
+
+            the issuing bank.
+          enum:
+            - challenge
+            - frictionless
+          nullable: true
+          type: string
+        result:
+          description: Indicates the outcome of 3D Secure authentication.
+          enum:
+            - attempt_acknowledged
+            - authenticated
+            - exempted
+            - failed
+            - not_supported
+            - processing_error
+          nullable: true
+          type: string
+        result_reason:
+          description: |-
+            Additional information about why 3D Secure succeeded or failed based
+            on the `result`.
+          enum:
+            - abandoned
+            - bypassed
+            - canceled
+            - card_not_enrolled
+            - network_not_supported
+            - protocol_error
+            - rejected
+          nullable: true
+          type: string
+        version:
+          description: The version of 3D Secure that was used.
+          enum:
+            - 1.0.2
+            - 2.1.0
+            - 2.2.0
+          nullable: true
+          type: string
+          x-stripeBypassValidation: true
+      title: three_d_secure_details_charge
       type: object
       x-expandableFields: []
     three_d_secure_usage:
@@ -36605,12 +36669,12 @@ components:
         transfers](https://stripe.com/docs/connect/separate-charges-and-transfers)
       properties:
         amount:
-          description: Amount in %s to be transferred.
+          description: Amount in cents (or local equivalent) to be transferred.
           type: integer
         amount_reversed:
           description: >-
-            Amount in %s reversed (can be less than the amount attribute on the
-            transfer if a partial reversal was issued).
+            Amount in cents (or local equivalent) reversed (can be less than the
+            amount attribute on the transfer if a partial reversal was issued).
           type: integer
         balance_transaction:
           anyOf:
@@ -36839,7 +36903,7 @@ components:
         transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#reversing-transfers)
       properties:
         amount:
-          description: 'Amount, in %s.'
+          description: 'Amount, in cents (or local equivalent).'
           type: integer
         balance_transaction:
           anyOf:
@@ -39603,7 +39667,7 @@ info:
     details.
   termsOfService: 'https://stripe.com/us/terms/'
   title: Stripe API
-  version: '2022-11-15'
+  version: '2023-08-16'
   x-stripeSpecFilename: spec3
 openapi: 3.0.0
 paths:
@@ -40393,6 +40457,7 @@ paths:
                         - government_instrumentality
                         - governmental_unit
                         - incorporated_non_profit
+                        - incorporated_partnership
                         - limited_liability_partnership
                         - llc
                         - multi_member_llc
@@ -40408,6 +40473,7 @@ paths:
                         - tax_exempt_government_instrumentality
                         - unincorporated_association
                         - unincorporated_non_profit
+                        - unincorporated_partnership
                       type: string
                       x-stripeBypassValidation: true
                     tax_id:
@@ -40982,8 +41048,8 @@ paths:
 
 
         <p>If you want to delete your own account, use the <a
-        href="https://dashboard.stripe.com/account">account information tab in
-        your account settings</a> instead.</p>
+        href="https://dashboard.stripe.com/settings/account">account information
+        tab in your account settings</a> instead.</p>
       operationId: DeleteAccountsAccount
       parameters:
         - in: path
@@ -41082,7 +41148,8 @@ paths:
 
 
         <p>To update your own account, use the <a
-        href="https://dashboard.stripe.com/account">Dashboard</a>. Refer to our
+        href="https://dashboard.stripe.com/settings/account">Dashboard</a>.
+        Refer to our
 
         <a href="/docs/connect/updating-accounts">Connect</a> documentation to
         learn more about updating accounts.</p>
@@ -41557,6 +41624,7 @@ paths:
                         - government_instrumentality
                         - governmental_unit
                         - incorporated_non_profit
+                        - incorporated_partnership
                         - limited_liability_partnership
                         - llc
                         - multi_member_llc
@@ -41572,6 +41640,7 @@ paths:
                         - tax_exempt_government_instrumentality
                         - unincorporated_association
                         - unincorporated_non_profit
+                        - unincorporated_partnership
                       type: string
                       x-stripeBypassValidation: true
                     tax_id:
@@ -46634,11 +46703,12 @@ paths:
             `connect_collection_transfer`, `contribution`,
             `issuing_authorization_hold`, `issuing_authorization_release`,
             `issuing_dispute`, `issuing_transaction`, `payment`,
-            `payment_failure_refund`, `payment_refund`, `payout`,
-            `payout_cancel`, `payout_failure`, `refund`, `refund_failure`,
-            `reserve_transaction`, `reserved_funds`, `stripe_fee`,
-            `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`,
-            `transfer_cancel`, `transfer_failure`, or `transfer_refund`.
+            `payment_failure_refund`, `payment_refund`, `payment_reversal`,
+            `payout`, `payout_cancel`, `payout_failure`, `refund`,
+            `refund_failure`, `reserve_transaction`, `reserved_funds`,
+            `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`,
+            `transfer`, `transfer_cancel`, `transfer_failure`, or
+            `transfer_refund`.
           in: query
           name: type
           required: false
@@ -46863,11 +46933,12 @@ paths:
             `connect_collection_transfer`, `contribution`,
             `issuing_authorization_hold`, `issuing_authorization_release`,
             `issuing_dispute`, `issuing_transaction`, `payment`,
-            `payment_failure_refund`, `payment_refund`, `payout`,
-            `payout_cancel`, `payout_failure`, `refund`, `refund_failure`,
-            `reserve_transaction`, `reserved_funds`, `stripe_fee`,
-            `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`,
-            `transfer_cancel`, `transfer_failure`, or `transfer_refund`.
+            `payment_failure_refund`, `payment_refund`, `payment_reversal`,
+            `payout`, `payout_cancel`, `payout_failure`, `refund`,
+            `refund_failure`, `reserve_transaction`, `reserved_funds`,
+            `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`,
+            `transfer`, `transfer_cancel`, `transfer_failure`, or
+            `transfer_refund`.
           in: query
           name: type
           required: false
@@ -47800,7 +47871,7 @@ paths:
                   type: object
                 locale:
                   description: >-
-                    The IETF language tag of the locale Customer Portal is
+                    The IETF language tag of the locale customer portal is
                     displayed in. If blank or auto, the customer’s
                     `preferred_locales` or browser’s locale is used.
                   enum:
@@ -64324,9 +64395,8 @@ paths:
             type: array
           style: deepObject
         - description: >-
-            The identifier of the unstarted schedule whose upcoming invoice
-            you'd like to retrieve. Cannot be used with subscription or
-            subscription fields.
+            The identifier of the schedule whose upcoming invoice you'd like to
+            retrieve. Cannot be used with subscription or subscription fields.
           in: query
           name: schedule
           required: false
@@ -65036,9 +65106,8 @@ paths:
             type: integer
           style: form
         - description: >-
-            The identifier of the unstarted schedule whose upcoming invoice
-            you'd like to retrieve. Cannot be used with subscription or
-            subscription fields.
+            The identifier of the schedule whose upcoming invoice you'd like to
+            retrieve. Cannot be used with subscription or subscription fields.
           in: query
           name: schedule
           required: false
@@ -75110,30 +75179,6 @@ paths:
                             code:
                               maxLength: 5000
                               type: string
-                            mandate_options:
-                              properties:
-                                expires_after:
-                                  type: integer
-                                off_session:
-                                  properties:
-                                    interval:
-                                      enum:
-                                        - day
-                                        - month
-                                        - week
-                                        - year
-                                      type: string
-                                    interval_count:
-                                      type: integer
-                                  required:
-                                    - interval
-                                    - interval_count
-                                  title: >-
-                                    mandate_options_off_session_details_common_param
-                                  type: object
-                              title: >-
-                                payment_intent_payment_method_options_mandate_options_param
-                              type: object
                           title: payment_intent_payment_method_options_param
                           type: object
                         - enum:
@@ -75762,6 +75807,12 @@ paths:
                                   type: array
                               title: networks_options_param
                               type: object
+                            preferred_settlement_speed:
+                              enum:
+                                - ''
+                                - fastest
+                                - standard
+                              type: string
                             setup_future_usage:
                               enum:
                                 - ''
@@ -76915,30 +76966,6 @@ paths:
                             code:
                               maxLength: 5000
                               type: string
-                            mandate_options:
-                              properties:
-                                expires_after:
-                                  type: integer
-                                off_session:
-                                  properties:
-                                    interval:
-                                      enum:
-                                        - day
-                                        - month
-                                        - week
-                                        - year
-                                      type: string
-                                    interval_count:
-                                      type: integer
-                                  required:
-                                    - interval
-                                    - interval_count
-                                  title: >-
-                                    mandate_options_off_session_details_common_param
-                                  type: object
-                              title: >-
-                                payment_intent_payment_method_options_mandate_options_param
-                              type: object
                           title: payment_intent_payment_method_options_param
                           type: object
                         - enum:
@@ -77567,6 +77594,12 @@ paths:
                                   type: array
                               title: networks_options_param
                               type: object
+                            preferred_settlement_speed:
+                              enum:
+                                - ''
+                                - fastest
+                                - standard
+                              type: string
                             setup_future_usage:
                               enum:
                                 - ''
@@ -78849,30 +78882,6 @@ paths:
                             code:
                               maxLength: 5000
                               type: string
-                            mandate_options:
-                              properties:
-                                expires_after:
-                                  type: integer
-                                off_session:
-                                  properties:
-                                    interval:
-                                      enum:
-                                        - day
-                                        - month
-                                        - week
-                                        - year
-                                      type: string
-                                    interval_count:
-                                      type: integer
-                                  required:
-                                    - interval
-                                    - interval_count
-                                  title: >-
-                                    mandate_options_off_session_details_common_param
-                                  type: object
-                              title: >-
-                                payment_intent_payment_method_options_mandate_options_param
-                              type: object
                           title: payment_intent_payment_method_options_param
                           type: object
                         - enum:
@@ -79501,6 +79510,12 @@ paths:
                                   type: array
                               title: networks_options_param
                               type: object
+                            preferred_settlement_speed:
+                              enum:
+                                - ''
+                                - fastest
+                                - standard
+                              type: string
                             setup_future_usage:
                               enum:
                                 - ''
@@ -81292,8 +81307,8 @@ paths:
                       type: string
                   description: >-
                     The list of payment method types that customers can use.
-                    Pass an empty string to enable automatic payment methods
-                    that use your [payment method
+                    Pass an empty string to enable dynamic payment methods that
+                    use your [payment method
                     settings](https://dashboard.stripe.com/settings/payment_methods).
                 shipping_address_collection:
                   anyOf:
@@ -90747,44 +90762,6 @@ paths:
                           x-stripeBypassValidation: true
                       title: setup_intent_payment_method_options_param
                       type: object
-                    blik:
-                      properties:
-                        code:
-                          maxLength: 5000
-                          type: string
-                        mandate_options:
-                          properties:
-                            expires_after:
-                              type: integer
-                            off_session:
-                              properties:
-                                amount:
-                                  type: integer
-                                currency:
-                                  enum:
-                                    - pln
-                                  type: string
-                                interval:
-                                  enum:
-                                    - day
-                                    - month
-                                    - week
-                                    - year
-                                  type: string
-                                interval_count:
-                                  type: integer
-                              required:
-                                - amount
-                                - currency
-                                - interval
-                                - interval_count
-                              title: mandate_options_off_session_details_param
-                              type: object
-                          title: >-
-                            setup_intent_payment_method_options_mandate_options_param
-                          type: object
-                      title: setup_intent_payment_method_options_param
-                      type: object
                     card:
                       properties:
                         mandate_options:
@@ -91633,44 +91610,6 @@ paths:
                           x-stripeBypassValidation: true
                       title: setup_intent_payment_method_options_param
                       type: object
-                    blik:
-                      properties:
-                        code:
-                          maxLength: 5000
-                          type: string
-                        mandate_options:
-                          properties:
-                            expires_after:
-                              type: integer
-                            off_session:
-                              properties:
-                                amount:
-                                  type: integer
-                                currency:
-                                  enum:
-                                    - pln
-                                  type: string
-                                interval:
-                                  enum:
-                                    - day
-                                    - month
-                                    - week
-                                    - year
-                                  type: string
-                                interval_count:
-                                  type: integer
-                              required:
-                                - amount
-                                - currency
-                                - interval
-                                - interval_count
-                              title: mandate_options_off_session_details_param
-                              type: object
-                          title: >-
-                            setup_intent_payment_method_options_mandate_options_param
-                          type: object
-                      title: setup_intent_payment_method_options_param
-                      type: object
                     card:
                       properties:
                         mandate_options:
@@ -92501,44 +92440,6 @@ paths:
                             - microdeposits
                           type: string
                           x-stripeBypassValidation: true
-                      title: setup_intent_payment_method_options_param
-                      type: object
-                    blik:
-                      properties:
-                        code:
-                          maxLength: 5000
-                          type: string
-                        mandate_options:
-                          properties:
-                            expires_after:
-                              type: integer
-                            off_session:
-                              properties:
-                                amount:
-                                  type: integer
-                                currency:
-                                  enum:
-                                    - pln
-                                  type: string
-                                interval:
-                                  enum:
-                                    - day
-                                    - month
-                                    - week
-                                    - year
-                                  type: string
-                                interval_count:
-                                  type: integer
-                              required:
-                                - amount
-                                - currency
-                                - interval
-                                - interval_count
-                              title: mandate_options_off_session_details_param
-                              type: object
-                          title: >-
-                            setup_intent_payment_method_options_mandate_options_param
-                          type: object
                       title: setup_intent_payment_method_options_param
                       type: object
                     card:
@@ -99189,6 +99090,12 @@ paths:
                     maxLength: 5000
                     type: string
                   type: array
+                flat_amount:
+                  description: >-
+                    A flat amount to reverse across the entire transaction, in
+                    negative integer cents. This value represents the total
+                    amount to refund from the transaction, including taxes.
+                  type: integer
                 line_items:
                   description: The line item amounts to reverse.
                   items:
@@ -101713,6 +101620,9 @@ paths:
               expand:
                 explode: true
                 style: deepObject
+              process_config:
+                explode: true
+                style: deepObject
             schema:
               additionalProperties: false
               properties:
@@ -101725,6 +101635,11 @@ paths:
                     maxLength: 5000
                     type: string
                   type: array
+                process_config:
+                  description: Configuration overrides
+                  properties: {}
+                  title: process_setup_config
+                  type: object
                 setup_intent:
                   description: SetupIntent ID
                   maxLength: 5000
@@ -103417,6 +103332,7 @@ paths:
                             - government_instrumentality
                             - governmental_unit
                             - incorporated_non_profit
+                            - incorporated_partnership
                             - limited_liability_partnership
                             - llc
                             - multi_member_llc
@@ -103432,6 +103348,7 @@ paths:
                             - tax_exempt_government_instrumentality
                             - unincorporated_association
                             - unincorporated_non_profit
+                            - unincorporated_partnership
                           type: string
                           x-stripeBypassValidation: true
                         tax_id:
@@ -108574,6 +108491,7 @@ paths:
                     - '2020-08-27'
                     - '2022-08-01'
                     - '2022-11-15'
+                    - '2023-08-16'
                   maxLength: 5000
                   type: string
                   x-stripeBypassValidation: true
