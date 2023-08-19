@@ -72,17 +72,17 @@
   --typography-mono-font-weight: 400;
   --typography-h1-font-family: var(--typography-family-base);
   --typography-h1-font-size: 2.5rem;
-  --typography-h1-line-height: 1.4;
+  --typography-h1-line-height: 1.2;
   --typography-h1-letter-spacing: 0;
   --typography-h1-font-weight: 500;
   --typography-h2-font-family: var(--typography-family-base);
   --typography-h2-font-size: 1.875rem;
-  --typography-h2-line-height: 1.4;
+  --typography-h2-line-height: 1.2;
   --typography-h2-letter-spacing: 0;
   --typography-h2-font-weight: 400;
   --typography-h3-font-family: var(--typography-family-base);
   --typography-h3-font-size: 1.375rem;
-  --typography-h3-line-height: 1.4;
+  --typography-h3-line-height: 1.2;
   --typography-h3-letter-spacing: 0;
   --typography-h3-font-weight: 500;
   --typography-h4-font-family: var(--typography-family-base);
@@ -166,7 +166,7 @@ body[data-color-mode="light"] {
     --color-ui-contrast-100: var(--color-ui-contrast-90);
     --color-ui-contrast-00: var(--color-gray-10);
     --color-ui-contrast-05: var(--color-gray-15);
-    --color-ui-fg: var(--color-ui-contrast-90);
+    --color-ui-fg: var(--color-ui-contrast-80);
     --color-ui-text-subdue: var(--color-ui-contrast-60);
   }
 }
@@ -192,7 +192,7 @@ body[data-color-mode="dark"] {
   --color-ui-contrast-100: var(--color-ui-contrast-90);
   --color-ui-contrast-00: var(--color-gray-10);
   --color-ui-contrast-05: var(--color-gray-15);
-  --color-ui-fg: var(--color-ui-contrast-90);
+  --color-ui-fg: var(--color-ui-contrast-80);
   --color-ui-text-subdue: var(--color-ui-contrast-60);
 }
 

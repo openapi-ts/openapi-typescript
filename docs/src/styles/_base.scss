@@ -29,9 +29,6 @@ body {
   font-size: 1rem;
   line-height: 1;
   margin: 0;
-  transition:
-    background-color 100ms linear,
-    color 100ms linear;
 }
 
 nav ul {
@@ -45,12 +42,20 @@ nav ul {
 
 h1 {
   @include typography("typography.h1");
+
+  @media (max-width: 600px) {
+    font-size: 2rem;
+  }
 }
 
 h2 {
   @include typography("typography.h2");
 
   color: token("color.ui.text-subdue");
+
+  @media (max-width: 600px) {
+    font-size: 1.5rem;
+  }
 }
 
 h3 {
@@ -179,7 +184,6 @@ code {
   display: inline-block;
   margin: -$padding-block -0.125em;
   padding: $padding-block $padding-inline;
-  transition: background-color 100ms linear;
   word-break: break-word;
 }
 

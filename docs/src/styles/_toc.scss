@@ -1,6 +1,20 @@
 @use "../tokens" as *;
 
 .toc {
+  background-color: token("color.ui.callout-bg");
+  border-radius: 0.5rem;
+  padding: 1.2rem;
+
+  @media (min-width: 600px) {
+    background: none;
+    padding: 0;
+  }
+
+  a {
+    padding-bottom: 0.25rem;
+    padding-top: 0.25rem;
+  }
+
   .depth-2 a {
     font-weight: 500;
   }
