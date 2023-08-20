@@ -86,6 +86,10 @@ export interface components {
        */
       length?: number;
     };
+    Error: {
+      code: number;
+      message: string;
+    };
   };
   responses: never;
   parameters: never;
@@ -116,6 +120,12 @@ export interface operations {
           "application/json": components["schemas"]["Breed"][];
         };
       };
+      /** @description error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
     };
   };
   /**
@@ -136,9 +146,17 @@ export interface operations {
           "application/json": components["schemas"]["CatFact"];
         };
       };
-      /** @description Fact not found */
+      /** @description not found */
       404: {
-        content: never;
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
       };
     };
   };
@@ -160,6 +178,12 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["CatFact"][];
+        };
+      };
+      /** @description error */
+      default: {
+        content: {
+          "application/json": components["schemas"]["Error"];
         };
       };
     };

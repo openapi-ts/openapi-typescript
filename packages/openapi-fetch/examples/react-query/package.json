@@ -1,6 +1,7 @@
 {
   "name": "@example/openapi-fetch-react-query",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite dev",
     "prepare": "openapi-typescript src/lib/api/v1.json -o src/lib/api/v1.d.ts"
