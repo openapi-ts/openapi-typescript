@@ -430,10 +430,10 @@ function getHintFromSchemaObject(path: (string | number)[], external: boolean): 
     case "allOf":
     case "anyOf":
     case "oneOf":
-      return getHintFromSchemaObject(path.slice(2), external); // skip array index at [1]
+      return "SchemaMap";
   }
   // if this is external, and the path is [filename, key], then the external schema is probably a SchemaMap
-  if (path.length === 2 && external) {
+  if (path.length >= 2 && external) {
     return "SchemaMap";
   }
   // otherwise, path length of 1 means partial schema is likely a SchemaObject (or it’s unknown, in which case assume SchemaObject)

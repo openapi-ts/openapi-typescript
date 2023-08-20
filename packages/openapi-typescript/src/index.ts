@@ -1,4 +1,4 @@
-import type { GlobalContext, OpenAPI3, OpenAPITSOptions, ParameterObject, SchemaObject, Subschema } from "./types.js";
+import type { GlobalContext, OpenAPI3, OpenAPITSOptions, SchemaObject, Subschema } from "./types.js";
 import type { Readable } from "node:stream";
 import { URL } from "node:url";
 import load, { resolveSchema, VIRTUAL_JSON_URL } from "./load.js";
@@ -10,8 +10,9 @@ import transformParameterObjectArray from "./transform/parameter-object-array.js
 import transformRequestBodyObject from "./transform/request-body-object.js";
 import transformResponseObject from "./transform/response-object.js";
 import transformSchemaObject from "./transform/schema-object.js";
+import transformSchemaObjectMap from "./transform/schema-object-map.js";
 import { error, escObjKey, getDefaultFetch, getEntries, getSchemaObjectComment, indent } from "./utils.js";
-import transformPathItemObject, { Method } from "./transform/path-item-object.js";
+
 export * from "./types.js"; // expose all types to consumers
 
 const EMPTY_OBJECT_RE = /^\s*\{?\s*\}?\s*$/;
@@ -184,43 +185,15 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
           break;
         }
         case "RequestBodyObject": {
-          subschemaOutput = transformRequestBodyObject(subschema.schema, { path, ctx: { ...ctx, indentLv } });
+          subschemaOutput = `${transformRequestBodyObject(subschema.schema, { path, ctx: { ...ctx, indentLv } })};`;
           break;
         }
         case "ResponseObject": {
-          subschemaOutput = transformResponseObject(subschema.schema, { path, ctx: { ...ctx, indentLv } });
+          subschemaOutput = `${transformResponseObject(subschema.schema, { path, ctx: { ...ctx, indentLv } })};`;
           break;
         }
         case "SchemaMap": {
-          subschemaOutput += "{\n";
-          indentLv++;
-
-          outer: for (const [name, schemaObject] of getEntries(subschema.schema!)) {
-            if (!schemaObject || typeof schemaObject !== "object") continue;
-            const c = getSchemaObjectComment(schemaObject as SchemaObject, indentLv);
-            if (c) subschemaOutput += indent(c, indentLv);
-
-            // Test for Path Item Object
-            if (!("type" in schemaObject) && !("$ref" in schemaObject)) {
-              for (const method of ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as Method[]) {
-                if (method in schemaObject) {
-                  subschemaOutput += indent(`${escObjKey(name)}: ${transformPathItemObject(schemaObject, { path: `${path}${name}`, ctx: { ...ctx, indentLv } })};\n`, indentLv);
-                  continue outer;
-                }
-              }
-            }
-            // Test for Parameter
-            if ("in" in schemaObject) {
-              subschemaOutput += indent(`${escObjKey(name)}: ${transformParameterObject(schemaObject as ParameterObject, { path: `${path}${name}`, ctx: { ...ctx, indentLv } })};\n`, indentLv);
-              continue;
-            }
-
-            // Otherwise, this is a Schema Object
-            subschemaOutput += indent(`${escObjKey(name)}: ${transformSchemaObject(schemaObject, { path: `${path}${name}`, ctx: { ...ctx, indentLv } })};\n`, indentLv);
-          }
-
-          indentLv--;
-          subschemaOutput += indent("};", indentLv);
+          subschemaOutput = `${transformSchemaObjectMap(subschema.schema, { path, ctx: { ...ctx, indentLv } })};`;
           break;
         }
         case "SchemaObject": {

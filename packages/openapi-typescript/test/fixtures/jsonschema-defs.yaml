@@ -1,0 +1,32 @@
+openapi: 3.1.0
+components:
+  schemas:
+    Object:
+      type: object
+      properties:
+        rootDef:
+          $ref: '#/$defs/StringType'
+        nestedDef:
+          $ref: '#/components/schemas/OtherObject/$defs/nestedDef'
+        remoteDef:
+          $ref: '#/components/schemas/RemoteDefs/$defs/remoteDef'
+      $defs:
+        hasDefs:
+          type: boolean
+    ArrayOfDefs:
+      type: array
+      items:
+        $ref: '#/$defs/StringType'
+    OtherObject:
+      type: object
+      $defs:
+        nestedDef:
+          type: boolean
+    RemoteDefs:
+      type: object
+      $defs:
+        remoteDef:
+          $ref: './_jsonschema-remote-obj.yaml#/RemoteObject/$defs/remoteDef'
+$defs:
+  StringType:
+    type: string

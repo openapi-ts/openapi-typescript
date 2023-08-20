@@ -72,6 +72,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export type operations = Record<string, never>;
@@ -123,6 +125,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export type operations = Record<string, never>;
@@ -171,6 +175,8 @@ export interface components {
   headers: never;
   pathItems: never;
 }
+
+export type $defs = Record<string, never>;
 
 export interface external {
   "_parameters-test-partial.yaml": {
@@ -261,6 +267,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
@@ -323,6 +331,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export interface external {
   "_remote-ref-full.yaml": {
     paths: {
@@ -351,6 +361,7 @@ export interface external {
       headers: never;
       pathItems: never;
     };
+    $defs: Record<string, never>;
   };
   "_remote-ref-partial.yaml": {
     PartialType: {
@@ -419,6 +430,8 @@ export type webhooks = Record<string, never>;
 
 export type components = Record<string, never>;
 
+export type $defs = Record<string, never>;
+
 export interface external {
   "_path-object-refs-paths.yaml": {
     GetItemOperation: {
@@ -473,6 +486,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export interface external {
   "anchor-with-ref-test.yaml": {
     paths: {
@@ -506,6 +521,7 @@ export interface external {
       headers: never;
       pathItems: never;
     };
+    $defs: Record<string, never>;
   };
 }
 
@@ -594,6 +610,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export type operations = Record<string, never>;
@@ -676,6 +694,8 @@ export interface components {
   headers: never;
   pathItems: never;
 }
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
@@ -764,6 +784,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export type operations = Record<string, never>;
@@ -808,10 +830,69 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export type operations = Record<string, never>;
 `);
+    });
+
+    describe("JSONSchema", () => {
+      test("$defs are respected", async () => {
+        const generated = await openapiTS(new URL("./fixtures/jsonschema-defs.yaml", import.meta.url));
+        expect(generated).toBe(`${BOILERPLATE}
+export type paths = Record<string, never>;
+
+export type webhooks = Record<string, never>;
+
+export interface components {
+  schemas: {
+    Object: {
+      rootDef?: $defs["StringType"];
+      nestedDef?: components["schemas"]["OtherObject"]["$defs"]["nestedDef"];
+      remoteDef?: components["schemas"]["RemoteDefs"]["$defs"]["remoteDef"];
+      $defs: {
+        hasDefs: boolean;
+      };
+    };
+    ArrayOfDefs: $defs["StringType"][];
+    OtherObject: {
+      $defs: {
+        nestedDef: boolean;
+      };
+    };
+    RemoteDefs: {
+      $defs: {
+        remoteDef: external["_jsonschema-remote-obj.yaml"]["RemoteObject"]["$defs"]["remoteDef"];
+      };
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}
+
+export interface $defs {
+  StringType: string;
+}
+
+export interface external {
+  "_jsonschema-remote-obj.yaml": {
+    RemoteObject: {
+      ownProperty?: boolean;
+      $defs: {
+        remoteDef: string;
+      };
+    };
+  };
+}
+
+export type operations = Record<string, never>;
+`);
+      });
     });
   });
 
@@ -852,6 +933,8 @@ export interface components {
   headers: never;
   pathItems: never;
 }
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
@@ -895,6 +978,8 @@ export type components = {
   pathItems: never;
 };
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export type operations = Record<string, never>;
@@ -930,6 +1015,8 @@ export type webhooks = Record<string, never>;
 
 export type components = Record<string, never>;
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export type operations = Record<string, never>;
@@ -952,6 +1039,8 @@ export interface paths {
 export type webhooks = Record<string, never>;
 
 export type components = Record<string, never>;
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
@@ -1002,6 +1091,8 @@ export type webhooks = Record<string, never>;
 
 export type components = Record<string, never>;
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export type operations = Record<string, never>;
@@ -1033,6 +1124,8 @@ export interface paths {
 export type webhooks = Record<string, never>;
 
 export type components = Record<string, never>;
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
@@ -1076,6 +1169,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export type operations = Record<string, never>;
@@ -1108,6 +1203,8 @@ export interface components {
   headers: never;
   pathItems: never;
 }
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
@@ -1160,6 +1257,8 @@ export interface components {
   headers: never;
   pathItems: never;
 }
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
@@ -1214,6 +1313,8 @@ export interface components {
   headers: never;
   pathItems: never;
 }
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
