@@ -1,5 +1,13 @@
 # openapi-fetch
 
+## 0.7.4
+
+### Patch Changes
+
+- [#1314](https://github.com/drwpow/openapi-typescript/pull/1314) [`181c4de`](https://github.com/drwpow/openapi-typescript/commit/181c4de395e9c337937f61d6dd5e0ba47954d893) Thanks [@drwpow](https://github.com/drwpow)! - Make headers typing friendlier
+
+- [#1314](https://github.com/drwpow/openapi-typescript/pull/1314) [`181c4de`](https://github.com/drwpow/openapi-typescript/commit/181c4de395e9c337937f61d6dd5e0ba47954d893) Thanks [@drwpow](https://github.com/drwpow)! - Allow unsetting headers
+
 ## 0.7.3
 
 ### Patch Changes
