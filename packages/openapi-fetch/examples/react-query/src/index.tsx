@@ -13,8 +13,9 @@ function Fact() {
   return (
     <div>
       {fact.isLoading && <div>Loading...</div>}
-      {!!fact.error && <div>There was an error: {String(fact.error)}</div>}
-      {!!fact.data && (
+      {fact.error ? (
+        <div>There was an error: {fact.error}</div>
+      ) : (
         <pre>
           <code>{JSON.stringify(fact.data, undefined, 2)}</code>
         </pre>
