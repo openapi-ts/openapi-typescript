@@ -26,7 +26,9 @@ export const client = computed(authToken, (currentToken) =>
     baseUrl: "https://myapi.dev/v1/",
   }),
 );
+```
 
+```ts
 // src/some-other-file.ts
 import { client } from "./lib/api";
 
@@ -59,7 +61,9 @@ export default new Proxy(baseClient, {
     return newClient[key];
   },
 });
+```
 
+```ts
 // src/some-other-file.ts
 import client from "./lib/api";
 
@@ -80,7 +84,7 @@ openapi-fetch is simple vanilla JS that can be used in any project. But sometime
 
 ### Next.js
 
-<a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">Next.js</a> is the most popular SSR framework for React. While [React Query](#react--react-query) is recommended for clientside fetching, this example shows how to take advantage of <a href="https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#fetching-data-on-the-server-with-fetch" target="_blank" rel="noopener noreferrer">server-side fetching</a>.
+<a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">Next.js</a> is the most popular SSR framework for React. While [React Query](#react--react-query) is recommended for all clientside fetching with openapi-fetch (not SWR), this example shows how to take advantage of Next.js’s <a href="https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#fetching-data-on-the-server-with-fetch" target="_blank" rel="noopener noreferrer">server-side fetching</a> with built-in caching.
 
 [View a code example in GitHub](https://github.com/drwpow/openapi-typescript/tree/main/packages/openapi-fetch/examples/nextjs)
 
