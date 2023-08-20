@@ -337,6 +337,16 @@ describe("client", () => {
       );
     });
 
+    it("allows unsetting headers", async () => {
+      const client = createClient<paths>({ headers: { "Content-Type": null } });
+      mockFetchOnce({ status: 200, body: JSON.stringify({ email: "user@user.com" }) });
+      await client.GET("/self", { params: {} });
+
+      // assert default headers were passed
+      const options = fetchMocker.mock.calls[0][1];
+      expect(options?.headers).toEqual(new Headers());
+    });
+
     it("accepts a custom fetch function", async () => {
       const data = { works: true };
       const customFetch = {

@@ -11,7 +11,7 @@ const TRAILING_SLASH_RE = /\/*$/;
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types */
 
 /** options for each client instance */
-interface ClientOptions extends RequestInit {
+interface ClientOptions extends Omit<RequestInit, "headers"> {
   /** set the common root URL for all API requests */
   baseUrl?: string;
   /** custom fetch (defaults to globalThis.fetch) */
@@ -20,7 +20,10 @@ interface ClientOptions extends RequestInit {
   querySerializer?: QuerySerializer<unknown>;
   /** global bodySerializer */
   bodySerializer?: BodySerializer<unknown>;
+  // headers override to make typing friendlier
+  headers?: HeadersOptions;
 }
+export type HeadersOptions = HeadersInit | Record<string, string | number | boolean | null | undefined>;
 export type QuerySerializer<T> = (query: T extends { parameters: any } ? NonNullable<T["parameters"]["query"]> : Record<string, unknown>) => string;
 export type BodySerializer<T> = (body: OperationRequestBodyContent<T>) => any;
 export type ParseAs = "json" | "text" | "blob" | "arrayBuffer" | "stream";
@@ -43,17 +46,12 @@ export type RequestOptions<T> = ParamsOption<T> &
 export default function createClient<Paths extends {}>(clientOptions: ClientOptions = {}) {
   const { fetch = globalThis.fetch, querySerializer: globalQuerySerializer, bodySerializer: globalBodySerializer, ...options } = clientOptions;
 
-  const defaultHeaders = new Headers({
-    ...DEFAULT_HEADERS,
-    ...(options.headers ?? {}),
-  });
-
   async function coreFetch<P extends keyof Paths, M extends HttpMethod>(url: P, fetchOptions: FetchOptions<M extends keyof Paths[P] ? Paths[P][M] : never>): Promise<FetchResponse<M extends keyof Paths[P] ? Paths[P][M] : unknown>> {
     const { headers, body: requestBody, params = {}, parseAs = "json", querySerializer = globalQuerySerializer ?? defaultQuerySerializer, bodySerializer = globalBodySerializer ?? defaultBodySerializer, ...init } = fetchOptions || {};
 
     // URL
     const finalURL = createFinalURL(url as string, { baseUrl: options.baseUrl, params, querySerializer });
-    const finalHeaders = mergeHeaders(defaultHeaders as any, headers as any, (params as any).header);
+    const finalHeaders = mergeHeaders(DEFAULT_HEADERS, clientOptions?.headers, headers, (params as any).header);
 
     // fetch!
     const requestInit: RequestInit = { redirect: "follow", ...options, ...init, headers: finalHeaders };
@@ -157,13 +155,15 @@ export function createFinalURL<O>(url: string, options: { baseUrl?: string; para
 }
 
 /** merge headers a and b, with b taking priority */
-export function mergeHeaders(...allHeaders: (Record<string, unknown> | Headers)[]): Headers {
+export function mergeHeaders(...allHeaders: (HeadersOptions | undefined)[]): Headers {
   const headers = new Headers();
   for (const headerSet of allHeaders) {
     if (!headerSet || typeof headerSet !== "object") continue;
     const iterator = headerSet instanceof Headers ? headerSet.entries() : Object.entries(headerSet);
     for (const [k, v] of iterator) {
-      if (v !== undefined && v !== null) {
+      if (v === null) {
+        headers.delete(k);
+      } else if (v !== undefined) {
         headers.set(k, v as any);
       }
     }
