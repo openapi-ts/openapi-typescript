@@ -1,5 +1,13 @@
 # openapi-typescript
 
+## 6.5.2
+
+### Patch Changes
+
+- [#1317](https://github.com/drwpow/openapi-typescript/pull/1317) [`5e054db`](https://github.com/drwpow/openapi-typescript/commit/5e054dbc0984198c7f89e29b6f38e9d60790cafb) Thanks [@drwpow](https://github.com/drwpow)! - Fix JSONSchema $defs
+
+- [#1317](https://github.com/drwpow/openapi-typescript/pull/1317) [`5e054db`](https://github.com/drwpow/openapi-typescript/commit/5e054dbc0984198c7f89e29b6f38e9d60790cafb) Thanks [@drwpow](https://github.com/drwpow)! - Improve remote $ref parsing
+
 ## 6.5.1
 
 ### Patch Changes
