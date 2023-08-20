@@ -26,7 +26,9 @@ export const client = computed(authToken, (currentToken) =>
     baseUrl: "https://myapi.dev/v1/",
   }),
 );
+```
 
+```ts
 // src/some-other-file.ts
 import { client } from "./lib/api";
 
@@ -59,7 +61,9 @@ export default new Proxy(baseClient, {
     return newClient[key];
   },
 });
+```
 
+```ts
 // src/some-other-file.ts
 import client from "./lib/api";
 
