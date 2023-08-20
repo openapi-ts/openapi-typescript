@@ -209,7 +209,7 @@ describe("Schema Object", () => {
           type: "object",
           properties: { property: { type: "boolean" } },
           additionalProperties: { type: "string" },
-          required: ["property"]
+          required: ["property"],
         };
         const generated = transformSchemaObject(schema, options);
         expect(generated).toBe(`{
@@ -221,9 +221,9 @@ describe("Schema Object", () => {
       test("additionalProperties with partly required properties", () => {
         const schema: SchemaObject = {
           type: "object",
-          properties: { property: { type: "boolean" }, property2: { type: "boolean" }},
+          properties: { property: { type: "boolean" }, property2: { type: "boolean" } },
           additionalProperties: { type: "string" },
-          required: ["property"]
+          required: ["property"],
         };
         const generated = transformSchemaObject(schema, options);
         expect(generated).toBe(`{
@@ -368,6 +368,11 @@ describe("Schema Object", () => {
         const generated = transformSchemaObject({ type: ["string", "null"], enum: [null, "blue", "green", "yellow"] }, options);
         expect(generated).toBe(`null | "blue" | "green" | "yellow"`);
       });
+    });
+
+    test("unknown", () => {
+      const generated = transformSchemaObject({}, options);
+      expect(generated).toBe(`unknown`);
     });
   });
 
@@ -793,14 +798,33 @@ describe("Schema Object", () => {
     });
   });
 
-  test("unknown", () => {
-    const generated = transformSchemaObject({}, options);
-    expect(generated).toBe(`unknown`);
+  describe("JSONSchema", () => {
+    test("$defs are kept (for types that can hold them)", () => {
+      const generated = transformSchemaObject(
+        {
+          type: "object",
+          properties: {
+            foo: { type: "string" },
+          },
+          $defs: {
+            defEnum: { type: "string", enum: ["one", "two", "three"] },
+          },
+        },
+        options,
+      );
+      expect(generated).toBe(`{
+  foo?: string;
+  $defs: {
+    /** @enum {string} */
+    defEnum: "one" | "two" | "three";
+  };
+}`);
+    });
   });
 });
 
 describe("ReferenceObject", () => {
-  it("x-* properties are ignored", () => {
+  test("x-* properties are ignored", () => {
     expect(
       transformSchemaObject(
         {

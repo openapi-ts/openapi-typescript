@@ -34,6 +34,7 @@ export interface OpenAPI3 extends Extensable {
   tags?: TagObject[];
   /** Additional external documentation. */
   externalDocs?: ExternalDocumentationObject;
+  $defs?: $defs;
 }
 
 /**
@@ -495,6 +496,7 @@ export interface ObjectSubtype {
   allOf?: (SchemaObject | ReferenceObject)[];
   anyOf?: (SchemaObject | ReferenceObject)[];
   enum?: (SchemaObject | ReferenceObject)[];
+  $defs?: $defs;
 }
 
 /**
@@ -706,6 +708,8 @@ export interface GlobalContext {
   supportArrayLength: boolean;
   excludeDeprecated: boolean;
 }
+
+export type $defs = Record<string, SchemaObject>;
 
 // Fetch is available in the global scope starting with Node v18.
 // However, @types/node does not have it yet available.

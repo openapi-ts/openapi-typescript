@@ -5,6 +5,7 @@ import transformParameterObject from "./parameter-object.js";
 import transformPathItemObject from "./path-item-object.js";
 import transformRequestBodyObject from "./request-body-object.js";
 import transformResponseObject from "./response-object.js";
+import transformSchemaObjectMap from "./schema-object-map.js";
 import transformSchemaObject from "./schema-object.js";
 
 export default function transformComponentsObject(components: ComponentsObject, ctx: GlobalContext): string {
@@ -14,21 +15,8 @@ export default function transformComponentsObject(components: ComponentsObject, 
 
   // schemas
   if (components.schemas) {
-    output.push(indent("schemas: {", indentLv));
-    indentLv++;
-    for (const [name, schemaObject] of getEntries(components.schemas, ctx.alphabetize, ctx.excludeDeprecated)) {
-      const c = getSchemaObjectComment(schemaObject, indentLv);
-      if (c) output.push(indent(c, indentLv));
-      let key = escObjKey(name);
-      if (ctx.immutableTypes || schemaObject.readOnly) key = tsReadonly(key);
-      const schemaType = transformSchemaObject(schemaObject, {
-        path: `#/components/schemas/${name}`,
-        ctx: { ...ctx, indentLv: indentLv },
-      });
-      output.push(indent(`${key}: ${schemaType};`, indentLv));
-    }
-    indentLv--;
-    output.push(indent("};", indentLv));
+    const schemas = transformSchemaObjectMap(components.schemas, { path: "#/components/schemas/", ctx: { ...ctx, indentLv } });
+    output.push(indent(`schemas: ${schemas};`, indentLv));
   } else {
     output.push(indent("schemas: never;", indentLv));
   }

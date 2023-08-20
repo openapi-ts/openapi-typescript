@@ -1,5 +1,6 @@
 import type { GlobalContext, ReferenceObject, SchemaObject } from "../types.js";
 import { escObjKey, escStr, getEntries, getSchemaObjectComment, indent, parseRef, tsArrayOf, tsIntersectionOf, tsOmit, tsOneOf, tsOptionalProperty, tsReadonly, tsTupleOf, tsUnionOf, tsWithRequired } from "../utils.js";
+import transformSchemaObjectMap from "./schema-object-map.js";
 
 // There’s just no getting around some really complex type intersections that TS
 // has trouble following
@@ -163,7 +164,11 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
 
   // core type: properties + additionalProperties
   const coreType: string[] = [];
-  if (("properties" in schemaObject && schemaObject.properties && Object.keys(schemaObject.properties).length) || ("additionalProperties" in schemaObject && schemaObject.additionalProperties)) {
+  if (
+    ("properties" in schemaObject && schemaObject.properties && Object.keys(schemaObject.properties).length) ||
+    ("additionalProperties" in schemaObject && schemaObject.additionalProperties) ||
+    ("$defs" in schemaObject && schemaObject.$defs)
+  ) {
     indentLv++;
     for (const [k, v] of getEntries(schemaObject.properties ?? {}, ctx.alphabetize, ctx.excludeDeprecated)) {
       const c = getSchemaObjectComment(v, indentLv);
@@ -197,6 +202,9 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
       } else {
         coreType.push(indent(`[key: string]: ${addlType ? addlType : "unknown"};`, indentLv));
       }
+    }
+    if (schemaObject.$defs && typeof schemaObject.$defs === "object" && Object.keys(schemaObject.$defs).length) {
+      coreType.push(indent(`$defs: ${transformSchemaObjectMap(schemaObject.$defs, { path: `${path}$defs/`, ctx: { ...ctx, indentLv } })};`, indentLv));
     }
     indentLv--;
   }

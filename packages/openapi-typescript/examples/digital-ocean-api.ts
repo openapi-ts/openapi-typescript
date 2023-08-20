@@ -682,11 +682,14 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export interface external {
   "description.yml": {
     paths: Record<string, never>;
     webhooks: Record<string, never>;
     components: Record<string, never>;
+    $defs: Record<string, never>;
   };
   "resources/1-clicks/models/oneClicks_create.yml": {
     /**
@@ -778,7 +781,7 @@ export interface external {
         "1_clicks"?: external["resources/1-clicks/models/oneClicks.yml"][];
       };
     };
-  }
+  };
   "resources/1-clicks/responses/oneClicks_create.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -794,7 +797,7 @@ export interface external {
         message?: string;
       };
     };
-  }
+  };
   /**
    * Get User Information
    * @description To show information about the current user account, send a GET request to `/v2/account`.
@@ -877,7 +880,7 @@ export interface external {
         account?: external["resources/account/models/account.yml"];
       };
     };
-  }
+  };
   /**
    * Retrieve an Existing Action
    * @description To retrieve a specific action object, send a GET request to `/v2/actions/$ACTION_ID`.
@@ -973,7 +976,7 @@ export interface external {
         action?: external["resources/actions/models/action.yml"];
       };
     };
-  }
+  };
   "resources/actions/responses/actions.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -985,7 +988,7 @@ export interface external {
         actions?: external["resources/actions/models/action.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   /**
    * Update destinations for alerts
    * @description Updates the emails and slack webhook destinations for app alerts. Emails must be associated to a user with access to the app.
@@ -2957,7 +2960,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/apps_list_tiers_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/apps_get.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -2967,7 +2970,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/app_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/apps_validate_rollback.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -2983,7 +2986,7 @@ export interface external {
         warnings?: external["resources/apps/models/app_rollback_validation_condition.yml"][];
       };
     };
-  }
+  };
   "resources/apps/responses/assign_alert_destinations.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -2993,7 +2996,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/apps_alert_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/cancel_deployment.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3003,7 +3006,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/apps_deployment_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/delete_app.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3013,7 +3016,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/apps_delete_app_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/examples.yml": unknown
   "resources/apps/responses/existing_deployments.yml": {
     headers: {
@@ -3024,7 +3027,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/apps_deployments_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/get_instance.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3034,7 +3037,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/apps_get_instance_size_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/get_metrics_bandwidth_usage.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3044,7 +3047,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/app_metrics_bandwidth_usage.yml"];
     };
-  }
+  };
   "resources/apps/responses/get_tier.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3054,7 +3057,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/apps_get_tier_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/list_alerts.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3064,7 +3067,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/apps_list_alerts_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/list_apps.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3074,7 +3077,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/apps_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/list_deployment.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3084,7 +3087,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/apps_deployment_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/list_instance.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3094,7 +3097,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/apps_list_instance_sizes_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/list_logs.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3104,7 +3107,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/apps_get_logs_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/list_metrics_bandwidth_usage.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3114,7 +3117,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/app_metrics_bandwidth_usage.yml"];
     };
-  }
+  };
   "resources/apps/responses/list_regions.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3124,7 +3127,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/apps_list_regions_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/new_app_deployment.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3134,7 +3137,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/apps_deployment_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/new_app.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3144,7 +3147,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/app_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/propose_app.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3154,7 +3157,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/app_propose_response.yml"];
     };
-  }
+  };
   "resources/apps/responses/update_app.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3164,7 +3167,7 @@ export interface external {
     content: {
       "application/json": external["resources/apps/models/app_response.yml"];
     };
-  }
+  };
   /**
    * Get Customer Balance
    * @description To retrieve the balances on a customer's account, send a GET request to `/v2/customers/my/balance`.
@@ -3572,7 +3575,7 @@ export interface external {
     content: {
       "application/json": external["resources/billing/models/balance.yml"];
     };
-  }
+  };
   "resources/billing/responses/billing_history.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3584,7 +3587,7 @@ export interface external {
         billing_history?: external["resources/billing/models/billing_history.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta_optional_total.yml"];
     };
-  }
+  };
   "resources/billing/responses/invoice_csv.yml": {
     headers: {
       "content-disposition": external["shared/headers.yml"]["content-disposition"];
@@ -3595,7 +3598,7 @@ export interface external {
     content: {
       "text/csv": string;
     };
-  }
+  };
   "resources/billing/responses/invoice_pdf.yml": {
     headers: {
       "content-disposition": external["shared/headers.yml"]["content-disposition"];
@@ -3606,7 +3609,7 @@ export interface external {
     content: {
       "application/pdf": string;
     };
-  }
+  };
   "resources/billing/responses/invoice_summary.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3616,7 +3619,7 @@ export interface external {
     content: {
       "application/json": external["resources/billing/models/invoice_summary.yml"];
     };
-  }
+  };
   "resources/billing/responses/invoice.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3628,7 +3631,7 @@ export interface external {
         invoice_items?: external["resources/billing/models/invoice_item.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/billing/responses/invoices.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3641,7 +3644,7 @@ export interface external {
         invoice_preview?: external["resources/billing/models/invoice_preview.yml"];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   /**
    * Create a New CDN Endpoint
    * @description To create a new CDN endpoint, send a POST request to `/v2/cdn/endpoints`. The
@@ -3873,7 +3876,7 @@ export interface external {
         endpoints?: external["resources/cdn/models/cdn_endpoint.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/cdn/responses/existing_endpoint.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -3885,7 +3888,7 @@ export interface external {
         endpoint?: external["resources/cdn/models/cdn_endpoint.yml"];
       };
     };
-  }
+  };
   /**
    * Create a New Certificate
    * @description To upload new SSL certificate which you have previously generated, send a POST
@@ -3984,7 +3987,8 @@ export interface external {
        */
       type?: "custom" | "lets_encrypt";
     };
-    /** Custom Certificate Request */    certificate_request_custom: external["resources/certificates/models/certificate_create.yml"]["certificate_create_base"] & {
+    /** Custom Certificate Request */
+    certificate_request_custom: external["resources/certificates/models/certificate_create.yml"]["certificate_create_base"] & {
       /**
        * @description The contents of a PEM-formatted private-key corresponding to the SSL certificate.
        * @example -----BEGIN PRIVATE KEY-----
@@ -4113,7 +4117,8 @@ export interface external {
        */
       certificate_chain?: string;
     };
-    /** Let's Encrypt Certificate Request */    certificate_request_lets_encrypt: external["resources/certificates/models/certificate_create.yml"]["certificate_create_base"] & {
+    /** Let's Encrypt Certificate Request */
+    certificate_request_lets_encrypt: external["resources/certificates/models/certificate_create.yml"]["certificate_create_base"] & {
       /**
        * @description An array of fully qualified domain names (FQDNs) for which the certificate was issued. A certificate covering all subdomains can be issued using a wildcard (e.g. `*.example.com`).
        * @example [
@@ -4188,7 +4193,7 @@ export interface external {
         certificates?: external["resources/certificates/models/certificate.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/certificates/responses/examples.yml": unknown
   "resources/certificates/responses/existing_certificate.yml": {
     headers: {
@@ -4201,7 +4206,7 @@ export interface external {
         certificate?: external["resources/certificates/models/certificate.yml"];
       };
     };
-  }
+  };
   "resources/certificates/responses/new_certificate.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -4213,7 +4218,7 @@ export interface external {
         certificate?: external["resources/certificates/models/certificate.yml"];
       };
     };
-  }
+  };
   /**
    * Add a New Connection Pool (PostgreSQL)
    * @description For PostgreSQL database clusters, connection pools can be used to allow a
@@ -6398,7 +6403,7 @@ export interface external {
         ca: external["resources/databases/models/ca.yml"];
       };
     };
-  }
+  };
   "resources/databases/responses/connection_pool.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6410,7 +6415,7 @@ export interface external {
         pool: external["resources/databases/models/connection_pool.yml"];
       };
     };
-  }
+  };
   "resources/databases/responses/connection_pools.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6420,7 +6425,7 @@ export interface external {
     content: {
       "application/json": external["resources/databases/models/connection_pools.yml"];
     };
-  }
+  };
   "resources/databases/responses/database_backups.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6432,7 +6437,7 @@ export interface external {
         backups: external["resources/databases/models/backup.yml"][];
       };
     };
-  }
+  };
   "resources/databases/responses/database_cluster.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6444,7 +6449,7 @@ export interface external {
         database: external["resources/databases/models/database_cluster.yml"];
       };
     };
-  }
+  };
   "resources/databases/responses/database_clusters.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6456,7 +6461,7 @@ export interface external {
         databases?: external["resources/databases/models/database_cluster.yml"][];
       };
     };
-  }
+  };
   "resources/databases/responses/database_config.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6468,7 +6473,7 @@ export interface external {
         config: external["resources/databases/models/mysql.yml"] | external["resources/databases/models/postgres.yml"] | external["resources/databases/models/redis.yml"];
       };
     };
-  }
+  };
   "resources/databases/responses/database_replica.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6480,7 +6485,7 @@ export interface external {
         replica?: external["resources/databases/models/database_replica.yml"];
       };
     };
-  }
+  };
   "resources/databases/responses/database_replicas.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6492,7 +6497,7 @@ export interface external {
         replicas?: external["resources/databases/models/database_replica.yml"][];
       };
     };
-  }
+  };
   "resources/databases/responses/database.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6504,7 +6509,7 @@ export interface external {
         db: external["resources/databases/models/database.yml"];
       };
     };
-  }
+  };
   "resources/databases/responses/databases.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6516,7 +6521,7 @@ export interface external {
         dbs?: external["resources/databases/models/database.yml"][];
       };
     };
-  }
+  };
   "resources/databases/responses/eviction_policy_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6528,7 +6533,7 @@ export interface external {
         eviction_policy: external["resources/databases/models/eviction_policy_model.yml"];
       };
     };
-  }
+  };
   "resources/databases/responses/firewall_rules.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6540,7 +6545,7 @@ export interface external {
         rules?: external["resources/databases/models/firewall_rule.yml"][];
       };
     };
-  }
+  };
   "resources/databases/responses/online_migration.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6550,7 +6555,7 @@ export interface external {
     content: {
       "application/json": external["resources/databases/models/online_migration.yml"];
     };
-  }
+  };
   "resources/databases/responses/options.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6560,7 +6565,7 @@ export interface external {
     content: {
       "application/json": external["resources/databases/models/options.yml"];
     };
-  }
+  };
   "resources/databases/responses/sql_mode.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6570,7 +6575,7 @@ export interface external {
     content: {
       "application/json": external["resources/databases/models/sql_mode.yml"];
     };
-  }
+  };
   "resources/databases/responses/user.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6582,7 +6587,7 @@ export interface external {
         user: external["resources/databases/models/database_user.yml"];
       };
     };
-  }
+  };
   "resources/databases/responses/users.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6594,7 +6599,7 @@ export interface external {
         users?: external["resources/databases/models/database_user.yml"][];
       };
     };
-  }
+  };
   /**
    * Create a New Domain Record
    * @description To create a new record to a domain, send a POST request to
@@ -6973,7 +6978,7 @@ export interface external {
         domain_records?: external["resources/domains/models/domain_record.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/domains/responses/all_domains_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6986,7 +6991,7 @@ export interface external {
         domains: external["resources/domains/models/domain.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/domains/responses/create_domain_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -6998,7 +7003,7 @@ export interface external {
         domain?: external["resources/domains/models/domain.yml"];
       };
     };
-  }
+  };
   "resources/domains/responses/created_domain_record.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -7010,7 +7015,7 @@ export interface external {
         domain_record?: external["resources/domains/models/domain_record.yml"];
       };
     };
-  }
+  };
   "resources/domains/responses/domain_record.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -7022,7 +7027,7 @@ export interface external {
         domain_record?: external["resources/domains/models/domain_record.yml"];
       };
     };
-  }
+  };
   "resources/domains/responses/existing_domain.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -7034,7 +7039,7 @@ export interface external {
         domain?: external["resources/domains/models/domain.yml"];
       };
     };
-  }
+  };
   /**
    * Retrieve a Droplet Action
    * @description To retrieve a Droplet action, send a GET request to
@@ -7678,7 +7683,8 @@ export interface external {
     error_message?: string;
   };
   "resources/droplets/models/droplet_actions.yml": {
-    /** @description Specifies the action that will be taken on the Droplet. */    droplet_action: {
+    /** @description Specifies the action that will be taken on the Droplet. */
+    droplet_action: {
       /**
        * @description The type of action to initiate for the Droplet.
        * @example reboot
@@ -8113,7 +8119,7 @@ export interface external {
         actions?: external["resources/actions/models/action.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/droplets/responses/all_droplet_backups.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -8125,7 +8131,7 @@ export interface external {
         backups?: external["resources/droplets/models/droplet_snapshot.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/droplets/responses/all_droplet_snapshots.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -8137,7 +8143,7 @@ export interface external {
         snapshots?: external["resources/droplets/models/droplet_snapshot.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/droplets/responses/all_droplets.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -8149,7 +8155,7 @@ export interface external {
         droplets?: external["resources/droplets/models/droplet.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/droplets/responses/all_firewalls.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -8161,7 +8167,7 @@ export interface external {
         firewalls?: external["resources/firewalls/models/firewall.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/droplets/responses/all_kernels.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -8173,7 +8179,7 @@ export interface external {
         kernels?: external["resources/droplets/models/kernel.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/droplets/responses/associated_resources_list.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -8189,7 +8195,7 @@ export interface external {
         volume_snapshots?: external["resources/droplets/models/associated_resource.yml"][];
       };
     };
-  }
+  };
   "resources/droplets/responses/associated_resources_status.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -8199,7 +8205,7 @@ export interface external {
     content: {
       "application/json": external["resources/droplets/models/associated_resource_status.yml"];
     };
-  }
+  };
   "resources/droplets/responses/droplet_action.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -8211,7 +8217,7 @@ export interface external {
         action?: external["resources/actions/models/action.yml"];
       };
     };
-  }
+  };
   "resources/droplets/responses/droplet_actions_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -8223,7 +8229,7 @@ export interface external {
         actions?: external["resources/actions/models/action.yml"][];
       };
     };
-  }
+  };
   "resources/droplets/responses/droplet_create.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -8243,7 +8249,7 @@ export interface external {
         };
       }]>;
     };
-  }
+  };
   "resources/droplets/responses/droplet_neighbors_ids.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -8253,7 +8259,7 @@ export interface external {
     content: {
       "application/json": external["resources/droplets/models/neighbor_ids.yml"];
     };
-  }
+  };
   "resources/droplets/responses/examples.yml": unknown
   "resources/droplets/responses/existing_droplet.yml": {
     headers: {
@@ -8266,7 +8272,7 @@ export interface external {
         droplet?: external["resources/droplets/models/droplet.yml"];
       };
     };
-  }
+  };
   "resources/droplets/responses/neighbor_droplets.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -8278,7 +8284,7 @@ export interface external {
         droplets?: external["resources/droplets/models/droplet.yml"][];
       };
     };
-  }
+  };
   /**
    * Add Rules to a Firewall
    * @description To add additional access rules to a firewall, send a POST request to
@@ -8830,7 +8836,7 @@ export interface external {
         firewall?: external["resources/firewalls/models/firewall.yml"];
       };
     };
-  }
+  };
   "resources/firewalls/responses/get_firewall_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -8842,7 +8848,7 @@ export interface external {
         firewall?: external["resources/firewalls/models/firewall.yml"];
       };
     };
-  }
+  };
   "resources/firewalls/responses/list_firewalls_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -8854,7 +8860,7 @@ export interface external {
         firewalls?: external["resources/firewalls/models/firewall.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/firewalls/responses/put_firewall_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -8866,7 +8872,7 @@ export interface external {
         firewall?: external["resources/firewalls/models/firewall.yml"];
       };
     };
-  }
+  };
   /**
    * Create a New Floating IP
    * @description On creation, a floating IP must be either assigned to a Droplet or reserved to a region.
@@ -9114,7 +9120,7 @@ export interface external {
         };
       };
     };
-  }
+  };
   "resources/floating_ips/responses/floating_ip_actions.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9126,7 +9132,7 @@ export interface external {
         actions?: external["resources/actions/models/action.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/floating_ips/responses/floating_ip_created.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9142,7 +9148,7 @@ export interface external {
         };
       };
     };
-  }
+  };
   "resources/floating_ips/responses/floating_ip_list.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9154,7 +9160,7 @@ export interface external {
         floating_ips?: external["resources/floating_ips/models/floating_ip.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/floating_ips/responses/floating_ip.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9166,7 +9172,7 @@ export interface external {
         floating_ip?: external["resources/floating_ips/models/floating_ip.yml"];
       };
     };
-  }
+  };
   /**
    * Create Namespace
    * @description Creates a new serverless functions namespace in the desired region and associates it with the provided label. A namespace is a collection of functions and their associated packages, triggers, and project specifications. To create a namespace, send a POST request to `/v2/functions/namespaces` with the `region` and `label` properties.
@@ -9517,7 +9523,7 @@ export interface external {
         namespaces?: external["resources/functions/models/namespace_info.yml"][];
       };
     };
-  }
+  };
   "resources/functions/responses/list_triggers.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9529,7 +9535,7 @@ export interface external {
         triggers?: external["resources/functions/models/trigger_info.yml"][];
       };
     };
-  }
+  };
   "resources/functions/responses/namespace_bad_request.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9539,7 +9545,7 @@ export interface external {
     content: {
       "application/json": external["shared/models/error.yml"];
     };
-  }
+  };
   "resources/functions/responses/namespace_created.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9551,7 +9557,7 @@ export interface external {
         namespace?: external["resources/functions/models/namespace_info.yml"];
       };
     };
-  }
+  };
   "resources/functions/responses/namespace_limit_reached.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9561,7 +9567,7 @@ export interface external {
     content: {
       "application/json": external["shared/models/error.yml"];
     };
-  }
+  };
   "resources/functions/responses/namespace_not_allowed.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9571,7 +9577,7 @@ export interface external {
     content: {
       "application/json": external["shared/models/error.yml"];
     };
-  }
+  };
   "resources/functions/responses/namespace_not_found.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9581,7 +9587,7 @@ export interface external {
     content: {
       "application/json": external["shared/models/error.yml"];
     };
-  }
+  };
   "resources/functions/responses/trigger_bad_request.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9591,7 +9597,7 @@ export interface external {
     content: {
       "application/json": external["shared/models/error.yml"];
     };
-  }
+  };
   "resources/functions/responses/trigger_limit_reached.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9601,7 +9607,7 @@ export interface external {
     content: {
       "application/json": external["shared/models/error.yml"];
     };
-  }
+  };
   "resources/functions/responses/trigger_not_found.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9611,7 +9617,7 @@ export interface external {
     content: {
       "application/json": external["shared/models/error.yml"];
     };
-  }
+  };
   "resources/functions/responses/trigger_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9623,7 +9629,7 @@ export interface external {
         trigger?: external["resources/functions/models/trigger_info.yml"];
       };
     };
-  }
+  };
   "resources/images/attributes.yml": unknown;
   /**
    * Retrieve an Existing Action
@@ -9938,7 +9944,7 @@ export interface external {
         images: external["resources/images/models/image.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/images/responses/examples.yml": unknown
   "resources/images/responses/existing_image.yml": {
     headers: {
@@ -9951,7 +9957,7 @@ export interface external {
         image: external["resources/images/models/image.yml"];
       };
     };
-  }
+  };
   "resources/images/responses/get_image_action_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9961,7 +9967,7 @@ export interface external {
     content: {
       "application/json": external["resources/actions/models/action.yml"];
     };
-  }
+  };
   "resources/images/responses/get_image_actions_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9973,7 +9979,7 @@ export interface external {
         actions?: external["resources/actions/models/action.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/images/responses/new_custom_image.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9985,7 +9991,7 @@ export interface external {
         image?: external["resources/images/models/image.yml"];
       };
     };
-  }
+  };
   "resources/images/responses/post_image_action_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -9995,7 +10001,7 @@ export interface external {
     content: {
       "application/json": external["resources/actions/models/action.yml"];
     };
-  }
+  };
   "resources/images/responses/updated_image.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -10007,7 +10013,7 @@ export interface external {
         image: external["resources/images/models/image.yml"];
       };
     };
-  }
+  };
   "resources/kubernetes/examples.yml": unknown
   /**
    * Add a Node Pool to a Kubernetes Cluster
@@ -10662,7 +10668,8 @@ export interface external {
     };
   }
   "resources/kubernetes/models/associated_kubernetes_resources.yml": {
-    /** @description An object containing the IDs of resources associated with a Kubernetes cluster. */    associated_kubernetes_resources: {
+    /** @description An object containing the IDs of resources associated with a Kubernetes cluster. */
+    associated_kubernetes_resources: {
       /**
        * @description A list of names and IDs for associated load balancers that can be destroyed along with the cluster.
        * @example [
@@ -10706,7 +10713,8 @@ export interface external {
        */
       name?: string;
     };
-    /** @description An object containing the IDs of resources to be destroyed along with their associated with a Kubernetes cluster. */    destroy_associated_kubernetes_resources: {
+    /** @description An object containing the IDs of resources to be destroyed along with their associated with a Kubernetes cluster. */
+    destroy_associated_kubernetes_resources: {
       /**
        * @description A list of IDs for associated load balancers to destroy along with the cluster.
        * @example [
@@ -11087,7 +11095,60 @@ export interface external {
      */
     updated_at?: string;
   };
-  "resources/kubernetes/models/options.yml": unknown;
+  "resources/kubernetes/models/options.yml": {
+    kubernetes_options: {
+      options?: {
+        regions?: external["resources/kubernetes/models/options.yml"]["kubernetes_region"][];
+        versions?: external["resources/kubernetes/models/options.yml"]["kubernetes_version"][];
+        sizes?: external["resources/kubernetes/models/options.yml"]["kubernetes_size"][];
+      };
+    };
+    kubernetes_version: {
+      /**
+       * @description The slug identifier for an available version of Kubernetes for use when creating or updating a cluster. The string contains both the upstream version of Kubernetes as well as the DigitalOcean revision.
+       * @example 1.16.13-do.0
+       */
+      slug?: string;
+      /**
+       * @description The upstream version string for the version of Kubernetes provided by a given slug.
+       * @example 1.16.13
+       */
+      kubernetes_version?: string;
+      /**
+       * @description The features available with the version of Kubernetes provided by a given slug.
+       * @example [
+       *   "cluster-autoscaler",
+       *   "docr-integration",
+       *   "token-authentication"
+       * ]
+       */
+      supported_features?: string[];
+    };
+    kubernetes_region: {
+      /**
+       * @description A DigitalOcean region where Kubernetes is available.
+       * @example New York 3
+       */
+      name?: string;
+      /**
+       * @description The identifier for a region for use when creating a new cluster.
+       * @example nyc3
+       */
+      slug?: string;
+    };
+    kubernetes_size: {
+      /**
+       * @description A Droplet size available for use in a Kubernetes node pool.
+       * @example s-1vcpu-2gb
+       */
+      name?: string;
+      /**
+       * @description The identifier for a size for use when creating a new cluster.
+       * @example s-1vcpu-2gb
+       */
+      slug?: string;
+    };
+  };
   "resources/kubernetes/models/user.yml": {
     kubernetes_cluster_user?: {
       /**
@@ -11125,7 +11186,7 @@ export interface external {
         kubernetes_clusters?: external["resources/kubernetes/models/cluster.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/kubernetes/responses/all_node_pools.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -11137,7 +11198,7 @@ export interface external {
         node_pools?: external["resources/kubernetes/models/node_pool.yml"]["kubernetes_node_pool"][];
       };
     };
-  }
+  };
   "resources/kubernetes/responses/all_options.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -11147,7 +11208,7 @@ export interface external {
     content: {
       "application/json": external["resources/kubernetes/models/options.yml"]["kubernetes_options"];
     };
-  }
+  };
   "resources/kubernetes/responses/associated_kubernetes_resources_list.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -11157,7 +11218,7 @@ export interface external {
     content: {
       "application/json": external["resources/kubernetes/models/associated_kubernetes_resources.yml"]["associated_kubernetes_resources"];
     };
-  }
+  };
   "resources/kubernetes/responses/available_upgrades.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -11169,7 +11230,7 @@ export interface external {
         available_upgrade_versions?: external["resources/kubernetes/models/options.yml"]["kubernetes_version"][] | null;
       };
     };
-  }
+  };
   "resources/kubernetes/responses/cluster_create.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -11181,7 +11242,7 @@ export interface external {
         kubernetes_cluster?: external["resources/kubernetes/models/cluster.yml"];
       };
     };
-  }
+  };
   "resources/kubernetes/responses/cluster_user.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -11191,7 +11252,7 @@ export interface external {
     content: {
       "application/json": external["resources/kubernetes/models/user.yml"];
     };
-  }
+  };
   "resources/kubernetes/responses/clusterlint_results.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -11201,7 +11262,7 @@ export interface external {
     content: {
       "application/json": external["resources/kubernetes/models/clusterlint_results.yml"];
     };
-  }
+  };
   "resources/kubernetes/responses/clusterlint_run.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -11217,7 +11278,7 @@ export interface external {
         run_id?: string;
       };
     };
-  }
+  };
   "resources/kubernetes/responses/credentials.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -11227,7 +11288,7 @@ export interface external {
     content: {
       "application/json": external["resources/kubernetes/models/credentials.yml"];
     };
-  }
+  };
   "resources/kubernetes/responses/examples.yml": unknown
   "resources/kubernetes/responses/existing_cluster.yml": {
     headers: {
@@ -11240,7 +11301,7 @@ export interface external {
         kubernetes_cluster?: external["resources/kubernetes/models/cluster.yml"];
       };
     };
-  }
+  };
   "resources/kubernetes/responses/existing_node_pool.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -11252,7 +11313,7 @@ export interface external {
         node_pool?: external["resources/kubernetes/models/node_pool.yml"]["kubernetes_node_pool"];
       };
     };
-  }
+  };
   "resources/kubernetes/responses/kubeconfig.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -11262,7 +11323,7 @@ export interface external {
     content: {
       "application/yaml": unknown;
     };
-  }
+  };
   "resources/kubernetes/responses/node_pool_create.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -11274,7 +11335,7 @@ export interface external {
         node_pool?: external["resources/kubernetes/models/node_pool.yml"]["kubernetes_node_pool"];
       };
     };
-  }
+  };
   "resources/kubernetes/responses/node_pool_update.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -11286,7 +11347,7 @@ export interface external {
         node_pool?: external["resources/kubernetes/models/node_pool.yml"]["kubernetes_node_pool"];
       };
     };
-  }
+  };
   "resources/kubernetes/responses/updated_cluster.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -11298,7 +11359,7 @@ export interface external {
         kubernetes_cluster?: external["resources/kubernetes/models/cluster.yml"];
       };
     };
-  }
+  };
   "resources/load_balancers/examples.yml": unknown
   /**
    * Add Droplets to a Load Balancer
@@ -11809,7 +11870,7 @@ export interface external {
         load_balancers?: external["resources/load_balancers/models/load_balancer.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/load_balancers/responses/examples.yml": unknown
   "resources/load_balancers/responses/existing_load_balancer.yml": {
     headers: {
@@ -11822,7 +11883,7 @@ export interface external {
         load_balancer?: external["resources/load_balancers/models/load_balancer.yml"];
       };
     };
-  }
+  };
   "resources/load_balancers/responses/load_balancer_create.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -11834,7 +11895,7 @@ export interface external {
         load_balancer?: external["resources/load_balancers/models/load_balancer.yml"];
       };
     };
-  }
+  };
   "resources/load_balancers/responses/updated_load_balancer.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -11846,7 +11907,7 @@ export interface external {
         load_balancer?: external["resources/load_balancers/models/load_balancer.yml"];
       };
     };
-  }
+  };
   "resources/monitoring/models/alert_policy_request.yml": {
     alerts: external["resources/monitoring/models/alerts.yml"];
     /**
@@ -12402,7 +12463,7 @@ export interface external {
         policy?: external["resources/monitoring/models/alert_policy.yml"];
       };
     };
-  }
+  };
   "resources/monitoring/responses/droplet_bandwidth_metric_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -12412,7 +12473,7 @@ export interface external {
     content: {
       "application/json": external["resources/monitoring/models/metrics.yml"];
     };
-  }
+  };
   "resources/monitoring/responses/droplet_cpu_metric_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -12422,7 +12483,7 @@ export interface external {
     content: {
       "application/json": external["resources/monitoring/models/metrics.yml"];
     };
-  }
+  };
   "resources/monitoring/responses/droplet_filesystem_metric_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -12432,7 +12493,7 @@ export interface external {
     content: {
       "application/json": external["resources/monitoring/models/metrics.yml"];
     };
-  }
+  };
   "resources/monitoring/responses/examples.yml": unknown
   "resources/monitoring/responses/list_alert_policy_response.yml": {
     headers: {
@@ -12443,7 +12504,7 @@ export interface external {
     content: {
       "application/json": external["resources/monitoring/models/list_alert_policy.yml"] & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/monitoring/responses/metric_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -12453,7 +12514,7 @@ export interface external {
     content: {
       "application/json": external["resources/monitoring/models/metrics.yml"];
     };
-  }
+  };
   "resources/projects/models/project_assignment.yml": {
     /**
      * @description A list of uniform resource names (URNs) to be added to a project.
@@ -12463,7 +12524,81 @@ export interface external {
      */
     resources?: external["shared/attributes/urn.yml"][];
   };
-  "resources/projects/models/project.yml": unknown;
+  "resources/projects/models/project.yml": {
+    project_base: {
+      /**
+       * Format: uuid
+       * @description The unique universal identifier of this project.
+       * @example 4e1bfbc3-dc3e-41f2-a18f-1b4d7ba71679
+       */
+      id?: string;
+      /**
+       * @description The unique universal identifier of the project owner.
+       * @example 99525febec065ca37b2ffe4f852fd2b2581895e7
+       */
+      owner_uuid?: string;
+      /**
+       * @description The integer id of the project owner.
+       * @example 258992
+       */
+      owner_id?: number;
+      /**
+       * @description The human-readable name for the project. The maximum length is 175 characters and the name must be unique.
+       * @example my-web-api
+       */
+      name?: string;
+      /**
+       * @description The description of the project. The maximum length is 255 characters.
+       * @example My website API
+       */
+      description?: string;
+      /**
+       * @description The purpose of the project. The maximum length is 255 characters. It can
+       * have one of the following values:
+       *
+       * - Just trying out DigitalOcean
+       * - Class project / Educational purposes
+       * - Website or blog
+       * - Web Application
+       * - Service or API
+       * - Mobile Application
+       * - Machine learning / AI / Data processing
+       * - IoT
+       * - Operational / Developer tooling
+       *
+       * If another value for purpose is specified, for example, "your custom purpose",
+       * your purpose will be stored as `Other: your custom purpose`.
+       *
+       * @example Service or API
+       */
+      purpose?: string;
+      /**
+       * @description The environment of the project's resources.
+       * @example Production
+       * @enum {string}
+       */
+      environment?: "Development" | "Staging" | "Production";
+      /**
+       * Format: date-time
+       * @description A time value given in ISO8601 combined date and time format that represents when the project was created.
+       * @example 2018-09-27T20:10:35Z
+       */
+      created_at?: string;
+      /**
+       * Format: date-time
+       * @description A time value given in ISO8601 combined date and time format that represents when the project was updated.
+       * @example 2018-09-27T20:10:35Z
+       */
+      updated_at?: string;
+    };
+    project: external["resources/projects/models/project.yml"]["project_base"] & {
+      /**
+       * @description If true, all resources will be added to this project if no project is specified.
+       * @example false
+       */
+      is_default?: boolean;
+    };
+  };
   "resources/projects/models/resource.yml": {
     urn?: external["shared/attributes/urn.yml"];
     /**
@@ -12773,7 +12908,7 @@ export interface external {
         resources?: external["resources/projects/models/resource.yml"][];
       };
     };
-  }
+  };
   "resources/projects/responses/default_project.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -12785,7 +12920,7 @@ export interface external {
         project?: external["resources/projects/models/project.yml"]["project"];
       };
     };
-  }
+  };
   "resources/projects/responses/existing_project.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -12797,7 +12932,7 @@ export interface external {
         project?: external["resources/projects/models/project.yml"]["project"];
       };
     };
-  }
+  };
   "resources/projects/responses/precondition_failed.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -12807,7 +12942,7 @@ export interface external {
     content: {
       "application/json": external["shared/models/error.yml"];
     };
-  }
+  };
   "resources/projects/responses/projects_list.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -12819,7 +12954,7 @@ export interface external {
         projects?: external["resources/projects/models/project.yml"]["project"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/projects/responses/resources_list.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -12831,7 +12966,7 @@ export interface external {
         resources?: external["resources/projects/models/resource.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/regions/models/region.yml": {
     /**
      * @description The display name of the region.  This will be a full name that is used in the control panel and other interfaces.
@@ -12913,7 +13048,7 @@ export interface external {
         regions: external["resources/regions/models/region.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/registry/models/docker_credentials.yml": {
     auths?: {
       "registry.digitalocean.com"?: {
@@ -13646,7 +13781,7 @@ export interface external {
         repositories?: external["resources/registry/models/repository_v2.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/registry/responses/all_repositories.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -13658,7 +13793,7 @@ export interface external {
         repositories?: external["resources/registry/models/repository.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/registry/responses/docker_credentials.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -13668,7 +13803,7 @@ export interface external {
     content: {
       "application/json": external["resources/registry/models/docker_credentials.yml"];
     };
-  }
+  };
   "resources/registry/responses/garbage_collection.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -13680,7 +13815,7 @@ export interface external {
         garbage_collection?: external["resources/registry/models/garbage_collection.yml"];
       };
     };
-  }
+  };
   "resources/registry/responses/garbage_collections.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -13692,7 +13827,7 @@ export interface external {
         garbage_collections?: external["resources/registry/models/garbage_collection.yml"][];
       };
     };
-  }
+  };
   "resources/registry/responses/registry_info.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -13704,7 +13839,7 @@ export interface external {
         registry?: external["resources/registry/models/registry.yml"];
       };
     };
-  }
+  };
   "resources/registry/responses/registry_options_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -13724,7 +13859,7 @@ export interface external {
         };
       };
     };
-  }
+  };
   "resources/registry/responses/repository_manifests.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -13736,7 +13871,7 @@ export interface external {
         manifests?: external["resources/registry/models/repository_manifest.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/registry/responses/repository_tags.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -13748,7 +13883,7 @@ export interface external {
         tags?: external["resources/registry/models/repository_tag.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/registry/responses/subscription_response.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -13760,7 +13895,7 @@ export interface external {
         subscription?: external["resources/registry/models/subscription.yml"];
       };
     };
-  }
+  };
   "resources/reserved_ips/models/reserved_ip_actions.yml": {
     reserved_ip_action_type: {
       /**
@@ -14008,7 +14143,7 @@ export interface external {
         };
       };
     };
-  }
+  };
   "resources/reserved_ips/responses/reserved_ip_actions.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -14020,7 +14155,7 @@ export interface external {
         actions?: external["resources/actions/models/action.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/reserved_ips/responses/reserved_ip_created.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -14036,7 +14171,7 @@ export interface external {
         };
       };
     };
-  }
+  };
   "resources/reserved_ips/responses/reserved_ip_list.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -14048,7 +14183,7 @@ export interface external {
         reserved_ips?: external["resources/reserved_ips/models/reserved_ip.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/reserved_ips/responses/reserved_ip.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -14060,7 +14195,7 @@ export interface external {
         reserved_ip?: external["resources/reserved_ips/models/reserved_ip.yml"];
       };
     };
-  }
+  };
   "resources/sizes/models/size.yml": {
     /**
      * @description A human-readable string that is used to uniquely identify each size.
@@ -14142,7 +14277,7 @@ export interface external {
         sizes: external["resources/sizes/models/size.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   /**
    * List All Droplet Sizes
    * @description To list all of available Droplet sizes, send a GET request to `/v2/sizes`.
@@ -14238,7 +14373,7 @@ export interface external {
         snapshot?: external["resources/snapshots/models/snapshots.yml"];
       };
     };
-  }
+  };
   "resources/snapshots/responses/snapshots.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -14250,7 +14385,7 @@ export interface external {
         snapshots?: external["resources/snapshots/models/snapshots.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   /**
    * Delete a Snapshot
    * @description Both Droplet and volume snapshots are managed through the `/v2/snapshots/`
@@ -14342,16 +14477,16 @@ export interface external {
   "resources/ssh_keys/attributes/ssh_key_name.yml": string;
   "resources/ssh_keys/links/sshKeys_delete_by_fingerprint.yml": {
     content: never;
-  }
+  };
   "resources/ssh_keys/links/sshKeys_delete_by_id.yml": {
     content: never;
-  }
+  };
   "resources/ssh_keys/links/sshKeys_get_by_fingerprint.yml": {
     content: never;
-  }
+  };
   "resources/ssh_keys/links/sshKeys_get_by_id.yml": {
     content: never;
-  }
+  };
   "resources/ssh_keys/models/sshKeys.yml": {
     id?: external["resources/ssh_keys/attributes/ssh_key_id.yml"];
     fingerprint?: external["resources/ssh_keys/attributes/ssh_key_fingerprint.yml"];
@@ -14374,7 +14509,7 @@ export interface external {
         ssh_keys?: external["resources/ssh_keys/models/sshKeys.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/ssh_keys/responses/sshKeys_existing.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -14386,7 +14521,7 @@ export interface external {
         ssh_key?: external["resources/ssh_keys/models/sshKeys.yml"];
       };
     };
-  }
+  };
   "resources/ssh_keys/responses/sshKeys_new.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -14398,7 +14533,7 @@ export interface external {
         ssh_key?: external["resources/ssh_keys/models/sshKeys.yml"];
       };
     };
-  }
+  };
   /**
    * Create a New SSH Key
    * @description To add a new SSH public key to your DigitalOcean account, send a POST request to `/v2/account/keys`. Set the `name` attribute to the name you wish to use and the `public_key` attribute to the full public key you are adding.
@@ -14610,7 +14745,7 @@ export interface external {
         tags?: external["resources/tags/models/tags.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/tags/responses/tags_bad_request.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -14621,7 +14756,7 @@ export interface external {
     content: {
       "application/json": external["shared/models/error_with_root_causes.yml"];
     };
-  }
+  };
   "resources/tags/responses/tags_existing.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -14633,7 +14768,7 @@ export interface external {
         tag?: external["resources/tags/models/tags.yml"];
       };
     };
-  }
+  };
   "resources/tags/responses/tags_new.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -14645,7 +14780,7 @@ export interface external {
         tag?: external["resources/tags/models/tags.yml"];
       };
     };
-  }
+  };
   /**
    * Tag a Resource
    * @description Resources can be tagged by sending a POST request to `/v2/tags/$TAG_NAME/resources` with an array of json objects containing `resource_id` and `resource_type` attributes.
@@ -14970,8 +15105,92 @@ export interface external {
       default: external["shared/responses/unexpected_error.yml"];
     };
   }
-  "resources/uptime/models/alert.yml": unknown;
-  "resources/uptime/models/check.yml": unknown;
+  "resources/uptime/models/alert.yml": {
+    alert: external["resources/uptime/models/alert.yml"]["alert_base"] & external["resources/uptime/models/alert.yml"]["alert_updatable"];
+    alert_base: {
+      /**
+       * Format: uuid
+       * @description A unique ID that can be used to identify and reference the alert.
+       * @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+       */
+      id?: string;
+    };
+    alert_updatable: {
+      /**
+       * @description A human-friendly display name.
+       * @example Landing page degraded performance
+       */
+      name?: string;
+      /**
+       * @description The type of alert.
+       * @example latency
+       * @enum {string}
+       */
+      type?: "latency" | "down" | "down_global" | "ssl_expiry";
+      /**
+       * @description The threshold at which the alert will enter a trigger state. The specific threshold is dependent on the alert type.
+       * @example 300
+       */
+      threshold?: number;
+      /**
+       * @description The comparison operator used against the alert's threshold.
+       * @example greater_than
+       * @enum {string}
+       */
+      comparison?: "greater_than" | "less_than";
+      notifications?: external["resources/uptime/models/notification.yml"];
+      /**
+       * @description Period of time the threshold must be exceeded to trigger the alert.
+       * @example 2m
+       * @enum {string}
+       */
+      period?: "2m" | "3m" | "5m" | "10m" | "15m" | "30m" | "1h";
+    };
+  };
+  "resources/uptime/models/check.yml": {
+    check: external["resources/uptime/models/check.yml"]["check_base"] & external["resources/uptime/models/check.yml"]["check_updatable"];
+    check_base: {
+      /**
+       * Format: uuid
+       * @description A unique ID that can be used to identify and reference the check.
+       * @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+       */
+      id?: string;
+    };
+    check_updatable: {
+      /**
+       * @description A human-friendly display name.
+       * @example Landing page check
+       */
+      name?: string;
+      /**
+       * @description The type of health check to perform.
+       * @example https
+       * @enum {string}
+       */
+      type?: "ping" | "http" | "https";
+      /**
+       * Format: url
+       * @description The endpoint to perform healthchecks on.
+       * @example https://www.landingpage.com
+       */
+      target?: string;
+      /**
+       * @description An array containing the selected regions to perform healthchecks from.
+       * @example [
+       *   "us_east",
+       *   "eu_west"
+       * ]
+       */
+      regions?: ("us_east" | "us_west" | "eu_west" | "se_asia")[];
+      /**
+       * @description A boolean value indicating whether the check is enabled/disabled.
+       * @default true
+       * @example true
+       */
+      enabled?: boolean;
+    };
+  };
   "resources/uptime/models/notification.yml": {
     /**
      * @description An email to notify on an alert trigger.
@@ -14996,7 +15215,38 @@ export interface external {
         url: string;
       }[];
   };
-  "resources/uptime/models/state.yml": unknown;
+  "resources/uptime/models/state.yml": {
+    state: {
+      regions?: external["resources/uptime/models/state.yml"]["regional_state"];
+      previous_outage?: external["resources/uptime/models/state.yml"]["previous_outage"];
+    };
+    /** @description A map of region to regional state */
+    regional_state: {
+      us_east?: external["resources/uptime/models/state.yml"]["region_state"];
+      eu_west?: external["resources/uptime/models/state.yml"]["region_state"];
+    };
+    region_state: {
+      /**
+       * @example UP
+       * @enum {string}
+       */
+      status?: "DOWN" | "UP" | "CHECKING";
+      /** @example 2022-03-17T22:28:51Z */
+      status_changed_at?: string;
+      /** @example 97.99 */
+      thirty_day_uptime_percentage?: number;
+    };
+    previous_outage: {
+      /** @example us_east */
+      region?: string;
+      /** @example 2022-03-17T18:04:55Z */
+      started_at?: string;
+      /** @example 2022-03-17T18:06:55Z */
+      ended_at?: string;
+      /** @example 120 */
+      duration_seconds?: number;
+    };
+  };
   "resources/uptime/parameters.yml": {
     check_id: string;
     alert_id: string;
@@ -15012,7 +15262,7 @@ export interface external {
         alerts?: external["resources/uptime/models/alert.yml"]["alert"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/uptime/responses/all_checks.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -15024,7 +15274,7 @@ export interface external {
         checks?: external["resources/uptime/models/check.yml"]["check"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/uptime/responses/existing_alert.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -15036,7 +15286,7 @@ export interface external {
         alert?: external["resources/uptime/models/alert.yml"]["alert"];
       };
     };
-  }
+  };
   "resources/uptime/responses/existing_check_state.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -15048,7 +15298,7 @@ export interface external {
         state?: external["resources/uptime/models/state.yml"]["state"];
       };
     };
-  }
+  };
   "resources/uptime/responses/existing_check.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -15060,7 +15310,7 @@ export interface external {
         check?: external["resources/uptime/models/check.yml"]["check"];
       };
     };
-  }
+  };
   /**
    * Update an Alert
    * @description To update the settings of an Uptime alert, send a PUT request to `/v2/uptime/checks/$CHECK_ID/alerts/$ALERT_ID`.
@@ -15240,7 +15490,7 @@ export interface external {
         volume?: external["resources/volumes/models/volume_full.yml"];
       };
     };
-  }
+  };
   "resources/volumes/responses/volumeAction.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -15252,7 +15502,7 @@ export interface external {
         action?: external["resources/volumes/models/volumeAction.yml"];
       };
     };
-  }
+  };
   "resources/volumes/responses/volumeActions.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -15264,7 +15514,7 @@ export interface external {
         actions?: external["resources/volumes/models/volumeAction.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/volumes/responses/volumes.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -15277,7 +15527,7 @@ export interface external {
         volumes: external["resources/volumes/models/volume_full.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/volumes/responses/volumeSnapshot.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -15289,7 +15539,7 @@ export interface external {
         snapshot?: external["resources/snapshots/models/snapshots.yml"];
       };
     };
-  }
+  };
   "resources/volumes/responses/volumeSnapshots.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -15301,7 +15551,7 @@ export interface external {
         snapshots?: external["resources/snapshots/models/snapshots.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   /**
    * Retrieve an Existing Volume Action
    * @description To retrieve the status of a volume action, send a GET request to `/v2/volumes/$VOLUME_ID/actions/$ACTION_ID`.
@@ -15688,7 +15938,55 @@ export interface external {
      */
     created_at?: string;
   };
-  "resources/vpcs/models/vpc.yml": unknown;
+  "resources/vpcs/models/vpc.yml": {
+    vpc: external["resources/vpcs/models/vpc.yml"]["vpc_updatable"] & external["resources/vpcs/models/vpc.yml"]["vpc_create"] & external["resources/vpcs/models/vpc.yml"]["vpc_default"] & external["resources/vpcs/models/vpc.yml"]["vpc_base"];
+    vpc_base: {
+      /**
+       * Format: uuid
+       * @description A unique ID that can be used to identify and reference the VPC.
+       * @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+       */
+      id?: string;
+      urn?: external["shared/attributes/urn.yml"];
+      /**
+       * Format: date-time
+       * @description A time value given in ISO8601 combined date and time format.
+       * @example 2020-03-13T19:20:47.442049222Z
+       */
+      created_at?: string;
+    };
+    vpc_updatable: {
+      /**
+       * @description The name of the VPC. Must be unique and may only contain alphanumeric characters, dashes, and periods.
+       * @example env.prod-vpc
+       */
+      name?: string;
+      /**
+       * @description A free-form text field for describing the VPC's purpose. It may be a maximum of 255 characters.
+       * @example VPC for production environment
+       */
+      description?: string;
+    };
+    vpc_default: {
+      /**
+       * @description A boolean value indicating whether or not the VPC is the default network for the region. All applicable resources are placed into the default VPC network unless otherwise specified during their creation. The `default` field cannot be unset from `true`. If you want to set a new default VPC network, update the `default` field of another VPC network in the same region. The previous network's `default` field will be set to `false` when a new default VPC has been defined.
+       * @example true
+       */
+      default?: boolean;
+    };
+    vpc_create: {
+      /**
+       * @description The slug identifier for the region where the VPC will be created.
+       * @example nyc1
+       */
+      region?: string;
+      /**
+       * @description The range of IP addresses in the VPC in CIDR notation. Network ranges cannot overlap with other networks in the same account and must be in range of private addresses as defined in RFC1918. It may not be smaller than `/28` nor larger than `/16`. If no IP range is specified, a `/20` network range is generated that won't conflict with other VPC networks in your account.
+       * @example 10.10.10.0/24
+       */
+      ip_range?: string;
+    };
+  };
   "resources/vpcs/parameters.yml": {
     vpc_id: string;
     vpc_resource_type?: string;
@@ -15704,7 +16002,7 @@ export interface external {
         vpcs?: external["resources/vpcs/models/vpc.yml"]["vpc"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   "resources/vpcs/responses/existing_vpc.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -15716,7 +16014,7 @@ export interface external {
         vpc?: external["resources/vpcs/models/vpc.yml"]["vpc"];
       };
     };
-  }
+  };
   "resources/vpcs/responses/vpc_members.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -15728,7 +16026,7 @@ export interface external {
         members?: external["resources/vpcs/models/vpc_member.yml"][];
       } & external["shared/pages.yml"]["pagination"] & external["shared/meta.yml"];
     };
-  }
+  };
   /**
    * Create a New VPC
    * @description To create a VPC, send a POST request to `/v2/vpcs` specifying the attributes
@@ -15903,27 +16201,33 @@ export interface external {
     /**
      * @description Indicates if the content is expected to be displayed *inline* in the  browser, that is, as a Web page or as part of a Web page, or as an  *attachment*, that is downloaded and saved locally.
      * @example attachment; filename="DigitalOcean Invoice 2020 Jul (6173678-418071234).csv"
-     */    "content-disposition": unknown;
+     */
+    "content-disposition": unknown;
     /**
      * @description The default limit on number of requests that can be made per hour and per minute. Current rate limits are 5000 requests per hour and 250 requests per minute.
      * @example 5000
-     */    "ratelimit-limit": unknown;
+     */
+    "ratelimit-limit": unknown;
     /**
      * @description The number of requests in your hourly quota that remain before you hit your request limit. See https://developers.digitalocean.com/documentation/v2/#rate-limit for information about how requests expire.
      * @example 4816
-     */    "ratelimit-remaining": unknown;
+     */
+    "ratelimit-remaining": unknown;
     /**
      * @description The time when the oldest request will expire. The value is given in Unix epoch time. See https://developers.digitalocean.com/documentation/v2/#rate-limit for information about how requests expire.
      * @example 1444931833
-     */    "ratelimit-reset": unknown;
+     */
+    "ratelimit-reset": unknown;
     /**
      * @description Optionally, some endpoints may include a request ID that should be provided  when reporting bugs or opening support tickets to help identify the issue.
      * @example 515850a0-a812-50bf-aa3c-d0d21d287e40
-     */    "x-request-id": unknown;
+     */
+    "x-request-id": unknown;
     /**
      * @description The type of data that is returned from a request.
      * @example application/json; charset=utf-8
-     */    "content-type": unknown;
+     */
+    "content-type": unknown;
   };
   "shared/meta_optional_total.yml": {
     meta: external["shared/models/meta_properties.yml"];
@@ -16048,7 +16352,7 @@ export interface external {
       "ratelimit-reset": external["shared/headers.yml"]["ratelimit-reset"];
     };
     content: never;
-  }
+  };
   "shared/responses/bad_request.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -16058,7 +16362,7 @@ export interface external {
     content: {
       "application/json": external["shared/models/error.yml"];
     };
-  }
+  };
   "shared/responses/conflict.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -16068,7 +16372,7 @@ export interface external {
     content: {
       "application/json": external["shared/models/error.yml"];
     };
-  }
+  };
   "shared/responses/no_content_with_content_type.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -16077,7 +16381,7 @@ export interface external {
       "content-type": external["shared/headers.yml"]["content-type"];
     };
     content: never;
-  }
+  };
   "shared/responses/no_content.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -16085,7 +16389,7 @@ export interface external {
       "ratelimit-reset": external["shared/headers.yml"]["ratelimit-reset"];
     };
     content: never;
-  }
+  };
   "shared/responses/not_found.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -16095,7 +16399,7 @@ export interface external {
     content: {
       "application/json": external["shared/models/error.yml"];
     };
-  }
+  };
   "shared/responses/server_error.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -16105,7 +16409,7 @@ export interface external {
     content: {
       "application/json": external["shared/models/error.yml"];
     };
-  }
+  };
   "shared/responses/too_many_requests.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -16115,7 +16419,7 @@ export interface external {
     content: {
       "application/json": external["shared/models/error.yml"];
     };
-  }
+  };
   "shared/responses/unauthorized.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -16125,7 +16429,7 @@ export interface external {
     content: {
       "application/json": external["shared/models/error.yml"];
     };
-  }
+  };
   "shared/responses/unexpected_error.yml": {
     headers: {
       "ratelimit-limit": external["shared/headers.yml"]["ratelimit-limit"];
@@ -16135,7 +16439,7 @@ export interface external {
     content: {
       "application/json": external["shared/models/error.yml"];
     };
-  }
+  };
 }
 
 export type operations = Record<string, never>;

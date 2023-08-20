@@ -1,7 +1,7 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
   "changelog": ["@changesets/changelog-github", { "repo": "drwpow/openapi-typescript" }],
-  "ignore": ["openapi-typescript-docs"],
+  "ignore": ["openapi-typescript-docs", "@example/*"],
   "commit": false,
   "fixed": [],
   "linked": [],

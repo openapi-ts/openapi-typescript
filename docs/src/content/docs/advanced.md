@@ -351,3 +351,70 @@ prefixItems:
 
   </tbody>
 </table>
+
+### Use `$defs` only in objects
+
+<a href="https://json-schema.org/understanding-json-schema/structuring.html#defs" target="_blank" rel="noopener noreferrer">JSONSchema $defs</a> can be used to provide sub-schema definitions anywhere. However, these won’t always convert cleanly to TypeScript. For example, this works:
+
+```yaml
+components:
+  schemas:
+    DefType:
+      type: object # ✅ `type: "object"` is OK to define $defs on
+      $defs:
+        myDefType:
+          type: string
+    MyType:
+      type: object
+      properties:
+        myType:
+          $ref: "#/components/schemas/DefType/$defs/myDefType"
+```
+
+This will transform into the following TypeScript:
+
+```ts
+export interface components {
+  schemas: {
+    DefType: {
+      $defs: {
+        myDefType: string;
+      };
+    };
+    MyType: {
+      myType?: components["schemas"]["DefType"]["$defs"]["myDefType"]; // ✅ Works
+    };
+  };
+}
+```
+
+However, this won’t:
+
+```yaml
+components:
+  schemas:
+    DefType:
+      type: string # ❌ this won’t keep its $defs
+      $defs:
+        myDefType:
+          type: string
+    MyType:
+      properties:
+        myType:
+          $ref: "#/components/schemas/DefType/$defs/myDefType"
+```
+
+Because it will transform into:
+
+```ts
+export interface components {
+  schemas: {
+    DefType: string;
+    MyType: {
+      myType?: components["schemas"]["DefType"]["$defs"]["myDefType"]; // ❌ Property '$defs' does not exist on type 'String'.
+    };
+  };
+}
+```
+
+So be wary about where you define `$defs` as they may go missing in your final generated types. When in doubt, you can always define `$defs` at the root schema level.
