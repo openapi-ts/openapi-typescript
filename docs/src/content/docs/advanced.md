@@ -360,7 +360,7 @@ prefixItems:
 components:
   schemas:
     DefType:
-    	type: object # ✅ `type: "object"` is OK to define $defs on
+      type: object # ✅ `type: "object"` is OK to define $defs on
       $defs:
         myDefType:
           type: string
@@ -389,8 +389,6 @@ export interface components {
 ```
 
 However, this won’t:
-
-#### ❌ Doesn’t work
 
 ```yaml
 components:
