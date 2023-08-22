@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.5.3
+
+### Patch Changes
+
+- [#1320](https://github.com/drwpow/openapi-typescript/pull/1320) [`3cf78b9`](https://github.com/drwpow/openapi-typescript/commit/3cf78b920ab23624c0524e0d58338ee66acad799) Thanks [@duncanbeevers](https://github.com/duncanbeevers)! - Wrap nested readonly types in parentheses, allowing for nested immutable arrays
+
 ## 6.5.2
 
 ### Patch Changes
