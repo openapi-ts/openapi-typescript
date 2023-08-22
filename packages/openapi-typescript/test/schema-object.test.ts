@@ -790,10 +790,28 @@ describe("Schema Object", () => {
           ctx: { ...options.ctx, immutableTypes: true },
         });
         expect(generated).toBe(`{
-  readonly array?: readonly {
+  readonly array?: (readonly {
       [key: string]: unknown;
-    }[] | null;
+    }[]) | null;
 }`);
+      });
+
+      test("readonly arrays", () => {
+        const schema: SchemaObject = {
+          type: "array",
+          items: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+          },
+        };
+
+        const generated = transformSchemaObject(schema, {
+          ...options,
+          ctx: { ...options.ctx, immutableTypes: true },
+        });
+        expect(generated).toBe(`readonly (readonly string[])[]`);
       });
     });
   });
