@@ -32,6 +32,7 @@ const TILDE_RE = /~/g;
 const FS_RE = /\//g;
 export const TS_INDEX_RE = /\[("(\\"|[^"])+"|'(\\'|[^'])+')]/g; // splits apart TS indexes (and allows for escaped quotes)
 const TS_UNION_INTERSECTION_RE = /[&|]/;
+const TS_READONLY_RE = /^readonly\s+/;
 const JS_OBJ_KEY = /^(\d+|[A-Za-z_$][A-Za-z0-9_$]*)$/;
 
 /** Walk through any JSON-serializable object */
@@ -168,9 +169,9 @@ export function encodeRef(ref: string): string {
   return ref.replace(TILDE_RE, "~0").replace(FS_RE, "~1");
 }
 
-/** if the type has & or | we should parenthesise it for safety */
+/** add parenthesis around union, intersection (| and &) and readonly types */
 function parenthesise(type: string) {
-  return TS_UNION_INTERSECTION_RE.test(type) ? `(${type})` : type;
+  return TS_UNION_INTERSECTION_RE.test(type) || TS_READONLY_RE.test(type) ? `(${type})` : type;
 }
 
 /** T[] */
