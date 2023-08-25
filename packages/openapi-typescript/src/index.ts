@@ -122,11 +122,22 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
 
   const rootTypes = transformSchema(allSchemas["."].schema as OpenAPI3, ctx);
   for (const k of Object.keys(rootTypes)) {
+    console.log("🚀 ~ file: index.ts:109 ~ k:", k);
     if (rootTypes[k] && !EMPTY_OBJECT_RE.test(rootTypes[k])) {
       output.push(options.exportType ? `export type ${k} = ${rootTypes[k]};` : `export interface ${k} ${rootTypes[k]}`, "");
     } else {
       output.push(`export type ${k} = Record<string, never>;`, "");
     }
+
+    if (options.rootTypes) {
+      if (k === "components") {
+        console.log(typeof rootTypes[k]);
+        // for (const element of rootTypes[k]) {
+        //   console.log("🚀 ~ file: index.ts:119 ~ element:", element);
+        // }
+      }
+    }
+
     delete rootTypes[k];
     delete allSchemas["."]; // garbage collect, but also remove from next step (external)
   }
