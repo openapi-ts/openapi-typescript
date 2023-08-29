@@ -711,6 +711,7 @@ export interface GlobalContext {
   silent: boolean;
   supportArrayLength: boolean;
   excludeDeprecated: boolean;
+  rootTypes: boolean;
 }
 
 export type $defs = Record<string, SchemaObject>;

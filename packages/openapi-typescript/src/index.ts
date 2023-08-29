@@ -54,6 +54,7 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
     silent: options.silent ?? false,
     supportArrayLength: options.supportArrayLength ?? false,
     excludeDeprecated: options.excludeDeprecated ?? false,
+    rootTypes: options.rootTypes ?? false,
   };
 
   // 1. load schema (and subschemas)
