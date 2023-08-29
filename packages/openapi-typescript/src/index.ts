@@ -125,27 +125,6 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
     }
   }
 
-  // for (const k of Object.keys(rootTypes)) {
-
-  //   if (rootTypes[k] && !EMPTY_OBJECT_RE.test(rootTypes[k])) {
-  //     output.push(options.exportType ? `export type ${k} = ${rootTypes[k]};` : `export interface ${k} ${rootTypes[k]}`, "");
-  //   } else {
-  //     output.push(`export type ${k} = Record<string, never>;`, "");
-  //   }
-
-  //   if (options.rootTypes) {
-  //     if (k === "components") {
-  //       console.log(typeof rootTypes[k]);
-  //       // for (const element of rootTypes[k]) {
-  //       //   console.log("🚀 ~ file: index.ts:119 ~ element:", element);
-  //       // }
-  //     }
-  //   }
-
-  //   delete rootTypes[k];
-  //   delete allSchemas["."]; // garbage collect, but also remove from next step (external)
-  // }
-
   // 2d. external schemas (subschemas)
   const externalKeys = Object.keys(allSchemas); // root schema (".") should already be removed
   if (externalKeys.length) {
