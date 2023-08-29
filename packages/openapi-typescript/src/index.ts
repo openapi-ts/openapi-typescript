@@ -117,12 +117,23 @@ async function openapiTS(schema: string | URL | OpenAPI3 | Readable, options: Op
   if (options.inject) output.push(options.inject);
 
   // 2c. root schema
+  const rootTypes = transformSchema(allSchemas["."].schema as OpenAPI3, ctx);
   const typedComponents = (allSchemas["."].schema as OpenAPI3).components!;
 
   if (options.rootTypes) {
     for (const schema of Object.keys(typedComponents.schemas as object)) {
       output.push(`export type ${schema} = external["."]["components"]["schemas"]["${schema}"];\n`);
     }
+  }
+
+  for (const k of Object.keys(rootTypes)) {
+    if (rootTypes[k] && !EMPTY_OBJECT_RE.test(rootTypes[k])) {
+      output.push(options.exportType ? `export type ${k} = ${rootTypes[k]};` : `export interface ${k} ${rootTypes[k]}`, "");
+    } else {
+      output.push(`export type ${k} = Record<string, never>;`, "");
+    }
+    delete rootTypes[k];
+    delete allSchemas["."]; // garbage collect, but also remove from next step (external)
   }
 
   // 2d. external schemas (subschemas)
