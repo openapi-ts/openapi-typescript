@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.5.4
+
+### Patch Changes
+
+- [#1324](https://github.com/drwpow/openapi-typescript/pull/1324) [`0357325`](https://github.com/drwpow/openapi-typescript/commit/0357325ae136cbdd9c9891ebb7f5414e3ad8bfec) Thanks [@drwpow](https://github.com/drwpow)! - Fix accidental quote appearing in components/responses with $refs
+
 ## 6.5.3
 
 ### Patch Changes
