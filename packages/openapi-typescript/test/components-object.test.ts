@@ -22,6 +22,11 @@ const options: GlobalContext = {
 const basicSchema: ComponentsObject = {
   schemas: {
     String: { type: "string" },
+    Error: {
+      type: "object",
+      required: ["code", "message"],
+      properties: { code: { type: "string" }, message: { type: "string" } },
+    },
   },
   responses: {
     OK: {
@@ -36,6 +41,9 @@ const basicSchema: ComponentsObject = {
     },
     NoContent: {
       description: "No Content",
+    },
+    ErrorResponse: {
+      $ref: 'components["schemas"]["Error"]',
     },
   },
   parameters: {
@@ -102,6 +110,10 @@ describe("Components Object", () => {
     expect(generated).toBe(`{
   schemas: {
     String: string;
+    Error: {
+      code: string;
+      message: string;
+    };
   };
   responses: {
     /** @description OK */
@@ -114,6 +126,7 @@ describe("Components Object", () => {
     NoContent: {
       content: never;
     };
+    ErrorResponse: components["schemas"]["Error"];
   };
   parameters: {
     Search: string;
@@ -202,6 +215,10 @@ describe("Components Object", () => {
         expect(generated).toBe(`{
   schemas: {
     readonly String: string;
+    readonly Error: {
+      readonly code: string;
+      readonly message: string;
+    };
   };
   responses: {
     /** @description OK */
@@ -214,6 +231,7 @@ describe("Components Object", () => {
     readonly NoContent: {
       content: never;
     };
+    readonly ErrorResponse: components["schemas"]["Error"];
   };
   parameters: {
     readonly Search: string;
@@ -266,9 +284,9 @@ describe("Components Object", () => {
   headers: never;
   pathItems: never;
 }`);
-          });
-        });
       });
+    });
+  });
 
   test("parameters with required: false", () => {
     const generated = transformComponentsObject(optionalParamSchema, options);

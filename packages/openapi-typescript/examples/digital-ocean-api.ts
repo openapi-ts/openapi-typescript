@@ -4964,7 +4964,7 @@ export interface external {
       };
     };
     responses: {
-      204: external["shared/responses/no_content.yml"];
+      200: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
       404: external["shared/responses/not_found.yml"];
       429: external["shared/responses/too_many_requests.yml"];

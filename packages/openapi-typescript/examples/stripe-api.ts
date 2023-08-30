@@ -2833,10 +2833,10 @@ export interface components {
       /** @description If the transaction's net funds are available in the Stripe balance yet. Either `available` or `pending`. */
       status: string;
       /**
-       * @description Transaction type: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payment_reversal`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. [Learn more](https://stripe.com/docs/reports/balance-transaction-types) about balance transaction types and what they represent. If you are looking to classify transactions for accounting purposes, you might want to consider `reporting_category` instead.
+       * @description Transaction type: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_inbound`, `obligation_outbound`, `obligation_reversal_inbound`, `obligation_reversal_outbound`, `obligation_payout`, `obligation_payout_failure`, `payment`, `payment_failure_refund`, `payment_refund`, `payment_reversal`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. [Learn more](https://stripe.com/docs/reports/balance-transaction-types) about balance transaction types and what they represent. If you are looking to classify transactions for accounting purposes, you might want to consider `reporting_category` instead.
        * @enum {string}
        */
-      type: "adjustment" | "advance" | "advance_funding" | "anticipation_repayment" | "application_fee" | "application_fee_refund" | "charge" | "connect_collection_transfer" | "contribution" | "issuing_authorization_hold" | "issuing_authorization_release" | "issuing_dispute" | "issuing_transaction" | "payment" | "payment_failure_refund" | "payment_refund" | "payment_reversal" | "payout" | "payout_cancel" | "payout_failure" | "refund" | "refund_failure" | "reserve_transaction" | "reserved_funds" | "stripe_fee" | "stripe_fx_fee" | "tax_fee" | "topup" | "topup_reversal" | "transfer" | "transfer_cancel" | "transfer_failure" | "transfer_refund";
+      type: "adjustment" | "advance" | "advance_funding" | "anticipation_repayment" | "application_fee" | "application_fee_refund" | "charge" | "connect_collection_transfer" | "contribution" | "issuing_authorization_hold" | "issuing_authorization_release" | "issuing_dispute" | "issuing_transaction" | "obligation_inbound" | "obligation_outbound" | "obligation_payout" | "obligation_payout_failure" | "obligation_reversal_inbound" | "obligation_reversal_outbound" | "payment" | "payment_failure_refund" | "payment_refund" | "payment_reversal" | "payout" | "payout_cancel" | "payout_failure" | "refund" | "refund_failure" | "reserve_transaction" | "reserved_funds" | "stripe_fee" | "stripe_fx_fee" | "tax_fee" | "topup" | "topup_reversal" | "transfer" | "transfer_cancel" | "transfer_failure" | "transfer_refund";
     };
     /**
      * BankAccount
@@ -2871,7 +2871,7 @@ export interface components {
       default_for_currency?: boolean | null;
       /** @description Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same. */
       fingerprint?: string | null;
-      /** @description Information about upcoming new requirements for the bank account, including what information needs to be collected. */
+      /** @description Information about the [upcoming new requirements for the bank account](https://stripe.com/docs/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when. */
       future_requirements?: components["schemas"]["external_account_requirements"] | null;
       /** @description Unique identifier for the object. */
       id: string;
@@ -3188,7 +3188,7 @@ export interface components {
       /**
        * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
        *
-       * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
+       * *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
        */
       fingerprint?: string | null;
       /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
@@ -3462,7 +3462,7 @@ export interface components {
       custom_text: components["schemas"]["payment_pages_checkout_session_custom_text"];
       /**
        * @description The ID of the customer for this Session.
-       * For Checkout Sessions in `payment` or `subscription` mode, Checkout
+       * For Checkout Sessions in `subscription` mode or Checkout Sessions with `customer_creation` set as `always` in `payment` mode, Checkout
        * will create a new customer object based on information provided
        * during the payment flow unless an existing customer was provided when
        * the Session was created.
@@ -5684,6 +5684,8 @@ export interface components {
       object: "financial_connections.session";
       /** @description Permissions requested for accounts collected during this session. */
       permissions: ("balances" | "ownership" | "payment_method" | "transactions")[];
+      /** @description Data features requested to be retrieved upon account creation. */
+      prefetch?: (("balances" | "ownership")[]) | null;
       /** @description For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app. */
       return_url?: string;
     };
@@ -6257,7 +6259,15 @@ export interface components {
       auto_advance?: boolean;
       automatic_tax: components["schemas"]["automatic_tax"];
       /**
-       * @description Indicates the reason why the invoice was created. `subscription_cycle` indicates an invoice created by a subscription advancing into a new period. `subscription_create` indicates an invoice created due to creating a subscription. `subscription_update` indicates an invoice created due to updating a subscription. `subscription` is set for all old invoices to indicate either a change to a subscription or a period advancement. `manual` is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The `upcoming` value is reserved for simulated invoices per the upcoming invoice endpoint. `subscription_threshold` indicates an invoice created due to a billing threshold being reached.
+       * @description Indicates the reason why the invoice was created.
+       *
+       * * `manual`: Unrelated to a subscription, for example, created via the invoice editor.
+       * * `subscription`: No longer in use. Applies to subscriptions from before May 2018 where no distinction was made between updates, cycles, and thresholds.
+       * * `subscription_create`: A new subscription was created.
+       * * `subscription_cycle`: A subscription advanced into a new period.
+       * * `subscription_threshold`: A subscription reached a billing threshold.
+       * * `subscription_update`: A subscription was updated.
+       * * `upcoming`: Reserved for simulated invoices, per the upcoming invoice endpoint.
        * @enum {string|null}
        */
       billing_reason?: "automatic_pending_invoice_item_invoice" | "manual" | "quote_accept" | "subscription" | "subscription_create" | "subscription_cycle" | "subscription_threshold" | "subscription_update" | "upcoming" | null;
@@ -6552,6 +6562,8 @@ export interface components {
     invoice_payment_method_options_us_bank_account_linked_account_options: {
       /** @description The list of permissions to request. The `payment_method` permission must be included. */
       permissions?: ("balances" | "payment_method" | "transactions")[];
+      /** @description Data features requested to be retrieved upon account creation. */
+      prefetch?: "balances"[] | null;
     };
     /** InvoiceSettingCustomField */
     invoice_setting_custom_field: {
@@ -6571,11 +6583,6 @@ export interface components {
       /** @description Default options for invoice PDF rendering for this customer. */
       rendering_options?: components["schemas"]["invoice_setting_rendering_options"] | null;
     };
-    /** InvoiceSettingPhaseSetting */
-    invoice_setting_phase_setting: {
-      /** @description Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`. */
-      days_until_due?: number | null;
-    };
     /** InvoiceSettingQuoteSetting */
     invoice_setting_quote_setting: {
       /** @description Number of days within which a customer must pay invoices generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`. */
@@ -6585,6 +6592,11 @@ export interface components {
     invoice_setting_rendering_options: {
       /** @description How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. */
       amount_tax_display?: string | null;
+    };
+    /** InvoiceSettingSubscriptionSchedulePhaseSetting */
+    invoice_setting_subscription_schedule_phase_setting: {
+      /** @description Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`. */
+      days_until_due?: number | null;
     };
     /** InvoiceSettingSubscriptionScheduleSetting */
     invoice_setting_subscription_schedule_setting: {
@@ -7900,6 +7912,8 @@ export interface components {
     linked_account_options_us_bank_account: {
       /** @description The list of permissions to request. The `payment_method` permission must be included. */
       permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
+      /** @description Data features requested to be retrieved upon account creation. */
+      prefetch?: "balances"[] | null;
       /** @description For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app. */
       return_url?: string;
     };
@@ -8340,7 +8354,7 @@ export interface components {
       status: "canceled" | "processing" | "requires_action" | "requires_capture" | "requires_confirmation" | "requires_payment_method" | "succeeded";
       /** @description The data with which to automatically create a Transfer when the payment is finalized. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
       transfer_data?: components["schemas"]["transfer_data"] | null;
-      /** @description A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
+      /** @description A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details. */
       transfer_group?: string | null;
     };
     /** PaymentIntentCardProcessing */
@@ -8843,6 +8857,8 @@ export interface components {
       after_completion: components["schemas"]["payment_links_resource_after_completion"];
       /** @description Whether user redeemable promotion codes are enabled. */
       allow_promotion_codes: boolean;
+      /** @description The ID of the Connect application that created the Payment Link. */
+      application?: (string | components["schemas"]["application"] | components["schemas"]["deleted_application"]) | null;
       /** @description The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. */
       application_fee_amount?: number | null;
       /** @description This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. */
@@ -9233,7 +9249,7 @@ export interface components {
       /**
        * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
        *
-       * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
+       * *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
        */
       fingerprint?: string | null;
       /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
@@ -9282,7 +9298,7 @@ export interface components {
       /**
        * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
        *
-       * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
+       * *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
        */
       fingerprint?: string | null;
       /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
@@ -9532,7 +9548,7 @@ export interface components {
       /**
        * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
        *
-       * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
+       * *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
        */
       fingerprint?: string | null;
       /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
@@ -9615,7 +9631,7 @@ export interface components {
       /**
        * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
        *
-       * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
+       * *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
        */
       fingerprint?: string | null;
       /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
@@ -9805,7 +9821,7 @@ export interface components {
       /**
        * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
        *
-       * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
+       * *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
        */
       fingerprint?: string | null;
       /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
@@ -10071,7 +10087,7 @@ export interface components {
       /**
        * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
        *
-       * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
+       * *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
        */
       fingerprint?: string | null;
       /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
@@ -10932,7 +10948,7 @@ export interface components {
       metadata?: {
         [key: string]: string;
       } | null;
-      /** @description The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces](https://stripe.com/blog/instant-payouts-for-marketplaces) for more information.) */
+      /** @description The method used to send this payout, which can be `standard` or `instant`. `instant` is supported for payouts to debit cards and bank accounts in certain countries. (See [Bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks) for more information.) */
       method: string;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -11250,6 +11266,11 @@ export interface components {
       /** @description The URL the customer will be redirected to after the flow is completed. */
       return_url: string;
     };
+    /** PortalFlowsCouponOffer */
+    portal_flows_coupon_offer: {
+      /** @description The ID of the coupon to be offered. */
+      coupon: string;
+    };
     /** PortalFlowsFlow */
     portal_flows_flow: {
       after_completion: components["schemas"]["portal_flows_flow_after_completion"];
@@ -11279,6 +11300,8 @@ export interface components {
     };
     /** PortalFlowsFlowSubscriptionCancel */
     portal_flows_flow_subscription_cancel: {
+      /** @description Specify a retention strategy to be used in the cancellation flow. */
+      retention?: components["schemas"]["portal_flows_retention"] | null;
       /** @description The ID of the subscription to be canceled. */
       subscription: string;
     };
@@ -11295,6 +11318,16 @@ export interface components {
       items: components["schemas"]["portal_flows_subscription_update_confirm_item"][];
       /** @description The ID of the subscription to be updated. */
       subscription: string;
+    };
+    /** PortalFlowsRetention */
+    portal_flows_retention: {
+      /** @description Configuration when `retention.type=coupon_offer`. */
+      coupon_offer?: components["schemas"]["portal_flows_coupon_offer"] | null;
+      /**
+       * @description Type of retention strategy that will be used.
+       * @enum {string}
+       */
+      type: "coupon_offer";
     };
     /** PortalFlowsSubscriptionUpdateConfirmDiscount */
     portal_flows_subscription_update_confirm_discount: {
@@ -12422,7 +12455,7 @@ export interface components {
       /**
        * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
        *
-       * *Starting May 1, 2021, card fingerprint in India for Connect will change to allow two fingerprints for the same card --- one for India and one for the rest of the world.*
+       * *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
        */
       fingerprint?: string | null;
       /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
@@ -13757,7 +13790,7 @@ export interface components {
        */
       end_date: number;
       /** @description The invoice settings applicable during this phase. */
-      invoice_settings?: components["schemas"]["invoice_setting_phase_setting"] | null;
+      invoice_settings?: components["schemas"]["invoice_setting_subscription_schedule_phase_setting"] | null;
       /** @description Subscription items to configure the subscription to during this phase of the subscription schedule. */
       items: components["schemas"]["subscription_schedule_configuration_item"][];
       /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered. Updating the underlying subscription's `metadata` directly will not affect the current phase's `metadata`. */
@@ -19536,7 +19569,7 @@ export interface operations {
         source?: string;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
-        /** @description Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payment_reversal`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. */
+        /** @description Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_inbound`, `obligation_outbound`, `obligation_reversal_inbound`, `obligation_reversal_outbound`, `obligation_payout`, `obligation_payout_failure`, `payment`, `payment_failure_refund`, `payment_refund`, `payment_reversal`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. */
         type?: string;
       };
     };
@@ -19634,7 +19667,7 @@ export interface operations {
         source?: string;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
-        /** @description Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `payment`, `payment_failure_refund`, `payment_refund`, `payment_reversal`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. */
+        /** @description Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_inbound`, `obligation_outbound`, `obligation_reversal_inbound`, `obligation_reversal_outbound`, `obligation_payout`, `obligation_payout_failure`, `payment`, `payment_failure_refund`, `payment_refund`, `payment_reversal`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. */
         type?: string;
       };
     };
@@ -20010,6 +20043,15 @@ export interface operations {
             };
             /** flow_data_subscription_cancel_param */
             subscription_cancel?: {
+              /** retention_param */
+              retention?: {
+                /** coupon_offer_param */
+                coupon_offer: {
+                  coupon: string;
+                };
+                /** @enum {string} */
+                type: "coupon_offer";
+              };
               subscription: string;
             };
             /** flow_data_subscription_update_param */
@@ -20946,7 +20988,7 @@ export interface operations {
            * If the Customer already has a valid [email](https://stripe.com/docs/api/customers/object#customer_object-email) set, the email will be prefilled and not editable in Checkout.
            * If the Customer does not have a valid `email`, Checkout will set the email entered during the session on the Customer.
            *
-           * If blank for Checkout Sessions in `payment` or `subscription` mode, Checkout will create a new Customer object based on information provided during the payment flow.
+           * If blank for Checkout Sessions in `subscription` mode or with `customer_creation` set as `always` in `payment` mode, Checkout will create a new Customer object based on information provided during the payment flow.
            *
            * You can set [`payment_intent_data.setup_future_usage`](https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_intent_data-setup_future_usage) to have Checkout automatically attach the payment method to the Customer you pass in for future reuse.
            */
@@ -21311,6 +21353,7 @@ export interface operations {
               /** linked_account_options_param */
               financial_connections?: {
                 permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
+                prefetch?: "balances"[];
               };
               /** @enum {string} */
               setup_future_usage?: "none" | "off_session" | "on_session";
@@ -21368,7 +21411,7 @@ export interface operations {
           shipping_address_collection?: {
             allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
           };
-          /** @description The shipping rate options to apply to this Session. */
+          /** @description The shipping rate options to apply to this Session. Up to a maximum of 5. */
           shipping_options?: ({
               shipping_rate?: string;
               /** method_params */
@@ -24371,6 +24414,7 @@ export interface operations {
                 /** invoice_linked_account_options_param */
                 financial_connections?: {
                   permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
+                  prefetch?: "balances"[];
                 };
                 /** @enum {string} */
                 verification_method?: "automatic" | "instant" | "microdeposits";
@@ -24648,6 +24692,7 @@ export interface operations {
                 /** invoice_linked_account_options_param */
                 financial_connections?: {
                   permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
+                  prefetch?: "balances"[];
                 };
                 /** @enum {string} */
                 verification_method?: "automatic" | "instant" | "microdeposits";
@@ -25898,6 +25943,8 @@ export interface operations {
            * Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
            */
           permissions: ("balances" | "ownership" | "payment_method" | "transactions")[];
+          /** @description List of data features that you would like to retrieve upon account creation. */
+          prefetch?: ("balances" | "ownership")[];
           /** @description For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app. */
           return_url?: string;
         };
@@ -26807,6 +26854,7 @@ export interface operations {
                 /** invoice_linked_account_options_param */
                 financial_connections?: {
                   permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
+                  prefetch?: "balances"[];
                 };
                 /** @enum {string} */
                 verification_method?: "automatic" | "instant" | "microdeposits";
@@ -27499,6 +27547,7 @@ export interface operations {
                 /** invoice_linked_account_options_param */
                 financial_connections?: {
                   permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
+                  prefetch?: "balances"[];
                 };
                 /** @enum {string} */
                 verification_method?: "automatic" | "instant" | "microdeposits";
@@ -29215,6 +29264,8 @@ export interface operations {
            * Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
            */
           permissions: ("balances" | "ownership" | "payment_method" | "transactions")[];
+          /** @description List of data features that you would like to retrieve upon account creation. */
+          prefetch?: ("balances" | "ownership")[];
           /** @description For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app. */
           return_url?: string;
         };
@@ -29604,11 +29655,8 @@ export interface operations {
           expand?: string[];
           /** @description ID of the mandate to be used for this payment. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
           mandate?: string;
-          /**
-           * secret_key_param
-           * @description This hash contains details about the Mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
-           */
-          mandate_data?: {
+          /** @description This hash contains details about the Mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
+          mandate_data?: ({
             /** customer_acceptance_param */
             customer_acceptance: {
               /** Format: unix-time */
@@ -29623,7 +29671,7 @@ export interface operations {
               /** @enum {string} */
               type: "offline" | "online";
             };
-          };
+          }) | "";
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string;
@@ -29995,6 +30043,7 @@ export interface operations {
               /** linked_account_options_param */
               financial_connections?: {
                 permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
+                prefetch?: "balances"[];
                 return_url?: string;
               };
               /** networks_options_param */
@@ -30074,7 +30123,7 @@ export interface operations {
             amount?: number;
             destination: string;
           };
-          /** @description A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
+          /** @description A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details. */
           transfer_group?: string;
           /** @description Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions. */
           use_stripe_sdk?: boolean;
@@ -30590,6 +30639,7 @@ export interface operations {
               /** linked_account_options_param */
               financial_connections?: {
                 permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
+                prefetch?: "balances"[];
                 return_url?: string;
               };
               /** networks_options_param */
@@ -30879,7 +30929,7 @@ export interface operations {
               /** @enum {string} */
               type: "offline" | "online";
             };
-          }) | {
+          }) | "" | {
             /** customer_acceptance_param */
             customer_acceptance: {
               /** online_param */
@@ -31252,6 +31302,7 @@ export interface operations {
               /** linked_account_options_param */
               financial_connections?: {
                 permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
+                prefetch?: "balances"[];
                 return_url?: string;
               };
               /** networks_options_param */
@@ -32559,7 +32610,7 @@ export interface operations {
             [key: string]: string;
           };
           /**
-           * @description The method used to send this payout, which can be `standard` or `instant`. `instant` is only supported for payouts to debit cards. (See [Instant payouts for marketplaces for more information](https://stripe.com/blog/instant-payouts-for-marketplaces).)
+           * @description The method used to send this payout, which can be `standard` or `instant`. `instant` is supported for payouts to debit cards and bank accounts in certain countries. (See [Bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks) for more information.)
            * @enum {string}
            */
           method?: "instant" | "standard";
@@ -35128,7 +35179,7 @@ export interface operations {
             interval_start?: number;
             payout?: string;
             /** @enum {string} */
-            reporting_category?: "advance" | "advance_funding" | "anticipation_repayment" | "charge" | "charge_failure" | "connect_collection_transfer" | "connect_reserved_funds" | "contribution" | "dispute" | "dispute_reversal" | "fee" | "financing_paydown" | "financing_paydown_reversal" | "financing_payout" | "financing_payout_reversal" | "issuing_authorization_hold" | "issuing_authorization_release" | "issuing_dispute" | "issuing_transaction" | "network_cost" | "other_adjustment" | "partial_capture_reversal" | "payout" | "payout_reversal" | "platform_earning" | "platform_earning_refund" | "refund" | "refund_failure" | "risk_reserved_funds" | "tax" | "topup" | "topup_reversal" | "transfer" | "transfer_reversal";
+            reporting_category?: "advance" | "advance_funding" | "anticipation_repayment" | "charge" | "charge_failure" | "connect_collection_transfer" | "connect_reserved_funds" | "contribution" | "dispute" | "dispute_reversal" | "fee" | "financing_paydown" | "financing_paydown_reversal" | "financing_payout" | "financing_payout_reversal" | "issuing_authorization_hold" | "issuing_authorization_release" | "issuing_dispute" | "issuing_transaction" | "network_cost" | "obligation" | "other_adjustment" | "partial_capture_reversal" | "payout" | "payout_reversal" | "platform_earning" | "platform_earning_refund" | "refund" | "refund_failure" | "risk_reserved_funds" | "tax" | "topup" | "topup_reversal" | "transfer" | "transfer_reversal";
             /** @enum {string} */
             timezone?: "Africa/Abidjan" | "Africa/Accra" | "Africa/Addis_Ababa" | "Africa/Algiers" | "Africa/Asmara" | "Africa/Asmera" | "Africa/Bamako" | "Africa/Bangui" | "Africa/Banjul" | "Africa/Bissau" | "Africa/Blantyre" | "Africa/Brazzaville" | "Africa/Bujumbura" | "Africa/Cairo" | "Africa/Casablanca" | "Africa/Ceuta" | "Africa/Conakry" | "Africa/Dakar" | "Africa/Dar_es_Salaam" | "Africa/Djibouti" | "Africa/Douala" | "Africa/El_Aaiun" | "Africa/Freetown" | "Africa/Gaborone" | "Africa/Harare" | "Africa/Johannesburg" | "Africa/Juba" | "Africa/Kampala" | "Africa/Khartoum" | "Africa/Kigali" | "Africa/Kinshasa" | "Africa/Lagos" | "Africa/Libreville" | "Africa/Lome" | "Africa/Luanda" | "Africa/Lubumbashi" | "Africa/Lusaka" | "Africa/Malabo" | "Africa/Maputo" | "Africa/Maseru" | "Africa/Mbabane" | "Africa/Mogadishu" | "Africa/Monrovia" | "Africa/Nairobi" | "Africa/Ndjamena" | "Africa/Niamey" | "Africa/Nouakchott" | "Africa/Ouagadougou" | "Africa/Porto-Novo" | "Africa/Sao_Tome" | "Africa/Timbuktu" | "Africa/Tripoli" | "Africa/Tunis" | "Africa/Windhoek" | "America/Adak" | "America/Anchorage" | "America/Anguilla" | "America/Antigua" | "America/Araguaina" | "America/Argentina/Buenos_Aires" | "America/Argentina/Catamarca" | "America/Argentina/ComodRivadavia" | "America/Argentina/Cordoba" | "America/Argentina/Jujuy" | "America/Argentina/La_Rioja" | "America/Argentina/Mendoza" | "America/Argentina/Rio_Gallegos" | "America/Argentina/Salta" | "America/Argentina/San_Juan" | "America/Argentina/San_Luis" | "America/Argentina/Tucuman" | "America/Argentina/Ushuaia" | "America/Aruba" | "America/Asuncion" | "America/Atikokan" | "America/Atka" | "America/Bahia" | "America/Bahia_Banderas" | "America/Barbados" | "America/Belem" | "America/Belize" | "America/Blanc-Sablon" | "America/Boa_Vista" | "America/Bogota" | "America/Boise" | "America/Buenos_Aires" | "America/Cambridge_Bay" | "America/Campo_Grande" | "America/Cancun" | "America/Caracas" | "America/Catamarca" | "America/Cayenne" | "America/Cayman" | "America/Chicago" | "America/Chihuahua" | "America/Ciudad_Juarez" | "America/Coral_Harbour" | "America/Cordoba" | "America/Costa_Rica" | "America/Creston" | "America/Cuiaba" | "America/Curacao" | "America/Danmarkshavn" | "America/Dawson" | "America/Dawson_Creek" | "America/Denver" | "America/Detroit" | "America/Dominica" | "America/Edmonton" | "America/Eirunepe" | "America/El_Salvador" | "America/Ensenada" | "America/Fort_Nelson" | "America/Fort_Wayne" | "America/Fortaleza" | "America/Glace_Bay" | "America/Godthab" | "America/Goose_Bay" | "America/Grand_Turk" | "America/Grenada" | "America/Guadeloupe" | "America/Guatemala" | "America/Guayaquil" | "America/Guyana" | "America/Halifax" | "America/Havana" | "America/Hermosillo" | "America/Indiana/Indianapolis" | "America/Indiana/Knox" | "America/Indiana/Marengo" | "America/Indiana/Petersburg" | "America/Indiana/Tell_City" | "America/Indiana/Vevay" | "America/Indiana/Vincennes" | "America/Indiana/Winamac" | "America/Indianapolis" | "America/Inuvik" | "America/Iqaluit" | "America/Jamaica" | "America/Jujuy" | "America/Juneau" | "America/Kentucky/Louisville" | "America/Kentucky/Monticello" | "America/Knox_IN" | "America/Kralendijk" | "America/La_Paz" | "America/Lima" | "America/Los_Angeles" | "America/Louisville" | "America/Lower_Princes" | "America/Maceio" | "America/Managua" | "America/Manaus" | "America/Marigot" | "America/Martinique" | "America/Matamoros" | "America/Mazatlan" | "America/Mendoza" | "America/Menominee" | "America/Merida" | "America/Metlakatla" | "America/Mexico_City" | "America/Miquelon" | "America/Moncton" | "America/Monterrey" | "America/Montevideo" | "America/Montreal" | "America/Montserrat" | "America/Nassau" | "America/New_York" | "America/Nipigon" | "America/Nome" | "America/Noronha" | "America/North_Dakota/Beulah" | "America/North_Dakota/Center" | "America/North_Dakota/New_Salem" | "America/Nuuk" | "America/Ojinaga" | "America/Panama" | "America/Pangnirtung" | "America/Paramaribo" | "America/Phoenix" | "America/Port-au-Prince" | "America/Port_of_Spain" | "America/Porto_Acre" | "America/Porto_Velho" | "America/Puerto_Rico" | "America/Punta_Arenas" | "America/Rainy_River" | "America/Rankin_Inlet" | "America/Recife" | "America/Regina" | "America/Resolute" | "America/Rio_Branco" | "America/Rosario" | "America/Santa_Isabel" | "America/Santarem" | "America/Santiago" | "America/Santo_Domingo" | "America/Sao_Paulo" | "America/Scoresbysund" | "America/Shiprock" | "America/Sitka" | "America/St_Barthelemy" | "America/St_Johns" | "America/St_Kitts" | "America/St_Lucia" | "America/St_Thomas" | "America/St_Vincent" | "America/Swift_Current" | "America/Tegucigalpa" | "America/Thule" | "America/Thunder_Bay" | "America/Tijuana" | "America/Toronto" | "America/Tortola" | "America/Vancouver" | "America/Virgin" | "America/Whitehorse" | "America/Winnipeg" | "America/Yakutat" | "America/Yellowknife" | "Antarctica/Casey" | "Antarctica/Davis" | "Antarctica/DumontDUrville" | "Antarctica/Macquarie" | "Antarctica/Mawson" | "Antarctica/McMurdo" | "Antarctica/Palmer" | "Antarctica/Rothera" | "Antarctica/South_Pole" | "Antarctica/Syowa" | "Antarctica/Troll" | "Antarctica/Vostok" | "Arctic/Longyearbyen" | "Asia/Aden" | "Asia/Almaty" | "Asia/Amman" | "Asia/Anadyr" | "Asia/Aqtau" | "Asia/Aqtobe" | "Asia/Ashgabat" | "Asia/Ashkhabad" | "Asia/Atyrau" | "Asia/Baghdad" | "Asia/Bahrain" | "Asia/Baku" | "Asia/Bangkok" | "Asia/Barnaul" | "Asia/Beirut" | "Asia/Bishkek" | "Asia/Brunei" | "Asia/Calcutta" | "Asia/Chita" | "Asia/Choibalsan" | "Asia/Chongqing" | "Asia/Chungking" | "Asia/Colombo" | "Asia/Dacca" | "Asia/Damascus" | "Asia/Dhaka" | "Asia/Dili" | "Asia/Dubai" | "Asia/Dushanbe" | "Asia/Famagusta" | "Asia/Gaza" | "Asia/Harbin" | "Asia/Hebron" | "Asia/Ho_Chi_Minh" | "Asia/Hong_Kong" | "Asia/Hovd" | "Asia/Irkutsk" | "Asia/Istanbul" | "Asia/Jakarta" | "Asia/Jayapura" | "Asia/Jerusalem" | "Asia/Kabul" | "Asia/Kamchatka" | "Asia/Karachi" | "Asia/Kashgar" | "Asia/Kathmandu" | "Asia/Katmandu" | "Asia/Khandyga" | "Asia/Kolkata" | "Asia/Krasnoyarsk" | "Asia/Kuala_Lumpur" | "Asia/Kuching" | "Asia/Kuwait" | "Asia/Macao" | "Asia/Macau" | "Asia/Magadan" | "Asia/Makassar" | "Asia/Manila" | "Asia/Muscat" | "Asia/Nicosia" | "Asia/Novokuznetsk" | "Asia/Novosibirsk" | "Asia/Omsk" | "Asia/Oral" | "Asia/Phnom_Penh" | "Asia/Pontianak" | "Asia/Pyongyang" | "Asia/Qatar" | "Asia/Qostanay" | "Asia/Qyzylorda" | "Asia/Rangoon" | "Asia/Riyadh" | "Asia/Saigon" | "Asia/Sakhalin" | "Asia/Samarkand" | "Asia/Seoul" | "Asia/Shanghai" | "Asia/Singapore" | "Asia/Srednekolymsk" | "Asia/Taipei" | "Asia/Tashkent" | "Asia/Tbilisi" | "Asia/Tehran" | "Asia/Tel_Aviv" | "Asia/Thimbu" | "Asia/Thimphu" | "Asia/Tokyo" | "Asia/Tomsk" | "Asia/Ujung_Pandang" | "Asia/Ulaanbaatar" | "Asia/Ulan_Bator" | "Asia/Urumqi" | "Asia/Ust-Nera" | "Asia/Vientiane" | "Asia/Vladivostok" | "Asia/Yakutsk" | "Asia/Yangon" | "Asia/Yekaterinburg" | "Asia/Yerevan" | "Atlantic/Azores" | "Atlantic/Bermuda" | "Atlantic/Canary" | "Atlantic/Cape_Verde" | "Atlantic/Faeroe" | "Atlantic/Faroe" | "Atlantic/Jan_Mayen" | "Atlantic/Madeira" | "Atlantic/Reykjavik" | "Atlantic/South_Georgia" | "Atlantic/St_Helena" | "Atlantic/Stanley" | "Australia/ACT" | "Australia/Adelaide" | "Australia/Brisbane" | "Australia/Broken_Hill" | "Australia/Canberra" | "Australia/Currie" | "Australia/Darwin" | "Australia/Eucla" | "Australia/Hobart" | "Australia/LHI" | "Australia/Lindeman" | "Australia/Lord_Howe" | "Australia/Melbourne" | "Australia/NSW" | "Australia/North" | "Australia/Perth" | "Australia/Queensland" | "Australia/South" | "Australia/Sydney" | "Australia/Tasmania" | "Australia/Victoria" | "Australia/West" | "Australia/Yancowinna" | "Brazil/Acre" | "Brazil/DeNoronha" | "Brazil/East" | "Brazil/West" | "CET" | "CST6CDT" | "Canada/Atlantic" | "Canada/Central" | "Canada/Eastern" | "Canada/Mountain" | "Canada/Newfoundland" | "Canada/Pacific" | "Canada/Saskatchewan" | "Canada/Yukon" | "Chile/Continental" | "Chile/EasterIsland" | "Cuba" | "EET" | "EST" | "EST5EDT" | "Egypt" | "Eire" | "Etc/GMT" | "Etc/GMT+0" | "Etc/GMT+1" | "Etc/GMT+10" | "Etc/GMT+11" | "Etc/GMT+12" | "Etc/GMT+2" | "Etc/GMT+3" | "Etc/GMT+4" | "Etc/GMT+5" | "Etc/GMT+6" | "Etc/GMT+7" | "Etc/GMT+8" | "Etc/GMT+9" | "Etc/GMT-0" | "Etc/GMT-1" | "Etc/GMT-10" | "Etc/GMT-11" | "Etc/GMT-12" | "Etc/GMT-13" | "Etc/GMT-14" | "Etc/GMT-2" | "Etc/GMT-3" | "Etc/GMT-4" | "Etc/GMT-5" | "Etc/GMT-6" | "Etc/GMT-7" | "Etc/GMT-8" | "Etc/GMT-9" | "Etc/GMT0" | "Etc/Greenwich" | "Etc/UCT" | "Etc/UTC" | "Etc/Universal" | "Etc/Zulu" | "Europe/Amsterdam" | "Europe/Andorra" | "Europe/Astrakhan" | "Europe/Athens" | "Europe/Belfast" | "Europe/Belgrade" | "Europe/Berlin" | "Europe/Bratislava" | "Europe/Brussels" | "Europe/Bucharest" | "Europe/Budapest" | "Europe/Busingen" | "Europe/Chisinau" | "Europe/Copenhagen" | "Europe/Dublin" | "Europe/Gibraltar" | "Europe/Guernsey" | "Europe/Helsinki" | "Europe/Isle_of_Man" | "Europe/Istanbul" | "Europe/Jersey" | "Europe/Kaliningrad" | "Europe/Kiev" | "Europe/Kirov" | "Europe/Kyiv" | "Europe/Lisbon" | "Europe/Ljubljana" | "Europe/London" | "Europe/Luxembourg" | "Europe/Madrid" | "Europe/Malta" | "Europe/Mariehamn" | "Europe/Minsk" | "Europe/Monaco" | "Europe/Moscow" | "Europe/Nicosia" | "Europe/Oslo" | "Europe/Paris" | "Europe/Podgorica" | "Europe/Prague" | "Europe/Riga" | "Europe/Rome" | "Europe/Samara" | "Europe/San_Marino" | "Europe/Sarajevo" | "Europe/Saratov" | "Europe/Simferopol" | "Europe/Skopje" | "Europe/Sofia" | "Europe/Stockholm" | "Europe/Tallinn" | "Europe/Tirane" | "Europe/Tiraspol" | "Europe/Ulyanovsk" | "Europe/Uzhgorod" | "Europe/Vaduz" | "Europe/Vatican" | "Europe/Vienna" | "Europe/Vilnius" | "Europe/Volgograd" | "Europe/Warsaw" | "Europe/Zagreb" | "Europe/Zaporozhye" | "Europe/Zurich" | "Factory" | "GB" | "GB-Eire" | "GMT" | "GMT+0" | "GMT-0" | "GMT0" | "Greenwich" | "HST" | "Hongkong" | "Iceland" | "Indian/Antananarivo" | "Indian/Chagos" | "Indian/Christmas" | "Indian/Cocos" | "Indian/Comoro" | "Indian/Kerguelen" | "Indian/Mahe" | "Indian/Maldives" | "Indian/Mauritius" | "Indian/Mayotte" | "Indian/Reunion" | "Iran" | "Israel" | "Jamaica" | "Japan" | "Kwajalein" | "Libya" | "MET" | "MST" | "MST7MDT" | "Mexico/BajaNorte" | "Mexico/BajaSur" | "Mexico/General" | "NZ" | "NZ-CHAT" | "Navajo" | "PRC" | "PST8PDT" | "Pacific/Apia" | "Pacific/Auckland" | "Pacific/Bougainville" | "Pacific/Chatham" | "Pacific/Chuuk" | "Pacific/Easter" | "Pacific/Efate" | "Pacific/Enderbury" | "Pacific/Fakaofo" | "Pacific/Fiji" | "Pacific/Funafuti" | "Pacific/Galapagos" | "Pacific/Gambier" | "Pacific/Guadalcanal" | "Pacific/Guam" | "Pacific/Honolulu" | "Pacific/Johnston" | "Pacific/Kanton" | "Pacific/Kiritimati" | "Pacific/Kosrae" | "Pacific/Kwajalein" | "Pacific/Majuro" | "Pacific/Marquesas" | "Pacific/Midway" | "Pacific/Nauru" | "Pacific/Niue" | "Pacific/Norfolk" | "Pacific/Noumea" | "Pacific/Pago_Pago" | "Pacific/Palau" | "Pacific/Pitcairn" | "Pacific/Pohnpei" | "Pacific/Ponape" | "Pacific/Port_Moresby" | "Pacific/Rarotonga" | "Pacific/Saipan" | "Pacific/Samoa" | "Pacific/Tahiti" | "Pacific/Tarawa" | "Pacific/Tongatapu" | "Pacific/Truk" | "Pacific/Wake" | "Pacific/Wallis" | "Pacific/Yap" | "Poland" | "Portugal" | "ROC" | "ROK" | "Singapore" | "Turkey" | "UCT" | "US/Alaska" | "US/Aleutian" | "US/Arizona" | "US/Central" | "US/East-Indiana" | "US/Eastern" | "US/Hawaii" | "US/Indiana-Starke" | "US/Michigan" | "US/Mountain" | "US/Pacific" | "US/Pacific-New" | "US/Samoa" | "UTC" | "Universal" | "W-SU" | "WET" | "Zulu";
           };
@@ -35531,11 +35582,8 @@ export interface operations {
            * Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.
            */
           flow_directions?: ("inbound" | "outbound")[];
-          /**
-           * secret_key_param
-           * @description This hash contains details about the Mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm).
-           */
-          mandate_data?: {
+          /** @description This hash contains details about the Mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm). */
+          mandate_data?: ({
             /** customer_acceptance_param */
             customer_acceptance: {
               /** Format: unix-time */
@@ -35550,7 +35598,7 @@ export interface operations {
               /** @enum {string} */
               type: "offline" | "online";
             };
-          };
+          }) | "";
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
           metadata?: {
             [key: string]: string;
@@ -35757,6 +35805,7 @@ export interface operations {
               /** linked_account_options_param */
               financial_connections?: {
                 permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
+                prefetch?: "balances"[];
                 return_url?: string;
               };
               /** networks_options_param */
@@ -36079,6 +36128,7 @@ export interface operations {
               /** linked_account_options_param */
               financial_connections?: {
                 permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
+                prefetch?: "balances"[];
                 return_url?: string;
               };
               /** networks_options_param */
@@ -36193,7 +36243,7 @@ export interface operations {
               /** @enum {string} */
               type: "offline" | "online";
             };
-          }) | {
+          }) | "" | {
             /** customer_acceptance_param */
             customer_acceptance: {
               /** online_param */
@@ -36405,6 +36455,7 @@ export interface operations {
               /** linked_account_options_param */
               financial_connections?: {
                 permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
+                prefetch?: "balances"[];
                 return_url?: string;
               };
               /** networks_options_param */
@@ -38345,6 +38396,7 @@ export interface operations {
                 /** invoice_linked_account_options_param */
                 financial_connections?: {
                   permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
+                  prefetch?: "balances"[];
                 };
                 /** @enum {string} */
                 verification_method?: "automatic" | "instant" | "microdeposits";
@@ -38675,6 +38727,7 @@ export interface operations {
                 /** invoice_linked_account_options_param */
                 financial_connections?: {
                   permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
+                  prefetch?: "balances"[];
                 };
                 /** @enum {string} */
                 verification_method?: "automatic" | "instant" | "microdeposits";
@@ -41448,6 +41501,7 @@ export interface operations {
             currency?: string;
             routing_number?: string;
           };
+          /** @description The card this token will represent. If you also pass in a customer, the card must be the ID of a card belonging to the customer. Otherwise, if you do not pass in a customer, this is a dictionary containing a user's credit card details, with the options described below. */
           card?: {
             address_city?: string;
             address_country?: string;
