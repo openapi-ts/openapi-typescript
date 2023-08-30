@@ -15,6 +15,13 @@ export type ErrorStatus = 500 | '5XX' | 400 | 401 | 402 | 403 | 404 | 405 | 406 
 export type PathsWithMethod<Paths extends Record<string, PathItemObject>, PathnameMethod extends HttpMethod> = {
   [Pathname in keyof Paths]: Paths[Pathname] extends { [K in PathnameMethod]: any } ? Pathname : never;
 }[keyof Paths];
+/** DO NOT USE! Only used only for OperationObject type inference */
+export interface OperationObject {
+  parameters: any;
+  params?: { query?: Record<string, unknown> };
+  requestBody: any; // note: "any" will get overridden in inference
+  responses: any;
+}
 /** Internal helper used in PathsWithMethod */
 export type PathItemObject = { [M in HttpMethod]: OperationObject } & { parameters?: any };
 /** Return `responses` for an Operation Object */
