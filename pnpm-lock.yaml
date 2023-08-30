@@ -112,7 +112,7 @@ importers:
   packages/openapi-fetch:
     dependencies:
       openapi-typescript-helpers:
-        specifier: ^0.0.1
+        specifier: ^0.0.2
         version: link:../openapi-typescript-helpers
     devDependencies:
       axios:
@@ -155,8 +155,8 @@ importers:
         specifier: 13.4.19
         version: 13.4.19(react-dom@18.2.0)(react@18.2.0)
       openapi-fetch:
-        specifier: file:../..
-        version: file:packages/openapi-fetch
+        specifier: workspace:^
+        version: link:../..
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -186,8 +186,8 @@ importers:
         specifier: ^4.33.0
         version: 4.33.0(react-dom@18.2.0)(react@18.2.0)
       openapi-fetch:
-        specifier: file:../..
-        version: file:packages/openapi-fetch
+        specifier: workspace:^
+        version: link:../..
       openapi-typescript:
         specifier: workspace:^
         version: link:../../../openapi-typescript
@@ -211,8 +211,8 @@ importers:
   packages/openapi-fetch/examples/sveltekit:
     dependencies:
       openapi-fetch:
-        specifier: file:../..
-        version: file:packages/openapi-fetch
+        specifier: workspace:^
+        version: link:../..
       openapi-typescript:
         specifier: workspace:^
         version: link:../../../openapi-typescript
@@ -5836,10 +5836,6 @@ packages:
     engines: {node: '>= 12.0.0', npm: '>= 7.0.0'}
     dev: true
 
-  /openapi-typescript-helpers@0.0.1:
-    resolution: {integrity: sha512-WDmxej0eHSZtLgCuyPEn2NXRV7tcvUnBBNP/0c/U66mOlxs6Yn0/dHuWlkVKdHGNahSUwG57A1tyutHWRpWqFg==}
-    dev: false
-
   /optionator@0.9.3:
     resolution: {integrity: sha512-JjCoypp+jKn1ttEFExxhetCKeJt9zhAgAve5FXHixTvFDW/5aEktX9bufBKLRRMdU7bNtpLfcGu94B3cdEJgjg==}
     engines: {node: '>= 0.8.0'}
@@ -8185,11 +8181,4 @@ packages:
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
-    dev: false
-
-  file:packages/openapi-fetch:
-    resolution: {directory: packages/openapi-fetch, type: directory}
-    name: openapi-fetch
-    dependencies:
-      openapi-typescript-helpers: 0.0.1
     dev: false
