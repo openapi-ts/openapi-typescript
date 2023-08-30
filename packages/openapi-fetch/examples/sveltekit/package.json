@@ -9,7 +9,7 @@
     "prepare": "openapi-typescript src/lib/api/v1.json -o src/lib/api/v1.d.ts"
   },
   "dependencies": {
-    "openapi-fetch": "file:../..",
+    "openapi-fetch": "workspace:^",
     "openapi-typescript": "workspace:^"
   },
   "devDependencies": {
