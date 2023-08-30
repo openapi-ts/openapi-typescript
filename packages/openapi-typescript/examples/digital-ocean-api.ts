@@ -4964,7 +4964,7 @@ export interface external {
       };
     };
     responses: {
-      204: external["shared/responses/no_content.yml"];
+      200: external["shared/responses/no_content.yml"];
       401: external["shared/responses/unauthorized.yml"];
       404: external["shared/responses/not_found.yml"];
       429: external["shared/responses/too_many_requests.yml"];
@@ -5522,10 +5522,10 @@ export interface external {
      *   "doadmin"
      * ]
      */
-    db_names?: (readonly string[]) | null;
+    db_names?: readonly string[] | null;
     connection?: external["resources/databases/models/database_connection.yml"];
     private_connection?: external["resources/databases/models/database_connection.yml"];
-    users?: (readonly external["resources/databases/models/database_user.yml"][]) | null;
+    users?: readonly external["resources/databases/models/database_user.yml"][] | null;
     maintenance_window?: external["resources/databases/models/database_maintenance_window.yml"];
     /**
      * Format: uuid
@@ -15392,7 +15392,7 @@ export interface external {
      * @description An array containing the IDs of the Droplets the volume is attached to. Note that at this time, a volume can only be attached to a single Droplet.
      * @example []
      */
-    droplet_ids?: (readonly number[]) | null;
+    droplet_ids?: readonly number[] | null;
     /**
      * @description A human-readable name for the block storage volume. Must be lowercase and be composed only of numbers, letters and "-", up to a limit of 64 characters. The name must begin with a letter.
      * @example example

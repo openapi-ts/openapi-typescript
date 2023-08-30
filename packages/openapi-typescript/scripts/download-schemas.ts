@@ -48,6 +48,7 @@ export async function download() {
     }),
   ]);
   console.log("Downloading schemas done."); // eslint-disable-line no-console
+  process.exit(0); // helps process close in npm script
 }
 
 download();

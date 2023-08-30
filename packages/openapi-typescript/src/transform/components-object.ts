@@ -31,7 +31,7 @@ export default function transformComponentsObject(components: ComponentsObject, 
       let key = escObjKey(name);
       if (ctx.immutableTypes) key = tsReadonly(key);
       if ("$ref" in responseObject) {
-        output.push(indent(`${key}": ${transformSchemaObject(responseObject, { path: `#/components/responses/${name}`, ctx })};`, indentLv));
+        output.push(indent(`${key}: ${transformSchemaObject(responseObject, { path: `#/components/responses/${name}`, ctx })};`, indentLv));
       } else {
         const responseType = transformResponseObject(responseObject, {
           path: `#/components/responses/${name}`,

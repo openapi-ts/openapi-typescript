@@ -23,7 +23,7 @@ parameters:
   - $ref: 'parameters.yml#/database_cluster_uuid'
 
 responses:
-  '204':
+  '200':
     $ref: '../../shared/responses/no_content.yml'
 
   '401':

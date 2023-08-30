@@ -25,6 +25,7 @@ async function generateSchemas() {
     }),
   ]);
   console.log("Updating examples done."); // eslint-disable-line no-console
+  process.exit(0); // helps process close in npm script
 }
 
 generateSchemas();

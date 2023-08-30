@@ -2176,12 +2176,15 @@ components:
             `application_fee_refund`, `charge`, `connect_collection_transfer`,
             `contribution`, `issuing_authorization_hold`,
             `issuing_authorization_release`, `issuing_dispute`,
-            `issuing_transaction`, `payment`, `payment_failure_refund`,
-            `payment_refund`, `payment_reversal`, `payout`, `payout_cancel`,
-            `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`,
-            `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`,
-            `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`,
-            or `transfer_refund`. [Learn
+            `issuing_transaction`, `obligation_inbound`, `obligation_outbound`,
+            `obligation_reversal_inbound`, `obligation_reversal_outbound`,
+            `obligation_payout`, `obligation_payout_failure`, `payment`,
+            `payment_failure_refund`, `payment_refund`, `payment_reversal`,
+            `payout`, `payout_cancel`, `payout_failure`, `refund`,
+            `refund_failure`, `reserve_transaction`, `reserved_funds`,
+            `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`,
+            `transfer`, `transfer_cancel`, `transfer_failure`, or
+            `transfer_refund`. [Learn
             more](https://stripe.com/docs/reports/balance-transaction-types)
             about balance transaction types and what they represent. If you are
             looking to classify transactions for accounting purposes, you might
@@ -2200,6 +2203,12 @@ components:
             - issuing_authorization_release
             - issuing_dispute
             - issuing_transaction
+            - obligation_inbound
+            - obligation_outbound
+            - obligation_payout
+            - obligation_payout_failure
+            - obligation_reversal_inbound
+            - obligation_reversal_outbound
             - payment
             - payment_failure_refund
             - payment_refund
@@ -2347,8 +2356,9 @@ components:
           anyOf:
             - $ref: '#/components/schemas/external_account_requirements'
           description: >-
-            Information about upcoming new requirements for the bank account,
-            including what information needs to be collected.
+            Information about the [upcoming new requirements for the bank
+            account](https://stripe.com/docs/connect/custom-accounts/future-requirements),
+            including what information needs to be collected, and by when.
           nullable: true
         id:
           description: Unique identifier for the object.
@@ -3178,9 +3188,9 @@ components:
             number.
 
 
-            *Starting May 1, 2021, card fingerprint in India for Connect will
-            change to allow two fingerprints for the same card --- one for India
-            and one for the rest of the world.*
+            *As of May 1, 2021, card fingerprint in India for Connect changed to
+            allow two fingerprints for the same card---one for India and one for
+            the rest of the world.*
           maxLength: 5000
           nullable: true
           type: string
@@ -4028,7 +4038,8 @@ components:
           description: >-
             The ID of the customer for this Session.
 
-            For Checkout Sessions in `payment` or `subscription` mode, Checkout
+            For Checkout Sessions in `subscription` mode or Checkout Sessions
+            with `customer_creation` set as `always` in `payment` mode, Checkout
 
             will create a new customer object based on information provided
 
@@ -9527,6 +9538,16 @@ components:
             type: string
             x-stripeBypassValidation: true
           type: array
+        prefetch:
+          description: Data features requested to be retrieved upon account creation.
+          items:
+            enum:
+              - balances
+              - ownership
+            type: string
+            x-stripeBypassValidation: true
+          nullable: true
+          type: array
         return_url:
           description: >-
             For webview integrations only. Upon completing OAuth login in the
@@ -10842,17 +10863,26 @@ components:
         billing_reason:
           description: >-
             Indicates the reason why the invoice was created.
-            `subscription_cycle` indicates an invoice created by a subscription
-            advancing into a new period. `subscription_create` indicates an
-            invoice created due to creating a subscription.
-            `subscription_update` indicates an invoice created due to updating a
-            subscription. `subscription` is set for all old invoices to indicate
-            either a change to a subscription or a period advancement. `manual`
-            is set for all invoices unrelated to a subscription (for example:
-            created via the invoice editor). The `upcoming` value is reserved
-            for simulated invoices per the upcoming invoice endpoint.
-            `subscription_threshold` indicates an invoice created due to a
-            billing threshold being reached.
+
+
+            * `manual`: Unrelated to a subscription, for example, created via
+            the invoice editor.
+
+            * `subscription`: No longer in use. Applies to subscriptions from
+            before May 2018 where no distinction was made between updates,
+            cycles, and thresholds.
+
+            * `subscription_create`: A new subscription was created.
+
+            * `subscription_cycle`: A subscription advanced into a new period.
+
+            * `subscription_threshold`: A subscription reached a billing
+            threshold.
+
+            * `subscription_update`: A subscription was updated.
+
+            * `upcoming`: Reserved for simulated invoices, per the upcoming
+            invoice endpoint.
           enum:
             - automatic_pending_invoice_item_invoice
             - manual
@@ -11731,6 +11761,15 @@ components:
             type: string
             x-stripeBypassValidation: true
           type: array
+        prefetch:
+          description: Data features requested to be retrieved upon account creation.
+          items:
+            enum:
+              - balances
+            type: string
+            x-stripeBypassValidation: true
+          nullable: true
+          type: array
       title: invoice_payment_method_options_us_bank_account_linked_account_options
       type: object
       x-expandableFields: []
@@ -11789,19 +11828,6 @@ components:
         - custom_fields
         - default_payment_method
         - rendering_options
-    invoice_setting_phase_setting:
-      description: ''
-      properties:
-        days_until_due:
-          description: >-
-            Number of days within which a customer must pay invoices generated
-            by this subscription schedule. This value will be `null` for
-            subscription schedules where `billing=charge_automatically`.
-          nullable: true
-          type: integer
-      title: InvoiceSettingPhaseSetting
-      type: object
-      x-expandableFields: []
     invoice_setting_quote_setting:
       description: ''
       properties:
@@ -11826,6 +11852,19 @@ components:
           nullable: true
           type: string
       title: InvoiceSettingRenderingOptions
+      type: object
+      x-expandableFields: []
+    invoice_setting_subscription_schedule_phase_setting:
+      description: ''
+      properties:
+        days_until_due:
+          description: >-
+            Number of days within which a customer must pay invoices generated
+            by this subscription schedule. This value will be `null` for
+            subscription schedules where `billing=charge_automatically`.
+          nullable: true
+          type: integer
+      title: InvoiceSettingSubscriptionSchedulePhaseSetting
       type: object
       x-expandableFields: []
     invoice_setting_subscription_schedule_setting:
@@ -17361,6 +17400,15 @@ components:
               - transactions
             type: string
           type: array
+        prefetch:
+          description: Data features requested to be retrieved upon account creation.
+          items:
+            enum:
+              - balances
+            type: string
+            x-stripeBypassValidation: true
+          nullable: true
+          type: array
         return_url:
           description: >-
             For webview integrations only. Upon completing OAuth login in the
@@ -18471,8 +18519,8 @@ components:
           description: >-
             A string that identifies the resulting payment as part of a group.
             See the PaymentIntents [use case for connected
-            accounts](https://stripe.com/docs/payments/connected-accounts) for
-            details.
+            accounts](https://stripe.com/docs/connect/separate-charges-and-transfers)
+            for details.
           maxLength: 5000
           nullable: true
           type: string
@@ -19847,6 +19895,18 @@ components:
         allow_promotion_codes:
           description: Whether user redeemable promotion codes are enabled.
           type: boolean
+        application:
+          anyOf:
+            - maxLength: 5000
+              type: string
+            - $ref: '#/components/schemas/application'
+            - $ref: '#/components/schemas/deleted_application'
+          description: The ID of the Connect application that created the Payment Link.
+          nullable: true
+          x-expansionResources:
+            oneOf:
+              - $ref: '#/components/schemas/application'
+              - $ref: '#/components/schemas/deleted_application'
         application_fee_amount:
           description: >-
             The amount of the application fee (if any) that will be requested to
@@ -20094,6 +20154,7 @@ components:
       type: object
       x-expandableFields:
         - after_completion
+        - application
         - automatic_tax
         - consent_collection
         - custom_fields
@@ -21189,9 +21250,9 @@ components:
             number.
 
 
-            *Starting May 1, 2021, card fingerprint in India for Connect will
-            change to allow two fingerprints for the same card --- one for India
-            and one for the rest of the world.*
+            *As of May 1, 2021, card fingerprint in India for Connect changed to
+            allow two fingerprints for the same card---one for India and one for
+            the rest of the world.*
           maxLength: 5000
           nullable: true
           type: string
@@ -21350,9 +21411,9 @@ components:
             number.
 
 
-            *Starting May 1, 2021, card fingerprint in India for Connect will
-            change to allow two fingerprints for the same card --- one for India
-            and one for the rest of the world.*
+            *As of May 1, 2021, card fingerprint in India for Connect changed to
+            allow two fingerprints for the same card---one for India and one for
+            the rest of the world.*
           maxLength: 5000
           nullable: true
           type: string
@@ -22055,9 +22116,9 @@ components:
             number.
 
 
-            *Starting May 1, 2021, card fingerprint in India for Connect will
-            change to allow two fingerprints for the same card --- one for India
-            and one for the rest of the world.*
+            *As of May 1, 2021, card fingerprint in India for Connect changed to
+            allow two fingerprints for the same card---one for India and one for
+            the rest of the world.*
           maxLength: 5000
           nullable: true
           type: string
@@ -22269,9 +22330,9 @@ components:
             number.
 
 
-            *Starting May 1, 2021, card fingerprint in India for Connect will
-            change to allow two fingerprints for the same card --- one for India
-            and one for the rest of the world.*
+            *As of May 1, 2021, card fingerprint in India for Connect changed to
+            allow two fingerprints for the same card---one for India and one for
+            the rest of the world.*
           maxLength: 5000
           nullable: true
           type: string
@@ -22886,9 +22947,9 @@ components:
             number.
 
 
-            *Starting May 1, 2021, card fingerprint in India for Connect will
-            change to allow two fingerprints for the same card --- one for India
-            and one for the rest of the world.*
+            *As of May 1, 2021, card fingerprint in India for Connect changed to
+            allow two fingerprints for the same card---one for India and one for
+            the rest of the world.*
           maxLength: 5000
           nullable: true
           type: string
@@ -23659,9 +23720,9 @@ components:
             number.
 
 
-            *Starting May 1, 2021, card fingerprint in India for Connect will
-            change to allow two fingerprints for the same card --- one for India
-            and one for the rest of the world.*
+            *As of May 1, 2021, card fingerprint in India for Connect changed to
+            allow two fingerprints for the same card---one for India and one for
+            the rest of the world.*
           maxLength: 5000
           nullable: true
           type: string
@@ -26148,10 +26209,10 @@ components:
         method:
           description: >-
             The method used to send this payout, which can be `standard` or
-            `instant`. `instant` is only supported for payouts to debit cards.
-            (See [Instant payouts for
-            marketplaces](https://stripe.com/blog/instant-payouts-for-marketplaces)
-            for more information.)
+            `instant`. `instant` is supported for payouts to debit cards and
+            bank accounts in certain countries. (See [Bank support for Instant
+            Payouts](https://stripe.com/docs/payouts/instant-payouts-banks) for
+            more information.)
           maxLength: 5000
           type: string
         object:
@@ -27034,6 +27095,18 @@ components:
       title: PortalFlowsAfterCompletionRedirect
       type: object
       x-expandableFields: []
+    portal_flows_coupon_offer:
+      description: ''
+      properties:
+        coupon:
+          description: The ID of the coupon to be offered.
+          maxLength: 5000
+          type: string
+      required:
+        - coupon
+      title: PortalFlowsCouponOffer
+      type: object
+      x-expandableFields: []
     portal_flows_flow:
       description: ''
       properties:
@@ -27104,6 +27177,11 @@ components:
     portal_flows_flow_subscription_cancel:
       description: ''
       properties:
+        retention:
+          anyOf:
+            - $ref: '#/components/schemas/portal_flows_retention'
+          description: Specify a retention strategy to be used in the cancellation flow.
+          nullable: true
         subscription:
           description: The ID of the subscription to be canceled.
           maxLength: 5000
@@ -27112,7 +27190,8 @@ components:
         - subscription
       title: PortalFlowsFlowSubscriptionCancel
       type: object
-      x-expandableFields: []
+      x-expandableFields:
+        - retention
     portal_flows_flow_subscription_update:
       description: ''
       properties:
@@ -27158,6 +27237,25 @@ components:
       x-expandableFields:
         - discounts
         - items
+    portal_flows_retention:
+      description: ''
+      properties:
+        coupon_offer:
+          anyOf:
+            - $ref: '#/components/schemas/portal_flows_coupon_offer'
+          description: Configuration when `retention.type=coupon_offer`.
+          nullable: true
+        type:
+          description: Type of retention strategy that will be used.
+          enum:
+            - coupon_offer
+          type: string
+      required:
+        - type
+      title: PortalFlowsRetention
+      type: object
+      x-expandableFields:
+        - coupon_offer
     portal_flows_subscription_update_confirm_discount:
       description: ''
       properties:
@@ -30059,9 +30157,9 @@ components:
             number.
 
 
-            *Starting May 1, 2021, card fingerprint in India for Connect will
-            change to allow two fingerprints for the same card --- one for India
-            and one for the rest of the world.*
+            *As of May 1, 2021, card fingerprint in India for Connect changed to
+            allow two fingerprints for the same card---one for India and one for
+            the rest of the world.*
           maxLength: 5000
           nullable: true
           type: string
@@ -33651,7 +33749,8 @@ components:
           type: integer
         invoice_settings:
           anyOf:
-            - $ref: '#/components/schemas/invoice_setting_phase_setting'
+            - $ref: >-
+                #/components/schemas/invoice_setting_subscription_schedule_phase_setting
           description: The invoice settings applicable during this phase.
           nullable: true
         items:
@@ -40093,7 +40192,6 @@ paths:
                             - ''
                           type: string
                     url:
-                      maxLength: 5000
                       type: string
                   title: business_profile_specs
                   type: object
@@ -41260,7 +41358,6 @@ paths:
                             - ''
                           type: string
                     url:
-                      maxLength: 5000
                       type: string
                   title: business_profile_specs
                   type: object
@@ -46702,13 +46799,15 @@ paths:
             `application_fee`, `application_fee_refund`, `charge`,
             `connect_collection_transfer`, `contribution`,
             `issuing_authorization_hold`, `issuing_authorization_release`,
-            `issuing_dispute`, `issuing_transaction`, `payment`,
-            `payment_failure_refund`, `payment_refund`, `payment_reversal`,
-            `payout`, `payout_cancel`, `payout_failure`, `refund`,
-            `refund_failure`, `reserve_transaction`, `reserved_funds`,
-            `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`,
-            `transfer`, `transfer_cancel`, `transfer_failure`, or
-            `transfer_refund`.
+            `issuing_dispute`, `issuing_transaction`, `obligation_inbound`,
+            `obligation_outbound`, `obligation_reversal_inbound`,
+            `obligation_reversal_outbound`, `obligation_payout`,
+            `obligation_payout_failure`, `payment`, `payment_failure_refund`,
+            `payment_refund`, `payment_reversal`, `payout`, `payout_cancel`,
+            `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`,
+            `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`,
+            `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`,
+            or `transfer_refund`.
           in: query
           name: type
           required: false
@@ -46932,13 +47031,15 @@ paths:
             `application_fee`, `application_fee_refund`, `charge`,
             `connect_collection_transfer`, `contribution`,
             `issuing_authorization_hold`, `issuing_authorization_release`,
-            `issuing_dispute`, `issuing_transaction`, `payment`,
-            `payment_failure_refund`, `payment_refund`, `payment_reversal`,
-            `payout`, `payout_cancel`, `payout_failure`, `refund`,
-            `refund_failure`, `reserve_transaction`, `reserved_funds`,
-            `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`,
-            `transfer`, `transfer_cancel`, `transfer_failure`, or
-            `transfer_refund`.
+            `issuing_dispute`, `issuing_transaction`, `obligation_inbound`,
+            `obligation_outbound`, `obligation_reversal_inbound`,
+            `obligation_reversal_outbound`, `obligation_payout`,
+            `obligation_payout_failure`, `payment`, `payment_failure_refund`,
+            `payment_refund`, `payment_reversal`, `payout`, `payout_cancel`,
+            `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`,
+            `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`,
+            `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`,
+            or `transfer_refund`.
           in: query
           name: type
           required: false
@@ -47804,6 +47905,26 @@ paths:
                       type: object
                     subscription_cancel:
                       properties:
+                        retention:
+                          properties:
+                            coupon_offer:
+                              properties:
+                                coupon:
+                                  maxLength: 5000
+                                  type: string
+                              required:
+                                - coupon
+                              title: coupon_offer_param
+                              type: object
+                            type:
+                              enum:
+                                - coupon_offer
+                              type: string
+                          required:
+                            - coupon_offer
+                            - type
+                          title: retention_param
+                          type: object
                         subscription:
                           maxLength: 5000
                           type: string
@@ -49996,10 +50117,10 @@ paths:
                     set the email entered during the session on the Customer.
 
 
-                    If blank for Checkout Sessions in `payment` or
-                    `subscription` mode, Checkout will create a new Customer
-                    object based on information provided during the payment
-                    flow.
+                    If blank for Checkout Sessions in `subscription` mode or
+                    with `customer_creation` set as `always` in `payment` mode,
+                    Checkout will create a new Customer object based on
+                    information provided during the payment flow.
 
 
                     You can set
@@ -50839,6 +50960,13 @@ paths:
                                 type: string
                                 x-stripeBypassValidation: true
                               type: array
+                            prefetch:
+                              items:
+                                enum:
+                                  - balances
+                                type: string
+                                x-stripeBypassValidation: true
+                              type: array
                           title: linked_account_options_param
                           type: object
                         setup_future_usage:
@@ -51226,7 +51354,9 @@ paths:
                   title: shipping_address_collection_params
                   type: object
                 shipping_options:
-                  description: The shipping rate options to apply to this Session.
+                  description: >-
+                    The shipping rate options to apply to this Session. Up to a
+                    maximum of 5.
                   items:
                     properties:
                       shipping_rate:
@@ -57944,6 +58074,13 @@ paths:
                                         type: string
                                         x-stripeBypassValidation: true
                                       type: array
+                                    prefetch:
+                                      items:
+                                        enum:
+                                          - balances
+                                        type: string
+                                        x-stripeBypassValidation: true
+                                      type: array
                                   title: invoice_linked_account_options_param
                                   type: object
                                 verification_method:
@@ -58870,6 +59007,13 @@ paths:
                                           - payment_method
                                           - transactions
                                         maxLength: 5000
+                                        type: string
+                                        x-stripeBypassValidation: true
+                                      type: array
+                                    prefetch:
+                                      items:
+                                        enum:
+                                          - balances
                                         type: string
                                         x-stripeBypassValidation: true
                                       type: array
@@ -61423,6 +61567,9 @@ paths:
               permissions:
                 explode: true
                 style: deepObject
+              prefetch:
+                explode: true
+                style: deepObject
             schema:
               additionalProperties: false
               properties:
@@ -61477,6 +61624,17 @@ paths:
                       - payment_method
                       - transactions
                     maxLength: 5000
+                    type: string
+                    x-stripeBypassValidation: true
+                  type: array
+                prefetch:
+                  description: >-
+                    List of data features that you would like to retrieve upon
+                    account creation.
+                  items:
+                    enum:
+                      - balances
+                      - ownership
                     type: string
                     x-stripeBypassValidation: true
                   type: array
@@ -63594,6 +63752,13 @@ paths:
                                           - payment_method
                                           - transactions
                                         maxLength: 5000
+                                        type: string
+                                        x-stripeBypassValidation: true
+                                      type: array
+                                    prefetch:
+                                      items:
+                                        enum:
+                                          - balances
                                         type: string
                                         x-stripeBypassValidation: true
                                       type: array
@@ -65939,6 +66104,13 @@ paths:
                                           - payment_method
                                           - transactions
                                         maxLength: 5000
+                                        type: string
+                                        x-stripeBypassValidation: true
+                                      type: array
+                                    prefetch:
+                                      items:
+                                        enum:
+                                          - balances
                                         type: string
                                         x-stripeBypassValidation: true
                                       type: array
@@ -73602,6 +73774,9 @@ paths:
               permissions:
                 explode: true
                 style: deepObject
+              prefetch:
+                explode: true
+                style: deepObject
             schema:
               additionalProperties: false
               properties:
@@ -73656,6 +73831,17 @@ paths:
                       - payment_method
                       - transactions
                     maxLength: 5000
+                    type: string
+                    x-stripeBypassValidation: true
+                  type: array
+                prefetch:
+                  description: >-
+                    List of data features that you would like to retrieve upon
+                    account creation.
+                  items:
+                    enum:
+                      - balances
+                      - ownership
                     type: string
                     x-stripeBypassValidation: true
                   type: array
@@ -74503,46 +74689,50 @@ paths:
                   maxLength: 5000
                   type: string
                 mandate_data:
+                  anyOf:
+                    - properties:
+                        customer_acceptance:
+                          properties:
+                            accepted_at:
+                              format: unix-time
+                              type: integer
+                            offline:
+                              properties: {}
+                              title: offline_param
+                              type: object
+                            online:
+                              properties:
+                                ip_address:
+                                  type: string
+                                user_agent:
+                                  maxLength: 5000
+                                  type: string
+                              required:
+                                - ip_address
+                                - user_agent
+                              title: online_param
+                              type: object
+                            type:
+                              enum:
+                                - offline
+                                - online
+                              maxLength: 5000
+                              type: string
+                          required:
+                            - type
+                          title: customer_acceptance_param
+                          type: object
+                      required:
+                        - customer_acceptance
+                      title: secret_key_param
+                      type: object
+                    - enum:
+                        - ''
+                      type: string
                   description: >-
                     This hash contains details about the Mandate to create. This
                     parameter can only be used with
                     [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
-                  properties:
-                    customer_acceptance:
-                      properties:
-                        accepted_at:
-                          format: unix-time
-                          type: integer
-                        offline:
-                          properties: {}
-                          title: offline_param
-                          type: object
-                        online:
-                          properties:
-                            ip_address:
-                              type: string
-                            user_agent:
-                              maxLength: 5000
-                              type: string
-                          required:
-                            - ip_address
-                            - user_agent
-                          title: online_param
-                          type: object
-                        type:
-                          enum:
-                            - offline
-                            - online
-                          maxLength: 5000
-                          type: string
-                      required:
-                        - type
-                      title: customer_acceptance_param
-                      type: object
-                  required:
-                    - customer_acceptance
-                  title: secret_key_param
-                  type: object
                 metadata:
                   additionalProperties:
                     type: string
@@ -75791,6 +75981,13 @@ paths:
                                     type: string
                                     x-stripeBypassValidation: true
                                   type: array
+                                prefetch:
+                                  items:
+                                    enum:
+                                      - balances
+                                    type: string
+                                    x-stripeBypassValidation: true
+                                  type: array
                                 return_url:
                                   maxLength: 5000
                                   type: string
@@ -76013,7 +76210,7 @@ paths:
                   description: >-
                     A string that identifies the resulting payment as part of a
                     group. See the PaymentIntents [use case for connected
-                    accounts](https://stripe.com/docs/payments/connected-accounts)
+                    accounts](https://stripe.com/docs/connect/separate-charges-and-transfers)
                     for details.
                   type: string
                 use_stripe_sdk:
@@ -77578,6 +77775,13 @@ paths:
                                     type: string
                                     x-stripeBypassValidation: true
                                   type: array
+                                prefetch:
+                                  items:
+                                    enum:
+                                      - balances
+                                    type: string
+                                    x-stripeBypassValidation: true
+                                  type: array
                                 return_url:
                                   maxLength: 5000
                                   type: string
@@ -78246,6 +78450,9 @@ paths:
                         - customer_acceptance
                       title: secret_key_param
                       type: object
+                    - enum:
+                        - ''
+                      type: string
                     - properties:
                         customer_acceptance:
                           properties:
@@ -79491,6 +79698,13 @@ paths:
                                       - payment_method
                                       - transactions
                                     maxLength: 5000
+                                    type: string
+                                    x-stripeBypassValidation: true
+                                  type: array
+                                prefetch:
+                                  items:
+                                    enum:
+                                      - balances
                                     type: string
                                     x-stripeBypassValidation: true
                                   type: array
@@ -83146,9 +83360,11 @@ paths:
                 method:
                   description: >-
                     The method used to send this payout, which can be `standard`
-                    or `instant`. `instant` is only supported for payouts to
-                    debit cards. (See [Instant payouts for marketplaces for more
-                    information](https://stripe.com/blog/instant-payouts-for-marketplaces).)
+                    or `instant`. `instant` is supported for payouts to debit
+                    cards and bank accounts in certain countries. (See [Bank
+                    support for Instant
+                    Payouts](https://stripe.com/docs/payouts/instant-payouts-banks)
+                    for more information.)
                   enum:
                     - instant
                     - standard
@@ -88785,6 +89001,7 @@ paths:
                         - issuing_dispute
                         - issuing_transaction
                         - network_cost
+                        - obligation
                         - other_adjustment
                         - partial_capture_reversal
                         - payout
@@ -90229,46 +90446,50 @@ paths:
                     type: string
                   type: array
                 mandate_data:
+                  anyOf:
+                    - properties:
+                        customer_acceptance:
+                          properties:
+                            accepted_at:
+                              format: unix-time
+                              type: integer
+                            offline:
+                              properties: {}
+                              title: offline_param
+                              type: object
+                            online:
+                              properties:
+                                ip_address:
+                                  type: string
+                                user_agent:
+                                  maxLength: 5000
+                                  type: string
+                              required:
+                                - ip_address
+                                - user_agent
+                              title: online_param
+                              type: object
+                            type:
+                              enum:
+                                - offline
+                                - online
+                              maxLength: 5000
+                              type: string
+                          required:
+                            - type
+                          title: customer_acceptance_param
+                          type: object
+                      required:
+                        - customer_acceptance
+                      title: secret_key_param
+                      type: object
+                    - enum:
+                        - ''
+                      type: string
                   description: >-
                     This hash contains details about the Mandate to create. This
                     parameter can only be used with
                     [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm).
-                  properties:
-                    customer_acceptance:
-                      properties:
-                        accepted_at:
-                          format: unix-time
-                          type: integer
-                        offline:
-                          properties: {}
-                          title: offline_param
-                          type: object
-                        online:
-                          properties:
-                            ip_address:
-                              type: string
-                            user_agent:
-                              maxLength: 5000
-                              type: string
-                          required:
-                            - ip_address
-                            - user_agent
-                          title: online_param
-                          type: object
-                        type:
-                          enum:
-                            - offline
-                            - online
-                          maxLength: 5000
-                          type: string
-                      required:
-                        - type
-                      title: customer_acceptance_param
-                      type: object
-                  required:
-                    - customer_acceptance
-                  title: secret_key_param
-                  type: object
                 metadata:
                   additionalProperties:
                     type: string
@@ -90868,6 +91089,13 @@ paths:
                                   - payment_method
                                   - transactions
                                 maxLength: 5000
+                                type: string
+                                x-stripeBypassValidation: true
+                              type: array
+                            prefetch:
+                              items:
+                                enum:
+                                  - balances
                                 type: string
                                 x-stripeBypassValidation: true
                               type: array
@@ -91719,6 +91947,13 @@ paths:
                                 type: string
                                 x-stripeBypassValidation: true
                               type: array
+                            prefetch:
+                              items:
+                                enum:
+                                  - balances
+                                type: string
+                                x-stripeBypassValidation: true
+                              type: array
                             return_url:
                               maxLength: 5000
                               type: string
@@ -91937,6 +92172,9 @@ paths:
                         - customer_acceptance
                       title: secret_key_param
                       type: object
+                    - enum:
+                        - ''
+                      type: string
                     - properties:
                         customer_acceptance:
                           properties:
@@ -92548,6 +92786,13 @@ paths:
                                   - payment_method
                                   - transactions
                                 maxLength: 5000
+                                type: string
+                                x-stripeBypassValidation: true
+                              type: array
+                            prefetch:
+                              items:
+                                enum:
+                                  - balances
                                 type: string
                                 x-stripeBypassValidation: true
                               type: array
@@ -97112,6 +97357,13 @@ paths:
                                         type: string
                                         x-stripeBypassValidation: true
                                       type: array
+                                    prefetch:
+                                      items:
+                                        enum:
+                                          - balances
+                                        type: string
+                                        x-stripeBypassValidation: true
+                                      type: array
                                   title: invoice_linked_account_options_param
                                   type: object
                                 verification_method:
@@ -98183,6 +98435,13 @@ paths:
                                           - payment_method
                                           - transactions
                                         maxLength: 5000
+                                        type: string
+                                        x-stripeBypassValidation: true
+                                      type: array
+                                    prefetch:
+                                      items:
+                                        enum:
+                                          - balances
                                         type: string
                                         x-stripeBypassValidation: true
                                       type: array
@@ -103662,6 +103921,12 @@ paths:
                       type: object
                     - maxLength: 5000
                       type: string
+                  description: >-
+                    The card this token will represent. If you also pass in a
+                    customer, the card must be the ID of a card belonging to the
+                    customer. Otherwise, if you do not pass in a customer, this
+                    is a dictionary containing a user's credit card details,
+                    with the options described below.
                   x-stripeBypassValidation: true
                 customer:
                   description: >-
