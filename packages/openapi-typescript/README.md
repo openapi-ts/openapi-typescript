@@ -25,7 +25,7 @@ npm i -D openapi-typescript
 
 > ✨ **Tip**
 >
-> Enabling [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) in `tsconfig.json` can go along way to improve type safety ([read more](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson))
+> Enabling [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) in `tsconfig.json` can go along way to improve type safety ([read more](/docs/src/content/docs/advanced.md#enable-nouncheckedindexedaccess-in-your-tsconfigjson))
 
 ## Basic usage
 
