@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.5.5
+
+### Patch Changes
+
+- [#1332](https://github.com/drwpow/openapi-typescript/pull/1332) [`8e8ebfd`](https://github.com/drwpow/openapi-typescript/commit/8e8ebfdcd84ff6a3d7b6f5d00695fc11366b436e) Thanks [@drwpow](https://github.com/drwpow)! - Restore original .d.ts module-resolution behavior
+
 ## 6.5.4
 
 ### Patch Changes

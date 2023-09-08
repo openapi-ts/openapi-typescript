@@ -128,7 +128,7 @@ importers:
         specifier: ^0.9.3
         version: 0.9.3
       openapi-typescript:
-        specifier: ^6.5.4
+        specifier: ^6.5.5
         version: link:../openapi-typescript
       openapi-typescript-codegen:
         specifier: ^0.25.0
