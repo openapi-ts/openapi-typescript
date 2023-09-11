@@ -76,9 +76,7 @@ export default function transformComponentsObject(components: ComponentsObject, 
     }
     indentLv--;
     const parametersKey = isEveryParameterOptional ? tsOptionalProperty("parameters") : "parameters";
-    output.push(indent(`${parametersKey}: {`, indentLv));
-    output.push(...parameters);
-    output.push(indent("};", indentLv));
+    output.push(indent(`${parametersKey}: {`, indentLv), ...parameters, indent("};", indentLv));
   } else {
     output.push(indent("parameters: never;", indentLv));
   }
