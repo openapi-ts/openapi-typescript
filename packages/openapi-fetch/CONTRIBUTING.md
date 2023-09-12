@@ -2,19 +2,21 @@
 
 Thanks for being willing to contribute! 🙏
 
-**Working on your first Pull Request (PR)?** [Egghead has a great free video introduction](https://app.egghead.io/playlists/how-to-contribute-to-an-open-source-project-on-github).
+**Working on your first Pull Request (PR)?** You can learn how from this free series [How to Contribute to an Open Source Project on GitHub](https://app.egghead.io/playlists/how-to-contribute-to-an-open-source-project-on-github).
 
 ## Open issues
 
-Please check out the [the open issues](https://github.com/drwpow/openapi-typescript/issues). Issues labelled [**Good First Issue**](https://github.com/drwpow/openapi-typescript/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)are especially good to start with.
+Please check out the [the open issues](https://github.com/drwpow/openapi-typescript/issues). Issues labelled [**Good First Issue**](https://github.com/drwpow/openapi-typescript/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) are especially good to start with.
 
-Contributing doesn’t have to be in code! Simply answering questions in open issues, or providing workarounds, is just as important a contribution as making pull requests.
+Contributing doesn’t have to be in code. Simply answering questions in open issues or providing workarounds is as important as making pull requests.
 
 ## Opening a Pull Request
 
-Pull requests are **welcome** for this repo! Bugfixes will always be accepted, though in some cases some small changes may be requested.
+Pull requests are **welcome** for this repo!
 
-However, if adding a feature or breaking change, please **open an issue first to discuss.** This ensures no time or work is wasted writing code that won’t be accepted to the project (see [Project Goals](./README.md#-project-goals)). Undiscussed feature work may be rejected at the discretion of the maintainers.
+Bugfixes will always be accepted, though in some cases some small changes may be requested.
+
+However, if adding a feature or breaking change, please **open an issue first to discuss.** This ensures no time or work is wasted writing code that won’t be accepted to the project (see [Project Goals](https://openapi-ts.pages.dev/openapi-fetch/about/#project-goals)). Undiscussed feature work may be rejected at the discretion of the maintainers.
 
 ### Setup
 
@@ -24,7 +26,7 @@ However, if adding a feature or breaking change, please **open an issue first to
 
 ### Writing code
 
-Create a new branch for your PR with `git checkout -b your-branch-name`. Add the relevant code as well as docs and tests. When you push everything up (`git push`), navigate back to your repo GitHub and you should see a prompt to open a new PR.
+Create a new branch for your PR with `git checkout -b your-branch-name`. Add the relevant code as well as docs and tests. When you push everything up (`git push`), navigate back to your repo in GitHub and you should see a prompt to open a new PR.
 
 While best practices for commit messages are encouraged (e.g. start with an imperative verb, keep it short, use the body if needed), this repo doesn’t follow any specific guidelines. Clarity is favored over strict rules. Changelogs are generated separately from git (see [the Changelogs section](#changelogs))
 
@@ -53,13 +55,13 @@ This library uses [Vitest](https://vitest.dev/) for testing. There’s a great [
 To run the entire test suite, run:
 
 ```bash
-npm test
+pnpm test
 ```
 
 To run an individual test:
 
 ```bash
-npm test -- [partial filename]
+pnpm test -- [partial filename]
 ```
 
 To start the entire test suite in watch mode:

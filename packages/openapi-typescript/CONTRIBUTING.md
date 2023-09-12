@@ -2,19 +2,21 @@
 
 Thanks for being willing to contribute! 🙏
 
-**Working on your first Pull Request (PR)?** You can learn how from this _free_ series [How to Contribute to an Open Source Project on GitHub](https://app.egghead.io/playlists/how-to-contribute-to-an-open-source-project-on-github)
+**Working on your first Pull Request (PR)?** You can learn how from this free series [How to Contribute to an Open Source Project on GitHub](https://app.egghead.io/playlists/how-to-contribute-to-an-open-source-project-on-github).
 
 ## Open issues
 
-Please check out the [the open issues](https://github.com/drwpow/openapi-typescript/issues). Issues labelled [**Good First Issue**](https://github.com/drwpow/openapi-typescript/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)are especially good to start with.
+Please check out the [the open issues](https://github.com/drwpow/openapi-typescript/issues). Issues labelled [**Good First Issue**](https://github.com/drwpow/openapi-typescript/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) are especially good to start with.
 
-Contributing doesn’t have to be in code! Simply answering questions in open issues, or providing workarounds, is just as important a contribution as making pull requests.
+Contributing doesn’t have to be in code. Simply answering questions in open issues or providing workarounds is as important as making pull requests.
 
 ## Opening a Pull Request
 
-Pull requests are **welcome** for this repo! Bugfixes will always be accepted, though in some cases some small changes may be requested.
+Pull requests are **welcome** for this repo!
 
-However, if adding a feature or breaking change, please **open an issue first to discuss.** This ensures no time or work is wasted writing code that won’t be accepted to the project (see [Project Goals](./README.md#-project-goals)). Undiscussed feature work may be rejected at the discretion of the maintainers.
+Bugfixes will always be accepted, though in some cases some small changes may be requested.
+
+However, if adding a feature or breaking change, please **open an issue first to discuss.** This ensures no time or work is wasted writing code that won’t be accepted to the project (see [Project Goals](https://openapi-ts.pages.dev/about/#project-goals)). Undiscussed feature work may be rejected at the discretion of the maintainers.
 
 ### Setup
 
@@ -24,14 +26,14 @@ However, if adding a feature or breaking change, please **open an issue first to
 
 ### Writing code
 
-Create a new branch for your PR with `git checkout -b your-branch-name`. Add the relevant code as well as docs and tests. When you push everything up (`git push`), navigate back to your repo GitHub and you should see a prompt to open a new PR.
+Create a new branch for your PR with `git checkout -b your-branch-name`. Add the relevant code as well as docs and tests. When you push everything up (`git push`), navigate back to your repo in GitHub and you should see a prompt to open a new PR.
 
 While best practices for commit messages are encouraged (e.g. start with an imperative verb, keep it short, use the body if needed), this repo doesn’t follow any specific guidelines. Clarity is favored over strict rules. Changelogs are generated separately from git (see [the Changelogs section](#changelogs))
 
 When working locally, run:
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 This will compile the code as you change automatically.
@@ -50,7 +52,7 @@ Contributing to this library is hard-bordering-on-impossible without a [test-dri
 
 Reasoning about code generation can be quite difficult until you “invert your thinking” and approach it output-first. Adopting TDD can turn very unclear/abstract problems into concrete ones with clear steps to resolution.
 
-✨ When starting any task, **write a failing test first!** ✨
+TL;DR: When starting any task, **write a failing test first!**
 
 #### Updating snapshot tests
 
@@ -71,7 +73,7 @@ When opening a pull request, make sure all of the following is done:
 - [x] Tests pass (`npm test`)
 - [x] Linting passes (`npm run lint`)
 
-Lastly, be sure to fill out the complete PR template!
+Lastly, be sure to fill out the complete PR template.
 
 ### Changelogs
 
@@ -94,13 +96,13 @@ This library uses [Vitest](https://vitest.dev/) for testing. There’s a great [
 To run the entire test suite once, run:
 
 ```bash
-npm test
+pnpm test
 ```
 
 To run an individual test:
 
 ```bash
-npm test -- [partial filename]
+pnpm test -- [partial filename]
 ```
 
 To start the entire test suite in watch mode:
@@ -114,7 +116,7 @@ npx vitest
 To run ESLint on the project:
 
 ```bash
-npm run lint
+pnpm run lint
 ```
 
 ### Updating snapshot examples
@@ -122,7 +124,7 @@ npm run lint
 ⚠️ This may break tests if schemas have been updated
 
 ```bash
-npm run update:examples
+pnpm run update:examples
 ```
 
 ### Unit tests or snapshot tests?
@@ -134,3 +136,13 @@ This library has both unit tests (tests that test a tiny part of a schema) and s
 - Adding a CLI option that changes the entire output
 
 For most PRs, **snapshot tests can be avoided.** But for scenarios similar to the ones mentioned, they can ensure everything is working as expected.
+
+## Troubleshooting
+
+### When I run tests, it’s not picking up my changes
+
+Be sure to run `pnpm run build` to build the project. Most tests actually test the **compiled JS**, not the source TypeScript. It’s recommended to run `pnpm run dev` as you work so changes are always up-to-date.
+
+### I get an obscure error when testing against my schema
+
+Be sure your schema passes [Redocly lint](https://redocly.com/docs/cli/commands/lint/). Remember this library requires already-validated OpenAPI schemas, so even subtle errors will throw.
