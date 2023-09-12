@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.6.0
+
+### Minor Changes
+
+- [#1335](https://github.com/drwpow/openapi-typescript/pull/1335) [`7cb02ac`](https://github.com/drwpow/openapi-typescript/commit/7cb02acbcf57946b8202b9598a888454f09f81fa) Thanks [@duncanbeevers](https://github.com/duncanbeevers)! - Request parameters member is optional when all parameters are optional.
+
 ## 6.5.5
 
 ### Patch Changes
