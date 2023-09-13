@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.6.1
+
+### Patch Changes
+
+- [#1342](https://github.com/drwpow/openapi-typescript/pull/1342) [`c17669d`](https://github.com/drwpow/openapi-typescript/commit/c17669dbee47af49136bea3c40e12009e92cd81b) Thanks [@drwpow](https://github.com/drwpow)! - Fix discriminator propertyName inference
+
 ## 6.6.0
 
 ### Minor Changes
