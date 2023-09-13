@@ -572,6 +572,32 @@ describe("Schema Object", () => {
 }`);
       });
 
+      test("discriminator (oneOf)", () => {
+        const schema: SchemaObject = {
+          type: "object",
+          required: ["name"],
+          properties: {
+            name: { type: "string" },
+          },
+        };
+        const generated = transformSchemaObject(schema, {
+          path: "#/components/schemas/Cat",
+          ctx: {
+            ...options.ctx,
+            discriminators: {
+              'components["schemas"]["Pet"]': {
+                propertyName: "petType",
+                oneOf: ["#/components/schemas/Cat"],
+              },
+            },
+          },
+        });
+        expect(generated).toBe(`{
+  petType: "Cat";
+  name: string;
+}`);
+      });
+
       test("discriminator without mapping and oneOf and null", () => {
         const schema: SchemaObject = {
           oneOf: [{ $ref: 'components["schemas"]["parent"]' }, { type: "null" }],
@@ -587,7 +613,7 @@ describe("Schema Object", () => {
         });
         expect(generated).toBe(`{
   operation: "schema-object";
-} & (components["schemas"]["parent"] | null)`);
+} & (Omit<components["schemas"]["parent"], "operation"> | null)`);
       });
 
       test("discriminator escape", () => {
@@ -637,7 +663,7 @@ describe("Schema Object", () => {
         expect(generated).toBe(`{
   _petType: "Dog";
   bark?: boolean;
-} & components["schemas"]["Pet"]`);
+} & Omit<components["schemas"]["Pet"], "_petType">`);
       });
     });
 

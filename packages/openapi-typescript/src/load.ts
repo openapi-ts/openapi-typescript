@@ -1,4 +1,4 @@
-import type { ComponentsObject, Fetch, GlobalContext, OpenAPI3, OperationObject, ParameterObject, PathItemObject, ReferenceObject, RequestBodyObject, ResponseObject, SchemaObject, Subschema } from "./types.js";
+import type { ComponentsObject, DiscriminatorObject, Fetch, GlobalContext, OpenAPI3, OperationObject, ParameterObject, PathItemObject, ReferenceObject, RequestBodyObject, ResponseObject, SchemaObject, Subschema } from "./types.js";
 import fs from "node:fs";
 import path from "node:path";
 import { Readable } from "node:stream";
@@ -296,7 +296,19 @@ export default async function load(schema: URL | Subschema | Readable, options: 
       walk(options.schemas[k].schema, (rawNode, nodePath) => {
         const node = rawNode as unknown as SchemaObject;
         if (!node.discriminator) return;
-        options.discriminators[schemaID === "." ? makeTSIndex(nodePath) : makeTSIndex(["external", k, ...nodePath])] = node.discriminator;
+        const discriminator: DiscriminatorObject = { ...node.discriminator };
+
+        // handle child oneOf types (mapping isn’t explicit from children)
+        const oneOf: string[] = [];
+        if (Array.isArray(node.oneOf)) {
+          for (const child of node.oneOf) {
+            if (!child || typeof child !== "object" || !("$ref" in child)) continue;
+            oneOf.push(child.$ref);
+          }
+        }
+        if (oneOf.length) discriminator.oneOf = oneOf;
+
+        options.discriminators[schemaID === "." ? makeTSIndex(nodePath) : makeTSIndex(["external", k, ...nodePath])] = discriminator;
       });
     }
   }

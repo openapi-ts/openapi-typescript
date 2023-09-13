@@ -508,6 +508,8 @@ export interface DiscriminatorObject {
   propertyName: string;
   /** An object to hold mappings between payload values and schema names or references. */
   mapping?: Record<string, string>;
+  /** If this exists, then a discriminator type should be added to objects matching this path */
+  oneOf?: string[];
 }
 
 /**
