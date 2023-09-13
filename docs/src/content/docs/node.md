@@ -3,7 +3,7 @@ title: Node.js API
 description: Node.js API
 ---
 
-The Node API may be useful if dealing with dynamically-created schemas, or you’re using within context of a larger application. Pass in either a JSON-friendly object to load a schema from memory, or a string to load a schema from a local file or remote URL (it will load the file quickly using built-in Node methods).
+The Node API may be useful if dealing with dynamically-created schemas, or you’re using within context of a larger application. Pass in either a JSON-friendly object to load a schema from memory, or a string to load a schema from a local file or remote URL.
 
 ## Setup
 
@@ -11,13 +11,7 @@ The Node API may be useful if dealing with dynamically-created schemas, or you�
 npm i --save-dev openapi-typescript
 ```
 
-Note that the Node.js API requires [ESM support](https://nodejs.org/api/esm.html) in Node. This can be enabled by adding
-
-```json
-  "type": "module"
-```
-
-To your `package.json`. Or it can be consumed in a `.mjs` file extension (rather than `.js` or `.cjs`)
+> **Recommended**: For the best experience, use Node ESM by adding `"type": "module"` to `package.json` ([docs](https://nodejs.org/api/esm.html#enabling))
 
 ## Usage
 
@@ -37,7 +31,7 @@ const output = await openapiTS(localPath);
 const output = await openapiTS("https://myurl.com/v1/openapi.yaml");
 ```
 
-> ⚠️ Note that unlike the CLI, YAML isn’t supported in the Node.js API. You’ll need to convert it to JSON yourself using <a href="https://www.npmjs.com/package/js-yaml" target="_blank" rel="noopener noreferrer">js-yaml</a> first.
+> **Note**: a YAML string isn’t supported in the Node.js API (you’ll need to <a href="https://www.npmjs.com/package/js-yaml" target="_blank" rel="noopener noreferrer">convert it to JSON</a>). But loading YAML via URL is still supported in Node.js
 
 ## Options
 
@@ -53,10 +47,10 @@ The Node API supports all the [CLI flags](/cli#options) in `camelCase` format, p
 
 ### transform / postTransform
 
-Use the `transform()` and `postTransform()` options to override the default Schema Object transformer with your own. This is useful for providing non-standard modifications for specific parts of your schema.
+Use the `transform()` and `postTransform()` options to override the default Schema Object transformer with your own. This is useful for providing nonstandard modifications for specific parts of your schema.
 
-- `transform()` runs **BEFORE** the conversion to TypeScript (you’re working with the original OpenAPI nodes)
-- `postTransform()` runs **AFTER** the conversion to TypeScript (you’re working with TypeScript types)
+- `transform()` runs **before** the conversion to TypeScript (you’re working with the original OpenAPI nodes)
+- `postTransform()` runs **after** the conversion to TypeScript (you’re working with TypeScript types)
 
 #### Example: `Date` types
 

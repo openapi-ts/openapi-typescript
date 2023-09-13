@@ -1,6 +1,6 @@
 {
   "name": "openapi-typescript",
-  "description": "Generate runtime-free TypeScript types from Swagger OpenAPI specs",
+  "description": "Convert OpenAPI 3.0 & 3.1 schemas to TypeScript",
   "version": "6.6.0",
   "author": {
     "name": "Drew Powers",
