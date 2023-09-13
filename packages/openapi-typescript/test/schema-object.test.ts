@@ -572,6 +572,32 @@ describe("Schema Object", () => {
 }`);
       });
 
+      test("discriminator (oneOf)", () => {
+        const schema: SchemaObject = {
+          type: "object",
+          required: ["name"],
+          properties: {
+            name: { type: "string" },
+          },
+        };
+        const generated = transformSchemaObject(schema, {
+          path: "#/components/schemas/Cat",
+          ctx: {
+            ...options.ctx,
+            discriminators: {
+              'components["schemas"]["Pet"]': {
+                propertyName: "petType",
+                oneOf: ["#/components/schemas/Cat"],
+              },
+            },
+          },
+        });
+        expect(generated).toBe(`{
+  petType: "Cat";
+  name: string;
+}`);
+      });
+
       test("discriminator without mapping and oneOf and null", () => {
         const schema: SchemaObject = {
           oneOf: [{ $ref: 'components["schemas"]["parent"]' }, { type: "null" }],
@@ -581,13 +607,13 @@ describe("Schema Object", () => {
           ctx: {
             ...options.ctx,
             discriminators: {
-              'components["schemas"]["parent"]': {
-                propertyName: "operation",
-              },
+              'components["schemas"]["parent"]': { propertyName: "operation" },
             },
           },
         });
-        expect(generated).toBe(`components["schemas"]["parent"] | null`);
+        expect(generated).toBe(`{
+  operation: "schema-object";
+} & (Omit<components["schemas"]["parent"], "operation"> | null)`);
       });
 
       test("discriminator escape", () => {
@@ -614,6 +640,30 @@ describe("Schema Object", () => {
 } & Omit<components["schemas"]["parent"], "@type"> & {
   string?: string;
 }`);
+      });
+
+      test("discriminator with automatic propertyName", () => {
+        const schema: SchemaObject = {
+          type: "object",
+          allOf: [{ $ref: 'components["schemas"]["Pet"]' }],
+          properties: {
+            bark: { type: "boolean" },
+          },
+          additionalProperties: false,
+        };
+        const generated = transformSchemaObject(schema, {
+          path: "#/components/schemas/Dog",
+          ctx: {
+            ...options.ctx,
+            discriminators: {
+              'components["schemas"]["Pet"]': { propertyName: "_petType" },
+            },
+          },
+        });
+        expect(generated).toBe(`{
+  _petType: "Dog";
+  bark?: boolean;
+} & Omit<components["schemas"]["Pet"], "_petType">`);
       });
     });
 

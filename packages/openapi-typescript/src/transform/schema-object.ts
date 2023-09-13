@@ -1,4 +1,4 @@
-import type { GlobalContext, ReferenceObject, SchemaObject } from "../types.js";
+import type { DiscriminatorObject, GlobalContext, ReferenceObject, SchemaObject } from "../types.js";
 import { escObjKey, escStr, getEntries, getSchemaObjectComment, indent, parseRef, tsArrayOf, tsIntersectionOf, tsOmit, tsOneOf, tsOptionalProperty, tsReadonly, tsTupleOf, tsUnionOf, tsWithRequired } from "../utils.js";
 import transformSchemaObjectMap from "./schema-object-map.js";
 
@@ -159,11 +159,33 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
     }
   }
 
-  // "type": "object" (explicit)
-  // "anyOf" / "allOf" (object type implied)
-
   // core type: properties + additionalProperties
   const coreType: string[] = [];
+
+  // discriminators: explicit mapping on schema object
+  for (const k of ["oneOf", "allOf", "anyOf"] as ("oneOf" | "allOf" | "anyOf")[]) {
+    if (!(schemaObject as any)[k]) continue;
+    const discriminatorRef: ReferenceObject | undefined = (schemaObject as any)[k].find(
+      (t: SchemaObject | ReferenceObject) =>
+        "$ref" in t &&
+        (ctx.discriminators[t.$ref] || // explicit allOf from this node
+          Object.values(ctx.discriminators).find((d) => d.oneOf?.includes(path))), // implicit oneOf from parent
+    );
+    if (discriminatorRef && ctx.discriminators[discriminatorRef.$ref]) {
+      coreType.unshift(indent(getDiscriminatorPropertyName(path, ctx.discriminators[discriminatorRef.$ref]), indentLv + 1));
+      break;
+    }
+  }
+  // discriminators: implicit mapping from parent
+  for (const d of Object.values(ctx.discriminators)) {
+    if (d.oneOf?.includes(path)) {
+      coreType.unshift(indent(getDiscriminatorPropertyName(path, d), indentLv + 1));
+      break;
+    }
+  }
+
+  // "type": "object" (explicit)
+  // "anyOf" / "allOf" (object type implied)
   if (
     ("properties" in schemaObject && schemaObject.properties && Object.keys(schemaObject.properties).length) ||
     ("additionalProperties" in schemaObject && schemaObject.additionalProperties) ||
@@ -209,23 +231,6 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
     indentLv--;
   }
 
-  // discriminators
-  for (const k of ["oneOf", "allOf", "anyOf"] as ("oneOf" | "allOf" | "anyOf")[]) {
-    if (!(schemaObject as any)[k]) continue;
-    const discriminatorRef: ReferenceObject | undefined = (schemaObject as any)[k].find((t: SchemaObject | ReferenceObject) => "$ref" in t && ctx.discriminators[t.$ref]);
-    if (discriminatorRef) {
-      const discriminator = ctx.discriminators[discriminatorRef.$ref];
-      let value = parseRef(path).path.pop()!;
-      if (discriminator.mapping) {
-        // Mapping value can either be a fully-qualified ref (#/components/schemas/XYZ) or a schema name (XYZ)
-        const matchedValue = Object.entries(discriminator.mapping).find(([, v]) => (!v.startsWith("#") && v === value) || (v.startsWith("#") && parseRef(v).path.pop() === value));
-        if (matchedValue) value = matchedValue[0]; // why was this designed backwards!?
-        coreType.unshift(indent(`${escObjKey(discriminator.propertyName)}: ${escStr(value)};`, indentLv + 1));
-      }
-      break;
-    }
-  }
-
   // close coreType
   let finalType = coreType.length ? `{\n${coreType.join("\n")}\n${indent("}", indentLv)}` : "";
 
@@ -234,7 +239,7 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
     const output: string[] = [];
     for (const item of items) {
       const itemType = transformSchemaObject(item, { path, ctx: { ...ctx, indentLv } });
-      if ("$ref" in item && ctx.discriminators[item.$ref]?.mapping) {
+      if ("$ref" in item && ctx.discriminators[item.$ref]) {
         output.push(tsOmit(itemType, [ctx.discriminators[item.$ref].propertyName]));
         continue;
       }
@@ -271,4 +276,16 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
 
   // if no type could be generated, fall back to “empty object” type
   return ctx.emptyObjectsUnknown ? "Record<string, unknown>" : "Record<string, never>";
+}
+
+export function getDiscriminatorPropertyName(path: string, discriminator: DiscriminatorObject): string {
+  // get the inferred propertyName value from the last section of the path (as the spec suggests to do)
+  let value = parseRef(path).path.pop()!;
+  // if mapping, and there’s a match, use this rather than the inferred name
+  if (discriminator.mapping) {
+    // Mapping value can either be a fully-qualified ref (#/components/schemas/XYZ) or a schema name (XYZ)
+    const matchedValue = Object.entries(discriminator.mapping).find(([, v]) => (!v.startsWith("#") && v === value) || (v.startsWith("#") && parseRef(v).path.pop() === value));
+    if (matchedValue) value = matchedValue[0]; // why was this designed backwards!?
+  }
+  return `${escObjKey(discriminator.propertyName)}: ${escStr(value)};`;
 }
