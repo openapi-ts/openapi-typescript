@@ -773,8 +773,75 @@ export interface components {
       petType: "lizard";
     };
     Person: {
-      pet: components["schemas"]["Pet"];
+      pet: {
+        petType: "Person";
+      } & components["schemas"]["Pet"];
     };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}
+
+export type $defs = Record<string, never>;
+
+export type external = Record<string, never>;
+
+export type operations = Record<string, never>;
+`);
+    });
+
+    test("discriminator with automatic propertyName generation", async () => {
+      const schema: OpenAPI3 = {
+        openapi: "3.1",
+        info: { title: "test", version: "1.0" },
+        components: {
+          schemas: {
+            Pet: {
+              required: ["_petType"],
+              type: "object",
+              properties: {
+                _petType: { type: "string" },
+                nickName: { type: "string", nullable: true },
+              },
+              additionalProperties: false,
+              discriminator: { propertyName: "_petType" },
+            },
+            Dog: {
+              type: "object",
+              allOf: [{ $ref: "#/components/schemas/Pet" }],
+              properties: {
+                bark: { type: "boolean" },
+              },
+            },
+            Cat: {
+              type: "object",
+              allOf: [{ $ref: "#/components/schemas/Pet" }],
+            },
+          },
+        },
+      };
+      const generated = await openapiTS(schema);
+      expect(generated).toBe(`${BOILERPLATE}
+export type paths = Record<string, never>;
+
+export type webhooks = Record<string, never>;
+
+export interface components {
+  schemas: {
+    Pet: {
+      _petType: string;
+      nickName?: string | null;
+    };
+    Dog: {
+      _petType: "Dog";
+      bark?: boolean;
+    } & components["schemas"]["Pet"];
+    Cat: {
+      _petType: "Cat";
+    } & components["schemas"]["Pet"];
   };
   responses: never;
   parameters: never;

@@ -581,13 +581,13 @@ describe("Schema Object", () => {
           ctx: {
             ...options.ctx,
             discriminators: {
-              'components["schemas"]["parent"]': {
-                propertyName: "operation",
-              },
+              'components["schemas"]["parent"]': { propertyName: "operation" },
             },
           },
         });
-        expect(generated).toBe(`components["schemas"]["parent"] | null`);
+        expect(generated).toBe(`{
+  operation: "schema-object";
+} & (components["schemas"]["parent"] | null)`);
       });
 
       test("discriminator escape", () => {
@@ -614,6 +614,30 @@ describe("Schema Object", () => {
 } & Omit<components["schemas"]["parent"], "@type"> & {
   string?: string;
 }`);
+      });
+
+      test("discriminator with automatic propertyName", () => {
+        const schema: SchemaObject = {
+          type: "object",
+          allOf: [{ $ref: 'components["schemas"]["Pet"]' }],
+          properties: {
+            bark: { type: "boolean" },
+          },
+          additionalProperties: false,
+        };
+        const generated = transformSchemaObject(schema, {
+          path: "#/components/schemas/Dog",
+          ctx: {
+            ...options.ctx,
+            discriminators: {
+              'components["schemas"]["Pet"]': { propertyName: "_petType" },
+            },
+          },
+        });
+        expect(generated).toBe(`{
+  _petType: "Dog";
+  bark?: boolean;
+} & components["schemas"]["Pet"]`);
       });
     });
 

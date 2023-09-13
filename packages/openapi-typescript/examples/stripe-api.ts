@@ -13,6 +13,10 @@ export interface paths {
     /** @description <p>Creates an AccountLink object that includes a single-use Stripe URL that the platform can redirect their user to in order to take them through the Connect Onboarding flow.</p> */
     post: operations["PostAccountLinks"];
   };
+  "/v1/account_sessions": {
+    /** @description <p>Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.</p> */
+    post: operations["PostAccountSessions"];
+  };
   "/v1/accounts": {
     /** @description <p>Returns a list of accounts connected to your platform via <a href="/docs/connect">Connect</a>. If you’re not a platform, the list is empty.</p> */
     get: operations["GetAccounts"];
@@ -74,7 +78,7 @@ export interface paths {
   "/v1/accounts/{account}/capabilities/{capability}": {
     /** @description <p>Retrieves information about the specified Account Capability.</p> */
     get: operations["GetAccountsAccountCapabilitiesCapability"];
-    /** @description <p>Updates an existing Account Capability.</p> */
+    /** @description <p>Updates an existing Account Capability. Request or remove a capability by updating its <code>requested</code> parameter.</p> */
     post: operations["PostAccountsAccountCapabilitiesCapability"];
   };
   "/v1/accounts/{account}/external_accounts": {
@@ -603,13 +607,13 @@ export interface paths {
   "/v1/customers/{customer}/tax_ids": {
     /** @description <p>Returns a list of tax IDs for a customer.</p> */
     get: operations["GetCustomersCustomerTaxIds"];
-    /** @description <p>Creates a new <code>TaxID</code> object for a customer.</p> */
+    /** @description <p>Creates a new <code>tax_id</code> object for a customer.</p> */
     post: operations["PostCustomersCustomerTaxIds"];
   };
   "/v1/customers/{customer}/tax_ids/{id}": {
-    /** @description <p>Retrieves the <code>TaxID</code> object with the given identifier.</p> */
+    /** @description <p>Retrieves the <code>tax_id</code> object with the given identifier.</p> */
     get: operations["GetCustomersCustomerTaxIdsId"];
-    /** @description <p>Deletes an existing <code>TaxID</code> object.</p> */
+    /** @description <p>Deletes an existing <code>tax_id</code> object.</p> */
     delete: operations["DeleteCustomersCustomerTaxIdsId"];
   };
   "/v1/disputes": {
@@ -1014,9 +1018,9 @@ export interface paths {
     /**
      * @description <p>Retrieves the details of a PaymentIntent that has previously been created. </p>
      *
-     * <p>Client-side retrieval using a publishable key is allowed when the <code>client_secret</code> is provided in the query string. </p>
+     * <p>You can retrieve a PaymentIntent client-side using a publishable key when the <code>client_secret</code> is in the query string. </p>
      *
-     * <p>When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the <a href="#payment_intent_object">payment intent</a> object reference for more details.</p>
+     * <p>If you retrieve a PaymentIntent with a publishable key, it only returns a subset of properties. Refer to the <a href="#payment_intent_object">payment intent</a> object reference for more details.</p>
      */
     get: operations["GetPaymentIntentsIntent"];
     /**
@@ -1130,6 +1134,29 @@ export interface paths {
   "/v1/payment_links/{payment_link}/line_items": {
     /** @description <p>When retrieving a payment link, there is an includable <strong>line_items</strong> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
     get: operations["GetPaymentLinksPaymentLinkLineItems"];
+  };
+  "/v1/payment_method_domains": {
+    /** @description <p>Lists the details of existing payment method domains.</p> */
+    get: operations["GetPaymentMethodDomains"];
+    /** @description <p>Creates a payment method domain.</p> */
+    post: operations["PostPaymentMethodDomains"];
+  };
+  "/v1/payment_method_domains/{payment_method_domain}": {
+    /** @description <p>Retrieves the details of an existing payment method domain.</p> */
+    get: operations["GetPaymentMethodDomainsPaymentMethodDomain"];
+    /** @description <p>Updates an existing payment method domain.</p> */
+    post: operations["PostPaymentMethodDomainsPaymentMethodDomain"];
+  };
+  "/v1/payment_method_domains/{payment_method_domain}/validate": {
+    /**
+     * @description <p>Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren’t satisfied when the domain was created, the payment method will be inactive on the domain.
+     * The payment method doesn’t appear in Elements for this domain until it is active.</p>
+     *
+     * <p>To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.</p>
+     *
+     * <p>Related guides: <a href="/docs/payments/payment-methods/pmd-registration">Payment method domains</a>.</p>
+     */
+    post: operations["PostPaymentMethodDomainsPaymentMethodDomainValidate"];
   };
   "/v1/payment_methods": {
     /** @description <p>Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the <a href="/docs/api/payment_methods/customer_list">List a Customer’s PaymentMethods</a> API instead.</p> */
@@ -1727,6 +1754,26 @@ export interface paths {
     /** @description <p>Create an incoming testmode bank transfer</p> */
     post: operations["PostTestHelpersCustomersCustomerFundCashBalance"];
   };
+  "/v1/test_helpers/issuing/authorizations": {
+    /** @description <p>Create a test-mode authorization.</p> */
+    post: operations["PostTestHelpersIssuingAuthorizations"];
+  };
+  "/v1/test_helpers/issuing/authorizations/{authorization}/capture": {
+    /** @description <p>Capture a test-mode authorization.</p> */
+    post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationCapture"];
+  };
+  "/v1/test_helpers/issuing/authorizations/{authorization}/expire": {
+    /** @description <p>Expire a test-mode Authorization.</p> */
+    post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationExpire"];
+  };
+  "/v1/test_helpers/issuing/authorizations/{authorization}/increment": {
+    /** @description <p>Increment a test-mode Authorization.</p> */
+    post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationIncrement"];
+  };
+  "/v1/test_helpers/issuing/authorizations/{authorization}/reverse": {
+    /** @description <p>Reverse a test-mode Authorization.</p> */
+    post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationReverse"];
+  };
   "/v1/test_helpers/issuing/cards/{card}/shipping/deliver": {
     /** @description <p>Updates the shipping status of the specified Issuing <code>Card</code> object to <code>delivered</code>.</p> */
     post: operations["PostTestHelpersIssuingCardsCardShippingDeliver"];
@@ -1742,6 +1789,18 @@ export interface paths {
   "/v1/test_helpers/issuing/cards/{card}/shipping/ship": {
     /** @description <p>Updates the shipping status of the specified Issuing <code>Card</code> object to <code>shipped</code>.</p> */
     post: operations["PostTestHelpersIssuingCardsCardShippingShip"];
+  };
+  "/v1/test_helpers/issuing/transactions/create_force_capture": {
+    /** @description <p>Allows the user to capture an arbitrary amount, also known as a forced capture.</p> */
+    post: operations["PostTestHelpersIssuingTransactionsCreateForceCapture"];
+  };
+  "/v1/test_helpers/issuing/transactions/create_unlinked_refund": {
+    /** @description <p>Allows the user to refund an arbitrary amount, also known as a unlinked refund.</p> */
+    post: operations["PostTestHelpersIssuingTransactionsCreateUnlinkedRefund"];
+  };
+  "/v1/test_helpers/issuing/transactions/{transaction}/refund": {
+    /** @description <p>Refund a test-mode Transaction.</p> */
+    post: operations["PostTestHelpersIssuingTransactionsTransactionRefund"];
   };
   "/v1/test_helpers/refunds/{refund}/expire": {
     /** @description <p>Expire a refund with a status of <code>requires_action</code>.</p> */
@@ -2413,7 +2472,7 @@ export interface components {
      * @description Account Links are the means by which a Connect platform grants a connected account permission to access
      * Stripe-hosted applications, such as Connect Onboarding.
      *
-     * Related guide: [Connect Onboarding](https://stripe.com/docs/connect/connect-onboarding)
+     * Related guide: [Connect Onboarding](https://stripe.com/docs/connect/custom/hosted-onboarding)
      */
     account_link: {
       /**
@@ -2507,6 +2566,41 @@ export interface components {
     account_sepa_debit_payments_settings: {
       /** @description SEPA creditor identifier that identifies the company making the payment. */
       creditor_id?: string;
+    };
+    /**
+     * ConnectEmbeddedMethodAccountSessionCreateMethodAccountSession
+     * @description An AccountSession allows a Connect platform to grant access to a connected account in Connect embedded components.
+     *
+     * We recommend that you create an AccountSession each time you need to display an embedded component
+     * to your user. Do not save AccountSessions to your database as they expire relatively
+     * quickly, and cannot be used more than once.
+     *
+     * Related guide: [Connect embedded components](https://stripe.com/docs/connect/get-started-connect-embedded-components)
+     */
+    account_session: {
+      /** @description The ID of the account the AccountSession was created for */
+      account: string;
+      /**
+       * @description The client secret of this AccountSession. Used on the client to set up secure access to the given `account`.
+       *
+       * The client secret can be used to provide access to `account` from your frontend. It should not be stored, logged, or exposed to anyone other than the connected account. Make sure that you have TLS enabled on any page that includes the client secret.
+       *
+       * Refer to our docs to [setup Connect embedded components](https://stripe.com/docs/connect/get-started-connect-embedded-components) and learn about how `client_secret` should be handled.
+       */
+      client_secret: string;
+      components: components["schemas"]["connect_embedded_account_session_create_components"];
+      /**
+       * Format: unix-time
+       * @description The timestamp at which this AccountSession will expire.
+       */
+      expires_at: number;
+      /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
+      livemode: boolean;
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
+      object: "account_session";
     };
     /** AccountSettings */
     account_settings: {
@@ -2748,11 +2842,11 @@ export interface components {
      * Related guide: [Understanding Connect account balances](https://stripe.com/docs/connect/account-balances)
      */
     balance: {
-      /** @description Funds that are available to be transferred or paid out, whether automatically by Stripe or explicitly via the [Transfers API](https://stripe.com/docs/api#transfers) or [Payouts API](https://stripe.com/docs/api#payouts). The available balance for each currency and payment type can be found in the `source_types` property. */
+      /** @description Available funds that you can transfer or pay out automatically by Stripe or explicitly through the [Transfers API](https://stripe.com/docs/api#transfers) or [Payouts API](https://stripe.com/docs/api#payouts). You can find the available balance for each currency and payment type in the `source_types` property. */
       available: components["schemas"]["balance_amount"][];
-      /** @description Funds held due to negative balances on connected Custom accounts. The connect reserve balance for each currency and payment type can be found in the `source_types` property. */
+      /** @description Funds held due to negative balances on connected Custom accounts. You can find the connect reserve balance for each currency and payment type in the `source_types` property. */
       connect_reserved?: components["schemas"]["balance_amount"][];
-      /** @description Funds that can be paid out using Instant Payouts. */
+      /** @description Funds that you can pay out using Instant Payouts. */
       instant_available?: components["schemas"]["balance_amount"][];
       issuing?: components["schemas"]["balance_detail"];
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -2762,7 +2856,7 @@ export interface components {
        * @enum {string}
        */
       object: "balance";
-      /** @description Funds that are not yet available in the balance. The pending balance for each currency, and for each payment type, can be found in the `source_types` property. */
+      /** @description Funds that aren't available in the balance yet. You can find the pending balance for each currency and each payment type in the `source_types` property. */
       pending: components["schemas"]["balance_amount"][];
     };
     /** BalanceAmount */
@@ -2829,7 +2923,7 @@ export interface components {
       /** @description [Learn more](https://stripe.com/docs/reports/reporting-categories) about how reporting categories can help you understand balance transactions from an accounting perspective. */
       reporting_category: string;
       /** @description The Stripe object to which this transaction is related. */
-      source?: (string | components["schemas"]["application_fee"] | components["schemas"]["charge"] | components["schemas"]["connect_collection_transfer"] | components["schemas"]["dispute"] | components["schemas"]["fee_refund"] | components["schemas"]["issuing.authorization"] | components["schemas"]["issuing.dispute"] | components["schemas"]["issuing.transaction"] | components["schemas"]["payout"] | components["schemas"]["platform_tax_fee"] | components["schemas"]["refund"] | components["schemas"]["reserve_transaction"] | components["schemas"]["tax_deducted_at_source"] | components["schemas"]["topup"] | components["schemas"]["transfer"] | components["schemas"]["transfer_reversal"]) | null;
+      source?: (string | components["schemas"]["application_fee"] | components["schemas"]["charge"] | components["schemas"]["connect_collection_transfer"] | components["schemas"]["customer_cash_balance_transaction"] | components["schemas"]["dispute"] | components["schemas"]["fee_refund"] | components["schemas"]["issuing.authorization"] | components["schemas"]["issuing.dispute"] | components["schemas"]["issuing.transaction"] | components["schemas"]["payout"] | components["schemas"]["platform_tax_fee"] | components["schemas"]["refund"] | components["schemas"]["reserve_transaction"] | components["schemas"]["tax_deducted_at_source"] | components["schemas"]["topup"] | components["schemas"]["transfer"] | components["schemas"]["transfer_reversal"]) | null;
       /** @description If the transaction's net funds are available in the Stripe balance yet. Either `available` or `pending`. */
       status: string;
       /**
@@ -3094,15 +3188,15 @@ export interface components {
     };
     /** CancellationDetails */
     cancellation_details: {
-      /** @description Additional comments about why the user canceled the subscription, if the subscription was cancelled explicitly by the user. */
+      /** @description Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user. */
       comment?: string | null;
       /**
-       * @description The customer submitted reason for why they cancelled, if the subscription was cancelled explicitly by the user.
+       * @description The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
        * @enum {string|null}
        */
       feedback?: "customer_service" | "low_quality" | "missing_features" | "other" | "switched_service" | "too_complex" | "too_expensive" | "unused" | null;
       /**
-       * @description Why this subscription was cancelled.
+       * @description Why this subscription was canceled.
        * @enum {string|null}
        */
       reason?: "cancellation_requested" | "payment_disputed" | "payment_failed" | null;
@@ -4020,6 +4114,15 @@ export interface components {
        * @enum {string}
        */
       object: "connect_collection_transfer";
+    };
+    /** ConnectEmbeddedAccountSessionCreateComponents */
+    connect_embedded_account_session_create_components: {
+      account_onboarding: components["schemas"]["connect_embedded_base_config"];
+    };
+    /** ConnectEmbeddedBaseConfig */
+    connect_embedded_base_config: {
+      /** @description Whether the embedded component is enabled. */
+      enabled: boolean;
     };
     /**
      * CountrySpec
@@ -7144,6 +7247,8 @@ export interface components {
     issuing_authorization_amount_details: {
       /** @description The fee charged by the ATM for the cash withdrawal. */
       atm_fee?: number | null;
+      /** @description The amount of cash requested by the cardholder. */
+      cashback_amount?: number | null;
     };
     /** IssuingAuthorizationMerchantData */
     issuing_authorization_merchant_data: {
@@ -7596,6 +7701,8 @@ export interface components {
     issuing_transaction_amount_details: {
       /** @description The fee charged by the ATM for the cash withdrawal. */
       atm_fee?: number | null;
+      /** @description The amount of cash requested by the cardholder. */
+      cashback_amount?: number | null;
     };
     /** IssuingTransactionFlightData */
     issuing_transaction_flight_data: {
@@ -9783,15 +9890,15 @@ export interface components {
     /** payment_method_details_ideal */
     payment_method_details_ideal: {
       /**
-       * @description The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+       * @description The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
        * @enum {string|null}
        */
-      bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe" | null;
+      bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "n26" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe" | null;
       /**
        * @description The Bank Identifier Code of the customer's bank.
        * @enum {string|null}
        */
-      bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
+      bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "NTSBDEB1" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
       /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
       generated_sepa_debit?: (string | components["schemas"]["payment_method"]) | null;
       /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
@@ -10039,6 +10146,57 @@ export interface components {
     };
     /** payment_method_details_zip */
     payment_method_details_zip: Record<string, never>;
+    /**
+     * PaymentMethodDomainResourcePaymentMethodDomain
+     * @description A payment method domain represents a web domain that you have registered with Stripe.
+     * Stripe Elements use registered payment method domains to control where certain payment methods are shown.
+     *
+     * Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
+     */
+    payment_method_domain: {
+      apple_pay: components["schemas"]["payment_method_domain_resource_payment_method_status"];
+      /**
+       * Format: unix-time
+       * @description Time at which the object was created. Measured in seconds since the Unix epoch.
+       */
+      created: number;
+      /** @description The domain name that this payment method domain object represents. */
+      domain_name: string;
+      /** @description Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements. */
+      enabled: boolean;
+      google_pay: components["schemas"]["payment_method_domain_resource_payment_method_status"];
+      /** @description Unique identifier for the object. */
+      id: string;
+      link: components["schemas"]["payment_method_domain_resource_payment_method_status"];
+      /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
+      livemode: boolean;
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
+      object: "payment_method_domain";
+      paypal: components["schemas"]["payment_method_domain_resource_payment_method_status"];
+    };
+    /**
+     * PaymentMethodDomainResourcePaymentMethodStatus
+     * @description Indicates the status of a specific payment method on a payment method domain.
+     */
+    payment_method_domain_resource_payment_method_status: {
+      /**
+       * @description The status of the payment method on the domain.
+       * @enum {string}
+       */
+      status: "active" | "inactive";
+      status_details?: components["schemas"]["payment_method_domain_resource_payment_method_status_details"];
+    };
+    /**
+     * PaymentMethodDomainResourcePaymentMethodStatusDetails
+     * @description Contains additional details about the status of a payment method for a specific payment method domain.
+     */
+    payment_method_domain_resource_payment_method_status_details: {
+      /** @description The error message associated with the status of the payment method on the domain. */
+      error_message: string;
+    };
     /** payment_method_eps */
     payment_method_eps: {
       /**
@@ -10062,15 +10220,15 @@ export interface components {
     /** payment_method_ideal */
     payment_method_ideal: {
       /**
-       * @description The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+       * @description The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
        * @enum {string|null}
        */
-      bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe" | null;
+      bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "n26" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe" | null;
       /**
        * @description The Bank Identifier Code of the customer's bank, if the bank was provided.
        * @enum {string|null}
        */
-      bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
+      bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "NTSBDEB1" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
     };
     /** payment_method_interac_present */
     payment_method_interac_present: {
@@ -11035,7 +11193,7 @@ export interface components {
       gender?: string | null;
       /** @description Unique identifier for the object. */
       id: string;
-      /** @description Whether the person's `id_number` was provided. */
+      /** @description Whether the person's `id_number` was provided. True if either the full ID number was provided or if only the required part of the ID number was provided (ex. last four of an individual's SSN for the US indicated by `ssn_last_4_provided`). */
       id_number_provided?: boolean;
       /** @description Whether the person's `id_number_secondary` was provided. */
       id_number_secondary_provided?: boolean;
@@ -11535,6 +11693,8 @@ export interface components {
       default_price?: (string | components["schemas"]["price"]) | null;
       /** @description The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes. */
       description?: string | null;
+      /** @description A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table). */
+      features: components["schemas"]["product_feature"][];
       /** @description Unique identifier for the object. */
       id: string;
       /** @description A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
@@ -11569,6 +11729,11 @@ export interface components {
       updated: number;
       /** @description A URL of a publicly-accessible webpage for this product. */
       url?: string | null;
+    };
+    /** ProductFeature */
+    product_feature: {
+      /** @description The feature's name. Up to 80 characters long. */
+      name: string;
     };
     /**
      * PromotionCode
@@ -12489,15 +12654,15 @@ export interface components {
     /** setup_attempt_payment_method_details_ideal */
     setup_attempt_payment_method_details_ideal: {
       /**
-       * @description The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+       * @description The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
        * @enum {string|null}
        */
-      bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe" | null;
+      bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "n26" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe" | null;
       /**
        * @description The Bank Identifier Code of the customer's bank.
        * @enum {string|null}
        */
-      bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
+      bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "NTSBDEB1" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
       /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
       generated_sepa_debit?: (string | components["schemas"]["payment_method"]) | null;
       /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
@@ -16281,6 +16446,43 @@ export interface operations {
       };
     };
   };
+  /** @description <p>Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.</p> */
+  PostAccountSessions: {
+    requestBody: {
+      content: {
+        "application/x-www-form-urlencoded": {
+          /** @description The identifier of the account to create an Account Session for. */
+          account: string;
+          /**
+           * account_session_create_components_param
+           * @description Each key of the dictionary represents an embedded component, and each embedded component maps to its configuration (e.g. whether it has been enabled or not).
+           */
+          components: {
+            /** base_config_param */
+            account_onboarding?: {
+              enabled: boolean;
+            };
+          };
+          /** @description Specifies which fields in the response should be expanded. */
+          expand?: string[];
+        };
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["account_session"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
   /** @description <p>Returns a list of accounts connected to your platform via <a href="/docs/connect">Connect</a>. If you’re not a platform, the list is empty.</p> */
   GetAccounts: {
     parameters: {
@@ -17669,7 +17871,7 @@ export interface operations {
       };
     };
   };
-  /** @description <p>Updates an existing Account Capability.</p> */
+  /** @description <p>Updates an existing Account Capability. Request or remove a capability by updating its <code>requested</code> parameter.</p> */
   PostAccountsAccountCapabilitiesCapability: {
     parameters: {
       path: {
@@ -17682,7 +17884,11 @@ export interface operations {
         "application/x-www-form-urlencoded": {
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
-          /** @description Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays. */
+          /**
+           * @description To request a new capability for an account, pass true. There can be a delay before the requested capability becomes active. If the capability has any activation requirements, the response includes them in the `requirements` arrays.
+           *
+           * If a capability isn't permanent, you can remove it from the account by passing false. Most capabilities are permanent after they've been requested. Attempting to remove a permanent capability returns an error.
+           */
           requested?: boolean;
         };
       };
@@ -24907,7 +25113,7 @@ export interface operations {
       };
     };
   };
-  /** @description <p>Creates a new <code>TaxID</code> object for a customer.</p> */
+  /** @description <p>Creates a new <code>tax_id</code> object for a customer.</p> */
   PostCustomersCustomerTaxIds: {
     parameters: {
       path: {
@@ -24944,7 +25150,7 @@ export interface operations {
       };
     };
   };
-  /** @description <p>Retrieves the <code>TaxID</code> object with the given identifier.</p> */
+  /** @description <p>Retrieves the <code>tax_id</code> object with the given identifier.</p> */
   GetCustomersCustomerTaxIdsId: {
     parameters: {
       query?: {
@@ -24976,7 +25182,7 @@ export interface operations {
       };
     };
   };
-  /** @description <p>Deletes an existing <code>TaxID</code> object.</p> */
+  /** @description <p>Deletes an existing <code>tax_id</code> object.</p> */
   DeleteCustomersCustomerTaxIdsId: {
     parameters: {
       path: {
@@ -25208,6 +25414,8 @@ export interface operations {
           expand?: string[];
           /** @description The ID of the Issuing Card you'd like to access using the resulting ephemeral key. */
           issuing_card?: string;
+          /** @description A single-use token, created by Stripe.js, used for creating ephemeral keys for Issuing Cards without exchanging sensitive information. */
+          nonce?: string;
           /** @description The ID of the Identity VerificationSession you'd like to access using the resulting ephemeral key */
           verification_session?: string;
         };
@@ -29758,7 +29966,7 @@ export interface operations {
             /** param */
             ideal?: {
               /** @enum {string} */
-              bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
+              bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "n26" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
             };
             /** param */
             interac_present?: Record<string, never>;
@@ -30199,14 +30407,14 @@ export interface operations {
   /**
    * @description <p>Retrieves the details of a PaymentIntent that has previously been created. </p>
    *
-   * <p>Client-side retrieval using a publishable key is allowed when the <code>client_secret</code> is provided in the query string. </p>
+   * <p>You can retrieve a PaymentIntent client-side using a publishable key when the <code>client_secret</code> is in the query string. </p>
    *
-   * <p>When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the <a href="#payment_intent_object">payment intent</a> object reference for more details.</p>
+   * <p>If you retrieve a PaymentIntent with a publishable key, it only returns a subset of properties. Refer to the <a href="#payment_intent_object">payment intent</a> object reference for more details.</p>
    */
   GetPaymentIntentsIntent: {
     parameters: {
       query?: {
-        /** @description The client secret of the PaymentIntent. Required if a publishable key is used to retrieve the source. */
+        /** @description The client secret of the PaymentIntent. It's required if you use a publishable key to retrieve the source. */
         client_secret?: string;
         /** @description Specifies which fields in the response should be expanded. */
         expand?: string[];
@@ -30354,7 +30562,7 @@ export interface operations {
             /** param */
             ideal?: {
               /** @enum {string} */
-              bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
+              bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "n26" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
             };
             /** param */
             interac_present?: Record<string, never>;
@@ -31017,7 +31225,7 @@ export interface operations {
             /** param */
             ideal?: {
               /** @enum {string} */
-              bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
+              bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "n26" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
             };
             /** param */
             interac_present?: Record<string, never>;
@@ -32021,6 +32229,184 @@ export interface operations {
       };
     };
   };
+  /** @description <p>Lists the details of existing payment method domains.</p> */
+  GetPaymentMethodDomains: {
+    parameters: {
+      query?: {
+        /** @description The domain name that this payment method domain object represents. */
+        domain_name?: string;
+        /** @description Whether this payment method domain is enabled. If the domain is not enabled, payment methods will not appear in Elements */
+        enabled?: boolean;
+        /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
+        ending_before?: string;
+        /** @description Specifies which fields in the response should be expanded. */
+        expand?: string[];
+        /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
+        limit?: number;
+        /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
+        starting_after?: string;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/x-www-form-urlencoded": Record<string, never>;
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": {
+            data: components["schemas"]["payment_method_domain"][];
+            /** @description True if this list has another page of items after this one that can be fetched. */
+            has_more: boolean;
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
+            object: "list";
+            /** @description The URL where this list can be accessed. */
+            url: string;
+          };
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  /** @description <p>Creates a payment method domain.</p> */
+  PostPaymentMethodDomains: {
+    requestBody: {
+      content: {
+        "application/x-www-form-urlencoded": {
+          /** @description The domain name that this payment method domain object represents. */
+          domain_name: string;
+          /** @description Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements. */
+          enabled?: boolean;
+          /** @description Specifies which fields in the response should be expanded. */
+          expand?: string[];
+        };
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["payment_method_domain"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  /** @description <p>Retrieves the details of an existing payment method domain.</p> */
+  GetPaymentMethodDomainsPaymentMethodDomain: {
+    parameters: {
+      query?: {
+        /** @description Specifies which fields in the response should be expanded. */
+        expand?: string[];
+      };
+      path: {
+        payment_method_domain: string;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/x-www-form-urlencoded": Record<string, never>;
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["payment_method_domain"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  /** @description <p>Updates an existing payment method domain.</p> */
+  PostPaymentMethodDomainsPaymentMethodDomain: {
+    parameters: {
+      path: {
+        payment_method_domain: string;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/x-www-form-urlencoded": {
+          /** @description Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements. */
+          enabled?: boolean;
+          /** @description Specifies which fields in the response should be expanded. */
+          expand?: string[];
+        };
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["payment_method_domain"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  /**
+   * @description <p>Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren’t satisfied when the domain was created, the payment method will be inactive on the domain.
+   * The payment method doesn’t appear in Elements for this domain until it is active.</p>
+   *
+   * <p>To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.</p>
+   *
+   * <p>Related guides: <a href="/docs/payments/payment-methods/pmd-registration">Payment method domains</a>.</p>
+   */
+  PostPaymentMethodDomainsPaymentMethodDomainValidate: {
+    parameters: {
+      path: {
+        payment_method_domain: string;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/x-www-form-urlencoded": {
+          /** @description Specifies which fields in the response should be expanded. */
+          expand?: string[];
+        };
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["payment_method_domain"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
   /** @description <p>Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the <a href="/docs/api/payment_methods/customer_list">List a Customer’s PaymentMethods</a> API instead.</p> */
   GetPaymentMethods: {
     parameters: {
@@ -32208,7 +32594,7 @@ export interface operations {
            */
           ideal?: {
             /** @enum {string} */
-            bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
+            bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "n26" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
           };
           /**
            * param
@@ -33518,6 +33904,10 @@ export interface operations {
           description?: string;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
+          /** @description A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table). */
+          features?: {
+              name: string;
+            }[];
           /** @description An identifier will be randomly generated by Stripe. You can optionally override this ID, but the ID must be unique across all products in your Stripe account. */
           id?: string;
           /** @description A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
@@ -33671,6 +34061,10 @@ export interface operations {
           description?: string | "";
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
+          /** @description A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table). */
+          features?: {
+              name: string;
+            }[] | "";
           /** @description A list of up to 8 URLs of images for this product, meant to be displayable to the customer. */
           images?: string[] | "";
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -35678,7 +36072,7 @@ export interface operations {
             /** param */
             ideal?: {
               /** @enum {string} */
-              bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
+              bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "n26" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
             };
             /** param */
             interac_present?: Record<string, never>;
@@ -36001,7 +36395,7 @@ export interface operations {
             /** param */
             ideal?: {
               /** @enum {string} */
-              bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
+              bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "n26" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
             };
             /** param */
             interac_present?: Record<string, never>;
@@ -36328,7 +36722,7 @@ export interface operations {
             /** param */
             ideal?: {
               /** @enum {string} */
-              bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
+              bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "n26" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
             };
             /** param */
             interac_present?: Record<string, never>;
@@ -40151,6 +40545,8 @@ export interface operations {
         limit?: number;
         /** @description A location ID to filter the response list to only readers at the specific location */
         location?: string;
+        /** @description Filters readers by serial number */
+        serial_number?: string;
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
         /** @description A status filter to filter readers to only offline or online readers */
@@ -40559,6 +40955,270 @@ export interface operations {
       };
     };
   };
+  /** @description <p>Create a test-mode authorization.</p> */
+  PostTestHelpersIssuingAuthorizations: {
+    requestBody: {
+      content: {
+        "application/x-www-form-urlencoded": {
+          /** @description The total amount to attempt to authorize. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
+          amount: number;
+          /**
+           * amount_details_specs
+           * @description Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+           */
+          amount_details?: {
+            atm_fee?: number;
+            cashback_amount?: number;
+          };
+          /**
+           * @description How the card details were provided. Defaults to online.
+           * @enum {string}
+           */
+          authorization_method?: "chip" | "contactless" | "keyed_in" | "online" | "swipe";
+          /** @description Card associated with this authorization. */
+          card: string;
+          /** @description The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+          currency?: string;
+          /** @description Specifies which fields in the response should be expanded. */
+          expand?: string[];
+          /** @description If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization. */
+          is_amount_controllable?: boolean;
+          /**
+           * merchant_data_specs
+           * @description Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
+           */
+          merchant_data?: {
+            /** @enum {string} */
+            category?: "ac_refrigeration_repair" | "accounting_bookkeeping_services" | "advertising_services" | "agricultural_cooperative" | "airlines_air_carriers" | "airports_flying_fields" | "ambulance_services" | "amusement_parks_carnivals" | "antique_reproductions" | "antique_shops" | "aquariums" | "architectural_surveying_services" | "art_dealers_and_galleries" | "artists_supply_and_craft_shops" | "auto_and_home_supply_stores" | "auto_body_repair_shops" | "auto_paint_shops" | "auto_service_shops" | "automated_cash_disburse" | "automated_fuel_dispensers" | "automobile_associations" | "automotive_parts_and_accessories_stores" | "automotive_tire_stores" | "bail_and_bond_payments" | "bakeries" | "bands_orchestras" | "barber_and_beauty_shops" | "betting_casino_gambling" | "bicycle_shops" | "billiard_pool_establishments" | "boat_dealers" | "boat_rentals_and_leases" | "book_stores" | "books_periodicals_and_newspapers" | "bowling_alleys" | "bus_lines" | "business_secretarial_schools" | "buying_shopping_services" | "cable_satellite_and_other_pay_television_and_radio" | "camera_and_photographic_supply_stores" | "candy_nut_and_confectionery_stores" | "car_and_truck_dealers_new_used" | "car_and_truck_dealers_used_only" | "car_rental_agencies" | "car_washes" | "carpentry_services" | "carpet_upholstery_cleaning" | "caterers" | "charitable_and_social_service_organizations_fundraising" | "chemicals_and_allied_products" | "child_care_services" | "childrens_and_infants_wear_stores" | "chiropodists_podiatrists" | "chiropractors" | "cigar_stores_and_stands" | "civic_social_fraternal_associations" | "cleaning_and_maintenance" | "clothing_rental" | "colleges_universities" | "commercial_equipment" | "commercial_footwear" | "commercial_photography_art_and_graphics" | "commuter_transport_and_ferries" | "computer_network_services" | "computer_programming" | "computer_repair" | "computer_software_stores" | "computers_peripherals_and_software" | "concrete_work_services" | "construction_materials" | "consulting_public_relations" | "correspondence_schools" | "cosmetic_stores" | "counseling_services" | "country_clubs" | "courier_services" | "court_costs" | "credit_reporting_agencies" | "cruise_lines" | "dairy_products_stores" | "dance_hall_studios_schools" | "dating_escort_services" | "dentists_orthodontists" | "department_stores" | "detective_agencies" | "digital_goods_applications" | "digital_goods_games" | "digital_goods_large_volume" | "digital_goods_media" | "direct_marketing_catalog_merchant" | "direct_marketing_combination_catalog_and_retail_merchant" | "direct_marketing_inbound_telemarketing" | "direct_marketing_insurance_services" | "direct_marketing_other" | "direct_marketing_outbound_telemarketing" | "direct_marketing_subscription" | "direct_marketing_travel" | "discount_stores" | "doctors" | "door_to_door_sales" | "drapery_window_covering_and_upholstery_stores" | "drinking_places" | "drug_stores_and_pharmacies" | "drugs_drug_proprietaries_and_druggist_sundries" | "dry_cleaners" | "durable_goods" | "duty_free_stores" | "eating_places_restaurants" | "educational_services" | "electric_razor_stores" | "electric_vehicle_charging" | "electrical_parts_and_equipment" | "electrical_services" | "electronics_repair_shops" | "electronics_stores" | "elementary_secondary_schools" | "emergency_services_gcas_visa_use_only" | "employment_temp_agencies" | "equipment_rental" | "exterminating_services" | "family_clothing_stores" | "fast_food_restaurants" | "financial_institutions" | "fines_government_administrative_entities" | "fireplace_fireplace_screens_and_accessories_stores" | "floor_covering_stores" | "florists" | "florists_supplies_nursery_stock_and_flowers" | "freezer_and_locker_meat_provisioners" | "fuel_dealers_non_automotive" | "funeral_services_crematories" | "furniture_home_furnishings_and_equipment_stores_except_appliances" | "furniture_repair_refinishing" | "furriers_and_fur_shops" | "general_services" | "gift_card_novelty_and_souvenir_shops" | "glass_paint_and_wallpaper_stores" | "glassware_crystal_stores" | "golf_courses_public" | "government_licensed_horse_dog_racing_us_region_only" | "government_licensed_online_casions_online_gambling_us_region_only" | "government_owned_lotteries_non_us_region" | "government_owned_lotteries_us_region_only" | "government_services" | "grocery_stores_supermarkets" | "hardware_equipment_and_supplies" | "hardware_stores" | "health_and_beauty_spas" | "hearing_aids_sales_and_supplies" | "heating_plumbing_a_c" | "hobby_toy_and_game_shops" | "home_supply_warehouse_stores" | "hospitals" | "hotels_motels_and_resorts" | "household_appliance_stores" | "industrial_supplies" | "information_retrieval_services" | "insurance_default" | "insurance_underwriting_premiums" | "intra_company_purchases" | "jewelry_stores_watches_clocks_and_silverware_stores" | "landscaping_services" | "laundries" | "laundry_cleaning_services" | "legal_services_attorneys" | "luggage_and_leather_goods_stores" | "lumber_building_materials_stores" | "manual_cash_disburse" | "marinas_service_and_supplies" | "marketplaces" | "masonry_stonework_and_plaster" | "massage_parlors" | "medical_and_dental_labs" | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies" | "medical_services" | "membership_organizations" | "mens_and_boys_clothing_and_accessories_stores" | "mens_womens_clothing_stores" | "metal_service_centers" | "miscellaneous_apparel_and_accessory_shops" | "miscellaneous_auto_dealers" | "miscellaneous_business_services" | "miscellaneous_food_stores" | "miscellaneous_general_merchandise" | "miscellaneous_general_services" | "miscellaneous_home_furnishing_specialty_stores" | "miscellaneous_publishing_and_printing" | "miscellaneous_recreation_services" | "miscellaneous_repair_shops" | "miscellaneous_specialty_retail" | "mobile_home_dealers" | "motion_picture_theaters" | "motor_freight_carriers_and_trucking" | "motor_homes_dealers" | "motor_vehicle_supplies_and_new_parts" | "motorcycle_shops_and_dealers" | "motorcycle_shops_dealers" | "music_stores_musical_instruments_pianos_and_sheet_music" | "news_dealers_and_newsstands" | "non_fi_money_orders" | "non_fi_stored_value_card_purchase_load" | "nondurable_goods" | "nurseries_lawn_and_garden_supply_stores" | "nursing_personal_care" | "office_and_commercial_furniture" | "opticians_eyeglasses" | "optometrists_ophthalmologist" | "orthopedic_goods_prosthetic_devices" | "osteopaths" | "package_stores_beer_wine_and_liquor" | "paints_varnishes_and_supplies" | "parking_lots_garages" | "passenger_railways" | "pawn_shops" | "pet_shops_pet_food_and_supplies" | "petroleum_and_petroleum_products" | "photo_developing" | "photographic_photocopy_microfilm_equipment_and_supplies" | "photographic_studios" | "picture_video_production" | "piece_goods_notions_and_other_dry_goods" | "plumbing_heating_equipment_and_supplies" | "political_organizations" | "postal_services_government_only" | "precious_stones_and_metals_watches_and_jewelry" | "professional_services" | "public_warehousing_and_storage" | "quick_copy_repro_and_blueprint" | "railroads" | "real_estate_agents_and_managers_rentals" | "record_stores" | "recreational_vehicle_rentals" | "religious_goods_stores" | "religious_organizations" | "roofing_siding_sheet_metal" | "secretarial_support_services" | "security_brokers_dealers" | "service_stations" | "sewing_needlework_fabric_and_piece_goods_stores" | "shoe_repair_hat_cleaning" | "shoe_stores" | "small_appliance_repair" | "snowmobile_dealers" | "special_trade_services" | "specialty_cleaning" | "sporting_goods_stores" | "sporting_recreation_camps" | "sports_and_riding_apparel_stores" | "sports_clubs_fields" | "stamp_and_coin_stores" | "stationary_office_supplies_printing_and_writing_paper" | "stationery_stores_office_and_school_supply_stores" | "swimming_pools_sales" | "t_ui_travel_germany" | "tailors_alterations" | "tax_payments_government_agencies" | "tax_preparation_services" | "taxicabs_limousines" | "telecommunication_equipment_and_telephone_sales" | "telecommunication_services" | "telegraph_services" | "tent_and_awning_shops" | "testing_laboratories" | "theatrical_ticket_agencies" | "timeshares" | "tire_retreading_and_repair" | "tolls_bridge_fees" | "tourist_attractions_and_exhibits" | "towing_services" | "trailer_parks_campgrounds" | "transportation_services" | "travel_agencies_tour_operators" | "truck_stop_iteration" | "truck_utility_trailer_rentals" | "typesetting_plate_making_and_related_services" | "typewriter_stores" | "u_s_federal_government_agencies_or_departments" | "uniforms_commercial_clothing" | "used_merchandise_and_secondhand_stores" | "utilities" | "variety_stores" | "veterinary_services" | "video_amusement_game_supplies" | "video_game_arcades" | "video_tape_rental_stores" | "vocational_trade_schools" | "watch_jewelry_repair" | "welding_repair" | "wholesale_clubs" | "wig_and_toupee_stores" | "wires_money_orders" | "womens_accessory_and_specialty_shops" | "womens_ready_to_wear_stores" | "wrecking_and_salvage_yards";
+            city?: string;
+            country?: string;
+            name?: string;
+            network_id?: string;
+            postal_code?: string;
+            state?: string;
+            terminal_id?: string;
+          };
+          /**
+           * network_data_specs
+           * @description Details about the authorization, such as identifiers, set by the card network.
+           */
+          network_data?: {
+            acquiring_institution_id?: string;
+          };
+          /**
+           * verification_data_specs
+           * @description Verifications that Stripe performed on information that the cardholder provided to the merchant.
+           */
+          verification_data?: {
+            /** @enum {string} */
+            address_line1_check?: "match" | "mismatch" | "not_provided";
+            /** @enum {string} */
+            address_postal_code_check?: "match" | "mismatch" | "not_provided";
+            /** @enum {string} */
+            cvc_check?: "match" | "mismatch" | "not_provided";
+            /** @enum {string} */
+            expiry_check?: "match" | "mismatch" | "not_provided";
+          };
+          /**
+           * @description The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. Will populate as `null` when no digital wallet was utilized.
+           * @enum {string}
+           */
+          wallet?: "apple_pay" | "google_pay" | "samsung_pay";
+        };
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["issuing.authorization"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  /** @description <p>Capture a test-mode authorization.</p> */
+  PostTestHelpersIssuingAuthorizationsAuthorizationCapture: {
+    parameters: {
+      path: {
+        authorization: string;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/x-www-form-urlencoded": {
+          /** @description The amount to capture from the authorization. If not provided, the full amount of the authorization will be captured. This amount is in the authorization currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
+          capture_amount?: number;
+          /** @description Whether to close the authorization after capture. Defaults to true. Set to false to enable multi-capture flows. */
+          close_authorization?: boolean;
+          /** @description Specifies which fields in the response should be expanded. */
+          expand?: string[];
+          /**
+           * purchase_details_specs
+           * @description Additional purchase information that is optionally provided by the merchant.
+           */
+          purchase_details?: {
+            /** flight_specs */
+            flight?: {
+              /** Format: unix-time */
+              departure_at?: number;
+              passenger_name?: string;
+              refundable?: boolean;
+              segments?: {
+                  arrival_airport_code?: string;
+                  carrier?: string;
+                  departure_airport_code?: string;
+                  flight_number?: string;
+                  service_class?: string;
+                  stopover_allowed?: boolean;
+                }[];
+              travel_agency?: string;
+            };
+            /** fuel_specs */
+            fuel?: {
+              /** @enum {string} */
+              type?: "diesel" | "other" | "unleaded_plus" | "unleaded_regular" | "unleaded_super";
+              /** @enum {string} */
+              unit?: "liter" | "us_gallon";
+              /** Format: decimal */
+              unit_cost_decimal?: string;
+              /** Format: decimal */
+              volume_decimal?: string;
+            };
+            /** lodging_specs */
+            lodging?: {
+              /** Format: unix-time */
+              check_in_at?: number;
+              nights?: number;
+            };
+            receipt?: {
+                description?: string;
+                /** Format: decimal */
+                quantity?: string;
+                total?: number;
+                unit_cost?: number;
+              }[];
+            reference?: string;
+          };
+        };
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["issuing.authorization"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  /** @description <p>Expire a test-mode Authorization.</p> */
+  PostTestHelpersIssuingAuthorizationsAuthorizationExpire: {
+    parameters: {
+      path: {
+        authorization: string;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/x-www-form-urlencoded": {
+          /** @description Specifies which fields in the response should be expanded. */
+          expand?: string[];
+        };
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["issuing.authorization"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  /** @description <p>Increment a test-mode Authorization.</p> */
+  PostTestHelpersIssuingAuthorizationsAuthorizationIncrement: {
+    parameters: {
+      path: {
+        authorization: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/x-www-form-urlencoded": {
+          /** @description Specifies which fields in the response should be expanded. */
+          expand?: string[];
+          /** @description The amount to increment the authorization by. This amount is in the authorization currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
+          increment_amount: number;
+          /** @description If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization. */
+          is_amount_controllable?: boolean;
+        };
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["issuing.authorization"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  /** @description <p>Reverse a test-mode Authorization.</p> */
+  PostTestHelpersIssuingAuthorizationsAuthorizationReverse: {
+    parameters: {
+      path: {
+        authorization: string;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/x-www-form-urlencoded": {
+          /** @description Specifies which fields in the response should be expanded. */
+          expand?: string[];
+          /** @description The amount to reverse from the authorization. If not provided, the full amount of the authorization will be reversed. This amount is in the authorization currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
+          reverse_amount?: number;
+        };
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["issuing.authorization"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
   /** @description <p>Updates the shipping status of the specified Issuing <code>Card</code> object to <code>delivered</code>.</p> */
   PostTestHelpersIssuingCardsCardShippingDeliver: {
     parameters: {
@@ -40669,6 +41329,224 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["issuing.card"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  /** @description <p>Allows the user to capture an arbitrary amount, also known as a forced capture.</p> */
+  PostTestHelpersIssuingTransactionsCreateForceCapture: {
+    requestBody: {
+      content: {
+        "application/x-www-form-urlencoded": {
+          /** @description The total amount to attempt to capture. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
+          amount: number;
+          /** @description Card associated with this transaction. */
+          card: string;
+          /** @description The currency of the capture. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+          currency?: string;
+          /** @description Specifies which fields in the response should be expanded. */
+          expand?: string[];
+          /**
+           * merchant_data_specs
+           * @description Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
+           */
+          merchant_data?: {
+            /** @enum {string} */
+            category?: "ac_refrigeration_repair" | "accounting_bookkeeping_services" | "advertising_services" | "agricultural_cooperative" | "airlines_air_carriers" | "airports_flying_fields" | "ambulance_services" | "amusement_parks_carnivals" | "antique_reproductions" | "antique_shops" | "aquariums" | "architectural_surveying_services" | "art_dealers_and_galleries" | "artists_supply_and_craft_shops" | "auto_and_home_supply_stores" | "auto_body_repair_shops" | "auto_paint_shops" | "auto_service_shops" | "automated_cash_disburse" | "automated_fuel_dispensers" | "automobile_associations" | "automotive_parts_and_accessories_stores" | "automotive_tire_stores" | "bail_and_bond_payments" | "bakeries" | "bands_orchestras" | "barber_and_beauty_shops" | "betting_casino_gambling" | "bicycle_shops" | "billiard_pool_establishments" | "boat_dealers" | "boat_rentals_and_leases" | "book_stores" | "books_periodicals_and_newspapers" | "bowling_alleys" | "bus_lines" | "business_secretarial_schools" | "buying_shopping_services" | "cable_satellite_and_other_pay_television_and_radio" | "camera_and_photographic_supply_stores" | "candy_nut_and_confectionery_stores" | "car_and_truck_dealers_new_used" | "car_and_truck_dealers_used_only" | "car_rental_agencies" | "car_washes" | "carpentry_services" | "carpet_upholstery_cleaning" | "caterers" | "charitable_and_social_service_organizations_fundraising" | "chemicals_and_allied_products" | "child_care_services" | "childrens_and_infants_wear_stores" | "chiropodists_podiatrists" | "chiropractors" | "cigar_stores_and_stands" | "civic_social_fraternal_associations" | "cleaning_and_maintenance" | "clothing_rental" | "colleges_universities" | "commercial_equipment" | "commercial_footwear" | "commercial_photography_art_and_graphics" | "commuter_transport_and_ferries" | "computer_network_services" | "computer_programming" | "computer_repair" | "computer_software_stores" | "computers_peripherals_and_software" | "concrete_work_services" | "construction_materials" | "consulting_public_relations" | "correspondence_schools" | "cosmetic_stores" | "counseling_services" | "country_clubs" | "courier_services" | "court_costs" | "credit_reporting_agencies" | "cruise_lines" | "dairy_products_stores" | "dance_hall_studios_schools" | "dating_escort_services" | "dentists_orthodontists" | "department_stores" | "detective_agencies" | "digital_goods_applications" | "digital_goods_games" | "digital_goods_large_volume" | "digital_goods_media" | "direct_marketing_catalog_merchant" | "direct_marketing_combination_catalog_and_retail_merchant" | "direct_marketing_inbound_telemarketing" | "direct_marketing_insurance_services" | "direct_marketing_other" | "direct_marketing_outbound_telemarketing" | "direct_marketing_subscription" | "direct_marketing_travel" | "discount_stores" | "doctors" | "door_to_door_sales" | "drapery_window_covering_and_upholstery_stores" | "drinking_places" | "drug_stores_and_pharmacies" | "drugs_drug_proprietaries_and_druggist_sundries" | "dry_cleaners" | "durable_goods" | "duty_free_stores" | "eating_places_restaurants" | "educational_services" | "electric_razor_stores" | "electric_vehicle_charging" | "electrical_parts_and_equipment" | "electrical_services" | "electronics_repair_shops" | "electronics_stores" | "elementary_secondary_schools" | "emergency_services_gcas_visa_use_only" | "employment_temp_agencies" | "equipment_rental" | "exterminating_services" | "family_clothing_stores" | "fast_food_restaurants" | "financial_institutions" | "fines_government_administrative_entities" | "fireplace_fireplace_screens_and_accessories_stores" | "floor_covering_stores" | "florists" | "florists_supplies_nursery_stock_and_flowers" | "freezer_and_locker_meat_provisioners" | "fuel_dealers_non_automotive" | "funeral_services_crematories" | "furniture_home_furnishings_and_equipment_stores_except_appliances" | "furniture_repair_refinishing" | "furriers_and_fur_shops" | "general_services" | "gift_card_novelty_and_souvenir_shops" | "glass_paint_and_wallpaper_stores" | "glassware_crystal_stores" | "golf_courses_public" | "government_licensed_horse_dog_racing_us_region_only" | "government_licensed_online_casions_online_gambling_us_region_only" | "government_owned_lotteries_non_us_region" | "government_owned_lotteries_us_region_only" | "government_services" | "grocery_stores_supermarkets" | "hardware_equipment_and_supplies" | "hardware_stores" | "health_and_beauty_spas" | "hearing_aids_sales_and_supplies" | "heating_plumbing_a_c" | "hobby_toy_and_game_shops" | "home_supply_warehouse_stores" | "hospitals" | "hotels_motels_and_resorts" | "household_appliance_stores" | "industrial_supplies" | "information_retrieval_services" | "insurance_default" | "insurance_underwriting_premiums" | "intra_company_purchases" | "jewelry_stores_watches_clocks_and_silverware_stores" | "landscaping_services" | "laundries" | "laundry_cleaning_services" | "legal_services_attorneys" | "luggage_and_leather_goods_stores" | "lumber_building_materials_stores" | "manual_cash_disburse" | "marinas_service_and_supplies" | "marketplaces" | "masonry_stonework_and_plaster" | "massage_parlors" | "medical_and_dental_labs" | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies" | "medical_services" | "membership_organizations" | "mens_and_boys_clothing_and_accessories_stores" | "mens_womens_clothing_stores" | "metal_service_centers" | "miscellaneous_apparel_and_accessory_shops" | "miscellaneous_auto_dealers" | "miscellaneous_business_services" | "miscellaneous_food_stores" | "miscellaneous_general_merchandise" | "miscellaneous_general_services" | "miscellaneous_home_furnishing_specialty_stores" | "miscellaneous_publishing_and_printing" | "miscellaneous_recreation_services" | "miscellaneous_repair_shops" | "miscellaneous_specialty_retail" | "mobile_home_dealers" | "motion_picture_theaters" | "motor_freight_carriers_and_trucking" | "motor_homes_dealers" | "motor_vehicle_supplies_and_new_parts" | "motorcycle_shops_and_dealers" | "motorcycle_shops_dealers" | "music_stores_musical_instruments_pianos_and_sheet_music" | "news_dealers_and_newsstands" | "non_fi_money_orders" | "non_fi_stored_value_card_purchase_load" | "nondurable_goods" | "nurseries_lawn_and_garden_supply_stores" | "nursing_personal_care" | "office_and_commercial_furniture" | "opticians_eyeglasses" | "optometrists_ophthalmologist" | "orthopedic_goods_prosthetic_devices" | "osteopaths" | "package_stores_beer_wine_and_liquor" | "paints_varnishes_and_supplies" | "parking_lots_garages" | "passenger_railways" | "pawn_shops" | "pet_shops_pet_food_and_supplies" | "petroleum_and_petroleum_products" | "photo_developing" | "photographic_photocopy_microfilm_equipment_and_supplies" | "photographic_studios" | "picture_video_production" | "piece_goods_notions_and_other_dry_goods" | "plumbing_heating_equipment_and_supplies" | "political_organizations" | "postal_services_government_only" | "precious_stones_and_metals_watches_and_jewelry" | "professional_services" | "public_warehousing_and_storage" | "quick_copy_repro_and_blueprint" | "railroads" | "real_estate_agents_and_managers_rentals" | "record_stores" | "recreational_vehicle_rentals" | "religious_goods_stores" | "religious_organizations" | "roofing_siding_sheet_metal" | "secretarial_support_services" | "security_brokers_dealers" | "service_stations" | "sewing_needlework_fabric_and_piece_goods_stores" | "shoe_repair_hat_cleaning" | "shoe_stores" | "small_appliance_repair" | "snowmobile_dealers" | "special_trade_services" | "specialty_cleaning" | "sporting_goods_stores" | "sporting_recreation_camps" | "sports_and_riding_apparel_stores" | "sports_clubs_fields" | "stamp_and_coin_stores" | "stationary_office_supplies_printing_and_writing_paper" | "stationery_stores_office_and_school_supply_stores" | "swimming_pools_sales" | "t_ui_travel_germany" | "tailors_alterations" | "tax_payments_government_agencies" | "tax_preparation_services" | "taxicabs_limousines" | "telecommunication_equipment_and_telephone_sales" | "telecommunication_services" | "telegraph_services" | "tent_and_awning_shops" | "testing_laboratories" | "theatrical_ticket_agencies" | "timeshares" | "tire_retreading_and_repair" | "tolls_bridge_fees" | "tourist_attractions_and_exhibits" | "towing_services" | "trailer_parks_campgrounds" | "transportation_services" | "travel_agencies_tour_operators" | "truck_stop_iteration" | "truck_utility_trailer_rentals" | "typesetting_plate_making_and_related_services" | "typewriter_stores" | "u_s_federal_government_agencies_or_departments" | "uniforms_commercial_clothing" | "used_merchandise_and_secondhand_stores" | "utilities" | "variety_stores" | "veterinary_services" | "video_amusement_game_supplies" | "video_game_arcades" | "video_tape_rental_stores" | "vocational_trade_schools" | "watch_jewelry_repair" | "welding_repair" | "wholesale_clubs" | "wig_and_toupee_stores" | "wires_money_orders" | "womens_accessory_and_specialty_shops" | "womens_ready_to_wear_stores" | "wrecking_and_salvage_yards";
+            city?: string;
+            country?: string;
+            name?: string;
+            network_id?: string;
+            postal_code?: string;
+            state?: string;
+            terminal_id?: string;
+          };
+          /**
+           * purchase_details_specs
+           * @description Additional purchase information that is optionally provided by the merchant.
+           */
+          purchase_details?: {
+            /** flight_specs */
+            flight?: {
+              /** Format: unix-time */
+              departure_at?: number;
+              passenger_name?: string;
+              refundable?: boolean;
+              segments?: {
+                  arrival_airport_code?: string;
+                  carrier?: string;
+                  departure_airport_code?: string;
+                  flight_number?: string;
+                  service_class?: string;
+                  stopover_allowed?: boolean;
+                }[];
+              travel_agency?: string;
+            };
+            /** fuel_specs */
+            fuel?: {
+              /** @enum {string} */
+              type?: "diesel" | "other" | "unleaded_plus" | "unleaded_regular" | "unleaded_super";
+              /** @enum {string} */
+              unit?: "liter" | "us_gallon";
+              /** Format: decimal */
+              unit_cost_decimal?: string;
+              /** Format: decimal */
+              volume_decimal?: string;
+            };
+            /** lodging_specs */
+            lodging?: {
+              /** Format: unix-time */
+              check_in_at?: number;
+              nights?: number;
+            };
+            receipt?: {
+                description?: string;
+                /** Format: decimal */
+                quantity?: string;
+                total?: number;
+                unit_cost?: number;
+              }[];
+            reference?: string;
+          };
+        };
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["issuing.transaction"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  /** @description <p>Allows the user to refund an arbitrary amount, also known as a unlinked refund.</p> */
+  PostTestHelpersIssuingTransactionsCreateUnlinkedRefund: {
+    requestBody: {
+      content: {
+        "application/x-www-form-urlencoded": {
+          /** @description The total amount to attempt to refund. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
+          amount: number;
+          /** @description Card associated with this unlinked refund transaction. */
+          card: string;
+          /** @description The currency of the unlinked refund. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+          currency?: string;
+          /** @description Specifies which fields in the response should be expanded. */
+          expand?: string[];
+          /**
+           * merchant_data_specs
+           * @description Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
+           */
+          merchant_data?: {
+            /** @enum {string} */
+            category?: "ac_refrigeration_repair" | "accounting_bookkeeping_services" | "advertising_services" | "agricultural_cooperative" | "airlines_air_carriers" | "airports_flying_fields" | "ambulance_services" | "amusement_parks_carnivals" | "antique_reproductions" | "antique_shops" | "aquariums" | "architectural_surveying_services" | "art_dealers_and_galleries" | "artists_supply_and_craft_shops" | "auto_and_home_supply_stores" | "auto_body_repair_shops" | "auto_paint_shops" | "auto_service_shops" | "automated_cash_disburse" | "automated_fuel_dispensers" | "automobile_associations" | "automotive_parts_and_accessories_stores" | "automotive_tire_stores" | "bail_and_bond_payments" | "bakeries" | "bands_orchestras" | "barber_and_beauty_shops" | "betting_casino_gambling" | "bicycle_shops" | "billiard_pool_establishments" | "boat_dealers" | "boat_rentals_and_leases" | "book_stores" | "books_periodicals_and_newspapers" | "bowling_alleys" | "bus_lines" | "business_secretarial_schools" | "buying_shopping_services" | "cable_satellite_and_other_pay_television_and_radio" | "camera_and_photographic_supply_stores" | "candy_nut_and_confectionery_stores" | "car_and_truck_dealers_new_used" | "car_and_truck_dealers_used_only" | "car_rental_agencies" | "car_washes" | "carpentry_services" | "carpet_upholstery_cleaning" | "caterers" | "charitable_and_social_service_organizations_fundraising" | "chemicals_and_allied_products" | "child_care_services" | "childrens_and_infants_wear_stores" | "chiropodists_podiatrists" | "chiropractors" | "cigar_stores_and_stands" | "civic_social_fraternal_associations" | "cleaning_and_maintenance" | "clothing_rental" | "colleges_universities" | "commercial_equipment" | "commercial_footwear" | "commercial_photography_art_and_graphics" | "commuter_transport_and_ferries" | "computer_network_services" | "computer_programming" | "computer_repair" | "computer_software_stores" | "computers_peripherals_and_software" | "concrete_work_services" | "construction_materials" | "consulting_public_relations" | "correspondence_schools" | "cosmetic_stores" | "counseling_services" | "country_clubs" | "courier_services" | "court_costs" | "credit_reporting_agencies" | "cruise_lines" | "dairy_products_stores" | "dance_hall_studios_schools" | "dating_escort_services" | "dentists_orthodontists" | "department_stores" | "detective_agencies" | "digital_goods_applications" | "digital_goods_games" | "digital_goods_large_volume" | "digital_goods_media" | "direct_marketing_catalog_merchant" | "direct_marketing_combination_catalog_and_retail_merchant" | "direct_marketing_inbound_telemarketing" | "direct_marketing_insurance_services" | "direct_marketing_other" | "direct_marketing_outbound_telemarketing" | "direct_marketing_subscription" | "direct_marketing_travel" | "discount_stores" | "doctors" | "door_to_door_sales" | "drapery_window_covering_and_upholstery_stores" | "drinking_places" | "drug_stores_and_pharmacies" | "drugs_drug_proprietaries_and_druggist_sundries" | "dry_cleaners" | "durable_goods" | "duty_free_stores" | "eating_places_restaurants" | "educational_services" | "electric_razor_stores" | "electric_vehicle_charging" | "electrical_parts_and_equipment" | "electrical_services" | "electronics_repair_shops" | "electronics_stores" | "elementary_secondary_schools" | "emergency_services_gcas_visa_use_only" | "employment_temp_agencies" | "equipment_rental" | "exterminating_services" | "family_clothing_stores" | "fast_food_restaurants" | "financial_institutions" | "fines_government_administrative_entities" | "fireplace_fireplace_screens_and_accessories_stores" | "floor_covering_stores" | "florists" | "florists_supplies_nursery_stock_and_flowers" | "freezer_and_locker_meat_provisioners" | "fuel_dealers_non_automotive" | "funeral_services_crematories" | "furniture_home_furnishings_and_equipment_stores_except_appliances" | "furniture_repair_refinishing" | "furriers_and_fur_shops" | "general_services" | "gift_card_novelty_and_souvenir_shops" | "glass_paint_and_wallpaper_stores" | "glassware_crystal_stores" | "golf_courses_public" | "government_licensed_horse_dog_racing_us_region_only" | "government_licensed_online_casions_online_gambling_us_region_only" | "government_owned_lotteries_non_us_region" | "government_owned_lotteries_us_region_only" | "government_services" | "grocery_stores_supermarkets" | "hardware_equipment_and_supplies" | "hardware_stores" | "health_and_beauty_spas" | "hearing_aids_sales_and_supplies" | "heating_plumbing_a_c" | "hobby_toy_and_game_shops" | "home_supply_warehouse_stores" | "hospitals" | "hotels_motels_and_resorts" | "household_appliance_stores" | "industrial_supplies" | "information_retrieval_services" | "insurance_default" | "insurance_underwriting_premiums" | "intra_company_purchases" | "jewelry_stores_watches_clocks_and_silverware_stores" | "landscaping_services" | "laundries" | "laundry_cleaning_services" | "legal_services_attorneys" | "luggage_and_leather_goods_stores" | "lumber_building_materials_stores" | "manual_cash_disburse" | "marinas_service_and_supplies" | "marketplaces" | "masonry_stonework_and_plaster" | "massage_parlors" | "medical_and_dental_labs" | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies" | "medical_services" | "membership_organizations" | "mens_and_boys_clothing_and_accessories_stores" | "mens_womens_clothing_stores" | "metal_service_centers" | "miscellaneous_apparel_and_accessory_shops" | "miscellaneous_auto_dealers" | "miscellaneous_business_services" | "miscellaneous_food_stores" | "miscellaneous_general_merchandise" | "miscellaneous_general_services" | "miscellaneous_home_furnishing_specialty_stores" | "miscellaneous_publishing_and_printing" | "miscellaneous_recreation_services" | "miscellaneous_repair_shops" | "miscellaneous_specialty_retail" | "mobile_home_dealers" | "motion_picture_theaters" | "motor_freight_carriers_and_trucking" | "motor_homes_dealers" | "motor_vehicle_supplies_and_new_parts" | "motorcycle_shops_and_dealers" | "motorcycle_shops_dealers" | "music_stores_musical_instruments_pianos_and_sheet_music" | "news_dealers_and_newsstands" | "non_fi_money_orders" | "non_fi_stored_value_card_purchase_load" | "nondurable_goods" | "nurseries_lawn_and_garden_supply_stores" | "nursing_personal_care" | "office_and_commercial_furniture" | "opticians_eyeglasses" | "optometrists_ophthalmologist" | "orthopedic_goods_prosthetic_devices" | "osteopaths" | "package_stores_beer_wine_and_liquor" | "paints_varnishes_and_supplies" | "parking_lots_garages" | "passenger_railways" | "pawn_shops" | "pet_shops_pet_food_and_supplies" | "petroleum_and_petroleum_products" | "photo_developing" | "photographic_photocopy_microfilm_equipment_and_supplies" | "photographic_studios" | "picture_video_production" | "piece_goods_notions_and_other_dry_goods" | "plumbing_heating_equipment_and_supplies" | "political_organizations" | "postal_services_government_only" | "precious_stones_and_metals_watches_and_jewelry" | "professional_services" | "public_warehousing_and_storage" | "quick_copy_repro_and_blueprint" | "railroads" | "real_estate_agents_and_managers_rentals" | "record_stores" | "recreational_vehicle_rentals" | "religious_goods_stores" | "religious_organizations" | "roofing_siding_sheet_metal" | "secretarial_support_services" | "security_brokers_dealers" | "service_stations" | "sewing_needlework_fabric_and_piece_goods_stores" | "shoe_repair_hat_cleaning" | "shoe_stores" | "small_appliance_repair" | "snowmobile_dealers" | "special_trade_services" | "specialty_cleaning" | "sporting_goods_stores" | "sporting_recreation_camps" | "sports_and_riding_apparel_stores" | "sports_clubs_fields" | "stamp_and_coin_stores" | "stationary_office_supplies_printing_and_writing_paper" | "stationery_stores_office_and_school_supply_stores" | "swimming_pools_sales" | "t_ui_travel_germany" | "tailors_alterations" | "tax_payments_government_agencies" | "tax_preparation_services" | "taxicabs_limousines" | "telecommunication_equipment_and_telephone_sales" | "telecommunication_services" | "telegraph_services" | "tent_and_awning_shops" | "testing_laboratories" | "theatrical_ticket_agencies" | "timeshares" | "tire_retreading_and_repair" | "tolls_bridge_fees" | "tourist_attractions_and_exhibits" | "towing_services" | "trailer_parks_campgrounds" | "transportation_services" | "travel_agencies_tour_operators" | "truck_stop_iteration" | "truck_utility_trailer_rentals" | "typesetting_plate_making_and_related_services" | "typewriter_stores" | "u_s_federal_government_agencies_or_departments" | "uniforms_commercial_clothing" | "used_merchandise_and_secondhand_stores" | "utilities" | "variety_stores" | "veterinary_services" | "video_amusement_game_supplies" | "video_game_arcades" | "video_tape_rental_stores" | "vocational_trade_schools" | "watch_jewelry_repair" | "welding_repair" | "wholesale_clubs" | "wig_and_toupee_stores" | "wires_money_orders" | "womens_accessory_and_specialty_shops" | "womens_ready_to_wear_stores" | "wrecking_and_salvage_yards";
+            city?: string;
+            country?: string;
+            name?: string;
+            network_id?: string;
+            postal_code?: string;
+            state?: string;
+            terminal_id?: string;
+          };
+          /**
+           * purchase_details_specs
+           * @description Additional purchase information that is optionally provided by the merchant.
+           */
+          purchase_details?: {
+            /** flight_specs */
+            flight?: {
+              /** Format: unix-time */
+              departure_at?: number;
+              passenger_name?: string;
+              refundable?: boolean;
+              segments?: {
+                  arrival_airport_code?: string;
+                  carrier?: string;
+                  departure_airport_code?: string;
+                  flight_number?: string;
+                  service_class?: string;
+                  stopover_allowed?: boolean;
+                }[];
+              travel_agency?: string;
+            };
+            /** fuel_specs */
+            fuel?: {
+              /** @enum {string} */
+              type?: "diesel" | "other" | "unleaded_plus" | "unleaded_regular" | "unleaded_super";
+              /** @enum {string} */
+              unit?: "liter" | "us_gallon";
+              /** Format: decimal */
+              unit_cost_decimal?: string;
+              /** Format: decimal */
+              volume_decimal?: string;
+            };
+            /** lodging_specs */
+            lodging?: {
+              /** Format: unix-time */
+              check_in_at?: number;
+              nights?: number;
+            };
+            receipt?: {
+                description?: string;
+                /** Format: decimal */
+                quantity?: string;
+                total?: number;
+                unit_cost?: number;
+              }[];
+            reference?: string;
+          };
+        };
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["issuing.transaction"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  /** @description <p>Refund a test-mode Transaction.</p> */
+  PostTestHelpersIssuingTransactionsTransactionRefund: {
+    parameters: {
+      path: {
+        transaction: string;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/x-www-form-urlencoded": {
+          /** @description Specifies which fields in the response should be expanded. */
+          expand?: string[];
+          /** @description The total amount to attempt to refund. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
+          refund_amount?: number;
+        };
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["issuing.transaction"];
         };
       };
       /** @description Error response. */
@@ -43805,7 +44683,7 @@ export interface operations {
           /** @description An optional description of what the webhook is used for. */
           description?: string | "";
           /** @description The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection. */
-          enabled_events: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "invoiceitem.updated" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "order.created" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "recipient.created" | "recipient.deleted" | "recipient.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "sku.created" | "sku.deleted" | "sku.updated" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
+          enabled_events: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "order.created" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "recipient.created" | "recipient.deleted" | "recipient.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "sku.created" | "sku.deleted" | "sku.updated" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -43878,7 +44756,7 @@ export interface operations {
           /** @description Disable the webhook endpoint if set to true. */
           disabled?: boolean;
           /** @description The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection. */
-          enabled_events?: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "invoiceitem.updated" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "order.created" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "recipient.created" | "recipient.deleted" | "recipient.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "sku.created" | "sku.deleted" | "sku.updated" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
+          enabled_events?: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "order.created" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "recipient.created" | "recipient.deleted" | "recipient.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "sku.created" | "sku.deleted" | "sku.updated" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
