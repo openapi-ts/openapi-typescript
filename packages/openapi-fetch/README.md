@@ -14,27 +14,31 @@ The syntax is inspired by popular libraries like react-query or Apollo client, b
 
 ```ts
 import createClient from "openapi-fetch";
-import { paths } from "./v1"; // (generated from openapi-typescript)
+import { paths } from "./v1"; // generated from openapi-typescript
 
-const { GET, POST } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
+const { GET, PUT } = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 
-// Type-checked request
-await POST("/create-post", {
-  body: {
-    title: "My New Post",
-    // ❌ Property 'publish_date' is missing in type …
+const {
+  data, // only present if 2XX response
+  error, // only present if 4XX or 5XX response
+} = await GET("/blogposts/{post_id}", {
+  params: {
+    path: { post_id: "123" },
   },
 });
 
-// Type-checked response
-const { data, error } = await GET("/blogposts/my-blog-post");
-
-console.log(data.title); // ❌ 'data' is possibly 'undefined'
-console.log(error.message); // ❌ 'error' is possibly 'undefined'
-console.log(data?.foo); // ❌ Property 'foo' does not exist on type …
+await PUT("/blogposts", {
+  body: {
+    title: "My New Post",
+  },
+});
 ```
 
-Notice **there are no generics, and no manual typing.** Your endpoint’s exact request & response was inferred automatically off the URL. This makes a **big difference** in the type safety of your endpoints! This eliminates all of the following:
+`data` and `error` are typechecked and expose their shapes to Intellisence in VS Code (and any other IDE with TypeScript support). Likewise, the request `body` will also typecheck its fields, erring if any required params are missing, or if there’s a type mismatch.
+
+`GET`, `PUT`, `POST`, etc. are only thin wrappers around the native [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) (which you can [swap for any call](/openapi-fetch/api#create-client)).
+
+Notice there are no generics, and no manual typing. Your endpoint’s request and response were inferred automatically. This is a huge improvement in the type safety of your endpoints because **every manual assertion could lead to a bug**! This eliminates all of the following:
 
 - ✅ No typos in URLs or params
 - ✅ All parameters, request bodies, and responses are type-checked and 100% match your schema
@@ -51,6 +55,8 @@ Install this library along with [openapi-typescript](../openapi-typescript):
 npm i openapi-fetch
 npm i -D openapi-typescript
 ```
+
+> **Highly recommended**: enable [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) in your `tsconfig.json` ([docs](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson))
 
 Next, generate TypeScript types from your OpenAPI schema using openapi-typescript:
 
@@ -72,17 +78,13 @@ Lastly, be sure to **run typechecking** in your project. This can be done by add
 
 And run `npm run test:ts` in your CI to catch type errors.
 
-> ✨ **Tip**
->
-> Always use `tsc --noEmit` to check for type errors! Your build tools (Vite, esbuild, webpack, etc.) won’t typecheck as accurately as the TypeScript compiler itself.
+> **Tip**: use `tsc --noEmit` to check for type errors rather than relying on your linter or your build command. Nothing will typecheck as accurately as the TypeScript compiler itself.
 
 ## Usage
 
-Using **openapi-fetch** is as easy as reading your schema:
+The best part about using openapi-fetch over oldschool codegen is no documentation needed. openapi-fetch encourages using your existing OpenAPI documentation rather than trying to find what function to import, or what parameters that function wants:
 
 ![OpenAPI schema example](../../docs/public/assets/openapi-schema.png)
-
-Here’s how you’d fetch GET `/blogposts/{post_id}` and PUT `/blogposts`:
 
 ```ts
 import createClient from "openapi-fetch";
@@ -105,6 +107,10 @@ const { data, error } = await PUT("/blogposts", {
   },
 });
 ```
+
+1. The HTTP method is pulled directly from `createClient()`
+2. You pass in your desired `path` to `GET()`, `PUT()`, etc.
+3. TypeScript takes over the rest and returns helpful errors for anything missing or invalid
 
 ## 📓 Docs
 

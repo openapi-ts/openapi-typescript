@@ -5,16 +5,16 @@ description: Quickstart
 
 <img src="/assets/openapi-ts.svg" alt="openapi-typescript" width="200" height="40" />
 
-openapi-typescript generates TypeScript types from static <a href="https://spec.openapis.org/oas/latest.html" target="_blank" rel="noopener noreferrer">OpenAPI</a> schemas quickly using only Node.js. It is fast, lightweight, (almost) dependency-free, and no Java/node-gyp/running OpenAPI servers necessary.
+openapi-typescript turns <a href="https://spec.openapis.org/oas/latest.html" target="_blank" rel="noopener noreferrer">OpenAPI 3.0 & 3.1</a> schemas into TypeScript quickly using Node.js. No Java/node-gyp/running OpenAPI servers necessary.
 
 The code is <a href="https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE" target="_blank" rel="noopener noreferrer">MIT-licensed</a > and free for use.
 
 ## Features
 
 - ✅ Supports OpenAPI 3.0 and 3.1 (including advanced features like <a href="https://spec.openapis.org/oas/v3.1.0#discriminator-object" target="_blank" rel="noopener noreferrer">discriminators</a>)
-- ✅ Generate **runtime-free types** that outperform old-school codegen
+- ✅ Generate **runtime-free types** that outperform old school codegen
 - ✅ Load schemas from YAML or JSON, locally or remotely
-- ✅ Native Node.js code is fast and generates types within milliseconds
+- ✅ Generate types for even huge schemas within milliseconds
 
 _Note: OpenAPI 2.x is supported with versions `5.x` and previous_
 
@@ -30,9 +30,7 @@ This library requires the latest version of <a href="https://nodejs.org/en" targ
 npm i -D openapi-typescript
 ```
 
-> ✨ **Tip**
->
-> Enabling [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) in `tsconfig.json` can go along way to improve type safety ([read more](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson))
+> **Highly recommended**: enable [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) in your `tsconfig.json` ([docs](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson))
 
 ## Basic usage
 

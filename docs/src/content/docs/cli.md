@@ -3,7 +3,7 @@ title: CLI
 description: openapi-typescript CLI usage
 ---
 
-The CLI is the most common way to use openapi-typescript. The CLI can parse JSON and YAML (via <a href="https://www.npmjs.com/package/js-yaml" target="_blank" rel="noopener noreferrer">js-yaml</a>). It can also handle both local and remote schemas.
+The CLI is the most common way to use openapi-typescript. The CLI can parse JSON and YAML (via <a href="https://www.npmjs.com/package/js-yaml" target="_blank" rel="noopener noreferrer">js-yaml</a>). It can parse local and remote schemas (and even supports basic auth).
 
 ## Reading schemas
 

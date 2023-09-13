@@ -182,9 +182,9 @@ However, APIs are language-agnostic, and may contain a different syntax style fr
 
 Instead, treat “consistency” in a more holistic sense, recognizing that preserving the API schema as-written is better than adhering to language-specific style conventions.
 
-### Enable `noUncheckedIndexedAccess` in your tsconfig.json
+### Enable `noUncheckedIndexedAccess`
 
-openapi-typescript generates a `Record` for `additionalProperties` and tries to avoid adding a `undefined` union to the index signature. However, this may result in unsafe property access in TypeScript, **unless** the compiler flag `noUncheckedIndexedAccess` is set ([docs](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson)). If set, TypeScript will error when you try to access a property that might not be set.
+[Additional Properties](https://swagger.io/docs/specification/data-models/dictionaries/) (a.k.a. dictionaries) generate a type of `Record<string, T>` in TypeScript. TypeScript’s default behavior is a bit dangerous because it will confidently assert a key is there even if you haven’t checked for it. For that reason it’s **highly recommended** to enable `compilerOptions.noUncheckedIndexedAccess` ([docs](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess)) so any `additionalProperties` key will be typed as `T | undefined`.
 
 ### Be specific in your schema
 
@@ -268,7 +268,7 @@ When it comes to **tuple types**, you’ll also get better results by representi
 <table>
   <thead>
     <tr>
-      <td style="width:10%"></td>
+      <td style="width:10%">&nbsp;</td>
       <th scope="col" style="width:40%">Schema</th>
       <th scope="col" style="width:40%">Generated Type</th>
     </tr>
@@ -352,7 +352,7 @@ prefixItems:
   </tbody>
 </table>
 
-### Use `$defs` only in objects
+### Use `$defs` only in object types
 
 <a href="https://json-schema.org/understanding-json-schema/structuring.html#defs" target="_blank" rel="noopener noreferrer">JSONSchema $defs</a> can be used to provide sub-schema definitions anywhere. However, these won’t always convert cleanly to TypeScript. For example, this works:
 
@@ -418,3 +418,74 @@ export interface components {
 ```
 
 So be wary about where you define `$defs` as they may go missing in your final generated types. When in doubt, you can always define `$defs` at the root schema level.
+
+### Use `oneOf` by itself
+
+OpenAPI’s composition tools (`oneOf`/`anyOf`/`allOf`) are powerful tools for reducing the amount of code in your schema while maximizing flexibility. TypeScript unions, however, don’t provide [XOR behavior](https://en.wikipedia.org/wiki/Exclusive_or), which means they don’t map directly to `oneOf`. For that reason, it’s recommended to use `oneOf` by itself, and not combined with other composition methods or other properties. e.g.:
+
+#### ❌ Bad
+
+```yaml
+Pet:
+  type: object
+  properties:
+    type:
+      type: string
+      enum:
+        - cat
+        - dog
+        - rabbit
+        - snake
+        - turtle
+    name:
+      type: string
+  oneOf:
+    - $ref: "#/components/schemas/Cat"
+    - $ref: "#/components/schemas/Dog"
+    - $ref: "#/components/schemas/Rabbit"
+    - $ref: "#/components/schemas/Snake"
+    - $ref: "#/components/schemas/Turtle"
+```
+
+This generates the following type which mixes both TypeScript unions and intersections. While this is valid TypeScript, it’s complex, and inference may not work as you intended. But the biggest offense is TypeScript can’t discriminate via the `type` property:
+
+```ts
+  Pet: ({
+    /** @enum {string} */
+    type?: "cat" | "dog" | "rabbit" | "snake" | "turtle";
+    name?: string;
+  }) & (components["schemas"]["Cat"] | components["schemas"]["Dog"] | components["schemas"]["Rabbit"] | components["schemas"]["Snake"] | components["schemas"]["Turtle"]);
+```
+
+#### ✅ Better
+
+```yaml
+Pet:
+  oneOf:
+    - $ref: "#/components/schemas/Cat"
+    - $ref: "#/components/schemas/Dog"
+    - $ref: "#/components/schemas/Rabbit"
+    - $ref: "#/components/schemas/Snake"
+    - $ref: "#/components/schemas/Turtle"
+PetCommonProperties:
+  type: object
+  properties:
+    name:
+      type: string
+Cat:
+  allOf:
+    - "$ref": "#/components/schemas/PetCommonProperties"
+  type:
+    type: string
+    enum:
+      - cat
+```
+
+The resulting generated types are not only simpler; TypeScript can now discriminate using `type` (notice `Cat` has `type` with a single enum value of `"cat"`).
+
+```ts
+Pet: components["schemas"]["Cat"] | components["schemas"]["Dog"] | components["schemas"]["Rabbit"] | components["schemas"]["Snake"] | components["schemas"]["Turtle"];
+Cat: { type?: "cat"; } & components["schemas"]["PetCommonProperties"];
+```
+
+While the schema permits you to use composition in any way you like, it’s good to always take a look at the generated types and see if there’s a simpler way to express your unions & intersections. Limiting the use of `oneOf` is not the only way to do that, but often yields the greatest benefits.
