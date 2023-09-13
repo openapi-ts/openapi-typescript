@@ -488,4 +488,6 @@ Pet: components["schemas"]["Cat"] | components["schemas"]["Dog"] | components["s
 Cat: { type?: "cat"; } & components["schemas"]["PetCommonProperties"];
 ```
 
+_Note: you optionally could provide `discriminator.propertyName: "type"` on `Pet` ([docs](https://spec.openapis.org/oas/v3.1.0#discriminator-object)) to automatically generate the `type` key, but is less explicit._
+
 While the schema permits you to use composition in any way you like, it’s good to always take a look at the generated types and see if there’s a simpler way to express your unions & intersections. Limiting the use of `oneOf` is not the only way to do that, but often yields the greatest benefits.
