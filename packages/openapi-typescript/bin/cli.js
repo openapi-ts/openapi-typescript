@@ -2,7 +2,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { URL } from "node:url";
+import { fileURLToPath, URL } from "node:url";
 import glob from "fast-glob";
 import parser from "yargs-parser";
 import openapiTS from "../dist/index.js";
@@ -117,12 +117,13 @@ async function generateSchema(pathToSpec) {
       if (typeof flags.output === 'string' && !flags.output.endsWith('/')) {
         outputFilePath = new URL(`${flags.output}/`, CWD)
       }
-      const filename = path.basename(pathToSpec).replace(EXT_RE, ".ts");
+      const filename = pathToSpec.replace(EXT_RE, ".ts");
       const originalOutputFilePath = outputFilePath;
       outputFilePath = new URL(filename, originalOutputFilePath);
       if (outputFilePath.protocol !== 'file:') {
         outputFilePath = new URL(outputFilePath.host.replace(EXT_RE, ".ts"), originalOutputFilePath);
       }
+      fs.mkdirSync(path.dirname(fileURLToPath(outputFilePath)), { recursive: true }); // recursively make parent dirs
     }
 
     fs.writeFileSync(outputFilePath, result, "utf8");
