@@ -2,7 +2,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath, URL } from "node:url";
+import { URL } from "node:url";
 import glob from "fast-glob";
 import parser from "yargs-parser";
 import openapiTS from "../dist/index.js";
