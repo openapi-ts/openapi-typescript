@@ -123,7 +123,6 @@ async function generateSchema(pathToSpec) {
       if (outputFilePath.protocol !== 'file:') {
         outputFilePath = new URL(outputFilePath.host.replace(EXT_RE, ".ts"), originalOutputFilePath);
       }
-      fs.mkdirSync(path.dirname(fileURLToPath(outputFilePath)), { recursive: true }); // recursively make parent dirs
     }
 
     fs.writeFileSync(outputFilePath, result, "utf8");
@@ -192,8 +191,8 @@ async function main() {
   await Promise.all(
     inputSpecPaths.map(async (specPath) => {
       if (flags.output !== "." && output === OUTPUT_FILE) {
-        if (isGlob) {
-          fs.mkdirSync(outputFile, { recursive: true }); // recursively make parent dirs
+        if (isGlob || outputDir.pathname === outputFile.pathname) {
+          fs.mkdirSync(new URL(path.dirname(specPath), outputDir).pathname, { recursive: true }); // recursively make parent dirs
         }
         else {
           fs.mkdirSync(outputDir, { recursive: true }); // recursively make parent dirs
