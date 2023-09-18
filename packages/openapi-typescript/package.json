@@ -41,6 +41,7 @@
   },
   "scripts": {
     "build": "run-s -s build:*",
+    "build:clean": "del dist",
     "build:esm": "tsc -p tsconfig.build.json",
     "build:cjs": "esbuild --bundle --platform=node --target=es2019 --outfile=dist/index.cjs --external:js-yaml --external:undici src/index.ts --footer:js=\"module.exports = module.exports.default;\"",
     "dev": "tsc -p tsconfig.build.json --watch",
