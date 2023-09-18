@@ -192,7 +192,7 @@ async function main() {
     inputSpecPaths.map(async (specPath) => {
       if (flags.output !== "." && output === OUTPUT_FILE) {
         if (isGlob || outputDir.pathname === outputFile.pathname) {
-          fs.mkdirSync(new URL(path.dirname(specPath), outputDir).pathname, { recursive: true }); // recursively make parent dirs
+          fs.mkdirSync(new URL(path.dirname(specPath), outputDir), { recursive: true }); // recursively make parent dirs
         }
         else {
           fs.mkdirSync(outputDir, { recursive: true }); // recursively make parent dirs
