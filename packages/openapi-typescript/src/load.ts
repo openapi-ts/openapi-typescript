@@ -14,22 +14,9 @@ interface SchemaMap {
 const EXT_RE = /\.(yaml|yml|json)#?\/?/i;
 export const VIRTUAL_JSON_URL = `file:///_json`; // fake URL reserved for dynamic JSON
 
-function parseYAML(schema: string) {
-  try {
-    return yaml.load(schema);
-  } catch (err) {
-    error(`YAML: ${String(err)}`);
-    process.exit(1);
-  }
-}
-
-function parseJSON(schema: string) {
-  try {
-    return JSON.parse(schema);
-  } catch (err) {
-    error(`JSON: ${String(err)}`);
-    process.exit(1);
-  }
+/** parse OpenAPI schema s YAML or JSON */
+function parseSchema(source: string) {
+  return source.trim().startsWith("{") ? JSON.parse(source) : yaml.load(source);
 }
 
 export function resolveSchema(filename: string): URL {
@@ -108,8 +95,6 @@ export default async function load(schema: URL | Subschema | Readable, options: 
     }
     options.urlCache.add(schemaID);
 
-    const ext = path.extname(schema.pathname).toLowerCase();
-
     // remote
     if (schema.protocol.startsWith("http")) {
       const headers: Record<string, string> = { "User-Agent": "openapi-typescript" };
@@ -126,33 +111,13 @@ export default async function load(schema: URL | Subschema | Readable, options: 
         method: (options.httpMethod as Dispatcher.HttpMethod) || "GET",
         headers,
       });
-      const contentType = res.headers.get("content-type");
-      if (ext === ".json" || contentType?.includes("json")) {
-        options.schemas[schemaID] = {
-          hint,
-          schema: parseJSON(await res.text()),
-        };
-      } else if (ext === ".yaml" || ext === ".yml" || contentType?.includes("yaml")) {
-        options.schemas[schemaID] = {
-          hint,
-          schema: parseYAML(await res.text()) as any, // eslint-disable-line @typescript-eslint/no-explicit-any
-        };
-      }
+      const contents = await res.text();
+      options.schemas[schemaID] = { hint, schema: parseSchema(contents) };
     }
     // local file
     else {
       const contents = fs.readFileSync(schema, "utf8");
-      if (ext === ".yaml" || ext === ".yml") {
-        options.schemas[schemaID] = {
-          hint,
-          schema: parseYAML(contents) as any, // eslint-disable-line @typescript-eslint/no-explicit-any
-        };
-      } else if (ext === ".json") {
-        options.schemas[schemaID] = {
-          hint,
-          schema: parseJSON(contents),
-        };
-      }
+      options.schemas[schemaID] = { hint, schema: parseSchema(contents) };
     }
   }
   // 1b. Readable stream
@@ -169,11 +134,7 @@ export default async function load(schema: URL | Subschema | Readable, options: 
         resolve(content.trim());
       });
     });
-    // if file starts with '{' assume JSON
-    options.schemas[schemaID] = {
-      hint: "OpenAPI3",
-      schema: contents.startsWith("{") ? parseJSON(contents) : parseYAML(contents),
-    };
+    options.schemas[schemaID] = { hint: "OpenAPI3", schema: parseSchema(contents) };
   }
   // 1c. inline
   else if (typeof schema === "object") {
