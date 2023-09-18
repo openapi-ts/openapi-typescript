@@ -114,7 +114,7 @@ describe("CLI", () => {
       expect(result).toEqual([ "file-a.ts" ]);
     })
 
-    test.todo("multiple files to file", async ()=>{
+    test("multiple files to file", async ()=>{
       const inputFile = path.join(inputDir, "*.yaml");
       const outputFile = path.join(outputDir, "file-a.ts");
       await expect(execa(cmd, [inputFile, "--output", outputFile], { cwd })).rejects.toThrow();

@@ -182,7 +182,7 @@ async function main() {
   }
 
   // error: tried to glob output to single file
-  if (isGlob && output === OUTPUT_FILE && fs.existsSync(outputDir) && fs.lstatSync(outputDir).isFile()) {
+  if (isGlob && output === OUTPUT_FILE && ((fs.existsSync(outputDir) && fs.lstatSync(outputDir).isFile()) || outputDir.pathname !== outputFile.pathname)) {
     error(`Expected directory for --output if using glob patterns. Received "${flags.output}".`);
     process.exit(1);
   }
@@ -193,8 +193,7 @@ async function main() {
       if (flags.output !== "." && output === OUTPUT_FILE) {
         if (isGlob || outputDir.pathname === outputFile.pathname) {
           fs.mkdirSync(new URL(path.dirname(specPath), outputDir), { recursive: true }); // recursively make parent dirs
-        }
-        else {
+        } else {
           fs.mkdirSync(outputDir, { recursive: true }); // recursively make parent dirs
         }
       }
