@@ -1,0 +1,8 @@
+openapi: "3.0"
+info:
+  title: test file e
+  version: "1.0"
+paths:
+  /endpoint:
+    get:
+      description: OK
