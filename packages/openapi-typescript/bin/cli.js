@@ -114,13 +114,13 @@ async function generateSchema(pathToSpec) {
     let outputFilePath = new URL(flags.output, CWD); // note: may be directory
     const isDir = fs.existsSync(outputFilePath) && fs.lstatSync(outputFilePath).isDirectory();
     if (isDir) {
-      if (typeof flags.output === 'string' && !flags.output.endsWith('/')) {
-        outputFilePath = new URL(`${flags.output}/`, CWD)
+      if (typeof flags.output === "string" && !flags.output.endsWith("/")) {
+        outputFilePath = new URL(`${flags.output}/`, CWD);
       }
       const filename = pathToSpec.replace(EXT_RE, ".ts");
       const originalOutputFilePath = outputFilePath;
       outputFilePath = new URL(filename, originalOutputFilePath);
-      if (outputFilePath.protocol !== 'file:') {
+      if (outputFilePath.protocol !== "file:") {
         outputFilePath = new URL(outputFilePath.host.replace(EXT_RE, ".ts"), originalOutputFilePath);
       }
     }
@@ -198,7 +198,7 @@ async function main() {
         }
       }
       await generateSchema(specPath);
-    })
+    }),
   );
 }
 

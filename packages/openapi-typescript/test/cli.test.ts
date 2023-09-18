@@ -86,51 +86,48 @@ describe("CLI", () => {
     });
   });
 
-  describe("outputs", ()=>{
-    beforeEach(()=>{
+  describe("outputs", () => {
+    beforeEach(() => {
       fs.rmSync(new URL(outputDir, root), { recursive: true, force: true });
     });
 
-    test("single file to file", async ()=>{
+    test("single file to file", async () => {
       const inputFile = path.join(inputDir, "file-a.yaml");
       const outputFile = path.join(outputDir, "file-a.ts");
       await execa(cmd, [inputFile, "--output", outputFile], { cwd });
       const result = await getOutputFiles();
-      expect(result).toEqual([ "file-a.ts" ]);
+      expect(result).toEqual(["file-a.ts"]);
     });
 
-    test("single file to directory", async ()=>{
+    test("single file to directory", async () => {
       const inputFile = path.join(inputDir, "file-a.yaml");
       await execa(cmd, [inputFile, "--output", outputDir], { cwd });
       const result = await getOutputFiles();
-      expect(result).toEqual([ "test/fixtures/cli-outputs/file-a.ts" ]);
+      expect(result).toEqual(["test/fixtures/cli-outputs/file-a.ts"]);
     });
 
-    test("single file (glob) to file", async ()=>{
+    test("single file (glob) to file", async () => {
       const inputFile = path.join(inputDir, "*-a.yaml");
       const outputFile = path.join(outputDir, "file-a.ts");
       await execa(cmd, [inputFile, "--output", outputFile], { cwd });
       const result = await getOutputFiles();
-      expect(result).toEqual([ "file-a.ts" ]);
-    })
+      expect(result).toEqual(["file-a.ts"]);
+    });
 
-    test("multiple files to file", async ()=>{
+    test("multiple files to file", async () => {
       const inputFile = path.join(inputDir, "*.yaml");
       const outputFile = path.join(outputDir, "file-a.ts");
       await expect(execa(cmd, [inputFile, "--output", outputFile], { cwd })).rejects.toThrow();
-    })
+    });
 
-    test("multiple files to directory", async ()=>{
+    test("multiple files to directory", async () => {
       const inputFile = path.join(inputDir, "*.yaml");
       await execa(cmd, [inputFile, "--output", outputDir], { cwd });
       const result = await getOutputFiles();
-      expect(result).toEqual([
-        "test/fixtures/cli-outputs/file-a.ts",
-        "test/fixtures/cli-outputs/file-b.ts"
-      ]);
-    })
+      expect(result).toEqual(["test/fixtures/cli-outputs/file-a.ts", "test/fixtures/cli-outputs/file-b.ts"]);
+    });
 
-    test("multiple nested files to directory", async ()=>{
+    test("multiple nested files to directory", async () => {
       const inputFile = path.join(inputDir, "**/*.yaml");
       await execa(cmd, [inputFile, "--output", outputDir], { cwd });
       const result = await getOutputFiles();
@@ -141,6 +138,6 @@ describe("CLI", () => {
         "test/fixtures/cli-outputs/nested/file-c.ts",
         "test/fixtures/cli-outputs/nested/file-d.ts",
       ]);
-    })
+    });
   });
 });
