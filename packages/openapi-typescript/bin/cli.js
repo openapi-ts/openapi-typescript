@@ -174,6 +174,8 @@ async function main() {
   // handle local schema(s)
   const inputSpecPaths = await glob(pathToSpec);
   const isGlob = inputSpecPaths.length > 1;
+  const isDirUrl = outputDir.pathname === outputFile.pathname;
+  const isFile = fs.existsSync(outputDir) && fs.lstatSync(outputDir).isFile();
 
   // error: no matches for glob
   if (inputSpecPaths.length === 0) {
@@ -182,7 +184,7 @@ async function main() {
   }
 
   // error: tried to glob output to single file
-  if (isGlob && output === OUTPUT_FILE && ((fs.existsSync(outputDir) && fs.lstatSync(outputDir).isFile()) || outputDir.pathname !== outputFile.pathname)) {
+  if (isGlob && output === OUTPUT_FILE && (isFile || !isDirUrl)) {
     error(`Expected directory for --output if using glob patterns. Received "${flags.output}".`);
     process.exit(1);
   }
@@ -191,7 +193,7 @@ async function main() {
   await Promise.all(
     inputSpecPaths.map(async (specPath) => {
       if (flags.output !== "." && output === OUTPUT_FILE) {
-        if (isGlob || outputDir.pathname === outputFile.pathname) {
+        if (isGlob || isDirUrl) {
           fs.mkdirSync(new URL(path.dirname(specPath), outputDir), { recursive: true }); // recursively make parent dirs
         } else {
           fs.mkdirSync(outputDir, { recursive: true }); // recursively make parent dirs
