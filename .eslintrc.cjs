@@ -4,14 +4,48 @@ module.exports = {
   parserOptions: {
     project: ["./tsconfig.json"],
   },
-  extends: ["eslint:recommended", "plugin:@typescript-eslint/strict", "plugin:vitest/recommended"],
-  plugins: ["@typescript-eslint", "no-only-tests", "prettier", "vitest"],
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/strict",
+    "plugin:vitest/recommended",
+  ],
+  plugins: [
+    "@typescript-eslint",
+    "import",
+    "no-only-tests",
+    "prettier",
+    "vitest",
+  ],
   rules: {
     "@typescript-eslint/consistent-indexed-object-style": "off", // sometimes naming keys is more user-friendly
     "@typescript-eslint/no-dynamic-delete": "off", // delete is OK
     "@typescript-eslint/no-non-null-assertion": "off", // this is better than "as"
+    "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-unnecessary-condition": "off", // this gives bad advice
+    "arrow-body-style": ["error", "as-needed"],
+    "dot-notation": "error",
+    "import/newline-after-import": "error",
+    "import/order": [
+      "error",
+      {
+        alphabetize: {
+          order: "asc",
+          orderImportKind: "asc",
+          caseInsensitive: true,
+        },
+        groups: [
+          ["builtin", "external"],
+          "internal",
+          "parent",
+          "index",
+          "sibling",
+        ],
+      },
+    ],
+    curly: "error",
+    "object-shorthand": "error", // don’t use foo["bar"]
     "no-console": "error",
+    "no-global-assign": "error",
     "no-unused-vars": "off",
   },
   overrides: [

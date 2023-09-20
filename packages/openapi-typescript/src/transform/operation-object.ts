@@ -1,124 +1,125 @@
-import type { GlobalContext, OperationObject, ParameterObject } from "../types.js";
-import { escObjKey, getEntries, getSchemaObjectComment, indent, tsOptionalProperty, tsReadonly } from "../utils.js";
-import transformParameterObject from "./parameter-object.js";
+import ts from "typescript";
+import {
+  NEVER,
+  QUESTION_TOKEN,
+  addJSDocComment,
+  oapiRef,
+  tsModifiers,
+  tsPropertyIndex,
+} from "../lib/ts.js";
+import { createRef } from "../lib/utils.js";
+import {
+  OperationObject,
+  RequestBodyObject,
+  TransformNodeOptions,
+} from "../types.js";
+import { transformParametersArray } from "./parameters-array.js";
 import transformRequestBodyObject from "./request-body-object.js";
-import transformResponseObject from "./response-object.js";
-import transformSchemaObject from "./schema-object.js";
+import transformResponsesObject from "./responses-object.js";
 
-export interface TransformOperationObjectOptions {
-  path: string;
-  ctx: GlobalContext;
-  wrapObject?: boolean;
-}
-
-export default function transformOperationObject(operationObject: OperationObject, { path, ctx, wrapObject = true }: TransformOperationObjectOptions): string {
-  let { indentLv } = ctx;
-  const output: string[] = wrapObject ? ["{"] : [];
-  indentLv++;
+/**
+ * Transform OperationObject nodes (4.8.10)
+ * @see https://spec.openapis.org/oas/v3.1.0#operation-object
+ */
+export default function transformOperationObject(
+  operationObject: OperationObject,
+  options: TransformNodeOptions,
+): ts.TypeElement[] {
+  const type: ts.TypeElement[] = [];
 
   // parameters
-  {
-    if (operationObject.parameters) {
-      const parameterOutput: string[] = [];
-      indentLv++;
-      for (const paramIn of ["query", "header", "path", "cookie"] as ParameterObject["in"][]) {
-        const paramInternalOutput: string[] = [];
-        indentLv++;
-        let paramInOptional = true;
-        for (const param of operationObject.parameters ?? []) {
-          const node: ParameterObject | undefined = "$ref" in param ? ctx.parameters[param.$ref] : param;
-          if (node?.in !== paramIn) continue;
-          let key = escObjKey(node.name);
-          const isRequired = paramIn === "path" || !!node.required;
-          if (isRequired) {
-            paramInOptional = false;
-          } else {
-            key = tsOptionalProperty(key);
-          }
-          const c = getSchemaObjectComment(param, indentLv);
-          if (c) paramInternalOutput.push(indent(c, indentLv));
-          const parameterType =
-            "$ref" in param
-              ? param.$ref
-              : transformParameterObject(param, {
-                  path: `${path}/parameters/${param.name}`,
-                  ctx: { ...ctx, indentLv },
-                });
-          paramInternalOutput.push(indent(`${key}: ${parameterType};`, indentLv));
-        }
-        indentLv--;
-        if (paramInternalOutput.length) {
-          const key = paramInOptional ? tsOptionalProperty(paramIn) : paramIn;
-          parameterOutput.push(indent(`${key}: {`, indentLv));
-          parameterOutput.push(...paramInternalOutput);
-          parameterOutput.push(indent(`};`, indentLv));
-        }
-      }
-      indentLv--;
-
-      if (parameterOutput.length) {
-        output.push(indent(`parameters: {`, indentLv));
-        output.push(parameterOutput.join("\n"));
-        output.push(indent("};", indentLv));
-      }
-    }
-  }
+  type.push(
+    ...transformParametersArray(operationObject.parameters ?? [], options),
+  );
 
   // requestBody
-  {
-    if (operationObject.requestBody) {
-      const c = getSchemaObjectComment(operationObject.requestBody, indentLv);
-      if (c) output.push(indent(c, indentLv));
-      let key = "requestBody";
-      if (ctx.immutableTypes) key = tsReadonly(key);
-      if ("$ref" in operationObject.requestBody) {
-        output.push(indent(`${key}: ${transformSchemaObject(operationObject.requestBody, { path, ctx })};`, indentLv));
-      } else {
-        if (!operationObject.requestBody.required) key = tsOptionalProperty(key);
-        const requestBody = transformRequestBodyObject(operationObject.requestBody, {
-          path: `${path}/requestBody`,
-          ctx: { ...ctx, indentLv },
-        });
-        output.push(indent(`${key}: ${requestBody};`, indentLv));
-      }
-    }
+  if (operationObject.requestBody) {
+    const requestBodyType =
+      "$ref" in operationObject.requestBody
+        ? oapiRef(operationObject.requestBody.$ref)
+        : transformRequestBodyObject(operationObject.requestBody, {
+            ...options,
+            path: createRef([options.path!, "requestBody"]),
+          });
+    const required = !!(
+      "$ref" in operationObject.requestBody
+        ? options.ctx.resolve<RequestBodyObject>(
+            operationObject.requestBody.$ref,
+          )
+        : operationObject.requestBody
+    )?.required;
+    const property = ts.factory.createPropertySignature(
+      /* modifiers     */ tsModifiers({
+        readonly: options.ctx.immutableTypes,
+      }),
+      /* name          */ tsPropertyIndex("requestBody"),
+      /* questionToken */ required ? undefined : QUESTION_TOKEN,
+      /* type          */ requestBodyType,
+    );
+    addJSDocComment(operationObject.requestBody, property);
+    type.push(property);
+  } else {
+    type.push(
+      ts.factory.createPropertySignature(
+        /* modifiers     */ undefined,
+        /* name          */ tsPropertyIndex("requestBody"),
+        /* questionToken */ QUESTION_TOKEN,
+        /* type          */ NEVER,
+      ),
+    );
   }
 
   // responses
-  {
-    if (operationObject.responses) {
-      output.push(indent(`responses: {`, indentLv));
-      indentLv++;
-      for (const [responseCode, responseObject] of getEntries(operationObject.responses, ctx.alphabetize, ctx.excludeDeprecated)) {
-        const key = escObjKey(responseCode);
-        const c = getSchemaObjectComment(responseObject, indentLv);
-        if (c) output.push(indent(c, indentLv));
-        if ("$ref" in responseObject) {
-          output.push(
-            indent(
-              `${key}: ${transformSchemaObject(responseObject, {
-                path: `${path}/responses/${responseCode}`,
-                ctx,
-              })};`,
-              indentLv,
-            ),
-          );
-        } else {
-          const responseType = transformResponseObject(responseObject, {
-            path: `${path}/responses/${responseCode}`,
-            ctx: { ...ctx, indentLv },
-          });
-          output.push(indent(`${key}: ${responseType};`, indentLv));
-        }
-      }
-      indentLv--;
-      output.push(indent(`};`, indentLv));
-    }
+  type.push(
+    ts.factory.createPropertySignature(
+      /* modifiers     */ undefined,
+      /* name          */ tsPropertyIndex("responses"),
+      /* questionToken */ undefined,
+      /* type          */ transformResponsesObject(
+        operationObject.responses ?? {},
+        options,
+      ),
+    ),
+  );
+
+  return type;
+}
+
+/** inject an operation at the top level */
+export function injectOperationObject(
+  operationId: string,
+  operationObject: OperationObject,
+  options: TransformNodeOptions,
+): void {
+  // find or create top-level operations interface
+  let operations = options.ctx.injectFooter.find(
+    (node) =>
+      ts.isInterfaceDeclaration(node) &&
+      (node as ts.InterfaceDeclaration).name.text === "operations",
+  ) as unknown as ts.InterfaceDeclaration;
+  if (!operations) {
+    operations = ts.factory.createInterfaceDeclaration(
+      /* modifiers       */ undefined,
+      /* name            */ ts.factory.createIdentifier("operations"),
+      /* typeParameters  */ undefined,
+      /* heritageClauses */ undefined,
+      /* members         */ [],
+    );
+    options.ctx.injectFooter.push(operations);
   }
 
-  indentLv--;
-  if (wrapObject) {
-    output.push(indent("}", indentLv));
-  }
-  return output.join("\n");
+  // inject operation object
+  const type = transformOperationObject(operationObject, options);
+  // @ts-expect-error this is OK to mutate
+  operations.members = ts.factory.createNodeArray([
+    ...operations.members,
+    ts.factory.createPropertySignature(
+      /* modifiers     */ tsModifiers({
+        readonly: options.ctx.immutableTypes,
+      }),
+      /* name          */ tsPropertyIndex(operationId),
+      /* questionToken */ undefined,
+      /* type          */ ts.factory.createTypeLiteralNode(type),
+    ),
+  ]);
 }

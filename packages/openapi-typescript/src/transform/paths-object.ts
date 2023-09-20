@@ -1,60 +1,153 @@
-import type { GlobalContext, PathsObject, PathItemObject, ParameterObject, ReferenceObject, OperationObject } from "../types.js";
-import { escStr, getEntries, getSchemaObjectComment, indent } from "../utils.js";
-import transformParameterObject from "./parameter-object.js";
-import transformPathItemObject from "./path-item-object.js";
+import ts from "typescript";
+import { addJSDocComment, oapiRef, tsPropertyIndex } from "../lib/ts.js";
+import { createRef, getEntries } from "../lib/utils.js";
+import {
+  GlobalContext,
+  OperationObject,
+  ParameterObject,
+  PathItemObject,
+  PathsObject,
+  ReferenceObject,
+} from "../types.js";
+import transformPathItemObject, { Method } from "./path-item-object.js";
 
-const OPERATIONS = ["get", "post", "put", "delete", "options", "head", "patch", "trace"];
+const PATH_PARAM_RE = /\{[^}]+\}/g;
 
-function extractPathParams(obj?: ReferenceObject | PathItemObject | OperationObject | undefined): Map<string, ParameterObject> {
-  const params = new Map<string, ParameterObject>();
-  if (obj && "parameters" in obj) {
-    for (const p of obj.parameters ?? []) {
-      if ("in" in p && p.in === "path") params.set(p.name, p);
-    }
-  }
-  return params;
-}
-
-export default function transformPathsObject(pathsObject: PathsObject, ctx: GlobalContext): string {
-  let { indentLv } = ctx;
-  const output: string[] = ["{"];
-  indentLv++;
-  for (const [url, pathItemObject] of getEntries(pathsObject, ctx.alphabetize, ctx.excludeDeprecated)) {
-    if (!pathItemObject || typeof pathItemObject !== "object") continue;
-    let path = url;
-
-    // handle $ref
-    if ("$ref" in pathItemObject) {
-      const c = getSchemaObjectComment(pathItemObject, indentLv);
-      if (c) output.push(indent(c, indentLv));
-      output.push(indent(`${escStr(path)}: ${pathItemObject.$ref};`, indentLv));
+/**
+ * Transform the PathsObject node (4.8.8)
+ * @see https://spec.openapis.org/oas/v3.1.0#operation-object
+ */
+export default function transformPathsObject(
+  pathsObject: PathsObject,
+  ctx: GlobalContext,
+): ts.TypeNode {
+  const type: ts.TypeElement[] = [];
+  urlLoop: for (const [url, pathItemObject] of getEntries(pathsObject, ctx)) {
+    if (!pathItemObject || typeof pathItemObject !== "object") {
       continue;
     }
 
-    const pathParams = new Map([...extractPathParams(pathItemObject), ...OPERATIONS.flatMap((op) => Array.from(extractPathParams(pathItemObject[op as keyof PathItemObject])))]);
-
-    // build dynamic string template literal index
-    if (ctx.pathParamsAsTypes && pathParams.size) {
-      for (const p of pathParams.values()) {
-        const paramType = transformParameterObject(p, { path: `#/paths/${url}/parameters/${p.name}`, ctx });
-        path = path.replace(`{${p.name}}`, `\${${paramType}}`);
-      }
-      path = `[path: \`${path}\`]`;
+    // handle $ref
+    if ("$ref" in pathItemObject) {
+      const property = ts.factory.createPropertySignature(
+        /* modifiers     */ undefined,
+        /* name          */ tsPropertyIndex(url),
+        /* questionToken */ undefined,
+        /* type          */ oapiRef(pathItemObject.$ref),
+      );
+      addJSDocComment(pathItemObject, property);
     } else {
-      path = escStr(path);
-    }
+      const pathItemType = transformPathItemObject(pathItemObject, {
+        path: createRef(["paths", url]),
+        ctx,
+      });
 
-    output.push(
-      indent(
-        `${path}: ${transformPathItemObject(pathItemObject, {
-          path: `#/paths/${url}`,
-          ctx: { ...ctx, indentLv },
-        })};`,
-        indentLv,
-      ),
-    );
+      // pathParamsAsTypes
+      if (ctx.pathParamsAsTypes && url.includes("{")) {
+        const pathParams = extractPathParams(pathItemObject, ctx);
+        const matches = url.match(PATH_PARAM_RE);
+        let rawPath = `\`${url}\``;
+        if (matches) {
+          /* eslint-disable @typescript-eslint/no-explicit-any */
+          for (const match of matches) {
+            const paramName = match.slice(1, -1);
+            const param = pathParams[paramName];
+            if (!param) {
+              rawPath = rawPath.replace(match, "${string}");
+            } else {
+              rawPath = rawPath.replace(
+                match,
+                `$\{${(param.schema as any)?.type ?? "string"}}`,
+              );
+            }
+            // note: creating a string template literal’s AST manually is
+            // harder than getting TS to parse an arbitrary string
+            const pathType = ts.createSourceFile(
+              /* fileName        */ "pathParams",
+              /* sourceText      */ rawPath,
+              /* languageVersion */ ts.ScriptTarget.ESNext,
+              /* setParentNodes  */ undefined,
+              /* scriptKind      */ undefined,
+            );
+            if ((pathType.statements[0] as any)?.expression) {
+              type.push(
+                ts.factory.createIndexSignature(
+                  /* modifiers     */ undefined,
+                  /* parameters    */ [
+                    ts.factory.createParameterDeclaration(
+                      /* modifiers      */ undefined,
+                      /* dotDotDotToken */ undefined,
+                      /* name           */ "path",
+                      /* questionToken  */ undefined,
+                      /* type           */ (pathType.statements[0] as any)
+                        .expression,
+                      /* initializer    */ undefined,
+                    ),
+                  ],
+                  /* type          */ pathItemType,
+                ),
+              );
+            }
+            continue urlLoop;
+          }
+          /* eslint-enable @typescript-eslint/no-explicit-any */
+        }
+      }
+
+      type.push(
+        ts.factory.createPropertySignature(
+          /* modifiers     */ undefined,
+          /* name          */ tsPropertyIndex(url),
+          /* questionToken */ undefined,
+          /* type          */ pathItemType,
+        ),
+      );
+    }
   }
-  indentLv--;
-  output.push(indent("}", indentLv));
-  return output.join("\n");
+
+  return ts.factory.createTypeLiteralNode(type);
+}
+
+function extractPathParams(pathItemObject: PathItemObject, ctx: GlobalContext) {
+  const params: Record<string, ParameterObject> = {};
+  for (const p of pathItemObject.parameters ?? []) {
+    const resolved =
+      "$ref" in p && p.$ref
+        ? ctx.resolve<ParameterObject>(p.$ref)
+        : (p as ParameterObject);
+    if (resolved && resolved.in === "path") {
+      params[resolved.name] = resolved;
+    }
+  }
+  for (const method of [
+    "get",
+    "put",
+    "post",
+    "delete",
+    "options",
+    "head",
+    "patch",
+    "trace",
+  ] as Method[]) {
+    if (!(method in pathItemObject)) {
+      continue;
+    }
+    const resolvedMethod = (pathItemObject[method] as ReferenceObject).$ref
+      ? ctx.resolve<OperationObject>(
+          (pathItemObject[method] as ReferenceObject).$ref,
+        )
+      : (pathItemObject[method] as OperationObject);
+    if (resolvedMethod?.parameters) {
+      for (const p of resolvedMethod.parameters) {
+        const resolvedParam =
+          "$ref" in p && p.$ref
+            ? ctx.resolve<ParameterObject>(p.$ref)
+            : (p as ParameterObject);
+        if (resolvedParam && resolvedParam.in === "path") {
+          params[resolvedParam.name] = resolvedParam;
+        }
+      }
+    }
+  }
+  return params;
 }

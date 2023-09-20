@@ -4,6 +4,7 @@
     "declaration": true,
     "downlevelIteration": false,
     "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "outDir": "dist",

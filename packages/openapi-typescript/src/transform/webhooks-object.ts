@@ -1,23 +1,30 @@
+import ts from "typescript";
+import { tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+import { createRef, getEntries } from "../lib/utils.js";
 import type { GlobalContext, WebhooksObject } from "../types.js";
-import { escStr, getEntries, indent } from "../utils.js";
 import transformPathItemObject from "./path-item-object.js";
 
-export default function transformWebhooksObject(webhooksObject: WebhooksObject, ctx: GlobalContext): string {
-  let { indentLv } = ctx;
-  const output: string[] = ["{"];
-  indentLv++;
-  for (const [name, pathItemObject] of getEntries(webhooksObject, ctx.alphabetize, ctx.excludeDeprecated)) {
-    output.push(
-      indent(
-        `${escStr(name)}: ${transformPathItemObject(pathItemObject, {
-          path: `#/webhooks/${name}`,
-          ctx: { ...ctx, indentLv },
-        })};`,
-        indentLv,
+export default function transformWebhooksObject(
+  webhooksObject: WebhooksObject,
+  options: GlobalContext,
+): ts.TypeNode {
+  const type: ts.TypeElement[] = [];
+
+  for (const [name, pathItemObject] of getEntries(webhooksObject, options)) {
+    type.push(
+      ts.factory.createPropertySignature(
+        /* modifiers     */ tsModifiers({
+          readonly: options.immutableTypes,
+        }),
+        /* name          */ tsPropertyIndex(name),
+        /* questionToken */ undefined,
+        /* type          */ transformPathItemObject(pathItemObject, {
+          path: createRef(["webhooks", name]),
+          ctx: options,
+        }),
       ),
     );
   }
-  indentLv--;
-  output.push(indent("}", indentLv));
-  return output.join("\n");
+
+  return ts.factory.createTypeLiteralNode(type);
 }

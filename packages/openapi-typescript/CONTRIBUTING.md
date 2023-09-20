@@ -38,11 +38,17 @@ pnpm run dev
 
 This will compile the code as you change automatically.
 
-### Writing the PR
+#### Tip: use ASTExplorer.net!
 
-**Please fill out the template!** It’s a very lightweight template 🙂.
+Working with the TypeScript AST can be daunting. Luckly, there’s [astexplorer.net](https://astexplorer.net) which makes it much more accessible. Rather than trying to build an AST from scratch (which is near impossible), instead:
 
-### Use Test-driven Development!
+1. Switch to the **typescript** parser in the top menu
+2. Type out code in the left-hand panel
+3. Inspect the right-hand panel to see what the desired AST is.
+
+From there, you can refer to existing examples in the codebase. There may even be helper utilities in `src/lib/ts.ts` to make life easier.
+
+#### Tip: Use Test-driven Development!
 
 Contributing to this library is hard-bordering-on-impossible without a [test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development) strategy. If you’re new to this, the basic workflow is:
 
@@ -60,7 +66,7 @@ To add a schema as a snapshot test, modify the [/scripts/download-schemas.ts](/s
 
 ### Generating types
 
-It may be surprising to hear, but _generating TypeScript types from OpenAPI is opinionated!_ Even though TypeScript and OpenAPI are very close relatives, both being JavaScript/JSON-based, they are nonetheless 2 different languages and thus there is always some room for interpretation. Likewise, some parts of the OpenAPI specification can be ambiguous on how they’re used, and what the expected type outcomes may be (though this is generally for more advanced usecasees, such as specific implementations of `anyOf` as well as [discriminator](https://spec.openapis.org/oas/latest.html#discriminatorObject) and complex polymorphism).
+It may be surprising to hear, but generating TypeScript types from OpenAPI is opinionated. Even though TypeScript and OpenAPI are close relatives—both JavaScript/JSON-based—they are nonetheless 2 different languages and thus there is room for interpretation. Further, some parts of the OpenAPI specification can be ambiguous on how they’re used, and what the expected type outcomes may be (though this is generally for more advanced usecasees, such as specific implementations of `anyOf` as well as [discriminator](https://spec.openapis.org/oas/latest.html#discriminatorObject) and complex polymorphism).
 
 All that said, this library should strive to generate _the most predictable_ TypeScript output for a given schema. And to achieve that, it always helps to open an [issue](https://github.com/drwpow/openapi-typescript/issues) or [discussion](https://github.com/drwpow/openapi-typescript/discussions) to gather feedback.
 
@@ -131,7 +137,6 @@ pnpm run update:examples
 
 This library has both unit tests (tests that test a tiny part of a schema) and snapshot tests (tests that run over an entire, complete schema). When opening a PR, the former are more valuable than the latter, and are always required. However, updating snapshot tests can help with the following:
 
-- Fixing bugs that deal with multiple schemas with remote `$ref`s
 - Fixing Node.js or OS-related bugs
 - Adding a CLI option that changes the entire output
 
@@ -141,8 +146,4 @@ For most PRs, **snapshot tests can be avoided.** But for scenarios similar to th
 
 ### When I run tests, it’s not picking up my changes
 
-Be sure to run `pnpm run build` to build the project. Most tests actually test the **compiled JS**, not the source TypeScript. It’s recommended to run `pnpm run dev` as you work so changes are always up-to-date.
-
-### I get an obscure error when testing against my schema
-
-Be sure your schema passes [Redocly lint](https://redocly.com/docs/cli/commands/lint/). Remember this library requires already-validated OpenAPI schemas, so even subtle errors will throw.
+Some tests import the **built package** and not the source file. Be sure to run `pnpm run build` to build the project. You can also run `pnpm run dev` as you work so changes are always up-to-date.

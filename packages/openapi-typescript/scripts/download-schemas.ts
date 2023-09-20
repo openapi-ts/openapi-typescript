@@ -2,8 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import degit from "degit";
-import { fetch } from "undici";
-import { error } from "../src/utils.js";
+import { error } from "../src/lib/utils.js";
 import { multiFile, singleFile } from "./schemas.js";
 
 const ONE_DAY = 1000 * 60 * 60 * 24;
@@ -30,7 +29,11 @@ export async function download() {
       fs.mkdirSync(new URL(".", dest), { recursive: true });
       fs.writeFileSync(dest, await result.text());
       done++;
-      console.log(`✔︎ [${done}/${allSchemas.length}] Downloaded ${k} (${Math.round(performance.now() - start)}ms)`); // eslint-disable-line no-console
+      console.log(
+        `✔︎ [${done}/${allSchemas.length}] Downloaded ${k} (${Math.round(
+          performance.now() - start,
+        )}ms)`,
+      ); // eslint-disable-line no-console
     }),
     ...Object.entries(multiFile).map(async ([k, meta]) => {
       const start = performance.now();
@@ -44,7 +47,11 @@ export async function download() {
       });
       await emitter.clone(fileURLToPath(new URL(k, EXAMPLES_DIR)));
       done++;
-      console.log(`✔︎ [${done}/${allSchemas.length}] Downloaded ${k} (${Math.round(performance.now() - start)}ms)`); // eslint-disable-line no-console
+      console.log(
+        `✔︎ [${done}/${allSchemas.length}] Downloaded ${k} (${Math.round(
+          performance.now() - start,
+        )}ms)`,
+      ); // eslint-disable-line no-console
     }),
   ]);
   console.log("Downloading schemas done."); // eslint-disable-line no-console

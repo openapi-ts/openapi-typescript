@@ -15,23 +15,33 @@ npm i --save-dev openapi-typescript
 
 ## Usage
 
-```js
+The Node API accepts either a parsed OpenAPI schema in a JS object, or a `string` or `URL` pointing to the location of a schema. It returns `Promise<ts.Node[]>` (an array of TypeScript AST nodes).
+
+```ts
 import fs from "node:fs";
 import openapiTS from "openapi-typescript";
 
-// example 1: load [object] as schema (JSON only)
+// example 1: load [object] as schema (provide a `cwd` to resolve relative $refs)
 const schema = await fs.promises.readFile("spec.json", "utf8"); // must be OpenAPI JSON
-const output = await openapiTS(JSON.parse(schema));
+const ast = await openapiTS(JSON.parse(schema), { cwd: process.cwd() });
 
-// example 2: load [string] as local file (YAML or JSON; released in v4.0)
+// example 2: load [string] as local file
 const localPath = new URL("./spec.yaml", import.meta.url); // may be YAML or JSON format
-const output = await openapiTS(localPath);
+const ast = await openapiTS(localPath);
 
-// example 3: load [string] as remote URL (YAML or JSON; released in v4.0)
-const output = await openapiTS("https://myurl.com/v1/openapi.yaml");
+// example 3: load [string] as remote URL
+const ast = await openapiTS("https://myurl.com/v1/openapi.yaml");
 ```
 
-> **Note**: a YAML string isn’t supported in the Node.js API (you’ll need to <a href="https://www.npmjs.com/package/js-yaml" target="_blank" rel="noopener noreferrer">convert it to JSON</a>). But loading YAML via URL is still supported in Node.js
+From the result, you can traverse / manipulate / modify the AST as you see fit.
+
+To convert the TypeScript AST into a string, you can use `astToString()` helper which is a thin wrapper around [TypeScript’s printer](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API#re-printing-sections-of-a-typescript-file):
+
+```ts
+import { astToString } from "openapi-typescript";
+
+const contents = astToString(ast);
+```
 
 ## Options
 
@@ -39,8 +49,6 @@ The Node API supports all the [CLI flags](/cli#options) in `camelCase` format, p
 
 | Name            |      Type       | Default | Description                                                                                                          |
 | :-------------- | :-------------: | :------ | :------------------------------------------------------------------------------------------------------------------- |
-| `commentHeader` |    `string`     |         | Override the default “This file was auto-generated …” file heading                                                   |
-| `inject`        |    `string`     |         | Inject arbitrary TypeScript types into the start of the file                                                         |
 | `transform`     |   `Function`    |         | Override the default Schema Object ➝ TypeScript transformer in certain scenarios                                     |
 | `postTransform` |   `Function`    |         | Same as `transform` but runs _after_ the TypeScript transformation                                                   |
 | `cwd`           | `string \| URL` |         | (optional) Provide the current working directory to resolve remote `$ref`s (only needed for in-memory JSON objects). |
@@ -50,7 +58,7 @@ The Node API supports all the [CLI flags](/cli#options) in `camelCase` format, p
 Use the `transform()` and `postTransform()` options to override the default Schema Object transformer with your own. This is useful for providing nonstandard modifications for specific parts of your schema.
 
 - `transform()` runs **before** the conversion to TypeScript (you’re working with the original OpenAPI nodes)
-- `postTransform()` runs **after** the conversion to TypeScript (you’re working with TypeScript types)
+- `postTransform()` runs **after** the conversion to TypeScript (you’re working with TypeScript AST)
 
 #### Example: `Date` types
 
@@ -65,11 +73,18 @@ properties:
 
 By default, openapiTS will generate `updated_at?: string;` because it’s not sure which format you want by `"date-time"` (formats are nonstandard and can be whatever you’d like). But we can enhance this by providing our own custom formatter, like so:
 
-```js
-const types = openapiTS(mySchema, {
-  transform(schemaObject, metadata): string {
-    if ("format" in schemaObject && schemaObject.format === "date-time") {
-      return schemaObject.nullable ? "Date | null" : "Date";
+```ts
+import ts from "typescript";
+
+const DATE = ts.factory.createIdentifier("Date"); // `Date`
+const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
+
+const ast = await openapiTS(mySchema, {
+  transform(schemaObject, metadata) {
+    if (schemaObject.format === "date-time") {
+      return schemaObject.nullable
+        ? ts.factory.createUnionTypeNode([DATE, NULL])
+        : DATE;
     }
   },
 });
@@ -93,18 +108,22 @@ Body_file_upload:
     file:
       type: string;
       format: binary;
-    }
-  }
-}
 ```
 
 Use the same pattern to transform the types:
 
 ```ts
-const types = openapiTS(mySchema, {
-  transform(schemaObject, metadata): string {
-    if ("format" in schemaObject && schemaObject.format === "binary") {
-      return schemaObject.nullable ? "Blob | null" : "Blob";
+import ts from "typescript";
+
+const BLOB = ts.factory.createIdentifier("Blob"); // `Blob`
+const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
+
+const ast = await openapiTS(mySchema, {
+  transform(schemaObject, metadata) {
+    if (schemaObject.format === "binary") {
+      return schemaObject.nullable
+        ? ts.factory.createUnionTypeNode([BLOB, NULL])
+        : BLOB;
     }
   },
 });
