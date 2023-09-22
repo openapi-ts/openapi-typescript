@@ -114,13 +114,13 @@ async function generateSchema(pathToSpec) {
     let outputFilePath = new URL(flags.output, CWD); // note: may be directory
     const isDir = fs.existsSync(outputFilePath) && fs.lstatSync(outputFilePath).isDirectory();
     if (isDir) {
-      if (typeof flags.output === 'string' && !flags.output.endsWith('/')) {
-        outputFilePath = new URL(`${flags.output}/`, CWD)
+      if (typeof flags.output === "string" && !flags.output.endsWith("/")) {
+        outputFilePath = new URL(`${flags.output}/`, CWD);
       }
-      const filename = path.basename(pathToSpec).replace(EXT_RE, ".ts");
+      const filename = pathToSpec.replace(EXT_RE, ".ts");
       const originalOutputFilePath = outputFilePath;
       outputFilePath = new URL(filename, originalOutputFilePath);
-      if (outputFilePath.protocol !== 'file:') {
+      if (outputFilePath.protocol !== "file:") {
         outputFilePath = new URL(outputFilePath.host.replace(EXT_RE, ".ts"), originalOutputFilePath);
       }
     }
@@ -174,6 +174,8 @@ async function main() {
   // handle local schema(s)
   const inputSpecPaths = await glob(pathToSpec);
   const isGlob = inputSpecPaths.length > 1;
+  const isDirUrl = outputDir.pathname === outputFile.pathname;
+  const isFile = fs.existsSync(outputDir) && fs.lstatSync(outputDir).isFile();
 
   // error: no matches for glob
   if (inputSpecPaths.length === 0) {
@@ -182,7 +184,7 @@ async function main() {
   }
 
   // error: tried to glob output to single file
-  if (isGlob && output === OUTPUT_FILE && fs.existsSync(outputDir) && fs.lstatSync(outputDir).isFile()) {
+  if (isGlob && output === OUTPUT_FILE && (isFile || !isDirUrl)) {
     error(`Expected directory for --output if using glob patterns. Received "${flags.output}".`);
     process.exit(1);
   }
@@ -191,15 +193,14 @@ async function main() {
   await Promise.all(
     inputSpecPaths.map(async (specPath) => {
       if (flags.output !== "." && output === OUTPUT_FILE) {
-        if (isGlob) {
-          fs.mkdirSync(outputFile, { recursive: true }); // recursively make parent dirs
-        }
-        else {
+        if (isGlob || isDirUrl) {
+          fs.mkdirSync(new URL(path.dirname(specPath), outputDir), { recursive: true }); // recursively make parent dirs
+        } else {
           fs.mkdirSync(outputDir, { recursive: true }); // recursively make parent dirs
         }
       }
       await generateSchema(specPath);
-    })
+    }),
   );
 }
 

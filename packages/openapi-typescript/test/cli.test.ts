@@ -1,12 +1,21 @@
 import { execa } from "execa";
+import glob from "fast-glob";
 import fs from "node:fs";
+import path from "node:path/posix"; // prevent issues with `\` on windows
 import { URL, fileURLToPath } from "node:url";
 import os from "node:os";
 
 const root = new URL("../", import.meta.url);
 const cwd = os.platform() === "win32" ? fileURLToPath(root) : root; // execa bug: fileURLToPath required on Windows
 const cmd = "./bin/cli.js";
+const inputDir = "test/fixtures/cli-outputs/";
+const outputDir = path.join(inputDir, "out/");
 const TIMEOUT = 90000;
+
+// fast-glob does not sort results
+async function getOutputFiles() {
+  return (await glob("**", { cwd: outputDir })).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+}
 
 describe("CLI", () => {
   // note: the snapshots in index.test.ts test the Node API; these test the CLI
@@ -74,6 +83,61 @@ describe("CLI", () => {
     test("--version", async () => {
       const { stdout } = await execa(cmd, ["--version"], { cwd });
       expect(stdout).toEqual(expect.stringMatching(/^v[\d.]+(-.*)?$/));
+    });
+  });
+
+  describe("outputs", () => {
+    beforeEach(() => {
+      fs.rmSync(new URL(outputDir, root), { recursive: true, force: true });
+    });
+
+    test("single file to file", async () => {
+      const inputFile = path.join(inputDir, "file-a.yaml");
+      const outputFile = path.join(outputDir, "file-a.ts");
+      await execa(cmd, [inputFile, "--output", outputFile], { cwd });
+      const result = await getOutputFiles();
+      expect(result).toEqual(["file-a.ts"]);
+    });
+
+    test("single file to directory", async () => {
+      const inputFile = path.join(inputDir, "file-a.yaml");
+      await execa(cmd, [inputFile, "--output", outputDir], { cwd });
+      const result = await getOutputFiles();
+      expect(result).toEqual(["test/fixtures/cli-outputs/file-a.ts"]);
+    });
+
+    test("single file (glob) to file", async () => {
+      const inputFile = path.join(inputDir, "*-a.yaml");
+      const outputFile = path.join(outputDir, "file-a.ts");
+      await execa(cmd, [inputFile, "--output", outputFile], { cwd });
+      const result = await getOutputFiles();
+      expect(result).toEqual(["file-a.ts"]);
+    });
+
+    test("multiple files to file", async () => {
+      const inputFile = path.join(inputDir, "*.yaml");
+      const outputFile = path.join(outputDir, "file-a.ts");
+      await expect(execa(cmd, [inputFile, "--output", outputFile], { cwd })).rejects.toThrow();
+    });
+
+    test("multiple files to directory", async () => {
+      const inputFile = path.join(inputDir, "*.yaml");
+      await execa(cmd, [inputFile, "--output", outputDir], { cwd });
+      const result = await getOutputFiles();
+      expect(result).toEqual(["test/fixtures/cli-outputs/file-a.ts", "test/fixtures/cli-outputs/file-b.ts"]);
+    });
+
+    test("multiple nested files to directory", async () => {
+      const inputFile = path.join(inputDir, "**/*.yaml");
+      await execa(cmd, [inputFile, "--output", outputDir], { cwd });
+      const result = await getOutputFiles();
+      expect(result).toEqual([
+        "test/fixtures/cli-outputs/file-a.ts",
+        "test/fixtures/cli-outputs/file-b.ts",
+        "test/fixtures/cli-outputs/nested/deep/file-e.ts",
+        "test/fixtures/cli-outputs/nested/file-c.ts",
+        "test/fixtures/cli-outputs/nested/file-d.ts",
+      ]);
     });
   });
 });
