@@ -15,6 +15,7 @@ export default function transformOperationObject(operationObject: OperationObjec
   let { indentLv } = ctx;
   const output: string[] = wrapObject ? ["{"] : [];
   indentLv++;
+  let allParamsOptional = true;
 
   // parameters
   {
@@ -24,15 +25,17 @@ export default function transformOperationObject(operationObject: OperationObjec
       for (const paramIn of ["query", "header", "path", "cookie"] as ParameterObject["in"][]) {
         const paramInternalOutput: string[] = [];
         indentLv++;
-        let allOptional = true;
+        let paramInOptional = true;
         for (const param of operationObject.parameters ?? []) {
           const node: ParameterObject | undefined = "$ref" in param ? ctx.parameters[param.$ref] : param;
           if (node?.in !== paramIn) continue;
           let key = escObjKey(node.name);
-          if (paramIn !== "path" && !node.required) {
-            key = tsOptionalProperty(key);
+          const isRequired = paramIn === "path" || !!node.required;
+          if (isRequired) {
+            allParamsOptional = false;
+            paramInOptional = false;
           } else {
-            allOptional = false;
+            key = tsOptionalProperty(key);
           }
           const c = getSchemaObjectComment(param, indentLv);
           if (c) paramInternalOutput.push(indent(c, indentLv));
@@ -47,7 +50,7 @@ export default function transformOperationObject(operationObject: OperationObjec
         }
         indentLv--;
         if (paramInternalOutput.length) {
-          const key = allOptional ? tsOptionalProperty(paramIn) : paramIn;
+          const key = paramInOptional ? tsOptionalProperty(paramIn) : paramIn;
           parameterOutput.push(indent(`${key}: {`, indentLv));
           parameterOutput.push(...paramInternalOutput);
           parameterOutput.push(indent(`};`, indentLv));
@@ -56,7 +59,8 @@ export default function transformOperationObject(operationObject: OperationObjec
       indentLv--;
 
       if (parameterOutput.length) {
-        output.push(indent(`parameters: {`, indentLv));
+        const parameterKey = allParamsOptional ? tsOptionalProperty("parameters") : "parameters";
+        output.push(indent(`${parameterKey}: {`, indentLv));
         output.push(parameterOutput.join("\n"));
         output.push(indent("};", indentLv));
       }

@@ -238,7 +238,7 @@ export type operations = Record<string, never>;
 export interface paths {
   "/post/{id}": {
     get: operations["getPost"];
-    parameters: {
+    parameters?: {
       query?: {
         revision?: number;
       };
