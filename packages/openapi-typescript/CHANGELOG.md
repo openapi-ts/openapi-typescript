@@ -1,5 +1,15 @@
 # openapi-typescript
 
+## 6.6.2
+
+### Patch Changes
+
+- [#1348](https://github.com/drwpow/openapi-typescript/pull/1348) [`f6fdd2f`](https://github.com/drwpow/openapi-typescript/commit/f6fdd2f59d035fec22f7fee27136939faae4628b) Thanks [@drwpow](https://github.com/drwpow)! - Improve YAML vs JSON parsing
+
+- [#1352](https://github.com/drwpow/openapi-typescript/pull/1352) [`33b2c4f`](https://github.com/drwpow/openapi-typescript/commit/33b2c4f6d9f8d2a1bd42b13b3c8c168ed86609d6) Thanks [@drwpow](https://github.com/drwpow)! - Fix all parameters optional
+
+- [#1345](https://github.com/drwpow/openapi-typescript/pull/1345) [`6f078c1`](https://github.com/drwpow/openapi-typescript/commit/6f078c1eb008a278858e6764e92af6ceb39922b4) Thanks [@SchabaJo](https://github.com/SchabaJo)! - Mirror directory structure of input files if output is a directory to prevent overwriting the same file again and again.
+
 ## 6.6.1
 
 ### Patch Changes

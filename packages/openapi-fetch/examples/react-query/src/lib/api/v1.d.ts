@@ -109,7 +109,7 @@ export interface operations {
    * @description Returns a a list of breeds
    */
   getBreeds: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description limit the amount of results returned */
         limit?: number;
@@ -135,7 +135,7 @@ export interface operations {
    * @description Returns a random fact
    */
   getRandomFact: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description maximum length of returned fact */
         max_length?: number;
@@ -167,7 +167,7 @@ export interface operations {
    * @description Returns a a list of facts
    */
   getFacts: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description maximum length of returned fact */
         max_length?: number;
