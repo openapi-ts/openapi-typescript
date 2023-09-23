@@ -86,7 +86,7 @@ describe("Paths Object", () => {
         404: components["responses"]["NotFound"];
       };
     };
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Page number. */
         page?: number;
@@ -187,7 +187,7 @@ describe("Paths Object", () => {
     expect(generated).toBe(`{
   "/api/v1/user/me": {
     get: {
-      parameters: {
+      parameters?: {
         query?: {
           /** @description Page number. */
           page?: number;
@@ -210,7 +210,7 @@ describe("Paths Object", () => {
         404: components["responses"]["NotFound"];
       };
     };
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Page number. */
         page?: number;

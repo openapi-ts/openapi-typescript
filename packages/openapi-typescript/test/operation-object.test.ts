@@ -19,6 +19,8 @@ const ctx: GlobalContext = {
   excludeDeprecated: false,
 };
 
+const options = { ctx, path: "#/paths/~get-item" };
+
 describe("Operation Object", () => {
   it("allows 2XX codes", () => {
     const schema: OperationObject = {
@@ -45,7 +47,7 @@ describe("Operation Object", () => {
         },
       },
     };
-    const generated = transformOperationObject(schema, { ctx, path: "#/paths/~get-item" });
+    const generated = transformOperationObject(schema, options);
     expect(generated).toBe(`{
   responses: {
     /** @description OK */
@@ -64,6 +66,99 @@ describe("Operation Object", () => {
     "5XX": {
       content: {
         "application/json": components["schemas"]["Error"];
+      };
+    };
+  };
+}`);
+  });
+
+  it("marks parameters optional if they are all optional", () => {
+    const schema: OperationObject = {
+      parameters: [
+        {
+          in: "query",
+          name: "search",
+          schema: { type: "string" },
+        },
+        {
+          in: "header",
+          name: "x-header",
+          schema: { type: "string" },
+          required: false,
+        },
+      ],
+      responses: {
+        "200": {
+          description: "OK",
+          content: {
+            "application/json": {
+              schema: { type: "string" },
+            },
+          },
+        },
+      },
+    };
+    const generated = transformOperationObject(schema, options);
+    expect(generated).toBe(`{
+  parameters?: {
+    query?: {
+      search?: string;
+    };
+    header?: {
+      "x-header"?: string;
+    };
+  };
+  responses: {
+    /** @description OK */
+    200: {
+      content: {
+        "application/json": string;
+      };
+    };
+  };
+}`);
+  });
+
+  it("marks parameters required if there are any path params", () => {
+    const schema: OperationObject = {
+      parameters: [
+        {
+          in: "path",
+          name: "user_id",
+          schema: { type: "string" },
+        },
+        {
+          in: "query",
+          name: "search",
+          schema: { type: "string" },
+        },
+      ],
+      responses: {
+        "200": {
+          description: "OK",
+          content: {
+            "application/json": {
+              schema: { type: "string" },
+            },
+          },
+        },
+      },
+    };
+    const generated = transformOperationObject(schema, options);
+    expect(generated).toBe(`{
+  parameters: {
+    query?: {
+      search?: string;
+    };
+    path: {
+      user_id: string;
+    };
+  };
+  responses: {
+    /** @description OK */
+    200: {
+      content: {
+        "application/json": string;
       };
     };
   };

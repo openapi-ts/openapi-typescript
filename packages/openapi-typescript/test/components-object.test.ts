@@ -293,7 +293,7 @@ describe("Components Object", () => {
     expect(generated).toBe(`{
   schemas: never;
   responses: never;
-  parameters?: {
+  parameters: {
     myParam?: string;
     myParam2?: string;
   };

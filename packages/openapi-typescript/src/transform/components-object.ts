@@ -51,8 +51,6 @@ export default function transformComponentsObject(components: ComponentsObject, 
     const parameters: string[] = [];
     indentLv++;
 
-    let isEveryParameterOptional = true;
-
     for (const [name, parameterObject] of getEntries(components.parameters, ctx.alphabetize, ctx.excludeDeprecated)) {
       const c = getSchemaObjectComment(parameterObject, indentLv);
       if (c) parameters.push(indent(c, indentLv));
@@ -60,12 +58,9 @@ export default function transformComponentsObject(components: ComponentsObject, 
       if (ctx.immutableTypes) key = tsReadonly(key);
       if ("$ref" in parameterObject) {
         parameters.push(indent(`${key}: ${transformSchemaObject(parameterObject, { path: `#/components/parameters/${name}`, ctx })};`, indentLv));
-        isEveryParameterOptional = false;
       } else {
         if (parameterObject.in !== "path" && !parameterObject.required) {
           key = tsOptionalProperty(key);
-        } else {
-          isEveryParameterOptional = false;
         }
         const parameterType = transformParameterObject(parameterObject, {
           path: `#/components/parameters/${name}`,
@@ -75,8 +70,7 @@ export default function transformComponentsObject(components: ComponentsObject, 
       }
     }
     indentLv--;
-    const parametersKey = isEveryParameterOptional ? tsOptionalProperty("parameters") : "parameters";
-    output.push(indent(`${parametersKey}: {`, indentLv), ...parameters, indent("};", indentLv));
+    output.push(indent(`parameters: {`, indentLv), ...parameters, indent("};", indentLv));
   } else {
     output.push(indent("parameters: never;", indentLv));
   }

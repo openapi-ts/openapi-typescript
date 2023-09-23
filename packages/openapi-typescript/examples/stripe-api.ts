@@ -675,17 +675,17 @@ export interface paths {
     post: operations["PostFileLinksLink"];
   };
   "/v1/files": {
-    /** @description <p>Returns a list of the files that your account has access to. The files are returned sorted by creation date, with the most recently created files appearing first.</p> */
+    /** @description <p>Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.</p> */
     get: operations["GetFiles"];
     /**
-     * @description <p>To upload a file to Stripe, you’ll need to send a request of type <code>multipart/form-data</code>. The request should contain the file you would like to upload, as well as the parameters for creating a file.</p>
+     * @description <p>To upload a file to Stripe, you need to send a request of type <code>multipart/form-data</code>. Include the file you want to upload in the request, and the parameters for creating a file.</p>
      *
-     * <p>All of Stripe’s officially supported Client libraries should have support for sending <code>multipart/form-data</code>.</p>
+     * <p>All of Stripe’s officially supported Client libraries support sending <code>multipart/form-data</code>.</p>
      */
     post: operations["PostFiles"];
   };
   "/v1/files/{file}": {
-    /** @description <p>Retrieves the details of an existing file object. Supply the unique file ID from a file, and Stripe will return the corresponding file object. To access file contents, see the <a href="/docs/file-upload#download-file-contents">File Upload Guide</a>.</p> */
+    /** @description <p>Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to <a href="/docs/file-upload#download-file-contents">access file contents</a>.</p> */
     get: operations["GetFilesFile"];
   };
   "/v1/financial_connections/accounts": {
@@ -884,15 +884,15 @@ export interface paths {
   };
   "/v1/issuing/authorizations/{authorization}/approve": {
     /**
-     * @description <p>Approves a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real-time authorization</a> flow.
-     * You can also respond directly to the webhook request to approve an authorization (preferred). More details can be found <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
+     * @description <p>[Deprecated] Approves a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real-time authorization</a> flow.
+     * This method is deprecated. Instead, <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">respond directly to the webhook request to approve an authorization</a>.</p>
      */
     post: operations["PostIssuingAuthorizationsAuthorizationApprove"];
   };
   "/v1/issuing/authorizations/{authorization}/decline": {
     /**
-     * @description <p>Declines a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real time authorization</a> flow.
-     * You can also respond directly to the webhook request to decline an authorization (preferred). More details can be found <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
+     * @description <p>[Deprecated] Declines a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real time authorization</a> flow.
+     * This method is deprecated. Instead, <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">respond directly to the webhook request to decline an authorization</a>.</p>
      */
     post: operations["PostIssuingAuthorizationsAuthorizationDecline"];
   };
@@ -1026,10 +1026,10 @@ export interface paths {
     /**
      * @description <p>Updates properties on a PaymentIntent object without confirming.</p>
      *
-     * <p>Depending on which properties you update, you may need to confirm the
-     * PaymentIntent again. For example, updating the <code>payment_method</code> will
-     * always require you to confirm the PaymentIntent again. If you prefer to
-     * update and confirm at the same time, we recommend updating properties via
+     * <p>Depending on which properties you update, you might need to confirm the
+     * PaymentIntent again. For example, updating the <code>payment_method</code>
+     * always requires you to confirm the PaymentIntent again. If you prefer to
+     * update and confirm at the same time, we recommend updating properties through
      * the <a href="/docs/api/payment_intents/confirm">confirm API</a> instead.</p>
      */
     post: operations["PostPaymentIntentsIntent"];
@@ -1134,6 +1134,18 @@ export interface paths {
   "/v1/payment_links/{payment_link}/line_items": {
     /** @description <p>When retrieving a payment link, there is an includable <strong>line_items</strong> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
     get: operations["GetPaymentLinksPaymentLinkLineItems"];
+  };
+  "/v1/payment_method_configurations": {
+    /** @description <p>List payment method configurations</p> */
+    get: operations["GetPaymentMethodConfigurations"];
+    /** @description <p>Creates a payment method configuration</p> */
+    post: operations["PostPaymentMethodConfigurations"];
+  };
+  "/v1/payment_method_configurations/{configuration}": {
+    /** @description <p>Retrieve payment method configuration</p> */
+    get: operations["GetPaymentMethodConfigurationsConfiguration"];
+    /** @description <p>Update payment method configuration</p> */
+    post: operations["PostPaymentMethodConfigurationsConfiguration"];
   };
   "/v1/payment_method_domains": {
     /** @description <p>Lists the details of existing payment method domains.</p> */
@@ -1425,7 +1437,7 @@ export interface paths {
     post: operations["PostReviewsReviewApprove"];
   };
   "/v1/setup_attempts": {
-    /** @description <p>Returns a list of SetupAttempts associated with a provided SetupIntent.</p> */
+    /** @description <p>Returns a list of SetupAttempts that associate with a provided SetupIntent.</p> */
     get: operations["GetSetupAttempts"];
   };
   "/v1/setup_intents": {
@@ -2884,16 +2896,16 @@ export interface components {
     /**
      * BalanceTransaction
      * @description Balance transactions represent funds moving through your Stripe account.
-     * They're created for every type of transaction that comes into or flows out of your Stripe account balance.
+     * Stripe creates them for every type of transaction that enters or leaves your Stripe account balance.
      *
      * Related guide: [Balance transaction types](https://stripe.com/docs/reports/balance-transaction-types)
      */
     balance_transaction: {
-      /** @description Gross amount of the transaction, in cents (or local equivalent). */
+      /** @description Gross amount of the transaction (in cents (or local equivalent)). */
       amount: number;
       /**
        * Format: unix-time
-       * @description The date the transaction's net funds will become available in the Stripe balance.
+       * @description The date that the transaction's net funds become available in the Stripe balance.
        */
       available_on: number;
       /**
@@ -2905,7 +2917,7 @@ export interface components {
       currency: string;
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null;
-      /** @description The exchange rate used, if applicable, for this transaction. Specifically, if money was converted from currency A to currency B, then the `amount` in currency A, times `exchange_rate`, would be the `amount` in currency B. For example, suppose you charged a customer 10.00 EUR. Then the PaymentIntent's `amount` would be `1000` and `currency` would be `eur`. Suppose this was converted into 12.34 USD in your Stripe account. Then the BalanceTransaction's `amount` would be `1234`, `currency` would be `usd`, and `exchange_rate` would be `1.234`. */
+      /** @description If applicable, this transaction uses an exchange rate. If money converts from currency A to currency B, then the `amount` in currency A, multipled by the `exchange_rate`, equals the `amount` in currency B. For example, if you charge a customer 10.00 EUR, the PaymentIntent's `amount` is `1000` and `currency` is `eur`. If this converts to 12.34 USD in your Stripe account, the BalanceTransaction's `amount` is `1234`, its `currency` is `usd`, and the `exchange_rate` is `1.234`. */
       exchange_rate?: number | null;
       /** @description Fees (in cents (or local equivalent)) paid for this transaction. */
       fee: number;
@@ -2913,21 +2925,21 @@ export interface components {
       fee_details: components["schemas"]["fee"][];
       /** @description Unique identifier for the object. */
       id: string;
-      /** @description Net amount of the transaction, in cents (or local equivalent). */
+      /** @description Net amount of the transaction (in cents (or local equivalent)). */
       net: number;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
        * @enum {string}
        */
       object: "balance_transaction";
-      /** @description [Learn more](https://stripe.com/docs/reports/reporting-categories) about how reporting categories can help you understand balance transactions from an accounting perspective. */
+      /** @description Learn more about how [reporting categories] (https://stripe.com/docs/reports/reporting-categories) can help you understand balance transactions from an accounting perspective. */
       reporting_category: string;
-      /** @description The Stripe object to which this transaction is related. */
+      /** @description This transaction relates to the Stripe object. */
       source?: (string | components["schemas"]["application_fee"] | components["schemas"]["charge"] | components["schemas"]["connect_collection_transfer"] | components["schemas"]["customer_cash_balance_transaction"] | components["schemas"]["dispute"] | components["schemas"]["fee_refund"] | components["schemas"]["issuing.authorization"] | components["schemas"]["issuing.dispute"] | components["schemas"]["issuing.transaction"] | components["schemas"]["payout"] | components["schemas"]["platform_tax_fee"] | components["schemas"]["refund"] | components["schemas"]["reserve_transaction"] | components["schemas"]["tax_deducted_at_source"] | components["schemas"]["topup"] | components["schemas"]["transfer"] | components["schemas"]["transfer_reversal"]) | null;
-      /** @description If the transaction's net funds are available in the Stripe balance yet. Either `available` or `pending`. */
+      /** @description The transaction's net funds status in the Stripe balance, which are either `available` or `pending`. */
       status: string;
       /**
-       * @description Transaction type: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_inbound`, `obligation_outbound`, `obligation_reversal_inbound`, `obligation_reversal_outbound`, `obligation_payout`, `obligation_payout_failure`, `payment`, `payment_failure_refund`, `payment_refund`, `payment_reversal`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. [Learn more](https://stripe.com/docs/reports/balance-transaction-types) about balance transaction types and what they represent. If you are looking to classify transactions for accounting purposes, you might want to consider `reporting_category` instead.
+       * @description Transaction type: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_inbound`, `obligation_outbound`, `obligation_reversal_inbound`, `obligation_reversal_outbound`, `obligation_payout`, `obligation_payout_failure`, `payment`, `payment_failure_refund`, `payment_refund`, `payment_reversal`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. Learn more about [balance transaction types and what they represent](https://stripe.com/docs/reports/balance-transaction-types). To classify transactions for accounting purposes, consider `reporting_category` instead.
        * @enum {string}
        */
       type: "adjustment" | "advance" | "advance_funding" | "anticipation_repayment" | "application_fee" | "application_fee_refund" | "charge" | "connect_collection_transfer" | "contribution" | "issuing_authorization_hold" | "issuing_authorization_release" | "issuing_dispute" | "issuing_transaction" | "obligation_inbound" | "obligation_outbound" | "obligation_payout" | "obligation_payout_failure" | "obligation_reversal_inbound" | "obligation_reversal_outbound" | "payment" | "payment_failure_refund" | "payment_refund" | "payment_reversal" | "payout" | "payout_cancel" | "payout_failure" | "refund" | "refund_failure" | "reserve_transaction" | "reserved_funds" | "stripe_fee" | "stripe_fx_fee" | "tax_fee" | "topup" | "topup_reversal" | "transfer" | "transfer_cancel" | "transfer_failure" | "transfer_refund";
@@ -3635,6 +3647,8 @@ export interface components {
        * @enum {string|null}
        */
       payment_method_collection?: "always" | "if_required" | null;
+      /** @description Information about the payment method configuration used for this Checkout session if using dynamic payment methods. */
+      payment_method_configuration_details?: components["schemas"]["payment_method_config_biz_payment_method_configuration_details"] | null;
       /** @description Payment-method-specific configuration for the PaymentIntent or SetupIntent of this CheckoutSession. */
       payment_method_options?: components["schemas"]["checkout_session_payment_method_options"] | null;
       /**
@@ -4117,10 +4131,10 @@ export interface components {
     };
     /** ConnectEmbeddedAccountSessionCreateComponents */
     connect_embedded_account_session_create_components: {
-      account_onboarding: components["schemas"]["connect_embedded_base_config"];
+      account_onboarding: components["schemas"]["connect_embedded_base_config_claim"];
     };
-    /** ConnectEmbeddedBaseConfig */
-    connect_embedded_base_config: {
+    /** ConnectEmbeddedBaseConfigClaim */
+    connect_embedded_base_config_claim: {
       /** @description Whether the embedded component is enabled. */
       enabled: boolean;
     };
@@ -4436,16 +4450,16 @@ export interface components {
     };
     /**
      * Customer
-     * @description This object represents a customer of your business. It lets you create recurring charges and track payments that belong to the same customer.
+     * @description This object represents a customer of your business. Use it to create recurring charges and track payments that belong to the same customer.
      *
      * Related guide: [Save a card during payment](https://stripe.com/docs/payments/save-during-payment)
      */
     customer: {
       /** @description The customer's address. */
       address?: components["schemas"]["address"] | null;
-      /** @description Current balance, if any, being stored on the customer. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that will be added to their next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account as invoices are finalized. */
+      /** @description The current balance, if any, that's stored on the customer. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that's added to their next invoice. The balance only considers amounts that Stripe hasn't successfully applied to any invoice. It doesn't reflect unpaid invoices. This balance is only taken into account after invoices finalize. */
       balance?: number;
-      /** @description The current funds being held by Stripe on behalf of the customer. These funds can be applied towards payment intents with source "cash_balance". The settings[reconciliation_mode] field describes whether these funds are applied to such payment intents manually or automatically. */
+      /** @description The current funds being held by Stripe on behalf of the customer. You can apply these funds towards payment intents when the source is "cash_balance". The `settings[reconciliation_mode]` field describes if these funds apply to these payment intents manually or automatically. */
       cash_balance?: components["schemas"]["cash_balance"] | null;
       /**
        * Format: unix-time
@@ -4457,13 +4471,13 @@ export interface components {
       /**
        * @description ID of the default payment source for the customer.
        *
-       * If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.
+       * If you use payment methods created through the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.
        */
       default_source?: (string | components["schemas"]["bank_account"] | components["schemas"]["card"] | components["schemas"]["source"]) | null;
       /**
-       * @description When the customer's latest invoice is billed by charging automatically, `delinquent` is `true` if the invoice's latest charge failed. When the customer's latest invoice is billed by sending an invoice, `delinquent` is `true` if the invoice isn't paid by its due date.
+       * @description If Stripe bills the customer's latest invoice by automatically charging and the latest charge fails, it sets `delinquent`` to `true``. If Stripe bills the invoice by sending it, and the invoice isn't paid by the due date, it also sets `delinquent`` to `true`.
        *
-       * If an invoice is marked uncollectible by [dunning](https://stripe.com/docs/billing/automatic-collection), `delinquent` doesn't get reset to `false`.
+       * If an invoice becomes uncollectible by [dunning](https://stripe.com/docs/billing/automatic-collection), `delinquent` doesn't reset to `false`.
        */
       delinquent?: boolean | null;
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
@@ -4474,7 +4488,7 @@ export interface components {
       email?: string | null;
       /** @description Unique identifier for the object. */
       id: string;
-      /** @description The current multi-currency balances, if any, being stored on the customer. If positive in a currency, the customer has a credit to apply to their next invoice denominated in that currency. If negative, the customer has an amount owed that will be added to their next invoice denominated in that currency. These balances do not refer to any unpaid invoices. They solely track amounts that have yet to be successfully applied to any invoice. A balance in a particular currency is only applied to any invoice as an invoice in that currency is finalized. */
+      /** @description The current multi-currency balances, if any, that's stored on the customer. If positive in a currency, the customer has a credit to apply to their next invoice denominated in that currency. If negative, the customer has an amount owed that's added to their next invoice denominated in that currency. These balances don't apply to unpaid invoices. They solely track amounts that Stripe hasn't successfully applied to any invoice. Stripe only applies a balance in a specific currency to an invoice after that invoice (which is in the same currency) finalizes. */
       invoice_credit_balance?: {
         [key: string]: number;
       };
@@ -4489,7 +4503,7 @@ export interface components {
       };
       /** @description The customer's full name or business name. */
       name?: string | null;
-      /** @description The suffix of the customer's next invoice number, e.g., 0001. */
+      /** @description The suffix of the customer's next invoice number (for example, 0001). */
       next_invoice_sequence?: number;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -4538,7 +4552,7 @@ export interface components {
       };
       tax?: components["schemas"]["customer_tax"];
       /**
-       * @description Describes the customer's tax exemption status. One of `none`, `exempt`, or `reverse`. When set to `reverse`, invoice and receipt PDFs include the text **"Reverse charge"**.
+       * @description Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to `reverse`, invoice and receipt PDFs include the following text: **"Reverse charge"**.
        * @enum {string|null}
        */
       tax_exempt?: "exempt" | "none" | "reverse" | null;
@@ -4559,20 +4573,20 @@ export interface components {
         /** @description The URL where this list can be accessed. */
         url: string;
       };
-      /** @description ID of the test clock this customer belongs to. */
+      /** @description ID of the test clock that this customer belongs to. */
       test_clock?: (string | components["schemas"]["test_helpers.test_clock"]) | null;
     };
     /** customer_acceptance */
     customer_acceptance: {
       /**
        * Format: unix-time
-       * @description The time at which the customer accepted the Mandate.
+       * @description The time that the customer accepts the mandate.
        */
       accepted_at?: number | null;
       offline?: components["schemas"]["offline_acceptance"];
       online?: components["schemas"]["online_acceptance"];
       /**
-       * @description The type of customer acceptance information included with the Mandate. One of `online` or `offline`.
+       * @description The mandate includes the type of customer acceptance information, such as: `online` or `offline`.
        * @enum {string}
        */
       type: "offline" | "online";
@@ -5199,19 +5213,17 @@ export interface components {
     /**
      * Dispute
      * @description A dispute occurs when a customer questions your charge with their card issuer.
-     * When this happens, you're given the opportunity to respond to the dispute with
-     * evidence that shows that the charge is legitimate. You can find more
-     * information about the dispute process in our [Disputes and
-     * Fraud](/docs/disputes) documentation.
+     * When this happens, you have the opportunity to respond to the dispute with
+     * evidence that shows that the charge is legitimate.
      *
      * Related guide: [Disputes and fraud](https://stripe.com/docs/disputes)
      */
     dispute: {
-      /** @description Disputed amount. Usually the amount of the charge, but can differ (usually because of currency fluctuation or because only part of the order is disputed). */
+      /** @description Disputed amount. Usually the amount of the charge, but it can differ (usually because of currency fluctuation or because only part of the order is disputed). */
       amount: number;
       /** @description List of zero, one, or two balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute. */
       balance_transactions: components["schemas"]["balance_transaction"][];
-      /** @description ID of the charge that was disputed. */
+      /** @description ID of the charge that's disputed. */
       charge: string | components["schemas"]["charge"];
       /**
        * Format: unix-time
@@ -5224,7 +5236,7 @@ export interface components {
       evidence_details: components["schemas"]["dispute_evidence_details"];
       /** @description Unique identifier for the object. */
       id: string;
-      /** @description If true, it is still possible to refund the disputed payment. Once the payment has been fully refunded, no further funds will be withdrawn from your Stripe account as a result of this dispute. */
+      /** @description If true, it's still possible to refund the disputed payment. After the payment has been fully refunded, no further funds are withdrawn from your Stripe account as a result of this dispute. */
       is_charge_refundable: boolean;
       /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
       livemode: boolean;
@@ -5237,10 +5249,10 @@ export interface components {
        * @enum {string}
        */
       object: "dispute";
-      /** @description ID of the PaymentIntent that was disputed. */
+      /** @description ID of the PaymentIntent that's disputed. */
       payment_intent?: (string | components["schemas"]["payment_intent"]) | null;
       payment_method_details?: components["schemas"]["dispute_payment_method_details"];
-      /** @description Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Read more about [dispute reasons](https://stripe.com/docs/disputes/categories). */
+      /** @description Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Learn more about [dispute reasons](https://stripe.com/docs/disputes/categories). */
       reason: string;
       /**
        * @description Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, or `lost`.
@@ -5379,37 +5391,38 @@ export interface components {
      * @description Events are our way of letting you know when something interesting happens in
      * your account. When an interesting event occurs, we create a new `Event`
      * object. For example, when a charge succeeds, we create a `charge.succeeded`
-     * event; and when an invoice payment attempt fails, we create an
-     * `invoice.payment_failed` event. Note that many API requests may cause multiple
-     * events to be created. For example, if you create a new subscription for a
-     * customer, you will receive both a `customer.subscription.created` event and a
+     * event, and when an invoice payment attempt fails, we create an
+     * `invoice.payment_failed` event. Certain API requests might create multiple
+     * events. For example, if you create a new subscription for a
+     * customer, you receive both a `customer.subscription.created` event and a
      * `charge.succeeded` event.
      *
-     * Events occur when the state of another API resource changes. The state of that
-     * resource at the time of the change is embedded in the event's data field. For
-     * example, a `charge.succeeded` event will contain a charge, and an
-     * `invoice.payment_failed` event will contain an invoice.
+     * Events occur when the state of another API resource changes. The event's data
+     * field embeds the resource's state at the time of the change. For
+     * example, a `charge.succeeded` event contains a charge, and an
+     * `invoice.payment_failed` event contains an invoice.
      *
      * As with other API resources, you can use endpoints to retrieve an
      * [individual event](https://stripe.com/docs/api#retrieve_event) or a [list of events](https://stripe.com/docs/api#list_events)
      * from the API. We also have a separate
      * [webhooks](http://en.wikipedia.org/wiki/Webhook) system for sending the
-     * `Event` objects directly to an endpoint on your server. Webhooks are managed
-     * in your
-     * [account settings](https://dashboard.stripe.com/account/webhooks),
-     * and our [Using Webhooks](https://stripe.com/docs/webhooks) guide will help you get set up.
+     * `Event` objects directly to an endpoint on your server. You can manage
+     * webhooks in your
+     * [account settings](https://dashboard.stripe.com/account/webhooks). Learn how
+     * to [listen for events]
+     * (/docs/webhooks) so that your integration can automatically trigger reactions.
      *
-     * When using [Connect](https://stripe.com/docs/connect), you can also receive notifications of
-     * events that occur in connected accounts. For these events, there will be an
+     * When using [Connect](https://stripe.com/docs/connect), you can also receive event notifications
+     * that occur in connected accounts. For these events, there's an
      * additional `account` attribute in the received `Event` object.
      *
-     * **NOTE:** Right now, access to events through the [Retrieve Event API](https://stripe.com/docs/api#retrieve_event) is
-     * guaranteed only for 30 days.
+     * We only guarantee access to events through the [Retrieve Event API](https://stripe.com/docs/api#retrieve_event)
+     * for 30 days.
      */
     event: {
-      /** @description The connected account that originated the event. */
+      /** @description The connected account that originates the event. */
       account?: string;
-      /** @description The Stripe API version used to render `data`. *Note: This property is populated only for events on or after October 31, 2014*. */
+      /** @description The Stripe API version used to render `data`. This property is populated only for events on or after October 31, 2014. */
       api_version?: string | null;
       /**
        * Format: unix-time
@@ -5426,11 +5439,11 @@ export interface components {
        * @enum {string}
        */
       object: "event";
-      /** @description Number of webhooks that have yet to be successfully delivered (i.e., to return a 20x response) to the URLs you've specified. */
+      /** @description Number of webhooks that haven't been successfully delivered (for example, to return a 20x response) to the URLs you specify. */
       pending_webhooks: number;
-      /** @description Information on the API request that instigated the event. */
+      /** @description Information on the API request that triggers the event. */
       request?: components["schemas"]["notification_event_request"] | null;
-      /** @description Description of the event (e.g., `invoice.created` or `charge.refunded`). */
+      /** @description Description of the event (for example, `invoice.created` or `charge.refunded`). */
       type: string;
     };
     /**
@@ -5522,10 +5535,10 @@ export interface components {
     };
     /**
      * File
-     * @description This is an object representing a file hosted on Stripe's servers. The
-     * file may have been uploaded by yourself using the [create file](https://stripe.com/docs/api#create_file)
-     * request (for example, when uploading dispute evidence) or it may have
-     * been created by Stripe (for example, the results of a [Sigma scheduled
+     * @description This object represents files hosted on Stripe's servers. You can upload
+     * files with the [create file](https://stripe.com/docs/api#create_file) request
+     * (for example, when uploading dispute evidence). Stripe also
+     * creates files independetly (for example, the results of a [Sigma scheduled
      * query](#scheduled_queries)).
      *
      * Related guide: [File upload guide](https://stripe.com/docs/file-upload)
@@ -5538,10 +5551,10 @@ export interface components {
       created: number;
       /**
        * Format: unix-time
-       * @description The time at which the file expires and is no longer available in epoch seconds.
+       * @description The file expires and isn't available at this time in epoch seconds.
        */
       expires_at?: number | null;
-      /** @description A filename for the file, suitable for saving to a filesystem. */
+      /** @description The suitable name for saving the file to a filesystem. */
       filename?: string | null;
       /** @description Unique identifier for the object. */
       id: string;
@@ -5572,19 +5585,19 @@ export interface components {
        * @enum {string}
        */
       purpose: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "document_provider_identity_document" | "finance_report_run" | "identity_document" | "identity_document_downloadable" | "pci_document" | "selfie" | "sigma_scheduled_query" | "tax_document_user_upload" | "terminal_reader_splashscreen";
-      /** @description The size in bytes of the file object. */
+      /** @description The size of the file object in bytes. */
       size: number;
-      /** @description A user friendly title for the document. */
+      /** @description A suitable title for the document. */
       title?: string | null;
-      /** @description The type of the file returned (e.g., `csv`, `pdf`, `jpg`, or `png`). */
+      /** @description The returned file type (for example, `csv`, `pdf`, `jpg`, or `png`). */
       type?: string | null;
-      /** @description The URL from which the file can be downloaded using your live secret API key. */
+      /** @description Use your live secret API key to download the file from this URL. */
       url?: string | null;
     };
     /**
      * FileLink
      * @description To share the contents of a `File` object with non-Stripe users, you can
-     * create a `FileLink`. `FileLink`s contain a URL that can be used to
+     * create a `FileLink`. `FileLink`s contain a URL that you can use to
      * retrieve the contents of the file without authentication.
      */
     file_link: {
@@ -5593,11 +5606,11 @@ export interface components {
        * @description Time at which the object was created. Measured in seconds since the Unix epoch.
        */
       created: number;
-      /** @description Whether this link is already expired. */
+      /** @description Returns if the link is already expired. */
       expired: boolean;
       /**
        * Format: unix-time
-       * @description Time at which the link expires.
+       * @description Time that the link expires.
        */
       expires_at?: number | null;
       /** @description The file object this link points to. */
@@ -6509,6 +6522,8 @@ export interface components {
       quote?: (string | components["schemas"]["quote"]) | null;
       /** @description This is the transaction number that appears on email receipts sent for this invoice. */
       receipt_number?: string | null;
+      /** @description The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page. */
+      rendering?: components["schemas"]["invoices_invoice_rendering"] | null;
       /** @description Options for invoice PDF rendering. */
       rendering_options?: components["schemas"]["invoice_setting_rendering_options"] | null;
       /** @description The details of the cost of shipping, including the ShippingRate applied on the invoice. */
@@ -6668,6 +6683,14 @@ export interface components {
       /** @description Data features requested to be retrieved upon account creation. */
       prefetch?: "balances"[] | null;
     };
+    /** InvoiceRenderingPdf */
+    invoice_rendering_pdf: {
+      /**
+       * @description Page size of invoice pdf. Options include a4, letter, and auto. If set to auto, page size will be switched to a4 or letter based on customer locale.
+       * @enum {string|null}
+       */
+      page_size?: "a4" | "auto" | "letter" | null;
+    };
     /** InvoiceSettingCustomField */
     invoice_setting_custom_field: {
       /** @description The name of the custom field. */
@@ -6812,6 +6835,13 @@ export interface components {
       action: string;
       /** @description The invoice that was cloned. */
       invoice: string | components["schemas"]["invoice"];
+    };
+    /** InvoicesInvoiceRendering */
+    invoices_invoice_rendering: {
+      /** @description How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. */
+      amount_tax_display?: string | null;
+      /** @description Invoice pdf rendering options */
+      pdf?: components["schemas"]["invoice_rendering_pdf"] | null;
     };
     /** InvoicesPaymentMethodOptions */
     invoices_payment_method_options: {
@@ -7398,7 +7428,7 @@ export interface components {
       eta?: number | null;
       /** @description Recipient name. */
       name: string;
-      /** @description The phone number of the receiver of the bulk shipment. This phone number will be provided to the shipping company, who might use it to contact the receiver in case of delivery issues. */
+      /** @description The phone number of the receiver of the shipment. Our courier partners will use this number to contact you in the event of card delivery issues. For individual shipments to the EU/UK, if this field is empty, we will provide them with the phone number provided when the cardholder was initially created. */
       phone_number?: string | null;
       /** @description Whether a signature is required for card delivery. This feature is only supported for US users. Standard shipping service does not support signature on delivery. The default value for standard shipping service is false and for express and priority services is true. */
       require_signature?: boolean | null;
@@ -8044,7 +8074,7 @@ export interface components {
     };
     /**
      * Mandate
-     * @description A Mandate is a record of the permission a customer has given you to debit their payment method.
+     * @description A Mandate is a record of the permission that your customer gives you to debit their payment method.
      */
     mandate: {
       customer_acceptance: components["schemas"]["customer_acceptance"];
@@ -8058,14 +8088,14 @@ export interface components {
        * @enum {string}
        */
       object: "mandate";
-      /** @description The account (if any) for which the mandate is intended. */
+      /** @description The account (if any) that the mandate is intended for. */
       on_behalf_of?: string;
       /** @description ID of the payment method associated with this mandate. */
       payment_method: string | components["schemas"]["payment_method"];
       payment_method_details: components["schemas"]["mandate_payment_method_details"];
       single_use?: components["schemas"]["mandate_single_use"];
       /**
-       * @description The status of the mandate, which indicates whether it can be used to initiate a payment.
+       * @description The mandate status indicates whether or not you can use it to initiate a payment.
        * @enum {string}
        */
       status: "active" | "inactive" | "pending";
@@ -8125,7 +8155,7 @@ export interface components {
       link?: components["schemas"]["mandate_link"];
       paypal?: components["schemas"]["mandate_paypal"];
       sepa_debit?: components["schemas"]["mandate_sepa_debit"];
-      /** @description The type of the payment method associated with this mandate. An additional hash is included on `payment_method_details` with a name matching this value. It contains mandate information specific to the payment method. */
+      /** @description This mandate corresponds with a specific payment method type. The `payment_method_details` includes an additional hash with the same name and contains mandate information that's specific to that payment method. */
       type: string;
       us_bank_account?: components["schemas"]["mandate_us_bank_account"];
     };
@@ -8145,9 +8175,9 @@ export interface components {
     };
     /** mandate_single_use */
     mandate_single_use: {
-      /** @description On a single use mandate, the amount of the payment. */
+      /** @description The amount of the payment on a single use mandate. */
       amount: number;
-      /** @description On a single use mandate, the currency of the payment. */
+      /** @description The currency of the payment on a single use mandate. */
       currency: string;
     };
     /** mandate_us_bank_account */
@@ -8177,9 +8207,9 @@ export interface components {
     offline_acceptance: Record<string, never>;
     /** online_acceptance */
     online_acceptance: {
-      /** @description The IP address from which the Mandate was accepted by the customer. */
+      /** @description The customer accepts the mandate from this IP address. */
       ip_address?: string | null;
-      /** @description The user agent of the browser from which the Mandate was accepted by the customer. */
+      /** @description The customer accepts the mandate using the user agent of the browser. */
       user_agent?: string | null;
     };
     /** OutboundPaymentsPaymentMethodDetails */
@@ -8429,6 +8459,8 @@ export interface components {
       on_behalf_of?: (string | components["schemas"]["account"]) | null;
       /** @description ID of the payment method used in this PaymentIntent. */
       payment_method?: (string | components["schemas"]["payment_method"]) | null;
+      /** @description Information about the payment method configuration used for this PaymentIntent. */
+      payment_method_configuration_details?: components["schemas"]["payment_method_config_biz_payment_method_configuration_details"] | null;
       /** @description Payment-method-specific configuration for this PaymentIntent. */
       payment_method_options?: components["schemas"]["payment_intent_payment_method_options"] | null;
       /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. */
@@ -9148,10 +9180,12 @@ export interface components {
       shipping_address?: components["schemas"]["payment_links_resource_custom_text_position"] | null;
       /** @description Custom text that should be displayed alongside the payment confirmation button. */
       submit?: components["schemas"]["payment_links_resource_custom_text_position"] | null;
+      /** @description Custom text that should be displayed in place of the default terms of service agreement text. */
+      terms_of_service_acceptance?: components["schemas"]["payment_links_resource_custom_text_position"] | null;
     };
     /** PaymentLinksResourceCustomTextPosition */
     payment_links_resource_custom_text_position: {
-      /** @description Text may be up to 1000 characters in length. */
+      /** @description Text may be up to 1200 characters in length. */
       message: string;
     };
     /** PaymentLinksResourceInvoiceCreation */
@@ -9482,6 +9516,96 @@ export interface components {
       buyer_id?: string | null;
       /** @description A public identifier for buyers using Cash App. */
       cashtag?: string | null;
+    };
+    /** PaymentMethodConfigBizPaymentMethodConfigurationDetails */
+    payment_method_config_biz_payment_method_configuration_details: {
+      /** @description ID of the payment method configuration used. */
+      id: string;
+      /** @description ID of the parent payment method configuration used. */
+      parent?: string | null;
+    };
+    /** PaymentMethodConfigResourceDisplayPreference */
+    payment_method_config_resource_display_preference: {
+      /** @description For child configurations, whether or not the account's preference will be observed. If `false`, the parent configuration's preference is used. */
+      overridable?: boolean | null;
+      /**
+       * @description The account's display preference.
+       * @enum {string}
+       */
+      preference: "none" | "off" | "on";
+      /**
+       * @description The effective display preference value.
+       * @enum {string}
+       */
+      value: "off" | "on";
+    };
+    /** PaymentMethodConfigResourcePaymentMethodProperties */
+    payment_method_config_resource_payment_method_properties: {
+      /** @description Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active. */
+      available: boolean;
+      display_preference: components["schemas"]["payment_method_config_resource_display_preference"];
+    };
+    /**
+     * PaymentMethodConfigResourcePaymentMethodConfiguration
+     * @description An object detailing payment method configurations.
+     */
+    payment_method_configuration: {
+      acss_debit?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      /** @description Whether the configuration can be used for new payments. */
+      active: boolean;
+      affirm?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      afterpay_clearpay?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      alipay?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      apple_pay?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      /** @description The Connect application associated with this configuration. */
+      application?: string | null;
+      au_becs_debit?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      bacs_debit?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      bancontact?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      blik?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      boleto?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      card?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      cartes_bancaires?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      cashapp?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      eps?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      fpx?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      giropay?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      google_pay?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      grabpay?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      /** @description Unique identifier for the object. */
+      id: string;
+      id_bank_transfer?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      ideal?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      /** @description The default configuration is used whenever no payment method configuration is specified. */
+      is_default: boolean;
+      jcb?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      klarna?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      konbini?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      link?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
+      livemode: boolean;
+      multibanco?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      /** @description Configuration name. */
+      name: string;
+      netbanking?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      /**
+       * @description String representing the object's type. Objects of the same type share the same value.
+       * @enum {string}
+       */
+      object: "payment_method_configuration";
+      oxxo?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      p24?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      /** @description The configuration's parent configuration. */
+      parent?: string | null;
+      pay_by_bank?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      paynow?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      paypal?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      promptpay?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      sepa_debit?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      sofort?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      upi?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      us_bank_account?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+      wechat_pay?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
     };
     /** payment_method_customer_balance */
     payment_method_customer_balance: Record<string, never>;
@@ -10941,10 +11065,12 @@ export interface components {
       shipping_address?: components["schemas"]["payment_pages_checkout_session_custom_text_position"] | null;
       /** @description Custom text that should be displayed alongside the payment confirmation button. */
       submit?: components["schemas"]["payment_pages_checkout_session_custom_text_position"] | null;
+      /** @description Custom text that should be displayed in place of the default terms of service agreement text. */
+      terms_of_service_acceptance?: components["schemas"]["payment_pages_checkout_session_custom_text_position"] | null;
     };
     /** PaymentPagesCheckoutSessionCustomTextPosition */
     payment_pages_checkout_session_custom_text_position: {
-      /** @description Text may be up to 1000 characters in length. */
+      /** @description Text may be up to 1200 characters in length. */
       message: string;
     };
     /** PaymentPagesCheckoutSessionCustomerDetails */
@@ -11164,7 +11290,7 @@ export interface components {
      * A platform cannot access a Standard or Express account's persons after the account starts onboarding, such as after generating an account link for the account.
      * See the [Standard onboarding](https://stripe.com/docs/connect/standard-accounts) or [Express onboarding documentation](https://stripe.com/docs/connect/express-accounts) for information about platform prefilling and account onboarding steps.
      *
-     * Related guide: [Handling identity verification with the API](https://stripe.com/docs/connect/identity-verification-api#person-information)
+     * Related guide: [Handling identity verification with the API](https://stripe.com/docs/connect/handling-api-verification#person-information)
      */
     person: {
       /** @description The account the person is associated with. */
@@ -12502,7 +12628,7 @@ export interface components {
     /**
      * PaymentFlowsSetupIntentSetupAttempt
      * @description A SetupAttempt describes one attempted confirmation of a SetupIntent,
-     * whether that confirmation was successful or unsuccessful. You can use
+     * whether that confirmation is successful or unsuccessful. You can use
      * SetupAttempts to inspect details of a specific attempt at setting up a
      * payment method using a SetupIntent.
      */
@@ -12802,6 +12928,8 @@ export interface components {
       on_behalf_of?: (string | components["schemas"]["account"]) | null;
       /** @description ID of the payment method used with this SetupIntent. */
       payment_method?: (string | components["schemas"]["payment_method"]) | null;
+      /** @description Information about the payment method configuration used for this Setup Intent. */
+      payment_method_configuration_details?: components["schemas"]["payment_method_config_biz_payment_method_configuration_details"] | null;
       /** @description Payment-method-specific configuration for this SetupIntent. */
       payment_method_options?: components["schemas"]["setup_intent_payment_method_options"] | null;
       /** @description The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. */
@@ -14369,10 +14497,10 @@ export interface components {
     };
     /**
      * tax_id
-     * @description You can add one or multiple tax IDs to a [customer](https://stripe.com/docs/api/customers).
-     * A customer's tax IDs are displayed on invoices and credit notes issued for the customer.
+     * @description You can add one or multiple tax IDs to a [customer](https://stripe.com/docs/api/customers) or account.
+     * Customer and account tax IDs get displayed on related invoices and credit notes.
      *
-     * Related guide: [Customer tax identification numbers](https://stripe.com/docs/billing/taxes/tax-ids)
+     * Related guides: [Customer tax identification numbers](https://stripe.com/docs/billing/taxes/tax-ids), [Account tax IDs](https://stripe.com/docs/invoicing/connect#account-tax-ids)
      */
     tax_id: {
       /** @description Two-letter ISO code representing the country of the tax ID. */
@@ -16379,7 +16507,7 @@ export interface operations {
 
   /** @description <p>Retrieves the details of an account.</p> */
   GetAccount: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: string[];
@@ -16485,7 +16613,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of accounts connected to your platform via <a href="/docs/connect">Connect</a>. If you’re not a platform, the list is empty.</p> */
   GetAccounts: {
-    parameters: {
+    parameters?: {
       query?: {
         created?: {
           gt?: number;
@@ -18332,9 +18460,9 @@ export interface operations {
           full_name_aliases?: string[] | "";
           /** @description The person's gender (International regulations require either "male" or "female"). */
           gender?: string;
-          /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
+          /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii). */
           id_number?: string;
-          /** @description The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
+          /** @description The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii). */
           id_number_secondary?: string;
           /** @description The person's last name. */
           last_name?: string;
@@ -18535,9 +18663,9 @@ export interface operations {
           full_name_aliases?: string[] | "";
           /** @description The person's gender (International regulations require either "male" or "female"). */
           gender?: string;
-          /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
+          /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii). */
           id_number?: string;
-          /** @description The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
+          /** @description The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii). */
           id_number_secondary?: string;
           /** @description The person's last name. */
           last_name?: string;
@@ -18788,9 +18916,9 @@ export interface operations {
           full_name_aliases?: string[] | "";
           /** @description The person's gender (International regulations require either "male" or "female"). */
           gender?: string;
-          /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
+          /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii). */
           id_number?: string;
-          /** @description The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
+          /** @description The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii). */
           id_number_secondary?: string;
           /** @description The person's last name. */
           last_name?: string;
@@ -18991,9 +19119,9 @@ export interface operations {
           full_name_aliases?: string[] | "";
           /** @description The person's gender (International regulations require either "male" or "female"). */
           gender?: string;
-          /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
+          /** @description The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii). */
           id_number?: string;
-          /** @description The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens_sources/create_token?type=pii). */
+          /** @description The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://stripe.com/docs/js/tokens/create_token?type=pii). */
           id_number_secondary?: string;
           /** @description The person's last name. */
           last_name?: string;
@@ -19141,7 +19269,7 @@ export interface operations {
   };
   /** @description <p>List apple pay domains.</p> */
   GetApplePayDomains: {
-    parameters: {
+    parameters?: {
       query?: {
         domain_name?: string;
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -19271,7 +19399,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of application fees you’ve previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.</p> */
   GetApplicationFees: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return application fees for the charge specified by this charge ID. */
         charge?: string;
@@ -19721,7 +19849,7 @@ export interface operations {
    *  For a sample request, see <a href="/docs/connect/account-balances#accounting-for-negative-balances">Accounting for negative balances</a>.</p>
    */
   GetBalance: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: string[];
@@ -19753,7 +19881,7 @@ export interface operations {
    * <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p>
    */
   GetBalanceHistory: {
-    parameters: {
+    parameters?: {
       query?: {
         created?: {
           gt?: number;
@@ -19851,7 +19979,7 @@ export interface operations {
    * <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p>
    */
   GetBalanceTransactions: {
-    parameters: {
+    parameters?: {
       query?: {
         created?: {
           gt?: number;
@@ -19945,7 +20073,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of configurations that describe the functionality of the customer portal.</p> */
   GetBillingPortalConfigurations: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return configurations that are active or inactive (e.g., pass `true` to only list active configurations). */
         active?: boolean;
@@ -20309,7 +20437,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of charges you’ve previously created. The charges are returned in sorted order, with the most recent charges appearing first.</p> */
   GetCharges: {
-    parameters: {
+    parameters?: {
       query?: {
         created?: {
           gt?: number;
@@ -21038,7 +21166,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Checkout Sessions.</p> */
   GetCheckoutSessions: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return the Checkout Sessions for the Customer specified. */
         customer?: string;
@@ -21182,6 +21310,9 @@ export interface operations {
               message: string;
             } | "";
             submit?: {
+              message: string;
+            } | "";
+            terms_of_service_acceptance?: {
               message: string;
             } | "";
           };
@@ -21378,6 +21509,8 @@ export interface operations {
            * @enum {string}
            */
           payment_method_collection?: "always" | "if_required";
+          /** @description The ID of the payment method configuration to use with this Checkout session. */
+          payment_method_configuration?: string;
           /**
            * payment_method_options_param
            * @description Payment-method-specific configuration.
@@ -21849,7 +21982,7 @@ export interface operations {
   };
   /** @description <p>Lists all Country Spec objects available in the API.</p> */
   GetCountrySpecs: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -21925,7 +22058,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your coupons.</p> */
   GetCoupons: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
         created?: {
@@ -22147,7 +22280,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of credit notes.</p> */
   GetCreditNotes: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return credit notes for the customer specified by this customer ID. */
         customer?: string;
@@ -22582,7 +22715,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.</p> */
   GetCustomers: {
-    parameters: {
+    parameters?: {
       query?: {
         created?: {
           gt?: number;
@@ -25212,7 +25345,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your disputes.</p> */
   GetDisputes: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return disputes associated to the charge specified by this charge ID. */
         charge?: string;
@@ -25468,7 +25601,7 @@ export interface operations {
   };
   /** @description <p>List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in <a href="/docs/api/events/object">event object</a> <code>api_version</code> attribute (not according to your current Stripe API version or <code>Stripe-Version</code> header).</p> */
   GetEvents: {
-    parameters: {
+    parameters?: {
       query?: {
         created?: {
           gt?: number;
@@ -25556,7 +25689,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.</p> */
   GetExchangeRates: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description A cursor for use in pagination. `ending_before` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with the exchange rate for currency X your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -25632,7 +25765,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of file links.</p> */
   GetFileLinks: {
-    parameters: {
+    parameters?: {
       query?: {
         created?: {
           gt?: number;
@@ -25644,7 +25777,7 @@ export interface operations {
         ending_before?: string;
         /** @description Specifies which fields in the response should be expanded. */
         expand?: string[];
-        /** @description Filter links by their expiration status. By default, all links are returned. */
+        /** @description Filter links by their expiration status. By default, Stripe returns all links. */
         expired?: boolean;
         /** @description Only return links for the given file. */
         file?: string;
@@ -25695,7 +25828,7 @@ export interface operations {
           expand?: string[];
           /**
            * Format: unix-time
-           * @description A future timestamp after which the link will no longer be usable.
+           * @description The link isn't usable after this future timestamp.
            */
           expires_at?: number;
           /** @description The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `identity_document_downloadable`, `pci_document`, `selfie`, `sigma_scheduled_query`, `tax_document_user_upload`, or `terminal_reader_splashscreen`. */
@@ -25789,9 +25922,9 @@ export interface operations {
       };
     };
   };
-  /** @description <p>Returns a list of the files that your account has access to. The files are returned sorted by creation date, with the most recently created files appearing first.</p> */
+  /** @description <p>Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.</p> */
   GetFiles: {
-    parameters: {
+    parameters?: {
       query?: {
         created?: {
           gt?: number;
@@ -25805,7 +25938,7 @@ export interface operations {
         expand?: string[];
         /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
         limit?: number;
-        /** @description The file purpose to filter queries by. If none is provided, files will not be filtered by purpose. */
+        /** @description Filter queries by the file purpose. If you don't provide a purpose, the queries return unfiltered files. */
         purpose?: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "document_provider_identity_document" | "finance_report_run" | "identity_document" | "identity_document_downloadable" | "pci_document" | "selfie" | "sigma_scheduled_query" | "tax_document_user_upload" | "terminal_reader_splashscreen";
         /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
         starting_after?: string;
@@ -25843,9 +25976,9 @@ export interface operations {
     };
   };
   /**
-   * @description <p>To upload a file to Stripe, you’ll need to send a request of type <code>multipart/form-data</code>. The request should contain the file you would like to upload, as well as the parameters for creating a file.</p>
+   * @description <p>To upload a file to Stripe, you need to send a request of type <code>multipart/form-data</code>. Include the file you want to upload in the request, and the parameters for creating a file.</p>
    *
-   * <p>All of Stripe’s officially supported Client libraries should have support for sending <code>multipart/form-data</code>.</p>
+   * <p>All of Stripe’s officially supported Client libraries support sending <code>multipart/form-data</code>.</p>
    */
   PostFiles: {
     requestBody: {
@@ -25855,12 +25988,12 @@ export interface operations {
           expand?: string[];
           /**
            * Format: binary
-           * @description A file to upload. The file should follow the specifications of RFC 2388 (which defines file transfers for the `multipart/form-data` protocol).
+           * @description A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the `multipart/form-data` protocol.
            */
           file: string;
           /**
            * file_link_creation_params
-           * @description Optional parameters to automatically create a [file link](https://stripe.com/docs/api#file_links) for the newly created file.
+           * @description Optional parameters that automatically create a [file link](https://stripe.com/docs/api#file_links) for the newly created file.
            */
           file_link_data?: {
             create: boolean;
@@ -25893,7 +26026,7 @@ export interface operations {
       };
     };
   };
-  /** @description <p>Retrieves the details of an existing file object. Supply the unique file ID from a file, and Stripe will return the corresponding file object. To access file contents, see the <a href="/docs/file-upload#download-file-contents">File Upload Guide</a>.</p> */
+  /** @description <p>Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to <a href="/docs/file-upload#download-file-contents">access file contents</a>.</p> */
   GetFilesFile: {
     parameters: {
       query?: {
@@ -25926,7 +26059,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Financial Connections <code>Account</code> objects.</p> */
   GetFinancialConnectionsAccounts: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive. */
         account_holder?: {
@@ -26206,7 +26339,7 @@ export interface operations {
   };
   /** @description <p>List all verification reports.</p> */
   GetIdentityVerificationReports: {
-    parameters: {
+    parameters?: {
       query?: {
         created?: {
           gt?: number;
@@ -26292,7 +26425,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of VerificationSessions</p> */
   GetIdentityVerificationSessions: {
-    parameters: {
+    parameters?: {
       query?: {
         created?: {
           gt?: number;
@@ -26577,7 +26710,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.</p> */
   GetInvoiceitems: {
-    parameters: {
+    parameters?: {
       query?: {
         created?: {
           gt?: number;
@@ -26871,7 +27004,7 @@ export interface operations {
   };
   /** @description <p>You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.</p> */
   GetInvoices: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description The collection method of the invoice to retrieve. Either `charge_automatically` or `send_invoice`. */
         collection_method?: "charge_automatically" | "send_invoice";
@@ -27075,6 +27208,19 @@ export interface operations {
            * @enum {string}
            */
           pending_invoice_items_behavior?: "exclude" | "include" | "include_and_require";
+          /**
+           * rendering_param
+           * @description The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
+           */
+          rendering?: {
+            /** @enum {string} */
+            amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax";
+            /** rendering_pdf_param */
+            pdf?: {
+              /** @enum {string} */
+              page_size?: "a4" | "auto" | "letter";
+            };
+          };
           /** @description Options for invoice PDF rendering. */
           rendering_options?: ({
             /** @enum {string} */
@@ -27232,7 +27378,7 @@ export interface operations {
    * <p>You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass a <code>proration_date</code> parameter when doing the actual subscription update. The value passed in should be the same as the <code>subscription_proration_date</code> returned on the upcoming invoice resource. The recommended way to get only the prorations being previewed is to consider only proration line items where <code>period[start]</code> is equal to the <code>subscription_proration_date</code> on the upcoming invoice resource.</p>
    */
   GetInvoicesUpcoming: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Settings for automatic tax lookup for this invoice preview. */
         automatic_tax?: {
@@ -27408,7 +27554,7 @@ export interface operations {
   };
   /** @description <p>When retrieving an upcoming invoice, you’ll get a <strong>lines</strong> property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
   GetInvoicesUpcomingLines: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Settings for automatic tax lookup for this invoice preview. */
         automatic_tax?: {
@@ -27763,6 +27909,19 @@ export interface operations {
             };
             payment_method_types?: (("ach_credit_transfer" | "ach_debit" | "acss_debit" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "paynow" | "paypal" | "promptpay" | "sepa_debit" | "sofort" | "us_bank_account" | "wechat_pay")[]) | "";
           };
+          /**
+           * rendering_param
+           * @description The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
+           */
+          rendering?: {
+            /** @enum {string} */
+            amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax";
+            /** rendering_pdf_param */
+            pdf?: {
+              /** @enum {string} */
+              page_size?: "a4" | "auto" | "letter";
+            };
+          };
           /** @description Options for invoice PDF rendering. */
           rendering_options?: ({
             /** @enum {string} */
@@ -28100,7 +28259,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Issuing <code>Authorization</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingAuthorizations: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return authorizations that belong to the given card. */
         card?: string;
@@ -28222,8 +28381,8 @@ export interface operations {
     };
   };
   /**
-   * @description <p>Approves a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real-time authorization</a> flow.
-   * You can also respond directly to the webhook request to approve an authorization (preferred). More details can be found <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
+   * @description <p>[Deprecated] Approves a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real-time authorization</a> flow.
+   * This method is deprecated. Instead, <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">respond directly to the webhook request to approve an authorization</a>.</p>
    */
   PostIssuingAuthorizationsAuthorizationApprove: {
     parameters: {
@@ -28261,8 +28420,8 @@ export interface operations {
     };
   };
   /**
-   * @description <p>Declines a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real time authorization</a> flow.
-   * You can also respond directly to the webhook request to decline an authorization (preferred). More details can be found <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">here</a>.</p>
+   * @description <p>[Deprecated] Declines a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real time authorization</a> flow.
+   * This method is deprecated. Instead, <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">respond directly to the webhook request to decline an authorization</a>.</p>
    */
   PostIssuingAuthorizationsAuthorizationDecline: {
     parameters: {
@@ -28299,7 +28458,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Issuing <code>Cardholder</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingCardholders: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return cardholders that were created during the given date interval. */
         created?: {
@@ -28626,7 +28785,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Issuing <code>Card</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingCards: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return cards belonging to the Cardholder with the provided ID. */
         cardholder?: string;
@@ -28877,7 +29036,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Issuing <code>Dispute</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingDisputes: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Select Issuing disputes that were created during the given date interval. */
         created?: {
@@ -29204,7 +29363,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Issuing <code>Settlement</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingSettlements: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return issuing settlements that were created during the given date interval. */
         created?: {
@@ -29321,7 +29480,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Issuing <code>Transaction</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingTransactions: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return transactions that belong to the given card. */
         card?: string;
@@ -29527,7 +29686,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Financial Connections <code>Account</code> objects.</p> */
   GetLinkedAccounts: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive. */
         account_holder?: {
@@ -29755,7 +29914,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of PaymentIntents.</p> */
   GetPaymentIntents: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
         created?: {
@@ -29894,6 +30053,8 @@ export interface operations {
            * If this parameter is omitted with `confirm=true`, `customer.default_source` will be attached as this PaymentIntent's payment instrument to improve the migration experience for users of the Charges API. We recommend that you explicitly provide the `payment_method` going forward.
            */
           payment_method?: string;
+          /** @description The ID of the payment method configuration to use with this PaymentIntent. */
+          payment_method_configuration?: string;
           /**
            * payment_method_data_params
            * @description If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear
@@ -30446,10 +30607,10 @@ export interface operations {
   /**
    * @description <p>Updates properties on a PaymentIntent object without confirming.</p>
    *
-   * <p>Depending on which properties you update, you may need to confirm the
-   * PaymentIntent again. For example, updating the <code>payment_method</code> will
-   * always require you to confirm the PaymentIntent again. If you prefer to
-   * update and confirm at the same time, we recommend updating properties via
+   * <p>Depending on which properties you update, you might need to confirm the
+   * PaymentIntent again. For example, updating the <code>payment_method</code>
+   * always requires you to confirm the PaymentIntent again. If you prefer to
+   * update and confirm at the same time, we recommend updating properties through
    * the <a href="/docs/api/payment_intents/confirm">confirm API</a> instead.</p>
    */
   PostPaymentIntentsIntent: {
@@ -30490,6 +30651,8 @@ export interface operations {
           } | "";
           /** @description ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. */
           payment_method?: string;
+          /** @description The ID of the payment method configuration to use with this PaymentIntent. */
+          payment_method_configuration?: string;
           /**
            * payment_method_data_params
            * @description If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear
@@ -30873,7 +31036,7 @@ export interface operations {
               setup_future_usage?: "none";
             } | "";
           };
-          /** @description The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. Use automatic_payment_methods to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). */
+          /** @description The list of payment method types (for example, card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). */
           payment_method_types?: string[];
           /** @description Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
           receipt_email?: string | "";
@@ -30910,12 +31073,12 @@ export interface operations {
           statement_descriptor_suffix?: string;
           /**
            * transfer_data_update_params
-           * @description The parameters used to automatically create a Transfer when the payment succeeds. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+           * @description Use this parameter to automatically create a Transfer when the payment succeeds. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
            */
           transfer_data?: {
             amount?: number;
           };
-          /** @description A string that identifies the resulting payment as part of a group. `transfer_group` may only be provided if it has not been set. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details. */
+          /** @description A string that identifies the resulting payment as part of a group. You can only provide `transfer_group` if it hasn't been set. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
           transfer_group?: string;
         };
       };
@@ -31713,7 +31876,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your payment links.</p> */
   GetPaymentLinks: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return payment links that are active or inactive (e.g., pass `false` to list all inactive payment links). */
         active?: boolean;
@@ -31848,6 +32011,9 @@ export interface operations {
               message: string;
             } | "";
             submit?: {
+              message: string;
+            } | "";
+            terms_of_service_acceptance?: {
               message: string;
             } | "";
           };
@@ -32100,6 +32266,9 @@ export interface operations {
             submit?: {
               message: string;
             } | "";
+            terms_of_service_acceptance?: {
+              message: string;
+            } | "";
           };
           /**
            * @description Configures whether [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link create a [Customer](https://stripe.com/docs/api/customers).
@@ -32229,9 +32398,870 @@ export interface operations {
       };
     };
   };
+  /** @description <p>List payment method configurations</p> */
+  GetPaymentMethodConfigurations: {
+    parameters?: {
+      query?: {
+        /** @description The Connect application to filter by. */
+        application?: string | "";
+        /** @description Specifies which fields in the response should be expanded. */
+        expand?: string[];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/x-www-form-urlencoded": Record<string, never>;
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": {
+            data: components["schemas"]["payment_method_configuration"][];
+            /** @description True if this list has another page of items after this one that can be fetched. */
+            has_more: boolean;
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
+            object: "list";
+            /** @description The URL where this list can be accessed. */
+            url: string;
+          };
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  /** @description <p>Creates a payment method configuration</p> */
+  PostPaymentMethodConfigurations: {
+    requestBody?: {
+      content: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * payment_method_param
+           * @description Canadian pre-authorized debit payments, check this [page](https://stripe.com/docs/payments/acss-debit) for more details like country availability.
+           */
+          acss_debit?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description [Affirm](https://www.affirm.com/) gives your customers a way to split purchases over a series of payments. Depending on the purchase, they can pay with four interest-free payments (Split Pay) or pay over a longer term (Installments), which might include interest. Check this [page](https://stripe.com/docs/payments/affirm) for more details like country availability.
+           */
+          affirm?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Afterpay gives your customers a way to pay for purchases in installments, check this [page](https://stripe.com/docs/payments/afterpay-clearpay) for more details like country availability. Afterpay is particularly popular among businesses selling fashion, beauty, and sports products.
+           */
+          afterpay_clearpay?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Alipay is a digital wallet in China that has more than a billion active users worldwide. Alipay users can pay on the web or on a mobile device using login credentials or their Alipay app. Alipay has a low dispute rate and reduces fraud by authenticating payments using the customer's login credentials. Check this [page](https://stripe.com/docs/payments/alipay) for more details.
+           */
+          alipay?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Stripe users can accept [Apple Pay](/payments/apple-pay) in iOS applications in iOS 9 and later, and on the web in Safari starting with iOS 10 or macOS Sierra. There are no additional fees to process Apple Pay payments, and the [pricing](/pricing) is the same as other card transactions. Check this [page](https://stripe.com/docs/apple-pay) for more details.
+           */
+          apple_pay?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Apple Pay Later, a payment method for customers to buy now and pay later, gives your customers a way to split purchases into four installments across six weeks.
+           */
+          apple_pay_later?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Stripe users in Australia can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with an Australian bank account. Check this [page](https://stripe.com/docs/payments/au-becs-debit) for more details.
+           */
+          au_becs_debit?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Stripe users in the UK can accept Bacs Direct Debit payments from customers with a UK bank account, check this [page](https://stripe.com/docs/payments/payment-methods/bacs-debit) for more details.
+           */
+          bacs_debit?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Bancontact is the most popular online payment method in Belgium, with over 15 million cards in circulation. [Customers](https://stripe.com/docs/api/customers) use a Bancontact card or mobile app linked to a Belgian bank account to make online payments that are secure, guaranteed, and confirmed immediately. Check this [page](https://stripe.com/docs/payments/bancontact) for more details.
+           */
+          bancontact?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description BLIK is a [single use](https://stripe.com/docs/payments/payment-methods#usage) payment method that requires customers to authenticate their payments. When customers want to pay online using BLIK, they request a six-digit code from their banking application and enter it into the payment collection form. Check this [page](https://stripe.com/docs/payments/blik) for more details.
+           */
+          blik?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Boleto is an official (regulated by the Central Bank of Brazil) payment method in Brazil. Check this [page](https://stripe.com/docs/payments/boleto) for more details.
+           */
+          boleto?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Cards are a popular way for consumers and businesses to pay online or in person. Stripe supports global and local card networks.
+           */
+          card?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Cartes Bancaires is France's local card network. More than 95% of these cards are co-branded with either Visa or Mastercard, meaning you can process these cards over either Cartes Bancaires or the Visa or Mastercard networks. Check this [page](https://stripe.com/docs/payments/cartes-bancaires) for more details.
+           */
+          cartes_bancaires?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Cash App is a popular consumer app in the US that allows customers to bank, invest, send, and receive money using their digital wallet. Check this [page](https://stripe.com/docs/payments/cash-app-pay) for more details.
+           */
+          cashapp?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description EPS is an Austria-based payment method that allows customers to complete transactions online using their bank credentials. EPS is supported by all Austrian banks and is accepted by over 80% of Austrian online retailers. Check this [page](https://stripe.com/docs/payments/eps) for more details.
+           */
+          eps?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /** @description Specifies which fields in the response should be expanded. */
+          expand?: string[];
+          /**
+           * payment_method_param
+           * @description Financial Process Exchange (FPX) is a Malaysia-based payment method that allows customers to complete transactions online using their bank credentials. Bank Negara Malaysia (BNM), the Central Bank of Malaysia, and eleven other major Malaysian financial institutions are members of the PayNet Group, which owns and operates FPX. It is one of the most popular online payment methods in Malaysia, with nearly 90 million transactions in 2018 according to BNM. Check this [page](https://stripe.com/docs/payments/fpx) for more details.
+           */
+          fpx?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description giropay is a German payment method based on online banking, introduced in 2006. It allows customers to complete transactions online using their online banking environment, with funds debited from their bank account. Depending on their bank, customers confirm payments on giropay using a second factor of authentication or a PIN. giropay accounts for 10% of online checkouts in Germany. Check this [page](https://stripe.com/docs/payments/giropay) for more details.
+           */
+          giropay?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Google Pay allows customers to make payments in your app or website using any credit or debit card saved to their Google Account, including those from Google Play, YouTube, Chrome, or an Android device. Use the Google Pay API to request any credit or debit card stored in your customer's Google account. Check this [page](https://stripe.com/docs/google-pay) for more details.
+           */
+          google_pay?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description GrabPay is a payment method developed by [Grab](https://www.grab.com/sg/consumer/finance/pay/). GrabPay is a digital wallet - customers maintain a balance in their wallets that they pay out with. Check this [page](https://stripe.com/docs/payments/grabpay) for more details.
+           */
+          grabpay?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description iDEAL is a Netherlands-based payment method that allows customers to complete transactions online using their bank credentials. All major Dutch banks are members of Currence, the scheme that operates iDEAL, making it the most popular online payment method in the Netherlands with a share of online transactions close to 55%. Check this [page](https://stripe.com/docs/payments/ideal) for more details.
+           */
+          ideal?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description JCB is a credit card company based in Japan. JCB is currently available in Japan to businesses approved by JCB, and available to all businesses in the US, Canada, Australia, New Zealand, UK, and Ireland. Check this [page](https://support.stripe.com/questions/accepting-japan-credit-bureau-%28jcb%29-payments) for more details.
+           */
+          jcb?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Klarna gives customers a range of [payment options](https://stripe.com/docs/payments/klarna#payment-options) during checkout. Available payment options vary depending on the customer's billing address and the transaction amount. These payment options make it convenient for customers to purchase items in all price ranges. Check this [page](https://stripe.com/docs/payments/klarna) for more details.
+           */
+          klarna?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Konbini allows customers in Japan to pay for bills and online purchases at convenience stores with cash. Check this [page](https://stripe.com/docs/payments/konbini) for more details.
+           */
+          konbini?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
+           */
+          link?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /** @description Configuration name. */
+          name?: string;
+          /**
+           * payment_method_param
+           * @description OXXO is a Mexican chain of convenience stores with thousands of locations across Latin America and represents nearly 20% of online transactions in Mexico. OXXO allows customers to pay bills and online purchases in-store with cash. Check this [page](https://stripe.com/docs/payments/oxxo) for more details.
+           */
+          oxxo?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Przelewy24 is a Poland-based payment method aggregator that allows customers to complete transactions online using bank transfers and other methods. Bank transfers account for 30% of online payments in Poland and Przelewy24 provides a way for customers to pay with over 165 banks. Check this [page](https://stripe.com/docs/payments/p24) for more details.
+           */
+          p24?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /** @description Configuration's parent configuration. Specify to create a child configuration. */
+          parent?: string;
+          /**
+           * payment_method_param
+           * @description PayNow is a Singapore-based payment method that allows customers to make a payment using their preferred app from participating banks and participating non-bank financial institutions. Check this [page](https://stripe.com/docs/payments/paynow) for more details.
+           */
+          paynow?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
+           */
+          paypal?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description PromptPay is a Thailand-based payment method that allows customers to make a payment using their preferred app from participating banks. Check this [page](https://stripe.com/docs/payments/promptpay) for more details.
+           */
+          promptpay?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description The [Single Euro Payments Area (SEPA)](https://en.wikipedia.org/wiki/Single_Euro_Payments_Area) is an initiative of the European Union to simplify payments within and across member countries. SEPA established and enforced banking standards to allow for the direct debiting of every EUR-denominated bank account within the SEPA region, check this [page](https://stripe.com/docs/payments/sepa-debit) for more details.
+           */
+          sepa_debit?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Stripe users in Europe and the United States can use the [Payment Intents API](https://stripe.com/docs/payments/payment-intents)—a single integration path for creating payments using any supported method—to accept [Sofort](https://www.sofort.com/) payments from customers. Check this [page](https://stripe.com/docs/payments/sofort) for more details.
+           */
+          sofort?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-debit) for more details.
+           */
+          us_bank_account?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://stripe.com/docs/payments/wechat-pay) for more details.
+           */
+          wechat_pay?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+        };
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["payment_method_configuration"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  /** @description <p>Retrieve payment method configuration</p> */
+  GetPaymentMethodConfigurationsConfiguration: {
+    parameters: {
+      query?: {
+        /** @description Specifies which fields in the response should be expanded. */
+        expand?: string[];
+      };
+      path: {
+        configuration: string;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/x-www-form-urlencoded": Record<string, never>;
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["payment_method_configuration"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
+  /** @description <p>Update payment method configuration</p> */
+  PostPaymentMethodConfigurationsConfiguration: {
+    parameters: {
+      path: {
+        configuration: string;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/x-www-form-urlencoded": {
+          /**
+           * payment_method_param
+           * @description Canadian pre-authorized debit payments, check this [page](https://stripe.com/docs/payments/acss-debit) for more details like country availability.
+           */
+          acss_debit?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /** @description Whether the configuration can be used for new payments. */
+          active?: boolean;
+          /**
+           * payment_method_param
+           * @description [Affirm](https://www.affirm.com/) gives your customers a way to split purchases over a series of payments. Depending on the purchase, they can pay with four interest-free payments (Split Pay) or pay over a longer term (Installments), which might include interest. Check this [page](https://stripe.com/docs/payments/affirm) for more details like country availability.
+           */
+          affirm?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Afterpay gives your customers a way to pay for purchases in installments, check this [page](https://stripe.com/docs/payments/afterpay-clearpay) for more details like country availability. Afterpay is particularly popular among businesses selling fashion, beauty, and sports products.
+           */
+          afterpay_clearpay?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Alipay is a digital wallet in China that has more than a billion active users worldwide. Alipay users can pay on the web or on a mobile device using login credentials or their Alipay app. Alipay has a low dispute rate and reduces fraud by authenticating payments using the customer's login credentials. Check this [page](https://stripe.com/docs/payments/alipay) for more details.
+           */
+          alipay?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Stripe users can accept [Apple Pay](/payments/apple-pay) in iOS applications in iOS 9 and later, and on the web in Safari starting with iOS 10 or macOS Sierra. There are no additional fees to process Apple Pay payments, and the [pricing](/pricing) is the same as other card transactions. Check this [page](https://stripe.com/docs/apple-pay) for more details.
+           */
+          apple_pay?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Apple Pay Later, a payment method for customers to buy now and pay later, gives your customers a way to split purchases into four installments across six weeks.
+           */
+          apple_pay_later?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Stripe users in Australia can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with an Australian bank account. Check this [page](https://stripe.com/docs/payments/au-becs-debit) for more details.
+           */
+          au_becs_debit?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Stripe users in the UK can accept Bacs Direct Debit payments from customers with a UK bank account, check this [page](https://stripe.com/docs/payments/payment-methods/bacs-debit) for more details.
+           */
+          bacs_debit?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Bancontact is the most popular online payment method in Belgium, with over 15 million cards in circulation. [Customers](https://stripe.com/docs/api/customers) use a Bancontact card or mobile app linked to a Belgian bank account to make online payments that are secure, guaranteed, and confirmed immediately. Check this [page](https://stripe.com/docs/payments/bancontact) for more details.
+           */
+          bancontact?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description BLIK is a [single use](https://stripe.com/docs/payments/payment-methods#usage) payment method that requires customers to authenticate their payments. When customers want to pay online using BLIK, they request a six-digit code from their banking application and enter it into the payment collection form. Check this [page](https://stripe.com/docs/payments/blik) for more details.
+           */
+          blik?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Boleto is an official (regulated by the Central Bank of Brazil) payment method in Brazil. Check this [page](https://stripe.com/docs/payments/boleto) for more details.
+           */
+          boleto?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Cards are a popular way for consumers and businesses to pay online or in person. Stripe supports global and local card networks.
+           */
+          card?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Cartes Bancaires is France's local card network. More than 95% of these cards are co-branded with either Visa or Mastercard, meaning you can process these cards over either Cartes Bancaires or the Visa or Mastercard networks. Check this [page](https://stripe.com/docs/payments/cartes-bancaires) for more details.
+           */
+          cartes_bancaires?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Cash App is a popular consumer app in the US that allows customers to bank, invest, send, and receive money using their digital wallet. Check this [page](https://stripe.com/docs/payments/cash-app-pay) for more details.
+           */
+          cashapp?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description EPS is an Austria-based payment method that allows customers to complete transactions online using their bank credentials. EPS is supported by all Austrian banks and is accepted by over 80% of Austrian online retailers. Check this [page](https://stripe.com/docs/payments/eps) for more details.
+           */
+          eps?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /** @description Specifies which fields in the response should be expanded. */
+          expand?: string[];
+          /**
+           * payment_method_param
+           * @description Financial Process Exchange (FPX) is a Malaysia-based payment method that allows customers to complete transactions online using their bank credentials. Bank Negara Malaysia (BNM), the Central Bank of Malaysia, and eleven other major Malaysian financial institutions are members of the PayNet Group, which owns and operates FPX. It is one of the most popular online payment methods in Malaysia, with nearly 90 million transactions in 2018 according to BNM. Check this [page](https://stripe.com/docs/payments/fpx) for more details.
+           */
+          fpx?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description giropay is a German payment method based on online banking, introduced in 2006. It allows customers to complete transactions online using their online banking environment, with funds debited from their bank account. Depending on their bank, customers confirm payments on giropay using a second factor of authentication or a PIN. giropay accounts for 10% of online checkouts in Germany. Check this [page](https://stripe.com/docs/payments/giropay) for more details.
+           */
+          giropay?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Google Pay allows customers to make payments in your app or website using any credit or debit card saved to their Google Account, including those from Google Play, YouTube, Chrome, or an Android device. Use the Google Pay API to request any credit or debit card stored in your customer's Google account. Check this [page](https://stripe.com/docs/google-pay) for more details.
+           */
+          google_pay?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description GrabPay is a payment method developed by [Grab](https://www.grab.com/sg/consumer/finance/pay/). GrabPay is a digital wallet - customers maintain a balance in their wallets that they pay out with. Check this [page](https://stripe.com/docs/payments/grabpay) for more details.
+           */
+          grabpay?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description iDEAL is a Netherlands-based payment method that allows customers to complete transactions online using their bank credentials. All major Dutch banks are members of Currence, the scheme that operates iDEAL, making it the most popular online payment method in the Netherlands with a share of online transactions close to 55%. Check this [page](https://stripe.com/docs/payments/ideal) for more details.
+           */
+          ideal?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description JCB is a credit card company based in Japan. JCB is currently available in Japan to businesses approved by JCB, and available to all businesses in the US, Canada, Australia, New Zealand, UK, and Ireland. Check this [page](https://support.stripe.com/questions/accepting-japan-credit-bureau-%28jcb%29-payments) for more details.
+           */
+          jcb?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Klarna gives customers a range of [payment options](https://stripe.com/docs/payments/klarna#payment-options) during checkout. Available payment options vary depending on the customer's billing address and the transaction amount. These payment options make it convenient for customers to purchase items in all price ranges. Check this [page](https://stripe.com/docs/payments/klarna) for more details.
+           */
+          klarna?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Konbini allows customers in Japan to pay for bills and online purchases at convenience stores with cash. Check this [page](https://stripe.com/docs/payments/konbini) for more details.
+           */
+          konbini?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
+           */
+          link?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /** @description Configuration name. */
+          name?: string;
+          /**
+           * payment_method_param
+           * @description OXXO is a Mexican chain of convenience stores with thousands of locations across Latin America and represents nearly 20% of online transactions in Mexico. OXXO allows customers to pay bills and online purchases in-store with cash. Check this [page](https://stripe.com/docs/payments/oxxo) for more details.
+           */
+          oxxo?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Przelewy24 is a Poland-based payment method aggregator that allows customers to complete transactions online using bank transfers and other methods. Bank transfers account for 30% of online payments in Poland and Przelewy24 provides a way for customers to pay with over 165 banks. Check this [page](https://stripe.com/docs/payments/p24) for more details.
+           */
+          p24?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description PayNow is a Singapore-based payment method that allows customers to make a payment using their preferred app from participating banks and participating non-bank financial institutions. Check this [page](https://stripe.com/docs/payments/paynow) for more details.
+           */
+          paynow?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
+           */
+          paypal?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description PromptPay is a Thailand-based payment method that allows customers to make a payment using their preferred app from participating banks. Check this [page](https://stripe.com/docs/payments/promptpay) for more details.
+           */
+          promptpay?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description The [Single Euro Payments Area (SEPA)](https://en.wikipedia.org/wiki/Single_Euro_Payments_Area) is an initiative of the European Union to simplify payments within and across member countries. SEPA established and enforced banking standards to allow for the direct debiting of every EUR-denominated bank account within the SEPA region, check this [page](https://stripe.com/docs/payments/sepa-debit) for more details.
+           */
+          sepa_debit?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Stripe users in Europe and the United States can use the [Payment Intents API](https://stripe.com/docs/payments/payment-intents)—a single integration path for creating payments using any supported method—to accept [Sofort](https://www.sofort.com/) payments from customers. Check this [page](https://stripe.com/docs/payments/sofort) for more details.
+           */
+          sofort?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-debit) for more details.
+           */
+          us_bank_account?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+          /**
+           * payment_method_param
+           * @description WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://stripe.com/docs/payments/wechat-pay) for more details.
+           */
+          wechat_pay?: {
+            /** display_preference_param */
+            display_preference?: {
+              /** @enum {string} */
+              preference?: "none" | "off" | "on";
+            };
+          };
+        };
+      };
+    };
+    responses: {
+      /** @description Successful response. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["payment_method_configuration"];
+        };
+      };
+      /** @description Error response. */
+      default: {
+        content: {
+          "application/json": components["schemas"]["error"];
+        };
+      };
+    };
+  };
   /** @description <p>Lists the details of existing payment method domains.</p> */
   GetPaymentMethodDomains: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description The domain name that this payment method domain object represents. */
         domain_name?: string;
@@ -32409,7 +33439,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the <a href="/docs/api/payment_methods/customer_list">List a Customer’s PaymentMethods</a> API instead.</p> */
   GetPaymentMethods: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description The ID of the customer whose PaymentMethods will be retrieved. */
         customer?: string;
@@ -32911,7 +33941,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of existing payouts sent to third-party bank accounts or that Stripe has sent you. The payouts are returned in sorted order, with the most recently created payouts appearing first.</p> */
   GetPayouts: {
-    parameters: {
+    parameters?: {
       query?: {
         arrival_date?: {
           gt?: number;
@@ -33160,7 +34190,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your plans.</p> */
   GetPlans: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return plans that are active or inactive (e.g., pass `false` to list all inactive plans). */
         active?: boolean;
@@ -33420,7 +34450,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your prices.</p> */
   GetPrices: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return prices that are active or inactive (e.g., pass `false` to list all inactive prices). */
         active?: boolean;
@@ -33791,7 +34821,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.</p> */
   GetProducts: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return products that are active or inactive (e.g., pass `false` to list all inactive products). */
         active?: boolean;
@@ -34142,7 +35172,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your promotion codes.</p> */
   GetPromotionCodes: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Filter promotion codes by whether they are active. */
         active?: boolean;
@@ -34338,7 +35368,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your quotes.</p> */
   GetQuotes: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description The ID of the customer whose quotes will be retrieved. */
         customer?: string;
@@ -34882,7 +35912,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of early fraud warnings.</p> */
   GetRadarEarlyFraudWarnings: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return early fraud warnings for the charge specified by this charge ID. */
         charge?: string;
@@ -35108,7 +36138,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of <code>ValueList</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetRadarValueLists: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description The alias used to reference the value list when writing rules. */
         alias?: string;
@@ -35297,7 +36327,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of all refunds you’ve previously created. The refunds are returned in sorted order, with the most recent refunds appearing first. For convenience, the 10 most recent refunds are always available by default on the charge object.</p> */
   GetRefunds: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return refunds for the charge specified by this charge ID. */
         charge?: string;
@@ -35503,7 +36533,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Report Runs, with the most recent appearing first.</p> */
   GetReportingReportRuns: {
-    parameters: {
+    parameters?: {
       query?: {
         created?: {
           gt?: number;
@@ -35630,7 +36660,7 @@ export interface operations {
   };
   /** @description <p>Returns a full list of Report Types.</p> */
   GetReportingReportTypes: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: string[];
@@ -35700,7 +36730,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of <code>Review</code> objects that have <code>open</code> set to <code>true</code>. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetReviews: {
-    parameters: {
+    parameters?: {
       query?: {
         created?: {
           gt?: number;
@@ -35810,13 +36840,13 @@ export interface operations {
       };
     };
   };
-  /** @description <p>Returns a list of SetupAttempts associated with a provided SetupIntent.</p> */
+  /** @description <p>Returns a list of SetupAttempts that associate with a provided SetupIntent.</p> */
   GetSetupAttempts: {
     parameters: {
       query: {
         /**
          * @description A filter on the list, based on the object `created` field. The value
-         * can be a string with an integer Unix timestamp, or it can be a
+         * can be a string with an integer Unix timestamp or a
          * dictionary with a number of different query options.
          */
         created?: {
@@ -35873,7 +36903,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of SetupIntents.</p> */
   GetSetupIntents: {
-    parameters: {
+    parameters?: {
       query?: {
         /**
          * @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
@@ -36001,6 +37031,8 @@ export interface operations {
           on_behalf_of?: string;
           /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
           payment_method?: string;
+          /** @description The ID of the payment method configuration to use with this Setup Intent. */
+          payment_method_configuration?: string;
           /**
            * payment_method_data_params
            * @description When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-payment_method)
@@ -36324,6 +37356,8 @@ export interface operations {
           } | "";
           /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
           payment_method?: string;
+          /** @description The ID of the payment method configuration to use with this SetupIntent. */
+          payment_method_configuration?: string;
           /**
            * payment_method_data_params
            * @description When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-payment_method)
@@ -36924,7 +37958,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your shipping rates.</p> */
   GetShippingRates: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return shipping rates that are active or inactive. */
         active?: boolean;
@@ -37141,7 +38175,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of scheduled query runs.</p> */
   GetSigmaScheduledQueryRuns: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -38048,7 +39082,7 @@ export interface operations {
   };
   /** @description <p>Retrieves the list of your subscription schedules.</p> */
   GetSubscriptionSchedules: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Only return subscription schedules that were created canceled the given date interval. */
         canceled_at?: {
@@ -38532,7 +39566,7 @@ export interface operations {
   };
   /** @description <p>By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify <code>status=canceled</code>.</p> */
   GetSubscriptions: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Filter subscriptions by their automatic tax settings. */
         automatic_tax?: {
@@ -39436,7 +40470,7 @@ export interface operations {
   };
   /** @description <p>Retrieves Tax <code>Settings</code> for a merchant.</p> */
   GetTaxSettings: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: string[];
@@ -39685,7 +40719,7 @@ export interface operations {
   };
   /** @description <p>A list of <a href="https://stripe.com/docs/tax/tax-categories">all tax codes available</a> to add to Products in order to allow specific tax calculations.</p> */
   GetTaxCodes: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -39761,7 +40795,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.</p> */
   GetTaxRates: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Optional flag to filter by tax rates that are either active or inactive (archived). */
         active?: boolean;
@@ -39949,7 +40983,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of <code>Configuration</code> objects.</p> */
   GetTerminalConfigurations: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -40332,7 +41366,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of <code>Location</code> objects.</p> */
   GetTerminalLocations: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -40533,7 +41567,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of <code>Reader</code> objects.</p> */
   GetTerminalReaders: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description Filters readers by device type */
         device_type?: "bbpos_chipper2x" | "bbpos_wisepad3" | "bbpos_wisepos_e" | "simulated_wisepos_e" | "stripe_m2" | "verifone_P400";
@@ -41640,7 +42674,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your test clocks.</p> */
   GetTestHelpersTestClocks: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -42568,7 +43602,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of top-ups.</p> */
   GetTopups: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description A positive integer representing how much to transfer. */
         amount?: {
@@ -42767,7 +43801,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.</p> */
   GetTransfers: {
-    parameters: {
+    parameters?: {
       query?: {
         created?: {
           gt?: number;
@@ -43336,7 +44370,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of FinancialAccounts.</p> */
   GetTreasuryFinancialAccounts: {
-    parameters: {
+    parameters?: {
       query?: {
         created?: {
           gt?: number;
@@ -44625,7 +45659,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your webhook endpoints.</p> */
   GetWebhookEndpoints: {
-    parameters: {
+    parameters?: {
       query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -44683,7 +45717,7 @@ export interface operations {
           /** @description An optional description of what the webhook is used for. */
           description?: string | "";
           /** @description The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection. */
-          enabled_events: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "order.created" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "recipient.created" | "recipient.deleted" | "recipient.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "sku.created" | "sku.deleted" | "sku.updated" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
+          enabled_events: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -44756,7 +45790,7 @@ export interface operations {
           /** @description Disable the webhook endpoint if set to true. */
           disabled?: boolean;
           /** @description The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection. */
-          enabled_events?: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "order.created" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "recipient.created" | "recipient.deleted" | "recipient.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "sku.created" | "sku.deleted" | "sku.updated" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
+          enabled_events?: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
           /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
