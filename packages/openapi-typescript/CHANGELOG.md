@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.7.0
+
+### Minor Changes
+
+- [#1355](https://github.com/drwpow/openapi-typescript/pull/1355) [`7568941`](https://github.com/drwpow/openapi-typescript/commit/7568941fb378a9b94c96754553a720093645dd64) Thanks [@drwpow](https://github.com/drwpow)! - Revert optional parameters breaking change (v6.6.0, #1335)
+
 ## 6.6.2
 
 ### Patch Changes
