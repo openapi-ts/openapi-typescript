@@ -5815,7 +5815,7 @@ export interface operations {
 
   /** List global webhooks */
   "enterprise-admin/list-global-webhooks": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -5962,7 +5962,7 @@ export interface operations {
   };
   /** List public keys */
   "enterprise-admin/list-public-keys": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -6143,7 +6143,7 @@ export interface operations {
   };
   /** List pre-receive environments */
   "enterprise-admin/list-pre-receive-environments": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -6335,7 +6335,7 @@ export interface operations {
   };
   /** List pre-receive hooks */
   "enterprise-admin/list-pre-receive-hooks": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -6459,7 +6459,7 @@ export interface operations {
    * @description Lists personal access tokens for all users, including admin users.
    */
   "enterprise-admin/list-personal-access-tokens": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -6623,7 +6623,7 @@ export interface operations {
    * The permissions the installation has are included under the `permissions` key.
    */
   "apps/list-installations": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -6714,7 +6714,7 @@ export interface operations {
    * You can use this API to list the set of OAuth applications that have been granted access to your account. Unlike the [list your authorizations](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations#list-your-authorizations) API, this API does not manage individual tokens. This API will return one entry for each OAuth application that has been granted access to your account, regardless of the number of tokens an application has generated for your user. The list of OAuth applications returned matches what is shown on [the application authorizations settings screen within GitHub](https://github.com/settings/applications#authorized). The `scopes` returned are the union of scopes authorized for the application. For example, if an application has one token with `repo` scope and another token with `user` scope, the grant will return `["repo", "user"]`.
    */
   "oauth-authorizations/list-grants": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -6901,7 +6901,7 @@ export interface operations {
    * @description **Deprecation Notice:** GitHub Enterprise Server will discontinue the [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/enterprise-server@3.6/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
    */
   "oauth-authorizations/list-authorizations": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];
@@ -9233,7 +9233,7 @@ export interface operations {
    * - Pagination is powered exclusively by the `since` parameter. Use the [Link header](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#link-header) to get the URL for the next page of repositories.
    */
   "repos/list-public": {
-    parameters?: {
+    parameters: {
       query?: {
         since?: components["parameters"]["since-repo"];
         /** @description Specifies the types of repositories to return. This endpoint will only list repositories available to all users on the enterprise. */
@@ -9908,7 +9908,7 @@ export interface operations {
    * You can find the permissions for the installation under the `permissions` key.
    */
   "apps/list-installations-for-authenticated-user": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: components["parameters"]["per-page"];
         page?: components["parameters"]["page"];

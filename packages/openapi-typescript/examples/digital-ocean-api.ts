@@ -754,7 +754,7 @@ export interface external {
    * 1-Click application data, each of which will contain the the slug and type for the 1-Click.
    */
   "resources/1-clicks/oneClicks_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         type?: external["resources/1-clicks/parameters.yml"]["oneClicks_type"];
       };
@@ -905,7 +905,7 @@ export interface external {
    * @description This will be the entire list of actions taken on your account, so it will be quite large. As with any large collection returned by the API, the results will be paginated with only 20 on each page by default.
    */
   "resources/actions/actions_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -1112,7 +1112,7 @@ export interface external {
    * @description Create a new app by submitting an app specification. For documentation on app specifications (`AppSpec` objects), please refer to [the product documentation](https://docs.digitalocean.com/products/app-platform/reference/app-spec/).
    */
   "resources/apps/apps_create.yml": {
-    parameters?: {
+    parameters: {
       header?: {
         Accept?: external["resources/apps/parameters.yml"]["accept"];
         "Content-Type"?: external["resources/apps/parameters.yml"]["content-type"];
@@ -1497,7 +1497,7 @@ export interface external {
    * @description List all apps on your account. Information about the current active deployment as well as any in progress ones will also be included for each app.
    */
   "resources/apps/apps_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         page?: external["shared/parameters.yml"]["page"];
         per_page?: external["shared/parameters.yml"]["per_page"];
@@ -3277,7 +3277,7 @@ export interface external {
    * @description To retrieve a list of all invoices, send a GET request to `/v2/customers/my/invoices`.
    */
   "resources/billing/invoices_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -3716,7 +3716,7 @@ export interface external {
    * @description To list all of the CDN endpoints available on your account, send a GET request to `/v2/cdn/endpoints`.
    */
   "resources/cdn/cdn_list_endpoints.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -3959,7 +3959,7 @@ export interface external {
    * @description To list all of the certificates available on your account, send a GET request to `/v2/certificates`.
    */
   "resources/certificates/certificates_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -4795,7 +4795,7 @@ export interface external {
    * The embedded `maintenance_window` object will contain information about any scheduled maintenance for the database cluster.
    */
   "resources/databases/databases_list_clusters.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         tag_name?: external["resources/databases/parameters.yml"]["tag_name"];
       };
@@ -6783,7 +6783,7 @@ export interface external {
    * @description To retrieve a list of all of the domains in your account, send a GET request to `/v2/domains`.
    */
   "resources/domains/domains_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -7110,7 +7110,7 @@ export interface external {
    * - `snapshot`
    */
   "resources/droplets/dropletActions_post_byTag.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         tag_name?: external["resources/droplets/parameters.yml"]["droplet_tag_name"];
       };
@@ -7603,7 +7603,7 @@ export interface external {
    * `/v2/droplets?tag_name=$TAG_NAME`.
    */
   "resources/droplets/droplets_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -8683,7 +8683,7 @@ export interface external {
    * @description To list all of the firewalls available on your account, send a GET request to `/v2/firewalls`.
    */
   "resources/firewalls/firewalls_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -8945,7 +8945,7 @@ export interface external {
    * @description To list all of the floating IPs available on your account, send a GET request to `/v2/floating_ips`.
    */
   "resources/floating_ips/floatingIPs_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -9804,7 +9804,7 @@ export interface external {
    * To list all images assigned to a specific tag, include the `tag_name` query parameter set to the name of the tag in your GET request. For example, `/v2/images?tag_name=$TAG_NAME`.
    */
   "resources/images/images_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         type?: external["resources/images/parameters.yml"]["type"];
         private?: external["resources/images/parameters.yml"]["private"];
@@ -10443,7 +10443,7 @@ export interface external {
    * to `/v2/kubernetes/clusters`.
    */
   "resources/kubernetes/kubernetes_list_clusters.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -11508,7 +11508,7 @@ export interface external {
    * to `/v2/load_balancers`.
    */
   "resources/load_balancers/loadBalancers_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -12372,7 +12372,7 @@ export interface external {
    * @description Returns all alert policies that are configured for the given account. To List all alert policies, send a GET request to `/v2/monitoring/alerts`.
    */
   "resources/monitoring/monitoring_list_alertPolicy.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -12787,7 +12787,7 @@ export interface external {
    * @description To list all your projects, send a GET request to `/v2/projects`.
    */
   "resources/projects/projects_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -13023,7 +13023,7 @@ export interface external {
    * The response will be a JSON object with a key called `regions`. The value of this will be an array of `region` objects, each of which will contain the standard region attributes.
    */
   "resources/regions/regions_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -13447,7 +13447,7 @@ export interface external {
    * credentials that expire after one hour.
    */
   "resources/registry/registry_get_dockerCredentials.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         expiry_seconds?: external["resources/registry/parameters.yml"]["registry_expiry_seconds"];
         read_write?: external["resources/registry/parameters.yml"]["registry_read_write"];
@@ -14036,7 +14036,7 @@ export interface external {
    * @description To list all of the reserved IPs available on your account, send a GET request to `/v2/reserved_ips`.
    */
   "resources/reserved_ips/reservedIPs_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -14284,7 +14284,7 @@ export interface external {
    * The response will be a JSON object with a key called `sizes`. The value of this will be an array of `size` objects each of which contain the standard size attributes.
    */
   "resources/sizes/sizes_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -14457,7 +14457,7 @@ export interface external {
    * query parameter set to `volume`. For example, `/v2/snapshots?resource_type=volume`.
    */
   "resources/snapshots/snapshots_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -14597,7 +14597,7 @@ export interface external {
    * @description To list all of the keys in your account, send a GET request to `/v2/account/keys`. The response will be a JSON object with a key set to `ssh_keys`. The value of this will be an array of ssh_key objects, each of which contains the standard ssh_key attributes.
    */
   "resources/ssh_keys/sshKeys_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -14868,7 +14868,7 @@ export interface external {
    * @description To list all of your tags, you can send a GET request to `/v2/tags`.
    */
   "resources/tags/tags_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -15090,7 +15090,7 @@ export interface external {
    * @description To list all of the Uptime checks on your account, send a GET request to `/v2/uptime/checks`.
    */
   "resources/uptime/list_checks.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -15694,7 +15694,7 @@ export interface external {
    * | region      | Set to the slug representing the region where the volume is located |
    */
   "resources/volumes/volumeActions_post.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];
@@ -15740,7 +15740,7 @@ export interface external {
    * No response body will be sent back, but the response code will indicate success. Specifically, the response code will be a 204, which means that the action was successful with no returned body data.
    */
   "resources/volumes/volumes_delete_byName.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         name?: external["resources/volumes/parameters.yml"]["volume_name"];
         region?: external["shared/parameters.yml"]["region"];
@@ -15807,7 +15807,7 @@ export interface external {
    * It is also possible to retrieve information about a block storage volume by name. To do so, send a GET request with the volume's name and the region slug for the region it is located in as query parameters to `/v2/volumes?name=$VOLUME_NAME&region=nyc1`.
    */
   "resources/volumes/volumes_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         name?: external["resources/volumes/parameters.yml"]["volume_name"];
         region?: external["shared/parameters.yml"]["region"];
@@ -16128,7 +16128,7 @@ export interface external {
    * @description To list all of the VPCs on your account, send a GET request to `/v2/vpcs`.
    */
   "resources/vpcs/vpcs_list.yml": {
-    parameters?: {
+    parameters: {
       query?: {
         per_page?: external["shared/parameters.yml"]["per_page"];
         page?: external["shared/parameters.yml"]["page"];

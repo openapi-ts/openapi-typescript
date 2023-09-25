@@ -323,7 +323,19 @@ export interface paths {
   "/v1/charges/{charge}/refunds": {
     /** @description <p>You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional refunds.</p> */
     get: operations["GetChargesChargeRefunds"];
-    /** @description <p>Create a refund.</p> */
+    /**
+     * @description <p>When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.</p>
+     *
+     * <p>Creating a new refund will refund a charge that has previously been created but not yet refunded.
+     * Funds will be refunded to the credit or debit card that was originally charged.</p>
+     *
+     * <p>You can optionally refund only part of a charge.
+     * You can do so multiple times, until the entire charge has been refunded.</p>
+     *
+     * <p>Once entirely refunded, a charge can’t be refunded again.
+     * This method will raise an error when called on an already-refunded charge,
+     * or when trying to refund more money than is left on a charge.</p>
+     */
     post: operations["PostChargesChargeRefunds"];
   };
   "/v1/charges/{charge}/refunds/{refund}": {
@@ -1209,32 +1221,32 @@ export interface paths {
     post: operations["PostPaymentMethodsPaymentMethodDetach"];
   };
   "/v1/payouts": {
-    /** @description <p>Returns a list of existing payouts sent to third-party bank accounts or that Stripe has sent you. The payouts are returned in sorted order, with the most recently created payouts appearing first.</p> */
+    /** @description <p>Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.</p> */
     get: operations["GetPayouts"];
     /**
-     * @description <p>To send funds to your own bank account, you create a new payout object. Your <a href="#balance">Stripe balance</a> must be able to cover the payout amount, or you’ll receive an “Insufficient Funds” error.</p>
+     * @description <p>To send funds to your own bank account, create a new payout object. Your <a href="#balance">Stripe balance</a> must cover the payout amount. If it doesn’t, you receive an “Insufficient Funds” error.</p>
      *
-     * <p>If your API key is in test mode, money won’t actually be sent, though everything else will occur as if in live mode.</p>
+     * <p>If your API key is in test mode, money won’t actually be sent, though every other action occurs as if you’re in live mode.</p>
      *
-     * <p>If you are creating a manual payout on a Stripe account that uses multiple payment source types, you’ll need to specify the source type balance that the payout should draw from. The <a href="#balance_object">balance object</a> details available and pending amounts by source type.</p>
+     * <p>If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The <a href="#balance_object">balance object</a> details available and pending amounts by source type.</p>
      */
     post: operations["PostPayouts"];
   };
   "/v1/payouts/{payout}": {
-    /** @description <p>Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list, and Stripe will return the corresponding payout information.</p> */
+    /** @description <p>Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.</p> */
     get: operations["GetPayoutsPayout"];
-    /** @description <p>Updates the specified payout by setting the values of the parameters passed. Any parameters not provided will be left unchanged. This request accepts only the metadata as arguments.</p> */
+    /** @description <p>Updates the specified payout by setting the values of the parameters you pass. We don’t change parameters that you don’t provide. This request only accepts the metadata as arguments.</p> */
     post: operations["PostPayoutsPayout"];
   };
   "/v1/payouts/{payout}/cancel": {
-    /** @description <p>A previously created payout can be canceled if it has not yet been paid out. Funds will be refunded to your available balance. You may not cancel automatic Stripe payouts.</p> */
+    /** @description <p>You can cancel a previously created payout if it hasn’t been paid out yet. Stripe refunds the funds to your available balance. You can’t cancel automatic Stripe payouts.</p> */
     post: operations["PostPayoutsPayoutCancel"];
   };
   "/v1/payouts/{payout}/reverse": {
     /**
-     * @description <p>Reverses a payout by debiting the destination bank account. Only payouts for connected accounts to US bank accounts may be reversed at this time. If the payout is in the <code>pending</code> status, <code>/v1/payouts/:id/cancel</code> should be used instead.</p>
+     * @description <p>Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is in the <code>pending</code> status, use <code>/v1/payouts/:id/cancel</code> instead.</p>
      *
-     * <p>By requesting a reversal via <code>/v1/payouts/:id/reverse</code>, you confirm that the authorized signatory of the selected bank account has authorized the debit on the bank account and that no other authorization is required.</p>
+     * <p>By requesting a reversal through <code>/v1/payouts/:id/reverse</code>, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.</p>
      */
     post: operations["PostPayoutsPayoutReverse"];
   };
@@ -1385,7 +1397,19 @@ export interface paths {
   "/v1/refunds": {
     /** @description <p>Returns a list of all refunds you’ve previously created. The refunds are returned in sorted order, with the most recent refunds appearing first. For convenience, the 10 most recent refunds are always available by default on the charge object.</p> */
     get: operations["GetRefunds"];
-    /** @description <p>Create a refund.</p> */
+    /**
+     * @description <p>When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.</p>
+     *
+     * <p>Creating a new refund will refund a charge that has previously been created but not yet refunded.
+     * Funds will be refunded to the credit or debit card that was originally charged.</p>
+     *
+     * <p>You can optionally refund only part of a charge.
+     * You can do so multiple times, until the entire charge has been refunded.</p>
+     *
+     * <p>Once entirely refunded, a charge can’t be refunded again.
+     * This method will raise an error when called on an already-refunded charge,
+     * or when trying to refund more money than is left on a charge.</p>
+     */
     post: operations["PostRefunds"];
   };
   "/v1/refunds/{refund}": {
@@ -11189,21 +11213,21 @@ export interface components {
      * @description A `Payout` object is created when you receive funds from Stripe, or when you
      * initiate a payout to either a bank account or debit card of a [connected
      * Stripe account](/docs/connect/bank-debit-card-payouts). You can retrieve individual payouts,
-     * as well as list all payouts. Payouts are made on [varying
+     * and list all payouts. Payouts are made on [varying
      * schedules](/docs/connect/manage-payout-schedule), depending on your country and
      * industry.
      *
      * Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
      */
     payout: {
-      /** @description Amount (in cents (or local equivalent)) to be transferred to your bank account or debit card. */
+      /** @description The amount (in cents (or local equivalent)) that transfers to your bank account or debit card. */
       amount: number;
       /**
        * Format: unix-time
-       * @description Date the payout is expected to arrive in the bank. This factors in delays like weekends or bank holidays.
+       * @description Date that you can expect the payout to arrive in the bank. This factors in delays to account for weekends or bank holidays.
        */
       arrival_date: number;
-      /** @description Returns `true` if the payout was created by an [automated payout schedule](https://stripe.com/docs/payouts#payout-schedule), and `false` if it was [requested manually](https://stripe.com/docs/payouts#manual-payouts). */
+      /** @description Returns `true` if the payout is created by an [automated payout schedule](https://stripe.com/docs/payouts#payout-schedule) and `false` if it's [requested manually](https://stripe.com/docs/payouts#manual-payouts). */
       automatic: boolean;
       /** @description ID of the balance transaction that describes the impact of this payout on your account balance. */
       balance_transaction?: (string | components["schemas"]["balance_transaction"]) | null;
@@ -11216,13 +11240,13 @@ export interface components {
       currency: string;
       /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
       description?: string | null;
-      /** @description ID of the bank account or card the payout was sent to. */
+      /** @description ID of the bank account or card the payout is sent to. */
       destination?: (string | components["schemas"]["bank_account"] | components["schemas"]["card"] | components["schemas"]["deleted_bank_account"] | components["schemas"]["deleted_card"]) | null;
-      /** @description If the payout failed or was canceled, this will be the ID of the balance transaction that reversed the initial balance transaction, and puts the funds from the failed payout back in your balance. */
+      /** @description If the payout fails or cancels, this is the ID of the balance transaction that reverses the initial balance transaction and returns the funds from the failed payout back in your balance. */
       failure_balance_transaction?: (string | components["schemas"]["balance_transaction"]) | null;
-      /** @description Error code explaining reason for payout failure if available. See [Types of payout failures](https://stripe.com/docs/api#payout_failures) for a list of failure codes. */
+      /** @description Error code that provides a reason for a payout failure, if available. View our [list of failure codes](https://stripe.com/docs/api#payout_failures). */
       failure_code?: string | null;
-      /** @description Message to user further explaining reason for payout failure if available. */
+      /** @description Message that provides the reason for a payout failure, if available. */
       failure_message?: string | null;
       /** @description Unique identifier for the object. */
       id: string;
@@ -11232,7 +11256,7 @@ export interface components {
       metadata?: {
         [key: string]: string;
       } | null;
-      /** @description The method used to send this payout, which can be `standard` or `instant`. `instant` is supported for payouts to debit cards and bank accounts in certain countries. (See [Bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks) for more information.) */
+      /** @description The method used to send this payout, which can be `standard` or `instant`. `instant` is supported for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks). */
       method: string;
       /**
        * @description String representing the object's type. Objects of the same type share the same value.
@@ -11242,17 +11266,17 @@ export interface components {
       /** @description If the payout reverses another, this is the ID of the original payout. */
       original_payout?: (string | components["schemas"]["payout"]) | null;
       /**
-       * @description If `completed`, the [Balance Transactions API](https://stripe.com/docs/api/balance_transactions/list#balance_transaction_list-payout) may be used to list all Balance Transactions that were paid out in this payout.
+       * @description If `completed`, you can use the [Balance Transactions API](https://stripe.com/docs/api/balance_transactions/list#balance_transaction_list-payout) to list all balance transactions that are paid out in this payout.
        * @enum {string}
        */
       reconciliation_status: "completed" | "in_progress" | "not_applicable";
-      /** @description If the payout was reversed, this is the ID of the payout that reverses this payout. */
+      /** @description If the payout reverses, this is the ID of the payout that reverses this payout. */
       reversed_by?: (string | components["schemas"]["payout"]) | null;
-      /** @description The source balance this payout came from. One of `card`, `fpx`, or `bank_account`. */
+      /** @description The source balance this payout came from, which can be one of the following: `card`, `fpx`, or `bank_account`. */
       source_type: string;
-      /** @description Extra information about a payout to be displayed on the user's bank statement. */
+      /** @description Extra information about a payout that displays on the user's bank statement. */
       statement_descriptor?: string | null;
-      /** @description Current status of the payout: `paid`, `pending`, `in_transit`, `canceled` or `failed`. A payout is `pending` until it is submitted to the bank, when it becomes `in_transit`. The status then changes to `paid` if the transaction goes through, or to `failed` or `canceled` (within 5 business days). Some failed payouts may initially show as `paid` but then change to `failed`. */
+      /** @description Current status of the payout: `paid`, `pending`, `in_transit`, `canceled` or `failed`. A payout is `pending` until it's submitted to the bank, when it becomes `in_transit`. The status changes to `paid` if the transaction succeeds, or to `failed` or `canceled` (within 5 business days). Some payouts that fail might initially show as `paid`, then change to `failed`. */
       status: string;
       /**
        * @description Can be `bank_account` or `card`.
@@ -16507,7 +16531,7 @@ export interface operations {
 
   /** @description <p>Retrieves the details of an account.</p> */
   GetAccount: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: string[];
@@ -16613,7 +16637,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of accounts connected to your platform via <a href="/docs/connect">Connect</a>. If you’re not a platform, the list is empty.</p> */
   GetAccounts: {
-    parameters?: {
+    parameters: {
       query?: {
         created?: {
           gt?: number;
@@ -19269,7 +19293,7 @@ export interface operations {
   };
   /** @description <p>List apple pay domains.</p> */
   GetApplePayDomains: {
-    parameters?: {
+    parameters: {
       query?: {
         domain_name?: string;
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
@@ -19399,7 +19423,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of application fees you’ve previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.</p> */
   GetApplicationFees: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return application fees for the charge specified by this charge ID. */
         charge?: string;
@@ -19849,7 +19873,7 @@ export interface operations {
    *  For a sample request, see <a href="/docs/connect/account-balances#accounting-for-negative-balances">Accounting for negative balances</a>.</p>
    */
   GetBalance: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: string[];
@@ -19881,7 +19905,7 @@ export interface operations {
    * <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p>
    */
   GetBalanceHistory: {
-    parameters?: {
+    parameters: {
       query?: {
         created?: {
           gt?: number;
@@ -19979,7 +20003,7 @@ export interface operations {
    * <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p>
    */
   GetBalanceTransactions: {
-    parameters?: {
+    parameters: {
       query?: {
         created?: {
           gt?: number;
@@ -20073,7 +20097,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of configurations that describe the functionality of the customer portal.</p> */
   GetBillingPortalConfigurations: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return configurations that are active or inactive (e.g., pass `true` to only list active configurations). */
         active?: boolean;
@@ -20437,7 +20461,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of charges you’ve previously created. The charges are returned in sorted order, with the most recent charges appearing first.</p> */
   GetCharges: {
-    parameters?: {
+    parameters: {
       query?: {
         created?: {
           gt?: number;
@@ -20959,12 +20983,14 @@ export interface operations {
   PostChargesChargeRefund: {
     parameters: {
       path: {
+        /** @description The identifier of the charge to refund. */
         charge: string;
       };
     };
     requestBody?: {
       content: {
         "application/x-www-form-urlencoded": {
+          /** @description A positive integer in cents (or local equivalent) representing how much of this charge to refund. Can refund only up to the remaining, unrefunded amount of the charge. */
           amount?: number;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
@@ -20974,10 +21000,16 @@ export interface operations {
           metadata?: {
             [key: string]: string;
           } | "";
+          /** @description The identifier of the PaymentIntent to refund. */
           payment_intent?: string;
-          /** @enum {string} */
+          /**
+           * @description String indicating the reason for the refund. If set, possible values are `duplicate`, `fraudulent`, and `requested_by_customer`. If you believe the charge to be fraudulent, specifying `fraudulent` as the reason will add the associated card and email to your [block lists](https://stripe.com/docs/radar/lists), and will also help us improve our fraud detection algorithms.
+           * @enum {string}
+           */
           reason?: "duplicate" | "fraudulent" | "requested_by_customer";
+          /** @description Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge. */
           refund_application_fee?: boolean;
+          /** @description Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount).<br><br>A transfer can be reversed only by the application that created the charge. */
           reverse_transfer?: boolean;
         };
       };
@@ -21046,17 +21078,29 @@ export interface operations {
       };
     };
   };
-  /** @description <p>Create a refund.</p> */
+  /**
+   * @description <p>When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.</p>
+   *
+   * <p>Creating a new refund will refund a charge that has previously been created but not yet refunded.
+   * Funds will be refunded to the credit or debit card that was originally charged.</p>
+   *
+   * <p>You can optionally refund only part of a charge.
+   * You can do so multiple times, until the entire charge has been refunded.</p>
+   *
+   * <p>Once entirely refunded, a charge can’t be refunded again.
+   * This method will raise an error when called on an already-refunded charge,
+   * or when trying to refund more money than is left on a charge.</p>
+   */
   PostChargesChargeRefunds: {
     parameters: {
       path: {
+        /** @description The identifier of the charge to refund. */
         charge: string;
       };
     };
     requestBody?: {
       content: {
         "application/x-www-form-urlencoded": {
-          /** @description A positive integer representing how much to refund. */
           amount?: number;
           /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency?: string;
@@ -21075,10 +21119,16 @@ export interface operations {
            * @enum {string}
            */
           origin?: "customer_balance";
+          /** @description The identifier of the PaymentIntent to refund. */
           payment_intent?: string;
-          /** @enum {string} */
+          /**
+           * @description String indicating the reason for the refund. If set, possible values are `duplicate`, `fraudulent`, and `requested_by_customer`. If you believe the charge to be fraudulent, specifying `fraudulent` as the reason will add the associated card and email to your [block lists](https://stripe.com/docs/radar/lists), and will also help us improve our fraud detection algorithms.
+           * @enum {string}
+           */
           reason?: "duplicate" | "fraudulent" | "requested_by_customer";
+          /** @description Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge. */
           refund_application_fee?: boolean;
+          /** @description Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount).<br><br>A transfer can be reversed only by the application that created the charge. */
           reverse_transfer?: boolean;
         };
       };
@@ -21166,7 +21216,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Checkout Sessions.</p> */
   GetCheckoutSessions: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return the Checkout Sessions for the Customer specified. */
         customer?: string;
@@ -21982,7 +22032,7 @@ export interface operations {
   };
   /** @description <p>Lists all Country Spec objects available in the API.</p> */
   GetCountrySpecs: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -22058,7 +22108,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your coupons.</p> */
   GetCoupons: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
         created?: {
@@ -22280,7 +22330,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of credit notes.</p> */
   GetCreditNotes: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return credit notes for the customer specified by this customer ID. */
         customer?: string;
@@ -22715,7 +22765,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.</p> */
   GetCustomers: {
-    parameters?: {
+    parameters: {
       query?: {
         created?: {
           gt?: number;
@@ -25345,7 +25395,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your disputes.</p> */
   GetDisputes: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return disputes associated to the charge specified by this charge ID. */
         charge?: string;
@@ -25601,7 +25651,7 @@ export interface operations {
   };
   /** @description <p>List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in <a href="/docs/api/events/object">event object</a> <code>api_version</code> attribute (not according to your current Stripe API version or <code>Stripe-Version</code> header).</p> */
   GetEvents: {
-    parameters?: {
+    parameters: {
       query?: {
         created?: {
           gt?: number;
@@ -25689,7 +25739,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.</p> */
   GetExchangeRates: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description A cursor for use in pagination. `ending_before` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with the exchange rate for currency X your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -25765,7 +25815,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of file links.</p> */
   GetFileLinks: {
-    parameters?: {
+    parameters: {
       query?: {
         created?: {
           gt?: number;
@@ -25924,7 +25974,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.</p> */
   GetFiles: {
-    parameters?: {
+    parameters: {
       query?: {
         created?: {
           gt?: number;
@@ -26059,7 +26109,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Financial Connections <code>Account</code> objects.</p> */
   GetFinancialConnectionsAccounts: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive. */
         account_holder?: {
@@ -26339,7 +26389,7 @@ export interface operations {
   };
   /** @description <p>List all verification reports.</p> */
   GetIdentityVerificationReports: {
-    parameters?: {
+    parameters: {
       query?: {
         created?: {
           gt?: number;
@@ -26425,7 +26475,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of VerificationSessions</p> */
   GetIdentityVerificationSessions: {
-    parameters?: {
+    parameters: {
       query?: {
         created?: {
           gt?: number;
@@ -26710,7 +26760,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.</p> */
   GetInvoiceitems: {
-    parameters?: {
+    parameters: {
       query?: {
         created?: {
           gt?: number;
@@ -27004,7 +27054,7 @@ export interface operations {
   };
   /** @description <p>You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.</p> */
   GetInvoices: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description The collection method of the invoice to retrieve. Either `charge_automatically` or `send_invoice`. */
         collection_method?: "charge_automatically" | "send_invoice";
@@ -27378,7 +27428,7 @@ export interface operations {
    * <p>You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass a <code>proration_date</code> parameter when doing the actual subscription update. The value passed in should be the same as the <code>subscription_proration_date</code> returned on the upcoming invoice resource. The recommended way to get only the prorations being previewed is to consider only proration line items where <code>period[start]</code> is equal to the <code>subscription_proration_date</code> on the upcoming invoice resource.</p>
    */
   GetInvoicesUpcoming: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Settings for automatic tax lookup for this invoice preview. */
         automatic_tax?: {
@@ -27554,7 +27604,7 @@ export interface operations {
   };
   /** @description <p>When retrieving an upcoming invoice, you’ll get a <strong>lines</strong> property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
   GetInvoicesUpcomingLines: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Settings for automatic tax lookup for this invoice preview. */
         automatic_tax?: {
@@ -28259,7 +28309,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Issuing <code>Authorization</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingAuthorizations: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return authorizations that belong to the given card. */
         card?: string;
@@ -28458,7 +28508,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Issuing <code>Cardholder</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingCardholders: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return cardholders that were created during the given date interval. */
         created?: {
@@ -28785,7 +28835,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Issuing <code>Card</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingCards: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return cards belonging to the Cardholder with the provided ID. */
         cardholder?: string;
@@ -29036,7 +29086,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Issuing <code>Dispute</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingDisputes: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Select Issuing disputes that were created during the given date interval. */
         created?: {
@@ -29363,7 +29413,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Issuing <code>Settlement</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingSettlements: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return issuing settlements that were created during the given date interval. */
         created?: {
@@ -29480,7 +29530,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Issuing <code>Transaction</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetIssuingTransactions: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return transactions that belong to the given card. */
         card?: string;
@@ -29686,7 +29736,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Financial Connections <code>Account</code> objects.</p> */
   GetLinkedAccounts: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive. */
         account_holder?: {
@@ -29914,7 +29964,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of PaymentIntents.</p> */
   GetPaymentIntents: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
         created?: {
@@ -31876,7 +31926,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your payment links.</p> */
   GetPaymentLinks: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return payment links that are active or inactive (e.g., pass `false` to list all inactive payment links). */
         active?: boolean;
@@ -32400,7 +32450,7 @@ export interface operations {
   };
   /** @description <p>List payment method configurations</p> */
   GetPaymentMethodConfigurations: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description The Connect application to filter by. */
         application?: string | "";
@@ -33261,7 +33311,7 @@ export interface operations {
   };
   /** @description <p>Lists the details of existing payment method domains.</p> */
   GetPaymentMethodDomains: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description The domain name that this payment method domain object represents. */
         domain_name?: string;
@@ -33439,7 +33489,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the <a href="/docs/api/payment_methods/customer_list">List a Customer’s PaymentMethods</a> API instead.</p> */
   GetPaymentMethods: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description The ID of the customer whose PaymentMethods will be retrieved. */
         customer?: string;
@@ -33939,9 +33989,9 @@ export interface operations {
       };
     };
   };
-  /** @description <p>Returns a list of existing payouts sent to third-party bank accounts or that Stripe has sent you. The payouts are returned in sorted order, with the most recently created payouts appearing first.</p> */
+  /** @description <p>Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.</p> */
   GetPayouts: {
-    parameters?: {
+    parameters: {
       query?: {
         arrival_date?: {
           gt?: number;
@@ -34001,11 +34051,11 @@ export interface operations {
     };
   };
   /**
-   * @description <p>To send funds to your own bank account, you create a new payout object. Your <a href="#balance">Stripe balance</a> must be able to cover the payout amount, or you’ll receive an “Insufficient Funds” error.</p>
+   * @description <p>To send funds to your own bank account, create a new payout object. Your <a href="#balance">Stripe balance</a> must cover the payout amount. If it doesn’t, you receive an “Insufficient Funds” error.</p>
    *
-   * <p>If your API key is in test mode, money won’t actually be sent, though everything else will occur as if in live mode.</p>
+   * <p>If your API key is in test mode, money won’t actually be sent, though every other action occurs as if you’re in live mode.</p>
    *
-   * <p>If you are creating a manual payout on a Stripe account that uses multiple payment source types, you’ll need to specify the source type balance that the payout should draw from. The <a href="#balance_object">balance object</a> details available and pending amounts by source type.</p>
+   * <p>If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The <a href="#balance_object">balance object</a> details available and pending amounts by source type.</p>
    */
   PostPayouts: {
     requestBody: {
@@ -34017,7 +34067,7 @@ export interface operations {
           currency: string;
           /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
           description?: string;
-          /** @description The ID of a bank account or a card to send the payout to. If no destination is supplied, the default external account for the specified currency will be used. */
+          /** @description The ID of a bank account or a card to send the payout to. If you don't provide a destination, we use the default external account for the specified currency. */
           destination?: string;
           /** @description Specifies which fields in the response should be expanded. */
           expand?: string[];
@@ -34026,16 +34076,16 @@ export interface operations {
             [key: string]: string;
           };
           /**
-           * @description The method used to send this payout, which can be `standard` or `instant`. `instant` is supported for payouts to debit cards and bank accounts in certain countries. (See [Bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks) for more information.)
+           * @description The method used to send this payout, which is `standard` or `instant`. We support `instant` for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
            * @enum {string}
            */
           method?: "instant" | "standard";
           /**
-           * @description The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the balances API. One of `bank_account`, `card`, or `fpx`.
+           * @description The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the Balances API. One of `bank_account`, `card`, or `fpx`.
            * @enum {string}
            */
           source_type?: "bank_account" | "card" | "fpx";
-          /** @description A string to be displayed on the recipient's bank or card statement. This may be at most 22 characters. Attempting to use a `statement_descriptor` longer than 22 characters will return an error. Note: Most banks will truncate this information and/or display it inconsistently. Some may not display it at all. */
+          /** @description A string that displays on the recipient's bank or card statement (up to 22 characters). A `statement_descriptor` that's longer than 22 characters return an error. Most banks truncate this information and display it inconsistently. Some banks might not display it at all. */
           statement_descriptor?: string;
         };
       };
@@ -34055,7 +34105,7 @@ export interface operations {
       };
     };
   };
-  /** @description <p>Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list, and Stripe will return the corresponding payout information.</p> */
+  /** @description <p>Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.</p> */
   GetPayoutsPayout: {
     parameters: {
       query?: {
@@ -34086,7 +34136,7 @@ export interface operations {
       };
     };
   };
-  /** @description <p>Updates the specified payout by setting the values of the parameters passed. Any parameters not provided will be left unchanged. This request accepts only the metadata as arguments.</p> */
+  /** @description <p>Updates the specified payout by setting the values of the parameters you pass. We don’t change parameters that you don’t provide. This request only accepts the metadata as arguments.</p> */
   PostPayoutsPayout: {
     parameters: {
       path: {
@@ -34120,7 +34170,7 @@ export interface operations {
       };
     };
   };
-  /** @description <p>A previously created payout can be canceled if it has not yet been paid out. Funds will be refunded to your available balance. You may not cancel automatic Stripe payouts.</p> */
+  /** @description <p>You can cancel a previously created payout if it hasn’t been paid out yet. Stripe refunds the funds to your available balance. You can’t cancel automatic Stripe payouts.</p> */
   PostPayoutsPayoutCancel: {
     parameters: {
       path: {
@@ -34151,9 +34201,9 @@ export interface operations {
     };
   };
   /**
-   * @description <p>Reverses a payout by debiting the destination bank account. Only payouts for connected accounts to US bank accounts may be reversed at this time. If the payout is in the <code>pending</code> status, <code>/v1/payouts/:id/cancel</code> should be used instead.</p>
+   * @description <p>Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is in the <code>pending</code> status, use <code>/v1/payouts/:id/cancel</code> instead.</p>
    *
-   * <p>By requesting a reversal via <code>/v1/payouts/:id/reverse</code>, you confirm that the authorized signatory of the selected bank account has authorized the debit on the bank account and that no other authorization is required.</p>
+   * <p>By requesting a reversal through <code>/v1/payouts/:id/reverse</code>, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.</p>
    */
   PostPayoutsPayoutReverse: {
     parameters: {
@@ -34190,7 +34240,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your plans.</p> */
   GetPlans: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return plans that are active or inactive (e.g., pass `false` to list all inactive plans). */
         active?: boolean;
@@ -34450,7 +34500,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your prices.</p> */
   GetPrices: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return prices that are active or inactive (e.g., pass `false` to list all inactive prices). */
         active?: boolean;
@@ -34821,7 +34871,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.</p> */
   GetProducts: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return products that are active or inactive (e.g., pass `false` to list all inactive products). */
         active?: boolean;
@@ -35172,7 +35222,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your promotion codes.</p> */
   GetPromotionCodes: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Filter promotion codes by whether they are active. */
         active?: boolean;
@@ -35368,7 +35418,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your quotes.</p> */
   GetQuotes: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description The ID of the customer whose quotes will be retrieved. */
         customer?: string;
@@ -35912,7 +35962,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of early fraud warnings.</p> */
   GetRadarEarlyFraudWarnings: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return early fraud warnings for the charge specified by this charge ID. */
         charge?: string;
@@ -36138,7 +36188,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of <code>ValueList</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetRadarValueLists: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description The alias used to reference the value list when writing rules. */
         alias?: string;
@@ -36327,7 +36377,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of all refunds you’ve previously created. The refunds are returned in sorted order, with the most recent refunds appearing first. For convenience, the 10 most recent refunds are always available by default on the charge object.</p> */
   GetRefunds: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return refunds for the charge specified by this charge ID. */
         charge?: string;
@@ -36380,13 +36430,25 @@ export interface operations {
       };
     };
   };
-  /** @description <p>Create a refund.</p> */
+  /**
+   * @description <p>When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.</p>
+   *
+   * <p>Creating a new refund will refund a charge that has previously been created but not yet refunded.
+   * Funds will be refunded to the credit or debit card that was originally charged.</p>
+   *
+   * <p>You can optionally refund only part of a charge.
+   * You can do so multiple times, until the entire charge has been refunded.</p>
+   *
+   * <p>Once entirely refunded, a charge can’t be refunded again.
+   * This method will raise an error when called on an already-refunded charge,
+   * or when trying to refund more money than is left on a charge.</p>
+   */
   PostRefunds: {
     requestBody?: {
       content: {
         "application/x-www-form-urlencoded": {
-          /** @description A positive integer representing how much to refund. */
           amount?: number;
+          /** @description The identifier of the charge to refund. */
           charge?: string;
           /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
           currency?: string;
@@ -36405,10 +36467,16 @@ export interface operations {
            * @enum {string}
            */
           origin?: "customer_balance";
+          /** @description The identifier of the PaymentIntent to refund. */
           payment_intent?: string;
-          /** @enum {string} */
+          /**
+           * @description String indicating the reason for the refund. If set, possible values are `duplicate`, `fraudulent`, and `requested_by_customer`. If you believe the charge to be fraudulent, specifying `fraudulent` as the reason will add the associated card and email to your [block lists](https://stripe.com/docs/radar/lists), and will also help us improve our fraud detection algorithms.
+           * @enum {string}
+           */
           reason?: "duplicate" | "fraudulent" | "requested_by_customer";
+          /** @description Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge. */
           refund_application_fee?: boolean;
+          /** @description Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount).<br><br>A transfer can be reversed only by the application that created the charge. */
           reverse_transfer?: boolean;
         };
       };
@@ -36533,7 +36601,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of Report Runs, with the most recent appearing first.</p> */
   GetReportingReportRuns: {
-    parameters?: {
+    parameters: {
       query?: {
         created?: {
           gt?: number;
@@ -36660,7 +36728,7 @@ export interface operations {
   };
   /** @description <p>Returns a full list of Report Types.</p> */
   GetReportingReportTypes: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: string[];
@@ -36730,7 +36798,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of <code>Review</code> objects that have <code>open</code> set to <code>true</code>. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
   GetReviews: {
-    parameters?: {
+    parameters: {
       query?: {
         created?: {
           gt?: number;
@@ -36903,7 +36971,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of SetupIntents.</p> */
   GetSetupIntents: {
-    parameters?: {
+    parameters: {
       query?: {
         /**
          * @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
@@ -37958,7 +38026,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your shipping rates.</p> */
   GetShippingRates: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return shipping rates that are active or inactive. */
         active?: boolean;
@@ -38175,7 +38243,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of scheduled query runs.</p> */
   GetSigmaScheduledQueryRuns: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -39082,7 +39150,7 @@ export interface operations {
   };
   /** @description <p>Retrieves the list of your subscription schedules.</p> */
   GetSubscriptionSchedules: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Only return subscription schedules that were created canceled the given date interval. */
         canceled_at?: {
@@ -39566,7 +39634,7 @@ export interface operations {
   };
   /** @description <p>By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify <code>status=canceled</code>.</p> */
   GetSubscriptions: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Filter subscriptions by their automatic tax settings. */
         automatic_tax?: {
@@ -40470,7 +40538,7 @@ export interface operations {
   };
   /** @description <p>Retrieves Tax <code>Settings</code> for a merchant.</p> */
   GetTaxSettings: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Specifies which fields in the response should be expanded. */
         expand?: string[];
@@ -40719,7 +40787,7 @@ export interface operations {
   };
   /** @description <p>A list of <a href="https://stripe.com/docs/tax/tax-categories">all tax codes available</a> to add to Products in order to allow specific tax calculations.</p> */
   GetTaxCodes: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -40795,7 +40863,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.</p> */
   GetTaxRates: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Optional flag to filter by tax rates that are either active or inactive (archived). */
         active?: boolean;
@@ -40983,7 +41051,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of <code>Configuration</code> objects.</p> */
   GetTerminalConfigurations: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -41366,7 +41434,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of <code>Location</code> objects.</p> */
   GetTerminalLocations: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -41567,7 +41635,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of <code>Reader</code> objects.</p> */
   GetTerminalReaders: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description Filters readers by device type */
         device_type?: "bbpos_chipper2x" | "bbpos_wisepad3" | "bbpos_wisepos_e" | "simulated_wisepos_e" | "stripe_m2" | "verifone_P400";
@@ -42674,7 +42742,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your test clocks.</p> */
   GetTestHelpersTestClocks: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
@@ -43602,7 +43670,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of top-ups.</p> */
   GetTopups: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description A positive integer representing how much to transfer. */
         amount?: {
@@ -43801,7 +43869,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.</p> */
   GetTransfers: {
-    parameters?: {
+    parameters: {
       query?: {
         created?: {
           gt?: number;
@@ -44370,7 +44438,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of FinancialAccounts.</p> */
   GetTreasuryFinancialAccounts: {
-    parameters?: {
+    parameters: {
       query?: {
         created?: {
           gt?: number;
@@ -45659,7 +45727,7 @@ export interface operations {
   };
   /** @description <p>Returns a list of your webhook endpoints.</p> */
   GetWebhookEndpoints: {
-    parameters?: {
+    parameters: {
       query?: {
         /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
         ending_before?: string;
