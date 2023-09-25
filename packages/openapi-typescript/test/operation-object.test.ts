@@ -100,7 +100,7 @@ describe("Operation Object", () => {
     };
     const generated = transformOperationObject(schema, options);
     expect(generated).toBe(`{
-  parameters?: {
+  parameters: {
     query?: {
       search?: string;
     };

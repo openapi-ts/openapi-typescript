@@ -15,7 +15,6 @@ export default function transformOperationObject(operationObject: OperationObjec
   let { indentLv } = ctx;
   const output: string[] = wrapObject ? ["{"] : [];
   indentLv++;
-  let allParamsOptional = true;
 
   // parameters
   {
@@ -32,7 +31,6 @@ export default function transformOperationObject(operationObject: OperationObjec
           let key = escObjKey(node.name);
           const isRequired = paramIn === "path" || !!node.required;
           if (isRequired) {
-            allParamsOptional = false;
             paramInOptional = false;
           } else {
             key = tsOptionalProperty(key);
@@ -59,8 +57,7 @@ export default function transformOperationObject(operationObject: OperationObjec
       indentLv--;
 
       if (parameterOutput.length) {
-        const parameterKey = allParamsOptional ? tsOptionalProperty("parameters") : "parameters";
-        output.push(indent(`${parameterKey}: {`, indentLv));
+        output.push(indent(`parameters: {`, indentLv));
         output.push(parameterOutput.join("\n"));
         output.push(indent("};", indentLv));
       }
