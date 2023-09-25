@@ -16,7 +16,7 @@ export interface paths {
   };
   "/blogposts": {
     get: {
-      parameters?: {
+      parameters: {
         query?: {
           tags?: string[];
         };
