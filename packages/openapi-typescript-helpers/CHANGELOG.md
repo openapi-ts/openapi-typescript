@@ -1,5 +1,11 @@
 # openapi-typescript-helpers
 
+## 0.0.3
+
+### Patch Changes
+
+- [#1357](https://github.com/drwpow/openapi-typescript/pull/1357) [`996e51e`](https://github.com/drwpow/openapi-typescript/commit/996e51e9b475f4818af77301ed5c0ab458736cb9) Thanks [@muttonchop](https://github.com/muttonchop)! - adds 500-511 error status codes
+
 ## 0.0.2
 
 ### Patch Changes

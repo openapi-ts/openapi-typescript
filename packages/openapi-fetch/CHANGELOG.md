@@ -1,5 +1,12 @@
 # openapi-fetch
 
+## 0.7.7
+
+### Patch Changes
+
+- Updated dependencies [[`996e51e`](https://github.com/drwpow/openapi-typescript/commit/996e51e9b475f4818af77301ed5c0ab458736cb9)]:
+  - openapi-typescript-helpers@0.0.3
+
 ## 0.7.6
 
 ### Patch Changes
