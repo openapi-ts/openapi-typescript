@@ -13,9 +13,14 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.cts",
+        "default": "./dist/cjs/index.cjs"
+      }
     },
     "./*": "./*"
   },
@@ -46,7 +51,7 @@
     "build:clean": "del dist",
     "build:ts": "tsc -p tsconfig.build.json",
     "build:ts-min": "esbuild --bundle src/index.ts --format=esm --minify --outfile=dist/index.min.js && cp dist/index.d.ts dist/index.min.d.ts",
-    "build:cjs": "esbuild --bundle src/index.ts --format=cjs --outfile=dist/index.cjs",
+    "build:cjs": "esbuild --bundle src/index.ts --format=cjs --outfile=dist/cjs/index.cjs && cp dist/index.d.ts dist/cjs/index.d.cts",
     "lint": "pnpm run lint:js",
     "lint:js": "eslint \"{src,test}/**/*.{js,ts}\"",
     "lint:prettier": "prettier --check \"{src,test}/**/*\"",
