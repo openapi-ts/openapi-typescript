@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.7.8
+
+### Patch Changes
+
+- [#1360](https://github.com/drwpow/openapi-typescript/pull/1360) [`b59e431`](https://github.com/drwpow/openapi-typescript/commit/b59e431d1876d1cc60dda5e9b59b6185b0136437) Thanks [@marcomuser](https://github.com/marcomuser)! - Fix CJS build for TypeScript
+
 ## 0.7.7
 
 ### Patch Changes
