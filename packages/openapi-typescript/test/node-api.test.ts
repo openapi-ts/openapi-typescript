@@ -1,7 +1,10 @@
+import { fileURLToPath } from "node:url";
 import ts from "typescript";
 import openapiTS, { astToString } from "../src/index.js";
 import { OpenAPITSOptions } from "../src/types.js";
 import { TestCase } from "./test-helpers.js";
+
+const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
 
 describe("Node.js API", () => {
   const tests: TestCase<any, OpenAPITSOptions>[] = [
@@ -41,8 +44,7 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
-export type operations = Record<string, never>;
-`,
+export type operations = Record<string, never>;`,
         options: { exportType: false },
       },
     ],
@@ -81,8 +83,7 @@ export type components = {
     pathItems: never;
 };
 export type $defs = Record<string, never>;
-export type operations = Record<string, never>;
-`,
+export type operations = Record<string, never>;`,
         options: { exportType: true },
       },
     ],
@@ -154,8 +155,7 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
-export type operations = Record<string, never>;
-`,
+export type operations = Record<string, never>;`,
         options: { pathParamsAsTypes: false },
       },
     ],
@@ -226,8 +226,7 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
-export type operations = Record<string, never>;
-`,
+export type operations = Record<string, never>;`,
         options: { pathParamsAsTypes: true },
       },
     ],
@@ -257,8 +256,7 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
-export type operations = Record<string, never>;
-`,
+export type operations = Record<string, never>;`,
         options: {
           transform(schemaObject) {
             if (
@@ -304,8 +302,7 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
-export type operations = Record<string, never>;
-`,
+export type operations = Record<string, never>;`,
         options: {
           postTransform(type, options) {
             if (options.path?.includes("Date")) {
@@ -417,14 +414,76 @@ export enum ErrorCode {
     Value104 = 104,
     Value105 = 105
 }
-export type operations = Record<string, never>;
-`,
+export type operations = Record<string, never>;`,
         options: { enum: true },
+      },
+    ],
+    [
+      "snapshot > GitHub",
+      {
+        given: new URL("./github-api.yaml", EXAMPLES_DIR),
+        want: new URL("./github-api.ts", EXAMPLES_DIR),
+        // options: DEFAULT_OPTIONS,
+        ci: { skipIf: true, /* TODO */ timeout: 30000 },
+      },
+    ],
+    [
+      "snapshot > GitHub (next)",
+      {
+        given: new URL("./github-api-next.yaml", EXAMPLES_DIR),
+        want: new URL("./github-api-next.ts", EXAMPLES_DIR),
+        // options: DEFAULT_OPTIONS,
+        ci: { skipIf: true, /* TODO */ timeout: 30000 },
+      },
+    ],
+    [
+      "snapshot > Octokit GHES 3.6 Diff to API",
+      {
+        given: new URL("./octokit-ghes-3.6-diff-to-api.json", EXAMPLES_DIR),
+        want: new URL("./octokit-ghes-3.6-diff-to-api.ts", EXAMPLES_DIR),
+        // options: DEFAULT_OPTIONS,
+        ci: { skipIf: true, /* TODO */ timeout: 30000 },
+      },
+    ],
+    [
+      "snapshot > Stripe",
+      {
+        given: new URL("./stripe-api.yaml", EXAMPLES_DIR),
+        want: new URL("./stripe-api.ts", EXAMPLES_DIR),
+        // options: DEFAULT_OPTIONS,
+        ci: { skipIf: true, /* TODO */ timeout: 30000 },
+      },
+    ],
+    [
+      "snapshot > DigitalOcean",
+      {
+        given: new URL(
+          "./digital-ocean-api/DigitalOcean-public.v2.yaml",
+          EXAMPLES_DIR,
+        ),
+        want: new URL("./digital-ocean-api.ts", EXAMPLES_DIR),
+        // options: DEFAULT_OPTIONS,
+        ci: {
+          timeout: 60000,
+          skipIf: true /* TODO */,
+          // process.env.CI_ENV === "macos" || process.env.CI_ENV === "windows", // this test runs too slowly on non-Ubuntu GitHub Actions runners
+        },
       },
     ],
   ];
 
-  test.each(tests)("%s", async (_, { given, want, options }) => {
-    expect(astToString(await openapiTS(given, options))).toBe(want);
+  describe.each(tests)("%s", (_, { given, want, options, ci }) => {
+    test.skipIf(ci?.skipIf)(
+      "test",
+      async () => {
+        const result = astToString(await openapiTS(given, options));
+        if (want instanceof URL) {
+          expect(result).toMatchFileSnapshot(fileURLToPath(want));
+        } else {
+          expect(result).toBe(want + "\n");
+        }
+      },
+      ci?.timeout,
+    );
   });
 });

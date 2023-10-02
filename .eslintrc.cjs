@@ -46,6 +46,7 @@ module.exports = {
     "object-shorthand": "error", // don’t use foo["bar"]
     "no-console": "error",
     "no-global-assign": "error",
+    "no-undef": "off", // handled by TS
     "no-unused-vars": "off",
   },
   overrides: [

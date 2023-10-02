@@ -1,12 +1,14 @@
+import degit from "degit";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import degit from "degit";
 import { error } from "../src/lib/utils.js";
 import { multiFile, singleFile } from "./schemas.js";
 
 const ONE_DAY = 1000 * 60 * 60 * 24;
 const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
+
+/* eslint-disable no-console */
 
 export async function download() {
   const allSchemas = Object.keys({ ...singleFile, ...multiFile });
@@ -19,7 +21,9 @@ export async function download() {
       const dest = new URL(`${k}${ext}`, EXAMPLES_DIR);
       if (fs.existsSync(dest)) {
         const { mtime } = fs.statSync(dest);
-        if (Date.now() - mtime.getTime() < ONE_DAY) return; // only update every 24 hours at most
+        if (Date.now() - mtime.getTime() < ONE_DAY) {
+          return; // only update every 24 hours at most
+        }
       }
       const result = await fetch(url);
       if (!result.ok) {
@@ -40,7 +44,9 @@ export async function download() {
       const dest = new URL(k, EXAMPLES_DIR);
       if (fs.existsSync(dest)) {
         const { mtime } = fs.statSync(dest);
-        if (Date.now() - mtime.getTime() < ONE_DAY) return; // only update every 24 hours at most
+        if (Date.now() - mtime.getTime() < ONE_DAY) {
+          return; // only update every 24 hours at most
+        }
       }
       const emitter = degit(meta.repo, {
         force: true,

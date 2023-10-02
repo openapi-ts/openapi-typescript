@@ -1,5 +1,5 @@
-import { URL, fileURLToPath } from "node:url";
-import openapiTS, { COMMENT_HEADER } from "../src/index.js";
+import { fileURLToPath } from "node:url";
+import openapiTS, { astToString } from "../src/index.js";
 import type { OpenAPI3, OpenAPITSOptions } from "../src/types.js";
 import { TestCase } from "./test-helpers.js";
 
@@ -51,31 +51,29 @@ describe("openapiTS", () => {
             },
           },
         },
-        want: `${COMMENT_HEADER}
-export type paths = Record<string, never>;
+        want: `export type paths = Record<string, never>;
 
 export type webhooks = Record<string, never>;
 
 export interface components {
-  schemas: {
-    ObjRef: {
-      base?: components["schemas"]["Entity"]["foo"];
+    schemas: {
+        ObjRef: {
+            base?: components["schemas"]["Entity"]["foo"];
+        };
+        AllOf: components["schemas"]["Entity"]["foo"] & components["schemas"]["Thingy"]["bar"];
     };
-    AllOf: components["schemas"]["Entity"]["foo"] & components["schemas"]["Thingy"]["bar"];
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
 
 export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
-export type operations = Record<string, never>;
-`,
+export type operations = Record<string, never>;`,
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -98,8 +96,7 @@ export type operations = Record<string, never>;
             },
           },
         },
-        want: `${COMMENT_HEADER}
-export type paths = Record<string, never>;
+        want: `export type paths = Record<string, never>;
 
 export type webhooks = Record<string, never>;
 
@@ -125,60 +122,174 @@ export type operations = Record<string, never>;`,
       },
     ],
     [
-      "parameters > $refs get hoisted",
+      "$refs > parameters get hoisted",
       {
-        given: new URL("./fixtures/parameters-test.yaml"),
-        want: `${COMMENT_HEADER}
-  export interface paths {
+        given: new URL("./fixtures/parameters-test.yaml", import.meta.url),
+        want: `export interface paths {
     "/endpoint": {
-      /** @description OK */
-      get: {
+        /** @description OK */
+        get: {
+            parameters: {
+                path: {
+                    /** @description This overrides parameters */
+                    local_param_a: number;
+                    local_ref_a: components["parameters"]["local_ref_a"];
+                    remote_ref_a: external["_parameters-test-partial.yaml"]["remote_ref_a"];
+                    local_ref_b: components["parameters"]["local_ref_b"];
+                    remote_ref_b: external["_parameters-test-partial.yaml"]["remote_ref_b"];
+                };
+            };
+        };
         parameters: {
-          path: {
-            /** @description This overrides parameters */
-            local_param_a: number;
-            local_ref_a: components["parameters"]["local_ref_a"];
-            remote_ref_a: external["_parameters-test-partial.yaml"]["remote_ref_a"];
-            local_ref_b: components["parameters"]["local_ref_b"];
-            remote_ref_b: external["_parameters-test-partial.yaml"]["remote_ref_b"];
-          };
+            path: {
+                local_param_a: string;
+                local_ref_a: components["parameters"]["local_ref_a"];
+                remote_ref_a: external["_parameters-test-partial.yaml"]["remote_ref_a"];
+            };
         };
-      };
-      parameters: {
-        path: {
-          local_param_a: string;
-          local_ref_a: components["parameters"]["local_ref_a"];
-          remote_ref_a: external["_parameters-test-partial.yaml"]["remote_ref_a"];
-        };
-      };
     };
-  }
+}
 
-  export type webhooks = Record<string, never>;
+export type webhooks = Record<string, never>;
 
-  export interface components {
+export interface components {
     schemas: never;
     responses: never;
     parameters: {
-      local_ref_a: string;
+        local_ref_a: string;
       local_ref_b: string;
     };
     requestBodies: never;
     headers: never;
     pathItems: never;
-  }
+}
 
-  export type $defs = Record<string, never>;
+export type $defs = Record<string, never>;
 
-  export interface external {
+export interface external {
     "_parameters-test-partial.yaml": {
-      remote_ref_a: string;
-      remote_ref_b: string;
+        remote_ref_a: string;
+        remote_ref_b: string;
     };
-  }
+}
 
-  export type operations = Record<string, never>;
+export type operations = Record<string, never>;`,
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "$refs > path object",
+      {
+        given: new URL("./fixtures/path-object-refs.yaml", import.meta.url),
+        want: `export interface paths {
+    /** @description Remote Ref */
+    "/get-item": external["_path-object-refs-paths.yaml"]["GetItemOperation"];
+}
+
+export type webhooks = Record<string, never>;
+
+export type components = Record<string, never>;
+
+export type $defs = Record<string, never>;
+
+export interface external {
+    "_path-object-refs-paths.yaml": {
+        GetItemOperation: {
+            get: {
+                responses: {
+                    /** @description OK */
+                    200: {
+                        content: {
+                            "application/json": external["_path-object-refs-paths.yaml"]["Item"];
+                        };
+                    };
+                };
+            };
+        };
+        Item: {
+            id: string;
+            name: string;
+        };
+    };
+}
+
+export type operations = Record<string, never>;
   `,
+      },
+    ],
+    [
+      "$refs > YAML anchors",
+      {
+        given: new URL(
+          "./fixtures/anchor-with-ref-test-2.yaml",
+          import.meta.url,
+        ),
+        want: `export interface paths {
+    "/": {
+        get: {
+            responses: {
+                /** @description OK */
+                200: {
+                    content: never;
+                };
+            };
+        };
+    };
+}
+
+export type webhooks = Record<string, never>;
+
+export interface components {
+    schemas: {
+        obj: external["anchor-with-ref-test.yaml"]["components"]["schemas"]["anchorTest"];
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+
+export type $defs = Record<string, never>;
+
+export interface external {
+    "anchor-with-ref-test.yaml": {
+        paths: {
+            "/": {
+                get: {
+                    responses: {
+                        /** @description OK */
+                        200: {
+                            content: never;
+                        };
+                    };
+                };
+            };
+        };
+        webhooks: Record<string, never>;
+        components: {
+            schemas: {
+                test: {
+                    metadata?: external["anchor-with-ref-test.yaml"]["components"]["schemas"]["metadata"];
+                };
+                anchorTest: {
+                    metadata?: external["anchor-with-ref-test.yaml"]["components"]["schemas"]["metadata"];
+                };
+                metadata: {
+                    [key: string]: unknown;
+                };
+            };
+            responses: never;
+            parameters: never;
+            requestBodies: never;
+            headers: never;
+            pathItems: never;
+        };
+        $defs: Record<string, never>;
+    };
+}
+
+export type operations = Record<string, never>;`,
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -235,36 +346,35 @@ export type operations = Record<string, never>;`,
             },
           },
         },
-        want: `${COMMENT_HEADER}
-export interface paths {
-  "/post/{id}": {
-    get: operations["getPost"];
-    parameters: {
-      query?: {
-        revision?: number;
-      };
+        want: `export interface paths {
+    "/post/{id}": {
+        get: operations["getPost"];
+        parameters: {
+            query?: {
+                revision?: number;
+            };
+        };
     };
-  };
 }
 
 export type webhooks = Record<string, never>;
 
 export interface components {
-  schemas: {
-    Post: {
-      id: number;
-      title: string;
-      body: string;
-      published_at?: number;
+    schemas: {
+        Post: {
+            id: number;
+            title: string;
+            body: string;
+            published_at?: number;
+        };
     };
-  };
-  responses: never;
-  parameters: {
-    post_id: string;
-  };
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    responses: never;
+    parameters: {
+        post_id: string;
+    };
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
 
 export type $defs = Record<string, never>;
@@ -272,28 +382,27 @@ export type $defs = Record<string, never>;
 export type external = Record<string, never>;
 
 export interface operations {
-
-  getPost: {
-    parameters: {
-      query?: {
-        revision?: number;
-        format?: string;
-      };
-      path: {
-        post_id: components["parameters"]["post_id"];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          "application/json": components["schemas"]["Post"];
+    getPost: {
+        parameters: {
+            query?: {
+                revision?: number;
+                format?: string;
+            };
+            path: {
+                post_id: components["parameters"]["post_id"];
+            };
         };
-      };
+        responses: {
+            /** @description OK */
+            200: {
+                content: {
+                    "application/json": components["schemas"]["Post"];
+                };
+            };
+        };
     };
-  };
-}
-`,
+}`,
+        // options: DEFAULT_OPTIONS,
       },
     ],
     [
@@ -321,8 +430,7 @@ export interface operations {
             },
           },
         },
-        want: `${COMMENT_HEADER}
-export type paths = Record<string, never>;
+        want: `export type paths = Record<string, never>;
 
 export type webhooks = Record<string, never>;
 
@@ -345,188 +453,80 @@ export type $defs = Record<string, never>;
 export type external = Record<string, never>;
 
 export type operations = Record<string, never>;`,
+        // options: DEFAULT_OPTIONS
       },
     ],
     [
       "JSONSchema > $defs are respected",
       {
         given: new URL("./fixtures/jsonschema-defs.yaml", import.meta.url),
-        want: `${COMMENT_HEADER}
-export type paths = Record<string, never>;
+        want: `export type paths = Record<string, never>;
 
 export type webhooks = Record<string, never>;
 
 export interface components {
-  schemas: {
-    Object: {
-      rootDef?: $defs["StringType"];
-      nestedDef?: components["schemas"]["OtherObject"]["$defs"]["nestedDef"];
-      remoteDef?: components["schemas"]["RemoteDefs"]["$defs"]["remoteDef"];
-      $defs: {
-        hasDefs: boolean;
-      };
+    schemas: {
+        Object: {
+            rootDef?: $defs["StringType"];
+            nestedDef?: components["schemas"]["OtherObject"]["$defs"]["nestedDef"];
+            remoteDef?: components["schemas"]["RemoteDefs"]["$defs"]["remoteDef"];
+            $defs: {
+                hasDefs: boolean;
+            };
+        };
+        ArrayOfDefs: $defs["StringType"][];
+        OtherObject: {
+            $defs: {
+                nestedDef: boolean;
+            };
+        };
+        RemoteDefs: {
+          $defs: {
+              remoteDef: external["_jsonschema-remote-obj.yaml"]["RemoteObject"]["$defs"]["remoteDef"];
+          };
+        };
     };
-    ArrayOfDefs: $defs["StringType"][];
-    OtherObject: {
-      $defs: {
-        nestedDef: boolean;
-      };
-    };
-    RemoteDefs: {
-      $defs: {
-        remoteDef: external["_jsonschema-remote-obj.yaml"]["RemoteObject"]["$defs"]["remoteDef"];
-      };
-    };
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
 
 export interface $defs {
-  StringType: string;
+    StringType: string;
 }
 
 export interface external {
-  "_jsonschema-remote-obj.yaml": {
-    RemoteObject: {
-      ownProperty?: boolean;
-      $defs: {
-        remoteDef: string;
-      };
+    "_jsonschema-remote-obj.yaml": {
+        RemoteObject: {
+            ownProperty?: boolean;
+            $defs: {
+                remoteDef: string;
+            };
+        };
     };
-  };
 }
 
-export type operations = Record<string, never>;
-`,
+export type operations = Record<string, never>;`,
         // options: DEFAULT_OPTIONS,
       },
     ],
   ];
 
-  test.each(tests)("%s", async (_, { given, want, options }) => {
-    expect(await openapiTS(given, options)).toBe(want);
-  });
-
-  describe("3.0", () => {
-    /** test that path item objects accept $refs at the top level */
-    test("path object $refs", async () => {
-      const generated = await openapiTS(
-        new URL("./fixtures/path-object-refs.yaml", import.meta.url),
-      );
-      expect(generated).toBe(`${COMMENT_HEADER}
-export interface paths {
-  /** @description Remote Ref */
-  "/get-item": external["_path-object-refs-paths.yaml"]["GetItemOperation"];
-}
-
-export type webhooks = Record<string, never>;
-
-export type components = Record<string, never>;
-
-export type $defs = Record<string, never>;
-
-export interface external {
-  "_path-object-refs-paths.yaml": {
-    GetItemOperation: {
-      get: {
-        responses: {
-          /** @description OK */
-          200: {
-            content: {
-              "application/json": external["_path-object-refs-paths.yaml"]["Item"];
-            };
-          };
-        };
-      };
-    };
-    Item: {
-      id: string;
-      name: string;
-    };
-  };
-}
-
-export type operations = Record<string, never>;
-`);
-    });
-
-    test("anchor $refs", async () => {
-      const generated = await openapiTS(
-        new URL("./fixtures/anchor-with-ref-test-2.yaml", import.meta.url),
-      );
-      expect(generated).toBe(`${COMMENT_HEADER}
-export interface paths {
-  "/": {
-    get: {
-      responses: {
-        /** @description OK */
-        200: {
-          content: never;
-        };
-      };
-    };
-  };
-}
-
-export type webhooks = Record<string, never>;
-
-export interface components {
-  schemas: {
-    obj: external["anchor-with-ref-test.yaml"]["components"]["schemas"]["anchorTest"];
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
-}
-
-export type $defs = Record<string, never>;
-
-export interface external {
-  "anchor-with-ref-test.yaml": {
-    paths: {
-      "/": {
-        get: {
-          responses: {
-            /** @description OK */
-            200: {
-              content: never;
-            };
-          };
-        };
-      };
-    };
-    webhooks: Record<string, never>;
-    components: {
-      schemas: {
-        test: {
-          metadata?: external["anchor-with-ref-test.yaml"]["components"]["schemas"]["metadata"];
-        };
-        anchorTest: {
-          metadata?: external["anchor-with-ref-test.yaml"]["components"]["schemas"]["metadata"];
-        };
-        metadata: {
-          [key: string]: unknown;
-        };
-      };
-      responses: never;
-      parameters: never;
-      requestBodies: never;
-      headers: never;
-      pathItems: never;
-    };
-    $defs: Record<string, never>;
-  };
-}
-
-export type operations = Record<string, never>;
-`);
-    });
+  describe.each(tests)("%s", (_, { given, want, options, ci }) => {
+    test.skipIf(ci?.skipIf)(
+      "test",
+      async () => {
+        const result = astToString(await openapiTS(given, options));
+        if (want instanceof URL) {
+          expect(want).toMatchFileSnapshot(fileURLToPath(want));
+        } else {
+          expect(result).toBe(want + "\n");
+        }
+      },
+      ci?.timeout,
+    );
   });
 
   describe("options", () => {
@@ -555,24 +555,24 @@ export type operations = Record<string, never>;
           },
           { exportType: false },
         );
-        expect(generated).toBe(`${COMMENT_HEADER}${ONE_OF_TYPE_HELPERS}
+        expect(generated).toBe(`${ONE_OF_TYPE_HELPERS}
 export type paths = Record<string, never>;
 
 export type webhooks = Record<string, never>;
 
 export interface components {
-  schemas: {
-    User: OneOf<[{
-      firstName?: string;
-    }, {
-      name?: string;
-    }]>;
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    schemas: {
+        User: OneOf<[{
+            firstName?: string;
+        }, {
+            name?: string;
+        }]>;
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
 
 export type $defs = Record<string, never>;
@@ -613,25 +613,25 @@ export type operations = Record<string, never>;
           },
           { exportType: false },
         );
-        expect(generated).toBe(`${COMMENT_HEADER}${WITH_REQUIRED_TYPE_HELPERS}
+        expect(generated).toBe(`${WITH_REQUIRED_TYPE_HELPERS}
 export type paths = Record<string, never>;
 
 export type webhooks = Record<string, never>;
 
 export interface components {
-  schemas: {
-    User: WithRequired<{
-      firstName?: string;
-      lastName?: string;
-    } & {
-      middleName?: string;
-    }, "firstName" | "lastName">;
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    schemas: {
+        User: WithRequired<{
+            firstName?: string;
+            lastName?: string;
+        } & {
+            middleName?: string;
+        }, "firstName" | "lastName">;
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
 
 export type $defs = Record<string, never>;
@@ -666,73 +666,5 @@ export type operations = Record<string, never>;
     await openapiTS(schema);
     const after = JSON.stringify(schema);
     expect(before).toBe(after);
-  });
-
-  // note: this tests the Node API; the snapshots in cli.test.ts test the CLI
-  describe("snapshots", () => {
-    const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
-
-    describe("GitHub", () => {
-      test("default options", async () => {
-        const generated = await openapiTS(
-          new URL("./github-api.yaml", EXAMPLES_DIR),
-        );
-        expect(generated).toMatchFileSnapshot(
-          fileURLToPath(new URL("./github-api.ts", EXAMPLES_DIR)),
-        );
-      }, 30000);
-    });
-    describe("GitHub (next)", () => {
-      test("default options", async () => {
-        const generated = await openapiTS(
-          new URL("./github-api-next.yaml", EXAMPLES_DIR),
-        );
-        expect(generated).toMatchFileSnapshot(
-          fileURLToPath(new URL("./github-api-next.ts", EXAMPLES_DIR)),
-        );
-      }, 30000);
-    });
-    describe("Octokit GHES 3.6 Diff to API", () => {
-      test("default options", async () => {
-        const generated = await openapiTS(
-          new URL("./octokit-ghes-3.6-diff-to-api.json", EXAMPLES_DIR),
-        );
-        expect(generated).toMatchFileSnapshot(
-          fileURLToPath(
-            new URL("./octokit-ghes-3.6-diff-to-api.ts", EXAMPLES_DIR),
-          ),
-        );
-      }, 30000);
-    });
-    describe("Stripe", () => {
-      test("default options", async () => {
-        const generated = await openapiTS(
-          new URL("./stripe-api.yaml", EXAMPLES_DIR),
-        );
-        expect(generated).toMatchFileSnapshot(
-          fileURLToPath(new URL("./stripe-api.ts", EXAMPLES_DIR)),
-        );
-      }, 30000);
-    });
-    describe("DigitalOcean", () => {
-      // this test runs too slowly on macos / windows in GitHub Actions (not not natively)
-      test.skipIf(
-        process.env.CI_ENV === "macos" || process.env.CI_ENV === "windows",
-      )(
-        "default options",
-        async () => {
-          const generated = await openapiTS(
-            new URL(
-              "./digital-ocean-api/DigitalOcean-public.v2.yaml",
-              EXAMPLES_DIR,
-            ),
-          );
-          expect(generated).toMatchFileSnapshot(
-            fileURLToPath(new URL("./digital-ocean-api.ts", EXAMPLES_DIR)),
-          );
-        },
-        60000,
-      );
-    });
   });
 });

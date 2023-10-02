@@ -1,9 +1,10 @@
 import { execa } from "execa";
 import glob from "fast-glob";
 import fs from "node:fs";
-import path from "node:path/posix"; // prevent issues with `\` on windows
-import { URL, fileURLToPath } from "node:url";
 import os from "node:os";
+import path from "node:path/posix"; // prevent issues with `\` on windows
+import { fileURLToPath } from "node:url";
+import { TestCase } from "./test-helpers.js";
 
 const root = new URL("../", import.meta.url);
 const cwd = os.platform() === "win32" ? fileURLToPath(root) : root; // execa bug: fileURLToPath required on Windows
@@ -14,70 +15,109 @@ const TIMEOUT = 90000;
 
 // fast-glob does not sort results
 async function getOutputFiles() {
-  return (await glob("**", { cwd: outputDir })).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  return (await glob("**", { cwd: outputDir })).sort((a, b) =>
+    a.localeCompare(b, undefined, { numeric: true }),
+  );
 }
 
 describe("CLI", () => {
-  // note: the snapshots in index.test.ts test the Node API; these test the CLI
-  describe("snapshots", () => {
-    test(
-      "GitHub API",
-      async () => {
-        const { stdout } = await execa(cmd, ["./examples/github-api.yaml"], { cwd });
-        expect(stdout).toMatchFileSnapshot(fileURLToPath(new URL("./examples/github-api.ts", root)));
+  const tests: TestCase<any, any>[] = [
+    [
+      "snapshot > GitHub API",
+      {
+        given: "./examples/github-api.yaml",
+        want: new URL("./examples/github-api.ts", root),
+        ci: { timeout: TIMEOUT },
       },
-      TIMEOUT,
-    );
-    test(
-      "GitHub API (next)",
-      async () => {
-        const { stdout } = await execa(cmd, ["./examples/github-api-next.yaml"], { cwd });
-        expect(stdout).toMatchFileSnapshot(fileURLToPath(new URL("./examples/github-api-next.ts", root)));
+    ],
+    [
+      "snapshot > GitHub API (next)",
+      {
+        given: "./examples/github-api-next.yaml",
+        want: new URL("./examples/github-api-next.ts", root),
+        ci: { timeout: TIMEOUT },
       },
-      TIMEOUT,
-    );
-    test(
-      "Octokit GHES 3.6 Diff to API",
-      async () => {
-        const { stdout } = await execa(cmd, ["./examples/octokit-ghes-3.6-diff-to-api.json"], { cwd });
-        expect(stdout).toMatchFileSnapshot(fileURLToPath(new URL("./examples/octokit-ghes-3.6-diff-to-api.ts", root)));
+    ],
+    [
+      "snapshot > Octokit GHES 3.6 Diff to API",
+      {
+        given: "./examples/octokit-ghes-3.6-diff-to-api.json",
+        want: new URL("./examples/octokit-ghes-3.6-diff-to-api.ts", root),
+        ci: { timeout: TIMEOUT },
       },
-      TIMEOUT,
-    );
-    test(
-      "Stripe API",
-      async () => {
-        const { stdout } = await execa(cmd, ["./examples/stripe-api.yaml"], { cwd });
-        expect(stdout).toMatchFileSnapshot(fileURLToPath(new URL("./examples/stripe-api.ts", root)));
+    ],
+    [
+      "snapshot > Stripe API",
+      {
+        given: "./examples/stripe-api.yaml",
+        want: new URL("./examples/stripe-api.ts", root),
+        ci: { timeout: TIMEOUT },
       },
-      TIMEOUT,
-    );
-    // this test runs too slowly on macos / windows in GitHub Actions (but not natively)
-    test.skipIf(process.env.CI_ENV === "macos" || process.env.CI_ENV === "windows")(
-      "DigitalOcean API (remote $refs)",
-      async () => {
-        const { stdout } = await execa(cmd, ["./examples/digital-ocean-api/DigitalOcean-public.v2.yaml"], {
-          cwd,
-        });
-        expect(stdout).toMatchFileSnapshot(fileURLToPath(new URL("./examples/digital-ocean-api.ts", root)));
+    ],
+    [
+      "snapshot > DigitalOcean",
+      {
+        given: "./examples/digital-ocean-api/DigitalOcean-public.v2.yaml",
+        want: new URL("./examples/digital-ocean-api.ts", root),
+        ci: {
+          timeout: TIMEOUT,
+          skipIf:
+            process.env.CI_ENV === "macos" || process.env.CI_ENV === "windows", // this test runs too slowly on non-Ubuntu GitHub Actions runners
+        },
       },
-      TIMEOUT,
-    );
-    test(
-      "stdin",
+    ],
+  ];
+
+  describe.each(tests)("%s", (_, { given, want, ci }) => {
+    test.skipIf(ci?.skipIf)(
+      "test",
       async () => {
-        const input = fs.readFileSync(new URL("./examples/stripe-api.yaml", root));
-        const { stdout } = await execa(cmd, { input });
-        expect(stdout).toMatchFileSnapshot(fileURLToPath(new URL("./examples/stripe-api.ts", root)));
+        let stdout: string;
+
+        // treat URL inputs as stdin (source file)
+        if (given instanceof URL) {
+          stdout = (
+            await execa(cmd, { input: fs.readFileSync(given, "utf8"), cwd })
+          ).stdout;
+        }
+        // otherwise treat inputs as command-line arguments
+        else {
+          stdout = (await execa(cmd, [given], { cwd })).stdout;
+        }
+
+        if (want instanceof URL) {
+          expect(stdout).toMatchFileSnapshot(fileURLToPath(want));
+        } else {
+          expect(stdout).toBe(want + "\n");
+        }
       },
-      TIMEOUT,
+      ci?.timeout,
     );
   });
+
+  test(
+    "stdin",
+    async () => {
+      const input = fs.readFileSync(
+        new URL("./examples/stripe-api.yaml", root),
+        "utf8",
+      );
+      const { stdout } = await execa(cmd, { input, cwd });
+      expect(stdout).toMatchFileSnapshot(
+        fileURLToPath(new URL("./examples/stripe-api.ts", root)),
+      );
+    },
+    TIMEOUT,
+  );
 
   describe("flags", () => {
     test("--help", async () => {
       const { stdout } = await execa(cmd, ["--help"], { cwd });
-      expect(stdout).toEqual(expect.stringMatching(/^Usage\n\s+\$ openapi-typescript \[input\] \[options\]/));
+      expect(stdout).toEqual(
+        expect.stringMatching(
+          /^Usage\n\s+\$ openapi-typescript \[input\] \[options\]/,
+        ),
+      );
     });
 
     test("--version", async () => {
@@ -117,14 +157,19 @@ describe("CLI", () => {
     test("multiple files to file", async () => {
       const inputFile = path.join(inputDir, "*.yaml");
       const outputFile = path.join(outputDir, "file-a.ts");
-      await expect(execa(cmd, [inputFile, "--output", outputFile], { cwd })).rejects.toThrow();
+      await expect(
+        execa(cmd, [inputFile, "--output", outputFile], { cwd }),
+      ).rejects.toThrow();
     });
 
     test("multiple files to directory", async () => {
       const inputFile = path.join(inputDir, "*.yaml");
       await execa(cmd, [inputFile, "--output", outputDir], { cwd });
       const result = await getOutputFiles();
-      expect(result).toEqual(["test/fixtures/cli-outputs/file-a.ts", "test/fixtures/cli-outputs/file-b.ts"]);
+      expect(result).toEqual([
+        "test/fixtures/cli-outputs/file-a.ts",
+        "test/fixtures/cli-outputs/file-b.ts",
+      ]);
     });
 
     test("multiple nested files to directory", async () => {

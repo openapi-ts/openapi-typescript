@@ -1,5 +1,5 @@
 import { SpyInstance } from "vitest";
-import openapiTS from "../dist/index.js";
+import openapiTS from "../src/index.js";
 
 describe("Invalid schemas", () => {
   let consoleError: SpyInstance;
@@ -15,14 +15,35 @@ describe("Invalid schemas", () => {
   });
 
   test("Swagger 2.0 throws", async () => {
-    await openapiTS({ swagger: "2.0" } as any);
-    expect(consoleError).toHaveBeenCalledWith(expect.stringContaining("Swagger 2.0 and older no longer supported. Please use v5."));
+    await expect(() => openapiTS({ swagger: "2.0" } as any)).rejects.toThrow();
+    expect(consoleError).toHaveBeenCalledWith(
+      expect.stringContaining(
+        "Unsupported Swagger version: 2.x. Use OpenAPI 3.x instead.",
+      ),
+    );
     expect(procExit).toHaveBeenCalledWith(1);
   });
 
   test("OpenAPI < 3 throws", async () => {
-    await openapiTS({ openapi: "2.0", info: { title: "Test", version: "1.0" } });
-    expect(consoleError).toHaveBeenCalledWith(expect.stringContaining('Unsupported OpenAPI version "2.0". Only 3.x is supported.'));
+    await expect(() =>
+      openapiTS({
+        openapi: "2.0",
+        info: { title: "Test", version: "1.0" },
+      }),
+    ).rejects.toThrow();
+    expect(consoleError).toHaveBeenCalledWith(
+      expect.stringContaining("Unsupported OpenAPI version: 2.0"),
+    );
+    expect(procExit).toHaveBeenCalledWith(1);
+  });
+
+  test("Other missing required fields", async () => {
+    await expect(() => openapiTS({} as any)).rejects.toThrow();
+    expect(consoleError).toHaveBeenCalledWith(
+      expect.stringContaining(
+        "Unsupported schema format, expected `openapi: 3.x`",
+      ),
+    );
     expect(procExit).toHaveBeenCalledWith(1);
   });
 });

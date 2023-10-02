@@ -1,4 +1,4 @@
-import ts from "typescript";
+import { fileURLToPath } from "node:url";
 import { astToString } from "../../../src/index.js";
 import transformSchemaObject from "../../../src/transform/schema-object.js";
 import { DEFAULT_CTX, TestCase } from "../../test-helpers.js";
@@ -326,8 +326,21 @@ describe("transformSchemaObject > object", () => {
     ],
   ];
 
-  test.each(tests)("%s", (_, { given, want, options = DEFAULT_OPTIONS }) => {
-    const ast = transformSchemaObject(given, options);
-    expect(astToString(ast).trim()).toBe(want.trim());
-  });
+  describe.each(tests)(
+    "%s",
+    (_, { given, want, options = DEFAULT_OPTIONS, ci }) => {
+      test.skipIf(ci?.skipIf)(
+        "test",
+        async () => {
+          const result = astToString(transformSchemaObject(given, options));
+          if (want instanceof URL) {
+            expect(result).toMatchFileSnapshot(fileURLToPath(want));
+          } else {
+            expect(result).toBe(want + "\n");
+          }
+        },
+        ci?.timeout,
+      );
+    },
+  );
 });

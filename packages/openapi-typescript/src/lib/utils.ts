@@ -12,6 +12,13 @@ if (!supportsColor.stdout || supportsColor.stdout.hasBasic === false) {
   c.enabled = false;
 }
 
+const DEBUG_GROUPS: Record<string, c.StyleFunction | undefined> = {
+  lint: c.yellowBright,
+  redoc: c.cyanBright,
+  bundle: c.magentaBright,
+  ts: c.blueBright,
+};
+
 export { c };
 
 /** Given a discriminator object, get the property name */
@@ -60,6 +67,32 @@ export function createRef(parts: (number | string)[]): string {
     }
   }
   return pointer;
+}
+
+/** Print debug message */
+export function debug(msg: string, group?: string, time?: number) {
+  if (
+    process.env.DEBUG &&
+    (!group ||
+      process.env.DEBUG === "*" ||
+      process.env.DEBUG.toLocaleLowerCase() === group.toLocaleLowerCase())
+  ) {
+    const groupColor = (group && DEBUG_GROUPS[group]) || c.whiteBright;
+    const groupName = groupColor(`oapts:${group ?? "info"}`);
+    let timeFormatted = "";
+    if (typeof time === "number") {
+      if (time < 1000) {
+        timeFormatted = `${Math.round(100 * time) / 100}ms`;
+      } else if (time < 60000) {
+        timeFormatted = `${Math.round(time / 100) / 10}s`;
+      } else {
+        timeFormatted = `${Math.round(time / 6000) / 10}m`;
+      }
+      timeFormatted = c.green(` ${timeFormatted} `);
+    }
+    // eslint-disable-next-line no-console
+    console.debug(`  ${c.bold(groupName)}${timeFormatted}${msg}`);
+  }
 }
 
 /** Print error message */

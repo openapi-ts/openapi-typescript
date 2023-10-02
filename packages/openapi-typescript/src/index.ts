@@ -1,8 +1,7 @@
 import type { Readable } from "node:stream";
-import { URL } from "node:url";
 import ts from "typescript";
 import { validateAndBundle } from "./lib/redoc.js";
-import { resolveRef, scanDiscriminators } from "./lib/utils.js";
+import { debug, resolveRef, scanDiscriminators } from "./lib/utils.js";
 import transformSchema from "./transform/index.js";
 import type { GlobalContext, OpenAPI3, OpenAPITSOptions } from "./types.js";
 
@@ -64,5 +63,13 @@ export default async function openapiTS(
     },
   };
 
-  return transformSchema(schema, ctx);
+  const transformT = performance.now();
+  const result = transformSchema(schema, ctx);
+  debug(
+    "Completed AST transformation for entire document",
+    "ts",
+    performance.now() - transformT,
+  );
+
+  return result;
 }

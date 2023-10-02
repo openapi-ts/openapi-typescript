@@ -4,7 +4,6 @@ import { loadConfig } from "@redocly/openapi-core";
 import glob from "fast-glob";
 import fs from "node:fs";
 import path from "node:path";
-import { URL } from "node:url";
 import parser from "yargs-parser";
 import openapiTS, { astToString, COMMENT_HEADER } from "../dist/index.js";
 import { c, error } from "../dist/utils.js";

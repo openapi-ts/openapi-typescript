@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import { astToString } from "../../src/lib/ts.js";
 import transformPathItemObject from "../../src/transform/path-item-object.js";
 import { DEFAULT_CTX, TestCase } from "../test-helpers.js";
@@ -237,8 +238,21 @@ describe("transformPathItemObject", () => {
     ],
   ];
 
-  test.each(tests)("%s", (_, { given, want, options = DEFAULT_OPTIONS }) => {
-    const ast = transformPathItemObject(given, options);
-    expect(astToString(ast).trim()).toBe(want.trim());
-  });
+  describe.each(tests)(
+    "%s",
+    (_, { given, want, options = DEFAULT_OPTIONS, ci }) => {
+      test.skipIf(ci?.skipIf)(
+        "test",
+        async () => {
+          const result = astToString(transformPathItemObject(given, options));
+          if (want instanceof URL) {
+            expect(result).toMatchFileSnapshot(fileURLToPath(want));
+          } else {
+            expect(result).toBe(want + "\n");
+          }
+        },
+        ci?.timeout,
+      );
+    },
+  );
 });

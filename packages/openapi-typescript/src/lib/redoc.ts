@@ -11,7 +11,7 @@ import {
 import { Readable } from "node:stream";
 import { fileURLToPath } from "node:url";
 import { OpenAPI3 } from "../types.js";
-import { error } from "./utils.js";
+import { debug, error } from "./utils.js";
 
 export interface ValidateAndBundleOptions {
   redocly?: RedoclyConfig;
@@ -57,15 +57,45 @@ export async function validateAndBundle(
   source: string | URL | OpenAPI3 | Readable,
   options?: ValidateAndBundleOptions,
 ) {
+  const redocConfigT = performance.now();
   const redocConfig = await createConfig(options?.redocly ?? {});
+  debug("Loaded Redoc config", "redoc", performance.now() - redocConfigT);
+  const redocParseT = performance.now();
   const resolver = new BaseResolver(redocConfig.resolve);
   const document = await parseSchema(
     source,
     options?.cwd ?? process.cwd(),
     resolver,
   );
+  debug("Parsed schema", "redoc", performance.now() - redocParseT);
 
-  // 1. lint
+  // 1. check for OpenAPI 3 or greater
+  const openapiVersion = parseFloat(document.parsed.openapi);
+
+  if (
+    document.parsed.swagger ||
+    !document.parsed.openapi ||
+    Number.isNaN(openapiVersion) ||
+    openapiVersion < 3 ||
+    openapiVersion >= 4
+  ) {
+    if (document.parsed.swagger) {
+      error("Unsupported Swagger version: 2.x. Use OpenAPI 3.x instead.");
+    } else if (
+      document.parsed.openapi ||
+      openapiVersion < 3 ||
+      openapiVersion >= 4
+    ) {
+      error(`Unsupported OpenAPI version: ${document.parsed.openapi}`);
+    } else {
+      error("Unsupported schema format, expected `openapi: 3.x`");
+    }
+    process.exit(1);
+    return; // hack for tests/mocking
+  }
+
+  // 2. lint
+  const redocLintT = performance.now();
   const problems = await lintDocument({
     document,
     config: redocConfig.styleguide,
@@ -81,10 +111,13 @@ export async function validateAndBundle(
     }
     if (hasError) {
       process.exit(1);
+      return;
     }
   }
+  debug("Linted schema", "lint", performance.now() - redocLintT);
 
-  // 2. bundle
+  // 3. bundle
+  const redocBundleT = performance.now();
   const bundled = await bundle({
     config: redocConfig,
     dereference: true,
@@ -93,15 +126,17 @@ export async function validateAndBundle(
   if (bundled.problems.length) {
     let hasError = false;
     for (const problem of bundled.problems) {
+      error(problem.message);
       if (problem.severity === "error") {
-        error(problem.message);
         hasError = true;
       }
     }
     if (hasError) {
       process.exit(1);
+      return;
     }
   }
+  debug("Bundled schema", "bundle", performance.now() - redocBundleT);
 
   return bundled.bundle.parsed;
 }

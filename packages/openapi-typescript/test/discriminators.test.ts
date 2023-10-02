@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import openapiTS, { COMMENT_HEADER, OpenAPITSOptions } from "../src/index.js";
 import { TestCase } from "./test-helpers.js";
 
@@ -78,8 +79,7 @@ export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
-export type operations = Record<string, never>;
-`,
+export type operations = Record<string, never>;`,
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -156,8 +156,7 @@ export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
-export type operations = Record<string, never>;
-`,
+export type operations = Record<string, never>;`,
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -235,14 +234,24 @@ export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
-export type operations = Record<string, never>;
-`,
+export type operations = Record<string, never>;`,
         // options: DEFAULT_OPTIONS,
       },
     ],
   ];
 
-  test.each(tests)("%s", async (_, { given, want, options }) => {
-    expect(await openapiTS(given, options)).toBe(want);
+  describe.each(tests)("%s", (_, { given, want, options, ci }) => {
+    test.skipIf(ci?.skipIf)(
+      "test",
+      async () => {
+        const result = await openapiTS(given, options);
+        if (want instanceof URL) {
+          expect(result).toMatchFileSnapshot(fileURLToPath(want));
+        } else {
+          expect(result).toBe(want + "\n");
+        }
+      },
+      ci?.timeout,
+    );
   });
 });

@@ -39,10 +39,14 @@ export type TestCase<T = any, O = TransformNodeOptions> = [
      * The expected TypeScript output. Be mindful of indentation and
      * parentheses!
      */
-    want: string;
+    want: string | URL;
     /**
      * Transform options.
      */
     options?: O;
+    /**
+     * Options for Vitest
+     */
+    ci?: { timeout?: number; skipIf?: boolean };
   },
 ];

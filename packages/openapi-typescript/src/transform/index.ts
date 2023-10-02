@@ -1,6 +1,6 @@
 import ts, { TypeAliasDeclaration, TypeLiteralNode } from "typescript";
 import { NEVER, STRING, tsModifiers, tsRecord } from "../lib/ts.js";
-import { createRef } from "../lib/utils.js";
+import { createRef, debug } from "../lib/utils.js";
 import { GlobalContext, OpenAPI3 } from "../types.js";
 import transformComponentsObject from "./components-object.js";
 import transformPathsObject from "./paths-object.js";
@@ -28,6 +28,7 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
 
   for (const root of Object.keys(transformers) as SchemaTransforms[]) {
     if (schema[root]) {
+      const rootT = performance.now();
       const subType = transformers[root](schema[root], ctx);
       type.push(
         ctx.exportType
@@ -51,6 +52,7 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
               /* members         */ (subType as TypeLiteralNode).members,
             ),
       );
+      debug(`Transformed ${root} object`, "ts", performance.now() - rootT);
     } else {
       type.push(
         ts.factory.createTypeAliasDeclaration(
@@ -63,6 +65,7 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
           /* type           */ tsRecord(STRING, NEVER),
         ),
       );
+      debug(`Skipped: ${root} object`, "ts", 0);
     }
   }
 

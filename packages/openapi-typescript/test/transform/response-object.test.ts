@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import { astToString } from "../../src/lib/ts.js";
 import transformResponseObject from "../../src/transform/response-object.js";
 import { DEFAULT_CTX, TestCase } from "../test-helpers.js";
@@ -71,8 +72,21 @@ describe("transformResponseObject", () => {
     ],
   ];
 
-  test.each(tests)("%s", (_, { given, want, options = DEFAULT_OPTIONS }) => {
-    const ast = transformResponseObject(given, options);
-    expect(astToString(ast).trim()).toBe(want.trim());
-  });
+  describe.each(tests)(
+    "%s",
+    (_, { given, want, options = DEFAULT_OPTIONS, ci }) => {
+      test.skipIf(ci?.skipIf)(
+        "test",
+        async () => {
+          const result = astToString(transformResponseObject(given, options));
+          if (want instanceof URL) {
+            expect(result).toMatchFileSnapshot(fileURLToPath(want));
+          } else {
+            expect(result).toBe(want + "\n");
+          }
+        },
+        ci?.timeout,
+      );
+    },
+  );
 });
