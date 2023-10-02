@@ -19,6 +19,7 @@ const options: TransformRequestBodyObjectOptions = {
     supportArrayLength: false,
     transform: undefined,
     excludeDeprecated: false,
+    rootTypes: false,
   },
 };
 

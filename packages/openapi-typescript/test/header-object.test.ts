@@ -19,6 +19,7 @@ const options: TransformHeaderObjectOptions = {
     supportArrayLength: false,
     transform: undefined,
     excludeDeprecated: false,
+    rootTypes: false,
   },
 };
 

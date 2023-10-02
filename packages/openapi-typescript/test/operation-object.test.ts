@@ -17,6 +17,7 @@ const ctx: GlobalContext = {
   supportArrayLength: false,
   transform: undefined,
   excludeDeprecated: false,
+  rootTypes: false,
 };
 
 const options = { ctx, path: "#/paths/~get-item" };

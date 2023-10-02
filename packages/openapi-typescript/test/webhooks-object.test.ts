@@ -17,6 +17,7 @@ const options: GlobalContext = {
   supportArrayLength: false,
   transform: undefined,
   excludeDeprecated: false,
+  rootTypes: false,
 };
 
 describe("Webhooks Object", () => {
