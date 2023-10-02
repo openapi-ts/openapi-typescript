@@ -19,6 +19,7 @@ const options: TransformResponseObjectOptions = {
     supportArrayLength: false,
     transform: undefined,
     excludeDeprecated: false,
+    rootTypes: false,
   },
 };
 

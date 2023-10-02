@@ -1287,6 +1287,64 @@ export type operations = Record<string, never>;
 `);
       });
     });
+    
+    describe("rootTypes helpers", () => {
+      test("should be added only when used", async () => {
+        const generated = await openapiTS(
+          {
+            openapi: "3.1",
+            info: { title: "Test", version: "1.0" },
+            components: {
+              schemas: {
+                User: {
+                  allOf: [
+                    {
+                      type: "object",
+                      properties: { firstName: { type: "string" }, lastName: { type: "string" } },
+                    },
+                    {
+                      type: "object",
+                      properties: { middleName: { type: "string" } },
+                    },
+                  ],
+                  required: ["firstName", "lastName"],
+                },
+              },
+            },
+          },
+          { rootTypes: true },
+        );
+        expect(generated).toBe(`${BOILERPLATE}${WITH_REQUIRED_TYPE_HELPERS}
+export type User = external["."]["components"]["schemas"]["User"];
+
+export type paths = Record<string, never>;
+
+export type webhooks = Record<string, never>;
+
+export interface components {
+  schemas: {
+    User: WithRequired<{
+      firstName?: string;
+      lastName?: string;
+    } & {
+      middleName?: string;
+    }, "firstName" | "lastName">;
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
+}
+
+export type $defs = Record<string, never>;
+
+export type external = Record<string, never>;
+
+export type operations = Record<string, never>;
+`);
+      });
+    });
   });
 
   it("does not mutate original reference", async () => {

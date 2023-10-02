@@ -117,6 +117,7 @@ async function load(schema: URL | Subschema | Readable, options?: Partial<LoadOp
     supportArrayLength: false,
     transform: undefined,
     excludeDeprecated: false,
+    rootTypes: false,
     ...options,
   });
 }
