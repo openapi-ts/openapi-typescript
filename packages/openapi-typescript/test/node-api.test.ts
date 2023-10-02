@@ -1,6 +1,6 @@
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
-import openapiTS, { astToString } from "../src/index.js";
+import openapiTS, { COMMENT_HEADER, astToString } from "../src/index.js";
 import { OpenAPITSOptions } from "../src/types.js";
 import { TestCase } from "./test-helpers.js";
 
@@ -9,7 +9,122 @@ const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
 describe("Node.js API", () => {
   const tests: TestCase<any, OpenAPITSOptions>[] = [
     [
-      "exportType > false",
+      "input > string > YAML",
+      {
+        given: `openapi: "3.1"
+info:
+  title: test
+  version: 1.0`,
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+      },
+      // options: DEFAULT_OPTIONS,
+    ],
+    [
+      "input > string > JSON",
+      {
+        given: JSON.stringify({
+          openapi: "3.1",
+          info: { title: "test", version: "1.0" },
+        }),
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+      },
+      // options: DEFAULT_OPTIONS,
+    ],
+    [
+      "input > string > URL",
+      {
+        given:
+          "https://raw.githubusercontent.com/Redocly/redocly-cli/main/__tests__/lint/oas3.1/openapi.yaml",
+        want: new URL("redocly-oas3.1.ts", EXAMPLES_DIR),
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "input > URL > remote",
+      {
+        given: new URL(
+          "https://raw.githubusercontent.com/Redocly/redocly-cli/main/__tests__/lint/oas3.1/openapi.yaml",
+        ),
+        want: new URL("redocly-oas3.1.ts", EXAMPLES_DIR),
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "input > URL > local",
+      {
+        given: new URL("./redocly-oas3.1.yaml", EXAMPLES_DIR),
+        want: new URL("redocly-oas3.1.ts", EXAMPLES_DIR),
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "input > object",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "test", version: "1.0" },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+      },
+      // options: DEFAULT_OPTIONS,
+    ],
+    [
+      "input > buffer",
+      {
+        given: Buffer.from(`openapi: "3.1"
+info:
+  title: test
+  version: 1.0`),
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "options > exportType > false",
       {
         given: {
           openapi: "3.1",
@@ -49,7 +164,7 @@ export type operations = Record<string, never>;`,
       },
     ],
     [
-      "exportType > true",
+      "options > exportType > true",
       {
         given: {
           openapi: "3.1",
@@ -87,9 +202,8 @@ export type operations = Record<string, never>;`,
         options: { exportType: true },
       },
     ],
-
     [
-      "pathParamsAsTypes > false",
+      "options > pathParamsAsTypes > false",
       {
         given: {
           openapi: "3.1",
@@ -160,7 +274,7 @@ export type operations = Record<string, never>;`,
       },
     ],
     [
-      "pathParamsAsTypes > true",
+      "options > pathParamsAsTypes > true",
       {
         given: {
           openapi: "3.1",
@@ -231,7 +345,7 @@ export type operations = Record<string, never>;`,
       },
     ],
     [
-      "transform",
+      "options > transform",
       {
         given: {
           openapi: "3.1",
@@ -277,7 +391,7 @@ export type operations = Record<string, never>;`,
       },
     ],
     [
-      "postTransform",
+      "options > postTransform",
       {
         given: {
           openapi: "3.1",
@@ -320,7 +434,7 @@ export type operations = Record<string, never>;`,
       },
     ],
     [
-      "enum",
+      "options > enum",
       {
         given: {
           openapi: "3.1",
@@ -424,7 +538,7 @@ export type operations = Record<string, never>;`,
         given: new URL("./github-api.yaml", EXAMPLES_DIR),
         want: new URL("./github-api.ts", EXAMPLES_DIR),
         // options: DEFAULT_OPTIONS,
-        ci: { skipIf: true, /* TODO */ timeout: 30000 },
+        ci: { skipIf: true, /* TODO */ timeout: 3000 },
       },
     ],
     [
@@ -472,18 +586,31 @@ export type operations = Record<string, never>;`,
     ],
   ];
 
-  describe.each(tests)("%s", (_, { given, want, options, ci }) => {
-    test.skipIf(ci?.skipIf)(
-      "test",
+  for (const [testName, testCase] of tests) {
+    test.skipIf(testCase.ci?.skipIf)(
+      testName,
       async () => {
-        const result = astToString(await openapiTS(given, options));
-        if (want instanceof URL) {
-          expect(result).toMatchFileSnapshot(fileURLToPath(want));
+        const result = astToString(
+          await openapiTS(testCase.given, testCase.options),
+        );
+        if (testCase.want instanceof URL) {
+          expect(`${COMMENT_HEADER}${result}`).toMatchFileSnapshot(
+            fileURLToPath(testCase.want),
+          );
         } else {
-          expect(result).toBe(want + "\n");
+          expect(result).toBe(testCase.want + "\n");
         }
       },
-      ci?.timeout,
+      testCase.ci?.timeout || 5000,
+    );
+  }
+
+  test("GitHub API", async () => {
+    const result = astToString(
+      await openapiTS(new URL("./github-api.yaml", EXAMPLES_DIR)),
+    );
+    expect(result).toMatchFileSnapshot(
+      fileURLToPath(new URL("./github-api.ts", EXAMPLES_DIR)),
     );
   });
 });

@@ -1,4 +1,5 @@
 import type { RawConfig as RedoclyConfig } from "@redocly/openapi-core";
+import { PathLike } from "node:fs";
 import type ts from "typescript";
 
 // Many types allow for true “any” for inheritance to work
@@ -638,7 +639,7 @@ export interface OpenAPITSOptions {
   /** Allow schema objects with no specified properties to have additional properties if not expressly forbidden? (default: false) */
   emptyObjectsUnknown?: boolean;
   /** Provide current working directory (cwd) which helps resolve relative remote schemas */
-  cwd?: string;
+  cwd?: PathLike;
   /** Should schema objects with a default value not be considered optional? */
   defaultNonNullable?: boolean;
   /** Manually transform certain Schema Objects with a custom TypeScript type */

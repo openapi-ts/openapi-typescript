@@ -52,7 +52,7 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
               /* members         */ (subType as TypeLiteralNode).members,
             ),
       );
-      debug(`Transformed ${root} object`, "ts", performance.now() - rootT);
+      debug(`${root} done`, "ts", performance.now() - rootT);
     } else {
       type.push(
         ts.factory.createTypeAliasDeclaration(
@@ -65,7 +65,7 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
           /* type           */ tsRecord(STRING, NEVER),
         ),
       );
-      debug(`Skipped: ${root} object`, "ts", 0);
+      debug(`${root} done (skipped)`, "ts", 0);
     }
   }
 

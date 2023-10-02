@@ -1,6 +1,6 @@
 import ts from "typescript";
 import { addJSDocComment, oapiRef, tsPropertyIndex } from "../lib/ts.js";
-import { createRef, getEntries } from "../lib/utils.js";
+import { createRef, debug, getEntries } from "../lib/utils.js";
 import {
   GlobalContext,
   OperationObject,
@@ -26,6 +26,8 @@ export default function transformPathsObject(
     if (!pathItemObject || typeof pathItemObject !== "object") {
       continue;
     }
+
+    const pathT = performance.now();
 
     // handle $ref
     if ("$ref" in pathItemObject) {
@@ -102,6 +104,8 @@ export default function transformPathsObject(
           /* type          */ pathItemType,
         ),
       );
+
+      debug(`Transformed path "${url}"`, "ts", performance.now() - pathT);
     }
   }
 

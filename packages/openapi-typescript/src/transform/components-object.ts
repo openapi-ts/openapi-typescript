@@ -5,7 +5,7 @@ import {
   tsModifiers,
   tsPropertyIndex,
 } from "../lib/ts.js";
-import { createRef, getEntries } from "../lib/utils.js";
+import { createRef, debug, getEntries } from "../lib/utils.js";
 import {
   ComponentsObject,
   GlobalContext,
@@ -46,6 +46,8 @@ export default function transformComponentsObject(
   const type: ts.TypeElement[] = [];
 
   for (const key of Object.keys(transformers) as ComponentTransforms[]) {
+    const componentT = performance.now();
+
     const items: ts.TypeElement[] = [];
     if (componentsObject[key]) {
       for (const [name, item] of getEntries(componentsObject[key], ctx)) {
@@ -74,6 +76,12 @@ export default function transformComponentsObject(
           ? ts.factory.createTypeLiteralNode(items)
           : NEVER,
       ),
+    );
+
+    debug(
+      `Transformed #/components/${key}`,
+      "ts",
+      performance.now() - componentT,
     );
   }
 

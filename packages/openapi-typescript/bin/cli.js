@@ -3,10 +3,17 @@
 import { loadConfig } from "@redocly/openapi-core";
 import glob from "fast-glob";
 import fs from "node:fs";
-import path from "node:path";
+import { fileURLToPath } from "node:url";
 import parser from "yargs-parser";
-import openapiTS, { astToString, COMMENT_HEADER } from "../dist/index.js";
-import { c, error } from "../dist/utils.js";
+import openapiTS, {
+  astToString,
+  c,
+  COMMENT_HEADER,
+  error,
+  formatTime,
+} from "../dist/index.js";
+
+/* eslint-disable no-console */
 
 const HELP = `Usage
   $ openapi-typescript [input] [options]
@@ -34,7 +41,7 @@ const CWD = new URL(`file://${process.cwd()}/`);
 const EXT_RE = /\.[^.]+$/i;
 const HTTP_RE = /^https?:\/\//;
 
-const timeStart = process.hrtime();
+const timeStart = performance.now();
 
 const [, , ...args] = process.argv;
 if (args.includes("-ap")) {
@@ -76,14 +83,14 @@ const flags = parser(args, {
   },
 });
 
-async function generateSchema(pathToSpec) {
+async function generateSchema(url) {
   const output = flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
 
-  const redoclyConfig = await loadConfig(flags.redoc);
+  const redoclyConfig = flags.redoc ? await loadConfig(flags.redoc) : undefined;
 
   // generate schema
   const result = `${COMMENT_HEADER}${astToString(
-    await openapiTS(pathToSpec, {
+    await openapiTS(url, {
       additionalProperties: flags.additionalProperties,
       alphabetize: flags.alphabetize,
       contentNever: flags.contentNever,
@@ -110,7 +117,7 @@ async function generateSchema(pathToSpec) {
       if (typeof flags.output === "string" && !flags.output.endsWith("/")) {
         outputFilePath = new URL(`${flags.output}/`, CWD);
       }
-      const filename = pathToSpec.replace(EXT_RE, ".ts");
+      const filename = fileURLToPath(url).replace(EXT_RE, ".ts");
       const originalOutputFilePath = outputFilePath;
       outputFilePath = new URL(filename, originalOutputFilePath);
       if (outputFilePath.protocol !== "file:") {
@@ -123,12 +130,10 @@ async function generateSchema(pathToSpec) {
 
     fs.writeFileSync(outputFilePath, result, "utf8");
 
-    const timeEnd = process.hrtime(timeStart);
-    const time = timeEnd[0] + Math.round(timeEnd[1] / 1e6);
     console.log(
-      `🚀 ${c.green(`${pathToSpec} → ${c.bold(outputFilePath)}`)} ${c.dim(
-        `[${time}ms]`,
-      )}`,
+      `🚀 ${c.green(
+        `${fileURLToPath(url)} → ${c.bold(fileURLToPath(outputFilePath))}`,
+      )} ${c.dim(`[${formatTime(performance.now() - timeStart)}]`)}`,
     );
   } else {
     process.stdout.write(result);
@@ -175,7 +180,7 @@ async function main() {
     if (output !== "." && output === OUTPUT_FILE) {
       fs.mkdirSync(outputDir, { recursive: true });
     }
-    await generateSchema(pathToSpec);
+    await generateSchema(new URL(pathToSpec));
     return;
   }
 
@@ -204,16 +209,15 @@ async function main() {
   // generate schema(s) in parallel
   await Promise.all(
     inputSpecPaths.map(async (specPath) => {
+      const globInputFile = new URL(specPath, CWD);
       if (flags.output !== "." && output === OUTPUT_FILE) {
         if (isGlob || isDirUrl) {
-          fs.mkdirSync(new URL(path.dirname(specPath), outputDir), {
-            recursive: true,
-          }); // recursively make parent dirs
+          fs.mkdirSync(outputDir, { recursive: true }); // recursively make parent dirs
         } else {
           fs.mkdirSync(outputDir, { recursive: true }); // recursively make parent dirs
         }
       }
-      await generateSchema(specPath);
+      await generateSchema(globInputFile);
     }),
   );
 }

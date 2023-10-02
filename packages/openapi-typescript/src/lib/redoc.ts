@@ -15,34 +15,70 @@ import { debug, error } from "./utils.js";
 
 export interface ValidateAndBundleOptions {
   redocly?: RedoclyConfig;
-  cwd: string;
+  cwd?: URL;
+}
+
+interface ParseSchemaOptions {
+  absoluteRef: string;
+  resolver: BaseResolver;
 }
 
 export async function parseSchema(
   schema: unknown,
-  cwd: string,
-  resolver: BaseResolver,
+  { absoluteRef, resolver }: ParseSchemaOptions,
 ): Promise<Document> {
   if (!schema) {
     throw new Error(`Can’t parse empty schema`);
   }
   if (typeof schema === "string") {
-    return makeDocumentFromString(schema, cwd);
+    // URL
+    if (
+      schema.startsWith("http://") ||
+      schema.startsWith("https://") ||
+      schema.startsWith("file://")
+    ) {
+      const url = new URL(schema);
+      return parseSchema(url, {
+        absoluteRef: url.protocol === "file:" ? fileURLToPath(url) : url.href,
+        resolver,
+      });
+    }
+    // JSON
+    if (schema[0] === "{") {
+      return {
+        source: new Source(absoluteRef, schema, "application/json"),
+        parsed: JSON.parse(schema),
+      };
+    }
+    // YAML
+    return makeDocumentFromString(schema, absoluteRef);
   }
   if (schema instanceof URL) {
-    return resolver.parseDocument(
-      await resolver.loadExternalRef(
-        schema.protocol === "file:" ? fileURLToPath(schema) : schema.href,
-      ),
-      true,
-    );
+    const result = await resolver.resolveDocument(null, absoluteRef, true);
+    if ("parsed" in result) {
+      return result;
+    }
+    throw new Error(result as any); // eslint-disable-line @typescript-eslint/no-explicit-any
   }
   if (schema instanceof Buffer) {
-    return makeDocumentFromString(schema.toString("utf8"), cwd);
+    const source = schema.toString("utf8");
+    // JSON
+    if (source[0] === "{") {
+      return {
+        source: new Source(absoluteRef, source, "application/json"),
+        parsed: JSON.parse(source),
+      };
+    }
+    // YAML
+    return makeDocumentFromString(source, absoluteRef);
   }
   if (typeof schema === "object" && !Array.isArray(schema)) {
     return {
-      source: new Source(cwd, JSON.stringify(schema), "application/json"),
+      source: new Source(
+        absoluteRef,
+        JSON.stringify(schema),
+        "application/json",
+      ),
       parsed: schema,
     };
   }
@@ -62,16 +98,24 @@ export async function validateAndBundle(
   debug("Loaded Redoc config", "redoc", performance.now() - redocConfigT);
   const redocParseT = performance.now();
   const resolver = new BaseResolver(redocConfig.resolve);
-  const document = await parseSchema(
-    source,
-    options?.cwd ?? process.cwd(),
-    resolver,
+  let absoluteRef = new URL(
+    "openapi-ts.yaml",
+    options?.cwd ?? `file://${process.cwd()}/`,
   );
+  if (source instanceof URL) {
+    absoluteRef = source;
+  }
+  const document = await parseSchema(source, {
+    absoluteRef:
+      absoluteRef.protocol === "file:"
+        ? fileURLToPath(absoluteRef)
+        : absoluteRef.href,
+    resolver,
+  });
   debug("Parsed schema", "redoc", performance.now() - redocParseT);
 
   // 1. check for OpenAPI 3 or greater
   const openapiVersion = parseFloat(document.parsed.openapi);
-
   if (
     document.parsed.swagger ||
     !document.parsed.openapi ||

@@ -28,13 +28,24 @@ export const COMMENT_HEADER = `/**
 
 `;
 
+/**
+ * Convert an OpenAPI schema to TypesScript AST
+ * @param {string|URL|object|Readable} source OpenAPI schema source:
+ *   - YAML: string
+ *   - JSON: parsed object
+ *   - URL: URL to a YAML or JSON file (local or remote)
+ *   - Readable: Readable stream of YAML or JSON
+ */
 export default async function openapiTS(
   source: string | URL | OpenAPI3 | Readable,
   options: OpenAPITSOptions = {} as Partial<OpenAPITSOptions>,
 ): Promise<ts.Node[]> {
   const schema = await validateAndBundle(source, {
     redocly: options.redocly,
-    cwd: options.cwd ?? process.cwd(),
+    cwd:
+      options.cwd instanceof URL
+        ? options.cwd
+        : new URL(`file://${options.cwd ?? process.cwd()}/`),
   });
 
   const ctx: GlobalContext = {

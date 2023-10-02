@@ -13,8 +13,8 @@ if (!supportsColor.stdout || supportsColor.stdout.hasBasic === false) {
 }
 
 const DEBUG_GROUPS: Record<string, c.StyleFunction | undefined> = {
-  lint: c.yellowBright,
   redoc: c.cyanBright,
+  lint: c.yellowBright,
   bundle: c.magentaBright,
   ts: c.blueBright,
 };
@@ -69,26 +69,21 @@ export function createRef(parts: (number | string)[]): string {
   return pointer;
 }
 
-/** Print debug message */
+/** Print debug message (cribbed from the `debug` package, but without all the bells & whistles */
 export function debug(msg: string, group?: string, time?: number) {
   if (
     process.env.DEBUG &&
     (!group ||
       process.env.DEBUG === "*" ||
-      process.env.DEBUG.toLocaleLowerCase() === group.toLocaleLowerCase())
+      process.env.DEBUG === "openapi-ts:*" ||
+      process.env.DEBUG.toLocaleLowerCase() ===
+        `openapi-ts:${group.toLocaleLowerCase()}`)
   ) {
     const groupColor = (group && DEBUG_GROUPS[group]) || c.whiteBright;
-    const groupName = groupColor(`oapts:${group ?? "info"}`);
+    const groupName = groupColor(`openapi-ts:${group ?? "info"}`);
     let timeFormatted = "";
     if (typeof time === "number") {
-      if (time < 1000) {
-        timeFormatted = `${Math.round(100 * time) / 100}ms`;
-      } else if (time < 60000) {
-        timeFormatted = `${Math.round(time / 100) / 10}s`;
-      } else {
-        timeFormatted = `${Math.round(time / 6000) / 10}m`;
-      }
-      timeFormatted = c.green(` ${timeFormatted} `);
+      timeFormatted = c.green(` ${formatTime(time)} `);
     }
     // eslint-disable-next-line no-console
     console.debug(`  ${c.bold(groupName)}${timeFormatted}${msg}`);
@@ -98,6 +93,19 @@ export function debug(msg: string, group?: string, time?: number) {
 /** Print error message */
 export function error(msg: string) {
   console.error(c.red(` ✘  ${msg}`)); // eslint-disable-line no-console
+}
+
+/** Format a performance log in a friendly format */
+export function formatTime(t: number) {
+  if (typeof t === "number") {
+    if (t < 1000) {
+      return `${Math.round(100 * t) / 100}ms`;
+    } else if (t < 60000) {
+      return `${Math.round(t / 100) / 10}s`;
+    }
+    return `${Math.round(t / 6000) / 10}m`;
+  }
+  return t;
 }
 
 /** Call Object.entries() and optionally sort */
