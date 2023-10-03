@@ -1,5 +1,6 @@
 import ts from "typescript";
 import {
+  addJSDocComment,
   BOOLEAN,
   NULL,
   NUMBER,
@@ -12,6 +13,50 @@ import {
   tsPropertyIndex,
   tsUnion,
 } from "../../src/lib/ts.js";
+
+describe("addJSDocComment", () => {
+  it("single-line comment", () => {
+    const property = ts.factory.createPropertySignature(
+      undefined,
+      "comment",
+      undefined,
+      BOOLEAN,
+    );
+    addJSDocComment({ description: "Single-line comment" }, property);
+    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim())
+      .toBe(`{
+    /** @description Single-line comment */
+    comment: boolean;
+}`);
+  });
+
+  it("multi-line comment", () => {
+    const property = ts.factory.createPropertySignature(
+      undefined,
+      "comment",
+      undefined,
+      BOOLEAN,
+    );
+    addJSDocComment(
+      {
+        summary: "This is the summary",
+        description: "Multi-line comment\nLine 2",
+        deprecated: true,
+      },
+      property,
+    );
+    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim())
+      .toBe(`{
+    /**
+     * This is the summary
+     * @deprecated
+     * @description Multi-line comment
+     *   Line 2
+     */
+    comment: boolean;
+}`);
+  });
+});
 
 describe("oapiRef", () => {
   it("single part", () => {

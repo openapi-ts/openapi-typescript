@@ -27,6 +27,8 @@ export const UNKNOWN = ts.factory.createKeywordTypeNode(
   ts.SyntaxKind.UnknownKeyword,
 );
 
+const LB_RE = /\r?\n/g;
+
 export interface AnnotatedSchemaObject {
   const?: unknown; // jsdoc without value
   default?: unknown; // jsdoc with value
@@ -61,10 +63,10 @@ export function addJSDocComment(
 
   // Not JSDoc tags: [title, format]
   if (schemaObject.title) {
-    output.push(schemaObject.title);
+    output.push(schemaObject.title.replace(LB_RE, "\n *   "));
   }
   if (schemaObject.summary) {
-    output.push(schemaObject.summary);
+    output.push(schemaObject.summary.replace(LB_RE, "\n *   "));
   }
   if (schemaObject.format) {
     output.push(`Format: ${schemaObject.format}`);
@@ -90,7 +92,7 @@ export function addJSDocComment(
       typeof schemaObject[field] === "object"
         ? JSON.stringify(schemaObject[field], null, 2)
         : schemaObject[field];
-    output.push(`@${field} ${serialized}`);
+    output.push(`@${field} ${String(serialized).replace(LB_RE, "\n *   ")}`);
   }
 
   // JSDoc 'Constant' without value
@@ -111,12 +113,22 @@ export function addJSDocComment(
 
   // attach comment if it has content
   if (output.length) {
-    ts.addSyntheticLeadingComment(
-      /* node               */ node,
-      /* kind               */ ts.SyntaxKind.MultiLineCommentTrivia,
-      /* text               */ `* ${output.join("\n")} `,
-      /* hasTrailingNewLine */ true,
-    );
+    if (output.length === 1) {
+      ts.addSyntheticLeadingComment(
+        /* node               */ node,
+        /* kind               */ ts.SyntaxKind.MultiLineCommentTrivia, // note: MultiLine just refers to a "/* */" comment
+        /* text               */ `* ${output.join("\n")} `,
+        /* hasTrailingNewLine */ true,
+      );
+    } else {
+      ts.addSyntheticLeadingComment(
+        /* node               */ node,
+        /* kind               */ ts.SyntaxKind.MultiLineCommentTrivia,
+        /* text               */ `*
+ * ${output.join("\n * ")}\n `,
+        /* hasTrailingNewLine */ true,
+      );
+    }
   }
 }
 
