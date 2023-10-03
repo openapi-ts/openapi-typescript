@@ -49,9 +49,7 @@ export default function transformOperationObject(
         : operationObject.requestBody
     )?.required;
     const property = ts.factory.createPropertySignature(
-      /* modifiers     */ tsModifiers({
-        readonly: options.ctx.immutableTypes,
-      }),
+      /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
       /* name          */ tsPropertyIndex("requestBody"),
       /* questionToken */ required ? undefined : QUESTION_TOKEN,
       /* type          */ requestBodyType,
@@ -101,7 +99,7 @@ export function injectOperationObject(
     operations = ts.factory.createInterfaceDeclaration(
       /* modifiers       */ tsModifiers({
         export: true,
-        readonly: options.ctx.immutableTypes,
+        readonly: options.ctx.immutable,
       }),
       /* name            */ ts.factory.createIdentifier("operations"),
       /* typeParameters  */ undefined,
@@ -117,9 +115,7 @@ export function injectOperationObject(
   operations.members = ts.factory.createNodeArray([
     ...operations.members,
     ts.factory.createPropertySignature(
-      /* modifiers     */ tsModifiers({
-        readonly: options.ctx.immutableTypes,
-      }),
+      /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
       /* name          */ tsPropertyIndex(operationId),
       /* questionToken */ undefined,
       /* type          */ ts.factory.createTypeLiteralNode(type),

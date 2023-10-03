@@ -176,15 +176,7 @@ export interface components {
             arr?: unknown[];
             either?: string | null;
         };
-        Pets: {
-            /** Format: int64 */
-            id: number;
-            name: string;
-            none?: null;
-            tag?: null | string | number;
-            arr?: unknown[];
-            either?: string | null;
-        }[];
+        Pets: components["schemas"]["Pet"][];
         Model: {
             /** @description type array */
             one?: number | string;
@@ -236,7 +228,7 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
-interface operations {
+export interface operations {
     getTest: {
         parameters: {
             query?: never;
@@ -284,15 +276,7 @@ interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        /** Format: int64 */
-                        id: number;
-                        name: string;
-                        none?: null;
-                        tag?: null | string | number;
-                        arr?: unknown[];
-                        either?: string | null;
-                    }[];
+                    "application/json": components["schemas"]["Pets"];
                 };
             };
             /** @description An error response */
@@ -322,30 +306,7 @@ interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        /** @description type array */
-                        one?: number | string;
-                        /** @description type 'null' */
-                        two?: null;
-                        /** @description type array including 'null' */
-                        three?: string | null;
-                        /** @description array with no items */
-                        four?: unknown[];
-                        /** @description singular example */
-                        five?: string;
-                        /** @description exclusiveMinimum true */
-                        six?: unknown;
-                        /** @description exclusiveMinimum false */
-                        seven?: unknown;
-                        /** @description exclusiveMaximum true */
-                        eight?: unknown;
-                        /** @description exclusiveMaximum false */
-                        nine?: unknown;
-                        /** @description nullable string */
-                        ten?: string | null;
-                        /** @description file/binary */
-                        eleven?: unknown;
-                    };
+                    "application/json": components["schemas"]["Model"];
                 };
             };
             /** @description An error response */
@@ -375,25 +336,7 @@ interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        /** @description Person ID */
-                        id: number | string;
-                        name?: string;
-                        /** @enum {string|integer} */
-                        gender?: "male" | "female" | "unknown";
-                        /** @description location can be null, set using `nullable` property thats supported by OpenAPI `3.0.x` */
-                        location?: string | null;
-                        /** @description Age of Person */
-                        age?: number;
-                        /** @description One URL or Array or URLs or set to false */
-                        photoUrls?: string[] | boolean | string;
-                        /** @description comma separated list of hobbies or an array of object */
-                        hobby?: string | {
-                            hobbyRank?: number;
-                            hobbyName?: string;
-                        }[];
-                        empty?: unknown;
-                    };
+                    "application/json": components["schemas"]["person"];
                 };
             };
             /** @description An error response */

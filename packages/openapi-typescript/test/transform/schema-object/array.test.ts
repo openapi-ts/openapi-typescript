@@ -98,18 +98,18 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
-      "options > supportArrayLength: true > default",
+      "options > arrayLength: true > default",
       {
         given: { type: "array", items: { type: "string" } },
         want: `string[]`,
         options: {
           ...DEFAULT_OPTIONS,
-          ctx: { ...DEFAULT_OPTIONS.ctx, supportArrayLength: true },
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
         },
       },
     ],
     [
-      "options > supportArrayLength: true > minItems: 1",
+      "options > arrayLength: true > minItems: 1",
       {
         given: { type: "array", items: { type: "string" }, minItems: 1 },
         want: `[
@@ -118,12 +118,12 @@ describe("transformSchemaObject > array", () => {
 ]`,
         options: {
           ...DEFAULT_OPTIONS,
-          ctx: { ...DEFAULT_OPTIONS.ctx, supportArrayLength: true },
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
         },
       },
     ],
     [
-      "options > supportArrayLength: true > maxItems: 2",
+      "options > arrayLength: true > maxItems: 2",
       {
         given: { type: "array", items: { type: "string" }, maxItems: 2 },
         want: `[
@@ -135,23 +135,23 @@ describe("transformSchemaObject > array", () => {
 ]`,
         options: {
           ...DEFAULT_OPTIONS,
-          ctx: { ...DEFAULT_OPTIONS.ctx, supportArrayLength: true },
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
         },
       },
     ],
     [
-      "options > supportArrayLength: true > maxItems: 20",
+      "options > arrayLength: true > maxItems: 20",
       {
         given: { type: "array", items: { type: "string" }, maxItems: 20 },
         want: `string[]`,
         options: {
           ...DEFAULT_OPTIONS,
-          ctx: { ...DEFAULT_OPTIONS.ctx, supportArrayLength: true },
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
         },
       },
     ],
     [
-      "options > immutableTypes: true",
+      "options > immutable: true",
       {
         given: {
           type: "array",
@@ -160,27 +160,27 @@ describe("transformSchemaObject > array", () => {
         want: `(readonly (readonly string)[])[]`,
         options: {
           ...DEFAULT_OPTIONS,
-          ctx: { ...DEFAULT_OPTIONS.ctx, immutableTypes: true },
+          ctx: { ...DEFAULT_OPTIONS.ctx, immutable: true },
         },
       },
     ],
   ];
 
-  describe.each(tests)(
-    "%s",
-    (_, { given, want, options = DEFAULT_OPTIONS, ci }) => {
-      test.skipIf(ci?.skipIf)(
-        "test",
-        async () => {
-          const result = astToString(transformSchemaObject(given, options));
-          if (want instanceof URL) {
-            expect(result).toMatchFileSnapshot(fileURLToPath(want));
-          } else {
-            expect(result).toBe(want + "\n");
-          }
-        },
-        ci?.timeout,
-      );
-    },
-  );
+  for (const [
+    testName,
+    { given, want, options = DEFAULT_OPTIONS, ci },
+  ] of tests) {
+    test.skipIf(ci?.skipIf)(
+      testName,
+      async () => {
+        const result = astToString(transformSchemaObject(given, options));
+        if (want instanceof URL) {
+          expect(result).toMatchFileSnapshot(fileURLToPath(want));
+        } else {
+          expect(result).toBe(want + "\n");
+        }
+      },
+      ci?.timeout,
+    );
+  }
 });

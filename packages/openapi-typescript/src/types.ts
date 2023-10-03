@@ -1,4 +1,4 @@
-import type { RawConfig as RedoclyConfig } from "@redocly/openapi-core";
+import type { Config as RedoclyConfig } from "@redocly/openapi-core";
 import { PathLike } from "node:fs";
 import type ts from "typescript";
 
@@ -653,7 +653,7 @@ export interface OpenAPITSOptions {
     options: TransformNodeOptions,
   ) => ts.TypeNode | undefined;
   /** Add readonly properties and readonly arrays? (default: false) */
-  immutableTypes?: boolean;
+  immutable?: boolean;
   /** (optional) Should logging be suppressed? (necessary for STDOUT) */
   silent?: boolean;
   /** (optional) OpenAPI version. Must be present if parsing raw schema */
@@ -663,7 +663,7 @@ export interface OpenAPITSOptions {
   /** Export true TypeScript enums instead of unions */
   enum?: boolean;
   /** (optional) Generate tuples using array minItems / maxItems */
-  supportArrayLength?: boolean;
+  arrayLength?: boolean;
   /** (optional) Substitute path parameter names with their respective types */
   pathParamsAsTypes?: boolean;
   /** Exclude deprecated fields from types? (default: false) */
@@ -686,13 +686,13 @@ export interface GlobalContext {
   enum: boolean;
   excludeDeprecated: boolean;
   exportType: boolean;
-  immutableTypes: boolean;
+  immutable: boolean;
   injectFooter: ts.Node[];
   pathParamsAsTypes: boolean;
   postTransform: OpenAPITSOptions["postTransform"];
-  redocly: RedoclyConfig;
+  redoc: RedoclyConfig;
   silent: boolean;
-  supportArrayLength: boolean;
+  arrayLength: boolean;
   transform: OpenAPITSOptions["transform"];
   /** retrieve a node by $ref */
   resolve<T>(ref: string): T | undefined;

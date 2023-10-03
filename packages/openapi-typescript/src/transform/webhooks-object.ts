@@ -14,7 +14,7 @@ export default function transformWebhooksObject(
     type.push(
       ts.factory.createPropertySignature(
         /* modifiers     */ tsModifiers({
-          readonly: options.immutableTypes,
+          readonly: options.immutable,
         }),
         /* name          */ tsPropertyIndex(name),
         /* questionToken */ undefined,

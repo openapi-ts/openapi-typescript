@@ -57,7 +57,7 @@ export type operations = Record<string, never>;`,
       {
         given:
           "https://raw.githubusercontent.com/Redocly/redocly-cli/main/__tests__/lint/oas3.1/openapi.yaml",
-        want: new URL("redocly-oas3.1.ts", EXAMPLES_DIR),
+        want: new URL("simple-example.ts", EXAMPLES_DIR),
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -67,15 +67,15 @@ export type operations = Record<string, never>;`,
         given: new URL(
           "https://raw.githubusercontent.com/Redocly/redocly-cli/main/__tests__/lint/oas3.1/openapi.yaml",
         ),
-        want: new URL("redocly-oas3.1.ts", EXAMPLES_DIR),
+        want: new URL("simple-example.ts", EXAMPLES_DIR),
         // options: DEFAULT_OPTIONS,
       },
     ],
     [
       "input > URL > local",
       {
-        given: new URL("./redocly-oas3.1.yaml", EXAMPLES_DIR),
-        want: new URL("redocly-oas3.1.ts", EXAMPLES_DIR),
+        given: new URL("./simple-example.yaml", EXAMPLES_DIR),
+        want: new URL("simple-example.ts", EXAMPLES_DIR),
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -582,31 +582,20 @@ export type operations = Record<string, never>;`,
     ],
   ];
 
-  for (const [testName, testCase] of tests) {
-    test.skipIf(testCase.ci?.skipIf)(
+  for (const [testName, { given, want, options, ci }] of tests) {
+    test.skipIf(ci?.skipIf)(
       testName,
       async () => {
-        const result = astToString(
-          await openapiTS(testCase.given, testCase.options),
-        );
-        if (testCase.want instanceof URL) {
+        const result = astToString(await openapiTS(given, options));
+        if (want instanceof URL) {
           expect(`${COMMENT_HEADER}${result}`).toMatchFileSnapshot(
-            fileURLToPath(testCase.want),
+            fileURLToPath(want),
           );
         } else {
-          expect(result).toBe(testCase.want + "\n");
+          expect(result).toBe(want + "\n");
         }
       },
-      testCase.ci?.timeout || 5000,
+      ci?.timeout || 5000,
     );
   }
-
-  test("GitHub API", async () => {
-    const result = astToString(
-      await openapiTS(new URL("./github-api.yaml", EXAMPLES_DIR)),
-    );
-    expect(result).toMatchFileSnapshot(
-      fileURLToPath(new URL("./github-api.ts", EXAMPLES_DIR)),
-    );
-  });
 });

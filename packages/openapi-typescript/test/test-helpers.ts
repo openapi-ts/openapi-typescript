@@ -1,30 +1,31 @@
+import { createConfig } from "@redocly/openapi-core";
 import { resolveRef } from "../src/lib/utils.js";
 import { GlobalContext, TransformNodeOptions } from "../src/types.js";
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 /** Default options for all transform* functions */
 export const DEFAULT_CTX: GlobalContext = {
   additionalProperties: false,
   alphabetize: false,
+  arrayLength: false,
   defaultNonNullable: true,
   discriminators: {},
   emptyObjectsUnknown: false,
   enum: false,
   excludeDeprecated: false,
   exportType: false,
-  immutableTypes: false,
+  immutable: false,
   injectFooter: [],
   pathParamsAsTypes: false,
   postTransform: undefined,
-  redocly: {},
+  redoc: await createConfig({}, { extends: ["minimal"] }),
   resolve(ref) {
     return resolveRef({}, ref, { silent: false });
   },
   silent: true,
-  supportArrayLength: false,
   transform: undefined,
 };
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 /** Generic test case */
 export type TestCase<T = any, O = TransformNodeOptions> = [

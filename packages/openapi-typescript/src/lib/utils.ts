@@ -145,9 +145,7 @@ export function resolveRef<T>(
     if (node && typeof node === "object" && node[key]) {
       node = node[key];
     } else {
-      if (!silent) {
-        warn(`Could not resolve $ref "${ref}"`);
-      }
+      warn(`Could not resolve $ref "${ref}"`, silent);
       return undefined;
     }
   }
@@ -155,9 +153,7 @@ export function resolveRef<T>(
   // if this is also a $ref, keep tracing
   if (node && typeof node === "object" && node.$ref) {
     if (visited.includes(node.$ref)) {
-      if (!silent) {
-        warn(`Could not resolve circular $ref "${ref}"`);
-      }
+      warn(`Could not resolve circular $ref "${ref}"`, silent);
       return undefined;
     }
     return resolveRef(schema, node.$ref, {
@@ -209,6 +205,8 @@ export function walk(
 }
 
 /** Print warning message */
-export function warn(msg: string) {
-  console.warn(c.yellow(` ⚠  ${msg}`)); // eslint-disable-line no-console
+export function warn(msg: string, silent = false) {
+  if (!silent) {
+    console.warn(c.yellow(` ⚠  ${msg}`)); // eslint-disable-line no-console
+  }
 }

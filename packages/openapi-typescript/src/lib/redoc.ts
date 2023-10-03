@@ -1,9 +1,8 @@
 import {
   BaseResolver,
   bundle,
-  createConfig,
   makeDocumentFromString,
-  type RawConfig as RedoclyConfig,
+  type Config as RedoclyConfig,
   Source,
   type Document,
   lintDocument,
@@ -11,10 +10,11 @@ import {
 import { Readable } from "node:stream";
 import { fileURLToPath } from "node:url";
 import { OpenAPI3 } from "../types.js";
-import { debug, error } from "./utils.js";
+import { debug, error, warn } from "./utils.js";
 
 export interface ValidateAndBundleOptions {
-  redocly?: RedoclyConfig;
+  redoc: RedoclyConfig;
+  silent: boolean;
   cwd?: URL;
 }
 
@@ -29,6 +29,30 @@ export async function parseSchema(
 ): Promise<Document> {
   if (!schema) {
     throw new Error(`Can’t parse empty schema`);
+  }
+  if (schema instanceof URL) {
+    const result = await resolver.resolveDocument(null, absoluteRef, true);
+    if ("parsed" in result) {
+      return result;
+    }
+    throw result.originalError;
+  }
+  if (schema instanceof Readable) {
+    const contents = await new Promise<string>((resolve) => {
+      schema.resume();
+      schema.setEncoding("utf8");
+      let content = "";
+      schema.on("data", (chunk: string) => {
+        content += chunk;
+      });
+      schema.on("end", () => {
+        resolve(content.trim());
+      });
+    });
+    return parseSchema(contents, { absoluteRef, resolver });
+  }
+  if (schema instanceof Buffer) {
+    return parseSchema(schema.toString("utf8"), { absoluteRef, resolver });
   }
   if (typeof schema === "string") {
     // URL
@@ -53,25 +77,6 @@ export async function parseSchema(
     // YAML
     return makeDocumentFromString(schema, absoluteRef);
   }
-  if (schema instanceof URL) {
-    const result = await resolver.resolveDocument(null, absoluteRef, true);
-    if ("parsed" in result) {
-      return result;
-    }
-    throw new Error(result as any); // eslint-disable-line @typescript-eslint/no-explicit-any
-  }
-  if (schema instanceof Buffer) {
-    const source = schema.toString("utf8");
-    // JSON
-    if (source[0] === "{") {
-      return {
-        source: new Source(absoluteRef, source, "application/json"),
-        parsed: JSON.parse(source),
-      };
-    }
-    // YAML
-    return makeDocumentFromString(source, absoluteRef);
-  }
   if (typeof schema === "object" && !Array.isArray(schema)) {
     return {
       source: new Source(
@@ -93,26 +98,22 @@ export async function parseSchema(
  * Validate an OpenAPI schema and flatten into a single schema using Redocly CLI
  */
 export async function validateAndBundle(
-  source: string | URL | OpenAPI3 | Readable,
-  options?: ValidateAndBundleOptions,
+  source: string | URL | OpenAPI3 | Readable | Buffer,
+  options: ValidateAndBundleOptions,
 ) {
   const redocConfigT = performance.now();
-  const redocConfig = await createConfig(options?.redocly ?? {});
   debug("Loaded Redoc config", "redoc", performance.now() - redocConfigT);
   const redocParseT = performance.now();
-  const resolver = new BaseResolver(redocConfig.resolve);
-  let absoluteRef = new URL(
-    "openapi-ts.yaml",
-    options?.cwd ?? `file://${process.cwd()}/`,
+  let absoluteRef = fileURLToPath(
+    new URL(options?.cwd ?? `file://${process.cwd()}/`),
   );
   if (source instanceof URL) {
-    absoluteRef = source;
+    absoluteRef =
+      source.protocol === "file:" ? fileURLToPath(source) : source.href;
   }
+  const resolver = new BaseResolver(options.redoc.resolve);
   const document = await parseSchema(source, {
-    absoluteRef:
-      absoluteRef.protocol === "file:"
-        ? fileURLToPath(absoluteRef)
-        : absoluteRef.href,
+    absoluteRef,
     resolver,
   });
   debug("Parsed schema", "redoc", performance.now() - redocParseT);
@@ -145,7 +146,7 @@ export async function validateAndBundle(
   const redocLintT = performance.now();
   const problems = await lintDocument({
     document,
-    config: redocConfig.styleguide,
+    config: options.redoc.styleguide,
     externalRefResolver: resolver,
   });
   if (problems.length) {
@@ -154,6 +155,8 @@ export async function validateAndBundle(
       if (problem.severity === "error") {
         error(problem.message);
         hasError = true;
+      } else {
+        warn(problem.message, options.silent);
       }
     }
     if (hasError) {
@@ -166,16 +169,18 @@ export async function validateAndBundle(
   // 3. bundle
   const redocBundleT = performance.now();
   const bundled = await bundle({
-    config: { ...redocConfig },
+    config: options.redoc,
     dereference: false,
     doc: document,
   });
   if (bundled.problems.length) {
     let hasError = false;
     for (const problem of bundled.problems) {
-      error(problem.message);
       if (problem.severity === "error") {
         hasError = true;
+        error(problem.message);
+      } else {
+        warn(problem.message, options.silent);
       }
     }
     if (hasError) {

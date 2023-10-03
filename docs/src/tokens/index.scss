@@ -8,12 +8,6 @@
 @use "sass:map";
 
 $__token-values: (
-  "color.brand.ts-blue": (
-    default: (var(--color-brand-ts-blue)),
-  ),
-  "color.brand.fetch-green": (
-    default: (var(--color-brand-fetch-green)),
-  ),
   "color.blue.10": (
     default: (var(--color-blue-10)),
   ),
@@ -55,6 +49,12 @@ $__token-values: (
   ),
   "color.blue.100": (
     default: (var(--color-blue-100)),
+  ),
+  "color.brand.fetch-green": (
+    default: (var(--color-brand-fetch-green)),
+  ),
+  "color.brand.ts-blue": (
+    default: (var(--color-brand-ts-blue)),
   ),
   "color.gray.10": (
     default: (var(--color-gray-10)),
@@ -101,11 +101,6 @@ $__token-values: (
   "color.ui.action": (
     default: (var(--color-ui-action)),
   ),
-  "color.ui.border": (
-    default: (var(--color-ui-border)),
-    "light": (var(--color-ui-border)),
-    "dark": (var(--color-ui-border)),
-  ),
   "color.ui.bg": (
     default: (var(--color-ui-bg)),
     "light": (var(--color-ui-bg)),
@@ -116,10 +111,25 @@ $__token-values: (
     "light": (var(--color-ui-bg-offset)),
     "dark": (var(--color-ui-bg-offset)),
   ),
+  "color.ui.border": (
+    default: (var(--color-ui-border)),
+    "light": (var(--color-ui-border)),
+    "dark": (var(--color-ui-border)),
+  ),
   "color.ui.callout-bg": (
     default: (var(--color-ui-callout-bg)),
     "light": (var(--color-ui-callout-bg)),
     "dark": (var(--color-ui-callout-bg)),
+  ),
+  "color.ui.contrast.00": (
+    default: (var(--color-ui-contrast-00)),
+    "light": (var(--color-ui-contrast-00)),
+    "dark": (var(--color-ui-contrast-00)),
+  ),
+  "color.ui.contrast.05": (
+    default: (var(--color-ui-contrast-05)),
+    "light": (var(--color-ui-contrast-05)),
+    "dark": (var(--color-ui-contrast-05)),
   ),
   "color.ui.contrast.10": (
     default: (var(--color-ui-contrast-10)),
@@ -191,16 +201,6 @@ $__token-values: (
     "light": (var(--color-ui-contrast-100)),
     "dark": (var(--color-ui-contrast-100)),
   ),
-  "color.ui.contrast.00": (
-    default: (var(--color-ui-contrast-00)),
-    "light": (var(--color-ui-contrast-00)),
-    "dark": (var(--color-ui-contrast-00)),
-  ),
-  "color.ui.contrast.05": (
-    default: (var(--color-ui-contrast-05)),
-    "light": (var(--color-ui-contrast-05)),
-    "dark": (var(--color-ui-contrast-05)),
-  ),
   "color.ui.fg": (
     default: (var(--color-ui-fg)),
     "light": (var(--color-ui-fg)),
@@ -211,17 +211,14 @@ $__token-values: (
     "light": (var(--color-ui-text-subdue)),
     "dark": (var(--color-ui-text-subdue)),
   ),
+  "typography.base": (
+    "__cobalt-error": "This is a typography mixin. Use `@include typography(\"typography.base\")` instead.",
+  ),
   "typography.family.base": (
     default: (var(--typography-family-base)),
   ),
   "typography.family.mono": (
     default: (var(--typography-family-mono)),
-  ),
-  "typography.base": (
-    "__cobalt-error": "This is a typography mixin. Use `@include typography(\"typography.base\")` instead.",
-  ),
-  "typography.mono": (
-    "__cobalt-error": "This is a typography mixin. Use `@include typography(\"typography.mono\")` instead.",
   ),
   "typography.h1": (
     "__cobalt-error": "This is a typography mixin. Use `@include typography(\"typography.h1\")` instead.",
@@ -235,6 +232,9 @@ $__token-values: (
   "typography.h4": (
     "__cobalt-error": "This is a typography mixin. Use `@include typography(\"typography.h4\")` instead.",
   ),
+  "typography.mono": (
+    "__cobalt-error": "This is a typography mixin. Use `@include typography(\"typography.mono\")` instead.",
+  ),
 );
 
 $__token-typography-mixins: (
@@ -245,15 +245,6 @@ $__token-typography-mixins: (
       "font-weight": (var(--typography-base-font-weight)),
       "letter-spacing": (var(--typography-base-letter-spacing)),
       "line-height": (var(--typography-base-line-height)),
-    ),
-  ),
-  "typography.mono": (
-    default: (
-      "font-family": (var(--typography-mono-font-family)),
-      "font-size": (var(--typography-mono-font-size)),
-      "font-weight": (var(--typography-mono-font-weight)),
-      "letter-spacing": (var(--typography-mono-letter-spacing)),
-      "line-height": (var(--typography-mono-line-height)),
     ),
   ),
   "typography.h1": (
@@ -290,6 +281,15 @@ $__token-typography-mixins: (
       "font-weight": (var(--typography-h4-font-weight)),
       "letter-spacing": (var(--typography-h4-letter-spacing)),
       "line-height": (var(--typography-h4-line-height)),
+    ),
+  ),
+  "typography.mono": (
+    default: (
+      "font-family": (var(--typography-mono-font-family)),
+      "font-size": (var(--typography-mono-font-size)),
+      "font-weight": (var(--typography-mono-font-weight)),
+      "letter-spacing": (var(--typography-mono-letter-spacing)),
+      "line-height": (var(--typography-mono-line-height)),
     ),
   ),
 );

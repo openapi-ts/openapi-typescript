@@ -68,18 +68,25 @@ describe("get (only URL)", () => {
 });
 
 describe("get (headers)", () => {
-  let openapiFetch = createClient({ baseUrl: BASE_URL, headers: { "x-base-header": 123 } });
+  let openapiFetch = createClient({
+    baseUrl: BASE_URL,
+    headers: { "x-base-header": 123 },
+  });
   let openapiTSFetch = Fetcher.for();
   openapiTSFetch.configure({
     init: { baseUrl: BASE_URL, headers: { "x-base-header": 123 } },
   });
 
   bench("openapi-fetch", async () => {
-    await openapiFetch.GET("/url", { headers: { "x-header-1": 123, "x-header-2": 456 } });
+    await openapiFetch.GET("/url", {
+      headers: { "x-header-1": 123, "x-header-2": 456 },
+    });
   });
 
   bench("openapi-typescript-fetch", async () => {
-    await openapiTSFetch.path("/url").method("get").create()(null, { headers: { "x-header-1": 123, "x-header-2": 456 } });
+    await openapiTSFetch.path("/url").method("get").create()(null, {
+      headers: { "x-header-1": 123, "x-header-2": 456 },
+    });
   });
 
   bench("openapi-typescript-codegen", async () => {
@@ -96,6 +103,10 @@ describe("get (headers)", () => {
   });
 
   bench("superagent", async () => {
-    await superagent.get(`${BASE_URL}/url`).set("x-header-1", 123).set("x-header-2", 456).end();
+    await superagent
+      .get(`${BASE_URL}/url`)
+      .set("x-header-1", 123)
+      .set("x-header-2", 456)
+      .end();
   });
 });

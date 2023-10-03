@@ -555,9 +555,9 @@ type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
     ],
   ];
 
-  describe.each(tests)("%s", (_, { given, want, options, ci }) => {
+  for (const [testName, { given, want, options, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
-      "test",
+      testName,
       async () => {
         const result = astToString(await openapiTS(given, options));
         if (want instanceof URL) {
@@ -568,7 +568,7 @@ type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
       },
       ci?.timeout,
     );
-  });
+  }
 
   it("does not mutate original reference", async () => {
     const schema: OpenAPI3 = {

@@ -185,7 +185,7 @@ $ DEBUG=openapi-ts:* npx openapi-typescript schema.yaml -o my-types.ts
 
 To only see certain types of debug messages, you can set `DEBUG=openapi-ts:[scope]` instead. Valid scopes are `redoc`, `lint`, `bundle`, and `ts`.
 
-Note that debug messages will be suppressed if using the CLI and outputting via `stdout`.
+Note that debug messages will be suppressed if the output is `stdout`.
 
 ## Tips
 

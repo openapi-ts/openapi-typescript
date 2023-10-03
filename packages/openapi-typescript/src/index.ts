@@ -1,7 +1,8 @@
-import type { Readable } from "node:stream";
+import { createConfig } from "@redocly/openapi-core";
+import { Readable } from "node:stream";
 import ts from "typescript";
 import { validateAndBundle } from "./lib/redoc.js";
-import { debug, resolveRef, scanDiscriminators } from "./lib/utils.js";
+import { debug, error, resolveRef, scanDiscriminators } from "./lib/utils.js";
 import transformSchema from "./transform/index.js";
 import type { GlobalContext, OpenAPI3, OpenAPITSOptions } from "./types.js";
 
@@ -37,15 +38,24 @@ export const COMMENT_HEADER = `/**
  *   - Readable: Readable stream of YAML or JSON
  */
 export default async function openapiTS(
-  source: string | URL | OpenAPI3 | Readable,
+  source: string | URL | OpenAPI3 | Buffer | Readable,
   options: OpenAPITSOptions = {} as Partial<OpenAPITSOptions>,
 ): Promise<ts.Node[]> {
+  if (!source) {
+    error("Empty schema. Please specify a URL, file path, or Redocly Config");
+    process.exit(1);
+  }
+
+  const redoc =
+    options.redocly ?? (await createConfig({}, { extends: ["minimal"] }));
+
   const schema = await validateAndBundle(source, {
-    redocly: options.redocly,
+    redoc,
     cwd:
       options.cwd instanceof URL
         ? options.cwd
         : new URL(`file://${options.cwd ?? process.cwd()}/`),
+    silent: options.silent ?? false,
   });
 
   const ctx: GlobalContext = {
@@ -57,16 +67,16 @@ export default async function openapiTS(
     enum: options.enum ?? false,
     excludeDeprecated: options.excludeDeprecated ?? false,
     exportType: options.exportType ?? false,
-    immutableTypes: options.immutableTypes ?? false,
+    immutable: options.immutable ?? false,
     injectFooter: [],
     pathParamsAsTypes: options.pathParamsAsTypes ?? false,
     postTransform:
       typeof options.postTransform === "function"
         ? options.postTransform
         : undefined,
-    redocly: options.redocly ?? {},
+    redoc,
     silent: options.silent ?? false,
-    supportArrayLength: options.supportArrayLength ?? false,
+    arrayLength: options.arrayLength ?? false,
     transform:
       typeof options.transform === "function" ? options.transform : undefined,
     resolve(ref) {

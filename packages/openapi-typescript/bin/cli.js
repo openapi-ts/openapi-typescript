@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 
-import { loadConfig } from "@redocly/openapi-core";
-import glob from "fast-glob";
+import { loadConfig, findConfig, createConfig } from "@redocly/openapi-core";
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import parser from "yargs-parser";
 import openapiTS, {
   astToString,
@@ -12,6 +10,7 @@ import openapiTS, {
   COMMENT_HEADER,
   error,
   formatTime,
+  warn,
 } from "../dist/index.js";
 
 /* eslint-disable no-console */
@@ -20,27 +19,25 @@ const HELP = `Usage
   $ openapi-typescript [input] [options]
 
 Options
-  --help                       Display this
-  --version                    Display the version
-  --redoc [path]               Specify path to Redocly config (default: redocly.yaml)
-  --output, -o                 Specify output file (default: stdout)
-  --enum                       (optional) Export true TS enums instead of unions
-  --export-type, -t            (optional) Export top-level \`type\` instead of \`interface\`
-  --immutable-types            (optional) Generate readonly types
-  --additional-properties      (optional) Treat schema objects as if \`additionalProperties: true\` is set
-  --empty-objects-unknown      (optional) Generate \`unknown\` instead of \`Record<string, never>\` for empty objects
-  --default-non-nullable       (optional) Set to \`false\` to ignore default values when generating non-nullable types
-  --array-length               (optional) Generate tuples using array minItems / maxItems
-  --path-params-as-types       (optional) Convert paths to template literal types
-  --alphabetize                (optional) Sort object keys alphabetically
-  --exclude-deprecated         (optional) Exclude deprecated types
+  --help                     Display this
+  --version                  Display the version
+  --redoc [path], -c         Specify path to Redocly config (default: redocly.yaml)
+  --output, -o               Specify output file (if not specified in redocly.yaml)
+  --enum                     Export true TS enums instead of unions
+  --export-type, -t          Export top-level \`type\` instead of \`interface\`
+  --immutable                Generate readonly types
+  --additional-properties    Treat schema objects as if \`additionalProperties: true\` is set
+  --empty-objects-unknown    Generate \`unknown\` instead of \`Record<string, never>\` for empty objects
+  --default-non-nullable     Set to \`false\` to ignore default values when generating non-nullable types
+  --array-length             Generate tuples using array minItems / maxItems
+  --path-params-as-types     Convert paths to template literal types
+  --alphabetize              Sort object keys alphabetically
+  --exclude-deprecated       Exclude deprecated types
 `;
 
 const OUTPUT_FILE = "FILE";
 const OUTPUT_STDOUT = "STDOUT";
 const CWD = new URL(`file://${process.cwd()}/`);
-const EXT_RE = /\.[^.]+$/i;
-const HTTP_RE = /^https?:\/\//;
 
 const timeStart = performance.now();
 
@@ -49,6 +46,10 @@ if (args.includes("-ap")) {
   error(
     `The -ap alias has been deprecated. Use "--additional-properties" instead.`,
   );
+  process.exit(1);
+}
+if (args.includes("--immutable-types")) {
+  error(`The --immutable-types flag has been renamed to "--immutable".`);
   process.exit(1);
 }
 if (args.includes("--support-array-length")) {
@@ -74,83 +75,48 @@ const flags = parser(args, {
     "excludeDeprecated",
     "exportType",
     "help",
-    "immutableTypes",
+    "immutable",
     "pathParamsAsTypes",
   ],
   string: ["output", "redoc"],
   alias: {
+    redoc: ["c"],
     exportType: ["t"],
     output: ["o"],
   },
 });
 
-async function generateSchema(url) {
-  const output = flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
-
-  const redoclyConfig = flags.redoc ? await loadConfig(flags.redoc) : undefined;
-
-  // generate schema
-  const result = `${COMMENT_HEADER}${astToString(
-    await openapiTS(url, {
+/**
+ * @param {string | URL} schema
+ * @param {@type import('@redocly/openapi-core').Config} redoc
+ */
+async function generateSchema(schema, { redoc, silent = false }) {
+  return `${COMMENT_HEADER}${astToString(
+    await openapiTS(schema, {
       additionalProperties: flags.additionalProperties,
       alphabetize: flags.alphabetize,
+      arrayLength: flags.arrayLength,
       contentNever: flags.contentNever,
       defaultNonNullable: flags.defaultNonNullable,
       emptyObjectsUnknown: flags.emptyObjectsUnknown,
       enum: flags.enum,
       excludeDeprecated: flags.excludeDeprecated,
       exportType: flags.exportType,
-      immutableTypes: flags.immutableTypes,
+      immutable: flags.immutable,
       pathParamsAsTypes: flags.pathParamsAsTypes,
-      redocly: redoclyConfig,
-      silent: output === OUTPUT_STDOUT,
-      supportArrayLength: flags.supportArrayLength,
+      redoc,
+      silent,
     }),
   )}`;
+}
 
-  // output
-  if (output === OUTPUT_FILE) {
-    let outputFilePath = new URL(flags.output, CWD); // note: may be directory
-    const isDir =
-      fs.existsSync(outputFilePath) &&
-      fs.lstatSync(outputFilePath).isDirectory();
-    if (isDir) {
-      if (typeof flags.output === "string" && !flags.output.endsWith("/")) {
-        outputFilePath = new URL(`${flags.output}/`, CWD);
-      }
-      const filename = fileURLToPath(url).replace(EXT_RE, ".ts");
-      const originalOutputFilePath = outputFilePath;
-      outputFilePath = new URL(filename, originalOutputFilePath);
-      if (outputFilePath.protocol !== "file:") {
-        outputFilePath = new URL(
-          outputFilePath.host.replace(EXT_RE, ".ts"),
-          originalOutputFilePath,
-        );
-      }
-    }
-
-    fs.writeFileSync(outputFilePath, result, "utf8");
-
-    const inputDisplay =
-      url.protocol === "file:"
-        ? path.relative(fileURLToPath(CWD), fileURLToPath(url))
-        : url.href;
-    const outputDisplay = path.relative(
-      fileURLToPath(CWD),
-      fileURLToPath(outputFilePath),
-    );
-
-    console.log(
-      `🚀 ${c.green(`${inputDisplay} → ${c.bold(outputDisplay)}`)} ${c.dim(
-        `[${formatTime(performance.now() - timeStart)}]`,
-      )}`,
-    );
-  } else {
-    process.stdout.write(result);
-    // if stdout, (still) don’t log anything to console!
-  }
-
-  return result;
+function done(input, output, time) {
+  // final console output
+  console.log(
+    `🚀 ${c.green(`${input} → ${c.bold(output)}`)} ${c.dim(
+      `[${formatTime(time)}]`,
+    )}`,
+  );
 }
 
 async function main() {
@@ -166,70 +132,91 @@ async function main() {
     process.exit(0);
   }
 
-  let output = flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOUT
-  let outputFile = new URL(flags.output, CWD);
-  let outputDir = new URL(".", outputFile);
-
-  if (output === OUTPUT_FILE) {
-    console.info(`✨ ${c.bold(`openapi-typescript ${packageJSON.version}`)}`); // only log if we’re NOT writing to stdout
+  const outputType = flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOU
+  if (outputType !== OUTPUT_STDOUT) {
+    console.info(`✨ ${c.bold(`openapi-typescript ${packageJSON.version}`)}`);
   }
 
-  const pathToSpec = flags._[0];
+  const input = flags._[0];
 
-  // handle stdin schema, exit
-  if (!pathToSpec) {
-    if (output !== "." && output === OUTPUT_FILE) {
-      fs.mkdirSync(outputDir, { recursive: true });
-    }
-    await generateSchema(process.stdin);
-    return;
-  }
-
-  // handle remote schema, exit
-  if (HTTP_RE.test(pathToSpec)) {
-    if (output !== "." && output === OUTPUT_FILE) {
-      fs.mkdirSync(outputDir, { recursive: true });
-    }
-    await generateSchema(new URL(pathToSpec));
-    return;
-  }
-
-  // handle local schema(s)
-  const inputSpecPaths = await glob(pathToSpec);
-  const isGlob = inputSpecPaths.length > 1;
-  const isDirUrl = outputDir.pathname === outputFile.pathname;
-  const isFile = fs.existsSync(outputDir) && fs.lstatSync(outputDir).isFile();
-
-  // error: no matches for glob
-  if (inputSpecPaths.length === 0) {
-    error(
-      `Could not find any specs matching "${pathToSpec}". Please check that the path is correct.`,
-    );
-    process.exit(1);
-  }
-
-  // error: tried to glob output to single file
-  if (isGlob && output === OUTPUT_FILE && (isFile || !isDirUrl)) {
-    error(
-      `Expected directory for --output if using glob patterns. Received "${flags.output}".`,
-    );
-    process.exit(1);
-  }
-
-  // generate schema(s) in parallel
-  await Promise.all(
-    inputSpecPaths.map(async (specPath) => {
-      const globInputFile = new URL(specPath, CWD);
-      if (flags.output !== "." && output === OUTPUT_FILE) {
-        if (isGlob || isDirUrl) {
-          fs.mkdirSync(outputDir, { recursive: true }); // recursively make parent dirs
-        } else {
-          fs.mkdirSync(outputDir, { recursive: true }); // recursively make parent dirs
-        }
-      }
-      await generateSchema(globInputFile);
-    }),
+  // load Redocly config
+  const maybeRedoc = findConfig(
+    flags.redoc ? path.dirname(flags.redoc) : undefined,
   );
+  const redoc = maybeRedoc
+    ? await loadConfig({ configPath: maybeRedoc })
+    : createConfig({}, { extends: ["minimal"] });
+
+  // handle Redoc APIs
+  const hasRedoclyApis = Object.keys(redoc?.apis ?? {}).length > 0;
+  if (hasRedoclyApis) {
+    if (input) {
+      warn(
+        "APIs are specified both in Redocly Config and CLI argument. Only using Redocly config.",
+      );
+    }
+    await Promise.all(
+      Object.entries(redoc.apis).map(async ([name, api]) => {
+        const configRoot = redoc?.configFile
+          ? new URL(`file://${redoc.configFile}`)
+          : CWD;
+        if (!api["openapi-ts"]?.output) {
+          error(
+            `API ${name} is missing an \`openapi-ts.output\` key. See https://openapi-ts.pages.dev/cli/#multiple-schemas.`,
+          );
+          process.exit(1);
+        }
+        const result = await generateSchema(new URL(api.root, configRoot), {
+          redoc, // TODO: merge API overrides better?
+        });
+        const outFile = new URL(api["openapi-ts"].output, configRoot);
+        fs.mkdirSync(new URL(".", outFile), { recursive: true });
+        fs.writeFileSync(outFile, result, "utf8");
+        done(name, api.root, performance.now() - timeStart);
+      }),
+    );
+  }
+
+  // handle stdin
+  else if (!input) {
+    const result = await generateSchema(process.stdin, {
+      redoc,
+      silent: outputType === OUTPUT_STDOUT,
+    });
+    if (outputType === OUTPUT_STDOUT) {
+      // if stdout, (still) don’t log anything to console!
+      process.stdout.write(result);
+    } else {
+      const outFile = new URL(flags.output, CWD);
+      fs.mkdirSync(new URL(".", outFile), { recursive: true });
+      fs.writeFileSync(outFile, result, "utf8");
+      done("stdin", flags.output, performance.now() - timeStart);
+    }
+  }
+
+  // handle single file
+  else {
+    // throw error on glob
+    if (input.includes("*")) {
+      error(
+        `Globbing has been deprecated in favor of redocly.yaml’s \`apis\` keys. See https://openapi-ts.pages.dev/cli/#multiple-schemas`,
+      );
+      process.exit(1);
+    }
+    const result = await generateSchema(new URL(input, CWD), {
+      redoc,
+      silent: outputType === OUTPUT_STDOUT,
+    });
+    if (outputType === OUTPUT_STDOUT) {
+      // if stdout, (still) don’t log anything to console!
+      process.stdout.write(result);
+    } else {
+      const outFile = new URL(flags.output, CWD);
+      fs.mkdirSync(new URL(".", outFile), { recursive: true });
+      fs.writeFileSync(outFile, result, "utf8");
+      done(input, flags.output, performance.now() - timeStart);
+    }
+  }
 }
 
 main();

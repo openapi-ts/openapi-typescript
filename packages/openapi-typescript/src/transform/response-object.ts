@@ -43,9 +43,7 @@ export default function transformResponseObject(
               path: createRef([options.path ?? "", "headers", name]),
             });
       const property = ts.factory.createPropertySignature(
-        /* modifiers     */ tsModifiers({
-          readonly: options.ctx.immutableTypes,
-        }),
+        /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
         /* name          */ tsPropertyIndex(name),
         /* questionToken */ optional,
         /* type          */ subType,
@@ -57,9 +55,7 @@ export default function transformResponseObject(
   // allow additional unknown headers
   headersObject.push(
     ts.factory.createIndexSignature(
-      /* modifiers     */ tsModifiers({
-        readonly: options.ctx.immutableTypes,
-      }),
+      /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
       /* parameters */ [
         ts.factory.createParameterDeclaration(
           /* modifiers      */ undefined,
@@ -89,9 +85,7 @@ export default function transformResponseObject(
       options.ctx,
     )) {
       const property = ts.factory.createPropertySignature(
-        /* modifiers     */ tsModifiers({
-          readonly: options.ctx.immutableTypes,
-        }),
+        /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
         /* name          */ tsPropertyIndex(contentType),
         /* questionToken */ undefined,
         /* type          */ transformMediaTypeObject(mediaTypeObject, {

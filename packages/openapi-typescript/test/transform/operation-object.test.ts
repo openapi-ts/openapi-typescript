@@ -160,21 +160,21 @@ responses: {
     ],
   ];
 
-  describe.each(tests)(
-    "%s",
-    (_, { given, want, options = DEFAULT_OPTIONS, ci }) => {
-      test.skipIf(ci?.skipIf)(
-        "test",
-        async () => {
-          const result = astToString(transformOperationObject(given, options));
-          if (want instanceof URL) {
-            expect(result).toMatchFileSnapshot(fileURLToPath(want));
-          } else {
-            expect(result).toBe(want + "\n");
-          }
-        },
-        ci?.timeout,
-      );
-    },
-  );
+  for (const [
+    testName,
+    { given, want, options = DEFAULT_OPTIONS, ci },
+  ] of tests) {
+    test.skipIf(ci?.skipIf)(
+      testName,
+      async () => {
+        const result = astToString(transformOperationObject(given, options));
+        if (want instanceof URL) {
+          expect(result).toMatchFileSnapshot(fileURLToPath(want));
+        } else {
+          expect(result).toBe(want + "\n");
+        }
+      },
+      ci?.timeout,
+    );
+  }
 });

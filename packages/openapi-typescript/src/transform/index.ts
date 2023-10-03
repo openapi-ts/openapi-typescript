@@ -1,4 +1,4 @@
-import ts, { TypeAliasDeclaration, TypeLiteralNode } from "typescript";
+import ts, { InterfaceDeclaration, TypeLiteralNode } from "typescript";
 import { NEVER, STRING, tsModifiers, tsRecord } from "../lib/ts.js";
 import { createRef, debug } from "../lib/utils.js";
 import { GlobalContext, OpenAPI3 } from "../types.js";
@@ -30,27 +30,23 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
     const emptyObj = ts.factory.createTypeAliasDeclaration(
       /* modifiers      */ tsModifiers({
         export: true,
-        readonly: ctx.immutableTypes,
+        readonly: ctx.immutable,
       }),
       /* name           */ root,
       /* typeParameters */ undefined,
       /* type           */ tsRecord(STRING, NEVER),
     );
 
-    if (
-      schema[root] &&
-      typeof schema[root] === "object" &&
-      Object.keys(schema[root] as any).length // eslint-disable-line @typescript-eslint/no-explicit-any
-    ) {
+    if (schema[root] && typeof schema[root] === "object") {
       const rootT = performance.now();
       const subType = transformers[root](schema[root], ctx);
-      if ((subType as ts.TypeLiteralNode).members) {
+      if ((subType as ts.TypeLiteralNode).members?.length) {
         type.push(
           ctx.exportType
             ? ts.factory.createTypeAliasDeclaration(
                 /* modifiers      */ tsModifiers({
                   export: true,
-                  readonly: ctx.immutableTypes,
+                  readonly: ctx.immutable,
                 }),
                 /* name           */ root,
                 /* typeParameters */ undefined,
@@ -59,7 +55,7 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
             : ts.factory.createInterfaceDeclaration(
                 /* modifiers       */ tsModifiers({
                   export: true,
-                  readonly: ctx.immutableTypes,
+                  readonly: ctx.immutable,
                 }),
                 /* name            */ root,
                 /* typeParameters  */ undefined,
@@ -82,7 +78,8 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
   let hasOperations = false;
   for (const injectedType of ctx.injectFooter) {
     if (
-      (injectedType as TypeAliasDeclaration).name.escapedText === "operations"
+      !hasOperations &&
+      (injectedType as InterfaceDeclaration)?.name?.escapedText === "operations"
     ) {
       hasOperations = true;
     }
@@ -94,7 +91,7 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
       ts.factory.createTypeAliasDeclaration(
         /* modifiers      */ tsModifiers({
           export: true,
-          readonly: ctx.immutableTypes,
+          readonly: ctx.immutable,
         }),
         /* name           */ "operations",
         /* typeParameters */ undefined,

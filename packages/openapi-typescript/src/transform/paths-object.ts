@@ -27,7 +27,7 @@ export default function transformPathsObject(
   ctx: GlobalContext,
 ): ts.TypeNode {
   const type: ts.TypeElement[] = [];
-  urlLoop: for (const [url, pathItemObject] of getEntries(pathsObject, ctx)) {
+  for (const [url, pathItemObject] of getEntries(pathsObject, ctx)) {
     if (!pathItemObject || typeof pathItemObject !== "object") {
       continue;
     }
@@ -67,28 +67,28 @@ export default function transformPathsObject(
                 `$\{${(param.schema as any)?.type ?? "string"}}`,
               );
             }
-            // note: creating a string template literal’s AST manually is hard!
-            // just pass an arbitrary string to TS
-            const pathType = (stringToAST(rawPath)[0] as any)?.expression;
-            if (pathType) {
-              type.push(
-                ts.factory.createIndexSignature(
-                  /* modifiers     */ undefined,
-                  /* parameters    */ [
-                    ts.factory.createParameterDeclaration(
-                      /* modifiers      */ undefined,
-                      /* dotDotDotToken */ undefined,
-                      /* name           */ "path",
-                      /* questionToken  */ undefined,
-                      /* type           */ pathType,
-                      /* initializer    */ undefined,
-                    ),
-                  ],
-                  /* type          */ pathItemType,
-                ),
-              );
-            }
-            continue urlLoop;
+          }
+          // note: creating a string template literal’s AST manually is hard!
+          // just pass an arbitrary string to TS
+          const pathType = (stringToAST(rawPath)[0] as any)?.expression;
+          if (pathType) {
+            type.push(
+              ts.factory.createIndexSignature(
+                /* modifiers     */ undefined,
+                /* parameters    */ [
+                  ts.factory.createParameterDeclaration(
+                    /* modifiers      */ undefined,
+                    /* dotDotDotToken */ undefined,
+                    /* name           */ "path",
+                    /* questionToken  */ undefined,
+                    /* type           */ pathType,
+                    /* initializer    */ undefined,
+                  ),
+                ],
+                /* type          */ pathItemType,
+              ),
+            );
+            continue;
           }
           /* eslint-enable @typescript-eslint/no-explicit-any */
         }

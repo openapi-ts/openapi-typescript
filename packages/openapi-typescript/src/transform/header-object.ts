@@ -41,9 +41,7 @@ export default function transformHeaderObject(
               path: nextPath,
             });
       const property = ts.factory.createPropertySignature(
-        /* modifiers     */ tsModifiers({
-          readonly: options.ctx.immutableTypes,
-        }),
+        /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
         /* name          */ tsPropertyIndex(contentType),
         /* questionToken */ undefined,
         /* type          */ mediaType,

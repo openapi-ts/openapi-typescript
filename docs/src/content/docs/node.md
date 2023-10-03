@@ -15,43 +15,66 @@ npm i --save-dev openapi-typescript
 
 ## Usage
 
-The Node API accepts either a parsed OpenAPI schema in a JS object, or a `string` or `URL` pointing to the location of a schema. It returns `Promise<ts.Node[]>` (an array of TypeScript AST nodes).
+The Node.js API accepts either a `URL`, `string`, or JSON object as input:
 
-```ts
-import fs from "node:fs";
-import openapiTS from "openapi-typescript";
+|   Type   | Description                 | Example                                                                                                                          |
+| :------: | :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
+|  `URL`   | Read a local or remote file | `await openapiTS(new URL('./schema.yaml', import.meta.url))`<br/>`await openapiTS(new URL('https://myapi.com/v1/openapi.yaml'))` |
+| `string` | Read dynamic YAML or JSON   | `await openapiTS('openapi: "3.1" … ')`                                                                                           |
+|  `JSON`  | Read dynamic JSON           | `await openapiTS({ openapi: '3.1', … })`                                                                                         |
 
-// example 1: load [object] as schema (provide a `cwd` to resolve relative $refs)
-const schema = await fs.promises.readFile("spec.json", "utf8"); // must be OpenAPI JSON
-const ast = await openapiTS(JSON.parse(schema), { cwd: process.cwd() });
+It also accepts `Readable` streams and `Buffer` types that are resolved and treated as strings (validation, bundling, and type generation can’t really happen without the whole document).
 
-// example 2: load [string] as local file
-const localPath = new URL("./spec.yaml", import.meta.url); // may be YAML or JSON format
-const ast = await openapiTS(localPath);
-
-// example 3: load [string] as remote URL
-const ast = await openapiTS("https://myurl.com/v1/openapi.yaml");
-```
-
-From the result, you can traverse / manipulate / modify the AST as you see fit.
+The Node API returns a `Promise` with a TypeScript AST. You can then traverse / manipulate / modify the AST as you see fit.
 
 To convert the TypeScript AST into a string, you can use `astToString()` helper which is a thin wrapper around [TypeScript’s printer](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API#re-printing-sections-of-a-typescript-file):
 
 ```ts
-import { astToString } from "openapi-typescript";
+import fs from "node:fs";
+import openapiTS, { astToString } from "openapi-typescript";
 
+const ast = await openapiTS(new URL("./my-schema.yaml", import.meta.url));
 const contents = astToString(ast);
+
+// (optional) write to file
+fs.writeFileSync("./my-schema.ts", contents);
+```
+
+### Redoc config
+
+A Redoc config isn’t required to use openapi-typescript. By default it extends the `"minimal"` built-in config. But if you want to modify the default settings, you’ll need to provide a fully-initialized Redoc config to the Node API. You can do this with the helpers in `@redocly/openapi-core`:
+
+```ts
+import { createConfig, loadConfig } from "@redocly/openapi-core";
+import openapiTS from "openapi-typescript";
+
+// option 1: create in-memory config
+const redoc = await createConfig(
+  {
+    apis: {
+      "core@v2": { … },
+      "external@v1": { … },
+    },
+  },
+  { extends: ["recommended"] },
+);
+
+// option 2: load from redocly.yaml file
+const redoc = await loadConfig({ configPath: "redocly.yaml" });
+
+const ast = await openapiTS(mySchema, { redoc });
 ```
 
 ## Options
 
 The Node API supports all the [CLI flags](/cli#options) in `camelCase` format, plus the following additional options:
 
-| Name            |      Type       | Default | Description                                                                                                          |
-| :-------------- | :-------------: | :------ | :------------------------------------------------------------------------------------------------------------------- |
-| `transform`     |   `Function`    |         | Override the default Schema Object ➝ TypeScript transformer in certain scenarios                                     |
-| `postTransform` |   `Function`    |         | Same as `transform` but runs _after_ the TypeScript transformation                                                   |
-| `cwd`           | `string \| URL` |         | (optional) Provide the current working directory to resolve remote `$ref`s (only needed for in-memory JSON objects). |
+| Name            |      Type       |     Default     | Description                                                                                  |
+| :-------------- | :-------------: | :-------------: | :------------------------------------------------------------------------------------------- |
+| `transform`     |   `Function`    |                 | Override the default Schema Object ➝ TypeScript transformer in certain scenarios             |
+| `postTransform` |   `Function`    |                 | Same as `transform` but runs _after_ the TypeScript transformation                           |
+| `silent`        |    `boolean`    |     `false`     | Silence warning messages (fatal errors will still show)                                      |
+| `cwd`           | `string \| URL` | `process.cwd()` | (optional) Provide the current working directory to help resolve remote `$ref`s (if needed). |
 
 ### transform / postTransform
 
@@ -74,6 +97,7 @@ properties:
 By default, openapiTS will generate `updated_at?: string;` because it’s not sure which format you want by `"date-time"` (formats are nonstandard and can be whatever you’d like). But we can enhance this by providing our own custom formatter, like so:
 
 ```ts
+import openapiTS from "openapi-typescript";
 import ts from "typescript";
 
 const DATE = ts.factory.createIdentifier("Date"); // `Date`
@@ -93,8 +117,8 @@ const ast = await openapiTS(mySchema, {
 That would result in the following change:
 
 ```diff
--  updated_at?: string;
-+  updated_at?: Date;
+- updated_at?: string;
++ updated_at?: Date;
 ```
 
 #### Example: `Blob` types
@@ -113,6 +137,7 @@ Body_file_upload:
 Use the same pattern to transform the types:
 
 ```ts
+import openapiTS from "openapi-typescript";
 import ts from "typescript";
 
 const BLOB = ts.factory.createIdentifier("Blob"); // `Blob`
@@ -132,8 +157,8 @@ const ast = await openapiTS(mySchema, {
 Resultant diff with correctly-typed `file` property:
 
 ```diff
--    file?: string;
-+    file?: Blob;
+- file?: string;
++ file?: Blob;
 ```
 
 Any [Schema Object](https://spec.openapis.org/oas/latest.html#schema-object) present in your schema will be run through this formatter (even remote ones!). Also be sure to check the `metadata` parameter for additional context that may be helpful.

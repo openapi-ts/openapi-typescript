@@ -51,25 +51,18 @@ export default function transformComponentsObject(
     const items: ts.TypeElement[] = [];
     if (componentsObject[key]) {
       for (const [name, item] of getEntries(componentsObject[key], ctx)) {
-        try {
-          const subType = transformers[key](item, {
-            path: createRef(["components", key, name]),
-            ctx,
-          });
-          const property = ts.factory.createPropertySignature(
-            /* modifiers     */ tsModifiers({
-              readonly: ctx.immutableTypes,
-            }),
-            /* name          */ tsPropertyIndex(name),
-            /* questionToken */ undefined,
-            /* type          */ subType,
-          );
-          addJSDocComment(item as unknown as any, property); // eslint-disable-line @typescript-eslint/no-explicit-any
-          items.push(property);
-        } catch (e) {
-          console.error({ item });
-          console.error(e);
-        }
+        const subType = transformers[key](item, {
+          path: createRef(["components", key, name]),
+          ctx,
+        });
+        const property = ts.factory.createPropertySignature(
+          /* modifiers     */ tsModifiers({ readonly: ctx.immutable }),
+          /* name          */ tsPropertyIndex(name),
+          /* questionToken */ undefined,
+          /* type          */ subType,
+        );
+        addJSDocComment(item as unknown as any, property); // eslint-disable-line @typescript-eslint/no-explicit-any
+        items.push(property);
       }
     }
     type.push(

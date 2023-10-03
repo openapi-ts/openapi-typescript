@@ -36,9 +36,7 @@ export default function transformRequestBodyObject(
             path: nextPath,
           });
     const property = ts.factory.createPropertySignature(
-      /* modifiers     */ tsModifiers({
-        readonly: options.ctx.immutableTypes,
-      }),
+      /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
       /* name          */ tsPropertyIndex(contentType),
       /* questionToken */ undefined,
       /* type          */ mediaType,
@@ -49,9 +47,7 @@ export default function transformRequestBodyObject(
 
   return ts.factory.createTypeLiteralNode([
     ts.factory.createPropertySignature(
-      /* modifiers     */ tsModifiers({
-        readonly: options.ctx.immutableTypes,
-      }),
+      /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
       /* name          */ tsPropertyIndex("content"),
       /* questionToken */ undefined,
       /* type          */ ts.factory.createTypeLiteralNode(

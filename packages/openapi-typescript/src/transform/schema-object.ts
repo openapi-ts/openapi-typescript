@@ -127,7 +127,7 @@ export function transformSchemaObjectWithComposition(
       const enumType = tsEnum(
         enumName,
         schemaObject.enum as (string | number)[],
-        { export: true, readonly: options.ctx.immutableTypes },
+        { export: true, readonly: options.ctx.immutable },
       );
       options.ctx.injectFooter.push(enumType);
       return ts.factory.createTypeReferenceNode(enumType.name);
@@ -277,7 +277,7 @@ function transformSchemaObjectCore(
       // standard array type
       else if (schemaObject.items) {
         itemType = transformSchemaObject(schemaObject.items, options);
-        if (options.ctx.immutableTypes) {
+        if (options.ctx.immutable) {
           itemType = ts.factory.createTypeOperatorNode(
             ts.SyntaxKind.ReadonlyKeyword,
             itemType,
@@ -298,7 +298,7 @@ function transformSchemaObjectCore(
       const estimateCodeSize =
         typeof max !== "number" ? min : (max * (max + 1) - min * (min - 1)) / 2;
       if (
-        options.ctx.supportArrayLength &&
+        options.ctx.arrayLength &&
         (min !== 0 || max !== undefined) &&
         estimateCodeSize < 30 // "30" is an arbitrary number but roughly around when TS starts to struggle with tuple inference in practice
       ) {
@@ -397,7 +397,7 @@ function transformSchemaObjectCore(
       coreObjectType.unshift(
         createDiscriminatorProperty(
           options.ctx.discriminators[discriminatorRef.$ref],
-          { path: options.path!, readonly: options.ctx.immutableTypes },
+          { path: options.path!, readonly: options.ctx.immutable },
         ),
       );
       break;
@@ -409,7 +409,7 @@ function transformSchemaObjectCore(
       coreObjectType.unshift(
         createDiscriminatorProperty(d, {
           path: options.path!,
-          readonly: options.ctx.immutableTypes,
+          readonly: options.ctx.immutable,
         }),
       );
       break;
@@ -453,7 +453,7 @@ function transformSchemaObjectCore(
         const property = ts.factory.createPropertySignature(
           /* modifiers     */ tsModifiers({
             readonly:
-              options.ctx.immutableTypes || ("readOnly" in v && !!v.readOnly),
+              options.ctx.immutable || ("readOnly" in v && !!v.readOnly),
           }),
           /* name          */ tsPropertyIndex(k),
           /* questionToken */ optional,
@@ -475,7 +475,7 @@ function transformSchemaObjectCore(
         const property = ts.factory.createPropertySignature(
           /* modifiers */ tsModifiers({
             readonly:
-              options.ctx.immutableTypes || ("readonly" in v && !!v.readOnly),
+              options.ctx.immutable || ("readonly" in v && !!v.readOnly),
           }),
           /* name          */ tsPropertyIndex(k),
           /* questionToken */ undefined,
@@ -490,7 +490,7 @@ function transformSchemaObjectCore(
       coreObjectType.push(
         ts.factory.createPropertySignature(
           /* modifiers     */ tsModifiers({
-            readonly: options.ctx.immutableTypes,
+            readonly: options.ctx.immutable,
           }),
           /* name          */ tsPropertyIndex("$defs"),
           /* questionToken */ undefined,
@@ -513,7 +513,7 @@ function transformSchemaObjectCore(
       coreObjectType.push(
         ts.factory.createIndexSignature(
           /* modifiers  */ tsModifiers({
-            readonly: options.ctx.immutableTypes,
+            readonly: options.ctx.immutable,
           }),
           /* parameters */ [
             ts.factory.createParameterDeclaration(

@@ -28,6 +28,7 @@ export const UNKNOWN = ts.factory.createKeywordTypeNode(
 );
 
 const LB_RE = /\r?\n/g;
+const COMMENT_RE = /\*\//g;
 
 export interface AnnotatedSchemaObject {
   const?: unknown; // jsdoc without value
@@ -112,23 +113,21 @@ export function addJSDocComment(
   }
 
   // attach comment if it has content
+
   if (output.length) {
-    if (output.length === 1) {
-      ts.addSyntheticLeadingComment(
-        /* node               */ node,
-        /* kind               */ ts.SyntaxKind.MultiLineCommentTrivia, // note: MultiLine just refers to a "/* */" comment
-        /* text               */ `* ${output.join("\n")} `,
-        /* hasTrailingNewLine */ true,
-      );
-    } else {
-      ts.addSyntheticLeadingComment(
-        /* node               */ node,
-        /* kind               */ ts.SyntaxKind.MultiLineCommentTrivia,
-        /* text               */ `*
- * ${output.join("\n * ")}\n `,
-        /* hasTrailingNewLine */ true,
-      );
-    }
+    let text =
+      output.length === 1
+        ? `* ${output.join("\n")} `
+        : `*
+ * ${output.join("\n * ")}\n `;
+    text = text.replace(COMMENT_RE, "*\\/"); // prevent inner comments from leaking
+
+    ts.addSyntheticLeadingComment(
+      /* node               */ node,
+      /* kind               */ ts.SyntaxKind.MultiLineCommentTrivia, // note: MultiLine just refers to a "/* */" comment
+      /* text               */ text,
+      /* hasTrailingNewLine */ true,
+    );
   }
 }
 

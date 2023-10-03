@@ -240,9 +240,9 @@ export type operations = Record<string, never>;`,
     ],
   ];
 
-  describe.each(tests)("%s", (_, { given, want, options, ci }) => {
+  for (const [testName, { given, want, options, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
-      "test",
+      testName,
       async () => {
         const result = await openapiTS(given, options);
         if (want instanceof URL) {
@@ -253,5 +253,5 @@ export type operations = Record<string, never>;`,
       },
       ci?.timeout,
     );
-  });
+  }
 });

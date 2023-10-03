@@ -56,6 +56,24 @@ describe("addJSDocComment", () => {
     comment: boolean;
 }`);
   });
+
+  it("escapes internal comments", () => {
+    const property = ts.factory.createPropertySignature(
+      undefined,
+      "comment",
+      undefined,
+      BOOLEAN,
+    );
+    addJSDocComment(
+      { title: "This is a comment with `/* an example comment */` within" },
+      property,
+    );
+    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim())
+      .toBe(`{
+    /** This is a comment with \`/* an example comment *\\/\` within */
+    comment: boolean;
+}`);
+  });
 });
 
 describe("oapiRef", () => {
