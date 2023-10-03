@@ -99,7 +99,10 @@ export function injectOperationObject(
   ) as unknown as ts.InterfaceDeclaration;
   if (!operations) {
     operations = ts.factory.createInterfaceDeclaration(
-      /* modifiers       */ undefined,
+      /* modifiers       */ tsModifiers({
+        export: true,
+        readonly: options.ctx.immutableTypes,
+      }),
       /* name            */ ts.factory.createIdentifier("operations"),
       /* typeParameters  */ undefined,
       /* heritageClauses */ undefined,

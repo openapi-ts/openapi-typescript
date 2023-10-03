@@ -27,44 +27,53 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
   const type: ts.Node[] = [];
 
   for (const root of Object.keys(transformers) as SchemaTransforms[]) {
-    if (schema[root]) {
+    const emptyObj = ts.factory.createTypeAliasDeclaration(
+      /* modifiers      */ tsModifiers({
+        export: true,
+        readonly: ctx.immutableTypes,
+      }),
+      /* name           */ root,
+      /* typeParameters */ undefined,
+      /* type           */ tsRecord(STRING, NEVER),
+    );
+
+    if (
+      schema[root] &&
+      typeof schema[root] === "object" &&
+      Object.keys(schema[root] as any).length // eslint-disable-line @typescript-eslint/no-explicit-any
+    ) {
       const rootT = performance.now();
       const subType = transformers[root](schema[root], ctx);
-      type.push(
-        ctx.exportType
-          ? ts.factory.createTypeAliasDeclaration(
-              /* modifiers      */ tsModifiers({
-                export: true,
-                readonly: ctx.immutableTypes,
-              }),
-              /* name           */ root,
-              /* typeParameters */ undefined,
-              /* type           */ subType,
-            )
-          : ts.factory.createInterfaceDeclaration(
-              /* modifiers       */ tsModifiers({
-                export: true,
-                readonly: ctx.immutableTypes,
-              }),
-              /* name            */ root,
-              /* typeParameters  */ undefined,
-              /* heritageClauses */ undefined,
-              /* members         */ (subType as TypeLiteralNode).members,
-            ),
-      );
-      debug(`${root} done`, "ts", performance.now() - rootT);
+      if ((subType as ts.TypeLiteralNode).members) {
+        type.push(
+          ctx.exportType
+            ? ts.factory.createTypeAliasDeclaration(
+                /* modifiers      */ tsModifiers({
+                  export: true,
+                  readonly: ctx.immutableTypes,
+                }),
+                /* name           */ root,
+                /* typeParameters */ undefined,
+                /* type           */ subType,
+              )
+            : ts.factory.createInterfaceDeclaration(
+                /* modifiers       */ tsModifiers({
+                  export: true,
+                  readonly: ctx.immutableTypes,
+                }),
+                /* name            */ root,
+                /* typeParameters  */ undefined,
+                /* heritageClauses */ undefined,
+                /* members         */ (subType as TypeLiteralNode).members,
+              ),
+        );
+        debug(`${root} done`, "ts", performance.now() - rootT);
+      } else {
+        type.push(emptyObj);
+        debug(`${root} done (skipped)`, "ts", 0);
+      }
     } else {
-      type.push(
-        ts.factory.createTypeAliasDeclaration(
-          /* modifiers      */ tsModifiers({
-            export: true,
-            readonly: ctx.immutableTypes,
-          }),
-          /* name           */ root,
-          /* typeParameters */ undefined,
-          /* type           */ tsRecord(STRING, NEVER),
-        ),
-      );
+      type.push(emptyObj);
       debug(`${root} done (skipped)`, "ts", 0);
     }
   }

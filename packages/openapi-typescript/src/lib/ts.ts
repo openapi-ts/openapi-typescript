@@ -63,10 +63,10 @@ export function addJSDocComment(
 
   // Not JSDoc tags: [title, format]
   if (schemaObject.title) {
-    output.push(schemaObject.title.replace(LB_RE, "\n *   "));
+    output.push(schemaObject.title.replace(LB_RE, "\n *     "));
   }
   if (schemaObject.summary) {
-    output.push(schemaObject.summary.replace(LB_RE, "\n *   "));
+    output.push(schemaObject.summary.replace(LB_RE, "\n *     "));
   }
   if (schemaObject.format) {
     output.push(`Format: ${schemaObject.format}`);
@@ -92,7 +92,7 @@ export function addJSDocComment(
       typeof schemaObject[field] === "object"
         ? JSON.stringify(schemaObject[field], null, 2)
         : schemaObject[field];
-    output.push(`@${field} ${String(serialized).replace(LB_RE, "\n *   ")}`);
+    output.push(`@${field} ${String(serialized).replace(LB_RE, "\n *     ")}`);
   }
 
   // JSDoc 'Constant' without value
@@ -187,6 +187,17 @@ export function astToString(
     ...options?.formatOptions,
   });
   return printer.printFile(sourceFile);
+}
+
+/** Convert an arbitrary string to TS (assuming it’s valid) */
+export function stringToAST(source: string): unknown[] {
+  return ts.createSourceFile(
+    /* fileName        */ "stringInput",
+    /* sourceText      */ source,
+    /* languageVersion */ ts.ScriptTarget.ESNext,
+    /* setParentNodes  */ undefined,
+    /* scriptKind      */ undefined,
+  ).statements as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 /**
@@ -335,7 +346,7 @@ export function tsLiteral(value: unknown): ts.TypeNode {
 
 /** Modifiers (readonly) */
 export function tsModifiers(modifiers: {
-  readonly: boolean;
+  readonly?: boolean;
   export?: boolean;
 }): ts.Modifier[] {
   const typeMods: ts.Modifier[] = [];
@@ -361,20 +372,6 @@ export function tsOmit(type: ts.TypeNode, keys: string[]): ts.TypeNode {
   );
 }
 
-/** Create a TS OneOf<X, Y> type */
-export function tsOneOf(types: ts.TypeNode[]): ts.TypeNode {
-  if (types.length === 0) {
-    return NEVER;
-  }
-  if (types.length === 1) {
-    return types[0];
-  }
-  return ts.factory.createTypeReferenceNode(
-    ts.factory.createIdentifier("OneOf"),
-    [tsUnion(types)],
-  );
-}
-
 /** Create a TS Record<X, Y> type */
 export function tsRecord(key: ts.TypeNode, value: ts.TypeNode) {
   return ts.factory.createTypeReferenceNode(
@@ -386,8 +383,10 @@ export function tsRecord(key: ts.TypeNode, value: ts.TypeNode) {
 /** Create a valid property index */
 export function tsPropertyIndex(index: string | number) {
   if (
-    typeof index === "number" ||
-    (typeof index === "string" && String(Number(index)) === index)
+    (typeof index === "number" && !(index < 0)) ||
+    (typeof index === "string" &&
+      String(Number(index)) === index &&
+      index[0] !== "-")
   ) {
     return ts.factory.createNumericLiteral(index);
   }
@@ -408,10 +407,29 @@ export function tsUnion(types: ts.TypeNode[]): ts.TypeNode {
 }
 
 /** Create a WithRequired<X, Y> type */
-export function tsWithRequired(type: ts.TypeNode, keys: string[]): ts.TypeNode {
+export function tsWithRequired(
+  type: ts.TypeNode,
+  keys: string[],
+  injectFooter: ts.Node[], // needed to inject type helper if used
+): ts.TypeNode {
   if (keys.length === 0) {
     return type;
   }
+
+  // inject helper, if needed
+  if (
+    !injectFooter.some(
+      (node) =>
+        ts.isTypeAliasDeclaration(node) &&
+        node?.name?.escapedText === "WithRequired",
+    )
+  ) {
+    const helper = stringToAST(
+      `type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };`,
+    )[0] as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    injectFooter.push(helper);
+  }
+
   return ts.factory.createTypeReferenceNode(
     ts.factory.createIdentifier("WithRequired"),
     [type, tsUnion(keys.map((k) => tsLiteral(k)))],

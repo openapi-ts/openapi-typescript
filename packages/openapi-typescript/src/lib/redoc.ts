@@ -89,6 +89,9 @@ export async function parseSchema(
   );
 }
 
+/**
+ * Validate an OpenAPI schema and flatten into a single schema using Redocly CLI
+ */
 export async function validateAndBundle(
   source: string | URL | OpenAPI3 | Readable,
   options?: ValidateAndBundleOptions,
@@ -163,8 +166,8 @@ export async function validateAndBundle(
   // 3. bundle
   const redocBundleT = performance.now();
   const bundled = await bundle({
-    config: redocConfig,
-    dereference: true,
+    config: { ...redocConfig },
+    dereference: false,
     doc: document,
   });
   if (bundled.problems.length) {

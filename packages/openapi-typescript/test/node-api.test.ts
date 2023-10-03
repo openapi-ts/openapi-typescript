@@ -577,11 +577,7 @@ export type operations = Record<string, never>;`,
         ),
         want: new URL("./digital-ocean-api.ts", EXAMPLES_DIR),
         // options: DEFAULT_OPTIONS,
-        ci: {
-          timeout: 60000,
-          skipIf:
-            process.env.CI_ENV === "macos" || process.env.CI_ENV === "windows", // this test runs too slowly on non-Ubuntu GitHub Actions runners
-        },
+        ci: { timeout: 30000 },
       },
     ],
   ];

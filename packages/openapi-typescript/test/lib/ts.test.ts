@@ -51,7 +51,7 @@ describe("addJSDocComment", () => {
      * This is the summary
      * @deprecated
      * @description Multi-line comment
-     *   Line 2
+     *     Line 2
      */
     comment: boolean;
 }`);
@@ -119,6 +119,7 @@ describe("tsPropertyIndex", () => {
     expect(astToString(tsPropertyIndex(200.5)).trim()).toBe(`200.5`);
     expect(astToString(tsPropertyIndex(Infinity)).trim()).toBe(`Infinity`);
     expect(astToString(tsPropertyIndex(NaN)).trim()).toBe(`NaN`);
+    expect(astToString(tsPropertyIndex(10e3)).trim()).toBe(`10000`);
   });
 
   it("valid strings -> identifiers", () => {
@@ -128,7 +129,9 @@ describe("tsPropertyIndex", () => {
     expect(astToString(tsPropertyIndex("snake_case")).trim()).toBe(
       `snake_case`,
     );
+    expect(astToString(tsPropertyIndex(200)).trim()).toBe(`200`);
     expect(astToString(tsPropertyIndex("$id")).trim()).toBe(`$id`);
+    expect(astToString(tsPropertyIndex("10e3")).trim()).toBe(`"10e3"`);
   });
 
   it("invalid strings -> string literals", () => {
@@ -141,6 +144,8 @@ describe("tsPropertyIndex", () => {
     expect(astToString(tsPropertyIndex("0invalid")).trim()).toBe(`"0invalid"`);
     expect(astToString(tsPropertyIndex("inv@lid")).trim()).toBe(`"inv@lid"`);
     expect(astToString(tsPropertyIndex("in.valid")).trim()).toBe(`"in.valid"`);
+    expect(astToString(tsPropertyIndex(-1)).trim()).toBe(`"-1"`);
+    expect(astToString(tsPropertyIndex("-1")).trim()).toBe(`"-1"`);
   });
 });
 

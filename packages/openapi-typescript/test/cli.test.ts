@@ -185,4 +185,21 @@ describe("CLI", () => {
       ]);
     });
   });
+
+  describe("Redocly config", () => {
+    test("accepts multiple APIs", async () => {
+      await execa(cmd, ["--redocly"], { cwd });
+      for (const schema of ["a", "b", "c"]) {
+        expect(
+          fs.readFileSync(
+            new URL(`./fixtures/output/${schema}.ts`, import.meta.url),
+          ),
+        ).toMatchFileSnapshot(
+          fileURLToPath(
+            new URL("../examples/simple-example.ts", import.meta.url),
+          ),
+        );
+      }
+    });
+  });
 });

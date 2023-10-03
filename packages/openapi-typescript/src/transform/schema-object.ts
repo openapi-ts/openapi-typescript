@@ -178,7 +178,11 @@ export function transformSchemaObjectWithComposition(
       "required" in schemaObject &&
       Array.isArray(schemaObject.required)
     ) {
-      allOf = tsWithRequired(allOf, schemaObject.required);
+      allOf = tsWithRequired(
+        allOf,
+        schemaObject.required,
+        options.ctx.injectFooter,
+      );
     }
     finalType = tsIntersection([
       ...(coreObjectType ? [coreObjectType] : []),

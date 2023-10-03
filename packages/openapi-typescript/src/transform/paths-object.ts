@@ -1,5 +1,10 @@
 import ts from "typescript";
-import { addJSDocComment, oapiRef, tsPropertyIndex } from "../lib/ts.js";
+import {
+  addJSDocComment,
+  oapiRef,
+  stringToAST,
+  tsPropertyIndex,
+} from "../lib/ts.js";
 import { createRef, debug, getEntries } from "../lib/utils.js";
 import {
   GlobalContext,
@@ -62,16 +67,10 @@ export default function transformPathsObject(
                 `$\{${(param.schema as any)?.type ?? "string"}}`,
               );
             }
-            // note: creating a string template literal’s AST manually is
-            // harder than getting TS to parse an arbitrary string
-            const pathType = ts.createSourceFile(
-              /* fileName        */ "pathParams",
-              /* sourceText      */ rawPath,
-              /* languageVersion */ ts.ScriptTarget.ESNext,
-              /* setParentNodes  */ undefined,
-              /* scriptKind      */ undefined,
-            );
-            if ((pathType.statements[0] as any)?.expression) {
+            // note: creating a string template literal’s AST manually is hard!
+            // just pass an arbitrary string to TS
+            const pathType = (stringToAST(rawPath)[0] as any)?.expression;
+            if (pathType) {
               type.push(
                 ts.factory.createIndexSignature(
                   /* modifiers     */ undefined,
@@ -81,8 +80,7 @@ export default function transformPathsObject(
                       /* dotDotDotToken */ undefined,
                       /* name           */ "path",
                       /* questionToken  */ undefined,
-                      /* type           */ (pathType.statements[0] as any)
-                        .expression,
+                      /* type           */ pathType,
                       /* initializer    */ undefined,
                     ),
                   ],

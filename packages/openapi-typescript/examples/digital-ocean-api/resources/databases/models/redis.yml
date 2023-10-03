@@ -55,7 +55,23 @@ properties:
     default: 300
     example: 300
   redis_notify_keyspace_events:
-    description: Set notify-keyspace-events option
+    description: |2-
+      Set notify-keyspace-events option. Requires at least `K` or `E` and accepts any combination of the following options. Setting the parameter to `""` disables notifications.
+      - `K` &mdash; Keyspace events
+      - `E` &mdash; Keyevent events
+      - `g` &mdash; Generic commands (e.g. `DEL`, `EXPIRE`, `RENAME`, ...)
+      - `$` &mdash; String commands
+      - `l` &mdash; List commands
+      - `s` &mdash; Set commands
+      - `h` &mdash; Hash commands
+      - `z` &mdash; Sorted set commands
+      - `t` &mdash; Stream commands
+      - `d` &mdash; Module key type events
+      - `x` &mdash; Expired events
+      - `e` &mdash; Evicted events
+      - `m` &mdash; Key miss events
+      - `n` &mdash; New key events
+      - `A` &mdash; Alias for `"g$lshztxed"`
     type: string
     pattern: ^[KEg\$lshzxeA]*$
     default: ''

@@ -99,7 +99,7 @@ export function error(msg: string) {
 export function formatTime(t: number) {
   if (typeof t === "number") {
     if (t < 1000) {
-      return `${Math.round(100 * t) / 100}ms`;
+      return `${Math.round(10 * t) / 10}ms`;
     } else if (t < 60000) {
       return `${Math.round(t / 100) / 10}s`;
     }
@@ -187,7 +187,7 @@ export function scanDiscriminators(schema: OpenAPI3) {
   return discriminators;
 }
 
-/** Walk through any JSON-serializable object */
+/** Walk through any JSON-serializable (i.e. non-circular) object */
 export function walk(
   obj: unknown,
   cb: (value: Record<string, unknown>, path: (string | number)[]) => void,

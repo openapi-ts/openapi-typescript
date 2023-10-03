@@ -3,6 +3,7 @@
 import { loadConfig } from "@redocly/openapi-core";
 import glob from "fast-glob";
 import fs from "node:fs";
+import path from "node:path";
 import { fileURLToPath } from "node:url";
 import parser from "yargs-parser";
 import openapiTS, {
@@ -130,10 +131,19 @@ async function generateSchema(url) {
 
     fs.writeFileSync(outputFilePath, result, "utf8");
 
+    const inputDisplay =
+      url.protocol === "file:"
+        ? path.relative(fileURLToPath(CWD), fileURLToPath(url))
+        : url.href;
+    const outputDisplay = path.relative(
+      fileURLToPath(CWD),
+      fileURLToPath(outputFilePath),
+    );
+
     console.log(
-      `🚀 ${c.green(
-        `${fileURLToPath(url)} → ${c.bold(fileURLToPath(outputFilePath))}`,
-      )} ${c.dim(`[${formatTime(performance.now() - timeStart)}]`)}`,
+      `🚀 ${c.green(`${inputDisplay} → ${c.bold(outputDisplay)}`)} ${c.dim(
+        `[${formatTime(performance.now() - timeStart)}]`,
+      )}`,
     );
   } else {
     process.stdout.write(result);
