@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "--prepare": "openapi-typescript src/lib/api/v1.json -o src/lib/api/v1.d.ts"
+    "prepare": "openapi-typescript src/lib/api/v1.json -o src/lib/api/v1.d.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.35.0",

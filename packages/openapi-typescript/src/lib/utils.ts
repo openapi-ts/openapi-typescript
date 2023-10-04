@@ -168,13 +168,30 @@ export function resolveRef<T>(
 /** Return a key–value map of discriminator objects found in a schema */
 export function scanDiscriminators(schema: OpenAPI3) {
   const discriminators: Record<string, DiscriminatorObject> = {};
+
+  // perform 2 passes: first, collect all discriminator definitions
   walk(schema, (obj, path) => {
-    if (obj.propertyName) {
-      discriminators[createRef(path)] = obj as unknown as DiscriminatorObject;
-      if (Array.isArray(obj.oneOf)) {
-        for (const o of obj.oneOf) {
-          if ("$ref" in o) {
-            discriminators[o.$ref] = obj as unknown as DiscriminatorObject;
+    if ((obj?.discriminator as DiscriminatorObject)?.propertyName) {
+      discriminators[createRef(path)] =
+        obj.discriminator as DiscriminatorObject;
+    }
+  });
+
+  // second, collect the schema objects that inherit from discriminators
+  // (sometimes this mapping is implicit, so it can’t be done until we know
+  // about every discriminator in the document)
+  walk(schema, (obj, path) => {
+    for (const key of ["oneOf", "anyOf", "allOf"] as const) {
+      if (obj && Array.isArray(obj[key])) {
+        for (const item of (obj as any)[key]) {
+          if ("$ref" in item) {
+            if (discriminators[item.$ref]) {
+              discriminators[createRef(path)] = {
+                ...discriminators[item.$ref],
+              };
+            }
+          } else if (item.discriminator?.propertyName) {
+            discriminators[createRef(path)] = { ...item.discriminator };
           }
         }
       }

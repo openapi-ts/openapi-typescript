@@ -24,31 +24,45 @@ describe("openapiTS", () => {
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
+              StringType: { type: "string" },
               ObjRef: {
                 type: "object",
                 properties: {
-                  base: { $ref: "#/components/schemas/Entity/properties/foo" },
+                  base: { $ref: "#/components/schemas/StringType" },
                 },
+              },
+              HasString: {
+                type: "object",
+                properties: { string: { type: "string" } },
+              },
+              HasNumber: {
+                type: "object",
+                properties: { number: { type: "number" } },
               },
               AllOf: {
                 allOf: [
-                  { $ref: "#/components/schemas/Entity/properties/foo" },
-                  { $ref: "#/components/schemas/Thingy/properties/bar" },
+                  { $ref: "#/components/schemas/HasString" },
+                  { $ref: "#/components/schemas/HasNumber" },
                 ],
               },
             },
           },
         },
         want: `export type paths = Record<string, never>;
-
 export type webhooks = Record<string, never>;
-
 export interface components {
     schemas: {
+        StringType: string;
         ObjRef: {
-            base?: components["schemas"]["Entity"]["foo"];
+            base?: components["schemas"]["StringType"];
         };
-        AllOf: components["schemas"]["Entity"]["foo"] & components["schemas"]["Thingy"]["bar"];
+        HasString: {
+            string?: string;
+        };
+        HasNumber: {
+            number?: number;
+        };
+        AllOf: components["schemas"]["HasString"] & components["schemas"]["HasNumber"];
     };
     responses: never;
     parameters: never;
@@ -56,19 +70,17 @@ export interface components {
     headers: never;
     pathItems: never;
 }
-
 export type $defs = Record<string, never>;
-
-export type external = Record<string, never>;
-
 export type operations = Record<string, never>;`,
         // options: DEFAULT_OPTIONS,
       },
     ],
     [
-      "$refs > unresolved $refs are ignored",
+      "$refs > arbitrary $refs are respected",
       {
         given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
               Base: {
@@ -83,29 +95,32 @@ export type operations = Record<string, never>;`,
               },
             },
           },
+          "x-swagger-bake": {
+            components: {
+              schemas: {
+                Extension: {
+                  additionalProperties: true,
+                },
+              },
+            },
+          },
         },
         want: `export type paths = Record<string, never>;
-
 export type webhooks = Record<string, never>;
-
 export interface components {
     schemas: {
         Base: {
             [key: string]: string;
         };
-        SchemaType: components["schemas"]["Base"];
+        SchemaType: components["schemas"]["Base"] | x-swagger-bake["components"]["schemas"]["Extension"];
     };
-    responses: Record<string, never>;
-    parameters: Record<string, never>;
-    requestBodies: Record<string, never>;
-    headers: Record<string, never>;
-    pathItems: Record<string, never>;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
-
 export type $defs = Record<string, never>;
-
-export type external = Record<string, never>;
-
 export type operations = Record<string, never>;`,
       },
     ],
@@ -420,6 +435,8 @@ export interface operations {
       "examples > skipped",
       {
         given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
               Example: {
@@ -435,7 +452,7 @@ export interface operations {
               Example: {
                 value: {
                   name: "Test",
-                  $ref: "fake.yml#/components/schemas/Example",
+                  $ref: "#/components/schemas/Example",
                 },
               },
             },
@@ -450,11 +467,11 @@ export interface components {
             $ref: string;
         };
     };
-    responses: Record<string, never>;
-    parameters: Record<string, never>;
-    requestBodies: Record<string, never>;
-    headers: Record<string, never>;
-    pathItems: Record<string, never>;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -531,25 +548,25 @@ export type operations = Record<string, never>;`,
         want: `export type paths = Record<string, never>;
 export type webhooks = Record<string, never>;
 export interface components {
-schemas: {
-    User: WithRequired<{
-        firstName?: string;
-        lastName?: string;
-    } & {
-        middleName?: string;
-    }, "firstName" | "lastName">;
-};
-responses: never;
-parameters: never;
-requestBodies: never;
-headers: never;
-pathItems: never;
+    schemas: {
+        User: WithRequired<{
+            firstName?: string;
+            lastName?: string;
+        } & {
+            middleName?: string;
+        }, "firstName" | "lastName">;
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
 export type $defs = Record<string, never>;
-export type operations = Record<string, never>;
-/** WithRequired type helper */
-type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
-`,
+type WithRequired<T, K extends keyof T> = T & {
+    [P in K]-?: T[P];
+};
+export type operations = Record<string, never>;`,
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -574,7 +591,18 @@ type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
     const schema: OpenAPI3 = {
       openapi: "3.1",
       info: { title: "test", version: "1.0" },
-      components: {},
+      components: {
+        schemas: {
+          OKResponse: {
+            type: "object",
+            required: ["status", "message"],
+            properties: {
+              status: { type: "string" },
+              message: { type: "string" },
+            },
+          },
+        },
+      },
       paths: {
         "/": {
           get: {

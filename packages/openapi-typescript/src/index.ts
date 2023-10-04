@@ -2,7 +2,7 @@ import { createConfig } from "@redocly/openapi-core";
 import { Readable } from "node:stream";
 import ts from "typescript";
 import { validateAndBundle } from "./lib/redoc.js";
-import { debug, error, resolveRef, scanDiscriminators } from "./lib/utils.js";
+import { debug, resolveRef, scanDiscriminators } from "./lib/utils.js";
 import transformSchema from "./transform/index.js";
 import type { GlobalContext, OpenAPI3, OpenAPITSOptions } from "./types.js";
 
@@ -42,8 +42,9 @@ export default async function openapiTS(
   options: OpenAPITSOptions = {} as Partial<OpenAPITSOptions>,
 ): Promise<ts.Node[]> {
   if (!source) {
-    error("Empty schema. Please specify a URL, file path, or Redocly Config");
-    process.exit(1);
+    throw new Error(
+      "Empty schema. Please specify a URL, file path, or Redocly Config",
+    );
   }
 
   const redoc =

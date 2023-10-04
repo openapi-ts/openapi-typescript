@@ -260,23 +260,28 @@ describe("composition", () => {
           properties: {
             name: { type: "string" },
           },
+          oneOf: [
+            { $ref: "#/components/schemas/Cat" },
+            { $ref: "#/components/schemas/Dog" },
+          ],
         },
         want: `{
-    petType: "Cat";
+    petType: "Pet";
     name: string;
-}`,
+} & (Omit<components["schemas"]["Cat"], "petType"> | Omit<components["schemas"]["Dog"], "petType">)`,
         options: {
-          path: "#/components/schemas/Cat",
+          path: "#/components/schemas/Pet",
           ctx: {
             ...DEFAULT_OPTIONS.ctx,
             discriminators: {
               "#/components/schemas/Pet": {
                 propertyName: "petType",
-                oneOf: ["#/components/schemas/Cat"],
               },
               "#/components/schemas/Cat": {
                 propertyName: "petType",
-                oneOf: ["#/components/schemas/Cat"],
+              },
+              "#/components/schemas/Dog": {
+                propertyName: "petType",
               },
             },
             resolve(ref) {
@@ -407,7 +412,7 @@ describe("composition", () => {
               "#/components/schemas/Pet": {
                 propertyName: "_petType",
               },
-              [DEFAULT_OPTIONS.path]: {
+              "#/components/schemas/Dog": {
                 propertyName: "_petType",
               },
             },

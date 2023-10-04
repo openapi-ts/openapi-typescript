@@ -128,18 +128,19 @@ export async function validateAndBundle(
     openapiVersion >= 4
   ) {
     if (document.parsed.swagger) {
-      error("Unsupported Swagger version: 2.x. Use OpenAPI 3.x instead.");
+      throw new Error(
+        "Unsupported Swagger version: 2.x. Use OpenAPI 3.x instead.",
+      );
     } else if (
       document.parsed.openapi ||
       openapiVersion < 3 ||
       openapiVersion >= 4
     ) {
-      error(`Unsupported OpenAPI version: ${document.parsed.openapi}`);
-    } else {
-      error("Unsupported schema format, expected `openapi: 3.x`");
+      throw new Error(
+        `Unsupported OpenAPI version: ${document.parsed.openapi}`,
+      );
     }
-    process.exit(1);
-    return; // hack for tests/mocking
+    throw new Error("Unsupported schema format, expected `openapi: 3.x`");
   }
 
   // 2. lint
@@ -150,18 +151,17 @@ export async function validateAndBundle(
     externalRefResolver: resolver,
   });
   if (problems.length) {
-    let hasError = false;
+    let errorMessage: string | undefined = undefined;
     for (const problem of problems) {
       if (problem.severity === "error") {
+        errorMessage = problem.message;
         error(problem.message);
-        hasError = true;
       } else {
         warn(problem.message, options.silent);
       }
     }
-    if (hasError) {
-      process.exit(1);
-      return;
+    if (errorMessage) {
+      throw new Error(errorMessage);
     }
   }
   debug("Linted schema", "lint", performance.now() - redocLintT);
@@ -174,18 +174,18 @@ export async function validateAndBundle(
     doc: document,
   });
   if (bundled.problems.length) {
-    let hasError = false;
+    let errorMessage: string | undefined = undefined;
     for (const problem of bundled.problems) {
       if (problem.severity === "error") {
-        hasError = true;
+        errorMessage = problem.message;
         error(problem.message);
+        throw new Error(problem.message);
       } else {
         warn(problem.message, options.silent);
       }
     }
-    if (hasError) {
-      process.exit(1);
-      return;
+    if (errorMessage) {
+      throw new Error(errorMessage);
     }
   }
   debug("Bundled schema", "bundle", performance.now() - redocBundleT);

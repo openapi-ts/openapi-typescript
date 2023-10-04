@@ -43,24 +43,22 @@ const timeStart = performance.now();
 
 const [, , ...args] = process.argv;
 if (args.includes("-ap")) {
-  error(
+  errorAndExit(
     `The -ap alias has been deprecated. Use "--additional-properties" instead.`,
   );
-  process.exit(1);
 }
 if (args.includes("--immutable-types")) {
-  error(`The --immutable-types flag has been renamed to "--immutable".`);
-  process.exit(1);
+  errorAndExit(`The --immutable-types flag has been renamed to "--immutable".`);
 }
 if (args.includes("--support-array-length")) {
-  error(
+  errorAndExit(
     `The --support-array-length flag has been renamed to "--array-length".`,
   );
-  process.exit(1);
 }
 if (args.includes("-it")) {
-  error(`The -it alias has been deprecated. Use "--immutable-types" instead.`);
-  process.exit(1);
+  errorAndExit(
+    `The -it alias has been deprecated. Use "--immutable-types" instead.`,
+  );
 }
 
 const flags = parser(args, {
@@ -108,6 +106,12 @@ async function generateSchema(schema, { redoc, silent = false }) {
       silent,
     }),
   )}`;
+}
+
+/** pretty-format error message but also throw */
+function errorAndExit(message) {
+  error(message);
+  throw new Error(message);
 }
 
 function done(input, output, time) {
@@ -161,10 +165,9 @@ async function main() {
           ? new URL(`file://${redoc.configFile}`)
           : CWD;
         if (!api["openapi-ts"]?.output) {
-          error(
+          errorAndExit(
             `API ${name} is missing an \`openapi-ts.output\` key. See https://openapi-ts.pages.dev/cli/#multiple-schemas.`,
           );
-          process.exit(1);
         }
         const result = await generateSchema(new URL(api.root, configRoot), {
           redoc, // TODO: merge API overrides better?
@@ -198,10 +201,9 @@ async function main() {
   else {
     // throw error on glob
     if (input.includes("*")) {
-      error(
+      errorAndExit(
         `Globbing has been deprecated in favor of redocly.yaml’s \`apis\` keys. See https://openapi-ts.pages.dev/cli/#multiple-schemas`,
       );
-      process.exit(1);
     }
     const result = await generateSchema(new URL(input, CWD), {
       redoc,

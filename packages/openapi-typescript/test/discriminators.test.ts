@@ -1,5 +1,5 @@
 import { fileURLToPath } from "node:url";
-import openapiTS, { COMMENT_HEADER, OpenAPITSOptions } from "../src/index.js";
+import openapiTS, { OpenAPITSOptions, astToString } from "../src/index.js";
 import { TestCase } from "./test-helpers.js";
 
 describe("3.1 discriminators", () => {
@@ -19,7 +19,7 @@ describe("3.1 discriminators", () => {
                 discriminator: {
                   propertyName: "petType",
                   mapping: {
-                    dog: "Dog",
+                    dog: "#/components/schemas/Dog",
                   },
                 },
               },
@@ -46,10 +46,8 @@ describe("3.1 discriminators", () => {
             },
           },
         },
-        want: `${COMMENT_HEADER}export type paths = Record<string, never>;
-
+        want: `export type paths = Record<string, never>;
 export type webhooks = Record<string, never>;
-
 export interface components {
     schemas: {
         Pet: {
@@ -60,9 +58,9 @@ export interface components {
         } & Omit<components["schemas"]["Pet"], "petType">;
         Dog: {
             petType: "dog";
-        } & Omit<components["schemas"]["Pet"], "petType"> & {
+        } & (Omit<components["schemas"]["Pet"], "petType"> & {
             bark?: string;
-        };
+        });
         Lizard: {
             petType: "Lizard";
             lovesRocks?: boolean;
@@ -74,11 +72,7 @@ export interface components {
     headers: never;
     pathItems: never;
 }
-
 export type $defs = Record<string, never>;
-
-export type external = Record<string, never>;
-
 export type operations = Record<string, never>;`,
         // options: DEFAULT_OPTIONS,
       },
@@ -121,11 +115,8 @@ export type operations = Record<string, never>;`,
             },
           },
         },
-        want: `${COMMENT_HEADER}
-export type paths = Record<string, never>;
-
+        want: `export type paths = Record<string, never>;
 export type webhooks = Record<string, never>;
-
 export interface components {
     schemas: {
         Pet: {
@@ -136,26 +127,69 @@ export interface components {
         } & Omit<components["schemas"]["Pet"], "petType">;
         Dog: {
             petType: "Dog";
-        } & Omit<components["schemas"]["Pet"], "petType"> & {
+        } & (Omit<components["schemas"]["Pet"], "petType"> & {
             bark?: string;
-        };
+        });
         Lizard: {
             petType: "Lizard";
             lovesRocks?: boolean;
         } & Omit<components["schemas"]["Pet"], "petType">;
-      };
-      responses: never;
-      parameters: never;
-      requestBodies: never;
-      headers: never;
-      pathItems: never;
     };
-};
-
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
 export type $defs = Record<string, never>;
-
-export type external = Record<string, never>;
-
+export type operations = Record<string, never>;`,
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "allOf > inline inheritance",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "test", version: "1.0" },
+          components: {
+            schemas: {
+              Cat: {
+                allOf: [
+                  {
+                    type: "object",
+                    required: ["name", "petType"],
+                    properties: {
+                      name: { type: "string" },
+                      petType: { type: "string" },
+                    },
+                    discriminator: {
+                      propertyName: "petType",
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        Cat: {
+            petType: "Cat";
+        } & Omit<{
+            name: string;
+            petType: string;
+        }, "petType">;
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
         // options: DEFAULT_OPTIONS,
       },
@@ -205,23 +239,20 @@ export type operations = Record<string, never>;`,
             },
           },
         },
-        want: `${COMMENT_HEADER}
-export type paths = Record<string, never>;
-
+        want: `export type paths = Record<string, never>;
 export type webhooks = Record<string, never>;
-
 export interface components {
     schemas: {
-      Pet: components["schemas"]["Cat"] | components["schemas"]["Dog"] | components["schemas"]["Lizard"];
-      Cat: {
-          name?: string;
-      };
-      Dog: {
-          bark?: string;
-      };
-      Lizard: {
-          lovesRocks?: boolean;
-      };
+        Pet: components["schemas"]["Cat"] | components["schemas"]["Dog"] | components["schemas"]["Lizard"];
+        Cat: {
+            name?: string;
+        };
+        Dog: {
+            bark?: string;
+        };
+        Lizard: {
+            lovesRocks?: boolean;
+        };
     };
     responses: never;
     parameters: never;
@@ -229,11 +260,7 @@ export interface components {
     headers: never;
     pathItems: never;
 }
-
 export type $defs = Record<string, never>;
-
-export type external = Record<string, never>;
-
 export type operations = Record<string, never>;`,
         // options: DEFAULT_OPTIONS,
       },
@@ -244,7 +271,7 @@ export type operations = Record<string, never>;`,
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
-        const result = await openapiTS(given, options);
+        const result = astToString(await openapiTS(given, options));
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {

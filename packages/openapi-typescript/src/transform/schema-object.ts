@@ -28,7 +28,6 @@ import {
   getEntries,
 } from "../lib/utils.js";
 import {
-  DiscriminatorObject,
   ReferenceObject,
   SchemaObject,
   TransformNodeOptions,
@@ -146,15 +145,11 @@ export function transformSchemaObjectWithComposition(
     const output: ts.TypeNode[] = [];
     for (const item of items) {
       const itemType = transformSchemaObject(item, options);
-      if ("$ref" in item) {
-        const resolvedDiscriminator = options.ctx.resolve<DiscriminatorObject>(
-          item.$ref,
-        );
-        output.push(
-          resolvedDiscriminator?.propertyName
-            ? tsOmit(itemType, [resolvedDiscriminator.propertyName])
-            : itemType,
-        );
+      const discriminator =
+        ("$ref" in item && options.ctx.discriminators[item.$ref]) ||
+        (item as any).discriminator; // eslint-disable-line @typescript-eslint/no-explicit-any
+      if (discriminator) {
+        output.push(tsOmit(itemType, [discriminator.propertyName]));
       } else {
         output.push(itemType);
       }
@@ -377,37 +372,18 @@ function transformSchemaObjectCore(
   const coreObjectType: ts.TypeElement[] = [];
 
   // discriminatorss: explicit mapping on schema object
-  for (const k of ["oneOf", "allOf", "anyOf"] as (
-    | "oneOf"
-    | "allOf"
-    | "anyOf"
-  )[]) {
+  for (const k of ["oneOf", "allOf", "anyOf"] as const) {
     if (!schemaObject[k]) {
       continue;
     }
-    const discriminatorRef = schemaObject[k]!.find(
-      (t: SchemaObject | ReferenceObject) =>
-        "$ref" in t &&
-        (options.ctx.discriminators[t.$ref] || // explicit allOf from this node
-          Object.values(options.ctx.discriminators).find(
-            (d) => d.oneOf?.includes(options.path!), // implicit oneOf from parent
-          )),
-    ) as ReferenceObject | undefined;
-    if (discriminatorRef && options.ctx.discriminators[discriminatorRef.$ref]) {
+    // for all magic inheritance, we will have already gathered it into
+    // ctx.discriminators. But stop objects from referencing their own
+    // discriminator meant for children (!schemaObject.discriminator)
+    const discriminator =
+      !schemaObject.discriminator && options.ctx.discriminators[options.path!];
+    if (discriminator) {
       coreObjectType.unshift(
-        createDiscriminatorProperty(
-          options.ctx.discriminators[discriminatorRef.$ref],
-          { path: options.path!, readonly: options.ctx.immutable },
-        ),
-      );
-      break;
-    }
-  }
-  // discriminators: implicit mapping from parent
-  for (const d of Object.values(options.ctx.discriminators)) {
-    if (d.oneOf?.includes(options.path!)) {
-      coreObjectType.unshift(
-        createDiscriminatorProperty(d, {
+        createDiscriminatorProperty(discriminator, {
           path: options.path!,
           readonly: options.ctx.immutable,
         }),
@@ -430,6 +406,16 @@ function transformSchemaObjectCore(
         schemaObject.properties ?? {},
         options.ctx,
       )) {
+        if (typeof v !== "object" || Array.isArray(v)) {
+          throw new Error(
+            `${
+              options.path
+            }: invalid property ${k}. Expected Schema Object, got ${
+              Array.isArray(v) ? "Array" : typeof v
+            }`,
+          );
+        }
+
         // handle excludeDeprecated option
         if (options.ctx.excludeDeprecated) {
           const resolved =

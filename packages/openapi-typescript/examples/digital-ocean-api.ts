@@ -9375,14 +9375,18 @@ export interface components {
              */
             type: "assign" | "unassign";
         };
-        floating_ip_action_assign: components["schemas"]["floatingIPsAction"] & {
+        floating_ip_action_assign: {
+            type: "assign";
+        } & (Omit<components["schemas"]["floatingIPsAction"], "type"> & {
             /**
              * @description The ID of the Droplet that the floating IP will be assigned to.
              * @example 758604968
              */
             droplet_id: number;
-        };
-        floating_ip_action_unassign: components["schemas"]["floatingIPsAction"] & Record<string, never>;
+        });
+        floating_ip_action_unassign: {
+            type: "unassign";
+        } & (Omit<components["schemas"]["floatingIPsAction"], "type"> & Record<string, never>);
         namespace_info: {
             /**
              * @description The namespace's API hostname. Each function in a namespace is provided an endpoint at the namespace's hostname.
@@ -11045,14 +11049,18 @@ export interface components {
              */
             type: "assign" | "unassign";
         };
-        reserved_ip_action_assign: components["schemas"]["reserved_ip_action_type"] & {
+        reserved_ip_action_assign: {
+            type: "assign";
+        } & (Omit<components["schemas"]["reserved_ip_action_type"], "type"> & {
             /**
              * @description The ID of the Droplet that the reserved IP will be assigned to.
              * @example 758604968
              */
             droplet_id: number;
-        };
-        reserved_ip_action_unassign: components["schemas"]["reserved_ip_action_type"] & Record<string, never>;
+        });
+        reserved_ip_action_unassign: {
+            type: "unassign";
+        } & (Omit<components["schemas"]["reserved_ip_action_type"], "type"> & Record<string, never>);
         snapshots: {
             /**
              * @description The unique identifier for the snapshot.
@@ -18593,7 +18601,7 @@ export interface operations {
          *      */
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["floating_ip_action_unassign"] | components["schemas"]["floating_ip_action_assign"];
+                "application/json": Omit<components["schemas"]["floating_ip_action_unassign"], "type"> | Omit<components["schemas"]["floating_ip_action_assign"], "type">;
             };
         };
         responses: {
@@ -21526,7 +21534,7 @@ export interface operations {
          *      */
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["reserved_ip_action_unassign"] | components["schemas"]["reserved_ip_action_assign"];
+                "application/json": Omit<components["schemas"]["reserved_ip_action_unassign"], "type"> | Omit<components["schemas"]["reserved_ip_action_assign"], "type">;
             };
         };
         responses: {
