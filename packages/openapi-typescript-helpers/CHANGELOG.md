@@ -1,5 +1,11 @@
 # openapi-typescript-helpers
 
+## 0.0.4
+
+### Patch Changes
+
+- [#1366](https://github.com/drwpow/openapi-typescript/pull/1366) [`04dbd6d`](https://github.com/drwpow/openapi-typescript/commit/04dbd6d84fffd1d88300421bae25e946f1c303da) Thanks [@drwpow](https://github.com/drwpow)! - Add HasRequiredKeys<T> helper
+
 ## 0.0.3
 
 ### Patch Changes

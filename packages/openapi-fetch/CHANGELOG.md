@@ -1,5 +1,14 @@
 # openapi-fetch
 
+## 0.7.9
+
+### Patch Changes
+
+- [#1366](https://github.com/drwpow/openapi-typescript/pull/1366) [`04dbd6d`](https://github.com/drwpow/openapi-typescript/commit/04dbd6d84fffd1d88300421bae25e946f1c303da) Thanks [@drwpow](https://github.com/drwpow)! - Fix empty object being required param
+
+- Updated dependencies [[`04dbd6d`](https://github.com/drwpow/openapi-typescript/commit/04dbd6d84fffd1d88300421bae25e946f1c303da)]:
+  - openapi-typescript-helpers@0.0.4
+
 ## 0.7.8
 
 ### Patch Changes
