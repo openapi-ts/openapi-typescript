@@ -7,13 +7,13 @@ description: Get Started with openapi-fetch
 
 openapi-fetch applies your OpenAPI types to the native fetch API via TypeScript. Weighs **2 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
 
-| Library                    | Size (min) | “GET” request             |
-| :------------------------- | ---------: | :------------------------ |
-| openapi-fetch              |     `2 kB` | `151k` ops/s (fastest)    |
-| openapi-typescript-fetch   |     `4 kB` | `99k` ops/s (1.4× slower) |
-| axios                      |    `32 kB` | `90k` ops/s (1.6× slower) |
-| superagent                 |    `55 kB` | `42k` ops/s (3× slower)   |
-| openapi-typescript-codegen |   `367 kB` | `71k` ops/s (2× slower)   |
+| Library                    | Size (min) | “GET” request              |
+| :------------------------- | ---------: | :------------------------- |
+| openapi-fetch              |     `2 kB` | `200k` ops/s (fastest)     |
+| openapi-typescript-fetch   |     `4 kB` | `100k` ops/s (2× slower)   |
+| axios                      |    `32 kB` | `165k` ops/s (1.2× slower) |
+| superagent                 |    `55 kB` | `50k` ops/s (6.6× slower)  |
+| openapi-typescript-codegen |   `367 kB` | `75k` ops/s (2.6× slower)  |
 
 The syntax is inspired by popular libraries like react-query or Apollo client, but without all the bells and whistles and in a 2 kb package.
 
