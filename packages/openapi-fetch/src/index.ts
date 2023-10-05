@@ -68,11 +68,12 @@ export default function createClient<Paths extends {}>(clientOptions: ClientOpti
 
     // parse response (falling back to .text() when necessary)
     if (response.ok) {
-      let data: any;
+      let data: any; // we have to leave this empty here so that we don't consume the body
       if (parseAs !== "stream") {
         const cloned = response.clone();
         data = typeof cloned[parseAs] === "function" ? await cloned[parseAs]() : await cloned.text();
       } else {
+        // bun consumes the body when calling response.body, therefore we need to clone the response before accessing it
         data = response.clone().body;
       }
       return { data, response: response as any };
