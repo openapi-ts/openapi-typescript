@@ -68,10 +68,12 @@ export default function createClient<Paths extends {}>(clientOptions: ClientOpti
 
     // parse response (falling back to .text() when necessary)
     if (response.ok) {
-      let data: any = response.body;
+      let data: any;
       if (parseAs !== "stream") {
         const cloned = response.clone();
         data = typeof cloned[parseAs] === "function" ? await cloned[parseAs]() : await cloned.text();
+      } else {
+        data = response.clone().body;
       }
       return { data, response: response as any };
     }
