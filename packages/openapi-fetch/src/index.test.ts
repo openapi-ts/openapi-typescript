@@ -48,7 +48,7 @@ describe("client", () => {
 
       // data
       mockFetchOnce({ status: 200, body: JSON.stringify(["one", "two", "three"]) });
-      const dataRes = await client.GET("/string-array", {});
+      const dataRes = await client.GET("/string-array");
 
       // … is initially possibly undefined
       // @ts-expect-error
@@ -67,7 +67,7 @@ describe("client", () => {
 
       // error
       mockFetchOnce({ status: 500, body: JSON.stringify({ code: 500, message: "Something went wrong" }) });
-      const errorRes = await client.GET("/string-array", {});
+      const errorRes = await client.GET("/string-array");
 
       // … is initially possibly undefined
       // @ts-expect-error
@@ -92,7 +92,7 @@ describe("client", () => {
 
         // expect error on missing 'params'
         // @ts-expect-error
-        await client.GET("/blogposts/{post_id}", {});
+        await client.GET("/blogposts/{post_id}");
 
         // expect error on empty params
         // @ts-expect-error
@@ -120,7 +120,7 @@ describe("client", () => {
 
         // expet error on missing header
         // @ts-expect-error
-        await client.GET("/header-params", {});
+        await client.GET("/header-params");
 
         // expect error on incorrect header
         // @ts-expect-error
@@ -235,7 +235,7 @@ describe("client", () => {
 
         // expect error on missing `body`
         // @ts-expect-error
-        await client.PUT("/blogposts", {});
+        await client.PUT("/blogposts");
 
         // expect error on missing fields
         // @ts-expect-error
@@ -271,7 +271,7 @@ describe("client", () => {
         const client = createClient<paths>();
 
         // assert missing `body` doesn’t raise a TS error
-        await client.PUT("/blogposts-optional", {});
+        await client.PUT("/blogposts-optional");
 
         // assert error on type mismatch
         // @ts-expect-error
@@ -294,13 +294,13 @@ describe("client", () => {
     it("respects baseUrl", async () => {
       let client = createClient<paths>({ baseUrl: "https://myapi.com/v1" });
       mockFetch({ status: 200, body: JSON.stringify({ message: "OK" }) });
-      await client.GET("/self", {});
+      await client.GET("/self");
 
       // assert baseUrl and path mesh as expected
       expect(fetchMocker.mock.calls[0][0]).toBe("https://myapi.com/v1/self");
 
       client = createClient<paths>({ baseUrl: "https://myapi.com/v1/" });
-      await client.GET("/self", {});
+      await client.GET("/self");
       // assert trailing '/' was removed
       expect(fetchMocker.mock.calls[1][0]).toBe("https://myapi.com/v1/self");
     });
@@ -310,7 +310,7 @@ describe("client", () => {
 
       const client = createClient<paths>({ headers });
       mockFetchOnce({ status: 200, body: JSON.stringify({ email: "user@user.com" }) });
-      await client.GET("/self", {});
+      await client.GET("/self");
 
       // assert default headers were passed
       const options = fetchMocker.mock.calls[0][1];
@@ -359,7 +359,7 @@ describe("client", () => {
       const client = createClient<paths>({
         fetch: async () => Promise.resolve(customFetch as Response),
       });
-      expect((await client.GET("/self", {})).data).toBe(data);
+      expect((await client.GET("/self")).data).toBe(data);
     });
   });
 
@@ -426,7 +426,7 @@ describe("client", () => {
     it("treats `default` as an error", async () => {
       const client = createClient<paths>({ headers: { "Cache-Control": "max-age=10000000" } });
       mockFetchOnce({ status: 500, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: 500, message: "An unexpected error occurred" }) });
-      const { error } = await client.GET("/default-as-error", {});
+      const { error } = await client.GET("/default-as-error");
 
       // discard `data` object
       if (!error) throw new Error("treats `default` as an error: error response should be present");
@@ -471,7 +471,7 @@ describe("client", () => {
     it("sends the correct method", async () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
-      await client.GET("/anyMethod", {});
+      await client.GET("/anyMethod");
       expect(fetchMocker.mock.calls[0][1]?.method).toBe("GET");
     });
 
@@ -547,7 +547,7 @@ describe("client", () => {
     it("sends the correct method", async () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
-      await client.POST("/anyMethod", {});
+      await client.POST("/anyMethod");
       expect(fetchMocker.mock.calls[0][1]?.method).toBe("POST");
     });
 
@@ -599,7 +599,7 @@ describe("client", () => {
     it("sends the correct method", async () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
-      await client.DELETE("/anyMethod", {});
+      await client.DELETE("/anyMethod");
       expect(fetchMocker.mock.calls[0][1]?.method).toBe("DELETE");
     });
 
@@ -640,7 +640,7 @@ describe("client", () => {
     it("sends the correct method", async () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
-      await client.OPTIONS("/anyMethod", {});
+      await client.OPTIONS("/anyMethod");
       expect(fetchMocker.mock.calls[0][1]?.method).toBe("OPTIONS");
     });
   });
@@ -649,7 +649,7 @@ describe("client", () => {
     it("sends the correct method", async () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
-      await client.HEAD("/anyMethod", {});
+      await client.HEAD("/anyMethod");
       expect(fetchMocker.mock.calls[0][1]?.method).toBe("HEAD");
     });
   });
@@ -658,7 +658,7 @@ describe("client", () => {
     it("sends the correct method", async () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
-      await client.PATCH("/anyMethod", {});
+      await client.PATCH("/anyMethod");
       expect(fetchMocker.mock.calls[0][1]?.method).toBe("PATCH");
     });
   });
@@ -667,7 +667,7 @@ describe("client", () => {
     it("sends the correct method", async () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
-      await client.TRACE("/anyMethod", {});
+      await client.TRACE("/anyMethod");
       expect(fetchMocker.mock.calls[0][1]?.method).toBe("TRACE");
     });
   });

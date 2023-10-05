@@ -1,10 +1,9 @@
-import type { ErrorResponse, HttpMethod, SuccessResponse, FilterKeys, MediaType, PathsWithMethod, ResponseObjectMap, OperationRequestBodyContent } from "openapi-typescript-helpers";
+import type { ErrorResponse, HttpMethod, SuccessResponse, FilterKeys, MediaType, PathsWithMethod, ResponseObjectMap, OperationRequestBodyContent, HasRequiredKeys } from "openapi-typescript-helpers";
 
 // settings & const
 const DEFAULT_HEADERS = {
   "Content-Type": "application/json",
 };
-const TRAILING_SLASH_RE = /\/*$/;
 
 // Note: though "any" is considered bad practice in general, this library relies
 // on "any" for type inference only it can give.  Same goes for the "{}" type.
@@ -46,11 +45,16 @@ export type RequestOptions<T> = ParamsOption<T> &
 export default function createClient<Paths extends {}>(clientOptions: ClientOptions = {}) {
   const { fetch = globalThis.fetch, querySerializer: globalQuerySerializer, bodySerializer: globalBodySerializer, ...options } = clientOptions;
 
+  let baseUrl = options.baseUrl ?? "";
+  if (baseUrl.endsWith("/")) {
+    baseUrl = baseUrl.slice(0, -1); // remove trailing slash
+  }
+
   async function coreFetch<P extends keyof Paths, M extends HttpMethod>(url: P, fetchOptions: FetchOptions<M extends keyof Paths[P] ? Paths[P][M] : never>): Promise<FetchResponse<M extends keyof Paths[P] ? Paths[P][M] : unknown>> {
     const { headers, body: requestBody, params = {}, parseAs = "json", querySerializer = globalQuerySerializer ?? defaultQuerySerializer, bodySerializer = globalBodySerializer ?? defaultBodySerializer, ...init } = fetchOptions || {};
 
     // URL
-    const finalURL = createFinalURL(url as string, { baseUrl: options.baseUrl, params, querySerializer });
+    const finalURL = createFinalURL(url as string, { baseUrl, params, querySerializer });
     const finalHeaders = mergeHeaders(DEFAULT_HEADERS, clientOptions?.headers, headers, (params as any).header);
 
     // fetch!
@@ -89,38 +93,55 @@ export default function createClient<Paths extends {}>(clientOptions: ClientOpti
     return { error, response: response as any };
   }
 
+  type GetPaths = PathsWithMethod<Paths, "get">;
+  type PutPaths = PathsWithMethod<Paths, "put">;
+  type PostPaths = PathsWithMethod<Paths, "post">;
+  type DeletePaths = PathsWithMethod<Paths, "delete">;
+  type OptionsPaths = PathsWithMethod<Paths, "options">;
+  type HeadPaths = PathsWithMethod<Paths, "head">;
+  type PatchPaths = PathsWithMethod<Paths, "patch">;
+  type TracePaths = PathsWithMethod<Paths, "trace">;
+  type GetFetchOptions<P extends GetPaths> = FetchOptions<FilterKeys<Paths[P], "get">>;
+  type PutFetchOptions<P extends PutPaths> = FetchOptions<FilterKeys<Paths[P], "put">>;
+  type PostFetchOptions<P extends PostPaths> = FetchOptions<FilterKeys<Paths[P], "post">>;
+  type DeleteFetchOptions<P extends DeletePaths> = FetchOptions<FilterKeys<Paths[P], "delete">>;
+  type OptionsFetchOptions<P extends OptionsPaths> = FetchOptions<FilterKeys<Paths[P], "options">>;
+  type HeadFetchOptions<P extends HeadPaths> = FetchOptions<FilterKeys<Paths[P], "head">>;
+  type PatchFetchOptions<P extends PatchPaths> = FetchOptions<FilterKeys<Paths[P], "patch">>;
+  type TraceFetchOptions<P extends TracePaths> = FetchOptions<FilterKeys<Paths[P], "trace">>;
+
   return {
     /** Call a GET endpoint */
-    async GET<P extends PathsWithMethod<Paths, "get">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "get">>) {
-      return coreFetch<P, "get">(url, { ...init, method: "GET" } as any);
+    async GET<P extends GetPaths>(url: P, ...init: HasRequiredKeys<GetFetchOptions<P>> extends never ? [GetFetchOptions<P>?] : [GetFetchOptions<P>]) {
+      return coreFetch<P, "get">(url, { ...init[0], method: "GET" } as any);
     },
     /** Call a PUT endpoint */
-    async PUT<P extends PathsWithMethod<Paths, "put">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "put">>) {
-      return coreFetch<P, "put">(url, { ...init, method: "PUT" } as any);
+    async PUT<P extends PutPaths>(url: P, ...init: HasRequiredKeys<PutFetchOptions<P>> extends never ? [PutFetchOptions<P>?] : [PutFetchOptions<P>]) {
+      return coreFetch<P, "put">(url, { ...init[0], method: "PUT" } as any);
     },
     /** Call a POST endpoint */
-    async POST<P extends PathsWithMethod<Paths, "post">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "post">>) {
-      return coreFetch<P, "post">(url, { ...init, method: "POST" } as any);
+    async POST<P extends PostPaths>(url: P, ...init: HasRequiredKeys<PostFetchOptions<P>> extends never ? [PostFetchOptions<P>?] : [PostFetchOptions<P>]) {
+      return coreFetch<P, "post">(url, { ...init[0], method: "POST" } as any);
     },
     /** Call a DELETE endpoint */
-    async DELETE<P extends PathsWithMethod<Paths, "delete">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "delete">>) {
-      return coreFetch<P, "delete">(url, { ...init, method: "DELETE" } as any);
+    async DELETE<P extends DeletePaths>(url: P, ...init: HasRequiredKeys<DeleteFetchOptions<P>> extends never ? [DeleteFetchOptions<P>?] : [DeleteFetchOptions<P>]) {
+      return coreFetch<P, "delete">(url, { ...init[0], method: "DELETE" } as any);
     },
     /** Call a OPTIONS endpoint */
-    async OPTIONS<P extends PathsWithMethod<Paths, "options">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "options">>) {
-      return coreFetch<P, "options">(url, { ...init, method: "OPTIONS" } as any);
+    async OPTIONS<P extends OptionsPaths>(url: P, ...init: HasRequiredKeys<OptionsFetchOptions<P>> extends never ? [OptionsFetchOptions<P>?] : [OptionsFetchOptions<P>]) {
+      return coreFetch<P, "options">(url, { ...init[0], method: "OPTIONS" } as any);
     },
     /** Call a HEAD endpoint */
-    async HEAD<P extends PathsWithMethod<Paths, "head">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "head">>) {
-      return coreFetch<P, "head">(url, { ...init, method: "HEAD" } as any);
+    async HEAD<P extends HeadPaths>(url: P, ...init: HasRequiredKeys<HeadFetchOptions<P>> extends never ? [HeadFetchOptions<P>?] : [HeadFetchOptions<P>]) {
+      return coreFetch<P, "head">(url, { ...init[0], method: "HEAD" } as any);
     },
     /** Call a PATCH endpoint */
-    async PATCH<P extends PathsWithMethod<Paths, "patch">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "patch">>) {
-      return coreFetch<P, "patch">(url, { ...init, method: "PATCH" } as any);
+    async PATCH<P extends PatchPaths>(url: P, ...init: HasRequiredKeys<PatchFetchOptions<P>> extends never ? [PatchFetchOptions<P>?] : [PatchFetchOptions<P>]) {
+      return coreFetch<P, "patch">(url, { ...init[0], method: "PATCH" } as any);
     },
     /** Call a TRACE endpoint */
-    async TRACE<P extends PathsWithMethod<Paths, "trace">>(url: P, init: FetchOptions<FilterKeys<Paths[P], "trace">>) {
-      return coreFetch<P, "trace">(url, { ...init, method: "TRACE" } as any);
+    async TRACE<P extends TracePaths>(url: P, ...init: HasRequiredKeys<TraceFetchOptions<P>> extends never ? [TraceFetchOptions<P>?] : [TraceFetchOptions<P>]) {
+      return coreFetch<P, "trace">(url, { ...init[0], method: "TRACE" } as any);
     },
   };
 }
@@ -145,8 +166,8 @@ export function defaultBodySerializer<T>(body: T): string {
 }
 
 /** Construct URL string from baseUrl and handle path and query params */
-export function createFinalURL<O>(url: string, options: { baseUrl?: string; params: { query?: Record<string, unknown>; path?: Record<string, unknown> }; querySerializer: QuerySerializer<O> }): string {
-  let finalURL = `${options.baseUrl ? options.baseUrl.replace(TRAILING_SLASH_RE, "") : ""}${url as string}`;
+export function createFinalURL<O>(pathname: string, options: { baseUrl: string; params: { query?: Record<string, unknown>; path?: Record<string, unknown> }; querySerializer: QuerySerializer<O> }): string {
+  let finalURL = `${options.baseUrl}${pathname}`;
   if (options.params.path) {
     for (const [k, v] of Object.entries(options.params.path)) finalURL = finalURL.replace(`{${k}}`, encodeURIComponent(String(v)));
   }

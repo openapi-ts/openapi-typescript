@@ -47,3 +47,6 @@ export type ErrorResponse<T> = FilterKeys<FilterKeys<T, ErrorStatus>, "content">
 export type FilterKeys<Obj, Matchers> = { [K in keyof Obj]: K extends Matchers ? Obj[K] : never }[keyof Obj];
 /** Return any `[string]/[string]` media type (important because openapi-fetch allows any content response, not just JSON-like) */
 export type MediaType = `${string}/${string}`;
+/** Filter objects that have required keys */
+export type FindRequiredKeys<T, K extends keyof T> = K extends unknown ? (undefined extends T[K] ? never : K) : K;
+export type HasRequiredKeys<T> = FindRequiredKeys<T, keyof T>;
