@@ -3,8 +3,8 @@ import { Fetcher } from "openapi-typescript-fetch";
 import superagent from "superagent";
 import { afterAll, bench, describe, vi } from "vitest";
 import createFetchMock from "vitest-fetch-mock";
-import * as openapiTSCodegen from "./openapi-typescript-codegen.min.js";
 import createClient from "../dist/index.js";
+import * as openapiTSCodegen from "./openapi-typescript-codegen.min.js";
 
 const BASE_URL = "https://api.test.local";
 
@@ -26,7 +26,11 @@ describe("setup", () => {
     fetcher.path("/pet/findByStatus").method("get").create();
   });
 
-  // axios: N/A
+  bench("axios", async () => {
+    axios.create({
+      baseURL: "https://api.test.local",
+    });
+  });
 
   // superagent: N/A
 });
@@ -53,7 +57,7 @@ describe("get (only URL)", () => {
   bench("axios", async () => {
     await axios.get("/url", {
       async adapter() {
-        return "{}";
+        return { data: {} };
       },
     });
   });
@@ -86,7 +90,7 @@ describe("get (headers)", () => {
     await axios.get(`${BASE_URL}/url`, {
       headers: { "x-header-1": 123, "x-header-2": 456 },
       async adapter() {
-        return "{}";
+        return { data: {} };
       },
     });
   });
