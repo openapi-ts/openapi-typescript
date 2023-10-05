@@ -145,13 +145,13 @@ describe("transformComponentsObject", () => {
                 requestBody?: components["requestBodies"]["UploadUser"];
                 responses: never;
             };
-            put: never;
-            post: never;
-            delete: never;
-            options: never;
-            head: never;
-            patch: never;
-            trace: never;
+            put?: never;
+            post?: never;
+            delete?: never;
+            options?: never;
+            head?: never;
+            patch?: never;
+            trace?: never;
         };
     };
 }`,
@@ -396,13 +396,13 @@ describe("transformComponentsObject", () => {
                 readonly requestBody?: components["requestBodies"]["UploadUser"];
                 responses: never;
             };
-            put: never;
-            post: never;
-            delete: never;
-            options: never;
-            head: never;
-            patch: never;
-            trace: never;
+            put?: never;
+            post?: never;
+            delete?: never;
+            options?: never;
+            head?: never;
+            patch?: never;
+            trace?: never;
         };
     };
 }`,

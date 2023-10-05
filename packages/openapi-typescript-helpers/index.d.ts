@@ -33,7 +33,6 @@ export type PathsWithMethod<
 /** DO NOT USE! Only used only for OperationObject type inference */
 export interface OperationObject {
   parameters: any;
-  params?: { query?: Record<string, unknown> };
   requestBody: any; // note: "any" will get overridden in inference
   responses: any;
 }
@@ -84,5 +83,9 @@ export type FilterKeys<Obj, Matchers> = {
 /** Return any `[string]/[string]` media type (important because openapi-fetch allows any content response, not just JSON-like) */
 export type MediaType = `${string}/${string}`;
 /** Filter objects that have required keys */
-export type FindRequiredKeys<T, K extends keyof T> = K extends unknown ? (undefined extends T[K] ? never : K) : K;
+export type FindRequiredKeys<T, K extends keyof T> = K extends unknown
+  ? undefined extends T[K]
+    ? never
+    : K
+  : K;
 export type HasRequiredKeys<T> = FindRequiredKeys<T, keyof T>;

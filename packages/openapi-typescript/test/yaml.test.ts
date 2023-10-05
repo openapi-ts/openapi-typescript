@@ -26,13 +26,13 @@ export interface paths {
         };
         /** Ping pongs */
         get: operations["AdminPing"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }
 export type webhooks = Record<string, never>;

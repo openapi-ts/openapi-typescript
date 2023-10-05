@@ -110,7 +110,7 @@ export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         Base: {
-            [key: string]: string;
+            [key: string]: string | undefined;
         };
         SchemaType: components["schemas"]["Base"] | x-swagger-bake["components"]["schemas"]["Extension"];
     };
@@ -158,13 +158,13 @@ export type operations = Record<string, never>;`,
             requestBody?: never;
             responses: never;
         };
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -218,13 +218,13 @@ export type operations = Record<string, never>;`,
                 };
             };
         };
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -278,13 +278,13 @@ export type operations = Record<string, never>;`,
                 };
             };
         };
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -373,13 +373,13 @@ export type operations = Record<string, never>;`,
             cookie?: never;
         };
         get: operations["getPost"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }
 export type webhooks = Record<string, never>;

@@ -13,13 +13,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an account.</p> */
         get: operations["GetAccount"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/account_links": {
         parameters: {
@@ -28,15 +28,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Creates an AccountLink object that includes a single-use Stripe URL that the platform can redirect their user to in order to take them through the Connect Onboarding flow.</p> */
         post: operations["PostAccountLinks"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/account_sessions": {
         parameters: {
@@ -45,15 +45,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.</p> */
         post: operations["PostAccountSessions"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/accounts": {
         parameters: {
@@ -64,7 +64,7 @@ export interface paths {
         };
         /** @description <p>Returns a list of accounts connected to your platform via <a href="/docs/connect">Connect</a>. If you’re not a platform, the list is empty.</p> */
         get: operations["GetAccounts"];
-        put: never;
+        put?: never;
         /** @description <p>With <a href="/docs/connect">Connect</a>, you can create Stripe accounts for your users.
          *     To do this, you’ll first need to <a href="https://dashboard.stripe.com/account/applications/settings">register your platform</a>.</p>
          *
@@ -72,11 +72,11 @@ export interface paths {
          *     creating the account. Connect Onboarding won’t ask for the prefilled information during account onboarding.
          *     You can prefill any information on the account.</p> */
         post: operations["PostAccounts"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/accounts/{account}": {
         parameters: {
@@ -87,7 +87,7 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an account.</p> */
         get: operations["GetAccountsAccount"];
-        put: never;
+        put?: never;
         /** @description <p>Updates a <a href="/docs/connect/accounts">connected account</a> by setting the values of the parameters passed. Any parameters not provided are
          *     left unchanged.</p>
          *
@@ -105,10 +105,10 @@ export interface paths {
          *
          *     <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/settings/account">account information tab in your account settings</a> instead.</p> */
         delete: operations["DeleteAccountsAccount"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/accounts/{account}/bank_accounts": {
         parameters: {
@@ -117,15 +117,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Create an external account for a given account.</p> */
         post: operations["PostAccountsAccountBankAccounts"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/accounts/{account}/bank_accounts/{id}": {
         parameters: {
@@ -136,17 +136,17 @@ export interface paths {
         };
         /** @description <p>Retrieve a specified external account for a given account.</p> */
         get: operations["GetAccountsAccountBankAccountsId"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the metadata, account holder name, account holder type of a bank account belonging to a <a href="/docs/connect/custom-accounts">Custom account</a>, and optionally sets it as the default for its currency. Other bank account details are not editable by design.</p>
          *
          *     <p>You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.</p> */
         post: operations["PostAccountsAccountBankAccountsId"];
         /** @description <p>Delete a specified external account for a given account.</p> */
         delete: operations["DeleteAccountsAccountBankAccountsId"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/accounts/{account}/capabilities": {
         parameters: {
@@ -157,13 +157,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.</p> */
         get: operations["GetAccountsAccountCapabilities"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/accounts/{account}/capabilities/{capability}": {
         parameters: {
@@ -174,14 +174,14 @@ export interface paths {
         };
         /** @description <p>Retrieves information about the specified Account Capability.</p> */
         get: operations["GetAccountsAccountCapabilitiesCapability"];
-        put: never;
+        put?: never;
         /** @description <p>Updates an existing Account Capability. Request or remove a capability by updating its <code>requested</code> parameter.</p> */
         post: operations["PostAccountsAccountCapabilitiesCapability"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/accounts/{account}/external_accounts": {
         parameters: {
@@ -192,14 +192,14 @@ export interface paths {
         };
         /** @description <p>List external accounts for an account.</p> */
         get: operations["GetAccountsAccountExternalAccounts"];
-        put: never;
+        put?: never;
         /** @description <p>Create an external account for a given account.</p> */
         post: operations["PostAccountsAccountExternalAccounts"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/accounts/{account}/external_accounts/{id}": {
         parameters: {
@@ -210,17 +210,17 @@ export interface paths {
         };
         /** @description <p>Retrieve a specified external account for a given account.</p> */
         get: operations["GetAccountsAccountExternalAccountsId"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the metadata, account holder name, account holder type of a bank account belonging to a <a href="/docs/connect/custom-accounts">Custom account</a>, and optionally sets it as the default for its currency. Other bank account details are not editable by design.</p>
          *
          *     <p>You can re-enable a disabled bank account by performing an update call without providing any arguments or changes.</p> */
         post: operations["PostAccountsAccountExternalAccountsId"];
         /** @description <p>Delete a specified external account for a given account.</p> */
         delete: operations["DeleteAccountsAccountExternalAccountsId"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/accounts/{account}/login_links": {
         parameters: {
@@ -229,17 +229,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Creates a single-use login link for an Express account to access their Stripe dashboard.</p>
          *
          *     <p><strong>You may only create login links for <a href="/docs/connect/express-accounts">Express accounts</a> connected to your platform</strong>.</p> */
         post: operations["PostAccountsAccountLoginLinks"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/accounts/{account}/people": {
         parameters: {
@@ -250,14 +250,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p> */
         get: operations["GetAccountsAccountPeople"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new person.</p> */
         post: operations["PostAccountsAccountPeople"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/accounts/{account}/people/{person}": {
         parameters: {
@@ -268,15 +268,15 @@ export interface paths {
         };
         /** @description <p>Retrieves an existing person.</p> */
         get: operations["GetAccountsAccountPeoplePerson"];
-        put: never;
+        put?: never;
         /** @description <p>Updates an existing person.</p> */
         post: operations["PostAccountsAccountPeoplePerson"];
         /** @description <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
         delete: operations["DeleteAccountsAccountPeoplePerson"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/accounts/{account}/persons": {
         parameters: {
@@ -287,14 +287,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p> */
         get: operations["GetAccountsAccountPersons"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new person.</p> */
         post: operations["PostAccountsAccountPersons"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/accounts/{account}/persons/{person}": {
         parameters: {
@@ -305,15 +305,15 @@ export interface paths {
         };
         /** @description <p>Retrieves an existing person.</p> */
         get: operations["GetAccountsAccountPersonsPerson"];
-        put: never;
+        put?: never;
         /** @description <p>Updates an existing person.</p> */
         post: operations["PostAccountsAccountPersonsPerson"];
         /** @description <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
         delete: operations["DeleteAccountsAccountPersonsPerson"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/accounts/{account}/reject": {
         parameters: {
@@ -322,17 +322,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>With <a href="/docs/connect">Connect</a>, you may flag accounts as suspicious.</p>
          *
          *     <p>Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.</p> */
         post: operations["PostAccountsAccountReject"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/apple_pay/domains": {
         parameters: {
@@ -343,14 +343,14 @@ export interface paths {
         };
         /** @description <p>List apple pay domains.</p> */
         get: operations["GetApplePayDomains"];
-        put: never;
+        put?: never;
         /** @description <p>Create an apple pay domain.</p> */
         post: operations["PostApplePayDomains"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/apple_pay/domains/{domain}": {
         parameters: {
@@ -361,14 +361,14 @@ export interface paths {
         };
         /** @description <p>Retrieve an apple pay domain.</p> */
         get: operations["GetApplePayDomainsDomain"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /** @description <p>Delete an apple pay domain.</p> */
         delete: operations["DeleteApplePayDomainsDomain"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/application_fees": {
         parameters: {
@@ -379,13 +379,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of application fees you’ve previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.</p> */
         get: operations["GetApplicationFees"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/application_fees/{fee}/refunds/{id}": {
         parameters: {
@@ -396,16 +396,16 @@ export interface paths {
         };
         /** @description <p>By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.</p> */
         get: operations["GetApplicationFeesFeeRefundsId"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
          *
          *     <p>This request only accepts metadata as an argument.</p> */
         post: operations["PostApplicationFeesFeeRefundsId"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/application_fees/{id}": {
         parameters: {
@@ -416,13 +416,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an application fee that your account has collected. The same information is returned when refunding the application fee.</p> */
         get: operations["GetApplicationFeesId"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/application_fees/{id}/refund": {
         parameters: {
@@ -431,14 +431,14 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         post: operations["PostApplicationFeesIdRefund"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/application_fees/{id}/refunds": {
         parameters: {
@@ -449,7 +449,7 @@ export interface paths {
         };
         /** @description <p>You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available by default on the application fee object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional refunds.</p> */
         get: operations["GetApplicationFeesIdRefunds"];
-        put: never;
+        put?: never;
         /** @description <p>Refunds an application fee that has previously been collected but not yet refunded.
          *     Funds will be refunded to the Stripe account from which the fee was originally collected.</p>
          *
@@ -460,11 +460,11 @@ export interface paths {
          *     This method will raise an error when called on an already-refunded application fee,
          *     or when trying to refund more money than is left on an application fee.</p> */
         post: operations["PostApplicationFeesIdRefunds"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/apps/secrets": {
         parameters: {
@@ -475,14 +475,14 @@ export interface paths {
         };
         /** @description <p>List all secrets stored on the given scope.</p> */
         get: operations["GetAppsSecrets"];
-        put: never;
+        put?: never;
         /** @description <p>Create or replace a secret in the secret store.</p> */
         post: operations["PostAppsSecrets"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/apps/secrets/delete": {
         parameters: {
@@ -491,15 +491,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Deletes a secret from the secret store by name and scope.</p> */
         post: operations["PostAppsSecretsDelete"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/apps/secrets/find": {
         parameters: {
@@ -510,13 +510,13 @@ export interface paths {
         };
         /** @description <p>Finds a secret in the secret store by name and scope.</p> */
         get: operations["GetAppsSecretsFind"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/balance": {
         parameters: {
@@ -528,13 +528,13 @@ export interface paths {
         /** @description <p>Retrieves the current account balance, based on the authentication that was used to make the request.
          *      For a sample request, see <a href="/docs/connect/account-balances#accounting-for-negative-balances">Accounting for negative balances</a>.</p> */
         get: operations["GetBalance"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/balance/history": {
         parameters: {
@@ -547,13 +547,13 @@ export interface paths {
          *
          *     <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p> */
         get: operations["GetBalanceHistory"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/balance/history/{id}": {
         parameters: {
@@ -566,13 +566,13 @@ export interface paths {
          *
          *     <p>Note that this endpoint previously used the path <code>/v1/balance/history/:id</code>.</p> */
         get: operations["GetBalanceHistoryId"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/balance_transactions": {
         parameters: {
@@ -585,13 +585,13 @@ export interface paths {
          *
          *     <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p> */
         get: operations["GetBalanceTransactions"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/balance_transactions/{id}": {
         parameters: {
@@ -604,13 +604,13 @@ export interface paths {
          *
          *     <p>Note that this endpoint previously used the path <code>/v1/balance/history/:id</code>.</p> */
         get: operations["GetBalanceTransactionsId"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/billing_portal/configurations": {
         parameters: {
@@ -621,14 +621,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of configurations that describe the functionality of the customer portal.</p> */
         get: operations["GetBillingPortalConfigurations"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a configuration that describes the functionality and behavior of a PortalSession</p> */
         post: operations["PostBillingPortalConfigurations"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/billing_portal/configurations/{configuration}": {
         parameters: {
@@ -639,14 +639,14 @@ export interface paths {
         };
         /** @description <p>Retrieves a configuration that describes the functionality of the customer portal.</p> */
         get: operations["GetBillingPortalConfigurationsConfiguration"];
-        put: never;
+        put?: never;
         /** @description <p>Updates a configuration that describes the functionality of the customer portal.</p> */
         post: operations["PostBillingPortalConfigurationsConfiguration"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/billing_portal/sessions": {
         parameters: {
@@ -655,15 +655,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Creates a session of the customer portal.</p> */
         post: operations["PostBillingPortalSessions"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/charges": {
         parameters: {
@@ -674,16 +674,16 @@ export interface paths {
         };
         /** @description <p>Returns a list of charges you’ve previously created. The charges are returned in sorted order, with the most recent charges appearing first.</p> */
         get: operations["GetCharges"];
-        put: never;
+        put?: never;
         /** @description <p>Use the <a href="/docs/api/payment_intents">Payment Intents API</a> to initiate a new payment instead
          *     of using this method. Confirmation of the PaymentIntent creates the <code>Charge</code>
          *     object used to request payment, so this method is limited to legacy integrations.</p> */
         post: operations["PostCharges"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/charges/search": {
         parameters: {
@@ -697,13 +697,13 @@ export interface paths {
          *     conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
          *     to an hour behind during outages. Search functionality is not available to merchants in India.</p> */
         get: operations["GetChargesSearch"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/charges/{charge}": {
         parameters: {
@@ -714,14 +714,14 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.</p> */
         get: operations["GetChargesCharge"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
         post: operations["PostChargesCharge"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/charges/{charge}/capture": {
         parameters: {
@@ -730,19 +730,19 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Capture the payment of an existing, uncaptured charge that was created with the <code>capture</code> option set to false.</p>
          *
          *     <p>Uncaptured payments expire a set number of days after they are created (<a href="/docs/charges/placing-a-hold">7 by default</a>), after which they are marked as refunded and capture attempts will fail.</p>
          *
          *     <p>Don’t use this method to capture a PaymentIntent-initiated charge. Use <a href="/docs/api/payment_intents/capture">Capture a PaymentIntent</a>.</p> */
         post: operations["PostChargesChargeCapture"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/charges/{charge}/dispute": {
         parameters: {
@@ -753,13 +753,13 @@ export interface paths {
         };
         /** @description <p>Retrieve a dispute for a specified charge.</p> */
         get: operations["GetChargesChargeDispute"];
-        put: never;
+        put?: never;
         post: operations["PostChargesChargeDispute"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/charges/{charge}/dispute/close": {
         parameters: {
@@ -768,14 +768,14 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         post: operations["PostChargesChargeDisputeClose"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/charges/{charge}/refund": {
         parameters: {
@@ -784,8 +784,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>When you create a new refund, you must specify either a Charge or a PaymentIntent object.</p>
          *
          *     <p>This action refunds a previously created charge that’s not refunded yet.
@@ -798,11 +798,11 @@ export interface paths {
          *     This method raises an error when it’s called on an already-refunded charge,
          *     or when you attempt to refund more money than is left on a charge.</p> */
         post: operations["PostChargesChargeRefund"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/charges/{charge}/refunds": {
         parameters: {
@@ -813,7 +813,7 @@ export interface paths {
         };
         /** @description <p>You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional refunds.</p> */
         get: operations["GetChargesChargeRefunds"];
-        put: never;
+        put?: never;
         /** @description <p>When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.</p>
          *
          *     <p>Creating a new refund will refund a charge that has previously been created but not yet refunded.
@@ -826,11 +826,11 @@ export interface paths {
          *     This method will raise an error when called on an already-refunded charge,
          *     or when trying to refund more money than is left on a charge.</p> */
         post: operations["PostChargesChargeRefunds"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/charges/{charge}/refunds/{refund}": {
         parameters: {
@@ -841,14 +841,14 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing refund.</p> */
         get: operations["GetChargesChargeRefundsRefund"];
-        put: never;
+        put?: never;
         /** @description <p>Update a specified refund.</p> */
         post: operations["PostChargesChargeRefundsRefund"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/checkout/sessions": {
         parameters: {
@@ -859,14 +859,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of Checkout Sessions.</p> */
         get: operations["GetCheckoutSessions"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a Session object.</p> */
         post: operations["PostCheckoutSessions"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/checkout/sessions/{session}": {
         parameters: {
@@ -877,13 +877,13 @@ export interface paths {
         };
         /** @description <p>Retrieves a Session object.</p> */
         get: operations["GetCheckoutSessionsSession"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/checkout/sessions/{session}/expire": {
         parameters: {
@@ -892,17 +892,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>A Session can be expired when it is in one of these statuses: <code>open</code> </p>
          *
          *     <p>After it expires, a customer can’t complete a Session and customers loading the Session see a message saying the Session is expired.</p> */
         post: operations["PostCheckoutSessionsSessionExpire"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/checkout/sessions/{session}/line_items": {
         parameters: {
@@ -913,13 +913,13 @@ export interface paths {
         };
         /** @description <p>When retrieving a Checkout Session, there is an includable <strong>line_items</strong> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
         get: operations["GetCheckoutSessionsSessionLineItems"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/country_specs": {
         parameters: {
@@ -930,13 +930,13 @@ export interface paths {
         };
         /** @description <p>Lists all Country Spec objects available in the API.</p> */
         get: operations["GetCountrySpecs"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/country_specs/{country}": {
         parameters: {
@@ -947,13 +947,13 @@ export interface paths {
         };
         /** @description <p>Returns a Country Spec for a given Country code.</p> */
         get: operations["GetCountrySpecsCountry"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/coupons": {
         parameters: {
@@ -964,16 +964,16 @@ export interface paths {
         };
         /** @description <p>Returns a list of your coupons.</p> */
         get: operations["GetCoupons"];
-        put: never;
+        put?: never;
         /** @description <p>You can create coupons easily via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.</p>
          *
          *     <p>A coupon has either a <code>percent_off</code> or an <code>amount_off</code> and <code>currency</code>. If you set an <code>amount_off</code>, that amount will be subtracted from any invoice’s subtotal. For example, an invoice with a subtotal of <currency>100</currency> will have a final total of <currency>0</currency> if a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to it and an invoice with a subtotal of <currency>300</currency> will have a final total of <currency>100</currency> if a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to it.</p> */
         post: operations["PostCoupons"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/coupons/{coupon}": {
         parameters: {
@@ -984,15 +984,15 @@ export interface paths {
         };
         /** @description <p>Retrieves the coupon with the given ID.</p> */
         get: operations["GetCouponsCoupon"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.</p> */
         post: operations["PostCouponsCoupon"];
         /** @description <p>You can delete coupons via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can’t redeem the coupon. You can also delete coupons via the API.</p> */
         delete: operations["DeleteCouponsCoupon"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/credit_notes": {
         parameters: {
@@ -1003,7 +1003,7 @@ export interface paths {
         };
         /** @description <p>Returns a list of credit notes.</p> */
         get: operations["GetCreditNotes"];
-        put: never;
+        put?: never;
         /** @description <p>Issue a credit note to adjust the amount of a finalized invoice. For a <code>status=open</code> invoice, a credit note reduces
          *     its <code>amount_due</code>. For a <code>status=paid</code> invoice, a credit note does not affect its <code>amount_due</code>. Instead, it can result
          *     in any combination of the following:</p>
@@ -1019,11 +1019,11 @@ export interface paths {
          *     <p>You may issue multiple credit notes for an invoice. Each credit note will increment the invoice’s <code>pre_payment_credit_notes_amount</code>
          *     or <code>post_payment_credit_notes_amount</code> depending on its <code>status</code> at the time of credit note creation.</p> */
         post: operations["PostCreditNotes"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/credit_notes/preview": {
         parameters: {
@@ -1034,13 +1034,13 @@ export interface paths {
         };
         /** @description <p>Get a preview of a credit note without creating it.</p> */
         get: operations["GetCreditNotesPreview"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/credit_notes/preview/lines": {
         parameters: {
@@ -1051,13 +1051,13 @@ export interface paths {
         };
         /** @description <p>When retrieving a credit note preview, you’ll get a <strong>lines</strong> property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.</p> */
         get: operations["GetCreditNotesPreviewLines"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/credit_notes/{credit_note}/lines": {
         parameters: {
@@ -1068,13 +1068,13 @@ export interface paths {
         };
         /** @description <p>When retrieving a credit note, you’ll get a <strong>lines</strong> property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
         get: operations["GetCreditNotesCreditNoteLines"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/credit_notes/{id}": {
         parameters: {
@@ -1085,14 +1085,14 @@ export interface paths {
         };
         /** @description <p>Retrieves the credit note object with the given identifier.</p> */
         get: operations["GetCreditNotesId"];
-        put: never;
+        put?: never;
         /** @description <p>Updates an existing credit note.</p> */
         post: operations["PostCreditNotesId"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/credit_notes/{id}/void": {
         parameters: {
@@ -1101,15 +1101,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Marks a credit note as void. Learn more about <a href="/docs/billing/invoices/credit-notes#voiding">voiding credit notes</a>.</p> */
         post: operations["PostCreditNotesIdVoid"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers": {
         parameters: {
@@ -1120,14 +1120,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.</p> */
         get: operations["GetCustomers"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new customer object.</p> */
         post: operations["PostCustomers"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/search": {
         parameters: {
@@ -1141,13 +1141,13 @@ export interface paths {
          *     conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
          *     to an hour behind during outages. Search functionality is not available to merchants in India.</p> */
         get: operations["GetCustomersSearch"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}": {
         parameters: {
@@ -1158,17 +1158,17 @@ export interface paths {
         };
         /** @description <p>Retrieves a Customer object.</p> */
         get: operations["GetCustomersCustomer"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the <strong>source</strong> parameter, that becomes the customer’s active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the <strong>source</strong> parameter: for each of the customer’s current subscriptions, if the subscription bills automatically and is in the <code>past_due</code> state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the <strong>default_source</strong> for a customer will not trigger this behavior.</p>
          *
          *     <p>This request accepts mostly the same arguments as the customer creation call.</p> */
         post: operations["PostCustomersCustomer"];
         /** @description <p>Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.</p> */
         delete: operations["DeleteCustomersCustomer"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/balance_transactions": {
         parameters: {
@@ -1179,14 +1179,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of transactions that updated the customer’s <a href="/docs/billing/customer/balance">balances</a>.</p> */
         get: operations["GetCustomersCustomerBalanceTransactions"];
-        put: never;
+        put?: never;
         /** @description <p>Creates an immutable transaction that updates the customer’s credit <a href="/docs/billing/customer/balance">balance</a>.</p> */
         post: operations["PostCustomersCustomerBalanceTransactions"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/balance_transactions/{transaction}": {
         parameters: {
@@ -1197,14 +1197,14 @@ export interface paths {
         };
         /** @description <p>Retrieves a specific customer balance transaction that updated the customer’s <a href="/docs/billing/customer/balance">balances</a>.</p> */
         get: operations["GetCustomersCustomerBalanceTransactionsTransaction"];
-        put: never;
+        put?: never;
         /** @description <p>Most credit balance transaction fields are immutable, but you may update its <code>description</code> and <code>metadata</code>.</p> */
         post: operations["PostCustomersCustomerBalanceTransactionsTransaction"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/bank_accounts": {
         parameters: {
@@ -1218,18 +1218,18 @@ export interface paths {
          * @description <p>You can see a list of the bank accounts belonging to a Customer. Note that the 10 most recent sources are always available by default on the Customer. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional bank accounts.</p>
          */
         get: operations["GetCustomersCustomerBankAccounts"];
-        put: never;
+        put?: never;
         /** @description <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
          *
          *     <p>If the card’s owner has no default card, then the new card will become the default.
          *     However, if the owner already has a default, then it will not change.
          *     To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p> */
         post: operations["PostCustomersCustomerBankAccounts"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/bank_accounts/{id}": {
         parameters: {
@@ -1243,15 +1243,15 @@ export interface paths {
          * @description <p>By default, you can see the 10 most recent sources stored on a Customer directly on the object, but you can also retrieve details about a specific bank account stored on the Stripe account.</p>
          */
         get: operations["GetCustomersCustomerBankAccountsId"];
-        put: never;
+        put?: never;
         /** @description <p>Update a specified source for a given customer.</p> */
         post: operations["PostCustomersCustomerBankAccountsId"];
         /** @description <p>Delete a specified source for a given customer.</p> */
         delete: operations["DeleteCustomersCustomerBankAccountsId"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/bank_accounts/{id}/verify": {
         parameters: {
@@ -1260,15 +1260,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Verify a specified bank account for a given customer.</p> */
         post: operations["PostCustomersCustomerBankAccountsIdVerify"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/cards": {
         parameters: {
@@ -1284,18 +1284,18 @@ export interface paths {
          *     If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional cards.</p>
          */
         get: operations["GetCustomersCustomerCards"];
-        put: never;
+        put?: never;
         /** @description <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
          *
          *     <p>If the card’s owner has no default card, then the new card will become the default.
          *     However, if the owner already has a default, then it will not change.
          *     To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p> */
         post: operations["PostCustomersCustomerCards"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/cards/{id}": {
         parameters: {
@@ -1309,15 +1309,15 @@ export interface paths {
          * @description <p>You can always see the 10 most recent cards directly on a customer; this method lets you retrieve details about a specific card stored on the customer.</p>
          */
         get: operations["GetCustomersCustomerCardsId"];
-        put: never;
+        put?: never;
         /** @description <p>Update a specified source for a given customer.</p> */
         post: operations["PostCustomersCustomerCardsId"];
         /** @description <p>Delete a specified source for a given customer.</p> */
         delete: operations["DeleteCustomersCustomerCardsId"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/cash_balance": {
         parameters: {
@@ -1328,14 +1328,14 @@ export interface paths {
         };
         /** @description <p>Retrieves a customer’s cash balance.</p> */
         get: operations["GetCustomersCustomerCashBalance"];
-        put: never;
+        put?: never;
         /** @description <p>Changes the settings on a customer’s cash balance.</p> */
         post: operations["PostCustomersCustomerCashBalance"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/cash_balance_transactions": {
         parameters: {
@@ -1346,13 +1346,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of transactions that modified the customer’s <a href="/docs/payments/customer-balance">cash balance</a>.</p> */
         get: operations["GetCustomersCustomerCashBalanceTransactions"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/cash_balance_transactions/{transaction}": {
         parameters: {
@@ -1363,13 +1363,13 @@ export interface paths {
         };
         /** @description <p>Retrieves a specific cash balance transaction, which updated the customer’s <a href="/docs/payments/customer-balance">cash balance</a>.</p> */
         get: operations["GetCustomersCustomerCashBalanceTransactionsTransaction"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/discount": {
         parameters: {
@@ -1379,14 +1379,14 @@ export interface paths {
             cookie?: never;
         };
         get: operations["GetCustomersCustomerDiscount"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /** @description <p>Removes the currently applied discount on a customer.</p> */
         delete: operations["DeleteCustomersCustomerDiscount"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/funding_instructions": {
         parameters: {
@@ -1395,17 +1395,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
          *     funding instructions will be created. If funding instructions have already been created for a given customer, the same
          *     funding instructions will be retrieved. In other words, we will return the same funding instructions each time.</p> */
         post: operations["PostCustomersCustomerFundingInstructions"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/payment_methods": {
         parameters: {
@@ -1416,13 +1416,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of PaymentMethods for a given Customer</p> */
         get: operations["GetCustomersCustomerPaymentMethods"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/payment_methods/{payment_method}": {
         parameters: {
@@ -1433,13 +1433,13 @@ export interface paths {
         };
         /** @description <p>Retrieves a PaymentMethod object for a given Customer.</p> */
         get: operations["GetCustomersCustomerPaymentMethodsPaymentMethod"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/sources": {
         parameters: {
@@ -1450,18 +1450,18 @@ export interface paths {
         };
         /** @description <p>List sources for a specified customer.</p> */
         get: operations["GetCustomersCustomerSources"];
-        put: never;
+        put?: never;
         /** @description <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
          *
          *     <p>If the card’s owner has no default card, then the new card will become the default.
          *     However, if the owner already has a default, then it will not change.
          *     To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p> */
         post: operations["PostCustomersCustomerSources"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/sources/{id}": {
         parameters: {
@@ -1472,15 +1472,15 @@ export interface paths {
         };
         /** @description <p>Retrieve a specified source for a given customer.</p> */
         get: operations["GetCustomersCustomerSourcesId"];
-        put: never;
+        put?: never;
         /** @description <p>Update a specified source for a given customer.</p> */
         post: operations["PostCustomersCustomerSourcesId"];
         /** @description <p>Delete a specified source for a given customer.</p> */
         delete: operations["DeleteCustomersCustomerSourcesId"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/sources/{id}/verify": {
         parameters: {
@@ -1489,15 +1489,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Verify a specified bank account for a given customer.</p> */
         post: operations["PostCustomersCustomerSourcesIdVerify"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/subscriptions": {
         parameters: {
@@ -1508,14 +1508,14 @@ export interface paths {
         };
         /** @description <p>You can see a list of the customer’s active subscriptions. Note that the 10 most recent active subscriptions are always available by default on the customer object. If you need more than those 10, you can use the limit and starting_after parameters to page through additional subscriptions.</p> */
         get: operations["GetCustomersCustomerSubscriptions"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new subscription on an existing customer.</p> */
         post: operations["PostCustomersCustomerSubscriptions"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}": {
         parameters: {
@@ -1526,7 +1526,7 @@ export interface paths {
         };
         /** @description <p>Retrieves the subscription with the given ID.</p> */
         get: operations["GetCustomersCustomerSubscriptionsSubscriptionExposedId"];
-        put: never;
+        put?: never;
         /** @description <p>Updates an existing subscription on a customer to match the specified parameters. When changing plans or quantities, we will optionally prorate the price we charge next month to make up for any price changes. To preview how the proration will be calculated, use the <a href="#upcoming_invoice">upcoming invoice</a> endpoint.</p> */
         post: operations["PostCustomersCustomerSubscriptionsSubscriptionExposedId"];
         /** @description <p>Cancels a customer’s subscription. If you set the <code>at_period_end</code> parameter to <code>true</code>, the subscription will remain active until the end of the period, at which point it will be canceled and not renewed. Otherwise, with the default <code>false</code> value, the subscription is terminated immediately. In either case, the customer will not be charged again for the subscription.</p>
@@ -1535,10 +1535,10 @@ export interface paths {
          *
          *     <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p> */
         delete: operations["DeleteCustomersCustomerSubscriptionsSubscriptionExposedId"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount": {
         parameters: {
@@ -1548,14 +1548,14 @@ export interface paths {
             cookie?: never;
         };
         get: operations["GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /** @description <p>Removes the currently applied discount on a customer.</p> */
         delete: operations["DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/tax_ids": {
         parameters: {
@@ -1566,14 +1566,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of tax IDs for a customer.</p> */
         get: operations["GetCustomersCustomerTaxIds"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new <code>tax_id</code> object for a customer.</p> */
         post: operations["PostCustomersCustomerTaxIds"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/customers/{customer}/tax_ids/{id}": {
         parameters: {
@@ -1584,14 +1584,14 @@ export interface paths {
         };
         /** @description <p>Retrieves the <code>tax_id</code> object with the given identifier.</p> */
         get: operations["GetCustomersCustomerTaxIdsId"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /** @description <p>Deletes an existing <code>tax_id</code> object.</p> */
         delete: operations["DeleteCustomersCustomerTaxIdsId"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/disputes": {
         parameters: {
@@ -1602,13 +1602,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of your disputes.</p> */
         get: operations["GetDisputes"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/disputes/{dispute}": {
         parameters: {
@@ -1619,16 +1619,16 @@ export interface paths {
         };
         /** @description <p>Retrieves the dispute with the given ID.</p> */
         get: operations["GetDisputesDispute"];
-        put: never;
+        put?: never;
         /** @description <p>When you get a dispute, contacting your customer is always the best first step. If that doesn’t work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your <a href="https://dashboard.stripe.com/disputes">dashboard</a>, but if you prefer, you can use the API to submit evidence programmatically.</p>
          *
          *     <p>Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our <a href="/docs/disputes/categories">guide to dispute types</a>.</p> */
         post: operations["PostDisputesDispute"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/disputes/{dispute}/close": {
         parameters: {
@@ -1637,17 +1637,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.</p>
          *
          *     <p>The status of the dispute will change from <code>needs_response</code> to <code>lost</code>. <em>Closing a dispute is irreversible</em>.</p> */
         post: operations["PostDisputesDisputeClose"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/ephemeral_keys": {
         parameters: {
@@ -1656,15 +1656,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Creates a short-lived API key for a given resource.</p> */
         post: operations["PostEphemeralKeys"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/ephemeral_keys/{key}": {
         parameters: {
@@ -1673,15 +1673,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
+        get?: never;
+        put?: never;
+        post?: never;
         /** @description <p>Invalidates a short-lived API key for a given resource.</p> */
         delete: operations["DeleteEphemeralKeysKey"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/events": {
         parameters: {
@@ -1692,13 +1692,13 @@ export interface paths {
         };
         /** @description <p>List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in <a href="/docs/api/events/object">event object</a> <code>api_version</code> attribute (not according to your current Stripe API version or <code>Stripe-Version</code> header).</p> */
         get: operations["GetEvents"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/events/{id}": {
         parameters: {
@@ -1709,13 +1709,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an event. Supply the unique identifier of the event, which you might have received in a webhook.</p> */
         get: operations["GetEventsId"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/exchange_rates": {
         parameters: {
@@ -1726,13 +1726,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.</p> */
         get: operations["GetExchangeRates"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/exchange_rates/{rate_id}": {
         parameters: {
@@ -1743,13 +1743,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the exchange rates from the given currency to every supported currency.</p> */
         get: operations["GetExchangeRatesRateId"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/file_links": {
         parameters: {
@@ -1760,14 +1760,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of file links.</p> */
         get: operations["GetFileLinks"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new file link object.</p> */
         post: operations["PostFileLinks"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/file_links/{link}": {
         parameters: {
@@ -1778,14 +1778,14 @@ export interface paths {
         };
         /** @description <p>Retrieves the file link with the given ID.</p> */
         get: operations["GetFileLinksLink"];
-        put: never;
+        put?: never;
         /** @description <p>Updates an existing file link object. Expired links can no longer be updated.</p> */
         post: operations["PostFileLinksLink"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/files": {
         parameters: {
@@ -1796,16 +1796,16 @@ export interface paths {
         };
         /** @description <p>Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.</p> */
         get: operations["GetFiles"];
-        put: never;
+        put?: never;
         /** @description <p>To upload a file to Stripe, you need to send a request of type <code>multipart/form-data</code>. Include the file you want to upload in the request, and the parameters for creating a file.</p>
          *
          *     <p>All of Stripe’s officially supported Client libraries support sending <code>multipart/form-data</code>.</p> */
         post: operations["PostFiles"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/files/{file}": {
         parameters: {
@@ -1816,13 +1816,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to <a href="/docs/file-upload#download-file-contents">access file contents</a>.</p> */
         get: operations["GetFilesFile"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/financial_connections/accounts": {
         parameters: {
@@ -1833,13 +1833,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of Financial Connections <code>Account</code> objects.</p> */
         get: operations["GetFinancialConnectionsAccounts"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/financial_connections/accounts/{account}": {
         parameters: {
@@ -1850,13 +1850,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an Financial Connections <code>Account</code>.</p> */
         get: operations["GetFinancialConnectionsAccountsAccount"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/financial_connections/accounts/{account}/disconnect": {
         parameters: {
@@ -1865,15 +1865,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Disables your access to a Financial Connections <code>Account</code>. You will no longer be able to access data associated with the account (e.g. balances, transactions).</p> */
         post: operations["PostFinancialConnectionsAccountsAccountDisconnect"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/financial_connections/accounts/{account}/owners": {
         parameters: {
@@ -1884,13 +1884,13 @@ export interface paths {
         };
         /** @description <p>Lists all owners for a given <code>Account</code></p> */
         get: operations["GetFinancialConnectionsAccountsAccountOwners"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/financial_connections/accounts/{account}/refresh": {
         parameters: {
@@ -1899,15 +1899,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Refreshes the data associated with a Financial Connections <code>Account</code>.</p> */
         post: operations["PostFinancialConnectionsAccountsAccountRefresh"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/financial_connections/sessions": {
         parameters: {
@@ -1916,15 +1916,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>To launch the Financial Connections authorization flow, create a <code>Session</code>. The session’s <code>client_secret</code> can be used to launch the flow using Stripe.js.</p> */
         post: operations["PostFinancialConnectionsSessions"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/financial_connections/sessions/{session}": {
         parameters: {
@@ -1935,13 +1935,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of a Financial Connections <code>Session</code></p> */
         get: operations["GetFinancialConnectionsSessionsSession"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/identity/verification_reports": {
         parameters: {
@@ -1952,13 +1952,13 @@ export interface paths {
         };
         /** @description <p>List all verification reports.</p> */
         get: operations["GetIdentityVerificationReports"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/identity/verification_reports/{report}": {
         parameters: {
@@ -1969,13 +1969,13 @@ export interface paths {
         };
         /** @description <p>Retrieves an existing VerificationReport</p> */
         get: operations["GetIdentityVerificationReportsReport"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/identity/verification_sessions": {
         parameters: {
@@ -1986,7 +1986,7 @@ export interface paths {
         };
         /** @description <p>Returns a list of VerificationSessions</p> */
         get: operations["GetIdentityVerificationSessions"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a VerificationSession object.</p>
          *
          *     <p>After the VerificationSession is created, display a verification modal using the session <code>client_secret</code> or send your users to the session’s <code>url</code>.</p>
@@ -1995,11 +1995,11 @@ export interface paths {
          *
          *     <p>Related guide: <a href="/docs/identity/verify-identity-documents">Verify your users’ identity documents</a></p> */
         post: operations["PostIdentityVerificationSessions"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/identity/verification_sessions/{session}": {
         parameters: {
@@ -2013,17 +2013,17 @@ export interface paths {
          *     <p>When the session status is <code>requires_input</code>, you can use this method to retrieve a valid
          *     <code>client_secret</code> or <code>url</code> to allow re-submission.</p> */
         get: operations["GetIdentityVerificationSessionsSession"];
-        put: never;
+        put?: never;
         /** @description <p>Updates a VerificationSession object.</p>
          *
          *     <p>When the session status is <code>requires_input</code>, you can use this method to update the
          *     verification check and options.</p> */
         post: operations["PostIdentityVerificationSessionsSession"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/identity/verification_sessions/{session}/cancel": {
         parameters: {
@@ -2032,17 +2032,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>A VerificationSession object can be canceled when it is in <code>requires_input</code> <a href="/docs/identity/how-sessions-work">status</a>.</p>
          *
          *     <p>Once canceled, future submission attempts are disabled. This cannot be undone. <a href="/docs/identity/verification-sessions#cancel">Learn more</a>.</p> */
         post: operations["PostIdentityVerificationSessionsSessionCancel"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/identity/verification_sessions/{session}/redact": {
         parameters: {
@@ -2051,8 +2051,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Redact a VerificationSession to remove all collected information from Stripe. This will redact
          *     the VerificationSession and all objects related to it, including VerificationReports, Events,
          *     request logs, etc.</p>
@@ -2073,11 +2073,11 @@ export interface paths {
          *
          *     <p><a href="/docs/identity/verification-sessions#redact">Learn more</a>.</p> */
         post: operations["PostIdentityVerificationSessionsSessionRedact"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/invoiceitems": {
         parameters: {
@@ -2088,14 +2088,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.</p> */
         get: operations["GetInvoiceitems"];
-        put: never;
+        put?: never;
         /** @description <p>Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.</p> */
         post: operations["PostInvoiceitems"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/invoiceitems/{invoiceitem}": {
         parameters: {
@@ -2106,15 +2106,15 @@ export interface paths {
         };
         /** @description <p>Retrieves the invoice item with the given ID.</p> */
         get: operations["GetInvoiceitemsInvoiceitem"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it’s attached to is closed.</p> */
         post: operations["PostInvoiceitemsInvoiceitem"];
         /** @description <p>Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they’re not attached to invoices, or if it’s attached to a draft invoice.</p> */
         delete: operations["DeleteInvoiceitemsInvoiceitem"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/invoices": {
         parameters: {
@@ -2125,14 +2125,14 @@ export interface paths {
         };
         /** @description <p>You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.</p> */
         get: operations["GetInvoices"];
-        put: never;
+        put?: never;
         /** @description <p>This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you <a href="#finalize_invoice">finalize</a> the invoice, which allows you to <a href="#pay_invoice">pay</a> or <a href="#send_invoice">send</a> the invoice to your customers.</p> */
         post: operations["PostInvoices"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/invoices/search": {
         parameters: {
@@ -2146,13 +2146,13 @@ export interface paths {
          *     conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
          *     to an hour behind during outages. Search functionality is not available to merchants in India.</p> */
         get: operations["GetInvoicesSearch"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/invoices/upcoming": {
         parameters: {
@@ -2167,13 +2167,13 @@ export interface paths {
          *
          *     <p>You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass a <code>proration_date</code> parameter when doing the actual subscription update. The value passed in should be the same as the <code>subscription_proration_date</code> returned on the upcoming invoice resource. The recommended way to get only the prorations being previewed is to consider only proration line items where <code>period[start]</code> is equal to the <code>subscription_proration_date</code> on the upcoming invoice resource.</p> */
         get: operations["GetInvoicesUpcoming"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/invoices/upcoming/lines": {
         parameters: {
@@ -2184,13 +2184,13 @@ export interface paths {
         };
         /** @description <p>When retrieving an upcoming invoice, you’ll get a <strong>lines</strong> property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
         get: operations["GetInvoicesUpcomingLines"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/invoices/{invoice}": {
         parameters: {
@@ -2201,7 +2201,7 @@ export interface paths {
         };
         /** @description <p>Retrieves the invoice with the given ID.</p> */
         get: operations["GetInvoicesInvoice"];
-        put: never;
+        put?: never;
         /** @description <p>Draft invoices are fully editable. Once an invoice is <a href="/docs/billing/invoices/workflow#finalized">finalized</a>,
          *     monetary values, as well as <code>collection_method</code>, become uneditable.</p>
          *
@@ -2211,10 +2211,10 @@ export interface paths {
         post: operations["PostInvoicesInvoice"];
         /** @description <p>Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be <a href="#void_invoice">voided</a>.</p> */
         delete: operations["DeleteInvoicesInvoice"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/invoices/{invoice}/finalize": {
         parameters: {
@@ -2223,15 +2223,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you’d like to finalize a draft invoice manually, you can do so using this method.</p> */
         post: operations["PostInvoicesInvoiceFinalize"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/invoices/{invoice}/lines": {
         parameters: {
@@ -2242,13 +2242,13 @@ export interface paths {
         };
         /** @description <p>When retrieving an invoice, you’ll get a <strong>lines</strong> property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
         get: operations["GetInvoicesInvoiceLines"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/invoices/{invoice}/mark_uncollectible": {
         parameters: {
@@ -2257,15 +2257,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.</p> */
         post: operations["PostInvoicesInvoiceMarkUncollectible"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/invoices/{invoice}/pay": {
         parameters: {
@@ -2274,15 +2274,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your <a href="https://dashboard.stripe.com/account/billing/automatic">subscriptions settings</a>. However, if you’d like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.</p> */
         post: operations["PostInvoicesInvoicePay"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/invoices/{invoice}/send": {
         parameters: {
@@ -2291,17 +2291,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Stripe will automatically send invoices to customers according to your <a href="https://dashboard.stripe.com/account/billing/automatic">subscriptions settings</a>. However, if you’d like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.</p>
          *
          *     <p>Requests made in test-mode result in no emails being sent, despite sending an <code>invoice.sent</code> event.</p> */
         post: operations["PostInvoicesInvoiceSend"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/invoices/{invoice}/void": {
         parameters: {
@@ -2310,15 +2310,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to <a href="#delete_invoice">deletion</a>, however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.</p> */
         post: operations["PostInvoicesInvoiceVoid"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/issuing/authorizations": {
         parameters: {
@@ -2329,13 +2329,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of Issuing <code>Authorization</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
         get: operations["GetIssuingAuthorizations"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/issuing/authorizations/{authorization}": {
         parameters: {
@@ -2346,14 +2346,14 @@ export interface paths {
         };
         /** @description <p>Retrieves an Issuing <code>Authorization</code> object.</p> */
         get: operations["GetIssuingAuthorizationsAuthorization"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specified Issuing <code>Authorization</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
         post: operations["PostIssuingAuthorizationsAuthorization"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/issuing/authorizations/{authorization}/approve": {
         parameters: {
@@ -2362,16 +2362,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>[Deprecated] Approves a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real-time authorization</a> flow.
          *     This method is deprecated. Instead, <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">respond directly to the webhook request to approve an authorization</a>.</p> */
         post: operations["PostIssuingAuthorizationsAuthorizationApprove"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/issuing/authorizations/{authorization}/decline": {
         parameters: {
@@ -2380,16 +2380,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>[Deprecated] Declines a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real time authorization</a> flow.
          *     This method is deprecated. Instead, <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">respond directly to the webhook request to decline an authorization</a>.</p> */
         post: operations["PostIssuingAuthorizationsAuthorizationDecline"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/issuing/cardholders": {
         parameters: {
@@ -2400,14 +2400,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of Issuing <code>Cardholder</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
         get: operations["GetIssuingCardholders"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new Issuing <code>Cardholder</code> object that can be issued cards.</p> */
         post: operations["PostIssuingCardholders"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/issuing/cardholders/{cardholder}": {
         parameters: {
@@ -2418,14 +2418,14 @@ export interface paths {
         };
         /** @description <p>Retrieves an Issuing <code>Cardholder</code> object.</p> */
         get: operations["GetIssuingCardholdersCardholder"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specified Issuing <code>Cardholder</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
         post: operations["PostIssuingCardholdersCardholder"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/issuing/cards": {
         parameters: {
@@ -2436,14 +2436,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of Issuing <code>Card</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
         get: operations["GetIssuingCards"];
-        put: never;
+        put?: never;
         /** @description <p>Creates an Issuing <code>Card</code> object.</p> */
         post: operations["PostIssuingCards"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/issuing/cards/{card}": {
         parameters: {
@@ -2454,14 +2454,14 @@ export interface paths {
         };
         /** @description <p>Retrieves an Issuing <code>Card</code> object.</p> */
         get: operations["GetIssuingCardsCard"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specified Issuing <code>Card</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
         post: operations["PostIssuingCardsCard"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/issuing/disputes": {
         parameters: {
@@ -2472,14 +2472,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of Issuing <code>Dispute</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
         get: operations["GetIssuingDisputes"];
-        put: never;
+        put?: never;
         /** @description <p>Creates an Issuing <code>Dispute</code> object. Individual pieces of evidence within the <code>evidence</code> object are optional at this point. Stripe only validates that required evidence is present during submission. Refer to <a href="/docs/issuing/purchases/disputes#dispute-reasons-and-evidence">Dispute reasons and evidence</a> for more details about evidence requirements.</p> */
         post: operations["PostIssuingDisputes"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/issuing/disputes/{dispute}": {
         parameters: {
@@ -2490,14 +2490,14 @@ export interface paths {
         };
         /** @description <p>Retrieves an Issuing <code>Dispute</code> object.</p> */
         get: operations["GetIssuingDisputesDispute"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specified Issuing <code>Dispute</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the <code>evidence</code> object can be unset by passing in an empty string.</p> */
         post: operations["PostIssuingDisputesDispute"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/issuing/disputes/{dispute}/submit": {
         parameters: {
@@ -2506,15 +2506,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Submits an Issuing <code>Dispute</code> to the card network. Stripe validates that all evidence fields required for the dispute’s reason are present. For more details, see <a href="/docs/issuing/purchases/disputes#dispute-reasons-and-evidence">Dispute reasons and evidence</a>.</p> */
         post: operations["PostIssuingDisputesDisputeSubmit"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/issuing/settlements": {
         parameters: {
@@ -2525,13 +2525,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of Issuing <code>Settlement</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
         get: operations["GetIssuingSettlements"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/issuing/settlements/{settlement}": {
         parameters: {
@@ -2542,14 +2542,14 @@ export interface paths {
         };
         /** @description <p>Retrieves an Issuing <code>Settlement</code> object.</p> */
         get: operations["GetIssuingSettlementsSettlement"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specified Issuing <code>Settlement</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
         post: operations["PostIssuingSettlementsSettlement"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/issuing/transactions": {
         parameters: {
@@ -2560,13 +2560,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of Issuing <code>Transaction</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
         get: operations["GetIssuingTransactions"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/issuing/transactions/{transaction}": {
         parameters: {
@@ -2577,14 +2577,14 @@ export interface paths {
         };
         /** @description <p>Retrieves an Issuing <code>Transaction</code> object.</p> */
         get: operations["GetIssuingTransactionsTransaction"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specified Issuing <code>Transaction</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
         post: operations["PostIssuingTransactionsTransaction"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/link_account_sessions": {
         parameters: {
@@ -2593,15 +2593,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>To launch the Financial Connections authorization flow, create a <code>Session</code>. The session’s <code>client_secret</code> can be used to launch the flow using Stripe.js.</p> */
         post: operations["PostLinkAccountSessions"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/link_account_sessions/{session}": {
         parameters: {
@@ -2612,13 +2612,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of a Financial Connections <code>Session</code></p> */
         get: operations["GetLinkAccountSessionsSession"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/linked_accounts": {
         parameters: {
@@ -2629,13 +2629,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of Financial Connections <code>Account</code> objects.</p> */
         get: operations["GetLinkedAccounts"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/linked_accounts/{account}": {
         parameters: {
@@ -2646,13 +2646,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an Financial Connections <code>Account</code>.</p> */
         get: operations["GetLinkedAccountsAccount"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/linked_accounts/{account}/disconnect": {
         parameters: {
@@ -2661,15 +2661,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Disables your access to a Financial Connections <code>Account</code>. You will no longer be able to access data associated with the account (e.g. balances, transactions).</p> */
         post: operations["PostLinkedAccountsAccountDisconnect"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/linked_accounts/{account}/owners": {
         parameters: {
@@ -2680,13 +2680,13 @@ export interface paths {
         };
         /** @description <p>Lists all owners for a given <code>Account</code></p> */
         get: operations["GetLinkedAccountsAccountOwners"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/linked_accounts/{account}/refresh": {
         parameters: {
@@ -2695,15 +2695,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Refreshes the data associated with a Financial Connections <code>Account</code>.</p> */
         post: operations["PostLinkedAccountsAccountRefresh"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/mandates/{mandate}": {
         parameters: {
@@ -2714,13 +2714,13 @@ export interface paths {
         };
         /** @description <p>Retrieves a Mandate object.</p> */
         get: operations["GetMandatesMandate"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_intents": {
         parameters: {
@@ -2731,7 +2731,7 @@ export interface paths {
         };
         /** @description <p>Returns a list of PaymentIntents.</p> */
         get: operations["GetPaymentIntents"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a PaymentIntent object.</p>
          *
          *     <p>After the PaymentIntent is created, attach a payment method and <a href="/docs/api/payment_intents/confirm">confirm</a>
@@ -2743,11 +2743,11 @@ export interface paths {
          *     available in the <a href="/docs/api/payment_intents/confirm">confirm API</a> when you supply
          *     <code>confirm=true</code>.</p> */
         post: operations["PostPaymentIntents"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_intents/search": {
         parameters: {
@@ -2761,13 +2761,13 @@ export interface paths {
          *     conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
          *     to an hour behind during outages. Search functionality is not available to merchants in India.</p> */
         get: operations["GetPaymentIntentsSearch"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_intents/{intent}": {
         parameters: {
@@ -2782,7 +2782,7 @@ export interface paths {
          *
          *     <p>If you retrieve a PaymentIntent with a publishable key, it only returns a subset of properties. Refer to the <a href="#payment_intent_object">payment intent</a> object reference for more details.</p> */
         get: operations["GetPaymentIntentsIntent"];
-        put: never;
+        put?: never;
         /** @description <p>Updates properties on a PaymentIntent object without confirming.</p>
          *
          *     <p>Depending on which properties you update, you might need to confirm the
@@ -2791,11 +2791,11 @@ export interface paths {
          *     update and confirm at the same time, we recommend updating properties through
          *     the <a href="/docs/api/payment_intents/confirm">confirm API</a> instead.</p> */
         post: operations["PostPaymentIntentsIntent"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_intents/{intent}/apply_customer_balance": {
         parameters: {
@@ -2804,15 +2804,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Manually reconcile the remaining amount for a <code>customer_balance</code> PaymentIntent.</p> */
         post: operations["PostPaymentIntentsIntentApplyCustomerBalance"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_intents/{intent}/cancel": {
         parameters: {
@@ -2821,19 +2821,19 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>You can cancel a PaymentIntent object when it’s in one of these statuses: <code>requires_payment_method</code>, <code>requires_capture</code>, <code>requires_confirmation</code>, <code>requires_action</code> or, <a href="/docs/payments/intents">in rare cases</a>, <code>processing</code>. </p>
          *
          *     <p>After it’s canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a <code>status</code> of <code>requires_capture</code>, the remaining <code>amount_capturable</code> is automatically refunded. </p>
          *
          *     <p>You can’t cancel the PaymentIntent for a Checkout Session. <a href="/docs/api/checkout/sessions/expire">Expire the Checkout Session</a> instead.</p> */
         post: operations["PostPaymentIntentsIntentCancel"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_intents/{intent}/capture": {
         parameters: {
@@ -2842,19 +2842,19 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Capture the funds of an existing uncaptured PaymentIntent when its status is <code>requires_capture</code>.</p>
          *
          *     <p>Uncaptured PaymentIntents are cancelled a set number of days (7 by default) after their creation.</p>
          *
          *     <p>Learn more about <a href="/docs/payments/capture-later">separate authorization and capture</a>.</p> */
         post: operations["PostPaymentIntentsIntentCapture"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_intents/{intent}/confirm": {
         parameters: {
@@ -2863,8 +2863,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Confirm that your customer intends to pay with current or provided
          *     payment method. Upon confirmation, the PaymentIntent will attempt to initiate
          *     a payment.
@@ -2889,11 +2889,11 @@ export interface paths {
          *     attempt. Read the <a href="/docs/payments/payment-intents/web-manual">expanded documentation</a>
          *     to learn more about manual confirmation.</p> */
         post: operations["PostPaymentIntentsIntentConfirm"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_intents/{intent}/increment_authorization": {
         parameters: {
@@ -2902,8 +2902,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Perform an incremental authorization on an eligible
          *     <a href="/docs/api/payment_intents/object">PaymentIntent</a>. To be eligible, the
          *     PaymentIntent’s status must be <code>requires_capture</code> and
@@ -2929,11 +2929,11 @@ export interface paths {
          *
          *     <p>Learn more about <a href="/docs/terminal/features/incremental-authorizations">incremental authorizations</a>.</p> */
         post: operations["PostPaymentIntentsIntentIncrementAuthorization"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_intents/{intent}/verify_microdeposits": {
         parameters: {
@@ -2942,15 +2942,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Verifies microdeposits on a PaymentIntent object.</p> */
         post: operations["PostPaymentIntentsIntentVerifyMicrodeposits"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_links": {
         parameters: {
@@ -2961,14 +2961,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of your payment links.</p> */
         get: operations["GetPaymentLinks"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a payment link.</p> */
         post: operations["PostPaymentLinks"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_links/{payment_link}": {
         parameters: {
@@ -2979,14 +2979,14 @@ export interface paths {
         };
         /** @description <p>Retrieve a payment link.</p> */
         get: operations["GetPaymentLinksPaymentLink"];
-        put: never;
+        put?: never;
         /** @description <p>Updates a payment link.</p> */
         post: operations["PostPaymentLinksPaymentLink"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_links/{payment_link}/line_items": {
         parameters: {
@@ -2997,13 +2997,13 @@ export interface paths {
         };
         /** @description <p>When retrieving a payment link, there is an includable <strong>line_items</strong> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
         get: operations["GetPaymentLinksPaymentLinkLineItems"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_method_configurations": {
         parameters: {
@@ -3014,14 +3014,14 @@ export interface paths {
         };
         /** @description <p>List payment method configurations</p> */
         get: operations["GetPaymentMethodConfigurations"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a payment method configuration</p> */
         post: operations["PostPaymentMethodConfigurations"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_method_configurations/{configuration}": {
         parameters: {
@@ -3032,14 +3032,14 @@ export interface paths {
         };
         /** @description <p>Retrieve payment method configuration</p> */
         get: operations["GetPaymentMethodConfigurationsConfiguration"];
-        put: never;
+        put?: never;
         /** @description <p>Update payment method configuration</p> */
         post: operations["PostPaymentMethodConfigurationsConfiguration"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_method_domains": {
         parameters: {
@@ -3050,14 +3050,14 @@ export interface paths {
         };
         /** @description <p>Lists the details of existing payment method domains.</p> */
         get: operations["GetPaymentMethodDomains"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a payment method domain.</p> */
         post: operations["PostPaymentMethodDomains"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_method_domains/{payment_method_domain}": {
         parameters: {
@@ -3068,14 +3068,14 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing payment method domain.</p> */
         get: operations["GetPaymentMethodDomainsPaymentMethodDomain"];
-        put: never;
+        put?: never;
         /** @description <p>Updates an existing payment method domain.</p> */
         post: operations["PostPaymentMethodDomainsPaymentMethodDomain"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_method_domains/{payment_method_domain}/validate": {
         parameters: {
@@ -3084,8 +3084,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren’t satisfied when the domain was created, the payment method will be inactive on the domain.
          *     The payment method doesn’t appear in Elements for this domain until it is active.</p>
          *
@@ -3093,11 +3093,11 @@ export interface paths {
          *
          *     <p>Related guides: <a href="/docs/payments/payment-methods/pmd-registration">Payment method domains</a>.</p> */
         post: operations["PostPaymentMethodDomainsPaymentMethodDomainValidate"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_methods": {
         parameters: {
@@ -3108,16 +3108,16 @@ export interface paths {
         };
         /** @description <p>Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the <a href="/docs/api/payment_methods/customer_list">List a Customer’s PaymentMethods</a> API instead.</p> */
         get: operations["GetPaymentMethods"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a PaymentMethod object. Read the <a href="/docs/stripe-js/reference#stripe-create-payment-method">Stripe.js reference</a> to learn how to create PaymentMethods via Stripe.js.</p>
          *
          *     <p>Instead of creating a PaymentMethod directly, we recommend using the <a href="/docs/payments/accept-a-payment">PaymentIntents</a> API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent</a> API to collect payment method details ahead of a future payment.</p> */
         post: operations["PostPaymentMethods"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_methods/{payment_method}": {
         parameters: {
@@ -3128,14 +3128,14 @@ export interface paths {
         };
         /** @description <p>Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use <a href="/docs/api/payment_methods/customer">Retrieve a Customer’s PaymentMethods</a></p> */
         get: operations["GetPaymentMethodsPaymentMethod"];
-        put: never;
+        put?: never;
         /** @description <p>Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.</p> */
         post: operations["PostPaymentMethodsPaymentMethod"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_methods/{payment_method}/attach": {
         parameters: {
@@ -3144,8 +3144,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Attaches a PaymentMethod object to a Customer.</p>
          *
          *     <p>To attach a new PaymentMethod to a customer for future payments, we recommend you use a <a href="/docs/api/setup_intents">SetupIntent</a>
@@ -3160,11 +3160,11 @@ export interface paths {
          *     set <a href="/docs/api/customers/update#update_customer-invoice_settings-default_payment_method"><code>invoice_settings.default_payment_method</code></a>,
          *     on the Customer to the PaymentMethod’s ID.</p> */
         post: operations["PostPaymentMethodsPaymentMethodAttach"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payment_methods/{payment_method}/detach": {
         parameters: {
@@ -3173,15 +3173,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.</p> */
         post: operations["PostPaymentMethodsPaymentMethodDetach"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payouts": {
         parameters: {
@@ -3192,18 +3192,18 @@ export interface paths {
         };
         /** @description <p>Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.</p> */
         get: operations["GetPayouts"];
-        put: never;
+        put?: never;
         /** @description <p>To send funds to your own bank account, create a new payout object. Your <a href="#balance">Stripe balance</a> must cover the payout amount. If it doesn’t, you receive an “Insufficient Funds” error.</p>
          *
          *     <p>If your API key is in test mode, money won’t actually be sent, though every other action occurs as if you’re in live mode.</p>
          *
          *     <p>If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The <a href="#balance_object">balance object</a> details available and pending amounts by source type.</p> */
         post: operations["PostPayouts"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payouts/{payout}": {
         parameters: {
@@ -3214,14 +3214,14 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.</p> */
         get: operations["GetPayoutsPayout"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specified payout by setting the values of the parameters you pass. We don’t change parameters that you don’t provide. This request only accepts the metadata as arguments.</p> */
         post: operations["PostPayoutsPayout"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payouts/{payout}/cancel": {
         parameters: {
@@ -3230,15 +3230,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>You can cancel a previously created payout if it hasn’t been paid out yet. Stripe refunds the funds to your available balance. You can’t cancel automatic Stripe payouts.</p> */
         post: operations["PostPayoutsPayoutCancel"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/payouts/{payout}/reverse": {
         parameters: {
@@ -3247,17 +3247,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is in the <code>pending</code> status, use <code>/v1/payouts/:id/cancel</code> instead.</p>
          *
          *     <p>By requesting a reversal through <code>/v1/payouts/:id/reverse</code>, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.</p> */
         post: operations["PostPayoutsPayoutReverse"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/plans": {
         parameters: {
@@ -3268,14 +3268,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of your plans.</p> */
         get: operations["GetPlans"];
-        put: never;
+        put?: never;
         /** @description <p>You can now model subscriptions more flexibly using the <a href="#prices">Prices API</a>. It replaces the Plans API and is backwards compatible to simplify your migration.</p> */
         post: operations["PostPlans"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/plans/{plan}": {
         parameters: {
@@ -3286,15 +3286,15 @@ export interface paths {
         };
         /** @description <p>Retrieves the plan with the given ID.</p> */
         get: operations["GetPlansPlan"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan’s ID, amount, currency, or billing cycle.</p> */
         post: operations["PostPlansPlan"];
         /** @description <p>Deleting plans means new subscribers can’t be added. Existing subscribers aren’t affected.</p> */
         delete: operations["DeletePlansPlan"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/prices": {
         parameters: {
@@ -3305,14 +3305,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of your prices.</p> */
         get: operations["GetPrices"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new price for an existing product. The price can be recurring or one-time.</p> */
         post: operations["PostPrices"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/prices/search": {
         parameters: {
@@ -3326,13 +3326,13 @@ export interface paths {
          *     conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
          *     to an hour behind during outages. Search functionality is not available to merchants in India.</p> */
         get: operations["GetPricesSearch"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/prices/{price}": {
         parameters: {
@@ -3343,14 +3343,14 @@ export interface paths {
         };
         /** @description <p>Retrieves the price with the given ID.</p> */
         get: operations["GetPricesPrice"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.</p> */
         post: operations["PostPricesPrice"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/products": {
         parameters: {
@@ -3361,14 +3361,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.</p> */
         get: operations["GetProducts"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new product object.</p> */
         post: operations["PostProducts"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/products/search": {
         parameters: {
@@ -3382,13 +3382,13 @@ export interface paths {
          *     conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
          *     to an hour behind during outages. Search functionality is not available to merchants in India.</p> */
         get: operations["GetProductsSearch"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/products/{id}": {
         parameters: {
@@ -3399,15 +3399,15 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.</p> */
         get: operations["GetProductsId"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
         post: operations["PostProductsId"];
         /** @description <p>Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with <code>type=good</code> is only possible if it has no SKUs associated with it.</p> */
         delete: operations["DeleteProductsId"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/promotion_codes": {
         parameters: {
@@ -3418,14 +3418,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of your promotion codes.</p> */
         get: operations["GetPromotionCodes"];
-        put: never;
+        put?: never;
         /** @description <p>A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.</p> */
         post: operations["PostPromotionCodes"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/promotion_codes/{promotion_code}": {
         parameters: {
@@ -3436,14 +3436,14 @@ export interface paths {
         };
         /** @description <p>Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing <code>code</code> use <a href="/docs/api/promotion_codes/list">list</a> with the desired <code>code</code>.</p> */
         get: operations["GetPromotionCodesPromotionCode"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.</p> */
         post: operations["PostPromotionCodesPromotionCode"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/quotes": {
         parameters: {
@@ -3454,14 +3454,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of your quotes.</p> */
         get: operations["GetQuotes"];
-        put: never;
+        put?: never;
         /** @description <p>A quote models prices and services for a customer. Default options for <code>header</code>, <code>description</code>, <code>footer</code>, and <code>expires_at</code> can be set in the dashboard via the <a href="https://dashboard.stripe.com/settings/billing/quote">quote template</a>.</p> */
         post: operations["PostQuotes"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/quotes/{quote}": {
         parameters: {
@@ -3472,14 +3472,14 @@ export interface paths {
         };
         /** @description <p>Retrieves the quote with the given ID.</p> */
         get: operations["GetQuotesQuote"];
-        put: never;
+        put?: never;
         /** @description <p>A quote models prices and services for a customer.</p> */
         post: operations["PostQuotesQuote"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/quotes/{quote}/accept": {
         parameters: {
@@ -3488,15 +3488,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Accepts the specified quote.</p> */
         post: operations["PostQuotesQuoteAccept"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/quotes/{quote}/cancel": {
         parameters: {
@@ -3505,15 +3505,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Cancels the quote.</p> */
         post: operations["PostQuotesQuoteCancel"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/quotes/{quote}/computed_upfront_line_items": {
         parameters: {
@@ -3524,13 +3524,13 @@ export interface paths {
         };
         /** @description <p>When retrieving a quote, there is an includable <a href="https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items"><strong>computed.upfront.line_items</strong></a> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.</p> */
         get: operations["GetQuotesQuoteComputedUpfrontLineItems"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/quotes/{quote}/finalize": {
         parameters: {
@@ -3539,15 +3539,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Finalizes the quote.</p> */
         post: operations["PostQuotesQuoteFinalize"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/quotes/{quote}/line_items": {
         parameters: {
@@ -3558,13 +3558,13 @@ export interface paths {
         };
         /** @description <p>When retrieving a quote, there is an includable <strong>line_items</strong> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
         get: operations["GetQuotesQuoteLineItems"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/quotes/{quote}/pdf": {
         parameters: {
@@ -3575,13 +3575,13 @@ export interface paths {
         };
         /** @description <p>Download the PDF for a finalized quote</p> */
         get: operations["GetQuotesQuotePdf"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/radar/early_fraud_warnings": {
         parameters: {
@@ -3592,13 +3592,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of early fraud warnings.</p> */
         get: operations["GetRadarEarlyFraudWarnings"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/radar/early_fraud_warnings/{early_fraud_warning}": {
         parameters: {
@@ -3611,13 +3611,13 @@ export interface paths {
          *
          *     <p>Please refer to the <a href="#early_fraud_warning_object">early fraud warning</a> object reference for more details.</p> */
         get: operations["GetRadarEarlyFraudWarningsEarlyFraudWarning"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/radar/value_list_items": {
         parameters: {
@@ -3628,14 +3628,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of <code>ValueListItem</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
         get: operations["GetRadarValueListItems"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new <code>ValueListItem</code> object, which is added to the specified parent value list.</p> */
         post: operations["PostRadarValueListItems"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/radar/value_list_items/{item}": {
         parameters: {
@@ -3646,14 +3646,14 @@ export interface paths {
         };
         /** @description <p>Retrieves a <code>ValueListItem</code> object.</p> */
         get: operations["GetRadarValueListItemsItem"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /** @description <p>Deletes a <code>ValueListItem</code> object, removing it from its parent value list.</p> */
         delete: operations["DeleteRadarValueListItemsItem"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/radar/value_lists": {
         parameters: {
@@ -3664,14 +3664,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of <code>ValueList</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
         get: operations["GetRadarValueLists"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new <code>ValueList</code> object, which can then be referenced in rules.</p> */
         post: operations["PostRadarValueLists"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/radar/value_lists/{value_list}": {
         parameters: {
@@ -3682,15 +3682,15 @@ export interface paths {
         };
         /** @description <p>Retrieves a <code>ValueList</code> object.</p> */
         get: operations["GetRadarValueListsValueList"];
-        put: never;
+        put?: never;
         /** @description <p>Updates a <code>ValueList</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that <code>item_type</code> is immutable.</p> */
         post: operations["PostRadarValueListsValueList"];
         /** @description <p>Deletes a <code>ValueList</code> object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.</p> */
         delete: operations["DeleteRadarValueListsValueList"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/refunds": {
         parameters: {
@@ -3701,7 +3701,7 @@ export interface paths {
         };
         /** @description <p>Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first The 10 most recent refunds are always available by default on the Charge object.</p> */
         get: operations["GetRefunds"];
-        put: never;
+        put?: never;
         /** @description <p>When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.</p>
          *
          *     <p>Creating a new refund will refund a charge that has previously been created but not yet refunded.
@@ -3714,11 +3714,11 @@ export interface paths {
          *     This method will raise an error when called on an already-refunded charge,
          *     or when trying to refund more money than is left on a charge.</p> */
         post: operations["PostRefunds"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/refunds/{refund}": {
         parameters: {
@@ -3729,16 +3729,16 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing refund.</p> */
         get: operations["GetRefundsRefund"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don’t provide remain unchanged.</p>
          *
          *     <p>This request only accepts <code>metadata</code> as an argument.</p> */
         post: operations["PostRefundsRefund"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/refunds/{refund}/cancel": {
         parameters: {
@@ -3747,17 +3747,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Cancels a refund with a status of <code>requires_action</code>.</p>
          *
          *     <p>You can’t cancel refunds in other states. Only refunds for payment methods that require customer action can enter the <code>requires_action</code> state.</p> */
         post: operations["PostRefundsRefundCancel"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/reporting/report_runs": {
         parameters: {
@@ -3768,14 +3768,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of Report Runs, with the most recent appearing first.</p> */
         get: operations["GetReportingReportRuns"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new object and begin running the report. (Certain report types require a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p> */
         post: operations["PostReportingReportRuns"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/reporting/report_runs/{report_run}": {
         parameters: {
@@ -3786,13 +3786,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing Report Run.</p> */
         get: operations["GetReportingReportRunsReportRun"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/reporting/report_types": {
         parameters: {
@@ -3803,13 +3803,13 @@ export interface paths {
         };
         /** @description <p>Returns a full list of Report Types.</p> */
         get: operations["GetReportingReportTypes"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/reporting/report_types/{report_type}": {
         parameters: {
@@ -3820,13 +3820,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of a Report Type. (Certain report types require a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p> */
         get: operations["GetReportingReportTypesReportType"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/reviews": {
         parameters: {
@@ -3837,13 +3837,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of <code>Review</code> objects that have <code>open</code> set to <code>true</code>. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
         get: operations["GetReviews"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/reviews/{review}": {
         parameters: {
@@ -3854,13 +3854,13 @@ export interface paths {
         };
         /** @description <p>Retrieves a <code>Review</code> object.</p> */
         get: operations["GetReviewsReview"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/reviews/{review}/approve": {
         parameters: {
@@ -3869,15 +3869,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Approves a <code>Review</code> object, closing it and removing it from the list of reviews.</p> */
         post: operations["PostReviewsReviewApprove"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/setup_attempts": {
         parameters: {
@@ -3888,13 +3888,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of SetupAttempts that associate with a provided SetupIntent.</p> */
         get: operations["GetSetupAttempts"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/setup_intents": {
         parameters: {
@@ -3905,17 +3905,17 @@ export interface paths {
         };
         /** @description <p>Returns a list of SetupIntents.</p> */
         get: operations["GetSetupIntents"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a SetupIntent object.</p>
          *
          *     <p>After the SetupIntent is created, attach a payment method and <a href="/docs/api/setup_intents/confirm">confirm</a>
          *     to collect any required permissions to charge the payment method later.</p> */
         post: operations["PostSetupIntents"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/setup_intents/{intent}": {
         parameters: {
@@ -3930,14 +3930,14 @@ export interface paths {
          *
          *     <p>When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the <a href="#setup_intent_object">SetupIntent</a> object reference for more details.</p> */
         get: operations["GetSetupIntentsIntent"];
-        put: never;
+        put?: never;
         /** @description <p>Updates a SetupIntent object.</p> */
         post: operations["PostSetupIntentsIntent"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/setup_intents/{intent}/cancel": {
         parameters: {
@@ -3946,17 +3946,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>A SetupIntent object can be canceled when it is in one of these statuses: <code>requires_payment_method</code>, <code>requires_confirmation</code>, or <code>requires_action</code>. </p>
          *
          *     <p>Once canceled, setup is abandoned and any operations on the SetupIntent will fail with an error.</p> */
         post: operations["PostSetupIntentsIntentCancel"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/setup_intents/{intent}/confirm": {
         parameters: {
@@ -3965,8 +3965,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Confirm that your customer intends to set up the current or
          *     provided payment method. For example, you would confirm a SetupIntent
          *     when a customer hits the “Save” button on a payment method management
@@ -3982,11 +3982,11 @@ export interface paths {
          *     <code>requires_payment_method</code> status or the <code>canceled</code> status if the
          *     confirmation limit is reached.</p> */
         post: operations["PostSetupIntentsIntentConfirm"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/setup_intents/{intent}/verify_microdeposits": {
         parameters: {
@@ -3995,15 +3995,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Verifies microdeposits on a SetupIntent object.</p> */
         post: operations["PostSetupIntentsIntentVerifyMicrodeposits"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/shipping_rates": {
         parameters: {
@@ -4014,14 +4014,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of your shipping rates.</p> */
         get: operations["GetShippingRates"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new shipping rate object.</p> */
         post: operations["PostShippingRates"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/shipping_rates/{shipping_rate_token}": {
         parameters: {
@@ -4032,14 +4032,14 @@ export interface paths {
         };
         /** @description <p>Returns the shipping rate object with the given ID.</p> */
         get: operations["GetShippingRatesShippingRateToken"];
-        put: never;
+        put?: never;
         /** @description <p>Updates an existing shipping rate object.</p> */
         post: operations["PostShippingRatesShippingRateToken"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/sigma/scheduled_query_runs": {
         parameters: {
@@ -4050,13 +4050,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of scheduled query runs.</p> */
         get: operations["GetSigmaScheduledQueryRuns"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/sigma/scheduled_query_runs/{scheduled_query_run}": {
         parameters: {
@@ -4067,13 +4067,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an scheduled query run.</p> */
         get: operations["GetSigmaScheduledQueryRunsScheduledQueryRun"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/sources": {
         parameters: {
@@ -4082,15 +4082,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Creates a new source object.</p> */
         post: operations["PostSources"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/sources/{source}": {
         parameters: {
@@ -4101,16 +4101,16 @@ export interface paths {
         };
         /** @description <p>Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information.</p> */
         get: operations["GetSourcesSource"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
          *
          *     <p>This request accepts the <code>metadata</code> and <code>owner</code> as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our <a href="/docs/sources">payment method guides</a> for more detail.</p> */
         post: operations["PostSourcesSource"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/sources/{source}/mandate_notifications/{mandate_notification}": {
         parameters: {
@@ -4121,13 +4121,13 @@ export interface paths {
         };
         /** @description <p>Retrieves a new Source MandateNotification.</p> */
         get: operations["GetSourcesSourceMandateNotificationsMandateNotification"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/sources/{source}/source_transactions": {
         parameters: {
@@ -4138,13 +4138,13 @@ export interface paths {
         };
         /** @description <p>List source transactions for a given source.</p> */
         get: operations["GetSourcesSourceSourceTransactions"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/sources/{source}/source_transactions/{source_transaction}": {
         parameters: {
@@ -4155,13 +4155,13 @@ export interface paths {
         };
         /** @description <p>Retrieve an existing source transaction object. Supply the unique source ID from a source creation request and the source transaction ID and Stripe will return the corresponding up-to-date source object information.</p> */
         get: operations["GetSourcesSourceSourceTransactionsSourceTransaction"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/sources/{source}/verify": {
         parameters: {
@@ -4170,15 +4170,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Verify a given source.</p> */
         post: operations["PostSourcesSourceVerify"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/subscription_items": {
         parameters: {
@@ -4189,14 +4189,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of your subscription items for a given subscription.</p> */
         get: operations["GetSubscriptionItems"];
-        put: never;
+        put?: never;
         /** @description <p>Adds a new item to an existing subscription. No existing items will be changed or replaced.</p> */
         post: operations["PostSubscriptionItems"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/subscription_items/{item}": {
         parameters: {
@@ -4207,15 +4207,15 @@ export interface paths {
         };
         /** @description <p>Retrieves the subscription item with the given ID.</p> */
         get: operations["GetSubscriptionItemsItem"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the plan or quantity of an item on a current subscription.</p> */
         post: operations["PostSubscriptionItemsItem"];
         /** @description <p>Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.</p> */
         delete: operations["DeleteSubscriptionItemsItem"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/subscription_items/{subscription_item}/usage_record_summaries": {
         parameters: {
@@ -4228,13 +4228,13 @@ export interface paths {
          *
          *     <p>The list is sorted in reverse-chronological order (newest first). The first list item represents the most current usage period that hasn’t ended yet. Since new usage records can still be added, the returned summary information for the subscription item’s ID should be seen as unstable until the subscription billing period ends.</p> */
         get: operations["GetSubscriptionItemsSubscriptionItemUsageRecordSummaries"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/subscription_items/{subscription_item}/usage_records": {
         parameters: {
@@ -4243,8 +4243,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Creates a usage record for a specified subscription item and date, and fills it with a quantity.</p>
          *
          *     <p>Usage records provide <code>quantity</code> information that Stripe uses to track how much a customer is using your service. With usage information and the pricing model set up by the <a href="https://stripe.com/docs/billing/subscriptions/metered-billing">metered billing</a> plan, Stripe helps you send accurate invoices to your customers.</p>
@@ -4253,11 +4253,11 @@ export interface paths {
          *
          *     <p>The default pricing model for metered billing is <a href="/docs/api/plans/object#plan_object-billing_scheme">per-unit pricing</a>. For finer granularity, you can configure metered billing to have a <a href="https://stripe.com/docs/billing/subscriptions/tiers">tiered pricing</a> model.</p> */
         post: operations["PostSubscriptionItemsSubscriptionItemUsageRecords"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/subscription_schedules": {
         parameters: {
@@ -4268,14 +4268,14 @@ export interface paths {
         };
         /** @description <p>Retrieves the list of your subscription schedules.</p> */
         get: operations["GetSubscriptionSchedules"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.</p> */
         post: operations["PostSubscriptionSchedules"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/subscription_schedules/{schedule}": {
         parameters: {
@@ -4286,14 +4286,14 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation.</p> */
         get: operations["GetSubscriptionSchedulesSchedule"];
-        put: never;
+        put?: never;
         /** @description <p>Updates an existing subscription schedule.</p> */
         post: operations["PostSubscriptionSchedulesSchedule"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/subscription_schedules/{schedule}/cancel": {
         parameters: {
@@ -4302,15 +4302,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is <code>not_started</code> or <code>active</code>.</p> */
         post: operations["PostSubscriptionSchedulesScheduleCancel"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/subscription_schedules/{schedule}/release": {
         parameters: {
@@ -4319,15 +4319,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is <code>not_started</code> or <code>active</code>. If the subscription schedule is currently associated with a subscription, releasing it will remove its <code>subscription</code> property and set the subscription’s ID to the <code>released_subscription</code> property.</p> */
         post: operations["PostSubscriptionSchedulesScheduleRelease"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/subscriptions": {
         parameters: {
@@ -4338,7 +4338,7 @@ export interface paths {
         };
         /** @description <p>By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify <code>status=canceled</code>.</p> */
         get: operations["GetSubscriptions"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.</p>
          *
          *     <p>When you create a subscription with <code>collection_method=charge_automatically</code>, the first invoice is finalized as part of the request.
@@ -4347,11 +4347,11 @@ export interface paths {
          *     <p>To start subscriptions where the first invoice always begins in a <code>draft</code> status, use <a href="/docs/billing/subscriptions/subscription-schedules#managing">subscription schedules</a> instead.
          *     Schedules provide the flexibility to model more complex billing configurations that change over time.</p> */
         post: operations["PostSubscriptions"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/subscriptions/search": {
         parameters: {
@@ -4365,13 +4365,13 @@ export interface paths {
          *     conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
          *     to an hour behind during outages. Search functionality is not available to merchants in India.</p> */
         get: operations["GetSubscriptionsSearch"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/subscriptions/{subscription_exposed_id}": {
         parameters: {
@@ -4382,7 +4382,7 @@ export interface paths {
         };
         /** @description <p>Retrieves the subscription with the given ID.</p> */
         get: operations["GetSubscriptionsSubscriptionExposedId"];
-        put: never;
+        put?: never;
         /** @description <p>Updates an existing subscription on a customer to match the specified parameters. When changing plans or quantities, we will optionally prorate the price we charge next month to make up for any price changes. To preview how the proration will be calculated, use the <a href="#upcoming_invoice">upcoming invoice</a> endpoint.</p> */
         post: operations["PostSubscriptionsSubscriptionExposedId"];
         /** @description <p>Cancels a customer’s subscription immediately. The customer will not be charged again for the subscription.</p>
@@ -4391,10 +4391,10 @@ export interface paths {
          *
          *     <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p> */
         delete: operations["DeleteSubscriptionsSubscriptionExposedId"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/subscriptions/{subscription_exposed_id}/discount": {
         parameters: {
@@ -4403,15 +4403,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
+        get?: never;
+        put?: never;
+        post?: never;
         /** @description <p>Removes the currently applied discount on a subscription.</p> */
         delete: operations["DeleteSubscriptionsSubscriptionExposedIdDiscount"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/subscriptions/{subscription}/resume": {
         parameters: {
@@ -4420,15 +4420,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become <code>active</code>, and if payment fails the subscription will be <code>past_due</code>. The resumption invoice will void automatically if not paid by the expiration date.</p> */
         post: operations["PostSubscriptionsSubscriptionResume"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/tax/calculations": {
         parameters: {
@@ -4437,15 +4437,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Calculates tax based on input and returns a Tax <code>Calculation</code> object.</p> */
         post: operations["PostTaxCalculations"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/tax/calculations/{calculation}/line_items": {
         parameters: {
@@ -4456,13 +4456,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the line items of a persisted tax calculation as a collection.</p> */
         get: operations["GetTaxCalculationsCalculationLineItems"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/tax/settings": {
         parameters: {
@@ -4473,14 +4473,14 @@ export interface paths {
         };
         /** @description <p>Retrieves Tax <code>Settings</code> for a merchant.</p> */
         get: operations["GetTaxSettings"];
-        put: never;
+        put?: never;
         /** @description <p>Updates Tax <code>Settings</code> parameters used in tax calculations. All parameters are editable but none can be removed once set.</p> */
         post: operations["PostTaxSettings"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/tax/transactions/create_from_calculation": {
         parameters: {
@@ -4489,15 +4489,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Creates a Tax <code>Transaction</code> from a calculation.</p> */
         post: operations["PostTaxTransactionsCreateFromCalculation"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/tax/transactions/create_reversal": {
         parameters: {
@@ -4506,15 +4506,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Partially or fully reverses a previously created <code>Transaction</code>.</p> */
         post: operations["PostTaxTransactionsCreateReversal"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/tax/transactions/{transaction}": {
         parameters: {
@@ -4525,13 +4525,13 @@ export interface paths {
         };
         /** @description <p>Retrieves a Tax <code>Transaction</code> object.</p> */
         get: operations["GetTaxTransactionsTransaction"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/tax/transactions/{transaction}/line_items": {
         parameters: {
@@ -4542,13 +4542,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the line items of a committed standalone transaction as a collection.</p> */
         get: operations["GetTaxTransactionsTransactionLineItems"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/tax_codes": {
         parameters: {
@@ -4559,13 +4559,13 @@ export interface paths {
         };
         /** @description <p>A list of <a href="https://stripe.com/docs/tax/tax-categories">all tax codes available</a> to add to Products in order to allow specific tax calculations.</p> */
         get: operations["GetTaxCodes"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/tax_codes/{id}": {
         parameters: {
@@ -4576,13 +4576,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing tax code. Supply the unique tax code ID and Stripe will return the corresponding tax code information.</p> */
         get: operations["GetTaxCodesId"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/tax_rates": {
         parameters: {
@@ -4593,14 +4593,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.</p> */
         get: operations["GetTaxRates"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new tax rate.</p> */
         post: operations["PostTaxRates"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/tax_rates/{tax_rate}": {
         parameters: {
@@ -4611,14 +4611,14 @@ export interface paths {
         };
         /** @description <p>Retrieves a tax rate with the given ID</p> */
         get: operations["GetTaxRatesTaxRate"];
-        put: never;
+        put?: never;
         /** @description <p>Updates an existing tax rate.</p> */
         post: operations["PostTaxRatesTaxRate"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/terminal/configurations": {
         parameters: {
@@ -4629,14 +4629,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of <code>Configuration</code> objects.</p> */
         get: operations["GetTerminalConfigurations"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new <code>Configuration</code> object.</p> */
         post: operations["PostTerminalConfigurations"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/terminal/configurations/{configuration}": {
         parameters: {
@@ -4647,15 +4647,15 @@ export interface paths {
         };
         /** @description <p>Retrieves a <code>Configuration</code> object.</p> */
         get: operations["GetTerminalConfigurationsConfiguration"];
-        put: never;
+        put?: never;
         /** @description <p>Updates a new <code>Configuration</code> object.</p> */
         post: operations["PostTerminalConfigurationsConfiguration"];
         /** @description <p>Deletes a <code>Configuration</code> object.</p> */
         delete: operations["DeleteTerminalConfigurationsConfiguration"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/terminal/connection_tokens": {
         parameters: {
@@ -4664,15 +4664,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>To connect to a reader the Stripe Terminal SDK needs to retrieve a short-lived connection token from Stripe, proxied through your server. On your backend, add an endpoint that creates and returns a connection token.</p> */
         post: operations["PostTerminalConnectionTokens"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/terminal/locations": {
         parameters: {
@@ -4683,15 +4683,15 @@ export interface paths {
         };
         /** @description <p>Returns a list of <code>Location</code> objects.</p> */
         get: operations["GetTerminalLocations"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new <code>Location</code> object.
          *     For further details, including which address fields are required in each country, see the <a href="/docs/terminal/fleet/locations">Manage locations</a> guide.</p> */
         post: operations["PostTerminalLocations"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/terminal/locations/{location}": {
         parameters: {
@@ -4702,15 +4702,15 @@ export interface paths {
         };
         /** @description <p>Retrieves a <code>Location</code> object.</p> */
         get: operations["GetTerminalLocationsLocation"];
-        put: never;
+        put?: never;
         /** @description <p>Updates a <code>Location</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
         post: operations["PostTerminalLocationsLocation"];
         /** @description <p>Deletes a <code>Location</code> object.</p> */
         delete: operations["DeleteTerminalLocationsLocation"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/terminal/readers": {
         parameters: {
@@ -4721,14 +4721,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of <code>Reader</code> objects.</p> */
         get: operations["GetTerminalReaders"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new <code>Reader</code> object.</p> */
         post: operations["PostTerminalReaders"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/terminal/readers/{reader}": {
         parameters: {
@@ -4739,15 +4739,15 @@ export interface paths {
         };
         /** @description <p>Retrieves a <code>Reader</code> object.</p> */
         get: operations["GetTerminalReadersReader"];
-        put: never;
+        put?: never;
         /** @description <p>Updates a <code>Reader</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
         post: operations["PostTerminalReadersReader"];
         /** @description <p>Deletes a <code>Reader</code> object.</p> */
         delete: operations["DeleteTerminalReadersReader"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/terminal/readers/{reader}/cancel_action": {
         parameters: {
@@ -4756,15 +4756,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Cancels the current reader action.</p> */
         post: operations["PostTerminalReadersReaderCancelAction"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/terminal/readers/{reader}/process_payment_intent": {
         parameters: {
@@ -4773,15 +4773,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Initiates a payment flow on a Reader.</p> */
         post: operations["PostTerminalReadersReaderProcessPaymentIntent"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/terminal/readers/{reader}/process_setup_intent": {
         parameters: {
@@ -4790,15 +4790,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Initiates a setup intent flow on a Reader.</p> */
         post: operations["PostTerminalReadersReaderProcessSetupIntent"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/terminal/readers/{reader}/refund_payment": {
         parameters: {
@@ -4807,15 +4807,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Initiates a refund on a Reader</p> */
         post: operations["PostTerminalReadersReaderRefundPayment"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/terminal/readers/{reader}/set_reader_display": {
         parameters: {
@@ -4824,15 +4824,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Sets reader display to show cart details.</p> */
         post: operations["PostTerminalReadersReaderSetReaderDisplay"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/customers/{customer}/fund_cash_balance": {
         parameters: {
@@ -4841,15 +4841,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Create an incoming testmode bank transfer</p> */
         post: operations["PostTestHelpersCustomersCustomerFundCashBalance"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/issuing/authorizations": {
         parameters: {
@@ -4858,15 +4858,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Create a test-mode authorization.</p> */
         post: operations["PostTestHelpersIssuingAuthorizations"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/issuing/authorizations/{authorization}/capture": {
         parameters: {
@@ -4875,15 +4875,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Capture a test-mode authorization.</p> */
         post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationCapture"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/issuing/authorizations/{authorization}/expire": {
         parameters: {
@@ -4892,15 +4892,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Expire a test-mode Authorization.</p> */
         post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationExpire"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/issuing/authorizations/{authorization}/increment": {
         parameters: {
@@ -4909,15 +4909,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Increment a test-mode Authorization.</p> */
         post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationIncrement"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/issuing/authorizations/{authorization}/reverse": {
         parameters: {
@@ -4926,15 +4926,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Reverse a test-mode Authorization.</p> */
         post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationReverse"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/issuing/cards/{card}/shipping/deliver": {
         parameters: {
@@ -4943,15 +4943,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Updates the shipping status of the specified Issuing <code>Card</code> object to <code>delivered</code>.</p> */
         post: operations["PostTestHelpersIssuingCardsCardShippingDeliver"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/issuing/cards/{card}/shipping/fail": {
         parameters: {
@@ -4960,15 +4960,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Updates the shipping status of the specified Issuing <code>Card</code> object to <code>failure</code>.</p> */
         post: operations["PostTestHelpersIssuingCardsCardShippingFail"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/issuing/cards/{card}/shipping/return": {
         parameters: {
@@ -4977,15 +4977,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Updates the shipping status of the specified Issuing <code>Card</code> object to <code>returned</code>.</p> */
         post: operations["PostTestHelpersIssuingCardsCardShippingReturn"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/issuing/cards/{card}/shipping/ship": {
         parameters: {
@@ -4994,15 +4994,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Updates the shipping status of the specified Issuing <code>Card</code> object to <code>shipped</code>.</p> */
         post: operations["PostTestHelpersIssuingCardsCardShippingShip"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/issuing/transactions/create_force_capture": {
         parameters: {
@@ -5011,15 +5011,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Allows the user to capture an arbitrary amount, also known as a forced capture.</p> */
         post: operations["PostTestHelpersIssuingTransactionsCreateForceCapture"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/issuing/transactions/create_unlinked_refund": {
         parameters: {
@@ -5028,15 +5028,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Allows the user to refund an arbitrary amount, also known as a unlinked refund.</p> */
         post: operations["PostTestHelpersIssuingTransactionsCreateUnlinkedRefund"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/issuing/transactions/{transaction}/refund": {
         parameters: {
@@ -5045,15 +5045,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Refund a test-mode Transaction.</p> */
         post: operations["PostTestHelpersIssuingTransactionsTransactionRefund"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/refunds/{refund}/expire": {
         parameters: {
@@ -5062,15 +5062,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Expire a refund with a status of <code>requires_action</code>.</p> */
         post: operations["PostTestHelpersRefundsRefundExpire"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/terminal/readers/{reader}/present_payment_method": {
         parameters: {
@@ -5079,15 +5079,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.</p> */
         post: operations["PostTestHelpersTerminalReadersReaderPresentPaymentMethod"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/test_clocks": {
         parameters: {
@@ -5098,14 +5098,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of your test clocks.</p> */
         get: operations["GetTestHelpersTestClocks"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new test clock that can be attached to new customers and quotes.</p> */
         post: operations["PostTestHelpersTestClocks"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/test_clocks/{test_clock}": {
         parameters: {
@@ -5116,14 +5116,14 @@ export interface paths {
         };
         /** @description <p>Retrieves a test clock.</p> */
         get: operations["GetTestHelpersTestClocksTestClock"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /** @description <p>Deletes a test clock.</p> */
         delete: operations["DeleteTestHelpersTestClocksTestClock"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/test_clocks/{test_clock}/advance": {
         parameters: {
@@ -5132,15 +5132,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to <code>Ready</code>.</p> */
         post: operations["PostTestHelpersTestClocksTestClockAdvance"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/treasury/inbound_transfers/{id}/fail": {
         parameters: {
@@ -5149,15 +5149,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Transitions a test mode created InboundTransfer to the <code>failed</code> status. The InboundTransfer must already be in the <code>processing</code> state.</p> */
         post: operations["PostTestHelpersTreasuryInboundTransfersIdFail"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/treasury/inbound_transfers/{id}/return": {
         parameters: {
@@ -5166,15 +5166,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the <code>succeeded</code> state.</p> */
         post: operations["PostTestHelpersTreasuryInboundTransfersIdReturn"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed": {
         parameters: {
@@ -5183,15 +5183,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Transitions a test mode created InboundTransfer to the <code>succeeded</code> status. The InboundTransfer must already be in the <code>processing</code> state.</p> */
         post: operations["PostTestHelpersTreasuryInboundTransfersIdSucceed"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/treasury/outbound_payments/{id}/fail": {
         parameters: {
@@ -5200,15 +5200,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Transitions a test mode created OutboundPayment to the <code>failed</code> status. The OutboundPayment must already be in the <code>processing</code> state.</p> */
         post: operations["PostTestHelpersTreasuryOutboundPaymentsIdFail"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/treasury/outbound_payments/{id}/post": {
         parameters: {
@@ -5217,15 +5217,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Transitions a test mode created OutboundPayment to the <code>posted</code> status. The OutboundPayment must already be in the <code>processing</code> state.</p> */
         post: operations["PostTestHelpersTreasuryOutboundPaymentsIdPost"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/treasury/outbound_payments/{id}/return": {
         parameters: {
@@ -5234,15 +5234,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Transitions a test mode created OutboundPayment to the <code>returned</code> status. The OutboundPayment must already be in the <code>processing</code> state.</p> */
         post: operations["PostTestHelpersTreasuryOutboundPaymentsIdReturn"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail": {
         parameters: {
@@ -5251,15 +5251,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Transitions a test mode created OutboundTransfer to the <code>failed</code> status. The OutboundTransfer must already be in the <code>processing</code> state.</p> */
         post: operations["PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post": {
         parameters: {
@@ -5268,15 +5268,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Transitions a test mode created OutboundTransfer to the <code>posted</code> status. The OutboundTransfer must already be in the <code>processing</code> state.</p> */
         post: operations["PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return": {
         parameters: {
@@ -5285,15 +5285,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Transitions a test mode created OutboundTransfer to the <code>returned</code> status. The OutboundTransfer must already be in the <code>processing</code> state.</p> */
         post: operations["PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/treasury/received_credits": {
         parameters: {
@@ -5302,15 +5302,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can’t directly create ReceivedCredits initiated by third parties.</p> */
         post: operations["PostTestHelpersTreasuryReceivedCredits"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/test_helpers/treasury/received_debits": {
         parameters: {
@@ -5319,15 +5319,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can’t directly create ReceivedDebits initiated by third parties.</p> */
         post: operations["PostTestHelpersTreasuryReceivedDebits"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/tokens": {
         parameters: {
@@ -5336,16 +5336,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Creates a single-use token that represents a bank account’s details.
          *     You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a <a href="#accounts">Custom account</a>.</p> */
         post: operations["PostTokens"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/tokens/{token}": {
         parameters: {
@@ -5356,13 +5356,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the token with the given ID.</p> */
         get: operations["GetTokensToken"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/topups": {
         parameters: {
@@ -5373,14 +5373,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of top-ups.</p> */
         get: operations["GetTopups"];
-        put: never;
+        put?: never;
         /** @description <p>Top up the balance of an account</p> */
         post: operations["PostTopups"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/topups/{topup}": {
         parameters: {
@@ -5391,14 +5391,14 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.</p> */
         get: operations["GetTopupsTopup"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the metadata of a top-up. Other top-up details are not editable by design.</p> */
         post: operations["PostTopupsTopup"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/topups/{topup}/cancel": {
         parameters: {
@@ -5407,15 +5407,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Cancels a top-up. Only pending top-ups can be canceled.</p> */
         post: operations["PostTopupsTopupCancel"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/transfers": {
         parameters: {
@@ -5426,14 +5426,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.</p> */
         get: operations["GetTransfers"];
-        put: never;
+        put?: never;
         /** @description <p>To send funds from your Stripe account to a connected account, you create a new transfer object. Your <a href="#balance">Stripe balance</a> must be able to cover the transfer amount, or you’ll receive an “Insufficient Funds” error.</p> */
         post: operations["PostTransfers"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/transfers/{id}/reversals": {
         parameters: {
@@ -5444,18 +5444,18 @@ export interface paths {
         };
         /** @description <p>You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional reversals.</p> */
         get: operations["GetTransfersIdReversals"];
-        put: never;
+        put?: never;
         /** @description <p>When you create a new reversal, you must specify a transfer to create it on.</p>
          *
          *     <p>When reversing transfers, you can optionally reverse part of the transfer. You can do so as many times as you wish until the entire transfer has been reversed.</p>
          *
          *     <p>Once entirely reversed, a transfer can’t be reversed again. This method will return an error when called on an already-reversed transfer, or when trying to reverse more money than is left on a transfer.</p> */
         post: operations["PostTransfersIdReversals"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/transfers/{transfer}": {
         parameters: {
@@ -5466,16 +5466,16 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.</p> */
         get: operations["GetTransfersTransfer"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
          *
          *     <p>This request accepts only metadata as an argument.</p> */
         post: operations["PostTransfersTransfer"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/transfers/{transfer}/reversals/{id}": {
         parameters: {
@@ -5486,16 +5486,16 @@ export interface paths {
         };
         /** @description <p>By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.</p> */
         get: operations["GetTransfersTransferReversalsId"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
          *
          *     <p>This request only accepts metadata and description as arguments.</p> */
         post: operations["PostTransfersTransferReversalsId"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/credit_reversals": {
         parameters: {
@@ -5506,14 +5506,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of CreditReversals.</p> */
         get: operations["GetTreasuryCreditReversals"];
-        put: never;
+        put?: never;
         /** @description <p>Reverses a ReceivedCredit and creates a CreditReversal object.</p> */
         post: operations["PostTreasuryCreditReversals"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/credit_reversals/{credit_reversal}": {
         parameters: {
@@ -5524,13 +5524,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing CreditReversal by passing the unique CreditReversal ID from either the CreditReversal creation request or CreditReversal list</p> */
         get: operations["GetTreasuryCreditReversalsCreditReversal"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/debit_reversals": {
         parameters: {
@@ -5541,14 +5541,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of DebitReversals.</p> */
         get: operations["GetTreasuryDebitReversals"];
-        put: never;
+        put?: never;
         /** @description <p>Reverses a ReceivedDebit and creates a DebitReversal object.</p> */
         post: operations["PostTreasuryDebitReversals"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/debit_reversals/{debit_reversal}": {
         parameters: {
@@ -5559,13 +5559,13 @@ export interface paths {
         };
         /** @description <p>Retrieves a DebitReversal object.</p> */
         get: operations["GetTreasuryDebitReversalsDebitReversal"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/financial_accounts": {
         parameters: {
@@ -5576,14 +5576,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of FinancialAccounts.</p> */
         get: operations["GetTreasuryFinancialAccounts"];
-        put: never;
+        put?: never;
         /** @description <p>Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.</p> */
         post: operations["PostTreasuryFinancialAccounts"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/financial_accounts/{financial_account}": {
         parameters: {
@@ -5594,14 +5594,14 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of a FinancialAccount.</p> */
         get: operations["GetTreasuryFinancialAccountsFinancialAccount"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the details of a FinancialAccount.</p> */
         post: operations["PostTreasuryFinancialAccountsFinancialAccount"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/financial_accounts/{financial_account}/features": {
         parameters: {
@@ -5612,14 +5612,14 @@ export interface paths {
         };
         /** @description <p>Retrieves Features information associated with the FinancialAccount.</p> */
         get: operations["GetTreasuryFinancialAccountsFinancialAccountFeatures"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the Features associated with a FinancialAccount.</p> */
         post: operations["PostTreasuryFinancialAccountsFinancialAccountFeatures"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/inbound_transfers": {
         parameters: {
@@ -5630,14 +5630,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of InboundTransfers sent from the specified FinancialAccount.</p> */
         get: operations["GetTreasuryInboundTransfers"];
-        put: never;
+        put?: never;
         /** @description <p>Creates an InboundTransfer.</p> */
         post: operations["PostTreasuryInboundTransfers"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/inbound_transfers/{id}": {
         parameters: {
@@ -5648,13 +5648,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing InboundTransfer.</p> */
         get: operations["GetTreasuryInboundTransfersId"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel": {
         parameters: {
@@ -5663,15 +5663,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Cancels an InboundTransfer.</p> */
         post: operations["PostTreasuryInboundTransfersInboundTransferCancel"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/outbound_payments": {
         parameters: {
@@ -5682,14 +5682,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of OutboundPayments sent from the specified FinancialAccount.</p> */
         get: operations["GetTreasuryOutboundPayments"];
-        put: never;
+        put?: never;
         /** @description <p>Creates an OutboundPayment.</p> */
         post: operations["PostTreasuryOutboundPayments"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/outbound_payments/{id}": {
         parameters: {
@@ -5700,13 +5700,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing OutboundPayment by passing the unique OutboundPayment ID from either the OutboundPayment creation request or OutboundPayment list.</p> */
         get: operations["GetTreasuryOutboundPaymentsId"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/outbound_payments/{id}/cancel": {
         parameters: {
@@ -5715,15 +5715,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>Cancel an OutboundPayment.</p> */
         post: operations["PostTreasuryOutboundPaymentsIdCancel"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/outbound_transfers": {
         parameters: {
@@ -5734,14 +5734,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of OutboundTransfers sent from the specified FinancialAccount.</p> */
         get: operations["GetTreasuryOutboundTransfers"];
-        put: never;
+        put?: never;
         /** @description <p>Creates an OutboundTransfer.</p> */
         post: operations["PostTreasuryOutboundTransfers"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/outbound_transfers/{outbound_transfer}": {
         parameters: {
@@ -5752,13 +5752,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundTransfer creation request or OutboundTransfer list.</p> */
         get: operations["GetTreasuryOutboundTransfersOutboundTransfer"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel": {
         parameters: {
@@ -5767,15 +5767,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** @description <p>An OutboundTransfer can be canceled if the funds have not yet been paid out.</p> */
         post: operations["PostTreasuryOutboundTransfersOutboundTransferCancel"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/received_credits": {
         parameters: {
@@ -5786,13 +5786,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of ReceivedCredits.</p> */
         get: operations["GetTreasuryReceivedCredits"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/received_credits/{id}": {
         parameters: {
@@ -5803,13 +5803,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.</p> */
         get: operations["GetTreasuryReceivedCreditsId"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/received_debits": {
         parameters: {
@@ -5820,13 +5820,13 @@ export interface paths {
         };
         /** @description <p>Returns a list of ReceivedDebits.</p> */
         get: operations["GetTreasuryReceivedDebits"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/received_debits/{id}": {
         parameters: {
@@ -5837,13 +5837,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list</p> */
         get: operations["GetTreasuryReceivedDebitsId"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/transaction_entries": {
         parameters: {
@@ -5854,13 +5854,13 @@ export interface paths {
         };
         /** @description <p>Retrieves a list of TransactionEntry objects.</p> */
         get: operations["GetTreasuryTransactionEntries"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/transaction_entries/{id}": {
         parameters: {
@@ -5871,13 +5871,13 @@ export interface paths {
         };
         /** @description <p>Retrieves a TransactionEntry object.</p> */
         get: operations["GetTreasuryTransactionEntriesId"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/transactions": {
         parameters: {
@@ -5888,13 +5888,13 @@ export interface paths {
         };
         /** @description <p>Retrieves a list of Transaction objects.</p> */
         get: operations["GetTreasuryTransactions"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/treasury/transactions/{id}": {
         parameters: {
@@ -5905,13 +5905,13 @@ export interface paths {
         };
         /** @description <p>Retrieves the details of an existing Transaction.</p> */
         get: operations["GetTreasuryTransactionsId"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/webhook_endpoints": {
         parameters: {
@@ -5922,14 +5922,14 @@ export interface paths {
         };
         /** @description <p>Returns a list of your webhook endpoints.</p> */
         get: operations["GetWebhookEndpoints"];
-        put: never;
+        put?: never;
         /** @description <p>A webhook endpoint must have a <code>url</code> and a list of <code>enabled_events</code>. You may optionally specify the Boolean <code>connect</code> parameter. If set to true, then a Connect webhook endpoint that notifies the specified <code>url</code> about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified <code>url</code> only about events from your account is created. You can also create webhook endpoints in the <a href="https://dashboard.stripe.com/account/webhooks">webhooks settings</a> section of the Dashboard.</p> */
         post: operations["PostWebhookEndpoints"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v1/webhook_endpoints/{webhook_endpoint}": {
         parameters: {
@@ -5940,15 +5940,15 @@ export interface paths {
         };
         /** @description <p>Retrieves the webhook endpoint with the given ID.</p> */
         get: operations["GetWebhookEndpointsWebhookEndpoint"];
-        put: never;
+        put?: never;
         /** @description <p>Updates the webhook endpoint. You may edit the <code>url</code>, the list of <code>enabled_events</code>, and the status of your endpoint.</p> */
         post: operations["PostWebhookEndpointsWebhookEndpoint"];
         /** @description <p>You can also delete webhook endpoints via the <a href="https://dashboard.stripe.com/account/webhooks">webhook endpoint management</a> page of the Stripe dashboard.</p> */
         delete: operations["DeleteWebhookEndpointsWebhookEndpoint"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -6014,7 +6014,7 @@ export interface components {
             individual?: components["schemas"]["person"];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -6856,7 +6856,7 @@ export interface components {
             last4: string;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -6899,7 +6899,7 @@ export interface components {
              *
              *     Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder. */
             current: {
-                [key: string]: number;
+                [key: string]: number | undefined;
             };
             /**
              * @description The `type` of the balance. An additional hash is included on the balance with a name matching this value.
@@ -6915,7 +6915,7 @@ export interface components {
              *
              *     Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder. */
             available?: {
-                [key: string]: number;
+                [key: string]: number | undefined;
             } | null;
         };
         /** BankConnectionsResourceBalanceAPIResourceCreditBalance */
@@ -6926,7 +6926,7 @@ export interface components {
              *
              *     Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder. */
             used?: {
-                [key: string]: number;
+                [key: string]: number | undefined;
             } | null;
         };
         /** BankConnectionsResourceBalanceRefresh */
@@ -6998,7 +6998,7 @@ export interface components {
             login_page: components["schemas"]["portal_login_page"];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -7166,7 +7166,7 @@ export interface components {
             last4: string;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /** @description Cardholder name. */
             name?: string | null;
@@ -7204,7 +7204,7 @@ export interface components {
         cash_balance: {
             /** @description A hash of all cash balances available to this customer. You cannot delete a customer with any cash balances, even if the balance is 0. Amounts are represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
             available?: {
-                [key: string]: number;
+                [key: string]: number | undefined;
             } | null;
             /** @description The ID of the customer whose cash balance this object represents. */
             customer: string;
@@ -7273,7 +7273,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -7481,7 +7481,7 @@ export interface components {
             locale?: "auto" | "bg" | "cs" | "da" | "de" | "el" | "en" | "en-GB" | "es" | "es-419" | "et" | "fi" | "fil" | "fr" | "fr-CA" | "hr" | "hu" | "id" | "it" | "ja" | "ko" | "lt" | "lv" | "ms" | "mt" | "nb" | "nl" | "pl" | "pt" | "pt-BR" | "ro" | "ru" | "sk" | "sl" | "sv" | "th" | "tr" | "vi" | "zh" | "zh-HK" | "zh-TW";
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /**
              * @description The mode of the Checkout Session.
@@ -8006,7 +8006,7 @@ export interface components {
             object: "country_spec";
             /** @description Currencies that can be accepted in the specific country (for transfers). */
             supported_bank_account_currencies: {
-                [key: string]: string[];
+                [key: string]: string[] | undefined;
             };
             /** @description Currencies that can be accepted in the specified country (for payments). */
             supported_payment_currencies: string[];
@@ -8047,7 +8047,7 @@ export interface components {
             currency?: string | null;
             /** @description Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
             currency_options?: {
-                [key: string]: components["schemas"]["coupon_currency_option"];
+                [key: string]: components["schemas"]["coupon_currency_option"] | undefined;
             };
             /**
              * @description One of `forever`, `once`, and `repeating`. Describes how long a customer who applies this coupon will get the discount.
@@ -8064,7 +8064,7 @@ export interface components {
             max_redemptions?: number | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /** @description Name of the coupon displayed to customers on for instance invoices or receipts. */
             name?: string | null;
@@ -8153,7 +8153,7 @@ export interface components {
             memo?: string | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /** @description A unique number that identifies this particular credit note and appears on the PDF of the credit note and its associated invoice. */
             number: string;
@@ -8333,7 +8333,7 @@ export interface components {
             id: string;
             /** @description The current multi-currency balances, if any, that's stored on the customer. If positive in a currency, the customer has a credit to apply to their next invoice denominated in that currency. If negative, the customer has an amount owed that's added to their next invoice denominated in that currency. These balances don't apply to unpaid invoices. They solely track amounts that Stripe hasn't successfully applied to any invoice. Stripe only applies a balance in a specific currency to an invoice after that invoice (which is in the same currency) finalizes. */
             invoice_credit_balance?: {
-                [key: string]: number;
+                [key: string]: number | undefined;
             };
             /** @description The prefix for the customer used to generate unique invoice numbers. */
             invoice_prefix?: string | null;
@@ -8342,7 +8342,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /** @description The customer's full name or business name. */
             name?: string | null;
@@ -8556,7 +8556,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -9085,7 +9085,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -9313,7 +9313,7 @@ export interface components {
             object: "exchange_rate";
             /** @description Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency. */
             rates: {
-                [key: string]: number;
+                [key: string]: number | undefined;
             };
         };
         /** Polymorphic */
@@ -9368,7 +9368,7 @@ export interface components {
             id: string;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -9464,7 +9464,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -10094,7 +10094,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -10324,7 +10324,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /**
              * Format: unix-time
@@ -10640,7 +10640,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -10809,7 +10809,7 @@ export interface components {
             merchant_data: components["schemas"]["issuing_authorization_merchant_data"];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /** @description Details about the authorization, such as identifiers, set by the card network. */
             network_data?: components["schemas"]["issuing_authorization_network_data"] | null;
@@ -10871,7 +10871,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /** @description The full unredacted card number. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint. */
             number?: string;
@@ -10930,7 +10930,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /** @description The cardholder's name. This will be printed on cards issued to them. */
             name: string;
@@ -10983,7 +10983,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -11024,7 +11024,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /** @description The total net amount required to settle with the network. */
             net_total: number;
@@ -11090,7 +11090,7 @@ export interface components {
             merchant_data: components["schemas"]["issuing_authorization_merchant_data"];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -11832,7 +11832,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription` this will reflect the metadata of the subscription that caused the line item to be created. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -12283,7 +12283,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Learn more about [storing information in metadata](https://stripe.com/docs/payments/payment-intents/creating-payment-intents#storing-information-in-metadata). */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /** @description If present, this property tells you what actions you need to take in order for your customer to fulfill a payment using the provided source. */
             next_action?: components["schemas"]["payment_intent_next_action"] | null;
@@ -12880,7 +12880,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -13042,7 +13042,7 @@ export interface components {
             footer?: string | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /** @description Options for invoice PDF rendering. */
             rendering_options?: components["schemas"]["invoice_setting_rendering_options"] | null;
@@ -13141,7 +13141,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -14912,7 +14912,7 @@ export interface components {
             footer?: string | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /** @description Options for invoice PDF rendering. */
             rendering_options?: components["schemas"]["invoice_setting_rendering_options"] | null;
@@ -15028,7 +15028,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /** @description The method used to send this payout, which can be `standard` or `instant`. `instant` is supported for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks). */
             method: string;
@@ -15131,7 +15131,7 @@ export interface components {
             maiden_name?: string | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /** @description The country where the person is a national. */
             nationality?: string | null;
@@ -15250,7 +15250,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /** @description A brief description of the plan, hidden from customers. */
             nickname?: string | null;
@@ -15521,7 +15521,7 @@ export interface components {
             currency: string;
             /** @description Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
             currency_options?: {
-                [key: string]: components["schemas"]["currency_option"];
+                [key: string]: components["schemas"]["currency_option"] | undefined;
             };
             /** @description When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links. */
             custom_unit_amount?: components["schemas"]["custom_unit_amount"] | null;
@@ -15533,7 +15533,7 @@ export interface components {
             lookup_key?: string | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /** @description A brief description of the price, hidden from customers. */
             nickname?: string | null;
@@ -15625,7 +15625,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /** @description The product's name, meant to be displayable to the customer. */
             name: string;
@@ -15688,7 +15688,7 @@ export interface components {
             max_redemptions?: number | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -15708,7 +15708,7 @@ export interface components {
         promotion_codes_resource_restrictions: {
             /** @description Promotion code restrictions defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
             currency_options?: {
-                [key: string]: components["schemas"]["promotion_code_currency_option"];
+                [key: string]: components["schemas"]["promotion_code_currency_option"] | undefined;
             };
             /** @description A Boolean indicating if the Promotion Code should only be redeemed for Customers without any successful payments or invoices */
             first_time_transaction: boolean;
@@ -15793,7 +15793,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /** @description A unique number that identifies this particular quote. This number is assigned once the quote is [finalized](https://stripe.com/docs/quotes/overview#finalize). */
             number?: string | null;
@@ -16015,7 +16015,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /** @description The name of the value list. */
             name: string;
@@ -16149,7 +16149,7 @@ export interface components {
             instructions_email?: string;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             next_action?: components["schemas"]["refund_next_action"];
             /**
@@ -16685,7 +16685,7 @@ export interface components {
             mandate?: (string | components["schemas"]["mandate"]) | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /** @description If present, this property tells you what actions you need to take in order for your customer to continue payment setup. */
             next_action?: components["schemas"]["setup_intent_next_action"] | null;
@@ -16906,7 +16906,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -16961,7 +16961,7 @@ export interface components {
             currency: string;
             /** @description Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
             currency_options?: {
-                [key: string]: components["schemas"]["shipping_rate_currency_option"];
+                [key: string]: components["schemas"]["shipping_rate_currency_option"] | undefined;
             };
         };
         /** SigmaScheduledQueryRunError */
@@ -17017,7 +17017,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             multibanco?: components["schemas"]["source_type_multibanco"];
             /**
@@ -17566,7 +17566,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * Format: unix-time
@@ -17643,7 +17643,7 @@ export interface components {
         subscription_details_data: {
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will reflect the metadata of the subscription at the time of invoice creation. *Note: This attribute is populated only for invoices created on or after June 29, 2023.* */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
         };
         /**
@@ -17660,7 +17660,7 @@ export interface components {
             id: string;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -17744,7 +17744,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -17791,7 +17791,7 @@ export interface components {
             billing_thresholds?: components["schemas"]["subscription_item_billing_thresholds"] | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /** @description ID of the price to which the customer should be subscribed. */
             price: string | components["schemas"]["price"] | components["schemas"]["deleted_price"];
@@ -17856,7 +17856,7 @@ export interface components {
             items: components["schemas"]["subscription_schedule_configuration_item"][];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered. Updating the underlying subscription's `metadata` directly will not affect the current phase's `metadata`. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /** @description The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details. */
             on_behalf_of?: (string | components["schemas"]["account"]) | null;
@@ -18160,7 +18160,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -18196,7 +18196,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -18534,7 +18534,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -18606,7 +18606,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -18642,7 +18642,7 @@ export interface components {
             location?: (string | components["schemas"]["terminal.location"]) | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -18780,7 +18780,7 @@ export interface components {
             charge?: string | components["schemas"]["charge"];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /** @description Payment intent that is being refunded. */
             payment_intent?: string | components["schemas"]["payment_intent"];
@@ -18992,7 +18992,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -19050,7 +19050,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -19126,7 +19126,7 @@ export interface components {
             id: string;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -19193,7 +19193,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description The rails used to reverse the funds.
@@ -19242,7 +19242,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description The rails used to reverse the funds.
@@ -19290,7 +19290,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -19362,7 +19362,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -19429,7 +19429,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -19487,7 +19487,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -19769,15 +19769,15 @@ export interface components {
         treasury_financial_accounts_resource_balance: {
             /** @description Funds the user can spend right now. */
             cash: {
-                [key: string]: number;
+                [key: string]: number | undefined;
             };
             /** @description Funds not spendable yet, but will become available at a later time. */
             inbound_pending: {
-                [key: string]: number;
+                [key: string]: number | undefined;
             };
             /** @description Funds in the account, but not spendable because they are being held for pending outbound flows. */
             outbound_pending: {
-                [key: string]: number;
+                [key: string]: number | undefined;
             };
         };
         /** TreasuryFinancialAccountsResourceClosedStatusDetails */
@@ -20241,7 +20241,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -20835,7 +20835,7 @@ export interface operations {
                         last_name_kanji?: string;
                         maiden_name?: string;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         } | "";
                         phone?: string;
                         /** @enum {string} */
@@ -20866,7 +20866,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /**
                      * settings_specs
@@ -21365,7 +21365,7 @@ export interface operations {
                         last_name_kanji?: string;
                         maiden_name?: string;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         } | "";
                         phone?: string;
                         /** @enum {string} */
@@ -21396,7 +21396,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /**
                      * settings_specs_update
@@ -21573,7 +21573,7 @@ export interface operations {
                     external_account?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                 };
             };
@@ -21695,7 +21695,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description Cardholder name. */
                     name?: string;
@@ -21989,7 +21989,7 @@ export interface operations {
                     external_account?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                 };
             };
@@ -22111,7 +22111,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description Cardholder name. */
                     name?: string;
@@ -22377,7 +22377,7 @@ export interface operations {
                     maiden_name?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
                     nationality?: string;
@@ -22595,7 +22595,7 @@ export interface operations {
                     maiden_name?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
                     nationality?: string;
@@ -22871,7 +22871,7 @@ export interface operations {
                     maiden_name?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
                     nationality?: string;
@@ -23089,7 +23089,7 @@ export interface operations {
                     maiden_name?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
                     nationality?: string;
@@ -23522,7 +23522,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -23700,7 +23700,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                 };
             };
@@ -24312,7 +24312,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                 };
             };
@@ -24459,7 +24459,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -24679,7 +24679,7 @@ export interface operations {
                         exp_month: number;
                         exp_year: number;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         name?: string;
                         number: string;
@@ -24700,7 +24700,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#on-behalf-of). */
                     on_behalf_of?: string;
@@ -24892,7 +24892,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description This is the email address that the receipt for this charge will be sent to. If this field is updated, then a new email receipt will be sent to the updated address. */
                     receipt_email?: string;
@@ -25087,7 +25087,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
                     submit?: boolean;
@@ -25174,7 +25174,7 @@ export interface operations {
                     instructions_email?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description The identifier of the PaymentIntent to refund. */
                     payment_intent?: string;
@@ -25291,7 +25291,7 @@ export interface operations {
                     instructions_email?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /**
                      * @description Origin of the refund
@@ -25388,7 +25388,7 @@ export interface operations {
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -25648,7 +25648,7 @@ export interface operations {
                             description?: string;
                             footer?: string;
                             metadata?: {
-                                [key: string]: string;
+                                [key: string]: string | undefined;
                             };
                             rendering_options?: {
                                 /** @enum {string} */
@@ -25679,7 +25679,7 @@ export interface operations {
                                 description?: string;
                                 images?: string[];
                                 metadata?: {
-                                    [key: string]: string;
+                                    [key: string]: string | undefined;
                                 };
                                 name: string;
                                 tax_code?: string;
@@ -25706,7 +25706,7 @@ export interface operations {
                     locale?: "auto" | "bg" | "cs" | "da" | "de" | "el" | "en" | "en-GB" | "es" | "es-419" | "et" | "fi" | "fil" | "fr" | "fr-CA" | "hr" | "hu" | "id" | "it" | "ja" | "ko" | "lt" | "lv" | "ms" | "mt" | "nb" | "nl" | "pl" | "pt" | "pt-BR" | "ro" | "ru" | "sk" | "sl" | "sv" | "th" | "tr" | "vi" | "zh" | "zh-HK" | "zh-TW";
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /**
                      * @description The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
@@ -25723,7 +25723,7 @@ export interface operations {
                         capture_method?: "automatic" | "automatic_async" | "manual";
                         description?: string;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         on_behalf_of?: string;
                         receipt_email?: string;
@@ -25992,7 +25992,7 @@ export interface operations {
                     setup_intent_data?: {
                         description?: string;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         on_behalf_of?: string;
                     };
@@ -26033,11 +26033,11 @@ export interface operations {
                                         amount: number;
                                         /** @enum {string} */
                                         tax_behavior?: "exclusive" | "inclusive" | "unspecified";
-                                    };
+                                    } | undefined;
                                 };
                             };
                             metadata?: {
-                                [key: string]: string;
+                                [key: string]: string | undefined;
                             };
                             /** @enum {string} */
                             tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -26065,7 +26065,7 @@ export interface operations {
                         default_tax_rates?: string[];
                         description?: string;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         on_behalf_of?: string;
                         /** @enum {string} */
@@ -26431,7 +26431,7 @@ export interface operations {
                     currency_options?: {
                         [key: string]: {
                             amount_off: number;
-                        };
+                        } | undefined;
                     };
                     /**
                      * @description Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
@@ -26448,7 +26448,7 @@ export interface operations {
                     max_redemptions?: number;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
                     name?: string;
@@ -26537,13 +26537,13 @@ export interface operations {
                     currency_options?: {
                         [key: string]: {
                             amount_off: number;
-                        };
+                        } | undefined;
                     };
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
                     name?: string;
@@ -26703,7 +26703,7 @@ export interface operations {
                     memo?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe. */
                     out_of_band_amount?: number;
@@ -26777,7 +26777,7 @@ export interface operations {
                 memo?: string;
                 /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                 metadata?: {
-                    [key: string]: string;
+                    [key: string]: string | undefined;
                 };
                 /** @description The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe. */
                 out_of_band_amount?: number;
@@ -26856,7 +26856,7 @@ export interface operations {
                 memo?: string;
                 /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                 metadata?: {
-                    [key: string]: string;
+                    [key: string]: string | undefined;
                 };
                 /** @description The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe. */
                 out_of_band_amount?: number;
@@ -27027,7 +27027,7 @@ export interface operations {
                     memo?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                 };
             };
@@ -27213,7 +27213,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description The customer's full name or business name. */
                     name?: string;
@@ -27424,7 +27424,7 @@ export interface operations {
                         exp_month: number;
                         exp_year: number;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         name?: string;
                         number: string;
@@ -27481,7 +27481,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description The customer's full name or business name. */
                     name?: string;
@@ -27657,7 +27657,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -27741,7 +27741,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -27861,7 +27861,7 @@ export interface operations {
                         exp_month: number;
                         exp_year: number;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         name?: string;
                         number: string;
@@ -27872,7 +27872,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description Please refer to full [documentation](https://stripe.com/docs/api) instead. */
                     source?: string;
@@ -27979,7 +27979,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description Cardholder name. */
                     name?: string;
@@ -28195,7 +28195,7 @@ export interface operations {
                         exp_month: number;
                         exp_year: number;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         name?: string;
                         number: string;
@@ -28206,7 +28206,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description Please refer to full [documentation](https://stripe.com/docs/api) instead. */
                     source?: string;
@@ -28313,7 +28313,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description Cardholder name. */
                     name?: string;
@@ -28897,7 +28897,7 @@ export interface operations {
                         exp_month: number;
                         exp_year: number;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         name?: string;
                         number: string;
@@ -28908,7 +28908,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description Please refer to full [documentation](https://stripe.com/docs/api) instead. */
                     source?: string;
@@ -29015,7 +29015,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description Cardholder name. */
                     name?: string;
@@ -29278,7 +29278,7 @@ export interface operations {
                             usage_gte: number;
                         } | "";
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         price?: string;
                         /** recurring_price_data */
@@ -29302,7 +29302,7 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
                     off_session?: boolean;
@@ -29568,7 +29568,7 @@ export interface operations {
                         deleted?: boolean;
                         id?: string;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         } | "";
                         price?: string;
                         /** recurring_price_data */
@@ -29592,7 +29592,7 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
                     off_session?: boolean;
@@ -30179,7 +30179,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
                     submit?: boolean;
@@ -30606,7 +30606,7 @@ export interface operations {
                     file: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -30688,7 +30688,7 @@ export interface operations {
                     expires_at?: "now" | number | "";
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -30801,7 +30801,7 @@ export interface operations {
                         /** Format: unix-time */
                         expires_at?: number;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         } | "";
                     };
                     /**
@@ -31381,7 +31381,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /**
                      * session_options_param
@@ -31480,7 +31480,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /**
                      * session_options_param
@@ -31695,7 +31695,7 @@ export interface operations {
                     invoice?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /**
                      * period
@@ -31831,7 +31831,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /**
                      * period
@@ -32085,7 +32085,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details. */
                     on_behalf_of?: string;
@@ -32200,11 +32200,11 @@ export interface operations {
                                         amount: number;
                                         /** @enum {string} */
                                         tax_behavior?: "exclusive" | "inclusive" | "unspecified";
-                                    };
+                                    } | undefined;
                                 };
                             };
                             metadata?: {
-                                [key: string]: string;
+                                [key: string]: string | undefined;
                             };
                             /** @enum {string} */
                             tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -32387,7 +32387,7 @@ export interface operations {
                     }[] | "";
                     invoiceitem?: string;
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** period */
                     period?: {
@@ -32439,7 +32439,7 @@ export interface operations {
                     deleted?: boolean;
                     id?: string;
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     price?: string;
                     /** recurring_price_data */
@@ -32573,7 +32573,7 @@ export interface operations {
                     }[] | "";
                     invoiceitem?: string;
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** period */
                     period?: {
@@ -32629,7 +32629,7 @@ export interface operations {
                     deleted?: boolean;
                     id?: string;
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     price?: string;
                     /** recurring_price_data */
@@ -32807,7 +32807,7 @@ export interface operations {
                     footer?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details. */
                     on_behalf_of?: string | "";
@@ -32914,11 +32914,11 @@ export interface operations {
                                         amount: number;
                                         /** @enum {string} */
                                         tax_behavior?: "exclusive" | "inclusive" | "unspecified";
-                                    };
+                                    } | undefined;
                                 };
                             };
                             metadata?: {
-                                [key: string]: string;
+                                [key: string]: string | undefined;
                             };
                             /** @enum {string} */
                             tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -33389,7 +33389,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -33433,7 +33433,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -33475,7 +33475,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -33639,7 +33639,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The cardholder's name. This will be printed on cards issued to them. The maximum length of this field is 24 characters. This field cannot contain any special characters or numbers. */
                     name: string;
@@ -33807,7 +33807,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://stripe.com/docs/issuing/3d-secure) for more details. */
                     phone_number?: string;
@@ -33949,7 +33949,7 @@ export interface operations {
                     financial_account?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The card this is meant to be a replacement for (if any). */
                     replacement_for?: string;
@@ -34091,7 +34091,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /**
                      * encrypted_pin_param
@@ -34288,7 +34288,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The ID of the issuing transaction to create a dispute for. For transaction on Treasury FinancialAccounts, use `treasury.received_debit`. */
                     transaction?: string;
@@ -34444,7 +34444,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -34486,7 +34486,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -34626,7 +34626,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                 };
             };
@@ -34772,7 +34772,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -35299,7 +35299,7 @@ export interface operations {
                     } | "";
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
                     off_session?: boolean | ("one_off" | "recurring");
@@ -35401,7 +35401,7 @@ export interface operations {
                         /** param */
                         link?: Record<string, never>;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         /** param */
                         oxxo?: Record<string, never>;
@@ -35905,7 +35905,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. */
                     payment_method?: string;
@@ -36001,7 +36001,7 @@ export interface operations {
                         /** param */
                         link?: Record<string, never>;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         /** param */
                         oxxo?: Record<string, never>;
@@ -36473,7 +36473,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
                     statement_descriptor?: string;
@@ -36657,7 +36657,7 @@ export interface operations {
                         /** param */
                         link?: Record<string, never>;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         /** param */
                         oxxo?: Record<string, never>;
@@ -37040,7 +37040,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description For non-card charges, you can use this value as the complete description that appears on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
                     statement_descriptor?: string;
@@ -37299,7 +37299,7 @@ export interface operations {
                             description?: string;
                             footer?: string;
                             metadata?: {
-                                [key: string]: string;
+                                [key: string]: string | undefined;
                             } | "";
                             rendering_options?: {
                                 /** @enum {string} */
@@ -37320,7 +37320,7 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The account on behalf of which to charge. */
                     on_behalf_of?: string;
@@ -37567,7 +37567,7 @@ export interface operations {
                             description?: string;
                             footer?: string;
                             metadata?: {
-                                [key: string]: string;
+                                [key: string]: string | undefined;
                             } | "";
                             rendering_options?: {
                                 /** @enum {string} */
@@ -37588,7 +37588,7 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /**
                      * @description Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.This may occur if the Checkout Session includes a free trial or a discount.
@@ -39020,7 +39020,7 @@ export interface operations {
                     link?: Record<string, never>;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /**
                      * param
@@ -39215,7 +39215,7 @@ export interface operations {
                     link?: Record<string, never>;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /**
                      * update_param
@@ -39418,7 +39418,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /**
                      * @description The method used to send this payout, which is `standard` or `instant`. We support `instant` for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
@@ -39510,7 +39510,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -39590,7 +39590,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                 };
             };
@@ -39725,7 +39725,7 @@ export interface operations {
                     interval_count?: number;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description A brief description of the plan, hidden from customers. */
                     nickname?: string;
@@ -39733,7 +39733,7 @@ export interface operations {
                         active?: boolean;
                         id?: string;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         name: string;
                         statement_descriptor?: string;
@@ -39851,7 +39851,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description A brief description of the plan, hidden from customers. */
                     nickname?: string;
@@ -40039,7 +40039,7 @@ export interface operations {
                             unit_amount?: number;
                             /** Format: decimal */
                             unit_amount_decimal?: string;
-                        };
+                        } | undefined;
                     };
                     /**
                      * custom_unit_amount
@@ -40057,7 +40057,7 @@ export interface operations {
                     lookup_key?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description A brief description of the price, hidden from customers. */
                     nickname?: string;
@@ -40071,7 +40071,7 @@ export interface operations {
                         active?: boolean;
                         id?: string;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         name: string;
                         statement_descriptor?: string;
@@ -40283,7 +40283,7 @@ export interface operations {
                             unit_amount?: number;
                             /** Format: decimal */
                             unit_amount_decimal?: string;
-                        };
+                        } | undefined;
                     } | "";
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -40291,7 +40291,7 @@ export interface operations {
                     lookup_key?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description A brief description of the price, hidden from customers. */
                     nickname?: string;
@@ -40436,7 +40436,7 @@ export interface operations {
                                 unit_amount?: number;
                                 /** Format: decimal */
                                 unit_amount_decimal?: string;
-                            };
+                            } | undefined;
                         };
                         /** recurring_adhoc */
                         recurring?: {
@@ -40464,7 +40464,7 @@ export interface operations {
                     images?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The product's name, meant to be displayable to the customer. */
                     name: string;
@@ -40635,7 +40635,7 @@ export interface operations {
                     images?: string[] | "";
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description The product's name, meant to be displayable to the customer. */
                     name?: string;
@@ -40815,7 +40815,7 @@ export interface operations {
                     max_redemptions?: number;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /**
                      * restrictions_params
@@ -40825,7 +40825,7 @@ export interface operations {
                         currency_options?: {
                             [key: string]: {
                                 minimum_amount?: number;
-                            };
+                            } | undefined;
                         };
                         first_time_transaction?: boolean;
                         minimum_amount?: number;
@@ -40911,7 +40911,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /**
                      * restrictions_params
@@ -40921,7 +40921,7 @@ export interface operations {
                         currency_options?: {
                             [key: string]: {
                                 minimum_amount?: number;
-                            };
+                            } | undefined;
                         };
                     };
                 };
@@ -41094,7 +41094,7 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The account on behalf of which to charge. */
                     on_behalf_of?: string | "";
@@ -41259,7 +41259,7 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The account on behalf of which to charge. */
                     on_behalf_of?: string | "";
@@ -41926,7 +41926,7 @@ export interface operations {
                     item_type?: "card_bin" | "card_fingerprint" | "case_sensitive_string" | "country" | "customer_id" | "email" | "ip_address" | "sepa_debit_fingerprint" | "string" | "us_bank_account_fingerprint";
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The human-readable name of the value list. */
                     name: string;
@@ -42010,7 +42010,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The human-readable name of the value list. */
                     name?: string;
@@ -42159,7 +42159,7 @@ export interface operations {
                     instructions_email?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /**
                      * @description Origin of the refund
@@ -42255,7 +42255,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -42881,7 +42881,7 @@ export interface operations {
                     } | "";
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The Stripe account ID for which this SetupIntent is created. */
                     on_behalf_of?: string;
@@ -42978,7 +42978,7 @@ export interface operations {
                         /** param */
                         link?: Record<string, never>;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         /** param */
                         oxxo?: Record<string, never>;
@@ -43211,7 +43211,7 @@ export interface operations {
                     flow_directions?: ("inbound" | "outbound")[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
                     payment_method?: string;
@@ -43306,7 +43306,7 @@ export interface operations {
                         /** param */
                         link?: Record<string, never>;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         /** param */
                         oxxo?: Record<string, never>;
@@ -43630,7 +43630,7 @@ export interface operations {
                         /** param */
                         link?: Record<string, never>;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         /** param */
                         oxxo?: Record<string, never>;
@@ -43932,12 +43932,12 @@ export interface operations {
                                 amount: number;
                                 /** @enum {string} */
                                 tax_behavior?: "exclusive" | "inclusive" | "unspecified";
-                            };
+                            } | undefined;
                         };
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /**
                      * @description Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
@@ -44039,12 +44039,12 @@ export interface operations {
                                 amount?: number;
                                 /** @enum {string} */
                                 tax_behavior?: "exclusive" | "inclusive" | "unspecified";
-                            };
+                            } | undefined;
                         };
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /**
                      * @description Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
@@ -44224,7 +44224,7 @@ export interface operations {
                         notification_method?: "deprecated_none" | "email" | "manual" | "none" | "stripe_email";
                     };
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The source to share. */
                     original_source?: string;
@@ -44416,7 +44416,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /**
                      * owner
@@ -44737,7 +44737,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /**
                      * @description Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
@@ -44869,7 +44869,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
                     off_session?: boolean;
@@ -45231,7 +45231,7 @@ export interface operations {
                     from_subscription?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. */
                     phases?: {
@@ -45279,7 +45279,7 @@ export interface operations {
                                 usage_gte: number;
                             } | "";
                             metadata?: {
-                                [key: string]: string;
+                                [key: string]: string | undefined;
                             };
                             price?: string;
                             /** recurring_price_data */
@@ -45303,7 +45303,7 @@ export interface operations {
                         }[];
                         iterations?: number;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         on_behalf_of?: string;
                         /** @enum {string} */
@@ -45432,7 +45432,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted. */
                     phases?: {
@@ -45478,7 +45478,7 @@ export interface operations {
                                 usage_gte: number;
                             } | "";
                             metadata?: {
-                                [key: string]: string;
+                                [key: string]: string | undefined;
                             };
                             price?: string;
                             /** recurring_price_data */
@@ -45502,7 +45502,7 @@ export interface operations {
                         }[];
                         iterations?: number;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         on_behalf_of?: string;
                         /** @enum {string} */
@@ -45798,7 +45798,7 @@ export interface operations {
                             usage_gte: number;
                         } | "";
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         price?: string;
                         /** recurring_price_data */
@@ -45822,7 +45822,7 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
                     off_session?: boolean;
@@ -46144,7 +46144,7 @@ export interface operations {
                         deleted?: boolean;
                         id?: string;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         } | "";
                         price?: string;
                         /** recurring_price_data */
@@ -46168,7 +46168,7 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
                     off_session?: boolean;
@@ -46708,7 +46708,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description A custom order or sale identifier, such as 'myOrder_123'. Must be unique across all transactions, including reversals. */
                     reference: string;
@@ -46755,7 +46755,7 @@ export interface operations {
                         amount: number;
                         amount_tax: number;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         original_line_item: string;
                         quantity?: number;
@@ -46763,7 +46763,7 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /**
                      * @description If `partial`, the provided line item or shipping cost amounts are reversed. If `full`, the original transaction is fully reversed.
@@ -47081,7 +47081,7 @@ export interface operations {
                     jurisdiction?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description This represents the tax rate percent out of 100. */
                     percentage: number;
@@ -47180,7 +47180,7 @@ export interface operations {
                     jurisdiction?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States. */
                     state?: string;
@@ -47732,7 +47732,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -47828,7 +47828,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -47969,7 +47969,7 @@ export interface operations {
                     location?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description A code generated by the reader used for registering to an account. */
                     registration_code: string;
@@ -48053,7 +48053,7 @@ export interface operations {
                     label?: string | "";
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -48270,7 +48270,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description ID of the PaymentIntent to refund. */
                     payment_intent?: string;
@@ -50040,7 +50040,7 @@ export interface operations {
                             last_name_kanji?: string;
                             maiden_name?: string;
                             metadata?: {
-                                [key: string]: string;
+                                [key: string]: string | undefined;
                             } | "";
                             phone?: string;
                             /** @enum {string} */
@@ -50179,7 +50179,7 @@ export interface operations {
                         last_name_kanji?: string;
                         maiden_name?: string;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         } | "";
                         nationality?: string;
                         phone?: string;
@@ -50375,7 +50375,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard for the specified currency. In test mode, this can be a test bank token (see [Testing Top-ups](https://stripe.com/docs/connect/testing#testing-top-ups)). */
                     source?: string;
@@ -50463,7 +50463,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -50613,7 +50613,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-availability) for details. */
                     source_transaction?: string;
@@ -50724,7 +50724,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description Boolean indicating whether the application fee should be refunded when reversing this transfer. If a full transfer reversal is given, the full application fee will be refunded. Otherwise, the application fee will be refunded with an amount proportional to the amount of the transfer reversed. */
                     refund_application_fee?: boolean;
@@ -50808,7 +50808,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -50890,7 +50890,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                 };
             };
@@ -50990,7 +50990,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The ReceivedCredit to reverse. */
                     received_credit: string;
@@ -51132,7 +51132,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The ReceivedDebit to reverse. */
                     received_debit: string;
@@ -51325,7 +51325,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /**
                      * platform_restrictions
@@ -51471,7 +51471,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /**
                      * platform_restrictions
@@ -51732,7 +51732,7 @@ export interface operations {
                     financial_account: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The origin payment method to be debited for the InboundTransfer. */
                     origin_payment_method: string;
@@ -51939,7 +51939,7 @@ export interface operations {
                         };
                         financial_account?: string;
                         metadata?: {
-                            [key: string]: string;
+                            [key: string]: string | undefined;
                         };
                         /** @enum {string} */
                         type: "financial_account" | "us_bank_account";
@@ -51978,7 +51978,7 @@ export interface operations {
                     financial_account: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description The description that appears on the receiving end for this OutboundPayment (for example, bank statement for external bank transfer). Maximum 10 characters for `ach` payments, 140 characters for `wire` payments, or 500 characters for `stripe` network transfers. The default value is `payment`. */
                     statement_descriptor?: string;
@@ -52174,7 +52174,7 @@ export interface operations {
                     financial_account: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     };
                     /** @description Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `wire` transfers. The default value is `transfer`. */
                     statement_descriptor?: string;
@@ -52776,7 +52776,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description The URL of the webhook endpoint. */
                     url: string;
@@ -52864,7 +52864,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string;
+                        [key: string]: string | undefined;
                     } | "";
                     /** @description The URL of the webhook endpoint. */
                     url?: string;

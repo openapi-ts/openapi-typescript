@@ -46,7 +46,7 @@ describe("transformSchemaObject > object", () => {
         },
         want: `{
     property?: boolean;
-    [key: string]: string;
+    [key: string]: string | undefined;
 }`,
         // options: DEFAULT_OPTIONS,
       },
@@ -56,7 +56,7 @@ describe("transformSchemaObject > object", () => {
       {
         given: { type: "object", additionalProperties: { type: "string" } },
         want: `{
-    [key: string]: string;
+    [key: string]: string | undefined;
 }`,
       },
     ],

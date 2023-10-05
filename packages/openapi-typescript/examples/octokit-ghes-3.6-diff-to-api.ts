@@ -13,14 +13,14 @@ export interface paths {
         };
         /** List global webhooks */
         get: operations["enterprise-admin/list-global-webhooks"];
-        put: never;
+        put?: never;
         /** Create a global webhook */
         post: operations["enterprise-admin/create-global-webhook"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/admin/hooks/{hook_id}": {
         parameters: {
@@ -31,18 +31,18 @@ export interface paths {
         };
         /** Get a global webhook */
         get: operations["enterprise-admin/get-global-webhook"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /** Delete a global webhook */
         delete: operations["enterprise-admin/delete-global-webhook"];
-        options: never;
-        head: never;
+        options?: never;
+        head?: never;
         /**
          * Update a global webhook
          * @description Parameters that are not provided will be overwritten with the default value or removed if no default exists.
          */
         patch: operations["enterprise-admin/update-global-webhook"];
-        trace: never;
+        trace?: never;
     };
     "/admin/hooks/{hook_id}/pings": {
         parameters: {
@@ -51,18 +51,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Ping a global webhook
          * @description This will trigger a [ping event](https://docs.github.com/enterprise-server@3.6/webhooks/#ping-event) to be sent to the webhook.
          */
         post: operations["enterprise-admin/ping-global-webhook"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/admin/keys": {
         parameters: {
@@ -73,13 +73,13 @@ export interface paths {
         };
         /** List public keys */
         get: operations["enterprise-admin/list-public-keys"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/admin/keys/{key_ids}": {
         parameters: {
@@ -88,15 +88,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
+        get?: never;
+        put?: never;
+        post?: never;
         /** Delete a public key */
         delete: operations["enterprise-admin/delete-public-key"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/admin/ldap/teams/{team_id}/mapping": {
         parameters: {
@@ -105,18 +105,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
         /**
          * Update LDAP mapping for a team
          * @description Updates the [distinguished name](https://www.ldap.com/ldap-dns-and-rdns) (DN) of the LDAP entry to map to a team. [LDAP synchronization](https://docs.github.com/enterprise-server@3.6/admin/identity-and-access-management/using-ldap-for-enterprise-iam/using-ldap#enabling-ldap-sync) must be enabled to map LDAP entries to a team. Use the [Create a team](https://docs.github.com/enterprise-server@3.6/rest/reference/teams/#create-a-team) endpoint to create a team with LDAP mapping.
          */
         patch: operations["enterprise-admin/update-ldap-mapping-for-team"];
-        trace: never;
+        trace?: never;
     };
     "/admin/ldap/teams/{team_id}/sync": {
         parameters: {
@@ -125,18 +125,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Sync LDAP mapping for a team
          * @description Note that this API call does not automatically initiate an LDAP sync. Rather, if a `201` is returned, the sync job is queued successfully, and is performed when the instance is ready.
          */
         post: operations["enterprise-admin/sync-ldap-mapping-for-team"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/admin/ldap/users/{username}/mapping": {
         parameters: {
@@ -145,15 +145,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
         /** Update LDAP mapping for a user */
         patch: operations["enterprise-admin/update-ldap-mapping-for-user"];
-        trace: never;
+        trace?: never;
     };
     "/admin/ldap/users/{username}/sync": {
         parameters: {
@@ -162,18 +162,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Sync LDAP mapping for a user
          * @description Note that this API call does not automatically initiate an LDAP sync. Rather, if a `201` is returned, the sync job is queued successfully, and is performed when the instance is ready.
          */
         post: operations["enterprise-admin/sync-ldap-mapping-for-user"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/admin/organizations": {
         parameters: {
@@ -182,15 +182,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** Create an organization */
         post: operations["enterprise-admin/create-org"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/admin/organizations/{org}": {
         parameters: {
@@ -199,15 +199,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
         /** Update an organization name */
         patch: operations["enterprise-admin/update-org-name"];
-        trace: never;
+        trace?: never;
     };
     "/admin/pre-receive-environments": {
         parameters: {
@@ -218,14 +218,14 @@ export interface paths {
         };
         /** List pre-receive environments */
         get: operations["enterprise-admin/list-pre-receive-environments"];
-        put: never;
+        put?: never;
         /** Create a pre-receive environment */
         post: operations["enterprise-admin/create-pre-receive-environment"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/admin/pre-receive-environments/{pre_receive_environment_id}": {
         parameters: {
@@ -236,8 +236,8 @@ export interface paths {
         };
         /** Get a pre-receive environment */
         get: operations["enterprise-admin/get-pre-receive-environment"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Delete a pre-receive environment
          * @description If you attempt to delete an environment that cannot be deleted, you will receive a `422 Unprocessable Entity` response.
@@ -249,14 +249,14 @@ export interface paths {
          *     *   _Cannot delete environment when download is in progress_
          */
         delete: operations["enterprise-admin/delete-pre-receive-environment"];
-        options: never;
-        head: never;
+        options?: never;
+        head?: never;
         /**
          * Update a pre-receive environment
          * @description You cannot modify the default environment. If you attempt to modify the default environment, you will receive a `422 Unprocessable Entity` response.
          */
         patch: operations["enterprise-admin/update-pre-receive-environment"];
-        trace: never;
+        trace?: never;
     };
     "/admin/pre-receive-environments/{pre_receive_environment_id}/downloads": {
         parameters: {
@@ -265,8 +265,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Start a pre-receive environment download
          * @description Triggers a new download of the environment tarball from the environment's `image_url`. When the download is finished, the newly downloaded tarball will overwrite the existing environment.
@@ -279,11 +279,11 @@ export interface paths {
          *     * _Can not start a new download when a download is in progress_
          */
         post: operations["enterprise-admin/start-pre-receive-environment-download"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/admin/pre-receive-environments/{pre_receive_environment_id}/downloads/latest": {
         parameters: {
@@ -297,13 +297,13 @@ export interface paths {
          * @description In addition to seeing the download status at the "[Get a pre-receive environment](#get-a-pre-receive-environment)" endpoint, there is also this separate endpoint for just the download status.
          */
         get: operations["enterprise-admin/get-download-status-for-pre-receive-environment"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/admin/pre-receive-hooks": {
         parameters: {
@@ -314,14 +314,14 @@ export interface paths {
         };
         /** List pre-receive hooks */
         get: operations["enterprise-admin/list-pre-receive-hooks"];
-        put: never;
+        put?: never;
         /** Create a pre-receive hook */
         post: operations["enterprise-admin/create-pre-receive-hook"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/admin/pre-receive-hooks/{pre_receive_hook_id}": {
         parameters: {
@@ -332,15 +332,15 @@ export interface paths {
         };
         /** Get a pre-receive hook */
         get: operations["enterprise-admin/get-pre-receive-hook"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /** Delete a pre-receive hook */
         delete: operations["enterprise-admin/delete-pre-receive-hook"];
-        options: never;
-        head: never;
+        options?: never;
+        head?: never;
         /** Update a pre-receive hook */
         patch: operations["enterprise-admin/update-pre-receive-hook"];
-        trace: never;
+        trace?: never;
     };
     "/admin/tokens": {
         parameters: {
@@ -354,13 +354,13 @@ export interface paths {
          * @description Lists personal access tokens for all users, including admin users.
          */
         get: operations["enterprise-admin/list-personal-access-tokens"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/admin/tokens/{token_id}": {
         parameters: {
@@ -369,18 +369,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
+        get?: never;
+        put?: never;
+        post?: never;
         /**
          * Delete a personal access token
          * @description Deletes a personal access token. Returns a `403 - Forbidden` status when a personal access token is in use. For example, if you access this endpoint with the same personal access token that you are trying to delete, you will receive this error.
          */
         delete: operations["enterprise-admin/delete-personal-access-token"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/admin/users": {
         parameters: {
@@ -389,8 +389,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Create a user
          * @description If an external authentication mechanism is used, the login name should match the login name in the external system. If you are using LDAP authentication, you should also [update the LDAP mapping](https://docs.github.com/enterprise-server@3.6/rest/reference/enterprise-admin#update-ldap-mapping-for-a-user) for the user.
@@ -400,11 +400,11 @@ export interface paths {
          *     If the login name or email address is already associated with an account, the server will return a `422` response.
          */
         post: operations["enterprise-admin/create-user"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/admin/users/{username}": {
         parameters: {
@@ -413,9 +413,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
+        get?: never;
+        put?: never;
+        post?: never;
         /**
          * Delete a user
          * @description Deleting a user will delete all their repositories, gists, applications, and personal settings. [Suspending a user](https://docs.github.com/enterprise-server@3.6/rest/reference/enterprise-admin#suspend-a-user) is often a better option.
@@ -423,11 +423,11 @@ export interface paths {
          *     You can delete any user account except your own.
          */
         delete: operations["enterprise-admin/delete-user"];
-        options: never;
-        head: never;
+        options?: never;
+        head?: never;
         /** Update the username for a user */
         patch: operations["enterprise-admin/update-username-for-user"];
-        trace: never;
+        trace?: never;
     };
     "/admin/users/{username}/authorizations": {
         parameters: {
@@ -436,16 +436,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /** Create an impersonation OAuth token */
         post: operations["enterprise-admin/create-impersonation-o-auth-token"];
         /** Delete an impersonation OAuth token */
         delete: operations["enterprise-admin/delete-impersonation-o-auth-token"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/app/installations": {
         parameters: {
@@ -461,13 +461,13 @@ export interface paths {
          *     The permissions the installation has are included under the `permissions` key.
          */
         get: operations["apps/list-installations"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/app/installations/{installation_id}": {
         parameters: {
@@ -483,13 +483,13 @@ export interface paths {
          *     You must use a [JWT](https://docs.github.com/enterprise-server@3.6/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
          */
         get: operations["apps/get-installation"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/app/installations/{installation_id}/access_tokens": {
         parameters: {
@@ -498,8 +498,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Create an installation access token for an app
          * @description Creates an installation access token that enables a GitHub App to make authenticated API requests for the app's installation on an organization or individual account. Installation tokens expire one hour from the time you create them. Using an expired token produces a status code of `401 - Unauthorized`, and requires creating a new installation token. By default the installation token has access to all repositories that the installation can access. To restrict the access to specific repositories, you can provide the `repository_ids` when creating the token. When you omit `repository_ids`, the response does not contain the `repositories` key.
@@ -507,11 +507,11 @@ export interface paths {
          *     You must use a [JWT](https://docs.github.com/enterprise-server@3.6/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
          */
         post: operations["apps/create-installation-access-token"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/applications/grants": {
         parameters: {
@@ -528,13 +528,13 @@ export interface paths {
          *     You can use this API to list the set of OAuth applications that have been granted access to your account. Unlike the [list your authorizations](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations#list-your-authorizations) API, this API does not manage individual tokens. This API will return one entry for each OAuth application that has been granted access to your account, regardless of the number of tokens an application has generated for your user. The list of OAuth applications returned matches what is shown on [the application authorizations settings screen within GitHub](https://github.com/settings/applications#authorized). The `scopes` returned are the union of scopes authorized for the application. For example, if an application has one token with `repo` scope and another token with `user` scope, the grant will return `["repo", "user"]`.
          */
         get: operations["oauth-authorizations/list-grants"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/applications/grants/{grant_id}": {
         parameters: {
@@ -549,8 +549,8 @@ export interface paths {
          * @description **Deprecation Notice:** GitHub Enterprise Server will discontinue the [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/enterprise-server@3.6/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
          */
         get: operations["oauth-authorizations/get-grant"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Delete a grant
          * @deprecated
@@ -559,10 +559,10 @@ export interface paths {
          *     Deleting an OAuth application's grant will also delete all OAuth tokens associated with the application for your user. Once deleted, the application has no access to your account and is no longer listed on [the application authorizations settings screen within GitHub](https://github.com/settings/applications#authorized).
          */
         delete: operations["oauth-authorizations/delete-grant"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/applications/{client_id}/token": {
         parameters: {
@@ -571,22 +571,22 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Check a token
          * @description OAuth applications can use a special API method for checking OAuth token validity without exceeding the normal rate limits for failed login attempts. Authentication works differently with this particular endpoint. You must use [Basic Authentication](https://docs.github.com/enterprise-server@3.6/rest/overview/other-authentication-methods#basic-authentication) to use this endpoint, where the username is the OAuth application `client_id` and the password is its `client_secret`. Invalid tokens will return `404 NOT FOUND`.
          */
         post: operations["apps/check-token"];
-        delete: never;
-        options: never;
-        head: never;
+        delete?: never;
+        options?: never;
+        head?: never;
         /**
          * Reset a token
          * @description OAuth applications can use this API method to reset a valid OAuth token without end-user involvement. Applications must save the "token" property in the response because changes take effect immediately. You must use [Basic Authentication](https://docs.github.com/enterprise-server@3.6/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the OAuth application's `client_id` and `client_secret` as the username and password. Invalid tokens will return `404 NOT FOUND`.
          */
         patch: operations["apps/reset-token"];
-        trace: never;
+        trace?: never;
     };
     "/applications/{client_id}/token/scoped": {
         parameters: {
@@ -595,18 +595,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Create a scoped access token
          * @description Use a non-scoped user-to-server OAuth access token to create a repository scoped and/or permission scoped user-to-server OAuth access token. You can specify which repositories the token can access and which permissions are granted to the token. You must use [Basic Authentication](https://docs.github.com/enterprise-server@3.6/rest/overview/other-authentication-methods#basic-authentication) when accessing this endpoint, using the OAuth application's `client_id` and `client_secret` as the username and password. Invalid tokens will return `404 NOT FOUND`.
          */
         post: operations["apps/scope-token"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/authorizations": {
         parameters: {
@@ -621,7 +621,7 @@ export interface paths {
          * @description **Deprecation Notice:** GitHub Enterprise Server will discontinue the [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/enterprise-server@3.6/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
          */
         get: operations["oauth-authorizations/list-authorizations"];
-        put: never;
+        put?: never;
         /**
          * Create a new authorization
          * @deprecated
@@ -638,11 +638,11 @@ export interface paths {
          *     Organizations that enforce SAML SSO require personal access tokens to be allowed. Read more about allowing tokens in [the GitHub Help documentation](https://docs.github.com/articles/about-identity-and-access-management-with-saml-single-sign-on).
          */
         post: operations["oauth-authorizations/create-authorization"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/authorizations/clients/{client_id}": {
         parameters: {
@@ -651,7 +651,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
+        get?: never;
         /**
          * Get-or-create an authorization for a specific app
          * @deprecated
@@ -666,12 +666,12 @@ export interface paths {
          *     **Deprecation Notice:** GitHub Enterprise Server will discontinue the [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations/), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/enterprise-server@3.6/developers/apps/authorizing-oauth-apps#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
          */
         put: operations["oauth-authorizations/get-or-create-authorization-for-app"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/authorizations/clients/{client_id}/{fingerprint}": {
         parameters: {
@@ -680,7 +680,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
+        get?: never;
         /**
          * Get-or-create an authorization for a specific app and fingerprint
          * @deprecated
@@ -693,12 +693,12 @@ export interface paths {
          *     If you have two-factor authentication setup, Basic Authentication for this endpoint requires that you use a one-time password (OTP) and your username and password instead of tokens. For more information, see "[Working with two-factor authentication](https://docs.github.com/enterprise-server@3.6/rest/overview/other-authentication-methods#working-with-two-factor-authentication)."
          */
         put: operations["oauth-authorizations/get-or-create-authorization-for-app-and-fingerprint"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/authorizations/{authorization_id}": {
         parameters: {
@@ -713,16 +713,16 @@ export interface paths {
          * @description **Deprecation Notice:** GitHub Enterprise Server will discontinue the [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/enterprise-server@3.6/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
          */
         get: operations["oauth-authorizations/get-authorization"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Delete an authorization
          * @deprecated
          * @description **Deprecation Notice:** GitHub Enterprise Server will discontinue the [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations), which is used by integrations to create personal access tokens and OAuth tokens, and you must now create these tokens using our [web application flow](https://docs.github.com/enterprise-server@3.6/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow). The [OAuth Authorizations API](https://docs.github.com/enterprise-server@3.6/rest/reference/oauth-authorizations) will be removed on November, 13, 2020. For more information, including scheduled brownouts, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-auth-endpoint/).
          */
         delete: operations["oauth-authorizations/delete-authorization"];
-        options: never;
-        head: never;
+        options?: never;
+        head?: never;
         /**
          * Update an existing authorization
          * @deprecated
@@ -733,7 +733,7 @@ export interface paths {
          *     You can only send one of these scope keys at a time.
          */
         patch: operations["oauth-authorizations/update-authorization"];
-        trace: never;
+        trace?: never;
     };
     "/enterprise/announcement": {
         parameters: {
@@ -747,21 +747,21 @@ export interface paths {
          * @description Gets the current message and expiration date of the global announcement banner in your enterprise.
          */
         get: operations["enterprise-admin/get-announcement"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Remove the global announcement banner
          * @description Removes the global announcement banner in your enterprise.
          */
         delete: operations["enterprise-admin/remove-announcement"];
-        options: never;
-        head: never;
+        options?: never;
+        head?: never;
         /**
          * Set the global announcement banner
          * @description Sets the message and expiration time for the global announcement banner in your enterprise.
          */
         patch: operations["enterprise-admin/set-announcement"];
-        trace: never;
+        trace?: never;
     };
     "/enterprise/settings/license": {
         parameters: {
@@ -772,13 +772,13 @@ export interface paths {
         };
         /** Get license information */
         get: operations["enterprise-admin/get-license-information"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/enterprise/stats/all": {
         parameters: {
@@ -789,13 +789,13 @@ export interface paths {
         };
         /** Get all statistics */
         get: operations["enterprise-admin/get-all-stats"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/enterprise/stats/comments": {
         parameters: {
@@ -806,13 +806,13 @@ export interface paths {
         };
         /** Get comment statistics */
         get: operations["enterprise-admin/get-comment-stats"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/enterprise/stats/gists": {
         parameters: {
@@ -823,13 +823,13 @@ export interface paths {
         };
         /** Get gist statistics */
         get: operations["enterprise-admin/get-gist-stats"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/enterprise/stats/hooks": {
         parameters: {
@@ -840,13 +840,13 @@ export interface paths {
         };
         /** Get hooks statistics */
         get: operations["enterprise-admin/get-hooks-stats"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/enterprise/stats/issues": {
         parameters: {
@@ -857,13 +857,13 @@ export interface paths {
         };
         /** Get issue statistics */
         get: operations["enterprise-admin/get-issue-stats"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/enterprise/stats/milestones": {
         parameters: {
@@ -874,13 +874,13 @@ export interface paths {
         };
         /** Get milestone statistics */
         get: operations["enterprise-admin/get-milestone-stats"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/enterprise/stats/orgs": {
         parameters: {
@@ -891,13 +891,13 @@ export interface paths {
         };
         /** Get organization statistics */
         get: operations["enterprise-admin/get-org-stats"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/enterprise/stats/pages": {
         parameters: {
@@ -908,13 +908,13 @@ export interface paths {
         };
         /** Get pages statistics */
         get: operations["enterprise-admin/get-pages-stats"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/enterprise/stats/pulls": {
         parameters: {
@@ -925,13 +925,13 @@ export interface paths {
         };
         /** Get pull request statistics */
         get: operations["enterprise-admin/get-pull-request-stats"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/enterprise/stats/repos": {
         parameters: {
@@ -942,13 +942,13 @@ export interface paths {
         };
         /** Get repository statistics */
         get: operations["enterprise-admin/get-repo-stats"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/enterprise/stats/users": {
         parameters: {
@@ -959,13 +959,13 @@ export interface paths {
         };
         /** Get users statistics */
         get: operations["enterprise-admin/get-user-stats"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/enterprises/{enterprise}/actions/cache/usage-policy": {
         parameters: {
@@ -981,11 +981,11 @@ export interface paths {
          *     GitHub Apps must have the `enterprise_administration:write` permission to use this endpoint.
          */
         get: operations["actions/get-actions-cache-usage-policy-for-enterprise"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
         /**
          * Set GitHub Actions cache usage policy for an enterprise
          * @description Sets the GitHub Actions cache usage policy for an enterprise.
@@ -993,7 +993,7 @@ export interface paths {
          *     GitHub Apps must have the `enterprise_administration:write` permission to use this endpoint.
          */
         patch: operations["actions/set-actions-cache-usage-policy-for-enterprise"];
-        trace: never;
+        trace?: never;
     };
     "/enterprises/{enterprise}/actions/permissions/selected-actions": {
         parameters: {
@@ -1016,12 +1016,12 @@ export interface paths {
          *     You must authenticate using an access token with the `admin:enterprise` scope to use this endpoint.
          */
         put: operations["enterprise-admin/set-allowed-actions-enterprise"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/enterprises/{enterprise}/audit-log": {
         parameters: {
@@ -1035,13 +1035,13 @@ export interface paths {
          * @description Gets the audit log for an enterprise. To use this endpoint, you must be an enterprise admin, and you must use an access token with the `admin:enterprise` scope.
          */
         get: operations["enterprise-admin/get-audit-log"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/enterprises/{enterprise}/secret-scanning/alerts": {
         parameters: {
@@ -1056,13 +1056,13 @@ export interface paths {
          *     To use this endpoint, you must be a member of the enterprise, and you must use an access token with the `repo` scope or `security_events` scope. Alerts are only returned for organizations in the enterprise for which you are an organization owner or a [security manager](https://docs.github.com/enterprise-server@3.6/organizations/managing-peoples-access-to-your-organization-with-roles/managing-security-managers-in-your-organization).
          */
         get: operations["secret-scanning/list-alerts-for-enterprise"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/meta": {
         parameters: {
@@ -1073,13 +1073,13 @@ export interface paths {
         };
         /** Get GitHub Enterprise Server meta information */
         get: operations["meta/get"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/organizations/{organization_id}/custom_roles": {
         parameters: {
@@ -1099,13 +1099,13 @@ export interface paths {
          *     For more information on custom repository roles, see "[Managing custom repository roles for an organization](https://docs.github.com/enterprise-server@3.6/organizations/managing-peoples-access-to-your-organization-with-roles/managing-custom-repository-roles-for-an-organization)".
          */
         get: operations["orgs/list-custom-roles"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/orgs/{org}": {
         parameters: {
@@ -1121,11 +1121,11 @@ export interface paths {
          *     GitHub Apps with the `Organization plan` permission can use this endpoint to retrieve information about an organization's GitHub Enterprise Server plan. See "[Authenticating with GitHub Apps](https://docs.github.com/enterprise-server@3.6/apps/building-github-apps/authenticating-with-github-apps/)" for details. For an example response, see 'Response with GitHub Enterprise Server plan information' below."
          */
         get: operations["orgs/get"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
         /**
          * Update an organization
          * @description **Parameter Deprecation Notice:** GitHub Enterprise Server will replace and discontinue `members_allowed_repository_creation_type` in favor of more granular permissions. The new input parameters are `members_can_create_public_repositories`, `members_can_create_private_repositories` for all organizations and `members_can_create_internal_repositories` for organizations associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. For more information, see the [blog post](https://developer.github.com/changes/2019-12-03-internal-visibility-changes).
@@ -1133,7 +1133,7 @@ export interface paths {
          *     Enables an authenticated organization owner with the `admin:org` scope to update the organization's profile and member privileges.
          */
         patch: operations["orgs/update"];
-        trace: never;
+        trace?: never;
     };
     "/orgs/{org}/actions/permissions/selected-actions": {
         parameters: {
@@ -1160,12 +1160,12 @@ export interface paths {
          *     You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `administration` organization permission to use this API.
          */
         put: operations["actions/set-allowed-actions-organization"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/orgs/{org}/audit-log": {
         parameters: {
@@ -1185,13 +1185,13 @@ export interface paths {
          *     Use pagination to retrieve fewer or more than 30 events. For more information, see "[Resources in the REST API](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#pagination)."
          */
         get: operations["orgs/get-audit-log"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/orgs/{org}/external-group/{group_id}": {
         parameters: {
@@ -1207,13 +1207,13 @@ export interface paths {
          *     You can manage team membership with your identity provider using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/enterprise-server@3.6/github/getting-started-with-github/githubs-products)" in the GitHub Help documentation.
          */
         get: operations["teams/external-idp-group-info-for-org"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/orgs/{org}/external-groups": {
         parameters: {
@@ -1229,13 +1229,13 @@ export interface paths {
          *     You can manage team membership with your identity provider using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/enterprise-server@3.6/github/getting-started-with-github/githubs-products)" in the GitHub Help documentation.
          */
         get: operations["teams/list-external-idp-groups-for-org"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/orgs/{org}/installation": {
         parameters: {
@@ -1251,13 +1251,13 @@ export interface paths {
          *     You must use a [JWT](https://docs.github.com/enterprise-server@3.6/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
          */
         get: operations["apps/get-org-installation"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/orgs/{org}/installations": {
         parameters: {
@@ -1271,13 +1271,13 @@ export interface paths {
          * @description Lists all GitHub Apps in an organization. The installation count includes all GitHub Apps installed on repositories in the organization. You must be an organization owner with `admin:read` scope to use this endpoint.
          */
         get: operations["orgs/list-app-installations"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/orgs/{org}/pre-receive-hooks": {
         parameters: {
@@ -1291,13 +1291,13 @@ export interface paths {
          * @description List all pre-receive hooks that are enabled or testing for this organization as well as any disabled hooks that can be configured at the organization level. Globally disabled pre-receive hooks that do not allow downstream configuration are not listed.
          */
         get: operations["enterprise-admin/list-pre-receive-hooks-for-org"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}": {
         parameters: {
@@ -1308,21 +1308,21 @@ export interface paths {
         };
         /** Get a pre-receive hook for an organization */
         get: operations["enterprise-admin/get-pre-receive-hook-for-org"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Remove pre-receive hook enforcement for an organization
          * @description Removes any overrides for this hook at the org level for this org.
          */
         delete: operations["enterprise-admin/remove-pre-receive-hook-enforcement-for-org"];
-        options: never;
-        head: never;
+        options?: never;
+        head?: never;
         /**
          * Update pre-receive hook enforcement for an organization
          * @description For pre-receive hooks which are allowed to be configured at the org level, you can set `enforcement` and `allow_downstream_configuration`
          */
         patch: operations["enterprise-admin/update-pre-receive-hook-enforcement-for-org"];
-        trace: never;
+        trace?: never;
     };
     "/orgs/{org}/secret-scanning/alerts": {
         parameters: {
@@ -1340,13 +1340,13 @@ export interface paths {
          *     GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
          */
         get: operations["secret-scanning/list-alerts-for-org"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/orgs/{org}/teams": {
         parameters: {
@@ -1355,8 +1355,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Create a team
          * @description To create a team, the authenticated user must be a member or owner of `{org}`. By default, organization members can create teams. Organization owners can limit team creation to organization owners. For more information, see "[Setting team creation permissions](https://docs.github.com/en/articles/setting-team-creation-permissions-in-your-organization)."
@@ -1364,11 +1364,11 @@ export interface paths {
          *     When you create a new team, you automatically become a team maintainer without explicitly adding yourself to the optional array of `maintainers`. For more information, see "[About teams](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/about-teams)".
          */
         post: operations["teams/create"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/orgs/{org}/teams/{team_slug}/external-groups": {
         parameters: {
@@ -1384,8 +1384,8 @@ export interface paths {
          *     You can manage team membership with your identity provider using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/enterprise-server@3.6/github/getting-started-with-github/githubs-products)" in the GitHub Help documentation.
          */
         get: operations["teams/list-linked-external-idp-groups-to-team-for-org"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Remove the connection between an external group and a team
          * @description Deletes a connection between a team and an external group.
@@ -1393,8 +1393,8 @@ export interface paths {
          *     You can manage team membership with your IdP using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/enterprise-server@3.6/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
          */
         delete: operations["teams/unlink-external-idp-group-from-team-for-org"];
-        options: never;
-        head: never;
+        options?: never;
+        head?: never;
         /**
          * Update the connection between an external group and a team
          * @description Creates a connection between a team and an external group.  Only one external group can be linked to a team.
@@ -1402,7 +1402,7 @@ export interface paths {
          *     You can manage team membership with your identity provider using Enterprise Managed Users for GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/enterprise-server@3.6/github/getting-started-with-github/githubs-products)" in the GitHub Help documentation.
          */
         patch: operations["teams/link-external-idp-group-to-team-for-org"];
-        trace: never;
+        trace?: never;
     };
     "/rate_limit": {
         parameters: {
@@ -1418,13 +1418,13 @@ export interface paths {
          *     **Note:** The `rate` object is deprecated. If you're writing new API client code or updating existing code, you should use the `core` object instead of the `rate` object. The `core` object contains the same information that is present in the `rate` object.
          */
         get: operations["rate-limit/get"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/actions/cache/usage-policy": {
         parameters: {
@@ -1440,11 +1440,11 @@ export interface paths {
          *     GitHub Apps must have the `actions:read` permission to use this endpoint.
          */
         get: operations["actions/get-actions-cache-usage-policy"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
         /**
          * Set GitHub Actions cache usage policy for a repository
          * @description Sets GitHub Actions cache usage policy for a repository.
@@ -1452,7 +1452,7 @@ export interface paths {
          *     GitHub Apps must have the `actions:write` permission to use this endpoint.
          */
         patch: operations["actions/set-actions-cache-usage-policy"];
-        trace: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/actions/permissions/selected-actions": {
         parameters: {
@@ -1479,12 +1479,12 @@ export interface paths {
          *     You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `administration` repository permission to use this API.
          */
         put: operations["actions/set-allowed-actions-repository"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/actions/runs": {
         parameters: {
@@ -1500,13 +1500,13 @@ export interface paths {
          *     Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
          */
         get: operations["actions/list-workflow-runs-for-repo"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}": {
         parameters: {
@@ -1520,13 +1520,13 @@ export interface paths {
          * @description Gets a specific workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.
          */
         get: operations["actions/get-workflow-run"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}": {
         parameters: {
@@ -1543,13 +1543,13 @@ export interface paths {
          *     use this endpoint.
          */
         get: operations["actions/get-workflow-run-attempt"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs": {
         parameters: {
@@ -1565,13 +1565,13 @@ export interface paths {
          *     Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope.
          */
         get: operations["actions/list-workflow-runs"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/autolinks": {
         parameters: {
@@ -1587,17 +1587,17 @@ export interface paths {
          *     Information about autolinks are only available to repository administrators.
          */
         get: operations["repos/list-autolinks"];
-        put: never;
+        put?: never;
         /**
          * Create an autolink reference for a repository
          * @description Users with admin access to the repository can create an autolink.
          */
         post: operations["repos/create-autolink"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/autolinks/{autolink_id}": {
         parameters: {
@@ -1613,13 +1613,13 @@ export interface paths {
          *     Information about autolinks are only available to repository administrators.
          */
         get: operations["repos/get-autolink"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/analyses": {
         parameters: {
@@ -1649,13 +1649,13 @@ export interface paths {
          *     The `tool_name` field is deprecated and will, in future, not be included in the response for this endpoint. The example response reflects this change. The tool name can now be found inside the `tool` field.
          */
         get: operations["code-scanning/list-recent-analyses"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/collaborators": {
         parameters: {
@@ -1676,13 +1676,13 @@ export interface paths {
          *     endpoint.
          */
         get: operations["repos/list-collaborators"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/collaborators/{username}/permission": {
         parameters: {
@@ -1696,13 +1696,13 @@ export interface paths {
          * @description Checks the repository permission of a collaborator. The possible repository permissions are `admin`, `write`, `read`, and `none`.
          */
         get: operations["repos/get-collaborator-permission-level"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/dependency-graph/compare/{basehead}": {
         parameters: {
@@ -1716,13 +1716,13 @@ export interface paths {
          * @description Gets the diff of the dependency changes between two commits of a repository, based on the changes to the dependency manifests made in those commits.
          */
         get: operations["dependency-graph/diff-range"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/forks": {
         parameters: {
@@ -1731,8 +1731,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Create a fork
          * @description Create a fork for the authenticated user.
@@ -1740,11 +1740,11 @@ export interface paths {
          *     **Note**: Forking a Repository happens asynchronously. You may have to wait a short period of time before you can access the git objects. If this takes longer than 5 minutes, be sure to contact [GitHub Enterprise Server Support](https://support.github.com/contact?tags=dotcom-rest-api).
          */
         post: operations["repos/create-fork"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/installation": {
         parameters: {
@@ -1760,13 +1760,13 @@ export interface paths {
          *     You must use a [JWT](https://docs.github.com/enterprise-server@3.6/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
          */
         get: operations["apps/get-repo-installation"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/keys": {
         parameters: {
@@ -1777,17 +1777,17 @@ export interface paths {
         };
         /** List deploy keys */
         get: operations["repos/list-deploy-keys"];
-        put: never;
+        put?: never;
         /**
          * Create a deploy key
          * @description You can create a read-only deploy key.
          */
         post: operations["repos/create-deploy-key"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/keys/{key_id}": {
         parameters: {
@@ -1798,13 +1798,13 @@ export interface paths {
         };
         /** Get a deploy key */
         get: operations["repos/get-deploy-key"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/pre-receive-hooks": {
         parameters: {
@@ -1818,13 +1818,13 @@ export interface paths {
          * @description List all pre-receive hooks that are enabled or testing for this repository as well as any disabled hooks that are allowed to be enabled at the repository level. Pre-receive hooks that are disabled at a higher level and are not configurable will not be listed.
          */
         get: operations["enterprise-admin/list-pre-receive-hooks-for-repo"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}": {
         parameters: {
@@ -1835,8 +1835,8 @@ export interface paths {
         };
         /** Get a pre-receive hook for a repository */
         get: operations["enterprise-admin/get-pre-receive-hook-for-repo"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Remove pre-receive hook enforcement for a repository
          * @description Deletes any overridden enforcement on this repository for the specified hook.
@@ -1844,14 +1844,14 @@ export interface paths {
          *     Responds with effective values inherited from owner and/or global level.
          */
         delete: operations["enterprise-admin/remove-pre-receive-hook-enforcement-for-repo"];
-        options: never;
-        head: never;
+        options?: never;
+        head?: never;
         /**
          * Update pre-receive hook enforcement for a repository
          * @description For pre-receive hooks which are allowed to be configured at the repo level, you can set `enforcement`
          */
         patch: operations["enterprise-admin/update-pre-receive-hook-enforcement-for-repo"];
-        trace: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/releases": {
         parameters: {
@@ -1867,7 +1867,7 @@ export interface paths {
          *     Information about published releases are available to everyone. Only users with push access will receive listings for draft releases.
          */
         get: operations["repos/list-releases"];
-        put: never;
+        put?: never;
         /**
          * Create a release
          * @description Users with push access to the repository can create a release.
@@ -1875,11 +1875,11 @@ export interface paths {
          *     This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/enterprise-server@3.6/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
          */
         post: operations["repos/create-release"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/releases/latest": {
         parameters: {
@@ -1895,13 +1895,13 @@ export interface paths {
          *     The latest release is the most recent non-prerelease, non-draft release, sorted by the `created_at` attribute. The `created_at` attribute is the date of the commit used for the release, and not the date when the release was drafted or published.
          */
         get: operations["repos/get-latest-release"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/releases/tags/{tag}": {
         parameters: {
@@ -1915,13 +1915,13 @@ export interface paths {
          * @description Get a published release with the specified tag.
          */
         get: operations["repos/get-release-by-tag"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/releases/{release_id}": {
         parameters: {
@@ -1935,17 +1935,17 @@ export interface paths {
          * @description **Note:** This returns an `upload_url` key corresponding to the endpoint for uploading release assets. This key is a [hypermedia resource](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#hypermedia).
          */
         get: operations["repos/get-release"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
         /**
          * Update a release
          * @description Users with push access to the repository can edit a release.
          */
         patch: operations["repos/update-release"];
-        trace: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/replicas/caches": {
         parameters: {
@@ -1959,13 +1959,13 @@ export interface paths {
          * @description Lists the status of each repository cache replica.
          */
         get: operations["repos/list-cache-info"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/secret-scanning/alerts": {
         parameters: {
@@ -1983,13 +1983,13 @@ export interface paths {
          *     GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
          */
         get: operations["secret-scanning/list-alerts-for-repo"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}": {
         parameters: {
@@ -2007,11 +2007,11 @@ export interface paths {
          *     GitHub Apps must have the `secret_scanning_alerts` read permission to use this endpoint.
          */
         get: operations["secret-scanning/get-alert"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
         /**
          * Update a secret scanning alert
          * @description Updates the status of a secret scanning alert in an eligible repository.
@@ -2021,7 +2021,7 @@ export interface paths {
          *     GitHub Apps must have the `secret_scanning_alerts` write permission to use this endpoint.
          */
         patch: operations["secret-scanning/update-alert"];
-        trace: never;
+        trace?: never;
     };
     "/repositories": {
         parameters: {
@@ -2039,13 +2039,13 @@ export interface paths {
          *     - Pagination is powered exclusively by the `since` parameter. Use the [Link header](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#link-header) to get the URL for the next page of repositories.
          */
         get: operations["repos/list-public"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/scim/v2/enterprises/{enterprise}/Groups": {
         parameters: {
@@ -2059,7 +2059,7 @@ export interface paths {
          * @description **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
          */
         get: operations["enterprise-admin/list-provisioned-groups-enterprise"];
-        put: never;
+        put?: never;
         /**
          * Provision a SCIM enterprise group and invite users
          * @description **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
@@ -2067,11 +2067,11 @@ export interface paths {
          *     Provision an enterprise group, and invite users to the group. This sends invitation emails to the email address of the invited users to join the GitHub organization that the SCIM group corresponds to.
          */
         post: operations["enterprise-admin/provision-and-invite-enterprise-group"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}": {
         parameters: {
@@ -2092,14 +2092,14 @@ export interface paths {
          *     Replaces an existing provisioned group’s information. You must provide all the information required for the group as if you were provisioning it for the first time. Any existing group information that you don't provide will be removed, including group membership. If you want to only update a specific attribute, use the [Update an attribute for a SCIM enterprise group](#update-an-attribute-for-a-scim-enterprise-group) endpoint instead.
          */
         put: operations["enterprise-admin/set-information-for-provisioned-enterprise-group"];
-        post: never;
+        post?: never;
         /**
          * Delete a SCIM group from an enterprise
          * @description **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
          */
         delete: operations["enterprise-admin/delete-scim-group-from-enterprise"];
-        options: never;
-        head: never;
+        options?: never;
+        head?: never;
         /**
          * Update an attribute for a SCIM enterprise group
          * @description **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
@@ -2107,7 +2107,7 @@ export interface paths {
          *     Allows you to change a provisioned group’s individual attributes. To change a group’s values, you must provide a specific Operations JSON format that contains at least one of the add, remove, or replace operations. For examples and more information on the SCIM operations format, see the [SCIM specification](https://tools.ietf.org/html/rfc7644#section-3.5.2).
          */
         patch: operations["enterprise-admin/update-attribute-for-enterprise-group"];
-        trace: never;
+        trace?: never;
     };
     "/scim/v2/enterprises/{enterprise}/Users": {
         parameters: {
@@ -2138,7 +2138,7 @@ export interface paths {
          *        - If the user does not sign in (or does not create a new account when prompted), they are not added to the GitHub Enterprise Server enterprise, and the external identity `null` entry remains in place.
          */
         get: operations["enterprise-admin/list-provisioned-identities-enterprise"];
-        put: never;
+        put?: never;
         /**
          * Provision and invite a SCIM enterprise user
          * @description **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
@@ -2148,11 +2148,11 @@ export interface paths {
          *     You can optionally include the groups a user will be invited to join. If you do not provide a list of `groups`, the user is provisioned for the enterprise, but no organization invitation emails will be sent.
          */
         post: operations["enterprise-admin/provision-and-invite-enterprise-user"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}": {
         parameters: {
@@ -2177,14 +2177,14 @@ export interface paths {
          *     **Warning:** Setting `active: false` removes the user from the enterprise, deletes the external identity, and deletes the associated `{scim_user_id}`.
          */
         put: operations["enterprise-admin/set-information-for-provisioned-enterprise-user"];
-        post: never;
+        post?: never;
         /**
          * Delete a SCIM user from an enterprise
          * @description **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
          */
         delete: operations["enterprise-admin/delete-user-from-enterprise"];
-        options: never;
-        head: never;
+        options?: never;
+        head?: never;
         /**
          * Update an attribute for a SCIM enterprise user
          * @description **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.
@@ -2207,7 +2207,7 @@ export interface paths {
          *     ```
          */
         patch: operations["enterprise-admin/update-attribute-for-enterprise-user"];
-        trace: never;
+        trace?: never;
     };
     "/setup/api/configcheck": {
         parameters: {
@@ -2232,13 +2232,13 @@ export interface paths {
          *     | `FAILED`      | The job has finished unexpectedly |
          */
         get: operations["enterprise-admin/get-configuration-status"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/setup/api/configure": {
         parameters: {
@@ -2247,18 +2247,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Start a configuration process
          * @description This endpoint allows you to start a configuration process at any time for your updated settings to take effect:
          */
         post: operations["enterprise-admin/start-configuration-process"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/setup/api/maintenance": {
         parameters: {
@@ -2272,17 +2272,17 @@ export interface paths {
          * @description Check your installation's maintenance status:
          */
         get: operations["enterprise-admin/get-maintenance-status"];
-        put: never;
+        put?: never;
         /**
          * Enable or disable maintenance mode
          * @description **Note:** The request body for this operation must be submitted as `application/x-www-form-urlencoded` data. You can submit a parameter value as a string, or you can use a tool such as `curl` to submit a parameter value as the contents of a text file. For more information, see the [`curl` documentation](https://curl.se/docs/manpage.html#--data-urlencode).
          */
         post: operations["enterprise-admin/enable-or-disable-maintenance-mode"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/setup/api/settings": {
         parameters: {
@@ -2308,12 +2308,12 @@ export interface paths {
          *     - You cannot set the management console password with the Enterprise administration API. Use the `ghe-set-password` utility to change the management console password. For more information, see "[Command-line utilities](https://docs.github.com/enterprise-server@3.6/admin/configuration/configuring-your-enterprise/command-line-utilities#ghe-set-password)."
          */
         put: operations["enterprise-admin/set-settings"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/setup/api/settings/authorized-keys": {
         parameters: {
@@ -2324,7 +2324,7 @@ export interface paths {
         };
         /** Get all authorized SSH keys */
         get: operations["enterprise-admin/get-all-authorized-ssh-keys"];
-        put: never;
+        put?: never;
         /**
          * Add an authorized SSH key
          * @description **Note:** The request body for this operation must be submitted as `application/x-www-form-urlencoded` data. You can submit a parameter value as a string, or you can use a tool such as `curl` to submit a parameter value as the contents of a text file. For more information, see the [`curl` documentation](https://curl.se/docs/manpage.html#--data-urlencode).
@@ -2335,10 +2335,10 @@ export interface paths {
          * @description **Note:** The request body for this operation must be submitted as `application/x-www-form-urlencoded` data. You can submit a parameter value as a string, or you can use a tool such as `curl` to submit a parameter value as the contents of a text file. For more information, see the [`curl` documentation](https://curl.se/docs/manpage.html#--data-urlencode).
          */
         delete: operations["enterprise-admin/remove-authorized-ssh-key"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/setup/api/start": {
         parameters: {
@@ -2347,8 +2347,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Create a GitHub license
          * @description When you boot a GitHub instance for the first time, you can use the following endpoint to upload a license.
@@ -2363,11 +2363,11 @@ export interface paths {
          *     **Note:** The request body for this operation must be submitted as `application/x-www-form-urlencoded` data. You can submit a parameter value as a string, or you can use a tool such as `curl` to submit a parameter value as the contents of a text file. For more information, see the [`curl` documentation](https://curl.se/docs/manpage.html#--data-urlencode).
          */
         post: operations["enterprise-admin/create-enterprise-server-license"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/setup/api/upgrade": {
         parameters: {
@@ -2376,8 +2376,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Upgrade a license
          * @description This API upgrades your license and also triggers the configuration process.
@@ -2385,11 +2385,11 @@ export interface paths {
          *     **Note:** The request body for this operation must be submitted as `application/x-www-form-urlencoded` data. You can submit a parameter value as a string, or you can use a tool such as `curl` to submit a parameter value as the contents of a text file. For more information, see the [`curl` documentation](https://curl.se/docs/manpage.html#--data-urlencode).
          */
         post: operations["enterprise-admin/upgrade-license"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/user/installations": {
         parameters: {
@@ -2409,13 +2409,13 @@ export interface paths {
          *     You can find the permissions for the installation under the `permissions` key.
          */
         get: operations["apps/list-installations-for-authenticated-user"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/users/{username}/installation": {
         parameters: {
@@ -2431,13 +2431,13 @@ export interface paths {
          *     You must use a [JWT](https://docs.github.com/enterprise-server@3.6/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
          */
         get: operations["apps/get-user-installation"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/users/{username}/site_admin": {
         parameters: {
@@ -2446,22 +2446,22 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
+        get?: never;
         /**
          * Promote a user to be a site administrator
          * @description Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#http-verbs)."
          */
         put: operations["enterprise-admin/promote-user-to-be-site-administrator"];
-        post: never;
+        post?: never;
         /**
          * Demote a site administrator
          * @description You can demote any user account except your own.
          */
         delete: operations["enterprise-admin/demote-site-administrator"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/users/{username}/suspended": {
         parameters: {
@@ -2470,7 +2470,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
+        get?: never;
         /**
          * Suspend a user
          * @description If your GitHub instance uses [LDAP Sync with Active Directory LDAP servers](https://docs.github.com/enterprise-server@3.6/admin/identity-and-access-management/using-ldap-for-enterprise-iam/using-ldap), Active Directory LDAP-authenticated users cannot be suspended through this API. If you attempt to suspend an Active Directory LDAP-authenticated user through this API, it will return a `403` response.
@@ -2480,16 +2480,16 @@ export interface paths {
          *     Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#http-verbs)."
          */
         put: operations["enterprise-admin/suspend-user"];
-        post: never;
+        post?: never;
         /**
          * Unsuspend a user
          * @description If your GitHub instance uses [LDAP Sync with Active Directory LDAP servers](https://docs.github.com/enterprise-server@3.6/admin/identity-and-access-management/using-ldap-for-enterprise-iam/using-ldap), this API is disabled and will return a `403` response. Active Directory LDAP-authenticated users cannot be unsuspended using the API.
          */
         delete: operations["enterprise-admin/unsuspend-user"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }
 export type webhooks = Record<string, never>;

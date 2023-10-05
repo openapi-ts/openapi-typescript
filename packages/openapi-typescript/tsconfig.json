@@ -7,5 +7,5 @@
     "types": ["vitest/globals"]
   },
   "include": ["scripts", "src", "test", "*.ts"],
-  "exclude": ["examples", "node_modules"]
+  "exclude": ["node_modules"]
 }

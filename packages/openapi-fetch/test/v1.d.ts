@@ -11,7 +11,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
+        get?: never;
         put: {
             parameters: {
                 query?: never;
@@ -25,12 +25,12 @@ export interface paths {
                 500: components["responses"]["Error"];
             };
         };
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/blogposts": {
         parameters: {
@@ -67,10 +67,10 @@ export interface paths {
                 500: components["responses"]["Error"];
             };
         };
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
         patch: {
             parameters: {
                 query?: never;
@@ -83,7 +83,7 @@ export interface paths {
                 201: components["responses"]["PatchPost"];
             };
         };
-        trace: never;
+        trace?: never;
     };
     "/blogposts/{post_id}": {
         parameters: {
@@ -113,8 +113,8 @@ export interface paths {
                 500: components["responses"]["Error"];
             };
         };
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         delete: {
             parameters: {
                 query?: never;
@@ -130,8 +130,8 @@ export interface paths {
                 500: components["responses"]["Error"];
             };
         };
-        options: never;
-        head: never;
+        options?: never;
+        head?: never;
         patch: {
             parameters: {
                 query?: never;
@@ -148,7 +148,7 @@ export interface paths {
                 500: components["responses"]["Error"];
             };
         };
-        trace: never;
+        trace?: never;
     };
     "/blogposts-optional": {
         parameters: {
@@ -157,7 +157,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
+        get?: never;
         put: {
             parameters: {
                 query?: never;
@@ -171,12 +171,12 @@ export interface paths {
                 500: components["responses"]["Error"];
             };
         };
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/blogposts-optional-inline": {
         parameters: {
@@ -185,7 +185,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
+        get?: never;
         put: {
             parameters: {
                 query?: never;
@@ -203,12 +203,12 @@ export interface paths {
                 500: components["responses"]["Error"];
             };
         };
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/header-params": {
         parameters: {
@@ -218,13 +218,13 @@ export interface paths {
             cookie?: never;
         };
         get: operations["getHeaderParams"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/media": {
         parameters: {
@@ -233,7 +233,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
+        get?: never;
         put: {
             parameters: {
                 query?: never;
@@ -264,12 +264,12 @@ export interface paths {
                 "4XX": components["responses"]["Error"];
             };
         };
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/self": {
         parameters: {
@@ -292,13 +292,13 @@ export interface paths {
                 500: components["responses"]["Error"];
             };
         };
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/string-array": {
         parameters: {
@@ -320,13 +320,13 @@ export interface paths {
                 500: components["responses"]["Error"];
             };
         };
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/tag/{name}": {
         parameters: {
@@ -367,7 +367,7 @@ export interface paths {
                 500: components["responses"]["Error"];
             };
         };
-        post: never;
+        post?: never;
         delete: {
             parameters: {
                 query?: never;
@@ -389,10 +389,10 @@ export interface paths {
                 500: components["responses"]["Error"];
             };
         };
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/default-as-error": {
         parameters: {
@@ -413,13 +413,13 @@ export interface paths {
                 default: components["responses"]["Error"];
             };
         };
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/anyMethod": {
         parameters: {
@@ -548,7 +548,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
+        get?: never;
         put: {
             parameters: {
                 query?: never;
@@ -561,12 +561,12 @@ export interface paths {
                 200: components["responses"]["Contact"];
             };
         };
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }
 export type webhooks = Record<string, never>;

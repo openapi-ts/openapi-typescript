@@ -7,6 +7,7 @@ import {
   NUMBER,
   QUESTION_TOKEN,
   STRING,
+  UNDEFINED,
   UNKNOWN,
   addJSDocComment,
   oapiRef,
@@ -490,12 +491,16 @@ function transformSchemaObjectCore(
       const hasExplicitAdditionalProperties =
         typeof schemaObject.additionalProperties === "object" &&
         Object.keys(schemaObject.additionalProperties).length;
-      const addlType = hasExplicitAdditionalProperties
+      let addlType = hasExplicitAdditionalProperties
         ? transformSchemaObject(
             schemaObject.additionalProperties as SchemaObject,
             options,
           )
         : UNKNOWN;
+      // allow for `| undefined`, at least until https://github.com/microsoft/TypeScript/issues/4196 is resolved
+      if (addlType.kind !== ts.SyntaxKind.UnknownKeyword) {
+        addlType = tsUnion([addlType, UNDEFINED]);
+      }
       coreObjectType.push(
         ts.factory.createIndexSignature(
           /* modifiers  */ tsModifiers({

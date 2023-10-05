@@ -97,13 +97,13 @@ describe("transformPathsObject", () => {
                 404: components["responses"]["NotFound"];
             };
         };
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }`,
         // options: DEFAULT_OPTIONS,
@@ -140,14 +140,14 @@ describe("transformPathsObject", () => {
             };
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }`,
         options: {
@@ -221,14 +221,14 @@ describe("transformPathsObject", () => {
             };
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }`,
         options: {
@@ -356,13 +356,13 @@ describe("transformPathsObject", () => {
                 404: components["responses"]["NotFound"];
             };
         };
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }`,
         options: { ...DEFAULT_OPTIONS, pathParamsAsTypes: true },

@@ -46,8 +46,6 @@
 
 - [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking** `defaultNonNullable` option now defaults to `true`. You’ll now need to manually set `false` to return to old behavior.
 
-- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: additionalProperties no longer have `| undefined` automatically appended
-
 ### Minor Changes
 
 - [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: automatically validate schemas with Redocly CLI ([docs](https://redocly.com/docs/cli/)). No more need for external tools to report errors! 🎉
@@ -66,6 +64,8 @@
 - [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: header responses add `[key: string]: unknown` index type to allow for additional untyped headers
 
 - [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: bundle schemas with Redocly CLI
+
+- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: Added debugger that lets you profile performance and see more in-depth messages
 
 ### Patch Changes
 

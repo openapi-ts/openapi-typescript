@@ -13,13 +13,13 @@ export interface paths {
         };
         /** Get Test! Foo! Etc! */
         get: operations["getTest"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/pets": {
         parameters: {
@@ -30,13 +30,13 @@ export interface paths {
         };
         /** List all pets */
         get: operations["listPets"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/pets/model": {
         parameters: {
@@ -47,13 +47,13 @@ export interface paths {
         };
         /** List all pets */
         get: operations["listPetsModel"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/pets/person": {
         parameters: {
@@ -64,13 +64,13 @@ export interface paths {
         };
         /** List all pets */
         get: operations["listPetsPerson"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/": {
         parameters: {
@@ -81,13 +81,13 @@ export interface paths {
         };
         /** Some summary */
         get: operations["getEmptyOperationId"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/{var}": {
         parameters: {
@@ -96,14 +96,14 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/unevaluated-properties": {
         parameters: {
@@ -114,13 +114,13 @@ export interface paths {
         };
         /** Checks if unevaluetedProperties work */
         get: operations["getUnevaluatedProperties"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }
 export interface webhooks {
@@ -131,7 +131,7 @@ export interface webhooks {
             path?: never;
             cookie?: never;
         };
-        get: never;
+        get?: never;
         /**
          * Edit new pet
          * @description Edit pet.
@@ -142,11 +142,11 @@ export interface webhooks {
          * @description Add new pet to the store inventory.
          */
         post: operations["addPet"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }
 export interface components {

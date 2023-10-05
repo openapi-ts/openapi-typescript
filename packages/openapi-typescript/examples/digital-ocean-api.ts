@@ -22,13 +22,13 @@ export interface paths {
          *
          */
         get: operations["oneClicks_list"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/1-clicks/kubernetes": {
         parameters: {
@@ -37,8 +37,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Install Kubernetes 1-Click Applications
          * @description To install a Kubernetes 1-Click application on a cluster, send a POST request to
@@ -48,11 +48,11 @@ export interface paths {
          *
          */
         post: operations["oneClicks_install_kubernetes"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/account": {
         parameters: {
@@ -66,13 +66,13 @@ export interface paths {
          * @description To show information about the current user account, send a GET request to `/v2/account`.
          */
         get: operations["account_get"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/account/keys": {
         parameters: {
@@ -86,17 +86,17 @@ export interface paths {
          * @description To list all of the keys in your account, send a GET request to `/v2/account/keys`. The response will be a JSON object with a key set to `ssh_keys`. The value of this will be an array of ssh_key objects, each of which contains the standard ssh_key attributes.
          */
         get: operations["sshKeys_list"];
-        put: never;
+        put?: never;
         /**
          * Create a New SSH Key
          * @description To add a new SSH public key to your DigitalOcean account, send a POST request to `/v2/account/keys`. Set the `name` attribute to the name you wish to use and the `public_key` attribute to the full public key you are adding.
          */
         post: operations["sshKeys_create"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/account/keys/{ssh_key_identifier}": {
         parameters: {
@@ -116,17 +116,17 @@ export interface paths {
          * @description To update the name of an SSH key, send a PUT request to either `/v2/account/keys/$SSH_KEY_ID` or `/v2/account/keys/$SSH_KEY_FINGERPRINT`. Set the `name` attribute to the new name you want to use.
          */
         put: operations["sshKeys_update"];
-        post: never;
+        post?: never;
         /**
          * Delete an SSH Key
          * @description To destroy a public SSH key that you have in your account, send a DELETE request to `/v2/account/keys/$KEY_ID` or `/v2/account/keys/$KEY_FINGERPRINT`.
          *     A 204 status will be returned, indicating that the action was successful and that the response body is empty.
          */
         delete: operations["sshKeys_delete"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/actions": {
         parameters: {
@@ -140,13 +140,13 @@ export interface paths {
          * @description This will be the entire list of actions taken on your account, so it will be quite large. As with any large collection returned by the API, the results will be paginated with only 20 on each page by default.
          */
         get: operations["actions_list"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/actions/{action_id}": {
         parameters: {
@@ -160,13 +160,13 @@ export interface paths {
          * @description To retrieve a specific action object, send a GET request to `/v2/actions/$ACTION_ID`.
          */
         get: operations["actions_get"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps": {
         parameters: {
@@ -180,17 +180,17 @@ export interface paths {
          * @description List all apps on your account. Information about the current active deployment as well as any in progress ones will also be included for each app.
          */
         get: operations["apps_list"];
-        put: never;
+        put?: never;
         /**
          * Create a New App
          * @description Create a new app by submitting an app specification. For documentation on app specifications (`AppSpec` objects), please refer to [the product documentation](https://docs.digitalocean.com/products/app-platform/reference/app-spec/).
          */
         post: operations["apps_create"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/{id}": {
         parameters: {
@@ -209,16 +209,16 @@ export interface paths {
          * @description Update an existing app by submitting a new app specification. For documentation on app specifications (`AppSpec` objects), please refer to [the product documentation](https://docs.digitalocean.com/products/app-platform/reference/app-spec/).
          */
         put: operations["apps_update"];
-        post: never;
+        post?: never;
         /**
          * Delete an App
          * @description Delete an existing app. Once deleted, all active deployments will be permanently shut down and the app deleted. If needed, be sure to back up your app specification so that you may re-create it at a later time.
          */
         delete: operations["apps_delete"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/{app_id}/components/{component_name}/logs": {
         parameters: {
@@ -232,13 +232,13 @@ export interface paths {
          * @description Retrieve the logs of the active deployment if one exists. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment. Note log_type=BUILD logs will return logs associated with the current active deployment (being served). To view build logs associated with in-progress build, the query must explicitly reference the deployment id.
          */
         get: operations["apps_get_logs_active_deployment"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/{app_id}/deployments": {
         parameters: {
@@ -252,17 +252,17 @@ export interface paths {
          * @description List all deployments of an app.
          */
         get: operations["apps_list_deployments"];
-        put: never;
+        put?: never;
         /**
          * Create an App Deployment
          * @description Creating an app deployment will pull the latest changes from your repository and schedule a new deployment for your app.
          */
         post: operations["apps_create_deployment"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/{app_id}/deployments/{deployment_id}": {
         parameters: {
@@ -276,13 +276,13 @@ export interface paths {
          * @description Retrieve information about an app deployment.
          */
         get: operations["apps_get_deployment"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/{app_id}/deployments/{deployment_id}/cancel": {
         parameters: {
@@ -291,18 +291,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Cancel a Deployment
          * @description Immediately cancel an in-progress deployment.
          */
         post: operations["apps_cancel_deployment"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/{app_id}/deployments/{deployment_id}/components/{component_name}/logs": {
         parameters: {
@@ -316,13 +316,13 @@ export interface paths {
          * @description Retrieve the logs of a past, in-progress, or active deployment. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment.
          */
         get: operations["apps_get_logs"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/{app_id}/deployments/{deployment_id}/logs": {
         parameters: {
@@ -336,13 +336,13 @@ export interface paths {
          * @description Retrieve the logs of a past, in-progress, or active deployment. If a component name is specified, the logs will be limited to only that component. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment.
          */
         get: operations["apps_get_logs_aggregate"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/{app_id}/logs": {
         parameters: {
@@ -356,13 +356,13 @@ export interface paths {
          * @description Retrieve the logs of the active deployment if one exists. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment. Note log_type=BUILD logs will return logs associated with the current active deployment (being served). To view build logs associated with in-progress build, the query must explicitly reference the deployment id.
          */
         get: operations["apps_get_logs_active_deployment_aggregate"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/tiers": {
         parameters: {
@@ -376,13 +376,13 @@ export interface paths {
          * @description List all app tiers.
          */
         get: operations["apps_list_tiers"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/tiers/{slug}": {
         parameters: {
@@ -396,13 +396,13 @@ export interface paths {
          * @description Retrieve information about a specific app tier.
          */
         get: operations["apps_get_tier"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/tiers/instance_sizes": {
         parameters: {
@@ -416,13 +416,13 @@ export interface paths {
          * @description List all instance sizes for `service`, `worker`, and `job` components.
          */
         get: operations["apps_list_instanceSizes"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/tiers/instance_sizes/{slug}": {
         parameters: {
@@ -436,13 +436,13 @@ export interface paths {
          * @description Retrieve information about a specific instance size for `service`, `worker`, and `job` components.
          */
         get: operations["apps_get_instanceSize"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/regions": {
         parameters: {
@@ -456,13 +456,13 @@ export interface paths {
          * @description List all regions supported by App Platform.
          */
         get: operations["apps_list_regions"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/propose": {
         parameters: {
@@ -471,18 +471,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Propose an App Spec
          * @description To propose and validate a spec for a new or existing app, send a POST request to the `/v2/apps/propose` endpoint. The request returns some information about the proposed app, including app cost and upgrade cost. If an existing app ID is specified, the app spec is treated as a proposed update to the existing app.
          */
         post: operations["apps_validate_appSpec"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/{app_id}/alerts": {
         parameters: {
@@ -496,13 +496,13 @@ export interface paths {
          * @description List alerts associated to the app and any components. This includes configuration information about the alerts including emails, slack webhooks, and triggering events or conditions.
          */
         get: operations["apps_list_alerts"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/{app_id}/alerts/{alert_id}/destinations": {
         parameters: {
@@ -511,18 +511,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Update destinations for alerts
          * @description Updates the emails and slack webhook destinations for app alerts. Emails must be associated to a user with access to the app.
          */
         post: operations["apps_assign_alertDestinations"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/{app_id}/rollback": {
         parameters: {
@@ -531,8 +531,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Rollback App
          * @description Rollback an app to a previous deployment. A new deployment will be created to perform the rollback.
@@ -545,11 +545,11 @@ export interface paths {
          *
          */
         post: operations["apps_create_rollback"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/{app_id}/rollback/validate": {
         parameters: {
@@ -558,8 +558,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Validate App Rollback
          * @description Check whether an app can be rolled back to a specific deployment. This endpoint can also be used
@@ -569,11 +569,11 @@ export interface paths {
          *
          */
         post: operations["apps_validate_rollback"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/{app_id}/rollback/commit": {
         parameters: {
@@ -582,19 +582,19 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Commit App Rollback
          * @description Commit an app rollback. This action permanently applies the rollback and unpins the app to resume new deployments.
          *
          */
         post: operations["apps_commit_rollback"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/{app_id}/rollback/revert": {
         parameters: {
@@ -603,8 +603,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Revert App Rollback
          * @description Revert an app rollback. This action reverts the active rollback by creating a new deployment from the
@@ -612,11 +612,11 @@ export interface paths {
          *
          */
         post: operations["apps_revert_rollback"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/{app_id}/metrics/bandwidth_daily": {
         parameters: {
@@ -630,13 +630,13 @@ export interface paths {
          * @description Retrieve daily bandwidth usage metrics for a single app.
          */
         get: operations["apps_get_metrics_bandwidth_daily"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/apps/metrics/bandwidth_daily": {
         parameters: {
@@ -645,18 +645,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Retrieve Multiple Apps' Daily Bandwidth Metrics
          * @description Retrieve daily bandwidth usage metrics for multiple apps.
          */
         post: operations["apps_list_metrics_bandwidth_daily"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/cdn/endpoints": {
         parameters: {
@@ -670,7 +670,7 @@ export interface paths {
          * @description To list all of the CDN endpoints available on your account, send a GET request to `/v2/cdn/endpoints`.
          */
         get: operations["cdn_list_endpoints"];
-        put: never;
+        put?: never;
         /**
          * Create a New CDN Endpoint
          * @description To create a new CDN endpoint, send a POST request to `/v2/cdn/endpoints`. The
@@ -683,11 +683,11 @@ export interface paths {
          *
          */
         post: operations["cdn_create_endpoint"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/cdn/endpoints/{cdn_id}": {
         parameters: {
@@ -709,7 +709,7 @@ export interface paths {
          *
          */
         put: operations["cdn_update_endpoints"];
-        post: never;
+        post?: never;
         /**
          * Delete a CDN Endpoint
          * @description To delete a specific CDN endpoint, send a DELETE request to
@@ -720,10 +720,10 @@ export interface paths {
          *
          */
         delete: operations["cdn_delete_endpoint"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/cdn/endpoints/{cdn_id}/cache": {
         parameters: {
@@ -732,9 +732,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
+        get?: never;
+        put?: never;
+        post?: never;
         /**
          * Purge the Cache for an Existing CDN Endpoint
          * @description To purge cached content from a CDN endpoint, send a DELETE request to
@@ -747,10 +747,10 @@ export interface paths {
          *
          */
         delete: operations["cdn_purge_cache"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/certificates": {
         parameters: {
@@ -764,7 +764,7 @@ export interface paths {
          * @description To list all of the certificates available on your account, send a GET request to `/v2/certificates`.
          */
         get: operations["certificates_list"];
-        put: never;
+        put?: never;
         /**
          * Create a New Certificate
          * @description To upload new SSL certificate which you have previously generated, send a POST
@@ -779,11 +779,11 @@ export interface paths {
          *
          */
         post: operations["certificates_create"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/certificates/{certificate_id}": {
         parameters: {
@@ -797,8 +797,8 @@ export interface paths {
          * @description To show information about an existing certificate, send a GET request to `/v2/certificates/$CERTIFICATE_ID`.
          */
         get: operations["certificates_get"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Delete a Certificate
          * @description To delete a specific certificate, send a DELETE request to
@@ -806,10 +806,10 @@ export interface paths {
          *
          */
         delete: operations["certificates_delete"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/customers/my/balance": {
         parameters: {
@@ -823,13 +823,13 @@ export interface paths {
          * @description To retrieve the balances on a customer's account, send a GET request to `/v2/customers/my/balance`.
          */
         get: operations["balance_get"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/customers/my/billing_history": {
         parameters: {
@@ -843,13 +843,13 @@ export interface paths {
          * @description To retrieve a list of all billing history entries, send a GET request to `/v2/customers/my/billing_history`.
          */
         get: operations["billingHistory_list"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/customers/my/invoices": {
         parameters: {
@@ -863,13 +863,13 @@ export interface paths {
          * @description To retrieve a list of all invoices, send a GET request to `/v2/customers/my/invoices`.
          */
         get: operations["invoices_list"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/customers/my/invoices/{invoice_uuid}": {
         parameters: {
@@ -883,13 +883,13 @@ export interface paths {
          * @description To retrieve the invoice items for an invoice, send a GET request to `/v2/customers/my/invoices/$INVOICE_UUID`.
          */
         get: operations["invoices_get_byUUID"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/customers/my/invoices/{invoice_uuid}/csv": {
         parameters: {
@@ -903,13 +903,13 @@ export interface paths {
          * @description To retrieve a CSV for an invoice, send a GET request to `/v2/customers/my/invoices/$INVOICE_UUID/csv`.
          */
         get: operations["invoices_get_csvByUUID"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/customers/my/invoices/{invoice_uuid}/pdf": {
         parameters: {
@@ -923,13 +923,13 @@ export interface paths {
          * @description To retrieve a PDF for an invoice, send a GET request to `/v2/customers/my/invoices/$INVOICE_UUID/pdf`.
          */
         get: operations["invoices_get_pdfByUUID"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/customers/my/invoices/{invoice_uuid}/summary": {
         parameters: {
@@ -943,13 +943,13 @@ export interface paths {
          * @description To retrieve a summary for an invoice, send a GET request to `/v2/customers/my/invoices/$INVOICE_UUID/summary`.
          */
         get: operations["invoices_get_summaryByUUID"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/options": {
         parameters: {
@@ -964,13 +964,13 @@ export interface paths {
          *     The result will be a JSON object with an `options` key.
          */
         get: operations["databases_list_options"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases": {
         parameters: {
@@ -987,7 +987,7 @@ export interface paths {
          *     The embedded `maintenance_window` object will contain information about any scheduled maintenance for the database cluster.
          */
         get: operations["databases_list_clusters"];
-        put: never;
+        put?: never;
         /**
          * Create a New Database Cluster
          * @description To create a database cluster, send a POST request to `/v2/databases`.
@@ -997,11 +997,11 @@ export interface paths {
          *     Note: Backups are not supported for Redis clusters.
          */
         post: operations["databases_create_cluster"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}": {
         parameters: {
@@ -1018,18 +1018,18 @@ export interface paths {
          *     The embedded maintenance_window object will contain information about any scheduled maintenance for the database cluster.
          */
         get: operations["databases_get_cluster"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Destroy a Database Cluster
          * @description To destroy a specific database, send a DELETE request to `/v2/databases/$DATABASE_ID`.
          *     A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
          */
         delete: operations["databases_destroy_cluster"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/config": {
         parameters: {
@@ -1047,11 +1047,11 @@ export interface paths {
          *
          */
         get: operations["databases_get_config"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
         /**
          * Update the Database Configuration for an Existing Database
          * @description To update the configuration for an existing database cluster, send a PATCH request to
@@ -1059,7 +1059,7 @@ export interface paths {
          *
          */
         patch: operations["databases_patch_config"];
-        trace: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/ca": {
         parameters: {
@@ -1078,13 +1078,13 @@ export interface paths {
          *
          */
         get: operations["databases_get_ca"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/online-migration": {
         parameters: {
@@ -1103,12 +1103,12 @@ export interface paths {
          * @description To start an online migration, send a PUT request to `/v2/databases/$DATABASE_ID/online-migration` endpoint. Migrating a cluster establishes a connection with an existing cluster and replicates its contents to the target cluster. Online migration is only available for MySQL, PostgreSQL, and Redis clusters.
          */
         put: operations["databases_update_onlineMigration"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/online-migration/{migration_id}": {
         parameters: {
@@ -1117,9 +1117,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
+        get?: never;
+        put?: never;
+        post?: never;
         /**
          * Stop an Online Migration
          * @description To stop an online migration, send a DELETE request to `/v2/databases/$DATABASE_ID/online-migration/$MIGRATION_ID`.
@@ -1128,10 +1128,10 @@ export interface paths {
          *
          */
         delete: operations["databases_delete_onlineMigration"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/migrate": {
         parameters: {
@@ -1140,7 +1140,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
+        get?: never;
         /**
          * Migrate a Database Cluster to a New Region
          * @description To migrate a database cluster to a new region, send a `PUT` request to
@@ -1154,12 +1154,12 @@ export interface paths {
          *
          */
         put: operations["databases_update_region"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/resize": {
         parameters: {
@@ -1168,19 +1168,19 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
+        get?: never;
         /**
          * Resize a Database Cluster
          * @description To resize a database cluster, send a PUT request to `/v2/databases/$DATABASE_ID/resize`. The body of the request must specify both the size and num_nodes attributes.
          *     A successful request will receive a 202 Accepted status code with no body in response. Querying the database cluster will show that its status attribute will now be set to resizing. This will transition back to online when the resize operation has completed.
          */
         put: operations["databases_update_clusterSize"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/firewall": {
         parameters: {
@@ -1201,12 +1201,12 @@ export interface paths {
          *     A successful
          */
         put: operations["databases_update_firewall_rules"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/maintenance": {
         parameters: {
@@ -1215,19 +1215,19 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
+        get?: never;
         /**
          * Configure a Database Cluster's Maintenance Window
          * @description To configure the window when automatic maintenance should be performed for a database cluster, send a PUT request to `/v2/databases/$DATABASE_ID/maintenance`.
          *     A successful request will receive a 204 No Content status code with no body in response.
          */
         put: operations["databases_update_maintenanceWindow"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/backups": {
         parameters: {
@@ -1243,13 +1243,13 @@ export interface paths {
          *     The result will be a JSON object with a `backups key`. This will be set to an array of backup objects, each of which will contain the size of the backup and the timestamp at which it was created.
          */
         get: operations["databases_list_backups"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/replicas": {
         parameters: {
@@ -1267,7 +1267,7 @@ export interface paths {
          *     The result will be a JSON object with a `replicas` key. This will be set to an array of database replica objects, each of which will contain the standard database replica attributes.
          */
         get: operations["databases_list_replicas"];
-        put: never;
+        put?: never;
         /**
          * Create a Read-only Replica
          * @description To create a read-only replica for a PostgreSQL or MySQL database cluster, send a POST request to `/v2/databases/$DATABASE_ID/replicas` specifying the name it should be given, the size of the node to be used, and the region where it will be located.
@@ -1277,11 +1277,11 @@ export interface paths {
          *     The response will be a JSON object with a key called `replica`. The value of this will be an object that contains the standard attributes associated with a database replica. The initial value of the read-only replica's `status` attribute will be `forking`. When the replica is ready to receive traffic, this will transition to `active`.
          */
         post: operations["databases_create_replica"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/replicas/{replica_name}": {
         parameters: {
@@ -1299,8 +1299,8 @@ export interface paths {
          *     The response will be a JSON object with a `replica key`. This will be set to an object containing the standard database replica attributes.
          */
         get: operations["databases_get_replica"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Destroy a Read-only Replica
          * @description To destroy a specific read-only replica, send a DELETE request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.
@@ -1310,10 +1310,10 @@ export interface paths {
          *     A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
          */
         delete: operations["databases_destroy_replica"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/replicas/{replica_name}/promote": {
         parameters: {
@@ -1322,7 +1322,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
+        get?: never;
         /**
          * Promote a Read-only Replica to become a Primary Cluster
          * @description To promote a specific read-only replica, send a PUT request to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME/promote`.
@@ -1332,12 +1332,12 @@ export interface paths {
          *     A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
          */
         put: operations["databases_promote_replica"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/users": {
         parameters: {
@@ -1360,7 +1360,7 @@ export interface paths {
          *
          */
         get: operations["databases_list_users"];
-        put: never;
+        put?: never;
         /**
          * Add a Database User
          * @description To add a new database user, send a POST request to `/v2/databases/$DATABASE_ID/users`
@@ -1377,11 +1377,11 @@ export interface paths {
          *
          */
         post: operations["databases_add_user"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/users/{username}": {
         parameters: {
@@ -1405,8 +1405,8 @@ export interface paths {
          *
          */
         get: operations["databases_get_user"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Remove a Database User
          * @description To remove a specific database user, send a DELETE request to
@@ -1419,10 +1419,10 @@ export interface paths {
          *
          */
         delete: operations["databases_delete_user"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/users/{username}/reset_auth": {
         parameters: {
@@ -1431,8 +1431,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Reset a Database User's Password or Authentication Method
          * @description To reset the password for a database user, send a POST request to
@@ -1447,11 +1447,11 @@ export interface paths {
          *
          */
         post: operations["databases_reset_auth"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/dbs": {
         parameters: {
@@ -1472,7 +1472,7 @@ export interface paths {
          *
          */
         get: operations["databases_list"];
-        put: never;
+        put?: never;
         /**
          * Add a New Database
          * @description To add a new database to an existing cluster, send a POST request to
@@ -1485,11 +1485,11 @@ export interface paths {
          *
          */
         post: operations["databases_add"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/dbs/{database_name}": {
         parameters: {
@@ -1510,8 +1510,8 @@ export interface paths {
          *
          */
         get: operations["databases_get"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Delete a Database
          * @description To delete a specific database, send a DELETE request to
@@ -1524,10 +1524,10 @@ export interface paths {
          *
          */
         delete: operations["databases_delete"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/pools": {
         parameters: {
@@ -1542,7 +1542,7 @@ export interface paths {
          *     The result will be a JSON object with a `pools` key. This will be set to an array of connection pool objects.
          */
         get: operations["databases_list_connectionPools"];
-        put: never;
+        put?: never;
         /**
          * Add a New Connection Pool (PostgreSQL)
          * @description For PostgreSQL database clusters, connection pools can be used to allow a
@@ -1558,11 +1558,11 @@ export interface paths {
          *
          */
         post: operations["databases_add_connectionPool"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/pools/{pool_name}": {
         parameters: {
@@ -1582,7 +1582,7 @@ export interface paths {
          * @description To update a connection pool for a PostgreSQL database cluster, send a PUT request to  `/v2/databases/$DATABASE_ID/pools/$POOL_NAME`.
          */
         put: operations["databases_update_connectionPool"];
-        post: never;
+        post?: never;
         /**
          * Delete a Connection Pool (PostgreSQL)
          * @description To delete a specific connection pool for a PostgreSQL database cluster, send
@@ -1593,10 +1593,10 @@ export interface paths {
          *
          */
         delete: operations["databases_delete_connectionPool"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/eviction_policy": {
         parameters: {
@@ -1616,12 +1616,12 @@ export interface paths {
          * @description To configure an eviction policy for an existing Redis cluster, send a PUT request to `/v2/databases/$DATABASE_ID/eviction_policy` specifying the desired policy.
          */
         put: operations["databases_update_evictionPolicy"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/sql_mode": {
         parameters: {
@@ -1642,12 +1642,12 @@ export interface paths {
          *     A successful request will receive a 204 No Content status code with no body in response.
          */
         put: operations["databases_update_sql_mode"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/databases/{database_cluster_uuid}/upgrade": {
         parameters: {
@@ -1656,19 +1656,19 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
+        get?: never;
         /**
          * Upgrade Major Version for a Database
          * @description To upgrade the major version of a database, send a PUT request to `/v2/databases/$DATABASE_ID/upgrade`, specifying the target version.
          *     A successful request will receive a 204 No Content status code with no body in response.
          */
         put: operations["databases_update_major_version"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/domains": {
         parameters: {
@@ -1682,7 +1682,7 @@ export interface paths {
          * @description To retrieve a list of all of the domains in your account, send a GET request to `/v2/domains`.
          */
         get: operations["domains_list"];
-        put: never;
+        put?: never;
         /**
          * Create a New Domain
          * @description To create a new domain, send a POST request to `/v2/domains`. Set the "name"
@@ -1692,11 +1692,11 @@ export interface paths {
          *
          */
         post: operations["domains_create"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/domains/{domain_name}": {
         parameters: {
@@ -1710,18 +1710,18 @@ export interface paths {
          * @description To get details about a specific domain, send a GET request to `/v2/domains/$DOMAIN_NAME`.
          */
         get: operations["domains_get"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Delete a Domain
          * @description To delete a domain, send a DELETE request to `/v2/domains/$DOMAIN_NAME`.
          *
          */
         delete: operations["domains_delete"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/domains/{domain_name}/records": {
         parameters: {
@@ -1738,7 +1738,7 @@ export interface paths {
          *
          */
         get: operations["domains_list_records"];
-        put: never;
+        put?: never;
         /**
          * Create a New Domain Record
          * @description To create a new record to a domain, send a POST request to
@@ -1752,11 +1752,11 @@ export interface paths {
          *
          */
         post: operations["domains_create_record"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/domains/{domain_name}/records/{domain_record_id}": {
         parameters: {
@@ -1781,7 +1781,7 @@ export interface paths {
          *
          */
         put: operations["domains_update_record"];
-        post: never;
+        post?: never;
         /**
          * Delete a Domain Record
          * @description To delete a record for a domain, send a DELETE request to
@@ -1792,8 +1792,8 @@ export interface paths {
          *
          */
         delete: operations["domains_delete_record"];
-        options: never;
-        head: never;
+        options?: never;
+        head?: never;
         /**
          * Update a Domain Record
          * @description To update an existing record, send a PATCH request to
@@ -1805,7 +1805,7 @@ export interface paths {
          *
          */
         patch: operations["domains_patch_record"];
-        trace: never;
+        trace?: never;
     };
     "/v2/droplets": {
         parameters: {
@@ -1831,7 +1831,7 @@ export interface paths {
          *
          */
         get: operations["droplets_list"];
-        put: never;
+        put?: never;
         /**
          * Create a New Droplet
          * @description To create a new Droplet, send a POST request to `/v2/droplets` setting the
@@ -1873,10 +1873,10 @@ export interface paths {
          *
          */
         delete: operations["droplets_destroy_byTag"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/droplets/{droplet_id}": {
         parameters: {
@@ -1892,8 +1892,8 @@ export interface paths {
          *
          */
         get: operations["droplets_get"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Delete an Existing Droplet
          * @description To delete a Droplet, send a DELETE request to `/v2/droplets/$DROPLET_ID`.
@@ -1903,10 +1903,10 @@ export interface paths {
          *
          */
         delete: operations["droplets_destroy"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/droplets/{droplet_id}/backups": {
         parameters: {
@@ -1926,13 +1926,13 @@ export interface paths {
          *
          */
         get: operations["droplets_list_backups"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/droplets/{droplet_id}/snapshots": {
         parameters: {
@@ -1952,13 +1952,13 @@ export interface paths {
          *
          */
         get: operations["droplets_list_snapshots"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/droplets/{droplet_id}/actions": {
         parameters: {
@@ -1978,7 +1978,7 @@ export interface paths {
          *
          */
         get: operations["dropletActions_list"];
-        put: never;
+        put?: never;
         /**
          * Initiate a Droplet Action
          * @description To initiate an action on a Droplet send a POST request to
@@ -2005,11 +2005,11 @@ export interface paths {
          *
          */
         post: operations["dropletActions_post"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/droplets/actions": {
         parameters: {
@@ -2018,8 +2018,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Acting on Tagged Droplets
          * @description Some actions can be performed in bulk on tagged Droplets. The actions can be
@@ -2039,11 +2039,11 @@ export interface paths {
          *
          */
         post: operations["dropletActions_post_byTag"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/droplets/{droplet_id}/actions/{action_id}": {
         parameters: {
@@ -2062,13 +2062,13 @@ export interface paths {
          *
          */
         get: operations["dropletActions_get"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/droplets/{droplet_id}/kernels": {
         parameters: {
@@ -2088,13 +2088,13 @@ export interface paths {
          *
          */
         get: operations["droplets_list_kernels"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/droplets/{droplet_id}/firewalls": {
         parameters: {
@@ -2114,13 +2114,13 @@ export interface paths {
          *
          */
         get: operations["droplets_list_firewalls"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/droplets/{droplet_id}/neighbors": {
         parameters: {
@@ -2142,13 +2142,13 @@ export interface paths {
          *
          */
         get: operations["droplets_list_neighbors"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/droplets/{droplet_id}/destroy_with_associated_resources": {
         parameters: {
@@ -2169,13 +2169,13 @@ export interface paths {
          *
          */
         get: operations["droplets_list_associatedResources"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/droplets/{droplet_id}/destroy_with_associated_resources/selective": {
         parameters: {
@@ -2184,9 +2184,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
+        get?: never;
+        put?: never;
+        post?: never;
         /**
          * Selectively Destroy a Droplet and its Associated Resources
          * @description To destroy a Droplet along with a sub-set of its associated resources, send a
@@ -2203,10 +2203,10 @@ export interface paths {
          *
          */
         delete: operations["droplets_destroy_withAssociatedResourcesSelective"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/droplets/{droplet_id}/destroy_with_associated_resources/dangerous": {
         parameters: {
@@ -2215,9 +2215,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
+        get?: never;
+        put?: never;
+        post?: never;
         /**
          * Destroy a Droplet and All of its Associated Resources (Dangerous)
          * @description To destroy a Droplet along with all of its associated resources, send a DELETE
@@ -2233,10 +2233,10 @@ export interface paths {
          *
          */
         delete: operations["droplets_destroy_withAssociatedResourcesDangerous"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/droplets/{droplet_id}/destroy_with_associated_resources/status": {
         parameters: {
@@ -2253,13 +2253,13 @@ export interface paths {
          *
          */
         get: operations["droplets_get_DestroyAssociatedResourcesStatus"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/droplets/{droplet_id}/destroy_with_associated_resources/retry": {
         parameters: {
@@ -2268,8 +2268,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Retry a Droplet Destroy with Associated Resources Request
          * @description If the status of a request to destroy a Droplet with its associated resources
@@ -2283,11 +2283,11 @@ export interface paths {
          *
          */
         post: operations["droplets_destroy_retryWithAssociatedResources"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/firewalls": {
         parameters: {
@@ -2301,7 +2301,7 @@ export interface paths {
          * @description To list all of the firewalls available on your account, send a GET request to `/v2/firewalls`.
          */
         get: operations["firewalls_list"];
-        put: never;
+        put?: never;
         /**
          * Create a New Firewall
          * @description To create a new firewall, send a POST request to `/v2/firewalls`. The request
@@ -2309,11 +2309,11 @@ export interface paths {
          *
          */
         post: operations["firewalls_create"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/firewalls/{firewall_id}": {
         parameters: {
@@ -2336,7 +2336,7 @@ export interface paths {
          *
          */
         put: operations["firewalls_update"];
-        post: never;
+        post?: never;
         /**
          * Delete a Firewall
          * @description To delete a firewall send a DELETE request to `/v2/firewalls/$FIREWALL_ID`.
@@ -2347,10 +2347,10 @@ export interface paths {
          *
          */
         delete: operations["firewalls_delete"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/firewalls/{firewall_id}/droplets": {
         parameters: {
@@ -2359,8 +2359,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Add Droplets to a Firewall
          * @description To assign a Droplet to a firewall, send a POST request to
@@ -2385,10 +2385,10 @@ export interface paths {
          *
          */
         delete: operations["firewalls_delete_droplets"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/firewalls/{firewall_id}/tags": {
         parameters: {
@@ -2397,8 +2397,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Add Tags to a Firewall
          * @description To assign a tag representing a group of Droplets to a firewall, send a POST
@@ -2423,10 +2423,10 @@ export interface paths {
          *
          */
         delete: operations["firewalls_delete_tags"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/firewalls/{firewall_id}/rules": {
         parameters: {
@@ -2435,8 +2435,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Add Rules to a Firewall
          * @description To add additional access rules to a firewall, send a POST request to
@@ -2463,10 +2463,10 @@ export interface paths {
          *
          */
         delete: operations["firewalls_delete_rules"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/floating_ips": {
         parameters: {
@@ -2480,7 +2480,7 @@ export interface paths {
          * @description To list all of the floating IPs available on your account, send a GET request to `/v2/floating_ips`.
          */
         get: operations["floatingIPs_list"];
-        put: never;
+        put?: never;
         /**
          * Create a New Floating IP
          * @description On creation, a floating IP must be either assigned to a Droplet or reserved to a region.
@@ -2493,11 +2493,11 @@ export interface paths {
          *     **Note**:  In addition to the standard rate limiting, only 12 floating IPs may be created per 60 seconds.
          */
         post: operations["floatingIPs_create"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/floating_ips/{floating_ip}": {
         parameters: {
@@ -2511,8 +2511,8 @@ export interface paths {
          * @description To show information about a floating IP, send a GET request to `/v2/floating_ips/$FLOATING_IP_ADDR`.
          */
         get: operations["floatingIPs_get"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Delete a Floating IP
          * @description To delete a floating IP and remove it from your account, send a DELETE request
@@ -2523,10 +2523,10 @@ export interface paths {
          *
          */
         delete: operations["floatingIPs_delete"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/floating_ips/{floating_ip}/actions": {
         parameters: {
@@ -2540,7 +2540,7 @@ export interface paths {
          * @description To retrieve all actions that have been executed on a floating IP, send a GET request to `/v2/floating_ips/$FLOATING_IP/actions`.
          */
         get: operations["floatingIPsAction_list"];
-        put: never;
+        put?: never;
         /**
          * Initiate a Floating IP Action
          * @description To initiate an action on a floating IP send a POST request to
@@ -2554,11 +2554,11 @@ export interface paths {
          *
          */
         post: operations["floatingIPsAction_post"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/floating_ips/{floating_ip}/actions/{action_id}": {
         parameters: {
@@ -2572,13 +2572,13 @@ export interface paths {
          * @description To retrieve the status of a floating IP action, send a GET request to `/v2/floating_ips/$FLOATING_IP/actions/$ACTION_ID`.
          */
         get: operations["floatingIPsAction_get"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/functions/namespaces": {
         parameters: {
@@ -2592,17 +2592,17 @@ export interface paths {
          * @description Returns a list of namespaces associated with the current user. To get all namespaces, send a GET request to `/v2/functions/namespaces`.
          */
         get: operations["functions_list_namespaces"];
-        put: never;
+        put?: never;
         /**
          * Create Namespace
          * @description Creates a new serverless functions namespace in the desired region and associates it with the provided label. A namespace is a collection of functions and their associated packages, triggers, and project specifications. To create a namespace, send a POST request to `/v2/functions/namespaces` with the `region` and `label` properties.
          */
         post: operations["functions_create_namespace"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/functions/namespaces/{namespace_id}": {
         parameters: {
@@ -2616,8 +2616,8 @@ export interface paths {
          * @description Gets the namespace details for the given namespace UUID. To get namespace details, send a GET request to `/v2/functions/namespaces/$NAMESPACE_ID` with no parameters.
          */
         get: operations["functions_get_namespace"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Delete Namespace
          * @description Deletes the given namespace.  When a namespace is deleted all assets, in the namespace are deleted, this includes packages, functions and triggers. Deleting a namespace is a destructive operation and assets in the namespace are not recoverable after deletion. Some metadata is retained, such as activations, or soft deleted for reporting purposes.
@@ -2625,10 +2625,10 @@ export interface paths {
          *     A successful deletion returns a 204 response.
          */
         delete: operations["functions_delete_namespace"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/functions/namespaces/{namespace_id}/triggers": {
         parameters: {
@@ -2642,17 +2642,17 @@ export interface paths {
          * @description Returns a list of triggers associated with the current user and namespace. To get all triggers, send a GET request to `/v2/functions/namespaces/$NAMESPACE_ID/triggers`.
          */
         get: operations["functions_list_triggers"];
-        put: never;
+        put?: never;
         /**
          * Create Trigger
          * @description Creates a new trigger for a given function in a namespace. To create a trigger, send a POST request to `/v2/functions/namespaces/$NAMESPACE_ID/triggers` with the `name`, `function`, `type`, `is_enabled` and `scheduled_details` properties.
          */
         post: operations["functions_create_trigger"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/functions/namespaces/{namespace_id}/triggers/{trigger_name}": {
         parameters: {
@@ -2671,7 +2671,7 @@ export interface paths {
          * @description Updates the details of the given trigger. To update a trigger, send a PUT request to `/v2/functions/namespaces/$NAMESPACE_ID/triggers/$TRIGGER_NAME` with new values for the `is_enabled ` or `scheduled_details` properties.
          */
         put: operations["functions_update_trigger"];
-        post: never;
+        post?: never;
         /**
          * Delete Trigger
          * @description Deletes the given trigger.
@@ -2679,10 +2679,10 @@ export interface paths {
          *     A successful deletion returns a 204 response.
          */
         delete: operations["functions_delete_trigger"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/images": {
         parameters: {
@@ -2720,7 +2720,7 @@ export interface paths {
          *
          */
         get: operations["images_list"];
-        put: never;
+        put?: never;
         /**
          * Create a Custom Image
          * @description To create a new custom image, send a POST request to /v2/images.
@@ -2732,11 +2732,11 @@ export interface paths {
          *
          */
         post: operations["images_create_custom"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/images/{image_id}": {
         parameters: {
@@ -2760,17 +2760,17 @@ export interface paths {
          *
          */
         put: operations["images_update"];
-        post: never;
+        post?: never;
         /**
          * Delete an Image
          * @description To delete a snapshot or custom image, send a `DELETE` request to `/v2/images/$IMAGE_ID`.
          *
          */
         delete: operations["images_delete"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/images/{image_id}/actions": {
         parameters: {
@@ -2784,7 +2784,7 @@ export interface paths {
          * @description To retrieve all actions that have been executed on an image, send a GET request to `/v2/images/$IMAGE_ID/actions`.
          */
         get: operations["imageActions_list"];
-        put: never;
+        put?: never;
         /**
          * Initiate an Image Action
          * @description The following actions are available on an Image.
@@ -2803,11 +2803,11 @@ export interface paths {
          *
          */
         post: operations["imageActions_post"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/images/{image_id}/actions/{action_id}": {
         parameters: {
@@ -2821,13 +2821,13 @@ export interface paths {
          * @description To retrieve the status of an image action, send a GET request to `/v2/images/$IMAGE_ID/actions/$IMAGE_ACTION_ID`.
          */
         get: operations["imageActions_get"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/clusters": {
         parameters: {
@@ -2843,7 +2843,7 @@ export interface paths {
          *
          */
         get: operations["kubernetes_list_clusters"];
-        put: never;
+        put?: never;
         /**
          * Create a New Kubernetes Cluster
          * @description To create a new Kubernetes cluster, send a POST request to
@@ -2858,11 +2858,11 @@ export interface paths {
          *
          */
         post: operations["kubernetes_create_cluster"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}": {
         parameters: {
@@ -2886,7 +2886,7 @@ export interface paths {
          *
          */
         put: operations["kubernetes_update_cluster"];
-        post: never;
+        post?: never;
         /**
          * Delete a Kubernetes Cluster
          * @description To delete a Kubernetes cluster and all services deployed to it, send a DELETE
@@ -2897,10 +2897,10 @@ export interface paths {
          *
          */
         delete: operations["kubernetes_delete_cluster"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/destroy_with_associated_resources": {
         parameters: {
@@ -2914,13 +2914,13 @@ export interface paths {
          * @description To list the associated billable resources that can be destroyed along with a cluster, send a GET request to the `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/destroy_with_associated_resources` endpoint.
          */
         get: operations["kubernetes_list_associatedResources"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/destroy_with_associated_resources/selective": {
         parameters: {
@@ -2929,9 +2929,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
+        get?: never;
+        put?: never;
+        post?: never;
         /**
          * Selectively Delete a Cluster and its Associated Resources
          * @description To delete a Kubernetes cluster along with a subset of its associated resources,
@@ -2947,10 +2947,10 @@ export interface paths {
          *
          */
         delete: operations["kubernetes_destroy_associatedResourcesSelective"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/destroy_with_associated_resources/dangerous": {
         parameters: {
@@ -2959,9 +2959,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
+        get?: never;
+        put?: never;
+        post?: never;
         /**
          * Delete a Cluster and All of its Associated Resources (Dangerous)
          * @description To delete a Kubernetes cluster with all of its associated resources, send a
@@ -2970,10 +2970,10 @@ export interface paths {
          *
          */
         delete: operations["kubernetes_destroy_associatedResourcesDangerous"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/kubeconfig": {
         parameters: {
@@ -3004,13 +3004,13 @@ export interface paths {
          *
          */
         get: operations["kubernetes_get_kubeconfig"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/credentials": {
         parameters: {
@@ -3040,13 +3040,13 @@ export interface paths {
          *
          */
         get: operations["kubernetes_get_credentials"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/upgrades": {
         parameters: {
@@ -3063,13 +3063,13 @@ export interface paths {
          *
          */
         get: operations["kubernetes_get_availableUpgrades"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/upgrade": {
         parameters: {
@@ -3078,8 +3078,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Upgrade a Kubernetes Cluster
          * @description To immediately upgrade a Kubernetes cluster to a newer patch release of
@@ -3091,11 +3091,11 @@ export interface paths {
          *
          */
         post: operations["kubernetes_upgrade_cluster"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/node_pools": {
         parameters: {
@@ -3111,7 +3111,7 @@ export interface paths {
          *
          */
         get: operations["kubernetes_list_nodePools"];
-        put: never;
+        put?: never;
         /**
          * Add a Node Pool to a Kubernetes Cluster
          * @description To add an additional node pool to a Kubernetes clusters, send a POST request
@@ -3120,11 +3120,11 @@ export interface paths {
          *
          */
         post: operations["kubernetes_add_nodePool"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/node_pools/{node_pool_id}": {
         parameters: {
@@ -3149,7 +3149,7 @@ export interface paths {
          *
          */
         put: operations["kubernetes_update_nodePool"];
-        post: never;
+        post?: never;
         /**
          * Delete a Node Pool in a Kubernetes Cluster
          * @description To delete a node pool, send a DELETE request to
@@ -3160,10 +3160,10 @@ export interface paths {
          *
          */
         delete: operations["kubernetes_delete_nodePool"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/node_pools/{node_pool_id}/nodes/{node_id}": {
         parameters: {
@@ -3172,9 +3172,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
+        get?: never;
+        put?: never;
+        post?: never;
         /**
          * Delete a Node in a Kubernetes Cluster
          * @description To delete a single node in a pool, send a DELETE request to
@@ -3190,10 +3190,10 @@ export interface paths {
          *
          */
         delete: operations["kubernetes_delete_node"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/node_pools/{node_pool_id}/recycle": {
         parameters: {
@@ -3202,8 +3202,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Recycle a Kubernetes Node Pool
          * @deprecated
@@ -3213,11 +3213,11 @@ export interface paths {
          *
          */
         post: operations["kubernetes_recycle_node_pool"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/user": {
         parameters: {
@@ -3233,13 +3233,13 @@ export interface paths {
          *
          */
         get: operations["kubernetes_get_clusterUser"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/options": {
         parameters: {
@@ -3253,13 +3253,13 @@ export interface paths {
          * @description To list the versions of Kubernetes available for use, the regions that support Kubernetes, and the available node sizes, send a GET request to `/v2/kubernetes/options`.
          */
         get: operations["kubernetes_list_options"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/clusterlint": {
         parameters: {
@@ -3280,7 +3280,7 @@ export interface paths {
          *
          */
         get: operations["kubernetes_get_clusterLintResults"];
-        put: never;
+        put?: never;
         /**
          * Run Clusterlint Checks on a Kubernetes Cluster
          * @description Clusterlint helps operators conform to Kubernetes best practices around
@@ -3297,11 +3297,11 @@ export interface paths {
          *
          */
         post: operations["kubernetes_run_clusterLint"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/kubernetes/registry": {
         parameters: {
@@ -3310,8 +3310,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Add Container Registry to Kubernetes Clusters
          * @description To integrate the container registry with Kubernetes clusters, send a POST request to `/v2/kubernetes/registry`.
@@ -3322,10 +3322,10 @@ export interface paths {
          * @description To remove the container registry from Kubernetes clusters, send a DELETE request to `/v2/kubernetes/registry`.
          */
         delete: operations["kubernetes_remove_registry"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/load_balancers": {
         parameters: {
@@ -3341,7 +3341,7 @@ export interface paths {
          *
          */
         get: operations["loadBalancers_list"];
-        put: never;
+        put?: never;
         /**
          * Create a New Load Balancer
          * @description To create a new load balancer instance, send a POST request to
@@ -3359,11 +3359,11 @@ export interface paths {
          *
          */
         post: operations["loadBalancers_create"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/load_balancers/{lb_id}": {
         parameters: {
@@ -3390,7 +3390,7 @@ export interface paths {
          *
          */
         put: operations["loadBalancers_update"];
-        post: never;
+        post?: never;
         /**
          * Delete a Load Balancer
          * @description To delete a load balancer instance, disassociating any Droplets assigned to it
@@ -3402,10 +3402,10 @@ export interface paths {
          *
          */
         delete: operations["loadBalancers_delete"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/load_balancers/{lb_id}/droplets": {
         parameters: {
@@ -3414,8 +3414,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Add Droplets to a Load Balancer
          * @description To assign a Droplet to a load balancer instance, send a POST request to
@@ -3443,10 +3443,10 @@ export interface paths {
          *
          */
         delete: operations["loadBalancers_remove_droplets"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/load_balancers/{lb_id}/forwarding_rules": {
         parameters: {
@@ -3455,8 +3455,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Add Forwarding Rules to a Load Balancer
          * @description To add an additional forwarding rule to a load balancer instance, send a POST
@@ -3483,10 +3483,10 @@ export interface paths {
          *
          */
         delete: operations["loadBalancers_remove_forwardingRules"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/monitoring/alerts": {
         parameters: {
@@ -3500,17 +3500,17 @@ export interface paths {
          * @description Returns all alert policies that are configured for the given account. To List all alert policies, send a GET request to `/v2/monitoring/alerts`.
          */
         get: operations["monitoring_list_alertPolicy"];
-        put: never;
+        put?: never;
         /**
          * Create Alert Policy
          * @description To create a new alert, send a POST request to `/v2/monitoring/alerts`.
          */
         post: operations["monitoring_create_alertPolicy"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/monitoring/alerts/{alert_uuid}": {
         parameters: {
@@ -3529,16 +3529,16 @@ export interface paths {
          * @description To update en existing policy, send a PUT request to `v2/monitoring/alerts/{alert_uuid}`.
          */
         put: operations["monitoring_update_alertPolicy"];
-        post: never;
+        post?: never;
         /**
          * Delete an Alert Policy
          * @description To delete an alert policy, send a DELETE request to `/v2/monitoring/alerts/{alert_uuid}`
          */
         delete: operations["monitoring_delete_alertPolicy"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/monitoring/metrics/droplet/bandwidth": {
         parameters: {
@@ -3552,13 +3552,13 @@ export interface paths {
          * @description To retrieve bandwidth metrics for a given Droplet, send a GET request to `/v2/monitoring/metrics/droplet/bandwidth`. Use the `interface` query parameter to specify if the results should be for the `private` or `public` interface. Use the `direction` query parameter to specify if the results should be for `inbound` or `outbound` traffic.
          */
         get: operations["monitoring_get_dropletBandwidthMetrics"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/monitoring/metrics/droplet/cpu": {
         parameters: {
@@ -3572,13 +3572,13 @@ export interface paths {
          * @description To retrieve CPU metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/cpu`.
          */
         get: operations["monitoring_get_DropletCpuMetrics"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/monitoring/metrics/droplet/filesystem_free": {
         parameters: {
@@ -3592,13 +3592,13 @@ export interface paths {
          * @description To retrieve filesystem free metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/filesystem_free`.
          */
         get: operations["monitoring_get_dropletFilesystemFreeMetrics"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/monitoring/metrics/droplet/filesystem_size": {
         parameters: {
@@ -3612,13 +3612,13 @@ export interface paths {
          * @description To retrieve filesystem size metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/filesystem_size`.
          */
         get: operations["monitoring_get_dropletFilesystemSizeMetrics"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/monitoring/metrics/droplet/load_1": {
         parameters: {
@@ -3632,13 +3632,13 @@ export interface paths {
          * @description To retrieve 1 minute load average metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/load_1`.
          */
         get: operations["monitoring_get_dropletLoad1Metrics"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/monitoring/metrics/droplet/load_5": {
         parameters: {
@@ -3652,13 +3652,13 @@ export interface paths {
          * @description To retrieve 5 minute load average metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/load_5`.
          */
         get: operations["monitoring_get_dropletLoad5Metrics"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/monitoring/metrics/droplet/load_15": {
         parameters: {
@@ -3672,13 +3672,13 @@ export interface paths {
          * @description To retrieve 15 minute load average metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/load_15`.
          */
         get: operations["monitoring_get_dropletLoad15Metrics"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/monitoring/metrics/droplet/memory_cached": {
         parameters: {
@@ -3692,13 +3692,13 @@ export interface paths {
          * @description To retrieve cached memory metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/memory_cached`.
          */
         get: operations["monitoring_get_dropletMemoryCachedMetrics"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/monitoring/metrics/droplet/memory_free": {
         parameters: {
@@ -3712,13 +3712,13 @@ export interface paths {
          * @description To retrieve free memory metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/memory_free`.
          */
         get: operations["monitoring_get_dropletMemoryFreeMetrics"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/monitoring/metrics/droplet/memory_total": {
         parameters: {
@@ -3732,13 +3732,13 @@ export interface paths {
          * @description To retrieve total memory metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/memory_total`.
          */
         get: operations["monitoring_get_dropletMemoryTotalMetrics"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/monitoring/metrics/droplet/memory_available": {
         parameters: {
@@ -3752,13 +3752,13 @@ export interface paths {
          * @description To retrieve available memory metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/memory_available`.
          */
         get: operations["monitoring_get_dropletMemoryAvailableMetrics"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/projects": {
         parameters: {
@@ -3772,17 +3772,17 @@ export interface paths {
          * @description To list all your projects, send a GET request to `/v2/projects`.
          */
         get: operations["projects_list"];
-        put: never;
+        put?: never;
         /**
          * Create a Project
          * @description To create a project, send a POST request to `/v2/projects`.
          */
         post: operations["projects_create"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/projects/default": {
         parameters: {
@@ -3801,16 +3801,16 @@ export interface paths {
          * @description To update you default project, send a PUT request to `/v2/projects/default`. All of the following attributes must be sent.
          */
         put: operations["projects_update_default"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
         /**
          * Patch the Default Project
          * @description To update only specific attributes of your default project, send a PATCH request to `/v2/projects/default`. At least one of the following attributes needs to be sent.
          */
         patch: operations["projects_patch_default"];
-        trace: never;
+        trace?: never;
     };
     "/v2/projects/{project_id}": {
         parameters: {
@@ -3829,7 +3829,7 @@ export interface paths {
          * @description To update a project, send a PUT request to `/v2/projects/$PROJECT_ID`. All of the following attributes must be sent.
          */
         put: operations["projects_update"];
-        post: never;
+        post?: never;
         /**
          * Delete an Existing Project
          * @description To delete a project, send a DELETE request to `/v2/projects/$PROJECT_ID`. To
@@ -3841,14 +3841,14 @@ export interface paths {
          *
          */
         delete: operations["projects_delete"];
-        options: never;
-        head: never;
+        options?: never;
+        head?: never;
         /**
          * Patch a Project
          * @description To update only specific attributes of a project, send a PATCH request to `/v2/projects/$PROJECT_ID`. At least one of the following attributes needs to be sent.
          */
         patch: operations["projects_patch"];
-        trace: never;
+        trace?: never;
     };
     "/v2/projects/{project_id}/resources": {
         parameters: {
@@ -3862,17 +3862,17 @@ export interface paths {
          * @description To list all your resources in a project, send a GET request to `/v2/projects/$PROJECT_ID/resources`.
          */
         get: operations["projects_list_resources"];
-        put: never;
+        put?: never;
         /**
          * Assign Resources to a Project
          * @description To assign resources to a project, send a POST request to `/v2/projects/$PROJECT_ID/resources`.
          */
         post: operations["projects_assign_resources"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/projects/default/resources": {
         parameters: {
@@ -3886,17 +3886,17 @@ export interface paths {
          * @description To list all your resources in your default project, send a GET request to `/v2/projects/default/resources`.
          */
         get: operations["projects_list_resources_default"];
-        put: never;
+        put?: never;
         /**
          * Assign Resources to Default Project
          * @description To assign resources to your default project, send a POST request to `/v2/projects/default/resources`.
          */
         post: operations["projects_assign_resources_default"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/regions": {
         parameters: {
@@ -3911,13 +3911,13 @@ export interface paths {
          *     The response will be a JSON object with a key called `regions`. The value of this will be an array of `region` objects, each of which will contain the standard region attributes.
          */
         get: operations["regions_list"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/registry": {
         parameters: {
@@ -3931,7 +3931,7 @@ export interface paths {
          * @description To get information about your container registry, send a GET request to `/v2/registry`.
          */
         get: operations["registry_get"];
-        put: never;
+        put?: never;
         /**
          * Create Container Registry
          * @description To create your container registry, send a POST request to `/v2/registry`.
@@ -3947,10 +3947,10 @@ export interface paths {
          * @description To delete your container registry, destroying all container image data stored in it, send a DELETE request to `/v2/registry`.
          */
         delete: operations["registry_delete"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/registry/subscription": {
         parameters: {
@@ -3964,17 +3964,17 @@ export interface paths {
          * @description A subscription is automatically created when you configure your container registry. To get information about your subscription, send a GET request to `/v2/registry/subscription`.
          */
         get: operations["registry_get_subscription"];
-        put: never;
+        put?: never;
         /**
          * Update Subscription Tier
          * @description After creating your registry, you can switch to a different subscription tier to better suit your needs. To do this, send a POST request to `/v2/registry/subscription`.
          */
         post: operations["registry_update_subscription"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/registry/docker-credentials": {
         parameters: {
@@ -4010,13 +4010,13 @@ export interface paths {
          *
          */
         get: operations["registry_get_dockerCredentials"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/registry/validate-name": {
         parameters: {
@@ -4025,8 +4025,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Validate a Container Registry Name
          * @description To validate that a container registry name is available for use, send a POST
@@ -4038,11 +4038,11 @@ export interface paths {
          *
          */
         post: operations["registry_validate_name"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/registry/{registry_name}/repositories": {
         parameters: {
@@ -4061,13 +4061,13 @@ export interface paths {
          *
          */
         get: operations["registry_list_repositories"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/registry/{registry_name}/repositoriesV2": {
         parameters: {
@@ -4081,13 +4081,13 @@ export interface paths {
          * @description To list all repositories in your container registry, send a GET request to `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
          */
         get: operations["registry_list_repositoriesV2"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/registry/{registry_name}/repositories/{repository_name}/tags": {
         parameters: {
@@ -4108,13 +4108,13 @@ export interface paths {
          *
          */
         get: operations["registry_list_repositoryTags"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/registry/{registry_name}/repositories/{repository_name}/tags/{repository_tag}": {
         parameters: {
@@ -4123,9 +4123,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
+        get?: never;
+        put?: never;
+        post?: never;
         /**
          * Delete Container Registry Repository Tag
          * @description To delete a container repository tag, send a DELETE request to
@@ -4141,10 +4141,10 @@ export interface paths {
          *
          */
         delete: operations["registry_delete_repositoryTag"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/registry/{registry_name}/repositories/{repository_name}/digests": {
         parameters: {
@@ -4165,13 +4165,13 @@ export interface paths {
          *
          */
         get: operations["registry_list_repositoryManifests"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/registry/{registry_name}/repositories/{repository_name}/digests/{manifest_digest}": {
         parameters: {
@@ -4180,9 +4180,9 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
+        get?: never;
+        put?: never;
+        post?: never;
         /**
          * Delete Container Registry Repository Manifest
          * @description To delete a container repository manifest by digest, send a DELETE request to
@@ -4198,10 +4198,10 @@ export interface paths {
          *
          */
         delete: operations["registry_delete_repositoryManifest"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/registry/{registry_name}/garbage-collection": {
         parameters: {
@@ -4215,7 +4215,7 @@ export interface paths {
          * @description To get information about the currently-active garbage collection for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collection`.
          */
         get: operations["registry_get_garbageCollection"];
-        put: never;
+        put?: never;
         /**
          * Start Garbage Collection
          * @description Garbage collection enables users to clear out unreferenced blobs (layer &
@@ -4242,11 +4242,11 @@ export interface paths {
          *
          */
         post: operations["registry_run_garbageCollection"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/registry/{registry_name}/garbage-collections": {
         parameters: {
@@ -4260,13 +4260,13 @@ export interface paths {
          * @description To get information about past garbage collections for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collections`.
          */
         get: operations["registry_list_garbageCollections"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/registry/{registry_name}/garbage-collection/{garbage_collection_uuid}": {
         parameters: {
@@ -4275,18 +4275,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
+        get?: never;
         /**
          * Update Garbage Collection
          * @description To cancel the currently-active garbage collection for a registry, send a PUT request to `/v2/registry/$REGISTRY_NAME/garbage-collection/$GC_UUID` and specify one or more of the attributes below.
          */
         put: operations["registry_update_garbageCollection"];
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/registry/options": {
         parameters: {
@@ -4303,13 +4303,13 @@ export interface paths {
          *     To list the available options, send a GET request to `/v2/registry/options`.
          */
         get: operations["registry_get_options"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/reports/droplet_neighbors_ids": {
         parameters: {
@@ -4331,13 +4331,13 @@ export interface paths {
          *
          */
         get: operations["droplets_list_neighborsIds"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/reserved_ips": {
         parameters: {
@@ -4351,7 +4351,7 @@ export interface paths {
          * @description To list all of the reserved IPs available on your account, send a GET request to `/v2/reserved_ips`.
          */
         get: operations["reservedIPs_list"];
-        put: never;
+        put?: never;
         /**
          * Create a New Reserved IP
          * @description On creation, a reserved IP must be either assigned to a Droplet or reserved to a region.
@@ -4364,11 +4364,11 @@ export interface paths {
          *     **Note**:  In addition to the standard rate limiting, only 12 reserved IPs may be created per 60 seconds.
          */
         post: operations["reservedIPs_create"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/reserved_ips/{reserved_ip}": {
         parameters: {
@@ -4382,8 +4382,8 @@ export interface paths {
          * @description To show information about a reserved IP, send a GET request to `/v2/reserved_ips/$RESERVED_IP_ADDR`.
          */
         get: operations["reservedIPs_get"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Delete a Reserved IP
          * @description To delete a reserved IP and remove it from your account, send a DELETE request
@@ -4394,10 +4394,10 @@ export interface paths {
          *
          */
         delete: operations["reservedIPs_delete"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/reserved_ips/{reserved_ip}/actions": {
         parameters: {
@@ -4411,7 +4411,7 @@ export interface paths {
          * @description To retrieve all actions that have been executed on a reserved IP, send a GET request to `/v2/reserved_ips/$RESERVED_IP/actions`.
          */
         get: operations["reservedIPsActions_list"];
-        put: never;
+        put?: never;
         /**
          * Initiate a Reserved IP Action
          * @description To initiate an action on a reserved IP send a POST request to
@@ -4425,11 +4425,11 @@ export interface paths {
          *
          */
         post: operations["reservedIPsActions_post"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/reserved_ips/{reserved_ip}/actions/{action_id}": {
         parameters: {
@@ -4443,13 +4443,13 @@ export interface paths {
          * @description To retrieve the status of a reserved IP action, send a GET request to `/v2/reserved_ips/$RESERVED_IP/actions/$ACTION_ID`.
          */
         get: operations["reservedIPsActions_get"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/sizes": {
         parameters: {
@@ -4464,13 +4464,13 @@ export interface paths {
          *     The response will be a JSON object with a key called `sizes`. The value of this will be an array of `size` objects each of which contain the standard size attributes.
          */
         get: operations["sizes_list"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/snapshots": {
         parameters: {
@@ -4504,13 +4504,13 @@ export interface paths {
          *
          */
         get: operations["snapshots_list"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/snapshots/{snapshot_id}": {
         parameters: {
@@ -4529,8 +4529,8 @@ export interface paths {
          *
          */
         get: operations["snapshots_get"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Delete a Snapshot
          * @description Both Droplet and volume snapshots are managed through the `/v2/snapshots/`
@@ -4542,10 +4542,10 @@ export interface paths {
          *
          */
         delete: operations["snapshots_delete"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/tags": {
         parameters: {
@@ -4559,17 +4559,17 @@ export interface paths {
          * @description To list all of your tags, you can send a GET request to `/v2/tags`.
          */
         get: operations["tags_list"];
-        put: never;
+        put?: never;
         /**
          * Create a New Tag
          * @description To create a tag you can send a POST request to `/v2/tags` with a `name` attribute.
          */
         post: operations["tags_create"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/tags/{tag_id}": {
         parameters: {
@@ -4583,17 +4583,17 @@ export interface paths {
          * @description To retrieve an individual tag, you can send a `GET` request to `/v2/tags/$TAG_NAME`.
          */
         get: operations["tags_get"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Delete a Tag
          * @description A tag can be deleted by sending a `DELETE` request to `/v2/tags/$TAG_NAME`. Deleting a tag also untags all the resources that have previously been tagged by the Tag
          */
         delete: operations["tags_delete"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/tags/{tag_id}/resources": {
         parameters: {
@@ -4602,8 +4602,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Tag a Resource
          * @description Resources can be tagged by sending a POST request to `/v2/tags/$TAG_NAME/resources` with an array of json objects containing `resource_id` and `resource_type` attributes.
@@ -4616,10 +4616,10 @@ export interface paths {
          *     Currently only untagging of Droplets, Databases, Images, Volumes, and Volume Snapshots is supported. `resource_type` is expected to be the string `droplet`, `database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expected to be the ID of the resource as a string.
          */
         delete: operations["tags_unassign_resources"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/volumes": {
         parameters: {
@@ -4644,7 +4644,7 @@ export interface paths {
          *
          */
         get: operations["volumes_list"];
-        put: never;
+        put?: never;
         /**
          * Create a New Block Storage Volume
          * @description To create a new volume, send a POST request to `/v2/volumes`. Optionally, a `filesystem_type` attribute may be provided in order to automatically format the volume's filesystem. Pre-formatted volumes are automatically mounted when attached to Ubuntu, Debian, Fedora, Fedora Atomic, and CentOS Droplets created on or after April 26, 2018. Attaching pre-formatted volumes to Droplets without support for auto-mounting is not recommended.
@@ -4658,10 +4658,10 @@ export interface paths {
          *
          */
         delete: operations["volumes_delete_byName"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/volumes/actions": {
         parameters: {
@@ -4670,8 +4670,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         /**
          * Initiate A Block Storage Action By Volume Name
          * @description To initiate an action on a block storage volume by Name, send a POST request to
@@ -4705,11 +4705,11 @@ export interface paths {
          *
          */
         post: operations["volumeActions_post"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/volumes/snapshots/{snapshot_id}": {
         parameters: {
@@ -4725,8 +4725,8 @@ export interface paths {
          *
          */
         get: operations["volumeSnapshots_get_byId"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Delete a Volume Snapshot
          * @description To delete a volume snapshot, send a DELETE request to
@@ -4737,10 +4737,10 @@ export interface paths {
          *
          */
         delete: operations["volumeSnapshots_delete_byId"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/volumes/{volume_id}": {
         parameters: {
@@ -4756,8 +4756,8 @@ export interface paths {
          *
          */
         get: operations["volumes_get"];
-        put: never;
-        post: never;
+        put?: never;
+        post?: never;
         /**
          * Delete a Block Storage Volume
          * @description To delete a block storage volume, destroying all data and removing it from your account, send a DELETE request to `/v2/volumes/$VOLUME_ID`.
@@ -4766,10 +4766,10 @@ export interface paths {
          *
          */
         delete: operations["volumes_delete"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/volumes/{volume_id}/actions": {
         parameters: {
@@ -4785,7 +4785,7 @@ export interface paths {
          *
          */
         get: operations["volumeActions_list"];
-        put: never;
+        put?: never;
         /**
          * Initiate A Block Storage Action By Volume Id
          * @description To initiate an action on a block storage volume by Id, send a POST request to
@@ -4827,11 +4827,11 @@ export interface paths {
          *
          */
         post: operations["volumeActions_post_byId"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/volumes/{volume_id}/actions/{action_id}": {
         parameters: {
@@ -4847,13 +4847,13 @@ export interface paths {
          *
          */
         get: operations["volumeActions_get"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/volumes/{volume_id}/snapshots": {
         parameters: {
@@ -4869,17 +4869,17 @@ export interface paths {
          *
          */
         get: operations["volumeSnapshots_list"];
-        put: never;
+        put?: never;
         /**
          * Create Snapshot from a Volume
          * @description To create a snapshot from a volume, sent a POST request to `/v2/volumes/$VOLUME_ID/snapshots`.
          */
         post: operations["volumeSnapshots_create"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/vpcs": {
         parameters: {
@@ -4893,7 +4893,7 @@ export interface paths {
          * @description To list all of the VPCs on your account, send a GET request to `/v2/vpcs`.
          */
         get: operations["vpcs_list"];
-        put: never;
+        put?: never;
         /**
          * Create a New VPC
          * @description To create a VPC, send a POST request to `/v2/vpcs` specifying the attributes
@@ -4905,11 +4905,11 @@ export interface paths {
          *
          */
         post: operations["vpcs_create"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/vpcs/{vpc_id}": {
         parameters: {
@@ -4929,7 +4929,7 @@ export interface paths {
          *
          */
         put: operations["vpcs_update"];
-        post: never;
+        post?: never;
         /**
          * Delete a VPC
          * @description To delete a VPC, send a DELETE request to `/v2/vpcs/$VPC_ID`. A 204 status
@@ -4942,8 +4942,8 @@ export interface paths {
          *
          */
         delete: operations["vpcs_delete"];
-        options: never;
-        head: never;
+        options?: never;
+        head?: never;
         /**
          * Partially Update a VPC
          * @description To update a subset of information about a VPC, send a PATCH request to
@@ -4951,7 +4951,7 @@ export interface paths {
          *
          */
         patch: operations["vpcs_patch"];
-        trace: never;
+        trace?: never;
     };
     "/v2/vpcs/{vpc_id}/members": {
         parameters: {
@@ -4971,13 +4971,13 @@ export interface paths {
          *
          */
         get: operations["vpcs_list_members"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/uptime/checks": {
         parameters: {
@@ -4991,7 +4991,7 @@ export interface paths {
          * @description To list all of the Uptime checks on your account, send a GET request to `/v2/uptime/checks`.
          */
         get: operations["uptime_list_checks"];
-        put: never;
+        put?: never;
         /**
          * Create a New Check
          * @description To create an Uptime check, send a POST request to `/v2/uptime/checks` specifying the attributes
@@ -4999,11 +4999,11 @@ export interface paths {
          *
          */
         post: operations["uptime_create_check"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/uptime/checks/{check_id}": {
         parameters: {
@@ -5023,7 +5023,7 @@ export interface paths {
          *
          */
         put: operations["uptime_update_check"];
-        post: never;
+        post?: never;
         /**
          * Delete a Check
          * @description To delete an Uptime check, send a DELETE request to `/v2/uptime/checks/$CHECK_ID`. A 204 status
@@ -5034,10 +5034,10 @@ export interface paths {
          *
          */
         delete: operations["uptime_delete_check"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/uptime/checks/{check_id}/state": {
         parameters: {
@@ -5051,13 +5051,13 @@ export interface paths {
          * @description To show information about an existing check's state, send a GET request to `/v2/uptime/checks/$CHECK_ID/state`.
          */
         get: operations["uptime_get_checkState"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/uptime/checks/{check_id}/alerts": {
         parameters: {
@@ -5071,7 +5071,7 @@ export interface paths {
          * @description To list all of the alerts for an Uptime check, send a GET request to `/v2/uptime/checks/$CHECK_ID/alerts`.
          */
         get: operations["uptime_list_alerts"];
-        put: never;
+        put?: never;
         /**
          * Create a New Alert
          * @description To create an Uptime alert, send a POST request to `/v2/uptime/checks/$CHECK_ID/alerts` specifying the attributes
@@ -5079,11 +5079,11 @@ export interface paths {
          *
          */
         post: operations["uptime_create_alert"];
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/v2/uptime/checks/{check_id}/alerts/{alert_id}": {
         parameters: {
@@ -5103,7 +5103,7 @@ export interface paths {
          *
          */
         put: operations["uptime_update_alert"];
-        post: never;
+        post?: never;
         /**
          * Delete an Alert
          * @description To delete an Uptime alert, send a DELETE request to `/v2/uptime/checks/$CHECK_ID/alerts/$ALERT_ID`. A 204 status
@@ -5111,10 +5111,10 @@ export interface paths {
          *
          */
         delete: operations["uptime_delete_alert"];
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -10519,7 +10519,7 @@ export interface components {
              *     }
              */
             metric: {
-                [key: string]: string;
+                [key: string]: string | undefined;
             };
             /** @example [
              *       [

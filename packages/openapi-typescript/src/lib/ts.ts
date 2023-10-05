@@ -23,6 +23,9 @@ export const STRING = ts.factory.createKeywordTypeNode(
   ts.SyntaxKind.StringKeyword,
 );
 export const TRUE = ts.factory.createLiteralTypeNode(ts.factory.createTrue());
+export const UNDEFINED = ts.factory.createKeywordTypeNode(
+  ts.SyntaxKind.UndefinedKeyword,
+);
 export const UNKNOWN = ts.factory.createKeywordTypeNode(
   ts.SyntaxKind.UnknownKeyword,
 );

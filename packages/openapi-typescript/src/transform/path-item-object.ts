@@ -1,5 +1,11 @@
 import ts from "typescript";
-import { NEVER, addJSDocComment, oapiRef, tsPropertyIndex } from "../lib/ts.js";
+import {
+  NEVER,
+  QUESTION_TOKEN,
+  addJSDocComment,
+  oapiRef,
+  tsPropertyIndex,
+} from "../lib/ts.js";
 import { createRef } from "../lib/utils.js";
 import {
   OperationObject,
@@ -65,7 +71,7 @@ export default function transformPathItemObject(
         ts.factory.createPropertySignature(
           /* modifiers     */ undefined,
           /* name          */ tsPropertyIndex(method),
-          /* questionToken */ undefined,
+          /* questionToken */ QUESTION_TOKEN,
           /* type          */ NEVER,
         ),
       );

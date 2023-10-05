@@ -54,8 +54,8 @@ describe("transformWebhooksObject", () => {
             path?: never;
             cookie?: never;
         };
-        get: never;
-        put: never;
+        get?: never;
+        put?: never;
         post: {
             parameters: {
                 query: {
@@ -84,11 +84,11 @@ describe("transformWebhooksObject", () => {
                 };
             };
         };
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }`,
       },
@@ -128,14 +128,14 @@ describe("transformWebhooksObject", () => {
             };
             cookie?: never;
         };
-        get: never;
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }`,
         options: {

@@ -16,13 +16,13 @@ export interface paths {
          * @description Returns a a list of breeds
          */
         get: operations["getBreeds"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/fact": {
         parameters: {
@@ -36,13 +36,13 @@ export interface paths {
          * @description Returns a random fact
          */
         get: operations["getRandomFact"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
     "/facts": {
         parameters: {
@@ -56,13 +56,13 @@ export interface paths {
          * @description Returns a a list of facts
          */
         get: operations["getFacts"];
-        put: never;
-        post: never;
-        delete: never;
-        options: never;
-        head: never;
-        patch: never;
-        trace: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 }
 export type webhooks = Record<string, never>;

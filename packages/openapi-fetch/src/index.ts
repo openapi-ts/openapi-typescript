@@ -59,10 +59,10 @@ export interface EmptyParameters {
 }
 
 export type ParamsOption<T> = T extends { parameters: any }
-  ? T["parameters"] extends EmptyParameters
-    ? DefaultParamsOption
-    : { params: NonNullable<T["parameters"]> }
-  : DefaultParamsOption;
+  ? HasRequiredKeys<T["parameters"]> extends never
+    ? { params?: T["parameters"] }
+    : { params: T["parameters"] }
+  : never;
 
 export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never
   ? { body?: never }
