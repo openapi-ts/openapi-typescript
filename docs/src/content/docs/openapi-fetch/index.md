@@ -69,8 +69,6 @@ Next, generate TypeScript types from your OpenAPI schema using openapi-typescrip
 npx openapi-typescript ./path/to/api/v1.yaml -o ./src/lib/api/v1.d.ts
 ```
 
-> ⚠️ Be sure to <a href="https://redocly.com/docs/cli/commands/lint/" target="_blank" rel="noopener noreferrer">validate your schemas</a>! openapi-typescript will err on invalid schemas.
-
 Lastly, be sure to **run typechecking** in your project. This can be done by adding `tsc --noEmit` to your <a href="https://docs.npmjs.com/cli/v9/using-npm/scripts" target="_blank" rel="noopener noreferrer">npm scripts</a> like so:
 
 ```json

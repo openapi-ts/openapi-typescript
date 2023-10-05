@@ -32,28 +32,46 @@ interface ClientOptions extends Omit<RequestInit, "headers"> {
   // headers override to make typing friendlier
   headers?: HeadersOptions;
 }
+
 export type HeadersOptions =
   | HeadersInit
   | Record<string, string | number | boolean | null | undefined>;
+
 export type QuerySerializer<T> = (
   query: T extends { parameters: any }
     ? NonNullable<T["parameters"]["query"]>
     : Record<string, unknown>,
 ) => string;
+
 export type BodySerializer<T> = (body: OperationRequestBodyContent<T>) => any;
+
 export type ParseAs = "json" | "text" | "blob" | "arrayBuffer" | "stream";
+
 export interface DefaultParamsOption {
   params?: { query?: Record<string, unknown> };
 }
+
+export interface EmptyParameters {
+  query?: never;
+  header?: never;
+  path?: never;
+  cookie?: never;
+}
+
 export type ParamsOption<T> = T extends { parameters: any }
-  ? { params: NonNullable<T["parameters"]> }
+  ? T["parameters"] extends EmptyParameters
+    ? DefaultParamsOption
+    : { params: NonNullable<T["parameters"]> }
   : DefaultParamsOption;
+
 export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never
   ? { body?: never }
   : undefined extends OperationRequestBodyContent<T>
   ? { body?: OperationRequestBodyContent<T> }
   : { body: OperationRequestBodyContent<T> };
+
 export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body">;
+
 export type FetchResponse<T> =
   | {
       data: FilterKeys<SuccessResponse<ResponseObjectMap<T>>, MediaType>;
@@ -65,6 +83,7 @@ export type FetchResponse<T> =
       error: FilterKeys<ErrorResponse<ResponseObjectMap<T>>, MediaType>;
       response: Response;
     };
+
 export type RequestOptions<T> = ParamsOption<T> &
   RequestBodyOption<T> & {
     querySerializer?: QuerySerializer<T>;
@@ -81,7 +100,6 @@ export default function createClient<Paths extends {}>(
     bodySerializer: globalBodySerializer,
     ...options
   } = clientOptions;
-
   let baseUrl = options.baseUrl ?? "";
   if (baseUrl.endsWith("/")) {
     baseUrl = baseUrl.slice(0, -1); // remove trailing slash
@@ -318,11 +336,9 @@ export function createFinalURL<O>(
       finalURL = finalURL.replace(`{${k}}`, encodeURIComponent(String(v)));
     }
   }
-  if (options.params.query) {
-    const search = options.querySerializer(options.params.query as any);
-    if (search) {
-      finalURL += `?${search}`;
-    }
+  const search = options.querySerializer((options.params.query as any) ?? {});
+  if (search) {
+    finalURL += `?${search}`;
   }
   return finalURL;
 }
