@@ -2,8 +2,8 @@ import { atom, computed } from "nanostores";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 // @ts-expect-error
 import createFetchMock from "vitest-fetch-mock";
-import createClient from "./index.js";
 import type { paths } from "../test/v1.js";
+import createClient from "./index.js";
 
 const fetchMocker = createFetchMock(vi);
 
@@ -47,7 +47,10 @@ describe("client", () => {
       const client = createClient<paths>();
 
       // data
-      mockFetchOnce({ status: 200, body: JSON.stringify(["one", "two", "three"]) });
+      mockFetchOnce({
+        status: 200,
+        body: JSON.stringify(["one", "two", "three"]),
+      });
       const dataRes = await client.GET("/string-array");
 
       // … is initially possibly undefined
@@ -66,7 +69,10 @@ describe("client", () => {
       }
 
       // error
-      mockFetchOnce({ status: 500, body: JSON.stringify({ code: 500, message: "Something went wrong" }) });
+      mockFetchOnce({
+        status: 500,
+        body: JSON.stringify({ code: 500, message: "Something went wrong" }),
+      });
       const errorRes = await client.GET("/string-array");
 
       // … is initially possibly undefined
@@ -103,14 +109,19 @@ describe("client", () => {
         await client.GET("/blogposts/{post_id}", { params: { path: {} } });
 
         // expect error on mismatched type (number v string)
-        // @ts-expect-error
-        await client.GET("/blogposts/{post_id}", { params: { path: { post_id: 1234 } } });
+        await client.GET("/blogposts/{post_id}", {
+          // @ts-expect-error
+          params: { path: { post_id: 1234 } },
+        });
 
         // (no error)
-        await client.GET("/blogposts/{post_id}", { params: { path: { post_id: "1234" } } });
+        await client.GET("/blogposts/{post_id}", {
+          params: { path: { post_id: "1234" } },
+        });
 
         // expect param passed correctly
-        const lastCall = fetchMocker.mock.calls[fetchMocker.mock.calls.length - 1];
+        const lastCall =
+          fetchMocker.mock.calls[fetchMocker.mock.calls.length - 1];
         expect(lastCall[0]).toBe("https://myapi.com/v1/blogposts/1234");
       });
 
@@ -123,18 +134,25 @@ describe("client", () => {
         await client.GET("/header-params");
 
         // expect error on incorrect header
-        // @ts-expect-error
-        await client.GET("/header-params", { params: { header: { foo: "bar" } } });
+        await client.GET("/header-params", {
+          // @ts-expect-error
+          params: { header: { foo: "bar" } },
+        });
 
         // expect error on mismatched type
-        // @ts-expect-error
-        await client.GET("/header-params", { params: { header: { "x-required-header": true } } });
+        await client.GET("/header-params", {
+          // @ts-expect-error
+          params: { header: { "x-required-header": true } },
+        });
 
         // (no error)
-        await client.GET("/header-params", { params: { header: { "x-required-header": "correct" } } });
+        await client.GET("/header-params", {
+          params: { header: { "x-required-header": "correct" } },
+        });
 
         // expect param passed correctly
-        const lastCall = fetchMocker.mock.calls[fetchMocker.mock.calls.length - 1];
+        const lastCall =
+          fetchMocker.mock.calls[fetchMocker.mock.calls.length - 1];
         expect(lastCall[1].headers.get("x-required-header")).toBe("correct");
       });
 
@@ -149,7 +167,9 @@ describe("client", () => {
             },
           });
 
-          expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post?version=2&format=json");
+          expect(fetchMocker.mock.calls[0][0]).toBe(
+            "/blogposts/my-post?version=2&format=json",
+          );
         });
 
         it("array params", async () => {
@@ -161,7 +181,9 @@ describe("client", () => {
             },
           });
 
-          expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts?tags=one%2Ctwo%2Cthree");
+          expect(fetchMocker.mock.calls[0][0]).toBe(
+            "/blogposts?tags=one%2Ctwo%2Cthree",
+          );
         });
 
         it("empty/null params", async () => {
@@ -189,7 +211,9 @@ describe("client", () => {
               querySerializer: (q) => `alpha=${q.version}&beta=${q.format}`,
             });
 
-            expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post?alpha=2&beta=json");
+            expect(fetchMocker.mock.calls[0][0]).toBe(
+              "/blogposts/my-post?alpha=2&beta=json",
+            );
           });
 
           it("applies global serializer", async () => {
@@ -204,7 +228,9 @@ describe("client", () => {
               },
             });
 
-            expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post?alpha=2&beta=json");
+            expect(fetchMocker.mock.calls[0][0]).toBe(
+              "/blogposts/my-post?alpha=2&beta=json",
+            );
           });
 
           it("overrides global serializer if provided", async () => {
@@ -220,7 +246,9 @@ describe("client", () => {
               querySerializer: (q) => `alpha=${q.version}&beta=${q.format}`,
             });
 
-            expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post?alpha=2&beta=json");
+            expect(fetchMocker.mock.calls[0][0]).toBe(
+              "/blogposts/my-post?alpha=2&beta=json",
+            );
           });
         });
       });
@@ -244,7 +272,11 @@ describe("client", () => {
         // expect present body to be good enough (all fields optional)
         // (no error)
         await client.PUT("/blogposts", {
-          body: { title: "Foo", body: "Bar", publish_date: new Date("2023-04-01T12:00:00Z").getTime() },
+          body: {
+            title: "Foo",
+            body: "Bar",
+            publish_date: new Date("2023-04-01T12:00:00Z").getTime(),
+          },
         });
       });
 
@@ -253,8 +285,10 @@ describe("client", () => {
         const client = createClient<paths>();
 
         // expect error on wrong body type
-        // @ts-expect-error
-        await client.PUT("/blogposts-optional-inline", { body: { error: true } });
+        await client.PUT("/blogposts-optional-inline", {
+          // @ts-expect-error
+          body: { error: true },
+        });
 
         // (no error)
         await client.PUT("/blogposts-optional-inline", {
@@ -309,7 +343,10 @@ describe("client", () => {
       const headers: HeadersInit = { Authorization: "Bearer secrettoken" };
 
       const client = createClient<paths>({ headers });
-      mockFetchOnce({ status: 200, body: JSON.stringify({ email: "user@user.com" }) });
+      mockFetchOnce({
+        status: 200,
+        body: JSON.stringify({ email: "user@user.com" }),
+      });
       await client.GET("/self");
 
       // assert default headers were passed
@@ -323,9 +360,17 @@ describe("client", () => {
     });
 
     it("allows override headers", async () => {
-      const client = createClient<paths>({ headers: { "Cache-Control": "max-age=10000000" } });
-      mockFetchOnce({ status: 200, body: JSON.stringify({ email: "user@user.com" }) });
-      await client.GET("/self", { params: {}, headers: { "Cache-Control": "no-cache" } });
+      const client = createClient<paths>({
+        headers: { "Cache-Control": "max-age=10000000" },
+      });
+      mockFetchOnce({
+        status: 200,
+        body: JSON.stringify({ email: "user@user.com" }),
+      });
+      await client.GET("/self", {
+        params: {},
+        headers: { "Cache-Control": "no-cache" },
+      });
 
       // assert default headers were passed
       const options = fetchMocker.mock.calls[0][1];
@@ -339,7 +384,10 @@ describe("client", () => {
 
     it("allows unsetting headers", async () => {
       const client = createClient<paths>({ headers: { "Content-Type": null } });
-      mockFetchOnce({ status: 200, body: JSON.stringify({ email: "user@user.com" }) });
+      mockFetchOnce({
+        status: 200,
+        body: JSON.stringify({ email: "user@user.com" }),
+      });
       await client.GET("/self", { params: {} });
 
       // assert default headers were passed
@@ -376,7 +424,9 @@ describe("client", () => {
       });
 
       // expect post_id to be encoded properly
-      expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/post%3Fid%20%3D%20%F0%9F%A5%B4");
+      expect(fetchMocker.mock.calls[0][0]).toBe(
+        "/blogposts/post%3Fid%20%3D%20%F0%9F%A5%B4",
+      );
     });
 
     it("multipart/form-data", async () => {
@@ -424,12 +474,25 @@ describe("client", () => {
     });
 
     it("treats `default` as an error", async () => {
-      const client = createClient<paths>({ headers: { "Cache-Control": "max-age=10000000" } });
-      mockFetchOnce({ status: 500, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: 500, message: "An unexpected error occurred" }) });
+      const client = createClient<paths>({
+        headers: { "Cache-Control": "max-age=10000000" },
+      });
+      mockFetchOnce({
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          code: 500,
+          message: "An unexpected error occurred",
+        }),
+      });
       const { error } = await client.GET("/default-as-error");
 
       // discard `data` object
-      if (!error) throw new Error("treats `default` as an error: error response should be present");
+      if (!error) {
+        throw new Error(
+          "treats `default` as an error: error response should be present",
+        );
+      }
 
       // assert `error.message` doesn’t throw TS error
       expect(error.message).toBe("An unexpected error occurred");
@@ -446,7 +509,9 @@ describe("client", () => {
       it("arrayBuffer", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data } = await client.GET("/anyMethod", { parseAs: "arrayBuffer" });
+        const { data } = await client.GET("/anyMethod", {
+          parseAs: "arrayBuffer",
+        });
         expect(data instanceof ArrayBuffer).toBe(true);
       });
 
@@ -476,12 +541,19 @@ describe("client", () => {
     });
 
     it("sends correct options, returns success", async () => {
-      const mockData = { title: "My Post", body: "<p>This is a very good post</p>", publish_date: new Date("2023-03-01T12:00:00Z").getTime() };
+      const mockData = {
+        title: "My Post",
+        body: "<p>This is a very good post</p>",
+        publish_date: new Date("2023-03-01T12:00:00Z").getTime(),
+      };
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: JSON.stringify(mockData) });
-      const { data, error, response } = await client.GET("/blogposts/{post_id}", {
-        params: { path: { post_id: "my-post" } },
-      });
+      const { data, error, response } = await client.GET(
+        "/blogposts/{post_id}",
+        {
+          params: { path: { post_id: "my-post" } },
+        },
+      );
 
       // assert correct URL was called
       expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post");
@@ -498,9 +570,12 @@ describe("client", () => {
       const mockError = { code: 404, message: "Post not found" };
       const client = createClient<paths>();
       mockFetchOnce({ status: 404, body: JSON.stringify(mockError) });
-      const { data, error, response } = await client.GET("/blogposts/{post_id}", {
-        params: { path: { post_id: "my-post" } },
-      });
+      const { data, error, response } = await client.GET(
+        "/blogposts/{post_id}",
+        {
+          params: { path: { post_id: "my-post" } },
+        },
+      );
 
       // assert correct URL was called
       expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post");
@@ -521,7 +596,9 @@ describe("client", () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "[]" });
       const { data } = await client.GET("/blogposts", { params: {} });
-      if (!data) throw new Error("data empty");
+      if (!data) {
+        throw new Error("data empty");
+      }
 
       // assert array type (and only array type) was inferred
       expect(data.length).toBe(0);
@@ -530,7 +607,9 @@ describe("client", () => {
     it("handles literal 2XX and 4XX codes", async () => {
       const client = createClient<paths>();
       mockFetch({ status: 201, body: '{"status": "success"}' });
-      const { data, error } = await client.PUT("/media", { body: { media: "base64", name: "myImage" } });
+      const { data, error } = await client.PUT("/media", {
+        body: { media: "base64", name: "myImage" },
+      });
 
       if (data) {
         // assert 2XX type inferred correctly
@@ -621,7 +700,11 @@ describe("client", () => {
 
     it("returns empty object on Content-Length: 0", async () => {
       const client = createClient<paths>();
-      mockFetchOnce({ headers: { "Content-Length": "0" }, status: 200, body: "" });
+      mockFetchOnce({
+        headers: { "Content-Length": "0" },
+        status: 200,
+        body: "",
+      });
       const { data, error } = await client.DELETE("/blogposts/{post_id}", {
         params: {
           path: { post_id: "123" },
@@ -677,12 +760,22 @@ describe("client", () => {
 describe("examples", () => {
   it("nanostores", async () => {
     const token = atom<string | undefined>();
-    const client = computed([token], (currentToken) => createClient<paths>({ headers: currentToken ? { Authorization: `Bearer ${currentToken}` } : {} }));
+    const client = computed([token], (currentToken) =>
+      createClient<paths>({
+        headers: currentToken
+          ? { Authorization: `Bearer ${currentToken}` }
+          : {},
+      }),
+    );
 
     // assert initial call is unauthenticated
     mockFetchOnce({ status: 200, body: "{}" });
-    await client.get().GET("/blogposts/{post_id}", { params: { path: { post_id: "1234" } } });
-    expect(fetchMocker.mock.calls[0][1].headers.get("authorization")).toBeNull();
+    await client
+      .get()
+      .GET("/blogposts/{post_id}", { params: { path: { post_id: "1234" } } });
+    expect(
+      fetchMocker.mock.calls[0][1].headers.get("authorization"),
+    ).toBeNull();
 
     // assert after setting token, client is authenticated
     const tokenVal = "abcd";
@@ -693,8 +786,12 @@ describe("examples", () => {
         resolve();
       }, 0),
     );
-    await client.get().GET("/blogposts/{post_id}", { params: { path: { post_id: "1234" } } });
-    expect(fetchMocker.mock.calls[1][1].headers.get("authorization")).toBe(`Bearer ${tokenVal}`);
+    await client
+      .get()
+      .GET("/blogposts/{post_id}", { params: { path: { post_id: "1234" } } });
+    expect(fetchMocker.mock.calls[1][1].headers.get("authorization")).toBe(
+      `Bearer ${tokenVal}`,
+    );
   });
 
   it("proxies", async () => {
@@ -703,15 +800,21 @@ describe("examples", () => {
     const baseClient = createClient<paths>();
     const client = new Proxy(baseClient, {
       get(_, key: keyof typeof baseClient) {
-        const newClient = createClient<paths>({ headers: token ? { Authorization: `Bearer ${token}` } : {} });
+        const newClient = createClient<paths>({
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
+        });
         return newClient[key];
       },
     });
 
     // assert initial call is unauthenticated
     mockFetchOnce({ status: 200, body: "{}" });
-    await client.GET("/blogposts/{post_id}", { params: { path: { post_id: "1234" } } });
-    expect(fetchMocker.mock.calls[0][1].headers.get("authorization")).toBeNull();
+    await client.GET("/blogposts/{post_id}", {
+      params: { path: { post_id: "1234" } },
+    });
+    expect(
+      fetchMocker.mock.calls[0][1].headers.get("authorization"),
+    ).toBeNull();
 
     // assert after setting token, client is authenticated
     const tokenVal = "abcd";
@@ -722,7 +825,11 @@ describe("examples", () => {
         resolve();
       }, 0),
     );
-    await client.GET("/blogposts/{post_id}", { params: { path: { post_id: "1234" } } });
-    expect(fetchMocker.mock.calls[1][1].headers.get("authorization")).toBe(`Bearer ${tokenVal}`);
+    await client.GET("/blogposts/{post_id}", {
+      params: { path: { post_id: "1234" } },
+    });
+    expect(fetchMocker.mock.calls[1][1].headers.get("authorization")).toBe(
+      `Bearer ${tokenVal}`,
+    );
   });
 });

@@ -6,7 +6,6 @@
     "lib": ["ESNext"],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "noImplicitReturns": true,
     "removeComments": true,
     "skipLibCheck": true,
     "sourceMap": true,

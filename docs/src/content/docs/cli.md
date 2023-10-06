@@ -3,29 +3,19 @@ title: CLI
 description: openapi-typescript CLI usage
 ---
 
-The CLI is the most common way to use openapi-typescript. The CLI can parse JSON and YAML (via <a href="https://www.npmjs.com/package/js-yaml" target="_blank" rel="noopener noreferrer">js-yaml</a>). It can parse local and remote schemas (and even supports basic auth).
+The CLI is the most common way to use openapi-typescript. The CLI can parse JSON and YAML, and even validates your schemas using the [Redocly CLI](https://redocly.com/docs/cli/commands/lint/). It can parse local and remote schemas (and even supports basic auth).
 
-## Reading schemas
+## Transforming an OpenAPI schema to TypeScript
+
+### Single schema
+
+The simplest way to transform schemas is by specifying an input schema (JSON or YAML), followed by `--output` (`-o`) where you’d like the output to be saved:
 
 ```bash
 npx openapi-typescript schema.yaml -o schema.ts
 
-# 🚀 schema.yaml -> schema.ts [7ms]
+# 🚀 schema.yaml -> schema.ts [50ms]
 ```
-
-### Globbing local schemas
-
-```bash
-npx openapi-typescript "specs/**/*.yaml" -o schemas/
-
-# 🚀 specs/one.yaml -> schemas/specs/one.ts [7ms]
-# 🚀 specs/two.yaml -> schemas/specs/two.ts [7ms]
-# 🚀 specs/three.yaml -> schemas/specs/three.ts [7ms]
-```
-
-_Thanks, [@sharmarajdaksh](https://github.com/sharmarajdaksh)!_
-
-### Remote schemas
 
 ```bash
 npx openapi-typescript https://petstore3.swagger.io/api/v3/openapi.yaml -o petstore.d.ts
@@ -33,30 +23,77 @@ npx openapi-typescript https://petstore3.swagger.io/api/v3/openapi.yaml -o petst
 # 🚀 https://petstore3.swagger.io/api/v3/openapi.yaml -> petstore.d.ts [250ms]
 ```
 
-_Thanks, [@psmyrdek](https://github.com/psmyrdek)!_
+### Multiple schemas
+
+To transform multiple schemas, create a `redocly.yaml` file in the root of your project with [APIs defined](https://redocly.com/docs/cli/configuration/). Under `apis`, give each schema a unique name and optionally a version (the name doesn’t matter, so long as it’s unique). Set the `root` value to your schema’s entry point—this will act as the main input. For the output, set it with `openapi-ts.output`:
+
+```yaml
+apis:
+  core@v2:
+    root: ./openapi/openapi.yaml
+    openapi-ts:
+      output: ./openapi/openapi.ts
+  external@v1:
+    root: ./openapi/external.yaml
+    openapi-ts:
+      output: ./openapi/openapi.ts
+```
+
+Whenver you have a `redocly.yaml` file in your project with `apis`, you can omit the input/output parameters in the CLI:
+
+```bash
+npx openapi-typescript
+```
+
+> ⚠️ In previous versions globbing was supported, but that has been **deprecated** in v7 in favor of `redocly.yaml`. You’ll be able to control per-schema output locations better, as well as getting unique per-schema settings.
+
+## Redoc config
+
+A `redocly.yaml` file isn’t required to use openapi-typescript. By default it extends the `"minimal"` built-in config. But it is recommended if you want to have custom validation rules (or build types for [multiple schemas](#multiple-schemas)). The CLI will try to automatically find a `redocly.yaml` in the root of your project, but you can also provide its location with the `--redoc` flag:
+
+```bash
+npx openapi-typescript --redoc ./path/to/redocly.yaml
+```
+
+You can read more about the Redoc’s configuration options [in their docs](https://redocly.com/docs/cli/configuration/).
+
+## Auth
+
+Authentication for non-public schemas is handled in your [Redocly config](https://redocly.com/docs/cli/configuration/#resolve-non-public-or-non-remote-urls). You can add headers and basic authentication like so:
+
+```yaml
+resolve:
+  http:
+    headers:
+      - matches: https://api.example.com/v2/**
+        name: X-API-KEY
+        envVariable: SECRET_KEY
+      - matches: https://example.com/*/test.yaml
+        name: Authorization
+        envVariable: SECRET_AUTH
+```
+
+Refer to the [Redocly docs](https://redocly.com/docs/cli/configuration/#resolve-non-public-or-non-remote-urls) for additional options.
 
 ## Options
 
-| Option                    | Alias | Default  | Description                                                                                                                  |
-| :------------------------ | :---- | :------: | :--------------------------------------------------------------------------------------------------------------------------- |
-| `--help`                  |       |          | Display inline help message and exit                                                                                         |
-| `--version`               |       |          | Display this library’s version and exit                                                                                      |
-| `--output [location]`     | `-o`  | (stdout) | Where should the output file be saved?                                                                                       |
-| `--auth [token]`          |       |          | Provide an auth token to be passed along in the request (only if accessing a private schema)                                 |
-| `--header`                | `-x`  |          | Provide an array of or singular headers as an alternative to a JSON object. Each header must follow the `key: value` pattern |
-| `--headers-object="{…}"`  | `-h`  |          | Provide a JSON object as string of HTTP headers for remote schema request. This will take priority over `--header`           |
-| `--http-method`           | `-m`  |  `GET`   | Provide the HTTP Verb/Method for fetching a schema from a remote URL                                                         |
-| `--immutable-types`       |       | `false`  | Generates immutable types (readonly properties and readonly array)                                                           |
-| `--additional-properties` |       | `false`  | Allow arbitrary properties for all schema objects without `additionalProperties: false`                                      |
-| `--empty-objects-unknown` |       | `false`  | Allow arbitrary properties for schema objects with no specified properties, and no specified `additionalProperties`          |
-| `--default-non-nullable`  |       | `false`  | Treat schema objects with default values as non-nullable                                                                     |
-| `--export-type`           | `-t`  | `false`  | Export `type` instead of `interface`                                                                                         |
-| `--path-params-as-types`  |       | `false`  | Allow dynamic string lookups on the `paths` object                                                                           |
-| `--support-array-length`  |       | `false`  | Generate tuples using array `minItems` / `maxItems`                                                                          |
-| `--alphabetize`           |       | `false`  | Sort types alphabetically                                                                                                    |
-| `--exclude-deprecated`    |       | `false`  | Exclude deprecated fields from types                                                                                         |
+| Option                    | Alias | Default  | Description                                                                                                         |
+| :------------------------ | :---- | :------: | :------------------------------------------------------------------------------------------------------------------ |
+| `--help`                  |       |          | Display inline help message and exit                                                                                |
+| `--version`               |       |          | Display this library’s version and exit                                                                             |
+| `--output [location]`     | `-o`  | (stdout) | Where should the output file be saved?                                                                              |
+| `--redoc [location]`      |       |          | Path to a `redocly.yaml` file (see [Multiple schemas](#multiple-schemas))                                           |
+| `--immutable`             |       | `false`  | Generates immutable types (readonly properties and readonly array)                                                  |
+| `--additional-properties` |       | `false`  | Allow arbitrary properties for all schema objects without `additionalProperties: false`                             |
+| `--empty-objects-unknown` |       | `false`  | Allow arbitrary properties for schema objects with no specified properties, and no specified `additionalProperties` |
+| `--default-non-nullable`  |       | `false`  | Treat schema objects with default values as non-nullable                                                            |
+| `--export-type`           | `-t`  | `false`  | Export `type` instead of `interface`                                                                                |
+| `--path-params-as-types`  |       | `false`  | Allow dynamic string lookups on the `paths` object                                                                  |
+| `--array-length`          |       | `false`  | Generate tuples using array `minItems` / `maxItems`                                                                 |
+| `--alphabetize`           |       | `false`  | Sort types alphabetically                                                                                           |
+| `--exclude-deprecated`    |       | `false`  | Exclude deprecated fields from types                                                                                |
 
-### `--path-params-as-types`
+### pathParamsAsTypes flag
 
 By default, your URLs are preserved exactly as-written in your schema:
 
@@ -88,7 +125,7 @@ Though this is a contrived example, you could use this feature to automatically 
 
 _Thanks, [@Powell-v2](https://github.com/Powell-v2)!_
 
-### `--support-array-length`
+### arrayLength flag
 
 This option is useful for generating tuples if an array type specifies `minItems` or `maxItems`.
 
@@ -105,7 +142,7 @@ components:
       maxItems: 2
 ```
 
-Enabling `--support-array-length` would change the typing like so:
+Enabling `--array-length` would change the typing like so:
 
 ```diff
   export interface components {

@@ -1,12 +1,18 @@
-import type { GlobalContext, MediaTypeObject } from "../types.js";
+import ts from "typescript";
+import { UNKNOWN } from "../lib/ts.js";
+import { MediaTypeObject, TransformNodeOptions } from "../types.js";
 import transformSchemaObject from "./schema-object.js";
 
-export interface TransformMediaTypeObjectOptions {
-  path: string;
-  ctx: GlobalContext;
-}
-
-export default function transformMediaTypeObject(mediaTypeObject: MediaTypeObject, { path, ctx }: TransformMediaTypeObjectOptions): string {
-  if (!mediaTypeObject.schema) return "unknown";
-  return transformSchemaObject(mediaTypeObject.schema, { path, ctx });
+/**
+ * Transform MediaTypeObject nodes (4.8.14)
+ * @see https://spec.openapis.org/oas/v3.1.0#media-type-object
+ */
+export default function transformMediaTypeObject(
+  mediaTypeObject: MediaTypeObject,
+  options: TransformNodeOptions,
+): ts.TypeNode {
+  if (!mediaTypeObject.schema) {
+    return UNKNOWN;
+  }
+  return transformSchemaObject(mediaTypeObject.schema, options);
 }

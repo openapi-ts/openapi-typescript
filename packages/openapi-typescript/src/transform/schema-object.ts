@@ -1,291 +1,527 @@
-import type { DiscriminatorObject, GlobalContext, ReferenceObject, SchemaObject } from "../types.js";
-import { escObjKey, escStr, getEntries, getSchemaObjectComment, indent, parseRef, tsArrayOf, tsIntersectionOf, tsOmit, tsOneOf, tsOptionalProperty, tsReadonly, tsTupleOf, tsUnionOf, tsWithRequired } from "../utils.js";
-import transformSchemaObjectMap from "./schema-object-map.js";
+import { parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
+import ts from "typescript";
+import {
+  BOOLEAN,
+  NEVER,
+  NULL,
+  NUMBER,
+  QUESTION_TOKEN,
+  STRING,
+  UNDEFINED,
+  UNKNOWN,
+  addJSDocComment,
+  oapiRef,
+  tsEnum,
+  tsIntersection,
+  tsIsPrimitive,
+  tsLiteral,
+  tsModifiers,
+  tsNullable,
+  tsOmit,
+  tsPropertyIndex,
+  tsRecord,
+  tsUnion,
+  tsWithRequired,
+} from "../lib/ts.js";
+import {
+  createDiscriminatorProperty,
+  createRef,
+  getEntries,
+} from "../lib/utils.js";
+import {
+  ReferenceObject,
+  SchemaObject,
+  TransformNodeOptions,
+} from "../types.js";
 
-// There’s just no getting around some really complex type intersections that TS
-// has trouble following
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-export interface TransformSchemaObjectOptions {
-  /** The full ID for this object (mostly used in error messages) */
-  path: string;
-  /** Shared context */
-  ctx: GlobalContext;
-}
-
-export default function transformSchemaObject(schemaObject: SchemaObject | ReferenceObject, options: TransformSchemaObjectOptions): string {
-  const result = defaultSchemaObjectTransform(schemaObject, options);
+/**
+ * Transform SchemaObject nodes (4.8.24)
+ * @see https://spec.openapis.org/oas/v3.1.0#schema-object
+ */
+export default function transformSchemaObject(
+  schemaObject: SchemaObject | ReferenceObject,
+  options: TransformNodeOptions,
+): ts.TypeNode {
+  const type = transformSchemaObjectWithComposition(schemaObject, options);
   if (typeof options.ctx.postTransform === "function") {
-    const postResult = options.ctx.postTransform(result, options);
-    if (postResult) return postResult;
+    const postTransformResult = options.ctx.postTransform(type, options);
+    if (postTransformResult) {
+      return postTransformResult;
+    }
   }
-  return result;
+  return type;
 }
 
-export function defaultSchemaObjectTransform(schemaObject: SchemaObject | ReferenceObject, { path, ctx }: TransformSchemaObjectOptions): string {
-  let { indentLv } = ctx;
+/**
+ * Transform SchemaObjects
+ */
+export function transformSchemaObjectWithComposition(
+  schemaObject: SchemaObject | ReferenceObject,
+  options: TransformNodeOptions,
+): ts.TypeNode {
+  /**
+   * Unexpected types & edge cases
+   */
 
-  // boolean schemas
-  if (typeof schemaObject === "boolean") {
-    return schemaObject ? "unknown" : "never";
+  // missing/falsy type returns `never`
+  if (!schemaObject) {
+    return NEVER;
   }
-  // const fallback (primitives) return passed value
-  if (!schemaObject || typeof schemaObject !== "object") return schemaObject;
-  // const fallback (array) return tuple
-  if (Array.isArray(schemaObject)) {
-    const finalType = tsTupleOf(...schemaObject);
-    return ctx.immutableTypes ? tsReadonly(finalType) : finalType;
+  // `true` returns `unknown` (this exists, but is untyped)
+  if ((schemaObject as unknown) === true) {
+    return UNKNOWN;
   }
-
-  // $ref
-  if ("$ref" in schemaObject) {
-    return schemaObject.$ref;
-  }
-
-  // transform()
-  if (typeof ctx.transform === "function") {
-    const result = ctx.transform(schemaObject, { path, ctx });
-    if (result) return result;
-  }
-
-  // const (valid for any type)
-  if (schemaObject.const !== null && schemaObject.const !== undefined) {
-    return transformSchemaObject(escStr(schemaObject.const) as any, {
-      path,
-      ctx: { ...ctx, immutableTypes: false, indentLv: indentLv + 1 }, // note: guarantee readonly happens once, here
-    });
-  }
-
-  // enum (valid for any type, but for objects, treat as oneOf below)
-  if (typeof schemaObject === "object" && !!schemaObject.enum && (schemaObject as any).type !== "object") {
-    let items = schemaObject.enum as string[];
-    if ("type" in schemaObject) {
-      if (schemaObject.type === "string" || (Array.isArray(schemaObject.type) && (schemaObject.type as string[]).includes("string"))) {
-        items = items.map((t) => escStr(t));
-      }
-    }
-    // if no type, assume "string"
-    else {
-      items = items.map((t) => escStr(t || ""));
-    }
-    return tsUnionOf(...items, ...(schemaObject.nullable ? ["null"] : []));
-  }
-
-  // oneOf (no discriminator)
-  const oneOf = ((typeof schemaObject === "object" && !schemaObject.discriminator && schemaObject.oneOf) || schemaObject.enum || undefined) as (SchemaObject | ReferenceObject)[] | undefined; // note: for objects, treat enum as oneOf
-  if (oneOf && !oneOf.some((t) => "$ref" in t && ctx.discriminators[t.$ref])) {
-    const oneOfNormalized = oneOf.map((item) => transformSchemaObject(item, { path, ctx }));
-    if (schemaObject.nullable) oneOfNormalized.push("null");
-
-    // handle oneOf + polymorphic array type
-    if ("type" in schemaObject && Array.isArray(schemaObject.type)) {
-      const coreTypes = schemaObject.type.map((t) => transformSchemaObject({ ...schemaObject, oneOf: undefined, type: t }, { path, ctx }));
-      return tsUnionOf(...oneOfNormalized, ...coreTypes);
-    }
-
-    // OneOf<> helper needed if any objects present ("{")
-    const oneOfTypes = oneOfNormalized.some((t) => typeof t === "string" && t.includes("{")) ? tsOneOf(...oneOfNormalized) : tsUnionOf(...oneOfNormalized);
-
-    // handle oneOf + object type
-    if ("type" in schemaObject && schemaObject.type === "object" && (schemaObject.properties || schemaObject.additionalProperties)) {
-      return tsIntersectionOf(transformSchemaObject({ ...schemaObject, oneOf: undefined, enum: undefined } as any, { path, ctx }), oneOfTypes);
-    }
-
-    // default
-    return oneOfTypes;
-  }
-
-  if ("type" in schemaObject) {
-    // "type": "null"
-    if (schemaObject.type === "null") return "null";
-
-    // "type": "string", "type": "boolean"
-    if (schemaObject.type === "string" || schemaObject.type === "boolean") {
-      return schemaObject.nullable ? tsUnionOf(schemaObject.type, "null") : schemaObject.type;
-    }
-
-    // "type": "number", "type": "integer"
-    if (schemaObject.type === "number" || schemaObject.type === "integer") {
-      return schemaObject.nullable ? tsUnionOf("number", "null") : "number";
-    }
-
-    // "type": "array"
-    if (schemaObject.type === "array") {
-      indentLv++;
-      let itemType = "unknown";
-      let isTupleType = false;
-      if (schemaObject.prefixItems || Array.isArray(schemaObject.items)) {
-        // tuple type support
-        isTupleType = true;
-        const result: string[] = [];
-        for (const item of schemaObject.prefixItems ?? (schemaObject.items as (SchemaObject | ReferenceObject)[])) {
-          result.push(transformSchemaObject(item, { path, ctx: { ...ctx, indentLv } }));
-        }
-        itemType = `[${result.join(", ")}]`;
-      } else if (schemaObject.items) {
-        itemType = transformSchemaObject(schemaObject.items, { path, ctx: { ...ctx, indentLv } });
-      }
-      const min: number = typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0 ? schemaObject.minItems : 0;
-      const max: number | undefined = typeof schemaObject.maxItems === "number" && schemaObject.maxItems >= 0 && min <= schemaObject.maxItems ? schemaObject.maxItems : undefined;
-      const estimateCodeSize = typeof max !== "number" ? min : (max * (max + 1) - min * (min - 1)) / 2;
-      // export types
-      if (ctx.supportArrayLength && (min !== 0 || max !== undefined) && estimateCodeSize < 30) {
-        if (typeof schemaObject.maxItems !== "number") {
-          itemType = tsTupleOf(...Array.from({ length: min }).map(() => itemType), `...${tsArrayOf(itemType)}`);
-          return ctx.immutableTypes || schemaObject.readOnly ? tsReadonly(itemType) : itemType;
-        } else {
-          return tsUnionOf(
-            ...Array.from({ length: (max ?? 0) - min + 1 })
-              .map((_, i) => i + min)
-              .map((n) => {
-                const t = tsTupleOf(...Array.from({ length: n }).map(() => itemType));
-                return ctx.immutableTypes || schemaObject.readOnly ? tsReadonly(t) : t;
-              }),
-          );
-        }
-      }
-      if (!isTupleType) {
-        // Do not use tsArrayOf when it is a tuple type
-        itemType = tsArrayOf(itemType);
-      }
-      itemType = ctx.immutableTypes || schemaObject.readOnly ? tsReadonly(itemType) : itemType;
-
-      return schemaObject.nullable ? tsUnionOf(itemType, "null") : itemType;
-    }
-
-    // polymorphic, or 3.1 nullable
-    if (Array.isArray(schemaObject.type)) {
-      return tsUnionOf(...schemaObject.type.map((t) => transformSchemaObject({ ...schemaObject, type: t }, { path, ctx })));
-    }
-  }
-
-  // core type: properties + additionalProperties
-  const coreType: string[] = [];
-
-  // discriminators: explicit mapping on schema object
-  for (const k of ["oneOf", "allOf", "anyOf"] as ("oneOf" | "allOf" | "anyOf")[]) {
-    if (!(schemaObject as any)[k]) continue;
-    const discriminatorRef: ReferenceObject | undefined = (schemaObject as any)[k].find(
-      (t: SchemaObject | ReferenceObject) =>
-        "$ref" in t &&
-        (ctx.discriminators[t.$ref] || // explicit allOf from this node
-          Object.values(ctx.discriminators).find((d) => d.oneOf?.includes(path))), // implicit oneOf from parent
+  // for any other unexpected type, throw error
+  if (Array.isArray(schemaObject) || typeof schemaObject !== "object") {
+    throw new Error(
+      `Expected SchemaObject, received ${
+        Array.isArray(schemaObject) ? "Array" : typeof schemaObject
+      }`,
     );
-    if (discriminatorRef && ctx.discriminators[discriminatorRef.$ref]) {
-      coreType.unshift(indent(getDiscriminatorPropertyName(path, ctx.discriminators[discriminatorRef.$ref]), indentLv + 1));
-      break;
-    }
   }
-  // discriminators: implicit mapping from parent
-  for (const d of Object.values(ctx.discriminators)) {
-    if (d.oneOf?.includes(path)) {
-      coreType.unshift(indent(getDiscriminatorPropertyName(path, d), indentLv + 1));
-      break;
+
+  /**
+   * ReferenceObject
+   */
+  if ("$ref" in schemaObject) {
+    return oapiRef(schemaObject.$ref);
+  }
+
+  /**
+   * transform()
+   */
+  if (typeof options.ctx.transform === "function") {
+    const result = options.ctx.transform(schemaObject, options);
+    if (result !== undefined && result !== null) {
+      return result;
     }
   }
 
-  // "type": "object" (explicit)
-  // "anyOf" / "allOf" (object type implied)
+  /**
+   * const (valid for any type)
+   */
+  if (schemaObject.const !== null && schemaObject.const !== undefined) {
+    return tsLiteral(schemaObject.const);
+  }
+
+  /**
+   * enum (non-objects)
+   * note: enum is valid for any type, but for objects, handle in oneOf below
+   */
   if (
-    ("properties" in schemaObject && schemaObject.properties && Object.keys(schemaObject.properties).length) ||
-    ("additionalProperties" in schemaObject && schemaObject.additionalProperties) ||
-    ("$defs" in schemaObject && schemaObject.$defs)
+    Array.isArray(schemaObject.enum) &&
+    (!("type" in schemaObject) || schemaObject.type !== "object") &&
+    !("properties" in schemaObject) &&
+    !("additionalProperties" in schemaObject)
   ) {
-    indentLv++;
-    for (const [k, v] of getEntries(schemaObject.properties ?? {}, ctx.alphabetize, ctx.excludeDeprecated)) {
-      const c = getSchemaObjectComment(v, indentLv);
-      if (c) coreType.push(indent(c, indentLv));
-      let key = escObjKey(k);
-      let isOptional = !Array.isArray(schemaObject.required) || !schemaObject.required.includes(k);
-      if (isOptional && ctx.defaultNonNullable && "default" in v) isOptional = false; // if --default-non-nullable specified and this has a default, it’s no longer optional
-      if (isOptional) key = tsOptionalProperty(key);
-      if (ctx.immutableTypes || schemaObject.readOnly) key = tsReadonly(key);
-      coreType.push(indent(`${key}: ${transformSchemaObject(v, { path, ctx: { ...ctx, indentLv } })};`, indentLv));
+    // hoist enum to top level if string/number enum and option is enabled
+    if (
+      options.ctx.enum &&
+      schemaObject.enum.every(
+        (v) => typeof v === "string" || typeof v === "number",
+      )
+    ) {
+      let enumName = parseRef(options.path ?? "").pointer.join("/");
+      // allow #/components/schemas to have simpler names
+      enumName = enumName.replace("components/schemas", "");
+      const enumType = tsEnum(
+        enumName,
+        schemaObject.enum as (string | number)[],
+        { export: true, readonly: options.ctx.immutable },
+      );
+      options.ctx.injectFooter.push(enumType);
+      return ts.factory.createTypeReferenceNode(enumType.name);
     }
-    if (schemaObject.additionalProperties || ctx.additionalProperties) {
-      let addlType = "unknown";
-      if (typeof schemaObject.additionalProperties === "object") {
-        if (!Object.keys(schemaObject.additionalProperties).length) {
-          addlType = "unknown";
-        } else {
-          addlType = transformSchemaObject(schemaObject.additionalProperties as SchemaObject, {
-            path,
-            ctx: { ...ctx, indentLv },
-          });
-        }
-      }
-
-      // We need to add undefined when there are other optional properties in the schema.properties object
-      // that is the case when either schemaObject.required is empty and there are defined properties, or
-      // schemaObject.required is only contains a part of the schemaObject.properties
-      const numProperties = schemaObject.properties ? Object.keys(schemaObject.properties).length : 0;
-      if (schemaObject.properties && ((!schemaObject.required && numProperties) || (schemaObject.required && numProperties !== schemaObject.required.length))) {
-        coreType.push(indent(`[key: string]: ${tsUnionOf(addlType ? addlType : "unknown", "undefined")};`, indentLv));
-      } else {
-        coreType.push(indent(`[key: string]: ${addlType ? addlType : "unknown"};`, indentLv));
-      }
-    }
-    if (schemaObject.$defs && typeof schemaObject.$defs === "object" && Object.keys(schemaObject.$defs).length) {
-      coreType.push(indent(`$defs: ${transformSchemaObjectMap(schemaObject.$defs, { path: `${path}$defs/`, ctx: { ...ctx, indentLv } })};`, indentLv));
-    }
-    indentLv--;
+    return tsUnion(schemaObject.enum.map(tsLiteral));
   }
 
-  // close coreType
-  let finalType = coreType.length ? `{\n${coreType.join("\n")}\n${indent("}", indentLv)}` : "";
+  /**
+   * Object + composition (anyOf/allOf/oneOf) types
+   */
 
-  /** collect oneOf/allOf/anyOf with Omit<> for discriminators */
-  function collectCompositions(items: (SchemaObject | ReferenceObject)[]): string[] {
-    const output: string[] = [];
+  /** Collect oneOf/allOf/anyOf with Omit<> for discriminators */
+  function collectCompositions(
+    items: (SchemaObject | ReferenceObject)[],
+  ): ts.TypeNode[] {
+    const output: ts.TypeNode[] = [];
     for (const item of items) {
-      const itemType = transformSchemaObject(item, { path, ctx: { ...ctx, indentLv } });
-      if ("$ref" in item && ctx.discriminators[item.$ref]) {
-        output.push(tsOmit(itemType, [ctx.discriminators[item.$ref].propertyName]));
-        continue;
+      const itemType = transformSchemaObject(item, options);
+      const discriminator =
+        ("$ref" in item && options.ctx.discriminators[item.$ref]) ||
+        (item as any).discriminator; // eslint-disable-line @typescript-eslint/no-explicit-any
+      if (discriminator) {
+        output.push(tsOmit(itemType, [discriminator.propertyName]));
+      } else {
+        output.push(itemType);
       }
-      output.push(itemType);
     }
     return output;
   }
-  // oneOf (discriminator)
-  if (Array.isArray(schemaObject.oneOf) && schemaObject.oneOf.length) {
-    const oneOfType = tsUnionOf(...collectCompositions(schemaObject.oneOf));
-    finalType = finalType ? tsIntersectionOf(finalType, oneOfType) : oneOfType;
-  } else {
-    // allOf
-    if (Array.isArray((schemaObject as any).allOf) && schemaObject.allOf!.length) {
-      finalType = tsIntersectionOf(...(finalType ? [finalType] : []), ...collectCompositions(schemaObject.allOf!));
-      if ("required" in schemaObject && Array.isArray(schemaObject.required)) {
-        finalType = tsWithRequired(finalType, schemaObject.required);
-      }
+
+  // compile final type
+  let finalType: ts.TypeNode | undefined = undefined;
+
+  // core + allOf: intersect
+  const coreObjectType = transformSchemaObjectCore(schemaObject, options);
+  const allOfType = collectCompositions(schemaObject.allOf ?? []);
+  if (coreObjectType || allOfType.length) {
+    let allOf: ts.TypeNode | undefined = allOfType.length
+      ? tsIntersection(allOfType)
+      : undefined;
+    // add required props
+    if (
+      allOf &&
+      "required" in schemaObject &&
+      Array.isArray(schemaObject.required)
+    ) {
+      allOf = tsWithRequired(
+        allOf,
+        schemaObject.required,
+        options.ctx.injectFooter,
+      );
     }
-    // anyOf
-    if (Array.isArray(schemaObject.anyOf) && schemaObject.anyOf.length) {
-      const anyOfTypes = tsUnionOf(...collectCompositions(schemaObject.anyOf));
-      finalType = finalType ? tsIntersectionOf(finalType, anyOfTypes) : anyOfTypes;
+    finalType = tsIntersection([
+      ...(coreObjectType ? [coreObjectType] : []),
+      ...(allOf ? [allOf] : []),
+    ]);
+  }
+  // anyOf: union
+  // (note: this may seem counterintuitive, but as TypeScript’s unions are not true XORs, they mimic behavior closer to anyOf than oneOf)
+  const anyOfType = collectCompositions(schemaObject.anyOf ?? []);
+  if (anyOfType.length) {
+    finalType = tsUnion([...(finalType ? [finalType] : []), ...anyOfType]);
+  }
+  // oneOf: union (within intersection with other types, if any)
+  const oneOfType = collectCompositions(
+    schemaObject.oneOf ||
+      ("type" in schemaObject &&
+        schemaObject.type === "object" &&
+        (schemaObject.enum as (SchemaObject | ReferenceObject)[])) ||
+      [],
+  );
+  if (oneOfType.length) {
+    // note: oneOf is the only type that may include primitives
+    if (oneOfType.every(tsIsPrimitive)) {
+      finalType = tsUnion([...(finalType ? [finalType] : []), ...oneOfType]);
+    } else {
+      finalType = tsIntersection([
+        ...(finalType ? [finalType] : []),
+        tsUnion(oneOfType),
+      ]);
     }
   }
 
-  // nullable (3.0)
-  if (schemaObject.nullable) finalType = tsUnionOf(finalType || "Record<string, unknown>", "null");
+  // if final type could be generated, return intersection of all members
+  if (finalType) {
+    // deprecated nullable
+    if (schemaObject.nullable) {
+      return tsNullable([finalType]);
+    }
+    return finalType;
+  }
+  // otherwise fall back to unknown type (or related variants)
+  else {
+    // fallback: unknown
+    if (!("type" in schemaObject)) {
+      return UNKNOWN;
+    }
 
-  if (finalType) return finalType;
-
-  // any type
-  if (!("type" in schemaObject)) return "unknown";
-
-  // if no type could be generated, fall back to “empty object” type
-  return ctx.emptyObjectsUnknown ? "Record<string, unknown>" : "Record<string, never>";
+    // if no type could be generated, fall back to “empty object” type
+    return tsRecord(STRING, options.ctx.emptyObjectsUnknown ? UNKNOWN : NEVER);
+  }
 }
 
-export function getDiscriminatorPropertyName(path: string, discriminator: DiscriminatorObject): string {
-  // get the inferred propertyName value from the last section of the path (as the spec suggests to do)
-  let value = parseRef(path).path.pop()!;
-  // if mapping, and there’s a match, use this rather than the inferred name
-  if (discriminator.mapping) {
-    // Mapping value can either be a fully-qualified ref (#/components/schemas/XYZ) or a schema name (XYZ)
-    const matchedValue = Object.entries(discriminator.mapping).find(([, v]) => (!v.startsWith("#") && v === value) || (v.startsWith("#") && parseRef(v).path.pop() === value));
-    if (matchedValue) value = matchedValue[0]; // why was this designed backwards!?
+/**
+ * Handle SchemaObject minus composition (anyOf/allOf/oneOf)
+ */
+function transformSchemaObjectCore(
+  schemaObject: SchemaObject,
+  options: TransformNodeOptions,
+): ts.TypeNode | undefined {
+  if ("type" in schemaObject && schemaObject.type) {
+    // primitives
+    // type: null
+    if (schemaObject.type === "null") {
+      return NULL;
+    }
+    // type: string
+    if (schemaObject.type === "string") {
+      return STRING;
+    }
+    // type: number / type: integer
+    if (schemaObject.type === "number" || schemaObject.type === "integer") {
+      return NUMBER;
+    }
+    // type: boolean
+    if (schemaObject.type === "boolean") {
+      return BOOLEAN;
+    }
+
+    // type: array (with support for tuples)
+    if (schemaObject.type === "array") {
+      // default to `unknown[]`
+      let itemType: ts.TypeNode = UNKNOWN;
+      // tuple type
+      if (schemaObject.prefixItems || Array.isArray(schemaObject.items)) {
+        const prefixItems =
+          schemaObject.prefixItems ??
+          (schemaObject.items as (SchemaObject | ReferenceObject)[]);
+        itemType = ts.factory.createTupleTypeNode(
+          prefixItems.map((item) => transformSchemaObject(item, options)),
+        );
+      }
+      // standard array type
+      else if (schemaObject.items) {
+        itemType = transformSchemaObject(schemaObject.items, options);
+        if (options.ctx.immutable) {
+          itemType = ts.factory.createTypeOperatorNode(
+            ts.SyntaxKind.ReadonlyKeyword,
+            itemType,
+          );
+        }
+      }
+
+      const min: number =
+        typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0
+          ? schemaObject.minItems
+          : 0;
+      const max: number | undefined =
+        typeof schemaObject.maxItems === "number" &&
+        schemaObject.maxItems >= 0 &&
+        min <= schemaObject.maxItems
+          ? schemaObject.maxItems
+          : undefined;
+      const estimateCodeSize =
+        typeof max !== "number" ? min : (max * (max + 1) - min * (min - 1)) / 2;
+      if (
+        options.ctx.arrayLength &&
+        (min !== 0 || max !== undefined) &&
+        estimateCodeSize < 30 // "30" is an arbitrary number but roughly around when TS starts to struggle with tuple inference in practice
+      ) {
+        // if maxItems is set, then return a union of all permutations of possible tuple types
+        if ((schemaObject.maxItems as number) > 0) {
+          const members: ts.TypeNode[] = [];
+          // populate 1 short of min …
+          for (let i = 0; i <= (max ?? 0) - min; i++) {
+            const elements: ts.TypeNode[] = [];
+            for (let j = min; j < i + min; j++) {
+              elements.push(itemType);
+            }
+            members.push(ts.factory.createTupleTypeNode(elements));
+          }
+          return tsUnion(members);
+        }
+        // if maxItems not set, then return a simple tuple type the length of `min`
+        else {
+          const elements: ts.TypeNode[] = [];
+          for (let i = 0; i < min; i++) {
+            elements.push(itemType);
+          }
+          elements.push(
+            ts.factory.createRestTypeNode(
+              ts.factory.createArrayTypeNode(itemType),
+            ),
+          );
+          return ts.factory.createTupleTypeNode(elements);
+        }
+      }
+
+      return ts.isTupleTypeNode(itemType)
+        ? itemType
+        : ts.factory.createArrayTypeNode(itemType); // wrap itemType in array type, but only if not a tuple already
+    }
+
+    // polymorphic, or 3.1 nullable
+    if (Array.isArray(schemaObject.type) && !Array.isArray(schemaObject)) {
+      // skip any primitive types that appear in oneOf as well
+      let uniqueTypes: ts.TypeNode[] = [];
+      if (Array.isArray(schemaObject.oneOf)) {
+        for (const t of schemaObject.type) {
+          if (
+            (t === "boolean" ||
+              t === "string" ||
+              t === "number" ||
+              t === "integer" ||
+              t === "null") &&
+            schemaObject.oneOf.find(
+              (o) => typeof o === "object" && "type" in o && o.type === t,
+            )
+          ) {
+            continue;
+          }
+          uniqueTypes.push(
+            t === "null" || t === null
+              ? NULL
+              : transformSchemaObject(
+                  { ...schemaObject, type: t, oneOf: undefined }, // don’t stack oneOf transforms
+                  options,
+                ),
+          );
+        }
+      } else {
+        uniqueTypes = schemaObject.type.map((t) =>
+          t === "null" || t === null
+            ? NULL
+            : transformSchemaObject({ ...schemaObject, type: t }, options),
+        );
+      }
+      return tsUnion(uniqueTypes);
+    }
   }
-  return `${escObjKey(discriminator.propertyName)}: ${escStr(value)};`;
+
+  // type: object
+  const coreObjectType: ts.TypeElement[] = [];
+
+  // discriminatorss: explicit mapping on schema object
+  for (const k of ["oneOf", "allOf", "anyOf"] as const) {
+    if (!schemaObject[k]) {
+      continue;
+    }
+    // for all magic inheritance, we will have already gathered it into
+    // ctx.discriminators. But stop objects from referencing their own
+    // discriminator meant for children (!schemaObject.discriminator)
+    const discriminator =
+      !schemaObject.discriminator && options.ctx.discriminators[options.path!];
+    if (discriminator) {
+      coreObjectType.unshift(
+        createDiscriminatorProperty(discriminator, {
+          path: options.path!,
+          readonly: options.ctx.immutable,
+        }),
+      );
+      break;
+    }
+  }
+
+  if (
+    ("properties" in schemaObject &&
+      schemaObject.properties &&
+      Object.keys(schemaObject.properties).length) ||
+    ("additionalProperties" in schemaObject &&
+      schemaObject.additionalProperties) ||
+    ("$defs" in schemaObject && schemaObject.$defs)
+  ) {
+    // properties
+    if (Object.keys(schemaObject.properties ?? {}).length) {
+      for (const [k, v] of getEntries(
+        schemaObject.properties ?? {},
+        options.ctx,
+      )) {
+        if (typeof v !== "object" || Array.isArray(v)) {
+          throw new Error(
+            `${
+              options.path
+            }: invalid property ${k}. Expected Schema Object, got ${
+              Array.isArray(v) ? "Array" : typeof v
+            }`,
+          );
+        }
+
+        // handle excludeDeprecated option
+        if (options.ctx.excludeDeprecated) {
+          const resolved =
+            "$ref" in v ? options.ctx.resolve<SchemaObject>(v.$ref) : v;
+          if (resolved?.deprecated) {
+            continue;
+          }
+        }
+        const optional =
+          schemaObject.required?.includes(k) ||
+          ("default" in v && options.ctx.defaultNonNullable)
+            ? undefined
+            : QUESTION_TOKEN;
+        const type =
+          "$ref" in v
+            ? oapiRef(v.$ref)
+            : transformSchemaObject(v, {
+                ...options,
+                path: createRef([options.path ?? "", k]),
+              });
+        const property = ts.factory.createPropertySignature(
+          /* modifiers     */ tsModifiers({
+            readonly:
+              options.ctx.immutable || ("readOnly" in v && !!v.readOnly),
+          }),
+          /* name          */ tsPropertyIndex(k),
+          /* questionToken */ optional,
+          /* type          */ type,
+        );
+        addJSDocComment(v, property);
+        coreObjectType.push(property);
+      }
+    }
+
+    // $defs
+    if (
+      schemaObject.$defs &&
+      typeof schemaObject.$defs === "object" &&
+      Object.keys(schemaObject.$defs).length
+    ) {
+      const defKeys: ts.TypeElement[] = [];
+      for (const [k, v] of Object.entries(schemaObject.$defs)) {
+        const property = ts.factory.createPropertySignature(
+          /* modifiers */ tsModifiers({
+            readonly:
+              options.ctx.immutable || ("readonly" in v && !!v.readOnly),
+          }),
+          /* name          */ tsPropertyIndex(k),
+          /* questionToken */ undefined,
+          /* type          */ transformSchemaObject(v, {
+            ...options,
+            path: createRef([options.path ?? "", "$defs", k]),
+          }),
+        );
+        addJSDocComment(v, property);
+        defKeys.push(property);
+      }
+      coreObjectType.push(
+        ts.factory.createPropertySignature(
+          /* modifiers     */ tsModifiers({
+            readonly: options.ctx.immutable,
+          }),
+          /* name          */ tsPropertyIndex("$defs"),
+          /* questionToken */ undefined,
+          /* type          */ ts.factory.createTypeLiteralNode(defKeys),
+        ),
+      );
+    }
+
+    // additionalProperties
+    if (schemaObject.additionalProperties || options.ctx.additionalProperties) {
+      const hasExplicitAdditionalProperties =
+        typeof schemaObject.additionalProperties === "object" &&
+        Object.keys(schemaObject.additionalProperties).length;
+      let addlType = hasExplicitAdditionalProperties
+        ? transformSchemaObject(
+            schemaObject.additionalProperties as SchemaObject,
+            options,
+          )
+        : UNKNOWN;
+      // allow for `| undefined`, at least until https://github.com/microsoft/TypeScript/issues/4196 is resolved
+      if (addlType.kind !== ts.SyntaxKind.UnknownKeyword) {
+        addlType = tsUnion([addlType, UNDEFINED]);
+      }
+      coreObjectType.push(
+        ts.factory.createIndexSignature(
+          /* modifiers  */ tsModifiers({
+            readonly: options.ctx.immutable,
+          }),
+          /* parameters */ [
+            ts.factory.createParameterDeclaration(
+              /* modifiers      */ undefined,
+              /* dotDotDotToken */ undefined,
+              /* name           */ ts.factory.createIdentifier("key"),
+              /* questionToken  */ undefined,
+              /* type           */ STRING,
+            ),
+          ],
+          /* type       */ addlType,
+        ),
+      );
+    }
+  }
+
+  return coreObjectType.length
+    ? ts.factory.createTypeLiteralNode(coreObjectType)
+    : undefined;
 }

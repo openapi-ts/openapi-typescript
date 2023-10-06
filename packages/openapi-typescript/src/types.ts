@@ -1,13 +1,19 @@
-import type { PathLike } from "node:fs";
-import type { RequestInfo, RequestInit, Response } from "undici";
-import type { TransformSchemaObjectOptions } from "./transform/schema-object.js";
+import type { Config as RedoclyConfig } from "@redocly/openapi-core";
+import { PathLike } from "node:fs";
+import type ts from "typescript";
 
-// Many types allow for true “any”
+// Many types allow for true “any” for inheritance to work
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export interface Extensable {
   [key: `x-${string}`]: any;
 }
+
+// Note: these OpenAPI types are meant only for internal use, not external
+// consumption. Some formatting may be better in other libraries meant for
+// consumption. Some typing may be “loose” or “incorrect” in order to guarantee
+// that all logical paths are handled. In other words, these are built more
+// for ways schemas _can_ be written, not necessarily how they _should_ be.
 
 /**
  * [4.8] Schema
@@ -446,32 +452,42 @@ export type SchemaObject = {
   | BooleanSubtype
   | NullSubtype
   | ObjectSubtype
-  | { type: ("string" | "number" | "integer" | "array" | "boolean" | "null" | "object")[] }
+  | {
+      type: (
+        | "string"
+        | "number"
+        | "integer"
+        | "array"
+        | "boolean"
+        | "null"
+        | "object"
+      )[];
+    }
   // eslint-disable-next-line @typescript-eslint/ban-types
   | {}
 );
 
 export interface StringSubtype {
-  type: "string";
+  type: "string" | ["string", "null"];
   enum?: (string | ReferenceObject)[];
 }
 
 export interface NumberSubtype {
-  type: "number";
+  type: "number" | ["number", "null"];
   minimum?: number;
   maximum?: number;
   enum?: (number | ReferenceObject)[];
 }
 
 export interface IntegerSubtype {
-  type: "integer";
+  type: "integer" | ["integer", "null"];
   minimum?: number;
   maximum?: number;
   enum?: (number | ReferenceObject)[];
 }
 
 export interface ArraySubtype {
-  type: "array";
+  type: "array" | ["array", "null"];
   prefixItems?: (SchemaObject | ReferenceObject)[];
   items?: SchemaObject | ReferenceObject | (SchemaObject | ReferenceObject)[];
   minItems?: number;
@@ -480,7 +496,7 @@ export interface ArraySubtype {
 }
 
 export interface BooleanSubtype {
-  type: "boolean";
+  type: "boolean" | ["boolean", "null"];
   enum?: (boolean | ReferenceObject)[];
 }
 
@@ -491,7 +507,11 @@ export interface NullSubtype {
 export interface ObjectSubtype {
   type: "object" | ["object", "null"];
   properties?: { [name: string]: SchemaObject | ReferenceObject };
-  additionalProperties?: boolean | Record<string, never> | SchemaObject | ReferenceObject;
+  additionalProperties?:
+    | boolean
+    | Record<string, never>
+    | SchemaObject
+    | ReferenceObject;
   required?: string[];
   allOf?: (SchemaObject | ReferenceObject)[];
   anyOf?: (SchemaObject | ReferenceObject)[];
@@ -606,116 +626,82 @@ export interface OAuthFlowObject extends Extensable {
  * [4.8.30] Security Requirements Object
  * Lists the required security schemes to execute this operation. The name used for each property MUST correspond to a security scheme declared in the Security Schemes under the Components Object.
  */
-export type SecurityRequirementObject = Record<keyof ComponentsObject["securitySchemes"], string[]>;
+export type SecurityRequirementObject = Record<
+  keyof ComponentsObject["securitySchemes"],
+  string[]
+>;
 
 export interface OpenAPITSOptions {
-  /** Allow schema objects to have additional properties if not expressly forbidden? (default: false) */
+  /** Treat all objects as if they have `additionalProperties: true` by default (default: false) */
   additionalProperties?: boolean;
   /** Alphabetize all keys? (default: false) */
   alphabetize?: boolean;
-  /** Specify auth if using openapi-typescript to fetch URL */
-  auth?: string;
   /** Allow schema objects with no specified properties to have additional properties if not expressly forbidden? (default: false) */
   emptyObjectsUnknown?: boolean;
-  /** Specify current working directory (cwd) to resolve remote schemas on disk (not needed for remote URL schemas) */
+  /** Provide current working directory (cwd) which helps resolve relative remote schemas */
   cwd?: PathLike;
   /** Should schema objects with a default value not be considered optional? */
   defaultNonNullable?: boolean;
   /** Manually transform certain Schema Objects with a custom TypeScript type */
-  transform?: (schemaObject: SchemaObject, options: TransformSchemaObjectOptions) => string | undefined;
+  transform?: (
+    schemaObject: SchemaObject,
+    options: TransformNodeOptions,
+  ) => ts.TypeNode | undefined;
   /** Modify TypeScript types built from Schema Objects */
-  postTransform?: (type: string, options: TransformSchemaObjectOptions) => string | undefined;
+  postTransform?: (
+    type: ts.TypeNode,
+    options: TransformNodeOptions,
+  ) => ts.TypeNode | undefined;
   /** Add readonly properties and readonly arrays? (default: false) */
-  immutableTypes?: boolean;
+  immutable?: boolean;
   /** (optional) Should logging be suppressed? (necessary for STDOUT) */
   silent?: boolean;
   /** (optional) OpenAPI version. Must be present if parsing raw schema */
   version?: number;
-  /**
-   * (optional) List of HTTP headers that will be sent with the fetch request to a remote schema. This is
-   * in addition to the authorization header. In some cases, servers require headers such as Accept: application/json
-   * or Accept: text/yaml to be sent in order to figure out how to properly fetch the OpenAPI/Swagger document as code.
-   * These headers will only be sent in the case that the schema URL protocol is of type http or https.
-   */
-  httpHeaders?: Record<string, any>;
-  /**
-   * HTTP verb used to fetch the schema from a remote server. This is only applied
-   * when the schema is a string and has the http or https protocol present. By default,
-   * the request will use the HTTP GET method to fetch the schema from the server.
-   *
-   * @default {string} GET
-   */
-  httpMethod?: string;
   /** (optional) Export type instead of interface */
   exportType?: boolean;
+  /** Export true TypeScript enums instead of unions */
+  enum?: boolean;
   /** (optional) Generate tuples using array minItems / maxItems */
-  supportArrayLength?: boolean;
+  arrayLength?: boolean;
   /** (optional) Substitute path parameter names with their respective types */
   pathParamsAsTypes?: boolean;
-  /**
-   * (optional) Provide your own comment header that prefixes the generated file.
-   * Note this isn’t validated, so any string entered will be accepted as-is.
-   */
-  commentHeader?: string;
-  /** (optional) inject code before schema ? */
-  inject?: string;
-  /**
-   * (optional) A fetch implementation. Will default to the global fetch
-   * function if available; else, it will use unidici's fetch function.
-   */
-  fetch?: Fetch;
   /** Exclude deprecated fields from types? (default: false) */
   excludeDeprecated?: boolean;
+  /**
+   * Configure Redocly for validation, schema fetching, and bundling
+   * @see https://redocly.com/docs/cli/configuration/
+   */
+  redocly?: RedoclyConfig;
 }
-
-/** Subschema discriminator (note: only valid $ref types accepted here) */
-export type Subschema =
-  | { hint: "LinkObject"; schema: LinkObject }
-  | { hint: "HeaderObject"; schema: HeaderObject }
-  | { hint: "MediaTypeObject"; schema: MediaTypeObject }
-  | { hint: "OpenAPI3"; schema: OpenAPI3 }
-  | { hint: "OperationObject"; schema: OperationObject }
-  | { hint: "ParameterObject"; schema: ParameterObject }
-  | {
-      hint: "ParameterObject[]";
-      schema: (ParameterObject | ReferenceObject)[] | Record<string, ParameterObject | ReferenceObject>;
-    }
-  | { hint: "RequestBodyObject"; schema: RequestBodyObject }
-  | { hint: "ResponseObject"; schema: ResponseObject }
-  | { hint: "SchemaMap"; schema: Record<string, SchemaObject | ReferenceObject | PathItemObject> } // subschemas are less structured
-  | { hint: "SchemaObject"; schema: SchemaObject };
 
 /** Context passed to all submodules */
 export interface GlobalContext {
+  // user options
   additionalProperties: boolean;
   alphabetize: boolean;
-  cwd?: PathLike;
-  emptyObjectsUnknown: boolean;
   defaultNonNullable: boolean;
-  discriminators: { [$ref: string]: DiscriminatorObject };
-  transform: OpenAPITSOptions["transform"];
-  postTransform: OpenAPITSOptions["postTransform"];
-  immutableTypes: boolean;
-  indentLv: number;
-  operations: Record<
-    string,
-    {
-      comment?: string;
-      operationType: string;
-    }
-  >;
-  parameters: Record<string, ParameterObject>;
-  pathParamsAsTypes: boolean;
-  silent: boolean;
-  supportArrayLength: boolean;
+  discriminators: Record<string, DiscriminatorObject>;
+  emptyObjectsUnknown: boolean;
+  enum: boolean;
   excludeDeprecated: boolean;
+  exportType: boolean;
+  immutable: boolean;
+  injectFooter: ts.Node[];
+  pathParamsAsTypes: boolean;
+  postTransform: OpenAPITSOptions["postTransform"];
+  redoc: RedoclyConfig;
+  silent: boolean;
+  arrayLength: boolean;
+  transform: OpenAPITSOptions["transform"];
+  /** retrieve a node by $ref */
+  resolve<T>(ref: string): T | undefined;
 }
 
 export type $defs = Record<string, SchemaObject>;
 
-// Fetch is available in the global scope starting with Node v18.
-// However, @types/node does not have it yet available.
-// GitHub issue: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/60924
-// Because node's underlying implementation relies on unidici, it is safe to
-// rely on unidici's type until @types/node ships it.
-export type Fetch = (input: RequestInfo, init?: RequestInit) => Promise<Response>;
+/** generic options for most internal transform* functions */
+export interface TransformNodeOptions {
+  path?: string;
+  ctx: GlobalContext;
+}

@@ -206,3 +206,51 @@ properties:
     minimum: 600
     maximum: 86400
     example: 600
+  innodb_change_buffer_max_size:
+    description: >-
+      Specifies the maximum size of the InnoDB change buffer as a percentage of the buffer pool.
+    type: integer
+    minimum: 0
+    maximum: 50
+    example: 25
+  innodb_flush_neighbors:
+    description: >-
+      Specifies whether flushing a page from the InnoDB buffer pool also flushes other dirty pages in the same extent.
+        - 0 &mdash; disables this functionality, dirty pages in the same extent are not flushed.
+        - 1 &mdash; flushes contiguous dirty pages in the same extent.
+        - 2 &mdash; flushes dirty pages in the same extent.
+    type: integer
+    enum:
+      - 0
+      - 1
+      - 2
+    example: 0
+  innodb_read_io_threads:
+    description: >-
+      The number of I/O threads for read operations in InnoDB. Changing this parameter will lead to a restart of the MySQL service.
+    type: integer
+    minimum: 1
+    maximum: 64
+    example: 16
+  innodb_write_io_threads:
+    description: >-
+      The number of I/O threads for write operations in InnoDB. Changing this parameter will lead to a restart of the MySQL service.
+    type: integer
+    minimum: 1
+    maximum: 64
+    example: 16
+  innodb_thread_concurrency:
+    description: >-
+      Defines the maximum number of threads permitted inside of InnoDB. A value of 0 (the default) is interpreted as infinite concurrency (no limit). This variable is intended for performance 
+      tuning on high concurrency systems.
+    type: integer
+    minimum: 0
+    maximum: 1000
+    example: 0
+  net_buffer_length: 
+    description: >-
+      Start sizes of connection buffer and result buffer, must be multiple of 1024. Changing this parameter will lead to a restart of the MySQL service.
+    type: integer
+    minimum: 1024
+    maximum: 1048576
+    example: 4096

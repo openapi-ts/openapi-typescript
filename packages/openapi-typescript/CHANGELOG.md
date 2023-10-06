@@ -1,5 +1,78 @@
 # openapi-typescript
 
+## 7.0.0
+
+### Major Changes
+
+- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: The Node.js API now returns the TypeScript AST for the main method as well as `transform()` and `postTransform()`. To migrate, you’ll have to use the `typescript` compiler API:
+
+    ```diff
+    + import ts from "typescript";
+
+    + const DATE = ts.factory.createIdentifier("Date");
+    + const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull());
+
+      const ast = await openapiTS(mySchema, {
+        transform(schemaObject, metadata) {
+          if (schemaObject.format === "date-time") {
+    -       return schemaObject.nullable ? "Date | null" : "Date";
+    +       return schemaObject.nullable
+    +         ? ts.factory.createUnionTypeNode([DATE, NULL])
+    +         : DATE;
+          }
+        },
+      };
+    ```
+
+    Though it’s more verbose, it’s also more powerful, as now you have access to additional properties of the generated code you didn’t before (such as injecting comments).
+
+    For example syntax, search this codebae to see how the TypeScript AST is used.
+
+    Also see [AST Explorer](https://astexplorer.net/)’s `typescript` parser to inspect how TypeScript is interpreted as an AST.
+
+- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: Changing of several CLI flags and Node.js API options
+
+    - The `--auth`, `--httpHeaders`, `--httpMethod`, and `fetch` (Node.js-only) options were all removed from the CLI and Node.js API
+        - To migrate, you’ll need to create a [redocly.yaml config](https://redocly.com/docs/cli/configuration/) that specifies your auth options [in the http setting](https://redocly.com/docs/cli/configuration/#resolve-non-public-or-non-remote-urls)
+        - You can also set your fetch client in redocly.yaml as well.
+    - `--immutable-types` has been renamed to `--immutable`
+    - `--support-array-length` has been renamed to `--array-length`
+
+- [`fbaf96d`](https://github.com/drwpow/openapi-typescript/commit/fbaf96d33181a2fabd3d4748e54c0f111ed6756e) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: Remove globbing schemas in favor of `redocly.yaml` config. Specify multiple schemas with outputs in there instead. See [Multiple schemas](https://openapi-ts.pages.dev/docs/cli/#multiple-schemas) for more info.
+
+- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: Most optional objects are now always present in types, just typed as `:never`. This includes keys of the Components Object as well as HTTP methods.
+
+- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: No more `external` export in schemas anymore. Everything gets flattened into the `components` object instead (if referencing a schema object from a remote partial, note it may have had a minor name change to avoid conflict).
+
+- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking** `defaultNonNullable` option now defaults to `true`. You’ll now need to manually set `false` to return to old behavior.
+
+### Minor Changes
+
+- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: automatically validate schemas with Redocly CLI ([docs](https://redocly.com/docs/cli/)). No more need for external tools to report errors! 🎉
+
+  - By default, it will only throw on actual schema errors (uses Redocly’s default settings)
+  - For stricter linting or custom rules, you can create a [redocly.yaml config](https://redocly.com/docs/cli/configuration/)
+
+- [`312b7ba`](https://github.com/drwpow/openapi-typescript/commit/312b7ba03fc0334153d4eeb51d6159f3fc63934e) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature:** allow configuration of schemas via `apis` key in redocly.config.yaml. [See docs](https://openapi-ts.pages.dev/cli/) for more info.
+
+  - Any options passed into your [redocly.yaml config](https://redocly.com/docs/cli/configuration/) are respected
+
+- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: add `enum` option to export top-level enums from schemas
+
+- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: add `formatOptions` to allow formatting TS output
+
+- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: header responses add `[key: string]: unknown` index type to allow for additional untyped headers
+
+- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: bundle schemas with Redocly CLI
+
+- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: Added debugger that lets you profile performance and see more in-depth messages
+
+### Patch Changes
+
+- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - Refactor internals to use TypeScript AST rather than string mashing
+
+- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - 🧹 Cleaned up and reorganized all tests
+
 ## 6.7.0
 
 ### Minor Changes
