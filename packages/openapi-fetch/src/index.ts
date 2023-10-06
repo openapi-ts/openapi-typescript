@@ -70,7 +70,8 @@ export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never
   ? { body?: OperationRequestBodyContent<T> }
   : { body: OperationRequestBodyContent<T> };
 
-export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body">;
+export type FetchOptions<T> = RequestOptions<T> &
+  Omit<RequestInit, "body"> & { fetch?: ClientOptions["fetch"] };
 
 export type FetchResponse<T> =
   | {
@@ -95,7 +96,7 @@ export default function createClient<Paths extends {}>(
   clientOptions: ClientOptions = {},
 ) {
   const {
-    fetch = globalThis.fetch,
+    fetch: baseFetch = globalThis.fetch,
     querySerializer: globalQuerySerializer,
     bodySerializer: globalBodySerializer,
     ...options
@@ -110,6 +111,7 @@ export default function createClient<Paths extends {}>(
     fetchOptions: FetchOptions<M extends keyof Paths[P] ? Paths[P][M] : never>,
   ): Promise<FetchResponse<M extends keyof Paths[P] ? Paths[P][M] : unknown>> {
     const {
+      fetch = baseFetch,
       headers,
       body: requestBody,
       params = {},

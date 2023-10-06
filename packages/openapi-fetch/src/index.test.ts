@@ -396,18 +396,26 @@ describe("client", () => {
     });
 
     it("accepts a custom fetch function", async () => {
-      const data = { works: true };
-      const customFetch = {
-        clone: () => ({ ...customFetch }),
-        headers: new Headers(),
-        json: async () => data,
-        status: 200,
-        ok: true,
-      };
-      const client = createClient<paths>({
-        fetch: async () => Promise.resolve(customFetch as Response),
-      });
-      expect((await client.GET("/self")).data).toBe(data);
+      function createCustomFetch(data: any) {
+        const response = {
+          clone: () => ({ ...response }),
+          headers: new Headers(),
+          json: async () => data,
+          status: 200,
+          ok: true,
+        } as Response;
+        return async () => Promise.resolve(response);
+      }
+
+      const baseData = { works: true };
+      const customBaseFetch = createCustomFetch(baseData);
+      const client = createClient<paths>({ fetch: customBaseFetch });
+      expect((await client.GET("/self")).data).toBe(baseData);
+
+      const data = { result: "it's working" };
+      const customFetch = createCustomFetch(data);
+      const customResponse = await client.GET("/self", { fetch: customFetch });
+      expect(customResponse.data).toBe(data);
     });
   });
 
