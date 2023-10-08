@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.7.10
+
+### Patch Changes
+
+- [#1373](https://github.com/drwpow/openapi-typescript/pull/1373) [`fd3e96f`](https://github.com/drwpow/openapi-typescript/commit/fd3e96fb2e68a0d58b326331264809e76ca89672) Thanks [@HugeLetters](https://github.com/HugeLetters)! - Added the option to provide custom fetch function to individual API calls.
+
 ## 0.7.9
 
 ### Patch Changes
