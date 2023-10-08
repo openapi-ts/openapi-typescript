@@ -90,7 +90,7 @@ openapi-fetch is simple vanilla JS that can be used in any project. But sometime
 
 ### Svelte / SvelteKit
 
-<a href="https://kit.svelte.dev" target="_blank" rel="noopener noreferrer">SvelteKit</a>’s automatic type inference can easily pick up openapi-fetch’s types in both clientside fetching and <a href="https://kit.svelte.dev/docs/load#page-data" target="_blank" rel="noopener noreferrer">Page Data</a> fetching. And it doesn’t need any additional libraries to work.
+<a href="https://kit.svelte.dev" target="_blank" rel="noopener noreferrer">SvelteKit</a>’s automatic type inference can easily pick up openapi-fetch’s types in both clientside fetching and <a href="https://kit.svelte.dev/docs/load#page-data" target="_blank" rel="noopener noreferrer">Page Data</a> fetching. And it doesn’t need any additional libraries to work. SvelteKit also advises to use their <a href="https://kit.svelte.dev/docs/load#making-fetch-requests" target="_blank" rel="noopener noreferrer">custom fetch</a> in load functions - this can be achieved with <a href='/openapi-fetch/api#fetch-options'>fetch options</a>.
 
 _Note: if you’re using Svelte without SvelteKit, the root example in `src/routes/+page.svelte` doesn’t use any SvelteKit features and is generally-applicable to any setup._
 
