@@ -18,7 +18,7 @@ description: Additional info about this project
 - [**Relevance AI**](https://github.com/RelevanceAI/relevance-js-sdk): build and deploy AI chains
 - [**Revolt**](https://github.com/revoltchat/api): open source user-first chat platform
 - [**Spacebar**](https://github.com/spacebarchat): a free, open source, self-hostable Discord-compatible chat/voice/video platform
-- [\*\*Supabase](https://github.com/supabase/supabase): The open source Firebase alternative.
+- [**Supabase**](https://github.com/supabase/supabase): The open source Firebase alternative.
 - [**Twitter API**](https://github.com/twitterdev/twitter-api-typescript-sdk): Official SDK for the Twitter API
 
 ## Project goals
