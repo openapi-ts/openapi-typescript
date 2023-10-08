@@ -93,19 +93,52 @@ const OPENAPI_TS_CONTRIBUTORS = [
     "tkrotoff",
     "pimveldhuisen",
     "asvishnyakov",
+    "SchabaJo",
+    "AhsanFazal",
   ]),
 ];
 
-export const OPENAPI_FETCH_CONTRIBUTORS = [...new Set(["drwpow", "fergusean", "shinzui", "ezpuzz", "KotoriK", "fletchertyler914", "nholik", "roj1512", "nickcaballero", "hd-o", "kecrily", "psychedelicious"])];
+export const OPENAPI_FETCH_CONTRIBUTORS = [
+  ...new Set([
+    "drwpow",
+    "fergusean",
+    "shinzui",
+    "ezpuzz",
+    "KotoriK",
+    "fletchertyler914",
+    "nholik",
+    "roj1512",
+    "nickcaballero",
+    "hd-o",
+    "kecrily",
+    "psychedelicious",
+    "muttonchop",
+    "marcomuser",
+    "HugeLetters",
+  ]),
+];
 
 async function main() {
-  const openapiTS = Promise.all(OPENAPI_TS_CONTRIBUTORS.map(async (username) => ({ username, avatar: await fetchAvatar(username) })));
-  const openapiFetch = Promise.all(OPENAPI_FETCH_CONTRIBUTORS.map(async (username) => ({ username, avatar: await fetchAvatar(username) })));
+  const openapiTS = Promise.all(
+    OPENAPI_TS_CONTRIBUTORS.map(async (username) => ({
+      username,
+      avatar: await fetchAvatar(username),
+    })),
+  );
+  const openapiFetch = Promise.all(
+    OPENAPI_FETCH_CONTRIBUTORS.map(async (username) => ({
+      username,
+      avatar: await fetchAvatar(username),
+    })),
+  );
   const contributors = {
     "openapi-typescript": await openapiTS,
     "openapi-fetch": await openapiFetch,
   };
-  fs.writeFileSync(new URL("../src/data/contributors.json", import.meta.url), JSON.stringify(contributors));
+  fs.writeFileSync(
+    new URL("../src/data/contributors.json", import.meta.url),
+    JSON.stringify(contributors),
+  );
 }
 
 main();
