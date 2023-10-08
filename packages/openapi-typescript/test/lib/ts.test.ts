@@ -129,6 +129,77 @@ describe("tsEnum", () => {
     Value102 = 102
 }`);
   });
+
+  it("number members with x-enum-descriptions", () => {
+    expect(
+      astToString(
+        tsEnum(".Error.code.", [100, 101, 102], undefined, [
+          "Code 100",
+          "Code 101",
+          "Code 102",
+        ]),
+      ).trim(),
+    ).toBe(`enum ErrorCode {
+    // Code 100
+    Value100 = 100,
+    // Code 101
+    Value101 = 101,
+    // Code 102
+    Value102 = 102
+}`);
+  });
+
+  it("x-enum-varnames", () => {
+    expect(
+      astToString(
+        tsEnum(
+          ".Error.code.",
+          [100, 101, 102],
+          ["Unauthorized", "NotFound", "PermissionDenied"],
+        ),
+      ).trim(),
+    ).toBe(`enum ErrorCode {
+    Unauthorized = 100,
+    NotFound = 101,
+    PermissionDenied = 102
+}`);
+  });
+
+  it("x-enum-varnames with numeric prefix", () => {
+    expect(
+      astToString(
+        tsEnum(".Error.code.", [100, 101, 102], ["0a", "1b", "2c"]),
+      ).trim(),
+    ).toBe(`enum ErrorCode {
+    Value0a = 100,
+    Value1b = 101,
+    Value2c = 102
+}`);
+  });
+
+  it("x-enum-descriptions with x-enum-varnames", () => {
+    expect(
+      astToString(
+        tsEnum(
+          ".Error.code.",
+          [100, 101, 102],
+          ["Unauthorized", "NotFound", "PermissionDenied"],
+          [
+            "User is unauthorized",
+            "Item not found",
+            "User doesn't have permissions",
+          ],
+        ),
+      ).trim(),
+    ).toBe(`enum ErrorCode {
+    // User is unauthorized
+    Unauthorized = 100,
+    // Item not found
+    NotFound = 101,
+    // User doesn't have permissions
+    PermissionDenied = 102
+}`);
+  });
 });
 
 describe("tsPropertyIndex", () => {

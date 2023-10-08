@@ -127,6 +127,8 @@ export function transformSchemaObjectWithComposition(
       const enumType = tsEnum(
         enumName,
         schemaObject.enum as (string | number)[],
+        schemaObject["x-enum-varnames"],
+        schemaObject["x-enum-descriptions"],
         { export: true, readonly: options.ctx.immutable },
       );
       options.ctx.injectFooter.push(enumType);

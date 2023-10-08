@@ -229,6 +229,8 @@ export function tsDedupe(types: ts.TypeNode[]): ts.TypeNode[] {
 export function tsEnum(
   name: string,
   members: (string | number)[],
+  membersNames?: string[],
+  membersDescriptions?: string[],
   options?: { readonly?: boolean; export?: boolean },
 ) {
   let enumName = name.replace(JS_ENUM_INVALID_CHARS_RE, (c) => {
@@ -249,28 +251,48 @@ export function tsEnum(
         })
       : undefined,
     /* name      */ enumName,
-    /* members   */ members.map(tsEnumMember),
+    /* members   */ members.map((value, i) =>
+      tsEnumMember(value, membersNames?.[i], membersDescriptions?.[i]),
+    ),
   );
 }
 
 /** Sanitize TS enum member expression */
-export function tsEnumMember(value: string | number) {
-  if (typeof value === "number") {
-    return ts.factory.createEnumMember(
-      `Value${String(value)}`.replace(".", "_"), // don’t forget decimals
-      ts.factory.createNumericLiteral(value),
-    );
-  }
-  let name = value;
+export function tsEnumMember(
+  value: string | number,
+  memberName?: string,
+  description?: string,
+) {
+  let name = memberName ?? String(value);
   if (!JS_PROPERTY_INDEX_RE.test(name)) {
     if (Number(name[0]) >= 0) {
-      name = `Value${name}`;
+      name = `Value${name}`.replace(".", "_"); // don't forged decimals;
     }
     name = name.replace(JS_PROPERTY_INDEX_INVALID_CHARS_RE, "_");
   }
-  return ts.factory.createEnumMember(
-    name,
-    ts.factory.createStringLiteral(value),
+
+  let member;
+  if (typeof value === "number") {
+    member = ts.factory.createEnumMember(
+      name,
+      ts.factory.createNumericLiteral(value),
+    );
+  } else {
+    member = ts.factory.createEnumMember(
+      name,
+      ts.factory.createStringLiteral(value),
+    );
+  }
+
+  if (description == undefined) {
+    return member;
+  }
+
+  return ts.addSyntheticLeadingComment(
+    member,
+    ts.SyntaxKind.SingleLineCommentTrivia,
+    " ".concat(description.trim()),
+    true,
   );
 }
 
