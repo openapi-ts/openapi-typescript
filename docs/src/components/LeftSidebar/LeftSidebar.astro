@@ -97,7 +97,7 @@ const url = {
           <a
             class="link"
             href={`${base}migration-guide`}
-            aria-current={isCurrentPage("/migration-guide")}
+            aria-current={isCurrentPage("migration-guide")}
           >
             Migrating
           </a>
@@ -120,7 +120,7 @@ const url = {
           <a
             class="link"
             href={`${base}openapi-fetch`}
-            aria-current={isCurrentPage("/openapi-fetch")}
+            aria-current={isCurrentPage("openapi-fetch")}
           >
             Introduction
           </a>
@@ -129,7 +129,7 @@ const url = {
           <a
             class="link"
             href={`${base}openapi-fetch/api`}
-            aria-current={isCurrentPage("/openapi-fetch/api")}
+            aria-current={isCurrentPage("openapi-fetch/api")}
           >
             API
           </a>
@@ -138,7 +138,7 @@ const url = {
           <a
             class="link"
             href={`${base}openapi-fetch/examples`}
-            aria-current={isCurrentPage("/openapi-fetch/examples")}
+            aria-current={isCurrentPage("openapi-fetch/examples")}
           >
             Examples
           </a>
@@ -147,7 +147,7 @@ const url = {
           <a
             class="link"
             href={`${base}openapi-fetch/about`}
-            aria-current={isCurrentPage("/openapi-fetch/about")}
+            aria-current={isCurrentPage("openapi-fetch/about")}
           >
             About
           </a>
@@ -165,7 +165,10 @@ const url = {
     });
 
     document.getElementById("v6").addEventListener("change", (evt) => {
-      if (window.location.pathname === "/migration-guide") {
+      if (
+        window.location.pathname === "/migration-guide" ||
+        window.location.pathname.includes("/openapi-fetch")
+      ) {
         return; // no /v6 version
       }
       if (evt.target.checked) {
