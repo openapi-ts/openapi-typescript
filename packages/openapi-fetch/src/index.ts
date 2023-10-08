@@ -51,18 +51,13 @@ export interface DefaultParamsOption {
   params?: { query?: Record<string, unknown> };
 }
 
-export interface EmptyParameters {
-  query?: never;
-  header?: never;
-  path?: never;
-  cookie?: never;
-}
-
 export type ParamsOption<T> = T extends { parameters: any }
   ? HasRequiredKeys<T["parameters"]> extends never
     ? { params?: T["parameters"] }
     : { params: T["parameters"] }
-  : never;
+  : DefaultParamsOption;
+// v7 breaking change: TODO uncomment for openapi-typescript@7 support
+// : never;
 
 export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never
   ? { body?: never }
@@ -70,8 +65,7 @@ export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never
   ? { body?: OperationRequestBodyContent<T> }
   : { body: OperationRequestBodyContent<T> };
 
-export type FetchOptions<T> = RequestOptions<T> &
-  Omit<RequestInit, "body"> & { fetch?: ClientOptions["fetch"] };
+export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body">;
 
 export type FetchResponse<T> =
   | {
@@ -90,6 +84,7 @@ export type RequestOptions<T> = ParamsOption<T> &
     querySerializer?: QuerySerializer<T>;
     bodySerializer?: BodySerializer<T>;
     parseAs?: ParseAs;
+    fetch?: ClientOptions["fetch"];
   };
 
 export default function createClient<Paths extends {}>(

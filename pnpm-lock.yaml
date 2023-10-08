@@ -131,8 +131,8 @@ importers:
         specifier: ^0.9.3
         version: 0.9.3
       openapi-typescript:
-        specifier: workspace:^
-        version: link:../openapi-typescript
+        specifier: ^6.7.0
+        version: 6.7.0
       openapi-typescript-codegen:
         specifier: ^0.25.0
         version: 0.25.0
@@ -1516,7 +1516,6 @@ packages:
   /@fastify/busboy@2.0.0:
     resolution: {integrity: sha512-JUFJad5lv7jxj926GPgymrWQxxjPYuJNiNjNMzqT+HiuP6Vl3dk5xzG+8sTX96np0ZAluvaMzPsjhHZ5rNuNQQ==}
     engines: {node: '>=14'}
-    dev: false
 
   /@humanwhocodes/config-array@0.11.11:
     resolution: {integrity: sha512-N2brEuAadi0CcdeMXUkhbZB84eskAc8MEX1By6qEchoVywSgXPIjou4rYsl0V3Hj0ZnuGycGCjdNgockbzeWNA==}
@@ -6053,6 +6052,18 @@ packages:
     engines: {node: '>= 12.0.0', npm: '>= 7.0.0'}
     dev: true
 
+  /openapi-typescript@6.7.0:
+    resolution: {integrity: sha512-eoUfJwhnMEug7euZ1dATG7iRiDVsEROwdPkhLUDiaFjcClV4lzft9F0Ii0fYjULCPNIiWiFi0BqMpSxipuvAgQ==}
+    hasBin: true
+    dependencies:
+      ansi-colors: 4.1.3
+      fast-glob: 3.3.1
+      js-yaml: 4.1.0
+      supports-color: 9.4.0
+      undici: 5.25.4
+      yargs-parser: 21.1.1
+    dev: true
+
   /optionator@0.9.3:
     resolution: {integrity: sha512-JjCoypp+jKn1ttEFExxhetCKeJt9zhAgAve5FXHixTvFDW/5aEktX9bufBKLRRMdU7bNtpLfcGu94B3cdEJgjg==}
     engines: {node: '>= 0.8.0'}
@@ -7783,7 +7794,6 @@ packages:
     engines: {node: '>=14.0'}
     dependencies:
       '@fastify/busboy': 2.0.0
-    dev: false
 
   /unherit@3.0.1:
     resolution: {integrity: sha512-akOOQ/Yln8a2sgcLj4U0Jmx0R5jpIg2IUyRrWOzmEbjBtGzBdHtSeFKgoEcoH4KYIG/Pb8GQ/BwtYm0GCq1Sqg==}

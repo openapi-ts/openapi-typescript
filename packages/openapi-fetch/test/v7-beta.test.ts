@@ -2,8 +2,13 @@ import { atom, computed } from "nanostores";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 // @ts-expect-error
 import createFetchMock from "vitest-fetch-mock";
-import type { paths } from "../test/v1.js";
-import createClient from "./index.js";
+import createClient from "../src/index.js";
+import type { paths } from "./v7-beta.js";
+
+// Note
+// This is a copy of index.test.ts, but uses generated types from openapi-typescript@7 (beta).
+// This tests upcoming compatibility until openapi-typescript@7 is stable and the two tests
+// merged together.
 
 const fetchMocker = createFetchMock(vi);
 
@@ -97,12 +102,16 @@ describe("client", () => {
         mockFetch({ status: 200, body: JSON.stringify({ message: "OK" }) });
 
         // expect error on missing 'params'
-        // @ts-expect-error
-        await client.GET("/blogposts/{post_id}");
+        await client.GET("/blogposts/{post_id}", {
+          // @ts-expect-error
+          TODO: "this should be an error",
+        });
 
         // expect error on empty params
-        // @ts-expect-error
-        await client.GET("/blogposts/{post_id}", { params: {} });
+        await client.GET("/blogposts/{post_id}", {
+          // @ts-expect-error
+          params: { TODO: "this should be an error" },
+        });
 
         // expect error on empty params.path
         // @ts-expect-error
@@ -131,7 +140,7 @@ describe("client", () => {
 
         // expet error on missing header
         // @ts-expect-error
-        await client.GET("/header-params");
+        await client.GET("/header-params", { TODO: "this should be an error" });
 
         // expect error on incorrect header
         await client.GET("/header-params", {
@@ -395,7 +404,7 @@ describe("client", () => {
       expect(options?.headers).toEqual(new Headers());
     });
 
-    it("accepts a custom fetch function", async () => {
+    it("accepts a custom fetch function on createClient", async () => {
       function createCustomFetch(data: any) {
         const response = {
           clone: () => ({ ...response }),
@@ -407,15 +416,48 @@ describe("client", () => {
         return async () => Promise.resolve(response);
       }
 
-      const baseData = { works: true };
-      const customBaseFetch = createCustomFetch(baseData);
-      const client = createClient<paths>({ fetch: customBaseFetch });
-      expect((await client.GET("/self")).data).toBe(baseData);
+      const customFetch = createCustomFetch({ works: true });
+      mockFetchOnce({ status: 200, body: "{}" });
 
-      const data = { result: "it's working" };
-      const customFetch = createCustomFetch(data);
-      const customResponse = await client.GET("/self", { fetch: customFetch });
-      expect(customResponse.data).toBe(data);
+      const client = createClient<paths>({ fetch: customFetch });
+      const { data } = await client.GET("/self");
+
+      // assert data was returned from custom fetcher
+      expect(data).toEqual({ works: true });
+
+      // assert global fetch was never called
+      expect(fetchMocker).not.toHaveBeenCalled();
+    });
+
+    it("accepts a custom fetch function per-request", async () => {
+      function createCustomFetch(data: any) {
+        const response = {
+          clone: () => ({ ...response }),
+          headers: new Headers(),
+          json: async () => data,
+          status: 200,
+          ok: true,
+        } as Response;
+        return async () => Promise.resolve(response);
+      }
+
+      const fallbackFetch = createCustomFetch({ fetcher: "fallback" });
+      const overrideFetch = createCustomFetch({ fetcher: "override" });
+
+      mockFetchOnce({ status: 200, body: "{}" });
+
+      const client = createClient<paths>({ fetch: fallbackFetch });
+
+      // assert override function was called
+      const fetch1 = await client.GET("/self", { fetch: overrideFetch });
+      expect(fetch1.data).toEqual({ fetcher: "override" });
+
+      // assert fallback function still persisted (and wasn’t overridden)
+      const fetch2 = await client.GET("/self");
+      expect(fetch2.data).toEqual({ fetcher: "fallback" });
+
+      // assert global fetch was never called
+      expect(fetchMocker).not.toHaveBeenCalled();
     });
   });
 

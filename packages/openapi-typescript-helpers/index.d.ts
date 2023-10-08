@@ -21,7 +21,7 @@ export type ErrorStatus = 500 | 501 | 502 | 503 | 504 | 505 | 506 | 507 | 508 | 
 
 /** Given an OpenAPI **Paths Object**, find all paths that have the given method */
 export type PathsWithMethod<
-  Paths extends Record<string, PathItemObject>,
+  Paths extends {},
   PathnameMethod extends HttpMethod,
 > = {
   [Pathname in keyof Paths]: Paths[Pathname] extends {
