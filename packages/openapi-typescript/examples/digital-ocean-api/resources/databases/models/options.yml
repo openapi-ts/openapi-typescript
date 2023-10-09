@@ -4,6 +4,11 @@ properties:
   options:
     type: object
     properties:
+      kafka:
+        allOf:
+        - $ref: './database_region_options.yml'
+        - $ref: './database_version_options.yml'
+        - $ref: './database_layout_options.yml'
       mongodb:
         allOf:
         - $ref: './database_region_options.yml'
@@ -27,6 +32,8 @@ properties:
   version_availability:
     type: object
     properties:
+      kafka:
+        $ref: './database_version_availabilities.yml'
       pg:
         $ref: './database_version_availabilities.yml'
       mysql:

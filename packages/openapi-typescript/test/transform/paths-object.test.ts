@@ -152,8 +152,8 @@ describe("transformPathsObject", () => {
 }`,
         options: {
           ...DEFAULT_OPTIONS,
-          resolve(ref) {
-            switch (ref) {
+          resolve($ref) {
+            switch ($ref) {
               case "#/components/parameters/utm_source": {
                 return {
                   in: "query",
@@ -234,8 +234,8 @@ describe("transformPathsObject", () => {
         options: {
           ...DEFAULT_OPTIONS,
           alphabetize: true,
-          resolve(ref) {
-            switch (ref) {
+          resolve($ref) {
+            switch ($ref) {
               case "#/components/parameters/utm_source": {
                 return {
                   in: "query",

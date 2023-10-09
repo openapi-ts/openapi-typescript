@@ -22,6 +22,12 @@ requestBody:
         allOf:
           - $ref: 'models/alert.yml#/alert_updatable'
 
+        required:
+          - name
+          - type
+          - notifications
+          - period
+
 responses:
   '200':
     $ref: 'responses/existing_alert.yml'

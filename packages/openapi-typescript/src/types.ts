@@ -695,7 +695,7 @@ export interface GlobalContext {
   arrayLength: boolean;
   transform: OpenAPITSOptions["transform"];
   /** retrieve a node by $ref */
-  resolve<T>(ref: string): T | undefined;
+  resolve<T>($ref: string): T | undefined;
 }
 
 export type $defs = Record<string, SchemaObject>;

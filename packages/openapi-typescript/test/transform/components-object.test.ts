@@ -157,8 +157,8 @@ describe("transformComponentsObject", () => {
 }`,
         options: {
           ...DEFAULT_OPTIONS,
-          resolve(ref) {
-            switch (ref) {
+          resolve($ref) {
+            switch ($ref) {
               case "#/components/requestBodies/UploadUser": {
                 return {
                   content: {
@@ -409,8 +409,8 @@ describe("transformComponentsObject", () => {
         options: {
           ...DEFAULT_OPTIONS,
           immutable: true,
-          resolve(ref) {
-            switch (ref) {
+          resolve($ref) {
+            switch ($ref) {
               case "#/components/requestBodies/UploadUser": {
                 return {
                   content: {

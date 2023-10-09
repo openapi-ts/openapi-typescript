@@ -1,0 +1,37 @@
+type: object
+
+properties:
+  acl:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          description: An identifier for the ACL.
+          example: "aaa"
+        topic:
+          type: string
+          example: topic-abc.*
+          description: A regex for matching the topic(s) that this ACL should apply to.
+        permission:
+          type: string
+          enum:
+            - admin
+            - consume
+            - produce
+            - produceconsume
+          example: consume
+          description: >-
+            Permission set applied to the ACL. 'consume' allows for messages to
+            be consumed from the topic. 'produce' allows for messages to be
+            published to the topic. 'produceconsume' allows for both 'consume'
+            and 'produce' permission. 'admin' allows for 'produceconsume' as
+            well as any operations to administer the topic (delete, update).
+      required:
+        - id
+        - topic
+        - permission
+    description: >-
+      ACLs (Access Control Lists) specifying permissions on topics within a
+      Kafka cluster.

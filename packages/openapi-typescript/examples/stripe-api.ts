@@ -2551,6 +2551,41 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/issuing/tokens": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description <p>Lists all Issuing <code>Token</code> objects for a given card.</p> */
+        get: operations["GetIssuingTokens"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/issuing/tokens/{token}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description <p>Retrieves an Issuing <code>Token</code> object.</p> */
+        get: operations["GetIssuingTokensToken"];
+        put?: never;
+        /** @description <p>Attempts to update the specified Issuing <code>Token</code> object to the status specified.</p> */
+        post: operations["PostIssuingTokensToken"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/issuing/transactions": {
         parameters: {
             query?: never;
@@ -3908,8 +3943,8 @@ export interface paths {
         put?: never;
         /** @description <p>Creates a SetupIntent object.</p>
          *
-         *     <p>After the SetupIntent is created, attach a payment method and <a href="/docs/api/setup_intents/confirm">confirm</a>
-         *     to collect any required permissions to charge the payment method later.</p> */
+         *     <p>After you create the SetupIntent, attach a payment method and <a href="/docs/api/setup_intents/confirm">confirm</a>
+         *     it to collect any required permissions to charge the payment method later.</p> */
         post: operations["PostSetupIntents"];
         delete?: never;
         options?: never;
@@ -3948,9 +3983,9 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>A SetupIntent object can be canceled when it is in one of these statuses: <code>requires_payment_method</code>, <code>requires_confirmation</code>, or <code>requires_action</code>. </p>
+        /** @description <p>You can cancel a SetupIntent object when it’s in one of these statuses: <code>requires_payment_method</code>, <code>requires_confirmation</code>, or <code>requires_action</code>. </p>
          *
-         *     <p>Once canceled, setup is abandoned and any operations on the SetupIntent will fail with an error.</p> */
+         *     <p>After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.</p> */
         post: operations["PostSetupIntentsIntentCancel"];
         delete?: never;
         options?: never;
@@ -6772,7 +6807,7 @@ export interface components {
          *     Related guide: [Balance transaction types](https://stripe.com/docs/reports/balance-transaction-types)
          */
         balance_transaction: {
-            /** @description Gross amount of the transaction (in cents (or local equivalent)). */
+            /** @description Gross amount of this transaction (in cents (or local equivalent)). A positive value represents funds charged to another party, and a negative value represents funds sent to another party. */
             amount: number;
             /**
              * Format: unix-time
@@ -6790,20 +6825,20 @@ export interface components {
             description?: string | null;
             /** @description If applicable, this transaction uses an exchange rate. If money converts from currency A to currency B, then the `amount` in currency A, multipled by the `exchange_rate`, equals the `amount` in currency B. For example, if you charge a customer 10.00 EUR, the PaymentIntent's `amount` is `1000` and `currency` is `eur`. If this converts to 12.34 USD in your Stripe account, the BalanceTransaction's `amount` is `1234`, its `currency` is `usd`, and the `exchange_rate` is `1.234`. */
             exchange_rate?: number | null;
-            /** @description Fees (in cents (or local equivalent)) paid for this transaction. */
+            /** @description Fees (in cents (or local equivalent)) paid for this transaction. Represented as a positive integer when assessed. */
             fee: number;
             /** @description Detailed breakdown of fees (in cents (or local equivalent)) paid for this transaction. */
             fee_details: components["schemas"]["fee"][];
             /** @description Unique identifier for the object. */
             id: string;
-            /** @description Net amount of the transaction (in cents (or local equivalent)). */
+            /** @description Net impact to a Stripe balance (in cents (or local equivalent)). A positive value represents incrementing a Stripe balance, and a negative value decrementing a Stripe balance. You can calculate the net impact of a transaction on a balance by `amount` - `fee` */
             net: number;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
              * @enum {string}
              */
             object: "balance_transaction";
-            /** @description Learn more about how [reporting categories] (https://stripe.com/docs/reports/reporting-categories) can help you understand balance transactions from an accounting perspective. */
+            /** @description Learn more about how [reporting categories](https://stripe.com/docs/reports/reporting-categories) can help you understand balance transactions from an accounting perspective. */
             reporting_category: string;
             /** @description This transaction relates to the Stripe object. */
             source?: (string | components["schemas"]["application_fee"] | components["schemas"]["charge"] | components["schemas"]["connect_collection_transfer"] | components["schemas"]["customer_cash_balance_transaction"] | components["schemas"]["dispute"] | components["schemas"]["fee_refund"] | components["schemas"]["issuing.authorization"] | components["schemas"]["issuing.dispute"] | components["schemas"]["issuing.transaction"] | components["schemas"]["payout"] | components["schemas"]["platform_tax_fee"] | components["schemas"]["refund"] | components["schemas"]["reserve_transaction"] | components["schemas"]["tax_deducted_at_source"] | components["schemas"]["topup"] | components["schemas"]["transfer"] | components["schemas"]["transfer_reversal"]) | null;
@@ -7409,6 +7444,8 @@ export interface components {
              *     customer ID, a cart ID, or similar, and can be used to reconcile the
              *     Session with your internal systems. */
             client_reference_id?: string | null;
+            /** @description Client secret to be used when initializing Stripe.js embedded checkout. */
+            client_secret?: string | null;
             /** @description Results of `consent_collection` for this session. */
             consent?: components["schemas"]["payment_pages_checkout_session_consent"] | null;
             /** @description When set, provides configuration for the Checkout Session to gather active consent from customers. */
@@ -7518,6 +7555,13 @@ export interface components {
             phone_number_collection?: components["schemas"]["payment_pages_checkout_session_phone_number_collection"];
             /** @description The ID of the original expired Checkout Session that triggered the recovery flow. */
             recovered_from?: string | null;
+            /**
+             * @description Applies to Checkout Sessions with `ui_mode: embedded`. By default, Stripe will always redirect to your return_url after a successful confirmation. If you set `redirect_on_completion: 'if_required'`, then we will only redirect if your user chooses a redirect-based payment method.
+             * @enum {string}
+             */
+            redirect_on_completion?: "always" | "if_required" | "never";
+            /** @description Applies to Checkout Sessions with `ui_mode: embedded`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. */
+            return_url?: string;
             /** @description The ID of the SetupIntent for Checkout Sessions in `setup` mode. */
             setup_intent?: (string | components["schemas"]["setup_intent"]) | null;
             /** @description When set, provides configuration for Checkout to collect a shipping address from a customer. */
@@ -7549,6 +7593,11 @@ export interface components {
             tax_id_collection?: components["schemas"]["payment_pages_checkout_session_tax_id_collection"];
             /** @description Tax and discount details for the computed total amount. */
             total_details?: components["schemas"]["payment_pages_checkout_session_total_details"] | null;
+            /**
+             * @description The UI mode of the Session. Can be `hosted` (default) or `embedded`.
+             * @enum {string|null}
+             */
+            ui_mode?: "embedded" | "hosted";
             /** @description The URL to the Checkout Session. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
              *     This value is only present when the session is active. */
             url?: string | null;
@@ -10827,6 +10876,8 @@ export interface components {
              * @enum {string}
              */
             status: "closed" | "pending" | "reversed";
+            /** @description [Token](https://stripe.com/docs/api/issuing/tokens/object) object used for this authorization. If a network token was not used for this authorization, this field will be null. */
+            token?: (string | components["schemas"]["issuing.token"]) | null;
             /** @description List of [transactions](https://stripe.com/docs/api/issuing/transactions) associated with this authorization. */
             transactions: components["schemas"]["issuing.transaction"][];
             /** @description [Treasury](https://stripe.com/docs/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://stripe.com/docs/api/treasury/financial_accounts). */
@@ -11050,6 +11101,53 @@ export interface components {
             transaction_volume: number;
         };
         /**
+         * IssuingNetworkToken
+         * @description An issuing token object is created when an issued card is added to a digital wallet. As a [card issuer](https://stripe.com/docs/issuing), you can view and manage these tokens through Stripe.
+         */
+        "issuing.token": {
+            /** @description Card associated with this token. */
+            card: string | components["schemas"]["issuing.card"];
+            /**
+             * Format: unix-time
+             * @description Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+            /** @description The hashed ID derived from the device ID from the card network associated with the token */
+            device_fingerprint?: string | null;
+            /** @description Unique identifier for the object. */
+            id: string;
+            /** @description The last four digits of the token. */
+            last4?: string;
+            /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
+            livemode: boolean;
+            /**
+             * @description The token service provider / card network associated with the token.
+             * @enum {string}
+             */
+            network: "mastercard" | "visa";
+            network_data?: components["schemas"]["issuing_network_token_network_data"];
+            /**
+             * Format: unix-time
+             * @description Time at which the token was last updated by the card network. Measured in seconds since the Unix epoch.
+             */
+            network_updated_at: number;
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @enum {string}
+             */
+            object: "issuing.token";
+            /**
+             * @description The usage state of the token.
+             * @enum {string}
+             */
+            status: "active" | "deleted" | "requested" | "suspended";
+            /**
+             * @description The digital wallet for this token, if one was used.
+             * @enum {string}
+             */
+            wallet_provider?: "apple_pay" | "google_pay" | "samsung_pay";
+        };
+        /**
          * IssuingTransaction
          * @description Any use of an [issued card](https://stripe.com/docs/issuing) that results in funds entering or leaving
          *     your Stripe account, such as a completed purchase or refund, is represented by an Issuing
@@ -11099,6 +11197,8 @@ export interface components {
             object: "issuing.transaction";
             /** @description Additional purchase information that is optionally provided by the merchant. */
             purchase_details?: components["schemas"]["issuing_transaction_purchase_details"] | null;
+            /** @description [Token](https://stripe.com/docs/api/issuing/tokens/object) object used for this transaction. If a network token was not used for this transaction, this field will be null. */
+            token?: (string | components["schemas"]["issuing.token"]) | null;
             /** @description [Treasury](https://stripe.com/docs/api/treasury) details related to this transaction if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts */
             treasury?: components["schemas"]["issuing_transaction_treasury"] | null;
             /**
@@ -11168,7 +11268,7 @@ export interface components {
             amount_details?: components["schemas"]["issuing_authorization_amount_details"] | null;
             /** @description Whether this request was approved. */
             approved: boolean;
-            /** @description A code created by Stripe which is shared with the merchant to validate the authorization. This field will be populated if the authorization message was approved. The code is typically a six-digit number prefixed with ‘S’. For example, S498162. Please note that the code is not guaranteed to be unique across authorizations. */
+            /** @description A code created by Stripe which is shared with the merchant to validate the authorization. This field will be populated if the authorization message was approved. The code typically starts with the letter "S", followed by a six-digit number. For example, "S498162". Please note that the code is not guaranteed to be unique across authorizations. */
             authorization_code?: string | null;
             /**
              * Format: unix-time
@@ -11220,6 +11320,8 @@ export interface components {
              * @enum {string}
              */
             expiry_check: "match" | "mismatch" | "not_provided";
+            /** @description The postal code submitted as part of the authorization used for postal code verification. */
+            postal_code?: string | null;
         };
         /** IssuingCardApplePay */
         issuing_card_apple_pay: {
@@ -11567,6 +11669,93 @@ export interface components {
             debit_reversal?: string | null;
             /** @description The Treasury [ReceivedDebit](https://stripe.com/docs/api/treasury/received_debits) that is being disputed. */
             received_debit: string;
+        };
+        /** IssuingNetworkTokenAddress */
+        issuing_network_token_address: {
+            /** @description The street address of the cardholder tokenizing the card. */
+            line1: string;
+            /** @description The postal code of the cardholder tokenizing the card. */
+            postal_code: string;
+        };
+        /** IssuingNetworkTokenDevice */
+        issuing_network_token_device: {
+            /** @description An obfuscated ID derived from the device ID. */
+            device_fingerprint?: string;
+            /** @description The IP address of the device at provisioning time. */
+            ip_address?: string;
+            /** @description The geographic latitude/longitude coordinates of the device at provisioning time. The format is [+-]decimal/[+-]decimal. */
+            location?: string;
+            /** @description The name of the device used for tokenization. */
+            name?: string;
+            /** @description The phone number of the device used for tokenization. */
+            phone_number?: string;
+            /**
+             * @description The type of device used for tokenization.
+             * @enum {string}
+             */
+            type?: "other" | "phone" | "watch";
+        };
+        /** IssuingNetworkTokenMastercard */
+        issuing_network_token_mastercard: {
+            /** @description A unique reference ID from MasterCard to represent the card account number. */
+            card_reference_id?: string;
+            /** @description The network-unique identifier for the token. */
+            token_reference_id: string;
+            /** @description The ID of the entity requesting tokenization, specific to MasterCard. */
+            token_requestor_id: string;
+            /** @description The name of the entity requesting tokenization, if known. This is directly provided from MasterCard. */
+            token_requestor_name?: string;
+        };
+        /** IssuingNetworkTokenNetworkData */
+        issuing_network_token_network_data: {
+            device?: components["schemas"]["issuing_network_token_device"];
+            mastercard?: components["schemas"]["issuing_network_token_mastercard"];
+            /**
+             * @description The network that the token is associated with. An additional hash is included with a name matching this value, containing tokenization data specific to the card network.
+             * @enum {string}
+             */
+            type: "mastercard" | "visa";
+            visa?: components["schemas"]["issuing_network_token_visa"];
+            wallet_provider?: components["schemas"]["issuing_network_token_wallet_provider"];
+        };
+        /** IssuingNetworkTokenVisa */
+        issuing_network_token_visa: {
+            /** @description A unique reference ID from Visa to represent the card account number. */
+            card_reference_id: string;
+            /** @description The network-unique identifier for the token. */
+            token_reference_id: string;
+            /** @description The ID of the entity requesting tokenization, specific to Visa. */
+            token_requestor_id: string;
+            /** @description Degree of risk associated with the token between `01` and `99`, with higher number indicating higher risk. A `00` value indicates the token was not scored by Visa. */
+            token_risk_score?: string;
+        };
+        /** IssuingNetworkTokenWalletProvider */
+        issuing_network_token_wallet_provider: {
+            /** @description The wallet provider-given account ID of the digital wallet the token belongs to. */
+            account_id?: string;
+            /** @description An evaluation on the trustworthiness of the wallet account between 1 and 5. A higher score indicates more trustworthy. */
+            account_trust_score?: number;
+            /**
+             * @description The method used for tokenizing a card.
+             * @enum {string}
+             */
+            card_number_source?: "app" | "manual" | "on_file" | "other";
+            cardholder_address?: components["schemas"]["issuing_network_token_address"];
+            /** @description The name of the cardholder tokenizing the card. */
+            cardholder_name?: string;
+            /** @description An evaluation on the trustworthiness of the device. A higher score indicates more trustworthy. */
+            device_trust_score?: number;
+            /** @description The hashed email address of the cardholder's account with the wallet provider. */
+            hashed_account_email_address?: string;
+            /** @description The reasons for suggested tokenization given by the card network. */
+            reason_codes?: ("account_card_too_new" | "account_recently_changed" | "account_too_new" | "account_too_new_since_launch" | "additional_device" | "data_expired" | "defer_id_v_decision" | "device_recently_lost" | "good_activity_history" | "has_suspended_tokens" | "high_risk" | "inactive_account" | "long_account_tenure" | "low_account_score" | "low_device_score" | "low_phone_number_score" | "network_service_error" | "outside_home_territory" | "provisioning_cardholder_mismatch" | "provisioning_device_and_cardholder_mismatch" | "provisioning_device_mismatch" | "same_device_no_prior_authentication" | "same_device_successful_prior_authentication" | "software_update" | "suspicious_activity" | "too_many_different_cardholders" | "too_many_recent_attempts" | "too_many_recent_tokens")[];
+            /**
+             * @description The recommendation on responding to the tokenization request.
+             * @enum {string}
+             */
+            suggested_decision?: "approve" | "decline" | "require_auth";
+            /** @description The version of the standard for mapping reason codes followed by the wallet provider. */
+            suggested_decision_version?: string;
         };
         /** IssuingTransactionAmountDetails */
         issuing_transaction_amount_details: {
@@ -12196,6 +12385,40 @@ export interface components {
             /** @description Transaction ID of this particular Alipay transaction. */
             transaction_id?: string | null;
         };
+        /** PaymentFlowsPrivatePaymentMethodsCardDetailsAPIResourceEnterpriseFeaturesExtendedAuthorizationExtendedAuthorization */
+        payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_extended_authorization_extended_authorization: {
+            /**
+             * @description Indicates whether or not the capture window is extended beyond the standard authorization.
+             * @enum {string}
+             */
+            status: "disabled" | "enabled";
+        };
+        /** PaymentFlowsPrivatePaymentMethodsCardDetailsAPIResourceEnterpriseFeaturesIncrementalAuthorizationIncrementalAuthorization */
+        payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_incremental_authorization_incremental_authorization: {
+            /**
+             * @description Indicates whether or not the incremental authorization feature is supported.
+             * @enum {string}
+             */
+            status: "available" | "unavailable";
+        };
+        /** PaymentFlowsPrivatePaymentMethodsCardDetailsAPIResourceEnterpriseFeaturesOvercaptureOvercapture */
+        payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_overcapture_overcapture: {
+            /** @description The maximum amount that can be captured. */
+            maximum_amount_capturable: number;
+            /**
+             * @description Indicates whether or not the authorized amount can be over-captured.
+             * @enum {string}
+             */
+            status: "available" | "unavailable";
+        };
+        /** PaymentFlowsPrivatePaymentMethodsCardDetailsAPIResourceMulticapture */
+        payment_flows_private_payment_methods_card_details_api_resource_multicapture: {
+            /**
+             * @description Indicates whether or not multiple captures are supported.
+             * @enum {string}
+             */
+            status: "available" | "unavailable";
+        };
         /** PaymentFlowsPrivatePaymentMethodsKlarnaDOB */
         payment_flows_private_payment_methods_klarna_dob: {
             /** @description The day of birth, between 1 and 31. */
@@ -12673,6 +12896,26 @@ export interface components {
              */
             network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
             /**
+             * @description Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
+             * @enum {string}
+             */
+            request_extended_authorization?: "if_available" | "never";
+            /**
+             * @description Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
+             * @enum {string}
+             */
+            request_incremental_authorization?: "if_available" | "never";
+            /**
+             * @description Request ability to make [multiple captures](https://stripe.com/docs/payments/multicapture) for this PaymentIntent.
+             * @enum {string}
+             */
+            request_multicapture?: "if_available" | "never";
+            /**
+             * @description Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+             * @enum {string}
+             */
+            request_overcapture?: "if_available" | "never";
+            /**
              * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
              * @enum {string|null}
              */
@@ -13054,11 +13297,19 @@ export interface components {
              * @enum {string|null}
              */
             capture_method?: "automatic" | "automatic_async" | "manual";
+            /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. */
+            metadata: {
+                [key: string]: string | undefined;
+            };
             /**
              * @description Indicates that you intend to make future payments with the payment method collected during checkout.
              * @enum {string|null}
              */
             setup_future_usage?: "off_session" | "on_session";
+            /** @description Extra information about the payment. This will appear on your customer's statement when this payment succeeds in creating a charge. */
+            statement_descriptor?: string | null;
+            /** @description Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
+            statement_descriptor_suffix?: string | null;
         };
         /** PaymentLinksResourcePhoneNumberCollection */
         payment_links_resource_phone_number_collection: {
@@ -13081,6 +13332,10 @@ export interface components {
         payment_links_resource_subscription_data: {
             /** @description The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription. */
             description?: string | null;
+            /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. */
+            metadata: {
+                [key: string]: string | undefined;
+            };
             /** @description Integer representing the number of trial period days before the customer is charged for the first time. */
             trial_period_days?: number | null;
         };
@@ -13606,6 +13861,8 @@ export interface components {
         };
         /** payment_method_details_card */
         payment_method_details_card: {
+            /** @description The authorized amount. */
+            amount_authorized?: number | null;
             /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand?: string | null;
             /** @description Check results by Card networks on Card address and CVC at time of payment. */
@@ -13616,12 +13873,14 @@ export interface components {
             exp_month: number;
             /** @description Four-digit number representing the card's expiration year. */
             exp_year: number;
+            extended_authorization?: components["schemas"]["payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_extended_authorization_extended_authorization"];
             /** @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
              *
              *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.* */
             fingerprint?: string | null;
             /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
             funding?: string | null;
+            incremental_authorization?: components["schemas"]["payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_incremental_authorization_incremental_authorization"];
             /** @description Installment details for this payment (Mexico only).
              *
              *     For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments). */
@@ -13630,10 +13889,12 @@ export interface components {
             last4?: string | null;
             /** @description ID of the mandate used to make this payment or created by it. */
             mandate?: string | null;
+            multicapture?: components["schemas"]["payment_flows_private_payment_methods_card_details_api_resource_multicapture"];
             /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             network?: string | null;
             /** @description If this card has network token credentials, this contains the details of the network token credentials. */
             network_token?: components["schemas"]["payment_method_details_card_network_token"] | null;
+            overcapture?: components["schemas"]["payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_overcapture_overcapture"];
             /** @description Populated if this transaction used 3D Secure authentication. */
             three_d_secure?: components["schemas"]["three_d_secure_details_charge"] | null;
             /** @description If this Card is part of a card wallet, this contains the details of the card wallet. */
@@ -16618,25 +16879,24 @@ export interface components {
         /**
          * SetupIntent
          * @description A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
-         *     For example, you could use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
+         *     For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
          *     Later, you can use [PaymentIntents](https://stripe.com/docs/api#payment_intents) to drive the payment flow.
          *
-         *     Create a SetupIntent as soon as you're ready to collect your customer's payment credentials.
-         *     Do not maintain long-lived, unconfirmed SetupIntents as they may no longer be valid.
-         *     The SetupIntent then transitions through multiple [statuses](https://stripe.com/docs/payments/intents#intent-statuses) as it guides
+         *     Create a SetupIntent when you're ready to collect your customer's payment credentials.
+         *     Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
+         *     The SetupIntent transitions through multiple [statuses](https://stripe.com/docs/payments/intents#intent-statuses) as it guides
          *     you through the setup process.
          *
          *     Successful SetupIntents result in payment credentials that are optimized for future payments.
-         *     For example, cardholders in [certain regions](/guides/strong-customer-authentication) may need to be run through
-         *     [Strong Customer Authentication](https://stripe.com/docs/strong-customer-authentication) at the time of payment method collection
-         *     in order to streamline later [off-session payments](https://stripe.com/docs/payments/setup-intents).
-         *     If the SetupIntent is used with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer), upon success,
-         *     it will automatically attach the resulting payment method to that Customer.
+         *     For example, cardholders in [certain regions](/guides/strong-customer-authentication) might need to be run through
+         *     [Strong Customer Authentication](https://stripe.com/docs/strong-customer-authentication) during payment method collection
+         *     to streamline later [off-session payments](https://stripe.com/docs/payments/setup-intents).
+         *     If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
+         *     it automatically attaches the resulting payment method to that Customer after successful setup.
          *     We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
-         *     PaymentIntents to save payment methods in order to prevent saving invalid or unoptimized payment methods.
+         *     PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
          *
-         *     By using SetupIntents, you ensure that your customers experience the minimum set of required friction,
-         *     even as regulations change over time.
+         *     By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
          *
          *     Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents)
          */
@@ -16700,7 +16960,7 @@ export interface components {
             payment_method?: (string | components["schemas"]["payment_method"]) | null;
             /** @description Information about the payment method configuration used for this Setup Intent. */
             payment_method_configuration_details?: components["schemas"]["payment_method_config_biz_payment_method_configuration_details"] | null;
-            /** @description Payment-method-specific configuration for this SetupIntent. */
+            /** @description Payment method-specific configuration for this SetupIntent. */
             payment_method_options?: components["schemas"]["setup_intent_payment_method_options"] | null;
             /** @description The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. */
             payment_method_types: string[];
@@ -25486,7 +25746,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody: {
+        requestBody?: {
             content: {
                 "application/x-www-form-urlencoded": {
                     /**
@@ -25986,6 +26246,15 @@ export interface operations {
                         enabled: boolean;
                     };
                     /**
+                     * @description This parameter applies to `ui_mode: embedded`. By default, Stripe will always redirect to your return_url after a successful confirmation. If you set `redirect_on_completion: 'if_required'`, then we will only redirect if your user chooses a redirect-based payment method.
+                     * @enum {string}
+                     */
+                    redirect_on_completion?: "always" | "if_required" | "never";
+                    /** @description The URL to redirect your customer back to after they authenticate or cancel their payment on the
+                     *     payment method's app or site. This parameter is required if ui_mode is `embedded`
+                     *     and redirect-based payment methods are enabled on the session. */
+                    return_url?: string;
+                    /**
                      * setup_intent_data_param
                      * @description A subset of parameters to be passed to SetupIntent creation for Checkout Sessions in `setup` mode.
                      */
@@ -26091,7 +26360,7 @@ export interface operations {
                      *     is complete.
                      *     If you’d like to use information from the successful Checkout Session on your page,
                      *     read the guide on [customizing your success page](https://stripe.com/docs/payments/checkout/custom-success-page). */
-                    success_url: string;
+                    success_url?: string;
                     /**
                      * tax_id_collection_params
                      * @description Controls tax ID collection settings for the session.
@@ -26099,6 +26368,11 @@ export interface operations {
                     tax_id_collection?: {
                         enabled: boolean;
                     };
+                    /**
+                     * @description `ui_mode` can be `hosted` or `embedded`. The default is `hosted`.
+                     * @enum {string}
+                     */
+                    ui_mode?: "embedded" | "hosted";
                 };
             };
         };
@@ -34652,6 +34926,151 @@ export interface operations {
             };
         };
     };
+    GetIssuingTokens: {
+        parameters: {
+            query: {
+                /** @description The Issuing card identifier to list tokens for. */
+                card: string;
+                /** @description Select Issuing tokens that were created during the given date interval. */
+                created?: {
+                    gt?: number;
+                    gte?: number;
+                    lt?: number;
+                    lte?: number;
+                } | number;
+                /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
+                ending_before?: string;
+                /** @description Specifies which fields in the response should be expanded. */
+                expand?: string[];
+                /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
+                limit?: number;
+                /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
+                starting_after?: string;
+                /** @description Select Issuing tokens with the given status. */
+                status?: "active" | "deleted" | "requested" | "suspended";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["issuing.token"][];
+                        /** @description True if this list has another page of items after this one that can be fetched. */
+                        has_more: boolean;
+                        /**
+                         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+                         * @enum {string}
+                         */
+                        object: "list";
+                        /** @description The URL where this list can be accessed. */
+                        url: string;
+                    };
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    GetIssuingTokensToken: {
+        parameters: {
+            query?: {
+                /** @description Specifies which fields in the response should be expanded. */
+                expand?: string[];
+            };
+            header?: never;
+            path: {
+                token: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["issuing.token"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostIssuingTokensToken: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                token: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                    /**
+                     * @description Specifies which status the token should be updated to.
+                     * @enum {string}
+                     */
+                    status: "active" | "deleted" | "suspended";
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["issuing.token"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
     GetIssuingTransactions: {
         parameters: {
             query?: {
@@ -35542,6 +35961,14 @@ export interface operations {
                             /** @enum {string} */
                             network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
+                            request_extended_authorization?: "if_available" | "never";
+                            /** @enum {string} */
+                            request_incremental_authorization?: "if_available" | "never";
+                            /** @enum {string} */
+                            request_multicapture?: "if_available" | "never";
+                            /** @enum {string} */
+                            request_overcapture?: "if_available" | "never";
+                            /** @enum {string} */
                             request_three_d_secure?: "any" | "automatic";
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
@@ -35550,6 +35977,8 @@ export interface operations {
                         } | "";
                         card_present?: {
                             request_extended_authorization?: boolean;
+                            /** @enum {string} */
+                            request_incremental_authorization?: "if_available" | "never";
                             request_incremental_authorization_support?: boolean;
                         } | "";
                         cashapp?: {
@@ -36142,6 +36571,14 @@ export interface operations {
                             /** @enum {string} */
                             network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
+                            request_extended_authorization?: "if_available" | "never";
+                            /** @enum {string} */
+                            request_incremental_authorization?: "if_available" | "never";
+                            /** @enum {string} */
+                            request_multicapture?: "if_available" | "never";
+                            /** @enum {string} */
+                            request_overcapture?: "if_available" | "never";
+                            /** @enum {string} */
                             request_three_d_secure?: "any" | "automatic";
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
@@ -36150,6 +36587,8 @@ export interface operations {
                         } | "";
                         card_present?: {
                             request_extended_authorization?: boolean;
+                            /** @enum {string} */
+                            request_incremental_authorization?: "if_available" | "never";
                             request_incremental_authorization_support?: boolean;
                         } | "";
                         cashapp?: {
@@ -36471,6 +36910,8 @@ export interface operations {
                     application_fee_amount?: number;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
+                    /** @description Defaults to `true`. When capturing a PaymentIntent, setting `final_capture` to `false` notifies Stripe to not release the remaining uncaptured funds to make sure that they're captured in future requests. You can only use this setting when [multicapture](https://stripe.com/docs/payments/multicapture) is available for PaymentIntents. */
+                    final_capture?: boolean;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
                         [key: string]: string | undefined;
@@ -36798,6 +37239,14 @@ export interface operations {
                             /** @enum {string} */
                             network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
+                            request_extended_authorization?: "if_available" | "never";
+                            /** @enum {string} */
+                            request_incremental_authorization?: "if_available" | "never";
+                            /** @enum {string} */
+                            request_multicapture?: "if_available" | "never";
+                            /** @enum {string} */
+                            request_overcapture?: "if_available" | "never";
+                            /** @enum {string} */
                             request_three_d_secure?: "any" | "automatic";
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
@@ -36806,6 +37255,8 @@ export interface operations {
                         } | "";
                         card_present?: {
                             request_extended_authorization?: boolean;
+                            /** @enum {string} */
+                            request_incremental_authorization?: "if_available" | "never";
                             request_incremental_authorization_support?: boolean;
                         } | "";
                         cashapp?: {
@@ -37331,8 +37782,13 @@ export interface operations {
                     payment_intent_data?: {
                         /** @enum {string} */
                         capture_method?: "automatic" | "automatic_async" | "manual";
+                        metadata?: {
+                            [key: string]: string | undefined;
+                        };
                         /** @enum {string} */
                         setup_future_usage?: "off_session" | "on_session";
+                        statement_descriptor?: string;
+                        statement_descriptor_suffix?: string;
                     };
                     /**
                      * @description Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.This may occur if the Checkout Session includes a free trial or a discount.
@@ -37376,6 +37832,9 @@ export interface operations {
                      */
                     subscription_data?: {
                         description?: string;
+                        metadata?: {
+                            [key: string]: string | undefined;
+                        };
                         trial_period_days?: number;
                     };
                     /**
@@ -37591,6 +38050,17 @@ export interface operations {
                         [key: string]: string | undefined;
                     };
                     /**
+                     * payment_intent_data_update_params
+                     * @description A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
+                     */
+                    payment_intent_data?: {
+                        metadata?: {
+                            [key: string]: string | undefined;
+                        } | "";
+                        statement_descriptor?: string | "";
+                        statement_descriptor_suffix?: string | "";
+                    };
+                    /**
                      * @description Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.This may occur if the Checkout Session includes a free trial or a discount.
                      *
                      *     Can only be set in `subscription` mode.
@@ -37605,6 +38075,15 @@ export interface operations {
                     shipping_address_collection?: {
                         allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
                     } | "";
+                    /**
+                     * subscription_data_update_params
+                     * @description When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
+                     */
+                    subscription_data?: {
+                        metadata?: {
+                            [key: string]: string | undefined;
+                        } | "";
+                    };
                 };
             };
         };
@@ -37968,7 +38447,7 @@ export interface operations {
                     };
                     /**
                      * payment_method_param
-                     * @description JCB is a credit card company based in Japan. JCB is currently available in Japan to businesses approved by JCB, and available to all businesses in the US, Canada, Australia, New Zealand, UK, and Ireland. Check this [page](https://support.stripe.com/questions/accepting-japan-credit-bureau-%28jcb%29-payments) for more details.
+                     * @description JCB is a credit card company based in Japan. JCB is currently available in Japan to businesses approved by JCB, and available to all businesses in Australia, Canada, Hong Kong, Japan, New Zealand, Singapore, Switzerland, United Kingdom, United States, and all countries in the European Economic Area except Iceland. Check this [page](https://support.stripe.com/questions/accepting-japan-credit-bureau-%28jcb%29-payments) for more details.
                      */
                     jcb?: {
                         /** display_preference_param */
@@ -38413,7 +38892,7 @@ export interface operations {
                     };
                     /**
                      * payment_method_param
-                     * @description JCB is a credit card company based in Japan. JCB is currently available in Japan to businesses approved by JCB, and available to all businesses in the US, Canada, Australia, New Zealand, UK, and Ireland. Check this [page](https://support.stripe.com/questions/accepting-japan-credit-bureau-%28jcb%29-payments) for more details.
+                     * @description JCB is a credit card company based in Japan. JCB is currently available in Japan to businesses approved by JCB, and available to all businesses in Australia, Canada, Hong Kong, Japan, New Zealand, Singapore, Switzerland, United Kingdom, United States, and all countries in the European Economic Area except Iceland. Check this [page](https://support.stripe.com/questions/accepting-japan-credit-bureau-%28jcb%29-payments) for more details.
                      */
                     jcb?: {
                         /** display_preference_param */
@@ -42779,7 +43258,7 @@ export interface operations {
                 expand?: string[];
                 /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
                 limit?: number;
-                /** @description Only return SetupIntents associated with the specified payment method. */
+                /** @description Only return SetupIntents that associate with the specified payment method. */
                 payment_method?: string;
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
@@ -42841,14 +43320,14 @@ export interface operations {
                     attach_to_self?: boolean;
                     /**
                      * automatic_payment_methods_param
-                     * @description When enabled, this SetupIntent will accept payment methods that you have enabled in the Dashboard and are compatible with this SetupIntent's other parameters.
+                     * @description When you enable this parameter, this SetupIntent accepts payment methods that you enable in the Dashboard and that are compatible with its other parameters.
                      */
                     automatic_payment_methods?: {
                         /** @enum {string} */
                         allow_redirects?: "always" | "never";
                         enabled: boolean;
                     };
-                    /** @description Set to `true` to attempt to confirm this SetupIntent immediately. This parameter defaults to `false`. If the payment method attached is a card, a return_url may be provided in case additional authentication is required. */
+                    /** @description Set to `true` to attempt to confirm this SetupIntent immediately. This parameter defaults to `false`. If a card is the attached payment method, you can provide a `return_url` in case further authentication is necessary. */
                     confirm?: boolean;
                     /** @description ID of the Customer this SetupIntent belongs to, if one exists.
                      *
@@ -42862,7 +43341,7 @@ export interface operations {
                      *
                      *     Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes. */
                     flow_directions?: ("inbound" | "outbound")[];
-                    /** @description This hash contains details about the Mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm). */
+                    /** @description This hash contains details about the mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm). */
                     mandate_data?: {
                         /** customer_acceptance_param */
                         customer_acceptance: {
@@ -42883,11 +43362,11 @@ export interface operations {
                     metadata?: {
                         [key: string]: string | undefined;
                     };
-                    /** @description The Stripe account ID for which this SetupIntent is created. */
+                    /** @description The Stripe account ID created for this SetupIntent. */
                     on_behalf_of?: string;
                     /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
                     payment_method?: string;
-                    /** @description The ID of the payment method configuration to use with this Setup Intent. */
+                    /** @description The ID of the payment method configuration to use with this SetupIntent. */
                     payment_method_configuration?: string;
                     /**
                      * payment_method_data_params
@@ -43027,7 +43506,7 @@ export interface operations {
                     };
                     /**
                      * payment_method_options_param
-                     * @description Payment-method-specific configuration for this SetupIntent.
+                     * @description Payment method-specific configuration for this SetupIntent.
                      */
                     payment_method_options?: {
                         /** setup_intent_payment_method_options_param */
@@ -43098,13 +43577,13 @@ export interface operations {
                             verification_method?: "automatic" | "instant" | "microdeposits";
                         };
                     };
-                    /** @description The list of payment method types (e.g. card) that this SetupIntent is allowed to use. If this is not provided, defaults to ["card"]. */
+                    /** @description The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, it defaults to ["card"]. */
                     payment_method_types?: string[];
-                    /** @description The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm). */
+                    /** @description The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. To redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm). */
                     return_url?: string;
                     /**
                      * setup_intent_single_use_params
-                     * @description If this hash is populated, this SetupIntent will generate a single_use Mandate on success.
+                     * @description If you populate this hash, this SetupIntent generates a `single_use` mandate after successful completion.
                      */
                     single_use?: {
                         amount: number;
@@ -43144,7 +43623,7 @@ export interface operations {
     GetSetupIntentsIntent: {
         parameters: {
             query?: {
-                /** @description The client secret of the SetupIntent. Required if a publishable key is used to retrieve the SetupIntent. */
+                /** @description The client secret of the SetupIntent. We require this string if you use a publishable key to retrieve the SetupIntent. */
                 client_secret?: string;
                 /** @description Specifies which fields in the response should be expanded. */
                 expand?: string[];
@@ -43355,7 +43834,7 @@ export interface operations {
                     };
                     /**
                      * payment_method_options_param
-                     * @description Payment-method-specific configuration for this SetupIntent.
+                     * @description Payment method-specific configuration for this SetupIntent.
                      */
                     payment_method_options?: {
                         /** setup_intent_payment_method_options_param */
@@ -43426,7 +43905,7 @@ export interface operations {
                             verification_method?: "automatic" | "instant" | "microdeposits";
                         };
                     };
-                    /** @description The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. If this is not provided, defaults to ["card"]. */
+                    /** @description The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this array, it defaults to ["card"]. */
                     payment_method_types?: string[];
                 };
             };
@@ -43465,7 +43944,7 @@ export interface operations {
             content: {
                 "application/x-www-form-urlencoded": {
                     /**
-                     * @description Reason for canceling this SetupIntent. Possible values are `abandoned`, `requested_by_customer`, or `duplicate`
+                     * @description Reason for canceling this SetupIntent. Possible values are: `abandoned`, `requested_by_customer`, or `duplicate`
                      * @enum {string}
                      */
                     cancellation_reason?: "abandoned" | "duplicate" | "requested_by_customer";
@@ -43511,7 +43990,6 @@ export interface operations {
                     client_secret?: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
-                    /** @description This hash contains details about the Mandate to create */
                     mandate_data?: {
                         /** customer_acceptance_param */
                         customer_acceptance: {
@@ -43679,7 +44157,7 @@ export interface operations {
                     };
                     /**
                      * payment_method_options_param
-                     * @description Payment-method-specific configuration for this SetupIntent.
+                     * @description Payment method-specific configuration for this SetupIntent.
                      */
                     payment_method_options?: {
                         /** setup_intent_payment_method_options_param */

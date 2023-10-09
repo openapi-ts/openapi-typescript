@@ -80,8 +80,8 @@ export default async function openapiTS(
     arrayLength: options.arrayLength ?? false,
     transform:
       typeof options.transform === "function" ? options.transform : undefined,
-    resolve(ref) {
-      return resolveRef(schema, ref, { silent: options.silent ?? false });
+    resolve($ref) {
+      return resolveRef(schema, $ref, { silent: options.silent ?? false });
     },
   };
 

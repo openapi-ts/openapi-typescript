@@ -133,10 +133,10 @@ export function getEntries<T>(
 /** resolve a $ref in a schema */
 export function resolveRef<T>(
   schema: any,
-  ref: string,
+  $ref: string,
   { silent = false, visited = [] }: { silent: boolean; visited?: string[] },
 ): T | undefined {
-  const { pointer } = parseRef(ref);
+  const { pointer } = parseRef($ref);
   if (!pointer.length) {
     return undefined;
   }
@@ -145,7 +145,7 @@ export function resolveRef<T>(
     if (node && typeof node === "object" && node[key]) {
       node = node[key];
     } else {
-      warn(`Could not resolve $ref "${ref}"`, silent);
+      warn(`Could not resolve $ref "${$ref}"`, silent);
       return undefined;
     }
   }
@@ -153,7 +153,7 @@ export function resolveRef<T>(
   // if this is also a $ref, keep tracing
   if (node && typeof node === "object" && node.$ref) {
     if (visited.includes(node.$ref)) {
-      warn(`Could not resolve circular $ref "${ref}"`, silent);
+      warn(`Could not resolve circular $ref "${$ref}"`, silent);
       return undefined;
     }
     return resolveRef(schema, node.$ref, {

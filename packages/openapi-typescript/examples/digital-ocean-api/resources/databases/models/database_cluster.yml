@@ -19,9 +19,11 @@ properties:
       - mysql
       - redis
       - mongodb
+      - kafka
     description: >-
       A slug representing the database engine used for the cluster. The possible values
-      are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, and "mongodb" for MongoDB.
+      are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB,
+      and "kafka" for Kafka.
   version:
     type: string
     example: '8'

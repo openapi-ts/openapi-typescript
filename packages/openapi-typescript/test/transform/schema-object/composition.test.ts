@@ -179,8 +179,8 @@ describe("composition", () => {
           ...DEFAULT_OPTIONS,
           ctx: {
             ...DEFAULT_OPTIONS.ctx,
-            resolve(ref) {
-              switch (ref) {
+            resolve($ref) {
+              switch ($ref) {
                 case "#/components/schemas/simple-user":
                 case "#/components/schemas/team":
                 case "#/components/schemas/organization": {
@@ -232,8 +232,8 @@ describe("composition", () => {
                 },
               },
             },
-            resolve(ref) {
-              switch (ref) {
+            resolve($ref) {
+              switch ($ref) {
                 case "#/components/schemas/parent": {
                   return {
                     propertyName: "operation",
@@ -284,8 +284,8 @@ describe("composition", () => {
                 propertyName: "petType",
               },
             },
-            resolve(ref) {
-              switch (ref) {
+            resolve($ref) {
+              switch ($ref) {
                 case "#/components/schemas/Pet": {
                   return {
                     propertyName: "petType",
@@ -323,8 +323,8 @@ describe("composition", () => {
                 propertyName: "operation",
               },
             },
-            resolve(ref) {
-              switch (ref) {
+            resolve($ref) {
+              switch ($ref) {
                 case "#/components/schemas/parent": {
                   return { propertyName: "operation" };
                 }
@@ -370,8 +370,8 @@ describe("composition", () => {
                 },
               },
             },
-            resolve(ref) {
-              switch (ref) {
+            resolve($ref) {
+              switch ($ref) {
                 case "#/components/schemas/parent": {
                   return {
                     propertyName: "@type",
@@ -416,8 +416,8 @@ describe("composition", () => {
                 propertyName: "_petType",
               },
             },
-            resolve(ref) {
-              switch (ref) {
+            resolve($ref) {
+              switch ($ref) {
                 case "#/components/schemas/Pet": {
                   return { propertyName: "_petType" };
                 }
@@ -469,13 +469,64 @@ describe("composition", () => {
             { type: "object", properties: { green: { type: "number" } } },
           ],
         },
-        want: `WithRequired<{
-    red?: number;
-    blue?: number;
+        want: `{
+    red: number;
+    blue: number;
 } & {
-    green?: number;
-}, "red" | "blue" | "green">`,
+    green: number;
+}`,
         // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "allOf > core properties",
+      {
+        given: {
+          type: "object",
+          properties: {
+            price: {
+              $ref: "#/components/schemas/Price",
+            },
+          },
+          required: ["price", "name"],
+          allOf: [{ $ref: "#/components/schemas/Product" }],
+        },
+        want: `{
+    price: components["schemas"]["Price"];
+} & WithRequired<components["schemas"]["Product"], "name">`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: {
+            ...DEFAULT_OPTIONS.ctx,
+            resolve($ref) {
+              switch ($ref) {
+                case "#/components/schemas/Price": {
+                  return {
+                    type: "object",
+                    properties: {
+                      value: { type: "number" },
+                      currency: { type: "string" },
+                    },
+                    required: ["value", "currency"],
+                  };
+                }
+                case "#/components/schemas/Product": {
+                  return {
+                    type: "object",
+                    properties: {
+                      id: { type: "string" },
+                      name: { type: "string" },
+                      required: ["id"],
+                    },
+                  };
+                }
+                default: {
+                  return undefined as any;
+                }
+              }
+            },
+          },
+        },
       },
     ],
     [
