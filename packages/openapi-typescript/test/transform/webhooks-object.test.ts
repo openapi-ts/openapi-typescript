@@ -140,8 +140,8 @@ describe("transformWebhooksObject", () => {
 }`,
         options: {
           ...DEFAULT_OPTIONS,
-          resolve(ref) {
-            switch (ref) {
+          resolve($ref) {
+            switch ($ref) {
               case "#/components/parameters/query/utm_source": {
                 return {
                   in: "query",

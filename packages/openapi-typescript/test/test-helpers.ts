@@ -20,8 +20,8 @@ export const DEFAULT_CTX: GlobalContext = {
   pathParamsAsTypes: false,
   postTransform: undefined,
   redoc: await createConfig({}, { extends: ["minimal"] }),
-  resolve(ref) {
-    return resolveRef({}, ref, { silent: false });
+  resolve($ref) {
+    return resolveRef({}, $ref, { silent: false });
   },
   silent: true,
   transform: undefined,

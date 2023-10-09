@@ -1371,6 +1371,9 @@ export interface paths {
          *     When adding a user to a MySQL cluster, additional options can be configured in the
          *     `mysql_settings` object.
          *
+         *     When adding a user to a Kafka cluster, additional options can be configured in
+         *     the `settings` object.
+         *
          *     The response will be a JSON object with a key called `user`. The value of this will be an
          *     object that contains the standard attributes associated with a database user including
          *     its randomly generated password.
@@ -1400,8 +1403,10 @@ export interface paths {
          *     The response will be a JSON object with a `user` key. This will be set to an object
          *     containing the standard database user attributes.
          *
-         *     For MySQL clusters, additional options will be contained in the mysql_settings
+         *     For MySQL clusters, additional options will be contained in the `mysql_settings`
          *     object.
+         *
+         *     For Kafka clusters, additional options will be contained in the `settings` object.
          *
          */
         get: operations["databases_get_user"];
@@ -1665,6 +1670,79 @@ export interface paths {
         put: operations["databases_update_major_version"];
         post?: never;
         delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/databases/{database_cluster_uuid}/topics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Topics for a Kafka Cluster
+         * @description To list all of a Kafka cluster's topics, send a GET request to
+         *     `/v2/databases/$DATABASE_ID/topics`.
+         *
+         *     The result will be a JSON object with a `topics` key.
+         *
+         */
+        get: operations["databases_list_kafka_topics"];
+        put?: never;
+        /**
+         * Create Topic for a Kafka Cluster
+         * @description To create a topic attached to a Kafka cluster, send a POST request to
+         *     `/v2/databases/$DATABASE_ID/topics`.
+         *
+         *     The result will be a JSON object with a `topic` key.
+         *
+         */
+        post: operations["databases_create_kafka_topic"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/databases/{database_cluster_uuid}/topics/{topic_name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Topic for a Kafka Cluster
+         * @description To retrieve a given topic by name from the set of a Kafka cluster's topics,
+         *     send a GET request to `/v2/databases/$DATABASE_ID/topics/$TOPIC_NAME`.
+         *
+         *     The result will be a JSON object with a `topic` key.
+         *
+         */
+        get: operations["databases_get_kafka_topic"];
+        /**
+         * Update Topic for a Kafka Cluster
+         * @description To update a topic attached to a Kafka cluster, send a PUT request to
+         *     `/v2/databases/$DATABASE_ID/topics/$TOPIC_NAME`.
+         *
+         *     The result will be a JSON object with a `topic` key.
+         *
+         */
+        put: operations["databases_update_kafka_topic"];
+        post?: never;
+        /**
+         * Delete Topic for a Kafka Cluster
+         * @description To delete a single topic within a Kafka cluster, send a DELETE request
+         *     to `/v2/databases/$DATABASE_ID/topics/$TOPIC_NAME`.
+         *
+         *     A status of 204 will be given. This indicates that the request was
+         *     processed successfully, but that no response body is needed.
+         *
+         */
+        delete: operations["databases_delete_kafka_topic"];
         options?: never;
         head?: never;
         patch?: never;
@@ -5917,7 +5995,7 @@ export interface components {
             /** @description A list of HTTP routes that should be routed to this component. */
             routes?: components["schemas"]["app_route_spec"][];
         };
-        app_static_site_spec: WithRequired<components["schemas"]["app_component_base"] & {
+        app_static_site_spec: WithRequired<components["schemas"]["app_component_base"], "name"> & {
             /**
              * @description The name of the index document to use when serving this static site. Default: index.html
              * @default index.html
@@ -5943,7 +6021,7 @@ export interface components {
             cors?: components["schemas"]["apps_cors_policy"];
             /** @description A list of HTTP routes that should be routed to this component. */
             routes?: components["schemas"]["app_route_spec"][];
-        }, "name">;
+        };
         app_job_spec: components["schemas"]["app_component_base"] & components["schemas"]["app_component_instance_base"] & {
             /**
              * @description - UNSPECIFIED: Default job type, will auto-complete to POST_DEPLOY kind.
@@ -5956,7 +6034,7 @@ export interface components {
              */
             kind: "UNSPECIFIED" | "PRE_DEPLOY" | "POST_DEPLOY" | "FAILED_DEPLOY";
         };
-        app_worker_spec: WithRequired<components["schemas"]["app_component_base"] & components["schemas"]["app_component_instance_base"], "name">;
+        app_worker_spec: WithRequired<components["schemas"]["app_component_base"], "name"> & components["schemas"]["app_component_instance_base"];
         /**
          * @default UNSPECIFIED_RULE
          * @example CPU_UTILIZATION
@@ -7370,12 +7448,12 @@ export interface components {
              * @description A timestamp referring to the date when the particular version will no longer be supported. If null, the version does not have an end of life timeline.
              * @example 2023-11-09T00:00:00Z
              */
-            end_of_life?: string;
+            end_of_life?: string | null;
             /**
              * @description A timestamp referring to the date when the particular version will no longer be available for creating new clusters. If null, the version does not have an end of availability timeline.
              * @example 2023-05-09T00:00:00Z
              */
-            end_of_availability?: string;
+            end_of_availability?: string | null;
             /**
              * @description The engine version.
              * @example 8
@@ -7386,12 +7464,14 @@ export interface components {
         database_version_availabilities: components["schemas"]["database_version_availability"][];
         options: {
             options?: {
+                kafka?: components["schemas"]["database_region_options"] & components["schemas"]["database_version_options"] & components["schemas"]["database_layout_options"];
                 mongodb?: components["schemas"]["database_region_options"] & components["schemas"]["database_version_options"] & components["schemas"]["database_layout_options"];
                 pg?: components["schemas"]["database_region_options"] & components["schemas"]["database_version_options"] & components["schemas"]["database_layout_options"];
                 mysql?: components["schemas"]["database_region_options"] & components["schemas"]["database_version_options"] & components["schemas"]["database_layout_options"];
                 redis?: components["schemas"]["database_region_options"] & components["schemas"]["database_version_options"] & components["schemas"]["database_layout_options"];
             };
             version_availability?: {
+                kafka?: components["schemas"]["database_version_availabilities"];
                 pg?: components["schemas"]["database_version_availabilities"];
                 mysql?: components["schemas"]["database_version_availabilities"];
                 redis?: components["schemas"]["database_version_availabilities"];
@@ -7448,6 +7528,27 @@ export interface components {
              */
             auth_plugin: "mysql_native_password" | "caching_sha2_password";
         };
+        user_settings: {
+            /** @description ACLs (Access Control Lists) specifying permissions on topics within a Kafka cluster. */
+            acl?: {
+                /**
+                 * @description An identifier for the ACL.
+                 * @example aaa
+                 */
+                id: string;
+                /**
+                 * @description A regex for matching the topic(s) that this ACL should apply to.
+                 * @example topic-abc.*
+                 */
+                topic: string;
+                /**
+                 * @description Permission set applied to the ACL. 'consume' allows for messages to be consumed from the topic. 'produce' allows for messages to be published to the topic. 'produceconsume' allows for both 'consume' and 'produce' permission. 'admin' allows for 'produceconsume' as well as any operations to administer the topic (delete, update).
+                 * @example consume
+                 * @enum {string}
+                 */
+                permission: "admin" | "consume" | "produce" | "produceconsume";
+            }[];
+        };
         database_user: {
             /**
              * @description The name of a database user.
@@ -7467,7 +7568,74 @@ export interface components {
              * @example jge5lfxtzhx42iff
              */
             readonly password?: string;
+            /**
+             * @description Access certificate for TLS client authentication. (Kafka only)
+             * @example -----BEGIN CERTIFICATE-----
+             *     MIIFFjCCA/6gAwIBAgISA0AznUJmXhu08/89ZuSPC/kRMA0GCSqGSIb3DQEBCwUA
+             *     MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
+             *     ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xNjExMjQwMDIzMDBaFw0x
+             *     NzAyMjIwMDIzMDBaMCQxIjAgBgNVBAMTGWNsb3VkLmFuZHJld3NvbWV0aGluZy5j
+             *     b20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDBIZMz8pnK6V52SVf+
+             *     CYssOfCQHAx5f0Ou5rYbq3xNh8VWHIYJCQ1QxQIxKSP6+uODSYrb2KWyurP1DwGb
+             *     8OYm0J3syEDtCUQik1cpCzpeNlAZ2f8FzXyYQAqPopxdRpsFz8DtZnVvu86XwrE4
+             *     oFPl9MReICmZfBNWylpV5qgFPoXyJ70ZAsTm3cEe3n+LBXEnY4YrVDRWxA3wZ2mz
+             *     Z03HZ1hHrxK9CMnS829U+8sK+UneZpCO7yLRPuxwhmps0wpK/YuZZfRAKF1FZRna
+             *     k/SIQ28rnWufmdg16YqqHgl5JOgnb3aslKRvL4dI2Gwnkd2IHtpZnTR0gxFXfqqb
+             *     QwuRAgMBAAGjggIaMIICFjAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYB
+             *     BQUHAwEGCCsGAQUFBwMCMAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFLsAFcxAhFX1
+             *     MbCnzr9hEO5rL4jqMB8GA1UdIwQYMBaAFKhKamMEfd265tE5t6ZFZe/zqOyhMHAG
+             *     CCsGAQUFBwEBBGQwYjAvBggrBgEFBQcwAYYjaHR0cDovL29jc3AuaW50LXgzLmxl
+             *     dHNlbmNyeXB0Lm9yZy8wLwYIKwYBBQUHMAKGI2h0dHA6Ly9jZXJ0LmludC14My5s
+             *     ZXRzZW5jcnlwdC5vcmcvMCQGA1UdEQQdMBuCGWNsb3VkLmFuZHJld3NvbWV0aGlu
+             *     Zy5jb20wgf4GA1UdIASB9jCB8zAIBgZngQwBAgWrgeYGCysGAQQBgt8TAQEBMIHW
+             *     MCYGCCsGAQUFBwIBFhpodHRwOi8vY3BzLmxldHNlbmNyeXB0Lm9yZzCBqwYIKwYB
+             *     BQUHAgIwgZ4MgZtUaGlzIENlcnRpZmljYXRlIG1heSBvbmx5IGJlIHJlbGllZCB1
+             *     cG9uIGJ5IFJlbHlpbmcgUGFydGllcyBhbmQgb25seSQ2ziBhY2NvcmRhbmNlIHdp
+             *     dGggdGhlIENlcnRpZmljYXRlIFBvbGljeSBmb3VuZCBhdCBodHRwczovL2xldHNl
+             *     bmNyeXB0Lm9yZy9yZXBvc2l0b3J5LzANBgkqhkiG9w0BAQsFAAOCAQEAOZVQvrjM
+             *     PKXLARTjB5XsgfyDN3/qwLl7SmwGkPe+B+9FJpfScYG1JzVuCj/SoaPaK34G4x/e
+             *     iXwlwOXtMOtqjQYzNu2Pr2C+I+rVmaxIrCUXFmC205IMuUBEeWXG9Y/HvXQLPabD
+             *     D3Gdl5+Feink9SDRP7G0HaAwq13hI7ARxkL9p+UIY39X0dV3WOboW2Re8nrkFXJ7
+             *     q9Z6shK5QgpBfsLjtjNsQzaGV3ve1gOg25aTJGearBWOvEjJNA1wGMoKVXOtYwm/
+             *     WyWoVdCQ8HmconcbJB6xc0UZ1EjvzRr5ZIvSa5uHZD0L3m7/kpPWlAlFJ7hHASPu
+             *     UlF1zblDmg2Iaw==
+             *     -----END CERTIFICATE-----
+             */
+            readonly access_cert?: string;
+            /**
+             * @description Access key for TLS client authentication. (Kafka only)
+             * @example -----BEGIN PRIVATE KEY-----
+             *     MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBIZMz8pnK6V52
+             *     SVf+CYssOfCQHAx5f0Ou5rYbq3xNh8VHAIYJCQ1QxQIxKSP6+uODSYrb2KWyurP1
+             *     DwGb8OYm0J3syEDtCUQik1cpCzpeNlAZ2f8FzXyYQAqPopxdRpsFz8DtZnVvu86X
+             *     wrE4oFPl9MReICmZfBNWylpV5qgFPoXyJ70ZAsTm3cEe3n+LBXEnY4YrVDRWxA3w
+             *     Z2mzZ03HZ1hHrxK9CMnS829U+8sK+UneZpCO7yLRPuxwhmps0wpK/YuZZfRAKF1F
+             *     ZRnak/SIQ28rnWufmdg16YqqHgl5JOgnb3aslKRvL4dI2Gwnkd2IHtpZnTR0gxFX
+             *     fqqbQwuRAgMBAAECggEBAILLmkW0JzOkmLTDNzR0giyRkLoIROqDpfLtjKdwm95l
+             *     9NUBJcU4vCvXQITKt/NhtnNTexcowg8pInb0ksJpg3UGE+4oMNBXVi2UW5MQZ5cm
+             *     cVkQqgXkBF2YAY8FMaB6EML+0En2+dGR/3gIAr221xsFiXe1kHbB8Nb2c/d5HpFt
+             *     eRpLVJnK+TxSr78PcZA8DDGlSgwvgimdAaFUNO2OqB9/0E9UPyKk2ycdff/Z6ldF
+             *     0hkCLtdYTTl8Kf/OwjcuTgmA2O3Y8/CoQX/L+oP9Rvt9pWCEfuebiOmHJVPO6Y6x
+             *     gtQVEXwmF1pDHH4Qtz/e6UZTdYeMl9G4aNO2CawwcaYECgYEA57imgSOG4XsJLRh
+             *     GGncV9R/xhy4AbDWLtAMzQRX4ktvKCaHWyQV2XK2we/cu29NLv2Y89WmerTNPOU+
+             *     P8+pB31uty2ELySVn15QhKpQClVEAlxCnnNjXYrii5LOM80+lVmxvQwxVd8Yz8nj
+             *     IntyioXNBEnYS7V2RxxFGgFun1cCgYEA1V3W+Uyamhq8JS5EY0FhyGcXdHd70K49
+             *     W1ou7McIpncf9tM9acLS1hkI98rd2T69Zo8mKoV1V2hjFaKUYfNys6tTkYWeZCcJ
+             *     3rW44j9DTD+FmmjcX6b8DzfybGLehfNbCw6n67/r45DXIV/fk6XZfkx6IEGO4ODt
+             *     Nfnvx4TuI1cCgYBACDiKqwSUvmkUuweOo4IuCxyb5Ee8v98P5JIE/VRDxlCbKbpx
+             *     pxEam6aBBQVcDi+n8o0H3WjjlKc6UqbW/01YMoMrvzotxNBLz8Y0QtQHZvR6KoCG
+             *     RKCKstxTcWflzKuknbqN4RapAhNbKBDJ8PMSWfyDWNyaXzSmBdvaidbF1QKBgDI0
+             *     o4oD0Xkjg1QIYAUu9FBQmb9JAjRnW36saNBEQS/SZg4RRKknM683MtoDvVIKJk0E
+             *     sAlfX+4SXQZRPDMUMtA+Jyrd0xhj6zmhbwClvDMr20crF3fWdgcqtft1BEFmsuyW
+             *     JUMe5OWmRkjPI2+9ncDPRAllA7a8lnSV/Crph5N/AoGBAIK249temKrGe9pmsmAo
+             *     QbNuYSmwpnMoAqdHTrl70HEmK7ob6SIVmsR8QFAkH7xkYZc4Bxbx4h1bdpozGB+/
+             *     AangbiaYJcAOD1QyfiFbflvI1RFeHgrk7VIafeSeQv6qu0LLMi2zUbpgVzxt78Wg
+             *     eTuK2xNR0PIM8OI7pRpgyj1I
+             *     -----END PRIVATE KEY-----
+             */
+            readonly access_key?: string;
             mysql_settings?: components["schemas"]["mysql_settings"];
+            settings?: components["schemas"]["user_settings"];
         };
         database_maintenance_window: {
             /**
@@ -7536,11 +7704,11 @@ export interface components {
              */
             name: string;
             /**
-             * @description A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, and "mongodb" for MongoDB.
+             * @description A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB, and "kafka" for Kafka.
              * @example mysql
              * @enum {string}
              */
-            engine: "pg" | "mysql" | "redis" | "mongodb";
+            engine: "pg" | "mysql" | "redis" | "mongodb" | "kafka";
             /**
              * @description A string representing the version of the database engine in use for the cluster.
              * @example 8
@@ -8434,6 +8602,232 @@ export interface components {
         version: string;
         "version-2": {
             version?: components["schemas"]["version"];
+        };
+        kafka_topic_base: {
+            /**
+             * @description The name of the Kafka topic.
+             * @example events
+             */
+            name?: string;
+            /**
+             * @description The number of nodes to replicate data across the cluster.
+             * @example 2
+             */
+            replication_factor?: number;
+            /**
+             * @description The number of partitions available for the topic. On update, this value can only be increased.
+             * @example 3
+             */
+            partition_count?: number;
+        };
+        kafka_topic: components["schemas"]["kafka_topic_base"] & {
+            /**
+             * @description The state of the Kafka topic.
+             * @example active
+             * @enum {string}
+             */
+            state?: "active" | "configuring" | "deleting" | "unknown";
+        };
+        kafka_topic_config: {
+            /**
+             * @description The cleanup_policy sets the retention policy to use on log segments. 'delete' will discard old segments when retention time/size limits are reached. 'compact' will enable log compaction, resulting in retention of the latest value for each key.
+             * @default delete
+             * @example delete
+             * @enum {string}
+             */
+            cleanup_policy: "delete" | "compact" | "compact_delete";
+            /**
+             * @description The compression_type specifies the compression type of the topic.
+             * @default producer
+             * @example producer
+             * @enum {string}
+             */
+            compression_type: "producer" | "gzip" | "snappy" | "Iz4" | "zstd" | "uncompressed";
+            /**
+             * @description The delete_retention_ms specifies how long (in ms) to retain delete tombstone markers for topics.
+             * @default 86400000
+             * @example 86400000
+             */
+            delete_retention_ms: number;
+            /**
+             * @description The file_delete_delay_ms specifies the time (in ms) to wait before deleting a file from the filesystem.
+             * @default 60000
+             * @example 60000
+             */
+            file_delete_delay_ms: number;
+            /**
+             * @description The flush_messages specifies the number of messages to accumulate on a log partition before messages are flushed to disk.
+             * @default 9223372036854776000
+             * @example 9223372036854776000
+             */
+            flush_messages: number;
+            /**
+             * @description The flush_ms specifies the maximum time (in ms) that a message is kept in memory before being flushed to disk.
+             * @default 9223372036854776000
+             * @example 9223372036854776000
+             */
+            flush_ms: number;
+            /**
+             * @description The index_interval_bytes specifies the number of bytes between entries being added into te offset index.
+             * @default 4096
+             * @example 4096
+             */
+            index_interval_bytes: number;
+            /**
+             * @description The max_compaction_lag_ms specifies the maximum amount of time (in ms) that a message will remain uncompacted. This is only applicable if the logs are have compaction enabled.
+             * @default 9223372036854776000
+             * @example 9223372036854776000
+             */
+            max_compaction_lag_ms: number;
+            /**
+             * @description The max_messages_bytes specifies the largest record batch size (in bytes) that can be sent to the server.  This is calculated after compression if compression is enabled.
+             * @default 1048588
+             * @example 1048588
+             */
+            max_message_bytes: number;
+            /**
+             * @description The message_down_conversion_enable specifies whether down-conversion of message formats is enabled to satisfy consumer requests. When 'false', the broker will not perform conversion for consumers expecting older message formats. The broker will respond with an `UNSUPPORTED_VERSION` error for consume requests from these older clients.
+             * @default true
+             * @example true
+             */
+            message_down_conversion_enable: boolean;
+            /**
+             * @description The message_format_version specifies the message format version used by the broker to append messages to the logs. The value of this setting is assumed to be 3.0-IV1 if the broker protocol version is 3.0 or higher. By setting a  particular message format version, all existing messages on disk must be smaller or equal to the specified version.
+             * @default 3.0-IV1
+             * @example 3.0-IV1
+             * @enum {string}
+             */
+            message_format_version: "0.8.0" | "0.8.1" | "0.8.2" | "0.9.0" | "0.10.0-IV0" | "0.10.0-IV1" | "0.10.1-IV0" | "0.10.1-IV1" | "0.10.1-IV2" | "0.10.2-IV0" | "0.11.0-IV0" | "0.11.0-IV1" | "0.11.0-IV2" | "1.0-IV0" | "1.1-IV0" | "2.0-IV0" | "2.0-IV1" | "2.1-IV0" | "2.1-IV1" | "2.1-IV2" | "2.2-IV0" | "2.2-IV1" | "2.3-IV0" | "2.3-IV1" | "2.4-IV0" | "2.4-IV1" | "2.5-IV0" | "2.6-IV0" | "2.7-IV0" | "2.7-IV1" | "2.7-IV2" | "2.8-IV0" | "2.8-IV1" | "3.0-IV0" | "3.0-IV1" | "3.1-IV0" | "3.2-IV0" | "3.3-IV0" | "3.3-IV1" | "3.3-IV2" | "3.3-IV3";
+            /**
+             * @description The message_timestamp_type specifies whether to use the message create time or log append time as the timestamp on a message.
+             * @default create_time
+             * @example create_time
+             * @enum {string}
+             */
+            message_timestamp_type: "create_time" | "log_append_time";
+            /**
+             * Format: float
+             * @description The min_cleanable_dirty_ratio specifies the frequency of log compaction (if enabled) in relation to duplicates present in the logs. For example, at 0.5, at most 50% of the log could be duplicates before compaction would begin.
+             * @default 0.5
+             * @example 0.5
+             */
+            min_cleanable_dirty_ratio: number;
+            /**
+             * @description The min_compaction_lag_ms specifies the minimum time (in ms) that a message will remain uncompacted in the log. Only relevant if log compaction is enabled.
+             * @default 0
+             * @example 0
+             */
+            min_compaction_lag_ms: number;
+            /**
+             * @description The min_insync_replicas specifies the number of replicas that must ACK a write for the write to be considered successful.
+             * @default 1
+             * @example 1
+             */
+            min_insync_replicas: number;
+            /**
+             * @description The preallocate specifies whether a file should be preallocated on disk when creating a new log segment.
+             * @default false
+             * @example false
+             */
+            preallocate: boolean;
+            /**
+             * @description The retention_bytes specifies the maximum size of the log (in bytes) before deleting messages. -1 indicates that there is no limit.
+             * @default -1
+             * @example 1000000
+             */
+            retention_bytes: number;
+            /**
+             * @description The retention_ms specifies the maximum amount of time (in ms) to keep a message before deleting it.
+             * @default 604800000
+             * @example 604800000
+             */
+            retention_ms: number;
+            /**
+             * @description The segment_bytes specifies the maximum size of a single log file (in bytes).
+             * @default 209715200
+             * @example 209715200
+             */
+            segment_bytes: number;
+            /**
+             * @description The segment_jitter_ms specifies the maximum random jitter subtracted from the scheduled segment roll time to avoid thundering herds of segment rolling.
+             * @default 0
+             * @example 0
+             */
+            segment_jitter_ms: number;
+            /**
+             * @description The segment_ms specifies the period of time after which the log will be forced to roll if the segment file isn't full. This ensures that retention can delete or compact old data.
+             * @default 604800000
+             * @example 604800000
+             */
+            segment_ms: number;
+            /**
+             * @description Whether unclean_leader_election_enable specifies whether to allow replicas that are not insync to be elected as leaders as a last resort. This may result in data loss since those leaders are not insync.
+             * @default false
+             * @example false
+             */
+            unclean_leader_election_enable: boolean;
+        };
+        kafka_topic_create: components["schemas"]["kafka_topic_base"] & {
+            config?: components["schemas"]["kafka_topic_config"];
+        };
+        kafka_topic_partition: {
+            /**
+             * @description Size of the topic partition in bytes.
+             * @example 4096
+             */
+            size?: number;
+            /**
+             * @description An identifier for the partition.
+             * @example 1
+             */
+            id?: number;
+            /**
+             * @description The number of nodes that are in-sync (have the latest data) for the given partition
+             * @example 3
+             */
+            in_sync_replicas?: number;
+            /**
+             * @description The earliest consumer offset amongst consumer groups.
+             * @example 0
+             */
+            earliest_offset?: number;
+            consumer_groups?: {
+                /**
+                 * @description Name of the consumer group.
+                 * @example consumer
+                 */
+                group_name?: string;
+                /**
+                 * @description The current offset of the consumer group.
+                 * @example 0
+                 */
+                offset?: number;
+            }[] | null;
+        };
+        kafka_topic_verbose: {
+            /**
+             * @description The name of the Kafka topic.
+             * @example events
+             */
+            name: string;
+            /**
+             * @description The state of the Kafka topic.
+             * @example active
+             * @enum {string}
+             */
+            state?: "active" | "configuring" | "deleting" | "unknown";
+            /**
+             * @description The number of nodes to replicate data across the cluster.
+             * @example 2
+             */
+            replication_factor?: number;
+            partitions?: components["schemas"]["kafka_topic_partition"][];
+            config?: components["schemas"]["kafka_topic_config"];
+        };
+        kafka_topic_update: {
+            topic?: components["schemas"]["kafka_topic_base"] & {
+                config?: components["schemas"]["kafka_topic_config"];
+            };
         };
         domain: {
             /**
@@ -9553,15 +9947,15 @@ export interface components {
          *         "prod"
          *       ]
          *     } */
-        image_new_custom: WithRequired<components["schemas"]["image_update"] & {
+        image_new_custom: WithRequired<components["schemas"]["image_update"], "name"> & {
             /**
              * @description A URL from which the custom Linux virtual machine image may be retrieved.  The image it points to must be in the raw, qcow2, vhdx, vdi, or vmdk format.  It may be compressed using gzip or bzip2 and must be smaller than 100 GB after being decompressed.
              * @example http://cloud-images.ubuntu.com/minimal/releases/bionic/release/ubuntu-18.04-minimal-cloudimg-amd64.img
              */
-            url?: string;
-            region?: components["schemas"]["region_slug"];
+            url: string;
+            region: components["schemas"]["region_slug"];
             tags?: components["schemas"]["tags_array"];
-        }, "name" | "url" | "region">;
+        };
         image_action_base: {
             /**
              * @description The action to be taken on the image. Can be either `convert` or `transfer`.
@@ -9690,7 +10084,7 @@ export interface components {
             /** @description An object specifying the details of a specific worker node in a node pool. */
             readonly nodes?: components["schemas"]["node"][];
         };
-        kubernetes_node_pool: WithRequired<components["schemas"]["kubernetes_node_pool_size"] & components["schemas"]["kubernetes_node_pool_base"], "name" | "size" | "count">;
+        kubernetes_node_pool: WithRequired<components["schemas"]["kubernetes_node_pool_size"], "size"> & WithRequired<components["schemas"]["kubernetes_node_pool_base"], "name" | "count">;
         /** @description An object specifying the maintenance window policy for the Kubernetes cluster. */
         maintenance_policy: {
             /**
@@ -10393,7 +10787,7 @@ export interface components {
              */
             tag?: string;
         };
-        load_balancer_create: WithRequired<{
+        load_balancer_create: ({
             /**
              * @description An array containing the IDs of the Droplets assigned to the load balancer.
              * @example [
@@ -10401,18 +10795,18 @@ export interface components {
              *       3164445
              *     ]
              */
-            droplet_ids?: number[];
+            droplet_ids: number[];
         } & {
-            region?: components["schemas"]["region_slug"];
-        } & components["schemas"]["load_balancer_base"], "droplet_ids" | "region"> | WithRequired<{
+            region: components["schemas"]["region_slug"];
+        } & components["schemas"]["load_balancer_base"]) | ({
             /**
              * @description The name of a Droplet tag corresponding to Droplets assigned to the load balancer.
              * @example prod:web
              */
-            tag?: string;
+            tag: string;
         } & {
-            region?: components["schemas"]["region_slug"];
-        } & components["schemas"]["load_balancer_base"], "tag" | "region">;
+            region: components["schemas"]["region_slug"];
+        } & components["schemas"]["load_balancer_base"]);
         slack_details: {
             /**
              * @description Slack channel to notify of an alert trigger.
@@ -12401,6 +12795,34 @@ export interface components {
                 "application/json": components["schemas"]["sql_mode"];
             };
         };
+        /** @description A JSON object with a key of `topics`. */
+        kafka_topics: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    topics?: components["schemas"]["kafka_topic"][];
+                };
+            };
+        };
+        /** @description A JSON object with a key of `topic`. */
+        kafka_topic: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    topic?: components["schemas"]["kafka_topic_verbose"];
+                };
+            };
+        };
         /** @description The response will be a JSON object with a key called `domains`. The value of this will be an array of Domain objects, each of which contain the standard domain attributes. */
         all_domains_response: {
             headers: {
@@ -14262,6 +14684,11 @@ export interface components {
          * @example backend-pool
          */
         pool_name: string;
+        /**
+         * @description The name used to identify the Kafka topic.
+         * @example customer-events
+         */
+        kafka_topic_name: string;
         /**
          * @description The name of the domain itself.
          * @example example.com
@@ -17164,6 +17591,164 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    databases_list_kafka_topics: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["kafka_topics"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_create_kafka_topic: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                /** @example {
+                 *       "name": "customer-events",
+                 *       "partitions": 3,
+                 *       "replication": 2,
+                 *       "config": {
+                 *         "retention_bytes": -1,
+                 *         "retention_ms": 100000
+                 *       }
+                 *     } */
+                "application/json": components["schemas"]["kafka_topic_create"];
+            };
+        };
+        responses: {
+            201: components["responses"]["kafka_topic"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_get_kafka_topic: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+                /**
+                 * @description The name used to identify the Kafka topic.
+                 * @example customer-events
+                 */
+                topic_name: components["parameters"]["kafka_topic_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["kafka_topic"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_update_kafka_topic: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+                /**
+                 * @description The name used to identify the Kafka topic.
+                 * @example customer-events
+                 */
+                topic_name: components["parameters"]["kafka_topic_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                /** @example {
+                 *       "topic": {
+                 *         "name": "customer-events",
+                 *         "partitions": 3,
+                 *         "replication": 2,
+                 *         "config": {
+                 *           "retention_bytes": -1,
+                 *           "retention_ms": 100000
+                 *         }
+                 *       }
+                 *     } */
+                "application/json": WithRequired<components["schemas"]["kafka_topic_update"], "topic">;
+            };
+        };
+        responses: {
+            200: components["responses"]["kafka_topic"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_delete_kafka_topic: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+                /**
+                 * @description The name used to identify the Kafka topic.
+                 * @example customer-events
+                 */
+                topic_name: components["parameters"]["kafka_topic_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     domains_list: {
         parameters: {
             query?: {
@@ -18175,7 +18760,7 @@ export interface operations {
                  *         "frontend"
                  *       ]
                  *     } */
-                "application/json": WithRequired<components["schemas"]["firewall"] & (unknown | unknown), "name">;
+                "application/json": components["schemas"]["firewall"] & (unknown | unknown);
             };
         };
         responses: {
@@ -20627,7 +21212,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": WithRequired<components["schemas"]["project"], "name" | "description" | "purpose" | "environment" | "is_default">;
+                "application/json": components["schemas"]["project"];
             };
         };
         responses: {
@@ -20701,7 +21286,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": WithRequired<components["schemas"]["project"], "name" | "description" | "purpose" | "environment" | "is_default">;
+                "application/json": components["schemas"]["project"];
             };
         };
         responses: {
@@ -22258,7 +22843,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": WithRequired<components["schemas"]["vpc_updatable"] & components["schemas"]["vpc_create"], "name" | "region">;
+                "application/json": WithRequired<components["schemas"]["vpc_updatable"], "name"> & WithRequired<components["schemas"]["vpc_create"], "region">;
             };
         };
         responses: {
@@ -22307,7 +22892,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": WithRequired<components["schemas"]["vpc_updatable"] & components["schemas"]["vpc_default"], "name">;
+                "application/json": WithRequired<components["schemas"]["vpc_updatable"], "name"> & components["schemas"]["vpc_default"];
             };
         };
         responses: {
@@ -22445,7 +23030,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": WithRequired<components["schemas"]["check_updatable"], "name" | "method" | "target" | "regions" | "type" | "enabled">;
+                "application/json": WithRequired<components["schemas"]["check_updatable"], "name" | "target" | "regions" | "type" | "enabled">;
             };
         };
         responses: {
@@ -22609,7 +23194,7 @@ export interface operations {
          *      */
         requestBody: {
             content: {
-                "application/json": WithRequired<components["schemas"]["alert"], "name" | "type" | "notifications">;
+                "application/json": components["schemas"]["alert"];
             };
         };
         responses: {
@@ -22669,7 +23254,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["alert_updatable"];
+                "application/json": WithRequired<components["schemas"]["alert_updatable"], "name" | "type" | "notifications" | "period">;
             };
         };
         responses: {

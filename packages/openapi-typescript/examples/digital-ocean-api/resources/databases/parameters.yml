@@ -61,3 +61,12 @@ migration_id:
   example: 77b28fc8-19ff-11eb-8c9c-c68e24557488
   schema:
     type: string
+
+kafka_topic_name:
+  in: path
+  name: topic_name
+  description: The name used to identify the Kafka topic.
+  required: true
+  example: customer-events
+  schema:
+    type: string

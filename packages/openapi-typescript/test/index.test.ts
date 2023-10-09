@@ -526,7 +526,17 @@ export type operations = Record<string, never>;`,
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
+              Address: {
+                properties: {
+                  address: { type: "string" },
+                  address2: { type: "string" },
+                  city: { type: "string" },
+                  state: { type: "string" },
+                  zip: { type: "string" },
+                },
+              },
               User: {
+                required: ["firstName", "lastName", "city", "state"],
                 allOf: [
                   {
                     type: "object",
@@ -539,8 +549,8 @@ export type operations = Record<string, never>;`,
                     type: "object",
                     properties: { middleName: { type: "string" } },
                   },
+                  { $ref: "#/components/schemas/Address" },
                 ],
-                required: ["firstName", "lastName"],
               },
             },
           },
@@ -549,12 +559,19 @@ export type operations = Record<string, never>;`,
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        User: WithRequired<{
-            firstName?: string;
-            lastName?: string;
+        Address: {
+            address?: string;
+            address2?: string;
+            city?: string;
+            state?: string;
+            zip?: string;
+        };
+        User: {
+            firstName: string;
+            lastName: string;
         } & {
             middleName?: string;
-        }, "firstName" | "lastName">;
+        } & WithRequired<components["schemas"]["Address"], "city" | "state">;
     };
     responses: never;
     parameters: never;

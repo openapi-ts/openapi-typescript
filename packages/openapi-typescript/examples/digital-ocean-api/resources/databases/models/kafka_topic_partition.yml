@@ -1,0 +1,40 @@
+type: object
+
+properties:
+  size:
+    type: integer
+    description: Size of the topic partition in bytes.
+    example: 4096
+
+  id:
+    type: integer
+    description: An identifier for the partition.
+    example: 1
+
+  in_sync_replicas:
+    type: integer
+    description: >-
+      The number of nodes that are in-sync (have the latest data) for the
+      given partition
+    example: 3
+
+  earliest_offset:
+    type: integer
+    description: The earliest consumer offset amongst consumer groups.
+    example: 0
+
+  consumer_groups:
+    type: array
+    nullable: true
+    items:
+      type: object
+      properties:
+        group_name:
+          type: string
+          description: Name of the consumer group.
+          example: consumer
+
+        offset:
+          type: integer
+          description: The current offset of the consumer group.
+          example: 0

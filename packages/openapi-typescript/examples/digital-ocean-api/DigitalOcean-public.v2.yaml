@@ -862,6 +862,20 @@ paths:
     put:
       $ref: 'resources/databases/databases_upgrade_major_version.yml'
 
+  /v2/databases/{database_cluster_uuid}/topics:
+    get:
+      $ref: 'resources/databases/databases_list_kafka_topics.yml'
+    post:
+      $ref: 'resources/databases/databases_create_kafka_topic.yml'
+
+  /v2/databases/{database_cluster_uuid}/topics/{topic_name}:
+    get:
+       $ref: 'resources/databases/databases_get_kafka_topic.yml'
+    put:
+       $ref: 'resources/databases/databases_update_kafka_topic.yml'
+    delete:
+       $ref: 'resources/databases/databases_delete_kafka_topic.yml'
+
   /v2/domains:
     get:
       $ref: 'resources/domains/domains_list.yml'

@@ -11,8 +11,10 @@ description: |
   The response will be a JSON object with a `user` key. This will be set to an object
   containing the standard database user attributes.
 
-  For MySQL clusters, additional options will be contained in the mysql_settings
+  For MySQL clusters, additional options will be contained in the `mysql_settings`
   object.
+
+  For Kafka clusters, additional options will be contained in the `settings` object.
 
 tags:
   - Databases

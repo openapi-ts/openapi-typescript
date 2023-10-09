@@ -142,10 +142,46 @@ export function transformSchemaObjectWithComposition(
   /** Collect oneOf/allOf/anyOf with Omit<> for discriminators */
   function collectCompositions(
     items: (SchemaObject | ReferenceObject)[],
+    required?: string[],
   ): ts.TypeNode[] {
     const output: ts.TypeNode[] = [];
     for (const item of items) {
-      const itemType = transformSchemaObject(item, options);
+      let itemType: ts.TypeNode;
+      // if this is a $ref, use WithRequired<X, Y> if parent specifies required properties
+      // (but only for valid keys)
+      if ("$ref" in item) {
+        itemType = transformSchemaObject(item, options);
+
+        const resolved = options.ctx.resolve<SchemaObject>(item.$ref);
+        if (
+          resolved &&
+          typeof resolved === "object" &&
+          "properties" in resolved
+        ) {
+          // don’t try and make keys required if the $ref doesn’t have them
+          const validRequired = (required ?? []).filter(
+            (key) => !!resolved.properties![key],
+          );
+          if (validRequired.length) {
+            itemType = tsWithRequired(
+              itemType,
+              validRequired,
+              options.ctx.injectFooter,
+            );
+          }
+        }
+      }
+      // otherwise, if this is a schema object, combine parent `required[]` with its own, if any
+      else {
+        const itemRequired = [...(required ?? [])];
+        if (typeof item === "object" && Array.isArray(item.required)) {
+          itemRequired.push(...item.required);
+        }
+        itemType = transformSchemaObject(
+          { ...item, required: itemRequired },
+          options,
+        );
+      }
       const discriminator =
         ("$ref" in item && options.ctx.discriminators[item.$ref]) ||
         (item as any).discriminator; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -163,23 +199,14 @@ export function transformSchemaObjectWithComposition(
 
   // core + allOf: intersect
   const coreObjectType = transformSchemaObjectCore(schemaObject, options);
-  const allOfType = collectCompositions(schemaObject.allOf ?? []);
+  const allOfType = collectCompositions(
+    schemaObject.allOf ?? [],
+    schemaObject.required,
+  );
   if (coreObjectType || allOfType.length) {
-    let allOf: ts.TypeNode | undefined = allOfType.length
+    const allOf: ts.TypeNode | undefined = allOfType.length
       ? tsIntersection(allOfType)
       : undefined;
-    // add required props
-    if (
-      allOf &&
-      "required" in schemaObject &&
-      Array.isArray(schemaObject.required)
-    ) {
-      allOf = tsWithRequired(
-        allOf,
-        schemaObject.required,
-        options.ctx.injectFooter,
-      );
-    }
     finalType = tsIntersection([
       ...(coreObjectType ? [coreObjectType] : []),
       ...(allOf ? [allOf] : []),
@@ -187,7 +214,10 @@ export function transformSchemaObjectWithComposition(
   }
   // anyOf: union
   // (note: this may seem counterintuitive, but as TypeScript’s unions are not true XORs, they mimic behavior closer to anyOf than oneOf)
-  const anyOfType = collectCompositions(schemaObject.anyOf ?? []);
+  const anyOfType = collectCompositions(
+    schemaObject.anyOf ?? [],
+    schemaObject.required,
+  );
   if (anyOfType.length) {
     finalType = tsUnion([...(finalType ? [finalType] : []), ...anyOfType]);
   }
@@ -198,6 +228,7 @@ export function transformSchemaObjectWithComposition(
         schemaObject.type === "object" &&
         (schemaObject.enum as (SchemaObject | ReferenceObject)[])) ||
       [],
+    schemaObject.required,
   );
   if (oneOfType.length) {
     // note: oneOf is the only type that may include primitives
