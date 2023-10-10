@@ -83,9 +83,4 @@ export type FilterKeys<Obj, Matchers> = {
 /** Return any `[string]/[string]` media type (important because openapi-fetch allows any content response, not just JSON-like) */
 export type MediaType = `${string}/${string}`;
 /** Filter objects that have required keys */
-export type FindRequiredKeys<T, K extends keyof T> = K extends unknown
-  ? undefined extends T[K]
-    ? never
-    : K
-  : K;
-export type HasRequiredKeys<T> = FindRequiredKeys<T, keyof T>;
+export type HasRequiredKeys<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? never : T }[keyof T];

@@ -60,10 +60,16 @@ export type ParamsOption<T> = T extends { parameters: any }
 // : never;
 
 export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never
-  ? { body?: never }
-  : undefined extends OperationRequestBodyContent<T>
-  ? { body?: OperationRequestBodyContent<T> }
-  : { body: OperationRequestBodyContent<T> };
+  ? {
+      body?: never;
+    }
+  : HasRequiredKeys<OperationRequestBodyContent<T>> extends never
+  ? {
+      body?: OperationRequestBodyContent<T>;
+    }
+  : {
+      body: OperationRequestBodyContent<T>;
+    };
 
 export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body">;
 
