@@ -229,8 +229,7 @@ export function tsDedupe(types: ts.TypeNode[]): ts.TypeNode[] {
 export function tsEnum(
   name: string,
   members: (string | number)[],
-  membersNames?: string[],
-  membersDescriptions?: string[],
+  metadata?: { name?: string; description?: string }[],
   options?: { readonly?: boolean; export?: boolean },
 ) {
   let enumName = name.replace(JS_ENUM_INVALID_CHARS_RE, (c) => {
@@ -252,7 +251,7 @@ export function tsEnum(
       : undefined,
     /* name      */ enumName,
     /* members   */ members.map((value, i) =>
-      tsEnumMember(value, membersNames?.[i], membersDescriptions?.[i]),
+      tsEnumMember(value, metadata?.[i]),
     ),
   );
 }
@@ -260,10 +259,9 @@ export function tsEnum(
 /** Sanitize TS enum member expression */
 export function tsEnumMember(
   value: string | number,
-  memberName?: string,
-  description?: string,
+  metadata: { name?: string; description?: string } = {},
 ) {
-  let name = memberName ?? String(value);
+  let name = metadata.name ?? String(value);
   if (!JS_PROPERTY_INDEX_RE.test(name)) {
     if (Number(name[0]) >= 0) {
       name = `Value${name}`.replace(".", "_"); // don't forged decimals;
@@ -284,14 +282,14 @@ export function tsEnumMember(
     );
   }
 
-  if (description == undefined) {
+  if (metadata.description == undefined) {
     return member;
   }
 
   return ts.addSyntheticLeadingComment(
     member,
     ts.SyntaxKind.SingleLineCommentTrivia,
-    " ".concat(description.trim()),
+    " ".concat(metadata.description.trim()),
     true,
   );
 }

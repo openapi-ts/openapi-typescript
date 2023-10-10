@@ -133,11 +133,15 @@ describe("tsEnum", () => {
   it("number members with x-enum-descriptions", () => {
     expect(
       astToString(
-        tsEnum(".Error.code.", [100, 101, 102], undefined, [
-          "Code 100",
-          "Code 101",
-          "Code 102",
-        ]),
+        tsEnum(
+          ".Error.code.",
+          [100, 101, 102],
+          [
+            { description: "Code 100" },
+            { description: "Code 101" },
+            { description: "Code 102" },
+          ],
+        ),
       ).trim(),
     ).toBe(`enum ErrorCode {
     // Code 100
@@ -155,7 +159,11 @@ describe("tsEnum", () => {
         tsEnum(
           ".Error.code.",
           [100, 101, 102],
-          ["Unauthorized", "NotFound", "PermissionDenied"],
+          [
+            { name: "Unauthorized" },
+            { name: "NotFound" },
+            { name: "PermissionDenied" },
+          ],
         ),
       ).trim(),
     ).toBe(`enum ErrorCode {
@@ -168,12 +176,36 @@ describe("tsEnum", () => {
   it("x-enum-varnames with numeric prefix", () => {
     expect(
       astToString(
-        tsEnum(".Error.code.", [100, 101, 102], ["0a", "1b", "2c"]),
+        tsEnum(
+          ".Error.code.",
+          [100, 101, 102],
+          [{ name: "0a" }, { name: "1b" }, { name: "2c" }],
+        ),
       ).trim(),
     ).toBe(`enum ErrorCode {
     Value0a = 100,
     Value1b = 101,
     Value2c = 102
+}`);
+  });
+
+  it("partial x-enum-varnames and x-enum-descriptions", () => {
+    expect(
+      astToString(
+        tsEnum(
+          ".Error.code.",
+          [100, 101, 102],
+          [
+            { name: "Unauthorized", description: "User is unauthorized" },
+            { name: "NotFound" },
+          ],
+        ),
+      ).trim(),
+    ).toBe(`enum ErrorCode {
+    // User is unauthorized
+    Unauthorized = 100,
+    NotFound = 101,
+    Value102 = 102
 }`);
   });
 
@@ -183,11 +215,13 @@ describe("tsEnum", () => {
         tsEnum(
           ".Error.code.",
           [100, 101, 102],
-          ["Unauthorized", "NotFound", "PermissionDenied"],
           [
-            "User is unauthorized",
-            "Item not found",
-            "User doesn't have permissions",
+            { name: "Unauthorized", description: "User is unauthorized" },
+            { name: "NotFound", description: "Item not found" },
+            {
+              name: "PermissionDenied",
+              description: "User doesn't have permissions",
+            },
           ],
         ),
       ).trim(),
