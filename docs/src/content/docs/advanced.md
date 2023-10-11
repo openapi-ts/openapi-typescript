@@ -521,3 +521,44 @@ Cat: { type?: "cat"; } & components["schemas"]["PetCommonProperties"];
 _Note: you optionally could provide `discriminator.propertyName: "type"` on `Pet` ([docs](https://spec.openapis.org/oas/v3.1.0#discriminator-object)) to automatically generate the `type` key, but is less explicit._
 
 While the schema permits you to use composition in any way you like, it’s good to always take a look at the generated types and see if there’s a simpler way to express your unions & intersections. Limiting the use of `oneOf` is not the only way to do that, but often yields the greatest benefits.
+
+### Enum with custom names and descriptions
+
+`x-enum-varnames` can be used to have another enum name for the corresponding value. This is used to define names of the enum items.
+
+`x-enum-descriptions` can be used to provide an individual description for each value. This is used for comments in the code (like javadoc if the target language is java).
+
+`x-enum-descriptions` and `x-enum-varnames` are each expected to be list of items containing the same number of items as enum. The order of the items in the list matters: their position is used to group them together.
+
+Example:
+
+```yaml
+ErrorCode:
+  type: integer
+  format: int32
+  enum:
+    - 100
+    - 200
+    - 300
+  x-enum-varnames:
+    - Unauthorized
+    - AccessDenied
+    - Unknown
+  x-enum-descriptions:
+    - "User is not authorized"
+    - "User has no access to this resource"
+    - "Something went wrong"
+```
+
+Will result in:
+
+```ts
+enum ErrorCode {
+  // User is not authorized
+  Unauthorized = 100
+  // User has no access to this resource
+  AccessDenied = 200
+  // Something went wrong
+  Unknown = 300
+}
+```

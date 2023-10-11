@@ -124,9 +124,14 @@ export function transformSchemaObjectWithComposition(
       let enumName = parseRef(options.path ?? "").pointer.join("/");
       // allow #/components/schemas to have simpler names
       enumName = enumName.replace("components/schemas", "");
+      const metadata = schemaObject.enum.map((_, i) => ({
+        name: schemaObject["x-enum-varnames"]?.[i],
+        description: schemaObject["x-enum-descriptions"]?.[i],
+      }));
       const enumType = tsEnum(
         enumName,
         schemaObject.enum as (string | number)[],
+        metadata,
         { export: true, readonly: options.ctx.immutable },
       );
       options.ctx.injectFooter.push(enumType);
