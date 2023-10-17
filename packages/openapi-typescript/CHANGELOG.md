@@ -2,41 +2,47 @@
 
 ## 7.0.0
 
+### Minor Changes
+
+- [#1374](https://github.com/drwpow/openapi-typescript/pull/1374) [`7ac5174`](https://github.com/drwpow/openapi-typescript/commit/7ac5174a1f767c1103573543bb17622ac8d25fe4) Thanks [@ElForastero](https://github.com/ElForastero)! - Add support for x-enum-varnames and x-enum-descriptions
+
+## 7.0.0
+
 ### Major Changes
 
 - [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: The Node.js API now returns the TypeScript AST for the main method as well as `transform()` and `postTransform()`. To migrate, you’ll have to use the `typescript` compiler API:
 
-    ```diff
-    + import ts from "typescript";
+  ```diff
+  + import ts from "typescript";
 
-    + const DATE = ts.factory.createIdentifier("Date");
-    + const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull());
+  + const DATE = ts.factory.createIdentifier("Date");
+  + const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull());
 
-      const ast = await openapiTS(mySchema, {
-        transform(schemaObject, metadata) {
-          if (schemaObject.format === "date-time") {
-    -       return schemaObject.nullable ? "Date | null" : "Date";
-    +       return schemaObject.nullable
-    +         ? ts.factory.createUnionTypeNode([DATE, NULL])
-    +         : DATE;
-          }
-        },
-      };
-    ```
+    const ast = await openapiTS(mySchema, {
+      transform(schemaObject, metadata) {
+        if (schemaObject.format === "date-time") {
+  -       return schemaObject.nullable ? "Date | null" : "Date";
+  +       return schemaObject.nullable
+  +         ? ts.factory.createUnionTypeNode([DATE, NULL])
+  +         : DATE;
+        }
+      },
+    };
+  ```
 
-    Though it’s more verbose, it’s also more powerful, as now you have access to additional properties of the generated code you didn’t before (such as injecting comments).
+  Though it’s more verbose, it’s also more powerful, as now you have access to additional properties of the generated code you didn’t before (such as injecting comments).
 
-    For example syntax, search this codebae to see how the TypeScript AST is used.
+  For example syntax, search this codebae to see how the TypeScript AST is used.
 
-    Also see [AST Explorer](https://astexplorer.net/)’s `typescript` parser to inspect how TypeScript is interpreted as an AST.
+  Also see [AST Explorer](https://astexplorer.net/)’s `typescript` parser to inspect how TypeScript is interpreted as an AST.
 
 - [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: Changing of several CLI flags and Node.js API options
 
-    - The `--auth`, `--httpHeaders`, `--httpMethod`, and `fetch` (Node.js-only) options were all removed from the CLI and Node.js API
-        - To migrate, you’ll need to create a [redocly.yaml config](https://redocly.com/docs/cli/configuration/) that specifies your auth options [in the http setting](https://redocly.com/docs/cli/configuration/#resolve-non-public-or-non-remote-urls)
-        - You can also set your fetch client in redocly.yaml as well.
-    - `--immutable-types` has been renamed to `--immutable`
-    - `--support-array-length` has been renamed to `--array-length`
+  - The `--auth`, `--httpHeaders`, `--httpMethod`, and `fetch` (Node.js-only) options were all removed from the CLI and Node.js API
+    - To migrate, you’ll need to create a [redocly.yaml config](https://redocly.com/docs/cli/configuration/) that specifies your auth options [in the http setting](https://redocly.com/docs/cli/configuration/#resolve-non-public-or-non-remote-urls)
+    - You can also set your fetch client in redocly.yaml as well.
+  - `--immutable-types` has been renamed to `--immutable`
+  - `--support-array-length` has been renamed to `--array-length`
 
 - [`fbaf96d`](https://github.com/drwpow/openapi-typescript/commit/fbaf96d33181a2fabd3d4748e54c0f111ed6756e) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: Remove globbing schemas in favor of `redocly.yaml` config. Specify multiple schemas with outputs in there instead. See [Multiple schemas](https://openapi-ts.pages.dev/docs/cli/#multiple-schemas) for more info.
 
