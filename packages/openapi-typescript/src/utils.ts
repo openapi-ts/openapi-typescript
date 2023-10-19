@@ -316,7 +316,6 @@ export function isFilepath(url: string): boolean {
 }
 
 export function getDefaultFetch(): Fetch {
-  // @ts-expect-error globalThis doesn’t have a type
   const globalFetch: Fetch | undefined = globalThis.fetch;
   if (typeof globalFetch === "undefined") {
     return unidiciFetch;
