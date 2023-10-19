@@ -196,6 +196,52 @@ export interface paths {
       };
     };
   };
+  "/query-params": {
+    get: {
+      parameters: {
+        query?: {
+          string?: string;
+          number?: number;
+          boolean?: boolean;
+          array?: string[];
+          object?: {
+            foo: string;
+            deep: {
+              nested: {
+                object: string;
+              };
+            };
+          };
+        };
+      };
+      responses: {
+        200: {
+          content: {
+            "application/json": {
+              status: string;
+            };
+          };
+        };
+        default: components["responses"]["Error"];
+      };
+    };
+    parameters: {
+      query?: {
+        string?: string;
+        number?: number;
+        boolean?: boolean;
+        array?: string[];
+        object?: {
+          foo: string;
+          deep: {
+            nested: {
+              object: string;
+            };
+          };
+        };
+      };
+    };
+  };
   "/default-as-error": {
     get: {
       responses: {

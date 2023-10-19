@@ -301,16 +301,64 @@ export default function createClient<Paths extends {}>(
 
 /** serialize query params to string */
 export function defaultQuerySerializer<T = unknown>(q: T): string {
-  const search = new URLSearchParams();
+  const search: string[] = [];
   if (q && typeof q === "object") {
     for (const [k, v] of Object.entries(q)) {
-      if (v === undefined || v === null) {
-        continue;
+      const value = defaultQueryParamSerializer([k], v);
+      if (value !== undefined) {
+        search.push(value);
       }
-      search.set(k, v);
     }
   }
-  return search.toString();
+  return search.join("&");
+}
+
+/** serialize different query param schema types to a string */
+export function defaultQueryParamSerializer<T = unknown>(
+  key: string[],
+  value: T,
+): string | undefined {
+  if (value === null || value === undefined) {
+    return undefined;
+  }
+  if (typeof value === "string") {
+    return `${deepObjectPath(key)}=${encodeURIComponent(value)}`;
+  }
+  if (typeof value === "number" || typeof value === "boolean") {
+    return `${deepObjectPath(key)}=${String(value)}`;
+  }
+  if (Array.isArray(value)) {
+    const nextValue: string[] = [];
+    for (const item of value) {
+      const next = defaultQueryParamSerializer(key, item);
+      if (next !== undefined) {
+        nextValue.push(next);
+      }
+    }
+    return nextValue.join(`&`);
+  }
+  if (typeof value === "object") {
+    const nextValue: string[] = [];
+    for (const [k, v] of Object.entries(value)) {
+      if (v !== undefined && v !== null) {
+        const next = defaultQueryParamSerializer([...key, k], v);
+        if (next !== undefined) {
+          nextValue.push(next);
+        }
+      }
+    }
+    return nextValue.join("&");
+  }
+  return encodeURIComponent(`${deepObjectPath(key)}=${String(value)}`);
+}
+
+/** flatten a node path into a deepObject string */
+function deepObjectPath(path: string[]): string {
+  let output = path[0]!;
+  for (const k of path.slice(1)) {
+    output += `[${k}]`;
+  }
+  return output;
 }
 
 /** serialize body object to string */

@@ -196,6 +196,62 @@ paths:
           description: No Content
         500:
           $ref: '#/components/responses/Error'
+  /query-params:
+    parameters:
+      - in: query
+        name: string
+        schema:
+          type: string
+      - in: query
+        name: number
+        schema:
+          type: number
+      - in: query
+        name: boolean
+        schema:
+          type: boolean
+      - in: query
+        name: array
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: object
+        schema:
+          type: object
+          required:
+            - foo
+            - deep
+          properties:
+            foo:
+              type: string
+            deep:
+              type: object
+              required:
+                - nested
+              properties:
+                nested:
+                  type: object
+                  required:
+                    - object
+                  properties:
+                    object:
+                      type: string
+    get:
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                required:
+                  - status
+        default:
+          $ref: '#/components/responses/Error'
   /default-as-error:
     get:
       responses:

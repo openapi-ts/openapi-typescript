@@ -157,46 +157,60 @@ describe("client", () => {
       });
 
       describe("query", () => {
-        it("basic", async () => {
+        it("primitives", async () => {
           const client = createClient<paths>();
           mockFetchOnce({ status: 200, body: "{}" });
-          await client.GET("/blogposts/{post_id}", {
+          await client.GET("/query-params", {
             params: {
-              path: { post_id: "my-post" },
-              query: { version: 2, format: "json" },
+              query: { string: "string", number: 0, boolean: false },
             },
           });
 
           expect(fetchMocker.mock.calls[0][0]).toBe(
-            "/blogposts/my-post?version=2&format=json",
+            "/query-params?string=string&number=0&boolean=false",
           );
         });
 
         it("array params", async () => {
           const client = createClient<paths>();
           mockFetchOnce({ status: 200, body: "{}" });
-          await client.GET("/blogposts", {
+          await client.GET("/query-params", {
             params: {
-              query: { tags: ["one", "two", "three"] },
+              query: { array: ["one", "two", "three"] },
             },
           });
 
           expect(fetchMocker.mock.calls[0][0]).toBe(
-            "/blogposts?tags=one%2Ctwo%2Cthree",
+            "/query-params?array=one&array=two&array=three",
+          );
+        });
+
+        it("object params", async () => {
+          const client = createClient<paths>();
+          mockFetchOnce({ status: 200, body: "{}" });
+          await client.GET("/query-params", {
+            params: {
+              query: {
+                object: { foo: "foo", deep: { nested: { object: "bar" } } },
+              },
+            },
+          });
+
+          expect(fetchMocker.mock.calls[0][0]).toBe(
+            "/query-params?object[foo]=foo&object[deep][nested][object]=bar",
           );
         });
 
         it("empty/null params", async () => {
           const client = createClient<paths>();
           mockFetchOnce({ status: 200, body: "{}" });
-          await client.GET("/blogposts/{post_id}", {
+          await client.GET("/query-params", {
             params: {
-              path: { post_id: "my-post" },
-              query: { version: undefined, format: null as any },
+              query: { string: undefined, number: null as any },
             },
           });
 
-          expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post");
+          expect(fetchMocker.mock.calls[0][0]).toBe("/query-params");
         });
 
         describe("querySerializer", () => {
