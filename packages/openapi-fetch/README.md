@@ -36,7 +36,7 @@ await PUT("/blogposts", {
 
 `data` and `error` are typechecked and expose their shapes to Intellisence in VS Code (and any other IDE with TypeScript support). Likewise, the request `body` will also typecheck its fields, erring if any required params are missing, or if there’s a type mismatch.
 
-`GET`, `PUT`, `POST`, etc. are only thin wrappers around the native [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) (which you can [swap for any call](/openapi-fetch/api#create-client)).
+`GET`, `PUT`, `POST`, etc. are only thin wrappers around the native [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) (which you can [swap for any call](https://openapi-ts.pages.dev/openapi-fetch/api/#create-client)).
 
 Notice there are no generics, and no manual typing. Your endpoint’s request and response were inferred automatically. This is a huge improvement in the type safety of your endpoints because **every manual assertion could lead to a bug**! This eliminates all of the following:
 
