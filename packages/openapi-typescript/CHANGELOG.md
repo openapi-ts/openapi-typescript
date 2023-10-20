@@ -67,6 +67,8 @@
 
 - [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: Added debugger that lets you profile performance and see more in-depth messages
 
+- [#1374](https://github.com/drwpow/openapi-typescript/pull/1374) [`7ac5174`](https://github.com/drwpow/openapi-typescript/commit/7ac5174a1f767c1103573543bb17622ac8d25fe4) Thanks [@ElForastero](https://github.com/ElForastero)! - Add support for x-enum-varnames and x-enum-descriptions
+
 ### Patch Changes
 
 - [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - Refactor internals to use TypeScript AST rather than string mashing
