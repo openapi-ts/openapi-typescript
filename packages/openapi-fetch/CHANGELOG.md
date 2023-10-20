@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.8.0
+
+### Minor Changes
+
+- [#1399](https://github.com/drwpow/openapi-typescript/pull/1399) [`4fca1e4`](https://github.com/drwpow/openapi-typescript/commit/4fca1e477f524223fa8921559caef6bb364dc194) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: change default querySerializer behavior to produce `style: form`, `explode: true` query params [according to the OpenAPI specification]((https://swagger.io/docs/specification/serialization/#query). Also adds support for `deepObject`s (square bracket style).
+
 ## 0.7.10
 
 ### Patch Changes
