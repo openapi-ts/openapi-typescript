@@ -39,7 +39,7 @@ client.get("/my-url", options);
 
 ### querySerializer
 
-This library uses <a href="https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams" target="_blank" rel="noopener noreferrer">URLSearchParams</a> to <a href="https://swagger.io/docs/specification/serialization/" target="_blank" rel="noopener noreferrer">serialize query parameters</a>. For complex query param types (e.g. arrays) you’ll need to provide your own `querySerializer()` method that transforms query params into a URL-safe string:
+By default, this library serializes query parameters using `style: form` and `explode: true` [according to the OpenAPI specification](https://swagger.io/docs/specification/serialization/#query). To change the default behavior, you can supply your own `querySerializer()` function either on the root `createClient()` as well as optionally on an individual request. This is useful if your backend expects modifications like the addition of `[]` for array params:
 
 ```ts
 const { data, error } = await GET("/search", {

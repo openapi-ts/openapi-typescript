@@ -394,6 +394,69 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/query-params": {
+        parameters: {
+            query?: {
+                string?: string;
+                number?: number;
+                boolean?: boolean;
+                array?: string[];
+                object?: {
+                    foo: string;
+                    deep: {
+                        nested: {
+                            object: string;
+                        };
+                    };
+                };
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    string?: string;
+                    number?: number;
+                    boolean?: boolean;
+                    array?: string[];
+                    object?: {
+                        foo: string;
+                        deep: {
+                            nested: {
+                                object: string;
+                            };
+                        };
+                    };
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            status: string;
+                        };
+                    };
+                };
+                default: components["responses"]["Error"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/default-as-error": {
         parameters: {
             query?: never;
