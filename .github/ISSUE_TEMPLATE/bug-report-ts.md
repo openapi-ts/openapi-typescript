@@ -31,4 +31,4 @@ _(in case it’s not obvious)_
 **Checklist**
 
 - [ ] My OpenAPI schema passes the [Redocly validator](https://redocly.com/docs/cli/commands/lint/) (`npx @redocly/cli@latest lint`)
-- [ ] I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/drwpow/openapi-typescript/blob/main/CONTRIBUTING.md))
+- [ ] I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-typescript/CONTRIBUTING.md))

@@ -16,4 +16,4 @@ _Outline the change to the library. If this is for the CLI, propose a flag name 
 
 **Checklist**
 
-- [ ] I’m willing to open a PR for this (see [CONTRIBUTING.md](https://github.com/drwpow/openapi-typescript/blob/main/CONTRIBUTING.md))
+- [ ] I’m willing to open a PR for this (see [CONTRIBUTING.md](https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-typescript/CONTRIBUTING.md))
