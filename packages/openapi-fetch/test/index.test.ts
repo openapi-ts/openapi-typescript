@@ -185,6 +185,18 @@ describe("client", () => {
           );
         });
 
+        it("array params (empty)", async () => {
+          const client = createClient<paths>();
+          mockFetchOnce({ status: 200, body: "{}" });
+          await client.GET("/query-params", {
+            params: {
+              query: { array: [] },
+            },
+          });
+
+          expect(fetchMocker.mock.calls[0][0]).toBe("/query-params");
+        });
+
         it("object params", async () => {
           const client = createClient<paths>();
           mockFetchOnce({ status: 200, body: "{}" });
