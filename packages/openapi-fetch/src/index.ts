@@ -305,7 +305,7 @@ export function defaultQuerySerializer<T = unknown>(q: T): string {
   if (q && typeof q === "object") {
     for (const [k, v] of Object.entries(q)) {
       const value = defaultQueryParamSerializer([k], v);
-      if (value !== undefined) {
+      if (value) {
         search.push(value);
       }
     }
@@ -328,6 +328,9 @@ export function defaultQueryParamSerializer<T = unknown>(
     return `${deepObjectPath(key)}=${String(value)}`;
   }
   if (Array.isArray(value)) {
+    if (!value.length) {
+      return undefined;
+    }
     const nextValue: string[] = [];
     for (const item of value) {
       const next = defaultQueryParamSerializer(key, item);
@@ -338,6 +341,9 @@ export function defaultQueryParamSerializer<T = unknown>(
     return nextValue.join(`&`);
   }
   if (typeof value === "object") {
+    if (!Object.keys(value).length) {
+      return undefined;
+    }
     const nextValue: string[] = [];
     for (const [k, v] of Object.entries(value)) {
       if (v !== undefined && v !== null) {
