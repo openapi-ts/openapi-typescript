@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.8.1
+
+### Patch Changes
+
+- [#1404](https://github.com/drwpow/openapi-typescript/pull/1404) [`93204e4`](https://github.com/drwpow/openapi-typescript/commit/93204e4de1b6e0469fdc8b710f5b279671570a9a) Thanks [@drwpow](https://github.com/drwpow)! - Fix behavior for empty arrays and objects in default `querySerializer`
+
 ## 0.8.0
 
 ### Minor Changes
