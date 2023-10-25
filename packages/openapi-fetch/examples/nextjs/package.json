@@ -7,7 +7,7 @@
     "prepare": "openapi-typescript lib/api/v1.json -o lib/api/v1.d.ts"
   },
   "dependencies": {
-    "next": "13.4.19",
+    "next": "13.5.0",
     "openapi-fetch": "workspace:^",
     "react": "18.2.0",
     "react-dom": "18.2.0"
