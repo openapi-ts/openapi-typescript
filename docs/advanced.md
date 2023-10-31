@@ -19,8 +19,6 @@ To only see certain types of debug messages, you can set `DEBUG=openapi-ts:[scop
 
 Note that debug messages will be suppressed if the output is `stdout`.
 
-In no particular order, here are a few best practices to make life easier when working with OpenAPI-derived types.
-
 ## Enum extensions
 
 `x-enum-varnames` can be used to have another enum name for the corresponding value. This is used to define names of the enum items.
