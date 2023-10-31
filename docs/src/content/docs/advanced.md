@@ -16,6 +16,17 @@ Fetching data can be done simply and safely using an **automatically-typed fetch
 >
 > A good fetch wrapper should **never use generics.** Generics require more typing and can hide errors!
 
+## Integrating with Mock-Service-Worker (MSW)
+
+Using `openapi-typescript` and a wrapper around fetch, such as `openapi-fetch`, ensures that our application's API client does not have conflicts with your OpenAPI specification.
+However, while you can address issues with the API client easily, you have to "manually" remember to adjust API mocks since there is no mechanism that warns you about conflicts.
+
+If you are using [Mock Service Worker (MSW)](https://mswjs.io) to define your API mocks, you can use a **small, automatically-typed wrapper** around MSW, which enables you to address conflicts in your API mocks easily when your OpenAPI specification changes. Ultimately, you can have the same level of confidence in your application's API client **and** API mocks. 
+
+We recommend the following wrapper, which works flawlessly with `openapi-typescript`:
+
+- [openapi-msw](https://www.npmjs.com/package/openapi-msw) by [@christoph-fricke](https://github.com/christoph-fricke)
+
 ## Testing
 
 One of the most common causes of false positive tests is when mocks are out-of-date with the actual API responses.
