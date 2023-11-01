@@ -118,7 +118,7 @@ That would result in the following change:
 
 ```diff
 - updated_at?: string;
-+ updated_at?: Date;
++ updated_at: Date | null;
 ```
 
 #### Example: `Blob` types
@@ -158,7 +158,51 @@ Resultant diff with correctly-typed `file` property:
 
 ```diff
 - file?: string;
-+ file?: Blob;
++ file: Blob | null;
+```
+
+#### Example: Add "?" token to property
+
+It is not possible to create a property with the optional "?" token with the above `transform` functions. The transform function also accepts a different return object, which allows you to add a "?" token to the property. Here's an example schema:
+
+```yaml
+Body_file_upload:
+  type: object;
+  properties:
+    file:
+      type: string;
+      format: binary;
+      required: true;
+```
+
+Here we return an object with a schema property, which is the same as the above example, but we also add a `questionToken` property, which will add the "?" token to the property.
+
+```ts
+import openapiTS from "openapi-typescript";
+import ts from "typescript";
+
+const BLOB = ts.factory.createIdentifier("Blob"); // `Blob`
+const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
+
+const ast = await openapiTS(mySchema, {
+  transform(schemaObject, metadata) {
+    if (schemaObject.format === "binary") {
+      return {
+        schema: schemaObject.nullable
+          ? ts.factory.createUnionTypeNode([BLOB, NULL])
+          : BLOB,
+        questionToken: true,
+      };
+    }
+  },
+});
+```
+
+Resultant diff with correctly-typed `file` property and "?" token:
+
+```diff
+- file: Blob;
++ file?: Blob | null;
 ```
 
 Any [Schema Object](https://spec.openapis.org/oas/latest.html#schema-object) present in your schema will be run through this formatter (even remote ones!). Also be sure to check the `metadata` parameter for additional context that may be helpful.

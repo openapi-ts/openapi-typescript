@@ -88,16 +88,6 @@ export function transformSchemaObjectWithComposition(
   }
 
   /**
-   * transform()
-   */
-  if (typeof options.ctx.transform === "function") {
-    const result = options.ctx.transform(schemaObject, options);
-    if (result !== undefined && result !== null) {
-      return result;
-    }
-  }
-
-  /**
    * const (valid for any type)
    */
   if (schemaObject.const !== null && schemaObject.const !== undefined) {
@@ -461,18 +451,31 @@ function transformSchemaObjectCore(
             continue;
           }
         }
-        const optional =
+        let optional =
           schemaObject.required?.includes(k) ||
           ("default" in v && options.ctx.defaultNonNullable)
             ? undefined
             : QUESTION_TOKEN;
-        const type =
+        let type =
           "$ref" in v
             ? oapiRef(v.$ref)
             : transformSchemaObject(v, {
                 ...options,
                 path: createRef([options.path ?? "", k]),
               });
+
+        if (typeof options.ctx.transform === "function") {
+          const result = options.ctx.transform(v, options);
+          if (result) {
+            if ("schema" in result) {
+              type = result.schema;
+              optional = result.questionToken ? QUESTION_TOKEN : optional;
+            } else {
+              type = result;
+            }
+          }
+        }
+
         const property = ts.factory.createPropertySignature(
           /* modifiers     */ tsModifiers({
             readonly:

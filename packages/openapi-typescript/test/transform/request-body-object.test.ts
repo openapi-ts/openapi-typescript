@@ -1,4 +1,5 @@
 import { fileURLToPath } from "node:url";
+import ts from "typescript";
 import { astToString } from "../../src/lib/ts.js";
 import transformRequestBodyObject from "../../src/transform/request-body-object.js";
 import { DEFAULT_CTX, TestCase } from "../test-helpers.js";
@@ -7,6 +8,8 @@ const DEFAULT_OPTIONS = {
   path: "#/paths/~1get-item/get",
   ctx: { ...DEFAULT_CTX },
 };
+
+const BLOB = ts.factory.createTypeReferenceNode("Blob");
 
 describe("transformRequestBodyObject", () => {
   const tests: TestCase[] = [
@@ -48,6 +51,45 @@ describe("transformRequestBodyObject", () => {
     };
 }`,
         // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "optional blob property with transform",
+      {
+        given: {
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: {
+                  blob: { type: "string", format: "binary" },
+                },
+              },
+            },
+          },
+        },
+        want: `{
+    content: {
+        "application/json": {
+            /** Format: binary */
+            blob?: Blob;
+        };
+    };
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: {
+            ...DEFAULT_CTX,
+            transform(schemaObject) {
+              if (schemaObject.format === "binary") {
+                return {
+                  schema: BLOB,
+                  questionToken: true,
+                };
+              }
+            },
+          },
+        },
       },
     ],
   ];
