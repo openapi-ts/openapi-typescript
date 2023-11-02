@@ -72,6 +72,37 @@ client.GET("/some-authenticated-url", {
 });
 ```
 
+### Vanilla JS getter
+
+You can also use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get" target="_blank" rel="noopener noreferrer">getter</a>:
+
+```ts
+// src/lib/api/index.ts
+import createClient from "openapi-fetch";
+import { paths } from "./v1";
+
+let authToken: string | undefined = undefined;
+someAuthMethod().then((newToken) => (authToken = newToken));
+
+export default createClient<paths>({
+  baseUrl: "https://myapi.dev/v1/",
+  headers: {
+    get Authorization() {
+      return authToken ? `Bearer ${authToken}` : undefined
+    }
+  }
+});
+```
+
+```ts
+// src/some-other-file.ts
+import client from "./lib/api";
+
+client.GET("/some-authenticated-url", {
+  /* … */
+});
+```
+
 ## Frameworks
 
 openapi-fetch is simple vanilla JS that can be used in any project. But sometimes the implementation in a framework may come with some prior art that helps you get the most out of your usage.
