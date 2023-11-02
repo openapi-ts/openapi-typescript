@@ -115,8 +115,12 @@ export function transformSchemaObjectWithComposition(
       // allow #/components/schemas to have simpler names
       enumName = enumName.replace("components/schemas", "");
       const metadata = schemaObject.enum.map((_, i) => ({
-        name: schemaObject["x-enum-varnames"]?.[i] ?? schemaObject["x-enumNames"]?.[i],
-        description: schemaObject["x-enum-descriptions"]?.[i] ?? schemaObject["x-enumDescriptions"]?.[i],
+        name:
+          schemaObject["x-enum-varnames"]?.[i] ??
+          schemaObject["x-enumNames"]?.[i],
+        description:
+          schemaObject["x-enum-descriptions"]?.[i] ??
+          schemaObject["x-enumDescriptions"]?.[i],
       }));
       const enumType = tsEnum(
         enumName,
