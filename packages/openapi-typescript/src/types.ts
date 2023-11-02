@@ -467,6 +467,11 @@ export type SchemaObject = {
   | {}
 );
 
+export interface TransformObject {
+  schema: ts.TypeNode;
+  questionToken: boolean;
+}
+
 export interface StringSubtype {
   type: "string" | ["string", "null"];
   enum?: (string | ReferenceObject)[];
@@ -646,7 +651,7 @@ export interface OpenAPITSOptions {
   transform?: (
     schemaObject: SchemaObject,
     options: TransformNodeOptions,
-  ) => ts.TypeNode | undefined;
+  ) => ts.TypeNode | TransformObject | undefined;
   /** Modify TypeScript types built from Schema Objects */
   postTransform?: (
     type: ts.TypeNode,

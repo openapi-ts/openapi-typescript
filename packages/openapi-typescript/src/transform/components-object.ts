@@ -1,6 +1,7 @@
 import ts from "typescript";
 import {
   NEVER,
+  QUESTION_TOKEN,
   addJSDocComment,
   tsModifiers,
   tsPropertyIndex,
@@ -9,6 +10,7 @@ import { createRef, debug, getEntries } from "../lib/utils.js";
 import {
   ComponentsObject,
   GlobalContext,
+  SchemaObject,
   TransformNodeOptions,
 } from "../types.js";
 import transformHeaderObject from "./header-object.js";
@@ -51,14 +53,31 @@ export default function transformComponentsObject(
     const items: ts.TypeElement[] = [];
     if (componentsObject[key]) {
       for (const [name, item] of getEntries(componentsObject[key], ctx)) {
-        const subType = transformers[key](item, {
+        let subType = transformers[key](item, {
           path: createRef(["components", key, name]),
           ctx,
         });
+
+        let hasQuestionToken = false;
+        if (ctx.transform) {
+          const result = ctx.transform(item as SchemaObject, {
+            path: createRef(["components", key, name]),
+            ctx,
+          });
+          if (result) {
+            if ("schema" in result) {
+              subType = result.schema;
+              hasQuestionToken = result.questionToken;
+            } else {
+              subType = result;
+            }
+          }
+        }
+
         const property = ts.factory.createPropertySignature(
           /* modifiers     */ tsModifiers({ readonly: ctx.immutable }),
           /* name          */ tsPropertyIndex(name),
-          /* questionToken */ undefined,
+          /* questionToken */ hasQuestionToken ? QUESTION_TOKEN : undefined,
           /* type          */ subType,
         );
         addJSDocComment(item as unknown as any, property); // eslint-disable-line @typescript-eslint/no-explicit-any

@@ -1,10 +1,13 @@
 import { fileURLToPath } from "node:url";
-import { astToString } from "../../src/lib/ts.js";
+import ts from "typescript";
+import { NULL, astToString } from "../../src/lib/ts.js";
 import transformComponentsObject from "../../src/transform/components-object.js";
 import type { GlobalContext } from "../../src/types.js";
 import { DEFAULT_CTX, TestCase } from "../test-helpers.js";
 
 const DEFAULT_OPTIONS = DEFAULT_CTX;
+
+const DATE = ts.factory.createTypeReferenceNode("Date");
 
 describe("transformComponentsObject", () => {
   const tests: TestCase<any, GlobalContext>[] = [
@@ -459,6 +462,45 @@ describe("transformComponentsObject", () => {
     pathItems: never;
 }`,
         options: { ...DEFAULT_OPTIONS, excludeDeprecated: true },
+      },
+    ],
+    [
+      "transform > with transform object",
+      {
+        given: {
+          schemas: {
+            Alpha: {
+              type: "object",
+              properties: {
+                z: { type: "string", format: "date-time" },
+              },
+            },
+          },
+        },
+        want: `{
+    schemas: {
+        Alpha: {
+            /** Format: date-time */
+            z?: Date | null;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          transform(schemaObject) {
+            if (schemaObject.format === "date-time") {
+              return {
+                schema: ts.factory.createUnionTypeNode([DATE, NULL]),
+                questionToken: true,
+              };
+            }
+          },
+        },
       },
     ],
   ];

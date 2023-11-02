@@ -6,6 +6,10 @@ import { TestCase } from "./test-helpers.js";
 
 const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
 
+const DATE = ts.factory.createTypeReferenceNode(
+  ts.factory.createIdentifier("Date"),
+);
+
 describe("Node.js API", () => {
   const tests: TestCase<any, OpenAPITSOptions>[] = [
     [
@@ -382,9 +386,49 @@ export type operations = Record<string, never>;`,
                * then use the `typescript` parser and it will tell you the desired
                * AST
                */
-              return ts.factory.createTypeReferenceNode(
-                ts.factory.createIdentifier("Date"),
-              );
+              return DATE;
+            }
+          },
+        },
+      },
+    ],
+    [
+      "options > transform with schema object",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          components: {
+            schemas: {
+              Date: { type: "string", format: "date-time" },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        /** Format: date-time */
+        Date?: Date;
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+        options: {
+          transform(schemaObject) {
+            if (
+              "format" in schemaObject &&
+              schemaObject.format === "date-time"
+            ) {
+              return {
+                schema: DATE,
+                questionToken: true,
+              };
             }
           },
         },
