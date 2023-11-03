@@ -3,7 +3,7 @@ import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 // @ts-expect-error
 import createFetchMock from "vitest-fetch-mock";
 import createClient from "../src/index.js";
-import type { paths } from "./v1.d.js";
+import type { paths } from "./fixtures/api.js";
 
 const fetchMocker = createFetchMock(vi);
 

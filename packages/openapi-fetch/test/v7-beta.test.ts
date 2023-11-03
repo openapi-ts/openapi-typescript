@@ -3,7 +3,7 @@ import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 // @ts-expect-error
 import createFetchMock from "vitest-fetch-mock";
 import createClient from "../src/index.js";
-import type { paths } from "./v7-beta.js";
+import type { paths } from "./fixtures/v7-beta.js";
 
 // Note
 // This is a copy of index.test.ts, but uses generated types from openapi-typescript@7 (beta).
