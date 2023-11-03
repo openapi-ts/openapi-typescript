@@ -47,11 +47,11 @@
     "svelte"
   ],
   "scripts": {
-    "build": "pnpm run build:clean && pnpm run build:ts && pnpm run build:ts-min && pnpm run build:cjs",
+    "build": "pnpm run build:clean && pnpm run build:js && pnpm run build:js-min && pnpm run build:cjs",
     "build:clean": "del dist",
-    "build:ts": "tsc -p tsconfig.build.json",
-    "build:ts-min": "esbuild --bundle src/index.ts --format=esm --minify --outfile=dist/index.min.js && cp dist/index.d.ts dist/index.min.d.ts",
-    "build:cjs": "esbuild --bundle src/index.ts --format=cjs --outfile=dist/cjs/index.cjs && cp dist/index.d.ts dist/cjs/index.d.cts",
+    "build:js": "mkdir -p dist && cp src/* dist",
+    "build:js-min": "esbuild --bundle src/index.js --format=esm --minify --outfile=dist/index.min.js && cp dist/index.d.ts dist/index.min.d.ts",
+    "build:cjs": "esbuild --bundle src/index.js --format=cjs --outfile=dist/cjs/index.cjs && cp dist/index.d.ts dist/cjs/index.d.cts",
     "lint": "pnpm run lint:js",
     "lint:js": "eslint \"{src,test}/**/*.{js,ts}\"",
     "lint:prettier": "prettier --check \"{src,test}/**/*\"",
@@ -66,10 +66,11 @@
     "openapi-typescript-helpers": "^0.0.4"
   },
   "devDependencies": {
-    "axios": "^1.5.1",
+    "axios": "^1.6.0",
     "del-cli": "^5.1.0",
-    "esbuild": "^0.19.4",
-    "nanostores": "^0.9.3",
+    "esbuild": "^0.19.5",
+    "jsdom": "^22.1.0",
+    "nanostores": "^0.9.4",
     "openapi-typescript": "^6.7.0",
     "openapi-typescript-codegen": "^0.25.0",
     "openapi-typescript-fetch": "^1.1.3",

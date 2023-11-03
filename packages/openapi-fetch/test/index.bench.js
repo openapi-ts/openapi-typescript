@@ -4,7 +4,7 @@ import superagent from "superagent";
 import { afterAll, bench, describe, vi } from "vitest";
 import createFetchMock from "vitest-fetch-mock";
 import createClient from "../dist/index.js";
-import * as openapiTSCodegen from "./openapi-typescript-codegen.min.js";
+import * as openapiTSCodegen from "./fixtures/openapi-typescript-codegen.min.js";
 
 const BASE_URL = "https://api.test.local";
 
