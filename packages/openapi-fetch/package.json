@@ -58,7 +58,7 @@
     "test": "pnpm run test:ts && npm run test:js",
     "test:js": "vitest run",
     "test:ts": "tsc --noEmit",
-    "prepare": "openapi-typescript test/v1.yaml -o test/v1.d.ts",
+    "prepare": "openapi-typescript test/fixtures/api.yaml -o test/fixtures/api.d.ts",
     "prepublish": "pnpm run prepare && pnpm run build",
     "version": "pnpm run prepare && pnpm run build"
   },
@@ -69,7 +69,6 @@
     "axios": "^1.6.0",
     "del-cli": "^5.1.0",
     "esbuild": "^0.19.5",
-    "jsdom": "^22.1.0",
     "nanostores": "^0.9.4",
     "openapi-typescript": "^6.7.0",
     "openapi-typescript-codegen": "^0.25.0",

@@ -78,20 +78,20 @@ export default function createClient(clientOptions) {
 
     // parse response (falling back to .text() when necessary)
     if (response.ok) {
-      let data; // we have to leave this empty here so that we don't consume the body
-      if (parseAs !== "stream") {
-        const cloned = response.clone();
-        data =
+      // if "stream", skip parsing entirely
+      if (parseAs === "stream") {
+        // fix for bun: bun consumes response.body, therefore clone before accessing
+        // TODO: test this?
+        return { data: response.clone().body, response };
+      }
+      const cloned = response.clone();
+      return {
+        data:
           typeof cloned[parseAs] === "function"
             ? await cloned[parseAs]()
-            : await cloned.text();
-      } else {
-        // fix for bun:
-        // bun consumes the body when calling response.body, therefore clone the response before accessing it
-        // TODO: test this?
-        data = response.clone().body;
-      }
-      return { data, response };
+            : await cloned.text(),
+        response,
+      };
     }
 
     // handle errors (always parse as .json() or .text())
