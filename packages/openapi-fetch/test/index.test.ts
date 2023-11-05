@@ -569,23 +569,28 @@ describe("client", () => {
       it("text", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data } = await client.GET("/anyMethod", { parseAs: "text" });
+        const { data }: { data?: string } = await client.GET("/anyMethod", {
+          parseAs: "text",
+        });
         expect(data).toBe("{}");
       });
 
       it("arrayBuffer", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data } = await client.GET("/anyMethod", {
-          parseAs: "arrayBuffer",
-        });
+        const { data }: { data?: ArrayBuffer } = await client.GET(
+          "/anyMethod",
+          { parseAs: "arrayBuffer" },
+        );
         expect(data instanceof ArrayBuffer).toBe(true);
       });
 
       it("blob", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data } = await client.GET("/anyMethod", { parseAs: "blob" });
+        const { data }: { data?: Blob } = await client.GET("/anyMethod", {
+          parseAs: "blob",
+        });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         expect((data as any).constructor.name).toBe("Blob");
       });
@@ -593,7 +598,10 @@ describe("client", () => {
       it("stream", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data } = await client.GET("/anyMethod", { parseAs: "stream" });
+        const { data }: { data?: ReadableStream | null } = await client.GET(
+          "/anyMethod",
+          { parseAs: "stream" },
+        );
         expect(data instanceof Buffer).toBe(true);
       });
     });
