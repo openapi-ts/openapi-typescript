@@ -39,6 +39,15 @@ export type QuerySerializer<T> = (
 export type BodySerializer<T> = (body: OperationRequestBodyContent<T>) => any;
 
 export type ParseAs = "json" | "text" | "blob" | "arrayBuffer" | "stream";
+export type ParseAsResponse<T, K> = K extends ParseAs
+  ? {
+      json: T;
+      text: Awaited<ReturnType<Response["text"]>>;
+      blob: Awaited<ReturnType<Response["blob"]>>;
+      arrayBuffer: Awaited<ReturnType<Response["arrayBuffer"]>>;
+      stream: Response["body"];
+    }[K]
+  : T;
 
 export interface DefaultParamsOption {
   params?: {
@@ -62,9 +71,12 @@ export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never
 
 export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body">;
 
-export type FetchResponse<T> =
+export type FetchResponse<T, O extends FetchOptions<any>> =
   | {
-      data: FilterKeys<SuccessResponse<ResponseObjectMap<T>>, MediaType>;
+      data: ParseAsResponse<
+        FilterKeys<SuccessResponse<ResponseObjectMap<T>>, MediaType>,
+        O["parseAs"]
+      >;
       error?: never;
       response: Response;
     }
@@ -86,13 +98,12 @@ export default function createClient<Paths extends {}>(
   clientOptions?: ClientOptions,
 ): {
   /** Call a GET endpoint */
-  GET<P extends PathsWithMethod<Paths, "get">>(
+  GET<
+    P extends PathsWithMethod<Paths, "get">,
+    O extends FetchOptions<FilterKeys<Paths[P], "get">> = {},
+  >(
     url: P,
-    ...init: HasRequiredKeys<
-      FetchOptions<FilterKeys<Paths[P], "get">>
-    > extends never
-      ? [(FetchOptions<FilterKeys<Paths[P], "get">> | undefined)?]
-      : [FetchOptions<FilterKeys<Paths[P], "get">>]
+    ...init: HasRequiredKeys<O> extends never ? [O?] : [O]
   ): Promise<
     FetchResponse<
       "get" extends infer T
@@ -101,7 +112,8 @@ export default function createClient<Paths extends {}>(
             ? Paths[P][T]
             : unknown
           : never
-        : never
+        : never,
+      O
     >
   >;
   /** Call a PUT endpoint */
