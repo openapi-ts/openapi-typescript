@@ -117,13 +117,12 @@ export default function createClient<Paths extends {}>(
     >
   >;
   /** Call a PUT endpoint */
-  PUT<P extends PathsWithMethod<Paths, "put">>(
+  PUT<
+    P extends PathsWithMethod<Paths, "put">,
+    O extends FetchOptions<FilterKeys<Paths[P], "put">> = {},
+  >(
     url: P,
-    ...init: HasRequiredKeys<
-      FetchOptions<FilterKeys<Paths[P], "put">>
-    > extends never
-      ? [(FetchOptions<FilterKeys<Paths[P], "put">> | undefined)?]
-      : [FetchOptions<FilterKeys<Paths[P], "put">>]
+    ...init: HasRequiredKeys<O> extends never ? [O?] : [O]
   ): Promise<
     FetchResponse<
       "put" extends infer T
@@ -132,17 +131,17 @@ export default function createClient<Paths extends {}>(
             ? Paths[P][T]
             : unknown
           : never
-        : never
+        : never,
+      O
     >
   >;
   /** Call a POST endpoint */
-  POST<P extends PathsWithMethod<Paths, "post">>(
+  POST<
+    P extends PathsWithMethod<Paths, "post">,
+    O extends FetchOptions<FilterKeys<Paths[P], "post">> = {},
+  >(
     url: P,
-    ...init: HasRequiredKeys<
-      FetchOptions<FilterKeys<Paths[P], "post">>
-    > extends never
-      ? [(FetchOptions<FilterKeys<Paths[P], "post">> | undefined)?]
-      : [FetchOptions<FilterKeys<Paths[P], "post">>]
+    ...init: HasRequiredKeys<O> extends never ? [O?] : [O]
   ): Promise<
     FetchResponse<
       "post" extends infer T
@@ -151,17 +150,17 @@ export default function createClient<Paths extends {}>(
             ? Paths[P][T]
             : unknown
           : never
-        : never
+        : never,
+      O
     >
   >;
   /** Call a DELETE endpoint */
-  DELETE<P extends PathsWithMethod<Paths, "delete">>(
+  DELETE<
+    P extends PathsWithMethod<Paths, "delete">,
+    O extends FetchOptions<FilterKeys<Paths[P], "delete">> = {},
+  >(
     url: P,
-    ...init: HasRequiredKeys<
-      FetchOptions<FilterKeys<Paths[P], "delete">>
-    > extends never
-      ? [(FetchOptions<FilterKeys<Paths[P], "delete">> | undefined)?]
-      : [FetchOptions<FilterKeys<Paths[P], "delete">>]
+    ...init: HasRequiredKeys<O> extends never ? [O?] : [O]
   ): Promise<
     FetchResponse<
       "delete" extends infer T
@@ -170,17 +169,17 @@ export default function createClient<Paths extends {}>(
             ? Paths[P][T]
             : unknown
           : never
-        : never
+        : never,
+      O
     >
   >;
   /** Call a OPTIONS endpoint */
-  OPTIONS<P extends PathsWithMethod<Paths, "options">>(
+  OPTIONS<
+    P extends PathsWithMethod<Paths, "options">,
+    O extends FetchOptions<FilterKeys<Paths[P], "options">> = {},
+  >(
     url: P,
-    ...init: HasRequiredKeys<
-      FetchOptions<FilterKeys<Paths[P], "options">>
-    > extends never
-      ? [(FetchOptions<FilterKeys<Paths[P], "options">> | undefined)?]
-      : [FetchOptions<FilterKeys<Paths[P], "options">>]
+    ...init: HasRequiredKeys<O> extends never ? [O?] : [O]
   ): Promise<
     FetchResponse<
       "options" extends infer T
@@ -189,17 +188,17 @@ export default function createClient<Paths extends {}>(
             ? Paths[P][T]
             : unknown
           : never
-        : never
+        : never,
+      O
     >
   >;
   /** Call a HEAD endpoint */
-  HEAD<P extends PathsWithMethod<Paths, "head">>(
+  HEAD<
+    P extends PathsWithMethod<Paths, "head">,
+    O extends FetchOptions<FilterKeys<Paths[P], "head">> = {},
+  >(
     url: P,
-    ...init: HasRequiredKeys<
-      FetchOptions<FilterKeys<Paths[P], "head">>
-    > extends never
-      ? [(FetchOptions<FilterKeys<Paths[P], "head">> | undefined)?]
-      : [FetchOptions<FilterKeys<Paths[P], "head">>]
+    ...init: HasRequiredKeys<O> extends never ? [O?] : [O]
   ): Promise<
     FetchResponse<
       "head" extends infer T
@@ -208,17 +207,17 @@ export default function createClient<Paths extends {}>(
             ? Paths[P][T]
             : unknown
           : never
-        : never
+        : never,
+      O
     >
   >;
   /** Call a PATCH endpoint */
-  PATCH<P extends PathsWithMethod<Paths, "patch">>(
+  PATCH<
+    P extends PathsWithMethod<Paths, "patch">,
+    O extends FetchOptions<FilterKeys<Paths[P], "patch">> = {},
+  >(
     url: P,
-    ...init: HasRequiredKeys<
-      FetchOptions<FilterKeys<Paths[P], "patch">>
-    > extends never
-      ? [(FetchOptions<FilterKeys<Paths[P], "patch">> | undefined)?]
-      : [FetchOptions<FilterKeys<Paths[P], "patch">>]
+    ...init: HasRequiredKeys<O> extends never ? [O?] : [O]
   ): Promise<
     FetchResponse<
       "patch" extends infer T
@@ -227,17 +226,17 @@ export default function createClient<Paths extends {}>(
             ? Paths[P][T]
             : unknown
           : never
-        : never
+        : never,
+      O
     >
   >;
   /** Call a TRACE endpoint */
-  TRACE<P extends PathsWithMethod<Paths, "trace">>(
+  TRACE<
+    P extends PathsWithMethod<Paths, "trace">,
+    O extends FetchOptions<FilterKeys<Paths[P], "trace">> = {},
+  >(
     url: P,
-    ...init: HasRequiredKeys<
-      FetchOptions<FilterKeys<Paths[P], "trace">>
-    > extends never
-      ? [(FetchOptions<FilterKeys<Paths[P], "trace">> | undefined)?]
-      : [FetchOptions<FilterKeys<Paths[P], "trace">>]
+    ...init: HasRequiredKeys<O> extends never ? [O?] : [O]
   ): Promise<
     FetchResponse<
       "trace" extends infer T
@@ -246,7 +245,8 @@ export default function createClient<Paths extends {}>(
             ? Paths[P][T]
             : unknown
           : never
-        : never
+        : never,
+      O
     >
   >;
 };
