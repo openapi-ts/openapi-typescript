@@ -60,6 +60,8 @@ enum ErrorCode {
 }
 ```
 
+Alternatively you can use `x-enumNames` and `x-enumDescriptions` ([NSwag/NJsonSchema](https://github.com/RicoSuter/NJsonSchema/wiki/Enums#enum-names-and-descriptions)).
+
 ## Styleguide
 
 Loose recommendations to improve type generation.

@@ -197,8 +197,6 @@ Now, whenever your schema updates, **all your mock data will be typechecked corr
 
 `x-enum-descriptions` and `x-enum-varnames` are each expected to be list of items containing the same number of items as enum. The order of the items in the list matters: their position is used to group them together.
 
-Alternatively you can use `x-enumNames` and `x-enumDescriptions`.
-
 Example:
 
 ```yaml
@@ -231,6 +229,8 @@ enum ErrorCode {
   Unknown = 300
 }
 ```
+
+Alternatively you can use `x-enumNames` and `x-enumDescriptions` ([NSwag/NJsonSchema](https://github.com/RicoSuter/NJsonSchema/wiki/Enums#enum-names-and-descriptions)).
 
 ## Tips
 
