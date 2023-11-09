@@ -509,6 +509,34 @@ export type operations = Record<string, never>;`,
                 type: "number",
                 enum: [100, 101, 102, 103, 104, 105],
               },
+              XEnumVarnames: {
+                type: "number",
+                enum: [0, 1, 2],
+                "x-enum-varnames": [
+                  "Success",
+                  "Warning",
+                  "Error"
+                ],
+                "x-enum-descriptions": [
+                    "Used when the status of something is successful",
+                    "Used when the status of something has a warning",
+                    "Used when the status of something has an error"
+                ]
+              },              
+              XEnumNames: {
+                type: "number",
+                enum: [1, 2, 3],
+                "x-enumNames": [
+                  "Uno",
+                  "Dos",
+                  "Tres"
+                ],
+                "x-enumDescriptions": [
+                    "El número uno",
+                    "El número dos",
+                    "El número tres"
+                ]
+              },                 
             },
           },
         },
@@ -548,6 +576,10 @@ export interface components {
         Status: Status;
         /** @enum {number} */
         ErrorCode: ErrorCode;
+        /** @enum {number} */
+        XEnumVarnames: XEnumVarnames;
+        /** @enum {number} */
+        XEnumNames: XEnumNames;
     };
     responses: never;
     parameters: never;
@@ -571,6 +603,22 @@ export enum ErrorCode {
     Value103 = 103,
     Value104 = 104,
     Value105 = 105
+}
+export enum XEnumVarnames {
+    // Used when the status of something is successful
+    Success = 0,
+    // Used when the status of something has a warning
+    Warning = 1,
+    // Used when the status of something has an error
+    Error = 2
+}
+export enum XEnumNames {
+    // El número uno
+    Uno = 1,
+    // El número dos
+    Dos = 2,
+    // El número tres
+    Tres = 3
 }
 export type operations = Record<string, never>;`,
         options: { enum: true },
