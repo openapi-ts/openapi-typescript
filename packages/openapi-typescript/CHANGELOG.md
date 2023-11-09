@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.7.1
+
+### Patch Changes
+
+- [#1434](https://github.com/drwpow/openapi-typescript/pull/1434) [`df0e566`](https://github.com/drwpow/openapi-typescript/commit/df0e566e7048862aaa90a2b44211770c70fb4cab) Thanks [@drwpow](https://github.com/drwpow)! - Bump undici
+
 ## 6.7.0
 
 ### Minor Changes
