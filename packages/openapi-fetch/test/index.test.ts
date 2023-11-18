@@ -569,40 +569,49 @@ describe("client", () => {
       it("text", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data }: { data?: string } = await client.GET("/anyMethod", {
+        const { data, error } = await client.GET("/anyMethod", {
           parseAs: "text",
         });
-        expect(data).toBe("{}");
+        if (error) {
+          throw new Error(`parseAs text: error`);
+        }
+        expect(data.toLowerCase()).toBe("{}");
       });
 
       it("arrayBuffer", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data }: { data?: ArrayBuffer } = await client.GET(
-          "/anyMethod",
-          { parseAs: "arrayBuffer" },
-        );
-        expect(data instanceof ArrayBuffer).toBe(true);
+        const { data, error } = await client.GET("/anyMethod", {
+          parseAs: "arrayBuffer",
+        });
+        if (error) {
+          throw new Error(`parseAs arrayBuffer: error`);
+        }
+        expect(data.byteLength).toBe(true);
       });
 
       it("blob", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data }: { data?: Blob } = await client.GET("/anyMethod", {
+        const { data, error } = await client.GET("/anyMethod", {
           parseAs: "blob",
         });
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        expect((data as any).constructor.name).toBe("Blob");
+        if (error) {
+          throw new Error(`parseAs blob: error`);
+        }
+        expect((data as any).constructor.name).toBe("Blob"); // eslint-disable-line @typescript-eslint/no-explicit-any
       });
 
       it("stream", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data }: { data?: ReadableStream | null } = await client.GET(
-          "/anyMethod",
-          { parseAs: "stream" },
-        );
-        expect(data instanceof Buffer).toBe(true);
+        const { data } = await client.GET("/anyMethod", {
+          parseAs: "stream",
+        });
+        if (!data) {
+          throw new Error(`parseAs stream: error`);
+        }
+        expect(data.byteLength).toBe(8);
       });
     });
   });
