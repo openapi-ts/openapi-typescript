@@ -1271,6 +1271,18 @@ paths:
     get:
       $ref: 'resources/monitoring/monitoring_get_dropletMemoryAvailableMetrics.yml'
 
+  /v2/monitoring/metrics/apps/memory_percentage:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_appMemoryPercentageMetrics.yml'
+
+  /v2/monitoring/metrics/apps/cpu_percentage:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_appCPUPercentageMetrics.yml'
+
+  /v2/monitoring/metrics/apps/restart_count:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_appRestartCountMetrics.yml'
+
   /v2/projects:
     get:
       $ref: 'resources/projects/projects_list.yml'

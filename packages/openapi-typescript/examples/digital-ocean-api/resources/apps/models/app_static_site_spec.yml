@@ -33,13 +33,17 @@ allOf:
       example: dist/
 
     cors:
-      $ref: apps_cors_policy.yml
+      allOf:
+        - $ref: apps_cors_policy.yml
+        - description: (Deprecated - Use Ingress Rules instead).
+        - deprecated: true
 
     routes:
       type: array
       items:
         $ref: app_route_spec.yml
-      description: A list of HTTP routes that should be routed to this component.
+      description: (Deprecated - Use Ingress Rules instead). A list of HTTP routes that should be routed to this component.
+      deprecated: true
 
 required:
 - name

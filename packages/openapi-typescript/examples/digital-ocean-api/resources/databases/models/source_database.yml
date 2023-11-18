@@ -28,3 +28,12 @@ properties:
     type: boolean
     description: Enables SSL encryption when connecting to the source database.
     example: false
+  ignore_dbs:
+    type: array
+    items:
+      type: string
+    example:
+    - db0
+    - db1
+    default: []
+    description: List of databases that should be ignored during migration.

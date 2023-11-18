@@ -20,6 +20,7 @@ source: |-
           Region:     "nyc3",
           SizeSlug:   "db-s-2vcpu-4gb",
           NumNodes:   2,
+          StorageSizeMiB : 61440,
       }
 
       cluster, _, err := client.Databases.Create(ctx, createRequest)

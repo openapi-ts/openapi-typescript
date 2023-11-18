@@ -5,7 +5,7 @@ required:
   - email
 properties:
   email:
-    description: "An email to notify on an alert trigger."
+    description: "An email to notify on an alert trigger. The Email has to be one that is verified on that DigitalOcean account."
     example:
       - "bob@example.com"
     type: array

@@ -3838,6 +3838,66 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/monitoring/metrics/apps/memory_percentage": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get App Memory Percentage Metrics
+         * @description To retrieve memory percentage metrics for a given app, send a GET request to `/v2/monitoring/metrics/apps/memory_percentage`.
+         */
+        get: operations["monitoring_get_appMemoryPercentageMetrics"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/apps/cpu_percentage": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get App CPU Percentage Metrics
+         * @description To retrieve cpu percentage metrics for a given app, send a GET request to `/v2/monitoring/metrics/apps/cpu_percentage`.
+         */
+        get: operations["monitoring_get_appCPUPercentageMetrics"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/apps/restart_count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get App Restart Count Metrics
+         * @description To retrieve restart count metrics for a given app, send a GET request to `/v2/monitoring/metrics/apps/restart_count`.
+         */
+        get: operations["monitoring_get_appRestartCountMetrics.yml"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v2/projects": {
         parameters: {
             query?: never;
@@ -5722,11 +5782,23 @@ export interface components {
              */
             repository?: string;
             /**
-             * @description The repository tag. Defaults to `latest` if not provided.
+             * @description The repository tag. Defaults to `latest` if not provided and no digest is provided. Cannot be specified if digest is provided.
              * @default latest
              * @example latest
              */
             tag: string;
+            /**
+             * @description The image digest. Cannot be specified if tag is provided.
+             * @example sha256:795e91610e9cccb7bb80893fbabf9c808df7d52ae1f39cd1158618b4a33041ac
+             */
+            digest?: string;
+            deploy_on_push?: {
+                /**
+                 * @description Whether to automatically deploy new images. Can only be used for images hosted in DOCR and can only be used with an image tag, not a specific digest.
+                 * @example true
+                 */
+                enabled?: boolean;
+            };
         };
         app_variable_definition: {
             /**
@@ -5964,7 +6036,7 @@ export interface components {
         /** A criterion for routing HTTP traffic to a component. */
         app_route_spec: {
             /**
-             * @description An HTTP path prefix. Paths must start with / and must be unique across all components within an app.
+             * @description (Deprecated - Use Ingress Rules instead). An HTTP path prefix. Paths must start with / and must be unique across all components within an app.
              * @example /api
              */
             path?: string;
@@ -5975,7 +6047,7 @@ export interface components {
             preserve_path_prefix?: boolean;
         };
         app_service_spec: components["schemas"]["app_component_base"] & components["schemas"]["app_component_instance_base"] & {
-            cors?: components["schemas"]["apps_cors_policy"];
+            cors?: components["schemas"]["apps_cors_policy"] & unknown & unknown;
             health_check?: components["schemas"]["app_service_spec_health_check"];
             /**
              * Format: int64
@@ -5992,7 +6064,10 @@ export interface components {
              *     ]
              */
             internal_ports?: number[];
-            /** @description A list of HTTP routes that should be routed to this component. */
+            /**
+             * @deprecated
+             * @description (Deprecated - Use Ingress Rules instead). A list of HTTP routes that should be routed to this component.
+             */
             routes?: components["schemas"]["app_route_spec"][];
         };
         app_static_site_spec: WithRequired<components["schemas"]["app_component_base"], "name"> & {
@@ -6018,8 +6093,11 @@ export interface components {
              * @example dist/
              */
             output_dir?: string;
-            cors?: components["schemas"]["apps_cors_policy"];
-            /** @description A list of HTTP routes that should be routed to this component. */
+            cors?: components["schemas"]["apps_cors_policy"] & unknown & unknown;
+            /**
+             * @deprecated
+             * @description (Deprecated - Use Ingress Rules instead). A list of HTTP routes that should be routed to this component.
+             */
             routes?: components["schemas"]["app_route_spec"][];
         };
         app_job_spec: components["schemas"]["app_component_base"] & components["schemas"]["app_component_instance_base"] & {
@@ -6070,8 +6148,11 @@ export interface components {
             window?: components["schemas"]["app_alert_spec_window"];
         };
         app_functions_spec: {
-            cors?: components["schemas"]["apps_cors_policy"];
-            /** @description A list of HTTP routes that should be routed to this component. */
+            cors?: components["schemas"]["apps_cors_policy"] & unknown & unknown;
+            /**
+             * @deprecated
+             * @description (Deprecated - Use Ingress Rules instead). A list of HTTP routes that should be routed to this component.
+             */
             routes?: components["schemas"]["app_route_spec"][];
             /**
              * @description The name. Must be unique across all components within the same app.
@@ -7535,7 +7616,7 @@ export interface components {
                  * @description An identifier for the ACL.
                  * @example aaa
                  */
-                id: string;
+                id?: string;
                 /**
                  * @description A regex for matching the topic(s) that this ACL should apply to.
                  * @example topic-abc.*
@@ -7786,6 +7867,11 @@ export interface components {
              * @example 2023-05-09T00:00:00Z
              */
             readonly version_end_of_availability?: string;
+            /**
+             * @description Additional storage added to the cluster, in MiB. If null, no additional storage is added to the cluster, beyond what is provided as a base amount from the 'size' and any previously added additional storage.
+             * @example 61440
+             */
+            storage_size_mib?: number;
         };
         database_backup: {
             /**
@@ -8448,6 +8534,15 @@ export interface components {
              * @example false
              */
             disable_ssl?: boolean;
+            /**
+             * @description List of databases that should be ignored during migration.
+             * @default []
+             * @example [
+             *       "db0",
+             *       "db1"
+             *     ]
+             */
+            ignore_dbs: string[];
         };
         database_cluster_resize: {
             /**
@@ -8461,6 +8556,11 @@ export interface components {
              * @example 3
              */
             num_nodes: number;
+            /**
+             * @description Additional storage added to the cluster, in MiB. If null, no additional storage is added to the cluster, beyond what is provided as a base amount from the 'size' and any previously added additional storage.
+             * @example 61440
+             */
+            storage_size_mib?: number;
         };
         backup: {
             /**
@@ -8523,6 +8623,11 @@ export interface components {
             private_network_uuid?: string;
             connection?: unknown & components["schemas"]["database_connection"];
             private_connection?: unknown & components["schemas"]["database_connection"];
+            /**
+             * @description Additional storage added to the cluster, in MiB. If null, no additional storage is added to the cluster, beyond what is provided as a base amount from the 'size' and any previously added additional storage.
+             * @example 61440
+             */
+            storage_size_mib?: number;
         };
         database: {
             /**
@@ -8760,12 +8865,6 @@ export interface components {
              * @example 604800000
              */
             segment_ms: number;
-            /**
-             * @description Whether unclean_leader_election_enable specifies whether to allow replicas that are not insync to be elected as leaders as a last resort. This may result in data loss since those leaders are not insync.
-             * @default false
-             * @example false
-             */
-            unclean_leader_election_enable: boolean;
         };
         kafka_topic_create: components["schemas"]["kafka_topic_base"] & {
             config?: components["schemas"]["kafka_topic_config"];
@@ -8809,7 +8908,7 @@ export interface components {
              * @description The name of the Kafka topic.
              * @example events
              */
-            name: string;
+            name?: string;
             /**
              * @description The state of the Kafka topic.
              * @example active
@@ -8825,9 +8924,17 @@ export interface components {
             config?: components["schemas"]["kafka_topic_config"];
         };
         kafka_topic_update: {
-            topic?: components["schemas"]["kafka_topic_base"] & {
-                config?: components["schemas"]["kafka_topic_config"];
-            };
+            /**
+             * @description The number of nodes to replicate data across the cluster.
+             * @example 2
+             */
+            replication_factor?: number;
+            /**
+             * @description The number of partitions available for the topic. On update, this value can only be increased.
+             * @example 3
+             */
+            partition_count?: number;
+            config?: components["schemas"]["kafka_topic_config"];
         };
         domain: {
             /**
@@ -11872,7 +11979,7 @@ export interface components {
         /** @description The notification settings for a trigger alert. */
         notification: {
             /**
-             * @description An email to notify on an alert trigger.
+             * @description An email to notify on an alert trigger. The Email has to be one that is verified on that DigitalOcean account.
              * @example [
              *       "bob@example.com"
              *     ]
@@ -13905,6 +14012,18 @@ export interface components {
                 "application/json": components["schemas"]["metrics"];
             };
         };
+        /** @description The response will be a JSON object with a key called `data` and `status`. */
+        app_metric_response: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["metrics"];
+            };
+        };
         /** @description The response will be a JSON object with a key called `projects`. The value of this will be an object with the standard project attributes */
         projects_list: {
             headers: {
@@ -14844,6 +14963,16 @@ export interface components {
          * @example 1620705417
          */
         metric_timestamp_end: string;
+        /**
+         * @description The app UUID.
+         * @example 2db3c021-15ad-4088-bfe8-99dc972b9cf6
+         */
+        parameters_app_id: string;
+        /**
+         * @description The app component name.
+         * @example sample-application
+         */
+        app_component: string;
         /**
          * @description A unique identifier for a project.
          * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
@@ -16669,7 +16798,11 @@ export interface operations {
                  *         "username": "doadmin",
                  *         "password": "paakjnfe10rsrsmf"
                  *       },
-                 *       "disable_ssl": false
+                 *       "disable_ssl": false,
+                 *       "ignore_dbs": [
+                 *         "db0",
+                 *         "db1"
+                 *       ]
                  *     } */
                 "application/json": components["schemas"]["source_database"];
             };
@@ -16761,7 +16894,8 @@ export interface operations {
             content: {
                 /** @example {
                  *       "size": "db-s-4vcpu-8gb",
-                 *       "num_nodes": 3
+                 *       "num_nodes": 3,
+                 *       "storage_size_mib": 163840
                  *     } */
                 "application/json": components["schemas"]["database_cluster_resize"];
             };
@@ -16942,7 +17076,8 @@ export interface operations {
                 /** @example {
                  *       "name": "read-nyc3-01",
                  *       "region": "nyc3",
-                 *       "size": "db-s-2vcpu-4gb"
+                 *       "size": "db-s-2vcpu-4gb",
+                 *       "storage_size_mib": 61440
                  *     } */
                 "application/json": WithRequired<components["schemas"]["database_replica"], "name" | "size">;
             };
@@ -17699,17 +17834,14 @@ export interface operations {
         requestBody?: {
             content: {
                 /** @example {
-                 *       "topic": {
-                 *         "name": "customer-events",
-                 *         "partitions": 3,
-                 *         "replication": 2,
-                 *         "config": {
-                 *           "retention_bytes": -1,
-                 *           "retention_ms": 100000
-                 *         }
+                 *       "partitions": 3,
+                 *       "replication": 2,
+                 *       "config": {
+                 *         "retention_bytes": -1,
+                 *         "retention_ms": 100000
                  *       }
                  *     } */
-                "application/json": WithRequired<components["schemas"]["kafka_topic_update"], "topic">;
+                "application/json": components["schemas"]["kafka_topic_update"];
             };
         };
         responses: {
@@ -21133,6 +21265,117 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_appMemoryPercentageMetrics: {
+        parameters: {
+            query: {
+                /**
+                 * @description The app UUID.
+                 * @example 2db3c021-15ad-4088-bfe8-99dc972b9cf6
+                 */
+                app_id: components["parameters"]["parameters_app_id"];
+                /**
+                 * @description The app component name.
+                 * @example sample-application
+                 */
+                app_component?: components["parameters"]["app_component"];
+                /**
+                 * @description Timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description Timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["app_metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_appCPUPercentageMetrics: {
+        parameters: {
+            query: {
+                /**
+                 * @description The app UUID.
+                 * @example 2db3c021-15ad-4088-bfe8-99dc972b9cf6
+                 */
+                app_id: components["parameters"]["parameters_app_id"];
+                /**
+                 * @description The app component name.
+                 * @example sample-application
+                 */
+                app_component?: components["parameters"]["app_component"];
+                /**
+                 * @description Timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description Timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["app_metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    "monitoring_get_appRestartCountMetrics.yml": {
+        parameters: {
+            query: {
+                /**
+                 * @description The app UUID.
+                 * @example 2db3c021-15ad-4088-bfe8-99dc972b9cf6
+                 */
+                app_id: components["parameters"]["parameters_app_id"];
+                /**
+                 * @description The app component name.
+                 * @example sample-application
+                 */
+                app_component?: components["parameters"]["app_component"];
+                /**
+                 * @description Timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description Timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["app_metric_response"];
             401: components["responses"]["unauthorized"];
             429: components["responses"]["too_many_requests"];
             500: components["responses"]["server_error"];

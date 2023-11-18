@@ -224,12 +224,3 @@ properties:
       The segment_ms specifies the period of time after which the log will
       be forced to roll if the segment file isn't full. This ensures that
       retention can delete or compact old data.
-  unclean_leader_election_enable:
-    type: boolean
-    example: false
-    default: false
-    description: >-
-      Whether unclean_leader_election_enable specifies whether to allow
-      replicas that are not insync to be elected as leaders as a last
-      resort. This may result in data loss since those leaders are not
-      insync.

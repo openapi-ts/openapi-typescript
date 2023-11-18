@@ -7,6 +7,24 @@ droplet_id:
   schema:
     type: string
 
+app_id:
+  in: query
+  name: app_id
+  description: The app UUID.
+  example: "2db3c021-15ad-4088-bfe8-99dc972b9cf6"
+  required: true
+  schema:
+    type: string
+
+app_component:
+  in: query
+  name: app_component
+  description: The app component name.
+  example: "sample-application"
+  required: false
+  schema:
+    type: string
+
 network_interface:
   in: query
   name: interface

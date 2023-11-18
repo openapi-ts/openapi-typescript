@@ -28,6 +28,3 @@ properties:
 
   config:
     $ref: './kafka_topic_config.yml'
-
-required:
-- name

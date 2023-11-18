@@ -183,3 +183,23 @@ droplet_filesystem:
           - '25832407040'
         - - 1635387120
           - '25832407040'
+
+app_memory_percentage:
+  value:
+    status: success
+    data:
+      resultType: matrix
+      result:
+        - metric:
+            app_component: sample-application
+            app_component_instance: sample-application-0
+            app_uuid: 'db3c021-15ad-4088-bfe8-99dc972b9cf6'
+          values:
+            - - 1634052360
+              - '5.016600450090265357'
+            - - 1634052480
+              - '12.015085955677299055'
+            - - 1634052600
+              - '8.014941163855322308'
+            - - 1634052720
+              - '32.016214285714285712'

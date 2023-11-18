@@ -7,7 +7,8 @@ source: |-
 
   req = {
     "size": "db-s-4vcpu-8gb",
-    "num_nodes": 3
+    "num_nodes": 3,
+    "storage_size_mib": 163840
   }
 
   update_resp = client.databases.update_cluster_size(database_cluster_uuid="a7a8bas", body=req)

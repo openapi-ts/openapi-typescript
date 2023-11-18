@@ -60,14 +60,11 @@ requestBody:
             name: app-03
             settings:
               acl:
-              - id: acl128aaaa99239
-                permission: produceconsume
+              - permission: produceconsume
                 topic: customer-events
-              - id: acl293098flskdf
-                permission: produce
+              - permission: produce
                 topic: customer-events.*
-              - id: acl128ajei20123
-                permission: consume
+              - permission: consume
                 topic: customer-events
 
 responses:

@@ -61,3 +61,4 @@ content:
         private_network_uuid: d455e75d-4858-4eec-8c95-da2f0a5f93a7
         version_end_of_life: '2023-11-09T00:00:00Z'
         version_end_of_availability: '2023-05-09T00:00:00Z'
+        storage_size_mib: 61440

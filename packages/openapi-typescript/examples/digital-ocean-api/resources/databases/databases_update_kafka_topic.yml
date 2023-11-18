@@ -21,16 +21,12 @@ requestBody:
       schema:
         allOf:
           - $ref: 'models/kafka_topic_update.yml'
-        required:
-          - topic
       example:
-        topic:
-          name: customer-events
-          partitions: 3
-          replication: 2
-          config:
-            retention_bytes: -1
-            retention_ms: 100000
+        partitions: 3
+        replication: 2
+        config:
+          retention_bytes: -1
+          retention_ms: 100000
 
 responses:
   '200':
@@ -53,6 +49,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/databases_update_topic.yml'
+  - $ref: 'examples/go/databases_update_topic.yml'
 
 security:
   - bearer_auth:
