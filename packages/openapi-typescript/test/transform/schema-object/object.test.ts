@@ -279,7 +279,20 @@ describe("transformSchemaObject > object", () => {
       },
     ],
     [
-      "options > immutable: true",
+      "options > immutable (string)",
+      {
+        given: {
+          type: "string",
+        },
+        want: `string`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, immutable: true },
+        },
+      },
+    ],
+    [
+      "options > immutable (array)",
       {
         given: {
           type: "object",
@@ -295,9 +308,9 @@ describe("transformSchemaObject > object", () => {
           },
         },
         want: `{
-    readonly array?: (readonly {
+    readonly array?: {
         readonly [key: string]: unknown;
-    })[] | null;
+    }[] | null;
 }`,
         options: {
           ...DEFAULT_OPTIONS,

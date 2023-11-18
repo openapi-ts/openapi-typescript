@@ -14,15 +14,31 @@ describe("CLI", () => {
     [
       "snapshot > GitHub API",
       {
-        given: "./examples/github-api.yaml",
+        given: ["./examples/github-api.yaml"],
         want: new URL("./examples/github-api.ts", root),
+        ci: { timeout: TIMEOUT },
+      },
+    ],
+    [
+      "snapshot > GitHub API (immutable)",
+      {
+        given: ["./examples/github-api.yaml", "--immutable"],
+        want: new URL("./examples/github-api-immutable.ts", root),
+        ci: { timeout: TIMEOUT },
+      },
+    ],
+    [
+      "snapshot > GitHub API (types + immutable)",
+      {
+        given: ["./examples/github-api.yaml", "--immutable", "--export-type"],
+        want: new URL("./examples/github-api-export-type-immutable.ts", root),
         ci: { timeout: TIMEOUT },
       },
     ],
     [
       "snapshot > GitHub API (next)",
       {
-        given: "./examples/github-api-next.yaml",
+        given: ["./examples/github-api-next.yaml"],
         want: new URL("./examples/github-api-next.ts", root),
         ci: { timeout: TIMEOUT },
       },
@@ -30,7 +46,7 @@ describe("CLI", () => {
     [
       "snapshot > Octokit GHES 3.6 Diff to API",
       {
-        given: "./examples/octokit-ghes-3.6-diff-to-api.json",
+        given: ["./examples/octokit-ghes-3.6-diff-to-api.json"],
         want: new URL("./examples/octokit-ghes-3.6-diff-to-api.ts", root),
         ci: { timeout: TIMEOUT },
       },
@@ -38,7 +54,7 @@ describe("CLI", () => {
     [
       "snapshot > Stripe API",
       {
-        given: "./examples/stripe-api.yaml",
+        given: ["./examples/stripe-api.yaml"],
         want: new URL("./examples/stripe-api.ts", root),
         ci: { timeout: TIMEOUT },
       },
@@ -46,7 +62,7 @@ describe("CLI", () => {
     [
       "snapshot > DigitalOcean",
       {
-        given: "./examples/digital-ocean-api/DigitalOcean-public.v2.yaml",
+        given: ["./examples/digital-ocean-api/DigitalOcean-public.v2.yaml"],
         want: new URL("./examples/digital-ocean-api.ts", root),
         ci: { timeout: TIMEOUT },
       },
@@ -57,7 +73,7 @@ describe("CLI", () => {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
-        const { stdout } = await execa(cmd, [given], { cwd });
+        const { stdout } = await execa(cmd, given, { cwd });
         if (want instanceof URL) {
           expect(stdout).toMatchFileSnapshot(fileURLToPath(want));
         } else {
