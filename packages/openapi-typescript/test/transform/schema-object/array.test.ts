@@ -157,7 +157,7 @@ describe("transformSchemaObject > array", () => {
           type: "array",
           items: { type: "array", items: { type: "string" } },
         },
-        want: `(readonly (readonly string)[])[]`,
+        want: `string[][]`,
         options: {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, immutable: true },

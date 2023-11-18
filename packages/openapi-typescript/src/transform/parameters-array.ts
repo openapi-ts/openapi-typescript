@@ -4,6 +4,7 @@ import {
   QUESTION_TOKEN,
   addJSDocComment,
   oapiRef,
+  tsModifiers,
   tsPropertyIndex,
 } from "../lib/ts.js";
 import { createRef } from "../lib/utils.js";
@@ -66,7 +67,7 @@ export function transformParametersArray(
               ]),
             });
       const property = ts.factory.createPropertySignature(
-        /* modifiers     */ undefined,
+        /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
         /* name          */ tsPropertyIndex(resolved?.name),
         /* questionToken */ optional,
         /* type          */ subType,
@@ -77,7 +78,7 @@ export function transformParametersArray(
     const allOptional = paramLocType.every((node) => !!node.questionToken);
     paramType.push(
       ts.factory.createPropertySignature(
-        /* modifiers     */ undefined,
+        /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
         /* name          */ tsPropertyIndex(paramIn),
         /* questionToken */ allOptional || !paramLocType.length
           ? QUESTION_TOKEN
@@ -90,7 +91,7 @@ export function transformParametersArray(
   }
   type.push(
     ts.factory.createPropertySignature(
-      /* modifiers     */ undefined,
+      /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
       /* name          */ tsPropertyIndex("parameters"),
       /* questionToken */ !paramType.length ? QUESTION_TOKEN : undefined,
       /* type          */ paramType.length

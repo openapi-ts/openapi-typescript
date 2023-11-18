@@ -28,10 +28,7 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
 
   for (const root of Object.keys(transformers) as SchemaTransforms[]) {
     const emptyObj = ts.factory.createTypeAliasDeclaration(
-      /* modifiers      */ tsModifiers({
-        export: true,
-        readonly: ctx.immutable,
-      }),
+      /* modifiers      */ tsModifiers({ export: true }),
       /* name           */ root,
       /* typeParameters */ undefined,
       /* type           */ tsRecord(STRING, NEVER),
@@ -44,19 +41,13 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
         type.push(
           ctx.exportType
             ? ts.factory.createTypeAliasDeclaration(
-                /* modifiers      */ tsModifiers({
-                  export: true,
-                  readonly: ctx.immutable,
-                }),
+                /* modifiers      */ tsModifiers({ export: true }),
                 /* name           */ root,
                 /* typeParameters */ undefined,
                 /* type           */ subType,
               )
             : ts.factory.createInterfaceDeclaration(
-                /* modifiers       */ tsModifiers({
-                  export: true,
-                  readonly: ctx.immutable,
-                }),
+                /* modifiers       */ tsModifiers({ export: true }),
                 /* name            */ root,
                 /* typeParameters  */ undefined,
                 /* heritageClauses */ undefined,
@@ -89,10 +80,7 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
     // if no operations created, inject empty operations type
     type.push(
       ts.factory.createTypeAliasDeclaration(
-        /* modifiers      */ tsModifiers({
-          export: true,
-          readonly: ctx.immutable,
-        }),
+        /* modifiers      */ tsModifiers({ export: true }),
         /* name           */ "operations",
         /* typeParameters */ undefined,
         /* type           */ tsRecord(STRING, NEVER),

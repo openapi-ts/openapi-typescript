@@ -383,29 +383,29 @@ describe("transformComponentsObject", () => {
     };
     pathItems: {
         readonly UploadUser: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
+            readonly parameters: {
+                readonly query?: never;
+                readonly header?: never;
+                readonly path?: never;
+                readonly cookie?: never;
             };
-            get: {
-                parameters: {
-                    query?: never;
-                    header?: never;
-                    path?: never;
-                    cookie?: never;
+            readonly get: {
+                readonly parameters: {
+                    readonly query?: never;
+                    readonly header?: never;
+                    readonly path?: never;
+                    readonly cookie?: never;
                 };
                 readonly requestBody?: components["requestBodies"]["UploadUser"];
-                responses: never;
+                readonly responses: never;
             };
-            put?: never;
-            post?: never;
-            delete?: never;
-            options?: never;
-            head?: never;
-            patch?: never;
-            trace?: never;
+            readonly put?: never;
+            readonly post?: never;
+            readonly delete?: never;
+            readonly options?: never;
+            readonly head?: never;
+            readonly patch?: never;
+            readonly trace?: never;
         };
     };
 }`,

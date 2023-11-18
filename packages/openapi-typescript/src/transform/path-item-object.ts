@@ -4,6 +4,7 @@ import {
   QUESTION_TOKEN,
   addJSDocComment,
   oapiRef,
+  tsModifiers,
   tsPropertyIndex,
 } from "../lib/ts.js";
 import { createRef } from "../lib/utils.js";
@@ -69,7 +70,7 @@ export default function transformPathItemObject(
     ) {
       type.push(
         ts.factory.createPropertySignature(
-          /* modifiers     */ undefined,
+          /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
           /* name          */ tsPropertyIndex(method),
           /* questionToken */ QUESTION_TOKEN,
           /* type          */ NEVER,
@@ -116,7 +117,7 @@ export default function transformPathItemObject(
       );
     }
     const property = ts.factory.createPropertySignature(
-      /* modifiers     */ undefined,
+      /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
       /* name          */ tsPropertyIndex(method),
       /* questionToken */ undefined,
       /* type          */ operationType,

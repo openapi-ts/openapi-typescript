@@ -59,7 +59,7 @@ export default function transformOperationObject(
   } else {
     type.push(
       ts.factory.createPropertySignature(
-        /* modifiers     */ undefined,
+        /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
         /* name          */ tsPropertyIndex("requestBody"),
         /* questionToken */ QUESTION_TOKEN,
         /* type          */ NEVER,
@@ -70,7 +70,7 @@ export default function transformOperationObject(
   // responses
   type.push(
     ts.factory.createPropertySignature(
-      /* modifiers     */ undefined,
+      /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
       /* name          */ tsPropertyIndex("responses"),
       /* questionToken */ undefined,
       /* type          */ transformResponsesObject(
@@ -99,7 +99,7 @@ export function injectOperationObject(
     operations = ts.factory.createInterfaceDeclaration(
       /* modifiers       */ tsModifiers({
         export: true,
-        readonly: options.ctx.immutable,
+        // important: do NOT make this immutable
       }),
       /* name            */ ts.factory.createIdentifier("operations"),
       /* typeParameters  */ undefined,

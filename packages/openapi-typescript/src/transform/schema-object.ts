@@ -299,12 +299,6 @@ function transformSchemaObjectCore(
       // standard array type
       else if (schemaObject.items) {
         itemType = transformSchemaObject(schemaObject.items, options);
-        if (options.ctx.immutable) {
-          itemType = ts.factory.createTypeOperatorNode(
-            ts.SyntaxKind.ReadonlyKeyword,
-            itemType,
-          );
-        }
       }
 
       const min: number =
@@ -499,7 +493,7 @@ function transformSchemaObjectCore(
       const defKeys: ts.TypeElement[] = [];
       for (const [k, v] of Object.entries(schemaObject.$defs)) {
         const property = ts.factory.createPropertySignature(
-          /* modifiers */ tsModifiers({
+          /* modifiers    */ tsModifiers({
             readonly:
               options.ctx.immutable || ("readonly" in v && !!v.readOnly),
           }),
@@ -515,9 +509,7 @@ function transformSchemaObjectCore(
       }
       coreObjectType.push(
         ts.factory.createPropertySignature(
-          /* modifiers     */ tsModifiers({
-            readonly: options.ctx.immutable,
-          }),
+          /* modifiers     */ undefined,
           /* name          */ tsPropertyIndex("$defs"),
           /* questionToken */ undefined,
           /* type          */ ts.factory.createTypeLiteralNode(defKeys),
