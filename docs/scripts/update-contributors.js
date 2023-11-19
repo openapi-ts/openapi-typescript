@@ -2,14 +2,29 @@ import fs from "node:fs";
 import { URL } from "node:url";
 
 const AVATAR_RE = /property="og:image" content="([^"]+)/;
+const TITLE_RE = /<title>[^(<]*\(([^)<]+)/;
 
-async function fetchAvatar(username) {
+async function fetchUserInfo(username) {
   const res = await fetch(`https://github.com/${username}`);
-  if (!res.ok) throw new Error(`${res.url} responded with ${res.status}`);
+  if (!res.ok) {
+    throw new Error(`${res.url} responded with ${res.status}`);
+  }
   const body = await res.text();
-  const match = body.match(AVATAR_RE);
-  if (!match) throw new Error(`Could not find avatar for ${username}`);
-  return match[1];
+  const avatarMatch = body.match(AVATAR_RE);
+  if (!avatarMatch) {
+    throw new Error(`Could not find avatar for ${username}`);
+  }
+
+  const nameMatch = body.match(TITLE_RE);
+  let name = username;
+  if (nameMatch?.[1]) {
+    name = nameMatch[1];
+  }
+
+  return {
+    avatar: avatarMatch[1],
+    name,
+  };
 }
 
 const OPENAPI_TS_CONTRIBUTORS = [
@@ -122,13 +137,15 @@ async function main() {
   const openapiTS = Promise.all(
     OPENAPI_TS_CONTRIBUTORS.map(async (username) => ({
       username,
-      avatar: await fetchAvatar(username),
+      ...(await fetchUserInfo(username)),
+      links: [{ icon: "github", link: `https://github.com/${username}` }],
     })),
   );
   const openapiFetch = Promise.all(
     OPENAPI_FETCH_CONTRIBUTORS.map(async (username) => ({
       username,
-      avatar: await fetchAvatar(username),
+      ...(await fetchUserInfo(username)),
+      links: [{ icon: "github", link: `https://github.com/${username}` }],
     })),
   );
   const contributors = {
@@ -136,7 +153,7 @@ async function main() {
     "openapi-fetch": await openapiFetch,
   };
   fs.writeFileSync(
-    new URL("../src/data/contributors.json", import.meta.url),
+    new URL("../data/contributors.json", import.meta.url),
     JSON.stringify(contributors),
   );
 }
