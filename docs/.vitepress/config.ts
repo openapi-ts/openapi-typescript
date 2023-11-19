@@ -6,6 +6,8 @@ export default defineConfig({
   title: "OpenAPI TS",
   description: "Consume OpenAPI 3.0 & 3.1 schemas in TypeScript",
   cleanUrls: true,
+  srcExclude: ["**/*/CONTRIBUTRING.md", "**/*/README.md"],
+  ignoreDeadLinks: [/CODE_OF_CONDUCT/],
   /** @see https://vitepress.dev/reference/default-theme-config */
   themeConfig: {
     siteTitle: false,

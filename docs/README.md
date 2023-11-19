@@ -1,6 +1,6 @@
 # openapi-typescript Docs
 
-Docs site powered by [Astro](https://github.com/withastro/astro), a modern static site generator.
+Docs site powered by [Vitepress](https://vitepress.dev/), an ergonomic docs site template powered by Vite.
 
 Lives at [https://openapi-ts.pages.dev](https://openapi-ts.pages.dev).
 
@@ -13,13 +13,11 @@ pnpm 1
 pnpm run dev
 ```
 
-That will launch the docs site at `http://localhost:3000`.
+That will launch the docs site at `http://localhost:5173`.
 
 ## Editing
 
-All content lives in the [content/](./src/content) directory, in `.md` files that should be familiar to edit to most.
-
-For the non-markdown bits, please see the [Astro Documentation](https://docs.astro.build/en/getting-started/).
+All content lives in `.md` files that feature normal Markdown content [with powerful Vitepress extensions](https://vitepress.dev/guide/markdown).
 
 ## Contributing
 

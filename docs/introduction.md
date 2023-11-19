@@ -70,7 +70,7 @@ type ErrorResponse =
 
 From here, you can use these types for any of the following (but not limited to):
 
-- Using an OpenAPI-supported fetch client (like [openapi-fetch](/openapi-fetch))
+- Using an OpenAPI-supported fetch client (like [openapi-fetch](/openapi-fetch/))
 - Asserting types for other API requestBodies and responses
 - Building core business logic based on API types
 - Validating mock test data is up-to-date with the current schema
