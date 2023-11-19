@@ -11,7 +11,7 @@ Advanced usage and various topics.
 
 Fetching data can be done simply and safely using an **automatically-typed fetch wrapper**:
 
-- [openapi-fetch](./openapi-fetch) (recommended)
+- [openapi-fetch](/openapi-fetch/) (recommended)
 - [openapi-typescript-fetch](https://www.npmjs.com/package/openapi-typescript-fetch) by [@ajaishankar](https://github.com/ajaishankar)
 
 ::: tip
@@ -78,7 +78,7 @@ describe("My API test", () => {
 
 :::
 
-_Note: this example uses a vanilla `fetch()` function, but any fetch wrapper—including [openapi-fetch](/openapi-fetch)—could be dropped in instead without any changes._
+_Note: this example uses a vanilla `fetch()` function, but any fetch wrapper—including [openapi-fetch](/openapi-fetch/)—could be dropped in instead without any changes._
 
 And the magic that produces this would live in a `test/utils.ts` file that can be copy + pasted where desired (hidden for simplicity):
 
