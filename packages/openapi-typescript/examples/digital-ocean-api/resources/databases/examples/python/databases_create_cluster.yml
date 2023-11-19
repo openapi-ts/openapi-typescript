@@ -12,6 +12,7 @@ source: |-
     "region": "nyc3",
     "size": "db-s-2vcpu-4gb",
     "num_nodes": 2,
+    "storage_size_mib": 61440,
     "tags": [
       "production"
     ]

@@ -5,7 +5,10 @@ allOf:
 - type: object
   properties:
     cors:
-      $ref: apps_cors_policy.yml
+      allOf:
+        - $ref: apps_cors_policy.yml
+        - description: (Deprecated - Use Ingress Rules instead).
+        - deprecated: true
 
     health_check:
       $ref: app_service_spec_health_check.yml
@@ -32,7 +35,8 @@ allOf:
 
     routes:
       type: array
-      description: A list of HTTP routes that should be routed to this component.
+      description: (Deprecated - Use Ingress Rules instead). A list of HTTP routes that should be routed to this component.
+      deprecated: true
       items:
         $ref: app_route_spec.yml
 

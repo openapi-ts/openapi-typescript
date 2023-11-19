@@ -14,5 +14,6 @@ source: |-
       resizeRequest := &godo.DatabaseResizeRequest{
           SizeSlug: "db-s-4vcpu-8gb",
           NumNodes: 3,
+          StorageSizeMib: 163840,
       }
   }

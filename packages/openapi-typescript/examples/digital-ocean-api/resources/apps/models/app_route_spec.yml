@@ -2,7 +2,7 @@ title: A criterion for routing HTTP traffic to a component.
 type: object
 properties:
   path:
-    description: An HTTP path prefix. Paths must start with / and must be unique across
+    description: (Deprecated - Use Ingress Rules instead). An HTTP path prefix. Paths must start with / and must be unique across
       all components within an app.
     type: string
     example: /api

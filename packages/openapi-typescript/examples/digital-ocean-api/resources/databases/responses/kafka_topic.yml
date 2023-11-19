@@ -59,4 +59,3 @@ content:
           segment_index_bytes: 10485760
           segment_jitter_ms: 0
           segment_ms: 604800000
-          unclean_leader_election_enable: false

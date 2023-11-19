@@ -38,6 +38,7 @@ requestBody:
         name: read-nyc3-01
         region: nyc3
         size: db-s-2vcpu-4gb
+        storage_size_mib: 61440
 
 responses:
   '201':

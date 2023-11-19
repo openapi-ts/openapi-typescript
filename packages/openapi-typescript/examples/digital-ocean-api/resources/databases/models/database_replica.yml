@@ -69,6 +69,12 @@ properties:
     allOf:
     - readOnly: true
     - $ref: './database_connection.yml'
+  storage_size_mib:
+    type: integer
+    example: 61440
+    description: >-
+      Additional storage added to the cluster, in MiB. If null, no additional storage is added to the cluster, beyond
+      what is provided as a base amount from the 'size' and any previously added additional storage.
 
 required:
   - name

@@ -51,6 +51,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/databases_create_topic.yml'
+  - $ref: 'examples/go/databases_create_topic.yml'
 
 security:
   - bearer_auth:

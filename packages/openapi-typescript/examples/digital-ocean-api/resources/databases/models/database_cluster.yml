@@ -133,6 +133,12 @@ properties:
     description: >-
       A timestamp referring to the date when the particular version will no longer be available for creating new
       clusters. If null, the version does not have an end of availability timeline.
+  storage_size_mib:
+    type: integer
+    example: 61440
+    description: >-
+      Additional storage added to the cluster, in MiB. If null, no additional storage is added to the cluster, beyond
+      what is provided as a base amount from the 'size' and any previously added additional storage.
 
 
 required:

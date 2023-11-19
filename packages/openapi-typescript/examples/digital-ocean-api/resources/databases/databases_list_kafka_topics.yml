@@ -35,6 +35,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/databases_list_topics.yml'
+  - $ref: 'examples/go/databases_list_topics.yml'
 
 security:
   - bearer_auth:

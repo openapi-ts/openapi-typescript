@@ -14,6 +14,7 @@ source: |-
       "password": "paakjnfe10rsrsmf"
     },
     "disable_ssl": False
+    "ignore_dbs": ["db0","db1"]
   }
 
   update_resp = client.databases.update_online_migration(database_cluster_uuid="a7a8bas", body=req)

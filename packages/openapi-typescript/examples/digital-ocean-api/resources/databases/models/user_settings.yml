@@ -29,7 +29,6 @@ properties:
             and 'produce' permission. 'admin' allows for 'produceconsume' as
             well as any operations to administer the topic (delete, update).
       required:
-        - id
         - topic
         - permission
     description: >-

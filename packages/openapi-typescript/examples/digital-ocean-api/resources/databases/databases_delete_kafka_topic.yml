@@ -37,6 +37,7 @@ responses:
 
 x-codeSamples:
   - $ref: 'examples/curl/databases_delete_topic.yml'
+  - $ref: 'examples/go/databases_delete_topic.yml'
 
 security:
   - bearer_auth:

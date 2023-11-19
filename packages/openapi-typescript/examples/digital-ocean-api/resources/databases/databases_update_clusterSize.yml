@@ -29,6 +29,7 @@ requestBody:
       example:
         size: db-s-4vcpu-8gb
         num_nodes: 3
+        storage_size_mib: 163840
 
 responses:
   '202':
