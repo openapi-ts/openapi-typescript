@@ -48,7 +48,18 @@ export default async function openapiTS(
   }
 
   const redoc =
-    options.redocly ?? (await createConfig({}, { extends: ["minimal"] }));
+    options.redocly ??
+    (await createConfig(
+      {
+        // @ts-expect-error This is OK
+        styleguide: {
+          rules: {
+            "operation-operationId-unique": { severity: "error" }, // throw error on duplicate operationIDs
+          },
+        },
+      },
+      { extends: ["minimal"] },
+    ));
 
   const schema = await validateAndBundle(source, {
     redoc,

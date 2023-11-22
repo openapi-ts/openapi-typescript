@@ -1,0 +1,351 @@
+openapi: 3.1.0
+info:
+  title: Webhook Example
+  summary: My lovely API
+  version: 1.0.0
+  description: some description
+  license:
+    name: MIT
+    identifier: MIT
+    url: https://opensource.org/licenses/MIT
+jsonSchemaDialect: https://spec.openapis.org/oas/3.1/dialect/base
+tags:
+  - name: Gameplay
+    description: gameplay tag
+servers:
+  - url: https://redocly-example.com/{var}
+    variables:
+      var:
+        enum:
+          - a
+          - b
+        default: b
+security: []
+paths:
+  /pets/items:
+    get:
+      operationId: getTest
+      summary: Get Test! Foo! Etc!
+      responses:
+        200:
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: array
+                prefixItems:
+                  - type: 'string'
+                items: false
+        400:
+          description: An error response
+  /pets:
+    get:
+      summary: List all pets
+      operationId: listPets
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of pets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pets'
+        '400':
+          description: An error response
+  /pets/model:
+    get:
+      summary: List all pets
+      operationId: listPetsModel
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of model
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+        '400':
+          description: An error response
+  /pets/person:
+    get:
+      summary: List all pets
+      operationId: listPetsPerson
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of person
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/person'
+        '400':
+          description: An error response
+  /:
+    get:
+      operationId: getEmptyOperationId
+      summary: Some summary
+  /{var}: {}
+  /unevaluated-properties:
+    get:
+      operationId: getUnevaluatedProperties
+      summary: Checks if unevaluetedProperties work
+      responses:
+        200:
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      foo:
+                        type: string
+                  - type: object
+                    properties:
+                      bar:
+                        type: number
+                unevaluatedProperties: false
+        400:
+          description: An error response
+
+webhooks:
+  newPet:
+    post:
+      tags:
+        - pet
+      summary: Add a new pet to the store
+      description: Add new pet to the store inventory.
+      operationId: addPet
+      requestBody:
+        description: Information about a new pet in the system
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                orderId:
+                  type: integer
+                fileName:
+                  type: string
+                  contentEncoding: base64
+                  contentMediaType: image/png
+      responses:
+        '200':
+          description: Return a 200 status to indicate that the data was received successfully
+        '405':
+          description: Invalid input
+    put:
+      tags:
+        - pet
+      summary: Edit new pet
+      description: Edit pet.
+      operationId: editPet
+      requestBody:
+        content:
+          application/octet-stream: {}
+      responses:
+        '200':
+          description: Return a 200 status to indicate that the data was received successfully
+        '400':
+          description: An error response
+
+components:
+  securitySchemes:
+    mtls:
+      type: mutualTLS
+  pathItems: {}
+  schemas:
+    Problem:
+      id: 'https://tools.ietf.org/rfc/rfc7807.txt'
+      $schema: 'http://json-schema.org/draft-06/schema#'
+      description: 'schema for a rfc7807'
+      definitions: {}
+      type: 'object'
+      properties:
+        type:
+          description: A URI reference [RFC3986] that identifies the problem type.
+          type: string
+          format: uri
+        title:
+          description: A short, human-readable summary of the problem type.
+          type: string
+        status:
+          description: The HTTP status code ([RFC7231], Section 6) generated by the origin server for this occurrence of the problem.
+          type: number
+        instance:
+          description: A URI reference that identifies the specific occurrence of the problem.
+          type: string
+        detail:
+          description: A human-readable explanation specific to this occurrence of the problem.
+          type: string
+      required:
+        - type
+        - title
+        - status
+        - instance
+        - detail
+      examples:
+        - type: https://developer.acme.com/codes/404
+          title: Not Found
+          status: 404
+          instance: https://status.api.acme.com/errorinstance/23d243c1-1c94-4696-8798-c71aa45c92ff
+          detail: The User requested was not found
+    Pet:
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type:
+            - integer
+          exclusiveMaximum: 100
+          exclusiveMinimum: 0
+          format: int64
+        name:
+          type: string
+        none:
+          type: 'null'
+        tag:
+          type:
+            - 'null'
+            - string
+            - integer
+          examples:
+            - 123
+        arr:
+          type: array
+          $comment: Array without items keyword
+        either:
+          type: ['string', 'null']
+      discriminator:
+        propertyName: type
+        x-extension: true
+    Pets:
+      type: array
+      items:
+        $ref: '#/components/schemas/Pet'
+    Model:
+      type: object
+      properties:
+        one:
+          description: type array
+          type:
+            - integer
+            - string
+        two:
+          description: type 'null'
+          type: 'null'
+        three:
+          description: type array including 'null'
+          type:
+            - string
+            - 'null'
+        four:
+          description: array with no items
+          type: array
+        five:
+          description: singular example
+          type: string
+          examples:
+            - exampleValue
+        six:
+          description: exclusiveMinimum true
+          exclusiveMinimum: 10
+        seven:
+          description: exclusiveMinimum false
+          minimum: 10
+        eight:
+          description: exclusiveMaximum true
+          exclusiveMaximum: 20
+        nine:
+          description: exclusiveMaximum false
+          maximum: 20
+        ten:
+          description: nullable string
+          type:
+            - string
+            - 'null'
+        eleven:
+          description: file/binary
+    person:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          description: Person ID
+          type:
+            - integer
+            - number
+            - string
+          minLength: 4
+          minimum: 10
+        name:
+          type: string
+          maxLength: 100
+        gender:
+          type:
+            - string
+            - integer
+          enum:
+            - male
+            - female
+            - unknown
+          minimum: 4
+        location:
+          description: location can be null, set using `nullable` property thats supported by OpenAPI `3.0.x`
+          type:
+            - string
+            - 'null'
+        age:
+          description: Age of Person
+          type: integer
+          minimum: 21
+          exclusiveMaximum: 70
+          multipleOf: 5
+        photoUrls:
+          description: One URL or Array or URLs or set to false
+          type:
+            - array
+            - boolean
+            - string
+          maxItems: 20
+          items:
+            type: string
+            format: url
+        hobby:
+          description: comma separated list of hobbies or an array of object
+          type:
+            - string
+            - array
+          items:
+            type: object
+            properties:
+              hobbyRank:
+                type:
+                  - integer
+                  - number
+              hobbyName:
+                type: string
+        empty: {}
