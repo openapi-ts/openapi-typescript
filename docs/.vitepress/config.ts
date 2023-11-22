@@ -52,6 +52,7 @@ export default defineConfig({
             { text: "Introduction", link: "/introduction" },
             { text: "CLI", link: "/cli" },
             { text: "Node.js API", link: "/node" },
+            { text: "Examples", link: "/examples" },
             { text: "Migrating from 6.x", link: "/migration-guide" },
             { text: "Advanced", link: "/advanced" },
             { text: "About", link: "/about" },
