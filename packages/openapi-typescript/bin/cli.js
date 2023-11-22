@@ -149,7 +149,7 @@ async function main() {
   );
   const redoc = maybeRedoc
     ? await loadConfig({ configPath: maybeRedoc })
-    : createConfig({}, { extends: ["minimal"] });
+    : await createConfig({}, { extends: ["minimal"] });
 
   // handle Redoc APIs
   const hasRedoclyApis = Object.keys(redoc?.apis ?? {}).length > 0;
@@ -161,9 +161,13 @@ async function main() {
     }
     await Promise.all(
       Object.entries(redoc.apis).map(async ([name, api]) => {
-        const configRoot = redoc?.configFile
-          ? new URL(`file://${redoc.configFile}`)
-          : CWD;
+        let configRoot = CWD;
+        if (redoc.configFile) {
+          // note: this will be absolute if --redoc is passed; otherwise, relative
+          configRoot = path.isAbsolute(redoc.configFile)
+            ? new URL(`file://${redoc.configFile}`)
+            : new URL(redoc.configFile, `file://${process.cwd()}/`);
+        }
         if (!api["openapi-ts"]?.output) {
           errorAndExit(
             `API ${name} is missing an \`openapi-ts.output\` key. See https://openapi-ts.pages.dev/cli/#multiple-schemas.`,
@@ -175,7 +179,7 @@ async function main() {
         const outFile = new URL(api["openapi-ts"].output, configRoot);
         fs.mkdirSync(new URL(".", outFile), { recursive: true });
         fs.writeFileSync(outFile, result, "utf8");
-        done(name, api.root, performance.now() - timeStart);
+        done(name, api["openapi-ts"].output, performance.now() - timeStart);
       }),
     );
   }

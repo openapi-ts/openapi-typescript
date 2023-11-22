@@ -115,14 +115,33 @@ describe("CLI", () => {
   });
 
   describe("Redocly config", () => {
-    test("accepts multiple APIs", async () => {
-      await execa(cmd, ["--redoc", "test/fixtures/redocly/redocly.yaml"], {
+    // TODO: why won’t this run on Windows?
+    test.skipIf(os.platform() === "win32")("automatic config", async () => {
+      /* eslint-disable @typescript-eslint/no-shadow */
+
+      // note: we have to change the cwd here for the automatic config to pick up properly
+      const root = new URL("./fixtures/redocly/", import.meta.url);
+      const cwd = os.platform() === "win32" ? fileURLToPath(root) : root;
+
+      await execa("../../../bin/cli.js", { cwd });
+      for (const schema of ["a", "b", "c"]) {
+        expect(
+          fs.readFileSync(new URL(`./output/${schema}.ts`, root), "utf8"),
+        ).toMatchFileSnapshot(
+          fileURLToPath(new URL("../../../examples/simple-example.ts", root)),
+        );
+      }
+      /* eslint-enable @typescript-eslint/no-shadow */
+    });
+
+    test("--redoc config", async () => {
+      await execa(cmd, ["--redoc", "test/fixtures/redocly-flag/redocly.yaml"], {
         cwd,
       });
       for (const schema of ["a", "b", "c"]) {
         expect(
           fs.readFileSync(
-            new URL(`./test/fixtures/redocly/output/${schema}.ts`, root),
+            new URL(`./test/fixtures/redocly-flag/output/${schema}.ts`, root),
             "utf8",
           ),
         ).toMatchFileSnapshot(
