@@ -1,5 +1,6 @@
 import { defineConfig } from "vitepress";
-import packageJSON from "../../packages/openapi-typescript/package.json";
+
+const HOSTNAME = "https://opeanpi-ts.pages.dev";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -8,6 +9,9 @@ export default defineConfig({
   cleanUrls: true,
   srcExclude: ["**/*/CONTRIBUTRING.md", "**/*/README.md"],
   ignoreDeadLinks: [/CODE_OF_CONDUCT/],
+  sitemap: {
+    hostname: HOSTNAME,
+  },
   /** @see https://vitepress.dev/reference/default-theme-config */
   themeConfig: {
     siteTitle: false,
