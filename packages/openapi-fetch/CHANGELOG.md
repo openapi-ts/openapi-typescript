@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.8.2
+
+### Patch Changes
+
+- [#1424](https://github.com/drwpow/openapi-typescript/pull/1424) [`8f5adb3`](https://github.com/drwpow/openapi-typescript/commit/8f5adb3700eacff287d8b3f62837cb823503d5a4) Thanks [@drwpow](https://github.com/drwpow)! - Separate TS types to be managed manually
+
 ## 0.8.1
 
 ### Patch Changes
