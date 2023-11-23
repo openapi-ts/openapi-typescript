@@ -60,7 +60,7 @@ importers:
   packages/openapi-fetch:
     dependencies:
       openapi-typescript-helpers:
-        specifier: ^0.0.4
+        specifier: ^0.0.5
         version: link:../openapi-typescript-helpers
     devDependencies:
       axios:
