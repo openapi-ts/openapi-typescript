@@ -78,6 +78,10 @@ export type SuccessResponseJSON<PathMethod> = JSONLike<
 export type ErrorResponseJSON<PathMethod> = JSONLike<
   ErrorResponse<ResponseObjectMap<PathMethod>>
 >;
+/** Return JSON-like request body from a path + HTTP method */
+export type RequestBodyJSON<PathMethod> = JSONLike<
+  ResponseContent<OperationRequestBody<PathMethod>>
+>;
 
 // Generic TS utils
 
