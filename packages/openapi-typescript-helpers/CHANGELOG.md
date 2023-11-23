@@ -1,5 +1,11 @@
 # openapi-typescript-helpers
 
+## 0.0.6
+
+### Patch Changes
+
+- [#1458](https://github.com/drwpow/openapi-typescript/pull/1458) [`23517a2`](https://github.com/drwpow/openapi-typescript/commit/23517a2c2ab94d49085391130cd7d11f4da33cfb) Thanks [@drwpow](https://github.com/drwpow)! - Add RequestBodyJSON helper
+
 ## 0.0.5
 
 ### Patch Changes
