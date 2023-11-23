@@ -1,5 +1,11 @@
 # openapi-typescript-helpers
 
+## 0.0.5
+
+### Patch Changes
+
+- [#1456](https://github.com/drwpow/openapi-typescript/pull/1456) [`5be2082`](https://github.com/drwpow/openapi-typescript/commit/5be20827334c60e53222445561b9cfc526f4f6a9) Thanks [@drwpow](https://github.com/drwpow)! - Add SuccessResponseJSON, ErrorResponseJSON helpers
+
 ## 0.0.4
 
 ### Patch Changes
