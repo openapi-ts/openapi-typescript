@@ -80,14 +80,18 @@ export default function transformPathItemObject(
     }
 
     // fold top-level PathItem parameters into method-level, with the latter overriding the former
-    const keyedParameters: Record<string, ParameterObject | ReferenceObject> = {};
+    const keyedParameters: Record<string, ParameterObject | ReferenceObject> =
+      {};
     if (!("$ref" in operationObject)) {
       // important: OperationObject parameters come last, and will override any conflicts with PathItem parameters
       for (const parameter of [
         ...(pathItem.parameters ?? []),
         ...(operationObject.parameters ?? []),
       ]) {
-        const name = "$ref" in parameter ? options.ctx.resolve<ParameterObject>(parameter.$ref)?.name : parameter.name;
+        const name =
+          "$ref" in parameter
+            ? options.ctx.resolve<ParameterObject>(parameter.$ref)?.name
+            : parameter.name;
         if (name) {
           keyedParameters[name] = parameter;
         }
