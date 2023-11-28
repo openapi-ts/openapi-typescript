@@ -38,16 +38,15 @@ export type QuerySerializer<T> = (
 
 export type BodySerializer<T> = (body: OperationRequestBodyContent<T>) => any;
 
-export type ParseAs = "json" | "text" | "blob" | "arrayBuffer" | "stream";
-export type ParseAsResponse<T, K extends ParseAs> = K extends "text"
-  ? Awaited<ReturnType<Response["text"]>>
-  : K extends "blob"
-  ? Awaited<ReturnType<Response["blob"]>>
-  : K extends "arrayBuffer"
-  ? Awaited<ReturnType<Response["arrayBuffer"]>>
-  : K extends "stream"
-  ? Response["body"]
-  : T;
+type BodyType<T = unknown> = {
+  json: T;
+  text: Awaited<ReturnType<Response["text"]>>;
+  blob: Awaited<ReturnType<Response["blob"]>>;
+  arrayBuffer: Awaited<ReturnType<Response["arrayBuffer"]>>;
+  stream: Response["body"];
+};
+export type ParseAs = keyof BodyType;
+export type ParseAsResponse<T, K> = K extends ParseAs ? BodyType<T>[K] : T;
 
 export interface DefaultParamsOption {
   params?: {
@@ -112,12 +111,7 @@ export default function createClient<Paths extends {}>(
   >(
     url: P,
     ...init: I
-  ): Promise<
-    FetchResponse<
-      Paths[P]["get"],
-      I[0]["parseAs"] extends ParseAs ? I[O]["parseAs"] : "json"
-    >
-  >;
+  ): Promise<FetchResponse<Paths[P]["get"], I[0]["parseAs"]>>;
   /** Call a PUT endpoint */
   PUT<
     P extends PathsWithMethod<Paths, "put">,
@@ -125,12 +119,7 @@ export default function createClient<Paths extends {}>(
   >(
     url: P,
     ...init: I
-  ): Promise<
-    FetchResponse<
-      Paths[P]["put"],
-      I[0]["parseAs"] extends ParseAs ? I[O]["parseAs"] : "json"
-    >
-  >;
+  ): Promise<FetchResponse<Paths[P]["put"], I[0]["parseAs"]>>;
   /** Call a POST endpoint */
   POST<
     P extends PathsWithMethod<Paths, "post">,
@@ -138,12 +127,7 @@ export default function createClient<Paths extends {}>(
   >(
     url: P,
     ...init: I
-  ): Promise<
-    FetchResponse<
-      Paths[P]["post"],
-      I[0]["parseAs"] extends ParseAs ? I[O]["parseAs"] : "json"
-    >
-  >;
+  ): Promise<FetchResponse<Paths[P]["post"], I[0]["parseAs"]>>;
   /** Call a DELETE endpoint */
   DELETE<
     P extends PathsWithMethod<Paths, "delete">,
@@ -151,12 +135,7 @@ export default function createClient<Paths extends {}>(
   >(
     url: P,
     ...init: I
-  ): Promise<
-    FetchResponse<
-      Paths[P]["delete"],
-      I[0]["parseAs"] extends ParseAs ? I[O]["parseAs"] : "json"
-    >
-  >;
+  ): Promise<FetchResponse<Paths[P]["delete"], I[0]["parseAs"]>>;
   /** Call a OPTIONS endpoint */
   OPTIONS<
     P extends PathsWithMethod<Paths, "options">,
@@ -164,12 +143,7 @@ export default function createClient<Paths extends {}>(
   >(
     url: P,
     ...init: I
-  ): Promise<
-    FetchResponse<
-      Paths[P]["options"],
-      I[0]["parseAs"] extends ParseAs ? I[O]["parseAs"] : "json"
-    >
-  >;
+  ): Promise<FetchResponse<Paths[P]["options"], I[0]["parseAs"]>>;
   /** Call a HEAD endpoint */
   HEAD<
     P extends PathsWithMethod<Paths, "head">,
@@ -177,12 +151,7 @@ export default function createClient<Paths extends {}>(
   >(
     url: P,
     ...init: I
-  ): Promise<
-    FetchResponse<
-      Paths[P]["head"],
-      I[0]["parseAs"] extends ParseAs ? I[O]["parseAs"] : "json"
-    >
-  >;
+  ): Promise<FetchResponse<Paths[P]["head"], I[0]["parseAs"]>>;
   /** Call a PATCH endpoint */
   PATCH<
     P extends PathsWithMethod<Paths, "patch">,
@@ -190,12 +159,7 @@ export default function createClient<Paths extends {}>(
   >(
     url: P,
     ...init: I
-  ): Promise<
-    FetchResponse<
-      Paths[P]["patch"],
-      I[0]["parseAs"] extends ParseAs ? I[O]["parseAs"] : "json"
-    >
-  >;
+  ): Promise<FetchResponse<Paths[P]["patch"], I[0]["parseAs"]>>;
   /** Call a TRACE endpoint */
   TRACE<
     P extends PathsWithMethod<Paths, "trace">,
@@ -203,12 +167,7 @@ export default function createClient<Paths extends {}>(
   >(
     url: P,
     ...init: I
-  ): Promise<
-    FetchResponse<
-      Paths[P]["trace"],
-      I[0]["parseAs"] extends ParseAs ? I[O]["parseAs"] : "json"
-    >
-  >;
+  ): Promise<FetchResponse<Paths[P]["trace"], I[0]["parseAs"]>>;
 };
 
 /** Serialize query params to string */

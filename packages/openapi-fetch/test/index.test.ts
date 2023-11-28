@@ -599,7 +599,8 @@ describe("client", () => {
         if (error) {
           throw new Error(`parseAs blob: error`);
         }
-        expect((data as any).constructor.name).toBe("Blob"); // eslint-disable-line @typescript-eslint/no-explicit-any
+
+        expect(data.constructor.name).toBe("Blob");
       });
 
       it("stream", async () => {
