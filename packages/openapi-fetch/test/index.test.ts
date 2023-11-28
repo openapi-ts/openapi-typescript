@@ -587,7 +587,7 @@ describe("client", () => {
         if (error) {
           throw new Error(`parseAs arrayBuffer: error`);
         }
-        expect(data.byteLength).toBe(true);
+        expect(data.byteLength).toBe(2);
       });
 
       it("blob", async () => {
@@ -611,8 +611,13 @@ describe("client", () => {
         if (!data) {
           throw new Error(`parseAs stream: error`);
         }
-        // todo - not sure what test to put here - previously it just checked for instanceof Buffer
-        expect(data.byteLength).toBe(8);
+
+        expect(data instanceof Buffer).toBe(true);
+        if (!(data instanceof Buffer)) {
+          throw Error("Data should be an instance of Buffer in Node context");
+        }
+
+        expect(data.byteLength).toBe(2);
       });
     });
   });
