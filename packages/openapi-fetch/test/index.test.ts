@@ -569,9 +569,9 @@ describe("client", () => {
       it("text", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data, error } = await client.GET("/anyMethod", {
+        const { data, error } = (await client.GET("/anyMethod", {
           parseAs: "text",
-        });
+        })) satisfies { data?: string };
         if (error) {
           throw new Error(`parseAs text: error`);
         }
@@ -581,9 +581,9 @@ describe("client", () => {
       it("arrayBuffer", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data, error } = await client.GET("/anyMethod", {
+        const { data, error } = (await client.GET("/anyMethod", {
           parseAs: "arrayBuffer",
-        });
+        })) satisfies { data?: ArrayBuffer };
         if (error) {
           throw new Error(`parseAs arrayBuffer: error`);
         }
@@ -593,9 +593,9 @@ describe("client", () => {
       it("blob", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data, error } = await client.GET("/anyMethod", {
+        const { data, error } = (await client.GET("/anyMethod", {
           parseAs: "blob",
-        });
+        })) satisfies { data?: Blob };
         if (error) {
           throw new Error(`parseAs blob: error`);
         }
@@ -605,12 +605,13 @@ describe("client", () => {
       it("stream", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data } = await client.GET("/anyMethod", {
+        const { data } = (await client.GET("/anyMethod", {
           parseAs: "stream",
-        });
+        })) satisfies { data?: ReadableStream<Uint8Array> | null };
         if (!data) {
           throw new Error(`parseAs stream: error`);
         }
+        // todo - not sure what test to put here - previously it just checked for instanceof Buffer
         expect(data.byteLength).toBe(8);
       });
     });
