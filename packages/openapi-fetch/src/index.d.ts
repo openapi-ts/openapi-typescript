@@ -46,7 +46,7 @@ export type ParseAsResponse<T, K extends ParseAs> = K extends "text"
   : K extends "arrayBuffer"
   ? Awaited<ReturnType<Response["arrayBuffer"]>>
   : K extends "stream"
-  ? Awaited<ReturnType<Response["body"]>>
+  ? Response["body"]
   : T;
 
 export interface DefaultParamsOption {
