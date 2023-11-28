@@ -77,9 +77,7 @@ export type ErrorResponse<T> = FilterKeys<
 // Generic TS utils
 
 /** Find first match of multiple keys */
-export type FilterKeys<Obj, Matchers> = {
-  [K in keyof Obj]: K extends Matchers ? Obj[K] : never;
-}[keyof Obj];
+export type FilterKeys<Obj, Matchers> = Obj[keyof Obj & Matchers];
 /** Return any `[string]/[string]` media type (important because openapi-fetch allows any content response, not just JSON-like) */
 export type MediaType = `${string}/${string}`;
 /** Filter objects that have required keys */
