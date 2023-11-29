@@ -9,6 +9,9 @@ export default defineConfig({
   cleanUrls: true,
   srcExclude: ["**/*/CONTRIBUTRING.md", "**/*/README.md"],
   ignoreDeadLinks: [/CODE_OF_CONDUCT/],
+  head: [
+    ["link", { rel: "shortcut icon", href: "/favicon.svg", type: "image/svg" }],
+  ],
   sitemap: {
     hostname: HOSTNAME,
   },
