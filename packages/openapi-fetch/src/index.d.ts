@@ -46,7 +46,11 @@ type BodyType<T = unknown> = {
   stream: Response["body"];
 };
 export type ParseAs = keyof BodyType;
-export type ParseAsResponse<T, K> = K extends ParseAs ? BodyType<T>[K] : T;
+export type ParseAsResponse<T, O extends FetchOptions> = O extends {
+  parseAs: ParseAs;
+}
+  ? BodyType<T>[O["parseAs"]]
+  : T;
 
 export interface DefaultParamsOption {
   params?: {
@@ -78,11 +82,11 @@ export type MaybeOptionalInit<
   ? [(FetchOptions<FilterKeys<P, M>> | undefined)?]
   : [FetchOptions<FilterKeys<P, M>>];
 
-export type FetchResponse<T, R extends ParseAs = "json"> =
+export type FetchResponse<T, O extends FetchOptions> =
   | {
       data: ParseAsResponse<
         FilterKeys<SuccessResponse<ResponseObjectMap<T>>, MediaType>,
-        R
+        O
       >;
       error?: never;
       response: Response;
@@ -111,7 +115,7 @@ export default function createClient<Paths extends {}>(
   >(
     url: P,
     ...init: I
-  ): Promise<FetchResponse<Paths[P]["get"], I[0]["parseAs"]>>;
+  ): Promise<FetchResponse<Paths[P]["get"], I[0]>>;
   /** Call a PUT endpoint */
   PUT<
     P extends PathsWithMethod<Paths, "put">,
@@ -119,7 +123,7 @@ export default function createClient<Paths extends {}>(
   >(
     url: P,
     ...init: I
-  ): Promise<FetchResponse<Paths[P]["put"], I[0]["parseAs"]>>;
+  ): Promise<FetchResponse<Paths[P]["put"], I[0]>>;
   /** Call a POST endpoint */
   POST<
     P extends PathsWithMethod<Paths, "post">,
@@ -127,7 +131,7 @@ export default function createClient<Paths extends {}>(
   >(
     url: P,
     ...init: I
-  ): Promise<FetchResponse<Paths[P]["post"], I[0]["parseAs"]>>;
+  ): Promise<FetchResponse<Paths[P]["post"], I[0]>>;
   /** Call a DELETE endpoint */
   DELETE<
     P extends PathsWithMethod<Paths, "delete">,
@@ -135,7 +139,7 @@ export default function createClient<Paths extends {}>(
   >(
     url: P,
     ...init: I
-  ): Promise<FetchResponse<Paths[P]["delete"], I[0]["parseAs"]>>;
+  ): Promise<FetchResponse<Paths[P]["delete"], I[0]>>;
   /** Call a OPTIONS endpoint */
   OPTIONS<
     P extends PathsWithMethod<Paths, "options">,
@@ -143,7 +147,7 @@ export default function createClient<Paths extends {}>(
   >(
     url: P,
     ...init: I
-  ): Promise<FetchResponse<Paths[P]["options"], I[0]["parseAs"]>>;
+  ): Promise<FetchResponse<Paths[P]["options"], I[0]>>;
   /** Call a HEAD endpoint */
   HEAD<
     P extends PathsWithMethod<Paths, "head">,
@@ -151,7 +155,7 @@ export default function createClient<Paths extends {}>(
   >(
     url: P,
     ...init: I
-  ): Promise<FetchResponse<Paths[P]["head"], I[0]["parseAs"]>>;
+  ): Promise<FetchResponse<Paths[P]["head"], I[0]>>;
   /** Call a PATCH endpoint */
   PATCH<
     P extends PathsWithMethod<Paths, "patch">,
@@ -159,7 +163,7 @@ export default function createClient<Paths extends {}>(
   >(
     url: P,
     ...init: I
-  ): Promise<FetchResponse<Paths[P]["patch"], I[0]["parseAs"]>>;
+  ): Promise<FetchResponse<Paths[P]["patch"], I[0]>>;
   /** Call a TRACE endpoint */
   TRACE<
     P extends PathsWithMethod<Paths, "trace">,
@@ -167,7 +171,7 @@ export default function createClient<Paths extends {}>(
   >(
     url: P,
     ...init: I
-  ): Promise<FetchResponse<Paths[P]["trace"], I[0]["parseAs"]>>;
+  ): Promise<FetchResponse<Paths[P]["trace"], I[0]>>;
 };
 
 /** Serialize query params to string */
