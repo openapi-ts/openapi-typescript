@@ -147,7 +147,9 @@ export type operations = Record<string, never>;`,
         get: {
             parameters: {
                 query?: {
+                    /** @description This overrides parameters with local $ref */
                     local_ref_override?: string;
+                    /** @description This overrides parameters with remote $ref */
                     remote_ref_override?: string;
                 };
                 header?: never;
