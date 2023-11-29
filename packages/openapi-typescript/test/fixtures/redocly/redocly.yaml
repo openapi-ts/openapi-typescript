@@ -4,13 +4,13 @@ extends:
 apis:
   a@v1:
     root: ./openapi/a.yaml
-    openapi-ts:
+    x-openapi-ts:
       output: ./output/a.ts
   b@v1:
     root: ./openapi/b.yaml
-    openapi-ts:
+    x-openapi-ts:
       output: ./output/b.ts
   c@v1:
     root: ./openapi/c.yaml
-    openapi-ts:
+    x-openapi-ts:
       output: ./output/c.ts

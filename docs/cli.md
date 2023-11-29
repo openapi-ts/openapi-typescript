@@ -27,17 +27,17 @@ npx openapi-typescript https://petstore3.swagger.io/api/v3/openapi.yaml -o petst
 
 ### Multiple schemas
 
-To transform multiple schemas, create a `redocly.yaml` file in the root of your project with [APIs defined](https://redocly.com/docs/cli/configuration/). Under `apis`, give each schema a unique name and optionally a version (the name doesn’t matter, so long as it’s unique). Set the `root` value to your schema’s entry point—this will act as the main input. For the output, set it with `openapi-ts.output`:
+To transform multiple schemas, create a `redocly.yaml` file in the root of your project with [APIs defined](https://redocly.com/docs/cli/configuration/). Under `apis`, give each schema a unique name and optionally a version (the name doesn’t matter, so long as it’s unique). Set the `root` value to your schema’s entry point—this will act as the main input. For the output, set it with `x-openapi-ts.output`:
 
 ```yaml
 apis:
   core@v2:
     root: ./openapi/openapi.yaml
-    openapi-ts:
+    x-openapi-ts:
       output: ./openapi/openapi.ts
   external@v1:
     root: ./openapi/external.yaml
-    openapi-ts:
+    x-openapi-ts:
       output: ./openapi/openapi.ts
 ```
 
