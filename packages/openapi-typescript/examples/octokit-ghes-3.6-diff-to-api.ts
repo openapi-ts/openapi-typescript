@@ -1227,7 +1227,7 @@ export interface components {
       permission?: string;
       members_url?: string;
       repositories_url?: string;
-      parent?: Record<string, unknown> | null;
+      parent?: unknown;
     };
     /**
      * Ldap Private User

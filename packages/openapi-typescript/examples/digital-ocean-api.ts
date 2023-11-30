@@ -9085,7 +9085,7 @@ export interface external {
      * @description The Droplet that the floating IP has been assigned to. When you query a floating IP, if it is assigned to a Droplet, the entire Droplet object will be returned. If it is not assigned, the value will be null.
      * @example null
      */
-    droplet?: (Record<string, unknown> | null) | external["resources/droplets/models/droplet.yml"];
+    droplet?: unknown;
     /**
      * @description A boolean value indicating whether or not the floating IP has pending actions preventing new ones from being submitted.
      * @example true
@@ -13948,7 +13948,7 @@ export interface external {
      * @description The Droplet that the reserved IP has been assigned to. When you query a reserved IP, if it is assigned to a Droplet, the entire Droplet object will be returned. If it is not assigned, the value will be null.
      * @example null
      */
-    droplet?: (Record<string, unknown> | null) | external["resources/droplets/models/droplet.yml"];
+    droplet?: unknown;
     /**
      * @description A boolean value indicating whether or not the reserved IP has pending actions preventing new ones from being submitted.
      * @example true
