@@ -41,7 +41,7 @@ description: Additional info about this project
 
 ### vs. swagger-codegen
 
-openapi-typescript was created specifically to be a lighterweight, easier-to-use alternative to swagger-codegen that doesn’t require the Java runtime or running an OpenAPI server. Nor does it generate heavyweight clientside code. In fact, all the code openapi-typescript generates is **runtime free static types** for maximum performance and minimum client weight.
+openapi-typescript was created specifically to be a lighter-weight, easier-to-use alternative to swagger-codegen that doesn’t require the Java runtime or running an OpenAPI server. Nor does it generate heavyweight client-side code. In fact, all the code openapi-typescript generates is **runtime free static types** for maximum performance and minimum client weight.
 
 ### vs. openapi-typescript-codegen
 
@@ -51,7 +51,7 @@ These 2 projects are unrelated. openapi-typescript-codegen is a Node.js alternat
 
 [tRPC](https://trpc.io/) is an opinionated typesafe framework for both server and client. It demands both your server and client be written in tRPC (which means Node.js for the backend).
 
-If you fit into this usecase, it’s a great experience! But for everyone else, openapi-typescript (and openapi-fetch) is a more flexible, lower-level solution that can work for any technology choice (or even be incrementally-adopted without any cost).
+If you fit into this use case, it’s a great experience! But for everyone else, openapi-typescript (and openapi-fetch) is a more flexible, lower-level solution that can work for any technology choice (or even be incrementally-adopted without any cost).
 
 ## Contributors
 

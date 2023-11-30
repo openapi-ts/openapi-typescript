@@ -87,7 +87,7 @@ Different languages have different preferred syntax styles. To name a few:
 - `PascalCase`
 - `kebab-case`
 
-It’s tempting to want to rename API responses into `camelCase` that most JS styleguides encourage. However, **avoid renaming** because in addition to being a timesink, it introduces the following maintenance issues:
+It’s tempting to want to rename API responses into `camelCase` that most JS styleguides encourage. However, **avoid renaming** because in addition to being a time sink, it introduces the following maintenance issues:
 
 - ❌ generated types (like the ones produced by openapi-typescript) now have to be manually typed again
 - ❌ renaming has to happen at runtime, which means you’re slowing down your application for an invisible change
