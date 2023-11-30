@@ -40,7 +40,7 @@ This will compile the code as you change automatically.
 
 #### Tip: use ASTExplorer.net!
 
-Working with the TypeScript AST can be daunting. Luckly, there’s [astexplorer.net](https://astexplorer.net) which makes it much more accessible. Rather than trying to build an AST from scratch (which is near impossible), instead:
+Working with the TypeScript AST can be daunting. Luckily, there’s [astexplorer.net](https://astexplorer.net) which makes it much more accessible. Rather than trying to build an AST from scratch (which is near impossible), instead:
 
 1. Switch to the **typescript** parser in the top menu
 2. Type out code in the left-hand panel
@@ -66,7 +66,7 @@ To add a schema as a snapshot test, modify the [/scripts/download-schemas.ts](/s
 
 ### Generating types
 
-It may be surprising to hear, but generating TypeScript types from OpenAPI is opinionated. Even though TypeScript and OpenAPI are close relatives—both JavaScript/JSON-based—they are nonetheless 2 different languages and thus there is room for interpretation. Further, some parts of the OpenAPI specification can be ambiguous on how they’re used, and what the expected type outcomes may be (though this is generally for more advanced usecasees, such as specific implementations of `anyOf` as well as [discriminator](https://spec.openapis.org/oas/latest.html#discriminatorObject) and complex polymorphism).
+It may be surprising to hear, but generating TypeScript types from OpenAPI is opinionated. Even though TypeScript and OpenAPI are close relatives—both JavaScript/JSON-based—they are nonetheless 2 different languages and thus there is room for interpretation. Further, some parts of the OpenAPI specification can be ambiguous on how they’re used, and what the expected type outcomes may be (though this is generally for more advanced use cases, such as specific implementations of `anyOf` as well as [discriminator](https://spec.openapis.org/oas/latest.html#discriminatorObject) and complex polymorphism).
 
 All that said, this library should strive to generate _the most predictable_ TypeScript output for a given schema. And to achieve that, it always helps to open an [issue](https://github.com/drwpow/openapi-typescript/issues) or [discussion](https://github.com/drwpow/openapi-typescript/discussions) to gather feedback.
 

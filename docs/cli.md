@@ -41,7 +41,7 @@ apis:
       output: ./openapi/openapi.ts
 ```
 
-Whenver you have a `redocly.yaml` file in your project with `apis`, you can omit the input/output parameters in the CLI:
+Whenever you have a `redocly.yaml` file in your project with `apis`, you can omit the input/output parameters in the CLI:
 
 ```bash
 npx openapi-typescript
