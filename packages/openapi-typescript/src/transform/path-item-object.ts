@@ -88,9 +88,13 @@ export default function transformPathItemObject(
         ...(pathItem.parameters ?? []),
         ...(operationObject.parameters ?? []),
       ]) {
-        // note: the actual key doesn’t matter here, as long as it can match between PathItem and OperationObject
-        keyedParameters["$ref" in parameter ? parameter.$ref : parameter.name] =
-          parameter;
+        const name =
+          "$ref" in parameter
+            ? options.ctx.resolve<ParameterObject>(parameter.$ref)?.name
+            : parameter.name;
+        if (name) {
+          keyedParameters[name] = parameter;
+        }
       }
     }
 

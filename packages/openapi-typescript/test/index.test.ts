@@ -131,7 +131,10 @@ export type operations = Record<string, never>;`,
         want: `export interface paths {
     "/endpoint": {
         parameters: {
-            query?: never;
+            query: {
+                local_ref_override: components["parameters"]["local_ref_override"];
+                remote_ref_override: components["parameters"]["remote_ref_override"];
+            };
             header?: never;
             path: {
                 local_param_a: string;
@@ -143,7 +146,12 @@ export type operations = Record<string, never>;`,
         /** @description OK */
         get: {
             parameters: {
-                query?: never;
+                query?: {
+                    /** @description This overrides parameters with local $ref */
+                    local_ref_override?: string;
+                    /** @description This overrides parameters with remote $ref */
+                    remote_ref_override?: string;
+                };
                 header?: never;
                 path: {
                     /** @description This overrides parameters */
@@ -174,7 +182,9 @@ export interface components {
     parameters: {
         local_ref_a: string;
         local_ref_b: string;
+        local_ref_override: string;
         remote_ref_a: string;
+        remote_ref_override: string;
         remote_ref_b: string;
     };
     requestBodies: never;
