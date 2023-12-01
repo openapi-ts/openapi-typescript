@@ -3,6 +3,11 @@ import { URL } from "node:url";
 
 const AVATAR_RE = /property="og:image" content="([^"]+)/;
 const TITLE_RE = /<title>[^(<]*\(([^)<]+)/;
+const CONTRIBUTORS_JSON = new URL("../data/contributors.json", import.meta.url);
+
+const contributors = JSON.parse(fs.readFileSync(CONTRIBUTORS_JSON, "utf8"));
+
+const ONE_WEEK = 1000 * 60 * 60 * 24 * 7;
 
 async function fetchUserInfo(username) {
   const res = await fetch(`https://github.com/${username}`);
@@ -25,6 +30,15 @@ async function fetchUserInfo(username) {
     avatar: avatarMatch[1],
     name,
   };
+}
+
+function upsert(list, userData) {
+  const i = list.findIndex((u) => u.username === userData.username);
+  if (i >= 0) {
+    list[i] = userData;
+  } else {
+    list.push(userData);
+  }
 }
 
 const OPENAPI_TS_CONTRIBUTORS = [
@@ -110,6 +124,14 @@ const OPENAPI_TS_CONTRIBUTORS = [
     "asvishnyakov",
     "SchabaJo",
     "AhsanFazal",
+    "ElForastero",
+    "msgadi",
+    "muttonchop",
+    "christoph-fricke",
+    "JorrinKievit",
+    "WickyNilliams",
+    "hrsh7th",
+    "davidleger95",
   ]),
 ];
 
@@ -130,28 +152,43 @@ export const OPENAPI_FETCH_CONTRIBUTORS = [
     "muttonchop",
     "marcomuser",
     "HugeLetters",
+    "Fumaz",
   ]),
 ];
 
 async function main() {
-  const openapiTS = Promise.all(
-    OPENAPI_TS_CONTRIBUTORS.map(async (username) => ({
-      username,
-      ...(await fetchUserInfo(username)),
-      links: [{ icon: "github", link: `https://github.com/${username}` }],
-    })),
+  // note: fetch sequentially per-list, otherwise GitHub times out (429)
+  // also run on every docs build to pick up updated avatars
+  await Promise.all(
+    ["openapi-typescript", "openapi-fetch"].map(async (repo) => {
+      const userlist =
+        repo === "openapi-fetch"
+          ? OPENAPI_FETCH_CONTRIBUTORS
+          : OPENAPI_TS_CONTRIBUTORS;
+      for (const username of userlist) {
+        // skip profiles that have been updated within the past week
+        const { lastFetch } = contributors[repo].find(
+          (u) => u.username === username,
+        ) ?? { lastFetch: 0 };
+        if (Date.now() - lastFetch < ONE_WEEK) {
+          continue;
+        }
+
+        try {
+          const userData = {
+            username,
+            ...(await fetchUserInfo(username)),
+            links: [{ icon: "github", link: `https://github.com/${username}` }],
+            lastFetch: new Date().getTime(),
+          };
+          upsert(contributors[repo], userData);
+          console.log(`Updated old contributor data for ${username}`); // eslint-disable-line no-console
+        } catch (err) {
+          throw new Error(err);
+        }
+      }
+    }),
   );
-  const openapiFetch = Promise.all(
-    OPENAPI_FETCH_CONTRIBUTORS.map(async (username) => ({
-      username,
-      ...(await fetchUserInfo(username)),
-      links: [{ icon: "github", link: `https://github.com/${username}` }],
-    })),
-  );
-  const contributors = {
-    "openapi-typescript": await openapiTS,
-    "openapi-fetch": await openapiFetch,
-  };
   fs.writeFileSync(
     new URL("../data/contributors.json", import.meta.url),
     JSON.stringify(contributors),
