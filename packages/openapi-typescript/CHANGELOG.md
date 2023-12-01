@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.7.2
+
+### Patch Changes
+
+- [#1468](https://github.com/drwpow/openapi-typescript/pull/1468) [`43ccec8`](https://github.com/drwpow/openapi-typescript/commit/43ccec8a8c4b63a06735d097af1b44c54e3e34f9) Thanks [@davidleger95](https://github.com/davidleger95)! - Correctly transform untyped nullable fields to `unknown`
+
 ## 6.7.1
 
 ### Patch Changes
