@@ -55,7 +55,7 @@
     "test:examples": "tsc -p tsconfig.examples.json --noEmit",
     "test:js": "vitest run",
     "test:ts": "tsc --noEmit",
-    "update:examples": "pnpm run download:schemas && vite-node ./scripts/update-examples.ts",
+    "update:examples": "pnpm run build && pnpm run download:schemas && vite-node ./scripts/update-examples.ts",
     "prepublish": "pnpm run build",
     "version": "pnpm run build"
   },
