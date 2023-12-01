@@ -6,46 +6,43 @@ import { multiFile, singleFile } from "./schemas.js";
 
 async function generateSchemas() {
   const cwd = new URL("../", import.meta.url);
-  const allSchemas = Object.keys({ ...singleFile, ...multiFile });
+  const singleFileSchemas = Object.entries(singleFile);
+  const multiFileSchemas = Object.entries(multiFile);
 
-  let done = 0;
-  console.log("Updating examples..."); // eslint-disable-line no-console
+  const schemaTotalCount = singleFileSchemas.length + multiFileSchemas.length;
+  let schemasDoneCount = 0;
+
+  const updateSchema = async (name: string, ext: string) => {
+    const start = performance.now();
+
+    await execa(
+      "./bin/cli.js",
+      [`./examples/${name}${ext}`, "-o", `./examples/${name}.ts`],
+      { cwd },
+    );
+
+    schemasDoneCount++;
+    const timeMs = Math.round(performance.now() - start);
+
+    console.log(
+      `✔︎ [${schemasDoneCount}/${schemaTotalCount}] Updated ${name} (${timeMs}ms)`,
+    );
+  };
+
+  console.log("Updating examples...");
+
   await Promise.all([
-    ...Object.keys(singleFile).map(async (name) => {
-      const start = performance.now();
-      const ext = path.extname(singleFile[name as keyof typeof singleFile]);
-      await execa(
-        "./bin/cli.js",
-        [`./examples/${name}${ext}`, "-o", `./examples/${name}.ts`],
-        { cwd },
-      );
-      done++;
-      console.log(
-        `✔︎ [${done}/${allSchemas.length}] Updated ${name} (${Math.round(
-          performance.now() - start,
-        )}ms)`,
-      ); // eslint-disable-line no-console
+    ...singleFileSchemas.map(async ([name, url]) => {
+      const ext = path.extname(url);
+      await updateSchema(name, ext);
     }),
-    ...Object.entries(multiFile).map(async ([name, meta]) => {
-      const start = performance.now();
-      await execa(
-        "./bin/cli.js",
-        [
-          `./examples/${name}${meta.entry.substring(1)}`,
-          "-o",
-          `./examples/${name}.ts`,
-        ],
-        { cwd },
-      );
-      done++;
-      console.log(
-        `✔︎ [${done}/${allSchemas.length}] Updated ${name} (${Math.round(
-          performance.now() - start,
-        )}ms)`,
-      ); // eslint-disable-line no-console
+    ...multiFileSchemas.map(async ([name, meta]) => {
+      const ext = meta.entry.substring(1);
+      await updateSchema(name, ext);
     }),
   ]);
-  console.log("Updating examples done."); // eslint-disable-line no-console
+
+  console.log("Updating examples done.");
   process.exit(0); // helps process close in npm script
 }
 
