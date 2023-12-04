@@ -1,0 +1,137 @@
+import { BaseResolver, bundle, makeDocumentFromString, Source, lintDocument, } from "@redocly/openapi-core";
+import { Readable } from "node:stream";
+import { fileURLToPath } from "node:url";
+import { debug, error, warn } from "./utils.js";
+export async function parseSchema(schema, { absoluteRef, resolver }) {
+    if (!schema) {
+        throw new Error(`Can’t parse empty schema`);
+    }
+    if (schema instanceof URL) {
+        const result = await resolver.resolveDocument(null, absoluteRef, true);
+        if ("parsed" in result) {
+            return result;
+        }
+        throw result.originalError;
+    }
+    if (schema instanceof Readable) {
+        const contents = await new Promise((resolve) => {
+            schema.resume();
+            schema.setEncoding("utf8");
+            let content = "";
+            schema.on("data", (chunk) => {
+                content += chunk;
+            });
+            schema.on("end", () => {
+                resolve(content.trim());
+            });
+        });
+        return parseSchema(contents, { absoluteRef, resolver });
+    }
+    if (schema instanceof Buffer) {
+        return parseSchema(schema.toString("utf8"), { absoluteRef, resolver });
+    }
+    if (typeof schema === "string") {
+        if (schema.startsWith("http://") ||
+            schema.startsWith("https://") ||
+            schema.startsWith("file://")) {
+            const url = new URL(schema);
+            return parseSchema(url, {
+                absoluteRef: url.protocol === "file:" ? fileURLToPath(url) : url.href,
+                resolver,
+            });
+        }
+        if (schema[0] === "{") {
+            return {
+                source: new Source(absoluteRef, schema, "application/json"),
+                parsed: JSON.parse(schema),
+            };
+        }
+        return makeDocumentFromString(schema, absoluteRef);
+    }
+    if (typeof schema === "object" && !Array.isArray(schema)) {
+        return {
+            source: new Source(absoluteRef, JSON.stringify(schema), "application/json"),
+            parsed: schema,
+        };
+    }
+    throw new Error(`Expected string, object, or Buffer. Got ${Array.isArray(schema) ? "Array" : typeof schema}`);
+}
+export async function validateAndBundle(source, options) {
+    const redocConfigT = performance.now();
+    debug("Loaded Redoc config", "redoc", performance.now() - redocConfigT);
+    const redocParseT = performance.now();
+    let absoluteRef = fileURLToPath(new URL(options?.cwd ?? `file://${process.cwd()}/`));
+    if (source instanceof URL) {
+        absoluteRef =
+            source.protocol === "file:" ? fileURLToPath(source) : source.href;
+    }
+    const resolver = new BaseResolver(options.redoc.resolve);
+    const document = await parseSchema(source, {
+        absoluteRef,
+        resolver,
+    });
+    debug("Parsed schema", "redoc", performance.now() - redocParseT);
+    const openapiVersion = parseFloat(document.parsed.openapi);
+    if (document.parsed.swagger ||
+        !document.parsed.openapi ||
+        Number.isNaN(openapiVersion) ||
+        openapiVersion < 3 ||
+        openapiVersion >= 4) {
+        if (document.parsed.swagger) {
+            throw new Error("Unsupported Swagger version: 2.x. Use OpenAPI 3.x instead.");
+        }
+        else if (document.parsed.openapi ||
+            openapiVersion < 3 ||
+            openapiVersion >= 4) {
+            throw new Error(`Unsupported OpenAPI version: ${document.parsed.openapi}`);
+        }
+        throw new Error("Unsupported schema format, expected `openapi: 3.x`");
+    }
+    const redocLintT = performance.now();
+    const problems = await lintDocument({
+        document,
+        config: options.redoc.styleguide,
+        externalRefResolver: resolver,
+    });
+    if (problems.length) {
+        let errorMessage = undefined;
+        for (const problem of problems) {
+            if (problem.severity === "error") {
+                errorMessage = problem.message;
+                error(problem.message);
+            }
+            else {
+                warn(problem.message, options.silent);
+            }
+        }
+        if (errorMessage) {
+            throw new Error(errorMessage);
+        }
+    }
+    debug("Linted schema", "lint", performance.now() - redocLintT);
+    const redocBundleT = performance.now();
+    const bundled = await bundle({
+        config: options.redoc,
+        dereference: false,
+        doc: document,
+    });
+    if (bundled.problems.length) {
+        let errorMessage = undefined;
+        for (const problem of bundled.problems) {
+            if (problem.severity === "error") {
+                errorMessage = problem.message;
+                error(problem.message);
+                throw new Error(problem.message);
+            }
+            else {
+                warn(problem.message, options.silent);
+            }
+        }
+        if (errorMessage) {
+            throw new Error(errorMessage);
+        }
+    }
+    debug("Bundled schema", "bundle", performance.now() - redocBundleT);
+    return bundled.bundle.parsed;
+}
+//# sourceMappingURL=redoc.js.map

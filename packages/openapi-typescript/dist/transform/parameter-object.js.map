@@ -1,0 +1,1 @@
+{"version":3,"file":"parameter-object.js","sourceRoot":"./","sources":["transform/parameter-object.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,MAAM,EAAE,MAAM,cAAc,CAAC;AAEtC,OAAO,qBAAqB,MAAM,oBAAoB,CAAC;AAMvD,MAAM,CAAC,OAAO,UAAU,wBAAwB,CAC9C,eAAgC,EAChC,OAA6B;IAE7B,OAAO,eAAe,CAAC,MAAM;QAC3B,CAAC,CAAC,qBAAqB,CAAC,eAAe,CAAC,MAAM,EAAE,OAAO,CAAC;QACxD,CAAC,CAAC,MAAM,CAAC;AACb,CAAC"}

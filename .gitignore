@@ -1,5 +1,4 @@
 .DS_Store
-dist
 node_modules
 
 packages/openapi-typescript/test/fixtures/cli-outputs/out
