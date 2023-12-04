@@ -57,11 +57,12 @@ export default function createClient(clientOptions) {
       headers: finalHeaders,
     };
 
-    if (requestBody) {
+    if (requestBody && !(requestBody instanceof FormData)) {
       requestInit.body = bodySerializer(requestBody);
     }
-    // remove `Content-Type` if serialized body is FormData; browser will correctly set Content-Type & boundary expression
-    if (requestInit.body instanceof FormData) {
+    // remove `Content-Type` if body is FormData; browser will correctly set Content-Type & boundary expression
+    if (requestBody instanceof FormData) {
+      requestInit.body = requestBody;
       finalHeaders.delete("Content-Type");
     }
 
