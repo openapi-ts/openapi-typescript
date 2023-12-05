@@ -16,6 +16,6 @@
   "devDependencies": {
     "@vitejs/plugin-react-swc": "^3.3.2",
     "typescript": "^5.3.2",
-    "vite": "^4.4.9"
+    "vite": "^4.4.12"
   }
 }
