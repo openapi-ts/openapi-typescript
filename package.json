@@ -10,8 +10,7 @@
   "scripts": {
     "build": "run-p -s build:*",
     "build:openapi-typescript": "cd packages/openapi-typescript && pnpm run build",
-    "build:openapi-typescript-helpers": "cd packages/openapi-typescript-helpers && pnpm run build",
-    "build:openapi-fetch": "cd packages/openapi-fetch && pnpm run build",
+    "build:openapi-fetch": "cd packages/openapi-typescript-helpers && pnpm run build && cd ../openapi-fetch && pnpm run build",
     "lint": "run-p -s lint:*",
     "lint:openapi-typescript": "cd packages/openapi-typescript && pnpm run lint",
     "lint:openapi-typescript-helpers": "cd packages/openapi-typescript-helpers && pnpm run lint",
