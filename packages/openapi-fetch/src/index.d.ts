@@ -38,7 +38,19 @@ export type QuerySerializer<T> = (
 
 export type BodySerializer<T> = (body: OperationRequestBodyContent<T>) => any;
 
-export type ParseAs = "json" | "text" | "blob" | "arrayBuffer" | "stream";
+type BodyType<T = unknown> = {
+  json: T;
+  text: Awaited<ReturnType<Response["text"]>>;
+  blob: Awaited<ReturnType<Response["blob"]>>;
+  arrayBuffer: Awaited<ReturnType<Response["arrayBuffer"]>>;
+  stream: Response["body"];
+};
+export type ParseAs = keyof BodyType;
+export type ParseAsResponse<T, O extends FetchOptions> = O extends {
+  parseAs: ParseAs;
+}
+  ? BodyType<T>[O["parseAs"]]
+  : T;
 
 export interface DefaultParamsOption {
   params?: {
@@ -62,9 +74,20 @@ export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never
 
 export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body">;
 
-export type FetchResponse<T> =
+/** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
+export type MaybeOptionalInit<
+  P extends {},
+  M extends keyof P,
+> = HasRequiredKeys<FetchOptions<FilterKeys<P, M>>> extends never
+  ? [(FetchOptions<FilterKeys<P, M>> | undefined)?]
+  : [FetchOptions<FilterKeys<P, M>>];
+
+export type FetchResponse<T, O extends FetchOptions> =
   | {
-      data: FilterKeys<SuccessResponse<ResponseObjectMap<T>>, MediaType>;
+      data: ParseAsResponse<
+        FilterKeys<SuccessResponse<ResponseObjectMap<T>>, MediaType>,
+        O
+      >;
       error?: never;
       response: Response;
     }
@@ -86,157 +109,69 @@ export default function createClient<Paths extends {}>(
   clientOptions?: ClientOptions,
 ): {
   /** Call a GET endpoint */
-  GET<P extends PathsWithMethod<Paths, "get">>(
+  GET<
+    P extends PathsWithMethod<Paths, "get">,
+    I extends MaybeOptionalInit<Paths[P], "get">,
+  >(
     url: P,
-    ...init: HasRequiredKeys<
-      FetchOptions<FilterKeys<Paths[P], "get">>
-    > extends never
-      ? [(FetchOptions<FilterKeys<Paths[P], "get">> | undefined)?]
-      : [FetchOptions<FilterKeys<Paths[P], "get">>]
-  ): Promise<
-    FetchResponse<
-      "get" extends infer T
-        ? T extends "get"
-          ? T extends keyof Paths[P]
-            ? Paths[P][T]
-            : unknown
-          : never
-        : never
-    >
-  >;
+    ...init: I
+  ): Promise<FetchResponse<Paths[P]["get"], I[0]>>;
   /** Call a PUT endpoint */
-  PUT<P extends PathsWithMethod<Paths, "put">>(
+  PUT<
+    P extends PathsWithMethod<Paths, "put">,
+    I extends MaybeOptionalInit<Paths[P], "put">,
+  >(
     url: P,
-    ...init: HasRequiredKeys<
-      FetchOptions<FilterKeys<Paths[P], "put">>
-    > extends never
-      ? [(FetchOptions<FilterKeys<Paths[P], "put">> | undefined)?]
-      : [FetchOptions<FilterKeys<Paths[P], "put">>]
-  ): Promise<
-    FetchResponse<
-      "put" extends infer T
-        ? T extends "put"
-          ? T extends keyof Paths[P]
-            ? Paths[P][T]
-            : unknown
-          : never
-        : never
-    >
-  >;
+    ...init: I
+  ): Promise<FetchResponse<Paths[P]["put"], I[0]>>;
   /** Call a POST endpoint */
-  POST<P extends PathsWithMethod<Paths, "post">>(
+  POST<
+    P extends PathsWithMethod<Paths, "post">,
+    I extends MaybeOptionalInit<Paths[P], "post">,
+  >(
     url: P,
-    ...init: HasRequiredKeys<
-      FetchOptions<FilterKeys<Paths[P], "post">>
-    > extends never
-      ? [(FetchOptions<FilterKeys<Paths[P], "post">> | undefined)?]
-      : [FetchOptions<FilterKeys<Paths[P], "post">>]
-  ): Promise<
-    FetchResponse<
-      "post" extends infer T
-        ? T extends "post"
-          ? T extends keyof Paths[P]
-            ? Paths[P][T]
-            : unknown
-          : never
-        : never
-    >
-  >;
+    ...init: I
+  ): Promise<FetchResponse<Paths[P]["post"], I[0]>>;
   /** Call a DELETE endpoint */
-  DELETE<P extends PathsWithMethod<Paths, "delete">>(
+  DELETE<
+    P extends PathsWithMethod<Paths, "delete">,
+    I extends MaybeOptionalInit<Paths[P], "delete">,
+  >(
     url: P,
-    ...init: HasRequiredKeys<
-      FetchOptions<FilterKeys<Paths[P], "delete">>
-    > extends never
-      ? [(FetchOptions<FilterKeys<Paths[P], "delete">> | undefined)?]
-      : [FetchOptions<FilterKeys<Paths[P], "delete">>]
-  ): Promise<
-    FetchResponse<
-      "delete" extends infer T
-        ? T extends "delete"
-          ? T extends keyof Paths[P]
-            ? Paths[P][T]
-            : unknown
-          : never
-        : never
-    >
-  >;
+    ...init: I
+  ): Promise<FetchResponse<Paths[P]["delete"], I[0]>>;
   /** Call a OPTIONS endpoint */
-  OPTIONS<P extends PathsWithMethod<Paths, "options">>(
+  OPTIONS<
+    P extends PathsWithMethod<Paths, "options">,
+    I extends MaybeOptionalInit<Paths[P], "options">,
+  >(
     url: P,
-    ...init: HasRequiredKeys<
-      FetchOptions<FilterKeys<Paths[P], "options">>
-    > extends never
-      ? [(FetchOptions<FilterKeys<Paths[P], "options">> | undefined)?]
-      : [FetchOptions<FilterKeys<Paths[P], "options">>]
-  ): Promise<
-    FetchResponse<
-      "options" extends infer T
-        ? T extends "options"
-          ? T extends keyof Paths[P]
-            ? Paths[P][T]
-            : unknown
-          : never
-        : never
-    >
-  >;
+    ...init: I
+  ): Promise<FetchResponse<Paths[P]["options"], I[0]>>;
   /** Call a HEAD endpoint */
-  HEAD<P extends PathsWithMethod<Paths, "head">>(
+  HEAD<
+    P extends PathsWithMethod<Paths, "head">,
+    I extends MaybeOptionalInit<Paths[P], "head">,
+  >(
     url: P,
-    ...init: HasRequiredKeys<
-      FetchOptions<FilterKeys<Paths[P], "head">>
-    > extends never
-      ? [(FetchOptions<FilterKeys<Paths[P], "head">> | undefined)?]
-      : [FetchOptions<FilterKeys<Paths[P], "head">>]
-  ): Promise<
-    FetchResponse<
-      "head" extends infer T
-        ? T extends "head"
-          ? T extends keyof Paths[P]
-            ? Paths[P][T]
-            : unknown
-          : never
-        : never
-    >
-  >;
+    ...init: I
+  ): Promise<FetchResponse<Paths[P]["head"], I[0]>>;
   /** Call a PATCH endpoint */
-  PATCH<P extends PathsWithMethod<Paths, "patch">>(
+  PATCH<
+    P extends PathsWithMethod<Paths, "patch">,
+    I extends MaybeOptionalInit<Paths[P], "patch">,
+  >(
     url: P,
-    ...init: HasRequiredKeys<
-      FetchOptions<FilterKeys<Paths[P], "patch">>
-    > extends never
-      ? [(FetchOptions<FilterKeys<Paths[P], "patch">> | undefined)?]
-      : [FetchOptions<FilterKeys<Paths[P], "patch">>]
-  ): Promise<
-    FetchResponse<
-      "patch" extends infer T
-        ? T extends "patch"
-          ? T extends keyof Paths[P]
-            ? Paths[P][T]
-            : unknown
-          : never
-        : never
-    >
-  >;
+    ...init: I
+  ): Promise<FetchResponse<Paths[P]["patch"], I[0]>>;
   /** Call a TRACE endpoint */
-  TRACE<P extends PathsWithMethod<Paths, "trace">>(
+  TRACE<
+    P extends PathsWithMethod<Paths, "trace">,
+    I extends MaybeOptionalInit<Paths[P], "trace">,
+  >(
     url: P,
-    ...init: HasRequiredKeys<
-      FetchOptions<FilterKeys<Paths[P], "trace">>
-    > extends never
-      ? [(FetchOptions<FilterKeys<Paths[P], "trace">> | undefined)?]
-      : [FetchOptions<FilterKeys<Paths[P], "trace">>]
-  ): Promise<
-    FetchResponse<
-      "trace" extends infer T
-        ? T extends "trace"
-          ? T extends keyof Paths[P]
-            ? Paths[P][T]
-            : unknown
-          : never
-        : never
-    >
-  >;
+    ...init: I
+  ): Promise<FetchResponse<Paths[P]["trace"], I[0]>>;
 };
 
 /** Serialize query params to string */

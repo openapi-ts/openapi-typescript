@@ -86,9 +86,7 @@ export type RequestBodyJSON<PathMethod> = JSONLike<
 // Generic TS utils
 
 /** Find first match of multiple keys */
-export type FilterKeys<Obj, Matchers> = {
-  [K in keyof Obj]: K extends Matchers ? Obj[K] : never;
-}[keyof Obj];
+export type FilterKeys<Obj, Matchers> = Obj[keyof Obj & Matchers];
 /** Return any `[string]/[string]` media type (important because openapi-fetch allows any content response, not just JSON-like) */
 export type MediaType = `${string}/${string}`;
 /** Return any media type containing "json" (works for "application/json", "application/vnd.api+json", "application/vnd.oai.openapi+json") */

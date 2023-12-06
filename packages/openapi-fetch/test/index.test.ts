@@ -569,32 +569,56 @@ describe("client", () => {
       it("text", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data } = await client.GET("/anyMethod", { parseAs: "text" });
-        expect(data).toBe("{}");
+        const { data, error } = (await client.GET("/anyMethod", {
+          parseAs: "text",
+        })) satisfies { data?: string };
+        if (error) {
+          throw new Error(`parseAs text: error`);
+        }
+        expect(data.toLowerCase()).toBe("{}");
       });
 
       it("arrayBuffer", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data } = await client.GET("/anyMethod", {
+        const { data, error } = (await client.GET("/anyMethod", {
           parseAs: "arrayBuffer",
-        });
-        expect(data instanceof ArrayBuffer).toBe(true);
+        })) satisfies { data?: ArrayBuffer };
+        if (error) {
+          throw new Error(`parseAs arrayBuffer: error`);
+        }
+        expect(data.byteLength).toBe(2);
       });
 
       it("blob", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data } = await client.GET("/anyMethod", { parseAs: "blob" });
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        expect((data as any).constructor.name).toBe("Blob");
+        const { data, error } = (await client.GET("/anyMethod", {
+          parseAs: "blob",
+        })) satisfies { data?: Blob };
+        if (error) {
+          throw new Error(`parseAs blob: error`);
+        }
+
+        expect(data.constructor.name).toBe("Blob");
       });
 
       it("stream", async () => {
         const client = createClient<paths>();
         mockFetchOnce({ status: 200, body: "{}" });
-        const { data } = await client.GET("/anyMethod", { parseAs: "stream" });
+        const { data } = (await client.GET("/anyMethod", {
+          parseAs: "stream",
+        })) satisfies { data?: ReadableStream<Uint8Array> | null };
+        if (!data) {
+          throw new Error(`parseAs stream: error`);
+        }
+
         expect(data instanceof Buffer).toBe(true);
+        if (!(data instanceof Buffer)) {
+          throw Error("Data should be an instance of Buffer in Node context");
+        }
+
+        expect(data.byteLength).toBe(2);
       });
     });
   });

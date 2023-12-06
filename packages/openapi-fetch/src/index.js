@@ -21,8 +21,8 @@ export default function createClient(clientOptions) {
 
   /**
    * Per-request fetch (keeps settings created in createClient()
-   * @param {string} url
-   * @param {import('./index.js').FetchOptions} fetchOptions
+   * @param {T} url
+   * @param {import('./index.js').FetchOptions<T>} fetchOptions
    */
   async function coreFetch(url, fetchOptions) {
     const {
@@ -50,6 +50,7 @@ export default function createClient(clientOptions) {
     );
 
     // fetch!
+    /** @type {RequestInit} */
     const requestInit = {
       redirect: "follow",
       ...baseOptions,
