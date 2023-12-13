@@ -316,7 +316,7 @@ export function isFilepath(url: string): boolean {
 }
 
 export function getDefaultFetch(): Fetch {
-  const globalFetch: Fetch | undefined = globalThis.fetch;
+  const globalFetch: Fetch | undefined = globalThis.fetch as any; // eslint-disable-line @typescript-eslint/no-explicit-any
   if (typeof globalFetch === "undefined") {
     return unidiciFetch;
   }

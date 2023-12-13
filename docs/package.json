@@ -27,9 +27,9 @@
     "@astrojs/sitemap": "^2.0.2",
     "@cobalt-ui/cli": "^1.4.1",
     "@cobalt-ui/plugin-sass": "^1.2.3",
-    "@types/node": "^20.8.7",
+    "@types/node": "^20.10.4",
     "html-escaper": "^3.0.3",
-    "typescript": "^5.2.2",
+    "typescript": "^5.3.3",
     "vite-plugin-sass-dts": "^1.3.9"
   }
 }
