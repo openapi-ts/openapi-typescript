@@ -12,8 +12,14 @@
   "types": "./index.d.ts",
   "exports": {
     ".": {
-      "default": "./index.js",
-      "types": "./index.d.ts"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.cts",
+        "default": "./dist/cjs/index.cjs"
+      }
     },
     "./*": "./*"
   },
@@ -27,6 +33,10 @@
     "url": "https://github.com/drwpow/openapi-typescript/issues"
   },
   "scripts": {
+    "build": "pnpm run build:clean && pnpm run build:js && pnpm run build:cjs",
+    "build:clean": "del dist",
+    "build:js": "mkdir -p dist && cp index.js index.d.ts dist",
+    "build:cjs": "mkdir -p dist/cjs && cp index.js dist/cjs/index.js && cp index.d.ts dist/cjs/index.d.cts",
     "lint": "pnpm run lint:js",
     "lint:js": "eslint \"*.{js,ts}\"",
     "lint:prettier": "prettier --check \"{src,test}/**/*\"",
