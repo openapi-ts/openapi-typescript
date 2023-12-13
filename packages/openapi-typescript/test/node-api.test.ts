@@ -512,31 +512,23 @@ export type operations = Record<string, never>;`,
               XEnumVarnames: {
                 type: "number",
                 enum: [0, 1, 2],
-                "x-enum-varnames": [
-                  "Success",
-                  "Warning",
-                  "Error"
-                ],
+                "x-enum-varnames": ["Success", "Warning", "Error"],
                 "x-enum-descriptions": [
-                    "Used when the status of something is successful",
-                    "Used when the status of something has a warning",
-                    "Used when the status of something has an error"
-                ]
-              },              
+                  "Used when the status of something is successful",
+                  "Used when the status of something has a warning",
+                  "Used when the status of something has an error",
+                ],
+              },
               XEnumNames: {
                 type: "number",
                 enum: [1, 2, 3],
-                "x-enumNames": [
-                  "Uno",
-                  "Dos",
-                  "Tres"
-                ],
+                "x-enumNames": ["Uno", "Dos", "Tres"],
                 "x-enumDescriptions": [
-                    "El número uno",
-                    "El número dos",
-                    "El número tres"
-                ]
-              },                 
+                  "El número uno",
+                  "El número dos",
+                  "El número tres",
+                ],
+              },
             },
           },
         },
