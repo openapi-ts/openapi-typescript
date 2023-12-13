@@ -189,6 +189,49 @@ export function mockResponses(responses: {
 
 Now, whenever your schema updates, **all your mock data will be typechecked correctly** 🎉. This is a huge step in ensuring resilient, accurate tests.
 
+## Enum extensions
+
+`x-enum-varnames` can be used to have another enum name for the corresponding value. This is used to define names of the enum items.
+
+`x-enum-descriptions` can be used to provide an individual description for each value. This is used for comments in the code (like javadoc if the target language is java).
+
+`x-enum-descriptions` and `x-enum-varnames` are each expected to be list of items containing the same number of items as enum. The order of the items in the list matters: their position is used to group them together.
+
+Example:
+
+```yaml
+ErrorCode:
+  type: integer
+  format: int32
+  enum:
+    - 100
+    - 200
+    - 300
+  x-enum-varnames:
+    - Unauthorized
+    - AccessDenied
+    - Unknown
+  x-enum-descriptions:
+    - "User is not authorized"
+    - "User has no access to this resource"
+    - "Something went wrong"
+```
+
+Will result in:
+
+```ts
+enum ErrorCode {
+  // User is not authorized
+  Unauthorized = 100
+  // User has no access to this resource
+  AccessDenied = 200
+  // Something went wrong
+  Unknown = 300
+}
+```
+
+Alternatively you can use `x-enumNames` and `x-enumDescriptions` ([NSwag/NJsonSchema](https://github.com/RicoSuter/NJsonSchema/wiki/Enums#enum-names-and-descriptions)).
+
 ## Tips
 
 In no particular order, here are a few best practices to make life easier when working with OpenAPI-derived types.
