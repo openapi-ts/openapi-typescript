@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.7.3
+
+### Patch Changes
+
+- [#1485](https://github.com/drwpow/openapi-typescript/pull/1485) [`0a100af72f103aad02be76ca3b8fce318524c1b5`](https://github.com/drwpow/openapi-typescript/commit/0a100af72f103aad02be76ca3b8fce318524c1b5) Thanks [@drwpow](https://github.com/drwpow)! - Remove prepare npm-scripts
+
 ## 6.7.2
 
 ### Patch Changes
