@@ -55,11 +55,11 @@
     "lint": "pnpm run lint:js",
     "lint:js": "eslint \"{src,test}/**/*.{js,ts}\"",
     "lint:prettier": "prettier --check \"{src,test}/**/*\"",
-    "test": "pnpm run test:ts && npm run test:js",
+    "generate-types": "cd ../openapi-typescript && pnpm run build && cd ../openapi-fetch ../openapi-typescript/bin/cli.js ./test/fixtures/api.yaml -o ./test/fixtures/v7-beta.test.ts && npx openapi-typescript ./test/fixtures/api.yaml -o ./test/fixtures/api.d.ts",
+    "pretest": "pnpm run generate-types",
+    "test": "run-p -s test:*",
     "test:js": "vitest run",
     "test:ts": "tsc --noEmit",
-    "prepare": "openapi-typescript test/fixtures/api.yaml -o test/fixtures/api.d.ts",
-    "prepublish": "pnpm run prepare && pnpm run build",
     "version": "pnpm run prepare && pnpm run build"
   },
   "dependencies": {
@@ -70,6 +70,7 @@
     "del-cli": "^5.1.0",
     "esbuild": "^0.19.9",
     "nanostores": "^0.9.5",
+    "npm-run-all": "^4.1.5",
     "openapi-typescript": "^6.7.2",
     "openapi-typescript-codegen": "^0.25.0",
     "openapi-typescript-fetch": "^1.1.3",

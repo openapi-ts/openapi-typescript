@@ -8,14 +8,15 @@
     "email": "drew@pow.rs"
   },
   "scripts": {
-    "build": "run-p -s build:*",
+    "build": "run-s -s build:*",
     "build:openapi-typescript": "cd packages/openapi-typescript && pnpm run build",
-    "build:openapi-fetch": "cd packages/openapi-typescript-helpers && pnpm run build && cd ../openapi-fetch && pnpm run build",
+    "build:openapi-typescript-helpers": "cd packages/openapi-typescript-helpers && pnpm run build",
+    "build:openapi-fetch": "cd packages/openapi-fetch && pnpm run build",
     "lint": "run-p -s lint:*",
     "lint:openapi-typescript": "cd packages/openapi-typescript && pnpm run lint",
     "lint:openapi-typescript-helpers": "cd packages/openapi-typescript-helpers && pnpm run lint",
     "lint:openapi-fetch": "cd packages/openapi-fetch && pnpm run lint",
-    "test": "run-p -s test:*",
+    "test": "pnpm run build && run-p test:*",
     "test:openapi-typescript": "cd packages/openapi-typescript && pnpm test",
     "test:openapi-typescript-helpers": "cd packages/openapi-typescript-helpers && pnpm test",
     "test:openapi-fetch": "cd packages/openapi-fetch && pnpm test",
