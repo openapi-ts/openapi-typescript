@@ -50,7 +50,6 @@
     "lint": "run-p -s lint:*",
     "lint:js": "eslint \"{src,test}/**/*.{js,ts}\"",
     "lint:prettier": "prettier --check \"src/**/*\"",
-    "prepare": "pnpm run build",
     "test": "run-p -s test:*",
     "test:js": "vitest run",
     "test:ts": "tsc --noEmit",
@@ -60,22 +59,22 @@
   },
   "dependencies": {
     "ansi-colors": "^4.1.3",
-    "fast-glob": "^3.3.1",
+    "fast-glob": "^3.3.2",
     "js-yaml": "^4.1.0",
     "supports-color": "^9.4.0",
-    "undici": "^5.27.2",
+    "undici": "^5.28.2",
     "yargs-parser": "^21.1.1"
   },
   "devDependencies": {
-    "@types/degit": "^2.8.5",
-    "@types/js-yaml": "^4.0.8",
-    "@types/node": "^20.8.7",
+    "@types/degit": "^2.8.6",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.10.4",
     "degit": "^2.8.4",
     "del-cli": "^5.1.0",
-    "esbuild": "^0.19.5",
+    "esbuild": "^0.19.9",
     "execa": "^7.2.0",
-    "vite": "^4.5.0",
-    "vite-node": "^0.34.6",
+    "vite": "^5.0.8",
+    "vite-node": "^1.0.4",
     "vitest": "^0.34.6"
   }
 }

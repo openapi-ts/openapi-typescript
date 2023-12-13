@@ -3,8 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "prepare": "openapi-typescript src/lib/api/v1.json -o src/lib/api/v1.d.ts"
+    "dev": "vite dev"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.35.0",
@@ -15,7 +14,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react-swc": "^3.3.2",
-    "typescript": "^5.2.2",
-    "vite": "^4.4.9"
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8"
   }
 }
