@@ -3,8 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "prepare": "openapi-typescript lib/api/v1.json -o lib/api/v1.d.ts"
+    "dev": "next dev"
   },
   "dependencies": {
     "next": "13.4.19",

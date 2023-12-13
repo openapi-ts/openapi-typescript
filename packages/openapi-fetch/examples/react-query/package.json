@@ -3,8 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "prepare": "openapi-typescript src/lib/api/v1.json -o src/lib/api/v1.d.ts"
+    "dev": "vite dev"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.35.0",

@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "vite dev",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "prepare": "openapi-typescript src/lib/api/v1.json -o src/lib/api/v1.d.ts"
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "dependencies": {
     "openapi-fetch": "workspace:^",
