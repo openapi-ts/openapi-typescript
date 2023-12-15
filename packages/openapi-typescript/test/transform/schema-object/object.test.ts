@@ -337,6 +337,42 @@ describe("transformSchemaObject > object", () => {
         },
       },
     ],
+    [
+      "options > two-dimensional array",
+      {
+        given: {
+          type: "object",
+          properties: {
+            array: {
+              "type": "array",
+              "items": {
+                "items": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ],
+                "type": "array",
+                "maxItems": 2,
+                "minItems": 2
+              }
+            },
+          },
+        },
+        want: `{
+    array?: [
+        string,
+        boolean
+    ][];
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx },
+        },
+      },
+    ],
   ];
 
   for (const [
