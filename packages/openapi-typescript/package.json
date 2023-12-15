@@ -43,7 +43,7 @@
     "build": "run-s -s build:*",
     "build:clean": "del dist",
     "build:esm": "tsc -p tsconfig.build.json",
-    "build:cjs": "esbuild --bundle --platform=node --target=es2019 --outfile=dist/index.cjs --external:@redocly/ajv --external:@redocly/openapi-core --external:typescript src/index.ts --footer:js=\"module.exports = module.exports.default;\"",
+    "build:cjs": "esbuild --bundle --platform=node --target=es2019 --outfile=dist/index.cjs --external:@redocly/ajv --external:@redocly/openapi-core --external:typescript src/index.ts",
     "dev": "tsc -p tsconfig.build.json --watch",
     "download:schemas": "vite-node ./scripts/download-schemas.ts",
     "format": "prettier --write \"src/**/*\"",
