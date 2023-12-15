@@ -23,6 +23,8 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
   querySerializer?: QuerySerializer<unknown> | QuerySerializerOptions;
   /** global bodySerializer */
   bodySerializer?: BodySerializer<unknown>;
+  /** middlewares */
+  middleware?: Middleware[];
   headers?: HeadersOptions;
 }
 
@@ -129,6 +131,43 @@ export type RequestOptions<T> = ParamsOption<T> &
     parseAs?: ParseAs;
     fetch?: ClientOptions["fetch"];
   };
+
+export type MergedOptions<T = unknown> = {
+  baseUrl: string;
+  parseAs: ParseAs;
+  querySerializer: QuerySerializer<T>;
+  bodySerializer: BodySerializer<T>;
+  fetch: typeof globalThis.fetch;
+};
+
+export type MiddlewareRequestPayload = {
+  type: "request";
+  req: Request & {
+    /** The original OpenAPI schema path (including curly braces) */
+    schemaPath: string;
+    /** OpenAPI parameters as provided from openapi-fetch */
+    params: {
+      query?: Record<string, unknown>;
+      header?: Record<string, unknown>;
+      path?: Record<string, unknown>;
+      cookie?: Record<string, unknown>;
+    };
+  };
+  res?: never;
+  options: readonly MergedOptions;
+};
+export type MiddlewareResponsePayload = {
+  type: "response";
+  req?: never;
+  res: Response;
+  options: readonly MergedOptions;
+};
+export type MiddlewarePayload =
+  | MiddlewareRequestPayload
+  | MiddlewareResponsePayload;
+export type Middleware = (
+  payload: MiddlewarePayload,
+) => Promise<Request | Response | undefined> | Promise<void>;
 
 export type ClientMethod<Paths extends {}, M> = <
   P extends PathsWithMethod<Paths, M>,

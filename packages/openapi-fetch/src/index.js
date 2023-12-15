@@ -14,6 +14,7 @@ export default function createClient(clientOptions) {
     fetch: baseFetch = globalThis.fetch,
     querySerializer: globalQuerySerializer,
     bodySerializer: globalBodySerializer,
+    middleware,
     ...baseOptions
   } = clientOptions ?? {};
   let baseUrl = baseOptions.baseUrl ?? "";
@@ -27,10 +28,9 @@ export default function createClient(clientOptions) {
    * @param {import('./index.js').FetchOptions<T>} fetchOptions
    */
   async function coreFetch(url, fetchOptions) {
-    const {
+    let {
       fetch = baseFetch,
       headers,
-      body: requestBody,
       params = {},
       parseAs = "json",
       querySerializer: requestQuerySerializer,
@@ -54,37 +54,83 @@ export default function createClient(clientOptions) {
             });
     }
 
-    // URL
-    const finalURL = createFinalURL(url, {
-      baseUrl,
-      params,
-      querySerializer,
-    });
-    const finalHeaders = mergeHeaders(
-      DEFAULT_HEADERS,
-      clientOptions?.headers,
-      headers,
-      params.header,
+    let request = new Request(
+      createFinalURL(url, { baseUrl, params, querySerializer }),
+      {
+        redirect: "follow",
+        ...baseOptions,
+        ...init,
+        headers: mergeHeaders(
+          DEFAULT_HEADERS,
+          clientOptions?.headers,
+          headers,
+          params.header,
+        ),
+      },
     );
 
-    // fetch!
-    /** @type {RequestInit} */
-    const requestInit = {
-      redirect: "follow",
-      ...baseOptions,
-      ...init,
-      headers: finalHeaders,
+    // middleware (request)
+    const mergedOptions = {
+      baseUrl,
+      fetch,
+      parseAs,
+      querySerializer,
+      bodySerializer,
     };
-
-    if (requestBody) {
-      requestInit.body = bodySerializer(requestBody);
+    if (Array.isArray(middleware)) {
+      for (const m of middleware) {
+        const req = new Request(request.url, request);
+        req.schemaPath = url; // (re)attach original URL
+        req.params = params; // (re)attach params
+        const result = await m({
+          type: "request",
+          req,
+          options: Object.freeze({ ...mergedOptions }),
+        });
+        if (result) {
+          if (!(result instanceof Request)) {
+            throw new Error(
+              `Middleware must return new Request() when modifying the request`,
+            );
+          }
+          request = result;
+        }
+      }
     }
+
+    // fetch!
+    // if (init.body) {
+    //   request = new Request(request.url, {
+    //     ...request,
+    //     body: bodySerializer(init.body),
+    //   });
+    // }
     // remove `Content-Type` if serialized body is FormData; browser will correctly set Content-Type & boundary expression
-    if (requestInit.body instanceof FormData) {
-      finalHeaders.delete("Content-Type");
-    }
+    // if (request.body instanceof FormData) {
+    //   request.headers.delete("Content-Type");
+    // }
 
-    const response = await fetch(finalURL, requestInit);
+    let response = await fetch(request);
+
+    // middleware (response)
+    if (Array.isArray(middleware)) {
+      // execute in reverse-array order (first priority gets last transform)
+      for (let i = middleware.length - 1; i >= 0; i--) {
+        const result = await middleware[i]({
+          type: "response",
+          res: response,
+          options: Object.freeze({ ...mergedOptions }),
+        });
+        if (result) {
+          if (!(result instanceof Response)) {
+            throw new Error(
+              `Middleware must return new Response() when modifying the response`,
+            );
+          }
+          response = result;
+        }
+      }
+    }
 
     // handle empty content
     // note: we return `{}` because we want user truthy checks for `.data` or `.error` to succeed

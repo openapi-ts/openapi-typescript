@@ -2,7 +2,10 @@ import { atom, computed } from "nanostores";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 // @ts-expect-error
 import createFetchMock from "vitest-fetch-mock";
-import createClient, { type QuerySerializerOptions } from "../src/index.js";
+import createClient, {
+  type MiddlewarePayload,
+  type QuerySerializerOptions,
+} from "../src/index.js";
 import type { paths } from "./fixtures/v7-beta.js";
 
 // Note
@@ -134,7 +137,7 @@ describe("client", () => {
           // expect param passed correctly
           const lastCall =
             fetchMocker.mock.calls[fetchMocker.mock.calls.length - 1];
-          expect(lastCall[0]).toBe("https://myapi.com/v1/blogposts/1234");
+          expect(lastCall[0].url).toBe("https://myapi.com/v1/blogposts/1234");
         });
 
         it("serializes", async () => {
@@ -202,7 +205,9 @@ describe("client", () => {
           });
 
           // expect post_id to be encoded properly
-          expect(fetchMocker.mock.calls[0][0]).toBe(`/blogposts/${post_id}`);
+          expect(fetchMocker.mock.calls[0][0].url).toBe(
+            `/blogposts/${post_id}`,
+          );
         });
       });
 
@@ -248,7 +253,7 @@ describe("client", () => {
               },
             });
 
-            expect(fetchMocker.mock.calls[0][0]).toBe(
+            expect(fetchMocker.mock.calls[0][0].url).toBe(
               "/query-params?string=string&number=0&boolean=false",
             );
           });
@@ -262,7 +267,7 @@ describe("client", () => {
               },
             });
 
-            expect(fetchMocker.mock.calls[0][0]).toBe("/query-params");
+            expect(fetchMocker.mock.calls[0][0].url).toBe("/query-params");
           });
 
           it("empty/null params", async () => {
@@ -274,7 +279,7 @@ describe("client", () => {
               },
             });
 
-            expect(fetchMocker.mock.calls[0][0]).toBe("/query-params");
+            expect(fetchMocker.mock.calls[0][0].url).toBe("/query-params");
           });
 
           describe("array", () => {
@@ -338,7 +343,7 @@ describe("client", () => {
                 },
               });
 
-              const req = fetchMocker.mock.calls[0][0];
+              const req = fetchMocker.mock.calls[0][0].url;
               expect(req.split("?")[1]).toBe(want);
             });
           });
@@ -390,8 +395,7 @@ describe("client", () => {
                 },
               });
 
-              const req = fetchMocker.mock.calls[0][0];
-              expect(req.split("?")[1]).toBe(want);
+              expect(fetchMocker.mock.calls[0][0].url.split("?")[1]).toBe(want);
             });
           });
 
@@ -407,7 +411,7 @@ describe("client", () => {
                 },
               },
             });
-            expect(fetchMocker.mock.calls[0][0].split("?")[1]).toBe(
+            expect(fetchMocker.mock.calls[0][0].url.split("?")[1]).toBe(
               "string=bad/character🐶",
             );
 
@@ -421,7 +425,7 @@ describe("client", () => {
                 allowReserved: false,
               },
             });
-            expect(fetchMocker.mock.calls[1][0].split("?")[1]).toBe(
+            expect(fetchMocker.mock.calls[1][0].url.split("?")[1]).toBe(
               "string=bad%2Fcharacter%F0%9F%90%B6",
             );
           });
@@ -439,7 +443,7 @@ describe("client", () => {
                 },
               });
 
-              expect(fetchMocker.mock.calls[0][0]).toBe(
+              expect(fetchMocker.mock.calls[0][0].url).toBe(
                 "/blogposts/my-post?alpha=2&beta=json",
               );
             });
@@ -457,7 +461,7 @@ describe("client", () => {
                 querySerializer: (q) => `alpha=${q.version}&beta=${q.format}`,
               });
 
-              expect(fetchMocker.mock.calls[0][0]).toBe(
+              expect(fetchMocker.mock.calls[0][0].url).toBe(
                 "/blogposts/my-post?alpha=2&beta=json",
               );
             });
@@ -474,7 +478,7 @@ describe("client", () => {
                 query: { version: 2, format: "json" },
               },
             });
-            expect(fetchMocker.mock.calls[0][0]).toBe(
+            expect(fetchMocker.mock.calls[0][0].url).toBe(
               "/blogposts/my-post?query",
             );
           });
@@ -553,130 +557,277 @@ describe("client", () => {
   });
 
   describe("options", () => {
-    it("respects baseUrl", async () => {
+    it("baseUrl", async () => {
       let client = createClient<paths>({ baseUrl: "https://myapi.com/v1" });
       mockFetch({ status: 200, body: JSON.stringify({ message: "OK" }) });
       await client.GET("/self");
 
       // assert baseUrl and path mesh as expected
-      expect(fetchMocker.mock.calls[0][0]).toBe("https://myapi.com/v1/self");
+      expect(fetchMocker.mock.calls[0][0].url).toBe(
+        "https://myapi.com/v1/self",
+      );
 
       client = createClient<paths>({ baseUrl: "https://myapi.com/v1/" });
       await client.GET("/self");
       // assert trailing '/' was removed
-      expect(fetchMocker.mock.calls[1][0]).toBe("https://myapi.com/v1/self");
-    });
-
-    it("preserves default headers", async () => {
-      const headers: HeadersInit = { Authorization: "Bearer secrettoken" };
-
-      const client = createClient<paths>({ headers });
-      mockFetchOnce({
-        status: 200,
-        body: JSON.stringify({ email: "user@user.com" }),
-      });
-      await client.GET("/self");
-
-      // assert default headers were passed
-      const options = fetchMocker.mock.calls[0][1];
-      expect(options?.headers).toEqual(
-        new Headers({
-          ...headers, // assert new header got passed
-          "Content-Type": "application/json", //  probably doesn’t need to get tested, but this was simpler than writing lots of code to ignore these
-        }),
+      expect(fetchMocker.mock.calls[1][0].url).toBe(
+        "https://myapi.com/v1/self",
       );
     });
 
-    it("allows override headers", async () => {
-      const client = createClient<paths>({
-        headers: { "Cache-Control": "max-age=10000000" },
-      });
-      mockFetchOnce({
-        status: 200,
-        body: JSON.stringify({ email: "user@user.com" }),
-      });
-      await client.GET("/self", {
-        params: {},
-        headers: { "Cache-Control": "no-cache" },
-      });
+    describe("headers", () => {
+      it("persist", async () => {
+        const headers: HeadersInit = { Authorization: "Bearer secrettoken" };
 
-      // assert default headers were passed
-      const options = fetchMocker.mock.calls[0][1];
-      expect(options?.headers).toEqual(
-        new Headers({
-          "Cache-Control": "no-cache",
-          "Content-Type": "application/json",
-        }),
-      );
-    });
-
-    it("allows unsetting headers", async () => {
-      const client = createClient<paths>({ headers: { "Content-Type": null } });
-      mockFetchOnce({
-        status: 200,
-        body: JSON.stringify({ email: "user@user.com" }),
-      });
-      await client.GET("/self", { params: {} });
-
-      // assert default headers were passed
-      const options = fetchMocker.mock.calls[0][1];
-      expect(options?.headers).toEqual(new Headers());
-    });
-
-    it("accepts a custom fetch function on createClient", async () => {
-      function createCustomFetch(data: any) {
-        const response = {
-          clone: () => ({ ...response }),
-          headers: new Headers(),
-          json: async () => data,
+        const client = createClient<paths>({ headers });
+        mockFetchOnce({
           status: 200,
-          ok: true,
-        } as Response;
-        return async () => Promise.resolve(response);
-      }
+          body: JSON.stringify({ email: "user@user.com" }),
+        });
+        await client.GET("/self");
 
-      const customFetch = createCustomFetch({ works: true });
-      mockFetchOnce({ status: 200, body: "{}" });
+        // assert default headers were passed
+        expect(fetchMocker.mock.calls[0][0].headers).toEqual(
+          new Headers({
+            ...headers, // assert new header got passed
+            "Content-Type": "application/json", //  probably doesn’t need to get tested, but this was simpler than writing lots of code to ignore these
+          }),
+        );
+      });
 
-      const client = createClient<paths>({ fetch: customFetch });
-      const { data } = await client.GET("/self");
+      it("can be overridden", async () => {
+        const client = createClient<paths>({
+          headers: { "Cache-Control": "max-age=10000000" },
+        });
+        mockFetchOnce({
+          status: 200,
+          body: JSON.stringify({ email: "user@user.com" }),
+        });
+        await client.GET("/self", {
+          params: {},
+          headers: { "Cache-Control": "no-cache" },
+        });
 
-      // assert data was returned from custom fetcher
-      expect(data).toEqual({ works: true });
+        // assert default headers were passed
+        expect(fetchMocker.mock.calls[0][0].headers).toEqual(
+          new Headers({
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/json",
+          }),
+        );
+      });
 
-      // assert global fetch was never called
-      expect(fetchMocker).not.toHaveBeenCalled();
+      it("can be unset", async () => {
+        const client = createClient<paths>({
+          headers: { "Content-Type": null },
+        });
+        mockFetchOnce({
+          status: 200,
+          body: JSON.stringify({ email: "user@user.com" }),
+        });
+        await client.GET("/self", { params: {} });
+
+        // assert default headers were passed
+        expect(fetchMocker.mock.calls[0][0].headers).toEqual(new Headers());
+      });
     });
 
-    it("accepts a custom fetch function per-request", async () => {
-      function createCustomFetch(data: any) {
-        const response = {
-          clone: () => ({ ...response }),
-          headers: new Headers(),
-          json: async () => data,
-          status: 200,
-          ok: true,
-        } as Response;
-        return async () => Promise.resolve(response);
-      }
+    describe("fetch", () => {
+      it("createClient", async () => {
+        function createCustomFetch(data: any) {
+          const response = {
+            clone: () => ({ ...response }),
+            headers: new Headers(),
+            json: async () => data,
+            status: 200,
+            ok: true,
+          } as Response;
+          return async () => Promise.resolve(response);
+        }
 
-      const fallbackFetch = createCustomFetch({ fetcher: "fallback" });
-      const overrideFetch = createCustomFetch({ fetcher: "override" });
+        const customFetch = createCustomFetch({ works: true });
+        mockFetchOnce({ status: 200, body: "{}" });
 
-      mockFetchOnce({ status: 200, body: "{}" });
+        const client = createClient<paths>({ fetch: customFetch });
+        const { data } = await client.GET("/self");
 
-      const client = createClient<paths>({ fetch: fallbackFetch });
+        // assert data was returned from custom fetcher
+        expect(data).toEqual({ works: true });
 
-      // assert override function was called
-      const fetch1 = await client.GET("/self", { fetch: overrideFetch });
-      expect(fetch1.data).toEqual({ fetcher: "override" });
+        // assert global fetch was never called
+        expect(fetchMocker).not.toHaveBeenCalled();
+      });
 
-      // assert fallback function still persisted (and wasn’t overridden)
-      const fetch2 = await client.GET("/self");
-      expect(fetch2.data).toEqual({ fetcher: "fallback" });
+      it("per-request", async () => {
+        function createCustomFetch(data: any) {
+          const response = {
+            clone: () => ({ ...response }),
+            headers: new Headers(),
+            json: async () => data,
+            status: 200,
+            ok: true,
+          } as Response;
+          return async () => Promise.resolve(response);
+        }
 
-      // assert global fetch was never called
-      expect(fetchMocker).not.toHaveBeenCalled();
+        const fallbackFetch = createCustomFetch({ fetcher: "fallback" });
+        const overrideFetch = createCustomFetch({ fetcher: "override" });
+
+        mockFetchOnce({ status: 200, body: "{}" });
+
+        const client = createClient<paths>({ fetch: fallbackFetch });
+
+        // assert override function was called
+        const fetch1 = await client.GET("/self", { fetch: overrideFetch });
+        expect(fetch1.data).toEqual({ fetcher: "override" });
+
+        // assert fallback function still persisted (and wasn’t overridden)
+        const fetch2 = await client.GET("/self");
+        expect(fetch2.data).toEqual({ fetcher: "fallback" });
+
+        // assert global fetch was never called
+        expect(fetchMocker).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("middleware", () => {
+      it("can modify request", async () => {
+        mockFetchOnce({ status: 200, body: "{}" });
+
+        const client = createClient<paths>({
+          middleware: [
+            async function middleware1({ type, req }: MiddlewarePayload) {
+              if (type === "request") {
+                return new Request("https://foo.bar/api/v1", {
+                  ...req,
+                  method: "OPTIONS",
+                  headers: { foo: "bar" },
+                });
+              }
+            },
+          ],
+        });
+
+        await client.GET("/self");
+
+        expect(fetchMocker.mock.calls[0][0].url).toBe("https://foo.bar/api/v1");
+        expect(fetchMocker.mock.calls[0][0].method).toBe("OPTIONS");
+        expect(fetchMocker.mock.calls[0][0].headers.foo).toBe("bar");
+      });
+
+      it("can modify response", async () => {
+        mockFetchOnce({ status: 200, body: "{}" });
+
+        const client = createClient<paths>({
+          middleware: [
+            async function middleware1({ type, res }: MiddlewarePayload) {
+              if (type === "response") {
+                return new Response(res.body, {
+                  ...res,
+                  status: 205,
+                  headers: {
+                    ...res.headers,
+                    foo: "bar",
+                  },
+                });
+              }
+            },
+          ],
+        });
+
+        const { data, response } = await client.GET("/self");
+
+        expect(data).toEqual({}); // assert body is unmodified
+        expect(response.status).toBe(205);
+        expect(response.headers.get("foo")).toBe("bar");
+      });
+
+      it("executes in expected order", async () => {
+        mockFetchOnce({ status: 200, body: "{}" });
+
+        const client = createClient<paths>({
+          // this middleware passes along the “step” header
+          // for both requests and responses, but first checks if
+          // it received the end result of the previous middleware step
+          middleware: [
+            async function middleware1({ type, req, res }: MiddlewarePayload) {
+              if (type === "request") {
+                return new Request(req.url, {
+                  ...req,
+                  headers: { ...req.headers, step: "A" },
+                });
+              } else if (
+                type === "response" &&
+                res.headers.get("step") === "B"
+              ) {
+                return new Response(res.body, {
+                  ...res,
+                  headers: { ...res.headers, step: "A" },
+                });
+              }
+            },
+            async function middleware2({ type, req, res }: MiddlewarePayload) {
+              if (type === "request" && req.headers.get("step") === "A") {
+                return new Request(req.url, {
+                  ...req,
+                  headers: { ...req.headers, step: "B" },
+                });
+              } else if (
+                type === "response" &&
+                res.headers.get("step") === "C"
+              ) {
+                return new Response(res.body, {
+                  ...res,
+                  headers: { ...res.headers, step: "B" },
+                });
+              }
+            },
+            // assert that noop middleware doesn’t break chain either
+            async function middlewareNull() {
+              return;
+            },
+            async function middleware3({ type, req, res }: MiddlewarePayload) {
+              if (type === "request" && req.headers.get("step") === "B") {
+                return new Request(req.url, {
+                  ...req,
+                  headers: { ...req.headers, step: "C" },
+                });
+              } else if (type === "response") {
+                return new Response(res.body, {
+                  ...res,
+                  headers: { ...res.headers, step: "C" },
+                });
+              }
+            },
+          ],
+        });
+
+        const { response } = await client.GET("/self");
+
+        // assert requests ended up on step C (array order)
+        expect(fetchMocker.mock.calls[0][0].headers.step).toBe("C");
+
+        // assert responses ended up on step A (reverse order)
+        expect(response.headers.get("step")).toBe("A");
+      });
+
+      it("receives correct options", async () => {
+        mockFetchOnce({ status: 200, body: "{}" });
+
+        let baseUrl = "";
+
+        const client = createClient<paths>({
+          baseUrl: "https://api.foo.bar/v1/",
+          middleware: [
+            async function middleware1({ options }: MiddlewarePayload) {
+              baseUrl = options.baseUrl;
+            },
+          ],
+        });
+
+        await client.GET("/self");
+        expect(baseUrl).toBe("https://api.foo.bar/v1");
+      });
     });
   });
 
@@ -701,7 +852,7 @@ describe("client", () => {
       });
 
       // expect post_id to be encoded properly
-      const req = fetchMocker.mock.calls[0][1];
+      const req = fetchMocker.mock.calls[0][0];
       expect(req.body).toBeInstanceOf(FormData);
 
       // TODO: `vitest-fetch-mock` does not add the boundary to the Content-Type header like browsers do, so we expect the header to be null instead
@@ -808,7 +959,7 @@ describe("client", () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
       await client.GET("/anyMethod");
-      expect(fetchMocker.mock.calls[0][1]?.method).toBe("GET");
+      expect(fetchMocker.mock.calls[0][0].method).toBe("GET");
     });
 
     it("sends correct options, returns success", async () => {
@@ -827,7 +978,7 @@ describe("client", () => {
       );
 
       // assert correct URL was called
-      expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post");
+      expect(fetchMocker.mock.calls[0][0].url).toBe("/blogposts/my-post");
 
       // assert correct data was returned
       expect(data).toEqual(mockData);
@@ -849,10 +1000,10 @@ describe("client", () => {
       );
 
       // assert correct URL was called
-      expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts/my-post");
+      expect(fetchMocker.mock.calls[0][0].url).toBe("/blogposts/my-post");
 
       // assert correct method was called
-      expect(fetchMocker.mock.calls[0][1]?.method).toBe("GET");
+      expect(fetchMocker.mock.calls[0][0].method).toBe("GET");
 
       // assert correct error was returned
       expect(error).toEqual(mockError);
@@ -898,7 +1049,7 @@ describe("client", () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
       await client.POST("/anyMethod");
-      expect(fetchMocker.mock.calls[0][1]?.method).toBe("POST");
+      expect(fetchMocker.mock.calls[0][0].method).toBe("POST");
     });
 
     it("sends correct options, returns success", async () => {
@@ -914,7 +1065,7 @@ describe("client", () => {
       });
 
       // assert correct URL was called
-      expect(fetchMocker.mock.calls[0][0]).toBe("/blogposts");
+      expect(fetchMocker.mock.calls[0][0].url).toBe("/blogposts");
 
       // assert correct data was returned
       expect(data).toEqual(mockData);
@@ -950,7 +1101,7 @@ describe("client", () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
       await client.DELETE("/anyMethod");
-      expect(fetchMocker.mock.calls[0][1]?.method).toBe("DELETE");
+      expect(fetchMocker.mock.calls[0][0].method).toBe("DELETE");
     });
 
     it("returns empty object on 204", async () => {
@@ -995,7 +1146,7 @@ describe("client", () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
       await client.OPTIONS("/anyMethod");
-      expect(fetchMocker.mock.calls[0][1]?.method).toBe("OPTIONS");
+      expect(fetchMocker.mock.calls[0][0].method).toBe("OPTIONS");
     });
   });
 
@@ -1004,7 +1155,7 @@ describe("client", () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
       await client.HEAD("/anyMethod");
-      expect(fetchMocker.mock.calls[0][1]?.method).toBe("HEAD");
+      expect(fetchMocker.mock.calls[0][0].method).toBe("HEAD");
     });
   });
 
@@ -1013,7 +1164,7 @@ describe("client", () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
       await client.PATCH("/anyMethod");
-      expect(fetchMocker.mock.calls[0][1]?.method).toBe("PATCH");
+      expect(fetchMocker.mock.calls[0][0].method).toBe("PATCH");
     });
   });
 
@@ -1022,7 +1173,7 @@ describe("client", () => {
       const client = createClient<paths>();
       mockFetchOnce({ status: 200, body: "{}" });
       await client.TRACE("/anyMethod");
-      expect(fetchMocker.mock.calls[0][1]?.method).toBe("TRACE");
+      expect(fetchMocker.mock.calls[0][0].method).toBe("TRACE");
     });
   });
 });
@@ -1045,7 +1196,7 @@ describe("examples", () => {
       .get()
       .GET("/blogposts/{post_id}", { params: { path: { post_id: "1234" } } });
     expect(
-      fetchMocker.mock.calls[0][1].headers.get("authorization"),
+      fetchMocker.mock.calls[0][0].headers.get("authorization"),
     ).toBeNull();
 
     // assert after setting token, client is authenticated
@@ -1060,7 +1211,7 @@ describe("examples", () => {
     await client
       .get()
       .GET("/blogposts/{post_id}", { params: { path: { post_id: "1234" } } });
-    expect(fetchMocker.mock.calls[1][1].headers.get("authorization")).toBe(
+    expect(fetchMocker.mock.calls[1][0].headers.get("authorization")).toBe(
       `Bearer ${tokenVal}`,
     );
   });
@@ -1084,7 +1235,7 @@ describe("examples", () => {
       params: { path: { post_id: "1234" } },
     });
     expect(
-      fetchMocker.mock.calls[0][1].headers.get("authorization"),
+      fetchMocker.mock.calls[0][0].headers.get("authorization"),
     ).toBeNull();
 
     // assert after setting token, client is authenticated
@@ -1099,7 +1250,7 @@ describe("examples", () => {
     await client.GET("/blogposts/{post_id}", {
       params: { path: { post_id: "1234" } },
     });
-    expect(fetchMocker.mock.calls[1][1].headers.get("authorization")).toBe(
+    expect(fetchMocker.mock.calls[1][0].headers.get("authorization")).toBe(
       `Bearer ${tokenVal}`,
     );
   });
