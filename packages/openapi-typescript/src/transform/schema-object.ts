@@ -302,8 +302,13 @@ function transformSchemaObjectCore(
       }
       // standard array type
       else if (schemaObject.items) {
-        if("type" in schemaObject.items && schemaObject.items.type === 'array'){
-          itemType = ts.factory.createArrayTypeNode(transformSchemaObject(schemaObject.items, options));
+        if (
+          "type" in schemaObject.items &&
+          schemaObject.items.type === "array"
+        ) {
+          itemType = ts.factory.createArrayTypeNode(
+            transformSchemaObject(schemaObject.items, options),
+          );
         } else {
           itemType = transformSchemaObject(schemaObject.items, options);
         }

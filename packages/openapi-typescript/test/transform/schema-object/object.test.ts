@@ -344,20 +344,20 @@ describe("transformSchemaObject > object", () => {
           type: "object",
           properties: {
             array: {
-              "type": "array",
-              "items": {
-                "items": [
+              type: "array",
+              items: {
+                items: [
                   {
-                    "type": "string"
+                    type: "string",
                   },
                   {
-                    "type": "boolean"
-                  }
+                    type: "boolean",
+                  },
                 ],
-                "type": "array",
-                "maxItems": 2,
-                "minItems": 2
-              }
+                type: "array",
+                maxItems: 2,
+                minItems: 2,
+              },
             },
           },
         },
