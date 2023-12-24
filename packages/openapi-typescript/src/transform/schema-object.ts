@@ -302,7 +302,16 @@ function transformSchemaObjectCore(
       }
       // standard array type
       else if (schemaObject.items) {
-        itemType = transformSchemaObject(schemaObject.items, options);
+        if (
+          "type" in schemaObject.items &&
+          schemaObject.items.type === "array"
+        ) {
+          itemType = ts.factory.createArrayTypeNode(
+            transformSchemaObject(schemaObject.items, options),
+          );
+        } else {
+          itemType = transformSchemaObject(schemaObject.items, options);
+        }
       }
 
       const min: number =
@@ -350,9 +359,9 @@ function transformSchemaObjectCore(
         }
       }
 
-      return ts.isTupleTypeNode(itemType)
+      return ts.isTupleTypeNode(itemType) || ts.isArrayTypeNode(itemType)
         ? itemType
-        : ts.factory.createArrayTypeNode(itemType); // wrap itemType in array type, but only if not a tuple already
+        : ts.factory.createArrayTypeNode(itemType); // wrap itemType in array type, but only if not a tuple or array already
     }
 
     // polymorphic, or 3.1 nullable
