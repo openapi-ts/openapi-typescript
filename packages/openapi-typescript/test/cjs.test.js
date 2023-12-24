@@ -2,28 +2,7 @@
 
 // important: MUST use require()!
 const { fileURLToPath } = require("node:url");
-const ts = require("typescript");
-const openapiTS = require("../dist/index.cjs");
-
-// copy from lib/ts.ts for CJS
-function astToString(ast, options) {
-  const sourceFile = ts.createSourceFile(
-    options?.fileName ?? "openapi-ts.ts",
-    options?.sourceText ?? "",
-    ts.ScriptTarget.ESNext,
-    false,
-    ts.ScriptKind.TS,
-  );
-  sourceFile.statements = ts.factory.createNodeArray(
-    Array.isArray(ast) ? ast : [ast],
-  );
-  const printer = ts.createPrinter({
-    newLine: ts.NewLineKind.LineFeed,
-    removeComments: false,
-    ...options?.formatOptions,
-  });
-  return printer.printFile(sourceFile);
-}
+const { astToString, default: openapiTS } = require('../dist/index.cjs');
 
 describe("CJS bundle", () => {
   it("basic", async () => {
