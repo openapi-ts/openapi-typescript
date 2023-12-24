@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "OpenAPI TS"
-  tagline: Use OpenAPI 3.0 & 3.1 schemas in TypeScript
+  name: "OpenAPI TypeScript"
+  tagline: Convert OpenAPI 3.0/3.1 schemas to TypeScript types and create type-safe fetching.
   actions:
     - theme: brand
       text: Get Started
@@ -14,10 +14,10 @@ hero:
       link: https://github.com/drwpow/openapi-typescript
 
 features:
-  - title: Platform-agnostic
-    details: Generate TypeScript types from any OpenAPI schema, no matter how it was generated
-  - title: Runtime-free static types
-    details: Achieve type safety with no performance drawbacks
+  - title: Extremely lightweight
+    details: Static TypeScript types are runtime-free for maximum performance and minimal client weight.
+  - title: Type-safe fetch client
+    details: Validate requests & responses automatically using your OpenAPI schema, and throw TypeScript errors on mismatches.
   - title: Built on Redocly CLI
-    details: Use Redocly’s powerful validation and schema authoring tools while reducing configuration
+    details: Use Redocly’s powerful validation and schema authoring tools while reducing configuration.
 ---

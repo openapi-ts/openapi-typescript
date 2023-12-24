@@ -4,7 +4,7 @@ const HOSTNAME = "https://opeanpi-ts.pages.dev";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "OpenAPI TS",
+  title: "OpenAPI TypeScript",
   description: "Consume OpenAPI 3.0 & 3.1 schemas in TypeScript",
   cleanUrls: true,
   srcExclude: ["**/*/CONTRIBUTRING.md", "**/*/README.md"],
