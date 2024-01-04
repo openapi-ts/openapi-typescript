@@ -157,8 +157,6 @@ export const OPENAPI_FETCH_CONTRIBUTORS = [
 ];
 
 async function main() {
-  // note: fetch sequentially per-list, otherwise GitHub times out (429)
-  // also run on every docs build to pick up updated avatars
   await Promise.all(
     ["openapi-typescript", "openapi-fetch"].map(async (repo) => {
       const userlist =
@@ -174,6 +172,8 @@ async function main() {
           continue;
         }
 
+        // note: fetch sequentially, otherwise GitHub times out (429)
+        // also run on every docs build to pick up updated avatars
         try {
           const userData = {
             username,
@@ -183,6 +183,10 @@ async function main() {
           };
           upsert(contributors[repo], userData);
           console.log(`Updated old contributor data for ${username}`); // eslint-disable-line no-console
+          fs.writeFileSync(
+            new URL("../data/contributors.json", import.meta.url),
+            JSON.stringify(contributors),
+          ); // update file while fetching (sync happens safely in between fetches)
         } catch (err) {
           throw new Error(err);
         }

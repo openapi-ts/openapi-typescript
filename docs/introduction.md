@@ -5,6 +5,12 @@ description: Quickstart
 
 <img src="/assets/openapi-ts.svg" alt="openapi-typescript" width="200" height="40" />
 
+::: warning
+
+The 7.x docs are for a beta release that’s not production-ready yet. See the [6.x docs](/6.x/introduction) for the stable version.
+
+:::
+
 openapi-typescript turns [OpenAPI 3.0 & 3.1](https://spec.openapis.org/oas/latest.html) schemas into TypeScript quickly using Node.js. No Java/node-gyp/running OpenAPI servers necessary.
 
 The code is [MIT-licensed](https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE") and free for use.
