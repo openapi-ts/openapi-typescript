@@ -20,7 +20,7 @@ The code is [MIT-licensed](./LICENSE) and free for use.
 This library requires the latest version of <a href="https://nodejs.org/en" target="_blank" rel="noopener noreferrer">Node.js</a> installed (20.x or higher recommended). With that present, run the following in your project:
 
 ```bash
-npm i -D openapi-typescript
+npm i -D openapi-typescript typescript
 ```
 
 > ✨ **Tip**
@@ -57,8 +57,10 @@ type MyType = components["schemas"]["MyType"];
 type EndpointParams = paths["/my/endpoint"]["parameters"];
 
 // Response obj
-type SuccessResponse = paths["/my/endpoint"]["get"]["responses"][200]["content"]["application/json"]["schema"];
-type ErrorResponse = paths["/my/endpoint"]["get"]["responses"][500]["content"]["application/json"]["schema"];
+type SuccessResponse =
+  paths["/my/endpoint"]["get"]["responses"][200]["content"]["application/json"]["schema"];
+type ErrorResponse =
+  paths["/my/endpoint"]["get"]["responses"][500]["content"]["application/json"]["schema"];
 ```
 
 #### 🦠 Globbing local schemas

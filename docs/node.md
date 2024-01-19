@@ -10,7 +10,7 @@ The Node API may be useful if dealing with dynamically-created schemas, or youâ€
 ## Setup
 
 ```bash
-npm i --save-dev openapi-typescript@next
+npm i --save-dev openapi-typescript@next typescript
 ```
 
 ::: tip Recommended

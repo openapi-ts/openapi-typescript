@@ -53,7 +53,7 @@ Install this library along with [openapi-typescript](../openapi-typescript):
 
 ```bash
 npm i openapi-fetch
-npm i -D openapi-typescript
+npm i -D openapi-typescript typescript
 ```
 
 > **Highly recommended**: enable [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) in your `tsconfig.json` ([docs](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson))
