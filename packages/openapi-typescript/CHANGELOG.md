@@ -46,6 +46,8 @@
 
 - [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking** `defaultNonNullable` option now defaults to `true`. You’ll now need to manually set `false` to return to old behavior.
 
+- [`799194d `](https://github.com/drwpow/openapi-typescript/commit/799194d98c3934570c6500d986496eee17b79309) Thanks [@drwpow](https://github.com/drwpow)~ - ⚠️ **Breaking** TypeScript is now a peerDependency and must be installed alongside `openapi-typescript`
+
 ### Minor Changes
 
 - [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: automatically validate schemas with Redocly CLI ([docs](https://redocly.com/docs/cli/)). No more need for external tools to report errors! 🎉
