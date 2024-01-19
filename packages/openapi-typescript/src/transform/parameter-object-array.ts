@@ -20,7 +20,7 @@ export default function transformParameterObjectArray(parameterObjectArray: (Par
     output.push(
       indent(
         `${key}: ${transformParameterObject(node, {
-          path: `${path}/${node.name}`,
+          path: `${path}/${node.in}/${node.name}`,
           ctx: { ...ctx, indentLv: ctx.indentLv + 1 },
         })};`,
         ctx.indentLv,

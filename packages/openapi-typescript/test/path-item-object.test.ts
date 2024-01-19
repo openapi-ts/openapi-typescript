@@ -174,4 +174,65 @@ describe("Path Item Object", () => {
   get: components["schemas"]["GetUserOperation"]
 }`);
   });
+
+  it("operations with parameters with same name, different location", () => {
+    const operations: GlobalContext["operations"] = {};
+    const schema: PathItemObject = {
+      get: {
+        operationId: "getUserById",
+        summary: "Returns a user by ID.",
+        parameters: [
+          {
+            in: "path",
+            name: "user_id",
+            required: true,
+            schema: { type: "string" },
+          },
+          {
+            in: "query",
+            name: "user_id",
+            schema: { type: "string" },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "OK",
+            content: {
+              "application/json": {
+                schema: { type: "string" },
+              },
+            },
+          },
+        },
+      },
+    };
+    const generated = transformPathItemObject(schema, { ...options, ctx: { ...options.ctx, operations } });
+    expect(generated).toBe(`{
+  /** Returns a user by ID. */
+  get: operations["getUserById"];
+}`);
+    expect(operations).toEqual({
+      getUserById: {
+        comment: "/** Returns a user by ID. */",
+        operationType: `{
+    parameters: {
+      query?: {
+        user_id?: string;
+      };
+      path: {
+        user_id: string;
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": string;
+        };
+      };
+    };
+  }`,
+      },
+    });
+  });
 });

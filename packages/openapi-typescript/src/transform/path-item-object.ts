@@ -28,7 +28,7 @@ export default function transformPathItemObject(pathItem: PathItemObject, { path
       // important: OperationObject parameters come last, and will override any conflicts with PathItem parameters
       for (const parameter of [...(pathItem.parameters ?? []), ...(operationObject.parameters ?? [])]) {
         // note: the actual key doesn’t matter here, as long as it can match between PathItem and OperationObject
-        keyedParameters["$ref" in parameter ? parameter.$ref : parameter.name] = parameter;
+        keyedParameters["$ref" in parameter ? parameter.$ref : `${parameter.in}/${parameter.name}`] = parameter;
       }
     }
 
