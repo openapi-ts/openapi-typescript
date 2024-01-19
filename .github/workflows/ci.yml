@@ -11,18 +11,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - uses: pnpm/action-setup@v2
-        with:
-          version: latest
-      - run: pnpm i
-      - run: pnpm run build
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -49,6 +37,7 @@ jobs:
         with:
           version: latest
       - run: pnpm i
+      - run: pnpm run build
       - run: pnpm test
   test-macos:
     runs-on: macos-latest
@@ -61,6 +50,7 @@ jobs:
         with:
           version: latest
       - run: pnpm i
+      - run: pnpm run build
       - run: pnpm test
         env:
           CI_ENV: macos
@@ -75,6 +65,7 @@ jobs:
         with:
           version: latest
       - run: pnpm i
+      - run: pnpm run build
       - run: pnpm test
         env:
           CI_ENV: windows

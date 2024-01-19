@@ -66,21 +66,20 @@ export type ParamsOption<T> = T extends {
     : { params: T["parameters"] }
   : DefaultParamsOption;
 
-export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never
-  ? { body?: never }
-  : undefined extends OperationRequestBodyContent<T>
-  ? { body?: OperationRequestBodyContent<T> }
-  : { body: OperationRequestBodyContent<T> };
+export type RequestBodyOption<T> =
+  OperationRequestBodyContent<T> extends never
+    ? { body?: never }
+    : undefined extends OperationRequestBodyContent<T>
+      ? { body?: OperationRequestBodyContent<T> }
+      : { body: OperationRequestBodyContent<T> };
 
 export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body">;
 
 /** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
-export type MaybeOptionalInit<
-  P extends {},
-  M extends keyof P,
-> = HasRequiredKeys<FetchOptions<FilterKeys<P, M>>> extends never
-  ? [(FetchOptions<FilterKeys<P, M>> | undefined)?]
-  : [FetchOptions<FilterKeys<P, M>>];
+export type MaybeOptionalInit<P extends {}, M extends keyof P> =
+  HasRequiredKeys<FetchOptions<FilterKeys<P, M>>> extends never
+    ? [(FetchOptions<FilterKeys<P, M>> | undefined)?]
+    : [FetchOptions<FilterKeys<P, M>>];
 
 export type FetchResponse<T, O extends FetchOptions> =
   | {
