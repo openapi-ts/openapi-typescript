@@ -8,7 +8,7 @@
     "email": "drew@pow.rs"
   },
   "scripts": {
-    "build": "pnpm run -r --parallel build",
+    "build": "pnpm run -r --parallel --filter \"!*docs\" build",
     "lint": "pnpm run -r --parallel lint",
     "test": "pnpm run -r --parallel test",
     "version": "pnpm run build && changeset version && pnpm i"
