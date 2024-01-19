@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.7.4
+
+### Patch Changes
+
+- [#1509](https://github.com/drwpow/openapi-typescript/pull/1509) [`747611bcd0d056d5027841f985aed0aefcf6b63d`](https://github.com/drwpow/openapi-typescript/commit/747611bcd0d056d5027841f985aed0aefcf6b63d) Thanks [@drwpow](https://github.com/drwpow)! - Fix missing params when they have same name, different location
+
 ## 6.7.3
 
 ### Patch Changes
