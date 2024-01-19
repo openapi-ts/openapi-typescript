@@ -46,6 +46,23 @@ describe("transformSchemaObject > string", () => {
       },
     ],
     [
+      "enum (UTF-8)",
+      {
+        given: { type: "string", enum: ["赤", "青", "緑"] },
+        want: `"赤" | "青" | "緑"`,
+        // options: DEFAULT_OPTIONS
+      },
+    ],
+    [
+      "enum (quotes)",
+      {
+        // prettier-ignore
+        // eslint-disable-next-line no-useless-escape
+        given: { type: "string", enum: ['"', "'", '\"', "`"] },
+        want: `"\\"" | "'" | "\\"" | "\`"`,
+      },
+    ],
+    [
       "nullable",
       {
         given: { type: ["string", "null"] },

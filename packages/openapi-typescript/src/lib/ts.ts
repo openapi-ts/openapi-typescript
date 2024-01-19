@@ -324,9 +324,10 @@ export function tsIsPrimitive(type: ts.TypeNode): boolean {
 /** Create a literal type */
 export function tsLiteral(value: unknown): ts.TypeNode {
   if (typeof value === "string") {
-    return ts.factory.createLiteralTypeNode(
-      ts.factory.createStringLiteral(value),
-    );
+    // workaround for UTF-8: https://github.com/microsoft/TypeScript/issues/36174
+    return ts.factory.createIdentifier(
+      JSON.stringify(value),
+    ) as unknown as ts.TypeNode;
   }
   if (typeof value === "number") {
     return ts.factory.createLiteralTypeNode(
