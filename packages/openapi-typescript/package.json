@@ -40,7 +40,7 @@
     "url": "https://github.com/drwpow/openapi-typescript/issues"
   },
   "scripts": {
-    "build": "pnpm run \"/^build:/\"",
+    "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:cjs",
     "build:clean": "del dist",
     "build:esm": "tsc -p tsconfig.build.json",
     "build:cjs": "esbuild --bundle --platform=node --target=es2019 --outfile=dist/index.cjs --external:@redocly/ajv --external:@redocly/openapi-core --external:typescript src/index.ts",
