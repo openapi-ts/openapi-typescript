@@ -301,7 +301,6 @@ describe("composition", () => {
         },
       },
     ],
-
     [
       "discriminator > oneOf + null + implicit mapping",
       {
