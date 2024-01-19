@@ -63,7 +63,7 @@ Install this library along with [openapi-typescript](/introduction):
 
 ```bash
 npm i openapi-fetch
-npm i -D openapi-typescript
+npm i -D openapi-typescript typescript
 ```
 
 ::: tip Highly recommended
