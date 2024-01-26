@@ -49,15 +49,17 @@ const { data, error } = await GET("/search", {
     query: { tags: ["food", "california", "healthy"] },
   },
   querySerializer(q) {
-    let s = "";
+    let s = [];
     for (const [k, v] of Object.entries(q)) {
       if (Array.isArray(v)) {
-        s += `${k}[]=${v.join(",")}`;
+        for (const i of v) {
+          s.push(`${k}[]=${i}`);
+        }
       } else {
-        s += `${k}=${v}`;
+        s.push(`${k}=${v}`);
       }
     }
-    return s; // ?tags[]=food&tags[]=california&tags[]=healthy
+    return s.join("&"); // ?tags[]=food&tags[]=california&tags[]=healthy
   },
 });
 ```
