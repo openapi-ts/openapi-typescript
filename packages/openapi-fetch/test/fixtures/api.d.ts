@@ -412,6 +412,10 @@ export interface components {
       email: string;
       age?: number;
       avatar?: string;
+      /** Format: date */
+      created_at: number;
+      /** Format: date */
+      updated_at: number;
     };
   };
   responses: {

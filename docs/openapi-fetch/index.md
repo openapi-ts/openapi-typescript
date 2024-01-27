@@ -94,7 +94,7 @@ And run `npm run test:ts` in your CI to catch type errors.
 Use `tsc --noEmit` to check for type errors rather than relying on your linter or your build command. Nothing will typecheck as accurately as the TypeScript compiler itself.
 :::
 
-## Usage
+## Basic Usage
 
 The best part about using openapi-fetch over oldschool codegen is no documentation needed. openapi-fetch encourages using your existing OpenAPI documentation rather than trying to find what function to import, or what parameters that function wants:
 
@@ -128,7 +128,7 @@ const { data, error } = await PUT("/blogposts", {
 
 ### Pathname
 
-The pathname of `GET()`, `PUT()`, `POST()`, etc. **must match your schema literally.** Note in the example, the URL is `/blogposts/{post_id}`. This library will replace all `path` params for you (so they can be typechecked)
+The pathname of `GET()`, `PUT()`, `POST()`, etc. **must match your schema literally.** Note in the example, the URL is `/blogposts/{post_id}`. This library will quickly replace all `path` params for you (so they can be typechecked).
 
 ::: tip
 

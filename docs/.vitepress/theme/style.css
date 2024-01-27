@@ -6,7 +6,6 @@
 /**
  * Fonts
  */
-
 @font-face {
   font-family: "Inter";
   font-style: normal;
@@ -104,6 +103,14 @@
   --vp-code-color: var(--vp-c-text-2);
 
   --vp-c-tip-1: var(--vp-c-text-1);
+}
+
+/**
+ * Base styles
+ * -------------------------------------------------------------------------- */
+pre,
+code {
+  font-variant-ligatures: none;
 }
 
 /**

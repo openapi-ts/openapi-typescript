@@ -10,17 +10,19 @@ const PATH_PARAM_RE = /\{[^{}]+\}/g;
  * @type {import("./index.js").default}
  */
 export default function createClient(clientOptions) {
-  const {
+  let {
+    baseUrl = "",
     fetch: baseFetch = globalThis.fetch,
-    querySerializer: globalQuerySerializer,
-    bodySerializer: globalBodySerializer,
-    middleware,
+    querySerializer: globalQuerySerializer = defaultQuerySerializer,
+    bodySerializer: globalBodySerializer = defaultBodySerializer,
+    middleware = [],
+    headers: baseHeaders,
     ...baseOptions
-  } = clientOptions ?? {};
-  let baseUrl = baseOptions.baseUrl ?? "";
+  } = { ...clientOptions };
   if (baseUrl.endsWith("/")) {
     baseUrl = baseUrl.substring(0, baseUrl.length - 1);
   }
+  baseHeaders = mergeHeaders(DEFAULT_HEADERS, baseHeaders);
 
   /**
    * Per-request fetch (keeps settings created in createClient()
@@ -34,7 +36,7 @@ export default function createClient(clientOptions) {
       params = {},
       parseAs = "json",
       querySerializer: requestQuerySerializer,
-      bodySerializer = globalBodySerializer ?? defaultBodySerializer,
+      bodySerializer = globalBodySerializer,
       ...init
     } = fetchOptions || {};
 
@@ -54,20 +56,27 @@ export default function createClient(clientOptions) {
             });
     }
 
+    const requestInit = {
+      redirect: "follow",
+      ...baseOptions,
+      ...init,
+      headers: mergeHeaders(baseHeaders, headers, params.header),
+    };
+    if (requestInit.body) {
+      requestInit.body = bodySerializer(requestInit.body);
+    }
     let request = new Request(
-      createFinalURL(url, { baseUrl, params, querySerializer }),
-      {
-        redirect: "follow",
-        ...baseOptions,
-        ...init,
-        headers: mergeHeaders(
-          DEFAULT_HEADERS,
-          clientOptions?.headers,
-          headers,
-          params.header,
-        ),
-      },
+      createFinalURL(url, {
+        baseUrl,
+        params,
+        querySerializer,
+      }),
+      requestInit,
     );
+    // remove `Content-Type` if serialized body is FormData; browser will correctly set Content-Type & boundary expression
+    if (request.body instanceof FormData) {
+      request.headers.delete("Content-Type");
+    }
 
     // middleware (request)
     const mergedOptions = {
@@ -79,55 +88,40 @@ export default function createClient(clientOptions) {
     };
     if (Array.isArray(middleware)) {
       for (const m of middleware) {
-        const req = new Request(request.url, request);
-        req.schemaPath = url; // (re)attach original URL
-        req.params = params; // (re)attach params
-        const result = await m({
-          type: "request",
-          req,
-          options: Object.freeze({ ...mergedOptions }),
-        });
-        if (result) {
-          if (!(result instanceof Request)) {
-            throw new Error(
-              `Middleware must return new Request() when modifying the request`,
-            );
+        if (m && typeof m === "object" && typeof m.onRequest === "function") {
+          request.schemaPath = url; // (re)attach original URL
+          request.params = params; // (re)attach params
+          const result = await m.onRequest(request, mergedOptions);
+          if (result) {
+            if (!(result instanceof Request)) {
+              throw new Error(
+                `Middleware must return new Request() when modifying the request`,
+              );
+            }
+            request = result;
           }
-          request = result;
         }
       }
     }
 
     // fetch!
-    // if (init.body) {
-    //   request = new Request(request.url, {
-    //     ...request,
-    //     body: bodySerializer(init.body),
-    //   });
-    // }
-    // remove `Content-Type` if serialized body is FormData; browser will correctly set Content-Type & boundary expression
-    // if (request.body instanceof FormData) {
-    //   request.headers.delete("Content-Type");
-    // }
-
     let response = await fetch(request);
 
     // middleware (response)
     if (Array.isArray(middleware)) {
       // execute in reverse-array order (first priority gets last transform)
       for (let i = middleware.length - 1; i >= 0; i--) {
-        const result = await middleware[i]({
-          type: "response",
-          res: response,
-          options: Object.freeze({ ...mergedOptions }),
-        });
-        if (result) {
-          if (!(result instanceof Response)) {
-            throw new Error(
-              `Middleware must return new Response() when modifying the response`,
-            );
+        const m = middleware[i];
+        if (m && typeof m === "object" && typeof m.onResponse === "function") {
+          const result = await m.onResponse(response, mergedOptions);
+          if (result) {
+            if (!(result instanceof Response)) {
+              throw new Error(
+                `Middleware must return new Response() when modifying the response`,
+              );
+            }
+            response = result;
           }
-          response = result;
         }
       }
     }
@@ -460,22 +454,23 @@ export function createFinalURL(pathname, options) {
  * @type {import("./index.js").mergeHeaders}
  */
 export function mergeHeaders(...allHeaders) {
-  const headers = new Headers();
-  for (const headerSet of allHeaders) {
-    if (!headerSet || typeof headerSet !== "object") {
+  const finalHeaders = new Headers();
+  for (const h of allHeaders) {
+    if (!h || typeof h !== "object") {
       continue;
     }
-    const iterator =
-      headerSet instanceof Headers
-        ? headerSet.entries()
-        : Object.entries(headerSet);
+    const iterator = h instanceof Headers ? h.entries() : Object.entries(h);
     for (const [k, v] of iterator) {
       if (v === null) {
-        headers.delete(k);
+        finalHeaders.delete(k);
+      } else if (Array.isArray(v)) {
+        for (const v2 of v) {
+          finalHeaders.append(k, v2);
+        }
       } else if (v !== undefined) {
-        headers.set(k, v);
+        finalHeaders.set(k, v);
       }
     }
   }
-  return headers;
+  return finalHeaders;
 }

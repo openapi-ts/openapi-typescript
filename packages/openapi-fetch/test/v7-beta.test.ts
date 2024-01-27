@@ -2,10 +2,7 @@ import { atom, computed } from "nanostores";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 // @ts-expect-error
 import createFetchMock from "vitest-fetch-mock";
-import createClient, {
-  type MiddlewarePayload,
-  type QuerySerializerOptions,
-} from "../src/index.js";
+import createClient, { type QuerySerializerOptions } from "../src/index.js";
 import type { paths } from "./fixtures/v7-beta.js";
 
 // Note

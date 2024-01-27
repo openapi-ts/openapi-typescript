@@ -44,7 +44,12 @@ export default defineConfig({
         {
           text: "openapi-fetch",
           items: [
-            { text: "Introduction", link: "/openapi-fetch/" },
+            { text: "Getting Started", link: "/openapi-fetch/" },
+            {
+              text: "Middleware & Auth",
+              link: "/openapi-fetch/middleware-auth",
+            },
+            { text: "Testing", link: "/openapi-fetch/testing" },
             { text: "Examples", link: "/openapi-fetch/examples" },
             { text: "API", link: "/openapi-fetch/api" },
             { text: "About", link: "/openapi-fetch/about" },
@@ -68,7 +73,12 @@ export default defineConfig({
         {
           text: "openapi-fetch",
           items: [
-            { text: "Introduction", link: "/openapi-fetch/" },
+            { text: "Getting Started", link: "/openapi-fetch/" },
+            {
+              text: "Middleware & Auth",
+              link: "/openapi-fetch/middleware-auth",
+            },
+            { text: "Testing", link: "/openapi-fetch/testing" },
             { text: "Examples", link: "/openapi-fetch/examples" },
             { text: "API", link: "/openapi-fetch/api" },
             { text: "About", link: "/openapi-fetch/about" },

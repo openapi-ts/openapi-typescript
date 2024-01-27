@@ -30,7 +30,15 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
 
 export type HeadersOptions =
   | HeadersInit
-  | Record<string, string | number | boolean | null | undefined>;
+  | Record<
+      string,
+      | string
+      | number
+      | boolean
+      | (string | number | boolean)[]
+      | null
+      | undefined
+    >;
 
 export type QuerySerializer<T> = (
   query: T extends { parameters: any }
@@ -101,7 +109,8 @@ export type RequestBodyOption<T> =
       ? { body?: OperationRequestBodyContent<T> }
       : { body: OperationRequestBodyContent<T> };
 
-export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body">;
+export type FetchOptions<T> = RequestOptions<T> &
+  Omit<RequestInit, "body" | "headers">;
 
 /** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
 export type MaybeOptionalInit<P extends {}, M extends keyof P> =
@@ -130,6 +139,7 @@ export type RequestOptions<T> = ParamsOption<T> &
     bodySerializer?: BodySerializer<T>;
     parseAs?: ParseAs;
     fetch?: ClientOptions["fetch"];
+    headers?: HeadersOptions;
   };
 
 export type MergedOptions<T = unknown> = {
@@ -140,34 +150,31 @@ export type MergedOptions<T = unknown> = {
   fetch: typeof globalThis.fetch;
 };
 
-export type MiddlewareRequestPayload = {
-  type: "request";
-  req: Request & {
-    /** The original OpenAPI schema path (including curly braces) */
-    schemaPath: string;
-    /** OpenAPI parameters as provided from openapi-fetch */
-    params: {
-      query?: Record<string, unknown>;
-      header?: Record<string, unknown>;
-      path?: Record<string, unknown>;
-      cookie?: Record<string, unknown>;
-    };
+export interface MiddlewareRequest extends Request {
+  /** The original OpenAPI schema path (including curly braces) */
+  schemaPath: string;
+  /** OpenAPI parameters as provided from openapi-fetch */
+  params: {
+    query?: Record<string, unknown>;
+    header?: Record<string, unknown>;
+    path?: Record<string, unknown>;
+    cookie?: Record<string, unknown>;
   };
-  res?: never;
-  options: readonly MergedOptions;
-};
-export type MiddlewareResponsePayload = {
-  type: "response";
-  req?: never;
-  res: Response;
-  options: readonly MergedOptions;
-};
-export type MiddlewarePayload =
-  | MiddlewareRequestPayload
-  | MiddlewareResponsePayload;
-export type Middleware = (
-  payload: MiddlewarePayload,
-) => Promise<Request | Response | undefined> | Promise<void>;
+}
+
+export function onRequest(
+  req: MiddlewareRequest,
+  options: MergedOptions,
+): Request | undefined | Promise<Request | undefined>;
+export function onResponse(
+  res: Response,
+  options: MergedOptions,
+): Response | undefined | Promise<Response | undefined>;
+
+export interface Middleware {
+  onRequest?: typeof onRequest;
+  onResponse?: typeof onResponse;
+}
 
 export type ClientMethod<Paths extends {}, M> = <
   P extends PathsWithMethod<Paths, M>,
