@@ -7,7 +7,7 @@ import {
   UNKNOWN,
 } from "../lib/ts.js";
 import { getEntries } from "../lib/utils.js";
-import { HeaderObject, TransformNodeOptions } from "../types.js";
+import type { HeaderObject, TransformNodeOptions } from "../types.js";
 import transformMediaTypeObject from "./media-type-object.js";
 import transformSchemaObject from "./schema-object.js";
 

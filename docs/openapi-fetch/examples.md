@@ -16,7 +16,7 @@ Here’s how it can be handled using [Nano Stores](https://github.com/nanostores
 // src/lib/api/index.ts
 import { atom, computed } from "nanostores";
 import createClient from "openapi-fetch";
-import { paths } from "./v1";
+import type { paths } from "./api/v1";
 
 export const authToken = atom<string | undefined>();
 someAuthMethod().then((newToken) => authToken.set(newToken));
@@ -47,7 +47,7 @@ You can also use [proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScri
 ```ts
 // src/lib/api/index.ts
 import createClient from "openapi-fetch";
-import { paths } from "./v1";
+import type { paths } from "./api/v1";
 
 let authToken: string | undefined = undefined;
 someAuthMethod().then((newToken) => (authToken = newToken));
@@ -80,7 +80,7 @@ You can also use a [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScr
 ```ts
 // src/lib/api/index.ts
 import createClient from "openapi-fetch";
-import { paths } from "./v1";
+import type { paths } from "./api/v1";
 
 let authToken: string | undefined = undefined;
 someAuthMethod().then((newToken) => (authToken = newToken));

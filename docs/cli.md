@@ -115,7 +115,7 @@ export interface paths {
 Which means your type lookups also have to match the exact URL:
 
 ```ts
-import { paths } from "./my-schema";
+import type{ paths } from "./api/v1";
 
 const url = `/user/${id}`;
 type UserResponses = paths["/user/{user_id}"]["responses"];
@@ -124,7 +124,7 @@ type UserResponses = paths["/user/{user_id}"]["responses"];
 But when `--path-params-as-types` is enabled, you can take advantage of dynamic lookups like so:
 
 ```ts
-import { paths } from "./my-schema";
+import type { paths } from "./api/v1";
 
 const url = `/user/${id}`;
 type UserResponses = paths[url]["responses"]; // automatically matches `paths['/user/{user_id}']`

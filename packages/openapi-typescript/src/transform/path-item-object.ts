@@ -8,7 +8,7 @@ import {
   tsPropertyIndex,
 } from "../lib/ts.js";
 import { createRef } from "../lib/utils.js";
-import {
+import type {
   OperationObject,
   ParameterObject,
   PathItemObject,

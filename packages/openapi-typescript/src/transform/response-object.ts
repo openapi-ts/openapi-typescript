@@ -10,7 +10,7 @@ import {
   tsPropertyIndex,
 } from "../lib/ts.js";
 import { createRef, getEntries } from "../lib/utils.js";
-import { ResponseObject, TransformNodeOptions } from "../types.js";
+import type { ResponseObject, TransformNodeOptions } from "../types.js";
 import transformHeaderObject from "./header-object.js";
 import transformMediaTypeObject from "./media-type-object.js";
 

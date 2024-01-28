@@ -9,7 +9,7 @@ import {
 } from "@redocly/openapi-core";
 import { Readable } from "node:stream";
 import { fileURLToPath } from "node:url";
-import { OpenAPI3 } from "../types.js";
+import type { OpenAPI3 } from "../types.js";
 import { debug, error, warn } from "./utils.js";
 
 export interface ValidateAndBundleOptions {

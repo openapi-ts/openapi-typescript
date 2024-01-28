@@ -2,7 +2,7 @@ import { execa } from "execa";
 import fs from "node:fs";
 import os from "node:os";
 import { fileURLToPath } from "node:url";
-import { TestCase } from "./test-helpers.js";
+import type { TestCase } from "./test-helpers.js";
 
 const root = new URL("../", import.meta.url);
 const cwd = os.platform() === "win32" ? fileURLToPath(root) : root; // execa bug: fileURLToPath required on Windows
