@@ -7,7 +7,7 @@ import {
   tsPropertyIndex,
 } from "../lib/ts.js";
 import { createRef, debug, getEntries } from "../lib/utils.js";
-import {
+import type {
   GlobalContext,
   OperationObject,
   ParameterObject,
@@ -15,7 +15,7 @@ import {
   PathsObject,
   ReferenceObject,
 } from "../types.js";
-import transformPathItemObject, { Method } from "./path-item-object.js";
+import transformPathItemObject, { type Method } from "./path-item-object.js";
 
 const PATH_PARAM_RE = /\{[^}]+\}/g;
 

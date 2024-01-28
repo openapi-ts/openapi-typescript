@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import openapiTS, { astToString } from "../src/index.js";
 import type { OpenAPI3, OpenAPITSOptions } from "../src/types.js";
-import { TestCase } from "./test-helpers.js";
+import type { TestCase } from "./test-helpers.js";
 
 // prevent process.exit(1) from truly firing, as it will bypass Vitest’s error catching (throw new Error() will work as-expected)
 beforeAll(() => {

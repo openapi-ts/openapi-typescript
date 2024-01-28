@@ -1,6 +1,6 @@
-import ts from "typescript";
+import type ts from "typescript";
 import { STRING } from "../lib/ts.js";
-import { ParameterObject, TransformNodeOptions } from "../types.js";
+import type { ParameterObject, TransformNodeOptions } from "../types.js";
 import transformSchemaObject from "./schema-object.js";
 
 /**

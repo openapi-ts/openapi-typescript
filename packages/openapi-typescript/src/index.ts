@@ -1,6 +1,6 @@
 import { createConfig } from "@redocly/openapi-core";
-import { Readable } from "node:stream";
-import ts from "typescript";
+import type { Readable } from "node:stream";
+import type ts from "typescript";
 import { validateAndBundle } from "./lib/redoc.js";
 import { debug, resolveRef, scanDiscriminators } from "./lib/utils.js";
 import transformSchema from "./transform/index.js";

@@ -7,7 +7,7 @@ import {
   tsPropertyIndex,
 } from "../lib/ts.js";
 import { createRef, getEntries } from "../lib/utils.js";
-import { RequestBodyObject, TransformNodeOptions } from "../types.js";
+import type { RequestBodyObject, TransformNodeOptions } from "../types.js";
 import transformMediaTypeObject from "./media-type-object.js";
 import transformSchemaObject from "./schema-object.js";
 

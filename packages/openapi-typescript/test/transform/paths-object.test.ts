@@ -2,7 +2,7 @@ import { fileURLToPath } from "node:url";
 import { astToString } from "../../src/lib/ts.js";
 import transformPathsObject from "../../src/transform/paths-object.js";
 import type { GlobalContext } from "../../src/types.js";
-import { DEFAULT_CTX, TestCase } from "../test-helpers.js";
+import { DEFAULT_CTX, type TestCase } from "../test-helpers.js";
 
 const DEFAULT_OPTIONS = DEFAULT_CTX;
 

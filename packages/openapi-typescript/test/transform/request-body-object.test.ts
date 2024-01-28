@@ -2,7 +2,7 @@ import { fileURLToPath } from "node:url";
 import ts from "typescript";
 import { astToString } from "../../src/lib/ts.js";
 import transformRequestBodyObject from "../../src/transform/request-body-object.js";
-import { DEFAULT_CTX, TestCase } from "../test-helpers.js";
+import { DEFAULT_CTX, type TestCase } from "../test-helpers.js";
 
 const DEFAULT_OPTIONS = {
   path: "#/paths/~1get-item/get",

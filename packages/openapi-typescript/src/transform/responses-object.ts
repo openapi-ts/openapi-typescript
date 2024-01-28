@@ -7,7 +7,7 @@ import {
   tsPropertyIndex,
 } from "../lib/ts.js";
 import { createRef, getEntries } from "../lib/utils.js";
-import { ResponsesObject, TransformNodeOptions } from "../types.js";
+import type { ResponsesObject, TransformNodeOptions } from "../types.js";
 import transformResponseObject from "./response-object.js";
 
 /**

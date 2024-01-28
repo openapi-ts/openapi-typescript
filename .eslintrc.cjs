@@ -18,6 +18,10 @@ module.exports = {
   ],
   rules: {
     "@typescript-eslint/consistent-indexed-object-style": "off", // sometimes naming keys is more user-friendly
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      { prefer: "type-imports", fixStyle: "inline-type-imports" },
+    ],
     "@typescript-eslint/no-dynamic-delete": "off", // delete is OK
     "@typescript-eslint/no-non-null-assertion": "off", // this is better than "as"
     "@typescript-eslint/no-shadow": "error",

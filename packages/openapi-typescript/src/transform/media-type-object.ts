@@ -1,6 +1,6 @@
-import ts from "typescript";
+import type ts from "typescript";
 import { UNKNOWN } from "../lib/ts.js";
-import { MediaTypeObject, TransformNodeOptions } from "../types.js";
+import type { MediaTypeObject, TransformNodeOptions } from "../types.js";
 import transformSchemaObject from "./schema-object.js";
 
 /**

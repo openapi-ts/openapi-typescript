@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import { astToString } from "../../src/lib/ts.js";
 import transformPathItemObject from "../../src/transform/path-item-object.js";
-import { DEFAULT_CTX, TestCase } from "../test-helpers.js";
+import { DEFAULT_CTX, type TestCase } from "../test-helpers.js";
 
 const DEFAULT_OPTIONS = {
   path: "#/paths/~1get-item",

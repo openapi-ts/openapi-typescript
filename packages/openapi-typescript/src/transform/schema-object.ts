@@ -28,7 +28,7 @@ import {
   createRef,
   getEntries,
 } from "../lib/utils.js";
-import {
+import type {
   ReferenceObject,
   SchemaObject,
   TransformNodeOptions,

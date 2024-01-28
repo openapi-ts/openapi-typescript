@@ -1,7 +1,10 @@
-import ts, { InterfaceDeclaration, TypeLiteralNode } from "typescript";
+import ts, {
+  type InterfaceDeclaration,
+  type TypeLiteralNode,
+} from "typescript";
 import { NEVER, STRING, tsModifiers, tsRecord } from "../lib/ts.js";
 import { createRef, debug } from "../lib/utils.js";
-import { GlobalContext, OpenAPI3 } from "../types.js";
+import type { GlobalContext, OpenAPI3 } from "../types.js";
 import transformComponentsObject from "./components-object.js";
 import transformPathsObject from "./paths-object.js";
 import transformSchemaObject from "./schema-object.js";

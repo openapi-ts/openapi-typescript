@@ -7,7 +7,7 @@ import {
   tsPropertyIndex,
 } from "../lib/ts.js";
 import { createRef, debug, getEntries } from "../lib/utils.js";
-import {
+import type {
   ComponentsObject,
   GlobalContext,
   SchemaObject,

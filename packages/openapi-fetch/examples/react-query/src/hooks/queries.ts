@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import type { ParamsOption, RequestBodyOption } from "openapi-fetch";
-import { paths } from "../lib/api/v1";
+import type { paths } from "../lib/api/v1";
 import client from "../lib/api";
 
 type UseQueryOptions<T> = ParamsOption<T> &
@@ -15,7 +15,11 @@ type UseQueryOptions<T> = ParamsOption<T> &
 // paths
 const GET_FACT = "/fact";
 
-export function getFact({ params, body, reactQuery }: UseQueryOptions<paths[typeof GET_FACT]["get"]>) {
+export function getFact({
+  params,
+  body,
+  reactQuery,
+}: UseQueryOptions<paths[typeof GET_FACT]["get"]>) {
   return useQuery({
     ...reactQuery,
     queryKey: [
