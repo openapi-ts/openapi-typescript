@@ -1,6 +1,6 @@
 import { defineConfig } from "vitepress";
 
-const HOSTNAME = "https://opeanpi-ts.pages.dev";
+const HOSTNAME = "https://openapi-ts.pages.dev";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
