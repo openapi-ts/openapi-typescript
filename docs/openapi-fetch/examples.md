@@ -8,7 +8,7 @@ Example code of using openapi-fetch with other frameworks and libraries.
 
 ## React + React Query
 
-[React Query](https://tanstack.com/query/latest) is a perfect wrapper for openapi-fetch in React. At only 13 kB, it provides clientside caching and request deduping across async React components without too much client weight in return. And its type inference preserves openapi-fetch types perfectly with minimal setup.
+[React Query](https://tanstack.com/query/latest) is a perfect wrapper for openapi-fetch in React. At only 13 kB, it provides clientside caching without too much client weight in return. And its stellar type inference preserves openapi-fetch types perfectly with minimal setup.
 
 [View a code example in GitHub](https://github.com/drwpow/openapi-typescript/tree/main/packages/openapi-fetch/examples/react-query)
 

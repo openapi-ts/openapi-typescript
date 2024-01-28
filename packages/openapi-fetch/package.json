@@ -69,7 +69,6 @@
     "axios": "^1.6.7",
     "del-cli": "^5.1.0",
     "esbuild": "^0.20.0",
-    "nanostores": "^0.9.5",
     "openapi-typescript": "^6.7.4",
     "openapi-typescript-codegen": "^0.25.0",
     "openapi-typescript-fetch": "^1.1.3",

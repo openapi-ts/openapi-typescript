@@ -1,8 +1,10 @@
-import { atom, computed } from "nanostores";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 // @ts-expect-error
 import createFetchMock from "vitest-fetch-mock";
-import createClient, { type QuerySerializerOptions } from "../src/index.js";
+import createClient, {
+  type MiddlewareRequest,
+  type QuerySerializerOptions,
+} from "../src/index.js";
 import type { paths } from "./fixtures/api.js";
 
 const fetchMocker = createFetchMock(vi);
@@ -712,20 +714,16 @@ describe("client", () => {
       it("can modify request", async () => {
         mockFetchOnce({ status: 200, body: "{}" });
 
-        const client = createClient<paths>({
-          middleware: [
-            {
-              async onRequest(req) {
-                return new Request("https://foo.bar/api/v1", {
-                  ...req,
-                  method: "OPTIONS",
-                  headers: { foo: "bar" },
-                });
-              },
-            },
-          ],
+        const client = createClient<paths>();
+        client.use({
+          async onRequest(req) {
+            return new Request("https://foo.bar/api/v1", {
+              ...req,
+              method: "OPTIONS",
+              headers: { foo: "bar" },
+            });
+          },
         });
-
         await client.GET("/self");
 
         const req = fetchMocker.mock.calls[0][0];
@@ -746,23 +744,20 @@ describe("client", () => {
           headers: { foo: "bar" },
         });
 
-        const client = createClient<paths>({
-          middleware: [
-            {
-              async onResponse(res) {
-                const body = await res.json();
-                body.created_at = new Date(body.created_at).getTime();
-                body.updated_at = new Date(body.updated_at).getTime();
-                const headers = new Headers(res.headers);
-                headers.set("middleware", "value");
-                return new Response(JSON.stringify(body), {
-                  ...res,
-                  status: 205,
-                  headers,
-                });
-              },
-            },
-          ],
+        const client = createClient<paths>();
+        client.use({
+          async onResponse(res) {
+            const body = await res.json();
+            body.created_at = new Date(body.created_at).getTime();
+            body.updated_at = new Date(body.updated_at).getTime();
+            const headers = new Headers(res.headers);
+            headers.set("middleware", "value");
+            return new Response(JSON.stringify(body), {
+              ...res,
+              status: 205,
+              headers,
+            });
+          },
         });
 
         const { data, response } = await client.GET("/self");
@@ -783,53 +778,50 @@ describe("client", () => {
       it("executes in expected order", async () => {
         mockFetchOnce({ status: 200, body: "{}" });
 
-        const client = createClient<paths>({
-          // this middleware passes along the “step” header
-          // for both requests and responses, but first checks if
-          // it received the end result of the previous middleware step
-          middleware: [
-            {
-              async onRequest(req) {
-                req.headers.set("step", "A");
-                return req;
-              },
-              async onResponse(res) {
-                if (res.headers.get("step") === "B") {
-                  return new Response(res.body, {
-                    ...res,
-                    headers: { ...res.headers, step: "A" },
-                  });
-                }
-              },
+        const client = createClient<paths>();
+        // this middleware passes along the “step” header
+        // for both requests and responses, but first checks if
+        // it received the end result of the previous middleware step
+        client.use(
+          {
+            async onRequest(req) {
+              req.headers.set("step", "A");
+              return req;
             },
-            {
-              async onRequest(req) {
-                req.headers.set("step", "B");
-                return req;
-              },
-              async onResponse(res) {
-                if (res.headers.get("step") === "C") {
-                  return new Response(res.body, {
-                    ...res,
-                    headers: { ...res.headers, step: "B" },
-                  });
-                }
-              },
+            async onResponse(res) {
+              if (res.headers.get("step") === "B") {
+                return new Response(res.body, {
+                  ...res,
+                  headers: { ...res.headers, step: "A" },
+                });
+              }
             },
-            // @ts-expect-error
-            null, // assert bad value doesn’t break chain
-            {
-              onRequest(req) {
-                req.headers.set("step", "C");
-                return req;
-              },
-              onResponse(res) {
-                res.headers.set("step", "C");
-                return res;
-              },
+          },
+          {
+            async onRequest(req) {
+              req.headers.set("step", "B");
+              return req;
             },
-          ],
-        });
+            async onResponse(res) {
+              if (res.headers.get("step") === "C") {
+                return new Response(res.body, {
+                  ...res,
+                  headers: { ...res.headers, step: "B" },
+                });
+              }
+            },
+          },
+          {
+            onRequest(req) {
+              req.headers.set("step", "C");
+              return req;
+            },
+            onResponse(res) {
+              res.headers.set("step", "C");
+              return res;
+            },
+          },
+        );
 
         const { response } = await client.GET("/self");
 
@@ -847,14 +839,12 @@ describe("client", () => {
 
         const client = createClient<paths>({
           baseUrl: "https://api.foo.bar/v1/",
-          middleware: [
-            {
-              onRequest(_, options) {
-                baseUrl = options.baseUrl;
-                return undefined;
-              },
-            },
-          ],
+        });
+        client.use({
+          onRequest(_, options) {
+            baseUrl = options.baseUrl;
+            return undefined;
+          },
         });
 
         await client.GET("/self");
@@ -884,15 +874,13 @@ describe("client", () => {
 
         const client = createClient<paths>({
           baseUrl: "https://api.foo.bar/v1/",
-          middleware: [
-            {
-              onRequest(req) {
-                receivedPath = req!.schemaPath;
-                receivedParams = req!.params;
-                return undefined;
-              },
-            },
-          ],
+        });
+        client.use({
+          onRequest(req) {
+            receivedPath = req!.schemaPath;
+            receivedParams = req!.params;
+            return undefined;
+          },
         });
         await client.PUT(pathname, tagData);
 
@@ -905,17 +893,34 @@ describe("client", () => {
 
         const client = createClient<paths>({
           baseUrl: "https://api.foo.bar/v1/",
-          middleware: [
-            {
-              onRequest() {
-                return undefined;
-              },
-            },
-          ],
+        });
+        client.use({
+          onRequest() {
+            return undefined;
+          },
         });
         const { data } = await client.GET("/blogposts");
 
         expect(data).toEqual({ success: true });
+      });
+
+      it("can be ejected", async () => {
+        let called = false;
+        const errorMiddleware = {
+          onRequest() {
+            called = true;
+            throw new Error("oops");
+          },
+        };
+
+        const client = createClient<paths>({
+          baseUrl: "https://api.foo.bar/v1",
+        });
+        client.use(errorMiddleware);
+        client.eject(errorMiddleware);
+
+        expect(() => client.GET("/blogposts")).not.toThrow();
+        expect(called).toBe(false);
       });
     });
   });
@@ -923,7 +928,7 @@ describe("client", () => {
   describe("requests", () => {
     it("multipart/form-data", async () => {
       const client = createClient<paths>();
-      mockFetchOnce({ status: 200, body: "{}" });
+      mockFetchOnce({ status: 200, body: JSON.stringify({ success: true }) });
       const reqBody = {
         name: "John Doe",
         email: "test@email.email",
@@ -943,7 +948,7 @@ describe("client", () => {
 
       // expect post_id to be encoded properly
       const req = fetchMocker.mock.calls[0][0];
-      expect(req.body).toBeInstanceOf("FormData");
+      expect(req.body).toBeInstanceOf(FormData);
 
       // TODO: `vitest-fetch-mock` does not add the boundary to the Content-Type header like browsers do, so we expect the header to be null instead
       expect((req.headers as Headers).get("Content-Type")).toBeNull();
@@ -1284,54 +1289,19 @@ describe("client", () => {
 
 // test that the library behaves as expected inside commonly-used patterns
 describe("examples", () => {
-  it("nanostores", async () => {
-    const token = atom<string | undefined>();
-    const client = computed([token], (currentToken) =>
-      createClient<paths>({
-        headers: currentToken
-          ? { Authorization: `Bearer ${currentToken}` }
-          : {},
-      }),
-    );
-
-    // assert initial call is unauthenticated
-    mockFetchOnce({ status: 200, body: "{}" });
-    await client
-      .get()
-      .GET("/blogposts/{post_id}", { params: { path: { post_id: "1234" } } });
-    expect(
-      fetchMocker.mock.calls[0][0].headers.get("authorization"),
-    ).toBeNull();
-
-    // assert after setting token, client is authenticated
-    const tokenVal = "abcd";
-    mockFetchOnce({ status: 200, body: "{}" });
-    await new Promise<void>((resolve) =>
-      setTimeout(() => {
-        token.set(tokenVal); // simulate promise-like token setting
-        resolve();
-      }, 0),
-    );
-    await client
-      .get()
-      .GET("/blogposts/{post_id}", { params: { path: { post_id: "1234" } } });
-    expect(fetchMocker.mock.calls[1][0].headers.get("authorization")).toBe(
-      `Bearer ${tokenVal}`,
-    );
-  });
-
-  it("proxies", async () => {
-    let token: string | undefined = undefined;
-
-    const baseClient = createClient<paths>();
-    const client = new Proxy(baseClient, {
-      get(_, key: keyof typeof baseClient) {
-        const newClient = createClient<paths>({
-          headers: token ? { Authorization: `Bearer ${token}` } : {},
-        });
-        return newClient[key];
+  it("auth middleware", async () => {
+    let accessToken: string | undefined = undefined;
+    const authMiddleware: Middleware = {
+      async onRequest(req) {
+        if (accessToken) {
+          req.headers.set("Authorization", `Bearer ${accessToken}`);
+          return req;
+        }
       },
-    });
+    };
+
+    const client = createClient<paths>();
+    client.use(authMiddleware);
 
     // assert initial call is unauthenticated
     mockFetchOnce({ status: 200, body: "{}" });
@@ -1343,19 +1313,13 @@ describe("examples", () => {
     ).toBeNull();
 
     // assert after setting token, client is authenticated
-    const tokenVal = "abcd";
+    accessToken = "real_token";
     mockFetchOnce({ status: 200, body: "{}" });
-    await new Promise<void>((resolve) =>
-      setTimeout(() => {
-        token = tokenVal; // simulate promise-like token setting
-        resolve();
-      }, 0),
-    );
     await client.GET("/blogposts/{post_id}", {
       params: { path: { post_id: "1234" } },
     });
     expect(fetchMocker.mock.calls[1][0].headers.get("authorization")).toBe(
-      `Bearer ${tokenVal}`,
+      `Bearer ${accessToken}`,
     );
   });
 });

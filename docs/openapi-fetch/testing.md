@@ -13,7 +13,7 @@ To test requests, the `fetch` option can be supplied with any spy function like 
 ```ts
 import createClient from "openapi-fetch";
 import { expect, test, vi } from "vitest";
-import { paths } from "../../lib/api/v1";
+import type { paths } from "./api/v1";
 
 test("my request", async () => {
   const mockFetch = vi.fn();
@@ -38,7 +38,7 @@ Any library that can mock the native `fetch` API can work, such as [vitest-fetch
 ```ts
 import createClient from "openapi-fetch";
 import { afterEach, beforeAll, expect, test, vi } from "vitest";
-import { paths } from "../../lib/api/v1";
+import type { paths } from "./api/v1";
 
 const fetchMocker = createFetchMock(vi);
 

@@ -26,7 +26,7 @@ createClient<paths>(options);
 The following options apply to all request methods (`.GET()`, `.POST()`, etc.)
 
 ```ts
-client.get("/my-url", options);
+client.GET("/my-url", options);
 ```
 
 | Name              | Type                                                              | Description                                                                                                                                                                                                                       |
@@ -124,7 +124,7 @@ const client = createClient({
 Similar to [querySerializer](#queryserializer), bodySerializer allows you to customize how the requestBody is serialized if you don’t want the default [JSON.stringify()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) behavior. You probably only need this when using `multipart/form-data`:
 
 ```ts
-const { data, error } = await PUT("/submit", {
+const { data, error } = await client.PUT("/submit", {
   body: {
     name: "",
     query: { version: 2 },
@@ -157,31 +157,27 @@ openapi-fetch supports path serialization as [outlined in the 3.1 spec](https://
 Middleware is an object with `onRequest()` and `onResponse()` callbacks that can observe and modify requests and responses.
 
 ```ts
-function myMiddleware(): Middleware {
-  return {
-    async onRequest(req, options) {
-      // set "foo" header
-      req.headers.set("foo", "bar");
-      return req;
-    },
-    async onResponse(res, options) {
-      const { body, ...resOptions } = res;
-      // change status of response
-      return new Response(body, { ...resOptions, status: 200 });
-    },
-  };
-}
+import createClient from "openapi-fetch";
+import type { paths } from "./api/v1";
 
-createClient({
-  middleware: [myMiddleware()],
-});
+const myMiddleware: Middleware = {
+  async onRequest(req, options) {
+    // set "foo" header
+    req.headers.set("foo", "bar");
+    return req;
+  },
+  async onResponse(res, options) {
+    const { body, ...resOptions } = res;
+    // change status of response
+    return new Response(body, { ...resOptions, status: 200 });
+  },
+};
+
+const client = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
+
+// register middleware
+client.use(myMiddleware);
 ```
-
-::: tip
-
-Middleware can be a simple object. But wrapping in a function like the examples show lets you optionally create multiple instances of the same logic to handle different scenarios if needed.
-
-:::
 
 ### onRequest
 
@@ -221,3 +217,34 @@ And it expects either:
 
 - **If modifying the response:** A [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response)
 - **If not modifying:** `undefined` (void)
+
+### Skipping
+
+If you want to skip the middleware under certain conditions, just `return` as early as possible:
+
+```ts
+onRequest(req) {
+  if (req.schemaPath !== "/projects/{project_id}") {
+    return undefined;
+  }
+  // …
+}
+```
+
+This will leave the request/response unmodified, and pass things off to the next middleware handler (if any). There’s no internal callback or observer library needed.
+
+### Ejecting middleware
+
+To remove middleware, call `client.eject(middleware)`:
+
+```ts{9}
+const myMiddleware = {
+  // …
+};
+
+// register middleware
+client.use(myMiddleware);
+
+// remove middleware
+client.eject(myMiddleware);
+```

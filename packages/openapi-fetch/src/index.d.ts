@@ -23,8 +23,6 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
   querySerializer?: QuerySerializer<unknown> | QuerySerializerOptions;
   /** global bodySerializer */
   bodySerializer?: BodySerializer<unknown>;
-  /** middlewares */
-  middleware?: Middleware[];
   headers?: HeadersOptions;
 }
 
@@ -203,6 +201,10 @@ export default function createClient<Paths extends {}>(
   PATCH: ClientMethod<Paths, "patch">;
   /** Call a TRACE endpoint */
   TRACE: ClientMethod<Paths, "trace">;
+  /** Register middleware */
+  use(...middleware: Middleware[]): void;
+  /** Unregister middleware */
+  eject(...middleware: Middleware[]): void;
 };
 
 /** Serialize primitive params to string */

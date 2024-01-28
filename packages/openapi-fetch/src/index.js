@@ -15,7 +15,6 @@ export default function createClient(clientOptions) {
     fetch: baseFetch = globalThis.fetch,
     querySerializer: globalQuerySerializer = defaultQuerySerializer,
     bodySerializer: globalBodySerializer = defaultBodySerializer,
-    middleware = [],
     headers: baseHeaders,
     ...baseOptions
   } = { ...clientOptions };
@@ -23,6 +22,7 @@ export default function createClient(clientOptions) {
     baseUrl = baseUrl.substring(0, baseUrl.length - 1);
   }
   baseHeaders = mergeHeaders(DEFAULT_HEADERS, baseHeaders);
+  const middlewares = [];
 
   /**
    * Per-request fetch (keeps settings created in createClient()
@@ -86,20 +86,18 @@ export default function createClient(clientOptions) {
       querySerializer,
       bodySerializer,
     };
-    if (Array.isArray(middleware)) {
-      for (const m of middleware) {
-        if (m && typeof m === "object" && typeof m.onRequest === "function") {
-          request.schemaPath = url; // (re)attach original URL
-          request.params = params; // (re)attach params
-          const result = await m.onRequest(request, mergedOptions);
-          if (result) {
-            if (!(result instanceof Request)) {
-              throw new Error(
-                `Middleware must return new Request() when modifying the request`,
-              );
-            }
-            request = result;
+    for (const m of middlewares) {
+      if (m && typeof m === "object" && typeof m.onRequest === "function") {
+        request.schemaPath = url; // (re)attach original URL
+        request.params = params; // (re)attach params
+        const result = await m.onRequest(request, mergedOptions);
+        if (result) {
+          if (!(result instanceof Request)) {
+            throw new Error(
+              `Middleware must return new Request() when modifying the request`,
+            );
           }
+          request = result;
         }
       }
     }
@@ -108,20 +106,18 @@ export default function createClient(clientOptions) {
     let response = await fetch(request);
 
     // middleware (response)
-    if (Array.isArray(middleware)) {
-      // execute in reverse-array order (first priority gets last transform)
-      for (let i = middleware.length - 1; i >= 0; i--) {
-        const m = middleware[i];
-        if (m && typeof m === "object" && typeof m.onResponse === "function") {
-          const result = await m.onResponse(response, mergedOptions);
-          if (result) {
-            if (!(result instanceof Response)) {
-              throw new Error(
-                `Middleware must return new Response() when modifying the response`,
-              );
-            }
-            response = result;
+    // execute in reverse-array order (first priority gets last transform)
+    for (let i = middlewares.length - 1; i >= 0; i--) {
+      const m = middlewares[i];
+      if (m && typeof m === "object" && typeof m.onResponse === "function") {
+        const result = await m.onResponse(response, mergedOptions);
+        if (result) {
+          if (!(result instanceof Response)) {
+            throw new Error(
+              `Middleware must return new Response() when modifying the response`,
+            );
           }
+          response = result;
         }
       }
     }
@@ -139,26 +135,17 @@ export default function createClient(clientOptions) {
     if (response.ok) {
       // if "stream", skip parsing entirely
       if (parseAs === "stream") {
-        // fix for bun: bun consumes response.body, therefore clone before accessing
-        // TODO: test this?
-        return { data: response.clone().body, response };
+        return { data: response.body, response };
       }
-      const cloned = response.clone();
-      return {
-        data:
-          typeof cloned[parseAs] === "function"
-            ? await cloned[parseAs]()
-            : await cloned.text(),
-        response,
-      };
+      return { data: await response[parseAs](), response };
     }
 
     // handle errors (always parse as .json() or .text())
     let error = {};
     try {
-      error = await response.clone().json();
+      error = await response.json();
     } catch {
-      error = await response.clone().text();
+      error = await response.text();
     }
     return { error, response };
   }
@@ -195,6 +182,29 @@ export default function createClient(clientOptions) {
     /** Call a TRACE endpoint */
     async TRACE(url, init) {
       return coreFetch(url, { ...init, method: "TRACE" });
+    },
+    /** Register middleware */
+    use(...middleware) {
+      for (const m of middleware) {
+        if (!m) {
+          continue;
+        }
+        if (typeof m !== "object" || !("onRequest" in m || "onResponse" in m)) {
+          throw new Error(
+            "Middleware must be an object with one of `onRequest()` or `onResponse()`",
+          );
+        }
+        middlewares.push(m);
+      }
+    },
+    /** Unregister middleware */
+    eject(...middleware) {
+      for (const m of middleware) {
+        const i = middlewares.indexOf(m);
+        if (i !== -1) {
+          middlewares.splice(i, 1);
+        }
+      }
     },
   };
 }
