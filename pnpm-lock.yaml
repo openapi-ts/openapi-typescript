@@ -69,9 +69,6 @@ importers:
       esbuild:
         specifier: ^0.20.0
         version: 0.20.0
-      nanostores:
-        specifier: ^0.9.5
-        version: 0.9.5
       openapi-typescript:
         specifier: ^6.7.4
         version: 6.7.4
@@ -4415,11 +4412,6 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
-
-  /nanostores@0.9.5:
-    resolution: {integrity: sha512-Z+p+g8E7yzaWwOe5gEUB2Ox0rCEeXWYIZWmYvw/ajNYX8DlXdMvMDj8DWfM/subqPAcsf8l8Td4iAwO1DeIIRQ==}
-    engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
-    dev: true
 
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}

@@ -2,6 +2,7 @@ import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 // @ts-expect-error
 import createFetchMock from "vitest-fetch-mock";
 import createClient, {
+  type Middleware,
   type MiddlewareRequest,
   type QuerySerializerOptions,
 } from "../src/index.js";
@@ -733,6 +734,8 @@ describe("client", () => {
       });
 
       it("can modify response", async () => {
+        const toUnix = (date: string) => new Date(date).getTime();
+
         const rawBody = {
           email: "user123@gmail.com",
           created_at: "2024-01-01T00:00:00Z",
@@ -746,10 +749,11 @@ describe("client", () => {
 
         const client = createClient<paths>();
         client.use({
+          // convert date string to unix time
           async onResponse(res) {
             const body = await res.json();
-            body.created_at = new Date(body.created_at).getTime();
-            body.updated_at = new Date(body.updated_at).getTime();
+            body.created_at = toUnix(body.created_at);
+            body.updated_at = toUnix(body.updated_at);
             const headers = new Headers(res.headers);
             headers.set("middleware", "value");
             return new Response(JSON.stringify(body), {
@@ -763,8 +767,8 @@ describe("client", () => {
         const { data, response } = await client.GET("/self");
 
         // assert body was modified
-        expect(data?.created_at).toBe(new Date(rawBody.created_at).getTime());
-        expect(data?.updated_at).toBe(new Date(rawBody.updated_at).getTime());
+        expect(data?.created_at).toBe(toUnix(rawBody.created_at));
+        expect(data?.updated_at).toBe(toUnix(rawBody.updated_at));
         // assert rest of body was preserved
         expect(data?.email).toBe(rawBody.email);
         // assert status changed
@@ -905,6 +909,8 @@ describe("client", () => {
       });
 
       it("can be ejected", async () => {
+        mockFetchOnce({ status: 200, body: "{}" });
+
         let called = false;
         const errorMiddleware = {
           onRequest() {
@@ -948,10 +954,11 @@ describe("client", () => {
 
       // expect post_id to be encoded properly
       const req = fetchMocker.mock.calls[0][0];
-      expect(req.body).toBeInstanceOf(FormData);
+      // note: this is FormData, but Node.js doesn’t handle new Request() properly with formData bodies. So this is only in tests.
+      expect(req.body).toBeInstanceOf(Buffer);
 
       // TODO: `vitest-fetch-mock` does not add the boundary to the Content-Type header like browsers do, so we expect the header to be null instead
-      expect((req.headers as Headers).get("Content-Type")).toBeNull();
+      expect(req.headers.get("Content-Type")).toBeNull();
     });
 
     it("respects cookie", async () => {

@@ -74,10 +74,9 @@ export default function createClient(clientOptions) {
       requestInit,
     );
     // remove `Content-Type` if serialized body is FormData; browser will correctly set Content-Type & boundary expression
-    if (request.body instanceof FormData) {
+    if (requestInit.body instanceof FormData) {
       request.headers.delete("Content-Type");
     }
-
     // middleware (request)
     const mergedOptions = {
       baseUrl,
