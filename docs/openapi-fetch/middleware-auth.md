@@ -33,50 +33,13 @@ const client = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 client.use(myMiddleware);
 ```
 
+To learn more about `onRequest()` and `onResponse()` [see the API](/api#middleware)
+
 ::: tip
 
 The order in which middleware are registered matters. For requests, `onRequest()` will be called in the order registered. For responses, `onResponse()` will be called in **reverse** order. That way the first middleware gets the first “dibs” on requests, and the final control over responses.
 
 :::
-
-### onRequest
-
-```ts
-onRequest(req, options) {
-  // …
-}
-```
-
-`onRequest()` takes 2 params:
-
-| Name      |        Type         | Description                                                                                                                                                                          |
-| :-------- | :-----------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `req`     | `MiddlewareRequest` | A standard [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) with `schemaPath` (OpenAPI pathname) and `params` ([params](/openapi-fetch/api#fetch-options) object) |
-| `options` |   `MergedOptiosn`   | Combination of [createClient](/openapi-fetch/api#create-client) options + [fetch overrides](/openapi-fetch/api#fetch-options)                                                        |
-
-And it expects either:
-
-- **If modifying the request:** A [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request)
-- **If not modifying:** `undefined` (void)
-
-### onResponse
-
-```ts
-onResponse(res, options) {
-  // …
-}
-```
-
-`onResponse()` also takes 2 params:
-| Name | Type | Description |
-| :-------- | :-----------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `req` | `MiddlewareRequest` | A standard [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response). |
-| `options` | `MergedOptiosn` | Combination of [createClient](/openapi-fetch/api#create-client) options + [fetch overrides](/openapi-fetch/api#fetch-options) |
-
-And it expects either:
-
-- **If modifying the response:** A [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response)
-- **If not modifying:** `undefined` (void)
 
 ### Skipping
 
