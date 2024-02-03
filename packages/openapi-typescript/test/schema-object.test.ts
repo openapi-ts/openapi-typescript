@@ -379,6 +379,11 @@ describe("Schema Object", () => {
       const generated = transformSchemaObject({ nullable: true }, options);
       expect(generated).toBe(`unknown`);
     });
+
+    test("nullable object", () => {
+      const generated = transformSchemaObject({ nullable: true, type: "object" }, options);
+      expect(generated).toBe(`Record<string, unknown> | null`);
+    });
   });
 
   describe("schema composition", () => {

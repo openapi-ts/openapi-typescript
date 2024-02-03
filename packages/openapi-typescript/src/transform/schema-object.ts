@@ -267,7 +267,13 @@ export function defaultSchemaObjectTransform(schemaObject: SchemaObject | Refere
   }
 
   // nullable (3.0)
-  if (schemaObject.nullable) finalType = tsUnionOf(finalType || "unknown", "null");
+  if (schemaObject.nullable) {
+    if ("type" in schemaObject) {
+      finalType = tsUnionOf(finalType || "Record<string, unknown>", "null");
+    } else {
+      finalType = tsUnionOf(finalType || "unknown", "null");
+    }
+  }
 
   if (finalType) return finalType;
 
