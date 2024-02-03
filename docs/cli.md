@@ -38,8 +38,14 @@ apis:
   external@v1:
     root: ./openapi/external.yaml
     x-openapi-ts:
-      output: ./openapi/openapi.ts
+      output: ./openapi/external.ts
 ```
+
+::: tip
+
+This will preserve schemas 1:1 input:output. To bundle multiple schemas into one, use Redocly’s [bundle command](https://redocly.com/docs/resources/multi-file-definitions/#bundle)
+
+:::
 
 Whenever you have a `redocly.yaml` file in your project with `apis`, you can omit the input/output parameters in the CLI:
 
