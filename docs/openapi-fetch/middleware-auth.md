@@ -33,8 +33,6 @@ const client = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 client.use(myMiddleware);
 ```
 
-To learn more about `onRequest()` and `onResponse()` [see the API](/api#middleware)
-
 ::: tip
 
 The order in which middleware are registered matters. For requests, `onRequest()` will be called in the order registered. For responses, `onResponse()` will be called in **reverse** order. That way the first middleware gets the first “dibs” on requests, and the final control over responses.
@@ -55,6 +53,18 @@ onRequest(req) {
 ```
 
 This will leave the request/response unmodified, and pass things off to the next middleware handler (if any). There’s no internal callback or observer library needed.
+
+### Throwing
+
+Middleware can also be used to throw an error that `fetch()` wouldn’t normally, useful in libraries like [TanStack Query](https://tanstack.com/query/latest):
+
+```ts
+onResponse(res) {
+  if (res.error) {
+    throw new Error(res.error.message);
+  }
+}
+```
 
 ### Ejecting middleware
 
