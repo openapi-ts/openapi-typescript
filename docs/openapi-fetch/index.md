@@ -139,6 +139,8 @@ openapi-fetch infers types from the URL. Prefer static string values over dynami
 
 :::
 
+This library also supports the **label** and **matrix** serialization styles as well ([docs](https://swagger.io/docs/specification/serialization/#path)) automatically.
+
 ### Request
 
 The `GET()` request shown needed the `params` object that groups [parameters by type](https://spec.openapis.org/oas/latest.html#parameter-object) (`path` or `query`). If a required param is missing, or the wrong type, a type error will be thrown.
