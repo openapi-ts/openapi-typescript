@@ -74,18 +74,19 @@ Sometimes your backend doesn’t use one of the standard serialization methods, 
 
 ```ts
 const client = createClient({
-  querySerializer(queryParam) {
-    let s = [];
-    for (const [k, v] of Object.entries(queryParam)) {
-      if (Array.isArray(v)) {
-        for (const i of v) {
-          s.push(`${k}[]=${encodeURIComponent(i)}`);
+  querySerializer(queryParams) {
+    const search = [];
+    for (const name in queryParams) {
+      const value = queryParams[name];
+      if (Array.isArray(value)) {
+        for (const item of value) {
+          s.push(`${name}[]=${encodeURIComponent(item)}`);
         }
       } else {
-        s.push(`${k}=${encodeURLComponent(v)}`);
+        s.push(`${name}=${encodeURLComponent(value)}`);
       }
     }
-    return encodeURI(s.join(",")); // ?tags[]=food,tags[]=california,tags[]=healthy
+    return search.join(","); // ?tags[]=food,tags[]=california,tags[]=healthy
   },
 });
 ```
@@ -126,8 +127,8 @@ const { data, error } = await PUT("/submit", {
   },
   bodySerializer(body) {
     const fd = new FormData();
-    for (const [k, v] of Object.entries(body)) {
-      fd.append(k, v);
+    for (const name in body) {
+      fd.append(name, body[name]);
     }
     return fd;
   },

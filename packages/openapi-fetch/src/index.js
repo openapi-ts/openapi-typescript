@@ -3,7 +3,6 @@ const DEFAULT_HEADERS = {
   "Content-Type": "application/json",
 };
 
-const LEADING_QUESTION_RE = /^\?+/;
 const PATH_PARAM_RE = /\{[^{}]+\}/g;
 
 /**
@@ -19,7 +18,7 @@ export default function createClient(clientOptions) {
   } = clientOptions ?? {};
   let baseUrl = baseOptions.baseUrl ?? "";
   if (baseUrl.endsWith("/")) {
-    baseUrl = baseUrl.slice(0, -1); // remove trailing slash
+    baseUrl = baseUrl.substring(0, baseUrl.length - 1);
   }
 
   /**
@@ -293,12 +292,13 @@ export function createQuerySerializer(options) {
     const search = [];
     if (queryParams && typeof queryParams === "object") {
       for (const name in queryParams) {
-        if (queryParams[name] === undefined || queryParams[name] === null) {
+        const value = queryParams[name];
+        if (value === undefined || value === null) {
           continue;
         }
-        if (Array.isArray(queryParams[name])) {
+        if (Array.isArray(value)) {
           search.push(
-            serializeArrayParam(name, queryParams[name], {
+            serializeArrayParam(name, value, {
               style: "form",
               explode: true,
               ...options?.array,
@@ -307,9 +307,9 @@ export function createQuerySerializer(options) {
           );
           continue;
         }
-        if (typeof queryParams[name] === "object") {
+        if (typeof value === "object") {
           search.push(
-            serializeObjectParam(name, queryParams[name], {
+            serializeObjectParam(name, value, {
               style: "deepObject",
               explode: true,
               ...options?.object,
@@ -318,7 +318,7 @@ export function createQuerySerializer(options) {
           );
           continue;
         }
-        search.push(serializePrimitiveParam(name, queryParams[name], options));
+        search.push(serializePrimitiveParam(name, value, options));
       }
     }
     return search.join("&");
@@ -331,64 +331,52 @@ export function createQuerySerializer(options) {
  * @see https://swagger.io/docs/specification/serialization/#path
  */
 export function defaultPathSerializer(pathname, pathParams) {
-  const matches = pathname.match(PATH_PARAM_RE);
-  if (!matches || !matches.length) {
-    return undefined;
-  }
   let nextURL = pathname;
-  for (const match of matches) {
-    let paramName = match.substring(1, match.length - 1);
+  for (const match of pathname.match(PATH_PARAM_RE) ?? []) {
+    let name = match.substring(1, match.length - 1);
     let explode = false;
     let style = "simple";
-    if (paramName.endsWith("*")) {
+    if (name.endsWith("*")) {
       explode = true;
-      paramName = paramName.substring(0, paramName.length - 1);
+      name = name.substring(0, name.length - 1);
     }
-    if (paramName.startsWith(".")) {
+    if (name.startsWith(".")) {
       style = "label";
-      paramName = paramName.substring(1);
-    } else if (paramName.startsWith(";")) {
+      name = name.substring(1);
+    } else if (name.startsWith(";")) {
       style = "matrix";
-      paramName = paramName.substring(1);
+      name = name.substring(1);
     }
     if (
       !pathParams ||
-      pathParams[paramName] === undefined ||
-      pathParams[paramName] === null
+      pathParams[name] === undefined ||
+      pathParams[name] === null
     ) {
       continue;
     }
-    if (Array.isArray(pathParams[paramName])) {
+    const value = pathParams[name];
+    if (Array.isArray(value)) {
       nextURL = nextURL.replace(
         match,
-        serializeArrayParam(paramName, pathParams[paramName], {
-          style,
-          explode,
-        }),
+        serializeArrayParam(name, value, { style, explode }),
       );
       continue;
     }
-    if (typeof pathParams[paramName] === "object") {
+    if (typeof value === "object") {
       nextURL = nextURL.replace(
         match,
-        serializeObjectParam(paramName, pathParams[paramName], {
-          style,
-          explode,
-        }),
+        serializeObjectParam(name, value, { style, explode }),
       );
       continue;
     }
     if (style === "matrix") {
       nextURL = nextURL.replace(
         match,
-        `;${serializePrimitiveParam(paramName, pathParams[paramName])}`,
+        `;${serializePrimitiveParam(name, value)}`,
       );
       continue;
     }
-    nextURL = nextURL.replace(
-      match,
-      style === "label" ? `.${pathParams[paramName]}` : pathParams[paramName],
-    );
+    nextURL = nextURL.replace(match, style === "label" ? `.${value}` : value);
     continue;
   }
   return nextURL;
@@ -411,9 +399,10 @@ export function createFinalURL(pathname, options) {
   if (options.params?.path) {
     finalURL = defaultPathSerializer(finalURL, options.params.path);
   }
-  const search = options
-    .querySerializer(options.params.query ?? {})
-    .replace(LEADING_QUESTION_RE, "");
+  let search = options.querySerializer(options.params.query ?? {});
+  if (search.startsWith("?")) {
+    search = search.substring(1);
+  }
   if (search) {
     finalURL += `?${search}`;
   }

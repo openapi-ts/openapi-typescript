@@ -684,8 +684,8 @@ describe("client", () => {
         },
         bodySerializer(body) {
           const fd = new FormData();
-          for (const [k, v] of Object.entries(body)) {
-            fd.append(k, v);
+          for (const name in body) {
+            fd.append(name, body[name as keyof typeof body]);
           }
           return fd;
         },
