@@ -104,73 +104,33 @@ export type RequestOptions<T> = ParamsOption<T> &
     fetch?: ClientOptions["fetch"];
   };
 
+export type ClientMethod<Paths extends {}, M> = <
+  P extends PathsWithMethod<Paths, M>,
+  I extends MaybeOptionalInit<Paths[P], M>,
+>(
+  url: P,
+  ...init: I
+) => Promise<FetchResponse<Paths[P][M], I[0]>>;
+
 export default function createClient<Paths extends {}>(
   clientOptions?: ClientOptions,
 ): {
   /** Call a GET endpoint */
-  GET<
-    P extends PathsWithMethod<Paths, "get">,
-    I extends MaybeOptionalInit<Paths[P], "get">,
-  >(
-    url: P,
-    ...init: I
-  ): Promise<FetchResponse<Paths[P]["get"], I[0]>>;
+  GET: ClientMethod<Paths, "get">;
   /** Call a PUT endpoint */
-  PUT<
-    P extends PathsWithMethod<Paths, "put">,
-    I extends MaybeOptionalInit<Paths[P], "put">,
-  >(
-    url: P,
-    ...init: I
-  ): Promise<FetchResponse<Paths[P]["put"], I[0]>>;
+  PUT: ClientMethod<Paths, "put">;
   /** Call a POST endpoint */
-  POST<
-    P extends PathsWithMethod<Paths, "post">,
-    I extends MaybeOptionalInit<Paths[P], "post">,
-  >(
-    url: P,
-    ...init: I
-  ): Promise<FetchResponse<Paths[P]["post"], I[0]>>;
+  POST: ClientMethod<Paths, "post">;
   /** Call a DELETE endpoint */
-  DELETE<
-    P extends PathsWithMethod<Paths, "delete">,
-    I extends MaybeOptionalInit<Paths[P], "delete">,
-  >(
-    url: P,
-    ...init: I
-  ): Promise<FetchResponse<Paths[P]["delete"], I[0]>>;
+  DELETE: ClientMethod<Paths, "delete">;
   /** Call a OPTIONS endpoint */
-  OPTIONS<
-    P extends PathsWithMethod<Paths, "options">,
-    I extends MaybeOptionalInit<Paths[P], "options">,
-  >(
-    url: P,
-    ...init: I
-  ): Promise<FetchResponse<Paths[P]["options"], I[0]>>;
+  OPTIONS: ClientMethod<Paths, "options">;
   /** Call a HEAD endpoint */
-  HEAD<
-    P extends PathsWithMethod<Paths, "head">,
-    I extends MaybeOptionalInit<Paths[P], "head">,
-  >(
-    url: P,
-    ...init: I
-  ): Promise<FetchResponse<Paths[P]["head"], I[0]>>;
+  HEAD: ClientMethod<Paths, "head">;
   /** Call a PATCH endpoint */
-  PATCH<
-    P extends PathsWithMethod<Paths, "patch">,
-    I extends MaybeOptionalInit<Paths[P], "patch">,
-  >(
-    url: P,
-    ...init: I
-  ): Promise<FetchResponse<Paths[P]["patch"], I[0]>>;
+  PATCH: ClientMethod<Paths, "patch">;
   /** Call a TRACE endpoint */
-  TRACE<
-    P extends PathsWithMethod<Paths, "trace">,
-    I extends MaybeOptionalInit<Paths[P], "trace">,
-  >(
-    url: P,
-    ...init: I
-  ): Promise<FetchResponse<Paths[P]["trace"], I[0]>>;
+  TRACE: ClientMethod<Paths, "trace">;
 };
 
 /** Serialize query params to string */
