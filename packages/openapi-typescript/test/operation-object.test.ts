@@ -164,4 +164,40 @@ describe("Operation Object", () => {
   };
 }`);
   });
+
+  it("handles non-array parameters", () => {
+    const schema: OperationObject = {
+      parameters: {
+        in: "query",
+        name: "search",
+        schema: { type: "string" },
+      },
+      responses: {
+        "200": {
+          description: "OK",
+          content: {
+            "application/json": {
+              schema: { type: "string" },
+            },
+          },
+        },
+      },
+    };
+    const generated = transformOperationObject(schema, options);
+    expect(generated).toBe(`{
+  parameters: {
+    query?: {
+      search?: string;
+    };
+  };
+  responses: {
+    /** @description OK */
+    200: {
+      content: {
+        "application/json": string;
+      };
+    };
+  };
+}`);
+  });
 });
