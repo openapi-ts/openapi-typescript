@@ -97,5 +97,9 @@ export default defineConfig({
     socialLinks: [
       { icon: "github", link: "https://github.com/drwpow/openapi-typescript" },
     ],
+    footer: {
+      message:
+        'Released under the <a href="https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MIT License</a>.',
+    },
   },
 });
