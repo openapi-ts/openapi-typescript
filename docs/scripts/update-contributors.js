@@ -153,6 +153,8 @@ export const OPENAPI_FETCH_CONTRIBUTORS = [
     "marcomuser",
     "HugeLetters",
     "Fumaz",
+    "darwish",
+    "kaechele",
   ]),
 ];
 
