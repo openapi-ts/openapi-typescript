@@ -1,5 +1,34 @@
 # openapi-fetch
 
+## 0.9.0
+
+### Minor Changes
+
+- [#1521](https://github.com/drwpow/openapi-typescript/pull/1521) [`b174dd6`](https://github.com/drwpow/openapi-typescript/commit/b174dd6a7668e2f1f6bf6bd086ba2dabf7fb669e) Thanks [@drwpow](https://github.com/drwpow)! - Add middleware support
+
+- [#1521](https://github.com/drwpow/openapi-typescript/pull/1521) [`fc3a468`](https://github.com/drwpow/openapi-typescript/commit/fc3a468c4342e17d203712be358b30a3fb82ab1e) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ Breaking change (internal): fetch() is now called with new Request() to support middleware (which may affect test mocking)
+
+- [#1521](https://github.com/drwpow/openapi-typescript/pull/1521) [`2551e4b`](https://github.com/drwpow/openapi-typescript/commit/2551e4bde41d5437a76c13bb5ba25ede4f14db10) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking change**: Responses are no longer automatically `.clone()`’d in certain instances. Be sure to `.clone()` yourself if you need to access the raw body!
+
+- [#1534](https://github.com/drwpow/openapi-typescript/pull/1534) [`2bbeb92`](https://github.com/drwpow/openapi-typescript/commit/2bbeb92244cb82a534abb016ffb5fbd1255d9db5) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ Breaking change: no longer supports deeply-nested objects/arrays for query & path serialization.
+
+### Patch Changes
+
+- [#1484](https://github.com/drwpow/openapi-typescript/pull/1484) [`49bbd72`](https://github.com/drwpow/openapi-typescript/commit/49bbd72800f7bc6c460a741c50d11eb216746290) Thanks [@drwpow](https://github.com/drwpow)! - Remove prepare script
+
+- [#1479](https://github.com/drwpow/openapi-typescript/pull/1479) [`c6d945b`](https://github.com/drwpow/openapi-typescript/commit/c6d945be717bb3999178fb3a77292e41e1b7ab80) Thanks [@darwish](https://github.com/darwish)! - Fixed build of openapi-typescript-helpers for CommonJS environments
+
+- [#1534](https://github.com/drwpow/openapi-typescript/pull/1534) [`2bbeb92`](https://github.com/drwpow/openapi-typescript/commit/2bbeb92244cb82a534abb016ffb5fbd1255d9db5) Thanks [@drwpow](https://github.com/drwpow)! - Add support for automatic label & matrix path serialization.
+
+- [#1521](https://github.com/drwpow/openapi-typescript/pull/1521) [`fd44bd2`](https://github.com/drwpow/openapi-typescript/commit/fd44bd28d881715e30f5a71435f05f6bae13859d) Thanks [@drwpow](https://github.com/drwpow)! - Support arrays in headers
+
+- [#1534](https://github.com/drwpow/openapi-typescript/pull/1534) [`2bbeb92`](https://github.com/drwpow/openapi-typescript/commit/2bbeb92244cb82a534abb016ffb5fbd1255d9db5) Thanks [@drwpow](https://github.com/drwpow)! - Remove leading question marks from querySerializer
+
+- [#1530](https://github.com/drwpow/openapi-typescript/pull/1530) [`4765658`](https://github.com/drwpow/openapi-typescript/commit/4765658460e0850d005e3f08cd63c4949326349b) Thanks [@wydengyre](https://github.com/wydengyre)! - Exports the ClientMethod utility type.
+
+- Updated dependencies [[`c6d945b`](https://github.com/drwpow/openapi-typescript/commit/c6d945be717bb3999178fb3a77292e41e1b7ab80)]:
+  - openapi-typescript-helpers@0.0.7
+
 ## 0.8.2
 
 ### Patch Changes

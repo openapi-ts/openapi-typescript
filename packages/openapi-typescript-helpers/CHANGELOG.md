@@ -1,5 +1,11 @@
 # openapi-typescript-helpers
 
+## 0.0.7
+
+### Patch Changes
+
+- [#1479](https://github.com/drwpow/openapi-typescript/pull/1479) [`c6d945b`](https://github.com/drwpow/openapi-typescript/commit/c6d945be717bb3999178fb3a77292e41e1b7ab80) Thanks [@darwish](https://github.com/darwish)! - Fixed build of openapi-typescript-helpers for CommonJS environments
+
 ## 0.0.6
 
 ### Patch Changes
