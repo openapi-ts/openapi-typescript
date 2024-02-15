@@ -180,3 +180,38 @@ code {
 .DocSearch {
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
+
+/**
+ * Component: Homepage logos
+ * -------------------------------------------------------------------------- */
+.logo-salad {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.logo-salad h3 {
+  color: var(--vp-c-text-3);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.0625em;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.logo-salad-list {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  justify-content: center;
+}
+
+.logo-salad-list svg {
+  fill: var(--vp-c-text-1);
+  width: auto;
+}
