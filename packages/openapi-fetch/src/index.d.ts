@@ -20,7 +20,7 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
   /** custom fetch (defaults to globalThis.fetch) */
   fetch?: typeof fetch;
   /** global querySerializer */
-  querySerializer?: QuerySerializer<unknown>;
+  querySerializer?: QuerySerializer<unknown> | QuerySerializerOptions;
   /** global bodySerializer */
   bodySerializer?: BodySerializer<unknown>;
   headers?: HeadersOptions;
@@ -35,6 +35,32 @@ export type QuerySerializer<T> = (
     ? NonNullable<T["parameters"]["query"]>
     : Record<string, unknown>,
 ) => string;
+
+/** @see https://swagger.io/docs/specification/serialization/#query */
+export type QuerySerializerOptions = {
+  /** Set serialization for arrays. @see https://swagger.io/docs/specification/serialization/#query */
+  array?: {
+    /** default: "form" */
+    style: "form" | "spaceDelimited" | "pipeDelimited";
+    /** default: true */
+    explode: boolean;
+  };
+  /** Set serialization for objects. @see https://swagger.io/docs/specification/serialization/#query */
+  object?: {
+    /** default: "deepObject" */
+    style: "form" | "deepObject";
+    /** default: true */
+    explode: boolean;
+  };
+  /**
+   * The `allowReserved` keyword specifies whether the reserved characters
+   * `:/?#[]@!$&'()*+,;=` in parameter values are allowed to be sent as they
+   * are, or should be percent-encoded. By default, allowReserved is `false`,
+   * and reserved characters are percent-encoded.
+   * @see https://swagger.io/docs/specification/serialization/#query
+   */
+  allowReserved?: boolean;
+};
 
 export type BodySerializer<T> = (body: OperationRequestBodyContent<T>) => any;
 
@@ -98,7 +124,7 @@ export type FetchResponse<T, O extends FetchOptions> =
 
 export type RequestOptions<T> = ParamsOption<T> &
   RequestBodyOption<T> & {
-    querySerializer?: QuerySerializer<T>;
+    querySerializer?: QuerySerializer<T> | QuerySerializerOptions;
     bodySerializer?: BodySerializer<T>;
     parseAs?: ParseAs;
     fetch?: ClientOptions["fetch"];
@@ -133,14 +159,55 @@ export default function createClient<Paths extends {}>(
   TRACE: ClientMethod<Paths, "trace">;
 };
 
-/** Serialize query params to string */
-export declare function defaultQuerySerializer<T = unknown>(q: T): string;
+/** Serialize primitive params to string */
+export declare function serializePrimitiveParam(
+  name: string,
+  value: string,
+  options?: { allowReserved?: boolean },
+): string;
 
-/** Serialize query param schema types according to expected default OpenAPI 3.x behavior */
-export declare function defaultQueryParamSerializer<T = unknown>(
-  key: string[],
-  value: T,
-): string | undefined;
+/** Serialize object param to string */
+export declare function serializeObjectParam(
+  name: string,
+  value: Record<string, unknown>,
+  options: {
+    style: "simple" | "label" | "matrix" | "form" | "deepObject";
+    explode: boolean;
+    allowReserved?: boolean;
+  },
+): string;
+
+/** Serialize array param to string */
+export declare function serializeArrayParam(
+  name: string,
+  value: unknown[],
+  options: {
+    style:
+      | "simple"
+      | "label"
+      | "matrix"
+      | "form"
+      | "spaceDelimited"
+      | "pipeDelimited";
+    explode: boolean;
+    allowReserved?: boolean;
+  },
+): string;
+
+/** Serialize query params to string */
+export declare function createQuerySerializer<T = unknown>(
+  options?: QuerySerializerOptions,
+): (queryParams: T) => string;
+
+/**
+ * Handle different OpenAPI 3.x serialization styles
+ * @type {import("./index.js").defaultPathSerializer}
+ * @see https://swagger.io/docs/specification/serialization/#path
+ */
+export declare function defaultPathSerializer(
+  pathname: string,
+  pathParams: Record<string, unknown>,
+): string;
 
 /** Serialize body object to string */
 export declare function defaultBodySerializer<T>(body: T): string;

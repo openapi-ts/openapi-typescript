@@ -1,6 +1,6 @@
 {
   "name": "openapi-fetch",
-  "description": "Fast, typesafe fetch client for your OpenAPI schema. Only 2kb (min). Works with React, Vue, Svelte, or vanilla JS.",
+  "description": "Fast, typesafe fetch client for your OpenAPI schema. Only 4 kb (min). Works with React, Vue, Svelte, or vanilla JS.",
   "version": "0.8.2",
   "author": {
     "name": "Drew Powers",
@@ -55,7 +55,7 @@
     "lint": "pnpm run \"/^lint:/\"",
     "lint:js": "eslint \"{src,test}/**/*.{js,ts}\"",
     "lint:prettier": "prettier --check \"{src,test}/**/*\"",
-    "generate-types": "cd ../openapi-typescript && pnpm run build && cd ../openapi-fetch ../openapi-typescript/bin/cli.js ./test/fixtures/api.yaml -o ./test/fixtures/v7-beta.test.ts && npx openapi-typescript ./test/fixtures/api.yaml -o ./test/fixtures/api.d.ts",
+    "generate-types": "cd ../openapi-typescript && pnpm run build && cd ../openapi-fetch && ../openapi-typescript/bin/cli.js ./test/fixtures/api.yaml -o ./test/fixtures/v7-beta.d.ts && npx openapi-typescript ./test/fixtures/api.yaml -o ./test/fixtures/api.d.ts",
     "pretest": "pnpm run generate-types",
     "test": "pnpm run \"/^test:/\"",
     "test:js": "vitest run",

@@ -43,6 +43,7 @@ export interface paths {
             parameters: {
                 query?: {
                     tags?: string[];
+                    published?: boolean;
                 };
                 header?: never;
                 path?: never;
@@ -403,11 +404,7 @@ export interface paths {
                 array?: string[];
                 object?: {
                     foo: string;
-                    deep: {
-                        nested: {
-                            object: string;
-                        };
-                    };
+                    bar: string;
                 };
             };
             header?: never;
@@ -423,15 +420,116 @@ export interface paths {
                     array?: string[];
                     object?: {
                         foo: string;
-                        deep: {
-                            nested: {
-                                object: string;
-                            };
-                        };
+                        bar: string;
                     };
                 };
                 header?: never;
                 path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            status: string;
+                        };
+                    };
+                };
+                default: components["responses"]["Error"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/path-params/{simple_primitive}/{simple_obj_flat}/{simple_arr_flat}/{simple_obj_explode*}/{simple_arr_explode*}/{.label_primitive}/{.label_obj_flat}/{.label_arr_flat}/{.label_obj_explode*}/{.label_arr_explode*}/{;matrix_primitive}/{;matrix_obj_flat}/{;matrix_arr_flat}/{;matrix_obj_explode*}/{;matrix_arr_explode*}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                simple_primitive: string;
+                simple_obj_flat: {
+                    a: string;
+                    c: string;
+                };
+                simple_arr_flat: number[];
+                simple_obj_explode: {
+                    e: string;
+                    g: string;
+                };
+                simple_arr_explode: number[];
+                label_primitive: string;
+                label_obj_flat: {
+                    a: string;
+                    c: string;
+                };
+                label_arr_flat: number[];
+                label_obj_explode: {
+                    e: string;
+                    g: string;
+                };
+                label_arr_explode: number[];
+                matrix_primitive: string;
+                matrix_obj_flat: {
+                    a: string;
+                    c: string;
+                };
+                matrix_arr_flat: number[];
+                matrix_obj_explode: {
+                    e: string;
+                    g: string;
+                };
+                matrix_arr_explode: number[];
+            };
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    simple_primitive: string;
+                    simple_obj_flat: {
+                        a: string;
+                        c: string;
+                    };
+                    simple_arr_flat: number[];
+                    simple_obj_explode: {
+                        e: string;
+                        g: string;
+                    };
+                    simple_arr_explode: number[];
+                    label_primitive: string;
+                    label_obj_flat: {
+                        a: string;
+                        c: string;
+                    };
+                    label_arr_flat: number[];
+                    label_obj_explode: {
+                        e: string;
+                        g: string;
+                    };
+                    label_arr_explode: number[];
+                    matrix_primitive: string;
+                    matrix_obj_flat: {
+                        a: string;
+                        c: string;
+                    };
+                    matrix_arr_flat: number[];
+                    matrix_obj_explode: {
+                        e: string;
+                        g: string;
+                    };
+                    matrix_arr_explode: number[];
+                };
                 cookie?: never;
             };
             requestBody?: never;

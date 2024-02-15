@@ -1,14 +1,14 @@
 <img src="../../docs/public/assets/openapi-fetch.svg" alt="openapi-fetch" width="216" height="40" />
 
-openapi-fetch is a typesafe fetch client that pulls in your OpenAPI schema. Weighs **2 kB** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
+openapi-fetch is a typesafe fetch client that pulls in your OpenAPI schema. Weighs **4 kB** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
 
-| Library                    | Size (min) | “GET” request             |
-| :------------------------- | ---------: | :------------------------ |
-| openapi-fetch              |     `2 kB` | `151k` ops/s (fastest)    |
-| openapi-typescript-fetch   |     `4 kB` | `99k` ops/s (1.4× slower) |
-| axios                      |    `32 kB` | `90k` ops/s (1.6× slower) |
-| superagent                 |    `55 kB` | `42k` ops/s (3× slower)   |
-| openapi-typescript-codegen |   `367 kB` | `71k` ops/s (2× slower)   |
+| Library                    | Size (min) | “GET” request              |
+| :------------------------- | ---------: | :------------------------- |
+| openapi-fetch              |     `4 kB` | `278k` ops/s (fastest)     |
+| openapi-typescript-fetch   |     `4 kB` | `130k` ops/s (2.1× slower) |
+| axios                      |    `32 kB` | `217k` ops/s (1.3× slower) |
+| superagent                 |    `55 kB` | `63k` ops/s (4.4× slower)  |
+| openapi-typescript-codegen |   `367 kB` | `106k` ops/s (2.6× slower) |
 
 The syntax is inspired by popular libraries like react-query or Apollo client, but without all the bells and whistles and in a 2 kB package.
 
@@ -45,7 +45,7 @@ Notice there are no generics, and no manual typing. Your endpoint’s request an
 - ✅ No manual typing of your API
 - ✅ Eliminates `any` types that hide bugs
 - ✅ Also eliminates `as` type overrides that can also hide bugs
-- ✅ All of this in a **2 kB** client package 🎉
+- ✅ All of this in a **4 kb** client package 🎉
 
 ## 🔧 Setup
 

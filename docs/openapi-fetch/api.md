@@ -5,7 +5,7 @@ description: openapi-fetch API
 
 # API
 
-## Create Client
+## createClient
 
 **createClient** accepts the following options, which set the default settings for all subsequent fetch calls.
 
@@ -13,10 +13,10 @@ description: openapi-fetch API
 createClient<paths>(options);
 ```
 
-| Name              |      Type       | Description                                                                                                                             |
-| :---------------- | :-------------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
-| `baseUrl`         |    `string`     | Prefix all fetch URLs with this option (e.g. `"https://myapi.dev/v1/"`)                                                                 |
-| `fetch`           |     `fetch`     | Fetch instance used for requests (default: `globalThis.fetch`)                                                                          |
+| Name              | Type            | Description                                                                                                                             |
+| :---------------- | :-------------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| `baseUrl`         | `string`        | Prefix all fetch URLs with this option (e.g. `"https://myapi.dev/v1/"`)                                                                 |
+| `fetch`           | `fetch`         | Fetch instance used for requests (default: `globalThis.fetch`)                                                                          |
 | `querySerializer` | QuerySerializer | (optional) Provide a [querySerializer](#queryserializer)                                                                                |
 | `bodySerializer`  | BodySerializer  | (optional) Provide a [bodySerializer](#bodyserializer)                                                                                  |
 | (Fetch options)   |                 | Any valid fetch option (`headers`, `mode`, `cache`, `signal` …) ([docs](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options) |
@@ -29,44 +29,98 @@ The following options apply to all request methods (`.GET()`, `.POST()`, etc.)
 client.get("/my-url", options);
 ```
 
-| Name              |                               Type                                | Description                                                                                                                                                                                                                       |
-| :---------------- | :---------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `params`          |                           ParamsObject                            | [path](https://swagger.io/specification/#parameter-locations) and [query](https://swagger.io/specification/#parameter-locations) params for the endpoint                                                                          |
-| `body`            |                        `{ [name]:value }`                         | [requestBody](https://spec.openapis.org/oas/latest.html#request-body-object) data for the endpoint                                                                                                                                |
-| `querySerializer` |                          QuerySerializer                          | (optional) Provide a [querySerializer](#queryserializer)                                                                                                                                                                          |
-| `bodySerializer`  |                          BodySerializer                           | (optional) Provide a [bodySerializer](#bodyserializer)                                                                                                                                                                            |
+| Name              | Type                                                              | Description                                                                                                                                                                                                                       |
+| :---------------- | :---------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `params`          | ParamsObject                                                      | [path](https://swagger.io/specification/#parameter-locations) and [query](https://swagger.io/specification/#parameter-locations) params for the endpoint                                                                          |
+| `body`            | `{ [name]:value }`                                                | [requestBody](https://spec.openapis.org/oas/latest.html#request-body-object) data for the endpoint                                                                                                                                |
+| `querySerializer` | QuerySerializer                                                   | (optional) Provide a [querySerializer](#queryserializer)                                                                                                                                                                          |
+| `bodySerializer`  | BodySerializer                                                    | (optional) Provide a [bodySerializer](#bodyserializer)                                                                                                                                                                            |
 | `parseAs`         | `"json"` \| `"text"` \| `"arrayBuffer"` \| `"blob"` \| `"stream"` | (optional) Parse the response using [a built-in instance method](https://developer.mozilla.org/en-US/docs/Web/API/Response#instance_methods) (default: `"json"`). `"stream"` skips parsing altogether and returns the raw stream. |
-| `fetch`           |                              `fetch`                              | Fetch instance used for requests (default: fetch from `createClient`)                                                                                                                                                             |
+| `fetch`           | `fetch`                                                           | Fetch instance used for requests (default: fetch from `createClient`)                                                                                                                                                             |
 | (Fetch options)   |                                                                   | Any valid fetch option (`headers`, `mode`, `cache`, `signal`, …) ([docs](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options))                                                                                         |
 
-### querySerializer
+## querySerializer
 
-By default, this library serializes query parameters using `style: form` and `explode: true` [according to the OpenAPI specification](https://swagger.io/docs/specification/serialization/#query). To change the default behavior, you can supply your own `querySerializer()` function either on the root `createClient()` as well as optionally on an individual request. This is useful if your backend expects modifications like the addition of `[]` for array params:
+OpenAPI supports [different ways of serializing objects and arrays](https://swagger.io/docs/specification/serialization/#query) for parameters (strings, numbers, and booleans—primitives—always behave the same way). By default, this library serializes arrays using `style: "form", explode: true`, and objects using `style: "deepObject", explode: true`, but you can customize that behavior with the `querySerializer` option (either on `createClient()` to control every request, or on individual requests for just one).
+
+### Object syntax
+
+openapi-fetch ships the common serialization methods out-of-the-box:
+
+| Option          |       Type        | Description                                                                                                                                                    |
+| :-------------- | :---------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `array`         | SerializerOptions | Set `style` and `explode` for arrays ([docs](https://swagger.io/docs/specification/serialization/#query)). Default: `{ style: "form", explode: true }`.        |
+| `object`        | SerializerOptions | Set `style` and `explode` for objects ([docs](https://swagger.io/docs/specification/serialization/#query)). Default: `{ style: "deepObject", explode: true }`. |
+| `allowReserved` |     `boolean`     | Set to `true` to skip URL encoding (⚠️ may break the request) ([docs](https://swagger.io/docs/specification/serialization/#query)). Default: `false`.          |
 
 ```ts
-const { data, error } = await GET("/search", {
-  params: {
-    query: { tags: ["food", "california", "healthy"] },
-  },
-  querySerializer(q) {
-    let s = [];
-    for (const [k, v] of Object.entries(q)) {
-      if (Array.isArray(v)) {
-        for (const i of v) {
-          s.push(`${k}[]=${i}`);
-        }
-      } else {
-        s.push(`${k}=${v}`);
-      }
-    }
-    return s.join("&"); // ?tags[]=food&tags[]=california&tags[]=healthy
+const client = createClient({
+  querySerializer: {
+    array: {
+      style: "pipeDelimited", // "form" (default) | "spaceDelimited" | "pipeDelimited"
+      explode: true,
+    },
+    object: {
+      style: "form", // "form" | "deepObject" (default)
+      explode: true,
+    },
   },
 });
 ```
 
-### bodySerializer
+#### Array styles
 
-Similar to [querySerializer](#querySerializer), bodySerializer allows you to customize how the requestBody is serialized if you don’t want the default [JSON.stringify()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) behavior. You probably only need this when using `multipart/form-data`:
+| Style                        | Array `id = [3, 4, 5]`  |
+| :--------------------------- | :---------------------- |
+| form                         | `/users?id=3,4,5`       |
+| **form (exploded, default)** | `/users?id=3&id=4&id=5` |
+| spaceDelimited               | `/users?id=3%204%205`   |
+| spaceDelimited (exploded)    | `/users?id=3&id=4&id=5` |
+| pipeDelimited                | `/users?id=3\|4\|5`     |
+| pipeDelimited (exploded)     | `/users?id=3&id=4&id=5` |
+
+#### Object styles
+
+| Style                    | Object `id = {"role": "admin", "firstName": "Alex"}` |
+| :----------------------- | :--------------------------------------------------- |
+| form                     | `/users?id=role,admin,firstName,Alex`                |
+| form (exploded)          | `/users?role=admin&firstName=Alex`                   |
+| **deepObject (default)** | `/users?id[role]=admin&id[firstName]=Alex`           |
+
+> [!NOTE]
+>
+> **deepObject** is always exploded, so it doesn’t matter if you set `explode: true` or `explode: false`—it’ll generate the same output.
+
+### Alternate function syntax
+
+Sometimes your backend doesn’t use one of the standard serialization methods, in which case you can pass a function to `querySerializer` to serialize the entire string yourself. You’ll also need to use this if you’re handling deeply-nested objects and arrays in your params:
+
+```ts
+const client = createClient({
+  querySerializer(queryParams) {
+    const search = [];
+    for (const name in queryParams) {
+      const value = queryParams[name];
+      if (Array.isArray(value)) {
+        for (const item of value) {
+          s.push(`${name}[]=${encodeURIComponent(item)}`);
+        }
+      } else {
+        s.push(`${name}=${encodeURLComponent(value)}`);
+      }
+    }
+    return search.join(","); // ?tags[]=food,tags[]=california,tags[]=healthy
+  },
+});
+```
+
+> [!WARNING]
+>
+> When serializing yourself, the string will be kept exactly as-authored, so you’ll have to call [encodeURI](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI) or [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) to escape special characters.
+
+## bodySerializer
+
+Similar to [querySerializer](#queryserializer), bodySerializer allows you to customize how the requestBody is serialized if you don’t want the default [JSON.stringify()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) behavior. You probably only need this when using `multipart/form-data`:
 
 ```ts
 const { data, error } = await PUT("/submit", {
@@ -76,10 +130,23 @@ const { data, error } = await PUT("/submit", {
   },
   bodySerializer(body) {
     const fd = new FormData();
-    for (const [k, v] of Object.entries(body)) {
-      fd.append(k, v);
+    for (const name in body) {
+      fd.append(name, body[name]);
     }
     return fd;
   },
 });
 ```
+
+## Path serialization
+
+openapi-fetch supports path serialization as [outlined in the 3.1 spec](https://swagger.io/docs/specification/serialization/#path). This happens automatically, based on the specific format in your OpenAPI schema:
+
+| Template          | Style                | Primitive `id = 5` | Array `id = [3, 4, 5]`   | Object `id = {"role": "admin", "firstName": "Alex"}` |
+| :---------------- | :------------------- | :----------------- | :----------------------- | :--------------------------------------------------- |
+| **`/users/{id}`** | **simple (default)** | **`/users/5`**     | **`/users/3,4,5`**       | **`/users/role,admin,firstName,Alex`**               |
+| `/users/{id*}`    | simple (exploded)    | `/users/5`         | `/users/3,4,5`           | `/users/role=admin,firstName=Alex`                   |
+| `/users/{.id}`    | label                | `/users/.5`        | `/users/.3,4,5`          | `/users/.role,admin,firstName,Alex`                  |
+| `/users/{.id*}`   | label (exploded)     | `/users/.5`        | `/users/.3.4.5`          | `/users/.role=admin.firstName=Alex`                  |
+| `/users/{;id}`    | matrix               | `/users/;id=5`     | `/users/;id=3,4,5`       | `/users/;id=role,admin,firstName,Alex`               |
+| `/users/{;id*}`   | matrix (exploded)    | `/users/;id=5`     | `/users/;id=3;id=4;id=5` | `/users/;role=admin;firstName=Alex`                  |
