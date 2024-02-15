@@ -33,9 +33,11 @@ const client = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 client.use(myMiddleware);
 ```
 
-> [!TIP]
->
-> The order in which middleware are registered matters. For requests, `onRequest()` will be called in the order registered. For responses, `onResponse()` will be called in **reverse** order. That way the first middleware gets the first “dibs” on requests, and the final control over the end response.
+::: tip
+
+The order in which middleware are registered matters. For requests, `onRequest()` will be called in the order registered. For responses, `onResponse()` will be called in **reverse** order. That way the first middleware gets the first “dibs” on requests, and the final control over the end response.
+
+:::
 
 ### Skipping
 
