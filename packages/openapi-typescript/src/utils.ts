@@ -2,7 +2,7 @@ import c from "ansi-colors";
 import { isAbsolute } from "node:path";
 import supportsColor from "supports-color";
 import { fetch as unidiciFetch } from "undici";
-import type { Fetch } from "./types.js";
+import type { Fetch, ParameterObject, ReferenceObject } from "./types.js";
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-boolean-literal-compare
 if (!supportsColor.stdout || supportsColor.stdout.hasBasic === false) c.enabled = false;
@@ -321,4 +321,8 @@ export function getDefaultFetch(): Fetch {
     return unidiciFetch;
   }
   return globalFetch;
+}
+
+export function getParametersArray(parameters: ParameterObject | (ParameterObject | ReferenceObject)[] = []): (ParameterObject | ReferenceObject)[] {
+  return Array.isArray(parameters) ? parameters : [parameters];
 }

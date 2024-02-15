@@ -1,4 +1,5 @@
-import { comment, escObjKey, getSchemaObjectComment, parseRef, tsIntersectionOf, tsUnionOf } from "../src/utils.js";
+import { ParameterObject, ReferenceObject } from "../src/types.js";
+import { comment, escObjKey, getParametersArray, getSchemaObjectComment, parseRef, tsIntersectionOf, tsUnionOf } from "../src/utils.js";
 
 describe("utils", () => {
   describe("tsUnionOf", () => {
@@ -165,6 +166,27 @@ describe("utils", () => {
         " *  description\n" +
         " */",
       );
+    });
+  });
+
+  describe('getParametersArray', () => {
+    it('should return an empty array if no parameters are passed', () => {
+      expect(getParametersArray()).toEqual([]);
+    });
+
+    it('should return an array if a single parameter is passed', () => {
+      const parameter: ParameterObject = { name: 'test', in: 'query' };
+      expect(getParametersArray(parameter)).toEqual([parameter]);
+    });
+
+    it('should return an array if an array of parameters is passed', () => {
+      const parameters: ParameterObject[] = [{ name: 'test', in: 'query' }, { name: 'test2', in: 'query' }];
+      expect(getParametersArray(parameters)).toEqual(parameters);
+    });
+
+    it('should return an array if an array of references is passed', () => {
+      const references: ReferenceObject[] = [{ $ref: 'test' }, { $ref: 'test2' }];
+      expect(getParametersArray(references)).toEqual(references);
     });
   });
 });

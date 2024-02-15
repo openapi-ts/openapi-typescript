@@ -1,5 +1,5 @@
 import type { GlobalContext, OperationObject, ParameterObject } from "../types.js";
-import { escObjKey, getEntries, getSchemaObjectComment, indent, tsOptionalProperty, tsReadonly } from "../utils.js";
+import { escObjKey, getEntries, getParametersArray, getSchemaObjectComment, indent, tsOptionalProperty, tsReadonly } from "../utils.js";
 import transformParameterObject from "./parameter-object.js";
 import transformRequestBodyObject from "./request-body-object.js";
 import transformResponseObject from "./response-object.js";
@@ -19,13 +19,14 @@ export default function transformOperationObject(operationObject: OperationObjec
   // parameters
   {
     if (operationObject.parameters) {
+      const parametersArray = getParametersArray(operationObject.parameters);
       const parameterOutput: string[] = [];
       indentLv++;
       for (const paramIn of ["query", "header", "path", "cookie"] as ParameterObject["in"][]) {
         const paramInternalOutput: string[] = [];
         indentLv++;
         let paramInOptional = true;
-        for (const param of operationObject.parameters ?? []) {
+        for (const param of parametersArray) {
           const node: ParameterObject | undefined = "$ref" in param ? ctx.parameters[param.$ref] : param;
           if (node?.in !== paramIn) continue;
           let key = escObjKey(node.name);

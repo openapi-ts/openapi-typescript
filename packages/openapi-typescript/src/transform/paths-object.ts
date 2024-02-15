@@ -1,5 +1,5 @@
 import type { GlobalContext, PathsObject, PathItemObject, ParameterObject, ReferenceObject, OperationObject } from "../types.js";
-import { escStr, getEntries, getSchemaObjectComment, indent } from "../utils.js";
+import { escStr, getEntries, getParametersArray, getSchemaObjectComment, indent } from "../utils.js";
 import transformParameterObject from "./parameter-object.js";
 import transformPathItemObject from "./path-item-object.js";
 
@@ -8,7 +8,7 @@ const OPERATIONS = ["get", "post", "put", "delete", "options", "head", "patch", 
 function extractPathParams(obj?: ReferenceObject | PathItemObject | OperationObject | undefined): Map<string, ParameterObject> {
   const params = new Map<string, ParameterObject>();
   if (obj && "parameters" in obj) {
-    for (const p of obj.parameters ?? []) {
+    for (const p of getParametersArray(obj.parameters)) {
       if ("in" in p && p.in === "path") params.set(p.name, p);
     }
   }

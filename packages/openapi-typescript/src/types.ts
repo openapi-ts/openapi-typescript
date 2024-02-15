@@ -196,7 +196,7 @@ export interface OperationObject extends Extensable {
   /** Unique string used to identify the operation. The id MUST be unique among all operations described in the API. The operationId value is case-sensitive. Tools and libraries MAY use the operationId to uniquely identify an operation, therefore, it is RECOMMENDED to follow common programming naming conventions. */
   operationId?: string;
   /** A list of parameters that are applicable for this operation. If a parameter is already defined at the Path Item, the new definition will override it but can never remove it. The list MUST NOT include duplicated parameters. A unique parameter is defined by a combination of a name and location. The list can use the Reference Object to link to parameters that are defined at the OpenAPI Object’s components/parameters. */
-  parameters?: (ParameterObject | ReferenceObject)[];
+  parameters?: ParameterObject | (ParameterObject | ReferenceObject)[];
   /** The request body applicable for this operation. The requestBody is fully supported in HTTP methods where the HTTP 1.1 specification [RFC7231] has explicitly defined semantics for request bodies. In other cases where the HTTP spec is vague (such as GET, HEAD and DELETE), requestBody is permitted but does not have well-defined semantics and SHOULD be avoided if possible. */
   requestBody?: RequestBodyObject | ReferenceObject;
   /** The list of possible responses as they are returned from executing this operation. */
