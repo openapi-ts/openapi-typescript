@@ -13,8 +13,8 @@ export default function createClient(clientOptions) {
   let {
     baseUrl = "",
     fetch: baseFetch = globalThis.fetch,
-    querySerializer: globalQuerySerializer = defaultQuerySerializer,
-    bodySerializer: globalBodySerializer = defaultBodySerializer,
+    querySerializer: globalQuerySerializer,
+    bodySerializer: globalBodySerializer,
     headers: baseHeaders,
     ...baseOptions
   } = { ...clientOptions };
@@ -36,7 +36,7 @@ export default function createClient(clientOptions) {
       params = {},
       parseAs = "json",
       querySerializer: requestQuerySerializer,
-      bodySerializer = globalBodySerializer,
+      bodySerializer = globalBodySerializer ?? defaultBodySerializer,
       ...init
     } = fetchOptions || {};
 
@@ -66,11 +66,7 @@ export default function createClient(clientOptions) {
       requestInit.body = bodySerializer(requestInit.body);
     }
     let request = new Request(
-      createFinalURL(url, {
-        baseUrl,
-        params,
-        querySerializer,
-      }),
+      createFinalURL(url, { baseUrl, params, querySerializer }),
       requestInit,
     );
     // remove `Content-Type` if serialized body is FormData; browser will correctly set Content-Type & boundary expression

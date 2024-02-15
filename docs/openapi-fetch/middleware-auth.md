@@ -4,9 +4,9 @@ title: Middleware & Auth
 
 # Middleware & Auth
 
-## Middleware
+Middleware allows you to modify either the request, response, or both for all fetches. One of the most common usecases is authentication, but can also be used for logging/telemetry, throwing errors, or handling specific edge cases.
 
-Middleware allows you to modify either the request, response, or both for all fetches.
+## Middleware
 
 Each middleware can provide `onRequest()` and `onResponse()` callbacks, which can observe and/or mutate requests and responses.
 
@@ -33,11 +33,9 @@ const client = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 client.use(myMiddleware);
 ```
 
-::: tip
-
-The order in which middleware are registered matters. For requests, `onRequest()` will be called in the order registered. For responses, `onResponse()` will be called in **reverse** order. That way the first middleware gets the first “dibs” on requests, and the final control over responses.
-
-:::
+> [!TIP]
+>
+> The order in which middleware are registered matters. For requests, `onRequest()` will be called in the order registered. For responses, `onResponse()` will be called in **reverse** order. That way the first middleware gets the first “dibs” on requests, and the final control over the end response.
 
 ### Skipping
 
@@ -108,7 +106,7 @@ const myMiddleware: Middleware = {
 
 This library is unopinionated and can work with any [Authorization](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization) setup. But here are a few suggestions that may make working with auth easier.
 
-### Basic Auth
+### Basic auth
 
 This basic example uses middleware to retrieve the most up-to-date token at every request. In our example, the access token is kept in JavaScript module state, which is safe to do for client applications but should be avoided for server applications.
 
@@ -144,7 +142,7 @@ client.use(authMiddleware);
 const authRequest = await client.GET("/some/auth/url");
 ```
 
-### Conditional Auth
+### Conditional auth
 
 If authorization isn’t needed for certain routes, you could also handle that with middleware:
 

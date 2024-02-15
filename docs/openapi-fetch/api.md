@@ -248,3 +248,5 @@ client.use(myMiddleware);
 // remove middleware
 client.eject(myMiddleware);
 ```
+
+For additional guides & examples, see [Middleware & Auth](/openapi-fetch/middleware-auth)

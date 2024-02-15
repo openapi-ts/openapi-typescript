@@ -4,7 +4,7 @@ openapi-fetch is a typesafe fetch client that pulls in your OpenAPI schema. Weig
 
 | Library                    | Size (min) | “GET” request              |
 | :------------------------- | ---------: | :------------------------- |
-| openapi-fetch              |     `4 kB` | `278k` ops/s (fastest)     |
+| openapi-fetch              |     `5 kB` | `278k` ops/s (fastest)     |
 | openapi-typescript-fetch   |     `4 kB` | `130k` ops/s (2.1× slower) |
 | axios                      |    `32 kB` | `217k` ops/s (1.3× slower) |
 | superagent                 |    `55 kB` | `63k` ops/s (4.4× slower)  |
@@ -45,7 +45,7 @@ Notice there are no generics, and no manual typing. Your endpoint’s request an
 - ✅ No manual typing of your API
 - ✅ Eliminates `any` types that hide bugs
 - ✅ Also eliminates `as` type overrides that can also hide bugs
-- ✅ All of this in a **4 kb** client package 🎉
+- ✅ All of this in a **5 kb** client package 🎉
 
 ## 🔧 Setup
 

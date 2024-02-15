@@ -4,17 +4,17 @@ title: openapi-fetch
 
 <img src="/assets/openapi-fetch.svg" alt="openapi-fetch" width="216" height="40" />
 
-openapi-fetch is a typesafe fetch client that pulls in your OpenAPI schema. Weighs **4 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
+openapi-fetch is a typesafe fetch client that pulls in your OpenAPI schema. Weighs **5 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
 
 | Library                    | Size (min) | “GET” request              |
 | :------------------------- | ---------: | :------------------------- |
-| openapi-fetch              |     `4 kB` | `278k` ops/s (fastest)     |
+| openapi-fetch              |     `5 kB` | `278k` ops/s (fastest)     |
 | openapi-typescript-fetch   |     `4 kB` | `130k` ops/s (2.1× slower) |
 | axios                      |    `32 kB` | `217k` ops/s (1.3× slower) |
 | superagent                 |    `55 kB` | `63k` ops/s (4.4× slower)  |
 | openapi-typescript-codegen |   `367 kB` | `106k` ops/s (2.6× slower) |
 
-The syntax is inspired by popular libraries like react-query or Apollo client, but without all the bells and whistles and in a 4 kb package.
+The syntax is inspired by popular libraries like react-query or Apollo client, but without all the bells and whistles and in a 5 kb package.
 
 ```ts
 import createClient from "openapi-fetch";
@@ -49,7 +49,7 @@ Notice there are no generics, and no manual typing. Your endpoint’s request an
 - ✅ No manual typing of your API
 - ✅ Eliminates `any` types that hide bugs
 - ✅ Also eliminates `as` type overrides that can also hide bugs
-- ✅ All of this in a **4 kb** client package 🎉
+- ✅ All of this in a **5 kb** client package 🎉
 
 ## Setup
 
@@ -94,7 +94,7 @@ And run `npm run test:ts` in your CI to catch type errors.
 Use `tsc --noEmit` to check for type errors rather than relying on your linter or your build command. Nothing will typecheck as accurately as the TypeScript compiler itself.
 :::
 
-## Basic Usage
+## Basic usage
 
 The best part about using openapi-fetch over oldschool codegen is no documentation needed. openapi-fetch encourages using your existing OpenAPI documentation rather than trying to find what function to import, or what parameters that function wants:
 
