@@ -10,16 +10,19 @@ const PATH_PARAM_RE = /\{[^{}]+\}/g;
  * @type {import("./index.js").default}
  */
 export default function createClient(clientOptions) {
-  const {
+  let {
+    baseUrl = "",
     fetch: baseFetch = globalThis.fetch,
     querySerializer: globalQuerySerializer,
     bodySerializer: globalBodySerializer,
+    headers: baseHeaders,
     ...baseOptions
-  } = clientOptions ?? {};
-  let baseUrl = baseOptions.baseUrl ?? "";
+  } = { ...clientOptions };
   if (baseUrl.endsWith("/")) {
     baseUrl = baseUrl.substring(0, baseUrl.length - 1);
   }
+  baseHeaders = mergeHeaders(DEFAULT_HEADERS, baseHeaders);
+  const middlewares = [];
 
   /**
    * Per-request fetch (keeps settings created in createClient()
@@ -27,10 +30,9 @@ export default function createClient(clientOptions) {
    * @param {import('./index.js').FetchOptions<T>} fetchOptions
    */
   async function coreFetch(url, fetchOptions) {
-    const {
+    let {
       fetch = baseFetch,
       headers,
-      body: requestBody,
       params = {},
       parseAs = "json",
       querySerializer: requestQuerySerializer,
@@ -54,37 +56,66 @@ export default function createClient(clientOptions) {
             });
     }
 
-    // URL
-    const finalURL = createFinalURL(url, {
-      baseUrl,
-      params,
-      querySerializer,
-    });
-    const finalHeaders = mergeHeaders(
-      DEFAULT_HEADERS,
-      clientOptions?.headers,
-      headers,
-      params.header,
-    );
-
-    // fetch!
-    /** @type {RequestInit} */
     const requestInit = {
       redirect: "follow",
       ...baseOptions,
       ...init,
-      headers: finalHeaders,
+      headers: mergeHeaders(baseHeaders, headers, params.header),
     };
-
-    if (requestBody) {
-      requestInit.body = bodySerializer(requestBody);
+    if (requestInit.body) {
+      requestInit.body = bodySerializer(requestInit.body);
     }
+    let request = new Request(
+      createFinalURL(url, { baseUrl, params, querySerializer }),
+      requestInit,
+    );
     // remove `Content-Type` if serialized body is FormData; browser will correctly set Content-Type & boundary expression
     if (requestInit.body instanceof FormData) {
-      finalHeaders.delete("Content-Type");
+      request.headers.delete("Content-Type");
+    }
+    // middleware (request)
+    const mergedOptions = {
+      baseUrl,
+      fetch,
+      parseAs,
+      querySerializer,
+      bodySerializer,
+    };
+    for (const m of middlewares) {
+      if (m && typeof m === "object" && typeof m.onRequest === "function") {
+        request.schemaPath = url; // (re)attach original URL
+        request.params = params; // (re)attach params
+        const result = await m.onRequest(request, mergedOptions);
+        if (result) {
+          if (!(result instanceof Request)) {
+            throw new Error(
+              `Middleware must return new Request() when modifying the request`,
+            );
+          }
+          request = result;
+        }
+      }
     }
 
-    const response = await fetch(finalURL, requestInit);
+    // fetch!
+    let response = await fetch(request);
+
+    // middleware (response)
+    // execute in reverse-array order (first priority gets last transform)
+    for (let i = middlewares.length - 1; i >= 0; i--) {
+      const m = middlewares[i];
+      if (m && typeof m === "object" && typeof m.onResponse === "function") {
+        const result = await m.onResponse(response, mergedOptions);
+        if (result) {
+          if (!(result instanceof Response)) {
+            throw new Error(
+              `Middleware must return new Response() when modifying the response`,
+            );
+          }
+          response = result;
+        }
+      }
+    }
 
     // handle empty content
     // note: we return `{}` because we want user truthy checks for `.data` or `.error` to succeed
@@ -99,26 +130,17 @@ export default function createClient(clientOptions) {
     if (response.ok) {
       // if "stream", skip parsing entirely
       if (parseAs === "stream") {
-        // fix for bun: bun consumes response.body, therefore clone before accessing
-        // TODO: test this?
-        return { data: response.clone().body, response };
+        return { data: response.body, response };
       }
-      const cloned = response.clone();
-      return {
-        data:
-          typeof cloned[parseAs] === "function"
-            ? await cloned[parseAs]()
-            : await cloned.text(),
-        response,
-      };
+      return { data: await response[parseAs](), response };
     }
 
     // handle errors (always parse as .json() or .text())
     let error = {};
     try {
-      error = await response.clone().json();
+      error = await response.json();
     } catch {
-      error = await response.clone().text();
+      error = await response.text();
     }
     return { error, response };
   }
@@ -155,6 +177,29 @@ export default function createClient(clientOptions) {
     /** Call a TRACE endpoint */
     async TRACE(url, init) {
       return coreFetch(url, { ...init, method: "TRACE" });
+    },
+    /** Register middleware */
+    use(...middleware) {
+      for (const m of middleware) {
+        if (!m) {
+          continue;
+        }
+        if (typeof m !== "object" || !("onRequest" in m || "onResponse" in m)) {
+          throw new Error(
+            "Middleware must be an object with one of `onRequest()` or `onResponse()`",
+          );
+        }
+        middlewares.push(m);
+      }
+    },
+    /** Unregister middleware */
+    eject(...middleware) {
+      for (const m of middleware) {
+        const i = middlewares.indexOf(m);
+        if (i !== -1) {
+          middlewares.splice(i, 1);
+        }
+      }
     },
   };
 }
@@ -414,22 +459,23 @@ export function createFinalURL(pathname, options) {
  * @type {import("./index.js").mergeHeaders}
  */
 export function mergeHeaders(...allHeaders) {
-  const headers = new Headers();
-  for (const headerSet of allHeaders) {
-    if (!headerSet || typeof headerSet !== "object") {
+  const finalHeaders = new Headers();
+  for (const h of allHeaders) {
+    if (!h || typeof h !== "object") {
       continue;
     }
-    const iterator =
-      headerSet instanceof Headers
-        ? headerSet.entries()
-        : Object.entries(headerSet);
+    const iterator = h instanceof Headers ? h.entries() : Object.entries(h);
     for (const [k, v] of iterator) {
       if (v === null) {
-        headers.delete(k);
+        finalHeaders.delete(k);
+      } else if (Array.isArray(v)) {
+        for (const v2 of v) {
+          finalHeaders.append(k, v2);
+        }
       } else if (v !== undefined) {
-        headers.set(k, v);
+        finalHeaders.set(k, v);
       }
     }
   }
-  return headers;
+  return finalHeaders;
 }

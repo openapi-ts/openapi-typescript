@@ -26,7 +26,7 @@ createClient<paths>(options);
 The following options apply to all request methods (`.GET()`, `.POST()`, etc.)
 
 ```ts
-client.get("/my-url", options);
+client.GET("/my-url", options);
 ```
 
 | Name              | Type                                                              | Description                                                                                                                                                                                                                       |
@@ -37,6 +37,7 @@ client.get("/my-url", options);
 | `bodySerializer`  | BodySerializer                                                    | (optional) Provide a [bodySerializer](#bodyserializer)                                                                                                                                                                            |
 | `parseAs`         | `"json"` \| `"text"` \| `"arrayBuffer"` \| `"blob"` \| `"stream"` | (optional) Parse the response using [a built-in instance method](https://developer.mozilla.org/en-US/docs/Web/API/Response#instance_methods) (default: `"json"`). `"stream"` skips parsing altogether and returns the raw stream. |
 | `fetch`           | `fetch`                                                           | Fetch instance used for requests (default: fetch from `createClient`)                                                                                                                                                             |
+| `middleware`      | `Middleware[]`                                                    | [See docs](/openapi-fetch/middleware-auth)                                                                                                                                                                                        |
 | (Fetch options)   |                                                                   | Any valid fetch option (`headers`, `mode`, `cache`, `signal`, …) ([docs](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options))                                                                                         |
 
 ## querySerializer
@@ -123,7 +124,7 @@ const client = createClient({
 Similar to [querySerializer](#queryserializer), bodySerializer allows you to customize how the requestBody is serialized if you don’t want the default [JSON.stringify()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) behavior. You probably only need this when using `multipart/form-data`:
 
 ```ts
-const { data, error } = await PUT("/submit", {
+const { data, error } = await client.PUT("/submit", {
   body: {
     name: "",
     query: { version: 2 },
@@ -150,3 +151,102 @@ openapi-fetch supports path serialization as [outlined in the 3.1 spec](https://
 | `/users/{.id*}`   | label (exploded)     | `/users/.5`        | `/users/.3.4.5`          | `/users/.role=admin.firstName=Alex`                  |
 | `/users/{;id}`    | matrix               | `/users/;id=5`     | `/users/;id=3,4,5`       | `/users/;id=role,admin,firstName,Alex`               |
 | `/users/{;id*}`   | matrix (exploded)    | `/users/;id=5`     | `/users/;id=3;id=4;id=5` | `/users/;role=admin;firstName=Alex`                  |
+
+## Middleware
+
+Middleware is an object with `onRequest()` and `onResponse()` callbacks that can observe and modify requests and responses.
+
+```ts
+import createClient from "openapi-fetch";
+import type { paths } from "./api/v1";
+
+const myMiddleware: Middleware = {
+  async onRequest(req, options) {
+    // set "foo" header
+    req.headers.set("foo", "bar");
+    return req;
+  },
+  async onResponse(res, options) {
+    const { body, ...resOptions } = res;
+    // change status of response
+    return new Response(body, { ...resOptions, status: 200 });
+  },
+};
+
+const client = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
+
+// register middleware
+client.use(myMiddleware);
+```
+
+### onRequest
+
+```ts
+onRequest(req, options) {
+  // …
+}
+```
+
+`onRequest()` takes 2 params:
+
+| Name      |        Type         | Description                                                                                                                                                                          |
+| :-------- | :-----------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `req`     | `MiddlewareRequest` | A standard [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) with `schemaPath` (OpenAPI pathname) and `params` ([params](/openapi-fetch/api#fetch-options) object) |
+| `options` |   `MergedOptions`   | Combination of [createClient](/openapi-fetch/api#create-client) options + [fetch overrides](/openapi-fetch/api#fetch-options)                                                        |
+
+And it expects either:
+
+- **If modifying the request:** A [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request)
+- **If not modifying:** `undefined` (void)
+
+### onResponse
+
+```ts
+onResponse(res, options) {
+  // …
+}
+```
+
+`onResponse()` also takes 2 params:
+| Name | Type | Description |
+| :-------- | :-----------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `req` | `MiddlewareRequest` | A standard [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response). |
+| `options` | `MergedOptions` | Combination of [createClient](/openapi-fetch/api#create-client) options + [fetch overrides](/openapi-fetch/api#fetch-options) |
+
+And it expects either:
+
+- **If modifying the response:** A [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response)
+- **If not modifying:** `undefined` (void)
+
+### Skipping
+
+If you want to skip the middleware under certain conditions, just `return` as early as possible:
+
+```ts
+onRequest(req) {
+  if (req.schemaPath !== "/projects/{project_id}") {
+    return undefined;
+  }
+  // …
+}
+```
+
+This will leave the request/response unmodified, and pass things off to the next middleware handler (if any). There’s no internal callback or observer library needed.
+
+### Ejecting middleware
+
+To remove middleware, call `client.eject(middleware)`:
+
+```ts{9}
+const myMiddleware = {
+  // …
+};
+
+// register middleware
+client.use(myMiddleware);
+
+// remove middleware
+client.eject(myMiddleware);
+```
+
+For additional guides & examples, see [Middleware & Auth](/openapi-fetch/middleware-auth)

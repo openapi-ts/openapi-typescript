@@ -121,7 +121,7 @@ export interface paths {
 Which means your type lookups also have to match the exact URL:
 
 ```ts
-import type{ paths } from "./api/v1";
+import type { paths } from "./api/v1";
 
 const url = `/user/${id}`;
 type UserResponses = paths["/user/{user_id}"]["responses"];

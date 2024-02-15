@@ -102,15 +102,13 @@ type FilterKeys<Obj, Matchers> = {
 type PathResponses<T> = T extends { responses: any } ? T["responses"] : unknown;
 type OperationContent<T> = T extends { content: any } ? T["content"] : unknown;
 type MediaType = `${string}/${string}`;
-type MockedResponse<T, Status extends keyof T = keyof T> = FilterKeys<
-  OperationContent<T[Status]>,
-  MediaType
-> extends never
-  ? { status: Status; body?: never }
-  : {
-      status: Status;
-      body: FilterKeys<OperationContent<T[Status]>, MediaType>;
-    };
+type MockedResponse<T, Status extends keyof T = keyof T> =
+  FilterKeys<OperationContent<T[Status]>, MediaType> extends never
+    ? { status: Status; body?: never }
+    : {
+        status: Status;
+        body: FilterKeys<OperationContent<T[Status]>, MediaType>;
+      };
 
 /**
  * Mock fetch() calls and type against OpenAPI schema

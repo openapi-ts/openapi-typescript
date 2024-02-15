@@ -18,17 +18,28 @@ description: openapi-fetch Project Goals, comparisons, and more
 
 ## Differences
 
+### vs. Axios
+
+[Axios](https://axios-http.com) doesn’t automatically typecheck against your OpenAPI schema. Further, there’s no easy way to do that. Axios does have more features than openapi-fetch such as request/responce interception and cancellation.
+
+### vs. tRPC
+
+[tRPC](https://trpc.io/) is meant for projects where both the backend and frontend are written in TypeScript (Node.js). openapi-fetch is universal, and can work with any backend that follows an OpenAPI 3.x schema.
+
 ### vs. openapi-typescript-fetch
 
-This library is identical in purpose to [openapi-typescript-fetch](https://github.com/ajaishankar/openapi-typescript-fetch), but has the following differences:
+[openapi-typescript-fetch](https://github.com/ajaishankar/openapi-typescript-fetch) predates openapi-fetch, and is nearly identical in purpos, but differs mostly in syntax (so it’s more of an opinionated choice):
 
 - This library has a built-in `error` type for `3xx`/`4xx`/`5xx` errors whereas openapi-typescript-fetch throws exceptions (requiring you to wrap things in `try/catch`)
 - This library has a more terse syntax (`get(…)`) wheras openapi-typescript-fetch requires chaining (`.path(…).method(…).create()`)
-- openapi-typescript-fetch supports middleware whereas this library doesn’t
 
 ### vs. openapi-typescript-codegen
 
-This library is quite different from [openapi-typescript-codegen](https://github.com/ferdikoomen/openapi-typescript-codegen)
+[openapi-typescript-codegen](https://github.com/ferdikoomen/openapi-typescript-codegen) is a codegen library, which is fundamentally different from openapi-fetch’s “no codegen” approach. openapi-fetch uses static TypeScript typechecking that all happens at build time with no client weight and no performance hit to runtime. Traditional codegen generates hundreds (if not thousands) of different functions that all take up client weight and slow down runtime.
+
+### vs. Swagger Codegen
+
+Swagger Codegen is the original codegen project for Swagger/OpenAPI, and has the same problems of other codgen approaches of size bloat and runtime performance problems. Further, Swagger Codegen require the Java runtime to work, whereas openapi-typescript/openapi-fetch don’t as native Node.js projects.
 
 ## Contributors
 

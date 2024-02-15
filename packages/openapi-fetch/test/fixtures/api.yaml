@@ -474,8 +474,16 @@ components:
           type: number
         avatar:
           type: string
+        created_at:
+          type: number
+          format: date
+        updated_at:
+          type: number
+          format: date
       required:
         - email
+        - created_at
+        - updated_at
   requestBodies:
     CreatePost:
       required: true

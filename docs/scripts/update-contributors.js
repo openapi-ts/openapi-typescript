@@ -193,10 +193,6 @@ async function main() {
       }
     }),
   );
-  fs.writeFileSync(
-    new URL("../data/contributors.json", import.meta.url),
-    JSON.stringify(contributors),
-  );
 }
 
 main();
