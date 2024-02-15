@@ -130,4 +130,8 @@ _Note: if you’re using Svelte without SvelteKit, the root example in `src/rout
 
 ### Vue
 
-TODO
+There isn’t an example app in Vue yet. Are you using it in Vue? Please [open a PR to add it!](https://github.com/drwpow/openapi-typescript/pulls)
+
+---
+
+Additional examples are always welcome! Please [open a PR](https://github.com/drwpow/openapi-typescript/pulls) with your examples.
