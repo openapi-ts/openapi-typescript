@@ -88,9 +88,11 @@ const client = createClient({
 | form (exploded)          | `/users?role=admin&firstName=Alex`                   |
 | **deepObject (default)** | `/users?id[role]=admin&id[firstName]=Alex`           |
 
-> [!NOTE]
->
-> **deepObject** is always exploded, so it doesn’t matter if you set `explode: true` or `explode: false`—it’ll generate the same output.
+::: note
+
+**deepObject** is always exploded, so it doesn’t matter if you set `explode: true` or `explode: false`—it’ll generate the same output.
+
+:::
 
 ### Alternate function syntax
 
@@ -115,9 +117,11 @@ const client = createClient({
 });
 ```
 
-> [!WARNING]
->
-> When serializing yourself, the string will be kept exactly as-authored, so you’ll have to call [encodeURI](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI) or [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) to escape special characters.
+::: warning
+
+When serializing yourself, the string will be kept exactly as-authored, so you’ll have to call [encodeURI](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI) or [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) to escape special characters.
+
+:::
 
 ## bodySerializer
 
