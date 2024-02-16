@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.9.1
+
+### Patch Changes
+
+- [#1546](https://github.com/drwpow/openapi-typescript/pull/1546) [`cc64453`](https://github.com/drwpow/openapi-typescript/commit/cc64453c7f92c77c19bc45dc0f701a98ab461b16) Thanks [@drwpow](https://github.com/drwpow)! - Fix JSON consuming body
+
 ## 0.9.0
 
 ### Minor Changes
