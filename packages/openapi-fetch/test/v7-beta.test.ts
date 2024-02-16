@@ -1136,6 +1136,15 @@ describe("client", () => {
         expect(error.message).toBe("Error");
       }
     });
+
+    it("gracefully handles invalid JSON for errors", async () => {
+      const client = createClient<paths>();
+      mockFetchOnce({ status: 401, body: "Unauthorized" });
+      const { data, error } = await client.GET("/blogposts");
+
+      expect(data).toBeUndefined();
+      expect(error).toBe("Unauthorized");
+    });
   });
 
   describe("POST()", () => {
