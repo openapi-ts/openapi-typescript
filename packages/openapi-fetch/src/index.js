@@ -135,12 +135,12 @@ export default function createClient(clientOptions) {
       return { data: await response[parseAs](), response };
     }
 
-    // handle errors (always parse as .json() or .text())
-    let error = {};
+    // handle errors
+    let error = await response.text();
     try {
-      error = await response.json();
+      error = JSON.parse(error); // attempt to parse as JSON
     } catch {
-      error = await response.text();
+      // noop
     }
     return { error, response };
   }
