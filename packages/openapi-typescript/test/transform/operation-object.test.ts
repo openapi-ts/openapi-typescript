@@ -217,6 +217,53 @@ responses: {
 };`,
       },
     ],
+    [
+      "parameters, responses > test excludeDeprecated option",
+      {
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_CTX, excludeDeprecated: true },
+        },
+        given: {
+          parameters: [
+            { in: "path", name: "user_id", schema: { type: "string" } },
+            { in: "path", name: "user_id_deprecated", schema: { type: "string", deprecated: true } },
+            { in: "query", name: "search", schema: { type: "string" } },
+            { in: "query", name: "search_deprecated", schema: { type: "string", deprecated: true } },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+              content: { "application/json": { schema: { type: "object", properties: { hello: { type: "string" }, hello_deprecated: { type: "string", deprecated: true } } } } },
+            },
+          },
+        },
+        want: `parameters: {
+    query?: {
+        search?: string;
+    };
+    header?: never;
+    path: {
+        user_id: string;
+    };
+    cookie?: never;
+};
+requestBody?: never;
+responses: {
+    /** @description OK */
+    200: {
+        headers: {
+            [name: string]: unknown;
+        };
+        content: {
+            "application/json": {
+                hello?: string;
+            };
+        };
+    };
+};`,
+      },
+    ],
   ];
 
   for (const [
