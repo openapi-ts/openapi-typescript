@@ -234,7 +234,10 @@ responses: {
           responses: {
             "200": {
               description: "OK",
-              content: { "application/json": { schema: { type: "object", properties: { hello: { type: "string" }, hello_deprecated: { type: "string", deprecated: true } } } } },
+              content: { "application/json": { schema: { type: "object", properties: { 
+                hello: { type: "string" },
+                hello_deprecated: { type: "string", deprecated: true } 
+              }}}},
             },
           },
         },
