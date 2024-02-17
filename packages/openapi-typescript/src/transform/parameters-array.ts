@@ -48,7 +48,8 @@ export function transformParametersArray(
     }
     if (options.ctx.excludeDeprecated) {
       operationParameters = operationParameters.filter(
-        ({ resolved }) => !resolved?.deprecated && !resolved?.schema?.deprecated,
+        ({ resolved }) =>
+          !resolved?.deprecated && !resolved?.schema?.deprecated,
       );
     }
     for (const { original, resolved } of operationParameters) {
