@@ -946,7 +946,9 @@ describe("client", () => {
       const req = fetchMocker.mock.calls[0][0];
       // note: this is FormData, but Node.js doesn’t handle new Request() properly with formData bodies. So this is only in tests.
       expect(req.body).toBeInstanceOf(Buffer);
-      expect((req.headers as Headers).get("Content-Type")).toBe("text/plain;charset=UTF-8");
+      expect((req.headers as Headers).get("Content-Type")).toBe(
+        "text/plain;charset=UTF-8",
+      );
     });
 
     // Node Requests eat credentials (no cookies), but this works in frontend
