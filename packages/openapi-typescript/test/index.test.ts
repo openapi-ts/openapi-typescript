@@ -488,6 +488,84 @@ export type operations = Record<string, never>;`,
         // options: DEFAULT_OPTIONS
       },
     ],
+
+    [
+      "operations > # character is parsed correctly",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          paths: {
+            "/accounts": {
+              get: {
+                operationId: "Accounts#List",
+                responses: {
+                  200: {
+                    description: "OK",
+                    content: {
+                      "application/json": {
+                        schema: { type: "string" },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        want: `export interface paths {
+    "/accounts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Accounts/List"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export interface operations {
+    "Accounts/List": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": string;
+                };
+            };
+        };
+    };
+}`,
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
     [
       "JSONSchema > $defs are respected",
       {

@@ -104,11 +104,11 @@ export default function transformPathItemObject(
     }
     // if operationId exists, move into an `operations` export and pass the reference in here
     else if (operationObject.operationId) {
-      operationType = oapiRef(
-        createRef(["operations", operationObject.operationId]),
-      );
+      // workaround for issue caused by redocly ref parsing: https://github.com/drwpow/openapi-typescript/issues/1542
+      const operationId = operationObject.operationId.replace(HASH_RE, "/");
+      operationType = oapiRef(createRef(["operations", operationId]));
       injectOperationObject(
-        operationObject.operationId,
+        operationId,
         { ...operationObject, parameters: Object.values(keyedParameters) },
         { ...options, path: createRef([options.path!, method]) },
       );
@@ -132,3 +132,5 @@ export default function transformPathItemObject(
 
   return ts.factory.createTypeLiteralNode(type);
 }
+
+const HASH_RE = /#/g;
