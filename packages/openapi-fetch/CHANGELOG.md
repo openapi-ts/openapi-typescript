@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.9.2
+
+### Patch Changes
+
+- [#1550](https://github.com/drwpow/openapi-typescript/pull/1550) [`a5a9cc7`](https://github.com/drwpow/openapi-typescript/commit/a5a9cc766f893fd93500a5a1ff909746194bfdc7) Thanks [@shirish87](https://github.com/shirish87)! - Fix 'Content-Type' header being removed from requests with multipart/form-data body
+
 ## 0.9.1
 
 ### Patch Changes
