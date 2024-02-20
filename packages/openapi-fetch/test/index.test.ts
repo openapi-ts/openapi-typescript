@@ -899,6 +899,37 @@ describe("client", () => {
         expect(data).toEqual({ success: true });
       });
 
+      it("can get the final url in merged options", async () => {
+        mockFetchOnce({ status: 200, body: JSON.stringify({ success: true }) });
+        const client = createClient<paths>({
+          baseUrl: "https://api.foo.bar/v1/",
+        });
+        let receivedUrl = '';
+        client.use({
+          onRequest(_, options) {
+            receivedUrl = options.requestUrl;
+            return undefined;
+          },
+        })
+        await client.GET("/blogposts/{id}", { params: { path: { id: "123" } } });
+        expect(receivedUrl).toBe("https://api.foo.bar/v1/blogposts/123");
+      });
+      it("can get the final request options in merged options", async () => {
+        mockFetchOnce({ status: 200, body: JSON.stringify({ success: true }) });
+        const client = createClient<paths>({
+          baseUrl: "https://api.foo.bar/v1/",
+        });
+        let receivedOptions: RequestInit = {};
+        client.use({
+          onRequest(_, options) {
+            receivedOptions = options.requestOptions;
+            return undefined;
+          },
+        })
+        await client.POST("/blogposts/{id}", { params: { path: { id: "123" } }, body: { title: "New Post"}});
+        expect(receivedOptions.method).toBe("POST");
+        expect(receivedOptions.body).toBe(JSON.stringify({ title: "New Post"}));
+      });
       it("can invoke send with middleware", async () => {
         mockFetchOnce({ status: 200, body: JSON.stringify({ success: true }) });
         const client = createClient<paths>({
