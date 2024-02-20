@@ -167,6 +167,7 @@ export function onRequest(
 export function onResponse(
   res: Response,
   options: MergedOptions,
+  request: Request,
 ): Response | undefined | Promise<Response | undefined>;
 
 export interface Middleware {
