@@ -69,7 +69,7 @@ export default function createClient(clientOptions) {
     if (requestInit.body instanceof FormData) {
       requestInit.headers.delete("Content-Type");
     }
-    let request = new Request(
+    const request = new Request(
       createFinalURL(url, { baseUrl, params, querySerializer }),
       requestInit,
     );
@@ -80,11 +80,46 @@ export default function createClient(clientOptions) {
       parseAs,
       querySerializer,
       bodySerializer,
+      schemaPath: url,
+      params,
     };
+    const response =  await coreSend(request, mergedOptions)
+
+    // handle empty content
+    // note: we return `{}` because we want user truthy checks for `.data` or `.error` to succeed
+    if (
+      response.status === 204 ||
+      response.headers.get("Content-Length") === "0"
+    ) {
+      return response.ok ? { data: {}, response } : { error: {}, response };
+    }
+
+    // parse response (falling back to .text() when necessary)
+    if (response.ok) {
+      // if "stream", skip parsing entirely
+      if (parseAs === "stream") {
+        return { data: response.body, response };
+      }
+      return { data: await response[parseAs](), response };
+    }
+
+    // handle errors
+    let error = await response.text();
+    try {
+      error = JSON.parse(error); // attempt to parse as JSON
+    } catch {
+      // noop
+    }
+    return { error, response };
+  }
+  /**
+   * send raw request with middleware
+   */
+  async function coreSend(request, mergedOptions){
+    // set default value for sometimes user use send directly but not provide options
+    const {fetch = globalThis.fetch} = mergedOptions || {};
     for (const m of middlewares) {
       if (m && typeof m === "object" && typeof m.onRequest === "function") {
-        request.schemaPath = url; // (re)attach original URL
-        request.params = params; // (re)attach params
         const result = await m.onRequest(request, mergedOptions);
         if (result) {
           if (!(result instanceof Request)) {
@@ -117,32 +152,7 @@ export default function createClient(clientOptions) {
       }
     }
 
-    // handle empty content
-    // note: we return `{}` because we want user truthy checks for `.data` or `.error` to succeed
-    if (
-      response.status === 204 ||
-      response.headers.get("Content-Length") === "0"
-    ) {
-      return response.ok ? { data: {}, response } : { error: {}, response };
-    }
-
-    // parse response (falling back to .text() when necessary)
-    if (response.ok) {
-      // if "stream", skip parsing entirely
-      if (parseAs === "stream") {
-        return { data: response.body, response };
-      }
-      return { data: await response[parseAs](), response };
-    }
-
-    // handle errors
-    let error = await response.text();
-    try {
-      error = JSON.parse(error); // attempt to parse as JSON
-    } catch {
-      // noop
-    }
-    return { error, response };
+    return response;
   }
 
   return {
@@ -177,6 +187,9 @@ export default function createClient(clientOptions) {
     /** Call a TRACE endpoint */
     async TRACE(url, init) {
       return coreFetch(url, { ...init, method: "TRACE" });
+    },
+    async send(request, options) {
+      return await coreSend(request, options);
     },
     /** Register middleware */
     use(...middleware) {

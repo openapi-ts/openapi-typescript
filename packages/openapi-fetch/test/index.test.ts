@@ -2,8 +2,8 @@ import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 // @ts-expect-error
 import createFetchMock from "vitest-fetch-mock";
 import createClient, {
+  type MergedOptions,
   type Middleware,
-  type MiddlewareRequest,
   type QuerySerializerOptions,
 } from "../src/index.js";
 import type { paths } from "./fixtures/api.js";
@@ -855,15 +855,15 @@ describe("client", () => {
         };
 
         let receivedPath = "";
-        let receivedParams: MiddlewareRequest["params"] = {};
+        let receivedParams: MergedOptions["params"] = {};
 
         const client = createClient<paths>({
           baseUrl: "https://api.foo.bar/v1/",
         });
         client.use({
-          onRequest(req) {
-            receivedPath = req!.schemaPath;
-            receivedParams = req!.params;
+          onRequest(req, options) {
+            receivedPath = options!.schemaPath;
+            receivedParams = options!.params;
             return undefined;
           },
         });
@@ -889,6 +889,69 @@ describe("client", () => {
         expect(data).toEqual({ success: true });
       });
 
+      it("can invoke send directly", async () => {
+        mockFetchOnce({ status: 200, body: JSON.stringify({ success: true }) });
+        const client = createClient<paths>({
+          baseUrl: "https://api.foo.bar/v1/",
+        });
+        const response = await client.send(new Request('/blogposts', { method: 'GET' }));
+        const data = await response.json();
+        expect(data).toEqual({ success: true });
+      });
+
+      it("can invoke send with middleware", async () => {
+        mockFetchOnce({ status: 200, body: JSON.stringify({ success: true }) });
+        const client = createClient<paths>({
+          baseUrl: "https://api.foo.bar/v1/",
+        });
+        const targetUrl = 'https://api.foo.bar/v2/';
+        client.use({
+          onRequest() {
+            return new Request(targetUrl);
+          },
+        });
+        let receivedUrl = '';
+        client.use({
+          onRequest(request) {
+            receivedUrl = request.url;
+            return undefined;
+          },
+        })
+        await client.send(new Request('/blogposts', { method: 'GET' }));
+        expect(receivedUrl).toEqual(targetUrl);
+      });
+      it("can resend request in middleware", async () => {
+        fetchMocker.mockResponses(
+          [JSON.stringify({ success: false }), {status: 401}],
+          [JSON.stringify({ success: true }), {status: 200}],
+        )
+        const client = createClient<paths>({
+          baseUrl: "https://api.foo.bar/v1/",
+        });
+        let firstTimeData = {};
+        const requestUrls:string[] =[];
+        client.use({
+          async onRequest(request){
+            requestUrls.push(request.url);
+            return undefined;
+          },
+          async onResponse(response, options, request) {
+            if(response.status === 401) {
+              // do some other request...
+              // then resend it.
+              firstTimeData = await response.clone().json();
+              return  await client.send(request.clone());
+            }
+            return response;
+          },
+        });
+        const { data } = await client.GET("/blogposts");
+        // reqeust 2 times with same request.
+        expect(requestUrls).toMatchObject(["https://api.foo.bar/v1/blogposts", "https://api.foo.bar/v1/blogposts"]);
+        expect(firstTimeData).toEqual({ success: false });
+        expect(data).toEqual({ success: true });
+      });
+      
       it("can be ejected", async () => {
         mockFetchOnce({ status: 200, body: "{}" });
 

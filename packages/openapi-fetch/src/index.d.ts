@@ -146,9 +146,6 @@ export type MergedOptions<T = unknown> = {
   querySerializer: QuerySerializer<T>;
   bodySerializer: BodySerializer<T>;
   fetch: typeof globalThis.fetch;
-};
-
-export interface MiddlewareRequest extends Request {
   /** The original OpenAPI schema path (including curly braces) */
   schemaPath: string;
   /** OpenAPI parameters as provided from openapi-fetch */
@@ -158,10 +155,10 @@ export interface MiddlewareRequest extends Request {
     path?: Record<string, unknown>;
     cookie?: Record<string, unknown>;
   };
-}
+};
 
 export function onRequest(
-  req: MiddlewareRequest,
+  req: Request,
   options: MergedOptions,
 ): Request | undefined | Promise<Request | undefined>;
 export function onResponse(
@@ -202,6 +199,8 @@ export default function createClient<Paths extends {}>(
   PATCH: ClientMethod<Paths, "patch">;
   /** Call a TRACE endpoint */
   TRACE: ClientMethod<Paths, "trace">;
+  /** the core send just with middleware */
+  send(request:Request, options?: MergedOptions): Promise<Response>;
   /** Register middleware */
   use(...middleware: Middleware[]): void;
   /** Unregister middleware */
