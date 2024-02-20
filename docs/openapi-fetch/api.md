@@ -195,8 +195,8 @@ onRequest(req, options) {
 
 | Name      |        Type         | Description                                                                                                                                                                          |
 | :-------- | :-----------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `req`     | `MiddlewareRequest` | A standard [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) with `schemaPath` (OpenAPI pathname) and `params` ([params](/openapi-fetch/api#fetch-options) object) |
-| `options` |   `MergedOptions`   | Combination of [createClient](/openapi-fetch/api#create-client) options + [fetch overrides](/openapi-fetch/api#fetch-options)                                                        |
+| `req`     | `Request` | A standard [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) |
+| `options` |   `MergedOptions`   | Combination of [createClient](/openapi-fetch/api#create-client) options + [fetch overrides](/openapi-fetch/api#fetch-options)    with `schemaPath` (OpenAPI pathname) and `params` ([params](/openapi-fetch/api#fetch-options) object)                                                    |
 
 And it expects either:
 
@@ -215,7 +215,9 @@ onResponse(res, options) {
 | Name | Type | Description |
 | :-------- | :-----------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `req` | `MiddlewareRequest` | A standard [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response). |
-| `options` | `MergedOptions` | Combination of [createClient](/openapi-fetch/api#create-client) options + [fetch overrides](/openapi-fetch/api#fetch-options) |
+| `options` | `MergedOptions` | Combination of [createClient](/openapi-fetch/api#create-client) options + [fetch overrides](/openapi-fetch/api#fetch-options) with `schemaPath` (OpenAPI pathname) and `params` ([params](/openapi-fetch/api#fetch-options) object)                                                    ||
+| `request`| `Request` |  A standard [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) that the response associated|
+
 
 And it expects either:
 
@@ -236,6 +238,22 @@ onRequest(req) {
 ```
 
 This will leave the request/response unmodified, and pass things off to the next middleware handler (if any). There’s no internal callback or observer library needed.
+
+### Resend
+
+If you want to resend some request in middleware, just use `send` with the `request` and `options` param.
+
+```ts
+async onResponse(response, options, request) {
+  if(response.status === 401) {
+    // do some other request...like refresh the token by refreshToken, then update it
+    refreshToken(); 
+    // then resend it.
+    return  await client.send(request.clone());
+  }
+  return response;
+},
+```
 
 ### Ejecting middleware
 
