@@ -69,10 +69,10 @@ export default function createClient(clientOptions) {
     if (requestInit.body instanceof FormData) {
       requestInit.headers.delete("Content-Type");
     }
-    const request = new Request(
-      createFinalURL(url, { baseUrl, params, querySerializer }),
-      requestInit,
-    );
+    
+    const finalUrl = createFinalURL(url, { baseUrl, params, querySerializer });
+    const finalOptions = requestInit;
+    const request = new Request(finalUrl, finalOptions);
     // middleware (request)
     const mergedOptions = {
       baseUrl,
@@ -82,6 +82,8 @@ export default function createClient(clientOptions) {
       bodySerializer,
       schemaPath: url,
       params,
+      requestUrl: finalUrl,
+      requestOptions: finalOptions
     };
     const response =  await coreSend(request, mergedOptions)
 
@@ -140,7 +142,7 @@ export default function createClient(clientOptions) {
     for (let i = middlewares.length - 1; i >= 0; i--) {
       const m = middlewares[i];
       if (m && typeof m === "object" && typeof m.onResponse === "function") {
-        const result = await m.onResponse(response, mergedOptions, request);
+        const result = await m.onResponse(response, mergedOptions);
         if (result) {
           if (!(result instanceof Response)) {
             throw new Error(

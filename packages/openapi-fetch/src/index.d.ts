@@ -155,6 +155,9 @@ export type MergedOptions<T = unknown> = {
     path?: Record<string, unknown>;
     cookie?: Record<string, unknown>;
   };
+  /** use to build a new request object. */
+  requestUrl: string;
+  requestOptions: RequestInit;
 };
 
 export function onRequest(
@@ -164,7 +167,6 @@ export function onRequest(
 export function onResponse(
   res: Response,
   options: MergedOptions,
-  request: Request,
 ): Response | undefined | Promise<Response | undefined>;
 
 export interface Middleware {

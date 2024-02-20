@@ -935,12 +935,12 @@ describe("client", () => {
             requestUrls.push(request.url);
             return undefined;
           },
-          async onResponse(response, options, request) {
+          async onResponse(response, options) {
             if(response.status === 401) {
               // do some other request...
               // then resend it.
               firstTimeData = await response.clone().json();
-              return  await client.send(request.clone());
+              return  await client.send(new Request(options.requestUrl,options.requestOptions), options);
             }
             return response;
           },
