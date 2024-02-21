@@ -14,13 +14,16 @@ function Fact() {
     <div>
       {fact.isLoading && <div>Loading...</div>}
       {fact.error ? (
-        <div>There was an error: {fact.error}</div>
+        <div>There was an error: {fact.error.message}</div>
       ) : (
         <pre>
           <code>{JSON.stringify(fact.data, undefined, 2)}</code>
         </pre>
       )}
-      <button type="button" onClick={() => fact.refetch()}>
+      <button
+        type="button"
+        onClick={() => fact.refetch()}
+      >
         Another fact!
       </button>
     </div>
@@ -45,6 +48,6 @@ function App() {
   );
 }
 
-const domNode = document.getElementById("app");
+const domNode = document.getElementById("app")!;
 const root = createRoot(domNode);
 root.render(<App />);
