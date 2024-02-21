@@ -71,6 +71,8 @@
 
 - [#1374](https://github.com/drwpow/openapi-typescript/pull/1374) [`7ac5174`](https://github.com/drwpow/openapi-typescript/commit/7ac5174a1f767c1103573543bb17622ac8d25fe4) Thanks [@ElForastero](https://github.com/ElForastero)! - Add support for x-enum-varnames and x-enum-descriptions
 
+- [#1545](https://github.com/drwpow/openapi-typescript/pull/1545) [`9158b81`](https://github.com/drwpow/openapi-typescript/commit/9158b81e8fdd45491afde8e291a786d7b2abc154) Thanks [@jaredLunde](https://github.com/drwpow/openapi-typescript/commits?author=jaredLunde)! - Replace # characters in operation IDs with a slash
+
 ### Patch Changes
 
 - [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - Refactor internals to use TypeScript AST rather than string mashing

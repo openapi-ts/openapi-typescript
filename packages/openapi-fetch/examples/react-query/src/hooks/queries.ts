@@ -27,13 +27,13 @@ export function getFact({
       // add any other hook dependencies here
     ],
     queryFn: async ({ signal }) => {
-      const { data, error } = await client.GET(GET_FACT, {
+      const { data } = await client.GET(GET_FACT, {
         params,
         // body - isn’t used for GET, but needed for other request types
         signal, // allows React Query to cancel request
       });
-      if (data) return data;
-      throw new Error(error); // React Query expects errors to be thrown to show a message
+      return data;
+      // Note: Error throwing handled automatically via middleware
     },
   });
 }
