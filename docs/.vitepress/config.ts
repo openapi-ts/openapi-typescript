@@ -21,10 +21,17 @@ export default defineConfig({
     logo: "/assets/openapi-ts.svg",
     nav: [
       {
-        text: "Versions",
+        text: "Version",
         items: [
           { text: "7.x", link: "/introduction" },
           { text: "6.x", link: "/6.x/introduction" },
+        ],
+      },
+      {
+        text: "🌐 Language",
+        items: [
+          { text: "🇬🇧 English", link: "/introduction" },
+          { text: "🇨🇳 简体中文", link: "/zh/introduction" },
         ],
       },
     ],
@@ -53,6 +60,34 @@ export default defineConfig({
             { text: "Examples", link: "/openapi-fetch/examples" },
             { text: "API", link: "/openapi-fetch/api" },
             { text: "About", link: "/openapi-fetch/about" },
+          ],
+        },
+      ],
+      // 🌐
+      "/zh/": [
+        {
+          text: "openapi-typescript",
+          items: [
+            { text: "Introduction", link: "/zh/introduction" },
+            { text: "CLI", link: "/zh/cli" },
+            { text: "Node.js API", link: "/zh/node" },
+            { text: "Examples", link: "/zh/examples" },
+            { text: "Advanced", link: "/zh/advanced" },
+            { text: "About", link: "/zh/about" },
+          ],
+        },
+        {
+          text: "openapi-fetch",
+          items: [
+            { text: "Getting Started", link: "/zh/openapi-fetch/" },
+            {
+              text: "Middleware & Auth",
+              link: "/zh/openapi-fetch/middleware-auth",
+            },
+            { text: "Testing", link: "/zh/openapi-fetch/testing" },
+            { text: "Examples", link: "/zh/openapi-fetch/examples" },
+            { text: "API", link: "/zh/openapi-fetch/api" },
+            { text: "About", link: "/zh/openapi-fetch/about" },
           ],
         },
       ],
