@@ -40,34 +40,6 @@ export const en = defineConfig({
           ],
         },
       ],
-      // 🌐
-      "/zh/": [
-        {
-          text: "openapi-typescript",
-          items: [
-            { text: "Introduction", link: "/zh/introduction" },
-            { text: "CLI", link: "/zh/cli" },
-            { text: "Node.js API", link: "/zh/node" },
-            { text: "Examples", link: "/zh/examples" },
-            { text: "Advanced", link: "/zh/advanced" },
-            { text: "About", link: "/zh/about" },
-          ],
-        },
-        {
-          text: "openapi-fetch",
-          items: [
-            { text: "Getting Started", link: "/zh/openapi-fetch/" },
-            {
-              text: "Middleware & Auth",
-              link: "/zh/openapi-fetch/middleware-auth",
-            },
-            { text: "Testing", link: "/zh/openapi-fetch/testing" },
-            { text: "Examples", link: "/zh/openapi-fetch/examples" },
-            { text: "API", link: "/zh/openapi-fetch/api" },
-            { text: "About", link: "/zh/openapi-fetch/about" },
-          ],
-        },
-      ],
       // default (7.x) docs
       "/": [
         {
