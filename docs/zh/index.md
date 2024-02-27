@@ -8,7 +8,7 @@ hero:
   actions:
     - theme: brand
       text: 快速开始
-      link: /introduction
+      link: /zh/introduction
     - theme: alt
       text: GitHub
       link: https://github.com/drwpow/openapi-typescript
