@@ -81,10 +81,10 @@
   --vp-c-default-3: var(--vp-c-gray-3);
   --vp-c-default-soft: var(--vp-c-gray-soft);
 
-  --vp-c-brand-1: oklch(0.6 0.22 260);
-  --vp-c-brand-2: oklch(0.4 0.2 260);
+  --vp-c-brand-1: oklch(0.6 0.21 260);
+  --vp-c-brand-2: oklch(0.4 0.16 260);
   --vp-c-brand-3: oklch(0.5 0.2 260);
-  --vp-c-brand-soft: oklch(0.6 0.22 260/0.1);
+  --vp-c-brand-soft: oklch(0.6 0.21 260/0.1);
 
   --vp-c-tip-1: var(--vp-c-brand-1);
   --vp-c-tip-2: var(--vp-c-brand-2);

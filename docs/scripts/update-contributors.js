@@ -69,7 +69,7 @@ const OPENAPI_TS_CONTRIBUTORS = [
     "jankuca",
     "th-m",
     "asithade",
-    "MikeYermolayev",
+    "misha-erm",
     "radist2s",
     "FedeBev",
     "yamacent",
