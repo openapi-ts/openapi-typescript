@@ -33,7 +33,7 @@ export function transformParametersArray(
     "cookie",
   ] as ParameterObject["in"][]) {
     const paramLocType: ts.TypeElement[] = [];
-    const operationParameters = parametersArray.map((param) => ({
+    let operationParameters = parametersArray.map((param) => ({
       original: param,
       resolved:
         "$ref" in param
@@ -44,6 +44,12 @@ export function transformParametersArray(
     if (options.ctx.alphabetize) {
       operationParameters.sort((a, b) =>
         (a.resolved?.name ?? "").localeCompare(b.resolved?.name ?? ""),
+      );
+    }
+    if (options.ctx.excludeDeprecated) {
+      operationParameters = operationParameters.filter(
+        ({ resolved }) =>
+          !resolved?.deprecated && !resolved?.schema?.deprecated,
       );
     }
     for (const { original, resolved } of operationParameters) {
