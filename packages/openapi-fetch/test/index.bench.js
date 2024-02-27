@@ -41,13 +41,14 @@ describe("get (only URL)", () => {
   openapiTSFetch.configure({
     init: { baseUrl: BASE_URL },
   });
+  let openapiTSFetchGET = openapiTSFetch.path("/url").method("get").create();
 
   bench("openapi-fetch", async () => {
     await openapiFetch.GET("/url");
   });
 
   bench("openapi-typescript-fetch", async () => {
-    await openapiTSFetch.path("/url").method("get").create()();
+    await openapiTSFetchGET();
   });
 
   bench("openapi-typescript-codegen", async () => {
@@ -76,6 +77,7 @@ describe("get (headers)", () => {
   openapiTSFetch.configure({
     init: { baseUrl: BASE_URL, headers: { "x-base-header": 123 } },
   });
+  let openapiTSFetchGET = openapiTSFetch.path("/url").method("get").create();
 
   bench("openapi-fetch", async () => {
     await openapiFetch.GET("/url", {
@@ -84,7 +86,7 @@ describe("get (headers)", () => {
   });
 
   bench("openapi-typescript-fetch", async () => {
-    await openapiTSFetch.path("/url").method("get").create()(null, {
+    await openapiTSFetchGET(null, {
       headers: { "x-header-1": 123, "x-header-2": 456 },
     });
   });
