@@ -10,6 +10,6 @@
     "update-contributors": "node scripts/update-contributors.js"
   },
   "devDependencies": {
-    "vitepress": "1.0.0-rc.42"
+    "vitepress": "1.0.0-rc.44"
   }
 }
