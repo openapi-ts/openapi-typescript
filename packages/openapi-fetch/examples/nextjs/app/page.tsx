@@ -9,7 +9,7 @@ async function getFact() {
     next: {
       revalidate: 10,
       tags: ["cat"],
-    }
+    },
   });
 }
 

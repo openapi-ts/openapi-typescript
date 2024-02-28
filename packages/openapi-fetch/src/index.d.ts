@@ -108,10 +108,12 @@ export type RequestBodyOption<T> =
       : { body: OperationRequestBodyContent<T> };
 
 export type FetchOptions<T> = RequestOptions<T> &
-  Omit<RequestInit, "body" | "headers"> & NextJsFetchOptions;
+  Omit<RequestInit, "body" | "headers"> &
+  NextJsFetchOptions;
 
-export type NextJsFetchOptions = 
-  {next?: {revalidate?: false | 0 | number, tags?: string[]}};
+export type NextJsFetchOptions = {
+  next?: { revalidate?: false | 0 | number; tags?: string[] };
+};
 
 /** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
 export type MaybeOptionalInit<P extends {}, M extends keyof P> =
