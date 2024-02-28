@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig } from "vitepress";
 
 export const en = defineConfig({
   description: "Consume OpenAPI 3.0 & 3.1 schemas in TypeScript",
@@ -10,7 +10,7 @@ export const en = defineConfig({
           { text: "7.x", link: "/introduction" },
           { text: "6.x", link: "/6.x/introduction" },
         ],
-      }
+      },
     ],
     sidebar: {
       // 6.x docs
@@ -86,4 +86,4 @@ export const en = defineConfig({
         'Released under the <a href="https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MIT License</a>.',
     },
   },
-})
+});

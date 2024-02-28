@@ -7,14 +7,13 @@ description: Quickstart
 
 ::: warning
 
-7.x 文档适用于尚未达到生产就绪状态的 beta 版本。请参阅 [6.x]((/6.x/introduction)) 文档以获取稳定版本的信息。
+7.x 文档适用于尚未达到生产就绪状态的 beta 版本。请参阅 [6.x](/6.x/introduction) 文档以获取稳定版本的信息。
 
 :::
 
 openapi-typescript 使用 Node.js 快速将 [OpenAPI 3.0 & 3.1](https://spec.openapis.org/oas/latest.html) 模式转换为 TypeScript。无需 Java/node-gyp/运行 OpenAPI 服务器。
 
-该代码受到 [MIT 许可]((https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE") ) 保护，可免费使用。
-
+该代码受到 [MIT 许可](https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE") 保护，可免费使用。
 
 ## 特性
 
