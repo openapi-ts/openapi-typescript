@@ -6,6 +6,10 @@ async function getFact() {
     params: {
       query: { max_length: 500 },
     },
+    next: {
+      revalidate: 10,
+      tags: ["cat"],
+    }
   });
 }
 

@@ -952,6 +952,31 @@ describe("client", () => {
       const req = fetchMocker.mock.calls[0][0];
       expect(req.credentials).toBe("include");
     });
+
+    it("passes NextJs specific options", async () => {
+      function createCustomFetch(data: any) {
+        const response = {
+          clone: () => ({ ...response }),
+          headers: new Headers(),
+          json: async () => data,
+          status: 200,
+          ok: true,
+        } as Response;
+        return async (
+          input: RequestInfo | URL,
+          init?: RequestInit | undefined,
+        ) => {
+          expect(init).toEqual({ next: { tags: ["tag"], revalidate: 10 } });
+          return Promise.resolve(response);
+        };
+      }
+
+      const customFetch = createCustomFetch({});
+      const client = createClient<paths>({ fetch: customFetch });
+
+      mockFetchOnce({ status: 200, body: "{}" });
+      client.GET("/self", { next: { tags: ["tag"], revalidate: 10 } });
+    });
   });
 
   describe("responses", () => {

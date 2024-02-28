@@ -98,7 +98,7 @@ export default function createClient(clientOptions) {
     }
 
     // fetch!
-    let response = await fetch(request);
+    let response = await fetch(request, init.next ? {next: init.next} : undefined);
 
     // middleware (response)
     // execute in reverse-array order (first priority gets last transform)
