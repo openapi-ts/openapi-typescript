@@ -5,7 +5,7 @@ import {
 import c from "ansi-colors";
 import supportsColor from "supports-color";
 import ts from "typescript";
-import type { DiscriminatorObject, OpenAPI3 } from "../types.js";
+import type { DiscriminatorObject, OpenAPI3, OpenAPITSOptions, SchemaObject } from "../types.js";
 import { tsLiteral, tsModifiers, tsPropertyIndex } from "./ts.js";
 
 if (!supportsColor.stdout || supportsColor.stdout.hasBasic === false) {
@@ -165,15 +165,51 @@ export function resolveRef<T>(
   return node;
 }
 
-/** Return a key–value map of discriminator objects found in a schema */
-export function scanDiscriminators(schema: OpenAPI3) {
-  const discriminators: Record<string, DiscriminatorObject> = {};
+function createDiscriminatorEnum(value: string): SchemaObject {
+  return {
+    type: "string",
+    enum: [value],
+    description: `discriminator enum property added by openapi-typescript`,
+  };
+}
 
-  // perform 2 passes: first, collect all discriminator definitions
+/** Return a key–value map of discriminator objects found in a schema */
+export function scanDiscriminators(schema: OpenAPI3, options: OpenAPITSOptions) {
+  const discriminators: Record<string, DiscriminatorObject> = {};
+  const enumAppended: string[] = [];
+
+  // perform 2 passes: first, collect all discriminator definitions and their mappings
   walk(schema, (obj, path) => {
-    if ((obj?.discriminator as DiscriminatorObject)?.propertyName) {
-      discriminators[createRef(path)] =
-        obj.discriminator as DiscriminatorObject;
+    const discriminator = obj?.discriminator as DiscriminatorObject | undefined;
+    if (discriminator?.propertyName) {
+      const ref = createRef(path);
+
+      discriminators[ref] = discriminator;
+
+      if (discriminator.mapping) {
+        for (const [mappedValue, mappedRef] of Object.entries(
+          discriminator.mapping
+        )) {
+          if (enumAppended.includes(mappedRef)) {
+            continue;
+          }
+
+          const resolved = resolveRef<SchemaObject>(schema, mappedRef, { silent: options.silent ?? false });
+          if (resolved?.allOf) {
+            resolved.allOf.push({ type: "object", properties: { [discriminator.propertyName]: createDiscriminatorEnum(mappedValue) } });
+            enumAppended.push(mappedRef);
+          } else if (typeof resolved === 'object' && 'type' in resolved && resolved.type === 'object') {
+            if (!resolved.properties) {
+              resolved.properties = {};
+            }
+
+            resolved.properties[discriminator.propertyName] = createDiscriminatorEnum(mappedValue);
+            enumAppended.push(mappedRef);
+          } else {
+            continue;
+          }
+        }
+      }
     }
   });
 
