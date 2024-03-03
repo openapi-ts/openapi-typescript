@@ -195,7 +195,7 @@ export type operations = Record<string, never>;`,
       },
     ],
     [
-      "oneOf",
+      "oneOf > implicit mapping",
       {
         given: {
           openapi: "3.1",
@@ -246,12 +246,27 @@ export interface components {
         Pet: components["schemas"]["Cat"] | components["schemas"]["Dog"] | components["schemas"]["Lizard"];
         Cat: {
             name?: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            petType: "Cat";
         };
         Dog: {
             bark?: string;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            petType: "dog";
         };
         Lizard: {
             lovesRocks?: boolean;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            petType: "Lizard";
         };
     };
     responses: never;
@@ -266,7 +281,7 @@ export type operations = Record<string, never>;`,
       },
     ],
     [
-      "oneOf > mapping support > replace discriminator enum",
+      "oneOf > explicit mapping > replace discriminator enum",
       {
         given: {
           openapi: "3.1.0",
@@ -409,7 +424,7 @@ export type operations = Record<string, never>;`,
       },
     ],
     [
-      "oneOf > mapping support > append enum in allOf",
+      "oneOf > explicit mapping > append enum in allOf",
       {
         given: {
           openapi: "3.1.0",
@@ -547,7 +562,7 @@ export interface components {
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
              */
-            type?: "simple";
+            type: "simple";
         };
         complexObject: components["schemas"]["baseObject"] & {
             complex?: boolean;
@@ -556,7 +571,7 @@ export interface components {
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
              */
-            type?: "complex";
+            type: "complex";
         };
         /** @enum {string} */
         type: "simple" | "complex";

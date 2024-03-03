@@ -687,6 +687,7 @@ export interface GlobalContext {
   alphabetize: boolean;
   defaultNonNullable: boolean;
   discriminators: Record<string, DiscriminatorObject>;
+  discriminatorRefsHandled: string[];
   emptyObjectsUnknown: boolean;
   enum: boolean;
   excludeDeprecated: boolean;

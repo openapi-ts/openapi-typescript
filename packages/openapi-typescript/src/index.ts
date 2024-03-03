@@ -67,11 +67,17 @@ export default async function openapiTS(
     silent: options.silent ?? false,
   });
 
+  const { discriminators, discriminatorRefsHandled } = scanDiscriminators(
+    schema,
+    options,
+  );
+
   const ctx: GlobalContext = {
     additionalProperties: options.additionalProperties ?? false,
     alphabetize: options.alphabetize ?? false,
     defaultNonNullable: options.defaultNonNullable ?? true,
-    discriminators: scanDiscriminators(schema, options),
+    discriminators,
+    discriminatorRefsHandled,
     emptyObjectsUnknown: options.emptyObjectsUnknown ?? false,
     enum: options.enum ?? false,
     excludeDeprecated: options.excludeDeprecated ?? false,

@@ -157,16 +157,19 @@ export function transformSchemaObjectWithComposition(
           typeof resolved === "object" &&
           "properties" in resolved
         ) {
-          // don’t try and make keys required if the $ref doesn’t have them
-          const validRequired = (required ?? []).filter(
-            (key) => !!resolved.properties![key],
-          );
-          if (validRequired.length) {
-            itemType = tsWithRequired(
-              itemType,
-              validRequired,
-              options.ctx.injectFooter,
+          // don’t try and make keys required if we have already handled the item (discriminator property was already added as required)
+          // or the $ref doesn’t have them
+          if (!options.ctx.discriminatorRefsHandled.includes(item.$ref)) {
+            const validRequired = (required ?? []).filter(
+              (key) => !!resolved.properties![key],
             );
+            if (validRequired.length) {
+              itemType = tsWithRequired(
+                itemType,
+                validRequired,
+                options.ctx.injectFooter,
+              );
+            }
           }
         }
       }
