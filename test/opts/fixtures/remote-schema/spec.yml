@@ -7,4 +7,4 @@ components:
     Remote1:
       $ref: "./subschema/remote1.yml#components/schemas/Remote1"
     Pet:
-      $ref: "https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml#components/schemas/Pet"
+      $ref: "https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml#components/schemas/Pet"
