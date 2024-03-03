@@ -176,9 +176,9 @@ function createDiscriminatorEnum(value: string): SchemaObject {
 /** Return a key–value map of discriminator objects found in a schema */
 export function scanDiscriminators(schema: OpenAPI3, options: OpenAPITSOptions) {
   const discriminators: Record<string, DiscriminatorObject> = {};
-  const enumAppended: string[] = [];
+  const enumsAppended: string[] = [];
 
-  // perform 2 passes: first, collect all discriminator definitions and their mappings
+  // perform 2 passes: first, collect all discriminator definitions
   walk(schema, (obj, path) => {
     const discriminator = obj?.discriminator as DiscriminatorObject | undefined;
     if (discriminator?.propertyName) {
@@ -186,25 +186,26 @@ export function scanDiscriminators(schema: OpenAPI3, options: OpenAPITSOptions) 
 
       discriminators[ref] = discriminator;
 
+      // if a mapping is available we will help Typescript by adding the discriminator enum with its mapped value to each schema
       if (discriminator.mapping) {
         for (const [mappedValue, mappedRef] of Object.entries(
           discriminator.mapping
         )) {
-          if (enumAppended.includes(mappedRef)) {
+          if (enumsAppended.includes(mappedRef)) {
             continue;
           }
 
           const resolved = resolveRef<SchemaObject>(schema, mappedRef, { silent: options.silent ?? false });
           if (resolved?.allOf) {
             resolved.allOf.push({ type: "object", properties: { [discriminator.propertyName]: createDiscriminatorEnum(mappedValue) } });
-            enumAppended.push(mappedRef);
+            enumsAppended.push(mappedRef);
           } else if (typeof resolved === 'object' && 'type' in resolved && resolved.type === 'object') {
             if (!resolved.properties) {
               resolved.properties = {};
             }
 
             resolved.properties[discriminator.propertyName] = createDiscriminatorEnum(mappedValue);
-            enumAppended.push(mappedRef);
+            enumsAppended.push(mappedRef);
           } else {
             continue;
           }

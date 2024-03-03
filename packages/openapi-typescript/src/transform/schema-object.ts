@@ -458,7 +458,6 @@ function transformSchemaObjectCore(
             continue;
           }
         }
-
         let optional =
           schemaObject.required?.includes(k) ||
           ("default" in v &&
