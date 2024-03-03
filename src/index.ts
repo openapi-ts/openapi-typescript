@@ -41,6 +41,7 @@ async function openapiTS(
     auth: options.auth,
     commentHeader: typeof options.commentHeader === "string" ? options.commentHeader : COMMENT_HEADER,
     defaultNonNullable: options.defaultNonNullable || false,
+    xNullableAsNullable: options.xNullableAsNullable || false,
     formatter: options && typeof options.formatter === "function" ? options.formatter : undefined,
     immutableTypes: options.immutableTypes || false,
     contentNever: options.contentNever || false,

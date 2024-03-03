@@ -12,7 +12,7 @@ import {
   ParsedSimpleValue,
 } from "../utils.js";
 
-interface TransformSchemaObjOptions extends GlobalContext {
+export interface TransformSchemaObjOptions extends GlobalContext {
   required: Set<string>;
 }
 
@@ -32,7 +32,7 @@ export function transformSchemaObjMap(obj: Record<string, any>, options: Transfo
     const v = obj[k];
 
     // 1. Add comment in jsdoc notation
-    const comment = prepareComment(v);
+    const comment = prepareComment(v, options);
     if (comment) output += comment;
 
     // 2. name (with “?” if optional property)
@@ -86,6 +86,10 @@ export function transformOneOf(oneOf: any, options: TransformSchemaObjOptions): 
   return tsUnionOf(oneOf.map((value: any) => transformSchemaObj(value, options)));
 }
 
+export function isNodeNullable(node: any, options: TransformSchemaObjOptions): boolean {
+  return node.nullable || (options.xNullableAsNullable && node["x-nullable"]);
+}
+
 /** Convert schema object to TypeScript */
 export function transformSchemaObj(node: any, options: TransformSchemaObjOptions): string {
   const readonly = tsReadonly(options.immutableTypes);
@@ -96,7 +100,7 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
   const overriddenType = options.formatter && options.formatter(node);
 
   // open nullable
-  if (node.nullable) {
+  if (isNodeNullable(node, options)) {
     output += "(";
   }
 
@@ -117,13 +121,13 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
         break;
       }
       case "const": {
-        output += parseSingleSimpleValue(node.const, node.nullable);
+        output += parseSingleSimpleValue(node.const, isNodeNullable(node, options));
         break;
       }
       case "enum": {
         const items: Array<ParsedSimpleValue> = [];
         (node.enum as unknown[]).forEach((item) => {
-          const value = parseSingleSimpleValue(item, node.nullable);
+          const value = parseSingleSimpleValue(item, isNodeNullable(node, options));
           items.push(value);
         });
         output += tsUnionOf(items);
@@ -221,7 +225,7 @@ export function transformSchemaObj(node: any, options: TransformSchemaObjOptions
   }
 
   // close nullable
-  if (node.nullable) {
+  if (isNodeNullable(node, options)) {
     output += ") | null";
   }
 

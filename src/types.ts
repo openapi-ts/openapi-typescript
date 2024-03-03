@@ -130,6 +130,8 @@ export interface SwaggerToTSOptions {
   contentNever?: boolean;
   /** (optional) Treat schema objects with default values as non-nullable */
   defaultNonNullable?: boolean;
+  /** (optional) Schemas with `x-nullable: true` should generate with `| null`, like `nullable` in OpenAPI 3.0.x */
+  xNullableAsNullable?: boolean;
   /** (optional) Path to Prettier config */
   prettierConfig?: string;
   /** (optional) Parsing input document as raw schema rather than OpenAPI document */
@@ -180,6 +182,7 @@ export interface GlobalContext {
   auth?: string;
   commentHeader: string;
   defaultNonNullable: boolean;
+  xNullableAsNullable: boolean;
   formatter?: SchemaFormatter;
   immutableTypes: boolean;
   contentNever: boolean;
