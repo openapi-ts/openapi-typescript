@@ -10,71 +10,71 @@ export interface components {
     /** @description this is a duplicate of subschema/remote1.yml */
     Circular: string;
     Remote1: external["subschema/remote1.yml"]["components"]["schemas"]["Remote1"];
-    Pet: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"];
+    Pet: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"];
   };
 }
 
 export interface operations {}
 
 export interface external {
-  "https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml": {
+  "https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml": {
     paths: {
       "/pet": {
-        put: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["updatePet"];
-        post: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["addPet"];
+        put: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["updatePet"];
+        post: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["addPet"];
       };
       "/pet/findByStatus": {
         /** Multiple status values can be provided with comma separated strings */
-        get: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["findPetsByStatus"];
+        get: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["findPetsByStatus"];
       };
       "/pet/findByTags": {
         /** Muliple tags can be provided with comma separated strings. Use         tag1, tag2, tag3 for testing. */
-        get: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["findPetsByTags"];
+        get: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["findPetsByTags"];
       };
       "/pet/{petId}": {
         /** Returns a single pet */
-        get: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["getPetById"];
-        post: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["updatePetWithForm"];
-        delete: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["deletePet"];
+        get: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["getPetById"];
+        post: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["updatePetWithForm"];
+        delete: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["deletePet"];
       };
       "/pet/{petId}/uploadImage": {
-        post: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["uploadFile"];
+        post: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["uploadFile"];
       };
       "/store/inventory": {
         /** Returns a map of status codes to quantities */
-        get: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["getInventory"];
+        get: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["getInventory"];
       };
       "/store/order": {
-        post: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["placeOrder"];
+        post: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["placeOrder"];
       };
       "/store/order/{orderId}": {
         /** For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions */
-        get: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["getOrderById"];
+        get: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["getOrderById"];
         /** For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors */
-        delete: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["deleteOrder"];
+        delete: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["deleteOrder"];
       };
       "/user": {
         /** This can only be done by the logged in user. */
-        post: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["createUser"];
+        post: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["createUser"];
       };
       "/user/createWithArray": {
-        post: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["createUsersWithArrayInput"];
+        post: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["createUsersWithArrayInput"];
       };
       "/user/createWithList": {
-        post: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["createUsersWithListInput"];
+        post: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["createUsersWithListInput"];
       };
       "/user/login": {
-        get: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["loginUser"];
+        get: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["loginUser"];
       };
       "/user/logout": {
-        get: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["logoutUser"];
+        get: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["logoutUser"];
       };
       "/user/{username}": {
-        get: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["getUserByName"];
+        get: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["getUserByName"];
         /** This can only be done by the logged in user. */
-        put: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["updateUser"];
+        put: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["updateUser"];
         /** This can only be done by the logged in user. */
-        delete: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["operations"]["deleteUser"];
+        delete: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["operations"]["deleteUser"];
       };
     };
     components: {
@@ -124,11 +124,11 @@ export interface external {
         Pet: {
           /** Format: int64 */
           id?: number;
-          category?: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Category"];
+          category?: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Category"];
           /** @example doggie */
           name: string;
           photoUrls: string[];
-          tags?: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Tag"][];
+          tags?: external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Tag"][];
           /**
            * @description pet status in the store
            * @enum {string}
@@ -156,8 +156,8 @@ export interface external {
         /** Pet object that needs to be added to the store */
         requestBody: {
           content: {
-            "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"];
-            "application/xml": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"];
+            "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"];
+            "application/xml": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"];
           };
         };
       };
@@ -169,8 +169,8 @@ export interface external {
         /** Pet object that needs to be added to the store */
         requestBody: {
           content: {
-            "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"];
-            "application/xml": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"];
+            "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"];
+            "application/xml": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"];
           };
         };
       };
@@ -186,8 +186,8 @@ export interface external {
           /** successful operation */
           200: {
             content: {
-              "application/xml": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"][];
-              "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"][];
+              "application/xml": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"][];
+              "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"][];
             };
           };
           /** Invalid status value */
@@ -206,8 +206,8 @@ export interface external {
           /** successful operation */
           200: {
             content: {
-              "application/xml": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"][];
-              "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"][];
+              "application/xml": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"][];
+              "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"][];
             };
           };
           /** Invalid tag value */
@@ -226,8 +226,8 @@ export interface external {
           /** successful operation */
           200: {
             content: {
-              "application/xml": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"];
-              "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"];
+              "application/xml": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"];
+              "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Pet"];
             };
           };
           /** Invalid ID supplied */
@@ -286,7 +286,7 @@ export interface external {
           /** successful operation */
           200: {
             content: {
-              "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["ApiResponse"];
+              "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["ApiResponse"];
             };
           };
         };
@@ -320,8 +320,8 @@ export interface external {
           /** successful operation */
           200: {
             content: {
-              "application/xml": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Order"];
-              "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Order"];
+              "application/xml": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Order"];
+              "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Order"];
             };
           };
           /** Invalid Order */
@@ -330,7 +330,7 @@ export interface external {
         /** order placed for purchasing the pet */
         requestBody: {
           content: {
-            "*/*": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Order"];
+            "*/*": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Order"];
           };
         };
       };
@@ -346,8 +346,8 @@ export interface external {
           /** successful operation */
           200: {
             content: {
-              "application/xml": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Order"];
-              "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Order"];
+              "application/xml": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Order"];
+              "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["Order"];
             };
           };
           /** Invalid ID supplied */
@@ -380,7 +380,7 @@ export interface external {
         /** Created user object */
         requestBody: {
           content: {
-            "*/*": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["User"];
+            "*/*": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["User"];
           };
         };
       };
@@ -392,7 +392,7 @@ export interface external {
         /** List of user object */
         requestBody: {
           content: {
-            "*/*": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["User"][];
+            "*/*": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["User"][];
           };
         };
       };
@@ -404,7 +404,7 @@ export interface external {
         /** List of user object */
         requestBody: {
           content: {
-            "*/*": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["User"][];
+            "*/*": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["User"][];
           };
         };
       };
@@ -452,8 +452,8 @@ export interface external {
           /** successful operation */
           200: {
             content: {
-              "application/xml": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["User"];
-              "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["User"];
+              "application/xml": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["User"];
+              "application/json": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["User"];
             };
           };
           /** Invalid username supplied */
@@ -479,7 +479,7 @@ export interface external {
         /** Updated user object */
         requestBody: {
           content: {
-            "*/*": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/main/test/v3/specs/petstore.yaml"]["components"]["schemas"]["User"];
+            "*/*": external["https://raw.githubusercontent.com/drwpow/openapi-typescript/5.x/test/v3/specs/petstore.yaml"]["components"]["schemas"]["User"];
           };
         };
       };
