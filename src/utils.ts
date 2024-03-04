@@ -1,4 +1,5 @@
 import type { OpenAPI2, OpenAPI3, ReferenceObject } from "./types.js";
+import { isNodeNullable, type TransformSchemaObjOptions } from "./transform/schema.js";
 
 type CommentObject = {
   const?: boolean; // jsdoc without value
@@ -9,6 +10,7 @@ type CommentObject = {
   example?: string; // jsdoc with value
   format?: string; // not jsdoc
   nullable?: boolean; // Node information
+  "x-nullable"?: boolean; // Node information
   title?: string; // not jsdoc
   type: string; // Type of node
 };
@@ -27,7 +29,7 @@ const FS_RE = /\//g;
  * @see {comment} for output examples
  * @returns void if not comments or jsdoc format comment string
  */
-export function prepareComment(v: CommentObject): string | void {
+export function prepareComment(v: CommentObject, options: TransformSchemaObjOptions): string | void {
   const commentsArray: Array<string> = [];
 
   // * Not JSDOC tags: [title, format]
@@ -58,7 +60,7 @@ export function prepareComment(v: CommentObject): string | void {
 
   // * JSDOC 'Enum' with type
   if (v.enum) {
-    const canBeNull = v.nullable ? `|${null}` : "";
+    const canBeNull = isNodeNullable(v, options) ? `|${null}` : "";
     commentsArray.push(`@enum {${v.type}${canBeNull}}`);
   }
 

@@ -24,6 +24,7 @@ Options
   --content-never              (optional) If supplied, an omitted reponse \`content\` property will be generated as \`never\` instead of \`unknown\`
   --additional-properties, -ap (optional) Allow arbitrary properties for all schema objects without "additionalProperties: false"
   --default-non-nullable       (optional) If a schema object has a default value set, don’t mark it as nullable
+  --x-nullable-as-nullable     (optional) If a schema object has \`x-nullable\` set, treat it as nullable (like \`nullable\` in OpenAPI 3.0.x)
   --prettier-config, -c        (optional) specify path to Prettier config file
   --raw-schema                 (optional) Parse as partial schema (raw components)
   --paths-enum, -pe            (optional) Generate an enum containing all API paths.
@@ -48,6 +49,7 @@ const flags = parser(args, {
   array: ["header"],
   boolean: [
     "defaultNonNullable",
+    "xNullableAsNullable",
     "immutableTypes",
     "contentNever",
     "rawSchema",
@@ -98,6 +100,7 @@ async function generateSchema(pathToSpec) {
     additionalProperties: flags.additionalProperties,
     auth: flags.auth,
     defaultNonNullable: flags.defaultNonNullable,
+    xNullableAsNullable: flags.xNullableAsNullable,
     immutableTypes: flags.immutableTypes,
     prettierConfig: flags.prettierConfig,
     rawSchema: flags.rawSchema,
