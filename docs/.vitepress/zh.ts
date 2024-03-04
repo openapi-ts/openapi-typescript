@@ -31,7 +31,7 @@ export const zh = defineConfig({
           items: [
             { text: "快速上手", link: "/zh/openapi-fetch/" },
             {
-              text: "中间件与认证方式",
+              text: "中间件 & 身份认证",
               link: "/zh/openapi-fetch/middleware-auth",
             },
             { text: "测试", link: "/zh/openapi-fetch/testing" },
