@@ -159,7 +159,7 @@ export function transformSchemaObjectWithComposition(
         ) {
           // don’t try and make keys required if we have already handled the item (discriminator property was already added as required)
           // or the $ref doesn’t have them
-          if (!options.ctx.discriminatorRefsHandled.includes(item.$ref)) {
+          if (!options.ctx.discriminators.refsHandled.includes(item.$ref)) {
             const validRequired = (required ?? []).filter(
               (key) => !!resolved.properties![key],
             );
@@ -185,7 +185,7 @@ export function transformSchemaObjectWithComposition(
         );
       }
       const discriminator =
-        ("$ref" in item && options.ctx.discriminators[item.$ref]) ||
+        ("$ref" in item && options.ctx.discriminators.objects[item.$ref]) ||
         (item as any).discriminator; // eslint-disable-line @typescript-eslint/no-explicit-any
       if (discriminator) {
         output.push(tsOmit(itemType, [discriminator.propertyName]));
@@ -417,7 +417,8 @@ function transformSchemaObjectCore(
     // ctx.discriminators. But stop objects from referencing their own
     // discriminator meant for children (!schemaObject.discriminator)
     const discriminator =
-      !schemaObject.discriminator && options.ctx.discriminators[options.path!];
+      !schemaObject.discriminator &&
+      options.ctx.discriminators.objects[options.path!];
     if (discriminator) {
       coreObjectType.unshift(
         createDiscriminatorProperty(discriminator, {

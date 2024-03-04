@@ -10,8 +10,10 @@ export const DEFAULT_CTX: GlobalContext = {
   alphabetize: false,
   arrayLength: false,
   defaultNonNullable: true,
-  discriminators: {},
-  discriminatorRefsHandled: [],
+  discriminators: {
+    objects: {},
+    refsHandled: [],
+  },
   emptyObjectsUnknown: false,
   enum: false,
   excludeDeprecated: false,

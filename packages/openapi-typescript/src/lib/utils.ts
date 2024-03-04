@@ -184,9 +184,11 @@ export function scanDiscriminators(
   schema: OpenAPI3,
   options: OpenAPITSOptions,
 ) {
-  const discriminators: Record<string, DiscriminatorObject> = {};
-  // discriminator objects which we have successfully handled to infer the discriminator enum value
-  const discriminatorRefsHandled: string[] = [];
+  // all discriminator objects found in the schema
+  const objects: Record<string, DiscriminatorObject> = {};
+
+  // refs of all mapped schema objects we have successfully handled to infer the discriminator enum value
+  const refsHandled: string[] = [];
 
   // perform 2 passes: first, collect all discriminator definitions and handle oneOf and mappings
   walk(schema, (obj, path) => {
@@ -198,7 +200,7 @@ export function scanDiscriminators(
     // add to discriminators object for later usage
     const ref = createRef(path);
 
-    discriminators[ref] = discriminator;
+    objects[ref] = discriminator;
 
     // if a mapping is available we will help Typescript to infer properties by adding the discriminator enum with its single mapped value to each schema
     // we only handle the mapping in advance for discriminator + oneOf compositions right now
@@ -231,7 +233,7 @@ export function scanDiscriminators(
     }
 
     for (const [mappedRef, mappedValue] of Object.entries(mapping)) {
-      if (discriminatorRefsHandled.includes(mappedRef)) {
+      if (refsHandled.includes(mappedRef)) {
         continue;
       }
 
@@ -248,7 +250,7 @@ export function scanDiscriminators(
           },
         });
 
-        discriminatorRefsHandled.push(mappedRef);
+        refsHandled.push(mappedRef);
       } else if (
         typeof resolvedSchema === "object" &&
         "type" in resolvedSchema &&
@@ -270,7 +272,7 @@ export function scanDiscriminators(
         resolvedSchema.properties[discriminator.propertyName] =
           createDiscriminatorEnum(mappedValue);
 
-        discriminatorRefsHandled.push(mappedRef);
+        refsHandled.push(mappedRef);
       } else {
         warn(
           `Discriminator mapping has an invalid schema (neither an object schema nor an allOf array): ${mappedRef} => ${mappedValue} (Discriminator: ${ref})`,
@@ -289,20 +291,20 @@ export function scanDiscriminators(
       if (obj && Array.isArray(obj[key])) {
         for (const item of (obj as any)[key]) {
           if ("$ref" in item) {
-            if (discriminators[item.$ref]) {
-              discriminators[createRef(path)] = {
-                ...discriminators[item.$ref],
+            if (objects[item.$ref]) {
+              objects[createRef(path)] = {
+                ...objects[item.$ref],
               };
             }
           } else if (item.discriminator?.propertyName) {
-            discriminators[createRef(path)] = { ...item.discriminator };
+            objects[createRef(path)] = { ...item.discriminator };
           }
         }
       }
     }
   });
 
-  return { discriminators, discriminatorRefsHandled };
+  return { objects, refsHandled };
 }
 
 /** Walk through any JSON-serializable (i.e. non-circular) object */

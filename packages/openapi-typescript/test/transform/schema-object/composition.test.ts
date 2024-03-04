@@ -219,18 +219,21 @@ describe("composition", () => {
           ctx: {
             ...DEFAULT_OPTIONS.ctx,
             discriminators: {
-              [DEFAULT_OPTIONS.path]: {
-                propertyName: "operation",
-                mapping: {
-                  test: DEFAULT_OPTIONS.path,
+              objects: {
+                [DEFAULT_OPTIONS.path]: {
+                  propertyName: "operation",
+                  mapping: {
+                    test: DEFAULT_OPTIONS.path,
+                  },
+                },
+                "#/components/schemas/parent": {
+                  propertyName: "operation",
+                  mapping: {
+                    test: DEFAULT_OPTIONS.path,
+                  },
                 },
               },
-              "#/components/schemas/parent": {
-                propertyName: "operation",
-                mapping: {
-                  test: DEFAULT_OPTIONS.path,
-                },
-              },
+              refsHandled: [],
             },
             resolve($ref) {
               switch ($ref) {
@@ -274,15 +277,18 @@ describe("composition", () => {
           ctx: {
             ...DEFAULT_OPTIONS.ctx,
             discriminators: {
-              "#/components/schemas/Pet": {
-                propertyName: "petType",
+              objects: {
+                "#/components/schemas/Pet": {
+                  propertyName: "petType",
+                },
+                "#/components/schemas/Cat": {
+                  propertyName: "petType",
+                },
+                "#/components/schemas/Dog": {
+                  propertyName: "petType",
+                },
               },
-              "#/components/schemas/Cat": {
-                propertyName: "petType",
-              },
-              "#/components/schemas/Dog": {
-                propertyName: "petType",
-              },
+              refsHandled: [],
             },
             resolve($ref) {
               switch ($ref) {
@@ -315,12 +321,15 @@ describe("composition", () => {
           ctx: {
             ...DEFAULT_OPTIONS.ctx,
             discriminators: {
-              [DEFAULT_OPTIONS.path]: {
-                propertyName: "operation",
+              objects: {
+                [DEFAULT_OPTIONS.path]: {
+                  propertyName: "operation",
+                },
+                "#/components/schemas/parent": {
+                  propertyName: "operation",
+                },
               },
-              "#/components/schemas/parent": {
-                propertyName: "operation",
-              },
+              refsHandled: [],
             },
             resolve($ref) {
               switch ($ref) {
@@ -356,18 +365,21 @@ describe("composition", () => {
           ctx: {
             ...DEFAULT_OPTIONS.ctx,
             discriminators: {
-              "#/components/schemas/schema-object": {
-                propertyName: "@type",
-                mapping: {
-                  test: DEFAULT_OPTIONS.path,
+              objects: {
+                "#/components/schemas/schema-object": {
+                  propertyName: "@type",
+                  mapping: {
+                    test: DEFAULT_OPTIONS.path,
+                  },
+                },
+                "#/components/schemas/parent": {
+                  propertyName: "@type",
+                  mapping: {
+                    test: DEFAULT_OPTIONS.path,
+                  },
                 },
               },
-              "#/components/schemas/parent": {
-                propertyName: "@type",
-                mapping: {
-                  test: DEFAULT_OPTIONS.path,
-                },
-              },
+              refsHandled: [],
             },
             resolve($ref) {
               switch ($ref) {
@@ -408,12 +420,15 @@ describe("composition", () => {
           ctx: {
             ...DEFAULT_OPTIONS.ctx,
             discriminators: {
-              "#/components/schemas/Pet": {
-                propertyName: "_petType",
+              objects: {
+                "#/components/schemas/Pet": {
+                  propertyName: "_petType",
+                },
+                "#/components/schemas/Dog": {
+                  propertyName: "_petType",
+                },
               },
-              "#/components/schemas/Dog": {
-                propertyName: "_petType",
-              },
+              refsHandled: [],
             },
             resolve($ref) {
               switch ($ref) {
