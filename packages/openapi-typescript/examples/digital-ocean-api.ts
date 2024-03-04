@@ -9565,10 +9565,10 @@ export interface components {
         /** @description Specifies the action that will be taken on the Droplet. */
         droplet_action: {
             /**
-             * @description discriminator enum property added by openapi-typescript
+             * @description The type of action to initiate for the Droplet. (enum property replaced by openapi-typescript)
              * @enum {string}
              */
-            type: "enable_ipv6";
+            type: "enable_backups" | "disable_backups" | "power_cycle" | "shutdown" | "power_off" | "power_on" | "enable_ipv6";
         };
         droplet_action_restore: components["schemas"]["droplet_action"] & {
             /**
