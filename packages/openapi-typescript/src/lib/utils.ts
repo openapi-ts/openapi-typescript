@@ -5,7 +5,13 @@ import {
 import c from "ansi-colors";
 import supportsColor from "supports-color";
 import ts from "typescript";
-import type { DiscriminatorObject, OpenAPI3 } from "../types.js";
+import type {
+  DiscriminatorObject,
+  OpenAPI3,
+  OpenAPITSOptions,
+  ReferenceObject,
+  SchemaObject,
+} from "../types.js";
 import { tsLiteral, tsModifiers, tsPropertyIndex } from "./ts.js";
 
 if (!supportsColor.stdout || supportsColor.stdout.hasBasic === false) {
@@ -165,15 +171,154 @@ export function resolveRef<T>(
   return node;
 }
 
-/** Return a key–value map of discriminator objects found in a schema */
-export function scanDiscriminators(schema: OpenAPI3) {
-  const discriminators: Record<string, DiscriminatorObject> = {};
+function createDiscriminatorEnum(
+  values: string[],
+  prevSchema?: SchemaObject,
+): SchemaObject {
+  return {
+    type: "string",
+    enum: values,
+    description: prevSchema?.description
+      ? `${prevSchema.description} (enum property replaced by openapi-typescript)`
+      : `discriminator enum property added by openapi-typescript`,
+  };
+}
 
-  // perform 2 passes: first, collect all discriminator definitions
+type InternalDiscriminatorMapping = Record<
+  string,
+  { inferred?: string; defined?: string[] }
+>;
+
+/** Return a key–value map of discriminator objects found in a schema */
+export function scanDiscriminators(
+  schema: OpenAPI3,
+  options: OpenAPITSOptions,
+) {
+  // all discriminator objects found in the schema
+  const objects: Record<string, DiscriminatorObject> = {};
+
+  // refs of all mapped schema objects we have successfully handled to infer the discriminator enum value
+  const refsHandled: string[] = [];
+
+  // perform 2 passes: first, collect all discriminator definitions and handle oneOf and mappings
   walk(schema, (obj, path) => {
-    if ((obj?.discriminator as DiscriminatorObject)?.propertyName) {
-      discriminators[createRef(path)] =
-        obj.discriminator as DiscriminatorObject;
+    const discriminator = obj?.discriminator as DiscriminatorObject | undefined;
+    if (!discriminator?.propertyName) {
+      return;
+    }
+
+    // collect discriminator object for later usage
+    const ref = createRef(path);
+
+    objects[ref] = discriminator;
+
+    // if a mapping is available we will help Typescript to infer properties by adding the discriminator enum with its single mapped value to each schema
+    // we only handle the mapping in advance for discriminator + oneOf compositions right now
+    if (!obj?.oneOf || !Array.isArray(obj.oneOf)) {
+      return;
+    }
+
+    const oneOf: (SchemaObject | ReferenceObject)[] = obj.oneOf;
+    const mapping: InternalDiscriminatorMapping = {};
+
+    // the mapping can be inferred from the oneOf refs next to the discriminator object
+    for (const item of oneOf) {
+      if ("$ref" in item) {
+        // the name of the schema is the inferred discriminator enum value
+        const value = item.$ref.split("/").pop();
+
+        if (value) {
+          if (!mapping[item.$ref]) {
+            mapping[item.$ref] = { inferred: value };
+          } else {
+            mapping[item.$ref].inferred = value;
+          }
+        }
+      }
+    }
+
+    // the mapping can be defined in the discriminator object itself
+    if (discriminator.mapping) {
+      for (const mappedValue in discriminator.mapping) {
+        const mappedRef = discriminator.mapping[mappedValue];
+        if (!mappedRef) {
+          continue;
+        }
+
+        if (!mapping[mappedRef]?.defined) {
+          // this overrides inferred values, but we don't need them anymore as soon as we have a defined value
+          mapping[mappedRef] = { defined: [] };
+        }
+
+        mapping[mappedRef].defined?.push(mappedValue);
+      }
+    }
+
+    for (const [mappedRef, { inferred, defined }] of Object.entries(mapping)) {
+      if (refsHandled.includes(mappedRef)) {
+        continue;
+      }
+
+      if (!inferred && !defined) {
+        continue;
+      }
+
+      // prefer defined values over automatically inferred ones
+      // the inferred enum values from the schema might not represent the actual enum values of the discriminator,
+      // so if we have defined values, use them instead
+      const mappedValues = defined ?? [inferred!];
+      const resolvedSchema = resolveRef<SchemaObject>(schema, mappedRef, {
+        silent: options.silent ?? false,
+      });
+
+      if (resolvedSchema?.allOf) {
+        // if the schema is an allOf, we can append a new schema object to the allOf array
+        resolvedSchema.allOf.push({
+          type: "object",
+          // discriminator enum properties always need to be required
+          required: [discriminator.propertyName],
+          properties: {
+            [discriminator.propertyName]: createDiscriminatorEnum(mappedValues),
+          },
+        });
+
+        refsHandled.push(mappedRef);
+      } else if (
+        typeof resolvedSchema === "object" &&
+        "type" in resolvedSchema &&
+        resolvedSchema.type === "object"
+      ) {
+        // if the schema is an object, we can apply the discriminator enums to its properties
+        if (!resolvedSchema.properties) {
+          resolvedSchema.properties = {};
+        }
+
+        // discriminator enum properties always need to be required
+        if (!resolvedSchema.required) {
+          resolvedSchema.required = [discriminator.propertyName];
+        } else if (
+          !resolvedSchema.required.includes(discriminator.propertyName)
+        ) {
+          resolvedSchema.required.push(discriminator.propertyName);
+        }
+
+        // add/replace the discriminator enum property
+        resolvedSchema.properties[discriminator.propertyName] =
+          createDiscriminatorEnum(
+            mappedValues,
+            resolvedSchema.properties[discriminator.propertyName],
+          );
+
+        refsHandled.push(mappedRef);
+      } else {
+        warn(
+          `Discriminator mapping has an invalid schema (neither an object schema nor an allOf array): ${mappedRef} => ${mappedValues.join(
+            ", ",
+          )} (Discriminator: ${ref})`,
+          options.silent,
+        );
+        continue;
+      }
     }
   });
 
@@ -185,19 +330,20 @@ export function scanDiscriminators(schema: OpenAPI3) {
       if (obj && Array.isArray(obj[key])) {
         for (const item of (obj as any)[key]) {
           if ("$ref" in item) {
-            if (discriminators[item.$ref]) {
-              discriminators[createRef(path)] = {
-                ...discriminators[item.$ref],
+            if (objects[item.$ref]) {
+              objects[createRef(path)] = {
+                ...objects[item.$ref],
               };
             }
           } else if (item.discriminator?.propertyName) {
-            discriminators[createRef(path)] = { ...item.discriminator };
+            objects[createRef(path)] = { ...item.discriminator };
           }
         }
       }
     }
   });
-  return discriminators;
+
+  return { objects, refsHandled };
 }
 
 /** Walk through any JSON-serializable (i.e. non-circular) object */
