@@ -454,6 +454,8 @@ export type operations = Record<string, never>;`,
                             mapping: {
                               simple: "#/components/schemas/simpleObject",
                               complex: "#/components/schemas/complexObject",
+                              // special case for different enum value but using the same schema as 'complex'
+                              tooComplex: "#/components/schemas/complexObject",
                             },
                           },
                         },
@@ -507,7 +509,7 @@ export type operations = Record<string, never>;`,
               },
               type: {
                 type: "string",
-                enum: ["simple", "complex"],
+                enum: ["simple", "complex", "tooComplex"],
               },
             },
           },
@@ -571,10 +573,10 @@ export interface components {
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
              */
-            type: "complex";
+            type: "complex" | "tooComplex";
         };
         /** @enum {string} */
-        type: "simple" | "complex";
+        type: "simple" | "complex" | "tooComplex";
     };
     responses: never;
     parameters: never;

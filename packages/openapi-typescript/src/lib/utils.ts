@@ -171,13 +171,23 @@ export function resolveRef<T>(
   return node;
 }
 
-function createDiscriminatorEnum(value: string): SchemaObject {
+function createDiscriminatorEnum(
+  values: string[],
+  prevSchema?: SchemaObject,
+): SchemaObject {
   return {
     type: "string",
-    enum: [value],
-    description: `discriminator enum property added by openapi-typescript`,
+    enum: values,
+    description: prevSchema?.description
+      ? `${prevSchema.description} (enum property replaced by openapi-typescript)`
+      : `discriminator enum property added by openapi-typescript`,
   };
 }
+
+type InternalDiscriminatorMapping = Record<
+  string,
+  { inferred?: string; defined?: string[] }
+>;
 
 /** Return a key–value map of discriminator objects found in a schema */
 export function scanDiscriminators(
@@ -197,7 +207,7 @@ export function scanDiscriminators(
       return;
     }
 
-    // add to discriminators object for later usage
+    // collect discriminator object for later usage
     const ref = createRef(path);
 
     objects[ref] = discriminator;
@@ -209,16 +219,20 @@ export function scanDiscriminators(
     }
 
     const oneOf: (SchemaObject | ReferenceObject)[] = obj.oneOf;
-    const mapping: Record<string, string> = {};
+    const mapping: InternalDiscriminatorMapping = {};
 
     // the mapping can be inferred from the oneOf refs next to the discriminator object
     for (const item of oneOf) {
       if ("$ref" in item) {
-        // the name of the schema is the infered discriminator enum value
+        // the name of the schema is the inferred discriminator enum value
         const value = item.$ref.split("/").pop();
 
         if (value) {
-          mapping[item.$ref] = value;
+          if (!mapping[item.$ref]) {
+            mapping[item.$ref] = { inferred: value };
+          } else {
+            mapping[item.$ref].inferred = value;
+          }
         }
       }
     }
@@ -227,26 +241,44 @@ export function scanDiscriminators(
     if (discriminator.mapping) {
       for (const mappedValue in discriminator.mapping) {
         const mappedRef = discriminator.mapping[mappedValue];
+        if (!mappedRef) {
+          continue;
+        }
 
-        mapping[mappedRef] = mappedValue;
+        if (!mapping[mappedRef]?.defined) {
+          // this overrides inferred values, but we don't need them anymore as soon as we have a defined value
+          mapping[mappedRef] = { defined: [] };
+        }
+
+        mapping[mappedRef].defined?.push(mappedValue);
       }
     }
 
-    for (const [mappedRef, mappedValue] of Object.entries(mapping)) {
+    for (const [mappedRef, { inferred, defined }] of Object.entries(mapping)) {
       if (refsHandled.includes(mappedRef)) {
         continue;
       }
 
+      if (!inferred && !defined) {
+        continue;
+      }
+
+      // prefer defined values over automatically inferred ones
+      // the inferred enum values from the schema might not represent the actual enum values of the discriminator,
+      // so if we have defined values, use them instead
+      const mappedValues = defined ?? [inferred!];
       const resolvedSchema = resolveRef<SchemaObject>(schema, mappedRef, {
         silent: options.silent ?? false,
       });
+
       if (resolvedSchema?.allOf) {
         // if the schema is an allOf, we can append a new schema object to the allOf array
         resolvedSchema.allOf.push({
           type: "object",
+          // discriminator enum properties always need to be required
           required: [discriminator.propertyName],
           properties: {
-            [discriminator.propertyName]: createDiscriminatorEnum(mappedValue),
+            [discriminator.propertyName]: createDiscriminatorEnum(mappedValues),
           },
         });
 
@@ -256,11 +288,12 @@ export function scanDiscriminators(
         "type" in resolvedSchema &&
         resolvedSchema.type === "object"
       ) {
-        // if the schema is an object, we can add/replace the discriminator enum to it
+        // if the schema is an object, we can apply the discriminator enums to its properties
         if (!resolvedSchema.properties) {
           resolvedSchema.properties = {};
         }
 
+        // discriminator enum properties always need to be required
         if (!resolvedSchema.required) {
           resolvedSchema.required = [discriminator.propertyName];
         } else if (
@@ -269,13 +302,19 @@ export function scanDiscriminators(
           resolvedSchema.required.push(discriminator.propertyName);
         }
 
+        // add/replace the discriminator enum property
         resolvedSchema.properties[discriminator.propertyName] =
-          createDiscriminatorEnum(mappedValue);
+          createDiscriminatorEnum(
+            mappedValues,
+            resolvedSchema.properties[discriminator.propertyName],
+          );
 
         refsHandled.push(mappedRef);
       } else {
         warn(
-          `Discriminator mapping has an invalid schema (neither an object schema nor an allOf array): ${mappedRef} => ${mappedValue} (Discriminator: ${ref})`,
+          `Discriminator mapping has an invalid schema (neither an object schema nor an allOf array): ${mappedRef} => ${mappedValues.join(
+            ", ",
+          )} (Discriminator: ${ref})`,
           options.silent,
         );
         continue;
