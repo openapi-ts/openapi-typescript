@@ -9881,18 +9881,26 @@ export interface components {
              */
             type: "assign" | "unassign";
         };
-        floating_ip_action_assign: {
-            type: "assign";
-        } & (Omit<components["schemas"]["floatingIPsAction"], "type"> & {
+        floating_ip_action_assign: Omit<components["schemas"]["floatingIPsAction"], "type"> & {
             /**
              * @description The ID of the Droplet that the floating IP will be assigned to.
              * @example 758604968
              */
             droplet_id: number;
-        });
-        floating_ip_action_unassign: {
+        } & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "assign";
+        };
+        floating_ip_action_unassign: Omit<components["schemas"]["floatingIPsAction"], "type"> & Record<string, never> & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
             type: "unassign";
-        } & (Omit<components["schemas"]["floatingIPsAction"], "type"> & Record<string, never>);
+        };
         namespace_info: {
             /**
              * @description The namespace's API hostname. Each function in a namespace is provided an endpoint at the namespace's hostname.
@@ -11555,18 +11563,26 @@ export interface components {
              */
             type: "assign" | "unassign";
         };
-        reserved_ip_action_assign: {
-            type: "assign";
-        } & (Omit<components["schemas"]["reserved_ip_action_type"], "type"> & {
+        reserved_ip_action_assign: Omit<components["schemas"]["reserved_ip_action_type"], "type"> & {
             /**
              * @description The ID of the Droplet that the reserved IP will be assigned to.
              * @example 758604968
              */
             droplet_id: number;
-        });
-        reserved_ip_action_unassign: {
+        } & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "assign";
+        };
+        reserved_ip_action_unassign: Omit<components["schemas"]["reserved_ip_action_type"], "type"> & Record<string, never> & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
             type: "unassign";
-        } & (Omit<components["schemas"]["reserved_ip_action_type"], "type"> & Record<string, never>);
+        };
         snapshots: {
             /**
              * @description The unique identifier for the snapshot.
