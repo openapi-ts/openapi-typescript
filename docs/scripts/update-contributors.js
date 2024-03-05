@@ -132,6 +132,7 @@ const OPENAPI_TS_CONTRIBUTORS = [
     "WickyNilliams",
     "hrsh7th",
     "davidleger95",
+    "phk422",
   ]),
 ];
 
@@ -155,6 +156,7 @@ export const OPENAPI_FETCH_CONTRIBUTORS = [
     "Fumaz",
     "darwish",
     "kaechele",
+    "phk422",
   ]),
 ];
 
