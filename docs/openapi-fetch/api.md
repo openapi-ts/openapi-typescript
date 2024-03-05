@@ -88,7 +88,7 @@ const client = createClient({
 | form (exploded)          | `/users?role=admin&firstName=Alex`                   |
 | **deepObject (default)** | `/users?id[role]=admin&id[firstName]=Alex`           |
 
-::: note
+::: tip
 
 **deepObject** is always exploded, so it doesn’t matter if you set `explode: true` or `explode: false`—it’ll generate the same output.
 
