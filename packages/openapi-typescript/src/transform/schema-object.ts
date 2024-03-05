@@ -162,24 +162,25 @@ export function transformSchemaObjectWithComposition(
         itemType = transformSchemaObject(item, options);
 
         const resolved = options.ctx.resolve<SchemaObject>(item.$ref);
+
+        // make keys required, if necessary
         if (
           resolved &&
           typeof resolved === "object" &&
-          "properties" in resolved
+          "properties" in resolved &&
+          // we have already handled this item (discriminator property was already added as required)
+          !options.ctx.discriminators.refsHandled.includes(item.$ref)
         ) {
-          // don’t try and make keys required if we have already handled the item (discriminator property was already added as required)
-          // or the $ref doesn’t have them
-          if (!options.ctx.discriminators.refsHandled.includes(item.$ref)) {
-            const validRequired = (required ?? []).filter(
-              (key) => !!resolved.properties![key],
+          // add WithRequired<X, Y> if necessary
+          const validRequired = (required ?? []).filter(
+            (key) => !!resolved.properties![key],
+          );
+          if (validRequired.length) {
+            itemType = tsWithRequired(
+              itemType,
+              validRequired,
+              options.ctx.injectFooter,
             );
-            if (validRequired.length) {
-              itemType = tsWithRequired(
-                itemType,
-                validRequired,
-                options.ctx.injectFooter,
-              );
-            }
           }
         }
       }
@@ -423,8 +424,11 @@ function transformSchemaObjectCore(
     // for all magic inheritance, we will have already gathered it into
     // ctx.discriminators. But stop objects from referencing their own
     // discriminator meant for children (!schemaObject.discriminator)
+    // and don't add discriminator properties if we already added/patched
+    // them (options.ctx.discriminators.refsHandled.includes(options.path!).
     const discriminator =
       !schemaObject.discriminator &&
+      !options.ctx.discriminators.refsHandled.includes(options.path!) &&
       options.ctx.discriminators.objects[options.path!];
     if (discriminator) {
       coreObjectType.unshift(

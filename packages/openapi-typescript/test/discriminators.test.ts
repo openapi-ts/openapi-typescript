@@ -20,6 +20,7 @@ describe("3.1 discriminators", () => {
                   propertyName: "petType",
                   mapping: {
                     dog: "#/components/schemas/Dog",
+                    poodle: "#/components/schemas/Dog",
                   },
                 },
               },
@@ -88,11 +89,15 @@ export interface components {
         Cat: {
             petType: "Cat";
         } & Omit<components["schemas"]["Pet"], "petType">;
-        Dog: {
-            petType: "dog";
-        } & (Omit<components["schemas"]["Pet"], "petType"> & {
+        Dog: Omit<components["schemas"]["Pet"], "petType"> & {
             bark?: string;
-        });
+        } & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            petType: "dog" | "poodle";
+        };
         Lizard: {
             petType: "Lizard";
             lovesRocks?: boolean;

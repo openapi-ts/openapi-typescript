@@ -184,6 +184,67 @@ function createDiscriminatorEnum(
   };
 }
 
+function patchDiscriminatorEnum(
+  schema: SchemaObject,
+  ref: string,
+  values: string[],
+  discriminator: DiscriminatorObject,
+  discriminatorRef: string,
+  options: OpenAPITSOptions,
+): boolean {
+  const resolvedSchema = resolveRef<SchemaObject>(schema, ref, {
+    silent: options.silent ?? false,
+  });
+
+  if (resolvedSchema?.allOf) {
+    // if the schema is an allOf, we can append a new schema object to the allOf array
+    resolvedSchema.allOf.push({
+      type: "object",
+      // discriminator enum properties always need to be required
+      required: [discriminator.propertyName],
+      properties: {
+        [discriminator.propertyName]: createDiscriminatorEnum(values),
+      },
+    });
+
+    return true;
+  } else if (
+    typeof resolvedSchema === "object" &&
+    "type" in resolvedSchema &&
+    resolvedSchema.type === "object"
+  ) {
+    // if the schema is an object, we can apply the discriminator enums to its properties
+    if (!resolvedSchema.properties) {
+      resolvedSchema.properties = {};
+    }
+
+    // discriminator enum properties always need to be required
+    if (!resolvedSchema.required) {
+      resolvedSchema.required = [discriminator.propertyName];
+    } else if (!resolvedSchema.required.includes(discriminator.propertyName)) {
+      resolvedSchema.required.push(discriminator.propertyName);
+    }
+
+    // add/replace the discriminator enum property
+    resolvedSchema.properties[discriminator.propertyName] =
+      createDiscriminatorEnum(
+        values,
+        resolvedSchema.properties[discriminator.propertyName],
+      );
+
+    return true;
+  }
+
+  warn(
+    `Discriminator mapping has an invalid schema (neither an object schema nor an allOf array): ${ref} => ${values.join(
+      ", ",
+    )} (Discriminator: ${discriminatorRef})`,
+    options.silent,
+  );
+
+  return false;
+}
+
 type InternalDiscriminatorMapping = Record<
   string,
   { inferred?: string; defined?: string[] }
@@ -267,57 +328,18 @@ export function scanDiscriminators(
       // the inferred enum values from the schema might not represent the actual enum values of the discriminator,
       // so if we have defined values, use them instead
       const mappedValues = defined ?? [inferred!];
-      const resolvedSchema = resolveRef<SchemaObject>(schema, mappedRef, {
-        silent: options.silent ?? false,
-      });
 
-      if (resolvedSchema?.allOf) {
-        // if the schema is an allOf, we can append a new schema object to the allOf array
-        resolvedSchema.allOf.push({
-          type: "object",
-          // discriminator enum properties always need to be required
-          required: [discriminator.propertyName],
-          properties: {
-            [discriminator.propertyName]: createDiscriminatorEnum(mappedValues),
-          },
-        });
-
-        refsHandled.push(mappedRef);
-      } else if (
-        typeof resolvedSchema === "object" &&
-        "type" in resolvedSchema &&
-        resolvedSchema.type === "object"
+      if (
+        patchDiscriminatorEnum(
+          schema,
+          mappedRef,
+          mappedValues,
+          discriminator,
+          ref,
+          options,
+        )
       ) {
-        // if the schema is an object, we can apply the discriminator enums to its properties
-        if (!resolvedSchema.properties) {
-          resolvedSchema.properties = {};
-        }
-
-        // discriminator enum properties always need to be required
-        if (!resolvedSchema.required) {
-          resolvedSchema.required = [discriminator.propertyName];
-        } else if (
-          !resolvedSchema.required.includes(discriminator.propertyName)
-        ) {
-          resolvedSchema.required.push(discriminator.propertyName);
-        }
-
-        // add/replace the discriminator enum property
-        resolvedSchema.properties[discriminator.propertyName] =
-          createDiscriminatorEnum(
-            mappedValues,
-            resolvedSchema.properties[discriminator.propertyName],
-          );
-
         refsHandled.push(mappedRef);
-      } else {
-        warn(
-          `Discriminator mapping has an invalid schema (neither an object schema nor an allOf array): ${mappedRef} => ${mappedValues.join(
-            ", ",
-          )} (Discriminator: ${ref})`,
-          options.silent,
-        );
-        continue;
       }
     }
   });
@@ -326,19 +348,48 @@ export function scanDiscriminators(
   // (sometimes this mapping is implicit, so it can’t be done until we know
   // about every discriminator in the document)
   walk(schema, (obj, path) => {
-    for (const key of ["allOf"] as const) {
-      if (obj && Array.isArray(obj[key])) {
-        for (const item of (obj as any)[key]) {
-          if ("$ref" in item) {
-            if (objects[item.$ref]) {
-              objects[createRef(path)] = {
-                ...objects[item.$ref],
-              };
+    if (!obj || !Array.isArray(obj.allOf)) {
+      return;
+    }
+
+    for (const item of (obj as any).allOf) {
+      if ("$ref" in item) {
+        if (!objects[item.$ref]) {
+          return;
+        }
+
+        const ref = createRef(path);
+        const discriminator = objects[item.$ref];
+        const mappedValues: string[] = [];
+
+        if (discriminator.mapping) {
+          for (const mappedValue in discriminator.mapping) {
+            if (discriminator.mapping[mappedValue] === ref) {
+              mappedValues.push(mappedValue);
             }
-          } else if (item.discriminator?.propertyName) {
-            objects[createRef(path)] = { ...item.discriminator };
+          }
+
+          if (mappedValues.length > 0) {
+            if (
+              patchDiscriminatorEnum(
+                schema,
+                ref,
+                mappedValues,
+                discriminator,
+                item.$ref,
+                options,
+              )
+            ) {
+              refsHandled.push(ref);
+            }
           }
         }
+
+        objects[ref] = {
+          ...objects[item.$ref],
+        };
+      } else if (item.discriminator?.propertyName) {
+        objects[createRef(path)] = { ...item.discriminator };
       }
     }
   });
