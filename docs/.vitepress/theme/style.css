@@ -208,7 +208,13 @@ code {
   display: flex;
   flex-wrap: wrap;
   gap: 2.5rem;
+  list-style: none;
   justify-content: center;
+}
+
+.logo-salad-list li {
+  display: flex;
+  list-style: none;
 }
 
 .logo-salad-list svg {

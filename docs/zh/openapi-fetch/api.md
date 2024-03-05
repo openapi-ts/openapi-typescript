@@ -13,12 +13,12 @@ description: openapi-fetch API
 createClient<paths>(options);
 ```
 
-| 名称              | 类型             | 描述                                                                                                                                        |
-| :---------------- | :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
-| `baseUrl`         | `string`        | 使用此选项为所有 fetch URL 添加前缀（例如 `"https://myapi.dev/v1/"`）                                                                        |
-| `fetch`           | `fetch`         | 用于请求的 Fetch 实例（默认值：`globalThis.fetch`）                                                                                         |
-| `querySerializer` | QuerySerializer | (可选) 提供一个 [querySerializer](#queryserializer)                                                                                         |
-| `bodySerializer`  | BodySerializer  | (可选) 提供一个 [bodySerializer](#bodyserializer)                                                                                           |
+| 名称              | 类型            | 描述                                                                                                                                       |
+| :---------------- | :-------------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
+| `baseUrl`         | `string`        | 使用此选项为所有 fetch URL 添加前缀（例如 `"https://myapi.dev/v1/"`）                                                                      |
+| `fetch`           | `fetch`         | 用于请求的 Fetch 实例（默认值：`globalThis.fetch`）                                                                                        |
+| `querySerializer` | QuerySerializer | (可选) 提供一个 [querySerializer](#queryserializer)                                                                                        |
+| `bodySerializer`  | BodySerializer  | (可选) 提供一个 [bodySerializer](#bodyserializer)                                                                                          |
 | (Fetch 选项)      |                 | 任何有效的 fetch 选项（`headers`、`mode`、`cache`、`signal` 等）（[文档](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options)） |
 
 ## Fetch 选项
@@ -29,16 +29,16 @@ createClient<paths>(options);
 client.GET("/my-url", options);
 ```
 
-| 名称              | 类型                                                              | 描述                                                                                                                                                                                                          |
-| :---------------- | :---------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `params`          | ParamsObject                                                      | [path](https://swagger.io/specification/#parameter-locations) 和 [query](https://swagger.io/specification/#parameter-locations) 参数。                                                                              |
-| `body`            | `{ [name]:value }`                                                | [requestBody](https://spec.openapis.org/oas/latest.html#request-body-object) 数据。                                                                                                                           |
-| `querySerializer` | QuerySerializer                                                   | (可选) 提供一个 [querySerializer](#queryserializer)                                                                                                                                                           |
-| `bodySerializer`  | BodySerializer                                                    | (可选) 提供一个 [bodySerializer](#bodyserializer)                                                                                                                                                             |
-| `parseAs`         | `"json"` \| `"text"` \| `"arrayBuffer"` \| `"blob"` \| `"stream"` | (可选) 使用 [内置实例方法](https://developer.mozilla.org/en-US/docs/Web/API/Response#instance_methods) 解析响应（默认值: `"json"`）。`"stream"` 跳过解析，直接返回原始流。                                     |
-| `fetch`           | `fetch`                                                           | 用于请求的 Fetch 实例（默认：`createClient` 的 fetch）                                                                                                                                                        |
-| `middleware`      | `Middleware[]`                                                    | [查看文档](/openapi-fetch/middleware-auth)                                                                                                                                                                   |
-| (Fetch 选项)      |                                                                   | 任何有效的 fetch 选项（`headers`、`mode`、`cache`、`signal` 等）（[文档](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options)）                                                                         |
+| 名称              | 类型                                                              | 描述                                                                                                                                                                       |
+| :---------------- | :---------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `params`          | ParamsObject                                                      | [path](https://swagger.io/specification/#parameter-locations) 和 [query](https://swagger.io/specification/#parameter-locations) 参数。                                     |
+| `body`            | `{ [name]:value }`                                                | [requestBody](https://spec.openapis.org/oas/latest.html#request-body-object) 数据。                                                                                        |
+| `querySerializer` | QuerySerializer                                                   | (可选) 提供一个 [querySerializer](#queryserializer)                                                                                                                        |
+| `bodySerializer`  | BodySerializer                                                    | (可选) 提供一个 [bodySerializer](#bodyserializer)                                                                                                                          |
+| `parseAs`         | `"json"` \| `"text"` \| `"arrayBuffer"` \| `"blob"` \| `"stream"` | (可选) 使用 [内置实例方法](https://developer.mozilla.org/en-US/docs/Web/API/Response#instance_methods) 解析响应（默认值: `"json"`）。`"stream"` 跳过解析，直接返回原始流。 |
+| `fetch`           | `fetch`                                                           | 用于请求的 Fetch 实例（默认：`createClient` 的 fetch）                                                                                                                     |
+| `middleware`      | `Middleware[]`                                                    | [查看文档](/zh/openapi-fetch/middleware-auth)                                                                                                                              |
+| (Fetch 选项)      |                                                                   | 任何有效的 fetch 选项（`headers`、`mode`、`cache`、`signal` 等）（[文档](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options)）                                 |
 
 ## querySerializer
 
@@ -48,10 +48,10 @@ OpenAPI 支持[不同的对象和数组序列化方式](https://swagger.io/docs/
 
 openapi-fetch 提供了常见的序列化方法：
 
-| 选项          |       类型        | 描述                                                                                                                                                    |
-| :------------ | :---------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `array`       | SerializerOptions | 设置数组的 `style` 和 `explode`（[文档](https://swagger.io/docs/specification/serialization/#query)）。默认值：`{ style: "form", explode: true }`。        |
-| `object`      | SerializerOptions | 设置对象的 `style` 和 `explode`（[文档](https://swagger.io/docs/specification/serialization/#query)）。默认值：`{ style: "deepObject", explode: true }`。 |
+| 选项            |       类型        | 描述                                                                                                                                                      |
+| :-------------- | :---------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `array`         | SerializerOptions | 设置数组的 `style` 和 `explode`（[文档](https://swagger.io/docs/specification/serialization/#query)）。默认值：`{ style: "form", explode: true }`。       |
+| `object`        | SerializerOptions | 设置对象的 `style` 和 `explode`（[文档](https://swagger.io/docs/specification/serialization/#query)）。默认值：`{ style: "deepObject", explode: true }`。 |
 | `allowReserved` |     `boolean`     | 设置为 `true` 以跳过 URL 编码（⚠️ 可能会破坏请求）（[文档](https://swagger.io/docs/specification/serialization/#query)）。默认值：`false`。               |
 
 ```ts
@@ -71,22 +71,22 @@ const client = createClient({
 
 #### 数组样式
 
-| 样式                          | 数组 `id = [3, 4, 5]`  |
-| :--------------------------- | :---------------------- |
-| form                         | `/users?id=3,4,5`       |
-| **form (exploded, 默认)**      | `/users?id=3&id=4&id=5` |
-| spaceDelimited               | `/users?id=3%204%205`   |
-| spaceDelimited (exploded)    | `/users?id=3&id=4&id=5` |
-| pipeDelimited                | `/users?id=3\|4\|5`     |
-| pipeDelimited (exploded)     | `/users?id=3&id=4&id=5` |
+| 样式                      | 数组 `id = [3, 4, 5]`   |
+| :------------------------ | :---------------------- |
+| form                      | `/users?id=3,4,5`       |
+| **form (exploded, 默认)** | `/users?id=3&id=4&id=5` |
+| spaceDelimited            | `/users?id=3%204%205`   |
+| spaceDelimited (exploded) | `/users?id=3&id=4&id=5` |
+| pipeDelimited             | `/users?id=3\|4\|5`     |
+| pipeDelimited (exploded)  | `/users?id=3&id=4&id=5` |
 
 #### 对象样式
 
-| 样式                    | 对象 `id = {"role": "admin", "firstName": "Alex"}` |
-| :----------------------- | :--------------------------------------------------- |
-| form                     | `/users?id=role,admin,firstName,Alex`                |
-| form (exploded)          | `/users?role=admin&firstName=Alex`                   |
-| **deepObject (默认)**      | `/users?id[role]=admin&id[firstName]=Alex`           |
+| 样式                  | 对象 `id = {"role": "admin", "firstName": "Alex"}` |
+| :-------------------- | :------------------------------------------------- |
+| form                  | `/users?id=role,admin,firstName,Alex`              |
+| form (exploded)       | `/users?role=admin&firstName=Alex`                 |
+| **deepObject (默认)** | `/users?id[role]=admin&id[firstName]=Alex`         |
 
 ::: tip
 
@@ -100,9 +100,7 @@ const client = createClient({
 
 ```ts
 const client = createClient({
-  querySerializer(queryParams
-
-) {
+  querySerializer(queryParams) {
     const search = [];
     for (const name in queryParams) {
       const value = queryParams[name];
@@ -149,14 +147,14 @@ const { data, error } = await client.PUT("/submit", {
 
 openapi-fetch 支持根据你的 OpenAPI 架构中的具体格式自动进行[路径序列化](https://swagger.io/docs/specification/serialization/#path)：
 
-| 模板              | 样式                | 基础类型 `id = 5` | 数组 `id = [3, 4, 5]`   | 对象 `id = {"role": "admin", "firstName": "Alex"}` |
-| :---------------- | :------------------- | :--------------- | :----------------------- | :--------------------------------------------------- |
-| **`/users/{id}`** | **simple (默认)**    | **`/users/5`**   | **`/users/3,4,5`**       | **`/users/role,admin,firstName,Alex`**               |
-| `/users/{id*}`    | simple (爆炸)        | `/users/5`       | `/users/3,4,5`           | `/users/role=admin,firstName=Alex`                   |
-| `/users/{.id}`    | label                | `/users/.5`      | `/users/.3,4,5`          | `/users/.role,admin,firstName,Alex`                  |
-| `/users/{.id*}`   | label (爆炸)         | `/users/.5`      | `/users/.3.4.5`          | `/users/.role=admin.firstName=Alex`                  |
-| `/users/{;id}`    | matrix               | `/users/;id=5`   | `/users/;id=3,4,5`       | `/users/;id=role,admin,firstName,Alex`               |
-| `/users/{;id*}`   | matrix (爆炸)        | `/users/;id=5`   | `/users/;id=3;id=4;id=5` | `/users/;role=admin;firstName=Alex`                  |
+| 模板              | 样式              | 基础类型 `id = 5` | 数组 `id = [3, 4, 5]`    | 对象 `id = {"role": "admin", "firstName": "Alex"}` |
+| :---------------- | :---------------- | :---------------- | :----------------------- | :------------------------------------------------- |
+| **`/users/{id}`** | **simple (默认)** | **`/users/5`**    | **`/users/3,4,5`**       | **`/users/role,admin,firstName,Alex`**             |
+| `/users/{id*}`    | simple (爆炸)     | `/users/5`        | `/users/3,4,5`           | `/users/role=admin,firstName=Alex`                 |
+| `/users/{.id}`    | label             | `/users/.5`       | `/users/.3,4,5`          | `/users/.role,admin,firstName,Alex`                |
+| `/users/{.id*}`   | label (爆炸)      | `/users/.5`       | `/users/.3.4.5`          | `/users/.role=admin.firstName=Alex`                |
+| `/users/{;id}`    | matrix            | `/users/;id=5`    | `/users/;id=3,4,5`       | `/users/;id=role,admin,firstName,Alex`             |
+| `/users/{;id*}`   | matrix (爆炸)     | `/users/;id=5`    | `/users/;id=3;id=4;id=5` | `/users/;role=admin;firstName=Alex`                |
 
 ## 中间件
 
@@ -195,10 +193,10 @@ onRequest(req, options) {
 
 `onRequest()` 接受 2 个参数：
 
-| 名称      |        类型        | 描述                                                                                                                                                                          |
-| :-------- | :-----------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 名称      |        类型         | 描述                                                                                                                                                                        |
+| :-------- | :-----------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `req`     | `MiddlewareRequest` | 带有 `schemaPath`（OpenAPI 路径名）和 `params`（[params](/openapi-fetch/api#fetch-options) 对象）的标准 [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) |
-| `options` |   `MergedOptions`   | [createClient](/openapi-fetch/api#create-client) 选项 + [fetch 覆盖](/openapi-fetch/api#fetch-options) 的组合                                                                                                                        |
+| `options` |   `MergedOptions`   | [createClient](/openapi-fetch/api#create-client) 选项 + [fetch 覆盖](/openapi-fetch/api#fetch-options) 的组合                                                               |
 
 它期望的结果要么是：
 
@@ -215,10 +213,10 @@ onResponse(res, options) {
 
 `onResponse()` 也接受 2 个参数：
 
-| 名称      | 类型              | 描述                                              |
-| :-------- | :----------------: | :------------------------------------------------- |
-| `req`     | `MiddlewareRequest` | 一个标准的 [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response)。 |
-| `options` | `MergedOptions`   | [createClient](/openapi-fetch/api#create-client) 选项 + [fetch 覆盖](/openapi-fetch/api#fetch-options) 的组合 |
+| 名称      |        类型         | 描述                                                                                                          |
+| :-------- | :-----------------: | :------------------------------------------------------------------------------------------------------------ |
+| `req`     | `MiddlewareRequest` | 一个标准的 [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response)。                            |
+| `options` |   `MergedOptions`   | [createClient](/openapi-fetch/api#create-client) 选项 + [fetch 覆盖](/openapi-fetch/api#fetch-options) 的组合 |
 
 它期望的结果要么是：
 

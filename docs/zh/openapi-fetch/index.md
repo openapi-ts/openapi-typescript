@@ -40,7 +40,7 @@ await client.PUT("/blogposts", {
 
 `data`和`error`经过类型检查，并将其类型暴露给VS Code（以及任何其他支持TypeScript的IDE）的智能感知。同样，请求`body`也将检查其字段，如果缺少任何必需的参数或存在类型不匹配，则会出错。
 
-`GET()`、`PUT()`、`POST()`等是对原生 [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) 的轻量包装（您可以 [替换为任何调用](/openapi-fetch/zh/api#create-client)）。
+`GET()`、`PUT()`、`POST()`等是对原生 [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) 的轻量包装（您可以 [替换为任何调用](/zh/openapi-fetch/api#create-client)）。
 
 请注意，没有泛型，也没有手动类型化。您的端点的请求和响应已自动推断。这对于端点的类型安全性是一个巨大的改进，因为**每个手动断言都可能导致错误**！这消除了以下所有问题：
 
@@ -94,7 +94,6 @@ npx openapi-typescript ./path/to/api/v1.yaml -o ./src/lib/api/v1.d.ts
 使用 `tsc --noEmit` 来检查类型错误，而不要依赖于您的 linter 或构建命令。没有什么比 TypeScript 编译器本身更能准确地检查类型。
 :::
 
-
 ## 基本用法
 
 使用 `openapi-fetch` 而不是传统的代码生成的最大优点是不需要文档。`openapi-fetch` 鼓励使用现有的 OpenAPI 文档，而不是试图找出要导入的函数或该函数需要哪些参数：
@@ -109,9 +108,7 @@ const client = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 
 const { data, error } = await client.GET("/blogposts/{post_id}", {
   params: {
-    path: { post_id: "my-post"
-
- },
+    path: { post_id: "my-post" },
     query: { version: 2 },
   },
 });
@@ -158,16 +155,16 @@ const { data, error } = await client.PUT("/blogposts", {
 const { data, error, response } = await client.GET("/url");
 ```
 
-| 对象       | 响应                                                         |
-| :--------- | :----------------------------------------------------------- |
-| `data`     | 如果 OK 则为 `2xx` 响应；否则为 `undefined`                  |
-| `error`    | 如果不是 OK，则为 `5xx`、`4xx` 或 `default` 响应；否则为 `undefined` |
+| 对象       | 响应                                                                                              |
+| :--------- | :------------------------------------------------------------------------------------------------ |
+| `data`     | 如果 OK 则为 `2xx` 响应；否则为 `undefined`                                                       |
+| `error`    | 如果不是 OK，则为 `5xx`、`4xx` 或 `default` 响应；否则为 `undefined`                              |
 | `response` | [原始响应](https://developer.mozilla.org/en-US/docs/Web/API/Response) 包含 `status`、`headers` 等 |
 
 ## 支持
 
-| 平台           | 支持                                                         |
-| :------------- | :----------------------------------------------------------- |
+| 平台           | 支持                                                                                                                                  |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
 | **浏览器**     | [查看 fetch API 支持](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API#browser_compatibility)（在所有主流浏览器中广泛可用） |
-| **Node**       | >= 18.0.0                                                    |
-| **TypeScript** | >= 4.7（建议使用 >= 5.0）                                    |
+| **Node**       | >= 18.0.0                                                                                                                             |
+| **TypeScript** | >= 4.7（建议使用 >= 5.0）                                                                                                             |

@@ -1,6 +1,6 @@
 <img src="../../docs/public/assets/openapi-fetch.svg" alt="openapi-fetch" width="216" height="40" />
 
-openapi-fetch is a typesafe fetch client that pulls in your OpenAPI schema. Weighs **4 kB** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
+openapi-fetch is a type-safe fetch client that pulls in your OpenAPI schema. Weighs **4 kB** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
 
 | Library                    | Size (min) | “GET” request              |
 | :------------------------- | ---------: | :------------------------- |
