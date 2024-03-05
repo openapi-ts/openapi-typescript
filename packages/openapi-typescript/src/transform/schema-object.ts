@@ -138,8 +138,18 @@ export function transformSchemaObjectWithComposition(
    * Object + composition (anyOf/allOf/oneOf) types
    */
 
-  /** Collect oneOf/allOf/anyOf with Omit<> for discriminators */
-  function collectCompositions(
+  /** Collect oneOf/anyOf */
+  function collectUnionCompositions(items: (SchemaObject | ReferenceObject)[]) {
+    const output: ts.TypeNode[] = [];
+    for (const item of items) {
+      output.push(transformSchemaObject(item, options));
+    }
+
+    return output;
+  }
+
+  /** Collect allOf with Omit<> for discriminators */
+  function collectAllOfCompositions(
     items: (SchemaObject | ReferenceObject)[],
     required?: string[],
   ): ts.TypeNode[] {
@@ -184,6 +194,7 @@ export function transformSchemaObjectWithComposition(
           options,
         );
       }
+
       const discriminator =
         ("$ref" in item && options.ctx.discriminators.objects[item.$ref]) ||
         (item as any).discriminator; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -201,7 +212,7 @@ export function transformSchemaObjectWithComposition(
 
   // core + allOf: intersect
   const coreObjectType = transformSchemaObjectCore(schemaObject, options);
-  const allOfType = collectCompositions(
+  const allOfType = collectAllOfCompositions(
     schemaObject.allOf ?? [],
     schemaObject.required,
   );
@@ -216,21 +227,17 @@ export function transformSchemaObjectWithComposition(
   }
   // anyOf: union
   // (note: this may seem counterintuitive, but as TypeScript’s unions are not true XORs, they mimic behavior closer to anyOf than oneOf)
-  const anyOfType = collectCompositions(
-    schemaObject.anyOf ?? [],
-    schemaObject.required,
-  );
+  const anyOfType = collectUnionCompositions(schemaObject.anyOf ?? []);
   if (anyOfType.length) {
     finalType = tsUnion([...(finalType ? [finalType] : []), ...anyOfType]);
   }
   // oneOf: union (within intersection with other types, if any)
-  const oneOfType = collectCompositions(
+  const oneOfType = collectUnionCompositions(
     schemaObject.oneOf ||
       ("type" in schemaObject &&
         schemaObject.type === "object" &&
         (schemaObject.enum as (SchemaObject | ReferenceObject)[])) ||
       [],
-    schemaObject.required,
   );
   if (oneOfType.length) {
     // note: oneOf is the only type that may include primitives
@@ -408,8 +415,8 @@ function transformSchemaObjectCore(
   // type: object
   const coreObjectType: ts.TypeElement[] = [];
 
-  // discriminatorss: explicit mapping on schema object
-  for (const k of ["oneOf", "allOf", "anyOf"] as const) {
+  // discriminators: explicit mapping on schema object
+  for (const k of ["allOf", "anyOf"] as const) {
     if (!schemaObject[k]) {
       continue;
     }

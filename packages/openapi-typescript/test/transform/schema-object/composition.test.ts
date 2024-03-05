@@ -258,20 +258,12 @@ describe("composition", () => {
       "discriminator > oneOf",
       {
         given: {
-          type: "object",
-          required: ["name"],
-          properties: {
-            name: { type: "string" },
-          },
           oneOf: [
             { $ref: "#/components/schemas/Cat" },
             { $ref: "#/components/schemas/Dog" },
           ],
         },
-        want: `{
-    petType: "Pet";
-    name: string;
-} & (Omit<components["schemas"]["Cat"], "petType"> | Omit<components["schemas"]["Dog"], "petType">)`,
+        want: `components["schemas"]["Cat"] | components["schemas"]["Dog"]`,
         options: {
           path: "#/components/schemas/Pet",
           ctx: {
@@ -313,9 +305,7 @@ describe("composition", () => {
         given: {
           oneOf: [{ $ref: "#/components/schemas/parent" }, { type: "null" }],
         },
-        want: `{
-    operation: "schema-object";
-} & (Omit<components["schemas"]["parent"], "operation"> | null)`,
+        want: `components["schemas"]["parent"] | null`,
         options: {
           ...DEFAULT_OPTIONS,
           ctx: {

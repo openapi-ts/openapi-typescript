@@ -326,7 +326,7 @@ export function scanDiscriminators(
   // (sometimes this mapping is implicit, so it can’t be done until we know
   // about every discriminator in the document)
   walk(schema, (obj, path) => {
-    for (const key of ["oneOf", "anyOf", "allOf"] as const) {
+    for (const key of ["allOf"] as const) {
       if (obj && Array.isArray(obj[key])) {
         for (const item of (obj as any)[key]) {
           if ("$ref" in item) {

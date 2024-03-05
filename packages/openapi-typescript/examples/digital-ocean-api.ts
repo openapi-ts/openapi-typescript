@@ -19323,7 +19323,7 @@ export interface operations {
          *      */
         requestBody?: {
             content: {
-                "application/json": Omit<components["schemas"]["floating_ip_action_unassign"], "type"> | Omit<components["schemas"]["floating_ip_action_assign"], "type">;
+                "application/json": components["schemas"]["floating_ip_action_unassign"] | components["schemas"]["floating_ip_action_assign"];
             };
         };
         responses: {
@@ -22367,7 +22367,7 @@ export interface operations {
          *      */
         requestBody?: {
             content: {
-                "application/json": Omit<components["schemas"]["reserved_ip_action_unassign"], "type"> | Omit<components["schemas"]["reserved_ip_action_assign"], "type">;
+                "application/json": components["schemas"]["reserved_ip_action_unassign"] | components["schemas"]["reserved_ip_action_assign"];
             };
         };
         responses: {

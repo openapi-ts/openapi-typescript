@@ -43,6 +43,38 @@ describe("3.1 discriminators", () => {
                 },
                 allOf: [{ $ref: "#/components/schemas/Pet" }],
               },
+              LizardDog: {
+                allOf: [
+                  { $ref: "#/components/schemas/Dog" },
+                  { $ref: "#/components/schemas/Lizard" },
+                ],
+              },
+              AnimalSighting: {
+                oneOf: [
+                  {
+                    $ref: "#/components/schemas/Cat",
+                  },
+                  {
+                    $ref: "#/components/schemas/Dog",
+                  },
+                  {
+                    $ref: "#/components/schemas/Lizard",
+                  },
+                ],
+              },
+              Beast: {
+                anyOf: [
+                  {
+                    $ref: "#/components/schemas/Cat",
+                  },
+                  {
+                    $ref: "#/components/schemas/Dog",
+                  },
+                  {
+                    $ref: "#/components/schemas/Lizard",
+                  },
+                ],
+              },
             },
           },
         },
@@ -65,6 +97,11 @@ export interface components {
             petType: "Lizard";
             lovesRocks?: boolean;
         } & Omit<components["schemas"]["Pet"], "petType">;
+        LizardDog: {
+            petType: "LizardDog";
+        } & (Omit<components["schemas"]["Dog"], "petType"> & Omit<components["schemas"]["Lizard"], "petType">);
+        AnimalSighting: components["schemas"]["Cat"] | components["schemas"]["Dog"] | components["schemas"]["Lizard"];
+        Beast: components["schemas"]["Cat"] | components["schemas"]["Dog"] | components["schemas"]["Lizard"];
     };
     responses: never;
     parameters: never;
