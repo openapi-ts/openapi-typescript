@@ -50,7 +50,7 @@ These 2 projects are unrelated. openapi-typescript-codegen is a Node.js alternat
 
 ### vs. tRPC
 
-[tRPC](https://trpc.io/) is an opinionated typesafe framework for both server and client. It demands both your server and client be written in tRPC (which means Node.js for the backend).
+[tRPC](https://trpc.io/) is an opinionated type-safe framework for both server and client. It demands both your server and client be written in tRPC (which means Node.js for the backend).
 
 If you fit into this usecase, it’s a great experience! But for everyone else, openapi-typescript (and openapi-fetch) is a more flexible, lower-level solution that can work for any technology choice (or even be incrementally-adopted without any cost).
 

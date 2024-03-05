@@ -133,6 +133,7 @@ const OPENAPI_TS_CONTRIBUTORS = [
     "hrsh7th",
     "davidleger95",
     "phk422",
+    "mzronek",
   ]),
 ];
 

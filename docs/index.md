@@ -15,7 +15,7 @@ hero:
 
 features:
   - title: Blazing Fast
-    details: Nothing is faster than instant. Static TypeScript types provide zero runtime performance and zero client weight.
+    details: Nothing is faster than instant. Static TypeScript types provide zero runtime cost and zero client weight.
   - title: Type-safe
     details: Use your OpenAPI schema to typecheck your entire codebase with no setup and no tests.
   - title: Works anywhere
