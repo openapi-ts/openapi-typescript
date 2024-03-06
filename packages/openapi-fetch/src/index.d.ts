@@ -169,17 +169,16 @@ export interface Middleware {
   onResponse?: typeof onResponse;
 }
 
+type PathMethods = Partial<Record<HttpMethod, {}>>;
+
 /** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
-export type MaybeOptionalInit<
-  P extends Record<HttpMethod, {}>,
-  M extends keyof P,
-> =
+export type MaybeOptionalInit<P extends PathMethods, M extends keyof P> =
   HasRequiredKeys<FetchOptions<FilterKeys<P, M>>> extends never
     ? [(FetchOptions<FilterKeys<P, M>> | undefined)?]
     : [FetchOptions<FilterKeys<P, M>>];
 
 export type ClientMethod<
-  Paths extends Record<string, Record<HttpMethod, {}>>,
+  Paths extends Record<string, PathMethods>,
   M extends HttpMethod,
 > = <
   P extends PathsWithMethod<Paths, M>,
