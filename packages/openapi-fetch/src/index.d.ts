@@ -1,12 +1,13 @@
 import type {
   ErrorResponse,
-  SuccessResponse,
   FilterKeys,
+  HasRequiredKeys,
+  HttpMethod,
   MediaType,
+  OperationRequestBodyContent,
   PathsWithMethod,
   ResponseObjectMap,
-  OperationRequestBodyContent,
-  HasRequiredKeys,
+  SuccessResponse,
 } from "openapi-typescript-helpers";
 
 // Note: though "any" is considered bad practice in general, this library relies
@@ -80,7 +81,7 @@ type BodyType<T = unknown> = {
   stream: Response["body"];
 };
 export type ParseAs = keyof BodyType;
-export type ParseAsResponse<T, O extends FetchOptions> = O extends {
+export type ParseAsResponse<T, O> = O extends {
   parseAs: ParseAs;
 }
   ? BodyType<T>[O["parseAs"]]
@@ -110,13 +111,7 @@ export type RequestBodyOption<T> =
 export type FetchOptions<T> = RequestOptions<T> &
   Omit<RequestInit, "body" | "headers">;
 
-/** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
-export type MaybeOptionalInit<P extends {}, M extends keyof P> =
-  HasRequiredKeys<FetchOptions<FilterKeys<P, M>>> extends never
-    ? [(FetchOptions<FilterKeys<P, M>> | undefined)?]
-    : [FetchOptions<FilterKeys<P, M>>];
-
-export type FetchResponse<T, O extends FetchOptions> =
+export type FetchResponse<T, O> =
   | {
       data: ParseAsResponse<
         FilterKeys<SuccessResponse<ResponseObjectMap<T>>, MediaType>,
@@ -174,7 +169,19 @@ export interface Middleware {
   onResponse?: typeof onResponse;
 }
 
-export type ClientMethod<Paths extends {}, M> = <
+/** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
+export type MaybeOptionalInit<
+  P extends Record<HttpMethod, {}>,
+  M extends keyof P,
+> =
+  HasRequiredKeys<FetchOptions<FilterKeys<P, M>>> extends never
+    ? [(FetchOptions<FilterKeys<P, M>> | undefined)?]
+    : [FetchOptions<FilterKeys<P, M>>];
+
+export type ClientMethod<
+  Paths extends Record<string, Record<HttpMethod, {}>>,
+  M extends HttpMethod,
+> = <
   P extends PathsWithMethod<Paths, M>,
   I extends MaybeOptionalInit<Paths[P], M>,
 >(
