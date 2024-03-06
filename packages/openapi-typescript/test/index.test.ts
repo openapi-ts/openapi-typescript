@@ -1,4 +1,5 @@
 import { fileURLToPath } from "node:url";
+import { beforeAll, describe, expect, test, vi } from "vitest";
 import openapiTS, { astToString } from "../src/index.js";
 import type { OpenAPI3, OpenAPITSOptions } from "../src/types.js";
 import type { TestCase } from "./test-helpers.js";
@@ -692,7 +693,7 @@ export type operations = Record<string, never>;`,
     );
   }
 
-  it("does not mutate original reference", async () => {
+  test("does not mutate original reference", async () => {
     const schema: OpenAPI3 = {
       openapi: "3.1",
       info: { title: "test", version: "1.0" },

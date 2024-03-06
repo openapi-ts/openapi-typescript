@@ -9,11 +9,11 @@
     "moduleResolution": "NodeNext",
     "noUncheckedIndexedAccess": true,
     "outDir": "dist",
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "strict": true,
     "target": "ESNext",
     "types": ["vitest/globals"]
   },
   "include": ["src", "test"],
-  "exclude": ["node_modules"]
+  "exclude": ["examples", "node_modules"]
 }

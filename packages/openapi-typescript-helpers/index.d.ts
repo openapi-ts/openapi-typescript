@@ -58,14 +58,15 @@ export type OperationRequestBodyMediaContent<T> =
     ? FilterKeys<NonNullable<OperationRequestBody<T>>, "content"> | undefined
     : FilterKeys<OperationRequestBody<T>, "content">;
 /** Return first `content` from a Request Object Mapping, allowing any media type */
-export type OperationRequestBodyContent<T> = FilterKeys<
-  OperationRequestBodyMediaContent<T>,
-  MediaType
-> extends never
-  ?
-      | FilterKeys<NonNullable<OperationRequestBodyMediaContent<T>>, MediaType>
-      | undefined
-  : FilterKeys<OperationRequestBodyMediaContent<T>, MediaType>;
+export type OperationRequestBodyContent<T> =
+  FilterKeys<OperationRequestBodyMediaContent<T>, MediaType> extends never
+    ?
+        | FilterKeys<
+            NonNullable<OperationRequestBodyMediaContent<T>>,
+            MediaType
+          >
+        | undefined
+    : FilterKeys<OperationRequestBodyMediaContent<T>, MediaType>;
 /** Return first 2XX response from a Response Object Map */
 export type SuccessResponse<T> = ResponseContent<FilterKeys<T, OkStatus>>;
 /** Return first 5XX or 4XX response (in that order) from a Response Object Map */
@@ -97,4 +98,5 @@ export type FindRequiredKeys<T, K extends keyof T> = K extends unknown
     ? never
     : K
   : K;
+/** Does this object contain required keys? */
 export type HasRequiredKeys<T> = FindRequiredKeys<T, keyof T>;

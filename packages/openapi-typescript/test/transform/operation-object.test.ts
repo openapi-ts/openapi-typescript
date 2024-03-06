@@ -227,17 +227,32 @@ responses: {
         given: {
           parameters: [
             { in: "path", name: "user_id", schema: { type: "string" } },
-            { in: "path", name: "user_id_deprecated", schema: { type: "string", deprecated: true } },
+            {
+              in: "path",
+              name: "user_id_deprecated",
+              schema: { type: "string", deprecated: true },
+            },
             { in: "query", name: "search", schema: { type: "string" } },
-            { in: "query", name: "search_deprecated", schema: { type: "string", deprecated: true } },
+            {
+              in: "query",
+              name: "search_deprecated",
+              schema: { type: "string", deprecated: true },
+            },
           ],
           responses: {
             "200": {
               description: "OK",
-              content: { "application/json": { schema: { type: "object", properties: { 
-                hello: { type: "string" },
-                hello_deprecated: { type: "string", deprecated: true } 
-              }}}},
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    properties: {
+                      hello: { type: "string" },
+                      hello_deprecated: { type: "string", deprecated: true },
+                    },
+                  },
+                },
+              },
             },
           },
         },

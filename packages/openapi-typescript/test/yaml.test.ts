@@ -7,7 +7,7 @@ const cwd = os.platform() === "win32" ? fileURLToPath(root) : root; // execa bug
 const cmd = "./bin/cli.js";
 
 describe("YAML features", () => {
-  it("merge", async () => {
+  test("merge", async () => {
     const result = await execa(cmd, ["./test/fixtures/yaml-merge.yaml"], {
       cwd,
     });

@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true,
     "sourceRoot": ".",
     "outDir": "dist",
     "types": ["vitest/globals"]

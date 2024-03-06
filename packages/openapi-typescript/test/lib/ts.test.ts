@@ -15,7 +15,7 @@ import {
 } from "../../src/lib/ts.js";
 
 describe("addJSDocComment", () => {
-  it("single-line comment", () => {
+  test("single-line comment", () => {
     const property = ts.factory.createPropertySignature(
       undefined,
       "comment",
@@ -30,7 +30,7 @@ describe("addJSDocComment", () => {
 }`);
   });
 
-  it("multi-line comment", () => {
+  test("multi-line comment", () => {
     const property = ts.factory.createPropertySignature(
       undefined,
       "comment",
@@ -57,7 +57,7 @@ describe("addJSDocComment", () => {
 }`);
   });
 
-  it("escapes internal comments", () => {
+  test("escapes internal comments", () => {
     const property = ts.factory.createPropertySignature(
       undefined,
       "comment",
@@ -77,11 +77,11 @@ describe("addJSDocComment", () => {
 });
 
 describe("oapiRef", () => {
-  it("single part", () => {
+  test("single part", () => {
     expect(astToString(oapiRef("#/components")).trim()).toBe(`components`);
   });
 
-  it("multiple parts", () => {
+  test("multiple parts", () => {
     expect(astToString(oapiRef("#/components/schemas/User")).trim()).toBe(
       `components["schemas"]["User"]`,
     );
@@ -89,7 +89,7 @@ describe("oapiRef", () => {
 });
 
 describe("tsEnum", () => {
-  it("string members", () => {
+  test("string members", () => {
     expect(astToString(tsEnum("-my-color-", ["green", "red", "blue"])).trim())
       .toBe(`enum MyColor {
     green = "green",
@@ -98,7 +98,7 @@ describe("tsEnum", () => {
 }`);
   });
 
-  it("name from path", () => {
+  test("name from path", () => {
     expect(
       astToString(
         tsEnum("#/paths/url/get/parameters/query/status", [
@@ -112,7 +112,7 @@ describe("tsEnum", () => {
 }`);
   });
 
-  it("string members with numeric prefix", () => {
+  test("string members with numeric prefix", () => {
     expect(astToString(tsEnum("/my/enum/", ["0a", "1b", "2c"])).trim())
       .toBe(`enum MyEnum {
     Value0a = "0a",
@@ -121,7 +121,7 @@ describe("tsEnum", () => {
 }`);
   });
 
-  it("number members", () => {
+  test("number members", () => {
     expect(astToString(tsEnum(".Error.code.", [100, 101, 102])).trim())
       .toBe(`enum ErrorCode {
     Value100 = 100,
@@ -130,7 +130,7 @@ describe("tsEnum", () => {
 }`);
   });
 
-  it("number members with x-enum-descriptions", () => {
+  test("number members with x-enum-descriptions", () => {
     expect(
       astToString(
         tsEnum(
@@ -153,7 +153,7 @@ describe("tsEnum", () => {
 }`);
   });
 
-  it("x-enum-varnames", () => {
+  test("x-enum-varnames", () => {
     expect(
       astToString(
         tsEnum(
@@ -173,7 +173,7 @@ describe("tsEnum", () => {
 }`);
   });
 
-  it("x-enum-varnames with numeric prefix", () => {
+  test("x-enum-varnames with numeric prefix", () => {
     expect(
       astToString(
         tsEnum(
@@ -189,7 +189,7 @@ describe("tsEnum", () => {
 }`);
   });
 
-  it("partial x-enum-varnames and x-enum-descriptions", () => {
+  test("partial x-enum-varnames and x-enum-descriptions", () => {
     expect(
       astToString(
         tsEnum(
@@ -209,7 +209,7 @@ describe("tsEnum", () => {
 }`);
   });
 
-  it("x-enum-descriptions with x-enum-varnames", () => {
+  test("x-enum-descriptions with x-enum-varnames", () => {
     expect(
       astToString(
         tsEnum(
@@ -237,7 +237,7 @@ describe("tsEnum", () => {
 });
 
 describe("tsPropertyIndex", () => {
-  it("numbers -> number literals", () => {
+  test("numbers -> number literals", () => {
     expect(astToString(tsPropertyIndex(200)).trim()).toBe(`200`);
     expect(astToString(tsPropertyIndex(200.5)).trim()).toBe(`200.5`);
     expect(astToString(tsPropertyIndex(Infinity)).trim()).toBe(`Infinity`);
@@ -245,7 +245,7 @@ describe("tsPropertyIndex", () => {
     expect(astToString(tsPropertyIndex(10e3)).trim()).toBe(`10000`);
   });
 
-  it("valid strings -> identifiers", () => {
+  test("valid strings -> identifiers", () => {
     expect(astToString(tsPropertyIndex("identifier")).trim()).toBe(
       `identifier`,
     );
@@ -257,7 +257,7 @@ describe("tsPropertyIndex", () => {
     expect(astToString(tsPropertyIndex("10e3")).trim()).toBe(`"10e3"`);
   });
 
-  it("invalid strings -> string literals", () => {
+  test("invalid strings -> string literals", () => {
     expect(astToString(tsPropertyIndex("kebab-case")).trim()).toBe(
       `"kebab-case"`,
     );
@@ -273,27 +273,27 @@ describe("tsPropertyIndex", () => {
 });
 
 describe("tsIsPrimitive", () => {
-  it("null", () => {
+  test("null", () => {
     expect(tsIsPrimitive(NULL)).toBe(true);
   });
 
-  it("number", () => {
+  test("number", () => {
     expect(tsIsPrimitive(NUMBER)).toBe(true);
   });
 
-  it("string", () => {
+  test("string", () => {
     expect(tsIsPrimitive(STRING)).toBe(true);
   });
 
-  it("boolean", () => {
+  test("boolean", () => {
     expect(tsIsPrimitive(BOOLEAN)).toBe(true);
   });
 
-  it("array", () => {
+  test("array", () => {
     expect(tsIsPrimitive(ts.factory.createArrayTypeNode(STRING))).toBe(false);
   });
 
-  it("object", () => {
+  test("object", () => {
     expect(
       tsIsPrimitive(
         ts.factory.createTypeLiteralNode([
@@ -310,21 +310,21 @@ describe("tsIsPrimitive", () => {
 });
 
 describe("tsUnion", () => {
-  it("none", () => {
+  test("none", () => {
     expect(astToString(tsUnion([])).trim()).toBe(`never`);
   });
 
-  it("one", () => {
+  test("one", () => {
     expect(astToString(tsUnion([STRING])).trim()).toBe(`string`);
   });
 
-  it("multiple (primitive)", () => {
+  test("multiple (primitive)", () => {
     expect(
       astToString(tsUnion([STRING, STRING, NUMBER, NULL, NUMBER, NULL])).trim(),
     ).toBe(`string | number | null`);
   });
 
-  it("multiple (const)", () => {
+  test("multiple (const)", () => {
     expect(
       astToString(
         tsUnion([NULL, tsLiteral("red"), tsLiteral(42), tsLiteral(false)]),
@@ -332,7 +332,7 @@ describe("tsUnion", () => {
     ).toBe(`null | "red" | 42 | false`);
   });
 
-  it("multiple (object types)", () => {
+  test("multiple (object types)", () => {
     const obj = ts.factory.createTypeLiteralNode([
       ts.factory.createPropertySignature(undefined, "foo", undefined, STRING),
     ]);
