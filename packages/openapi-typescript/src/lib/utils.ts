@@ -184,6 +184,7 @@ function createDiscriminatorEnum(
   };
 }
 
+/** Adds or replaces the discriminator enum with the passed `values` in a schema defined by `ref` */
 function patchDiscriminatorEnum(
   schema: SchemaObject,
   ref: string,
