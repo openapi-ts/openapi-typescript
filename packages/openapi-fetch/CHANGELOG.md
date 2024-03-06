@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.9.3
+
+### Patch Changes
+
+- [#1580](https://github.com/drwpow/openapi-typescript/pull/1580) [`4c0c7fc`](https://github.com/drwpow/openapi-typescript/commit/4c0c7fc69dc6416dcf1fea785455bce8b9742704) Thanks [@drwpow](https://github.com/drwpow)! - Fix type errors
+
 ## 0.9.2
 
 ### Patch Changes
