@@ -1,5 +1,13 @@
 # openapi-typescript
 
+## 6.7.5
+
+### Patch Changes
+
+- [#1535](https://github.com/drwpow/openapi-typescript/pull/1535) [`48ca069fd889acd469955589ff3ec74e775ca9fd`](https://github.com/drwpow/openapi-typescript/commit/48ca069fd889acd469955589ff3ec74e775ca9fd) Thanks [@tvanier](https://github.com/tvanier)! - Support single operation parameter
+
+- [#1524](https://github.com/drwpow/openapi-typescript/pull/1524) [`fe6c6d1526c59e4f9021d71cad74feba315f337f`](https://github.com/drwpow/openapi-typescript/commit/fe6c6d1526c59e4f9021d71cad74feba315f337f) Thanks [@WickyNilliams](https://github.com/WickyNilliams)! - Keep type information for nullable fields when possible
+
 ## 6.7.4
 
 ### Patch Changes
