@@ -300,6 +300,59 @@ describe("composition", () => {
       },
     ],
     [
+      // this is actually invalid syntax for oneOfs, but we support it anyways for better compatibility with bad schemas
+      "discriminator > oneOf inside object",
+      {
+        given: {
+          type: "object",
+          required: ["name"],
+          properties: {
+            name: { type: "string" },
+          },
+          oneOf: [
+            { $ref: "#/components/schemas/Cat" },
+            { $ref: "#/components/schemas/Dog" },
+          ],
+        },
+        want: `{
+    name: string;
+} & (components["schemas"]["Cat"] | components["schemas"]["Dog"])`,
+        options: {
+          path: "#/components/schemas/Pet",
+          ctx: {
+            ...DEFAULT_OPTIONS.ctx,
+            discriminators: {
+              objects: {
+                "#/components/schemas/Pet": {
+                  propertyName: "petType",
+                },
+                "#/components/schemas/Cat": {
+                  propertyName: "petType",
+                },
+                "#/components/schemas/Dog": {
+                  propertyName: "petType",
+                },
+              },
+              refsHandled: [],
+            },
+            resolve($ref) {
+              switch ($ref) {
+                case "#/components/schemas/Pet": {
+                  return {
+                    propertyName: "petType",
+                    oneOf: ["#/components/schemas/Cat"],
+                  };
+                }
+                default: {
+                  return undefined as any;
+                }
+              }
+            },
+          },
+        },
+      },
+    ],
+    [
       "discriminator > oneOf + null + implicit mapping",
       {
         given: {
