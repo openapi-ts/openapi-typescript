@@ -13,6 +13,7 @@ export default function createClient(clientOptions) {
   let {
     baseUrl = "",
     fetch: baseFetch = globalThis.fetch,
+    Request: baseRequest = globalThis.Request,
     querySerializer: globalQuerySerializer,
     bodySerializer: globalBodySerializer,
     headers: baseHeaders,
@@ -32,6 +33,7 @@ export default function createClient(clientOptions) {
   async function coreFetch(url, fetchOptions) {
     let {
       fetch = baseFetch,
+      Request = baseRequest,
       headers,
       params = {},
       parseAs = "json",
@@ -69,7 +71,7 @@ export default function createClient(clientOptions) {
     if (requestInit.body instanceof FormData) {
       requestInit.headers.delete("Content-Type");
     }
-    let request = new Request(
+    let request = new baseRequest(
       createFinalURL(url, { baseUrl, params, querySerializer }),
       requestInit,
     );
@@ -87,7 +89,7 @@ export default function createClient(clientOptions) {
         request.params = params; // (re)attach params
         const result = await m.onRequest(request, mergedOptions);
         if (result) {
-          if (!(result instanceof Request)) {
+          if (!(result instanceof baseRequest)) {
             throw new Error(
               `Middleware must return new Request() when modifying the request`,
             );
