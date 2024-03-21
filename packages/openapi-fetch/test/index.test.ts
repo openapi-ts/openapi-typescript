@@ -128,7 +128,7 @@ function useTestRequestHandler<
   );
 
   return {
-    getCookies: () => receivedCookies!,
+    getRequestCookies: () => receivedCookies!,
     getRequest: () => receivedRequest!,
     getRequestUrl: () => new URL(requestUrl),
   };
@@ -1259,7 +1259,7 @@ describe("client", () => {
     it("respects cookie", async () => {
       const client = createClient<paths>({ baseUrl });
 
-      const { getCookies } = useTestRequestHandler({
+      const { getRequestCookies } = useTestRequestHandler({
         baseUrl,
         method: "get",
         path: "/blogposts",
@@ -1272,7 +1272,7 @@ describe("client", () => {
         },
       });
 
-      const cookies = getCookies();
+      const cookies = getRequestCookies();
       expect(cookies).toEqual({ session: "1234" });
     });
   });
