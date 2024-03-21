@@ -131,6 +131,12 @@ describe("client", () => {
             params: { path: { post_id: 1234 } },
           });
 
+          // expect error on unknown property in 'params'
+          await client.GET("/blogposts/{post_id}", {
+            // @ts-expect-error
+            TODO: "this should be an error",
+          });
+
           // (no error)
           let calledPostId = "";
           useMockRequestHandler<{ post_id: string }>({
@@ -1234,7 +1240,7 @@ describe("client", () => {
         if (error) {
           throw new Error(`parseAs text: error`);
         }
-        expect(data.toLowerCase()).toBe("{}");
+        expect(data).toBe("{}");
       });
 
       it("arrayBuffer", async () => {
