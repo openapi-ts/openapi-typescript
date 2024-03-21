@@ -66,7 +66,7 @@ afterAll(() => server.close());
 
 type MswHttpMethod = keyof typeof http;
 
-interface TestRequestHandlerOptions<
+interface MockRequestHandlerOptions<
   // Recreate the generic signature of the HTTP resolver
   // so the arguments passed to http handlers propagate here.
   Params extends PathParams<keyof Params> = PathParams,
@@ -83,10 +83,14 @@ interface TestRequestHandlerOptions<
   body?: JsonBodyType;
   headers?: Record<string, string>;
   status?: number;
+
+  /**
+   * Optional handler which will be called instead of using the body, headers and status
+   */
   handler?: HttpResponseResolver<Params, RequestBodyType, ResponseBodyType>;
 }
 
-function useTestRequestHandler<
+function useMockRequestHandler<
   // Recreate the generic signature of the HTTP resolver
   // so the arguments passed to http handlers propagate here.
   Params extends PathParams<keyof Params> = PathParams,
@@ -100,7 +104,7 @@ function useTestRequestHandler<
   headers,
   status,
   handler,
-}: TestRequestHandlerOptions<Params, RequestBodyType, ResponseBodyType>) {
+}: MockRequestHandlerOptions<Params, RequestBodyType, ResponseBodyType>) {
   let requestUrl = "";
   let receivedRequest: null | StrictRequest<DefaultBodyType> = null;
   let receivedCookies: null | Record<string, string> = null;
@@ -155,7 +159,7 @@ describe("client", () => {
       });
 
       // data
-      useTestRequestHandler({
+      useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/string-array",
@@ -181,7 +185,7 @@ describe("client", () => {
       }
 
       // error
-      useTestRequestHandler({
+      useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/string-array",
@@ -213,7 +217,7 @@ describe("client", () => {
             baseUrl,
           });
 
-          useTestRequestHandler({
+          useMockRequestHandler({
             baseUrl,
             method: "get",
             path: "/blogposts/:post_id",
@@ -241,7 +245,7 @@ describe("client", () => {
 
           // (no error)
           let calledPostId = "";
-          useTestRequestHandler<{ post_id: string }>({
+          useMockRequestHandler<{ post_id: string }>({
             baseUrl,
             method: "get",
             path: `/blogposts/:post_id`,
@@ -264,7 +268,7 @@ describe("client", () => {
             baseUrl,
           });
 
-          const { getRequestUrl } = useTestRequestHandler({
+          const { getRequestUrl } = useMockRequestHandler({
             baseUrl,
             method: "get",
             path: `/path-params/*`,
@@ -321,7 +325,7 @@ describe("client", () => {
 
         it("allows UTF-8 characters", async () => {
           const client = createClient<paths>({ baseUrl });
-          const { getRequestUrl } = useTestRequestHandler({
+          const { getRequestUrl } = useMockRequestHandler({
             baseUrl,
             method: "get",
             path: "/blogposts/*",
@@ -343,7 +347,7 @@ describe("client", () => {
       it("header", async () => {
         const client = createClient<paths>({ baseUrl });
 
-        useTestRequestHandler({
+        useMockRequestHandler({
           baseUrl,
           method: "get",
           path: "/header-params",
@@ -394,7 +398,7 @@ describe("client", () => {
           it("primitives", async () => {
             const client = createClient<paths>({ baseUrl });
 
-            const { getRequestUrl } = useTestRequestHandler({
+            const { getRequestUrl } = useMockRequestHandler({
               baseUrl,
               method: "get",
               path: "/query-params*",
@@ -414,7 +418,7 @@ describe("client", () => {
           it("array params (empty)", async () => {
             const client = createClient<paths>({ baseUrl });
 
-            const { getRequestUrl } = useTestRequestHandler({
+            const { getRequestUrl } = useMockRequestHandler({
               baseUrl,
               method: "get",
               path: "/query-params*",
@@ -434,7 +438,7 @@ describe("client", () => {
           it("empty/null params", async () => {
             const client = createClient<paths>({ baseUrl });
 
-            const { getRequestUrl } = useTestRequestHandler({
+            const { getRequestUrl } = useMockRequestHandler({
               baseUrl,
               method: "get",
               path: "/query-params*",
@@ -507,7 +511,7 @@ describe("client", () => {
                 querySerializer: { array: given },
               });
 
-              const { getRequestUrl } = useTestRequestHandler({
+              const { getRequestUrl } = useMockRequestHandler({
                 baseUrl,
                 method: "get",
                 path: "/query-params*",
@@ -566,7 +570,7 @@ describe("client", () => {
                 baseUrl,
                 querySerializer: { object: given },
               });
-              const { getRequestUrl } = useTestRequestHandler({
+              const { getRequestUrl } = useMockRequestHandler({
                 baseUrl,
                 method: "get",
                 path: "/query-params*",
@@ -589,7 +593,7 @@ describe("client", () => {
               baseUrl,
               querySerializer: { allowReserved: true },
             });
-            const { getRequestUrl } = useTestRequestHandler({
+            const { getRequestUrl } = useMockRequestHandler({
               baseUrl,
               method: "get",
               path: "/query-params*",
@@ -635,7 +639,7 @@ describe("client", () => {
                 querySerializer: (q) => `alpha=${q.version}&beta=${q.format}`,
               });
 
-              const { getRequestUrl } = useTestRequestHandler({
+              const { getRequestUrl } = useMockRequestHandler({
                 baseUrl,
                 method: "get",
                 path: "/blogposts/:post_id",
@@ -660,7 +664,7 @@ describe("client", () => {
                 querySerializer: () => "query",
               });
 
-              const { getRequestUrl } = useTestRequestHandler({
+              const { getRequestUrl } = useMockRequestHandler({
                 baseUrl,
                 method: "get",
                 path: "/blogposts/:post_id",
@@ -686,7 +690,7 @@ describe("client", () => {
               baseUrl,
               querySerializer: () => "?query",
             });
-            const { getRequestUrl } = useTestRequestHandler({
+            const { getRequestUrl } = useMockRequestHandler({
               baseUrl,
               method: "get",
               path: "/blogposts/:post_id",
@@ -710,7 +714,7 @@ describe("client", () => {
       it("requires necessary requestBodies", async () => {
         const client = createClient<paths>({ baseUrl });
 
-        useTestRequestHandler({
+        useMockRequestHandler({
           baseUrl,
           method: "put",
           path: "/blogposts",
@@ -738,7 +742,7 @@ describe("client", () => {
       it("requestBody (inline)", async () => {
         const client = createClient<paths>({ baseUrl });
 
-        useTestRequestHandler({
+        useMockRequestHandler({
           baseUrl,
           method: "put",
           path: "/blogposts-optional-inline",
@@ -764,7 +768,7 @@ describe("client", () => {
       it("requestBody with required: false", async () => {
         const client = createClient<paths>({ baseUrl });
 
-        useTestRequestHandler({
+        useMockRequestHandler({
           baseUrl,
           method: "put",
           path: "/blogposts-optional",
@@ -795,7 +799,7 @@ describe("client", () => {
     it("baseUrl", async () => {
       let client = createClient<paths>({ baseUrl });
 
-      const { getRequestUrl } = useTestRequestHandler({
+      const { getRequestUrl } = useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/self",
@@ -820,7 +824,7 @@ describe("client", () => {
 
         const client = createClient<paths>({ headers, baseUrl });
 
-        const { getRequest } = useTestRequestHandler({
+        const { getRequest } = useMockRequestHandler({
           baseUrl,
           method: "get",
           path: "/self",
@@ -845,7 +849,7 @@ describe("client", () => {
           headers: { "Cache-Control": "max-age=10000000" },
         });
 
-        const { getRequest } = useTestRequestHandler({
+        const { getRequest } = useMockRequestHandler({
           baseUrl,
           method: "get",
           path: "/self",
@@ -873,7 +877,7 @@ describe("client", () => {
           headers: { "Content-Type": null },
         });
 
-        const { getRequest } = useTestRequestHandler({
+        const { getRequest } = useMockRequestHandler({
           baseUrl,
           method: "get",
           path: "/self",
@@ -892,7 +896,7 @@ describe("client", () => {
 
         const list = ["one", "two", "three"];
 
-        const { getRequest } = useTestRequestHandler({
+        const { getRequest } = useMockRequestHandler({
           baseUrl,
           method: "get",
           path: "/self",
@@ -974,7 +978,7 @@ describe("client", () => {
           },
         });
 
-        const { getRequest } = useTestRequestHandler({
+        const { getRequest } = useMockRequestHandler({
           baseUrl,
           method: "options",
           path: `https://foo.bar/api/v1`,
@@ -999,7 +1003,7 @@ describe("client", () => {
           updated_at: "2024-01-20T00:00:00Z",
         };
 
-        useTestRequestHandler({
+        useMockRequestHandler({
           baseUrl,
           method: "get",
           path: "/self",
@@ -1041,7 +1045,7 @@ describe("client", () => {
       });
 
       it("executes in expected order", async () => {
-        const { getRequest } = useTestRequestHandler({
+        const { getRequest } = useMockRequestHandler({
           baseUrl,
           method: "get",
           path: "/self",
@@ -1104,7 +1108,7 @@ describe("client", () => {
       });
 
       it("receives correct options", async () => {
-        useTestRequestHandler({
+        useMockRequestHandler({
           baseUrl: "https://api.foo.bar/v1/",
           method: "get",
           path: "/self",
@@ -1129,7 +1133,7 @@ describe("client", () => {
       });
 
       it("receives OpenAPI options passed in from parent", async () => {
-        useTestRequestHandler({
+        useMockRequestHandler({
           method: "put",
           path: `https://api.foo.bar/v1/tag*`,
           status: 200,
@@ -1171,7 +1175,7 @@ describe("client", () => {
       });
 
       it("can be skipped without interrupting request", async () => {
-        useTestRequestHandler({
+        useMockRequestHandler({
           baseUrl: "https://api.foo.bar/v1/",
           method: "get",
           path: "/blogposts",
@@ -1193,7 +1197,7 @@ describe("client", () => {
       });
 
       it("can be ejected", async () => {
-        useTestRequestHandler({
+        useMockRequestHandler({
           baseUrl: "https://api.foo.bar/v1",
           method: "get",
           path: "/blogposts",
@@ -1225,7 +1229,7 @@ describe("client", () => {
     it("multipart/form-data", async () => {
       const client = createClient<paths>({ baseUrl });
 
-      const { getRequest } = useTestRequestHandler({
+      const { getRequest } = useMockRequestHandler({
         baseUrl,
         method: "put",
         path: "/contact",
@@ -1259,7 +1263,7 @@ describe("client", () => {
     it("respects cookie", async () => {
       const client = createClient<paths>({ baseUrl });
 
-      const { getRequestCookies } = useTestRequestHandler({
+      const { getRequestCookies } = useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/blogposts",
@@ -1280,7 +1284,7 @@ describe("client", () => {
   describe("responses", () => {
     it("returns empty object on 204", async () => {
       const client = createClient<paths>({ baseUrl });
-      useTestRequestHandler({
+      useMockRequestHandler({
         baseUrl,
         method: "delete",
         path: "/tag/*",
@@ -1304,7 +1308,7 @@ describe("client", () => {
         baseUrl,
         headers: { "Cache-Control": "max-age=10000000" },
       });
-      useTestRequestHandler({
+      useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/default-as-error",
@@ -1330,7 +1334,7 @@ describe("client", () => {
     describe("parseAs", () => {
       it("text", async () => {
         const client = createClient<paths>({ baseUrl });
-        useTestRequestHandler({
+        useMockRequestHandler({
           baseUrl,
           method: "get",
           path: "/anyMethod",
@@ -1347,7 +1351,7 @@ describe("client", () => {
 
       it("arrayBuffer", async () => {
         const client = createClient<paths>({ baseUrl });
-        useTestRequestHandler({
+        useMockRequestHandler({
           baseUrl,
           method: "get",
           path: "/anyMethod",
@@ -1364,7 +1368,7 @@ describe("client", () => {
 
       it("blob", async () => {
         const client = createClient<paths>({ baseUrl });
-        useTestRequestHandler({
+        useMockRequestHandler({
           baseUrl,
           method: "get",
           path: "/anyMethod",
@@ -1382,7 +1386,7 @@ describe("client", () => {
 
       it("stream", async () => {
         const client = createClient<paths>({ baseUrl });
-        useTestRequestHandler({
+        useMockRequestHandler({
           baseUrl,
           method: "get",
           path: "/anyMethod",
@@ -1442,7 +1446,7 @@ describe("client", () => {
   describe("GET()", () => {
     it("sends the correct method", async () => {
       const client = createClient<paths>({ baseUrl });
-      const { getRequest } = useTestRequestHandler({
+      const { getRequest } = useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/anyMethod",
@@ -1459,7 +1463,7 @@ describe("client", () => {
       };
       const client = createClient<paths>({ baseUrl });
 
-      const { getRequestUrl } = useTestRequestHandler({
+      const { getRequestUrl } = useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/blogposts/:post_id",
@@ -1489,7 +1493,7 @@ describe("client", () => {
       const mockError = { code: 404, message: "Post not found" };
       const client = createClient<paths>({ baseUrl });
 
-      const { getRequest } = useTestRequestHandler({
+      const { getRequest } = useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/blogposts/:post_id",
@@ -1522,7 +1526,7 @@ describe("client", () => {
     it("handles array-type responses", async () => {
       const client = createClient<paths>({ baseUrl });
 
-      useTestRequestHandler({
+      useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/blogposts",
@@ -1542,7 +1546,7 @@ describe("client", () => {
     it("handles literal 2XX and 4XX codes", async () => {
       const client = createClient<paths>({ baseUrl });
 
-      useTestRequestHandler({
+      useMockRequestHandler({
         baseUrl,
         method: "put",
         path: "/media",
@@ -1567,7 +1571,7 @@ describe("client", () => {
     it("gracefully handles invalid JSON for errors", async () => {
       const client = createClient<paths>({ baseUrl });
 
-      useTestRequestHandler({
+      useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/blogposts",
@@ -1585,7 +1589,7 @@ describe("client", () => {
   describe("POST()", () => {
     it("sends the correct method", async () => {
       const client = createClient<paths>({ baseUrl });
-      const { getRequest } = useTestRequestHandler({
+      const { getRequest } = useMockRequestHandler({
         baseUrl,
         method: "post",
         path: "/anyMethod",
@@ -1598,7 +1602,7 @@ describe("client", () => {
       const mockData = { status: "success" };
 
       const client = createClient<paths>({ baseUrl });
-      const { getRequestUrl } = useTestRequestHandler({
+      const { getRequestUrl } = useMockRequestHandler({
         baseUrl,
         method: "put",
         path: "/blogposts",
@@ -1628,7 +1632,7 @@ describe("client", () => {
     it("supports sepecifying utf-8 encoding", async () => {
       const mockData = { message: "My reply" };
       const client = createClient<paths>({ baseUrl });
-      useTestRequestHandler({
+      useMockRequestHandler({
         baseUrl,
         method: "put",
         path: "/comment",
@@ -1656,7 +1660,7 @@ describe("client", () => {
   describe("DELETE()", () => {
     it("sends the correct method", async () => {
       const client = createClient<paths>({ baseUrl });
-      const { getRequest } = useTestRequestHandler({
+      const { getRequest } = useMockRequestHandler({
         baseUrl,
         method: "delete",
         path: "/anyMethod",
@@ -1667,7 +1671,7 @@ describe("client", () => {
 
     it("returns empty object on 204", async () => {
       const client = createClient<paths>({ baseUrl });
-      useTestRequestHandler({
+      useMockRequestHandler({
         baseUrl,
         method: "delete",
         path: "/blogposts/:post_id",
@@ -1688,7 +1692,7 @@ describe("client", () => {
 
     it("returns empty object on Content-Length: 0", async () => {
       const client = createClient<paths>({ baseUrl });
-      useTestRequestHandler({
+      useMockRequestHandler({
         baseUrl,
         method: "delete",
         path: `/blogposts/:post_id`,
@@ -1718,7 +1722,7 @@ describe("client", () => {
   describe("OPTIONS()", () => {
     it("sends the correct method", async () => {
       const client = createClient<paths>({ baseUrl });
-      const { getRequest } = useTestRequestHandler({
+      const { getRequest } = useMockRequestHandler({
         baseUrl,
         method: "options",
         path: `/anyMethod`,
@@ -1731,7 +1735,7 @@ describe("client", () => {
   describe("HEAD()", () => {
     it("sends the correct method", async () => {
       const client = createClient<paths>({ baseUrl });
-      const { getRequest } = useTestRequestHandler({
+      const { getRequest } = useMockRequestHandler({
         baseUrl,
         method: "head",
         path: "/anyMethod",
@@ -1744,7 +1748,7 @@ describe("client", () => {
   describe("PATCH()", () => {
     it("sends the correct method", async () => {
       const client = createClient<paths>({ baseUrl });
-      const { getRequest } = useTestRequestHandler({
+      const { getRequest } = useMockRequestHandler({
         baseUrl,
         method: "patch",
         path: "/anyMethod",
@@ -1759,7 +1763,7 @@ describe("client", () => {
   describe("TRACE()", () => {
     it("sends the correct method", async () => {
       const client = createClient<paths>({ baseUrl });
-      useTestRequestHandler({
+      useMockRequestHandler({
         baseUrl,
         method: "all", // note: msw doesn’t support TRACE method
         path: "/anyMethod",
@@ -1788,7 +1792,7 @@ describe("examples", () => {
     const client = createClient<paths>({ baseUrl });
     client.use(authMiddleware);
 
-    const { getRequest } = useTestRequestHandler({
+    const { getRequest } = useMockRequestHandler({
       baseUrl,
       method: "get",
       path: "/blogposts/:post_id",
