@@ -28,7 +28,7 @@ const baseUrl = "https://api.example.com";
  * Test path helper, returns a an absolute URL based on
  * the given path and base
  */
-function testPath(path: string, base: string = baseUrl) {
+function toAbsoluteURL(path: string, base: string = baseUrl) {
   // If we have absolute path
   if (URL.canParse(path)) {
     return new URL(path).toString();
@@ -105,7 +105,7 @@ function useTestRequestHandler<
   let receivedRequest: null | StrictRequest<DefaultBodyType> = null;
   let receivedCookies: null | Record<string, string> = null;
 
-  const resolvedPath = testPath(path, requestBaseUrl);
+  const resolvedPath = toAbsoluteURL(path, requestBaseUrl);
 
   server.use(
     http[method]<Params, RequestBodyType, ResponseBodyType>(
@@ -806,12 +806,12 @@ describe("client", () => {
       await client.GET("/self");
 
       // assert baseUrl and path mesh as expected
-      expect(getRequestUrl().href).toBe(testPath("/self"));
+      expect(getRequestUrl().href).toBe(toAbsoluteURL("/self"));
 
       client = createClient<paths>({ baseUrl });
       await client.GET("/self");
       // assert trailing '/' was removed
-      expect(getRequestUrl().href).toBe(testPath("/self"));
+      expect(getRequestUrl().href).toBe(toAbsoluteURL("/self"));
     });
 
     describe("headers", () => {
