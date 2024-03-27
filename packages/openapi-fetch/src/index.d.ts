@@ -15,7 +15,8 @@ import type {
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types */
 
 /** Options for each client instance */
-export interface ClientOptions extends Omit<RequestInit, "headers"> {
+export interface ClientOptions<AcceptHeader extends MediaType = MediaType>
+  extends Omit<RequestInit, "headers"> {
   /** set the common root URL for all API requests */
   baseUrl?: string;
   /** custom fetch (defaults to globalThis.fetch) */
@@ -24,10 +25,10 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
   querySerializer?: QuerySerializer<unknown> | QuerySerializerOptions;
   /** global bodySerializer */
   bodySerializer?: BodySerializer<unknown>;
-  headers?: HeadersOptions;
+  headers?: HeadersOptions<AcceptHeader>;
 }
 
-export type HeadersOptions =
+export type HeadersOptions<AcceptHeader extends MediaType> = (
   | HeadersInit
   | Record<
       string,
@@ -37,7 +38,8 @@ export type HeadersOptions =
       | (string | number | boolean)[]
       | null
       | undefined
-    >;
+    >
+) & { Accept?: AcceptHeader };
 
 export type QuerySerializer<T> = (
   query: T extends { parameters: any }
@@ -108,13 +110,17 @@ export type RequestBodyOption<T> =
       ? { body?: OperationRequestBodyContent<T> }
       : { body: OperationRequestBodyContent<T> };
 
-export type FetchOptions<T> = RequestOptions<T> &
+export type FetchOptions<T, AcceptHeader extends MediaType> = RequestOptions<
+  T,
+  AcceptHeader
+> &
   Omit<RequestInit, "body" | "headers">;
 
-export type FetchResponse<T, O, Media extends MediaType> =
+export type FetchResponse<T, O, AcceptHeader extends MediaType> =
   | {
       data: ParseAsResponse<
-        FilterKeys<SuccessResponse<ResponseObjectMap<T>>, Media>,
+        // FIXME: Here the "AcceptHeader" is MediaType and not the inferred one. Why?
+        FilterKeys<SuccessResponse<ResponseObjectMap<T>>, AcceptHeader>,
         O
       >;
       error?: never;
@@ -122,17 +128,20 @@ export type FetchResponse<T, O, Media extends MediaType> =
     }
   | {
       data?: never;
-      error: FilterKeys<ErrorResponse<ResponseObjectMap<T>>, Media>;
+      error: FilterKeys<ErrorResponse<ResponseObjectMap<T>>, AcceptHeader>;
       response: Response;
     };
 
-export type RequestOptions<T> = ParamsOption<T> &
+export type RequestOptions<
+  T,
+  AcceptHeader extends MediaType,
+> = ParamsOption<T> &
   RequestBodyOption<T> & {
     querySerializer?: QuerySerializer<T> | QuerySerializerOptions;
     bodySerializer?: BodySerializer<T>;
     parseAs?: ParseAs;
     fetch?: ClientOptions["fetch"];
-    headers?: HeadersOptions;
+    headers?: HeadersOptions<AcceptHeader>;
   };
 
 export type MergedOptions<T = unknown> = {
@@ -172,45 +181,47 @@ export interface Middleware {
 type PathMethods = Partial<Record<HttpMethod, {}>>;
 
 /** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
-export type MaybeOptionalInit<P extends PathMethods, M extends keyof P> =
-  HasRequiredKeys<FetchOptions<FilterKeys<P, M>>> extends never
-    ? [(FetchOptions<FilterKeys<P, M>> | undefined)?]
-    : [FetchOptions<FilterKeys<P, M>>];
+export type MaybeOptionalInit<
+  P extends PathMethods,
+  M extends keyof P,
+  AcceptHeader extends MediaType,
+> =
+  HasRequiredKeys<FetchOptions<FilterKeys<P, M>, AcceptHeader>> extends never
+    ? [(FetchOptions<FilterKeys<P, M>, AcceptHeader> | undefined)?]
+    : [FetchOptions<FilterKeys<P, M>, AcceptHeader>];
 
 export type ClientMethod<
   Paths extends Record<string, PathMethods>,
   M extends HttpMethod,
-  Media extends MediaType,
 > = <
+  AcceptHeader extends MediaType,
   P extends PathsWithMethod<Paths, M>,
-  I extends MaybeOptionalInit<Paths[P], M>,
+  I extends MaybeOptionalInit<Paths[P], M, AcceptHeader>,
 >(
   url: P,
   ...init: I
-) => Promise<FetchResponse<Paths[P][M], I[0], Media>>;
+) => Promise<FetchResponse<Paths[P][M], I[0], AcceptHeader>>;
 
-export default function createClient<
-  Paths extends {},
-  Media extends MediaType = MediaType,
->(
+// FIXME: Add a default AcceptHeader inferred from the ClientOptions
+export default function createClient<Paths extends {}>(
   clientOptions?: ClientOptions,
 ): {
   /** Call a GET endpoint */
-  GET: ClientMethod<Paths, "get", Media>;
+  GET: ClientMethod<Paths, "get">;
   /** Call a PUT endpoint */
-  PUT: ClientMethod<Paths, "put", Media>;
+  PUT: ClientMethod<Paths, "put">;
   /** Call a POST endpoint */
-  POST: ClientMethod<Paths, "post", Media>;
+  POST: ClientMethod<Paths, "post">;
   /** Call a DELETE endpoint */
-  DELETE: ClientMethod<Paths, "delete", Media>;
+  DELETE: ClientMethod<Paths, "delete">;
   /** Call a OPTIONS endpoint */
-  OPTIONS: ClientMethod<Paths, "options", Media>;
+  OPTIONS: ClientMethod<Paths, "options">;
   /** Call a HEAD endpoint */
-  HEAD: ClientMethod<Paths, "head", Media>;
+  HEAD: ClientMethod<Paths, "head">;
   /** Call a PATCH endpoint */
-  PATCH: ClientMethod<Paths, "patch", Media>;
+  PATCH: ClientMethod<Paths, "patch">;
   /** Call a TRACE endpoint */
-  TRACE: ClientMethod<Paths, "trace", Media>;
+  TRACE: ClientMethod<Paths, "trace">;
   /** Register middleware */
   use(...middleware: Middleware[]): void;
   /** Unregister middleware */
@@ -285,7 +296,7 @@ export declare function createFinalURL<O>(
 
 /** Merge headers a and b, with b taking priority */
 export declare function mergeHeaders(
-  ...allHeaders: (HeadersOptions | undefined)[]
+  ...allHeaders: (HeadersOptions<MediaType> | undefined)[]
 ): Headers;
 
 export {};

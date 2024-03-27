@@ -1051,7 +1051,7 @@ describe("client", () => {
       });
 
       it("use the selected content", async () => {
-        const client = createClient<paths, "application/ld+json">();
+        const client = createClient<paths>();
         mockFetchOnce({
           status: 200,
           headers: { "Content-Type": "application/ld+json" },
@@ -1061,11 +1061,14 @@ describe("client", () => {
             name: null,
           }),
         });
-        const { data } = await client.GET("/multiple-response-content", {
+        const query = client.GET("/multiple-response-content", {
           headers: {
             Accept: "application/ld+json",
           },
         });
+
+        const { data } = await query;
+        //      ^?
 
         data satisfies
           | {
