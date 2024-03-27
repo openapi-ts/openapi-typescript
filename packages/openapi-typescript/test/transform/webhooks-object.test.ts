@@ -187,7 +187,7 @@ describe("transformWebhooksObject", () => {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
-        const result = astToString(transformWebhooksObject(given, options));
+        const result = astToString(transformWebhooksObject(given, options)[0]);
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {

@@ -513,7 +513,7 @@ describe("transformComponentsObject", () => {
       testName,
       async () => {
         const result = astToString(
-          transformComponentsObject(given, options ?? DEFAULT_OPTIONS),
+          transformComponentsObject(given, options ?? DEFAULT_OPTIONS)[0],
         );
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));

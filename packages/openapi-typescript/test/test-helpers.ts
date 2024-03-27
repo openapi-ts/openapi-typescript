@@ -28,6 +28,7 @@ export const DEFAULT_CTX: GlobalContext = {
   },
   silent: true,
   transform: undefined,
+  rootTypes: false,
 };
 
 /** Generic test case */

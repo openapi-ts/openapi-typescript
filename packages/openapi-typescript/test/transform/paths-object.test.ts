@@ -377,7 +377,7 @@ describe("transformPathsObject", () => {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
-        const result = astToString(transformPathsObject(given, options));
+        const result = astToString(transformPathsObject(given, options)[0]);
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
