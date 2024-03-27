@@ -17,13 +17,13 @@ type SchemaTransforms = keyof Pick<
 
 const transformers: Record<
   SchemaTransforms,
-  (node: any, options: GlobalContext) => ts.TypeNode // eslint-disable-line @typescript-eslint/no-explicit-any
+  (node: any, options: GlobalContext) => [ts.TypeNode, ts.TypeAliasDeclaration[]] // eslint-disable-line @typescript-eslint/no-explicit-any
 > = {
   paths: transformPathsObject,
   webhooks: transformWebhooksObject,
   components: transformComponentsObject,
   $defs: (node, options) =>
-    transformSchemaObject(node, { path: createRef(["$defs"]), ctx: options }),
+    [transformSchemaObject(node, { path: createRef(["$defs"]), ctx: options }), []],
 };
 
 export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
@@ -39,7 +39,7 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
 
     if (schema[root] && typeof schema[root] === "object") {
       const rootT = performance.now();
-      const subType = transformers[root](schema[root], ctx);
+      const [subType, aliasTypes] = transformers[root](schema[root], ctx);
       if ((subType as ts.TypeLiteralNode).members?.length) {
         type.push(
           ctx.exportType
@@ -61,6 +61,12 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
       } else {
         type.push(emptyObj);
         debug(`${root} done (skipped)`, "ts", 0);
+      }
+
+      if (ctx.rootTypes) {
+        for (const alias of aliasTypes) {
+          type.push(alias);
+        }
       }
     } else {
       type.push(emptyObj);

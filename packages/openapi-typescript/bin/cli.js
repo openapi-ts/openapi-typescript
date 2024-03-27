@@ -33,6 +33,7 @@ Options
   --path-params-as-types     Convert paths to template literal types
   --alphabetize              Sort object keys alphabetically
   --exclude-deprecated       Exclude deprecated types
+  --root-types               Export components and paths types at root level    
 `;
 
 const OUTPUT_FILE = "FILE";
@@ -76,6 +77,7 @@ const flags = parser(args, {
     "help",
     "immutable",
     "pathParamsAsTypes",
+    "rootTypes",
   ],
   string: ["output", "redoc"],
   alias: {
@@ -103,6 +105,7 @@ async function generateSchema(schema, { redoc, silent = false }) {
       exportType: flags.exportType,
       immutable: flags.immutable,
       pathParamsAsTypes: flags.pathParamsAsTypes,
+      rootTypes: flags.rootTypes,
       redoc,
       silent,
     }),

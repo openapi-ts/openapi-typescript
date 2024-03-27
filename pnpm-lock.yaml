@@ -226,6 +226,9 @@ importers:
       execa:
         specifier: ^7.2.0
         version: 7.2.0
+      scule:
+        specifier: ^1.3.0
+        version: 1.3.0
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -5439,6 +5442,10 @@ packages:
     dependencies:
       loose-envify: 1.4.0
     dev: false
+
+  /scule@1.3.0:
+    resolution: {integrity: sha512-6FtHJEvt+pVMIB9IBY+IcCJ6Z5f1iQnytgyfKMhDKgmzYG+TeH/wx1y3l27rshSbLiSanrR9ffZDrEsmjlQF2g==}
+    dev: true
 
   /search-insights@2.13.0:
     resolution: {integrity: sha512-Orrsjf9trHHxFRuo9/rzm0KIWmgzE8RMlZMzuhZOJ01Rnz3D0YBAe+V6473t6/H6c7irs6Lt48brULAiRWb3Vw==}

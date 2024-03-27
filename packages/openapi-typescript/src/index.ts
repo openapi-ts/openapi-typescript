@@ -88,6 +88,7 @@ export default async function openapiTS(
     arrayLength: options.arrayLength ?? false,
     transform:
       typeof options.transform === "function" ? options.transform : undefined,
+    rootTypes: options.rootTypes ?? false,
     resolve($ref) {
       return resolveRef(schema, $ref, { silent: options.silent ?? false });
     },

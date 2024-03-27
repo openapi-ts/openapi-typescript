@@ -673,6 +673,8 @@ export interface OpenAPITSOptions {
   pathParamsAsTypes?: boolean;
   /** Exclude deprecated fields from types? (default: false) */
   excludeDeprecated?: boolean;
+  /** Export components and paths types at root level */
+  rootTypes?: boolean;
   /**
    * Configure Redocly for validation, schema fetching, and bundling
    * @see https://redocly.com/docs/cli/configuration/
@@ -702,6 +704,7 @@ export interface GlobalContext {
   silent: boolean;
   arrayLength: boolean;
   transform: OpenAPITSOptions["transform"];
+  rootTypes: boolean;
   /** retrieve a node by $ref */
   resolve<T>($ref: string): T | undefined;
 }

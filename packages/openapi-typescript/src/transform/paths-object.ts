@@ -1,3 +1,4 @@
+import { pascalCase } from "scule";
 import ts from "typescript";
 import {
   addJSDocComment,
@@ -26,8 +27,9 @@ const PATH_PARAM_RE = /\{[^}]+\}/g;
 export default function transformPathsObject(
   pathsObject: PathsObject,
   ctx: GlobalContext,
-): ts.TypeNode {
+): [ts.TypeNode, ts.TypeAliasDeclaration[]] {
   const type: ts.TypeElement[] = [];
+  const refs: ts.TypeAliasDeclaration[] = [];
   for (const [url, pathItemObject] of getEntries(pathsObject, ctx)) {
     if (!pathItemObject || typeof pathItemObject !== "object") {
       continue;
@@ -52,7 +54,7 @@ export default function transformPathsObject(
 
       // pathParamsAsTypes
       if (ctx.pathParamsAsTypes && url.includes("{")) {
-        const pathParams = extractPathParams(pathItemObject, ctx);
+        const { parameters: pathParams = {} } = extractParams(pathItemObject, ctx);
         const matches = url.match(PATH_PARAM_RE);
         let rawPath = `\`${url}\``;
         if (matches) {
@@ -106,20 +108,41 @@ export default function transformPathsObject(
 
       debug(`Transformed path "${url}"`, "ts", performance.now() - pathT);
     }
+
+    if (ctx.rootTypes) {
+      const { operations } = extractParams(pathItemObject, ctx);
+      for (const name in operations) {
+        refs.push(ts.factory.createTypeAliasDeclaration(
+          /* modifiers      */ tsModifiers({ export: true }),
+          /* name           */ pascalCase(`request-${operations[name]}`),
+          /* typeParameters */ undefined,
+          /* type           */ oapiRef(createRef(["paths", url, name, 'parameters'])),
+        ));
+      }
+    }
   }
 
-  return ts.factory.createTypeLiteralNode(type);
+  return [ts.factory.createTypeLiteralNode(type), refs];
 }
 
-function extractPathParams(pathItemObject: PathItemObject, ctx: GlobalContext) {
-  const params: Record<string, ParameterObject> = {};
+function extractParams(pathItemObject: PathItemObject, ctx: GlobalContext) {
+  const params: {
+    parameters: Record<string, ParameterObject>;
+    operations: Record<string, string>;
+  } = {
+    parameters: {},
+    operations: {},
+  };
   for (const p of pathItemObject.parameters ?? []) {
     const resolved =
       "$ref" in p && p.$ref
         ? ctx.resolve<ParameterObject>(p.$ref)
         : (p as ParameterObject);
-    if (resolved && resolved.in === "path") {
-      params[resolved.name] = resolved;
+    if (resolved) {
+      params.parameters = {
+        ...params.parameters,
+        [resolved.name]: resolved,
+      }
     }
   }
   for (const method of [
@@ -146,8 +169,17 @@ function extractPathParams(pathItemObject: PathItemObject, ctx: GlobalContext) {
           "$ref" in p && p.$ref
             ? ctx.resolve<ParameterObject>(p.$ref)
             : (p as ParameterObject);
-        if (resolvedParam && resolvedParam.in === "path") {
-          params[resolvedParam.name] = resolvedParam;
+        if (resolvedParam) {
+          params.parameters = {
+            ...params.parameters,
+            [resolvedParam.name]: resolvedParam,
+          }
+          if (resolvedMethod.operationId) {
+            params.operations = {
+              ...params.operations,
+              [method]: resolvedMethod.operationId,
+            }
+          }
         }
       }
     }

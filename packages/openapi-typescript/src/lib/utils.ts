@@ -373,3 +373,24 @@ export function warn(msg: string, silent = false) {
     console.warn(c.yellow(` ⚠  ${msg}`)); // eslint-disable-line no-console
   }
 }
+
+export function renameDuplicates(arr: string[]): string[] {
+  const count: Record<string, number> = {};
+  const res: string[] = [];
+
+  for (const item of arr) {
+    if (count[item]) {
+      let newName = item + count[item];
+      while (res.includes(newName)) {
+        count[item]++;
+        newName = item + count[item];
+      }
+      res.push(newName);
+    } else {
+      count[item] = 1;
+      res.push(item);
+    }
+  }
+
+  return res;
+}

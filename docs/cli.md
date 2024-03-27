@@ -107,6 +107,7 @@ The following flags are supported in the CLI:
 | `--export-type`           | `-t`  | `false`  | Export `type` instead of `interface`                                                                                |
 | `--immutable`             |       | `false`  | Generates immutable types (readonly properties and readonly array)                                                  |
 | `--path-params-as-types`  |       | `false`  | Allow dynamic string lookups on the `paths` object                                                                  |
+| `--root-types`            |       | `false`  | Export components and paths types at root level                                                                     |
 
 ### pathParamsAsTypes
 

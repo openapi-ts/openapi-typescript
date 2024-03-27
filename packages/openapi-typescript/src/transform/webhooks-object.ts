@@ -7,7 +7,7 @@ import transformPathItemObject from "./path-item-object.js";
 export default function transformWebhooksObject(
   webhooksObject: WebhooksObject,
   options: GlobalContext,
-): ts.TypeNode {
+): [ts.TypeNode, ts.TypeAliasDeclaration[]] {
   const type: ts.TypeElement[] = [];
 
   for (const [name, pathItemObject] of getEntries(webhooksObject, options)) {
@@ -26,5 +26,5 @@ export default function transformWebhooksObject(
     );
   }
 
-  return ts.factory.createTypeLiteralNode(type);
+  return [ts.factory.createTypeLiteralNode(type), []];
 }

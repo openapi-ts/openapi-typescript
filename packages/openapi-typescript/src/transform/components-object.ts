@@ -1,3 +1,4 @@
+import { pascalCase } from "scule";
 import ts from "typescript";
 import {
   NEVER,
@@ -5,8 +6,9 @@ import {
   addJSDocComment,
   tsModifiers,
   tsPropertyIndex,
+  oapiRef
 } from "../lib/ts.js";
-import { createRef, debug, getEntries } from "../lib/utils.js";
+import { createRef, debug, getEntries, renameDuplicates } from "../lib/utils.js";
 import type {
   ComponentsObject,
   GlobalContext,
@@ -44,15 +46,17 @@ const transformers: Record<
 export default function transformComponentsObject(
   componentsObject: ComponentsObject,
   ctx: GlobalContext,
-): ts.TypeNode {
+): [ts.TypeNode, ts.TypeAliasDeclaration[]] {
   const type: ts.TypeElement[] = [];
+  const refs: ts.TypeAliasDeclaration[] = [];
 
   for (const key of Object.keys(transformers) as ComponentTransforms[]) {
     const componentT = performance.now();
 
     const items: ts.TypeElement[] = [];
     if (componentsObject[key]) {
-      for (const [name, item] of getEntries(componentsObject[key], ctx)) {
+      const entries = getEntries(componentsObject[key], ctx);
+      for (const [name, item] of entries) {
         let subType = transformers[key](item, {
           path: createRef(["components", key, name]),
           ctx,
@@ -83,6 +87,19 @@ export default function transformComponentsObject(
         addJSDocComment(item as unknown as any, property); // eslint-disable-line @typescript-eslint/no-explicit-any
         items.push(property);
       }
+
+      if (ctx.rootTypes) {
+        const keySingular = key.slice(0, -1);
+        const pascalNames = renameDuplicates(entries.map(([name]) => pascalCase(`${keySingular}-${name}`)));
+        for (let i = 0; i < entries.length; i++) {
+          refs.push(ts.factory.createTypeAliasDeclaration(
+            /* modifiers      */ tsModifiers({ export: true }),
+            /* name           */ pascalNames[i],
+            /* typeParameters */ undefined,
+            /* type           */ oapiRef(createRef(["components", key, entries[i][0]])),
+          ));
+        }
+      }
     }
     type.push(
       ts.factory.createPropertySignature(
@@ -102,5 +119,5 @@ export default function transformComponentsObject(
     );
   }
 
-  return ts.factory.createTypeLiteralNode(type);
+  return [ts.factory.createTypeLiteralNode(type), refs];
 }
