@@ -6,9 +6,14 @@ import {
   addJSDocComment,
   tsModifiers,
   tsPropertyIndex,
-  oapiRef
+  oapiRef,
 } from "../lib/ts.js";
-import { createRef, debug, getEntries, renameDuplicates } from "../lib/utils.js";
+import {
+  createRef,
+  debug,
+  getEntries,
+  renameDuplicates,
+} from "../lib/utils.js";
 import type {
   ComponentsObject,
   GlobalContext,
@@ -90,14 +95,20 @@ export default function transformComponentsObject(
 
       if (ctx.rootTypes) {
         const keySingular = key.slice(0, -1);
-        const pascalNames = renameDuplicates(entries.map(([name]) => pascalCase(`${keySingular}-${name}`)));
+        const pascalNames = renameDuplicates(
+          entries.map(([name]) => pascalCase(`${keySingular}-${name}`)),
+        );
         for (let i = 0; i < entries.length; i++) {
-          refs.push(ts.factory.createTypeAliasDeclaration(
-            /* modifiers      */ tsModifiers({ export: true }),
-            /* name           */ pascalNames[i],
-            /* typeParameters */ undefined,
-            /* type           */ oapiRef(createRef(["components", key, entries[i][0]])),
-          ));
+          refs.push(
+            ts.factory.createTypeAliasDeclaration(
+              /* modifiers      */ tsModifiers({ export: true }),
+              /* name           */ pascalNames[i],
+              /* typeParameters */ undefined,
+              /* type           */ oapiRef(
+                createRef(["components", key, entries[i][0]]),
+              ),
+            ),
+          );
         }
       }
     }

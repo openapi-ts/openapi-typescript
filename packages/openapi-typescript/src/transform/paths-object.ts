@@ -54,7 +54,10 @@ export default function transformPathsObject(
 
       // pathParamsAsTypes
       if (ctx.pathParamsAsTypes && url.includes("{")) {
-        const { parameters: pathParams = {} } = extractParams(pathItemObject, ctx);
+        const { parameters: pathParams = {} } = extractParams(
+          pathItemObject,
+          ctx,
+        );
         const matches = url.match(PATH_PARAM_RE);
         let rawPath = `\`${url}\``;
         if (matches) {
@@ -112,12 +115,16 @@ export default function transformPathsObject(
     if (ctx.rootTypes) {
       const { operations } = extractParams(pathItemObject, ctx);
       for (const name in operations) {
-        refs.push(ts.factory.createTypeAliasDeclaration(
-          /* modifiers      */ tsModifiers({ export: true }),
-          /* name           */ pascalCase(`request-${operations[name]}`),
-          /* typeParameters */ undefined,
-          /* type           */ oapiRef(createRef(["paths", url, name, 'parameters'])),
-        ));
+        refs.push(
+          ts.factory.createTypeAliasDeclaration(
+            /* modifiers      */ tsModifiers({ export: true }),
+            /* name           */ pascalCase(`request-${operations[name]}`),
+            /* typeParameters */ undefined,
+            /* type           */ oapiRef(
+              createRef(["paths", url, name, "parameters"]),
+            ),
+          ),
+        );
       }
     }
   }
@@ -142,7 +149,7 @@ function extractParams(pathItemObject: PathItemObject, ctx: GlobalContext) {
       params.parameters = {
         ...params.parameters,
         [resolved.name]: resolved,
-      }
+      };
     }
   }
   for (const method of [
@@ -173,12 +180,12 @@ function extractParams(pathItemObject: PathItemObject, ctx: GlobalContext) {
           params.parameters = {
             ...params.parameters,
             [resolvedParam.name]: resolvedParam,
-          }
+          };
           if (resolvedMethod.operationId) {
             params.operations = {
               ...params.operations,
               [method]: resolvedMethod.operationId,
-            }
+            };
           }
         }
       }

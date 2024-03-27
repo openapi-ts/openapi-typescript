@@ -17,13 +17,18 @@ type SchemaTransforms = keyof Pick<
 
 const transformers: Record<
   SchemaTransforms,
-  (node: any, options: GlobalContext) => [ts.TypeNode, ts.TypeAliasDeclaration[]] // eslint-disable-line @typescript-eslint/no-explicit-any
+  (
+    node: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+    options: GlobalContext,
+  ) => [ts.TypeNode, ts.TypeAliasDeclaration[]]
 > = {
   paths: transformPathsObject,
   webhooks: transformWebhooksObject,
   components: transformComponentsObject,
-  $defs: (node, options) =>
-    [transformSchemaObject(node, { path: createRef(["$defs"]), ctx: options }), []],
+  $defs: (node, options) => [
+    transformSchemaObject(node, { path: createRef(["$defs"]), ctx: options }),
+    [],
+  ],
 };
 
 export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
