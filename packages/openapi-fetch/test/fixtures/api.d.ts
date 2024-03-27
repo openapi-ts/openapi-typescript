@@ -3,7 +3,6 @@
  * Do not make direct changes to the file.
  */
 
-
 export interface paths {
   "/comment": {
     put: {
@@ -396,6 +395,13 @@ export interface paths {
       };
     };
   };
+  "/multiple-response-content": {
+    get: {
+      responses: {
+        200: components["responses"]["MultipleResponse"];
+      };
+    };
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -492,6 +498,20 @@ export interface components {
         "application/json": components["schemas"]["User"];
       };
     };
+    MultipleResponse: {
+      content: {
+        "application/json": {
+          id: string;
+          email: string;
+          name?: string;
+        };
+        "application/ld+json": {
+          "@id": string;
+          email: string;
+          name?: string;
+        };
+      };
+    };
   };
   parameters: never;
   requestBodies: {
@@ -557,7 +577,6 @@ export type $defs = Record<string, never>;
 export type external = Record<string, never>;
 
 export interface operations {
-
   getHeaderParams: {
     parameters: {
       header: {
