@@ -111,10 +111,10 @@ export type RequestBodyOption<T> =
 export type FetchOptions<T> = RequestOptions<T> &
   Omit<RequestInit, "body" | "headers">;
 
-export type FetchResponse<T, O> =
+export type FetchResponse<T, O, Media extends MediaType> =
   | {
       data: ParseAsResponse<
-        FilterKeys<SuccessResponse<ResponseObjectMap<T>>, MediaType>,
+        FilterKeys<SuccessResponse<ResponseObjectMap<T>>, Media>,
         O
       >;
       error?: never;
@@ -122,7 +122,7 @@ export type FetchResponse<T, O> =
     }
   | {
       data?: never;
-      error: FilterKeys<ErrorResponse<ResponseObjectMap<T>>, MediaType>;
+      error: FilterKeys<ErrorResponse<ResponseObjectMap<T>>, Media>;
       response: Response;
     };
 
@@ -180,33 +180,37 @@ export type MaybeOptionalInit<P extends PathMethods, M extends keyof P> =
 export type ClientMethod<
   Paths extends Record<string, PathMethods>,
   M extends HttpMethod,
+  Media extends MediaType,
 > = <
   P extends PathsWithMethod<Paths, M>,
   I extends MaybeOptionalInit<Paths[P], M>,
 >(
   url: P,
   ...init: I
-) => Promise<FetchResponse<Paths[P][M], I[0]>>;
+) => Promise<FetchResponse<Paths[P][M], I[0], Media>>;
 
-export default function createClient<Paths extends {}>(
+export default function createClient<
+  Paths extends {},
+  Media extends MediaType = MediaType,
+>(
   clientOptions?: ClientOptions,
 ): {
   /** Call a GET endpoint */
-  GET: ClientMethod<Paths, "get">;
+  GET: ClientMethod<Paths, "get", Media>;
   /** Call a PUT endpoint */
-  PUT: ClientMethod<Paths, "put">;
+  PUT: ClientMethod<Paths, "put", Media>;
   /** Call a POST endpoint */
-  POST: ClientMethod<Paths, "post">;
+  POST: ClientMethod<Paths, "post", Media>;
   /** Call a DELETE endpoint */
-  DELETE: ClientMethod<Paths, "delete">;
+  DELETE: ClientMethod<Paths, "delete", Media>;
   /** Call a OPTIONS endpoint */
-  OPTIONS: ClientMethod<Paths, "options">;
+  OPTIONS: ClientMethod<Paths, "options", Media>;
   /** Call a HEAD endpoint */
-  HEAD: ClientMethod<Paths, "head">;
+  HEAD: ClientMethod<Paths, "head", Media>;
   /** Call a PATCH endpoint */
-  PATCH: ClientMethod<Paths, "patch">;
+  PATCH: ClientMethod<Paths, "patch", Media>;
   /** Call a TRACE endpoint */
-  TRACE: ClientMethod<Paths, "trace">;
+  TRACE: ClientMethod<Paths, "trace", Media>;
   /** Register middleware */
   use(...middleware: Middleware[]): void;
   /** Unregister middleware */
