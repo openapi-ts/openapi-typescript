@@ -1333,7 +1333,6 @@ describe("client", () => {
         status: 200,
         body: mockData,
       });
-      // mockFetchOnce({ status: 200, body: JSON.stringify(mockData) });
       const { data, error, response } = await client.GET(
         "/blogposts/{post_id}",
         {

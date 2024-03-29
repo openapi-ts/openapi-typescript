@@ -1300,16 +1300,21 @@ describe("client", () => {
       });
 
       it("use the selected content", async () => {
-        const client = createClient<paths, "application/ld+json">();
-        mockFetchOnce({
+        const client = createClient<paths, "application/ld+json">({ baseUrl });
+
+        useMockRequestHandler({
+          baseUrl,
+          method: "get",
+          path: "/multiple-response-content",
           status: 200,
           headers: { "Content-Type": "application/ld+json" },
-          body: JSON.stringify({
+          body: {
             "@id": "some-resource-identifier",
             email: "foo@bar.fr",
             name: null,
-          }),
+          },
         });
+
         const { data } = await client.GET("/multiple-response-content", {
           headers: {
             Accept: "application/ld+json",
@@ -1364,7 +1369,6 @@ describe("client", () => {
         status: 200,
         body: mockData,
       });
-      // mockFetchOnce({ status: 200, body: JSON.stringify(mockData) });
       const { data, error, response } = await client.GET(
         "/blogposts/{post_id}",
         {
