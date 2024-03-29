@@ -1,34 +1,58 @@
 import axios from "axios";
+import { http, HttpResponse } from "msw";
+import { setupServer } from "msw/node";
 import { Fetcher } from "openapi-typescript-fetch";
 import superagent from "superagent";
-import { afterAll, bench, describe, vi } from "vitest";
-import createFetchMock from "vitest-fetch-mock";
+import { afterAll, bench, describe } from "vitest";
 import createClient from "../dist/index.js";
 import * as openapiTSCodegen from "./fixtures/openapi-typescript-codegen.min.js";
 
 const BASE_URL = "https://api.test.local";
 
-const fetchMocker = createFetchMock(vi);
+const server = setupServer(
+  http.get(`${BASE_URL}/url`, () =>
+    HttpResponse.json({
+      message: "success",
+    }),
+  ),
 
-fetchMocker.enableMocks();
-fetchMocker.mockResponse("{}");
+  // Used by openapi-typescript-codegen
+  http.get("https://api.github.com/repos/test1/test2/pulls/test3", () =>
+    HttpResponse.json({
+      message: "success",
+    }),
+  ),
+);
+
+// Ensure we are listening early enough so all the requests are intercepted
+server.listen({
+  onUnhandledRequest: (request) => {
+    throw new Error(
+      `No request handler found for ${request.method} ${request.url}`,
+    );
+  },
+});
+
 afterAll(() => {
-  fetchMocker.resetMocks();
+  server.close();
 });
 
 describe("setup", () => {
   bench("openapi-fetch", async () => {
-    createClient();
+    createClient({ baseUrl: BASE_URL });
   });
 
   bench("openapi-typescript-fetch", async () => {
     const fetcher = Fetcher.for();
+    fetcher.configure({
+      baseUrl: BASE_URL,
+    });
     fetcher.path("/pet/findByStatus").method("get").create();
   });
 
   bench("axios", async () => {
     axios.create({
-      baseURL: "https://api.test.local",
+      baseURL: BASE_URL,
     });
   });
 
@@ -39,9 +63,13 @@ describe("get (only URL)", () => {
   let openapiFetch = createClient({ baseUrl: BASE_URL });
   let openapiTSFetch = Fetcher.for();
   openapiTSFetch.configure({
-    init: { baseUrl: BASE_URL },
+    baseUrl: BASE_URL,
   });
   let openapiTSFetchGET = openapiTSFetch.path("/url").method("get").create();
+
+  let axiosInstance = axios.create({
+    baseURL: BASE_URL,
+  });
 
   bench("openapi-fetch", async () => {
     await openapiFetch.GET("/url");
@@ -52,19 +80,15 @@ describe("get (only URL)", () => {
   });
 
   bench("openapi-typescript-codegen", async () => {
-    await openapiTSCodegen.PullsService.pullsGet();
+    await openapiTSCodegen.PullsService.pullsGet("test1", "test2", "test3");
   });
 
   bench("axios", async () => {
-    await axios.get("/url", {
-      async adapter() {
-        return { data: {} };
-      },
-    });
+    await axiosInstance.get("/url");
   });
 
   bench("superagent", async () => {
-    await superagent.get("/url").end();
+    await superagent.get(`${BASE_URL}/url`);
   });
 });
 
@@ -75,9 +99,14 @@ describe("get (headers)", () => {
   });
   let openapiTSFetch = Fetcher.for();
   openapiTSFetch.configure({
-    init: { baseUrl: BASE_URL, headers: { "x-base-header": 123 } },
+    baseUrl: BASE_URL,
+    init: { headers: { "x-base-header": 123 } },
   });
   let openapiTSFetchGET = openapiTSFetch.path("/url").method("get").create();
+
+  let axiosInstance = axios.create({
+    baseURL: BASE_URL,
+  });
 
   bench("openapi-fetch", async () => {
     await openapiFetch.GET("/url", {
@@ -92,15 +121,12 @@ describe("get (headers)", () => {
   });
 
   bench("openapi-typescript-codegen", async () => {
-    await openapiTSCodegen.PullsService.pullsGet();
+    await openapiTSCodegen.PullsService.pullsGet("test1", "test2", "test3");
   });
 
   bench("axios", async () => {
-    await axios.get(`${BASE_URL}/url`, {
+    await axiosInstance.get("/url", {
       headers: { "x-header-1": 123, "x-header-2": 456 },
-      async adapter() {
-        return { data: {} };
-      },
     });
   });
 
@@ -108,7 +134,6 @@ describe("get (headers)", () => {
     await superagent
       .get(`${BASE_URL}/url`)
       .set("x-header-1", 123)
-      .set("x-header-2", 456)
-      .end();
+      .set("x-header-2", 456);
   });
 });
