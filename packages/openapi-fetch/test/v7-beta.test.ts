@@ -1303,6 +1303,47 @@ describe("client", () => {
         const result = await reader.read();
         expect(result.value!.length).toBe(2);
       });
+
+      it("use the selected content", async () => {
+        const client = createClient<paths, "application/ld+json">({ baseUrl });
+
+        useMockRequestHandler({
+          baseUrl,
+          method: "get",
+          path: "/multiple-response-content",
+          status: 200,
+          headers: { "Content-Type": "application/ld+json" },
+          body: {
+            "@id": "some-resource-identifier",
+            email: "foo@bar.fr",
+            name: null,
+          },
+        });
+
+        const { data } = await client.GET("/multiple-response-content", {
+          headers: {
+            Accept: "application/ld+json",
+          },
+        });
+
+        data satisfies
+          | {
+              "@id": string;
+              email: string;
+              name?: string;
+            }
+          | undefined;
+
+        if (!data) {
+          throw new Error(`Missing response`);
+        }
+
+        expect(data).toEqual({
+          "@id": "some-resource-identifier",
+          email: "foo@bar.fr",
+          name: null,
+        });
+      });
     });
   });
 
