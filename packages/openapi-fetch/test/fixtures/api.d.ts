@@ -3,6 +3,7 @@
  * Do not make direct changes to the file.
  */
 
+
 export interface paths {
   "/comment": {
     put: {
@@ -577,6 +578,7 @@ export type $defs = Record<string, never>;
 export type external = Record<string, never>;
 
 export interface operations {
+
   getHeaderParams: {
     parameters: {
       header: {

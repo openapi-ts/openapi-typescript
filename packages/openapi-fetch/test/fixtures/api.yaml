@@ -447,6 +447,11 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/Contact'
+  /multiple-response-content:
+    get:
+      responses:
+        200:
+          $ref: '#/components/responses/MultipleResponse'
 components:
   schemas:
     Post:
@@ -672,3 +677,31 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/User'
+    MultipleResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              email:
+                type: string
+              name:
+                type: string
+            required:
+              - id
+              - email
+        application/ld+json:
+          schema:
+            type: object
+            properties:
+              '@id':
+                type: string
+              email:
+                type: string
+              name:
+                type: string
+            required:
+              - '@id'
+              - email

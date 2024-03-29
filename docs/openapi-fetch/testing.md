@@ -65,3 +65,51 @@ test("my API call", async () => {
   expect(error).toBeUndefined();
 });
 ```
+
+## Mock Service Worker
+
+[Mock Service Worker](https://mswjs.io/) can also be used for testing and mocking actual responses:
+
+```ts
+import { http, HttpResponse } from "msw";
+import { setupServer } from "msw/node";
+import createClient from "openapi-fetch";
+import { afterEach, beforeAll, expect, test } from "vitest";
+import type { paths } from "./api/v1";
+
+const server = setupServer();
+
+beforeAll(() => {
+  // NOTE: server.listen must be called before `createClient` is used to ensure
+  // the msw can inject its version of `fetch` to intercept the requests.
+  server.listen({
+    onUnhandledRequest: (request) => {
+      throw new Error(
+        `No request handler found for ${request.method} ${request.url}`,
+      );
+    },
+  });
+});
+
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
+test("my API call", async () => {
+  const rawData = { test: { data: "foo" } };
+
+  const BASE_URL = "https://my-site.com";
+
+  server.use(
+    http.get(`${BASE_URL}/api/v1/foo`, () => HttpResponse.json(rawData, { status: 200 }))
+  );
+
+  const client = createClient<paths>({
+    baseUrl: BASE_URL,
+  });
+
+  const { data, error } = await client.GET("/api/v1/foo");
+
+  expect(data).toEqual(rawData);
+  expect(error).toBeUndefined();
+});
+```
