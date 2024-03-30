@@ -265,16 +265,23 @@ export function tsEnumMember(
   if (!JS_PROPERTY_INDEX_RE.test(name)) {
     if (Number(name[0]) >= 0) {
       name = `Value${name}`.replace(".", "_"); // don't forged decimals;
+    } else if (name[0] === "-") {
+      name = `ValueMinus${name.slice(1)}`;
     }
     name = name.replace(JS_PROPERTY_INDEX_INVALID_CHARS_RE, "_");
   }
 
   let member;
   if (typeof value === "number") {
-    member = ts.factory.createEnumMember(
-      name,
-      ts.factory.createNumericLiteral(value),
-    );
+    const literal =
+      value < 0
+        ? ts.factory.createPrefixUnaryExpression(
+            ts.SyntaxKind.MinusToken,
+            ts.factory.createNumericLiteral(Math.abs(value)),
+          )
+        : ts.factory.createNumericLiteral(value);
+
+    member = ts.factory.createEnumMember(name, literal);
   } else {
     member = ts.factory.createEnumMember(
       name,

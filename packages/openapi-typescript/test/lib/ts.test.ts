@@ -122,11 +122,12 @@ describe("tsEnum", () => {
   });
 
   test("number members", () => {
-    expect(astToString(tsEnum(".Error.code.", [100, 101, 102])).trim())
+    expect(astToString(tsEnum(".Error.code.", [100, 101, 102, -100])).trim())
       .toBe(`enum ErrorCode {
     Value100 = 100,
     Value101 = 101,
-    Value102 = 102
+    Value102 = 102,
+    ValueMinus100 = -100
 }`);
   });
 
