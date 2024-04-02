@@ -230,7 +230,7 @@ export function tsEnum(
   name: string,
   members: (string | number)[],
   metadata?: { name?: string; description?: string }[],
-  options?: { readonly?: boolean; export?: boolean },
+  options?: { export?: boolean },
 ) {
   let enumName = name.replace(JS_ENUM_INVALID_CHARS_RE, (c) => {
     const last = c[c.length - 1];
@@ -244,10 +244,7 @@ export function tsEnum(
   enumName = `${enumName[0].toUpperCase()}${enumName.substring(1)}`;
   return ts.factory.createEnumDeclaration(
     /* modifiers */ options
-      ? tsModifiers({
-          readonly: options.readonly ?? false,
-          export: options.export ?? false,
-        })
+      ? tsModifiers({ export: options.export ?? false })
       : undefined,
     /* name      */ enumName,
     /* members   */ members.map((value, i) =>
