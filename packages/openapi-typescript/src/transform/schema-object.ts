@@ -126,7 +126,11 @@ export function transformSchemaObjectWithComposition(
         enumName,
         schemaObject.enum as (string | number)[],
         metadata,
-        { export: true, readonly: options.ctx.immutable },
+
+        {
+          export: true,
+          // readonly: TS enum do not support the readonly modifier
+        },
       );
       options.ctx.injectFooter.push(enumType);
       return ts.factory.createTypeReferenceNode(enumType.name);

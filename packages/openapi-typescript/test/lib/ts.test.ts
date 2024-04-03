@@ -98,6 +98,20 @@ describe("tsEnum", () => {
 }`);
   });
 
+  test("with setting: export", () => {
+    expect(
+      astToString(
+        tsEnum("-my-color-", ["green", "red", "blue"], undefined, {
+          export: true,
+        }),
+      ).trim(),
+    ).toBe(`export enum MyColor {
+    green = "green",
+    red = "red",
+    blue = "blue"
+}`);
+  });
+
   test("name from path", () => {
     expect(
       astToString(
