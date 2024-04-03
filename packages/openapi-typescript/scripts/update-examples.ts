@@ -15,18 +15,31 @@ async function generateSchemas() {
   const updateSchema = async (name: string, ext: string) => {
     const start = performance.now();
 
-    await execa(
-      "./bin/cli.js",
-      [`./examples/${name}${ext}`, "-o", `./examples/${name}.ts`],
-      { cwd },
-    );
+    try {
+      await execa(
+        "./bin/cli.js",
+        [`./examples/${name}${ext}`, "-o", `./examples/${name}.ts`],
+        {
+          cwd:
+            process.platform === "win32"
+              ? // execa/cross-spawn can not handle URL objects on Windows, so convert it to string and cut away the protocol
+                cwd.toString().slice("file:///".length)
+              : cwd,
+        },
+      );
 
-    schemasDoneCount++;
-    const timeMs = Math.round(performance.now() - start);
+      schemasDoneCount++;
+      const timeMs = Math.round(performance.now() - start);
 
-    console.log(
-      `✔︎ [${schemasDoneCount}/${schemaTotalCount}] Updated ${name} (${timeMs}ms)`,
-    );
+      console.log(
+        `✔︎ [${schemasDoneCount}/${schemaTotalCount}] Updated ${name} (${timeMs}ms)`,
+      );
+    } catch (error) {
+      console.error(
+        `✘ [${schemasDoneCount}/${schemaTotalCount}] Failed to update ${name}`,
+        { error: error instanceof Error ? error.message : error },
+      );
+    }
   };
 
   console.log("Updating examples...");

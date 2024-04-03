@@ -258,6 +258,52 @@ describe("composition", () => {
       "discriminator > oneOf",
       {
         given: {
+          oneOf: [
+            { $ref: "#/components/schemas/Cat" },
+            { $ref: "#/components/schemas/Dog" },
+          ],
+        },
+        want: `components["schemas"]["Cat"] | components["schemas"]["Dog"]`,
+        options: {
+          path: "#/components/schemas/Pet",
+          ctx: {
+            ...DEFAULT_OPTIONS.ctx,
+            discriminators: {
+              objects: {
+                "#/components/schemas/Pet": {
+                  propertyName: "petType",
+                },
+                "#/components/schemas/Cat": {
+                  propertyName: "petType",
+                },
+                "#/components/schemas/Dog": {
+                  propertyName: "petType",
+                },
+              },
+              refsHandled: [],
+            },
+            resolve($ref) {
+              switch ($ref) {
+                case "#/components/schemas/Pet": {
+                  return {
+                    propertyName: "petType",
+                    oneOf: ["#/components/schemas/Cat"],
+                  };
+                }
+                default: {
+                  return undefined as any;
+                }
+              }
+            },
+          },
+        },
+      },
+    ],
+    [
+      // this is actually invalid syntax for oneOfs, but we support it anyways for better compatibility with bad schemas
+      "discriminator > oneOf inside object",
+      {
+        given: {
           type: "object",
           required: ["name"],
           properties: {
@@ -269,9 +315,8 @@ describe("composition", () => {
           ],
         },
         want: `{
-    petType: "Pet";
     name: string;
-} & (Omit<components["schemas"]["Cat"], "petType"> | Omit<components["schemas"]["Dog"], "petType">)`,
+} & (components["schemas"]["Cat"] | components["schemas"]["Dog"])`,
         options: {
           path: "#/components/schemas/Pet",
           ctx: {
@@ -313,9 +358,7 @@ describe("composition", () => {
         given: {
           oneOf: [{ $ref: "#/components/schemas/parent" }, { type: "null" }],
         },
-        want: `{
-    operation: "schema-object";
-} & (Omit<components["schemas"]["parent"], "operation"> | null)`,
+        want: `components["schemas"]["parent"] | null`,
         options: {
           ...DEFAULT_OPTIONS,
           ctx: {

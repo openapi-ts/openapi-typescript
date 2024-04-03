@@ -142,8 +142,18 @@ export function transformSchemaObjectWithComposition(
    * Object + composition (anyOf/allOf/oneOf) types
    */
 
-  /** Collect oneOf/allOf/anyOf with Omit<> for discriminators */
-  function collectCompositions(
+  /** Collect oneOf/anyOf */
+  function collectUnionCompositions(items: (SchemaObject | ReferenceObject)[]) {
+    const output: ts.TypeNode[] = [];
+    for (const item of items) {
+      output.push(transformSchemaObject(item, options));
+    }
+
+    return output;
+  }
+
+  /** Collect allOf with Omit<> for discriminators */
+  function collectAllOfCompositions(
     items: (SchemaObject | ReferenceObject)[],
     required?: string[],
   ): ts.TypeNode[] {
@@ -156,24 +166,25 @@ export function transformSchemaObjectWithComposition(
         itemType = transformSchemaObject(item, options);
 
         const resolved = options.ctx.resolve<SchemaObject>(item.$ref);
+
+        // make keys required, if necessary
         if (
           resolved &&
           typeof resolved === "object" &&
-          "properties" in resolved
+          "properties" in resolved &&
+          // we have already handled this item (discriminator property was already added as required)
+          !options.ctx.discriminators.refsHandled.includes(item.$ref)
         ) {
-          // don’t try and make keys required if we have already handled the item (discriminator property was already added as required)
-          // or the $ref doesn’t have them
-          if (!options.ctx.discriminators.refsHandled.includes(item.$ref)) {
-            const validRequired = (required ?? []).filter(
-              (key) => !!resolved.properties![key],
+          // add WithRequired<X, Y> if necessary
+          const validRequired = (required ?? []).filter(
+            (key) => !!resolved.properties![key],
+          );
+          if (validRequired.length) {
+            itemType = tsWithRequired(
+              itemType,
+              validRequired,
+              options.ctx.injectFooter,
             );
-            if (validRequired.length) {
-              itemType = tsWithRequired(
-                itemType,
-                validRequired,
-                options.ctx.injectFooter,
-              );
-            }
           }
         }
       }
@@ -188,6 +199,7 @@ export function transformSchemaObjectWithComposition(
           options,
         );
       }
+
       const discriminator =
         ("$ref" in item && options.ctx.discriminators.objects[item.$ref]) ||
         (item as any).discriminator; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -205,7 +217,7 @@ export function transformSchemaObjectWithComposition(
 
   // core + allOf: intersect
   const coreObjectType = transformSchemaObjectCore(schemaObject, options);
-  const allOfType = collectCompositions(
+  const allOfType = collectAllOfCompositions(
     schemaObject.allOf ?? [],
     schemaObject.required,
   );
@@ -220,21 +232,17 @@ export function transformSchemaObjectWithComposition(
   }
   // anyOf: union
   // (note: this may seem counterintuitive, but as TypeScript’s unions are not true XORs, they mimic behavior closer to anyOf than oneOf)
-  const anyOfType = collectCompositions(
-    schemaObject.anyOf ?? [],
-    schemaObject.required,
-  );
+  const anyOfType = collectUnionCompositions(schemaObject.anyOf ?? []);
   if (anyOfType.length) {
     finalType = tsUnion([...(finalType ? [finalType] : []), ...anyOfType]);
   }
   // oneOf: union (within intersection with other types, if any)
-  const oneOfType = collectCompositions(
+  const oneOfType = collectUnionCompositions(
     schemaObject.oneOf ||
       ("type" in schemaObject &&
         schemaObject.type === "object" &&
         (schemaObject.enum as (SchemaObject | ReferenceObject)[])) ||
       [],
-    schemaObject.required,
   );
   if (oneOfType.length) {
     // note: oneOf is the only type that may include primitives
@@ -412,16 +420,19 @@ function transformSchemaObjectCore(
   // type: object
   const coreObjectType: ts.TypeElement[] = [];
 
-  // discriminatorss: explicit mapping on schema object
-  for (const k of ["oneOf", "allOf", "anyOf"] as const) {
+  // discriminators: explicit mapping on schema object
+  for (const k of ["allOf", "anyOf"] as const) {
     if (!schemaObject[k]) {
       continue;
     }
     // for all magic inheritance, we will have already gathered it into
     // ctx.discriminators. But stop objects from referencing their own
     // discriminator meant for children (!schemaObject.discriminator)
+    // and don't add discriminator properties if we already added/patched
+    // them (options.ctx.discriminators.refsHandled.includes(options.path!).
     const discriminator =
       !schemaObject.discriminator &&
+      !options.ctx.discriminators.refsHandled.includes(options.path!) &&
       options.ctx.discriminators.objects[options.path!];
     if (discriminator) {
       coreObjectType.unshift(
