@@ -28,6 +28,8 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/AllPostsGet'
+        401:
+          $ref: '#/components/responses/EmptyError'
         500:
           $ref: '#/components/responses/Error'
     put:
@@ -623,6 +625,8 @@ components:
         text/html:
           schema:
             type: string
+    EmptyError:
+      content: {}
     Error:
       content:
         application/json:

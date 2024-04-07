@@ -1,66 +1,24 @@
 import { test, expectTypeOf } from "vitest";
 
 import createClient from "../src/index.js";
-
-interface paths {
-  "/": {
-    get: operations["GetObjects"];
-  };
-}
-
-interface operations {
-  GetObjects: {
-    parameters: {};
-    responses: {
-      200: components["responses"]["MultipleObjectsResponse"];
-      401: components["responses"]["Unauthorized"];
-      422: components["responses"]["GenericError"];
-    };
-  };
-}
-
-interface components {
-  schemas: {
-    Object: {
-      id: string;
-      name: string;
-    };
-    GenericErrorModel: {
-      errors: {
-        body: string[];
-      };
-    };
-  };
-  responses: {
-    MultipleObjectsResponse: {
-      content: {
-        "application/json": {
-          objects: components["schemas"]["Object"][];
-        };
-      };
-    };
-    /** @description Unauthorized */
-    Unauthorized: {
-      content: {};
-    };
-    /** @description Unexpected error */
-    GenericError: {
-      content: {
-        "application/json": components["schemas"]["GenericErrorModel"];
-      };
-    };
-  };
-}
+import type { paths } from "./fixtures/api.js";
 
 const { GET } = createClient<paths>();
 
+interface Blogpost {
+  title: string;
+  body: string;
+  publish_date?: number | undefined;
+}
+
 test("the error type works properly", async () => {
-  const value = await GET("/");
+  const value = await GET("/blogposts");
 
   if (value.data) {
-    expectTypeOf(value.data).toEqualTypeOf({ objects: [{ id: "", name: "" }] });
+    expectTypeOf(value.data).toEqualTypeOf<Array<Blogpost>>();
   } else {
     expectTypeOf(value.data).toBeUndefined();
-    expectTypeOf(value.error).toEqualTypeOf({ errors: [""] });
+    expectTypeOf(value.error).extract<{ code: number }>().toEqualTypeOf<{ code: number; message: string }>();
+    expectTypeOf(value.error).exclude<{ code: number }>().toEqualTypeOf<Record<string, never>>();
   }
 });

@@ -88,6 +88,9 @@ export type RequestBodyJSON<PathMethod> = JSONLike<
 
 /** Find first match of multiple keys */
 export type FilterKeys<Obj, Matchers> = Obj[keyof Obj & Matchers];
+/** Get the type of a value of an input object with a given key. If the key is not found, return a default type. Works with unions of objects too. */
+export type GetValueWithDefault<Obj, KeyPattern, Default> = Obj extends any ? (FilterKeys<Obj, KeyPattern> extends never ? Default : FilterKeys<Obj, KeyPattern>) : never;
+
 /** Return any `[string]/[string]` media type (important because openapi-fetch allows any content response, not just JSON-like) */
 export type MediaType = `${string}/${string}`;
 /** Return any media type containing "json" (works for "application/json", "application/vnd.api+json", "application/vnd.oai.openapi+json") */
