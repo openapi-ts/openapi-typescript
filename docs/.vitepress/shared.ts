@@ -1,5 +1,5 @@
-import { defineConfig } from 'vitepress'
-import {  zhSearch } from './zh'
+import { defineConfig } from "vitepress";
+import { zhSearch } from "./zh";
 
 const HOSTNAME = "https://openapi-ts.pages.dev";
 
@@ -10,7 +10,16 @@ export const shared = defineConfig({
   ignoreDeadLinks: [/CODE_OF_CONDUCT/],
   head: [
     ["link", { rel: "shortcut icon", href: "/favicon.svg", type: "image/svg" }],
+    [
+      "script",
+      {
+        defer: "",
+        src: "https://static.cloudflareinsights.com/beacon.min.js",
+        "data-cf-beacon": '{"token": "f5713e86f9aa43278151f2763d6b59ae"}',
+      },
+    ],
   ],
+
   sitemap: {
     hostname: HOSTNAME,
   },
@@ -23,11 +32,11 @@ export const shared = defineConfig({
         appId: "NA92XVKBVS",
         apiKey: "4f3ce9ca7edc3b83c209e6656ab29eb8",
         indexName: "openapi-ts",
-        locales: { ...zhSearch }
+        locales: { ...zhSearch },
       },
     },
     socialLinks: [
       { icon: "github", link: "https://github.com/drwpow/openapi-typescript" },
     ],
   },
-})
+});

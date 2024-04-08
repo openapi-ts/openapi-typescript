@@ -83,7 +83,7 @@ const OPENAPI_TS_CONTRIBUTORS = [
     "FDiskas",
     "ericzorn93",
     "mbelsky",
-    "Peteck",
+    "techbech",
     "rustyconover",
     "bunkscene",
     "ottomated",
