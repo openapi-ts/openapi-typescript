@@ -15,6 +15,12 @@ openapi-typescript turns [OpenAPI 3.0 & 3.1](https://spec.openapis.org/oas/lates
 
 The code is [MIT-licensed](https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE") and free for use.
 
+::: tip
+
+New to OpenAPI? Speakeasy’s [Intro to OpenAPI](https://www.speakeasyapi.dev/openapi) is an accessible guide to newcomers that explains the “why” and “how” of OpenAPI.
+
+:::
+
 ## Features
 
 - ✅ Supports OpenAPI 3.0 and 3.1 (including advanced features like [discriminators](https://spec.openapis.org/oas/v3.1.0#discriminator-object)
