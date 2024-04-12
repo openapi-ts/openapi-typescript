@@ -115,7 +115,11 @@ export type FetchOptions<T> = RequestOptions<T> &
 export type FetchResponse<T, O, Media extends MediaType> =
   | {
       data: ParseAsResponse<
-      GetValueWithDefault<SuccessResponse<ResponseObjectMap<T>>, Media, Record<string, never>>,
+        GetValueWithDefault<
+          SuccessResponse<ResponseObjectMap<T>>,
+          Media,
+          Record<string, never>
+        >,
         O
       >;
       error?: never;
@@ -123,7 +127,11 @@ export type FetchResponse<T, O, Media extends MediaType> =
     }
   | {
       data?: never;
-      error: GetValueWithDefault<ErrorResponse<ResponseObjectMap<T>>, Media, Record<string, never>>;
+      error: GetValueWithDefault<
+        ErrorResponse<ResponseObjectMap<T>>,
+        Media,
+        Record<string, never>
+      >;
       response: Response;
     };
 

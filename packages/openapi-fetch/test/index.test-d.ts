@@ -11,6 +11,8 @@ interface Blogpost {
   publish_date?: number | undefined;
 }
 
+// This is a type test that will not be executed
+// eslint-disable-next-line vitest/expect-expect
 test("the error type works properly", async () => {
   const value = await GET("/blogposts");
 
@@ -18,7 +20,11 @@ test("the error type works properly", async () => {
     expectTypeOf(value.data).toEqualTypeOf<Array<Blogpost>>();
   } else {
     expectTypeOf(value.data).toBeUndefined();
-    expectTypeOf(value.error).extract<{ code: number }>().toEqualTypeOf<{ code: number; message: string }>();
-    expectTypeOf(value.error).exclude<{ code: number }>().toEqualTypeOf<Record<string, never>>();
+    expectTypeOf(value.error)
+      .extract<{ code: number }>()
+      .toEqualTypeOf<{ code: number; message: string }>();
+    expectTypeOf(value.error)
+      .exclude<{ code: number }>()
+      .toEqualTypeOf<Record<string, never>>();
   }
 });
