@@ -1,6 +1,7 @@
 import type {
   ErrorResponse,
   FilterKeys,
+  GetValueWithDefault,
   HasRequiredKeys,
   HttpMethod,
   MediaType,
@@ -114,7 +115,11 @@ export type FetchOptions<T> = RequestOptions<T> &
 export type FetchResponse<T, O, Media extends MediaType> =
   | {
       data: ParseAsResponse<
-        FilterKeys<SuccessResponse<ResponseObjectMap<T>>, Media>,
+        GetValueWithDefault<
+          SuccessResponse<ResponseObjectMap<T>>,
+          Media,
+          Record<string, never>
+        >,
         O
       >;
       error?: never;
@@ -122,7 +127,11 @@ export type FetchResponse<T, O, Media extends MediaType> =
     }
   | {
       data?: never;
-      error: FilterKeys<ErrorResponse<ResponseObjectMap<T>>, Media>;
+      error: GetValueWithDefault<
+        ErrorResponse<ResponseObjectMap<T>>,
+        Media,
+        Record<string, never>
+      >;
       response: Response;
     };
 

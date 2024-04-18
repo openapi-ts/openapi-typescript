@@ -24,6 +24,7 @@ export interface paths {
       };
       responses: {
         200: components["responses"]["AllPostsGet"];
+        401: components["responses"]["EmptyError"];
         500: components["responses"]["Error"];
       };
     };
@@ -455,6 +456,10 @@ export interface components {
     Contact: {
       content: {
         "text/html": string;
+      };
+    };
+    EmptyError: {
+      content: {
       };
     };
     Error: {
