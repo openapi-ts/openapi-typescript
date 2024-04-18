@@ -647,6 +647,8 @@ export interface OpenAPITSOptions {
   cwd?: PathLike;
   /** Should schema objects with a default value not be considered optional? */
   defaultNonNullable?: boolean;
+  /** Treat all objects as if they have \`required\` set to all properties by default (default: false) */
+  propertiesRequired?: boolean;
   /** Manually transform certain Schema Objects with a custom TypeScript type */
   transform?: (
     schemaObject: SchemaObject,
@@ -686,6 +688,7 @@ export interface GlobalContext {
   additionalProperties: boolean;
   alphabetize: boolean;
   defaultNonNullable: boolean;
+  propertiesRequired: boolean;
   discriminators: {
     objects: Record<string, DiscriminatorObject>;
     refsHandled: string[];

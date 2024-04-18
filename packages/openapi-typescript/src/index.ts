@@ -71,6 +71,7 @@ export default async function openapiTS(
     additionalProperties: options.additionalProperties ?? false,
     alphabetize: options.alphabetize ?? false,
     defaultNonNullable: options.defaultNonNullable ?? true,
+    propertiesRequired: options.propertiesRequired ?? false,
     discriminators: scanDiscriminators(schema, options),
     emptyObjectsUnknown: options.emptyObjectsUnknown ?? false,
     enum: options.enum ?? false,
