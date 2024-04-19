@@ -284,6 +284,21 @@ function transformSchemaObjectCore(
   options: TransformNodeOptions,
 ): ts.TypeNode | undefined {
   if ("type" in schemaObject && schemaObject.type) {
+    if (typeof options.ctx.transform === "function") {
+      const result = options.ctx.transform(schemaObject, options);
+      if (result) {
+        if ("schema" in result) {
+          if (result.questionToken) {
+            return ts.factory.createUnionTypeNode([result.schema, UNDEFINED]);
+          } else {
+            return result.schema;
+          }
+        } else {
+          return result;
+        }
+      }
+    }
+
     // primitives
     // type: null
     if (schemaObject.type === "null") {
