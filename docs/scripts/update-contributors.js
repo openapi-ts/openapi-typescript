@@ -145,6 +145,9 @@ const OPENAPI_TS_CONTRIBUTORS = [
     "davidleger95",
     "phk422",
     "mzronek",
+    "raurfang",
+    "JeanRemiDelteil",
+    "TzviPM",
   ]),
 ];
 
@@ -169,6 +172,11 @@ export const OPENAPI_FETCH_CONTRIBUTORS = [
     "darwish",
     "kaechele",
     "phk422",
+    "mikestopcontinues",
+    "JE-Lee",
+    "vipentti",
+    "armandabric",
+    "illright",
   ]),
 ];
 

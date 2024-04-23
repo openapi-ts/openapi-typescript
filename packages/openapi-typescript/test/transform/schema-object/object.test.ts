@@ -29,27 +29,6 @@ describe("transformSchemaObject > object", () => {
       },
     ],
     [
-      "basic > options.propertiesRequired: tre",
-      {
-        given: {
-          type: "object",
-          properties: {
-            required: { type: "boolean" },
-            optional: { type: "boolean" },
-          },
-          required: ["required"],
-        },
-        want: `{
-    required: boolean;
-    optional?: boolean;
-}`,
-        options: {
-          ...DEFAULT_OPTIONS,
-          ctx: { ...DEFAULT_OPTIONS.ctx, propertiesRequired: true },
-        },
-      },
-    ],
-    [
       "empty",
       {
         given: { type: "object" },
@@ -300,19 +279,6 @@ describe("transformSchemaObject > object", () => {
       },
     ],
     [
-      "options > propertiesRequired: true",
-      {
-        given: { type: "object", properties: { string: { type: "string" } } },
-        want: `{
-    string: string;
-}`,
-        options: {
-          ...DEFAULT_OPTIONS,
-          ctx: { ...DEFAULT_OPTIONS.ctx, propertiesRequired: true },
-        },
-      },
-    ],
-    [
       "options > immutable (string)",
       {
         given: {
@@ -368,6 +334,40 @@ describe("transformSchemaObject > object", () => {
         options: {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, excludeDeprecated: true },
+        },
+      },
+    ],
+    [
+      "options > propertiesRequiredByDefault: true",
+      {
+        given: { type: "object", properties: { string: { type: "string" } } },
+        want: `{
+    string: string;
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, propertiesRequiredByDefault: true },
+        },
+      },
+    ],
+    [
+      "options > propertiesRequiredByDefault: true + array",
+      {
+        given: {
+          type: "object",
+          properties: {
+            required: { type: "boolean" },
+            optional: { type: "boolean" },
+          },
+          required: ["required"],
+        },
+        want: `{
+    required: boolean;
+    optional?: boolean;
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, propertiesRequiredByDefault: true },
         },
       },
     ],

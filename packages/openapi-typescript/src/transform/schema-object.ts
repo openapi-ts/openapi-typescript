@@ -479,7 +479,8 @@ function transformSchemaObjectCore(
         }
         let optional =
           schemaObject.required?.includes(k) ||
-          (schemaObject.required === undefined && options.ctx.propertiesRequired) ||
+          (schemaObject.required === undefined &&
+            options.ctx.propertiesRequiredByDefault) ||
           ("default" in v &&
             options.ctx.defaultNonNullable &&
             !options.path?.includes("parameters")) // parameters can’t be required, even with defaults

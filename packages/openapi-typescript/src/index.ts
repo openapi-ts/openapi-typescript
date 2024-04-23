@@ -70,8 +70,8 @@ export default async function openapiTS(
   const ctx: GlobalContext = {
     additionalProperties: options.additionalProperties ?? false,
     alphabetize: options.alphabetize ?? false,
+    arrayLength: options.arrayLength ?? false,
     defaultNonNullable: options.defaultNonNullable ?? true,
-    propertiesRequired: options.propertiesRequired ?? false,
     discriminators: scanDiscriminators(schema, options),
     emptyObjectsUnknown: options.emptyObjectsUnknown ?? false,
     enum: options.enum ?? false,
@@ -84,9 +84,9 @@ export default async function openapiTS(
       typeof options.postTransform === "function"
         ? options.postTransform
         : undefined,
+    propertiesRequiredByDefault: options.propertiesRequiredByDefault ?? false,
     redoc,
     silent: options.silent ?? false,
-    arrayLength: options.arrayLength ?? false,
     transform:
       typeof options.transform === "function" ? options.transform : undefined,
     resolve($ref) {
