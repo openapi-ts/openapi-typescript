@@ -10,7 +10,18 @@ const contributors = JSON.parse(fs.readFileSync(CONTRIBUTORS_JSON, "utf8"));
 const ONE_WEEK = 1000 * 60 * 60 * 24 * 7;
 
 async function fetchUserInfo(username) {
-  const res = await fetch(`https://github.com/${username}`);
+  const res = await fetch(`https://github.com/${username}`, {
+    headers: {
+      accept:
+        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+      "accept-encoding": "gzip, deflate, br, zstd",
+      "accept-language": "en-US,en;q=0.5",
+      "cache-control": "no-cache",
+      connection: "keep-alive",
+      "user-agent":
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0",
+    },
+  });
   if (!res.ok) {
     throw new Error(`${res.url} responded with ${res.status}`);
   }
