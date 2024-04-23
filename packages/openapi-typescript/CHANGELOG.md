@@ -79,6 +79,8 @@
 
 - [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - 🧹 Cleaned up and reorganized all tests
 
+- [#1602](https://github.com/drwpow/openapi-typescript/pull/1602) [`9da96cd`](https://github.com/drwpow/openapi-typescript/commit/9da96cda4eb8f959c4703637d8fc89e1d3532af1) Thanks [@JeanRemiDelteil](https://github.com/JeanRemiDelteil)! - Do not add readonly on Typescript enum when the --immutable option is used.
+
 ## 6.7.0
 
 ### Minor Changes

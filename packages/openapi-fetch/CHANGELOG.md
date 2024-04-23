@@ -1,5 +1,17 @@
 # openapi-fetch
 
+## 0.9.4
+
+### Patch Changes
+
+- [#1597](https://github.com/drwpow/openapi-typescript/pull/1597) [`1f7ad9d`](https://github.com/drwpow/openapi-typescript/commit/1f7ad9d41f1f1ca7b1195a381c907393f9ef743b) Thanks [@armandabric](https://github.com/armandabric)! - Allow to select the response content type
+
+- [#1585](https://github.com/drwpow/openapi-typescript/pull/1585) [`4e06f86`](https://github.com/drwpow/openapi-typescript/commit/4e06f86934e11f3dbc3aabee4b4e61dd62680782) Thanks [@mikestopcontinues](https://github.com/mikestopcontinues)! - Update types for path-methods object
+
+- [#1610](https://github.com/drwpow/openapi-typescript/pull/1610) [`cc8073b`](https://github.com/drwpow/openapi-typescript/commit/cc8073b3ee42e7aaa546a9c6a0553c300d8882de) Thanks [@illright](https://github.com/illright)! - Fix data/error discrimination when there are empty-body errors
+
+- [#1587](https://github.com/drwpow/openapi-typescript/pull/1587) [`2a66a64`](https://github.com/drwpow/openapi-typescript/commit/2a66a6483d755a090e57a457b22eb99696da098a) Thanks [@JE-lee](https://github.com/JE-lee)! - Fix the custom fetch type
+
 ## 0.9.3
 
 ### Patch Changes
