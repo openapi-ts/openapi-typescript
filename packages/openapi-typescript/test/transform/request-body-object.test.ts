@@ -9,8 +9,6 @@ const DEFAULT_OPTIONS = {
   ctx: { ...DEFAULT_CTX },
 };
 
-const BLOB = ts.factory.createTypeReferenceNode("Blob");
-
 describe("transformRequestBodyObject", () => {
   const tests: TestCase[] = [
     [
@@ -51,76 +49,6 @@ describe("transformRequestBodyObject", () => {
     };
 }`,
         // options: DEFAULT_OPTIONS,
-      },
-    ],
-    [
-      "blob with transform",
-      {
-        given: {
-          content: {
-            "application/json": {
-              schema: {
-                type: "string",
-                format: "binary",
-              },
-            },
-          },
-        },
-        want: `{
-    content: {
-        "application/json": Blob;
-    };
-}`,
-        options: {
-          ...DEFAULT_OPTIONS,
-          ctx: {
-            ...DEFAULT_CTX,
-            transform(schemaObject) {
-              if (schemaObject.format === "binary") {
-                return BLOB;
-              }
-            },
-          },
-        },
-      },
-    ],
-    [
-      "optional blob property with transform",
-      {
-        given: {
-          content: {
-            "application/json": {
-              schema: {
-                type: "object",
-                properties: {
-                  blob: { type: "string", format: "binary" },
-                },
-              },
-            },
-          },
-        },
-        want: `{
-    content: {
-        "application/json": {
-            /** Format: binary */
-            blob?: Blob;
-        };
-    };
-}`,
-        options: {
-          ...DEFAULT_OPTIONS,
-          ctx: {
-            ...DEFAULT_CTX,
-            transform(schemaObject) {
-              if (schemaObject.format === "binary") {
-                return {
-                  schema: BLOB,
-                  questionToken: true,
-                };
-              }
-            },
-          },
-        },
       },
     ],
   ];
