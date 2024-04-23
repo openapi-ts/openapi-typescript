@@ -1,5 +1,13 @@
 # openapi-typescript-helpers
 
+## 0.0.8
+
+### Patch Changes
+
+- [#1610](https://github.com/drwpow/openapi-typescript/pull/1610) [`cc8073b`](https://github.com/drwpow/openapi-typescript/commit/cc8073b3ee42e7aaa546a9c6a0553c300d8882de) Thanks [@illright](https://github.com/illright)! - Fix data/error discrimination when there are empty-body errors
+
+- [#1559](https://github.com/drwpow/openapi-typescript/pull/1559) [`6fe2c85`](https://github.com/drwpow/openapi-typescript/commit/6fe2c856331e910b9c8376fc151d63028dcfba11) Thanks [@drwpow](https://github.com/drwpow)! - Simplify build
+
 ## 0.0.7
 
 ### Patch Changes

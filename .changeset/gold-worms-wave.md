@@ -1,5 +1,4 @@
 ---
-"openapi-typescript-helpers": patch
 "openapi-fetch": patch
 ---
 
