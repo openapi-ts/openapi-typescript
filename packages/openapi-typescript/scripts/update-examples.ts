@@ -30,7 +30,9 @@ async function generateSchemas() {
       // biome-ignore lint/suspicious/noConsoleLog: this is a script
       console.log(`✔︎ [${schemasDoneCount}/${schemaTotalCount}] Updated ${name} (${timeMs}ms)`);
     } catch (error) {
-      console.error(`✘ [${schemasDoneCount}/${schemaTotalCount}] Failed to update ${name}`, { error: error instanceof Error ? error.message : error });
+      console.error(`✘ [${schemasDoneCount}/${schemaTotalCount}] Failed to update ${name}`, {
+        error: error instanceof Error ? error.message : error,
+      });
     }
   };
 
