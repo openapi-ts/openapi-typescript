@@ -959,10 +959,9 @@ describe("client", () => {
             },
             async onResponse(res) {
               if (res.headers.get("step") === "B") {
-                return new Response(res.body, {
-                  ...res,
-                  headers: { ...res.headers, step: "A" },
-                });
+                const headers = new Headers(res.headers);
+                headers.set("step", "A");
+                return new Response(res.body, { ...res, headers });
               }
             },
           },
@@ -972,11 +971,10 @@ describe("client", () => {
               return req;
             },
             async onResponse(res) {
+              const headers = new Headers(res.headers);
+              headers.set("step", "B");
               if (res.headers.get("step") === "C") {
-                return new Response(res.body, {
-                  ...res,
-                  headers: { ...res.headers, step: "B" },
-                });
+                return new Response(res.body, { ...res, headers });
               }
             },
           },
