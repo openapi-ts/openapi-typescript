@@ -641,14 +641,16 @@ export interface OpenAPITSOptions {
   additionalProperties?: boolean;
   /** Alphabetize all keys? (default: false) */
   alphabetize?: boolean;
+  /** (optional) Generate tuples using array minItems / maxItems */
+  arrayLength?: boolean;
   /** Allow schema objects with no specified properties to have additional properties if not expressly forbidden? (default: false) */
   emptyObjectsUnknown?: boolean;
   /** Provide current working directory (cwd) which helps resolve relative remote schemas */
   cwd?: PathLike;
   /** Should schema objects with a default value not be considered optional? */
   defaultNonNullable?: boolean;
-  /** Treat all objects as if they have \`required\` set to all properties by default (default: false) */
-  propertiesRequired?: boolean;
+  /** Exclude deprecated fields from types? (default: false) */
+  excludeDeprecated?: boolean;
   /** Manually transform certain Schema Objects with a custom TypeScript type */
   transform?: (
     schemaObject: SchemaObject,
@@ -669,12 +671,10 @@ export interface OpenAPITSOptions {
   exportType?: boolean;
   /** Export true TypeScript enums instead of unions */
   enum?: boolean;
-  /** (optional) Generate tuples using array minItems / maxItems */
-  arrayLength?: boolean;
   /** (optional) Substitute path parameter names with their respective types */
   pathParamsAsTypes?: boolean;
-  /** Exclude deprecated fields from types? (default: false) */
-  excludeDeprecated?: boolean;
+  /** Treat all objects as if they have \`required\` set to all properties by default (default: false) */
+  propertiesRequiredByDefault?: boolean;
   /**
    * Configure Redocly for validation, schema fetching, and bundling
    * @see https://redocly.com/docs/cli/configuration/
@@ -687,8 +687,8 @@ export interface GlobalContext {
   // user options
   additionalProperties: boolean;
   alphabetize: boolean;
+  arrayLength: boolean;
   defaultNonNullable: boolean;
-  propertiesRequired: boolean;
   discriminators: {
     objects: Record<string, DiscriminatorObject>;
     refsHandled: string[];
@@ -701,9 +701,9 @@ export interface GlobalContext {
   injectFooter: ts.Node[];
   pathParamsAsTypes: boolean;
   postTransform: OpenAPITSOptions["postTransform"];
+  propertiesRequiredByDefault: boolean;
   redoc: RedoclyConfig;
   silent: boolean;
-  arrayLength: boolean;
   transform: OpenAPITSOptions["transform"];
   /** retrieve a node by $ref */
   resolve<T>($ref: string): T | undefined;

@@ -10,7 +10,6 @@ export const DEFAULT_CTX: GlobalContext = {
   alphabetize: false,
   arrayLength: false,
   defaultNonNullable: true,
-  propertiesRequired: false,
   discriminators: {
     objects: {},
     refsHandled: [],
@@ -23,6 +22,7 @@ export const DEFAULT_CTX: GlobalContext = {
   injectFooter: [],
   pathParamsAsTypes: false,
   postTransform: undefined,
+  propertiesRequiredByDefault: false,
   redoc: await createConfig({}, { extends: ["minimal"] }),
   resolve($ref) {
     return resolveRef({}, $ref, { silent: false });

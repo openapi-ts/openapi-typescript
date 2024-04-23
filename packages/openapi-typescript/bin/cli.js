@@ -29,7 +29,8 @@ Options
   --additional-properties    Treat schema objects as if \`additionalProperties: true\` is set
   --empty-objects-unknown    Generate \`unknown\` instead of \`Record<string, never>\` for empty objects
   --default-non-nullable     Set to \`false\` to ignore default values when generating non-nullable types
-  --properties-required      Treat schema objects as if \`required\` is set to all properties by default
+  --properties-required-by-default
+                             Treat schema objects as if \`required\` is set to all properties by default
   --array-length             Generate tuples using array minItems / maxItems
   --path-params-as-types     Convert paths to template literal types
   --alphabetize              Sort object keys alphabetically
@@ -70,7 +71,7 @@ const flags = parser(args, {
     "arrayLength",
     "contentNever",
     "defaultNonNullable",
-    "propertiesRequired",
+    "propertiesRequiredByDefault",
     "emptyObjectsUnknown",
     "enum",
     "excludeDeprecated",
