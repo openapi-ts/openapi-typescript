@@ -12,14 +12,12 @@ const ONE_WEEK = 1000 * 60 * 60 * 24 * 7;
 async function fetchUserInfo(username) {
   const res = await fetch(`https://github.com/${username}`, {
     headers: {
-      accept:
-        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+      accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
       "accept-encoding": "gzip, deflate, br, zstd",
       "accept-language": "en-US,en;q=0.5",
       "cache-control": "no-cache",
       connection: "keep-alive",
-      "user-agent":
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0",
+      "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0",
     },
   });
   if (!res.ok) {
@@ -148,6 +146,7 @@ const OPENAPI_TS_CONTRIBUTORS = [
     "raurfang",
     "JeanRemiDelteil",
     "TzviPM",
+    "LucaSchwan",
   ]),
 ];
 
@@ -183,15 +182,10 @@ export const OPENAPI_FETCH_CONTRIBUTORS = [
 async function main() {
   await Promise.all(
     ["openapi-typescript", "openapi-fetch"].map(async (repo) => {
-      const userlist =
-        repo === "openapi-fetch"
-          ? OPENAPI_FETCH_CONTRIBUTORS
-          : OPENAPI_TS_CONTRIBUTORS;
+      const userlist = repo === "openapi-fetch" ? OPENAPI_FETCH_CONTRIBUTORS : OPENAPI_TS_CONTRIBUTORS;
       for (const username of userlist) {
         // skip profiles that have been updated within the past week
-        const { lastFetch } = contributors[repo].find(
-          (u) => u.username === username,
-        ) ?? { lastFetch: 0 };
+        const { lastFetch } = contributors[repo].find((u) => u.username === username) ?? { lastFetch: 0 };
         if (Date.now() - lastFetch < ONE_WEEK) {
           continue;
         }
@@ -207,10 +201,7 @@ async function main() {
           };
           upsert(contributors[repo], userData);
           console.log(`Updated old contributor data for ${username}`); // biome-disable-line no-console
-          fs.writeFileSync(
-            new URL("../data/contributors.json", import.meta.url),
-            JSON.stringify(contributors),
-          ); // update file while fetching (sync happens safely in between fetches)
+          fs.writeFileSync(new URL("../data/contributors.json", import.meta.url), JSON.stringify(contributors)); // update file while fetching (sync happens safely in between fetches)
         } catch (err) {
           throw new Error(err);
         }

@@ -7,6 +7,7 @@ import type { TestCase } from "./test-helpers.js";
 const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
 
 const DATE = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Date"));
+const BLOB = ts.factory.createTypeReferenceNode("Blob");
 
 describe("Node.js API", () => {
   const tests: TestCase<any, OpenAPITSOptions>[] = [
@@ -416,6 +417,110 @@ export type operations = Record<string, never>;`,
             if ("format" in schemaObject && schemaObject.format === "date-time") {
               return {
                 schema: DATE,
+                questionToken: true,
+              };
+            }
+          },
+        },
+      },
+    ],
+    [
+      "options > transform with blob",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          components: {
+            requestBodies: {
+              Blob: {
+                content: {
+                  "application/json": {
+                    schema: {
+                      type: "string",
+                      format: "binary",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: never;
+    responses: never;
+    parameters: never;
+    requestBodies: {
+        Blob: {
+            content: {
+                "application/json": Blob;
+            };
+        };
+    };
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+        options: {
+          transform(schemaObject) {
+            if (schemaObject.format === "binary") {
+              return BLOB;
+            }
+          },
+        },
+      },
+    ],
+    [
+      "options > transform with optional blob property",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          components: {
+            requestBodies: {
+              Blob: {
+                content: {
+                  "application/json": {
+                    schema: {
+                      type: "object",
+                      properties: {
+                        blob: { type: "string", format: "binary" },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: never;
+    responses: never;
+    parameters: never;
+    requestBodies: {
+        Blob: {
+            content: {
+                "application/json": {
+                    /** Format: binary */
+                    blob?: Blob;
+                };
+            };
+        };
+    };
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+        options: {
+          transform(schemaObject) {
+            if (schemaObject.format === "binary") {
+              return {
+                schema: BLOB,
                 questionToken: true,
               };
             }

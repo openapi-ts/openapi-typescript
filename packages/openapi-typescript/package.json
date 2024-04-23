@@ -25,7 +25,17 @@
     "url": "https://github.com/drwpow/openapi-typescript",
     "directory": "packages/openapi-typescript"
   },
-  "keywords": ["swagger", "typescript", "ts", "dts", "openapi", "codegen", "generation", "openapi 3", "node"],
+  "keywords": [
+    "swagger",
+    "typescript",
+    "ts",
+    "dts",
+    "openapi",
+    "codegen",
+    "generation",
+    "openapi 3",
+    "node"
+  ],
   "bugs": {
     "url": "https://github.com/drwpow/openapi-typescript/issues"
   },
