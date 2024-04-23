@@ -54,6 +54,37 @@ describe("transformRequestBodyObject", () => {
       },
     ],
     [
+      "blob with transform",
+      {
+        given: {
+          content: {
+            "application/json": {
+              schema: {
+                type: "string",
+                format: "binary",
+              },
+            },
+          },
+        },
+        want: `{
+    content: {
+        "application/json": Blob;
+    };
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: {
+            ...DEFAULT_CTX,
+            transform(schemaObject) {
+              if (schemaObject.format === "binary") {
+                return BLOB;
+              }
+            },
+          },
+        },
+      },
+    ],
+    [
       "optional blob property with transform",
       {
         given: {
