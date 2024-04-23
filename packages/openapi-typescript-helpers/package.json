@@ -34,9 +34,8 @@
   },
   "scripts": {
     "build": "cp index.d.ts index.d.cts",
-    "lint": "pnpm run lint:js",
-    "lint:js": "eslint \"*.{js,ts}\"",
-    "lint:prettier": "prettier --check \"{src,test}/**/*\"",
+    "format": "biome format . --write",
+    "lint": "biome check .",
     "test": "tsc --noEmit"
   },
   "devDependencies": {

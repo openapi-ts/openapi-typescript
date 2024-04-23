@@ -4,16 +4,7 @@ import { loadConfig, findConfig, createConfig } from "@redocly/openapi-core";
 import fs from "node:fs";
 import path from "node:path";
 import parser from "yargs-parser";
-import openapiTS, {
-  astToString,
-  c,
-  COMMENT_HEADER,
-  error,
-  formatTime,
-  warn,
-} from "../dist/index.js";
-
-/* eslint-disable no-console */
+import openapiTS, { astToString, c, COMMENT_HEADER, error, formatTime, warn } from "../dist/index.js";
 
 const HELP = `Usage
   $ openapi-typescript [input] [options]
@@ -46,22 +37,16 @@ const timeStart = performance.now();
 
 const [, , ...args] = process.argv;
 if (args.includes("-ap")) {
-  errorAndExit(
-    `The -ap alias has been deprecated. Use "--additional-properties" instead.`,
-  );
+  errorAndExit(`The -ap alias has been deprecated. Use "--additional-properties" instead.`);
 }
 if (args.includes("--immutable-types")) {
   errorAndExit(`The --immutable-types flag has been renamed to "--immutable".`);
 }
 if (args.includes("--support-array-length")) {
-  errorAndExit(
-    `The --support-array-length flag has been renamed to "--array-length".`,
-  );
+  errorAndExit(`The --support-array-length flag has been renamed to "--array-length".`);
 }
 if (args.includes("-it")) {
-  errorAndExit(
-    `The -it alias has been deprecated. Use "--immutable-types" instead.`,
-  );
+  errorAndExit(`The -it alias has been deprecated. Use "--immutable-types" instead.`);
 }
 
 const flags = parser(args, {
@@ -121,11 +106,8 @@ function errorAndExit(message) {
 
 function done(input, output, time) {
   // final console output
-  console.log(
-    `🚀 ${c.green(`${input} → ${c.bold(output)}`)} ${c.dim(
-      `[${formatTime(time)}]`,
-    )}`,
-  );
+  // biome-ignore lint/suspicious/noConsoleLog: this is a CLI and is expected to show output
+  console.log(`🚀 ${c.green(`${input} → ${c.bold(output)}`)} ${c.dim(`[${formatTime(time)}]`)}`);
 }
 
 async function main() {
@@ -133,9 +115,7 @@ async function main() {
     console.info(HELP);
     process.exit(0);
   }
-  const packageJSON = JSON.parse(
-    fs.readFileSync(new URL("../package.json", import.meta.url), "utf8"),
-  );
+  const packageJSON = JSON.parse(fs.readFileSync(new URL("../package.json", import.meta.url), "utf8"));
   if ("version" in flags) {
     console.info(`v${packageJSON.version}`);
     process.exit(0);
@@ -149,9 +129,7 @@ async function main() {
   const input = flags._[0];
 
   // load Redocly config
-  const maybeRedoc = findConfig(
-    flags.redoc ? path.dirname(flags.redoc) : undefined,
-  );
+  const maybeRedoc = findConfig(flags.redoc ? path.dirname(flags.redoc) : undefined);
   const redoc = maybeRedoc
     ? await loadConfig({ configPath: maybeRedoc })
     : await createConfig({}, { extends: ["minimal"] });
@@ -160,9 +138,7 @@ async function main() {
   const hasRedoclyApis = Object.keys(redoc?.apis ?? {}).length > 0;
   if (hasRedoclyApis) {
     if (input) {
-      warn(
-        "APIs are specified both in Redocly Config and CLI argument. Only using Redocly config.",
-      );
+      warn("APIs are specified both in Redocly Config and CLI argument. Only using Redocly config.");
     }
     await Promise.all(
       Object.entries(redoc.apis).map(async ([name, api]) => {
@@ -176,9 +152,7 @@ async function main() {
         if (!api[REDOC_CONFIG_KEY]?.output) {
           // TODO: remove in stable v7
           if (api["openapi-ts"]) {
-            errorAndExit(
-              `Please rename "openapi-ts" to "x-openapi-ts" in your Redoc config.`,
-            );
+            errorAndExit(`Please rename "openapi-ts" to "x-openapi-ts" in your Redoc config.`);
           }
 
           errorAndExit(
@@ -218,7 +192,7 @@ async function main() {
     // throw error on glob
     if (input.includes("*")) {
       errorAndExit(
-        `Globbing has been deprecated in favor of redocly.yaml’s \`apis\` keys. See https://openapi-ts.pages.dev/cli/#multiple-schemas`,
+        "Globbing has been deprecated in favor of redocly.yaml’s `apis` keys. See https://openapi-ts.pages.dev/cli/#multiple-schemas",
       );
     }
     const result = await generateSchema(new URL(input, CWD), {

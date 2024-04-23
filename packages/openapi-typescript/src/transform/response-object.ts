@@ -27,20 +27,14 @@ export default function transformResponseObject(
   // headers
   const headersObject: ts.TypeElement[] = [];
   if (responseObject.headers) {
-    for (const [name, headerObject] of getEntries(
-      responseObject.headers,
-      options.ctx,
-    )) {
-      const optional =
-        "$ref" in headerObject || headerObject.required
-          ? undefined
-          : QUESTION_TOKEN;
+    for (const [name, headerObject] of getEntries(responseObject.headers, options.ctx)) {
+      const optional = "$ref" in headerObject || headerObject.required ? undefined : QUESTION_TOKEN;
       const subType =
         "$ref" in headerObject
           ? oapiRef(headerObject.$ref)
           : transformHeaderObject(headerObject, {
               ...options,
-              path: createRef([options.path ?? "", "headers", name]),
+              path: createRef([options.path, "headers", name]),
             });
       const property = ts.factory.createPropertySignature(
         /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
@@ -80,17 +74,14 @@ export default function transformResponseObject(
   // content
   const contentObject: ts.TypeElement[] = [];
   if (responseObject.content) {
-    for (const [contentType, mediaTypeObject] of getEntries(
-      responseObject.content,
-      options.ctx,
-    )) {
+    for (const [contentType, mediaTypeObject] of getEntries(responseObject.content, options.ctx)) {
       const property = ts.factory.createPropertySignature(
         /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
         /* name          */ tsPropertyIndex(contentType),
         /* questionToken */ undefined,
         /* type          */ transformMediaTypeObject(mediaTypeObject, {
           ...options,
-          path: createRef([options.path ?? "", "content", contentType]),
+          path: createRef([options.path, "content", contentType]),
         }),
       );
       contentObject.push(property);

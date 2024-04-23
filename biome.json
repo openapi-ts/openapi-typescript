@@ -1,0 +1,32 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.7.0/schema.json",
+  "organizeImports": {
+    "enabled": false
+  },
+  "files": {
+    "ignore": ["**/dist/**"]
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 120
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "complexity": {
+        "noExcessiveNestedTestSuites": "off",
+        "useArrowFunction": "off"
+      },
+      "suspicious": {
+        "noConsoleLog": "error",
+        "noExplicitAny": "off"
+      },
+      "style": {
+        "noUselessElse": "off",
+        "useBlockStatements": "error"
+      }
+    }
+  }
+}

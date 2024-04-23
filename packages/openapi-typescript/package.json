@@ -25,17 +25,7 @@
     "url": "https://github.com/drwpow/openapi-typescript",
     "directory": "packages/openapi-typescript"
   },
-  "keywords": [
-    "swagger",
-    "typescript",
-    "ts",
-    "dts",
-    "openapi",
-    "codegen",
-    "generation",
-    "openapi 3",
-    "node"
-  ],
+  "keywords": ["swagger", "typescript", "ts", "dts", "openapi", "codegen", "generation", "openapi 3", "node"],
   "bugs": {
     "url": "https://github.com/drwpow/openapi-typescript/issues"
   },
@@ -46,10 +36,8 @@
     "build:cjs": "esbuild --bundle --platform=node --target=es2019 --outfile=dist/index.cjs --external:@redocly/ajv --external:@redocly/openapi-core --external:typescript src/index.ts",
     "dev": "tsc -p tsconfig.build.json --watch",
     "download:schemas": "vite-node ./scripts/download-schemas.ts",
-    "format": "prettier --write \"src/**/*\"",
-    "lint": "pnpm run \"/^lint:/\"",
-    "lint:js": "eslint \"{src,test}/**/*.{js,ts}\"",
-    "lint:prettier": "prettier --check \"src/**/*\"",
+    "format": "biome format . --write",
+    "lint": "biome check .",
     "test": "pnpm run \"/^test:/\"",
     "test:examples": "tsc -p tsconfig.examples.json --noEmit",
     "test:js": "vitest run",

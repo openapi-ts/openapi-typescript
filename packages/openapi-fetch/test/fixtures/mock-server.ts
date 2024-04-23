@@ -81,44 +81,33 @@ export function useMockRequestHandler<
   Params extends PathParams<keyof Params> = PathParams,
   RequestBodyType extends DefaultBodyType = DefaultBodyType,
   ResponseBodyType extends DefaultBodyType = undefined,
->({
-  baseUrl: requestBaseUrl,
-  method,
-  path,
-  body,
-  headers,
-  status,
-  handler,
-}: MockRequestHandlerOptions<Params, RequestBodyType, ResponseBodyType>) {
+>({ baseUrl: requestBaseUrl, method, path, body, headers, status, handler }: MockRequestHandlerOptions<Params, RequestBodyType, ResponseBodyType>) {
   let requestUrl = "";
-  let receivedRequest: null | StrictRequest<DefaultBodyType> = null;
-  let receivedCookies: null | Record<string, string> = null;
+  let receivedRequest: StrictRequest<DefaultBodyType>;
+  let receivedCookies: Record<string, string> = {};
 
   const resolvedPath = toAbsoluteURL(path, requestBaseUrl);
 
   server.use(
-    http[method]<Params, RequestBodyType, ResponseBodyType>(
-      resolvedPath,
-      (args) => {
-        requestUrl = args.request.url;
-        receivedRequest = args.request.clone();
-        receivedCookies = { ...args.cookies };
+    http[method]<Params, RequestBodyType, ResponseBodyType>(resolvedPath, (args) => {
+      requestUrl = args.request.url;
+      receivedRequest = args.request.clone();
+      receivedCookies = { ...args.cookies };
 
-        if (handler) {
-          return handler(args);
-        }
+      if (handler) {
+        return handler(args);
+      }
 
-        return HttpResponse.json(body as any, {
-          status: status ?? 200,
-          headers,
-        }) as AsyncResponseResolverReturnType<ResponseBodyType>;
-      },
-    ),
+      return HttpResponse.json(body as any, {
+        status: status ?? 200,
+        headers,
+      }) as AsyncResponseResolverReturnType<ResponseBodyType>;
+    }),
   );
 
   return {
-    getRequestCookies: () => receivedCookies!,
-    getRequest: () => receivedRequest!,
+    getRequestCookies: () => receivedCookies,
+    getRequest: () => receivedRequest,
     getRequestUrl: () => new URL(requestUrl),
   };
 }

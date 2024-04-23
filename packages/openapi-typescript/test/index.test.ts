@@ -41,10 +41,7 @@ describe("openapiTS", () => {
                 properties: { number: { type: "number" } },
               },
               AllOf: {
-                allOf: [
-                  { $ref: "#/components/schemas/HasString" },
-                  { $ref: "#/components/schemas/HasNumber" },
-                ],
+                allOf: [{ $ref: "#/components/schemas/HasString" }, { $ref: "#/components/schemas/HasNumber" }],
               },
             },
           },
@@ -259,10 +256,7 @@ export type operations = Record<string, never>;`,
     [
       "$refs > YAML anchors",
       {
-        given: new URL(
-          "./fixtures/anchor-with-ref-test-2.yaml",
-          import.meta.url,
-        ),
+        given: new URL("./fixtures/anchor-with-ref-test-2.yaml", import.meta.url),
         want: `export interface paths {
     "/": {
         parameters: {
@@ -345,9 +339,7 @@ export type operations = Record<string, never>;`,
                   },
                 },
               },
-              parameters: [
-                { name: "revision", in: "query", schema: { type: "number" } },
-              ],
+              parameters: [{ name: "revision", in: "query", schema: { type: "number" } }],
             },
           },
           components: {
@@ -686,7 +678,7 @@ export type operations = Record<string, never>;`,
         if (want instanceof URL) {
           expect(want).toMatchFileSnapshot(fileURLToPath(want));
         } else {
-          expect(result).toBe(want + "\n");
+          expect(result).toBe(`${want}\n`);
         }
       },
       ci?.timeout,

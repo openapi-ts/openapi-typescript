@@ -14,7 +14,7 @@ describe("transformSchemaObject > boolean", () => {
       "basic",
       {
         given: { type: "boolean" },
-        want: `boolean`,
+        want: "boolean",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -22,7 +22,7 @@ describe("transformSchemaObject > boolean", () => {
       "enum",
       {
         given: { type: "boolean", enum: [false] },
-        want: `false`,
+        want: "false",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -30,7 +30,7 @@ describe("transformSchemaObject > boolean", () => {
       "nullable",
       {
         given: { type: ["boolean", "null"] },
-        want: `boolean | null`,
+        want: "boolean | null",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -38,16 +38,13 @@ describe("transformSchemaObject > boolean", () => {
       "nullable (deprecated syntax)",
       {
         given: { type: "boolean", nullable: true },
-        want: `boolean | null`,
+        want: "boolean | null",
         // options: DEFAULT_OPTIONS,
       },
     ],
   ];
 
-  for (const [
-    testName,
-    { given, want, options = DEFAULT_OPTIONS, ci },
-  ] of tests) {
+  for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
@@ -55,7 +52,7 @@ describe("transformSchemaObject > boolean", () => {
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
-          expect(result).toBe(want + "\n");
+          expect(result).toBe(`${want}\n`);
         }
       },
       ci?.timeout,

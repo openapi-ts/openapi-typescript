@@ -1,11 +1,5 @@
 import ts from "typescript";
-import {
-  NEVER,
-  addJSDocComment,
-  tsModifiers,
-  oapiRef,
-  tsPropertyIndex,
-} from "../lib/ts.js";
+import { NEVER, addJSDocComment, tsModifiers, oapiRef, tsPropertyIndex } from "../lib/ts.js";
 import { createRef, getEntries } from "../lib/utils.js";
 import type { ResponsesObject, TransformNodeOptions } from "../types.js";
 import transformResponseObject from "./response-object.js";
@@ -20,16 +14,13 @@ export default function transformResponsesObject(
 ): ts.TypeNode {
   const type: ts.TypeElement[] = [];
 
-  for (const [responseCode, responseObject] of getEntries(
-    responsesObject,
-    options.ctx,
-  )) {
+  for (const [responseCode, responseObject] of getEntries(responsesObject, options.ctx)) {
     const responseType =
       "$ref" in responseObject
         ? oapiRef(responseObject.$ref)
         : transformResponseObject(responseObject, {
             ...options,
-            path: createRef([options.path ?? "", "responses", responseCode]),
+            path: createRef([options.path, "responses", responseCode]),
           });
     const property = ts.factory.createPropertySignature(
       /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),

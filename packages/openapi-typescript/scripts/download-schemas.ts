@@ -8,12 +8,11 @@ import { multiFile, singleFile } from "./schemas.js";
 const ONE_DAY = 1000 * 60 * 60 * 24;
 const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
 
-/* eslint-disable no-console */
-
 export async function download() {
   const allSchemas = Object.keys({ ...singleFile, ...multiFile });
   let done = 0;
-  console.log("Downloading schemas..."); // eslint-disable-line no-console
+  // biome-ignore lint/suspicious/noConsoleLog: this is a script
+  console.log("Downloading schemas...");
   await Promise.all([
     ...Object.entries(singleFile).map(async ([k, url]) => {
       const start = performance.now();
@@ -33,11 +32,8 @@ export async function download() {
       fs.mkdirSync(new URL(".", dest), { recursive: true });
       fs.writeFileSync(dest, await result.text());
       done++;
-      console.log(
-        `✔︎ [${done}/${allSchemas.length}] Downloaded ${k} (${Math.round(
-          performance.now() - start,
-        )}ms)`,
-      ); // eslint-disable-line no-console
+      // biome-ignore lint/suspicious/noConsoleLog: this is a script
+      console.log(`✔︎ [${done}/${allSchemas.length}] Downloaded ${k} (${Math.round(performance.now() - start)}ms)`);
     }),
     ...Object.entries(multiFile).map(async ([k, meta]) => {
       const start = performance.now();
@@ -53,14 +49,12 @@ export async function download() {
       });
       await emitter.clone(fileURLToPath(new URL(k, EXAMPLES_DIR)));
       done++;
-      console.log(
-        `✔︎ [${done}/${allSchemas.length}] Downloaded ${k} (${Math.round(
-          performance.now() - start,
-        )}ms)`,
-      ); // eslint-disable-line no-console
+      // biome-ignore lint/suspicious/noConsoleLog: this is a script
+      console.log(`✔︎ [${done}/${allSchemas.length}] Downloaded ${k} (${Math.round(performance.now() - start)}ms)`);
     }),
   ]);
-  console.log("Downloading schemas done."); // eslint-disable-line no-console
+  // biome-ignore lint/suspicious/noConsoleLog: this is a script
+  console.log("Downloading schemas done.");
   process.exit(0); // helps process close in npm script
 }
 

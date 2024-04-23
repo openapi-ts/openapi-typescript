@@ -23,12 +23,9 @@ interface ParseSchemaOptions {
   resolver: BaseResolver;
 }
 
-export async function parseSchema(
-  schema: unknown,
-  { absoluteRef, resolver }: ParseSchemaOptions,
-): Promise<Document> {
+export async function parseSchema(schema: unknown, { absoluteRef, resolver }: ParseSchemaOptions): Promise<Document> {
   if (!schema) {
-    throw new Error(`Can’t parse empty schema`);
+    throw new Error("Can’t parse empty schema");
   }
   if (schema instanceof URL) {
     const result = await resolver.resolveDocument(null, absoluteRef, true);
@@ -56,11 +53,7 @@ export async function parseSchema(
   }
   if (typeof schema === "string") {
     // URL
-    if (
-      schema.startsWith("http://") ||
-      schema.startsWith("https://") ||
-      schema.startsWith("file://")
-    ) {
+    if (schema.startsWith("http://") || schema.startsWith("https://") || schema.startsWith("file://")) {
       const url = new URL(schema);
       return parseSchema(url, {
         absoluteRef: url.protocol === "file:" ? fileURLToPath(url) : url.href,
@@ -79,19 +72,11 @@ export async function parseSchema(
   }
   if (typeof schema === "object" && !Array.isArray(schema)) {
     return {
-      source: new Source(
-        absoluteRef,
-        JSON.stringify(schema),
-        "application/json",
-      ),
+      source: new Source(absoluteRef, JSON.stringify(schema), "application/json"),
       parsed: schema,
     };
   }
-  throw new Error(
-    `Expected string, object, or Buffer. Got ${
-      Array.isArray(schema) ? "Array" : typeof schema
-    }`,
-  );
+  throw new Error(`Expected string, object, or Buffer. Got ${Array.isArray(schema) ? "Array" : typeof schema}`);
 }
 
 /**
@@ -104,12 +89,9 @@ export async function validateAndBundle(
   const redocConfigT = performance.now();
   debug("Loaded Redoc config", "redoc", performance.now() - redocConfigT);
   const redocParseT = performance.now();
-  let absoluteRef = fileURLToPath(
-    new URL(options?.cwd ?? `file://${process.cwd()}/`),
-  );
+  let absoluteRef = fileURLToPath(new URL(options?.cwd ?? `file://${process.cwd()}/`));
   if (source instanceof URL) {
-    absoluteRef =
-      source.protocol === "file:" ? fileURLToPath(source) : source.href;
+    absoluteRef = source.protocol === "file:" ? fileURLToPath(source) : source.href;
   }
   const resolver = new BaseResolver(options.redoc.resolve);
   const document = await parseSchema(source, {
@@ -119,7 +101,7 @@ export async function validateAndBundle(
   debug("Parsed schema", "redoc", performance.now() - redocParseT);
 
   // 1. check for OpenAPI 3 or greater
-  const openapiVersion = parseFloat(document.parsed.openapi);
+  const openapiVersion = Number.parseFloat(document.parsed.openapi);
   if (
     document.parsed.swagger ||
     !document.parsed.openapi ||
@@ -128,17 +110,10 @@ export async function validateAndBundle(
     openapiVersion >= 4
   ) {
     if (document.parsed.swagger) {
-      throw new Error(
-        "Unsupported Swagger version: 2.x. Use OpenAPI 3.x instead.",
-      );
-    } else if (
-      document.parsed.openapi ||
-      openapiVersion < 3 ||
-      openapiVersion >= 4
-    ) {
-      throw new Error(
-        `Unsupported OpenAPI version: ${document.parsed.openapi}`,
-      );
+      throw new Error("Unsupported Swagger version: 2.x. Use OpenAPI 3.x instead.");
+    }
+    if (document.parsed.openapi || openapiVersion < 3 || openapiVersion >= 4) {
+      throw new Error(`Unsupported OpenAPI version: ${document.parsed.openapi}`);
     }
     throw new Error("Unsupported schema format, expected `openapi: 3.x`");
   }

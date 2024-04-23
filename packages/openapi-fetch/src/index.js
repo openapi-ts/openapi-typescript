@@ -30,7 +30,7 @@ export default function createClient(clientOptions) {
    * @param {import('./index.js').FetchOptions<T>} fetchOptions
    */
   async function coreFetch(url, fetchOptions) {
-    let {
+    const {
       fetch = baseFetch,
       headers,
       params = {},
@@ -49,9 +49,7 @@ export default function createClient(clientOptions) {
         typeof requestQuerySerializer === "function"
           ? requestQuerySerializer
           : createQuerySerializer({
-              ...(typeof globalQuerySerializer === "object"
-                ? globalQuerySerializer
-                : {}),
+              ...(typeof globalQuerySerializer === "object" ? globalQuerySerializer : {}),
               ...requestQuerySerializer,
             });
     }
@@ -69,10 +67,7 @@ export default function createClient(clientOptions) {
     if (requestInit.body instanceof FormData) {
       requestInit.headers.delete("Content-Type");
     }
-    let request = new Request(
-      createFinalURL(url, { baseUrl, params, querySerializer }),
-      requestInit,
-    );
+    let request = new Request(createFinalURL(url, { baseUrl, params, querySerializer }), requestInit);
     // middleware (request)
     const mergedOptions = {
       baseUrl,
@@ -88,9 +83,7 @@ export default function createClient(clientOptions) {
         const result = await m.onRequest(request, mergedOptions);
         if (result) {
           if (!(result instanceof Request)) {
-            throw new Error(
-              `Middleware must return new Request() when modifying the request`,
-            );
+            throw new Error("Middleware must return new Request() when modifying the request");
           }
           request = result;
         }
@@ -108,9 +101,7 @@ export default function createClient(clientOptions) {
         const result = await m.onResponse(response, mergedOptions);
         if (result) {
           if (!(result instanceof Response)) {
-            throw new Error(
-              `Middleware must return new Response() when modifying the response`,
-            );
+            throw new Error("Middleware must return new Response() when modifying the response");
           }
           response = result;
         }
@@ -119,10 +110,7 @@ export default function createClient(clientOptions) {
 
     // handle empty content
     // note: we return `{}` because we want user truthy checks for `.data` or `.error` to succeed
-    if (
-      response.status === 204 ||
-      response.headers.get("Content-Length") === "0"
-    ) {
+    if (response.status === 204 || response.headers.get("Content-Length") === "0") {
       return response.ok ? { data: {}, response } : { error: {}, response };
     }
 
@@ -185,9 +173,7 @@ export default function createClient(clientOptions) {
           continue;
         }
         if (typeof m !== "object" || !("onRequest" in m || "onResponse" in m)) {
-          throw new Error(
-            "Middleware must be an object with one of `onRequest()` or `onResponse()`",
-          );
+          throw new Error("Middleware must be an object with one of `onRequest()` or `onResponse()`");
         }
         middlewares.push(m);
       }
@@ -216,7 +202,7 @@ export function serializePrimitiveParam(name, value, options) {
   }
   if (typeof value === "object") {
     throw new Error(
-      `Deeply-nested arrays/objects aren’t supported. Provide your own \`querySerializer()\` to handle these.`,
+      "Deeply-nested arrays/objects aren’t supported. Provide your own `querySerializer()` to handle these.",
     );
   }
   return `${name}=${options?.allowReserved === true ? value : encodeURIComponent(value)}`;
@@ -241,12 +227,7 @@ export function serializeObjectParam(name, value, options) {
   // explode: false
   if (options.style !== "deepObject" && options.explode === false) {
     for (const k in value) {
-      values.push(
-        k,
-        options.allowReserved === true
-          ? value[k]
-          : encodeURIComponent(value[k]),
-      );
+      values.push(k, options.allowReserved === true ? value[k] : encodeURIComponent(value[k]));
     }
     const final = values.join(","); // note: values are always joined by comma in explode: false (but joiner can prefix)
     switch (options.style) {
@@ -271,9 +252,7 @@ export function serializeObjectParam(name, value, options) {
     values.push(serializePrimitiveParam(finalName, value[k], options));
   }
   const final = values.join(joiner);
-  return options.style === "label" || options.style === "matrix"
-    ? `${joiner}${final}`
-    : final;
+  return options.style === "label" || options.style === "matrix" ? `${joiner}${final}` : final;
 }
 
 /**
@@ -287,14 +266,8 @@ export function serializeArrayParam(name, value, options) {
 
   // explode: false
   if (options.explode === false) {
-    const joiner =
-      { form: ",", spaceDelimited: "%20", pipeDelimited: "|" }[options.style] ||
-      ","; // note: for arrays, joiners vary wildly based on style + explode behavior
-    const final = (
-      options.allowReserved === true
-        ? value
-        : value.map((v) => encodeURIComponent(v))
-    ).join(joiner);
+    const joiner = { form: ",", spaceDelimited: "%20", pipeDelimited: "|" }[options.style] || ","; // note: for arrays, joiners vary wildly based on style + explode behavior
+    const final = (options.allowReserved === true ? value : value.map((v) => encodeURIComponent(v))).join(joiner);
     switch (options.style) {
       case "simple": {
         return final;
@@ -305,8 +278,8 @@ export function serializeArrayParam(name, value, options) {
       case "matrix": {
         return `;${name}=${final}`;
       }
-      case "spaceDelimited":
-      case "pipeDelimited":
+      // case "spaceDelimited":
+      // case "pipeDelimited":
       default: {
         return `${name}=${final}`;
       }
@@ -392,37 +365,23 @@ export function defaultPathSerializer(pathname, pathParams) {
       style = "matrix";
       name = name.substring(1);
     }
-    if (
-      !pathParams ||
-      pathParams[name] === undefined ||
-      pathParams[name] === null
-    ) {
+    if (!pathParams || pathParams[name] === undefined || pathParams[name] === null) {
       continue;
     }
     const value = pathParams[name];
     if (Array.isArray(value)) {
-      nextURL = nextURL.replace(
-        match,
-        serializeArrayParam(name, value, { style, explode }),
-      );
+      nextURL = nextURL.replace(match, serializeArrayParam(name, value, { style, explode }));
       continue;
     }
     if (typeof value === "object") {
-      nextURL = nextURL.replace(
-        match,
-        serializeObjectParam(name, value, { style, explode }),
-      );
+      nextURL = nextURL.replace(match, serializeObjectParam(name, value, { style, explode }));
       continue;
     }
     if (style === "matrix") {
-      nextURL = nextURL.replace(
-        match,
-        `;${serializePrimitiveParam(name, value)}`,
-      );
+      nextURL = nextURL.replace(match, `;${serializePrimitiveParam(name, value)}`);
       continue;
     }
     nextURL = nextURL.replace(match, style === "label" ? `.${value}` : value);
-    continue;
   }
   return nextURL;
 }

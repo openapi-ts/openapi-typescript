@@ -6,9 +6,7 @@ import type { TestCase } from "./test-helpers.js";
 
 const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
 
-const DATE = ts.factory.createTypeReferenceNode(
-  ts.factory.createIdentifier("Date"),
-);
+const DATE = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Date"));
 
 describe("Node.js API", () => {
   const tests: TestCase<any, OpenAPITSOptions>[] = [
@@ -59,8 +57,7 @@ export type operations = Record<string, never>;`,
     [
       "input > string > URL",
       {
-        given:
-          "https://raw.githubusercontent.com/Redocly/redocly-cli/main/__tests__/lint/oas3.1/openapi.yaml",
+        given: "https://raw.githubusercontent.com/Redocly/redocly-cli/main/__tests__/lint/oas3.1/openapi.yaml",
         want: new URL("simple-example.ts", EXAMPLES_DIR),
         // options: DEFAULT_OPTIONS,
       },
@@ -68,9 +65,7 @@ export type operations = Record<string, never>;`,
     [
       "input > URL > remote",
       {
-        given: new URL(
-          "https://raw.githubusercontent.com/Redocly/redocly-cli/main/__tests__/lint/oas3.1/openapi.yaml",
-        ),
+        given: new URL("https://raw.githubusercontent.com/Redocly/redocly-cli/main/__tests__/lint/oas3.1/openapi.yaml"),
         want: new URL("simple-example.ts", EXAMPLES_DIR),
         // options: DEFAULT_OPTIONS,
       },
@@ -377,10 +372,7 @@ export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
         options: {
           transform(schemaObject) {
-            if (
-              "format" in schemaObject &&
-              schemaObject.format === "date-time"
-            ) {
+            if ("format" in schemaObject && schemaObject.format === "date-time") {
               /**
                * Tip: use astexplorer.net to first type out the desired TypeScript,
                * then use the `typescript` parser and it will tell you the desired
@@ -421,10 +413,7 @@ export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
         options: {
           transform(schemaObject) {
-            if (
-              "format" in schemaObject &&
-              schemaObject.format === "date-time"
-            ) {
+            if ("format" in schemaObject && schemaObject.format === "date-time") {
               return {
                 schema: DATE,
                 questionToken: true,
@@ -469,9 +458,7 @@ export type operations = Record<string, never>;`,
                * then use the `typescript` parser and it will tell you the desired
                * AST
                */
-              return ts.factory.createTypeReferenceNode(
-                ts.factory.createIdentifier("DateOrTime"),
-              );
+              return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("DateOrTime"));
             }
           },
         },
@@ -523,11 +510,7 @@ export type operations = Record<string, never>;`,
                 type: "number",
                 enum: [1, 2, 3],
                 "x-enumNames": ["Uno", "Dos", "Tres"],
-                "x-enumDescriptions": [
-                  "El número uno",
-                  "El número dos",
-                  "El número tres",
-                ],
+                "x-enumDescriptions": ["El número uno", "El número dos", "El número tres"],
               },
             },
           },
@@ -655,10 +638,7 @@ export type operations = Record<string, never>;`,
     [
       "snapshot > DigitalOcean",
       {
-        given: new URL(
-          "./digital-ocean-api/DigitalOcean-public.v2.yaml",
-          EXAMPLES_DIR,
-        ),
+        given: new URL("./digital-ocean-api/DigitalOcean-public.v2.yaml", EXAMPLES_DIR),
         want: new URL("./digital-ocean-api.ts", EXAMPLES_DIR),
         // options: DEFAULT_OPTIONS,
         ci: { timeout: 30000 },
@@ -672,11 +652,9 @@ export type operations = Record<string, never>;`,
       async () => {
         const result = astToString(await openapiTS(given, options));
         if (want instanceof URL) {
-          expect(`${COMMENT_HEADER}${result}`).toMatchFileSnapshot(
-            fileURLToPath(want),
-          );
+          expect(`${COMMENT_HEADER}${result}`).toMatchFileSnapshot(fileURLToPath(want));
         } else {
-          expect(result).toBe(want + "\n");
+          expect(result).toBe(`${want}\n`);
         }
       },
       ci?.timeout || 5000,

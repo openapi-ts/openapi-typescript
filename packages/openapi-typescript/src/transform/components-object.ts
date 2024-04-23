@@ -1,18 +1,7 @@
 import ts from "typescript";
-import {
-  NEVER,
-  QUESTION_TOKEN,
-  addJSDocComment,
-  tsModifiers,
-  tsPropertyIndex,
-} from "../lib/ts.js";
+import { NEVER, QUESTION_TOKEN, addJSDocComment, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
 import { createRef, debug, getEntries } from "../lib/utils.js";
-import type {
-  ComponentsObject,
-  GlobalContext,
-  SchemaObject,
-  TransformNodeOptions,
-} from "../types.js";
+import type { ComponentsObject, GlobalContext, SchemaObject, TransformNodeOptions } from "../types.js";
 import transformHeaderObject from "./header-object.js";
 import transformParameterObject from "./parameter-object.js";
 import transformPathItemObject from "./path-item-object.js";
@@ -20,15 +9,9 @@ import transformRequestBodyObject from "./request-body-object.js";
 import transformResponseObject from "./response-object.js";
 import transformSchemaObject from "./schema-object.js";
 
-type ComponentTransforms = keyof Omit<
-  ComponentsObject,
-  "examples" | "securitySchemes" | "links" | "callbacks"
->;
+type ComponentTransforms = keyof Omit<ComponentsObject, "examples" | "securitySchemes" | "links" | "callbacks">;
 
-const transformers: Record<
-  ComponentTransforms,
-  (node: any, options: TransformNodeOptions) => ts.TypeNode // eslint-disable-line @typescript-eslint/no-explicit-any
-> = {
+const transformers: Record<ComponentTransforms, (node: any, options: TransformNodeOptions) => ts.TypeNode> = {
   schemas: transformSchemaObject,
   responses: transformResponseObject,
   parameters: transformParameterObject,
@@ -41,10 +24,7 @@ const transformers: Record<
  * Transform the ComponentsObject (4.8.7)
  * @see https://spec.openapis.org/oas/latest.html#components-object
  */
-export default function transformComponentsObject(
-  componentsObject: ComponentsObject,
-  ctx: GlobalContext,
-): ts.TypeNode {
+export default function transformComponentsObject(componentsObject: ComponentsObject, ctx: GlobalContext): ts.TypeNode {
   const type: ts.TypeElement[] = [];
 
   for (const key of Object.keys(transformers) as ComponentTransforms[]) {
@@ -80,7 +60,7 @@ export default function transformComponentsObject(
           /* questionToken */ hasQuestionToken ? QUESTION_TOKEN : undefined,
           /* type          */ subType,
         );
-        addJSDocComment(item as unknown as any, property); // eslint-disable-line @typescript-eslint/no-explicit-any
+        addJSDocComment(item as unknown as any, property);
         items.push(property);
       }
     }
@@ -89,17 +69,11 @@ export default function transformComponentsObject(
         /* modifiers     */ undefined,
         /* name          */ tsPropertyIndex(key),
         /* questionToken */ undefined,
-        /* type          */ items.length
-          ? ts.factory.createTypeLiteralNode(items)
-          : NEVER,
+        /* type          */ items.length ? ts.factory.createTypeLiteralNode(items) : NEVER,
       ),
     );
 
-    debug(
-      `Transformed components → ${key}`,
-      "ts",
-      performance.now() - componentT,
-    );
+    debug(`Transformed components → ${key}`, "ts", performance.now() - componentT);
   }
 
   return ts.factory.createTypeLiteralNode(type);

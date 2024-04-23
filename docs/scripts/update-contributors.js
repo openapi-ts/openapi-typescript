@@ -206,7 +206,7 @@ async function main() {
             lastFetch: new Date().getTime(),
           };
           upsert(contributors[repo], userData);
-          console.log(`Updated old contributor data for ${username}`); // eslint-disable-line no-console
+          console.log(`Updated old contributor data for ${username}`); // biome-disable-line no-console
           fs.writeFileSync(
             new URL("../data/contributors.json", import.meta.url),
             JSON.stringify(contributors),

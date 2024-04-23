@@ -32,7 +32,7 @@ describe("transformSchemaObject > object", () => {
       "empty",
       {
         given: { type: "object" },
-        want: `Record<string, never>`,
+        want: "Record<string, never>",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -199,7 +199,7 @@ describe("transformSchemaObject > object", () => {
       "const > number (inferred)",
       {
         given: { const: 300 },
-        want: `300`,
+        want: "300",
       },
     ],
     [
@@ -257,7 +257,7 @@ describe("transformSchemaObject > object", () => {
       "options > emptyObjectsUnknown: true",
       {
         given: { type: "object" },
-        want: `Record<string, unknown>`,
+        want: "Record<string, unknown>",
         options: {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, emptyObjectsUnknown: true },
@@ -284,7 +284,7 @@ describe("transformSchemaObject > object", () => {
         given: {
           type: "string",
         },
-        want: `string`,
+        want: "string",
         options: {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, immutable: true },
@@ -409,10 +409,7 @@ describe("transformSchemaObject > object", () => {
     ],
   ];
 
-  for (const [
-    testName,
-    { given, want, options = DEFAULT_OPTIONS, ci },
-  ] of tests) {
+  for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
@@ -420,7 +417,7 @@ describe("transformSchemaObject > object", () => {
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
-          expect(result).toBe(want + "\n");
+          expect(result).toBe(`${want}\n`);
         }
       },
       ci?.timeout,

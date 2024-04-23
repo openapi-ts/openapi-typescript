@@ -77,7 +77,7 @@ describe("CLI", () => {
         if (want instanceof URL) {
           expect(stdout).toMatchFileSnapshot(fileURLToPath(want));
         } else {
-          expect(stdout).toBe(want + "\n");
+          expect(stdout).toBe(`${want}\n`);
         }
       },
       ci?.timeout,
@@ -87,13 +87,9 @@ describe("CLI", () => {
   test(
     "stdin",
     async () => {
-      const input = fs.readFileSync(
-        new URL("./examples/stripe-api.yaml", root),
-      );
+      const input = fs.readFileSync(new URL("./examples/stripe-api.yaml", root));
       const { stdout } = await execa(cmd, { input, cwd });
-      expect(stdout).toMatchFileSnapshot(
-        fileURLToPath(new URL("./examples/stripe-api.ts", root)),
-      );
+      expect(stdout).toMatchFileSnapshot(fileURLToPath(new URL("./examples/stripe-api.ts", root)));
     },
     TIMEOUT,
   );
@@ -101,11 +97,7 @@ describe("CLI", () => {
   describe("flags", () => {
     test("--help", async () => {
       const { stdout } = await execa(cmd, ["--help"], { cwd });
-      expect(stdout).toEqual(
-        expect.stringMatching(
-          /^Usage\n\s+\$ openapi-typescript \[input\] \[options\]/,
-        ),
-      );
+      expect(stdout).toEqual(expect.stringMatching(/^Usage\n\s+\$ openapi-typescript \[input\] \[options\]/));
     });
 
     test("--version", async () => {
@@ -117,21 +109,16 @@ describe("CLI", () => {
   describe("Redocly config", () => {
     // TODO: why won’t this run on Windows?
     test.skipIf(os.platform() === "win32")("automatic config", async () => {
-      /* eslint-disable @typescript-eslint/no-shadow */
-
       // note: we have to change the cwd here for the automatic config to pick up properly
       const root = new URL("./fixtures/redocly/", import.meta.url);
       const cwd = os.platform() === "win32" ? fileURLToPath(root) : root;
 
       await execa("../../../bin/cli.js", { cwd });
       for (const schema of ["a", "b", "c"]) {
-        expect(
-          fs.readFileSync(new URL(`./output/${schema}.ts`, root), "utf8"),
-        ).toMatchFileSnapshot(
+        expect(fs.readFileSync(new URL(`./output/${schema}.ts`, root), "utf8")).toMatchFileSnapshot(
           fileURLToPath(new URL("../../../examples/simple-example.ts", root)),
         );
       }
-      /* eslint-enable @typescript-eslint/no-shadow */
     });
 
     test("--redoc config", async () => {
@@ -140,13 +127,8 @@ describe("CLI", () => {
       });
       for (const schema of ["a", "b", "c"]) {
         expect(
-          fs.readFileSync(
-            new URL(`./test/fixtures/redocly-flag/output/${schema}.ts`, root),
-            "utf8",
-          ),
-        ).toMatchFileSnapshot(
-          fileURLToPath(new URL("./examples/simple-example.ts", root)),
-        );
+          fs.readFileSync(new URL(`./test/fixtures/redocly-flag/output/${schema}.ts`, root), "utf8"),
+        ).toMatchFileSnapshot(fileURLToPath(new URL("./examples/simple-example.ts", root)));
       }
     });
   });

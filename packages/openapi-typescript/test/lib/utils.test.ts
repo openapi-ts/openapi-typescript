@@ -10,9 +10,7 @@ describe("getEntries", () => {
 
   describe("options", () => {
     test("alphabetize: true", () => {
-      expect(
-        getEntries({ z: "z", 0: 0, a: "a" }, { alphabetize: true }),
-      ).toEqual([
+      expect(getEntries({ z: "z", 0: 0, a: "a" }, { alphabetize: true })).toEqual([
         ["0", 0],
         ["a", "a"],
         ["z", "z"],
@@ -41,23 +39,17 @@ describe("getEntries", () => {
 
 describe("createRef", () => {
   test("basic", () => {
-    expect(createRef(["components", "schemas", "SchemaObject"])).toBe(
-      "#/components/schemas/SchemaObject",
-    );
+    expect(createRef(["components", "schemas", "SchemaObject"])).toBe("#/components/schemas/SchemaObject");
   });
 
   test("escapes", () => {
-    expect(createRef(["paths", "/foo/{bar}", "get", "parameters"])).toBe(
-      "#/paths/~1foo~1{bar}/get/parameters",
-    );
-    expect(createRef(["components", "schemas", "~SchemaObject"])).toBe(
-      "#/components/schemas/~0SchemaObject",
-    );
+    expect(createRef(["paths", "/foo/{bar}", "get", "parameters"])).toBe("#/paths/~1foo~1{bar}/get/parameters");
+    expect(createRef(["components", "schemas", "~SchemaObject"])).toBe("#/components/schemas/~0SchemaObject");
   });
 
   test("handles partial paths", () => {
-    expect(
-      createRef(["#/paths/~1foo~1{bar}", "parameters", "query", "page"]),
-    ).toBe("#/paths/~1foo~1{bar}/parameters/query/page");
+    expect(createRef(["#/paths/~1foo~1{bar}", "parameters", "query", "page"])).toBe(
+      "#/paths/~1foo~1{bar}/parameters/query/page",
+    );
   });
 });

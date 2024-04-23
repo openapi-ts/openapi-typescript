@@ -14,7 +14,7 @@ describe("transformSchemaObject > empty/unknown", () => {
       "true",
       {
         given: true,
-        want: `unknown`,
+        want: "unknown",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -22,7 +22,7 @@ describe("transformSchemaObject > empty/unknown", () => {
       "false",
       {
         given: false,
-        want: `never`,
+        want: "never",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -30,16 +30,13 @@ describe("transformSchemaObject > empty/unknown", () => {
       "empty object",
       {
         given: {},
-        want: `unknown`,
+        want: "unknown",
         // options: DEFAULT_OPTIONS,
       },
     ],
   ];
 
-  for (const [
-    testName,
-    { given, want, options = DEFAULT_OPTIONS, ci },
-  ] of tests) {
+  for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
@@ -47,7 +44,7 @@ describe("transformSchemaObject > empty/unknown", () => {
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
-          expect(result).toBe(want + "\n");
+          expect(result).toBe(`${want}\n`);
         }
       },
       ci?.timeout,

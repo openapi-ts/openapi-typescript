@@ -16,7 +16,7 @@ describe("composition", () => {
         given: {
           type: ["string", "boolean", "number", "null"],
         },
-        want: `string | boolean | number | null`,
+        want: "string | boolean | number | null",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -27,7 +27,7 @@ describe("composition", () => {
           type: ["string", "null"],
           enum: [null, "blue", "green", "yellow"],
         },
-        want: `null | "blue" | "green" | "yellow"`,
+        want: 'null | "blue" | "green" | "yellow"',
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -38,7 +38,7 @@ describe("composition", () => {
           type: ["string", "null"],
           enum: ["blue", "green", "yellow"],
         },
-        want: `"blue" | "green" | "yellow"`,
+        want: '"blue" | "green" | "yellow"',
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -49,7 +49,7 @@ describe("composition", () => {
           type: ["string", "null"],
           enum: ["", "blue", "green", "yellow"],
         },
-        want: `"" | "blue" | "green" | "yellow"`,
+        want: '"" | "blue" | "green" | "yellow"',
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -57,7 +57,7 @@ describe("composition", () => {
       "oneOf > primitives",
       {
         given: { oneOf: [{ type: "string" }, { type: "number" }] },
-        want: `string | number`,
+        want: "string | number",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -70,7 +70,7 @@ describe("composition", () => {
             { type: "string", const: "world" },
           ],
         },
-        want: `"hello" | "world"`,
+        want: '"hello" | "world"',
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -83,7 +83,7 @@ describe("composition", () => {
             { type: "number", const: 1 },
           ],
         },
-        want: `0 | 1`,
+        want: "0 | 1",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -93,7 +93,7 @@ describe("composition", () => {
         given: {
           oneOf: [{ type: "integer" }, { type: "string" }, { type: "null" }],
         },
-        want: `number | string | null`,
+        want: "number | string | null",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -104,7 +104,7 @@ describe("composition", () => {
           oneOf: [{ type: "integer" }, { type: "string" }],
           nullable: true,
         },
-        want: `(number | string) | null`,
+        want: "(number | string) | null",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -156,7 +156,7 @@ describe("composition", () => {
           oneOf: [{ type: "integer" }, { type: "string" }],
           type: ["null", "integer", "string"],
         },
-        want: `null | number | string`,
+        want: "null | number | string",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -258,10 +258,7 @@ describe("composition", () => {
       "discriminator > oneOf",
       {
         given: {
-          oneOf: [
-            { $ref: "#/components/schemas/Cat" },
-            { $ref: "#/components/schemas/Dog" },
-          ],
+          oneOf: [{ $ref: "#/components/schemas/Cat" }, { $ref: "#/components/schemas/Dog" }],
         },
         want: `components["schemas"]["Cat"] | components["schemas"]["Dog"]`,
         options: {
@@ -309,10 +306,7 @@ describe("composition", () => {
           properties: {
             name: { type: "string" },
           },
-          oneOf: [
-            { $ref: "#/components/schemas/Cat" },
-            { $ref: "#/components/schemas/Dog" },
-          ],
+          oneOf: [{ $ref: "#/components/schemas/Cat" }, { $ref: "#/components/schemas/Dog" }],
         },
         want: `{
     name: string;
@@ -620,10 +614,7 @@ describe("composition", () => {
     ],
   ];
 
-  for (const [
-    testName,
-    { given, want, options = DEFAULT_OPTIONS, ci },
-  ] of tests) {
+  for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
@@ -631,7 +622,7 @@ describe("composition", () => {
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
-          expect(result).toBe(want + "\n");
+          expect(result).toBe(`${want}\n`);
         }
       },
       ci?.timeout,

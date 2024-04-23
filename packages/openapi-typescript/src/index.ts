@@ -42,9 +42,7 @@ export default async function openapiTS(
   options: OpenAPITSOptions = {} as Partial<OpenAPITSOptions>,
 ): Promise<ts.Node[]> {
   if (!source) {
-    throw new Error(
-      "Empty schema. Please specify a URL, file path, or Redocly Config",
-    );
+    throw new Error("Empty schema. Please specify a URL, file path, or Redocly Config");
   }
 
   const redoc =
@@ -60,10 +58,7 @@ export default async function openapiTS(
 
   const schema = await validateAndBundle(source, {
     redoc,
-    cwd:
-      options.cwd instanceof URL
-        ? options.cwd
-        : new URL(`file://${options.cwd ?? process.cwd()}/`),
+    cwd: options.cwd instanceof URL ? options.cwd : new URL(`file://${options.cwd ?? process.cwd()}/`),
     silent: options.silent ?? false,
   });
 
@@ -80,15 +75,11 @@ export default async function openapiTS(
     immutable: options.immutable ?? false,
     injectFooter: [],
     pathParamsAsTypes: options.pathParamsAsTypes ?? false,
-    postTransform:
-      typeof options.postTransform === "function"
-        ? options.postTransform
-        : undefined,
+    postTransform: typeof options.postTransform === "function" ? options.postTransform : undefined,
     propertiesRequiredByDefault: options.propertiesRequiredByDefault ?? false,
     redoc,
     silent: options.silent ?? false,
-    transform:
-      typeof options.transform === "function" ? options.transform : undefined,
+    transform: typeof options.transform === "function" ? options.transform : undefined,
     resolve($ref) {
       return resolveRef(schema, $ref, { silent: options.silent ?? false });
     },
@@ -96,11 +87,7 @@ export default async function openapiTS(
 
   const transformT = performance.now();
   const result = transformSchema(schema, ctx);
-  debug(
-    "Completed AST transformation for entire document",
-    "ts",
-    performance.now() - transformT,
-  );
+  debug("Completed AST transformation for entire document", "ts", performance.now() - transformT);
 
   return result;
 }
