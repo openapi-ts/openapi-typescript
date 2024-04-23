@@ -108,7 +108,7 @@ export function useMockRequestHandler<
           return handler(args);
         }
 
-        return HttpResponse.json(body, {
+        return HttpResponse.json(body as any, {
           status: status ?? 200,
           headers,
         }) as AsyncResponseResolverReturnType<ResponseBodyType>;
